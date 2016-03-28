@@ -275,14 +275,14 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 						int x = ii % width;
 						int y = ii / width;
 						double z = image->GetPixelZBuffer(x, y);
-						double blur = fabs((double) z - neutral) / z * deep;
+						double blur = fabs((double) z - neutral) / z * deep + 1.0;
 						if (blur > 100)
 							blur = 100.0;
 						int size = blur;
 						sRGBfloat center = temp_image[x + y * width];
 						unsigned short center_alpha = temp_alpha[x + y * width];
 						double blur_2 = blur * blur;
-						double factor = blur * sqrt(blur) * M_PI;
+	          double factor = 0.25 * (M_PI * (blur_2 - blur) + 1.0);
 
 						for (int yy = y - size; yy <= y + size; yy++)
 						{
@@ -296,7 +296,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 									if (blur_2 > r_2)
 									{
 										double r = sqrt(r_2);
-										double op = (blur - r) + 1.0;
+										double op = (blur - r);
 										if (op < 0.0)
 											op = 0.0;
 										if (op > 1.0)
@@ -384,6 +384,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 		try
 		{
 			//preprocessing (1-st pass)
+
 			for (int y = 0; y < height; y++)
 			{
 				if (*stopRequest)
@@ -581,14 +582,14 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 					int x = ii % width;
 					int y = ii / width;
 					double z = image->GetPixelZBuffer(x, y);
-					double blur = fabs((double) z - neutral) / z * deep;
+					double blur = fabs((double) z - neutral) / z * deep + 1.0;
 					if (blur > 100)
 						blur = 100.0;
 					int size = blur;
 					sRGB16 center = temp_image[x + y * width];
 					unsigned short center_alpha = temp_alpha[x + y * width];
 					double blur_2 = blur * blur;
-					double factor = blur * sqrt(blur) * M_PI;
+					double factor = 0.25 * (M_PI * (blur_2 - blur) + 1.0);
 
 					for (int yy = y - size; yy <= y + size; yy++)
 					{
@@ -602,7 +603,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 								if (blur_2 > r_2)
 								{
 									double r = sqrt(r_2);
-									double op = (blur - r) + 1.0;
+									double op = (blur - r);
 									if (op < 0.0)
 										op = 0.0;
 									if (op > 1.0)

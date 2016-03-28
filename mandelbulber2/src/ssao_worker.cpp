@@ -123,25 +123,31 @@ void cSSAOWorker::doWork()
 				}
 
 				double ambient = 0;
+				double angleStep = M_PI * 2.0 / quality;
+				double maxRandom = 62831 / quality;
+				double rRandom = 1.0;
 
-				for (int angle = 0; angle < quality; angle++)
+				if (params->SSAO_random_mode)
+				  rRandom = 0.5 + Random(65536) / 65536.0;
+
+				for (int angleIndex = 0; angleIndex < quality; angleIndex++)
 				{
 					double ca, sa;
 					if (params->SSAO_random_mode)
 					{
-						double angle = Random(62831) / 10000.0;
+						double angle = angleStep * angleIndex + Random(maxRandom) / 10000.0;
 						ca = cos(angle);
 						sa = sin(angle);
 					}
 					else
 					{
-						ca = cosine[angle];
-						sa = sine[angle];
+						ca = cosine[angleIndex];
+						sa = sine[angleIndex];
 					}
 
 					double max_diff = -1e50;
 
-					for (double r = 1.0; r < quality; r += 1.0)
+					for (double r = 1.0; r < quality; r += rRandom)
 					{
 						double rr = r * r * scale_factor;
 						double xx = x + rr * ca;
