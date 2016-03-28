@@ -59,7 +59,9 @@ void CNetRender::SetServer(qint32 portNo)
 	DeleteClient();
 	DeleteServer();
 	this->portNo = portNo;
+	ResetMessage(&msgCurrentJob);
 	server = new QTcpServer(this);
+
 	WriteLog("NetRender - starting server.");
 	if (!server->listen(QHostAddress::Any, portNo))
 	{
@@ -108,6 +110,7 @@ void CNetRender::DeleteServer()
 		server = NULL;
 	}
 	clients.clear();
+	emit ClientsChanged();
 	status = netRender_DISABLED;
 	emit NewStatusServer();
 }
@@ -616,6 +619,12 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 						out << " CPUs: " + QString::number(clients[index].clientWorkerCount) + "\n";
 					}
 
+					// when the client connects while a render is in progress, send the current job to the client
+					if(msgCurrentJob.command != netRender_NONE)
+					{
+						SendData(clients[index].socket, msgCurrentJob);
+						clients[index].linesRendered = 0;
+					}
 					break;
 				}
 				case netRender_DATA:
@@ -699,7 +708,7 @@ void CNetRender::Stop()
 	}
 }
 
-void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal,
+void CNetRender::SetJob(cParameterContainer settings, cFractalContainer fractal,
 		sTextures textures)
 {
 	WriteLog("NetRender - Sending job");
@@ -708,9 +717,8 @@ void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal
 	if (dataSize > 0)
 	{
 		QString settingsText = settingsData.GetSettingsText();
-		sMessage msg;
-		msg.command = netRender_JOB;
-		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+		msgCurrentJob.command = netRender_JOB;
+		QDataStream stream(&msgCurrentJob.payload, QIODevice::WriteOnly);
 
 		// write settings
 		stream << (qint32) settingsText.toUtf8().size();
@@ -735,7 +743,7 @@ void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal
 
 		for (int i = 0; i < clients.size(); i++)
 		{
-			SendData(clients[i].socket, msg);
+			SendData(clients[i].socket, msgCurrentJob);
 			clients[i].linesRendered = 0;
 		}
 	}
