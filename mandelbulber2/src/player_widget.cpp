@@ -77,6 +77,10 @@ PlayerWidget::PlayerWidget(QWidget *parent) :
 	connect(stopButton, SIGNAL(clicked()), this, SLOT(stop()));
 	connect(playTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
 	connect(fpsSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setFPS(double)));
+	QApplication::connect(&imageFolderWatcher,
+												SIGNAL(directoryChanged(const QString&)),
+												this,
+												SLOT(updateFromFolder()));
 }
 
 PlayerWidget::~PlayerWidget()
@@ -88,12 +92,20 @@ PlayerWidget::~PlayerWidget()
 void PlayerWidget::SetFilePath(QString filePath)
 {
 	dirPath = filePath;
+
 	if (dirPath.right(1) == QString("/"))
 	{
 		dirPath.truncate(dirPath.length() - 1);
 	}
+	QStringList oldWatchedDirs = imageFolderWatcher.directories();
+	if(oldWatchedDirs.size() > 0) imageFolderWatcher.removePaths(oldWatchedDirs);
+	imageFolderWatcher.addPath(dirPath);
+	updateFromFolder();
+}
 
-	QDir imageDir = QDir(filePath);
+void PlayerWidget::updateFromFolder()
+{
+	QDir imageDir = QDir(dirPath);
 	QStringList imageFileExtensions;
 	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png" << "*.tiff";
 	imageDir.setNameFilters(imageFileExtensions);
@@ -187,7 +199,7 @@ void PlayerWidget::closeEvent(QCloseEvent * event)
 {
 	event->accept();
 	stop();
-	deleteLater();
+	close();
 }
 
 void PlayerWidget::resizeEvent(QResizeEvent * event)

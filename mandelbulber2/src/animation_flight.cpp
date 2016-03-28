@@ -1116,9 +1116,16 @@ void cFlightAnimation::slotShowAnimation()
 	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
 																						params,
 																						cInterface::read);
-	mainInterface->imageSequencePlayer = new PlayerWidget();
+
+	if(!mainInterface->imageSequencePlayer)
+	{
+		mainInterface->imageSequencePlayer = new PlayerWidget;
+	}
+
 	mainInterface->imageSequencePlayer->SetFilePath(params->Get<QString>("anim_flight_dir"));
 	mainInterface->imageSequencePlayer->show();
+	mainInterface->imageSequencePlayer->raise();
+	mainInterface->imageSequencePlayer->activateWindow();
 }
 
 void cFlightAnimation::slotRecordPause()

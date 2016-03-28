@@ -49,6 +49,7 @@ private slots:
 	void setPosition(int position);
 	void nextFrame();
 	void setFPS(double fps);
+	void updateFromFolder();
 
 private:
 	void updateFrame();
@@ -62,6 +63,7 @@ private:
 	QStringList imageFiles;
 	int currentIndex;
 	QString dirPath;
+	QFileSystemWatcher imageFolderWatcher;
 
 protected:
 	void closeEvent(QCloseEvent * event);

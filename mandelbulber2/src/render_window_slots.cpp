@@ -763,8 +763,14 @@ void RenderWindow::slotUpdateProgressHide(cProgressText::enumProgressType progre
 
 void RenderWindow::slotMenuProgramSettings()
 {
-  cPreferencesDialog *preferencesDialog = new cPreferencesDialog;
-  preferencesDialog->show();
+	if(!preferencesDialog)
+	{
+		preferencesDialog = new cPreferencesDialog;
+	}
+
+	preferencesDialog->show();
+	preferencesDialog->raise();
+	preferencesDialog->activateWindow();
 }
 
 void RenderWindow::slotUpdateStatistics(cStatistics stat)

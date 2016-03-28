@@ -234,6 +234,7 @@ private slots:
 private:
 	Ui::RenderWindow *ui;
 	QWidget **fractalWidgets;
+	QDialog *preferencesDialog;
 
 	QSettings settings;
 	QByteArray defaultGeometry;
