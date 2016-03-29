@@ -44,8 +44,9 @@ private:
 public:
 	cPostRenderingDOF(cImage *_image);
 
-	void Render(double deep, double neutral, bool floatVersion, bool *stopRequest);
-	template<class T> void QuickSortZBuffer(sSortZ<T> *buffer, int l, int p);
+  void Render(double deep, double neutral, bool floatVersion, int numberOfPasses,
+      double blurOpacity, bool *stopRequest);
+  template<class T> void QuickSortZBuffer(sSortZ<T> *buffer, int l, int p);
 
 	cImage *image;
 

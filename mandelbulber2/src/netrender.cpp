@@ -380,7 +380,6 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 			}
 			msg->size = msg->payload.size();
 		}
-		//qDebug() << "cmd: "<< msg->command << " size:" << msg->size << " payload:" << msg->payload;
 		ProcessData(socket, msg);
 
 		bytesAvailable = socket->bytesAvailable();

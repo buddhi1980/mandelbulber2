@@ -2280,6 +2280,8 @@ void cInterface::RefreshMainImage()
 		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
 							 params.DOFFocus,
 							 !ssaoUsed && gPar->Get<bool>("DOF_HDR"),
+							 params.DOFNumberOfPasses,
+							 params.DOFBlurOpacity,
 							 &stopRequest);
 	}
 

@@ -75,6 +75,7 @@ public:
 	int N;
 	int reflectionsMax;
 	int repeatFrom;
+	int DOFNumberOfPasses;
 
 #ifdef CLSUPPORT
 	int OpenCLDOFMethod;
@@ -159,6 +160,7 @@ public:
 	double DEThresh;
 	double DOFFocus;
 	double DOFRadius;
+	double DOFBlurOpacity;
 	double fakeLightsIntensity;
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;

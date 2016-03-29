@@ -334,6 +334,8 @@ bool cRenderer::RenderImage()
 			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
 								 params->DOFFocus,
 								 !ssaoUsed && params->DOFHDRmode,
+								 params->DOFNumberOfPasses,
+								 params->DOFBlurOpacity,
 								 data->stopRequest);
 		}
 	}
