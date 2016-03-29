@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>711</width>
-    <height>968</height>
+    <width>970</width>
+    <height>1051</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;refer  ABoxMod1 from Mandelbulb3D, &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string/>
      </property>
      <property name="title">
       <string/>
@@ -501,7 +501,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;ABoxMod1, a formula from Mandelbulb3D.&lt;br&gt;Inspired from a 2D formula proposed by Kali at Fractal Forums&lt;/p&gt;&lt;table&gt;
+         <string>&lt;p&gt;ABoxMod1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new&quot;&gt;http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;

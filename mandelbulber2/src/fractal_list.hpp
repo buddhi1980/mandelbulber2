@@ -109,10 +109,13 @@ enum enumFractalFormula
   quickDudleyMod = 84,
   riemannBulbMsltoeMod2 = 85,
   msltoeToroidal = 86,
+  aboxModKaliEiffie = 87,
+
+  // 152 to 172 reserved for scator
 
   transfAdditionConstant = 1001,
   transfRotation = 1002,
-   transfScale = 1003,
+  transfScale = 1003,
   transfScale3D = 1004,
   transfBoxOffset = 1005,
   transfSphericalOffset = 1006,

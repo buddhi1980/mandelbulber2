@@ -308,6 +308,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           AboxModKaliIteration(z, fractal, extendedAux[sequence]);
           break;
         }
+        case aboxModKaliEiffie:
+        {
+          AboxModKaliEiffieIteration(z, c, i, fractal, extendedAux[sequence]);
+          break;
+        }
         case aboxVSIcen1:
         {
           AboxVSIcen1Iteration(z, c, fractal, extendedAux[sequence]);
@@ -859,7 +864,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case generalizedFoldBox:
         case foldBoxMod1:
 				case aboxModKali:
-
+        case aboxModKaliEiffie:
 				case aboxMod1:
         case aboxMod2:
         case amazingSurf:

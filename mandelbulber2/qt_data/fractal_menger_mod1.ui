@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>711</width>
+    <width>871</width>
     <height>2415</height>
    </rect>
   </property>
@@ -667,7 +667,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_91">
           <property name="text">
-           <string>Constant Multiplier  </string>
+           <string> Multiplier  </string>
           </property>
          </widget>
         </item>

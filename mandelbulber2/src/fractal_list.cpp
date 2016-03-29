@@ -68,6 +68,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					100));
 
+  fractalList->append(sFractalDescription("AboxModKaliEiffie",
+                                          "aboxModKaliEiffie",
+                                          aboxModKaliEiffie,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
   fractalList->append(sFractalDescription("AboxVS icen1",
                                           "aboxVS_icen1",
                                           aboxVSIcen1,
