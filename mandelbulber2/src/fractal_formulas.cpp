@@ -864,7 +864,74 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 	z = z * m ;
 	aux.DE = aux.DE * fabs(m) + 1.0;
 }
+/**
+ * ABoxModKaliEiffie, a formula from Mandelbulb3D
+ * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+ */
+void AboxModKaliEiffieIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  CVector3 z1 = z;
+  z1.x = fabs(z.x + fractal->transformCommon.additionConstant111.x) // swapping x and z
+                  - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+  z1.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+                  - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  z1.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+                  - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+  z = z1;
+  if (fractal->transformCommon.functionEnabled)
+  {
+    z = CVector3(z.z, z.y, z.x); // swap
+  }
+  if(z.y > z.x) z = CVector3(z.y, z.x, z.z); // conditional
 
+  double rr = z.x * z.x + z.y * z.y + z.z * z.z;
+  if(rr < 1e-21) rr = 1e-21;
+  double MinR = fractal->transformCommon.minR05;
+  if (MinR < -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
+  double m;
+  if (rr < (MinR)) m = fractal->transformCommon.scale015/(MinR);
+  else
+  {
+    if (rr < 1) m =  fractal->transformCommon.scale015/rr;
+    else m = fractal->transformCommon.scale015;
+  }
+  z = z * m;
+
+  z += fractal->transformCommon.additionConstant000;
+
+  if (fractal->transformCommon.addCpixelEnabled)
+  {
+    switch (fractal->mandelbulbMulti.orderOfxyz)
+    {
+    case sFractalMandelbulbMulti::xyz:
+    default:
+      c = CVector3(c.x, c.y, c.z);
+      break;
+    case sFractalMandelbulbMulti::xzy:
+      c = CVector3(c.x, c.z, c.y);
+      break;
+    case sFractalMandelbulbMulti::yxz:
+      c = CVector3(c.y, c.x, c.z);
+      break;
+    case sFractalMandelbulbMulti::yzx:
+      c = CVector3(c.y, c.z, c.x);
+      break;
+    case sFractalMandelbulbMulti::zxy:
+      c = CVector3(c.z, c.x, c.y);
+      break;
+    case sFractalMandelbulbMulti::zyx:
+      c = CVector3(c.z, c.y, c.x);
+      break;
+    }
+    z += c * fractal->transformCommon.constantMultiplier111;
+  }
+  if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterations
+      && i < fractal->transformCommon.stopIterations)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+  aux.DE = aux.DE * fabs(m) + 1.0;
+}
 /**
  * ABoxVS_icen1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums
  * @reference http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
