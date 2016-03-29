@@ -882,15 +882,11 @@ void AboxModKaliEiffieIteration(CVector3 &z, CVector3 &c, int i, const cFractal 
   {
     z = CVector3(z.z, z.y, z.x); // swap
   }
-  if (fractal->transformCommon.functionEnabledFalse)
-  {
-    if(z.y > z.x) c = CVector3(c.y, c.x, c.z); // conditional
-  }
   if(z.y > z.x) z = CVector3(z.y, z.x, z.z); // conditional
 
   double rr = z.x * z.x + z.y * z.y + z.z * z.z;
   if(rr < 1e-21) rr = 1e-21;
-  double MinR = fractal->transformCommon.minR06;
+  double MinR = fractal->transformCommon.minR05;
   if (MinR < -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
   double m;
   if (rr < (MinR)) m = fractal->transformCommon.scale015/(MinR);
@@ -900,6 +896,8 @@ void AboxModKaliEiffieIteration(CVector3 &z, CVector3 &c, int i, const cFractal 
     else m = fractal->transformCommon.scale015;
   }
   z = z * m;
+
+  z += fractal->transformCommon.additionConstant000;
 
   if (fractal->transformCommon.addCpixelEnabled)
   {
