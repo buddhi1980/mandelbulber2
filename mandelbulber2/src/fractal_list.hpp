@@ -112,6 +112,8 @@ enum enumFractalFormula
   aboxModKaliEiffie = 87,
 
   // 152 to 172 reserved for scator
+  fastImagscaPower2 = 152,
+
 
   transfAdditionConstant = 1001,
   transfRotation = 1002,

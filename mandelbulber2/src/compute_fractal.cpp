@@ -399,6 +399,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           break;
         }
 
+        case fastImagscaPower2:
+        {
+          FastImagscaPower2Iteration(z, fractal);
+          break;
+        }
 
 
         //transforms ------------------------------------------------------------------------------------------
@@ -724,8 +729,24 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			z = SmoothCVector(tempZ, z, fractals.GetWeight(sequence));
 		}
 
-		//r calculation
-		r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
+    //r calculation
+     //r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
+    switch(fractal->formula)
+    {
+      default:
+      {
+        r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
+        break;
+      }
+    //scator magnitudes
+    // magnitude in imaginary scator algebra
+      case fastImagscaPower2:
+      {
+        CVector3 z2 = z * z;
+        r = sqrt(z2.x + z2.y + z2.z + (z2.y *  z2.z) / (z2.x) + 1e-061);
+        break;
+      }
+    }
 
 		//escape conditions
 		if (fractals.IsCheckForBailout(sequence))

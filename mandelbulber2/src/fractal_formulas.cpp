@@ -2545,6 +2545,22 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
 		aux.color *= 0.9;
 	}
 }
+/** quadratic iteration in imaginary scator algebra */
+void FastImagscaPower2Iteration(CVector3 &z, const cFractal *fractal)
+{
+  double x2 = z.x * z.x + 1e-061;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+
+  double newx = x2 - y2 - z2 + (y2 * z2) / x2;
+  double newy = 2.0 * z.x * z.y * (1 - z2 / x2 );
+  double newz = 2.0 * z.x * z.z * (1 - y2 / x2 );
+
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
+}
+
 
 // NEW TRANSFORM FORMULAS-----------------------------------------------------------------
 
