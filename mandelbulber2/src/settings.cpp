@@ -518,7 +518,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			}
 		}
 
-		Compatibility2(par);
+		Compatibility2(par, fractPar);
 
 		return true;
 	}
@@ -624,12 +624,17 @@ void cSettings::Compatibility(QString &name, QString &value)
 	}
 }
 
-void cSettings::Compatibility2(cParameterContainer *par)
+void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *fract)
 {
 	if(fileVersion <= 2.06)
 	{
 		if((fractal::enumDEFunctionType)par->Get<int>("delta_DE_function") != fractal::linearDEFunction)
 			par->Set("delta_DE_function", (int)fractal::logarithmicDEFunction);
+
+		for(int i = 0; i < 4; i++)
+		{
+		  fract->at(i).Set("IFS_rotation_enabled", true);
+		}
 	}
 }
 

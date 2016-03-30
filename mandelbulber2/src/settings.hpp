@@ -64,7 +64,7 @@ private:
 	bool DecodeOneLine(cParameterContainer *par, QString line);
 	bool CheckSection(QString text, QString &section);
 	void Compatibility(QString &name, QString &value);
-	void Compatibility2(cParameterContainer *par);
+	void Compatibility2(cParameterContainer *par, cFractalContainer *fract);
 	void CreateAnimationString(QString &text, const QString &headerText,
 			const cAnimationFrames *frames);
 
