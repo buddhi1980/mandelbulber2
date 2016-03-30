@@ -87,7 +87,11 @@ foreach($formulas as $index => $formula){
 	// $informationText .= "<tr><th>Name</th><td>" . $formula['name'] . "</td></tr>" . PHP_EOL;
 
 	if(!empty($comment['reference'])){
-		$informationText .= "<tr><th>Reference</th><td><a href=\"" . $comment['reference'][0] . "\">" . $comment['reference'][0] . "</a></td></tr>" . PHP_EOL;
+		$informationText .= '<tr><th>Reference</th><td>';
+		foreach($comment['reference'] as $ref){
+			$informationText .= "<a href=\"" . $ref . "\">" . $ref . "<br>" . PHP_EOL;
+		}
+		$informationText .= '</td></tr>' . PHP_EOL;
 	}
 	$informationText .= "</table>" . PHP_EOL;
 	$informationText .= "<h3>Code</h3>" . PHP_EOL;
