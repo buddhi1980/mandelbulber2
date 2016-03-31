@@ -32,9 +32,12 @@
 #endif
 
 #ifndef SHARED_DIR
-	#ifndef WIN32
-		#define SHARED_DIR "/usr/share/mandelbulber2"
-	#endif
+    #ifdef WIN32
+    #elif __APPLE__
+        #define SHARED_DIR QDir::homePath()+"/share/mandelbulber2"
+    #else
+        #define SHARED_DIR "/usr/share/mandelbulber2"
+    #endif
 #endif
 
 #include <QtCore>
