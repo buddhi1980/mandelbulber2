@@ -150,6 +150,7 @@ private:
 		sRGB objectColor;
 		double objectReflect;
 		bool invertMode;
+		cMaterial *material;
 	};
 
 	//functions

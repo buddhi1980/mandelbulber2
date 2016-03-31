@@ -31,6 +31,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	//normal vector
 	CVector3 vn = _input.normal;
 	sShaderInputData input = _input;
+	cMaterial *mat = input.material;
 	input.normal = vn;
 
 	sRGBAfloat mainLight;
@@ -43,9 +44,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	if (params->mainLightEnable)
 	{
 		shade = MainShading(input);
-		shade.R = params->mainLightIntensity * ((1.0 - params->shading) + params->shading * shade.R);
-		shade.G = params->mainLightIntensity * ((1.0 - params->shading) + params->shading * shade.G);
-		shade.B = params->mainLightIntensity * ((1.0 - params->shading) + params->shading * shade.B);
+		shade.R = params->mainLightIntensity * ((1.0 - mat->shading) + mat->shading * shade.R);
+		shade.G = params->mainLightIntensity * ((1.0 - mat->shading) + mat->shading * shade.G);
+		shade.B = params->mainLightIntensity * ((1.0 - mat->shading) + mat->shading * shade.B);
 	}
 
 	//calculate shadow
@@ -57,9 +58,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	if (params->mainLightEnable)
 	{
 		specular = MainSpecular(input);
-		specular.R *= params->specular;
-		specular.G *= params->specular;
-		specular.B *= params->specular;
+		specular.R *= mat->specular;
+		specular.G *= mat->specular;
+		specular.B *= mat->specular;
 	}
 
 	//calculate surface colour
@@ -91,9 +92,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	{
 		envMapping = EnvMapping(input);
 	}
-	envMapping.R *= params->reflect;
-	envMapping.G *= params->reflect;
-	envMapping.B *= params->reflect;
+	envMapping.R *= mat->reflection;
+	envMapping.G *= mat->reflection;
+	envMapping.B *= mat->reflection;
 
 	//additional lights
 	sRGBAfloat auxLights;
@@ -815,7 +816,7 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input)
 	half.Normalize();
 	double shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0) shade2 = 0.0;
-	shade2 = pow(shade2, 30.0) * 1.0;
+	shade2 = pow(shade2, 30.0/input.material->specularWidth);
 	if (shade2 > 15.0) shade2 = 15.0;
 	specular.R = shade2;
 	specular.G = shade2;
@@ -894,7 +895,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 		case fractal::objFractal:
 		{
 			sRGB colour(256, 256, 256);
-			if (params->coloringEnabled)
+			if (input.material->useColorsFromPalette)
 			{
 				int formulaIndex = input.formulaIndex;
 
@@ -921,10 +922,10 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 				}
 				else
 				{
-					color_number = (int) (nrCol * params->coloring_speed + 256 * params->paletteOffset)
+					color_number = (int) (nrCol * input.material->coloring_speed + 256 * input.material->paletteOffset)
 							% 65536;
 				}
-				colour = data->palette.IndexToColour(color_number);
+				colour = input.material->palette.IndexToColour(color_number);
 			}
 
 			out.R = colour.R / 256.0;
@@ -975,6 +976,8 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, cLights::s
 	double intensity = 100.0 * light.intensity / (distance * distance) / number;
 	double shade = input.normal.Dot(lightVector);
 	if (shade < 0) shade = 0;
+	shade = (1.0 - input.material->shading) + shade * input.material->shading;
+
 	shade = shade * intensity;
 	if (shade > 500.0) shade = 500.0;
 
@@ -983,8 +986,8 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, cLights::s
 	half.Normalize();
 	double shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0) shade2 = 0.0;
-	shade2 = pow(shade2, 30.0) * 1.0;
-	shade2 *= intensity * params->specular;
+	shade2 = pow(shade2, 30.0/input.material->specularWidth) * 1.0;
+	shade2 *= intensity * input.material->specular;
 	if (shade2 > 15.0) shade2 = 15.0;
 
 	//calculate shadow

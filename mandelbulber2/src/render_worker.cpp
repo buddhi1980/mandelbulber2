@@ -663,6 +663,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 
 		shaderInputData.normal = vn;
 
+	  /****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+		shaderInputData.material = &data->materials[1];
+
+	  /*******************************************************************/
+
 		//calculate effects for object surface
 		objectShader = ObjectShader(shaderInputData, &objectColour, &specular);
 

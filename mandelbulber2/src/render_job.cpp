@@ -337,6 +337,8 @@ bool cRenderJob::Execute(void)
   paramsContainer->Set("mat1_coloring_speed", paramsContainer->Get<double>("coloring_speed"));
   paramsContainer->Set("mat1_coloring_palette_size", paramsContainer->Get<double>("coloring_palette_size"));
   paramsContainer->Set("mat1_coloring_palette_offset", paramsContainer->Get<double>("coloring_palette_offset"));
+  paramsContainer->Set("mat1_surface_color_palette", paramsContainer->Get<cColorPalette>("surface_color_palette"));
+  paramsContainer->Set("mat1_use_colors_from_palette", paramsContainer->Get<bool>("fractal_color"));
 
   renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
 
