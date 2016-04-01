@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * cArchiveDownloader class - downloads an archive to a folder and extracts it
+ * cFileDownloader class - downloads specified filelist
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *
@@ -50,6 +50,12 @@ void cFileDownloader::startDownload()
 		Wait(100);
 		gApplication->processEvents();
 	}
+
+	emit updateProgressAndStatus(
+		tr("File downloader"),
+		tr("finished, downloaded %1 thumbnails").arg(this->cntFilesDownloaded),
+		1.0
+	);
 }
 
 void cFileDownloader::filelistDownloaded()

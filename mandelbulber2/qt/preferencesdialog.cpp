@@ -108,7 +108,6 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 
 void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked()
 {
-	//confirmation dialog before clearing
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(
 		NULL,
