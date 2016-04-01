@@ -110,6 +110,13 @@ int main(int argc, char *argv[])
 		gParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(&gParFractal->at(i));
 	}
+
+	/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+	InitMaterialParams(1, gPar);
+
+	/*******************************************************************/
+
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 

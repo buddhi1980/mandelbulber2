@@ -216,14 +216,6 @@ void cInterface::ShowUi(void)
 
 	mainWindow->slotPopulateToolbar();
 
-	/****************** TEMPORARY CODE FOR MATERIALS *******************/
-
-	InitMaterialParams(1, gPar);
-
-	/*******************************************************************/
-
-
-
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished");
