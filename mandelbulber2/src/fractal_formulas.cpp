@@ -2550,6 +2550,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
  * quadratic iteration in imaginary scator algebra
  * @reference http://www.fractalforums.com/new-theories-and-research/ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
  *            http://luz.izt.uam.mx/index.html/?q=node/95&language=en
+ * @author Manuel Fernandez-Guasti
  */
 void FastImagscaPower2Iteration(CVector3 &z, const cFractal *fractal)
 {

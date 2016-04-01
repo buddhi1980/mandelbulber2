@@ -93,6 +93,13 @@ foreach($formulas as $index => $formula){
 		}
 		$informationText .= '</td></tr>' . PHP_EOL;
 	}
+	if(!empty($comment['author'])){
+		$informationText .= '<tr><th>Author</th><td>';
+		foreach($comment['author'] as $author){
+			$informationText .= $author . "<br>" . PHP_EOL;
+		}
+		$informationText .= '</td></tr>' . PHP_EOL;
+	}
 	$informationText .= "</table>" . PHP_EOL;
 	$informationText .= "<h3>Code</h3>" . PHP_EOL;
 	$informationText .= $formattedEscapedCode;
