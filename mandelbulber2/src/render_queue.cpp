@@ -42,6 +42,11 @@ cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) :
 
 	queuePar->SetContainerName("main");
 	InitParams(queuePar);
+	/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+	InitMaterialParams(1, queuePar);
+
+	/*******************************************************************/
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		queueParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));

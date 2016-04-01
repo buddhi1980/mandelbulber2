@@ -598,6 +598,13 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
         InitParams(par);
         for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
           InitFractalParams(&parFractal->at(i));
+
+      	/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+      	InitMaterialParams(1, par);
+
+      	/*******************************************************************/
+
         if (parSettings.Decode(par, parFractal))
         {
           thumbWidget = new cThumbnailWidget(gPar->Get<int>("toolbar_icon_size"), gPar->Get<int>("toolbar_icon_size"), 2, this);
