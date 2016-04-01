@@ -54,6 +54,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/dof.cpp\
 			../src/error_message.cpp\
 			../src/fractparams.cpp\
+			../src/file_downloader.cpp\
 			../src/files.cpp\
 			../src/fractal.cpp\
 			../src/fractal_container.cpp\
@@ -145,6 +146,7 @@ HEADERS  += ../src/render_window.hpp\
 			../src/rendered_image_widget.hpp\
 			../src/animation_flight.hpp\
 			../src/animation_keyframes.hpp\
+			../src/file_downloader.hpp\
 			../src/keyframes.hpp\
 			../src/morph.hpp\
 			../src/thumbnail_widget.h\
