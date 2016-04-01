@@ -88,11 +88,11 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   paletteOffset = materialParam.Get<double>(Name("coloring_palette_offset", id));
   coloring_speed = materialParam.Get<double>(Name("coloring_speed", id));
 
-  color = materialParam.Get<sRGB>(Name("color", id));
+  color = materialParam.Get<sRGB>(Name("surface_color", id));
   lightnessColor = materialParam.Get<sRGB>(Name("lightness_color", id));
   transparencyInteriorColor = materialParam.Get<sRGB>(Name("transparency_interior_color", id));
 
-  palette = materialParam.Get<cColorPalette>(Name("transparency_interior_color", id));
+  palette = materialParam.Get<cColorPalette>(Name("surface_color_palette", id));
 
   textureCenter = materialParam.Get<CVector3>(Name("texture_center", id));
   textureRotation = materialParam.Get<CVector3>(Name("texture_rotation", id));

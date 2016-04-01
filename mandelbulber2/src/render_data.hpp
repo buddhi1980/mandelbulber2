@@ -30,6 +30,7 @@
 #include <QStatusBar>
 #include "statistics.h"
 #include "rendering_configuration.hpp"
+#include "material.h"
 
 struct sRenderData
 {
@@ -50,6 +51,8 @@ struct sRenderData
 	cStatistics statistics;
 	QList<int> netRenderStartingPositions;
 	cRenderingConfiguration configuration;
+
+	QMap<int, cMaterial> materials; // 'int' is an ID
 };
 
 #endif /* RENDER_DATA_HPP_ */

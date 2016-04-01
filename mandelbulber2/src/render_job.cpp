@@ -320,6 +320,30 @@ bool cRenderJob::Execute(void)
 	cParamRender *params = new cParamRender(paramsContainer);
 	cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
 
+
+  /****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+	//temporary copying of material 1 parameters from existing parameters
+	paramsContainer->Set("mat1_shading", paramsContainer->Get<double>("shading"));
+  paramsContainer->Set("mat1_specular", paramsContainer->Get<double>("specular"));
+  paramsContainer->Set("mat1_reflection", paramsContainer->Get<double>("reflect"));
+  paramsContainer->Set("mat1_transparency_of_surface", paramsContainer->Get<double>("transparency_of_surface"));
+  paramsContainer->Set("mat1_transparency_of_interior", paramsContainer->Get<double>("transparency_of_interior"));
+  paramsContainer->Set("mat1_transparency_index_of_refraction", paramsContainer->Get<double>("transparency_index_of_refraction"));
+  paramsContainer->Set("mat1_transparency_interior_color", paramsContainer->Get<double>("transparency_interior_color"));
+  paramsContainer->Set("mat1_fresnel_reflectance", paramsContainer->Get<bool>("fresnel_reflectance"));
+  paramsContainer->Set("mat1_coloring_random_seed", paramsContainer->Get<double>("coloring_random_seed"));
+  paramsContainer->Set("mat1_coloring_saturation", paramsContainer->Get<double>("coloring_saturation"));
+  paramsContainer->Set("mat1_coloring_speed", paramsContainer->Get<double>("coloring_speed"));
+  paramsContainer->Set("mat1_coloring_palette_size", paramsContainer->Get<double>("coloring_palette_size"));
+  paramsContainer->Set("mat1_coloring_palette_offset", paramsContainer->Get<double>("coloring_palette_offset"));
+  paramsContainer->Set("mat1_surface_color_palette", paramsContainer->Get<cColorPalette>("surface_color_palette"));
+  paramsContainer->Set("mat1_use_colors_from_palette", paramsContainer->Get<bool>("fractal_color"));
+
+  renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
+
+  /*******************************************************************/
+
 	//recalculation of some parameters;
 	params->resolution = 1.0 / image->GetHeight();
 	ReduceDetail();
