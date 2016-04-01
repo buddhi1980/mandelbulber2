@@ -22,6 +22,7 @@ private slots:
 	void on_pushButton_select_settings_path_clicked();
 	void on_pushButton_select_textures_path_clicked();
 	void on_pushButton_clear_thumbnail_cache_clicked();
+	void on_pushButton_load_thumbnail_cache_clicked();
 	void on_comboBox_ui_style_type_currentIndexChanged(int index);
 	void on_comboBox_ui_skin_currentIndexChanged(int index);
 

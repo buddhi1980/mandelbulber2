@@ -3,6 +3,7 @@
 #include <QtCore>
 #include <QFileDialog>
 #include <QMessageBox>
+#include "../src/file_downloader.hpp"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
   QDialog(parent),
@@ -98,6 +99,33 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 	{
 		// match exact 32 char hash images, example filename: c0ad626d8c25ab6a25c8d19a53960c8a.png
 		DeleteAllFilesFromDirectory(systemData.thumbnailDir, "????????????????????????????????.*");
+	}
+	else
+	{
+		return;
+	}
+}
+
+void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked()
+{
+	QMessageBox::StandardButton reply;
+	reply = QMessageBox::question(
+		NULL,
+		QObject::tr("Are you sure to load the thumbnail cache from the server?"),
+		QObject::tr("This will try to load missing common thumbnails from the server.\nProceed?"),
+		QMessageBox::Yes|QMessageBox::No);
+
+	if (reply == QMessageBox::Yes)
+	{
+		cFileDownloader fileDownloader(
+					"https://raw.githubusercontent.com/zebastian/mandelbulber2Thumbnails/master/",
+					systemData.thumbnailDir
+				);
+		QObject::connect(&fileDownloader,
+		 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+		 gMainInterface->mainWindow,
+		 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		fileDownloader.startDownload();
 	}
 	else
 	{

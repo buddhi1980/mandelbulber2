@@ -642,6 +642,13 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="pushButton_load_thumbnail_cache">
+             <property name="text">
+              <string>Load thumbnail cache</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
