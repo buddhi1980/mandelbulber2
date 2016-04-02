@@ -268,8 +268,8 @@ void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
+	double x2 = z.x * z.x + 1e-60;
+	double y2 = z.y * z.y + 1e-60;
 	double z2 = z.z * z.z;
 	double temp = 1.0 - z2 / (x2 + y2);
 	double newx = (x2 - y2) * temp;
@@ -2562,9 +2562,9 @@ void FastImagscaPower2Iteration(CVector3 &z, const cFractal *fractal)
 	double newy = 2.0 * z.x * z.y * (1 - z2 / x2);
 	double newz = 2.0 * z.x * z.z * (1 - y2 / x2);
 
-  z.x = newx;
-  z.y = newy;
-  z.z = newz;
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
 }
 
 
