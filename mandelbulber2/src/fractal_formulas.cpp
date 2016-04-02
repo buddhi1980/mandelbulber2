@@ -149,7 +149,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 		}
 	}
 
-	double r2 = z.Dot(z) + 1e-60;
+	double r2 = z.Dot(z);
 
 	z += fractal->mandelbox.offset;
 
@@ -268,8 +268,8 @@ void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	double x2 = z.x * z.x + 1e-60;
-	double y2 = z.y * z.y + 1e-60;
+	double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
 	double temp = 1.0 - z2 / (x2 + y2);
 	double newx = (x2 - y2) * temp;
@@ -570,7 +570,7 @@ void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux)
 void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	double r1 = z.y * z.y + z.z * z.z + 1e-60;
+	double r1 = z.y * z.y + z.z * z.z;
 	double newx = 0;
 	if (c.x < 0 || z.x < sqrt(r1))
 	{
@@ -1799,7 +1799,7 @@ void EiffieMsltoeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sE
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
 	CVector3 z2 = z * z;
-	double rr = z2.x + z2.y + z2.z + 1e-60;
+	double rr = z2.x + z2.y + z2.z;
 	double m = 1.0 - z2.z / rr;
 	CVector3 newz;
 	newz.x = (z2.x - z2.y) * m;
@@ -2011,8 +2011,8 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	CVector3 temp = z;
 	double tempL = temp.Length();
-	if (tempL < 1e-21)
-		tempL = 1e-21;
+	//if (tempL < 1e-21)
+	//	tempL = 1e-21;
 	z *= fractal->transformCommon.scale3D111;
 
 	aux.r_dz *= fabs(z.Length() / tempL);
