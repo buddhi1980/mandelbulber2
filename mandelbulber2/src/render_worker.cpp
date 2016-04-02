@@ -358,6 +358,9 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	double distThresh;
 
 	//qDebug() << "Start ************************";
+
+	CVector3 lastPoint, lastGoodPoint;
+
 	for (int i = 0; i < 10000; i++)
 	{
 		counter++;
@@ -424,6 +427,14 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		if (scan > in.maxScan)
 		{
 			break;
+		}
+
+		if (point == lastPoint) //detection of dead calculation
+		{
+			qWarning() << "Dead computation\n"
+					<< "\nPoint:" << point.Debug()
+					<< "\nPrevious point:" << lastPoint.Debug();
+			point = lastGoodPoint;
 		}
 	}
 	//------------- 83.2473 us for RayMarching loop -------------------------

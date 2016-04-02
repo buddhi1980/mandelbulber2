@@ -88,9 +88,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	int sequence = 0;
 	int lastSequnce = 0;
 
+	CVector3 lastGoodZ;
+	CVector3 lastZ;
+
 	for (i = 0; i < in.maxN; i++)
 	{
-
+		lastGoodZ = lastZ;
+		lastZ = z;
 
 		//hybrid fractal sequence
 		if (in.forcedFormulaIndex >= 0)
@@ -820,6 +824,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 			}
+		}
+
+		if(z == lastZ) //detection of dead computation
+		{
+//			if(Mode != calcModeColouring)
+//			qWarning() << "Dead computation\n"
+//					<< "iteration: " << i << "Formula:" << formula << "Sequence:" << sequence
+//					<< "\nPoint:" << in.point.Debug()
+//					<< "\nLast good z:" << lastGoodZ.Debug()
+//					<< "\nPrevious z:" << lastZ.Debug();
+			z = lastGoodZ;
+			break;
 		}
 	}
 

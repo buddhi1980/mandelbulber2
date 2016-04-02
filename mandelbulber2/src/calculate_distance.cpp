@@ -192,7 +192,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 			out->colorIndex = fractOut.colorIndex;
 			out->totalIters += fractOut.iters;
 
-			if (distance < 1e-20) distance = 1e-20;
+			//if (distance < 1e-20) distance = 1e-20;
 
       if (out->maxiter) distance = 0.0;
 
@@ -269,7 +269,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 				distance = r;
 			}
 
-			if (distance < 1e-20) distance = 1e-20;
+			//if (distance < 1e-20) distance = 1e-20;
 
 			if (maxiter)
 			{

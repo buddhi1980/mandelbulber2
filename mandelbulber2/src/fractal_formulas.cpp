@@ -41,7 +41,7 @@ using namespace fractal;
  */
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	if (aux.r < 1e-21) aux.r = 1e-21;
+	//if (aux.r < 1e-21) aux.r = 1e-21;
 	double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
 	double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
@@ -775,10 +775,10 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 			- fabs(fractal->transformCommon.additionConstant000.z);
 
 	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
-	if (rr < 1e-21) rr = 1e-21;
+	//if (rr < 1e-21) rr = 1e-21;
 	double m;
 	double sqrtMinR = sqrt(fractal->transformCommon.minR0);
-	if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+	//if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
 	if (rr < sqrtMinR)
 	{
 		m = aux.actualScale / sqrtMinR;
@@ -820,10 +820,10 @@ void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	{
 		rr = (z.x * z.x + z.y * z.y);// on cyl body
 	}
-	if (rr < 1e-21) rr = 1e-21;
+	//if (rr < 1e-21) rr = 1e-21;
 	double m;
 	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-	if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+	//if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
 	if (rr < sqrtMinR)
 	{
 		m = fractal->mandelbox.scale / sqrtMinR;
@@ -851,9 +851,9 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 {
 	z = fractal->transformCommon.additionConstant0555 - fabs(z);
 	double rr = z.x * z.x + z.y * z.y + z.z * z.z;
-	if(rr < 1e-21) rr = 1e-21;
+	//if(rr < 1e-21) rr = 1e-21;
 	double MinR = fractal->transformCommon.minR06;
-	if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
+	//if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
 	double m;
 	if (rr < (MinR)) m = fractal->transformCommon.scale015/(MinR);
 	else
@@ -885,9 +885,9 @@ void AboxModKaliEiffieIteration(CVector3 &z, CVector3 &c, int i, const cFractal 
   if(z.y > z.x) z = CVector3(z.y, z.x, z.z); // conditional
 
   double rr = z.x * z.x + z.y * z.y + z.z * z.z;
-  if(rr < 1e-21) rr = 1e-21;
+  //if(rr < 1e-21) rr = 1e-21;
   double MinR = fractal->transformCommon.minR05;
-  if (MinR < -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
+  //if (MinR < -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
   double m;
   if (rr < (MinR)) m = fractal->transformCommon.scale015/(MinR);
   else
@@ -958,8 +958,8 @@ void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
 	}
 
 	double r2 = z.Dot(z);
-	if (r2 < 1e-21 && r2 > -1e-21)
-		r2 = (r2 > 0) ? 1e-21 : -1e-21;
+	//if (r2 < 1e-21 && r2 > -1e-21)
+	//	r2 = (r2 > 0) ? 1e-21 : -1e-21;
 	if (r2 < fractal->mandelbox.mR2)
 	{
 		z *= fractal->mandelbox.mboxFactor1;
@@ -1066,13 +1066,13 @@ void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &a
 	{
 		rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	}
-	if (rr < 1e-21)
-		rr = 1e-21;
+	//if (rr < 1e-21)
+	//	rr = 1e-21;
 
 	double m;
 	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-	if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21)
-		sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+	//if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21)
+	//	sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
 	if (rr < sqrtMinR)
 		m = aux.actualScale / sqrtMinR;
 	else
@@ -1170,13 +1170,13 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 	{
 		rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	}
-	if (rr < 1e-21)
-		rr = 1e-21;
+	//if (rr < 1e-21)
+	//	rr = 1e-21;
 
 	double m;
 	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-	if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21)
-		sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+	//if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21)
+	//	sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
 	if (rr < sqrtMinR)
 	{
 		m = aux.actualScale / sqrtMinR;
@@ -1237,7 +1237,7 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
 		CVector3 temp = z;
 		double tempL = temp.Length();
 		z = fabs(z) * fractal->transformCommon.scale3D222;
-		if (tempL < 1e-21) tempL =  1e-21;
+		//if (tempL < 1e-21) tempL =  1e-21;
 		double avgScale = z.Length()/tempL;
 
 		aux.r_dz *= avgScale;
@@ -1347,8 +1347,8 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
 			&& i < fractal->transformCommon.stopIterationsB) // spherical fold
 	{
 		double r2 = z.Dot(z);
-		if (r2 < 1e-21 && r2 > -1e-21)
-			r2 = (r2 > 0) ? 1e-21 : -1e-21;
+		//if (r2 < 1e-21 && r2 > -1e-21)
+		//	r2 = (r2 > 0) ? 1e-21 : -1e-21;
 		if (r2 < fractal->mandelbox.mR2)
 		{
 			z *= fractal->mandelbox.mboxFactor1;
@@ -1383,8 +1383,8 @@ void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	// extract polar coordinates
 	double wr = aux.r;
-	if (wr < 1e-21)
-		wr = 1e-21;
+	//if (wr < 1e-21)
+	//	wr = 1e-21;
 	double wo = acos(z.y / wr);
 	double wi = atan2(z.x, z.z);
 
@@ -1481,10 +1481,10 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 		v3 = z.x;
 		break;
 	}
-	if (aux.r < 1e-21)
-		aux.r = 1e-21;
-	if (v3 < 1e-21 && v3 > -1e-21)
-		v3 = (v3 > 0) ? 1e-21 : -1e-21;
+	//if (aux.r < 1e-21)
+	//	aux.r = 1e-21;
+	//if (v3 < 1e-21 && v3 > -1e-21)
+	//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
 
 	if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
 		th0 += acos(v1 / aux.r);
@@ -1528,8 +1528,8 @@ void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal,
 	}
 
 	aux.r = z.Length();
-	if (aux.r < 1e-21)
-		aux.r = 1e-21;
+	//if (aux.r < 1e-21)
+	//	aux.r = 1e-21;
 	double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
 	double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	double rp = pow(aux.r, tempVC - 1.0);
@@ -1659,8 +1659,8 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 
 	CVector3 z2 = z * z;  // squares
 	double v3 = (z2.x + z2.y + z2.z); // sum of squares
-	if (v3 < 1e-21 && v3 > -1e-21)
-		v3 = (v3 > 0) ? 1e-21 : -1e-21;
+	//if (v3 < 1e-21 && v3 > -1e-21)
+	//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
 	double zr = 1.0 - z2.z / v3;
 	temp.x = (z2.x - z2.y) * zr;
 	temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale; // scaling temp.y
@@ -1695,8 +1695,8 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 	}
 
 	double lengthTempZ = -z.Length();
-	if (lengthTempZ > -1e-21)
-		lengthTempZ = -1e-21;   //  z is neg.)
+	//if (lengthTempZ > -1e-21)
+	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
@@ -1723,7 +1723,7 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *frac
 	}
 	CVector3 z2 = z * z ;  // squares
 	double v3 = (z2.x + z2.y + z2.z) + fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * z2.y  * z2.z; ; // sum of squares
-	if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
+	//if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
 	double zr = 1.0 - z2.z / v3;
 	temp.x = (z2.x - z2.y) * zr;
 	temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;// scaling temp.y
@@ -1755,7 +1755,7 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *frac
 		else z.z -= tempFAB.z;
 	}
 	double lengthTempZ = -z.Length();
-	if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+	//if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
@@ -1772,7 +1772,7 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *frac
 			CVector3 temp = z;
 			double tempL = temp.Length();
 			z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
-			if (tempL < 1e-21) tempL = 1e-21;
+			//if (tempL < 1e-21) tempL = 1e-21;
 			double avgScale = z.Length()/tempL;
 			//aux.r_dz *= avgScale * fractal->transformCommon.scaleA1;
 			double tempAux = aux.r_dz * avgScale;
@@ -1831,7 +1831,7 @@ void EiffieMsltoeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sE
 		else z.z -= tempFAB.z;
 	}
 	double lengthTempZ = -z.Length();
-	if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+	//if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
@@ -1851,11 +1851,11 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
 	double phi;
 	CVector3 z2 = z * z;
 	double r = z2.x + z2.y + z2.z;
-	if (r < 1e-21)
-		r = 1e-21;
+	//if (r < 1e-21)
+	//	r = 1e-21;
 	double r1 = sqrt(r + fractal->transformCommon.scale0 * z2.y * z2.z);
-	if (r1 < 1e-21)
-		r1 = 1e-21;
+	//if (r1 < 1e-21)
+	//	r1 = 1e-21;
 	if (z2.z < z2.y)
 	{
 		theta = 2 * atan2(z.y, z.x);
@@ -1901,8 +1901,8 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
 			z.z -= tempFAB.z;
 	}
 	double lengthTempZ = -z.Length();
-	if (lengthTempZ > -1e-21)
-		lengthTempZ = -1e-21;   //  z is neg.)
+	//if (lengthTempZ > -1e-21)
+	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
@@ -1932,8 +1932,8 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
 	z.z = z1.z;
 	CVector3 zs = z * z;
 	double zs2 = zs.x + zs.y;
-	if (zs2 < 1e-21)
-		zs2 = 1e-21;
+	//if (zs2 < 1e-21)
+	//	zs2 = 1e-21;
 	double zs3 = (zs2 + zs.z)
 			+ fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * zs.y * zs.z;
 	double zsd = (1 - zs.z / zs3);
@@ -1973,8 +1973,8 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
 			z.z -= tempFAB.z;
 	}
 	double lengthTempZ = -z.Length(); // spherical offset
-	if (lengthTempZ > -1e-21)
-		lengthTempZ = -1e-21;   //  z is neg.)
+	//if (lengthTempZ > -1e-21)
+	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
@@ -1990,8 +1990,8 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
 			CVector3 temp = z;
 			double tempL = temp.Length();
 			z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
-			if (tempL < 1e-21)
-				tempL = 1e-21;
+			//if (tempL < 1e-21)
+			//	tempL = 1e-21;
 			double avgScale = z.Length() / tempL;
 			aux.r_dz *= avgScale;
 		}
@@ -2079,8 +2079,8 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 			z.z -= tempFAB.z;
 	}
 	double lengthTempZ = -z.Length();
-	if (lengthTempZ > -1e-21)
-		lengthTempZ = -1e-21;   //  z is neg.)
+	//if (lengthTempZ > -1e-21)
+	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
@@ -2121,7 +2121,7 @@ void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 	if (fractal->transformCommon.functionEnabledAxFalse)// spherical offset
 	{
 		double lengthTempZ = -z.Length();
-		if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+		//if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
 		z *= 1 + fractal->transformCommon.offset / lengthTempZ;
 		z *= fractal->transformCommon.scale;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
@@ -2140,11 +2140,11 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	double r = z.Length();
-	if (r < 1e-21) r = 1e-21;
+	//if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 
 	double w = 1.0 - z.z;
-	if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
+	//if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
 	w = 1.0 / w;
 
 	double s = z.x * w;
@@ -2156,8 +2156,8 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 	t = fabs(sin(M_PI * t));
 
 	r *= r;
-	if (r < 1e-21)
-		r = 1e-21;
+	//if (r < 1e-21)
+	//	r = 1e-21;
 
 	if (w > 36)
 		w = 36;   // problem with pow()
@@ -2181,11 +2181,11 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
 {
 	double r = z.Length();
-	if (r < 1e-21) r = 1e-21;
+	//if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 	double w = 1.0 - z.z;
-	if (w > -1e-21 && w < 1e-21)
-		w = (w > 0) ? 1e-21 : -1e-21;
+	//if (w > -1e-21 && w < 1e-21)
+	//	w = (w > 0) ? 1e-21 : -1e-21;
 	w = 1.0 / w;
 	CVector3 t3;
 	t3.x = z.x * w;
@@ -2255,7 +2255,7 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 
 	double tempL = z.Length();
 	z *= fractal->transformCommon.constantMultiplier122; // mult. scale (1,2,2)
-	if (tempL < 1e-21) tempL = 1e-21;
+	//if (tempL < 1e-21) tempL = 1e-21;
 	double avgScale = CVector3(z.x, z.y / 2.0, z.z / 2.0).Length() / tempL;
 	double tempAux = aux.r_dz * avgScale;
 	aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
@@ -2739,7 +2739,7 @@ void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtended
 	CVector3 temp = z;
 	double tempL = temp.Length();
 	z = fabs(z) * fractal->transformCommon.scale3D222;
-	if (tempL < 1e-21) tempL = 1e-21;
+	//if (tempL < 1e-21) tempL = 1e-21;
 	double avgScale = z.Length() / tempL;
 	aux.r_dz *= avgScale;
 	aux.DE = aux.DE * avgScale + 1.0;
@@ -2771,7 +2771,7 @@ void TransformBenesiT1ModIteration(CVector3 &z,  const cFractal *fractal, sExten
 	CVector3 temp = z;
 	double tempL = temp.Length();
 	z = fabs(z) * fractal->transformCommon.scale3D333;
-	if (tempL < 1e-21) tempL = 1e-21;
+	//if (tempL < 1e-21) tempL = 1e-21;
 	double avgScale = z.Length() / tempL;
 	aux.r_dz *= avgScale;
 	aux.DE = aux.DE * avgScale + 1.0;
@@ -2812,7 +2812,7 @@ void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtended
 	CVector3 temp = z;
 	double tempL = temp.Length();
 	z = fabs(z) * fractal->transformCommon.scale3D444;
-	if (tempL < 1e-21) tempL = 1e-21;
+	//if (tempL < 1e-21) tempL = 1e-21;
 	double avgScale = z.Length() / tempL;
 	aux.r_dz *= avgScale;
 	aux.DE = aux.DE * avgScale + 1.0;
@@ -2892,12 +2892,12 @@ void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
 							 (tempXZ + z.y) * SQRT_1_2,
 							 z.x * SQRT_1_3 + z.z * SQRT_2_3);
 
-	if (z.x > -1e-21 && z.x < 1e-21)
-		z.x = (z.x > 0) ? 1e-21 : -1e-21;
-	if (z.y > -1e-21 && z.y < 1e-21)
-		z.y = (z.y > 0) ? 1e-21 : -1e-21;
-	if (z.z > -1e-21 && z.z < 1e-21)
-		z.z = (z.z > 0) ? 1e-21 : -1e-21;
+	//if (z.x > -1e-21 && z.x < 1e-21)
+	//	z.x = (z.x > 0) ? 1e-21 : -1e-21;
+	//if (z.y > -1e-21 && z.y < 1e-21)
+	//	z.y = (z.y > 0) ? 1e-21 : -1e-21;
+	//if (z.z > -1e-21 && z.z < 1e-21)
+	//	z.z = (z.z > 0) ? 1e-21 : -1e-21;
 	CVector3 tempV2 = z;
 	tempV2.x = fabs(pow(pow(z.y, fractal->transformCommon.power8.x)
 											+ pow(z.z, fractal->transformCommon.power8.x),
@@ -2952,10 +2952,10 @@ void TransformBenesiCubeSphereIteration(CVector3 &z)
 {
 	z *= z;       // so all now positive
 
-	if (z.x == 0.0)
-		z.x = 1e-21;
-	if (z.z == 0.0)
-		z.z = 1e-21;
+	//if (z.x == 0.0)
+	//	z.x = 1e-21;
+	//if (z.z == 0.0)
+	//	z.z = 1e-21;
 
 	double rCyz = z.y / z.z;
 
@@ -2988,7 +2988,7 @@ void TransformBenesiCubeSphereIteration(CVector3 &z)
 void TransformBenesiSphereCubeIteration(CVector3 &z)
 {
 	z *= z;
-	if (z.z == 0.0) z.z = 1e-21;
+	//if (z.z == 0.0) z.z = 1e-21;
 	double rCyz = z.y / z.z;
 	if (rCyz < 1.0) rCyz = 1.0 / sqrt(rCyz + 1.0);
 	else rCyz = 1.0 / sqrt(1.0 / rCyz + 1.0);
@@ -2996,7 +2996,7 @@ void TransformBenesiSphereCubeIteration(CVector3 &z)
 	z.y *= rCyz;
 	z.z *= rCyz;
 
-	if (z.x == 0.0) z.x = 1e-21;
+	//if (z.x == 0.0) z.x = 1e-21;
 	double rCxyz = (z.y * z.y + z.z * z.z) / z.x;
 
 	if (rCxyz < 1.0) rCxyz = 1.0 / sqrt(rCxyz + 1.0);
@@ -3338,12 +3338,12 @@ void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *frac
 {
 	c *= fractal->transformCommon.constantMultiplier111;
 	double rSqrL = c.x * c.x + c.y * c.y + c.z * c.z;
-	if (rSqrL < 1e-21) rSqrL = 1e-21;
+	//if (rSqrL < 1e-21) rSqrL = 1e-21;
 	rSqrL = 1/rSqrL;
 	c *= rSqrL;
 
 	rSqrL = z.x * z.x + z.y * z.y + z.z * z.z;
-	if (rSqrL < 1e-21) rSqrL = 1e-21;
+	//if (rSqrL < 1e-21) rSqrL = 1e-21;
 	rSqrL = 1/rSqrL;
 	z *= rSqrL;
 }
@@ -3354,7 +3354,7 @@ void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *frac
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	double r2 = z.Dot(z);
-	if (r2 < 1e-21) r2 = 1e-21;
+	//if (r2 < 1e-21) r2 = 1e-21;
 	if (r2 < fractal->mandelbox.mR2)
 	{
 		z *= fractal->mandelbox.mboxFactor1;
@@ -3376,7 +3376,7 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	double lengthTempZ = -z.Length();
-	if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+	//if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
@@ -3388,15 +3388,15 @@ void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sEx
  */
 void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
-	if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
-	if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
+	//if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
+	//if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
+	//if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
 	double r2 = pow(pow(z.x, fractal->transformCommon.pwr4) + pow(z.y, fractal->transformCommon.pwr4)
 									+ pow(z.z, fractal->transformCommon.pwr4),
 									fractal->transformCommon.pwr05);
 
-	if (r2 < 1e-21 && r2 > -1e-21)
-		r2 = (r2 > 0) ? 1e-21 : -1e-21;
+	//if (r2 < 1e-21 && r2 > -1e-21)
+	//	r2 = (r2 > 0) ? 1e-21 : -1e-21;
 	if (r2 < fractal->mandelbox.mR2)
 	{
 		z *= fractal->mandelbox.mboxFactor1;
@@ -3628,7 +3628,7 @@ void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtended
 void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
 	double r2 = z4D.Dot(z4D);
-	if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+	//if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
 
 	if (r2 < fractal->mandelbox.mR2)
 	{
