@@ -149,7 +149,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 		}
 	}
 
-	double r2 = z.Dot(z);
+	double r2 = z.Dot(z) + 1e-60;
 
 	z += fractal->mandelbox.offset;
 
@@ -570,7 +570,7 @@ void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux)
 void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	double r1 = z.y * z.y + z.z * z.z;
+	double r1 = z.y * z.y + z.z * z.z + 1e-60;
 	double newx = 0;
 	if (c.x < 0 || z.x < sqrt(r1))
 	{
