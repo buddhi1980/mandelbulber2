@@ -232,3 +232,18 @@ template CVector2<double> SmoothCVector(const CVector2<double> &v1, const CVecto
 template CVector3 SmoothCVector(const CVector3 &v1, const CVector3 &v2, double k);
 template CVector4 SmoothCVector(const CVector4 &v1, const CVector4 &v2, double k);
 
+
+double cubicInterpolate(double p[4], double x)
+{
+	return p[1] + 0.5 * x*(p[2] - p[0] + x*(2.0*p[0] - 5.0*p[1] + 4.0*p[2] - p[3] + x*(3.0*(p[1] - p[2]) + p[3] - p[0])));
+}
+
+double bicubicInterpolate(double p[4][4], double x, double y)
+{
+	double yy[4];
+	yy[0] = cubicInterpolate(p[0], y);
+	yy[1] = cubicInterpolate(p[1], y);
+	yy[2] = cubicInterpolate(p[2], y);
+	yy[3] = cubicInterpolate(p[3], y);
+	return cubicInterpolate(yy, x);
+}

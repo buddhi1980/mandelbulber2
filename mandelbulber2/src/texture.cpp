@@ -26,6 +26,7 @@
 #include "files.h"
 #include "system.hpp"
 #include "error_message.hpp"
+#include "common_math.h"
 
 //constructor
 cTexture::cTexture(QString filename, bool beQuiet)
@@ -149,7 +150,7 @@ sRGB8 cTexture::Pixel(double x, double y)
 	sRGB8 black = sRGB8(0, 0, 0);
 	if (x >= 0 && x < width && y >= 0 && y < height - 1.0)
 	{
-		return Interpolation(x, y);
+		return BicubicInterpolation(x, y);
 	}
 	else
 	{
@@ -157,7 +158,7 @@ sRGB8 cTexture::Pixel(double x, double y)
 	}
 }
 
-sRGB8 cTexture::Interpolation(double x, double y)
+sRGB8 cTexture::LinearInterpolation(double x, double y)
 {
 	sRGB8 color;
 	int ix = x;
@@ -175,6 +176,43 @@ sRGB8 cTexture::Interpolation(double x, double y)
 	color.B = (k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry) + k3.B * (1.0 - rx) * ry
 			+ k4.B * (rx * ry));
 	return color;
+}
+
+sRGB8 cTexture::BicubicInterpolation(double x, double y)
+{
+	int ix = x;
+	int iy = y;
+	double rx = (x - ix) + 0.0;
+	double ry = (y - iy) + 0.0;
+
+	double R[4][4], G[4][4], B[4][4];
+
+	for(int yy = 0; yy < 4; yy++)
+	{
+		for(int xx = 0; xx < 4; xx++)
+		{
+			int ixx = ix + xx - 1;
+			int iyy = iy + yy - 1;
+			if(ixx < 0) ixx = 0;
+			if(ixx >= width) ixx = width - 1;
+			if(iyy < 0) iyy = 0;
+			if(iyy >= height) iyy = height - 1;
+			int addess2 = ixx + iyy * width;
+			sRGB8 pixel = bitmap[addess2];
+			R[xx][yy] = pixel.R;
+			G[xx][yy] = pixel.G;
+			B[xx][yy] = pixel.B;
+		}
+	}
+
+	double dR = bicubicInterpolate(R, rx, ry);
+	double dG = bicubicInterpolate(G, rx, ry);
+	double dB = bicubicInterpolate(B, rx, ry);
+	if(dR < 0) dR = 0; if(dR > 255) dR = 255;
+	if(dG < 0) dG = 0; if(dG > 255) dG = 255;
+	if(dB < 0) dB = 0; if(dB > 255) dB = 255;
+
+	return sRGB8(dR, dG, dB);
 }
 
 sRGB8 cTexture::FastPixel(int x, int y)
