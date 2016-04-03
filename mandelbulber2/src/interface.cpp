@@ -2514,6 +2514,13 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode,
 																		 gPar,
 																		 cInterface::write);
+
+				  QList<QVariant> item;
+				  item.append((int) RenderedImage::clickMoveCamera);
+				  int index = mainWindow->ui->comboBox_mouse_click_function->findData(item);
+				  mainWindow->ui->comboBox_mouse_click_function->setCurrentIndex(index);
+				  gMainInterface->renderedImage->setClickMode(item);
+
 					StartRender();
 					break;
 				}
