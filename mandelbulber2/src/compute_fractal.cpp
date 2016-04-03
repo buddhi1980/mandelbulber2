@@ -65,23 +65,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	const cFractal *defaultFractal = fractals.GetFractal(fractalIndex);
 
-	sExtendedAux extendedAux[NUMBER_OF_FRACTALS];
-	int maxFractal = (in.forcedFormulaIndex >= 0) ? in.forcedFormulaIndex : fractals.GetMaxFractalIndex();
-	int minFractal = (in.forcedFormulaIndex >= 0) ? in.forcedFormulaIndex : 0;
-	for (int i = minFractal; i <= maxFractal; i++)
-	{
-		extendedAux[i].r_dz = 1.0;
-		extendedAux[i].r = r;
-		extendedAux[i].color = 1.0;
-		extendedAux[i].actualScale = fractals.GetFractal(i)->mandelbox.scale;
-		extendedAux[i].DE = 1.0;
-		extendedAux[i].c = c;
-		extendedAux[i].cw = 0;
-		extendedAux[i].newR = 1e+20;
-		extendedAux[i].axisBias = 1e+20;
-		extendedAux[i].orbitTraps = 1e+20;
-		extendedAux[i].transformSampling = 1e+20;
-	}
+	sExtendedAux extendedAux;
+
+	extendedAux.r_dz = 1.0;
+	extendedAux.r = r;
+	extendedAux.color = 1.0;
+	extendedAux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale;
+	extendedAux.DE = 1.0;
+	extendedAux.c = c;
+	extendedAux.cw = 0;
+	extendedAux.newR = 1e+20;
+	extendedAux.axisBias = 1e+20;
+	extendedAux.orbitTraps = 1e+20;
+	extendedAux.transformSampling = 1e+20;
 
 	//main iteration loop
 	int i;
@@ -109,21 +105,20 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		//for optimized DE calculation
 		if(fractals.UseOptimizedDE())
 		{
-			extendedAux[sequence] = extendedAux[lastSequnce];
 			lastSequnce = sequence;
 		}
 
 		//foldings
 		if (in.common.foldings.boxEnable)
 		{
-			BoxFolding(z, &in.common.foldings, extendedAux[sequence]);
+			BoxFolding(z, &in.common.foldings, extendedAux);
 			r = z.Length();
 		}
 
 		if (in.common.foldings.sphericalEnable)
 		{
-			extendedAux[sequence].r = r;
-		  SphericalFolding(z, &in.common.foldings, extendedAux[sequence]);
+			extendedAux.r = r;
+		  SphericalFolding(z, &in.common.foldings, extendedAux);
 			r = z.Length();
 		}
 
@@ -133,7 +128,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		//temporary vector for weight function
 		CVector3 tempZ = z;
 
-		extendedAux[sequence].r = r;
+		extendedAux.r = r;
 
 		if (!fractals.IsHybrid() || fractals.GetWeight(sequence) > 0.0)
 		{
@@ -142,42 +137,42 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				case mandelbulb:
 				{
-					MandelbulbIteration(z, fractal, extendedAux[sequence]);
+					MandelbulbIteration(z, fractal, extendedAux);
 					break;
 				}
 				case mandelbulb2:
 				{
-					Mandelbulb2Iteration(z, extendedAux[sequence]);
+					Mandelbulb2Iteration(z, extendedAux);
 					break;
 				}
 				case mandelbulb3:
 				{
-					Mandelbulb3Iteration(z, extendedAux[sequence]);
+					Mandelbulb3Iteration(z, extendedAux);
 					break;
 				}
 				case mandelbulb4:
 				{
-					Mandelbulb4Iteration(z, fractal, extendedAux[sequence]);
+					Mandelbulb4Iteration(z, fractal, extendedAux);
 					break;
 				}
 				case fast_mandelbulb_power2:
 				{
-					MandelbulbPower2Iteration(z, extendedAux[sequence]);
+					MandelbulbPower2Iteration(z, extendedAux);
 					break;
 				}
 				case xenodreambuie:
 				{
-					XenodreambuieIteration(z, fractal, extendedAux[sequence]);
+					XenodreambuieIteration(z, fractal, extendedAux);
 					break;
 				}
 				case mandelbox:
 				{
-					MandelboxIteration(z, fractal, extendedAux[sequence]);
+					MandelboxIteration(z, fractal, extendedAux);
 					break;
 				}
 				case smoothMandelbox:
 				{
-					SmoothMandelboxIteration(z, fractal, extendedAux[sequence]);
+					SmoothMandelboxIteration(z, fractal, extendedAux);
 					break;
 				}
 				case boxFoldBulbPow2:
@@ -187,37 +182,37 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case menger_sponge:
 				{
-					MengerSpongeIteration(z, extendedAux[sequence]);
+					MengerSpongeIteration(z, extendedAux);
 					break;
 				}
 				case kaleidoscopicIFS:
 				{
-					KaleidoscopicIFSIteration(z, fractal, extendedAux[sequence]);
+					KaleidoscopicIFSIteration(z, fractal, extendedAux);
 					break;
 				}
 				case aexion:
 				{
-					AexionIteration(z, w, i, fractal, extendedAux[sequence]);
+					AexionIteration(z, w, i, fractal, extendedAux);
 					break;
 				}
 				case hypercomplex:
 				{
-					HypercomplexIteration(z, w, extendedAux[sequence]);
+					HypercomplexIteration(z, w, extendedAux);
 					break;
 				}
 				case quaternion:
 				{
-					QuaternionIteration(z, w, extendedAux[sequence]);
+					QuaternionIteration(z, w, extendedAux);
 					break;
 				}
 				case benesi:
 				{
-					BenesiIteration(z, c, extendedAux[sequence]);
+					BenesiIteration(z, c, extendedAux);
 					break;
 				}
 				case bristorbrot:
 				{
-					BristorbrotIteration(z, extendedAux[sequence]);
+					BristorbrotIteration(z, extendedAux);
 					break;
 				}
 				case ides:
@@ -232,7 +227,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case buffalo:
 				{
-					BuffaloIteration(z, fractal, extendedAux[sequence]);
+					BuffaloIteration(z, fractal, extendedAux);
 					break;
 				}
 				case quickdudley:
@@ -257,69 +252,69 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
         case msltoeDonut:
 				{
-          MsltoeDonutIteration(z, fractal, extendedAux[sequence]);
+          MsltoeDonutIteration(z, fractal, extendedAux);
 					break;
 				}
         case msltoesym2Mod:
 				{
-          MsltoeSym2ModIteration(z, c, fractal, extendedAux[sequence]);
+          MsltoeSym2ModIteration(z, c, fractal, extendedAux);
 					break;
 				}
         case msltoesym3Mod:
         {
-          MsltoeSym3ModIteration(z, c, i, fractal, extendedAux[sequence]);
+          MsltoeSym3ModIteration(z, c, i, fractal, extendedAux);
           break;
         }
         case msltoesym3Mod2:
         {
-          MsltoeSym3Mod2Iteration(z, c, fractal, extendedAux[sequence]);
+          MsltoeSym3Mod2Iteration(z, c, fractal, extendedAux);
           break;
         }
         case msltoesym3Mod3:
         {
-          MsltoeSym3Mod3Iteration(z, c, i, fractal, extendedAux[sequence]);
+          MsltoeSym3Mod3Iteration(z, c, i, fractal, extendedAux);
           break;
         }
         case msltoesym4Mod:
         {
-          MsltoeSym4ModIteration(z, c, fractal, extendedAux[sequence]);
+          MsltoeSym4ModIteration(z, c, fractal, extendedAux);
           break;
         }
         case msltoeToroidal:
         {
-          MsltoeToroidalIteration(z, fractal, extendedAux[sequence]);
+          MsltoeToroidalIteration(z, fractal, extendedAux);
           break;
         }
 
 
 				case generalizedFoldBox:
 				{
-					GeneralizedFoldBoxIteration(z, fractal, extendedAux[sequence]);
+					GeneralizedFoldBoxIteration(z, fractal, extendedAux);
 					break;
 				}
         case aboxMod1:
         {
-          AboxMod1Iteration(z, fractal, extendedAux[sequence]);
+          AboxMod1Iteration(z, fractal, extendedAux);
           break;
         }
         case aboxMod2:
         {
-          AboxMod2Iteration(z, fractal, extendedAux[sequence]);
+          AboxMod2Iteration(z, fractal, extendedAux);
           break;
         }
         case aboxModKali:
         {
-          AboxModKaliIteration(z, fractal, extendedAux[sequence]);
+          AboxModKaliIteration(z, fractal, extendedAux);
           break;
         }
         case aboxModKaliEiffie:
         {
-          AboxModKaliEiffieIteration(z, c, i, fractal, extendedAux[sequence]);
+          AboxModKaliEiffieIteration(z, c, i, fractal, extendedAux);
           break;
         }
         case aboxVSIcen1:
         {
-          AboxVSIcen1Iteration(z, c, fractal, extendedAux[sequence]);
+          AboxVSIcen1Iteration(z, c, fractal, extendedAux);
           break;
         }
         case aexionOctopusMod:
@@ -329,57 +324,57 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case amazingSurf:
         {
-          AmazingSurfIteration(z, fractal, extendedAux[sequence]);
+          AmazingSurfIteration(z, fractal, extendedAux);
           break;
         }
         case amazingSurfMod1:
         {
-          AmazingSurfMod1Iteration(z, fractal, extendedAux[sequence]);
+          AmazingSurfMod1Iteration(z, fractal, extendedAux);
           break;
         }
         case benesiPineTree:
         {
-          BenesiPineTreeIteration(z, c, fractal, extendedAux[sequence]);
+          BenesiPineTreeIteration(z, c, fractal, extendedAux);
           break;
         }
         case benesiT1PineTree:
         {
-          BenesiT1PineTreeIteration(z, c, i, fractal, extendedAux[sequence]);
+          BenesiT1PineTreeIteration(z, c, i, fractal, extendedAux);
           break;
         }
         case eiffieMsltoe:
         {
-          EiffieMsltoeIteration(z, c, fractal, extendedAux[sequence]);
+          EiffieMsltoeIteration(z, c, fractal, extendedAux);
           break;
         }
         case foldBoxMod1:
         {
-          FoldBoxMod1Iteration(z, i, fractal, extendedAux[sequence]);
+          FoldBoxMod1Iteration(z, i, fractal, extendedAux);
           break;
         }
         case iqBulb:
         {
-          IQbulbIteration(z, fractal, extendedAux[sequence]);
+          IQbulbIteration(z, fractal, extendedAux);
           break;
         }
         case kalisets1:
         {
-          Kalisets1Iteration(z, c, fractal, extendedAux[sequence]);
+          Kalisets1Iteration(z, c, fractal, extendedAux);
           break;
         }
         case mandelbulbMulti:
         {
-          MandelbulbMultiIteration(z, fractal, extendedAux[sequence]);
+          MandelbulbMultiIteration(z, fractal, extendedAux);
           break;
         }
         case mandelbulbVaryPowerV1:
         {
-          MandelbulbVaryPowerV1Iteration(z, i, fractal, extendedAux[sequence]);
+          MandelbulbVaryPowerV1Iteration(z, i, fractal, extendedAux);
           break;
         }
         case mengerMod1:
         {
-          MengerMod1Iteration(z, i, fractal, extendedAux[sequence]);
+          MengerMod1Iteration(z, i, fractal, extendedAux);
           break;
         }
         case riemannSphereMsltoe:
@@ -399,7 +394,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case quaternion3D:
         {
-          Quaternion3DIteration(z, fractal, extendedAux[sequence]);
+          Quaternion3DIteration(z, fractal, extendedAux);
           break;
         }
 
@@ -448,17 +443,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case transfBenesiT1:
         {
-          TransformBenesiT1Iteration(z, fractal, extendedAux[sequence]);
+          TransformBenesiT1Iteration(z, fractal, extendedAux);
           break;
         }
         case transfBenesiT1Mod:
         {
-          TransformBenesiT1ModIteration(z, fractal, extendedAux[sequence]);
+          TransformBenesiT1ModIteration(z, fractal, extendedAux);
           break;
         }
         case transfBenesiT2:
         {
-          TransformBenesiT2Iteration(z, fractal, extendedAux[sequence]);
+          TransformBenesiT2Iteration(z, fractal, extendedAux);
           break;
         }
         case transfBenesiT3:
@@ -498,12 +493,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case transfBoxFold:
         {
-          TransformBoxFoldIteration(z, fractal, extendedAux[sequence]);
+          TransformBoxFoldIteration(z, fractal, extendedAux);
           break;
         }
         case transfBoxFoldXYZ:
         {
-          TransformBoxFoldXYZIteration(z, fractal, extendedAux[sequence]);
+          TransformBoxFoldXYZIteration(z, fractal, extendedAux);
           break;
         }
 
@@ -539,7 +534,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case transfMultipleAngle:
         {
-          TransformMultipleAngle(z, fractal, extendedAux[sequence]);
+          TransformMultipleAngle(z, fractal, extendedAux);
           break;
         }
         case transfNegFabsAddConstant:
@@ -559,17 +554,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case transfScale:
         {
-        	TransformScaleIteration(z, fractal, extendedAux[sequence]);
+        	TransformScaleIteration(z, fractal, extendedAux);
         	break;
         }
         case transfScaleVaryV1:
         {
-          TransformScaleVaryV1Iteration(z, i, fractal, extendedAux[sequence]);
+          TransformScaleVaryV1Iteration(z, i, fractal, extendedAux);
           break;
         }
         case transfScale3D:
         {
-        	TransformScale3DIteration(z, fractal, extendedAux[sequence]);
+        	TransformScale3DIteration(z, fractal, extendedAux);
         	break;
         }
 				case platonicSolid:
@@ -579,7 +574,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case transfRPower:
 				{
-					TransformPowerR(z, fractal, extendedAux[sequence]);
+					TransformPowerR(z, fractal, extendedAux);
 					break;
 				}
         case transfSphereInvC:
@@ -589,22 +584,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case transfSphericalOffset:
         {
-          TransformSphericalOffsetIteration(z, fractal, extendedAux[sequence]);
+          TransformSphericalOffsetIteration(z, fractal, extendedAux);
           break;
         }
         case transfSphericalFold:
         {
-          TransformSphericalFoldIteration(z, fractal, extendedAux[sequence]);
+          TransformSphericalFoldIteration(z, fractal, extendedAux);
           break;
         }
         case transfSphericalPwrFold:
         {
-          TransformSphericalPwrFoldIteration(z, fractal, extendedAux[sequence]);
+          TransformSphericalPwrFoldIteration(z, fractal, extendedAux);
           break;
         }
         case transfSurfFoldMulti:
         {
-          TransformSurfFoldMultiIteration(z, fractal, extendedAux[sequence]);
+          TransformSurfFoldMultiIteration(z, fractal, extendedAux);
           break;
         }
         case transfZvectorAxisSwap:
@@ -624,7 +619,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case mandelboxVaryScale4D:
         {
           CVector4 z4D(z, w);
-          MandelboxVaryScale4DIteration(z4D, i, fractal, extendedAux[sequence]);
+          MandelboxVaryScale4DIteration(z4D, i, fractal, extendedAux);
           z = z4D.GetXYZ();
           w = z4D.w;
           break;
@@ -640,7 +635,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfBoxFold4D:
         {
           CVector4 z4D(z, w);
-          TransformBoxFold4DIteration(z4D, fractal, extendedAux[sequence]);
+          TransformBoxFold4DIteration(z4D, fractal, extendedAux);
           z = z4D.GetXYZ();
           w = z4D.w;
           break;
@@ -672,7 +667,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfScale4D:
         {
           CVector4 z4D(z, w);
-          TransformScale4DIteration(z4D, fractal, extendedAux[sequence]);
+          TransformScale4DIteration(z4D, fractal, extendedAux);
           z = z4D.GetXYZ();
           w = z4D.w;
           break;
@@ -680,7 +675,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfSphericalFold4D:
         {
           CVector4 z4D(z, w);
-          TransformSphericalFold4DIteration(z4D, fractal, extendedAux[sequence]);
+          TransformSphericalFold4DIteration(z4D, fractal, extendedAux);
           z = z4D.GetXYZ();
           w = z4D.w;
           break;
@@ -844,15 +839,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		if (fractals.IsHybrid())
 		{
-			if(extendedAux[sequence].r_dz > 0)
+			if(extendedAux.r_dz > 0)
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
-					out->distance = r / fabs(extendedAux[sequence].DE);
+					out->distance = r / fabs(extendedAux.DE);
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
 				{
-					out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+					out->distance = 0.5 * r * log(r) / extendedAux.r_dz;
 				}
 			}
 			else
@@ -889,8 +884,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case quaternion3D:
 				case xenodreambuie:
 				{
-					if(extendedAux[sequence].r_dz > 0)
-						out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+					if(extendedAux.r_dz > 0)
+						out->distance = 0.5 * r * log(r) / extendedAux.r_dz;
 					else
 						out->distance = r;
 					break;
@@ -909,8 +904,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case kalisets1:
         case aboxVSIcen1:
         {
-					if(extendedAux[sequence].r_dz > 0)
-						out->distance = r / fabs(extendedAux[sequence].DE);
+					if(extendedAux.r_dz > 0)
+						out->distance = r / fabs(extendedAux.DE);
 					else
 						out->distance = r;
 					break;
@@ -919,8 +914,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case menger_sponge:
         case mengerMod1:
         {
-					if(extendedAux[sequence].r_dz > 0)
-						out->distance = (r - 2.0) / (extendedAux[sequence].DE);
+					if(extendedAux.r_dz > 0)
+						out->distance = (r - 2.0) / (extendedAux.DE);
 					else
 						out->distance = r;
 					break;
@@ -941,11 +936,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 			double mboxColor = 0.0;
 			double mboxDE = 1.0;
-			for (int h = minFractal; h <= maxFractal; h++)
-			{
-				mboxColor += extendedAux[h].color;
-				mboxDE *= extendedAux[h].DE; //mboxDE *= mandelboxAux[h].mboxDE + extendedAux[h].color;
-			}
+			mboxColor = extendedAux.color;
+			mboxDE = extendedAux.DE;
 
 			double r2 = r / fabs(mboxDE);
 			if (r2 > 20) r2 = 20;
@@ -963,7 +955,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
 				case foldBoxMod1:
-					out->colorIndex = extendedAux[fractalIndex].color * 100.0
+					out->colorIndex = extendedAux.color * 100.0
 							+ r * defaultFractal->mandelbox.color.factorR
 							+ ((in.common.fractalColoringAlgorithm != fractalColoringStandard) ? minimumR
 									* 1000.0 :
@@ -984,7 +976,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 
 				case msltoeDonut:
-					out->colorIndex = extendedAux[fractalIndex].color * 2000.0 / i;
+					out->colorIndex = extendedAux.color * 2000.0 / i;
 					break;
 
 				default:
