@@ -2510,9 +2510,11 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				case RenderedImage::clickGetJuliaConstant:
 				{
 					gPar->Set("julia_c", point);
+					mainWindow->ui->groupCheck_julia_mode->setChecked(true);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode,
 																		 gPar,
 																		 cInterface::write);
+					StartRender();
 					break;
 				}
 				case RenderedImage::clickPlacePrimitive:
