@@ -292,12 +292,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				double lowestLightDist = 1e10;
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					cLights::sLight light = data->lights.GetLight(i);
-					if (light.enabled)
+					const cLights::sLight* light = data->lights.GetLight(i);
+					if (light->enabled)
 					{
-						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light.position;
+						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light->position;
 						double lightDist = lightDistVect.Length();
-						double lightSize = sqrt(light.intensity) * params->auxLightVisibilitySize;
+						double lightSize = sqrt(light->intensity) * params->auxLightVisibilitySize;
 						double distToLightSurface = lightDist - lightSize;
 						if (distToLightSurface < 0.0) distToLightSurface = 0.0;
 						if (distToLightSurface <= lowestLightDist)
@@ -317,19 +317,19 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					cLights::sLight light = data->lights.GetLight(i);
-					if (light.enabled)
+					const cLights::sLight* light = data->lights.GetLight(i);
+					if (light->enabled)
 					{
-						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light.position;
+						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light->position;
 						double lightDist = lightDistVect.Length();
-						double lightSize = sqrt(light.intensity) * params->auxLightVisibilitySize;
+						double lightSize = sqrt(light->intensity) * params->auxLightVisibilitySize;
 						double r2 = lightDist / lightSize;
 						double bellFunction = 1.0 / (1.0 + pow(r2, 4.0));
 						double lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
 
-						output.R += lightDensity * light.colour.R / 65536.0;
-						output.G += lightDensity * light.colour.G / 65536.0;
-						output.B += lightDensity * light.colour.B / 65536.0;
+						output.R += lightDensity * light->colour.R / 65536.0;
+						output.G += lightDensity * light->colour.G / 65536.0;
+						output.B += lightDensity * light->colour.B / 65536.0;
 						output.A += lightDensity;
 					}
 				}
@@ -372,20 +372,20 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			}
 			if (i > 0)
 			{
-				cLights::sLight light = data->lights.GetLight(i - 1);
-				if (light.enabled && params->volumetricLightEnabled[i])
+				const cLights::sLight* light = data->lights.GetLight(i - 1);
+				if (light->enabled && params->volumetricLightEnabled[i])
 				{
-					CVector3 d = light.position - point;
+					CVector3 d = light->position - point;
 					double distance = d.Length();
 					double distance2 = distance * distance;
 					CVector3 lightVectorTemp = d;
 					lightVectorTemp.Normalize();
 					double lightShadow = AuxShadow(input2, distance, lightVectorTemp);
-					output.R += lightShadow * light.colour.R / 65536.0 * params->volumetricLightIntensity[i]
+					output.R += lightShadow * light->colour.R / 65536.0 * params->volumetricLightIntensity[i]
 							* step / distance2;
-					output.G += lightShadow * light.colour.G / 65536.0 * params->volumetricLightIntensity[i]
+					output.G += lightShadow * light->colour.G / 65536.0 * params->volumetricLightIntensity[i]
 							* step / distance2;
-					output.B += lightShadow * light.colour.B / 65536.0 * params->volumetricLightIntensity[i]
+					output.B += lightShadow * light->colour.B / 65536.0 * params->volumetricLightIntensity[i]
 							* step / distance2;
 					output.A += lightShadow * params->volumetricLightIntensity[i] * step / distance2;
 				}
@@ -488,19 +488,19 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 					if (i > 0)
 					{
-						cLights::sLight light = data->lights.GetLight(i - 1);
-						if (light.enabled)
+						const cLights::sLight* light = data->lights.GetLight(i - 1);
+						if (light->enabled)
 						{
-							CVector3 d = light.position - point;
+							CVector3 d = light->position - point;
 							double distance = d.Length();
 							double distance2 = distance * distance;
 							CVector3 lightVectorTemp = d;
 							lightVectorTemp.Normalize();
 							double lightShadow = AuxShadow(input2, distance, lightVectorTemp);
-							double intensity = light.intensity * 100.0;
-							newColour.R += lightShadow * light.colour.R / 65536.0 / distance2 * intensity;
-							newColour.G += lightShadow * light.colour.G / 65536.0 / distance2 * intensity;
-							newColour.B += lightShadow * light.colour.B / 65536.0 / distance2 * intensity;
+							double intensity = light->intensity * 100.0;
+							newColour.R += lightShadow * light->colour.R / 65536.0 / distance2 * intensity;
+							newColour.G += lightShadow * light->colour.G / 65536.0 / distance2 * intensity;
+							newColour.B += lightShadow * light->colour.B / 65536.0 / distance2 * intensity;
 						}
 					}
 
@@ -960,12 +960,12 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 #endif
 }
 
-sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, cLights::sLight light,
+sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLights::sLight* light,
 		int number, sRGBAfloat *outSpecular)
 {
 	sRGBAfloat shading;
 
-	CVector3 d = light.position - input.point;
+	CVector3 d = light->position - input.point;
 
 	double distance = d.Length();
 
@@ -973,7 +973,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, cLights::s
 	CVector3 lightVector = d;
 	lightVector.Normalize();
 
-	double intensity = 100.0 * light.intensity / (distance * distance) / number;
+	double intensity = 100.0 * light->intensity / (distance * distance) / number;
 	double shade = input.normal.Dot(lightVector);
 	if (shade < 0) shade = 0;
 	shade = (1.0 - input.material->shading) + shade * input.material->shading;
@@ -1006,13 +1006,13 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, cLights::s
 		}
 	}
 
-	shading.R = shade * light.colour.R / 65536.0;
-	shading.G = shade * light.colour.G / 65536.0;
-	shading.B = shade * light.colour.B / 65536.0;
+	shading.R = shade * light->colour.R / 65536.0;
+	shading.G = shade * light->colour.G / 65536.0;
+	shading.B = shade * light->colour.B / 65536.0;
 
-	outSpecular->R = shade2 * light.colour.R / 65536.0;
-	outSpecular->G = shade2 * light.colour.G / 65536.0;
-	outSpecular->B = shade2 * light.colour.B / 65536.0;
+	outSpecular->R = shade2 * light->colour.R / 65536.0;
+	outSpecular->G = shade2 * light->colour.G / 65536.0;
+	outSpecular->B = shade2 * light->colour.B / 65536.0;
 
 	return shading;
 }
@@ -1027,8 +1027,8 @@ sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfl
 	sRGBAfloat specularAuxSum;
 	for (int i = 0; i < numberOfLights; i++)
 	{
-		cLights::sLight light = data->lights.GetLight(i);
-		if (i < params->auxLightNumber || light.enabled)
+		const cLights::sLight* light = data->lights.GetLight(i);
+		if (i < params->auxLightNumber || light->enabled)
 		{
 			sRGBAfloat specularAuxOutTemp;
 			sRGBAfloat shadeAux = LightShading(input, light, numberOfLights, &specularAuxOutTemp);

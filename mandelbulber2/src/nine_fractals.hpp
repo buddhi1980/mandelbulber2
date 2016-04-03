@@ -58,7 +58,8 @@ private:
 	bool useOptimizedDE;
 	int maxFractalIndex;
 	int maxN;
-	QVector<int> hybridSequence;
+	int* hybridSequence;
+	int hybridSequenceLength;
 
 	double formulaWeight[NUMBER_OF_FRACTALS];
 	fractal::enumDEFunctionType DEFunctionType[NUMBER_OF_FRACTALS];

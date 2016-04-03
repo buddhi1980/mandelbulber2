@@ -144,6 +144,7 @@ void handle_winch(int sig)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	systemData.terminalWidth = w.ws_col;
 	if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
+	if (systemData.terminalWidth >= 200) systemData.terminalWidth = 200;
 	signal(SIGWINCH, handle_winch);
 #endif
 }

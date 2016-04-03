@@ -40,7 +40,7 @@ cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_f
 	lights = NULL;
 	numberOfLights = 0;
 	lightsReady = false;
-
+	dummyLight = sLight();
 	Set(_params, _fractal);
 }
 
@@ -149,14 +149,13 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	WriteLog("Preparation of lights finished");
 }
 
-cLights::sLight cLights::GetLight(const int index) const
+cLights::sLight* cLights::GetLight(const int index) const
 {
-	sLight light;
 	if (lightsReady)
 	{
 		if (index < numberOfLights)
 		{
-			light = lights[index];
+			return &lights[index];
 		}
 		else
 		{
@@ -167,7 +166,7 @@ cLights::sLight cLights::GetLight(const int index) const
 	{
 		qCritical() << "Lights not initialized";
 	}
-	return light;
+	return (cLights::sLight*) &dummyLight;
 }
 
 void cLights::Copy(const cLights& _lights)

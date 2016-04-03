@@ -36,12 +36,14 @@ cNineFractals::~cNineFractals()
 		}
 		delete[] fractals;
 	}
+	if (hybridSequence) delete[] hybridSequence;
+	hybridSequence = NULL;
 }
 
 cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
 {
 	fractals = new cFractal*[NUMBER_OF_FRACTALS];
-
+	hybridSequence = NULL;
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
@@ -194,8 +196,10 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 {
-	hybridSequence.clear();
-
+	if (hybridSequence) delete[] hybridSequence;
+	hybridSequence = NULL;
+	hybridSequenceLength = maxN * 5;
+	hybridSequence = new int[hybridSequenceLength];
 	int repeatFrom = generalPar->Get<int>("repeat_from");
 
 	int fractalNo = 0;
@@ -207,7 +211,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 		counts[i] = generalPar->Get<int>("formula_iterations", i + 1);
 	}
 
-	for (int i = 0; i < maxN * 5; i++)
+	for (int i = 0; i < hybridSequenceLength; i++)
 	{
 		if (isHybrid)
 		{
@@ -221,7 +225,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 				if (fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
 				repeatCount++;
 			}
-			hybridSequence.append(fractalNo);
+			hybridSequence[i] = fractalNo;
 			if(fractals[fractalNo]->formula != fractal::none && fractalNo > maxFractalIndex) maxFractalIndex = fractalNo;
 
 			if (counter >= counts[fractalNo])
@@ -233,14 +237,14 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 		}
 		else
 		{
-			hybridSequence.append(0);
+			hybridSequence[i] = 0;
 		}
 	}
 }
 
 int cNineFractals::GetSequence(const int i) const
 {
-	if (i < hybridSequence.size())
+	if (i < hybridSequenceLength)
 	{
 		return hybridSequence[i];
 	}
