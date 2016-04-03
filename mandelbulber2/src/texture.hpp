@@ -45,7 +45,8 @@ public:
 	void FromQByteArray(QByteArray buffer);
 
 private:
-	sRGB8 Interpolation(double x, double y);
+	sRGB8 LinearInterpolation(double x, double y);
+	sRGB8 BicubicInterpolation(double x, double y);
 	sRGB8 *bitmap;
 	int width;
 	int height;

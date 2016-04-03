@@ -108,4 +108,7 @@ inline double LimitAngle(double angle)
 //Smooth transition between two vectors with vector length control
 template<typename T> T SmoothCVector(const T &v1, const T &v2, double k);
 
+double cubicInterpolate(double p[4], double x);
+double bicubicInterpolate(double p[4][4], double x, double y);
+
 #endif /* COMMON_MATH_H_ */
