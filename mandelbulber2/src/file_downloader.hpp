@@ -36,14 +36,15 @@ Q_OBJECT
 public:
 	cFileDownloader(QString sourceBaseURL, QString targetDir);
 	~cFileDownloader();
-	void startDownload();
+	void downloadFilelist();
 
 private slots:
 	void filelistDownloaded();
-	void thumbnailDownloaded();
+	void fileDownloaded();
 
 signals:
-	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateProgressAndStatus(
+			const QString &text, const QString &progressText, double progress);
 
 private:
 	QString sourceBaseURL;
@@ -55,7 +56,7 @@ private:
 	int cntFilesToDownload;
 	int cntFilesDownloaded;
 	bool done;
-	bool currentThumbNailFinished;
+	bool currentFileFinished;
 };
 
 #endif /* FILE_DOWNLOADER_HPP_ */

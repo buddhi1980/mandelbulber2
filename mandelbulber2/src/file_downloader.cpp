@@ -30,21 +30,35 @@ cFileDownloader::cFileDownloader(QString sourceBaseURL, QString targetDir) : QOb
 	this->targetDir = targetDir;
 	network = new QNetworkAccessManager();
 	done = true;
-	currentThumbNailFinished = true;
+	currentFileFinished = true;
+	cntFilesAlreadyExists = 0;
+	cntFilesToDownload = 0;
+	cntFilesDownloaded = 0;
+	tempFile = NULL;
 }
 
 cFileDownloader::~cFileDownloader()
 {
-
+	if(tempFile)
+	{
+		delete tempFile;
+		tempFile = NULL;
+	}
 }
 
-void cFileDownloader::startDownload()
+void cFileDownloader::downloadFilelist()
 {
+	emit updateProgressAndStatus(
+				tr("File downloader"), tr("retrieving filelist"), 0.0
+	);
+
 	done = false;
-	currentThumbNailFinished = false;
-	QNetworkReply *reply = network->get(QNetworkRequest(QUrl(sourceBaseURL + "/filelist.txt")));
+	currentFileFinished = false;
+	QNetworkReply *reply = network->get(
+				QNetworkRequest(QUrl(sourceBaseURL + "/filelist.txt")));
 	connect(reply, SIGNAL(finished()),
 					this, SLOT(filelistDownloaded()));
+
 	while(!done)
 	{
 		Wait(100);
@@ -53,20 +67,18 @@ void cFileDownloader::startDownload()
 
 	emit updateProgressAndStatus(
 		tr("File downloader"),
-		tr("finished, downloaded %1 thumbnails").arg(this->cntFilesDownloaded),
+		tr("finished, downloaded %1 files").arg(this->cntFilesDownloaded),
 		1.0
 	);
 }
 
 void cFileDownloader::filelistDownloaded()
 {
-	// read filelist content
+	// read filelist content and determine files to download
 	QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
 	QString fileListContent = reply->readAll();
 	QStringList tempList = fileListContent.split("\n");
-	this->cntFilesAlreadyExists = 0;
-	this->cntFilesToDownload = 0;
-	this->cntFilesDownloaded = 0;
+
 	for(int i = 0; i < tempList.size(); i++){
 		QString temp = tempList.at(i).trimmed();
 		if(temp == "" || temp.startsWith("#")) continue;
@@ -78,31 +90,38 @@ void cFileDownloader::filelistDownloaded()
 		this->filesToDownload.append(temp);
 	}
 
-	// process all thumbnails
+	// process all files to download
 	for(int i = 0; i < this->filesToDownload.size(); i++){
-		QString thumbnail = this->filesToDownload.at(i);
-		QNetworkReply *reply = network->get(QNetworkRequest(QUrl(sourceBaseURL + "/" + thumbnail)));
-		tempFile = new QFile(this->targetDir + QDir::separator() + thumbnail);
+		QString file = this->filesToDownload.at(i);
+		QNetworkReply *reply = network->get(
+					QNetworkRequest(QUrl(sourceBaseURL + "/" + file)));
+		if(tempFile)
+		{
+			delete tempFile;
+			tempFile = NULL;
+		}
+		tempFile = new QFile(this->targetDir + QDir::separator() + file);
 		if(!tempFile->open(QIODevice::WriteOnly)){
-			qCritical() << "could not open thumbnail file for writing!";
+			qCritical() << "could not open file for writing!";
 		}
 		else
 		{
 			connect(reply, SIGNAL(finished()),
-							this, SLOT(thumbnailDownloaded()));
-			while(!currentThumbNailFinished)
+							this, SLOT(fileDownloaded()));
+			while(!currentFileFinished)
 			{
 				Wait(10);
 				gApplication->processEvents();
 			}
 		}
-		currentThumbNailFinished = false;
+		currentFileFinished = false;
 	}
 	done = true;
 }
 
-void cFileDownloader::thumbnailDownloaded()
+void cFileDownloader::fileDownloaded()
 {
+	// write downloaded data to file and emit progress
 	QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
 	tempFile->write(reply->readAll());
 	tempFile->flush();
@@ -118,5 +137,5 @@ void cFileDownloader::thumbnailDownloaded()
 					QString::number(this->cntFilesToDownload)),
 		1.0 * this->cntFilesDownloaded / this->cntFilesToDownload
 	);
-	currentThumbNailFinished = true;
+	currentFileFinished = true;
 }
