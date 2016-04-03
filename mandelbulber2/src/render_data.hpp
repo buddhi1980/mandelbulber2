@@ -31,6 +31,7 @@
 #include "statistics.h"
 #include "rendering_configuration.hpp"
 #include "material.h"
+#include "object_data.hpp"
 
 struct sRenderData
 {
@@ -53,6 +54,7 @@ struct sRenderData
 	cRenderingConfiguration configuration;
 
 	QMap<int, cMaterial> materials; // 'int' is an ID
+	QVector<cObjectData> objectData;
 };
 
 #endif /* RENDER_DATA_HPP_ */

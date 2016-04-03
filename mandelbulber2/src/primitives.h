@@ -27,24 +27,8 @@
 #include "color_structures.hpp"
 #include "QtCore"
 #include "parameters.hpp"
-
-namespace fractal
-{
-enum enumObjectType
-{
-	objNone = -1,
-	objFractal = 0,
-	objPlane = 1,
-	objWater = 2,
-	objSphere = 3,
-	objBox = 4,
-	objRectangle = 5,
-	objCircle = 6,
-	objCone = 7,
-	objCylinder = 8,
-	objTorus = 9
-};
-}
+#include "object_data.hpp"
+#include "object_types.hpp"
 
 struct sPrimitiveItem
 {
@@ -58,14 +42,10 @@ struct sPrimitiveItem
 	QString name;
 };
 
-struct sPrimitiveBasic
+struct sPrimitiveBasic : cObjectData
 {
 	bool enable;
-	CVector3 position;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
-	double reflect;
-	sRGB color;
+	int objectId;
 };
 
 struct sPrimitivePlane: sPrimitiveBasic
@@ -145,9 +125,9 @@ class cPrimitives
 	//some of functions for primitives were taken from http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
 
 public:
-	cPrimitives(const cParameterContainer *par);
+	cPrimitives(const cParameterContainer *par, QVector<cObjectData> *obejctData = NULL);
 	double TotalDistance(CVector3 point, double fractalDistance,
-			fractal::enumObjectType *closestObjectType, sRGB *objectColor, double *objectReflect) const;
+			int *closestObjectId) const;
 
 private:
 	QVector<sPrimitiveBox> boxes;

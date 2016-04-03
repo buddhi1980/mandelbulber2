@@ -72,7 +72,7 @@ enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 	return type;
 }
 
-cPrimitives::cPrimitives(const cParameterContainer *par)
+cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *objectData)
 {
 	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) started");
 	isAnyPrimitive = false;
@@ -124,10 +124,17 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.enable = par->Get<bool>(item.name + "_enabled");
 				object.empty = par->Get<bool>(item.name + "_empty");
 				object.position = par->Get<CVector3>(item.name + "_position");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				object.size = CVector3(1.0, 1.0, 1.0);
+				object.objectType = objPlane;
+				if(objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				planes.append(object);
 				break;
 			}
@@ -139,11 +146,17 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.size = par->Get<CVector3>(item.name + "_size");
 				object.rounding = par->Get<double>(item.name + "_rounding");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
 				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				object.objectType = objBox;
+				if(objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				boxes.append(object);
 				break;
 			}
@@ -154,11 +167,18 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.empty = par->Get<bool>(item.name + "_empty");
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.radius = par->Get<double>(item.name + "_radius");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
 				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				object.size = CVector3(object.radius * 2.0, object.radius * 2.0, object.radius * 2.0);
+				object.objectType = objSphere;
+				if(objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				spheres.append(object);
 				break;
 			}
@@ -168,15 +188,22 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.enable = par->Get<bool>(item.name + "_enabled");
 				object.empty = par->Get<bool>(item.name + "_empty");
 				object.position = par->Get<CVector3>(item.name + "_position");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
 				object.amplitude = par->Get<double>(item.name + "_amplitude");
 				object.length = par->Get<double>(item.name + "_length");
 				object.animSpeed = par->Get<double>(item.name + "_anim_speed");
 				object.iterations = par->Get<int>(item.name + "_iterations");
 				object.animFrame = par->Get<int>("frame_no");
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				object.size = CVector3(1.0, 1.0, 1.0);
+				object.objectType = objWater;
+				if(objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				waters.append(object);
 				break;
 			}
@@ -189,13 +216,20 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.radius = par->Get<double>(item.name + "_radius");
 				object.height = par->Get<double>(item.name + "_height");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
 				object.repeat = par->Get<CVector3>(item.name + "_repeat");
 				object.wallNormal = CVector2<double>(1.0, object.radius / object.height);
 				object.wallNormal.Normalize();
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.size = CVector3(object.radius * 2.0, object.radius * 2.0, object.height);
+				object.objectType = objCone;
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				if(objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				cones.append(object);
 				break;
 			}
@@ -208,11 +242,18 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.radius = par->Get<double>(item.name + "_radius");
 				object.height = par->Get<double>(item.name + "_height");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
 				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.size = CVector3(object.radius * 2.0, object.radius * 2.0, object.height);
+				object.objectType = objCylinder;
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				if(objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				cylinders.append(object);
 				break;
 			}
@@ -222,10 +263,17 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.enable = par->Get<bool>(item.name + "_enabled");
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.radius = par->Get<double>(item.name + "_radius");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
+				object.size = CVector3(object.radius * 2.0, object.radius * 2.0, 1.0);
+				object.objectType = objCircle;
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				if(objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				circles.append(object);
 				break;
 			}
@@ -236,10 +284,17 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.height = par->Get<double>(item.name + "_height");
 				object.width = par->Get<double>(item.name + "_width");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
+				object.size = CVector3(object.width, object.height, 1.0);
+				object.objectType = objRectangle;
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				if(objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				rectangles.append(object);
 				break;
 			}
@@ -251,11 +306,20 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.radius = par->Get<double>(item.name + "_radius");
 				object.tube_radius = par->Get<double>(item.name + "_tube_radius");
-				object.rotation = par->Get<CVector3>(item.name + "_rotation");
-				object.reflect = par->Get<double>(item.name + "_reflection");
-				object.color = par->Get<sRGB>(item.name + "_color");
+				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+				//object.reflect = par->Get<double>(item.name + "_reflection");
+				//object.color = par->Get<sRGB>(item.name + "_color");
 				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				object.size = CVector3(	(object.radius + object.tube_radius) * 2.0,
+																(object.radius + object.tube_radius) * 2.0,
+																object.tube_radius);
+				object.objectType = objTorus;
+				object.materialId = par->Get<int>(item.name + "_material_id");
+				if (objectData)
+				{
+					objectData->append(object);
+					object.objectId = objectData->size() - 1;
+				}
 				toruses.append(object);
 				break;
 			}
@@ -409,10 +473,10 @@ double cPrimitives::PrimitiveTorus(CVector3 _point, const sPrimitiveTorus &torus
 }
 
 double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
-		fractal::enumObjectType *closestObjectType, sRGB *objectColor, double *objectReflect) const
+		int *closestObjectId) const
 {
 	using namespace fractal;
-	enumObjectType closestObject = objFractal;
+	int closestObject = 0;
 	sRGB color = sRGB(0, 0, 0);
 	double reflect = 0.0;
 	double distance = fractalDistance;
@@ -431,9 +495,9 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitivePlane(point, plane);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
-					color = plane.color;
-					reflect = plane.reflect;
+					closestObject = plane.objectId;
+					//color = plane.color;
+					//reflect = plane.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
@@ -447,9 +511,9 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitiveBox(point2, box);
 				if (distTemp < distance)
 				{
-					closestObject = objBox;
-					color = box.color;
-					reflect = box.reflect;
+					closestObject = box.objectId;
+					//color = box.color;
+					//reflect = box.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
@@ -463,9 +527,9 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitiveRectangle(point2, rectangle);
 				if (distTemp < distance)
 				{
-					closestObject = objRectangle;
-					color = rectangle.color;
-					reflect = rectangle.reflect;
+					closestObject = rectangle.objectId;
+					//color = rectangle.color;
+					//reflect = rectangle.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
@@ -479,9 +543,9 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitiveSphere(point2, sphere);
 				if (distTemp < distance)
 				{
-					closestObject = objSphere;
-					color = sphere.color;
-					reflect = sphere.reflect;
+					closestObject = sphere.objectId;
+					//color = sphere.color;
+					//reflect = sphere.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
@@ -495,9 +559,9 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitiveCylinder(point2, cylinder);
 				if (distTemp < distance)
 				{
-					closestObject = objCylinder;
-					color = cylinder.color;
-					reflect = cylinder.reflect;
+					closestObject = cylinder.objectId;
+					//color = cylinder.color;
+					//reflect = cylinder.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
@@ -511,9 +575,9 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitiveCircle(point2, circle);
 				if (distTemp < distance)
 				{
-					closestObject = objCircle;
-					color = circle.color;
-					reflect = circle.reflect;
+					closestObject = circle.objectId;
+					//color = circle.color;
+					//reflect = circle.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
@@ -527,9 +591,9 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitiveCone(point2, cone);
 				if (distTemp < distance)
 				{
-					closestObject = objCone;
-					color = cone.color;
-					reflect = cone.reflect;
+					closestObject = cone.objectId;
+					//color = cone.color;
+					//reflect = cone.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
@@ -543,9 +607,9 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitiveWater(point, water);
 				if (distTemp < distance)
 				{
-					closestObject = objWater;
-					color = water.color;
-					reflect = water.reflect;
+					closestObject = water.objectId;
+					//color = water.color;
+					//reflect = water.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
@@ -559,17 +623,16 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 				double distTemp = PrimitiveTorus(point2, torus);
 				if (distTemp < distance)
 				{
-					closestObject = objTorus;
-					color = torus.color;
-					reflect = torus.reflect;
+					closestObject = torus.objectId;
+					//color = torus.color;
+					//reflect = torus.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
 		}
 	} //if is any primitive
 
-	*closestObjectType = closestObject;
-	*objectColor = color;
-	*objectReflect = reflect;
+	*closestObjectId = closestObject;
+
 	return distance;
 }

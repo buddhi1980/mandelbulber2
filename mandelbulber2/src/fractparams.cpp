@@ -22,7 +22,7 @@
 
 #include "fractparams.hpp"
 
-cParamRender::cParamRender(const cParameterContainer *container) :
+cParamRender::cParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData) :
 		primitives(container)
 {
 	ambientOcclusion = container->Get<double>("ambient_occlusion");
@@ -185,6 +185,18 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 		formulaRepeat[i] = container->Get<CVector3>("formula_repeat", i + 1);
 		formulaScale[i] = 1.0 / container->Get<double>("formula_scale", i + 1);
 		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
+		formulaMaterialId[i] = container->Get<int>("formula_material_id", i + 1);
+
+		if(objectData)
+		{
+			cObjectData oneObjectData;
+			oneObjectData.position = formulaPosition[i];
+			oneObjectData.size = CVector3(1.0, 1.0, 1.0) * formulaScale[i];
+			oneObjectData.SetRotation(formulaRotation[i]);
+			oneObjectData.materialId = formulaMaterialId[i];
+			oneObjectData.objectType = fractal::objFractal;
+			(*objectData)[i] = oneObjectData;
+		}
 	}
 
 	common.fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");

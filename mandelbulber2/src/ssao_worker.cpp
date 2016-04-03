@@ -123,7 +123,7 @@ void cSSAOWorker::doWork()
 				}
 
 				double ambient = 0;
-				double angleStep = M_PI * 2.0 / quality;
+				double angleStep = M_PI * 2.0 / (double)quality;
 				double maxRandom = 62831 / quality;
 				double rRandom = 1.0;
 

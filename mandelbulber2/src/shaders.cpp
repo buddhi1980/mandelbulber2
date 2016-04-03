@@ -890,14 +890,14 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 #else
 	sRGBAfloat out;
 
-	switch (input.objectType)
+	switch (data->objectData[input.objectId].objectType)
 	{
 		case fractal::objFractal:
 		{
 			sRGB colour(256, 256, 256);
 			if (input.material->useColorsFromPalette)
 			{
-				int formulaIndex = input.formulaIndex;
+				int formulaIndex = input.objectId;
 
 				CVector3 tempPoint = input.point;
 
@@ -944,9 +944,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 		case fractal::objTorus:
 		case fractal::objCylinder:
 		{
-			out.R = input.objectColor.R / 65536.0;
-			out.G = input.objectColor.G / 65536.0;
-			out.B = input.objectColor.B / 65536.0;
+			out.R = input.material->color.R / 65536.0;
+			out.G = input.material->color.G / 65536.0;
+			out.B = input.material->color.B / 65536.0;
 			break;
 		}
 		case fractal::objNone:
@@ -1181,3 +1181,33 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	return fakeLights;
 }
 
+sRGBAfloat cRenderWorker::TextureShader(const sShaderInputData &input)
+{
+
+}
+
+CVector2<double> cRenderWorker::TextureMapping(const sShaderInputData &input)
+{
+	CVector2<double> textureCoordinates;
+	switch(input.material->textureMappingType)
+	{
+		case cMaterial::mappingPlanar:
+		{
+
+			break;
+		}
+		case cMaterial::mappingCylindrical:
+		{
+
+			break;
+		}
+		case cMaterial::mappingSpherical:
+		{
+
+			break;
+		}
+	}
+
+	return textureCoordinates;
+
+}

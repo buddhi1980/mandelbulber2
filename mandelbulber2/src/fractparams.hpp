@@ -31,6 +31,7 @@
 #include "commonparams.hpp"
 #include "fractal_container.hpp"
 #include "fractal.h"
+#include "object_data.hpp"
 
 namespace params
 {
@@ -61,7 +62,7 @@ class cParamRender
 public:
 
 	//constructor with init
-	cParamRender(const cParameterContainer *par);
+	cParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = NULL);
 
 	int ambientOcclusionQuality; //ambient occlusion quality
 	int auxLightNumber;
@@ -71,6 +72,7 @@ public:
 	int frameNo;
 	int imageHeight; //image height
 	int imageWidth; //image width
+	int formulaMaterialId[NUMBER_OF_FRACTALS];
 	int minN;	  // minimum number of iterations
 	int N;
 	int reflectionsMax;

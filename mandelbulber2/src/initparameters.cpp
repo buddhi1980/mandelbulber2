@@ -123,6 +123,7 @@ void InitParams(cParameterContainer *par)
 		par->addParam("formula_scale", i, 1.0, morphAkima, paramStandard);
 		par->addParam("dont_add_c_constant", i, false, morphLinear, paramStandard);
 		par->addParam("check_for_bailout", i, true, morphLinear, paramStandard);
+		par->addParam("formula_material_id", i, 1, morphLinear, paramStandard);
 	}
 
 	//general fractal and engine
@@ -612,9 +613,13 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 {
 	par->addParam(QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+
+	//TODO to be removed after implementation of materials
 	par->addParam(QString(primitiveName) + "_color", sRGB(32000, 32000, 32000), morphAkima, paramStandard);
 	par->addParam(QString(primitiveName) + "_reflection", 0.0, 0.0, 1.0, morphAkima, paramStandard);
+
 	par->addParam(QString(primitiveName) + "_enabled", false, morphAkima, paramStandard);
+	par->addParam(QString(primitiveName) + "_material_id", 1, morphNone, paramStandard);
 
 	switch (objectType)
 	{

@@ -378,18 +378,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			dist = distThresh * 1.99 - dist;
 			if (dist < 0.0) dist = 0.0;
 		}
-		out->object = distanceOut.object;
-		out->formulaIndex = distanceOut.formulaIndex;
-		if (out->object == fractal::objFractal)
-		{
-			out->objectReflect = params->reflect;
-			out->objectColor = sRGB(0, 0, 0);
-		}
-		else
-		{
-			out->objectReflect = distanceOut.objectReflect;
-			out->objectColor = distanceOut.objectColor;
-		}
+		out->objectId = distanceOut.objectId;
 
 		//-------------------- 4.18us for Calculate distance --------------
 
@@ -478,19 +467,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 				if (dist < 0.0) dist = 0.0;
 			}
 
-			out->object = distanceOut.object;
-			out->formulaIndex = distanceOut.formulaIndex;
-
-			if (out->object == fractal::objFractal)
-			{
-				out->objectReflect = params->reflect;
-				out->objectColor = sRGB(0, 0, 0);
-			}
-			else
-			{
-				out->objectReflect = distanceOut.objectReflect;
-				out->objectColor = distanceOut.objectColor;
-			}
+			out->objectId = distanceOut.objectId;
 
 			data->statistics.histogramIterations.Add(distanceOut.iters);
 			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
@@ -550,13 +527,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	shaderInputData.depth = rayMarchingOut.depth;
 	shaderInputData.stepCount = *inOut.rayMarchingInOut.buffCount;
 	shaderInputData.stepBuff = inOut.rayMarchingInOut.stepBuff;
-	shaderInputData.objectType = rayMarchingOut.object;
-	shaderInputData.objectColor = rayMarchingOut.objectColor;
-	shaderInputData.formulaIndex = rayMarchingOut.formulaIndex;
 	shaderInputData.invertMode = in.calcInside;
+	shaderInputData.objectId = rayMarchingOut.objectId;
+
+	cObjectData objectData = data->objectData[shaderInputData.objectId];
+	shaderInputData.material = &data->materials[objectData.materialId];
 
 	sRGBAfloat reflectShader = in.resultShader;
-	double reflect = rayMarchingOut.objectReflect;
+	double reflect = shaderInputData.material->reflection;
+
 	sRGBAfloat transparentShader = in.resultShader;
 	double transparent = params->transparencyOfSurface;
 	sRGBfloat transparentColor = sRGBfloat(params->transparencyInteriorColor.R / 65536.0,
@@ -673,12 +652,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 		}
 
 		shaderInputData.normal = vn;
-
-	  /****************** TEMPORARY CODE FOR MATERIALS *******************/
-
-		shaderInputData.material = &data->materials[1];
-
-	  /*******************************************************************/
 
 		//calculate effects for object surface
 		objectShader = ObjectShader(shaderInputData, &objectColour, &specular);

@@ -102,10 +102,7 @@ private:
 		double lastDist;
 		double depth;
 		double distThresh;
-		fractal::enumObjectType object;
-		int formulaIndex;
-		sRGB objectColor;
-		double objectReflect;
+		int objectId;
 		bool found;
 	};
 
@@ -145,10 +142,7 @@ private:
 		double depth;
 		sStep *stepBuff;
 		int stepCount;
-		fractal::enumObjectType objectType;
-		int formulaIndex;
-		sRGB objectColor;
-		double objectReflect;
+		int objectId;
 		bool invertMode;
 		cMaterial *material;
 	};
@@ -182,6 +176,9 @@ private:
 	sRGBAfloat FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec);
 	sRGBAfloat VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel,
 			sRGBAfloat *opacityOut);
+
+	sRGBAfloat TextureShader(const sShaderInputData &input);
+	CVector2<double> TextureMapping(const sShaderInputData &input);
 
 	//data got from main thread
 	const cParamRender *params;

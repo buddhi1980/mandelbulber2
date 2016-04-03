@@ -316,8 +316,10 @@ bool cRenderJob::Execute(void)
 	renderData->lights.Set(paramsContainer, fractalContainer);
 	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
 
+	renderData->objectData.resize(NUMBER_OF_FRACTALS); //reserve first items for fractal formulas
+
 	//move parameters from containers to structures
-	cParamRender *params = new cParamRender(paramsContainer);
+	cParamRender *params = new cParamRender(paramsContainer, &renderData->objectData);
 	cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
 
 

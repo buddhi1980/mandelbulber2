@@ -30,8 +30,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		const sDistanceIn &in, sDistanceOut *out)
 {
 	double distance;
-	out->object = fractal::objFractal;
-	out->formulaIndex = 0;
+	out->objectId = 0;
 	out->totalIters = 0;
 
 	double limitBoxDist = 0.0;
@@ -47,7 +46,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		{
 			out->maxiter = false;
 			out->distance = limitBoxDist;
-			out->object = fractal::objNone;
+			out->objectId = 0; //TODO to be checked if it can be zero (or -1)
 			out->maxiter = false;
 			out->iters = 0;
 			return limitBoxDist;
@@ -90,7 +89,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 					case params::booleanOperatorOR:
 						if (distTemp < distance)
 						{
-							outTemp.formulaIndex = 1 + i;
+							outTemp.objectId = 1 + i;
 							*out = outTemp;
 						}
 						distance = min(distTemp, distance);
@@ -98,7 +97,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 					case params::booleanOperatorAND:
 						if (distTemp > distance)
 						{
-							outTemp.formulaIndex = 1 + i;
+							outTemp.objectId = 1 + i;
 							*out = outTemp;
 						}
 						distance = max(distTemp, distance);
@@ -124,7 +123,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 							{
 								if (in.detailSize * limit - distTemp > distance)
 								{
-									outTemp.formulaIndex = 1 + i;
+									outTemp.objectId = 1 + i;
 									*out = outTemp;
 								}
 
@@ -149,12 +148,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		distance = CalculateDistanceSimple(params, fractals, in, out, -1);
 	}
 
-	distance = min(distance,
-								 params.primitives.TotalDistance(in.point,
-																								 distance,
-																								 &out->object,
-																								 &out->objectColor,
-																								 &out->objectReflect));
+	distance = min(distance, params.primitives.TotalDistance(in.point, distance, &out->objectId));
 
 	if (params.limitsEnabled)
 	{
