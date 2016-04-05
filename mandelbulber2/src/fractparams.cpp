@@ -23,7 +23,7 @@
 #include "fractparams.hpp"
 
 cParamRender::cParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData) :
-		primitives(container)
+		primitives(container, objectData)
 {
 	ambientOcclusion = container->Get<double>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
