@@ -709,7 +709,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 
   par->addParam(cMaterial::Name("file_color_texture", materialId),
                 QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-                    + "diffu_texture.jpg"),
+                    + "color_texture.jpg"),
                 morphNone,
                 paramStandard);
   par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
@@ -741,6 +741,7 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 	par->DeleteParameter(QString(primitiveName) + "_color");
 	par->DeleteParameter(QString(primitiveName) + "_reflection");
 	par->DeleteParameter(QString(primitiveName) + "_enabled");
+	par->DeleteParameter(QString(primitiveName) + "_material_id");
 
 	switch (objectType)
 	{

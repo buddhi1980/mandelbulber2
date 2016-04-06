@@ -56,7 +56,6 @@ struct sPrimitivePlane: sPrimitiveBasic
 struct sPrimitiveBox: sPrimitiveBasic
 {
 	bool empty;
-	CVector3 size;
 	double rounding;
 	CVector3 repeat;
 };

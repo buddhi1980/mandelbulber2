@@ -177,8 +177,8 @@ private:
 	sRGBAfloat VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel,
 			sRGBAfloat *opacityOut);
 
-	sRGBAfloat TextureShader(const sShaderInputData &input);
-	CVector2<double> TextureMapping(const sShaderInputData &input);
+	sRGBfloat TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect) const;
+	CVector2<double> TextureMapping(const sShaderInputData &input) const;
 
 	//data got from main thread
 	const cParamRender *params;

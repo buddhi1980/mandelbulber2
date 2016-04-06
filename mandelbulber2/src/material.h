@@ -32,6 +32,14 @@ enum enumTextureMapping
   mappingPlanar = 3
 };
 
+enum enumTextureSelection
+{
+	texColor = 0,
+	texDiffuse = 1,
+	texLightness = 2,
+	texBumpmap = 3,
+};
+
   int id;
 
   double shading;
@@ -60,6 +68,8 @@ enum enumTextureMapping
   CVector3 textureCenter;
   CVector3 textureRotation;
   CVector3 textureScale;
+
+  CRotationMatrix rotMatrix;
 
   enumTextureMapping textureMappingType;
   bool fresnelReflectance;

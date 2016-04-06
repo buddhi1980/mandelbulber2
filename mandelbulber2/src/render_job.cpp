@@ -342,6 +342,9 @@ bool cRenderJob::Execute(void)
   paramsContainer->Set("mat1_surface_color_palette", paramsContainer->Get<cColorPalette>("surface_color_palette"));
   paramsContainer->Set("mat1_use_colors_from_palette", paramsContainer->Get<bool>("fractal_color"));
 
+  //paramsContainer->Set("mat1_file_color_texture", QString("/media/dane/3D/Tekstury/Chodniki/507_stone03l_Modified_By_FLS.jpg"));
+  //paramsContainer->Set("mat1_use_color_texture", true);
+
   renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
 
   /*******************************************************************/

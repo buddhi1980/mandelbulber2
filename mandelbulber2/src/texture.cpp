@@ -158,6 +158,19 @@ sRGB8 cTexture::Pixel(double x, double y)
 	}
 }
 
+sRGB8 cTexture::Pixel(CVector2<double> point)
+{
+	int intX = point.x;
+	int intY = point.y;
+	point.x = point.x - intX;
+	point.y = point.y - intY;
+	if(point.x < 0.0) point.x += 1.0;
+	if(point.y < 0.0) point.y += 1.0;
+	point.x *= (double)width;
+	point.y *= (double)height;
+	return BicubicInterpolation(point.x, point.y);
+}
+
 sRGB8 cTexture::LinearInterpolation(double x, double y)
 {
 	sRGB8 color;

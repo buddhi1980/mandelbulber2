@@ -137,6 +137,13 @@ public:
 		z /= scalar;
 		return *this;
 	}
+	inline CVector3& operator/=(const CVector3 &vector)
+	{
+		x /= vector.x;
+		y /= vector.y;
+		z /= vector.z;
+		return *this;
+	}
 	inline bool operator==(const CVector3 &vector)
 	{
 		return x == vector.x && y == vector.y && z == vector.z;
@@ -475,6 +482,16 @@ public:
 		c.x = fabs(x);
 		c.y = fabs(y);
 		return c;
+	}
+	inline CVector2 operator%(const CVector2 &vector) const
+	{
+		return CVector2((vector.x > 0.0 ? fmod(x, vector.x) : x),
+										(vector.y > 0.0 ? fmod(y, vector.y) : y));
+	}
+	inline CVector2 mod(const CVector2 &vector) const
+	{
+		if (vector.Length() == 0.0) return *this;
+		return (((*this - vector * 0.5) % vector) + vector) % vector - vector * 0.5;
 	}
 	inline double Normalize() //returns normalization factor
 	{

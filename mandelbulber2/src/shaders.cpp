@@ -39,6 +39,22 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	mainLight.G = params->mainLightIntensity * params->mainLightColour.G / 65536.0;
 	mainLight.B = params->mainLightIntensity * params->mainLightColour.B / 65536.0;
 
+	sRGBfloat texColor,texDiffuse, texLightness;
+	if(input.material->colorTexture.IsLoaded())
+		texColor = TextureShader(input, cMaterial::texColor);
+	else
+		texColor = sRGBfloat(1.0, 1.0, 1.0);
+
+	if(input.material->diffusionTexture.IsLoaded())
+		texDiffuse = TextureShader(input, cMaterial::texDiffuse);
+	else
+		texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
+
+	if(input.material->lightnessTexture.IsLoaded())
+		texLightness = TextureShader(input, cMaterial::texLightness);
+	else
+		texLightness = sRGBfloat(0.0, 0.0, 0.0);
+
 	//calculate shading based on angle of incidence
 	sRGBAfloat shade;
 	if (params->mainLightEnable)
@@ -65,6 +81,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	//calculate surface colour
 	sRGBAfloat colour = SurfaceColour(input);
+	colour.R *= texColor.R;
+	colour.G *= texColor.G;
+	colour.B *= texColor.B;
 	*surfaceColour = colour;
 
 	//ambient occlusion
@@ -1181,19 +1200,55 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	return fakeLights;
 }
 
-sRGBAfloat cRenderWorker::TextureShader(const sShaderInputData &input)
+sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect) const
 {
+	CVector2<double> texPoint = TextureMapping(input);
 
+	sRGB8 tex;
+	switch(texSelect)
+	{
+		case cMaterial::texColor:
+		{
+			tex = input.material->colorTexture.Pixel(texPoint);
+			break;
+		}
+		case cMaterial::texDiffuse:
+		{
+			tex = input.material->diffusionTexture.Pixel(texPoint);
+			break;
+		}
+		case cMaterial::texLightness:
+		{
+			tex = input.material->lightnessTexture.Pixel(texPoint);
+			break;
+		}
+		case cMaterial::texBumpmap:
+		{
+			tex = input.material->bumpmapTexture.Pixel(texPoint);
+			break;
+		}
+	}
+
+	return sRGBfloat(tex.R / 256.0, tex.G / 256.0, tex.B / 256.0);
 }
 
-CVector2<double> cRenderWorker::TextureMapping(const sShaderInputData &input)
+CVector2<double> cRenderWorker::TextureMapping(const sShaderInputData &input) const
 {
 	CVector2<double> textureCoordinates;
+	cObjectData objectData = data->objectData[input.objectId];
+
+	CVector3 point = input.point - objectData.position;
+	point = objectData.rotationMatrix.RotateVector(point);
+	point /= objectData.size;
+	point -= input.material->textureCenter;
+	point = input.material->rotMatrix.RotateVector(point);
+	point *= input.material->textureScale;
+
 	switch(input.material->textureMappingType)
 	{
 		case cMaterial::mappingPlanar:
 		{
-
+			textureCoordinates = CVector2<double>(point.x, point.y);
 			break;
 		}
 		case cMaterial::mappingCylindrical:
@@ -1203,11 +1258,13 @@ CVector2<double> cRenderWorker::TextureMapping(const sShaderInputData &input)
 		}
 		case cMaterial::mappingSpherical:
 		{
-
+			break;
+		}
+		case cMaterial::mappingCubic:
+		{
 			break;
 		}
 	}
-
 	return textureCoordinates;
 
 }

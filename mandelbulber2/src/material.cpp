@@ -109,14 +109,16 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   useBumpmapTexture = materialParam.Get<bool>(Name("use_bumpmap_texture", id));
 
   if (useColorTexture)
-    colorTexture = cTexture(materialParam.Get<QString>("file_color_texture"), quiet);
+    colorTexture = cTexture(materialParam.Get<QString>(Name("file_color_texture", id)), quiet);
 
   if (useDiffusionTexture)
-    diffusionTexture = cTexture(materialParam.Get<QString>("file_diffusion_texture"), quiet);
+    diffusionTexture = cTexture(materialParam.Get<QString>(Name("file_diffusion_texture", id)), quiet);
 
   if (useLightnessTexture)
-    lightnessTexture = cTexture(materialParam.Get<QString>("file_lightness_texture"), quiet);
+    lightnessTexture = cTexture(materialParam.Get<QString>(Name("file_lightness_texture", id)), quiet);
 
   if (useBumpmapTexture)
-    bumpmapTexture = cTexture(materialParam.Get<QString>("file_bumpmap_texture"), quiet);
+    bumpmapTexture = cTexture(materialParam.Get<QString>(Name("file_bumpmap_texture", id)), quiet);
+
+  rotMatrix.SetRotation2(textureRotation);
 }

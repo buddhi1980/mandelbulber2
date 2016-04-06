@@ -26,6 +26,7 @@
 #include "color_structures.hpp"
 #include <QtCore>
 #include <QImage>
+#include "algebra.hpp"
 
 class cTexture
 {
@@ -39,6 +40,7 @@ public:
 	int Height(void) {return height;}
 	int Width(void) {return width;}
 	sRGB8 Pixel(double x, double y);
+	sRGB8 Pixel(CVector2<double> point);
 	sRGB8 FastPixel(int x, int y);
 	bool IsLoaded(void) {return loaded;}
 	QString GetFileName() {return originalFileName;}
