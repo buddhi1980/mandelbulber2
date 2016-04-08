@@ -27,7 +27,7 @@
 using namespace std;
 
 double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
-		const sDistanceIn &in, sDistanceOut *out)
+		const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
 	double distance;
 	out->objectId = 0;
@@ -150,12 +150,37 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 
 	distance = min(distance, params.primitives.TotalDistance(in.point, distance, &out->objectId));
 
+
+	//**** temporary code for bumpmaps **************
+//	if(data)
+//	{
+//		CVector2<double> textureCoordinates;
+//		textureCoordinates = CVector2<double>(in.point.x*1.0, in.point.y*1.0);
+//		sRGBfloat bump3 = data->materials[1].bumpmapTexture.Pixel(textureCoordinates);
+//		double bump = bump3.R;
+//		textureCoordinates = CVector2<double>(in.point.x*10.0, in.point.y*10.0);
+//		bump3 = data->materials[1].bumpmapTexture.Pixel(textureCoordinates);
+//		bump += bump3.R*0.1;
+//		textureCoordinates = CVector2<double>(in.point.x*100.0, in.point.y*100.0);
+//		bump3 = data->materials[1].bumpmapTexture.Pixel(textureCoordinates);
+//		bump += bump3.R*0.01;
+//		distance -= bump * 0.025;
+//		if(distance < 0.0) distance = 0.0;
+//	}
+
+	//****************************************************
+
 	if (params.limitsEnabled)
 	{
 		if (limitBoxDist < in.detailSize)
 		{
 			distance = max(distance, limitBoxDist);
 		}
+	}
+
+	if(distance == distance/0.0) //check if not a number
+	{
+		distance = 0.0;
 	}
 
 	out->distance = distance;

@@ -2554,7 +2554,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
  */
 void FastImagscaPower2Iteration(CVector3 &z, const cFractal *fractal)
 {
-  double x2 = z.x * z.x + 1e-061;
+  double x2 = z.x * z.x;
   double y2 = z.y * z.y;
   double z2 = z.z * z.z;
 

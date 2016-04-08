@@ -747,6 +747,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       }
     }
 
+    if(z.IsNotANumber())
+    {
+    	z = lastZ;
+    	r = z.Length();
+    	w = 0.0;
+    	out->maxiter = true;
+    	break;
+    }
+
 		//escape conditions
 		if (fractals.IsCheckForBailout(sequence))
 		{
@@ -823,12 +832,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 		if(z == lastZ) //detection of dead computation
 		{
-//			if(Mode != calcModeColouring)
-//			qWarning() << "Dead computation\n"
-//					<< "iteration: " << i << "Formula:" << formula << "Sequence:" << sequence
-//					<< "\nPoint:" << in.point.Debug()
-//					<< "\nLast good z:" << lastGoodZ.Debug()
-//					<< "\nPrevious z:" << lastZ.Debug();
+			//if(Mode != calcModeColouring)
+			//qWarning() << "Dead computation\n"
+			//		<< "iteration: " << i << "Formula:" << formula << "Sequence:" << sequence
+			//		<< "\nPoint:" << in.point.Debug()
+			//		<< "\nLast good z:" << lastGoodZ.Debug()
+			//		<< "\nPrevious z:" << lastZ.Debug();
 			z = lastGoodZ;
 			break;
 		}

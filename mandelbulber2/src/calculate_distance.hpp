@@ -26,6 +26,7 @@
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
 #include "nine_fractals.hpp"
+#include "render_data.hpp"
 
 struct sDistanceIn
 {
@@ -49,7 +50,7 @@ struct sDistanceOut
 };
 
 double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
-		const sDistanceIn &in, sDistanceOut *out);
+		const sDistanceIn &in, sDistanceOut *out, sRenderData *data = NULL);
 double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
 		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
 

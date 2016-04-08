@@ -145,20 +145,19 @@ cTexture::~cTexture(void)
 }
 
 //read pixel
-sRGB8 cTexture::Pixel(double x, double y)
+sRGBfloat cTexture::Pixel(double x, double y)
 {
-	sRGB8 black = sRGB8(0, 0, 0);
 	if (x >= 0 && x < width && y >= 0 && y < height - 1.0)
 	{
 		return BicubicInterpolation(x, y);
 	}
 	else
 	{
-		return black;
+		return sRGBfloat(0.0, 0.0, 0.0);
 	}
 }
 
-sRGB8 cTexture::Pixel(CVector2<double> point)
+sRGBfloat cTexture::Pixel(CVector2<double> point)
 {
 	int intX = point.x;
 	int intY = point.y;
@@ -191,7 +190,7 @@ sRGB8 cTexture::LinearInterpolation(double x, double y)
 	return color;
 }
 
-sRGB8 cTexture::BicubicInterpolation(double x, double y)
+sRGBfloat cTexture::BicubicInterpolation(double x, double y)
 {
 	int ix = x;
 	int iy = y;
@@ -225,7 +224,7 @@ sRGB8 cTexture::BicubicInterpolation(double x, double y)
 	if(dG < 0) dG = 0; if(dG > 255) dG = 255;
 	if(dB < 0) dB = 0; if(dB > 255) dB = 255;
 
-	return sRGB8(dR, dG, dB);
+	return sRGBfloat(dR/256.0, dG/256.0, dB/256.0);
 }
 
 sRGB8 cTexture::FastPixel(int x, int y)

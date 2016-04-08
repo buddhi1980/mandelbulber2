@@ -39,8 +39,8 @@ public:
 	~cTexture(void);
 	int Height(void) {return height;}
 	int Width(void) {return width;}
-	sRGB8 Pixel(double x, double y);
-	sRGB8 Pixel(CVector2<double> point);
+	sRGBfloat Pixel(double x, double y);
+	sRGBfloat Pixel(CVector2<double> point);
 	sRGB8 FastPixel(int x, int y);
 	bool IsLoaded(void) {return loaded;}
 	QString GetFileName() {return originalFileName;}
@@ -48,7 +48,7 @@ public:
 
 private:
 	sRGB8 LinearInterpolation(double x, double y);
-	sRGB8 BicubicInterpolation(double x, double y);
+	sRGBfloat BicubicInterpolation(double x, double y);
 	sRGB8 *bitmap;
 	int width;
 	int height;

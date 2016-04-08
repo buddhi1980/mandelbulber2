@@ -173,10 +173,10 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 					+ cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
 			double texY = 0.5 * texHeight
 					+ sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
-			sRGB8 pixel = data->textures.backgroundTexture.Pixel(texX, texY);
-			pixel2.R = pixel.R / 256.0;
-			pixel2.G = pixel.G / 256.0;
-			pixel2.B = pixel.B / 256.0;
+			sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
+			pixel2.R = pixel.R;
+			pixel2.G = pixel.G;
+			pixel2.B = pixel.B;
 		}
 		else
 		{
@@ -186,10 +186,10 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
 			double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture.Width();
 			double texY = (betaTexture / (M_PI) + 0.5) * data->textures.backgroundTexture.Height();
-			sRGB8 pixel = data->textures.backgroundTexture.Pixel(texX, texY);
-			pixel2.R = pixel.R / 256.0;
-			pixel2.G = pixel.G / 256.0;
-			pixel2.B = pixel.B / 256.0;
+			sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
+			pixel2.R = pixel.R;
+			pixel2.G = pixel.G;
+			pixel2.B = pixel.B;
 		}
 		pixel2.R *= params->background_brightness;
 		pixel2.G *= params->background_brightness;
@@ -305,6 +305,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		if (params->auxLightVisibility > 0)
 		{
 			double miniStep = 0.0;
+			double lastMiniSteps = 0.0;
+
 			for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
 			{
 				double lowestLightSize = 1e10;
@@ -351,6 +353,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 						output.B += lightDensity * light->colour.B / 65536.0;
 						output.A += lightDensity;
 					}
+				}
+				if(miniSteps == lastMiniSteps)
+				{
+					//qWarning() << "Dead computation\n"
+					//		<< "\npoint:" << (point - input.viewVector * miniSteps).Debug();
+					break;
 				}
 			}
 		}
@@ -595,7 +603,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, dist_thresh, false);
-		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		if (bSoft)
@@ -660,7 +668,7 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(pointTemp, input.distThresh, false);
-		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 		aoTemp += 1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist)
 				/ input.distThresh;
@@ -694,7 +702,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 
 			sDistanceOut distanceOut;
 			sDistanceIn distanceIn(point2, input.distThresh, false);
-			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 			if (params->iterFogEnabled)
@@ -753,22 +761,22 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 		sDistanceOut distanceOut;
 
 		sDistanceIn distanceIn1(input.point, input.distThresh, true);
-		s1 = CalculateDistance(*params, *fractal, distanceIn1, &distanceOut);
+		s1 = CalculateDistance(*params, *fractal, distanceIn1, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltax(delta, 0.0, 0.0);
 		sDistanceIn distanceIn2(input.point + deltax, input.distThresh, true);
-		s2 = CalculateDistance(*params, *fractal, distanceIn2, &distanceOut);
+		s2 = CalculateDistance(*params, *fractal, distanceIn2, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltay(0.0, delta, 0.0);
 		sDistanceIn distanceIn3(input.point + deltay, input.distThresh, true);
-		s3 = CalculateDistance(*params, *fractal, distanceIn3, &distanceOut);
+		s3 = CalculateDistance(*params, *fractal, distanceIn3, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltaz(0.0, 0.0, delta);
 		sDistanceIn distanceIn4(input.point + deltaz, input.distThresh, true);
-		s4 = CalculateDistance(*params, *fractal, distanceIn4, &distanceOut);
+		s4 = CalculateDistance(*params, *fractal, distanceIn4, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		normal.x = s2 - s1;
@@ -794,7 +802,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 					point3 = input.point + point2 * delta;
 
 					sDistanceIn distanceIn(point3, input.distThresh, true);
-					double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+					double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 					data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 					normal += (point2 * dist);
 				}
@@ -1204,7 +1212,7 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 {
 	CVector2<double> texPoint = TextureMapping(input);
 
-	sRGB8 tex;
+	sRGBfloat tex;
 	switch(texSelect)
 	{
 		case cMaterial::texColor:
@@ -1229,7 +1237,7 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 		}
 	}
 
-	return sRGBfloat(tex.R / 256.0, tex.G / 256.0, tex.B / 256.0);
+	return sRGBfloat(tex.R, tex.G, tex.B);
 }
 
 CVector2<double> cRenderWorker::TextureMapping(const sShaderInputData &input) const

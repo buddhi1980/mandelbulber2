@@ -361,18 +361,33 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	//qDebug() << "Start ************************";
 
 	CVector3 lastPoint, lastGoodPoint;
+	bool deadComputationFound = false;
 
 	for (int i = 0; i < 10000; i++)
 	{
+		lastGoodPoint = lastPoint;
+		lastPoint = point;
+
 		counter++;
 
 		point = in.start + in.direction * scan;
+
+		if (point == lastPoint || point == point/0.0) //detection of dead calculation
+		{
+			qWarning() << "Dead computation\n"
+					<< "Point:" << point.Debug()
+					<< "\nPrevious point:" << lastPoint.Debug();
+			point = lastPoint;
+			found = true;
+			deadComputationFound = true;
+			break;
+		}
 
 		distThresh = CalcDistThresh(point);
 
 		sDistanceIn distanceIn(point, distThresh, false);
 		sDistanceOut distanceOut;
-		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		//qDebug() <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan;
 		if (in.invertMode)
 		{
@@ -419,18 +434,11 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			break;
 		}
 
-		if (point == lastPoint) //detection of dead calculation
-		{
-			qWarning() << "Dead computation\n"
-					<< "\nPoint:" << point.Debug()
-					<< "\nPrevious point:" << lastPoint.Debug();
-			point = lastGoodPoint;
-		}
 	}
 	//------------- 83.2473 us for RayMarching loop -------------------------
 
 	//qDebug() << "------------ binary search";
-	if (found && in.binaryEnable)
+	if (found && in.binaryEnable && !deadComputationFound)
 	{
 		step *= 0.5;
 		for (int i = 0; i < 30; i++)
@@ -458,7 +466,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 
 			sDistanceIn distanceIn(point, distThresh, false);
 			sDistanceOut distanceOut;
-			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 
 			//qDebug() << "i" << i <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan << "step" << step;
 

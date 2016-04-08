@@ -188,6 +188,10 @@ public:
 	{
 		return atan2(z, sqrt(x * x + y * y));
 	}
+	bool IsNotANumber()
+	{
+		return x == x/0.0 || y == y/0.0 || z == z/0.0;
+	}
 	CVector3 RotateAroundVectorByAngle(CVector3 axis, double angle);
 	QString Debug() const
 	{

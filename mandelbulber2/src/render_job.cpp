@@ -344,6 +344,8 @@ bool cRenderJob::Execute(void)
 
   //paramsContainer->Set("mat1_file_color_texture", QString("/media/dane/3D/Tekstury/Chodniki/507_stone03l_Modified_By_FLS.jpg"));
   //paramsContainer->Set("mat1_use_color_texture", true);
+  //paramsContainer->Set("mat1_file_bumpmap_texture", QString("/home/krzysztof/dane/3D/Tekstury/Reliefy/cobblestone_disp.jpg"));
+  //paramsContainer->Set("mat1_use_bumpmap_texture", true);
 
   renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
 
