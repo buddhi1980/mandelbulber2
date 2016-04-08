@@ -39,16 +39,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	mainLight.G = params->mainLightIntensity * params->mainLightColour.G / 65536.0;
 	mainLight.B = params->mainLightIntensity * params->mainLightColour.B / 65536.0;
 
-	sRGBfloat texColor,texDiffuse, texLightness;
+	sRGBfloat texColor, texLightness;
 	if(input.material->colorTexture.IsLoaded())
 		texColor = TextureShader(input, cMaterial::texColor);
 	else
 		texColor = sRGBfloat(1.0, 1.0, 1.0);
-
-	if(input.material->diffusionTexture.IsLoaded())
-		texDiffuse = TextureShader(input, cMaterial::texDiffuse);
-	else
-		texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
 
 	if(input.material->lightnessTexture.IsLoaded())
 		texLightness = TextureShader(input, cMaterial::texLightness);
@@ -111,9 +106,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	{
 		envMapping = EnvMapping(input);
 	}
-	envMapping.R *= mat->reflection;
-	envMapping.G *= mat->reflection;
-	envMapping.B *= mat->reflection;
+	envMapping.R *= mat->reflection * input.texDiffuse.R;
+	envMapping.G *= mat->reflection * input.texDiffuse.G;
+	envMapping.B *= mat->reflection * input.texDiffuse.B;
 
 	//additional lights
 	sRGBAfloat auxLights;
@@ -305,7 +300,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		if (params->auxLightVisibility > 0)
 		{
 			double miniStep = 0.0;
-			double lastMiniSteps = 0.0;
+			double lastMiniSteps = -1.0;
 
 			for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
 			{
@@ -360,6 +355,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 					//		<< "\npoint:" << (point - input.viewVector * miniSteps).Debug();
 					break;
 				}
+				lastMiniSteps = miniSteps;
 			}
 		}
 
@@ -843,7 +839,8 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input)
 	half.Normalize();
 	double shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0) shade2 = 0.0;
-	shade2 = pow(shade2, 30.0/input.material->specularWidth);
+	double diffuse = 1.1 - (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0;
+	shade2 = pow(shade2, 30.0/input.material->specularWidth / diffuse) / diffuse;
 	if (shade2 > 15.0) shade2 = 15.0;
 	specular.R = shade2;
 	specular.G = shade2;
@@ -1013,7 +1010,10 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLig
 	half.Normalize();
 	double shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0) shade2 = 0.0;
-	shade2 = pow(shade2, 30.0/input.material->specularWidth) * 1.0;
+
+	double diffuse = 1.1 - (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0;
+
+	shade2 = pow(shade2, 30.0 / input.material->specularWidth / diffuse) / diffuse;
 	shade2 *= intensity * input.material->specular;
 	if (shade2 > 15.0) shade2 = 15.0;
 

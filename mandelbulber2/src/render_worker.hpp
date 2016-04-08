@@ -145,6 +145,7 @@ private:
 		int objectId;
 		bool invertMode;
 		cMaterial *material;
+		sRGBfloat texDiffuse;
 	};
 
 	//functions

@@ -194,8 +194,8 @@ sRGBfloat cTexture::BicubicInterpolation(double x, double y)
 {
 	int ix = x;
 	int iy = y;
-	double rx = (x - ix) + 0.0;
-	double ry = (y - iy) + 0.0;
+	double rx = (x - ix);
+	double ry = (y - iy);
 
 	double R[4][4], G[4][4], B[4][4];
 
@@ -205,10 +205,8 @@ sRGBfloat cTexture::BicubicInterpolation(double x, double y)
 		{
 			int ixx = ix + xx - 1;
 			int iyy = iy + yy - 1;
-			if(ixx < 0) ixx = 0;
-			if(ixx >= width) ixx = width - 1;
-			if(iyy < 0) iyy = 0;
-			if(iyy >= height) iyy = height - 1;
+			ixx = (ixx + width) % width;
+			iyy = (iyy + height) % height;
 			int addess2 = ixx + iyy * width;
 			sRGB8 pixel = bitmap[addess2];
 			R[xx][yy] = pixel.R;
