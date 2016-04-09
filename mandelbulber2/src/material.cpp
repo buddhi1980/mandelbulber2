@@ -26,9 +26,13 @@ cMaterial::cMaterial()
   useColorsFromPalette = false;
   useColorTexture = false;
   useDiffusionTexture = false;
-  useLightnessTexture = false;
+  useLuminosityTexture = false;
   useBumpmapTexture = false;
   textureMappingType = mappingPlanar;
+  colorTextureIntensity = 0.0;
+  diffussionTextureIntensity = 0.0;
+  luminosityTextureIntensity = 0.0;
+  bumpmapTextureHeight = 0.0;
 }
 
 cMaterial::cMaterial(int _id, const cParameterContainer &materialParam, bool quiet)
@@ -68,9 +72,17 @@ QStringList cMaterial::paramsList = {
     "use_colors_from_palette",
     "file_color_texture",
     "file_diffusion_texture",
-    "file_lightness_texture",
+    "file_luminosity_texture",
     "file_bumpmap_texture",
     "surface_color_palette",
+		"use_color_texture",
+		"use_diffusion_texture",
+		"use_luminosity_texture",
+		"use_bumpmap_texture",
+		"color_texture_intensity",
+		"luminosity_texture_intensity",
+		"diffusion_texture_intensity",
+		"bumpmap_texture_height"
 };
 
 void cMaterial::setParameters(int _id, const cParameterContainer &materialParam, bool quiet = false)
@@ -105,8 +117,13 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
 
   useColorTexture = materialParam.Get<bool>(Name("use_color_texture", id));
   useDiffusionTexture = materialParam.Get<bool>(Name("use_diffusion_texture", id));
-  useLightnessTexture = materialParam.Get<bool>(Name("use_lightness_texture", id));
+  useLuminosityTexture = materialParam.Get<bool>(Name("use_luminosity_texture", id));
   useBumpmapTexture = materialParam.Get<bool>(Name("use_bumpmap_texture", id));
+
+  colorTextureIntensity = materialParam.Get<double>(Name("color_texture_intensity", id));
+  diffussionTextureIntensity = materialParam.Get<double>(Name("diffusion_texture_intensity", id));
+  luminosityTextureIntensity = materialParam.Get<double>(Name("luminosity_texture_intensity", id));
+  bumpmapTextureHeight = materialParam.Get<double>(Name("bumpmap_texture_height", id));
 
   if (useColorTexture)
     colorTexture = cTexture(materialParam.Get<QString>(Name("file_color_texture", id)), quiet);
@@ -114,8 +131,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   if (useDiffusionTexture)
     diffusionTexture = cTexture(materialParam.Get<QString>(Name("file_diffusion_texture", id)), quiet);
 
-  if (useLightnessTexture)
-    lightnessTexture = cTexture(materialParam.Get<QString>(Name("file_lightness_texture", id)), quiet);
+  if (useLuminosityTexture)
+    luminosityTexture = cTexture(materialParam.Get<QString>(Name("file_luminosity_texture", id)), quiet);
 
   if (useBumpmapTexture)
     bumpmapTexture = cTexture(materialParam.Get<QString>(Name("file_bumpmap_texture", id)), quiet);

@@ -344,11 +344,16 @@ bool cRenderJob::Execute(void)
 
   //paramsContainer->Set("mat1_file_color_texture", QString("/media/dane/3D/Tekstury/Chodniki/507_stone03l_Modified_By_FLS.jpg"));
   //paramsContainer->Set("mat1_use_color_texture", true);
+  //paramsContainer->Set("mat1_color_texture_intensity", 1.0);
   //paramsContainer->Set("mat1_file_diffusion_texture", QString("/home/krzysztof/dane/3D/Tekstury/Marble/Seamless marble texture (11).jpg"));
   //paramsContainer->Set("mat1_use_diffusion_texture", true);
   //paramsContainer->Set("mat1_texture_scale", CVector3(4.0, 4.0, 4.0));
+  //paramsContainer->Set("mat1_diffusion_texture_intensity", 1.0);
   //paramsContainer->Set("mat1_file_bumpmap_texture", QString("/home/krzysztof/dane/3D/Tekstury/Reliefy/cobblestone_disp.jpg"));
   //paramsContainer->Set("mat1_use_bumpmap_texture", true);
+  //paramsContainer->Set("mat1_file_luminosity_texture", QString("/home/krzysztof/Roboczy/Lightness_texture.png"));
+  //paramsContainer->Set("mat1_use_luminosity_texture", true);
+  //paramsContainer->Set("mat1_luminosity_texture_intensity", 20.0);
 
   renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
 

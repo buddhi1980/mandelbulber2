@@ -690,9 +690,11 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 		if (reflectionsMax > 0)
 		{
 			sRGBfloat reflectDiffused;
-			reflectDiffused.R = reflect * shaderInputData.texDiffuse.R;
-			reflectDiffused.G = reflect * shaderInputData.texDiffuse.G;
-			reflectDiffused.B = reflect * shaderInputData.texDiffuse.B;
+			double diffIntes = shaderInputData.material->diffussionTextureIntensity;
+			double diffIntesN = 1.0 - diffIntes;
+			reflectDiffused.R = reflect * shaderInputData.texDiffuse.R * diffIntes + reflect * diffIntesN;
+			reflectDiffused.G = reflect * shaderInputData.texDiffuse.G * diffIntes + reflect * diffIntesN;
+			reflectDiffused.B = reflect * shaderInputData.texDiffuse.B * diffIntes + reflect * diffIntesN;
 
 			resultShader.R = transparentShader.R * transparent * reflectanceN
 					+ (1.0 - transparent * reflectanceN) * resultShader.R;

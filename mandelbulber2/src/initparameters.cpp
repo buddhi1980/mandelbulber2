@@ -704,8 +704,12 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
   par->addParam(cMaterial::Name("use_colors_from_palette", materialId), true, morphLinear, paramStandard);
   par->addParam(cMaterial::Name("use_color_texture", materialId), false, morphLinear, paramStandard);
   par->addParam(cMaterial::Name("use_diffusion_texture", materialId), false, morphLinear, paramStandard);
-  par->addParam(cMaterial::Name("use_lightness_texture", materialId), false, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("use_luminosity_texture", materialId), false, morphLinear, paramStandard);
   par->addParam(cMaterial::Name("use_bumpmap_texture", materialId), false, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("color_texture_intensity", materialId), 1.0, 0.0, 1e10, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 10.0, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1.0, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("bumpmap_texture_height", materialId), 0.1, -1e4, 1e4, morphAkima, paramStandard);
 
   par->addParam(cMaterial::Name("file_color_texture", materialId),
                 QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
@@ -717,9 +721,9 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
                     + "diffusion_texture.jpg"),
                 morphNone,
                 paramStandard);
-  par->addParam(cMaterial::Name("file_lightness_texture", materialId),
+  par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
                 QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-                    + "lightness_texture.jpg"),
+                    + "luminosity_texture.jpg"),
                 morphNone,
                 paramStandard);
   par->addParam(cMaterial::Name("file_bumpmap_texture", materialId),

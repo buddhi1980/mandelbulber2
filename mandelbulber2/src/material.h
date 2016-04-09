@@ -36,7 +36,7 @@ enum enumTextureSelection
 {
 	texColor = 0,
 	texDiffuse = 1,
-	texLightness = 2,
+	texLuminosity = 2,
 	texBumpmap = 3,
 };
 
@@ -53,6 +53,10 @@ enum enumTextureSelection
   double transparencyOfSurface;
   double paletteOffset;
   double coloring_speed;
+  double colorTextureIntensity;
+  double diffussionTextureIntensity;
+  double luminosityTextureIntensity;
+  double bumpmapTextureHeight;
 
   sRGB color;
   sRGB lightnessColor;
@@ -62,7 +66,7 @@ enum enumTextureSelection
 
   cTexture colorTexture;
   cTexture diffusionTexture;
-  cTexture lightnessTexture;
+  cTexture luminosityTexture;
   cTexture bumpmapTexture;
 
   CVector3 textureCenter;
@@ -77,7 +81,7 @@ enum enumTextureSelection
 
   bool useColorTexture;
   bool useDiffusionTexture;
-  bool useLightnessTexture;
+  bool useLuminosityTexture;
   bool useBumpmapTexture;
 
 };

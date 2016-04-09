@@ -39,16 +39,16 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	mainLight.G = params->mainLightIntensity * params->mainLightColour.G / 65536.0;
 	mainLight.B = params->mainLightIntensity * params->mainLightColour.B / 65536.0;
 
-	sRGBfloat texColor, texLightness;
+	sRGBfloat texColor, texLuminosity;
 	if(input.material->colorTexture.IsLoaded())
 		texColor = TextureShader(input, cMaterial::texColor);
 	else
 		texColor = sRGBfloat(1.0, 1.0, 1.0);
 
-	if(input.material->lightnessTexture.IsLoaded())
-		texLightness = TextureShader(input, cMaterial::texLightness);
+	if(input.material->luminosityTexture.IsLoaded())
+		texLuminosity = TextureShader(input, cMaterial::texLuminosity);
 	else
-		texLightness = sRGBfloat(0.0, 0.0, 0.0);
+		texLuminosity = sRGBfloat(0.0, 0.0, 0.0);
 
 	//calculate shading based on angle of incidence
 	sRGBAfloat shade;
@@ -76,9 +76,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	//calculate surface colour
 	sRGBAfloat colour = SurfaceColour(input);
-	colour.R *= texColor.R;
-	colour.G *= texColor.G;
-	colour.B *= texColor.B;
+	double texColInt = mat->colorTextureIntensity;
+	double texColIntN = 1.0 - mat->colorTextureIntensity;
+	colour.R *= texColor.R * texColInt + texColIntN;
+	colour.G *= texColor.G * texColInt + texColIntN;
+	colour.B *= texColor.B * texColInt + texColIntN;
 	*surfaceColour = colour;
 
 	//ambient occlusion
@@ -131,6 +133,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	output.R += (auxLights.R + fakeLights.R) * colour.R;
 	output.G += (auxLights.G + fakeLights.G) * colour.G;
 	output.B += (auxLights.B + fakeLights.B) * colour.B;
+
+	output.R += texLuminosity.R * mat->luminosityTextureIntensity;
+	output.G += texLuminosity.G * mat->luminosityTextureIntensity;
+	output.B += texLuminosity.B * mat->luminosityTextureIntensity;
+
 	output.A = 1.0;
 
 	(*specularOut).R = auxLightsSpecular.R + fakeLightsSpecular.R
@@ -839,7 +846,7 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input)
 	half.Normalize();
 	double shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0) shade2 = 0.0;
-	double diffuse = 1.1 - (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0;
+	double diffuse = 10.0	* (1.1 - input.material->diffussionTextureIntensity	* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
 	shade2 = pow(shade2, 30.0/input.material->specularWidth / diffuse) / diffuse;
 	if (shade2 > 15.0) shade2 = 15.0;
 	specular.R = shade2;
@@ -1011,7 +1018,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLig
 	double shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0) shade2 = 0.0;
 
-	double diffuse = 1.1 - (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0;
+	double diffuse = 10.0	* (1.1 - input.material->diffussionTextureIntensity	* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
 
 	shade2 = pow(shade2, 30.0 / input.material->specularWidth / diffuse) / diffuse;
 	shade2 *= intensity * input.material->specular;
@@ -1198,7 +1205,8 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	half.Normalize();
 	double fakeSpecular = input.normal.Dot(half);
 	if (fakeSpecular < 0.0) fakeSpecular = 0.0;
-	fakeSpecular = pow(fakeSpecular, 30.0) * fakeLight;
+	double diffuse = 10.0	* (1.1 - input.material->diffussionTextureIntensity	* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
+	fakeSpecular = pow(fakeSpecular, 30.0/input.material->specularWidth / diffuse) / diffuse;
 	if (fakeSpecular > 15.0) fakeSpecular = 15.0;
 	fakeSpec->R = fakeSpecular;
 	fakeSpec->G = fakeSpecular;
@@ -1225,9 +1233,9 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 			tex = input.material->diffusionTexture.Pixel(texPoint);
 			break;
 		}
-		case cMaterial::texLightness:
+		case cMaterial::texLuminosity:
 		{
-			tex = input.material->lightnessTexture.Pixel(texPoint);
+			tex = input.material->luminosityTexture.Pixel(texPoint);
 			break;
 		}
 		case cMaterial::texBumpmap:
