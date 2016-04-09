@@ -1218,7 +1218,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 
 sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect) const
 {
-	CVector2<double> texPoint = TextureMapping(input);
+	CVector2<double> texPoint = TextureMapping(input) + CVector2<double>(0.5, 0.5);
 
 	sRGBfloat tex;
 	switch(texSelect)

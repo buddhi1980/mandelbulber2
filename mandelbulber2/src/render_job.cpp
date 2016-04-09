@@ -146,12 +146,58 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	//totalNumberOfCPUs = 1;
 	//systemData.numberOfThreads = 1;
 
-	WriteLog("Init renderData");
 	//aux renderer data
 	if (renderData) delete renderData;
 	renderData = new sRenderData;
+
+	PrepareData(config);
+
+	ready = true;
+
+	return true;
+}
+
+bool cRenderJob::InitImage(int w, int h)
+{
+	WriteLog("cRenderJob::InitImage");
+	QTextStream out(stdout);
+
+	if (!image->ChangeSize(w, h))
+	{
+		printf("Cannot allocate memory. Maybe image is too big");
+		return false;
+	}
+	else
+	{
+		WriteLog("complexImage allocated");
+		if (hasQWidget)
+		{
+			double scale =
+					ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
+			if (useSizeFromImage) scale = 0.0;
+			scale = CalcMainImageScale(scale,
+																 image->GetPreviewVisibleWidth(),
+																 image->GetPreviewVisibleHeight(),
+																 image);
+			image->CreatePreview(scale,
+													 image->GetPreviewVisibleWidth(),
+													 image->GetPreviewVisibleHeight(),
+													 imageWidget);
+			image->UpdatePreview();
+			emit SetMinimumWidgetSize(image->GetPreviewWidth(), image->GetPreviewHeight());
+		}
+
+		//out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
+		return true;
+	}
+}
+
+void cRenderJob::PrepareData(const cRenderingConfiguration &config)
+{
+	WriteLog("Init renderData");
 	renderData->rendererID = id;
 	renderData->configuration = config;
+
 	if (!canUseNetRender) renderData->configuration.DisableNetRender();
 
 	//set image region to render
@@ -199,44 +245,54 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	//assign stop handler
 	renderData->stopRequest = stopRequest;
 
-	ready = true;
+  /****************** TEMPORARY CODE FOR MATERIALS *******************/
 
-	return true;
-}
+	//temporary copying of material 1 parameters from existing parameters
+	paramsContainer->Set("mat1_shading", paramsContainer->Get<double>("shading"));
+  paramsContainer->Set("mat1_specular", paramsContainer->Get<double>("specular"));
+  paramsContainer->Set("mat1_reflection", paramsContainer->Get<double>("reflect"));
+  paramsContainer->Set("mat1_transparency_of_surface", paramsContainer->Get<double>("transparency_of_surface"));
+  paramsContainer->Set("mat1_transparency_of_interior", paramsContainer->Get<double>("transparency_of_interior"));
+  paramsContainer->Set("mat1_transparency_index_of_refraction", paramsContainer->Get<double>("transparency_index_of_refraction"));
+  paramsContainer->Set("mat1_transparency_interior_color", paramsContainer->Get<double>("transparency_interior_color"));
+  paramsContainer->Set("mat1_fresnel_reflectance", paramsContainer->Get<bool>("fresnel_reflectance"));
+  paramsContainer->Set("mat1_coloring_random_seed", paramsContainer->Get<double>("coloring_random_seed"));
+  paramsContainer->Set("mat1_coloring_saturation", paramsContainer->Get<double>("coloring_saturation"));
+  paramsContainer->Set("mat1_coloring_speed", paramsContainer->Get<double>("coloring_speed"));
+  paramsContainer->Set("mat1_coloring_palette_size", paramsContainer->Get<double>("coloring_palette_size"));
+  paramsContainer->Set("mat1_coloring_palette_offset", paramsContainer->Get<double>("coloring_palette_offset"));
+  paramsContainer->Set("mat1_surface_color_palette", paramsContainer->Get<cColorPalette>("surface_color_palette"));
+  paramsContainer->Set("mat1_use_colors_from_palette", paramsContainer->Get<bool>("fractal_color"));
 
-bool cRenderJob::InitImage(int w, int h)
-{
-	WriteLog("cRenderJob::InitImage");
-	QTextStream out(stdout);
+  //paramsContainer->Set("mat1_file_color_texture", QString("/media/dane/3D/Tekstury/Chodniki/507_stone03l_Modified_By_FLS.jpg"));
+  //paramsContainer->Set("mat1_use_color_texture", true);
+  //paramsContainer->Set("mat1_color_texture_intensity", 1.0);
+  //paramsContainer->Set("mat1_file_diffusion_texture", QString("/home/krzysztof/dane/3D/Tekstury/Marble/Seamless marble texture (11).jpg"));
+  //paramsContainer->Set("mat1_use_diffusion_texture", true);
+  //paramsContainer->Set("mat1_texture_scale", CVector3(4.0, 4.0, 4.0));
+  //paramsContainer->Set("mat1_diffusion_texture_intensity", 1.0);
+  //paramsContainer->Set("mat1_file_bumpmap_texture", QString("/home/krzysztof/dane/3D/Tekstury/Reliefy/cobblestone_disp.jpg"));
+  //paramsContainer->Set("mat1_use_bumpmap_texture", true);
+  //paramsContainer->Set("mat1_file_luminosity_texture", QString("/home/krzysztof/Fraktale/Nebulabrot/Eksperyment04.bmp"));
+  //paramsContainer->Set("mat1_use_luminosity_texture", true);
+  //paramsContainer->Set("mat1_luminosity_texture_intensity", 20.0);
 
-	if (!image->ChangeSize(w, h))
-	{
-		printf("Cannot allocate memory. Maybe image is too big");
-		return false;
-	}
-	else
-	{
-		WriteLog("complexImage allocated");
-		if (hasQWidget)
-		{
-			double scale =
-					ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
-			if (useSizeFromImage) scale = 0.0;
-			scale = CalcMainImageScale(scale,
-																 image->GetPreviewVisibleWidth(),
-																 image->GetPreviewVisibleHeight(),
-																 image);
-			image->CreatePreview(scale,
-													 image->GetPreviewVisibleWidth(),
-													 image->GetPreviewVisibleHeight(),
-													 imageWidget);
-			image->UpdatePreview();
-			emit SetMinimumWidgetSize(image->GetPreviewWidth(), image->GetPreviewHeight());
-		}
+  renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
 
-		//out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
-		return true;
-	}
+  /*******************************************************************/
+
+	//preparation of lights
+	//connect signal for progress bar update
+	connect(&renderData->lights,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+					this,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+
+	renderData->lights.Set(paramsContainer, fractalContainer);
+	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
+
+	renderData->objectData.resize(NUMBER_OF_FRACTALS); //reserve first items for fractal formulas
+
 }
 
 bool cRenderJob::Execute(void)
@@ -248,6 +304,8 @@ bool cRenderJob::Execute(void)
 	//}
 
 	image->BlockImage();
+
+	emit updateProgressAndStatus(QObject::tr("Rendering image"), QObject::tr("Starting rendering of image"), 0.0);
 
 	//send settings to all NetRender clients
 	if (renderData->configuration.UseNetRender())
@@ -308,56 +366,9 @@ bool cRenderJob::Execute(void)
 
 	WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs));
 
-	//connect signal for progress bar update
-	connect(&renderData->lights,
-					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-					this,
-					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-	renderData->lights.Set(paramsContainer, fractalContainer);
-	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
-
-	renderData->objectData.resize(NUMBER_OF_FRACTALS); //reserve first items for fractal formulas
-
 	//move parameters from containers to structures
 	cParamRender *params = new cParamRender(paramsContainer, &renderData->objectData);
 	cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
-
-
-  /****************** TEMPORARY CODE FOR MATERIALS *******************/
-
-	//temporary copying of material 1 parameters from existing parameters
-	paramsContainer->Set("mat1_shading", paramsContainer->Get<double>("shading"));
-  paramsContainer->Set("mat1_specular", paramsContainer->Get<double>("specular"));
-  paramsContainer->Set("mat1_reflection", paramsContainer->Get<double>("reflect"));
-  paramsContainer->Set("mat1_transparency_of_surface", paramsContainer->Get<double>("transparency_of_surface"));
-  paramsContainer->Set("mat1_transparency_of_interior", paramsContainer->Get<double>("transparency_of_interior"));
-  paramsContainer->Set("mat1_transparency_index_of_refraction", paramsContainer->Get<double>("transparency_index_of_refraction"));
-  paramsContainer->Set("mat1_transparency_interior_color", paramsContainer->Get<double>("transparency_interior_color"));
-  paramsContainer->Set("mat1_fresnel_reflectance", paramsContainer->Get<bool>("fresnel_reflectance"));
-  paramsContainer->Set("mat1_coloring_random_seed", paramsContainer->Get<double>("coloring_random_seed"));
-  paramsContainer->Set("mat1_coloring_saturation", paramsContainer->Get<double>("coloring_saturation"));
-  paramsContainer->Set("mat1_coloring_speed", paramsContainer->Get<double>("coloring_speed"));
-  paramsContainer->Set("mat1_coloring_palette_size", paramsContainer->Get<double>("coloring_palette_size"));
-  paramsContainer->Set("mat1_coloring_palette_offset", paramsContainer->Get<double>("coloring_palette_offset"));
-  paramsContainer->Set("mat1_surface_color_palette", paramsContainer->Get<cColorPalette>("surface_color_palette"));
-  paramsContainer->Set("mat1_use_colors_from_palette", paramsContainer->Get<bool>("fractal_color"));
-
-  //paramsContainer->Set("mat1_file_color_texture", QString("/media/dane/3D/Tekstury/Chodniki/507_stone03l_Modified_By_FLS.jpg"));
-  //paramsContainer->Set("mat1_use_color_texture", true);
-  //paramsContainer->Set("mat1_color_texture_intensity", 1.0);
-  //paramsContainer->Set("mat1_file_diffusion_texture", QString("/home/krzysztof/dane/3D/Tekstury/Marble/Seamless marble texture (11).jpg"));
-  //paramsContainer->Set("mat1_use_diffusion_texture", true);
-  //paramsContainer->Set("mat1_texture_scale", CVector3(4.0, 4.0, 4.0));
-  //paramsContainer->Set("mat1_diffusion_texture_intensity", 1.0);
-  //paramsContainer->Set("mat1_file_bumpmap_texture", QString("/home/krzysztof/dane/3D/Tekstury/Reliefy/cobblestone_disp.jpg"));
-  //paramsContainer->Set("mat1_use_bumpmap_texture", true);
-  //paramsContainer->Set("mat1_file_luminosity_texture", QString("/home/krzysztof/Roboczy/Lightness_texture.png"));
-  //paramsContainer->Set("mat1_use_luminosity_texture", true);
-  //paramsContainer->Set("mat1_luminosity_texture_intensity", 20.0);
-
-  renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
-
-  /*******************************************************************/
 
 	//recalculation of some parameters;
 	params->resolution = 1.0 / image->GetHeight();
@@ -445,6 +456,8 @@ void cRenderJob::UpdateParameters(const cParameterContainer *_params,
 {
 	*paramsContainer = *_params;
 	*fractalContainer = *_fractal;
+
+	PrepareData(renderData->configuration);
 }
 
 void cRenderJob::ReduceDetail()

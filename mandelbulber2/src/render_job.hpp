@@ -61,6 +61,7 @@ public slots:
 
 private:
 	bool InitImage(int w, int h);
+	void PrepareData(const cRenderingConfiguration &config);
 	void ReduceDetail();
 
 	bool hasQWidget;
