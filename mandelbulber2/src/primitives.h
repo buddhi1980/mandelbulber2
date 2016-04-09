@@ -29,6 +29,7 @@
 #include "parameters.hpp"
 #include "object_data.hpp"
 #include "object_types.hpp"
+#include "render_data.hpp"
 
 struct sPrimitiveItem
 {
@@ -126,7 +127,7 @@ class cPrimitives
 public:
 	cPrimitives(const cParameterContainer *par, QVector<cObjectData> *obejctData = NULL);
 	double TotalDistance(CVector3 point, double fractalDistance,
-			int *closestObjectId) const;
+			int *closestObjectId, sRenderData *data) const;
 
 private:
 	QVector<sPrimitiveBox> boxes;

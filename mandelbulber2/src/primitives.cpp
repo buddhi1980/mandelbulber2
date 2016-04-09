@@ -24,6 +24,8 @@
 #include <math.h>
 #include "system.hpp"
 #include "common_math.h"
+#include "render_worker.hpp"
+#include "calculate_distance.hpp"
 
 using namespace fractal;
 
@@ -473,7 +475,7 @@ double cPrimitives::PrimitiveTorus(CVector3 _point, const sPrimitiveTorus &torus
 }
 
 double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
-		int *closestObjectId) const
+		int *closestObjectId, sRenderData *data) const
 {
 	using namespace fractal;
 	int closestObject = 0;
@@ -493,6 +495,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (plane.enable)
 			{
 				double distTemp = PrimitivePlane(point, plane);
+				distTemp = DisplacementMap(distTemp, point, plane.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = plane.objectId;
@@ -509,6 +512,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (box.enable)
 			{
 				double distTemp = PrimitiveBox(point2, box);
+				distTemp = DisplacementMap(distTemp, point, box.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = box.objectId;
@@ -525,6 +529,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (rectangle.enable)
 			{
 				double distTemp = PrimitiveRectangle(point2, rectangle);
+				distTemp = DisplacementMap(distTemp, point, rectangle.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = rectangle.objectId;
@@ -541,6 +546,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (sphere.enable)
 			{
 				double distTemp = PrimitiveSphere(point2, sphere);
+				distTemp = DisplacementMap(distTemp, point, sphere.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = sphere.objectId;
@@ -557,6 +563,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (cylinder.enable)
 			{
 				double distTemp = PrimitiveCylinder(point2, cylinder);
+				distTemp = DisplacementMap(distTemp, point, cylinder.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = cylinder.objectId;
@@ -573,6 +580,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (circle.enable)
 			{
 				double distTemp = PrimitiveCircle(point2, circle);
+				distTemp = DisplacementMap(distTemp, point, circle.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = circle.objectId;
@@ -589,6 +597,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (cone.enable)
 			{
 				double distTemp = PrimitiveCone(point2, cone);
+				distTemp = DisplacementMap(distTemp, point, cone.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = cone.objectId;
@@ -605,6 +614,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (water.enable)
 			{
 				double distTemp = PrimitiveWater(point, water);
+				distTemp = DisplacementMap(distTemp, point, water.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = water.objectId;
@@ -621,6 +631,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			if (torus.enable)
 			{
 				double distTemp = PrimitiveTorus(point2, torus);
+				distTemp = DisplacementMap(distTemp, point, torus.objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = torus.objectId;

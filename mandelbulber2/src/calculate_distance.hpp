@@ -53,5 +53,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		const sDistanceIn &in, sDistanceOut *out, sRenderData *data = NULL);
 double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
 		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
+double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRenderData *data);
+
 
 #endif /* CALCULATE_DISTANCE_HPP_ */

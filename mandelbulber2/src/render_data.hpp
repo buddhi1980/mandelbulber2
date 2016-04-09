@@ -32,6 +32,23 @@
 #include "rendering_configuration.hpp"
 #include "material.h"
 #include "object_data.hpp"
+#include "texture.hpp"
+
+struct sTextures
+{
+	cTexture backgroundTexture;
+	cTexture envmapTexture;
+	cTexture lightmapTexture;
+	QList<cTexture*> textureList;
+
+	sTextures()
+	{
+		textureList.append(&backgroundTexture);
+		textureList.append(&envmapTexture);
+		textureList.append(&lightmapTexture);
+	}
+	;
+};
 
 struct sRenderData
 {

@@ -49,6 +49,10 @@ public:
 			sThreadData *_threadData, sRenderData *_data, cImage *_image);
 	~cRenderWorker();
 
+	//Texture mapping is a static function because it's used outside the class for displacement maps
+	static CVector2<double> TextureMapping(CVector3 inPoint, const cObjectData &objectData,
+			const cMaterial *material);
+
 	QThread workerThread;
 
 private:
@@ -178,8 +182,8 @@ private:
 	sRGBAfloat VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel,
 			sRGBAfloat *opacityOut);
 
-	sRGBfloat TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect) const;
-	CVector2<double> TextureMapping(const sShaderInputData &input) const;
+	sRGBfloat TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect,
+			cMaterial *mat) const;
 
 	//data got from main thread
 	const cParamRender *params;

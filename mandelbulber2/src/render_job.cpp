@@ -264,15 +264,16 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
   paramsContainer->Set("mat1_surface_color_palette", paramsContainer->Get<cColorPalette>("surface_color_palette"));
   paramsContainer->Set("mat1_use_colors_from_palette", paramsContainer->Get<bool>("fractal_color"));
 
-  //paramsContainer->Set("mat1_file_color_texture", QString("/media/dane/3D/Tekstury/Chodniki/507_stone03l_Modified_By_FLS.jpg"));
+  //paramsContainer->Set("mat1_file_color_texture", QString("/home/krzysztof/.mandelbulber/textures/grid_21_14_200_2.jpg"));
   //paramsContainer->Set("mat1_use_color_texture", true);
   //paramsContainer->Set("mat1_color_texture_intensity", 1.0);
   //paramsContainer->Set("mat1_file_diffusion_texture", QString("/home/krzysztof/dane/3D/Tekstury/Marble/Seamless marble texture (11).jpg"));
   //paramsContainer->Set("mat1_use_diffusion_texture", true);
-  //paramsContainer->Set("mat1_texture_scale", CVector3(4.0, 4.0, 4.0));
+  //paramsContainer->Set("mat1_texture_scale", CVector3(2.0, 2.0, 2.0));
   //paramsContainer->Set("mat1_diffusion_texture_intensity", 1.0);
   //paramsContainer->Set("mat1_file_bumpmap_texture", QString("/home/krzysztof/dane/3D/Tekstury/Reliefy/cobblestone_disp.jpg"));
   //paramsContainer->Set("mat1_use_bumpmap_texture", true);
+  //paramsContainer->Set("mat1_bumpmap_texture_height", 0.01);
   //paramsContainer->Set("mat1_file_luminosity_texture", QString("/home/krzysztof/Fraktale/Nebulabrot/Eksperyment04.bmp"));
   //paramsContainer->Set("mat1_use_luminosity_texture", true);
   //paramsContainer->Set("mat1_luminosity_texture_intensity", 20.0);

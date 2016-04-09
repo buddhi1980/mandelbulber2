@@ -41,7 +41,11 @@ cTexture::cTexture(QString filename, bool beQuiet)
 		width = qimage.width();
 		height = qimage.height();
 		bitmap = new sRGB8[width * height];
-		memcpy(bitmap, qimage.constBits(), sizeof(sRGB8) * width * height);
+
+		for(int y = 0; y < height; y++)
+		{
+			memcpy(&bitmap[y * width], qimage.scanLine(y), sizeof(sRGB8) * width);
+		}
 
 		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): (sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
 		loaded = true;
@@ -157,7 +161,7 @@ sRGBfloat cTexture::Pixel(double x, double y)
 	}
 }
 
-sRGBfloat cTexture::Pixel(CVector2<double> point)
+sRGBfloat cTexture::Pixel(CVector2<double> point) const
 {
 	int intX = point.x;
 	int intY = point.y;
@@ -190,7 +194,7 @@ sRGB8 cTexture::LinearInterpolation(double x, double y)
 	return color;
 }
 
-sRGBfloat cTexture::BicubicInterpolation(double x, double y)
+sRGBfloat cTexture::BicubicInterpolation(double x, double y) const
 {
 	int ix = x;
 	int iy = y;

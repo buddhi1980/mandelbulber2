@@ -40,7 +40,7 @@ public:
 	int Height(void) {return height;}
 	int Width(void) {return width;}
 	sRGBfloat Pixel(double x, double y);
-	sRGBfloat Pixel(CVector2<double> point);
+	sRGBfloat Pixel(CVector2<double> point) const;
 	sRGB8 FastPixel(int x, int y);
 	bool IsLoaded(void) {return loaded;}
 	QString GetFileName() {return originalFileName;}
@@ -48,7 +48,7 @@ public:
 
 private:
 	sRGB8 LinearInterpolation(double x, double y);
-	sRGBfloat BicubicInterpolation(double x, double y);
+	sRGBfloat BicubicInterpolation(double x, double y) const;
 	sRGB8 *bitmap;
 	int width;
 	int height;
@@ -57,3 +57,5 @@ private:
 };
 
 #endif /* TEXTURE_HPP_ */
+
+

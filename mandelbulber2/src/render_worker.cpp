@@ -543,7 +543,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	shaderInputData.material = &data->materials[objectData.materialId];
 
 	if(shaderInputData.material->diffusionTexture.IsLoaded())
-		shaderInputData.texDiffuse = TextureShader(shaderInputData, cMaterial::texDiffuse);
+		shaderInputData.texDiffuse = TextureShader(shaderInputData, cMaterial::texDiffuse, shaderInputData.material);
 	else
 		shaderInputData.texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
 

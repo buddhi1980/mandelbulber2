@@ -41,12 +41,12 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	sRGBfloat texColor, texLuminosity;
 	if(input.material->colorTexture.IsLoaded())
-		texColor = TextureShader(input, cMaterial::texColor);
+		texColor = TextureShader(input, cMaterial::texColor, mat);
 	else
 		texColor = sRGBfloat(1.0, 1.0, 1.0);
 
 	if(input.material->luminosityTexture.IsLoaded())
-		texLuminosity = TextureShader(input, cMaterial::texLuminosity);
+		texLuminosity = TextureShader(input, cMaterial::texLuminosity, mat);
 	else
 		texLuminosity = sRGBfloat(0.0, 0.0, 0.0);
 
@@ -1216,9 +1216,10 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	return fakeLights;
 }
 
-sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect) const
+sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect, cMaterial *mat) const
 {
-	CVector2<double> texPoint = TextureMapping(input) + CVector2<double>(0.5, 0.5);
+	cObjectData objectData = data->objectData[input.objectId];
+	CVector2<double> texPoint = TextureMapping(input.point, objectData, mat) + CVector2<double>(0.5, 0.5);
 
 	sRGBfloat tex;
 	switch(texSelect)
@@ -1248,19 +1249,18 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 	return sRGBfloat(tex.R, tex.G, tex.B);
 }
 
-CVector2<double> cRenderWorker::TextureMapping(const sShaderInputData &input) const
+CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, const cObjectData &objectData,
+		const cMaterial *material)
 {
 	CVector2<double> textureCoordinates;
-	cObjectData objectData = data->objectData[input.objectId];
-
-	CVector3 point = input.point - objectData.position;
+	CVector3 point = inPoint - objectData.position;
 	point = objectData.rotationMatrix.RotateVector(point);
 	point /= objectData.size;
-	point -= input.material->textureCenter;
-	point = input.material->rotMatrix.RotateVector(point);
-	point *= input.material->textureScale;
+	point -= material->textureCenter;
+	point = material->rotMatrix.RotateVector(point);
+	point *= material->textureScale;
 
-	switch(input.material->textureMappingType)
+	switch(material->textureMappingType)
 	{
 		case cMaterial::mappingPlanar:
 		{
@@ -1282,5 +1282,4 @@ CVector2<double> cRenderWorker::TextureMapping(const sShaderInputData &input) co
 		}
 	}
 	return textureCoordinates;
-
 }
