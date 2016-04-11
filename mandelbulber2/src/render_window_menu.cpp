@@ -25,6 +25,7 @@
 #include "settings.hpp"
 #include "old_settings.hpp"
 #include "preview_file_dialog.h"
+#include "file_image.hpp"
 
 void RenderWindow::slotImportOldSettings()
 {
@@ -347,8 +348,9 @@ void RenderWindow::slotMenuSaveImagePNG16()
                                       0.0,
                                       cProgressText::progress_IMAGE);
     gApplication->processEvents();
-    structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
-    SavePNG(filename, gMainInterface->mainImage, saveImageChannel, false);
+		ImageFileSave::structSaveImageChannel saveImageChannel(
+			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
+		ImageFileSavePNG::SavePNG(filename, gMainInterface->mainImage, saveImageChannel, false);
     cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"),
                                       tr("Saving image finished"),
                                       1.0,
@@ -378,8 +380,9 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
                                       0.0,
                                       cProgressText::progress_IMAGE);
     gApplication->processEvents();
-    structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
-    SavePNG(filename, gMainInterface->mainImage, saveImageChannel, true);
+		ImageFileSave::structSaveImageChannel saveImageChannel(
+			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
+		ImageFileSavePNG::SavePNG(filename, gMainInterface->mainImage, saveImageChannel, true);
     cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"),
                                       tr("Saving image finished"),
                                       1.0,

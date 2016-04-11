@@ -23,6 +23,7 @@
 #include "headless.h"
 #include "cimage.hpp"
 #include "files.h"
+#include "file_image.hpp"
 #include "render_job.hpp"
 #include "global_data.hpp"
 #include "interface.hpp"
@@ -67,17 +68,13 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	filename = fi.path() + QDir::separator() + fi.baseName();
 
 	QString ext;
-	if (imageFileFormat == "png16")
+	if (imageFileFormat == "png16" || imageFileFormat == "png16alpha")
 	{
 		ext = ".png";
-		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
-		SavePNG(filename + ext, image, saveImageChannel, false);
-	}
-	else if (imageFileFormat == "png16alpha")
-	{
-		ext = ".png";
-		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
-		SavePNG(filename + ext, image, saveImageChannel, true);
+		ImageFileSave::structSaveImageChannel saveImageChannel(
+			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
+		bool appendAlpha = (imageFileFormat == "png16alpha");
+		ImageFileSavePNG::SavePNG(filename + ext, image, saveImageChannel, appendAlpha);
 	}
 	else
 	{

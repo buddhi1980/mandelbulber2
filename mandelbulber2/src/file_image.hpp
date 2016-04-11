@@ -30,7 +30,7 @@
 class ImageFileSave : public QObject
 {
 Q_OBJECT
-	protected:
+public:
 	enum enumImageFileType
 	{
 		IMAGE_FILE_TYPE_PNG = 0,
@@ -83,6 +83,7 @@ Q_OBJECT
 		QString postfix;
 	};
 
+protected:
 	QString filename;
 	cImage* image;
 	typedef QMap<enumImageContentType, structSaveImageChannel> ImageConfig;
@@ -99,8 +100,11 @@ Q_OBJECT
 		this->image = image;
 		this->imageConfig = imageConfig;
 	}
-
 	virtual void SaveImage() = 0;
+
+signals:
+	void updateProgressAndStatus(
+			const QString &text, const QString &progressText, double progress);
 };
 
 class ImageFileSavePNG : public ImageFileSave
@@ -110,6 +114,7 @@ public:
 		ImageConfig imageConfig)
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
+	static void SavePNG(QString filename, cImage* image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 };
 
 class ImageFileSaveJPG : public ImageFileSave
