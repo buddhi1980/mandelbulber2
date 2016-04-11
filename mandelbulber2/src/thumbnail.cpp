@@ -21,7 +21,7 @@
  */
 
 #include "thumbnail.hpp"
-#include "files.h"
+#include "file_image.hpp"
 #include <QFileInfo>
 #include "settings.hpp"
 
@@ -84,6 +84,7 @@ QPixmap cThumbnail::Render()
 
 void cThumbnail::Save(QString filename)
 {
-	SaveJPEGQt(filename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(), 85);
+	ImageFileSaveJPG::SaveJPEGQt(filename, image->ConvertTo8bit(),
+		image->GetWidth(), image->GetHeight(), 85);
 }
 

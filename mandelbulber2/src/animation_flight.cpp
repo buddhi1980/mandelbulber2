@@ -482,7 +482,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		}
 
 		QString filename = GetFlightFilename(index);
-		SaveImage(filename, (enumImageFileType) params->Get<int>("flight_animation_image_type"), image);
+		SaveImage(filename, (ImageFileSave::enumImageFileType) params->Get<int>("flight_animation_image_type"), image);
 		index++;
 	}
 
@@ -859,7 +859,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 			QString filename = GetFlightFilename(index);
 			SaveImage(filename,
-								(enumImageFileType) params->Get<int>("flight_animation_image_type"),
+								(ImageFileSave::enumImageFileType) params->Get<int>("flight_animation_image_type"),
 								image);
 		}
 
@@ -1260,8 +1260,8 @@ QString cFlightAnimation::GetFlightFilename(int index)
 {
 	QString filename = params->Get<QString>("anim_flight_dir") + "frame_"
 			+ QString("%1").arg(index, 5, 10, QChar('0'));
-	filename += "." + ImageFileExtension(
-				(enumImageFileType) params->Get<double>("flight_animation_image_type"));
+	filename += "." + ImageFileSave::ImageFileExtension(
+				(ImageFileSave::enumImageFileType) params->Get<double>("flight_animation_image_type"));
 	return filename;
 }
 

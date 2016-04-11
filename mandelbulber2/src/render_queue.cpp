@@ -205,9 +205,8 @@ bool cRenderQueue::RenderKeyframe()
 
 bool cRenderQueue::RenderStill(const QString& filename)
 {
-	QString extension;
-	enumImageFileType imageFormat = (enumImageFileType) gPar->Get<int>("queue_image_format");
-	extension = ImageFileExtension(imageFormat);
+	ImageFileSave::enumImageFileType imageFormat = (ImageFileSave::enumImageFileType) gPar->Get<int>("queue_image_format");
+	QString extension = ImageFileSave::ImageFileExtension(imageFormat);
 	QString saveFilename = QFileInfo(filename).baseName() + extension;
 
 	//setup of rendering engine

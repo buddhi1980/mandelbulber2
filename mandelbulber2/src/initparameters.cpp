@@ -380,10 +380,10 @@ void InitParams(cParameterContainer *par)
 	par->addParam("zbuffer_enabled", false, morphNone, paramApp);
 	par->addParam("normal_enabled", false, morphNone, paramApp);
 
-	par->addParam("color_quality", (int) IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
-	par->addParam("alpha_quality", (int) IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
-	par->addParam("zbuffer_quality", (int) IMAGE_CHANNEL_QUALITY_32, morphNone, paramApp);
-	par->addParam("normal_quality", (int) IMAGE_CHANNEL_QUALITY_32, morphNone, paramApp);
+	par->addParam("color_quality", (int) ImageFileSave::IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
+	par->addParam("alpha_quality", (int) ImageFileSave::IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
+	par->addParam("zbuffer_quality", (int) ImageFileSave::IMAGE_CHANNEL_QUALITY_32, morphNone, paramApp);
+	par->addParam("normal_quality", (int) ImageFileSave::IMAGE_CHANNEL_QUALITY_32, morphNone, paramApp);
 
 	par->addParam("color_postfix", QString(""), morphNone, paramApp);
 	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramApp);

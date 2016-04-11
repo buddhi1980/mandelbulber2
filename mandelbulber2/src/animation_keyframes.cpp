@@ -703,7 +703,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				if (!result) throw false;
 				QString filename = GetKeyframeFilename(index, subindex);
 				SaveImage(filename,
-									(enumImageFileType) params->Get<int>("keyframe_animation_image_type"),
+									(ImageFileSave::enumImageFileType) params->Get<int>("keyframe_animation_image_type"),
 									image);
 			}
 			//--------------------------------------------------------------------
@@ -1083,8 +1083,8 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
 	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
 			+ QString("%1").arg(frameIndex, 5, 10, QChar('0'));
-	filename += "." + ImageFileExtension(
-				(enumImageFileType) params->Get<double>("keyframe_animation_image_type"));
+	filename += "." + ImageFileSave::ImageFileExtension(
+				(ImageFileSave::enumImageFileType) params->Get<double>("keyframe_animation_image_type"));
 	return filename;
 }
 

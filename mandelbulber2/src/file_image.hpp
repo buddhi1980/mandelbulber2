@@ -24,12 +24,22 @@
 #define FILE_IMAGE_H_
 
 #include "cimage.hpp"
-#include "files.h"
 #include <QtCore>
+
+extern "C"
+{
+#include <png.h>
+}
+
+/**********************************************************/
+//source of libraries:
+//libpng: http://www.libpng.org/pub/png/libpng.html
+/**********************************************************/
 
 class ImageFileSave : public QObject
 {
 Q_OBJECT
+
 public:
 	enum enumImageFileType
 	{
@@ -83,15 +93,18 @@ public:
 		QString postfix;
 	};
 
-protected:
-	QString filename;
-	cImage* image;
 	typedef QMap<enumImageContentType, structSaveImageChannel> ImageConfig;
-	ImageConfig imageConfig;
-
+	static QString ImageFileExtension(enumImageFileType imageFileType);
+	static enumImageFileType ImageFileType(QString imageFileExtension);
 	static ImageFileSave* create(QString filename,
 		enumImageFileType filetype, cImage *image,
 		ImageConfig imageConfig);
+	virtual void SaveImage() = 0;
+
+protected:
+	QString filename;
+	cImage* image;
+	ImageConfig imageConfig;
 
 	ImageFileSave(QString filename, cImage *image,
 		ImageConfig imageConfig)
@@ -100,7 +113,6 @@ protected:
 		this->image = image;
 		this->imageConfig = imageConfig;
 	}
-	virtual void SaveImage() = 0;
 
 signals:
 	void updateProgressAndStatus(
@@ -115,6 +127,10 @@ public:
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
 	static void SavePNG(QString filename, cImage* image, structSaveImageChannel imageChannel, bool appendAlpha = false);
+	static void SavePNG16(QString filename, int width, int height, sRGB16* image16);
+	static void SaveZBuffer(QString filename, cImage *image);
+	static void SaveZBuffer(QString filename, cImage *image, float minZ, float maxZ);
+	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 };
 
 class ImageFileSaveJPG : public ImageFileSave
@@ -124,6 +140,9 @@ public:
 		ImageConfig imageConfig)
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
+	static bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
+	static bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height,
+			int quality);
 };
 
 #ifdef USE_TIFF
@@ -134,6 +153,8 @@ public:
 		ImageConfig imageConfig)
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
+	static bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChannel,
+			bool appendAlpha = false);
 };
 #endif /* USE_TIFF */
 
@@ -145,6 +166,8 @@ public:
 		ImageConfig imageConfig)
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
+	static void SaveEXR(QString filename, cImage* image,
+		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
 };
 #endif /* USE_EXR */
 

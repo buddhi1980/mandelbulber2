@@ -79,13 +79,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	else
 	{
 		ext = "." + imageFileFormat;
-		enumImageFileType imageFileType = IMAGE_FILE_TYPE_JPG;
-
-		if(imageFileFormat == "jpg") imageFileType = IMAGE_FILE_TYPE_JPG;
-		else if(imageFileFormat == "png") imageFileType = IMAGE_FILE_TYPE_PNG;
-		else if(imageFileFormat == "exr") imageFileType = IMAGE_FILE_TYPE_EXR;
-		else if(imageFileFormat == "tiff") imageFileType = IMAGE_FILE_TYPE_TIFF;
-
+		ImageFileSave::enumImageFileType imageFileType = ImageFileSave::ImageFileType(imageFileFormat);
 		SaveImage(filename + ext, imageFileType, image);
 	}
 
