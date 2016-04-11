@@ -285,7 +285,7 @@ void RenderWindow::slotMenuSaveImageEXR()
                                       0.0,
                                       cProgressText::progress_IMAGE);
     gApplication->processEvents();
-    SaveImage(filename, IMAGE_FILE_TYPE_EXR, gMainInterface->mainImage);
+		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_EXR, gMainInterface->mainImage);
     cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"),
                                       tr("Saving EXR image finished"),
                                       1.0,
@@ -317,7 +317,7 @@ void RenderWindow::slotMenuSaveImageTIFF()
                                       0.0,
                                       cProgressText::progress_IMAGE);
     gApplication->processEvents();
-    SaveImage(filename, IMAGE_FILE_TYPE_TIFF, gMainInterface->mainImage);
+		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_TIFF, gMainInterface->mainImage);
     cProgressText::ProgressStatusText(tr("Saving %1 image").arg("TIFF"),
                                       tr("Saving TIFF image finished"),
                                       1.0,
