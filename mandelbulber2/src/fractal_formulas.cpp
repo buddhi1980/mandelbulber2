@@ -392,6 +392,21 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 }
 
 /**
+ * CollatzIteration formula
+ * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
+ *            https://en.wikipedia.org/wiki/Collatz_conjecture#Iterating_on_real_or_complex_numbers
+ */
+void CollatzIteration(CVector3 &z, sExtendedAux &aux)
+{
+	CVector3 xV(1.0, 1.0, 1.0);
+	z = xV + 4.0 * z
+		- CVector3(xV + 2.0 * z)
+				* z.RotateAroundVectorByAngle(xV, M_PI);
+	z /= 4.0;
+	aux.DE = aux.DE * 4.0 + 1.0;
+}
+
+/**
  * Hybrid of Mandelbox and Mandelbulb power 2 with scaling of z axis
  */
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)

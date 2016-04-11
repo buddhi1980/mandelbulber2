@@ -285,8 +285,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MsltoeToroidalIteration(z, fractal, extendedAux);
           break;
         }
-
-
 				case generalizedFoldBox:
 				{
 					GeneralizedFoldBoxIteration(z, fractal, extendedAux);
@@ -397,13 +395,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           Quaternion3DIteration(z, fractal, extendedAux);
           break;
         }
-
         case fastImagscaPower2:
         {
           FastImagscaPower2Iteration(z, fractal);
           break;
         }
-
+				case collatz:
+				{
+					CollatzIteration(z, extendedAux);
+					break;
+				}
 
         //transforms ------------------------------------------------------------------------------------------
         case transfAdditionConstant:
@@ -890,7 +891,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym4Mod:
         //case msltoeToroidal:
 				case quaternion:
-        case quaternion3D:
+				case quaternion3D:
 				case xenodreambuie:
 				{
 					if(extendedAux.r_dz > 0)
@@ -921,6 +922,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
 				case kaleidoscopicIFS:
 				case menger_sponge:
+				case collatz:
         case mengerMod1:
         {
 					if(extendedAux.r_dz > 0)
@@ -973,8 +975,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
         case mengerMod1:
         case aboxModKali:
-        case aboxMod1:
+				case aboxMod1:
 				case menger_sponge:
+				case collatz:
 				case kaleidoscopicIFS:
 					out->colorIndex = minimumR * 1000.0;
 					break;

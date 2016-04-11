@@ -82,6 +82,7 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal);
 void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal);
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void CollatzIteration(CVector3 &z, sExtendedAux &aux);
 
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);

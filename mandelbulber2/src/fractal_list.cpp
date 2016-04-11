@@ -460,13 +460,21 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
-  fractalList->append(sFractalDescription("Imaginary scator Power 2",
-                                          "imagsca_power_2",
-                                          fastImagscaPower2,
-                                          deltaDEType,
-                                          logarithmicDEFunction,
-                                          cpixelEnabledByDefault,
-                                          10));
+	fractalList->append(sFractalDescription("Imaginary scator Power 2",
+																					"imagsca_power_2",
+																					fastImagscaPower2,
+																					deltaDEType,
+																					logarithmicDEFunction,
+																					cpixelEnabledByDefault,
+																					10));
+
+	fractalList->append(sFractalDescription("Collatz fractal",
+																					"collatz",
+																					collatz,
+																					analyticDEType,
+																					logarithmicDEFunction,
+																					cpixelDisabledByDefault,
+																					10));
 
 
 

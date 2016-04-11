@@ -111,7 +111,7 @@ enum enumFractalFormula
 	riemannBulbMsltoeMod2 = 85,
 	msltoeToroidal = 86,
 	aboxModKaliEiffie = 87,
-
+	collatz = 88,
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
 
