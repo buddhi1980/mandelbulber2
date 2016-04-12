@@ -102,6 +102,11 @@ void ImageFileSavePNG::SaveImage()
 		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ZBUFFER].postfix + ".png";
 		SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_ZBUFFER]);
 	}
+	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
+	{
+		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_NORMAL].postfix + ".png";
+		SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_NORMAL]);
+	}
 }
 
 void ImageFileSaveJPG::SaveImage()
@@ -150,6 +155,11 @@ void ImageFileSaveTIFF::SaveImage()
 	{
 		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ZBUFFER].postfix + ".tiff";
 		SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_ZBUFFER]);
+	}
+	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
+	{
+		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_NORMAL].postfix + ".tiff";
+		SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_NORMAL]);
 	}
 }
 #endif /* USE_TIFF */
@@ -229,6 +239,9 @@ void ImageFileSavePNG::SavePNG(QString filename, cImage* image, structSaveImageC
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
 				colorType = PNG_COLOR_TYPE_GRAY;
+				break;
+			case IMAGE_CONTENT_NORMAL:
+				colorType = PNG_COLOR_TYPE_RGB;
 				break;
 			default:
 				colorType = PNG_COLOR_TYPE_RGB;
@@ -396,6 +409,20 @@ void ImageFileSavePNG::SavePNG(QString filename, cImage* image, structSaveImageC
 
 								unsigned char* typedColorPtr = (unsigned char*) &colorPtr[ptr];
 								*typedColorPtr = (unsigned char) (intZ);
+							}
+						}
+							break;
+						case IMAGE_CONTENT_NORMAL:
+						{
+							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+							{
+								sRGB16* typedColorPtr = (sRGB16*) &colorPtr[ptr];
+								*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
+							}
+							else
+							{
+								sRGB8* typedColorPtr = (sRGB8*) &colorPtr[ptr];
+								*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
 							}
 						}
 							break;
@@ -868,6 +895,61 @@ void ImageFileSaveEXR::SaveEXR(QString filename, cImage* image,
 		}
 	}
 
+	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
+	{
+		// add rgb channel header
+		Imf::PixelType imfQuality =
+				imageConfig[IMAGE_CONTENT_NORMAL].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT :
+						Imf::HALF;
+
+		header.channels().insert("n.R", Imf::Channel(imfQuality));
+		header.channels().insert("n.G", Imf::Channel(imfQuality));
+		header.channels().insert("n.B", Imf::Channel(imfQuality));
+
+		int pixelSize = sizeof(tsRGB<half> );
+		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float> );
+		char* buffer = new char[(unsigned long int) width * height * pixelSize];
+		tsRGB<half>* halfPointer = (tsRGB<half>*) buffer;
+		tsRGB<float>* floatPointer = (tsRGB<float>*) buffer;
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				unsigned long int ptr = (x + y * width);
+				sRGBfloat pixel = image->GetPixelNormal(x, y);
+				if (imfQuality == Imf::FLOAT)
+				{
+					floatPointer[ptr] = pixel;
+				}
+				else
+				{
+					halfPointer[ptr].R = pixel.R;
+					halfPointer[ptr].G = pixel.G;
+					halfPointer[ptr].B = pixel.B;
+				}
+			}
+		}
+
+		// point EXR frame buffer to rgb
+		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
+		frameBuffer.insert("n.R",
+											 Imf::Slice(imfQuality,
+																	(char *) buffer + 0 * compSize,
+																	3 * compSize,
+																	3 * width * compSize));
+		frameBuffer.insert("n.G",
+											 Imf::Slice(imfQuality,
+																	(char *) buffer + 1 * compSize,
+																	3 * compSize,
+																	3 * width * compSize));
+		frameBuffer.insert("n.B",
+											 Imf::Slice(imfQuality,
+																	(char *) buffer + 2 * compSize,
+																	3 * compSize,
+																	3 * width * compSize));
+	}
+
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
 	file.setFrameBuffer(frameBuffer);
 	file.writePixels(height);
@@ -917,6 +999,9 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filename, cImage* image, structSaveImag
 		case IMAGE_CONTENT_ZBUFFER:
 			colorType = PHOTOMETRIC_MINISBLACK;
 			break;
+		case IMAGE_CONTENT_NORMAL:
+			colorType = PHOTOMETRIC_RGB;
+			break;
 		default:
 			colorType = PHOTOMETRIC_RGB;
 			break;
@@ -933,6 +1018,9 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filename, cImage* image, structSaveImag
 			break;
 		case IMAGE_CONTENT_ZBUFFER:
 			samplesPerPixel = 1;
+			break;
+		case IMAGE_CONTENT_NORMAL:
+			samplesPerPixel = 3;
 			break;
 	}
 
@@ -1076,7 +1164,26 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filename, cImage* image, structSaveImag
 						*typedColorPtr = (unsigned char) (((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 255);
 					}
 				}
-				break;
+					break;
+				case IMAGE_CONTENT_NORMAL:
+				{
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+					{
+						sRGBfloat* typedColorPtr = (sRGBfloat*) &colorPtr[ptr];
+						*typedColorPtr = sRGBfloat(image->GetPixelNormal(x, y));
+					}
+					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						sRGB16* typedColorPtr = (sRGB16*) &colorPtr[ptr];
+						*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
+					}
+					else
+					{
+						sRGB8* typedColorPtr = (sRGB8*) &colorPtr[ptr];
+						*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
+					}
+				}
+					break;
 			}
 		}
 	}

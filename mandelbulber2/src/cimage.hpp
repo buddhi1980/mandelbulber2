@@ -90,7 +90,6 @@ public:
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height) opacityBuffer[x + y * width] = pixel;
 	}
-
 	inline sRGBfloat GetPixelImage(int x, int y)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width];
@@ -131,7 +130,33 @@ public:
 		if (x >= 0 && x < width && y >= 0 && y < height) return zBuffer[x + y * width];
 		else return 1e20;
 	}
-
+	inline sRGBfloat GetPixelNormal(int x, int y)
+	{
+		// if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width];
+		// else
+		return sRGBfloat((1.0f * (width - x) / width),
+			1.0f * (height - y) / height,
+			1.0f * (x + y) / (width + height));
+		// return BlackFloat();
+	}
+	inline sRGB16 GetPixelNormal16(int x, int y)
+	{
+		// if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width];
+		// else
+		return sRGB16((65535 * (width - x) / width),
+			65535 * (height - y) / height,
+			65535 * (x + y) / (width + height));
+		// return Black16();
+	}
+	inline sRGB8 GetPixelNormal8(int x, int y)
+	{
+		// if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width];
+		// else
+		return sRGB8((255 * (width - x) / width),
+			255 * (height - y) / height,
+			255 * (x + y) / (width + height));
+		// return Black8();
+	}
 	inline void BlendPixelImage16(int x, int y, double factor, sRGB16 other)
 	{
 		double factorN = 1.0 - factor;
