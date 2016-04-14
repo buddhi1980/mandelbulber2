@@ -82,7 +82,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	//main iteration loop
 	int i;
 	int sequence = 0;
-	int lastSequnce = 0;
 
 	CVector3 lastGoodZ;
 	CVector3 lastZ;
@@ -100,12 +99,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		else
 		{
 			sequence = fractals.GetSequence(i);
-		}
-
-		//for optimized DE calculation
-		if(fractals.UseOptimizedDE())
-		{
-			lastSequnce = sequence;
 		}
 
 		//foldings
