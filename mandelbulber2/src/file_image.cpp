@@ -59,6 +59,8 @@ ImageFileSave* ImageFileSave::create(QString filename,
 			return new ImageFileSaveEXR(filename, image, imageConfig);
 #endif /* USE_EXR */
 	}
+	qCritical() << "filetype " << ImageFileExtension(filetype) <<  " not supported!";
+	return NULL;
 }
 
 QString ImageFileSave::ImageFileExtension(enumImageFileType imageFileType)
@@ -130,7 +132,16 @@ void ImageFileSaveJPG::SaveImage()
 	}
 	if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
 	{
-		// JPG cannot save zbuffer (loss of precision to strong)
+		qWarning() << "JPG cannot save zbuffer (loss of precision to strong)";
+	}
+	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
+	{
+		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_NORMAL].postfix + ".jpg";
+		SaveJPEGQt(fullFilename,
+							 image->ConvertNormalto8Bit(),
+							 image->GetWidth(),
+							 image->GetHeight(),
+							 gPar->Get<int>("jpeg_quality"));
 	}
 }
 
@@ -319,9 +330,8 @@ void ImageFileSavePNG::SavePNG(QString filename, cImage* image, structSaveImageC
 				}
 					break;
 				case IMAGE_CONTENT_ZBUFFER:
-				{
-					// zbuffer is float, so direct buffer write is not applicable
-				}
+				case IMAGE_CONTENT_NORMAL:
+					// zbuffer and normals are float, so direct buffer write is not applicable
 					break;
 			}
 
@@ -525,46 +535,6 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 		cErrorMessage::showMessage(QObject::tr("Can't save image to PNG file!\n")
 															 + filename + "\n" + status, cErrorMessage::errorMessage);
 	}
-}
-
-void ImageFileSavePNG::SaveZBuffer(QString filename, cImage *image, float minZ, float maxZ)
-{
-	unsigned int w = image->GetWidth();
-	unsigned int h = image->GetHeight();
-	unsigned int size = w * h;
-
-	sRGB16 *buffer16 = new sRGB16[w * h];
-	float *zbuffer = image->GetZBufferPtr();
-
-	//normalize zBuffer logarithmically
-	double k = log(maxZ / minZ);
-	for (unsigned int i = 0; i < size; i++)
-	{
-		float z1 = log(zbuffer[i] / minZ) / k;
-		int z = z1 * 60000;
-		if (zbuffer[i] > 1e19) z = 65535;
-		buffer16[i].R = buffer16[i].G = buffer16[i].B = z;
-	}
-	SavePNG16(filename, w, h, buffer16);
-}
-
-void ImageFileSavePNG::SaveZBuffer(QString filename, cImage *image)
-{
-	unsigned int w = image->GetWidth();
-	unsigned int h = image->GetHeight();
-	unsigned int size = w * h;
-
-	// calculate min / max values from zbuffer range
-	float *zbuffer = image->GetZBufferPtr();
-	float minZ = 1.0e50;
-	float maxZ = 0.0;
-	for (unsigned int i = 0; i < size; i++)
-	{
-		float z = zbuffer[i];
-		if (z > maxZ && z < 1e19) maxZ = z;
-		if (z < minZ) minZ = z;
-	}
-	SaveZBuffer(filename, image, minZ, maxZ);
 }
 
 void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int height, int tiles)
@@ -903,9 +873,9 @@ void ImageFileSaveEXR::SaveEXR(QString filename, cImage* image,
 				imageConfig[IMAGE_CONTENT_NORMAL].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT :
 						Imf::HALF;
 
-		header.channels().insert("n.R", Imf::Channel(imfQuality));
-		header.channels().insert("n.G", Imf::Channel(imfQuality));
-		header.channels().insert("n.B", Imf::Channel(imfQuality));
+		header.channels().insert("n.X", Imf::Channel(imfQuality));
+		header.channels().insert("n.Y", Imf::Channel(imfQuality));
+		header.channels().insert("n.Z", Imf::Channel(imfQuality));
 
 		int pixelSize = sizeof(tsRGB<half> );
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float> );
@@ -934,17 +904,17 @@ void ImageFileSaveEXR::SaveEXR(QString filename, cImage* image,
 
 		// point EXR frame buffer to rgb
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("n.R",
+		frameBuffer.insert("n.X",
 											 Imf::Slice(imfQuality,
 																	(char *) buffer + 0 * compSize,
 																	3 * compSize,
 																	3 * width * compSize));
-		frameBuffer.insert("n.G",
+		frameBuffer.insert("n.Y",
 											 Imf::Slice(imfQuality,
 																	(char *) buffer + 1 * compSize,
 																	3 * compSize,
 																	3 * width * compSize));
-		frameBuffer.insert("n.B",
+		frameBuffer.insert("n.Z",
 											 Imf::Slice(imfQuality,
 																	(char *) buffer + 2 * compSize,
 																	3 * compSize,

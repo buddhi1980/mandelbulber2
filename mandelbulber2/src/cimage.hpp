@@ -213,8 +213,8 @@ public:
 
   unsigned char* ConvertTo8bit(void);
 	unsigned char* ConvertAlphaTo8bit(void);
-	void ConvertNormalto16Bit(void);
-	void ConvertNormalto8Bit(void);
+	unsigned char* ConvertNormalto16Bit(void);
+	unsigned char* ConvertNormalto8Bit(void);
   unsigned char* CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
   void UpdatePreview(QList<int> *list = NULL);
   unsigned char* GetPreviewPtr(void);

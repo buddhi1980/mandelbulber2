@@ -309,8 +309,7 @@ unsigned char* cImage::ConvertTo8bit(void)
 		image8[i].G = image16[i].G / 256;
 		image8[i].B = image16[i].B / 256;
 	}
-	unsigned char* ptr = (unsigned char*) image8;
-	return ptr;
+	return (unsigned char*) image8;
 }
 
 unsigned char* cImage::ConvertAlphaTo8bit(void)
@@ -319,30 +318,31 @@ unsigned char* cImage::ConvertAlphaTo8bit(void)
 	{
 		alphaBuffer8[i] = alphaBuffer16[i] / 256;
 	}
-	unsigned char* ptr = (unsigned char*) alphaBuffer8;
-	return ptr;
+	return (unsigned char*) alphaBuffer8;
 }
 
-void cImage::ConvertNormalto16Bit(void)
+unsigned char* cImage::ConvertNormalto16Bit(void)
 {
-	if(!opt.optionalNormal) return;
+	if(!opt.optionalNormal) return NULL;
 	for (long int i = 0; i < width * height; i++)
 	{
 		normal16[i].R = normalFloat[i].R * 65536;
 		normal16[i].G = normalFloat[i].G * 65536;
 		normal16[i].B = normalFloat[i].B * 65536;
 	}
+	return (unsigned char*) normal16;
 }
 
-void cImage::ConvertNormalto8Bit(void)
+unsigned char* cImage::ConvertNormalto8Bit(void)
 {
-	if(!opt.optionalNormal) return;
+	if(!opt.optionalNormal) return NULL;
 	for (long int i = 0; i < width * height; i++)
 	{
 		normal8[i].R = normalFloat[i].R * 256;
 		normal8[i].G = normalFloat[i].G * 256;
 		normal8[i].B = normalFloat[i].B * 256;
 	}
+	return (unsigned char*) normal8;
 }
 
 sRGB8 cImage::Interpolation(float x, float y)
