@@ -118,216 +118,128 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 		sPrimitiveItem item = listOfPrimitives.at(i);
 
 		using namespace fractal;
+		sPrimitiveBasic* primitive;
+		switch (item.type)
+		{
+			case objPlane:	primitive = new sPrimitivePlane; break;
+			case objBox:		primitive = new sPrimitiveBox; break;
+			case objSphere: primitive = new sPrimitiveSphere; break;
+			case objWater:	primitive = new sPrimitiveWater; break;
+			case objCone:		primitive = new sPrimitiveCone; break;
+			case objCylinder: primitive = new sPrimitiveCylinder; break;
+			case objTorus:	primitive = new sPrimitiveTorus; break;
+			case objCircle: primitive = new sPrimitiveCircle; break;
+			case objRectangle: primitive = new sPrimitiveRectangle; break;
+			default: qCritical() << "cannot handle " << PrimitiveNames(item.type) << " in cPrimitives::cPrimitives()";
+		}
+
+		primitive->position = par->Get<CVector3>(item.name + "_position");
+		primitive->materialId = par->Get<int>(item.name + "_material_id");
+		primitive->objectType = item.type;
+		primitive->SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+		primitive->enable = par->Get<bool>(item.name + "_enabled");
+		//primitive->reflect = par->Get<double>(item.name + "_reflection");
+		//primitive->color = par->Get<sRGB>(item.name + "_color");
+
 		switch (item.type)
 		{
 			case objPlane:
 			{
-				sPrimitivePlane object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.empty = par->Get<bool>(item.name + "_empty");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				object.size = CVector3(1.0, 1.0, 1.0);
-				object.objectType = objPlane;
-				if(objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				planes.append(object);
+				sPrimitivePlane *obj = (sPrimitivePlane *) primitive;
+				obj->empty = par->Get<bool>(item.name + "_empty");
+				obj->size = CVector3(1.0, 1.0, 1.0);
 				break;
 			}
 			case objBox:
 			{
-				sPrimitiveBox object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.empty = par->Get<bool>(item.name + "_empty");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.size = par->Get<CVector3>(item.name + "_size");
-				object.rounding = par->Get<double>(item.name + "_rounding");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				object.objectType = objBox;
-				if(objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				boxes.append(object);
+				sPrimitiveBox *obj = (sPrimitiveBox *) primitive;
+				obj->empty = par->Get<bool>(item.name + "_empty");
+				obj->rounding = par->Get<double>(item.name + "_rounding");
+				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->size = par->Get<CVector3>(item.name + "_size");
 				break;
 			}
 			case objSphere:
 			{
-				sPrimitiveSphere object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.empty = par->Get<bool>(item.name + "_empty");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.radius = par->Get<double>(item.name + "_radius");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				object.size = CVector3(object.radius * 2.0, object.radius * 2.0, object.radius * 2.0);
-				object.objectType = objSphere;
-				if(objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				spheres.append(object);
+				sPrimitiveSphere *obj = (sPrimitiveSphere *) primitive;
+				obj->empty = par->Get<bool>(item.name + "_empty");
+				obj->radius = par->Get<double>(item.name + "_radius");
+				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->radius * 2.0);
 				break;
 			}
 			case objWater:
 			{
-				sPrimitiveWater object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.empty = par->Get<bool>(item.name + "_empty");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.amplitude = par->Get<double>(item.name + "_amplitude");
-				object.length = par->Get<double>(item.name + "_length");
-				object.animSpeed = par->Get<double>(item.name + "_anim_speed");
-				object.iterations = par->Get<int>(item.name + "_iterations");
-				object.animFrame = par->Get<int>("frame_no");
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				object.size = CVector3(1.0, 1.0, 1.0);
-				object.objectType = objWater;
-				if(objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				waters.append(object);
+				sPrimitiveWater *obj = (sPrimitiveWater *) primitive;
+				obj->empty = par->Get<bool>(item.name + "_empty");
+				obj->amplitude = par->Get<double>(item.name + "_amplitude");
+				obj->length = par->Get<double>(item.name + "_length");
+				obj->animSpeed = par->Get<double>(item.name + "_anim_speed");
+				obj->iterations = par->Get<int>(item.name + "_iterations");
+				obj->animFrame = par->Get<int>("frame_no");
+				obj->size = CVector3(1.0, 1.0, 1.0);
 				break;
 			}
 			case objCone:
 			{
-				sPrimitiveCone object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.caps = par->Get<bool>(item.name + "_caps");
-				object.empty = par->Get<bool>(item.name + "_empty");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.radius = par->Get<double>(item.name + "_radius");
-				object.height = par->Get<double>(item.name + "_height");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.wallNormal = CVector2<double>(1.0, object.radius / object.height);
-				object.wallNormal.Normalize();
-				object.size = CVector3(object.radius * 2.0, object.radius * 2.0, object.height);
-				object.objectType = objCone;
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				if(objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				cones.append(object);
+				sPrimitiveCone *obj = (sPrimitiveCone *) primitive;
+				obj->caps = par->Get<bool>(item.name + "_caps");
+				obj->empty = par->Get<bool>(item.name + "_empty");
+				obj->radius = par->Get<double>(item.name + "_radius");
+				obj->height = par->Get<double>(item.name + "_height");
+				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->wallNormal = CVector2<double>(1.0, obj->radius / obj->height);
+				obj->wallNormal.Normalize();
+				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->height);
 				break;
 			}
 			case objCylinder:
 			{
-				sPrimitiveCylinder object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.caps = par->Get<bool>(item.name + "_caps");
-				object.empty = par->Get<bool>(item.name + "_empty");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.radius = par->Get<double>(item.name + "_radius");
-				object.height = par->Get<double>(item.name + "_height");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.size = CVector3(object.radius * 2.0, object.radius * 2.0, object.height);
-				object.objectType = objCylinder;
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				if(objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				cylinders.append(object);
-				break;
-			}
-			case objCircle:
-			{
-				sPrimitiveCircle object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.radius = par->Get<double>(item.name + "_radius");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.size = CVector3(object.radius * 2.0, object.radius * 2.0, 1.0);
-				object.objectType = objCircle;
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				if(objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				circles.append(object);
-				break;
-			}
-			case objRectangle:
-			{
-				sPrimitiveRectangle object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.height = par->Get<double>(item.name + "_height");
-				object.width = par->Get<double>(item.name + "_width");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.size = CVector3(object.width, object.height, 1.0);
-				object.objectType = objRectangle;
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				if(objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				rectangles.append(object);
+				sPrimitiveCylinder *obj = (sPrimitiveCylinder *) primitive;
+				obj->caps = par->Get<bool>(item.name + "_caps");
+				obj->empty = par->Get<bool>(item.name + "_empty");
+				obj->radius = par->Get<double>(item.name + "_radius");
+				obj->height = par->Get<double>(item.name + "_height");
+				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, obj->height);
 				break;
 			}
 			case objTorus:
 			{
-				sPrimitiveTorus object;
-				object.enable = par->Get<bool>(item.name + "_enabled");
-				object.empty = par->Get<bool>(item.name + "_empty");
-				object.position = par->Get<CVector3>(item.name + "_position");
-				object.radius = par->Get<double>(item.name + "_radius");
-				object.tube_radius = par->Get<double>(item.name + "_tube_radius");
-				object.SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-				//object.reflect = par->Get<double>(item.name + "_reflection");
-				//object.color = par->Get<sRGB>(item.name + "_color");
-				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.size = CVector3(	(object.radius + object.tube_radius) * 2.0,
-																(object.radius + object.tube_radius) * 2.0,
-																object.tube_radius);
-				object.objectType = objTorus;
-				object.materialId = par->Get<int>(item.name + "_material_id");
-				if (objectData)
-				{
-					objectData->append(object);
-					object.objectId = objectData->size() - 1;
-				}
-				toruses.append(object);
+				sPrimitiveTorus *obj = (sPrimitiveTorus *) primitive;
+				obj->empty = par->Get<bool>(item.name + "_empty");
+				obj->radius = par->Get<double>(item.name + "_radius");
+				obj->tube_radius = par->Get<double>(item.name + "_tube_radius");
+				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
+				obj->size = CVector3(	(obj->radius + obj->tube_radius) * 2.0,
+																(obj->radius + obj->tube_radius) * 2.0,
+																obj->tube_radius);
+				break;
+			}
+			case objCircle:
+			{
+				sPrimitiveCircle *obj = (sPrimitiveCircle *) primitive;
+				obj->radius = par->Get<double>(item.name + "_radius");
+				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, 1.0);
+				break;
+			}
+			case objRectangle:
+			{
+				sPrimitiveRectangle *obj = (sPrimitiveRectangle *) primitive;
+				obj->height = par->Get<double>(item.name + "_height");
+				obj->width = par->Get<double>(item.name + "_width");
+				obj->size = CVector3(obj->width, obj->height, 1.0);
 				break;
 			}
 			default:
 				break;
 		}
+		if(objectData)
+		{
+			objectData->append(*primitive);
+			primitive->objectId = objectData->size() - 1;
+		}
+		allPrimitives.append(primitive);
 	}
 
 	allPrimitivesPosition = par->Get<CVector3>("all_primitives_position");
@@ -337,106 +249,106 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) finished");
 }
 
-double cPrimitives::PrimitivePlane(CVector3 _point, const sPrimitivePlane &plane) const
+double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - plane.position;
-	point = plane.rotationMatrix.RotateVector(point);
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
 	double dist = point.z;
-	return plane.empty ? fabs(dist) : dist;
+	return empty ? fabs(dist) : dist;
 }
 
-double cPrimitives::PrimitiveBox(CVector3 _point, const sPrimitiveBox &box) const
+double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - box.position;
-	point = box.rotationMatrix.RotateVector(point);
-	point = point.mod(box.repeat);
-	if (box.empty)
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
+	point = point.mod(repeat);
+	if (empty)
 	{
 		double boxDist = -1e10;
-		boxDist = max(fabs(point.x) - box.size.x * 0.5, boxDist);
-		boxDist = max(fabs(point.y) - box.size.y * 0.5, boxDist);
-		boxDist = max(fabs(point.z) - box.size.z * 0.5, boxDist);
+		boxDist = max(fabs(point.x) - size.x * 0.5, boxDist);
+		boxDist = max(fabs(point.y) - size.y * 0.5, boxDist);
+		boxDist = max(fabs(point.z) - size.z * 0.5, boxDist);
 		return fabs(boxDist);
 	}
 	else
 	{
 		CVector3 boxTemp;
-		boxTemp.x = max(fabs(point.x) - box.size.x * 0.5, 0.0);
-		boxTemp.y = max(fabs(point.y) - box.size.y * 0.5, 0.0);
-		boxTemp.z = max(fabs(point.z) - box.size.z * 0.5, 0.0);
-		return boxTemp.Length() - box.rounding;
+		boxTemp.x = max(fabs(point.x) - size.x * 0.5, 0.0);
+		boxTemp.y = max(fabs(point.y) - size.y * 0.5, 0.0);
+		boxTemp.z = max(fabs(point.z) - size.z * 0.5, 0.0);
+		return boxTemp.Length() - rounding;
 	}
 }
 
-double cPrimitives::PrimitiveSphere(CVector3 _point, const sPrimitiveSphere &sphere) const
+double sPrimitiveSphere::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - sphere.position;
-	point = sphere.rotationMatrix.RotateVector(point);
-	point = point.mod(sphere.repeat);
-	double dist = point.Length() - sphere.radius;
-	return sphere.empty ? fabs(dist) : dist;
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
+	point = point.mod(repeat);
+	double dist = point.Length() - radius;
+	return empty ? fabs(dist) : dist;
 }
 
-double cPrimitives::PrimitiveRectangle(CVector3 _point, const sPrimitiveRectangle &rectangle) const
+double sPrimitiveRectangle::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - rectangle.position;
-	point = rectangle.rotationMatrix.RotateVector(point);
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
 	CVector3 boxTemp;
-	boxTemp.x = max(fabs(point.x) - rectangle.width * 0.5, 0.0);
-	boxTemp.y = max(fabs(point.y) - rectangle.height * 0.5, 0.0);
+	boxTemp.x = max(fabs(point.x) - width * 0.5, 0.0);
+	boxTemp.y = max(fabs(point.y) - height * 0.5, 0.0);
 	boxTemp.z = fabs(point.z);
 	return boxTemp.Length();
 }
 
-double cPrimitives::PrimitiveCylinder(CVector3 _point, const sPrimitiveCylinder &cylinder) const
+double sPrimitiveCylinder::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - cylinder.position;
-	point = cylinder.rotationMatrix.RotateVector(point);
-	point = point.mod(cylinder.repeat);
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
+	point = point.mod(repeat);
 
 	CVector2<double> cylTemp(point.x, point.y);
-	double dist = cylTemp.Length() - cylinder.radius;
-	if (!cylinder.caps) dist = fabs(dist);
-	dist = max(fabs(point.z) - cylinder.height * 0.5, dist);
-	return cylinder.empty ? fabs(dist) : dist;
+	double dist = cylTemp.Length() - radius;
+	if (!caps) dist = fabs(dist);
+	dist = max(fabs(point.z) - height * 0.5, dist);
+	return empty ? fabs(dist) : dist;
 }
 
-double cPrimitives::PrimitiveCircle(CVector3 _point, const sPrimitiveCircle &circle) const
+double sPrimitiveCircle::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - circle.position;
-	point = circle.rotationMatrix.RotateVector(point);
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
 	CVector2<double> circTemp(point.x, point.y);
-	double distTemp = circTemp.Length() - circle.radius;
+	double distTemp = circTemp.Length() - radius;
 	distTemp = max(fabs(point.z), distTemp);
 	return distTemp;
 }
 
-double cPrimitives::PrimitiveCone(CVector3 _point, const sPrimitiveCone &cone) const
+double sPrimitiveCone::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - cone.position;
-	point = cone.rotationMatrix.RotateVector(point);
-	point = point.mod(cone.repeat);
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
+	point = point.mod(repeat);
 
-	point.z -= cone.height;
+	point.z -= height;
 	float q = sqrt(point.x * point.x + point.y * point.y);
 	CVector2<double> vect(q, point.z);
-	double dist = cone.wallNormal.Dot(vect);
-	if (!cone.caps) dist = fabs(dist);
-	dist = max(-point.z - cone.height, dist);
-	return cone.empty ? fabs(dist) : dist;
+	double dist = wallNormal.Dot(vect);
+	if (!caps) dist = fabs(dist);
+	dist = max(-point.z - height, dist);
+	return empty ? fabs(dist) : dist;
 }
 
-double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water) const
+double sPrimitiveWater::PrimitiveDistance(CVector3 _point) const
 {
 	//TODO to use rendering technique from here: //https://www.shadertoy.com/view/Ms2SD1
 
-	CVector3 point = _point - water.position;
-	point = water.rotationMatrix.RotateVector(point);
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
 
 	double planeDistance = point.z;
-	if (planeDistance < water.amplitude * 10.0)
+	if (planeDistance < amplitude * 10.0)
 	{
-		double phase = water.animSpeed * water.animFrame * 0.1;
+		double phase = animSpeed * animFrame * 0.1;
 		double k = 0.23;
 		double waveXtemp = point.x;
 		double waveYtemp = point.y;
@@ -444,34 +356,34 @@ double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water
 		double waveY = 0;
 		double p = 1.0;
 		double p2 = 0.05;
-		for (int i = 1; i <= water.iterations; i++)
+		for (int i = 1; i <= iterations; i++)
 		{
 			float p3 = p * p2;
 			double shift = phase / (i / 3.0 + 1.0);
-			waveXtemp = sin(i + 0.4 * (waveX) * p3 + sin(k * point.y / water.length * p3)
-					+ point.x / water.length * p3 + shift) / p;
-			waveYtemp = cos(i + 0.4 * (waveY) * p3 + sin(point.x / water.length * p3)
-					+ k * point.y / water.length * p3 + shift * 0.23) / p;
+			waveXtemp = sin(i + 0.4 * (waveX) * p3 + sin(k * point.y / length * p3)
+					+ point.x / length * p3 + shift) / p;
+			waveYtemp = cos(i + 0.4 * (waveY) * p3 + sin(point.x / length * p3)
+					+ k * point.y / length * p3 + shift * 0.23) / p;
 			waveX += waveXtemp;
 			waveY += waveYtemp;
 			p2 = p2 + (1.0 - p2) * 0.7;
 			p *= 1.872;
 		}
 
-		planeDistance += (waveX + waveY) * water.amplitude;
+		planeDistance += (waveX + waveY) * amplitude;
 	}
-	return water.empty ? fabs(planeDistance) : planeDistance;
+	return empty ? fabs(planeDistance) : planeDistance;
 }
 
-double cPrimitives::PrimitiveTorus(CVector3 _point, const sPrimitiveTorus &torus) const
+double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
 {
-	CVector3 point = _point - torus.position;
-	point = torus.rotationMatrix.RotateVector(point);
-	point = point.mod(torus.repeat);
+	CVector3 point = _point - position;
+	point = rotationMatrix.RotateVector(point);
+	point = point.mod(repeat);
 
-	double d1 = sqrt(point.x * point.x + point.y * point.y) - torus.radius;
-	double dist = sqrt(d1 * d1 + point.z * point.z) - torus.tube_radius;
-	return torus.empty ? fabs(dist) : dist;
+	double d1 = sqrt(point.x * point.x + point.y * point.y) - radius;
+	double dist = sqrt(d1 * d1 + point.z * point.z) - tube_radius;
+	return empty ? fabs(dist) : dist;
 }
 
 double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
@@ -485,20 +397,32 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 
 	if (isAnyPrimitive)
 	{
-
 		CVector3 point2 = point - allPrimitivesPosition;
 		point2 = mRotAllPrimitivesRotation.RotateVector(point2);
 
-		for (int i = 0; i < planes.size(); i++)
+		for(int i = 0; i < allPrimitives.size(); i++)
 		{
-			const sPrimitivePlane &plane = planes.at(i);
-			if (plane.enable)
+			const sPrimitiveBasic* primitive = allPrimitives.at(i);
+			if (primitive->enable)
 			{
-				double distTemp = PrimitivePlane(point, plane);
-				distTemp = DisplacementMap(distTemp, point, plane.objectId, data);
+				double distTemp;
+				switch (primitive->objectType)
+				{
+					case objPlane:	distTemp = ((sPrimitivePlane*) primitive)->PrimitiveDistance(point); break;
+					case objBox:		distTemp = ((sPrimitiveBox*) primitive)->PrimitiveDistance(point); break;
+					case objSphere:	distTemp = ((sPrimitiveSphere*) primitive)->PrimitiveDistance(point); break;
+					case objWater:	distTemp = ((sPrimitiveWater*) primitive)->PrimitiveDistance(point); break;
+					case objCone:		distTemp = ((sPrimitiveCone*) primitive)->PrimitiveDistance(point); break;
+					case objCylinder:	distTemp = ((sPrimitiveCylinder*) primitive)->PrimitiveDistance(point); break;
+					case objTorus:	distTemp = ((sPrimitiveTorus*) primitive)->PrimitiveDistance(point); break;
+					case objCircle:	distTemp = ((sPrimitiveCircle*) primitive)->PrimitiveDistance(point); break;
+					case objRectangle: distTemp = ((sPrimitiveRectangle*) primitive)->PrimitiveDistance(point); break;
+					default: qCritical() << "cannot handle " << PrimitiveNames(primitive->objectType) << " in cPrimitives::TotalDistance()";
+				}
+				distTemp = DisplacementMap(distTemp, point, primitive->objectId, data);
 				if (distTemp < distance)
 				{
-					closestObject = plane.objectId;
+					closestObject = primitive->objectId;
 					//color = plane.color;
 					//reflect = plane.reflect;
 				}
@@ -506,141 +430,6 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			}
 		}
 
-		for (int i = 0; i < boxes.size(); i++)
-		{
-			const sPrimitiveBox &box = boxes.at(i);
-			if (box.enable)
-			{
-				double distTemp = PrimitiveBox(point2, box);
-				distTemp = DisplacementMap(distTemp, point, box.objectId, data);
-				if (distTemp < distance)
-				{
-					closestObject = box.objectId;
-					//color = box.color;
-					//reflect = box.reflect;
-				}
-				distance = min(distance, distTemp);
-			}
-		}
-
-		for (int i = 0; i < rectangles.size(); i++)
-		{
-			const sPrimitiveRectangle &rectangle = rectangles.at(i);
-			if (rectangle.enable)
-			{
-				double distTemp = PrimitiveRectangle(point2, rectangle);
-				distTemp = DisplacementMap(distTemp, point, rectangle.objectId, data);
-				if (distTemp < distance)
-				{
-					closestObject = rectangle.objectId;
-					//color = rectangle.color;
-					//reflect = rectangle.reflect;
-				}
-				distance = min(distance, distTemp);
-			}
-		}
-
-		for (int i = 0; i < spheres.size(); i++)
-		{
-			const sPrimitiveSphere &sphere = spheres.at(i);
-			if (sphere.enable)
-			{
-				double distTemp = PrimitiveSphere(point2, sphere);
-				distTemp = DisplacementMap(distTemp, point, sphere.objectId, data);
-				if (distTemp < distance)
-				{
-					closestObject = sphere.objectId;
-					//color = sphere.color;
-					//reflect = sphere.reflect;
-				}
-				distance = min(distance, distTemp);
-			}
-		}
-
-		for (int i = 0; i < cylinders.size(); i++)
-		{
-			const sPrimitiveCylinder &cylinder = cylinders.at(i);
-			if (cylinder.enable)
-			{
-				double distTemp = PrimitiveCylinder(point2, cylinder);
-				distTemp = DisplacementMap(distTemp, point, cylinder.objectId, data);
-				if (distTemp < distance)
-				{
-					closestObject = cylinder.objectId;
-					//color = cylinder.color;
-					//reflect = cylinder.reflect;
-				}
-				distance = min(distance, distTemp);
-			}
-		}
-
-		for (int i = 0; i < circles.size(); i++)
-		{
-			const sPrimitiveCircle &circle = circles.at(i);
-			if (circle.enable)
-			{
-				double distTemp = PrimitiveCircle(point2, circle);
-				distTemp = DisplacementMap(distTemp, point, circle.objectId, data);
-				if (distTemp < distance)
-				{
-					closestObject = circle.objectId;
-					//color = circle.color;
-					//reflect = circle.reflect;
-				}
-				distance = min(distance, distTemp);
-			}
-		}
-
-		for (int i = 0; i < cones.size(); i++)
-		{
-			const sPrimitiveCone &cone = cones.at(i);
-			if (cone.enable)
-			{
-				double distTemp = PrimitiveCone(point2, cone);
-				distTemp = DisplacementMap(distTemp, point, cone.objectId, data);
-				if (distTemp < distance)
-				{
-					closestObject = cone.objectId;
-					//color = cone.color;
-					//reflect = cone.reflect;
-				}
-				distance = min(distance, distTemp);
-			}
-		}
-
-		for (int i = 0; i < waters.size(); i++)
-		{
-			const sPrimitiveWater &water = waters.at(i);
-			if (water.enable)
-			{
-				double distTemp = PrimitiveWater(point, water);
-				distTemp = DisplacementMap(distTemp, point, water.objectId, data);
-				if (distTemp < distance)
-				{
-					closestObject = water.objectId;
-					//color = water.color;
-					//reflect = water.reflect;
-				}
-				distance = min(distance, distTemp);
-			}
-		}
-
-		for (int i = 0; i < toruses.size(); i++)
-		{
-			const sPrimitiveTorus &torus = toruses.at(i);
-			if (torus.enable)
-			{
-				double distTemp = PrimitiveTorus(point2, torus);
-				distTemp = DisplacementMap(distTemp, point, torus.objectId, data);
-				if (distTemp < distance)
-				{
-					closestObject = torus.objectId;
-					//color = torus.color;
-					//reflect = torus.reflect;
-				}
-				distance = min(distance, distTemp);
-			}
-		}
 	} //if is any primitive
 
 	*closestObjectId = closestObject;

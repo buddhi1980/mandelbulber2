@@ -47,11 +47,13 @@ struct sPrimitiveBasic : cObjectData
 {
 	bool enable;
 	int objectId;
+	double PrimitiveDistance(CVector3 _point);
 };
 
 struct sPrimitivePlane: sPrimitiveBasic
 {
 	bool empty;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitiveBox: sPrimitiveBasic
@@ -59,6 +61,7 @@ struct sPrimitiveBox: sPrimitiveBasic
 	bool empty;
 	double rounding;
 	CVector3 repeat;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitiveSphere: sPrimitiveBasic
@@ -66,6 +69,7 @@ struct sPrimitiveSphere: sPrimitiveBasic
 	bool empty;
 	double radius;
 	CVector3 repeat;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitiveWater: sPrimitiveBasic
@@ -76,6 +80,7 @@ struct sPrimitiveWater: sPrimitiveBasic
 	double length;
 	int iterations;
 	int animFrame;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitiveCone: sPrimitiveBasic
@@ -86,6 +91,7 @@ struct sPrimitiveCone: sPrimitiveBasic
 	double height;
 	CVector2<double> wallNormal;
 	CVector3 repeat;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitiveCylinder: sPrimitiveBasic
@@ -95,6 +101,7 @@ struct sPrimitiveCylinder: sPrimitiveBasic
 	double radius;
 	double height;
 	CVector3 repeat;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitiveTorus: sPrimitiveBasic
@@ -103,17 +110,20 @@ struct sPrimitiveTorus: sPrimitiveBasic
 	double radius;
 	double tube_radius;
 	CVector3 repeat;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitiveCircle: sPrimitiveBasic
 {
 	double radius;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitiveRectangle: sPrimitiveBasic
 {
 	double height;
 	double width;
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 QString PrimitiveNames(fractal::enumObjectType primitiveType);
@@ -130,26 +140,7 @@ public:
 			int *closestObjectId, sRenderData *data) const;
 
 private:
-	QVector<sPrimitiveBox> boxes;
-	QVector<sPrimitiveCircle> circles;
-	QVector<sPrimitiveCone> cones;
-	QVector<sPrimitiveCylinder> cylinders;
-	QVector<sPrimitivePlane> planes;
-	QVector<sPrimitiveRectangle> rectangles;
-	QVector<sPrimitiveSphere> spheres;
-	QVector<sPrimitiveWater> waters;
-	QVector<sPrimitiveTorus> toruses;
-
-	double PrimitiveBox(CVector3 point, const sPrimitiveBox &box) const;
-	double PrimitivePlane(CVector3 point, const sPrimitivePlane &plane) const;
-	double PrimitiveSphere(CVector3 point, const sPrimitiveSphere &sphere) const;
-	double PrimitiveRectangle(CVector3 point, const sPrimitiveRectangle &rectangle) const;
-	double PrimitiveCylinder(CVector3 point, const sPrimitiveCylinder &cylinder) const;
-	double PrimitiveCircle(CVector3 point, const sPrimitiveCircle &circle) const;
-	double PrimitiveCone(CVector3 point, const sPrimitiveCone &cone) const;
-	double PrimitiveWater(CVector3 point, const sPrimitiveWater &water) const;
-	double PrimitiveTorus(CVector3 point, const sPrimitiveTorus &torus) const;
-
+	QList<sPrimitiveBasic*> allPrimitives;
 	inline double Plane(CVector3 point, CVector3 position, CVector3 normal) const
 	{
 		return (normal.Dot(point - position));
