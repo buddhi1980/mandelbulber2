@@ -57,6 +57,7 @@ struct sAllImageData
 	sRGBfloat imageFloat;
 	unsigned short alphaBuffer;
 	unsigned short opacityBuffer;
+	sRGBfloat normalFloat;
 	sRGB8 colourBuffer;
 	float zBuffer;
 };

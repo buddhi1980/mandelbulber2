@@ -41,7 +41,7 @@ cRenderer::cRenderer(const cParamRender *_params, const cNineFractals *_fractal,
 	data = _renderData;
 	image = _image;
 	scheduler = NULL;
-	netRemderAckReceived = true;
+	netRenderAckReceived = true;
 }
 
 cRenderer::~cRenderer()
@@ -196,7 +196,7 @@ bool cRenderer::RenderImage()
 					if (data->configuration.UseNetRender() && gNetRender->IsClient()
 							&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 					{
-						if (netRemderAckReceived) //is ACK was already received. Server is ready to take new data
+						if (netRenderAckReceived) //is ACK was already received. Server is ready to take new data
 						{
 							QList<QByteArray> renderedLinesData;
 							for (int i = 0; i < listToSend.size(); i++)
@@ -218,7 +218,7 @@ bool cRenderer::RenderImage()
 							{
 								emit sendRenderedLines(listToSend, renderedLinesData);
 								emit NotifyClientStatus();
-								netRemderAckReceived = false;
+								netRenderAckReceived = false;
 								listToSend.clear();
 							}
 						}
@@ -266,7 +266,7 @@ bool cRenderer::RenderImage()
 	if (data->configuration.UseNetRender() && gNetRender->IsClient()
 			&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 	{
-		if (netRemderAckReceived)
+		if (netRenderAckReceived)
 		{
 			QList<QByteArray> renderedLinesData;
 			for (int i = 0; i < listToSend.size(); i++)
@@ -287,7 +287,7 @@ bool cRenderer::RenderImage()
 			{
 				emit sendRenderedLines(listToSend, renderedLinesData);
 				emit NotifyClientStatus();
-				netRemderAckReceived = false;
+				netRenderAckReceived = false;
 				listToSend.clear();
 			}
 		}
@@ -386,6 +386,7 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 			lineOfImage[x].colourBuffer = image->GetPixelColor(x, y);
 			lineOfImage[x].zBuffer = image->GetPixelZBuffer(x, y);
 			lineOfImage[x].opacityBuffer = image->GetPixelOpacity(x, y);
+			lineOfImage[x].normalFloat = image->GetPixelNormal(x, y);
 		}
 		lineData->append((char*) lineOfImage, dataSize);
 		delete[] lineOfImage;
@@ -412,6 +413,7 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 				image->PutPixelColour(x, y, lineOfImage[x].colourBuffer);
 				image->PutPixelZBuffer(x, y, lineOfImage[x].zBuffer);
 				image->PutPixelOpacity(x, y, lineOfImage[x].opacityBuffer);
+				image->PutPixelNormal(x, y, lineOfImage[x].normalFloat);
 			}
 		}
 		else
@@ -433,5 +435,5 @@ void cRenderer::ToDoListArrived(QList<int> toDo)
 
 void cRenderer::AckReceived()
 {
-	netRemderAckReceived = true;
+	netRenderAckReceived = true;
 }

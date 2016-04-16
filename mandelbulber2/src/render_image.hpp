@@ -46,7 +46,7 @@ private:
 	sRenderData *data;
 	cImage *image;
 	cScheduler *scheduler;
-	bool netRemderAckReceived;
+	bool netRenderAckReceived;
 
 public slots:
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
