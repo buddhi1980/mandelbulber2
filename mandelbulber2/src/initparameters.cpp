@@ -237,8 +237,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("DOF_focus", 6.0, 0.0, 200.0, morphLinear, paramStandard);
 	par->addParam("DOF_radius", 10.0, 0.0, 200.0, morphLinear, paramStandard);
 	par->addParam("DOF_HDR", false, morphLinear, paramStandard);
-  par->addParam("DOF_number_of_passes", 3, 1, 10, morphLinear, paramStandard);
-  par->addParam("DOF_blur_opacity", 1.0, 0.01, 10.0, morphLinear, paramStandard);
+  par->addParam("DOF_number_of_passes", 1, 1, 10, morphLinear, paramStandard);
+  par->addParam("DOF_blur_opacity", 4.0, 0.01, 10.0, morphLinear, paramStandard);
 
 	//main light
 	par->addParam("main_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);

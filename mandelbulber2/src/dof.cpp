@@ -166,9 +166,9 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
           timerRefreshProgressBar.restart();
 
           percentDone = (double) y / height;
-          progressTxt = progressText.getText(percentDone);
+          progressTxt = progressText.getText(percentDone / (numberOfPasses + 1));
 
-          emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+          emit updateProgressAndStatus(statusText, progressTxt, percentDone / (numberOfPasses + 1));
           gApplication->processEvents();
         }
       }
@@ -194,7 +194,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 
       statusText = QObject::tr("Rendering Depth Of Field effect - phase II");
 
-      emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 0.0);
+      emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 1.0 / (numberOfPasses + 1.0));
       gApplication->processEvents();
 
       QuickSortZBuffer(temp_sort, 1, height * width - 1);
@@ -202,10 +202,9 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
       for (int pass = 0; pass < numberOfPasses; pass++)
       {
 
-        emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
+        emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), (pass + 1.0) / (numberOfPasses + 1.0));
         gApplication->processEvents();
 
-        progressText.ResetTimer();
         timerRefresh.restart();
         timerRefreshProgressBar.restart();
         lastRefreshTime = 0;
@@ -326,7 +325,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
           {
             timerRefreshProgressBar.restart();
 
-            percentDone = ((double) pass + (double) i / width) / numberOfPasses;
+            percentDone = ((double) pass + 1.0 + (double) i / width) / (numberOfPasses + 1.0);
             progressTxt = progressText.getText(percentDone);
 
             emit updateProgressAndStatus(statusText, progressTxt, percentDone);
@@ -481,9 +480,9 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
           timerRefreshProgressBar.restart();
 
           percentDone = (double) y / height;
-          progressTxt = progressText.getText(percentDone);
+          progressTxt = progressText.getText(percentDone / (numberOfPasses + 1));
 
-          emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+          emit updateProgressAndStatus(statusText, progressTxt, percentDone / (numberOfPasses + 1));
           gApplication->processEvents();
         }
       }
@@ -508,7 +507,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 
       statusText = QObject::tr("Rendering Depth Of Field effect - phase II");
 
-      emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 0.0);
+      emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 1.0 / (numberOfPasses + 1.0));
       gApplication->processEvents();
 
       QuickSortZBuffer(temp_sort, 1, height * width - 1);
@@ -516,10 +515,9 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
       for (int pass = 0; pass < numberOfPasses; pass++)
       {
 
-        emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
+        emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), (pass + 1.0) / (numberOfPasses + 1.0));
         gApplication->processEvents();
 
-        progressText.ResetTimer();
         timerRefresh.restart();
         timerRefreshProgressBar.restart();
         lastRefreshTime = 0;
@@ -640,7 +638,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
           {
             timerRefreshProgressBar.restart();
 
-            percentDone = ((double) pass + (double) i / width) / numberOfPasses;
+            percentDone = ((double) pass + 1.0 + (double) i / width) / (numberOfPasses + 1.0);
             progressTxt = progressText.getText(percentDone);
 
             emit updateProgressAndStatus(statusText, progressTxt, percentDone);
