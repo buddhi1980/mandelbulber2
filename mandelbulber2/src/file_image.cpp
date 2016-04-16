@@ -86,7 +86,6 @@ void ImageFileSavePNG::SaveImage()
 {
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 			&& imageConfig.contains(IMAGE_CONTENT_COLOR) && imageConfig.contains(IMAGE_CONTENT_ALPHA);
-
 	if (imageConfig.contains(IMAGE_CONTENT_COLOR))
 	{
 		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".png";
@@ -416,11 +415,13 @@ void ImageFileSavePNG::SavePNG(QString filename, cImage* image, structSaveImageC
 						{
 							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 							{
+								if (x == 0 && y == 0) image->ConvertNormalto16Bit();
 								sRGB16* typedColorPtr = (sRGB16*) &colorPtr[ptr];
 								*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
 							}
 							else
 							{
+								if (x == 0 && y == 0) image->ConvertNormalto8Bit();
 								sRGB8* typedColorPtr = (sRGB8*) &colorPtr[ptr];
 								*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
 							}
@@ -1174,11 +1175,13 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filename, cImage* image, structSaveImag
 					}
 					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
+						if (x == 0 && y == 0) image->ConvertNormalto16Bit();
 						sRGB16* typedColorPtr = (sRGB16*) &colorPtr[ptr];
 						*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
 					}
 					else
 					{
+						if (x == 0 && y == 0) image->ConvertNormalto8Bit();
 						sRGB8* typedColorPtr = (sRGB8*) &colorPtr[ptr];
 						*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
 					}

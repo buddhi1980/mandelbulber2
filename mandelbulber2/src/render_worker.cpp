@@ -143,6 +143,7 @@ void cRenderWorker::doWork(void)
 			CVector3 startRay = start;
 			sRGBAfloat resultShader;
 			sRGBAfloat objectColour;
+			CVector3 normal;
 			double depth = 1e20;
 			double opacity = 1.0;
 
@@ -180,6 +181,7 @@ void cRenderWorker::doWork(void)
 				depth = recursionOut.rayMarchingOut.depth;
 				if (!recursionOut.found) depth = 1e20;
 				opacity = recursionOut.fogOpacity;
+				normal = recursionOut.normal;
 			}
 
 			sRGBfloat pixel2;
@@ -194,6 +196,11 @@ void cRenderWorker::doWork(void)
 			colour.G = objectColour.G * 255;
 			colour.B = objectColour.B * 255;
 
+			sRGBfloat normalFloat;
+			normalFloat.R = 1.0 + normal.x / 2.0;
+			normalFloat.G = 1.0 + normal.y / 2.0;
+			normalFloat.B = normal.z;
+
 			for (int xx = 0; xx < scheduler->GetProgressiveStep(); ++xx)
 			{
 				for (int yy = 0; yy < scheduler->GetProgressiveStep(); ++yy)
@@ -203,6 +210,8 @@ void cRenderWorker::doWork(void)
 					image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, alpha);
 					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float) depth);
 					image->PutPixelOpacity(screenPoint.x + xx, screenPoint.y + yy, opacity16);
+					if(image->GetImageOptional()->optionalNormal)
+						image->PutPixelNormal(screenPoint.x + xx, screenPoint.y + yy, normalFloat);
 				}
 			}
 
@@ -559,11 +568,13 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	resultShader.G = transparentColor.G;
 	resultShader.B = transparentColor.B;
 
+	CVector3 vn;
+
 	//if found any object
 	if (rayMarchingOut.found)
 	{
 		//calculate normal vector
-		CVector3 vn = CalculateNormals(shaderInputData);
+		vn = CalculateNormals(shaderInputData);
 
 		//prepare refraction values
 		double n1, n2;
@@ -758,6 +769,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	out.resultShader = resultShader;
 	out.found = (shaderInputData.depth == 1e20) ? false : true;
 	out.fogOpacity = opacityOut.R;
+	out.normal = vn;
 
 	return out;
 }

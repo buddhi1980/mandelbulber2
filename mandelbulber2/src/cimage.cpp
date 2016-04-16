@@ -30,13 +30,26 @@
 #include <new>
 #include <QtGui>
 
+cImage::cImage(int w, int h, sImageOptional optional, bool low_mem)
+{
+	opt = optional;
+	width = w;
+	height = h;
+	lowMem = low_mem;
+	construct();
+}
+
 cImage::cImage(int w, int h, bool low_mem)
 {
 	width = w;
 	height = h;
-	previewAllocated = false;
 	lowMem = low_mem;
+	construct();
+}
 
+void cImage::construct()
+{
+	previewAllocated = false;
 	image8 = NULL;
 	image16 = NULL;
 	imageFloat = NULL;
@@ -45,6 +58,11 @@ cImage::cImage(int w, int h, bool low_mem)
 	opacityBuffer = NULL;
 	colourBuffer = NULL;
 	zBuffer = NULL;
+
+	// optional image buffers
+	normalFloat = NULL;
+	normal8 = NULL;
+	normal16 = NULL;
 
 	AllocMem();
 	gammaTable = new int[65536];
@@ -90,6 +108,12 @@ bool cImage::AllocMem(void)
 			alphaBuffer16 = new unsigned short[width * height];
 			opacityBuffer = new unsigned short[width * height];
 			colourBuffer = new sRGB8[width * height];
+			if(opt.optionalNormal)
+			{
+				normalFloat = new sRGBfloat[width * height];
+				normal16 = new sRGB16[width * height];
+				normal8 = new sRGB8[width * height];
+			}
 			ClearImage();
 		} catch (std::bad_alloc& ba)
 		{
@@ -139,7 +163,12 @@ void cImage::ClearImage(void)
 	memset(alphaBuffer16, 0, (unsigned long int) sizeof(unsigned short) * width * height);
 	memset(opacityBuffer, 0, (unsigned long int) sizeof(unsigned short) * width * height);
 	memset(colourBuffer, 0, (unsigned long int) sizeof(sRGB8) * width * height);
-
+	if(opt.optionalNormal)
+	{
+		memset(normalFloat, 0, (unsigned long int) sizeof(sRGBfloat) * width * height);
+		memset(normal16, 0, (unsigned long int) sizeof(sRGB16) * width * height);
+		memset(normal8, 0, (unsigned long int) sizeof(sRGB8) * width * height);
+	}
 	for (long int i = 0; i < width * height; ++i)
 		zBuffer[i] = 1e20;
 }
@@ -163,6 +192,12 @@ void cImage::FreeImage(void)
 	colourBuffer = NULL;
 	if (zBuffer) delete[] zBuffer;
 	zBuffer = NULL;
+	if (normalFloat) delete[] normalFloat;
+	normalFloat = NULL;
+	if (normal16) delete[] normal16;
+	normal16 = NULL;
+	if (normal8) delete[] normal8;
+	normal8 = NULL;
 }
 
 sRGB16 cImage::CalculatePixel(sRGBfloat pixel)
@@ -247,8 +282,15 @@ int cImage::GetUsedMB(void)
 	long int image8Size = (long int) width * height * sizeof(sRGB8);
 	long int colorSize = (long int) width * height * sizeof(sRGB8);
 	long int opacitySize = (long int) width * height * sizeof(unsigned short);
+	long int optionalSize = 0;
+	if(opt.optionalNormal)
+	{
+		optionalSize += (long int) width * height * sizeof(sRGBfloat);
+		optionalSize += (long int) width * height * sizeof(sRGB16);
+		optionalSize += (long int) width * height * sizeof(sRGB8);
+	}
 	mb = (long int) (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size
-			+ imageFloatSize + colorSize + opacitySize) / 1024 / 1024;
+			+ imageFloatSize + colorSize + opacitySize + optionalSize) / 1024 / 1024;
 
 	return mb;
 }
@@ -279,6 +321,28 @@ unsigned char* cImage::ConvertAlphaTo8bit(void)
 	}
 	unsigned char* ptr = (unsigned char*) alphaBuffer8;
 	return ptr;
+}
+
+void cImage::ConvertNormalto16Bit(void)
+{
+	if(!opt.optionalNormal) return;
+	for (long int i = 0; i < width * height; i++)
+	{
+		normal16[i].R = normalFloat[i].R * 65536;
+		normal16[i].G = normalFloat[i].G * 65536;
+		normal16[i].B = normalFloat[i].B * 65536;
+	}
+}
+
+void cImage::ConvertNormalto8Bit(void)
+{
+	if(!opt.optionalNormal) return;
+	for (long int i = 0; i < width * height; i++)
+	{
+		normal8[i].R = normalFloat[i].R * 256;
+		normal8[i].G = normalFloat[i].G * 256;
+		normal8[i].B = normalFloat[i].B * 256;
+	}
 }
 
 sRGB8 cImage::Interpolation(float x, float y)

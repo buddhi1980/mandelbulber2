@@ -42,6 +42,16 @@ struct sImageAdjustments
 	bool hdrEnabled;
 };
 
+struct sImageOptional
+{
+	sImageOptional() :
+			optionalNormal(false)
+	{
+	}
+
+	bool optionalNormal;
+};
+
 struct sAllImageData
 {
 	sRGBfloat imageFloat;
@@ -54,7 +64,10 @@ struct sAllImageData
 class cImage
 {
 public:
+	cImage(int w, int h, sImageOptional optional, bool low_mem = false);
 	cImage(int w, int h, bool low_mem = false);
+	void construct(void);
+
 	~cImage();
 	bool ChangeSize(int w, int h);
 	void ClearImage(void);
@@ -89,6 +102,10 @@ public:
 	inline void PutPixelOpacity(int x, int y, unsigned short pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height) opacityBuffer[x + y * width] = pixel;
+	}
+	inline void PutPixelNormal(int x, int y, sRGBfloat normal)
+	{
+		if (x >= 0 && x < width && y >= 0 && y < height) normalFloat[x + y * width] = normal;
 	}
 	inline sRGBfloat GetPixelImage(int x, int y)
 	{
@@ -132,30 +149,21 @@ public:
 	}
 	inline sRGBfloat GetPixelNormal(int x, int y)
 	{
-		// if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width];
-		// else
-		return sRGBfloat((1.0f * (width - x) / width),
-			1.0f * (height - y) / height,
-			1.0f * (x + y) / (width + height));
-		// return BlackFloat();
+		if(!opt.optionalNormal) return BlackFloat();
+		if (x >= 0 && x < width && y >= 0 && y < height) return normalFloat[x + y * width];
+		return BlackFloat();
 	}
 	inline sRGB16 GetPixelNormal16(int x, int y)
 	{
-		// if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width];
-		// else
-		return sRGB16((65535 * (width - x) / width),
-			65535 * (height - y) / height,
-			65535 * (x + y) / (width + height));
-		// return Black16();
+		if(!opt.optionalNormal) return Black16();
+		if (x >= 0 && x < width && y >= 0 && y < height) return normal16[x + y * width];
+		return Black16();
 	}
 	inline sRGB8 GetPixelNormal8(int x, int y)
 	{
-		// if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width];
-		// else
-		return sRGB8((255 * (width - x) / width),
-			255 * (height - y) / height,
-			255 * (x + y) / (width + height));
-		// return Black8();
+		if(!opt.optionalNormal) return Black8();
+		if (x >= 0 && x < width && y >= 0 && y < height) return normal8[x + y * width];
+		return Black8();
 	}
 	inline void BlendPixelImage16(int x, int y, double factor, sRGB16 other)
 	{
@@ -198,11 +206,15 @@ public:
   int GetPreviewVisibleWidth(void) {return previewVisibleWidth;}
   int GetPreviewVisibleHeight(void) {return previewVisibleHeight;}
   int GetUsedMB(void);
-  void SetImageParameters(sImageAdjustments adjustments);
-  sImageAdjustments* GetImageAdjustments(void) {return &adj;}
+	void SetImageParameters(sImageAdjustments adjustments);
+	sImageAdjustments* GetImageAdjustments(void) {return &adj;}
+	void SetImageOptional(sImageAdjustments opt);
+	sImageOptional* GetImageOptional(void) {return &opt;}
 
   unsigned char* ConvertTo8bit(void);
 	unsigned char* ConvertAlphaTo8bit(void);
+	void ConvertNormalto16Bit(void);
+	void ConvertNormalto8Bit(void);
   unsigned char* CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
   void UpdatePreview(QList<int> *list = NULL);
   unsigned char* GetPreviewPtr(void);
@@ -241,11 +253,17 @@ private:
 	sRGB8 *colourBuffer;
 	float *zBuffer;
 
+	// optional image buffers
+	sRGBfloat *normalFloat;
+	sRGB8 *normal8;
+	sRGB16 *normal16;
+
 	sRGB8 *preview;
 	sRGB8 *preview2;
 	QWidget *imageWidget;
 
 	sImageAdjustments adj;
+	sImageOptional opt;
 	int width;
 	int height;
 	int *gammaTable;

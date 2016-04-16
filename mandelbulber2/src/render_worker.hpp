@@ -124,6 +124,7 @@ private:
 		CVector3 point;
 		sRGBAfloat resultShader;
 		sRGBAfloat objectColour;
+		CVector3 normal;
 		double fogOpacity;
 		bool found;
 	};

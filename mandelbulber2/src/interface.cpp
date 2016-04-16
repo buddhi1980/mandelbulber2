@@ -125,7 +125,10 @@ void cInterface::ShowUi(void)
 
 	//setup main image
 	WriteLog("Setup of main image");
-	mainImage = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	sImageOptional imageOptional;
+	imageOptional.optionalNormal = gPar->Get<bool>("normal_enabled");
+
+	mainImage = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"), imageOptional);
 	mainImage->CreatePreview(1.0, 800, 600, gMainInterface->renderedImage);
 	mainImage->CompileImage();
 	mainImage->ConvertTo8bit();
@@ -2246,6 +2249,7 @@ void cInterface::RefreshMainImage()
 	imageAdjustments.contrast = gPar->Get<double>("contrast");
 	imageAdjustments.imageGamma = gPar->Get<double>("gamma");
 	imageAdjustments.hdrEnabled = gPar->Get<bool>("hdr");
+
 	mainImage->SetImageParameters(imageAdjustments);
 	mainImage->CompileImage();
 
