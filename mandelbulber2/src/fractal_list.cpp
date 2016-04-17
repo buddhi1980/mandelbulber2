@@ -468,7 +468,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("Collatz fractal",
+  fractalList->append(sFractalDescription("Collatz Fractal",
 																					"collatz",
 																					collatz,
 																					analyticDEType,
@@ -476,6 +476,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					10));
 
+  fractalList->append(sFractalDescription("Collatz Fractal Mod ",
+                                          "collatz_mod",
+                                          collatzMod,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
 
 
 

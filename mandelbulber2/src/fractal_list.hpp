@@ -112,6 +112,10 @@ enum enumFractalFormula
 	msltoeToroidal = 86,
 	aboxModKaliEiffie = 87,
 	collatz = 88,
+        collatzMod = 89,
+
+
+
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
 

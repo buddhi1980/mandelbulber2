@@ -395,9 +395,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
 				case collatz:
 				{
-					CollatzIteration(z, extendedAux);
+          CollatzIteration(z, extendedAux);
 					break;
 				}
+        case collatzMod:
+        {
+          CollatzModIteration(z, fractal, extendedAux);
+          break;
+        }
+
+
 
         //transforms ------------------------------------------------------------------------------------------
         case transfAdditionConstant:
@@ -726,19 +733,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
      //r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
     switch(fractal->formula)
     {
+      case fastImagscaPower2:
+      {
+        CVector3 z2 = z * z;
+        r = sqrt(z2.x + z2.y + z2.z) + (z2.y *  z2.z) / (z2.x);
+        break;
+      }
+      //scator magnitudes
+      // magnitude in imaginary scator algebra
+
       default:
       {
         r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
         break;
       }
-    //scator magnitudes
-    // magnitude in imaginary scator algebra
-      case fastImagscaPower2:
-      {
-        CVector3 z2 = z * z;
-        r = sqrt(z2.x + z2.y + z2.z + (z2.y *  z2.z) / (z2.x) + 1e-061);
-        break;
-      }
+
+
     }
 
     if(z.IsNotANumber())
@@ -916,6 +926,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kaleidoscopicIFS:
 				case menger_sponge:
 				case collatz:
+        case collatzMod:
         case mengerMod1:
         {
 					if(extendedAux.r_dz > 0)
@@ -971,6 +982,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case aboxMod1:
 				case menger_sponge:
 				case collatz:
+        case collatzMod:
 				case kaleidoscopicIFS:
 					out->colorIndex = minimumR * 1000.0;
 					break;

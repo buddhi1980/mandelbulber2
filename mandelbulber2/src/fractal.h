@@ -281,10 +281,13 @@ struct sFractalTransformCommon
   double minR06;
   double scale;
   double scale0;
+  double scale025;
   double scale1;
   double scaleA1;
   double scale015;
+  double scale2;
   double scale3;
+  double scale4;
   double pwr05;
   double pwr4;
   double pwr8;

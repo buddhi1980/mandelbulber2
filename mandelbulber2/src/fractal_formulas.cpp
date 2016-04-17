@@ -41,7 +41,7 @@ using namespace fractal;
  */
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	//if (aux.r < 1e-21) aux.r = 1e-21;
+  //if (aux.r < 1e-21) aux.r = 1e-21;
 	double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
 	double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
@@ -398,12 +398,28 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
  */
 void CollatzIteration(CVector3 &z, sExtendedAux &aux)
 {
-	CVector3 xV(1.0, 1.0, 1.0);
+
+  CVector3 xV(1.0, 1.0, 1.0);
 	z = xV + 4.0 * z
 		- CVector3(xV + 2.0 * z)
 				* z.RotateAroundVectorByAngle(xV, M_PI);
-	z /= 4.0;
-	aux.DE = aux.DE * 4.0 + 1.0;
+  z /= 4.0;
+  aux.DE = aux.DE * 4.0 + 1.0;
+}
+
+/**
+ * CollatzModIteration formula
+ * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
+ *            https://en.wikipedia.org/wiki/Collatz_conjecture#Iterating_on_real_or_complex_numbers
+ */
+void CollatzModIteration(CVector3 &z,const cFractal *fractal, sExtendedAux &aux)
+{
+  CVector3 xV(1.0, 1.0, 1.0);
+  z = xV + fractal->transformCommon.scale4 * z
+    - (xV * fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.scale2 * z)
+        * z.RotateAroundVectorByAngle(xV, M_PI * fractal->transformCommon.scale1);
+  z *= fractal->transformCommon.scale025;
+  aux.DE = aux.DE * 4.0 * fractal->transformCommon.scaleA1 + 1.0;
 }
 
 /**
@@ -2569,7 +2585,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
  */
 void FastImagscaPower2Iteration(CVector3 &z, const cFractal *fractal)
 {
-  double x2 = z.x * z.x;
+  double x2 = z.x * z.x + 1e-061;
   double y2 = z.y * z.y;
   double z2 = z.z * z.z;
 

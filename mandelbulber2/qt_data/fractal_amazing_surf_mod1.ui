@@ -571,7 +571,7 @@
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-10000000</number>
+           <number>0</number>
           </property>
           <property name="maximum">
            <number>10000000</number>
@@ -718,7 +718,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
