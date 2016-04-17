@@ -15,8 +15,7 @@ cMaterial::cMaterial()
   specular = 0.0;
   specularWidth = 0.0;
   reflection = 0.0;
-  lightness = 0.0;
-  bumpMapIntensity = 0.0;
+  luminosity = 0.0;
   coloring_speed = 0.0;
   paletteOffset = 0.0;
   fresnelReflectance = 0.0;
@@ -49,16 +48,16 @@ cMaterial::~cMaterial()
 QStringList cMaterial::paramsList = {
     "shading",
     "specular",
-    "specularWidth",
+    "specular_width",
     "reflection",
-    "lightness",
+    "luminosity",
     "bump_map_intensity",
     "transparency_of_surface",
     "transparency_of_interior",
     "transparency_index_of_refraction",
     "surface_color",
     "transparency_interior_color",
-    "lightness_color",
+    "luminosity_color",
     "fresnel_reflectance",
     "texture_center",
     "texture_rotation",
@@ -90,10 +89,9 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   id = _id;
   shading = materialParam.Get<double>(Name("shading", id));
   specular = materialParam.Get<double>(Name("specular", id));
-  specularWidth = materialParam.Get<double>(Name("specularWidth", id));
+  specularWidth = materialParam.Get<double>(Name("specular_width", id));
   reflection = materialParam.Get<double>(Name("reflection", id));
-  lightness = materialParam.Get<double>(Name("lightness", id));
-  bumpMapIntensity = materialParam.Get<double>(Name("bump_map_intensity", id));
+  luminosity = materialParam.Get<double>(Name("luminosity", id)); //TODO lightness intensity
   transparencyIndexOfRefraction = materialParam.Get<double>(Name("transparency_index_of_refraction", id));
   transparencyOfInterior = materialParam.Get<double>(Name("transparency_of_interior", id));
   transparencyOfSurface = materialParam.Get<double>(Name("transparency_of_surface", id));
@@ -101,7 +99,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   coloring_speed = materialParam.Get<double>(Name("coloring_speed", id));
 
   color = materialParam.Get<sRGB>(Name("surface_color", id));
-  lightnessColor = materialParam.Get<sRGB>(Name("lightness_color", id));
+  luminosityColor = materialParam.Get<sRGB>(Name("luminosity_color", id)); //TODO use of lightness color value
   transparencyInteriorColor = materialParam.Get<sRGB>(Name("transparency_interior_color", id));
 
   palette = materialParam.Get<cColorPalette>(Name("surface_color_palette", id));

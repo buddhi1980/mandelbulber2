@@ -46,8 +46,7 @@ enum enumTextureSelection
   double specular;
   double specularWidth;
   double reflection;
-  double lightness;
-  double bumpMapIntensity;
+  double luminosity;
   double transparencyIndexOfRefraction;
   double transparencyOfInterior;
   double transparencyOfSurface;
@@ -59,7 +58,7 @@ enum enumTextureSelection
   double bumpmapTextureHeight;
 
   sRGB color;
-  sRGB lightnessColor;
+  sRGB luminosityColor;
   sRGB transparencyInteriorColor;
 
   cColorPalette palette;
