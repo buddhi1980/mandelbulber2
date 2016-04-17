@@ -3044,7 +3044,7 @@ to target:</string>
            <property name="movable">
             <bool>true</bool>
            </property>
-           <widget class="QWidget" name="tab">
+           <widget class="QWidget" name="tab_material">
             <attribute name="title">
              <string>Material</string>
             </attribute>
@@ -3073,7 +3073,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-673</y>
+                  <y>-274</y>
                   <width>412</width>
                   <height>1306</height>
                  </rect>
@@ -3448,7 +3448,7 @@ width:</string>
                     </widget>
                    </item>
                    <item row="14" column="1">
-                    <widget class="QSlider" name="slider_reflect">
+                    <widget class="QSlider" name="slider_reflectance">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -3562,7 +3562,7 @@ width:</string>
                     </widget>
                    </item>
                    <item row="14" column="2">
-                    <widget class="MyDoubleSpinBox" name="spinbox_reflect">
+                    <widget class="MyDoubleSpinBox" name="spinbox_reflectance">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                        <horstretch>0</horstretch>

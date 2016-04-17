@@ -219,6 +219,24 @@ void cInterface::ShowUi(void)
 
 	mainWindow->slotPopulateToolbar();
 
+	/**************** temporary code for materials *******************/
+	QList<QWidget*> materalWidgets = mainWindow->ui->tab_material->findChildren<QWidget*>();
+	for(int i=0; i < materalWidgets.size(); i++)
+	{
+		if (!materalWidgets[i]->objectName().isEmpty())
+		{
+			QString objectName = materalWidgets[i]->objectName();
+			int posOfDash = objectName.indexOf('_');
+			if(posOfDash > 0)
+			{
+				QString newName = objectName.insert(posOfDash, "_mat1");
+				qDebug() << newName;
+				materalWidgets[i]->setObjectName(newName);
+			}
+		}
+	}
+	/*****************************************************************/
+
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished");

@@ -247,37 +247,6 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 
   /****************** TEMPORARY CODE FOR MATERIALS *******************/
 
-	//temporary copying of material 1 parameters from existing parameters
-	paramsContainer->Set("mat1_shading", paramsContainer->Get<double>("shading"));
-  paramsContainer->Set("mat1_specular", paramsContainer->Get<double>("specular"));
-  paramsContainer->Set("mat1_reflection", paramsContainer->Get<double>("reflect"));
-  paramsContainer->Set("mat1_transparency_of_surface", paramsContainer->Get<double>("transparency_of_surface"));
-  paramsContainer->Set("mat1_transparency_of_interior", paramsContainer->Get<double>("transparency_of_interior"));
-  paramsContainer->Set("mat1_transparency_index_of_refraction", paramsContainer->Get<double>("transparency_index_of_refraction"));
-  paramsContainer->Set("mat1_transparency_interior_color", paramsContainer->Get<double>("transparency_interior_color"));
-  paramsContainer->Set("mat1_fresnel_reflectance", paramsContainer->Get<bool>("fresnel_reflectance"));
-  paramsContainer->Set("mat1_coloring_random_seed", paramsContainer->Get<double>("coloring_random_seed"));
-  paramsContainer->Set("mat1_coloring_saturation", paramsContainer->Get<double>("coloring_saturation"));
-  paramsContainer->Set("mat1_coloring_speed", paramsContainer->Get<double>("coloring_speed"));
-  paramsContainer->Set("mat1_coloring_palette_size", paramsContainer->Get<double>("coloring_palette_size"));
-  paramsContainer->Set("mat1_coloring_palette_offset", paramsContainer->Get<double>("coloring_palette_offset"));
-  paramsContainer->Set("mat1_surface_color_palette", paramsContainer->Get<cColorPalette>("surface_color_palette"));
-  paramsContainer->Set("mat1_use_colors_from_palette", paramsContainer->Get<bool>("fractal_color"));
-
-  //paramsContainer->Set("mat1_file_color_texture", QString("/home/krzysztof/.mandelbulber/textures/grid_21_14_200_2.jpg"));
-  //paramsContainer->Set("mat1_use_color_texture", true);
-  //paramsContainer->Set("mat1_color_texture_intensity", 1.0);
-  //paramsContainer->Set("mat1_file_diffusion_texture", QString("/home/krzysztof/dane/3D/Tekstury/Marble/Seamless marble texture (11).jpg"));
-  //paramsContainer->Set("mat1_use_diffusion_texture", true);
-  //paramsContainer->Set("mat1_texture_scale", CVector3(2.0, 2.0, 2.0));
-  //paramsContainer->Set("mat1_diffusion_texture_intensity", 1.0);
-  //paramsContainer->Set("mat1_file_bumpmap_texture", QString("/home/krzysztof/dane/3D/Tekstury/Reliefy/cobblestone_disp.jpg"));
-  //paramsContainer->Set("mat1_use_bumpmap_texture", true);
-  //paramsContainer->Set("mat1_bumpmap_texture_height", 0.01);
-  //paramsContainer->Set("mat1_file_luminosity_texture", QString("/home/krzysztof/Fraktale/Nebulabrot/Eksperyment04.bmp"));
-  //paramsContainer->Set("mat1_use_luminosity_texture", true);
-  //paramsContainer->Set("mat1_luminosity_texture_intensity", 20.0);
-
   renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
 
   /*******************************************************************/

@@ -14,7 +14,7 @@ cMaterial::cMaterial()
   shading = 0.0;
   specular = 0.0;
   specularWidth = 0.0;
-  reflection = 0.0;
+  reflectance = 0.0;
   luminosity = 0.0;
   coloring_speed = 0.0;
   paletteOffset = 0.0;
@@ -49,7 +49,7 @@ QStringList cMaterial::paramsList = {
     "shading",
     "specular",
     "specular_width",
-    "reflection",
+    "reflectance",
     "luminosity",
     "bump_map_intensity",
     "transparency_of_surface",
@@ -90,7 +90,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   shading = materialParam.Get<double>(Name("shading", id));
   specular = materialParam.Get<double>(Name("specular", id));
   specularWidth = materialParam.Get<double>(Name("specular_width", id));
-  reflection = materialParam.Get<double>(Name("reflection", id));
+  reflectance = materialParam.Get<double>(Name("reflectance", id));
   luminosity = materialParam.Get<double>(Name("luminosity", id)); //TODO lightness intensity
   transparencyIndexOfRefraction = materialParam.Get<double>(Name("transparency_index_of_refraction", id));
   transparencyOfInterior = materialParam.Get<double>(Name("transparency_of_interior", id));

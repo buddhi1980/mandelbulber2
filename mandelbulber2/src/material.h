@@ -45,7 +45,7 @@ enum enumTextureSelection
   double shading;
   double specular;
   double specularWidth;
-  double reflection;
+  double reflectance;
   double luminosity;
   double transparencyIndexOfRefraction;
   double transparencyOfInterior;

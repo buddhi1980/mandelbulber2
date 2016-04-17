@@ -557,7 +557,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 		shaderInputData.texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
 
 	sRGBAfloat reflectShader = in.resultShader;
-	double reflect = shaderInputData.material->reflection;
+	double reflect = shaderInputData.material->reflectance;
 
 	sRGBAfloat transparentShader = in.resultShader;
 	double transparent = params->transparencyOfSurface;

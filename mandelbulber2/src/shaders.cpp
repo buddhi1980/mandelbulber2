@@ -108,9 +108,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	{
 		envMapping = EnvMapping(input);
 	}
-	envMapping.R *= mat->reflection * input.texDiffuse.R;
-	envMapping.G *= mat->reflection * input.texDiffuse.G;
-	envMapping.B *= mat->reflection * input.texDiffuse.B;
+	envMapping.R *= mat->reflectance * input.texDiffuse.R;
+	envMapping.G *= mat->reflectance * input.texDiffuse.G;
+	envMapping.B *= mat->reflectance * input.texDiffuse.B;
 
 	//additional lights
 	sRGBAfloat auxLights;
