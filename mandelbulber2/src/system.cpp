@@ -73,11 +73,10 @@ bool InitSystem(void)
 	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "w");
 	fclose(logfile);
 
-	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING << ", build date: " << QString(__DATE__)
+	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING
 			<< "\n";
 	out << "Log file name: " << systemData.logfileName << endl;
 	WriteLogString("Mandelbulber version", QString(MANDELBULBER_VERSION_STRING));
-	WriteLogString("Mandelbulber compilation date", QString(__DATE__) + " " + QString(__TIME__));
 
 	//detecting number of CPU cores
 	systemData.numberOfThreads = get_cpu_count();

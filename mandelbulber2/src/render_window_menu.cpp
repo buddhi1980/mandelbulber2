@@ -58,8 +58,8 @@ void RenderWindow::slotImportOldSettings()
 void RenderWindow::slotMenuAboutMandelbulber()
 {
   QString text = "<h2>Mandelbulber</h2>";
-  text += "version: <b>" + QString(MANDELBULBER_VERSION_STRING) + "</b>, build date: <b>"
-      + QString(__DATE__) + "</b><br>";
+  text += "version: <b>" + QString(MANDELBULBER_VERSION_STRING) + "</b>"
+      + "<br>";
   text += "<br>";
   text += "Licence: GNU GPL version 3.0<br>";
   text += "Copyright Ⓒ 2015<br>";

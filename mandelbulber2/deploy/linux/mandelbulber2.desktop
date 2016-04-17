@@ -4,7 +4,6 @@ Comment=Visit 3D Fractal World
 Exec=mandelbulber2
 GenericName=Mandelbulber v2 - Advanced 3D fractal generator
 Icon=/usr/share/mandelbulber2/icons/mandelbulber.png
-MimeType=
 Name=Mandelbulber v2
 StartupNotify=true
 Terminal=false
