@@ -15,7 +15,7 @@ class cMaterialWidget: public cThumbnailWidget
 public:
   cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
   ~cMaterialWidget();
-  void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
+	void AssignMaterial(const cMaterial &_mat);
 };
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_WIDGET_H_ */
