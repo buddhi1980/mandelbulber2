@@ -786,35 +786,35 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			else if (Mode == calcModeColouring)
 			{
 				double len = 0.0;
-				switch (in.common.fractalColoringAlgorithm)
+				switch (in.fractalColoring.coloringAlgorithm)
 				{
-					case fractalColoringStandard:
+					case sFractalColoring::fractalColoringStandard:
 					{
 						len = r;
 						break;
 					}
-					case fractalColoringZDotPoint:
+					case sFractalColoring::fractalColoringZDotPoint:
 					{
 						len = fabs(z.Dot(in.point));
 						break;
 					}
-					case fractalColoringSphere:
+					case sFractalColoring::fractalColoringSphere:
 					{
-						len = fabs((z - in.point).Length() - in.common.fractalColoringSphereRadius);
+						len = fabs((z - in.point).Length() - in.fractalColoring.sphereRadius);
 						break;
 					}
-					case fractalColoringCross:
+					case sFractalColoring::fractalColoringCross:
 					{
 						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z));
 						break;
 					}
-					case fractalColoringLine:
+					case sFractalColoring::fractalColoringLine:
 					{
-						len = fabs(z.Dot(in.common.fractalColoringLineDirection));
+						len = fabs(z.Dot(in.fractalColoring.lineDirection));
 						break;
 					}
 				}
-				if (fractal->formula != mandelbox || in.common.fractalColoringAlgorithm != fractalColoringStandard)
+				if (fractal->formula != mandelbox || in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 				{
 					if (len < minimumR) minimumR = len;
 				}
@@ -972,7 +972,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case foldBoxMod1:
 					out->colorIndex = extendedAux.color * 100.0
 							+ r * defaultFractal->mandelbox.color.factorR
-							+ ((in.common.fractalColoringAlgorithm != fractalColoringStandard) ? minimumR
+							+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard) ? minimumR
 									* 1000.0 :
 									0.0);
 					break;

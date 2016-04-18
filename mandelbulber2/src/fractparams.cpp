@@ -199,9 +199,6 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	common.fractalRotation = container->Get<CVector3>("fractal_rotation");
 	common.mRotFractalRotation.SetRotation2(common.fractalRotation / 180.0 * M_PI);
 	common.repeat = container->Get<CVector3>("repeat");
-	common.fractalColoringAlgorithm = (fractal::enumFractalColoringAlgorithm)container->Get<int>("fractal_coloring_algorithm");
-	common.fractalColoringSphereRadius = container->Get<double>("fractal_coloring_sphere_radius");
-	common.fractalColoringLineDirection = container->Get<CVector3>("fractal_coloring_line_direction");
 
 	//formula = Get<int>("tile_number");
 }

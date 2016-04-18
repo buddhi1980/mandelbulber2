@@ -61,15 +61,6 @@ enum enumDEMethod
 	forceDeltaDEMethod = 1,
 };
 
-enum enumFractalColoringAlgorithm
-{
-	fractalColoringStandard = 0,
-	fractalColoringZDotPoint = 1,
-	fractalColoringSphere = 2,
-	fractalColoringCross = 3,
-	fractalColoringLine = 4
-};
-
 enum enumOCLDEMode
 {
 	ocl_DEcalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2

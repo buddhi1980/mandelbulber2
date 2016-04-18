@@ -11,6 +11,7 @@
 #include "color_structures.hpp"
 #include "parameters.hpp"
 #include "texture.hpp"
+#include "fractal_coloring.hpp"
 
 class cMaterial
 {
@@ -83,6 +84,7 @@ enum enumTextureSelection
   bool useLuminosityTexture;
   bool useBumpmapTexture;
 
+  sFractalColoring fractalColoring;
 };
 
 
