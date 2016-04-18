@@ -61,7 +61,6 @@ struct sRenderData
 	cRegion<int> screenRegion;
 	cRegion<double> imageRegion;
 	sTextures textures;
-	cColorPalette palette;
 	cLights lights;
 	bool *stopRequest;
 	double lastPercentage;

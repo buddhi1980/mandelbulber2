@@ -2317,7 +2317,7 @@ cColorPalette cInterface::GetPaletteFromImage(const QString &filename)
 	cColorPalette palette;
 	QImage imagePalette(filename);
 
-	SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_fractal_color, gPar, cInterface::read);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_use_color_texture, gPar, cInterface::read); //TODO get palette from image will work for actual material
 	int paletteSize = gPar->Get<int>("coloring_palette_size");
 
 	if (!imagePalette.isNull())

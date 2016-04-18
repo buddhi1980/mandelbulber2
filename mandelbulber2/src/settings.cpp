@@ -622,6 +622,60 @@ void cSettings::Compatibility(QString &name, QString &value)
 			value = QString("1");
 		}
 	}
+
+	if (fileVersion <= 2.071)
+	{
+		if(name == QString("shading"))
+			name.replace("shading", "mat1_shading");
+
+		if(name == QString("specular"))
+			name.replace("specular", "mat1_specular");
+
+		if(name == QString("reflect"))
+			name.replace("reflect", "mat1_reflectance");
+
+		if(name == QString("transparency_of_surface"))
+			name.replace("transparency_of_surface", "mat1_transparency_of_surface");
+
+		if(name == QString("transparency_of_interior"))
+			name.replace("transparency_of_interior", "mat1_transparency_of_interior");
+
+		if(name == QString("transparency_index_of_refraction"))
+			name.replace("transparency_index_of_refraction", "mat1_transparency_index_of_refraction");
+
+		if(name == QString("fresnel_reflectance"))
+			name.replace("fresnel_reflectance", "mat1_fresnel_reflectance");
+
+		if(name == QString("coloring_random_seed"))
+			name.replace("coloring_random_seed", "mat1_coloring_random_seed");
+
+		if(name == QString("coloring_saturation"))
+			name.replace("coloring_saturation", "mat1_coloring_saturation");
+
+		if(name == QString("coloring_speed"))
+			name.replace("coloring_speed", "mat1_coloring_speed");
+
+		if(name == QString("coloring_palette_size"))
+			name.replace("coloring_palette_size", "mat1_coloring_palette_size");
+
+		if(name == QString("coloring_palette_offset"))
+			name.replace("coloring_palette_offset", "mat1_coloring_palette_offset");
+
+		if(name == QString("fractal_color"))
+			name.replace("fractal_color", "mat1_use_colors_from_palette");
+
+		if(name == QString("surface_color_palette"))
+			name.replace("surface_color_palette", "mat1_surface_color_palette");
+
+		if(name == QString("fractal_coloring_algorithm"))
+			name.replace("fractal_coloring_algorithm", "mat1_fractal_coloring_algorithm");
+
+		if(name == QString("fractal_coloring_sphere_radius"))
+			name.replace("fractal_coloring_sphere_radius", "mat1_fractal_coloring_sphere_radius");
+
+		if(name == QString("fractal_coloring_line_direction"))
+			name.replace("fractal_coloring_line_direction", "mat1_fractal_coloring_line_direction");
+	}
 }
 
 void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *fract)

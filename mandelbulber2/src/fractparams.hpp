@@ -68,7 +68,6 @@ public:
 	int auxLightNumber;
 	int auxLightRandomNumber;
 	int auxLightRandomSeed;
-	int coloring_seed; //colouring random seed
 	int frameNo;
 	int imageHeight; //image height
 	int imageWidth; //image width
@@ -96,14 +95,12 @@ public:
 	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;
 	bool booleanOperatorsEnabled;
-	bool coloringEnabled;
 	bool constantDEThreshold;
 	bool DOFEnabled;
 	bool DOFHDRmode;
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
 	bool fogEnabled;
-	bool fresnelReflectance;
 	bool glowEnabled;
 	bool hybridFractalEnable;
 	bool interiorMode;
@@ -154,8 +151,6 @@ public:
 	double auxLightRandomIntensity;
 	double background_brightness;
 	double cameraDistanceToTarget; //zoom
-	double coloring_speed;
-	double colourSaturation;
 	double constantFactor;
 	double DEFactor; //factor for distance estimation steps
 	double detailLevel; //DE threshold factor
@@ -179,18 +174,11 @@ public:
 	double mainLightIntensity;
 	double mainLightVisibility;
 	double mainLightVisibilitySize;
-	double paletteOffset;
-	double reflect;
 	double resolution; //resolution of image in fractal coordinates
-	double shading;
 	double shadowConeAngle;
 	double smoothness;
-	double specular;
 	double sweetSpotHAngle;
 	double sweetSpotVAngle;
-	double transparencyIndexOfRefraction;
-	double transparencyOfInterior;
-	double transparencyOfSurface;
 	double viewDistanceMax;
 	double viewDistanceMin;
 	double volFogColour1Distance;

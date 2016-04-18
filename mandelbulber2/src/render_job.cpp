@@ -259,7 +259,6 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 
 	renderData->lights.Set(paramsContainer, fractalContainer);
-	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
 
 	renderData->objectData.resize(NUMBER_OF_FRACTALS); //reserve first items for fractal formulas
 

@@ -560,7 +560,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	double reflect = shaderInputData.material->reflectance;
 
 	sRGBAfloat transparentShader = in.resultShader;
-	double transparent = params->transparencyOfSurface;
+	double transparent = shaderInputData.material->transparencyOfSurface;
 	sRGBfloat transparentColor = sRGBfloat(params->transparencyInteriorColor.R / 65536.0,
 																				 params->transparencyInteriorColor.G / 65536.0,
 																				 params->transparencyInteriorColor.B / 65536.0);
@@ -580,13 +580,13 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 		double n1, n2;
 		if (in.calcInside) //if trance is inside the object
 		{
-			n1 = params->transparencyIndexOfRefraction; //reverse refractive indices
+			n1 = shaderInputData.material ->transparencyIndexOfRefraction; //reverse refractive indices
 			n2 = 1.0;
 		}
 		else
 		{
 			n1 = 1.0;
-			n2 = params->transparencyIndexOfRefraction;
+			n2 = shaderInputData.material ->transparencyIndexOfRefraction;
 			;
 		}
 
@@ -685,7 +685,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 		double reflectance = 1.0;
 		double reflectanceN = 1.0;
 
-		if (params->fresnelReflectance)
+		if (shaderInputData.material->fresnelReflectance)
 		{
 			reflectance = Reflectance(vn, in.rayMarchingIn.direction, n1, n2);
 			if (reflectance < 0.0) reflectance = 0.0;
@@ -747,7 +747,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 			//transparentColor.G = color.G;
 			//transparentColor.B = color.B;
 
-			double opacity = -log(params->transparencyOfInterior) * step;
+			double opacity = -log(shaderInputData.material ->transparencyOfInterior) * step;
 			if (opacity > 1.0) opacity = 1.0;
 
 			resultShader.R = opacity * transparentColor.R + (1.0 - opacity) * resultShader.R;

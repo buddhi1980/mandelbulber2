@@ -153,11 +153,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("delta_DE_method", (int)fractal::preferedDEMethod, 0, 1, morphNone, paramStandard);
 	par->addParam("use_default_bailout", true, morphNone, paramStandard);
 
-	//fractal coloring
-	par->addParam("fractal_coloring_algorithm", (int)fractal::fractalColoringStandard, 0, 4, morphNone, paramStandard);
-	par->addParam("fractal_coloring_sphere_radius", 1.0, 0.0, 1e20, morphNone, paramStandard);
-	par->addParam("fractal_coloring_line_direction", CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
-
 	//foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);
 	par->addParam("box_folding_limit", 1.0, morphLinear, paramStandard);
@@ -172,15 +167,12 @@ void InitParams(cParameterContainer *par)
 	par->addParam("contrast", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("gamma", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("hdr", false, morphLinear, paramStandard);
-	par->addParam("reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_quality", 4, 1, 10, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_fast_tune", 1.0, 1e-5, 1e5, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_enabled", false, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_mode", (int) params::AOmodeScreenSpace, morphLinear, paramStandard);
 	par->addParam("SSAO_random_mode", false, morphLinear, paramStandard);
-	par->addParam("shading", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("specular", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("glow_enabled", true, morphLinear, paramStandard);
 	par->addParam("glow_intensity", 0.2, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("textured_background", false, morphLinear, paramStandard);
@@ -191,11 +183,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("raytraced_reflections", false, morphLinear, paramStandard);
 	par->addParam("reflections_max", 5, 0, 10, morphLinear, paramStandard);
 	par->addParam("env_mapping_enable", false, morphLinear, paramStandard);
-	par->addParam("transparency_of_surface", 0.0, 0.0, 1.0, morphLinear, paramStandard);
-	par->addParam("transparency_of_interior", 1.0, 0.0, 1.0, morphLinear, paramStandard);
-	par->addParam("transparency_interior_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
-	par->addParam("transparency_index_of_refraction", 1.5, 0.0, 10.0, morphLinear, paramStandard);
-	par->addParam("fresnel_reflectance", false, morphLinear, paramStandard);
 
 	par->addParam("glow_color", 1, sRGB(40984, 44713, 49490), morphLinear, paramStandard);
 	par->addParam("glow_color", 2, sRGB(57192, 60888, 62408), morphLinear, paramStandard);
@@ -220,14 +207,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("iteration_fog_color", 1, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("iteration_fog_color", 2, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("iteration_fog_color", 3, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
-
-	//coloring
-	par->addParam("fractal_color", true, morphLinear, paramStandard);
-	par->addParam("coloring_random_seed", 269259, morphLinear, paramStandard);
-	par->addParam("coloring_saturation", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
-	par->addParam("coloring_speed", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("coloring_palette_size", 10, 1, 255, morphLinear, paramStandard);
-	par->addParam("coloring_palette_offset", 0.0, 0.0, 256.0, morphLinear, paramStandard);
 
 	//fog
 	par->addParam("basic_fog_enabled", false, morphLinear, paramStandard);
@@ -325,10 +304,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("file_lightmap", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "lightmap.jpg"), morphNone, paramStandard);
 	par->addParam("file_animation_path", QDir::toNativeSeparators(systemData.dataDirectory + "paths" + QDir::separator() + "path.txt"), morphNone, paramStandard);
 	par->addParam("file_keyframes", QDir::toNativeSeparators(systemData.dataDirectory + "keyframes" + QDir::separator() + "keyframe"), morphNone, paramStandard);
-
-	//color palette
-	cColorPalette palette(par->Get<int>("coloring_palette_size"), par->Get<int>("coloring_random_seed"), 1.0);
-	par->addParam("surface_color_palette", palette, morphLinear, paramStandard);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);
@@ -685,7 +660,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
   par->addParam(cMaterial::Name("specular", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("specular_width", materialId), 1.0, 1e-10, 1e15, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("specular_color", materialId), sRGB(65535, 65535, 65535), morphAkima, paramStandard); //TODO add specular color effect
-  par->addParam(cMaterial::Name("reflect", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("luminosity", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("transparency_of_surface", materialId), 0.0, 0.0, 1.0, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("transparency_of_interior", materialId), 1.0, 0.0, 1.0, morphAkima, paramStandard);
@@ -712,6 +687,9 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
   par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 10.0, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1.0, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("bumpmap_texture_height", materialId), 0.1, -1e4, 1e4, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId), (int)fractal::fractalColoringStandard, 0, 4, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId), CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
 
   par->addParam(cMaterial::Name("file_color_texture", materialId),
                 QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()

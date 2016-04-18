@@ -47,10 +47,6 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
 	camera = container->Get<CVector3>("camera");
 	cameraDistanceToTarget = container->Get<double>("camera_distance_to_target");
-	coloring_seed = container->Get<int>("coloring_random_seed");
-	coloring_speed = container->Get<double>("coloring_speed");
-	coloringEnabled = container->Get<bool>("fractal_color");
-	colourSaturation = container->Get<double>("coloring_saturation");
 	constantDEThreshold = container->Get<bool>("constant_DE_threshold");
 	constantFactor = container->Get<double>("fractal_constant_factor");
 	DEFactor = container->Get<double>("DE_factor");
@@ -74,7 +70,6 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	fogVisibility = container->Get<double>("basic_fog_visibility");
 	fov = container->Get<double>("fov");
 	frameNo = container->Get<int>("frame_no");
-	fresnelReflectance = container->Get<bool>("fresnel_reflectance");
 	glowColor1 = container->Get<sRGB>("glow_color", 1);
 	glowColor2 = container->Get<sRGB>("glow_color", 2);
 	glowEnabled = container->Get<bool>("glow_enabled");
@@ -110,20 +105,16 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	mainLightVisibilitySize = container->Get<double>("main_light_visibility_size");
 	minN = container->Get<int>("minN");
 	N = container->Get<int>("N");
-	paletteOffset = container->Get<double>("coloring_palette_offset");
 	penetratingLights = container->Get<bool>("penetrating_lights");
 	perspectiveType = (params::enumPerspectiveType) container->Get<int>("perspective_type");
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
-	reflect = container->Get<double>("reflect");
 	reflectionsMax = container->Get<int>("reflections_max");
 	repeatFrom = container->Get<int>("repeat_from");
 	resolution = 0.0;
-	shading = container->Get<double>("shading");
 	shadow = container->Get<bool>("shadows_enabled");
 	shadowConeAngle = container->Get<double>("shadows_cone_angle");
 	slowShading = container->Get<bool>("slow_shading");
 	smoothness = container->Get<double>("smoothness");
-	specular = container->Get<double>("specular");
 	SSAO_random_mode = container->Get<bool>("SSAO_random_mode");
 	sweetSpotHAngle = container->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
 	sweetSpotVAngle = container->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
@@ -133,10 +124,6 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	texturedBackgroundMapType =
 			(params::enumTextureMapType) container->Get<int>("textured_background_map_type");
 	topVector = container->Get<CVector3>("camera_top");
-	transparencyIndexOfRefraction = container->Get<double>("transparency_index_of_refraction");
-	transparencyInteriorColor = container->Get<sRGB>("transparency_interior_color");
-	transparencyOfInterior = container->Get<double>("transparency_of_interior");
-	transparencyOfSurface = container->Get<double>("transparency_of_surface");
 	useDefaultBailout = container->Get<bool>("use_default_bailout");
 	viewAngle = container->Get<CVector3>("camera_rotation");
 	viewDistanceMax = container->Get<double>("view_distance_max");
