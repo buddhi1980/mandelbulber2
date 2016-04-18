@@ -119,32 +119,12 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 
 		using namespace fractal;
 		sPrimitiveBasic* primitive;
-		switch (item.type)
-		{
-			case objPlane:	primitive = new sPrimitivePlane; break;
-			case objBox:		primitive = new sPrimitiveBox; break;
-			case objSphere: primitive = new sPrimitiveSphere; break;
-			case objWater:	primitive = new sPrimitiveWater; break;
-			case objCone:		primitive = new sPrimitiveCone; break;
-			case objCylinder: primitive = new sPrimitiveCylinder; break;
-			case objTorus:	primitive = new sPrimitiveTorus; break;
-			case objCircle: primitive = new sPrimitiveCircle; break;
-			case objRectangle: primitive = new sPrimitiveRectangle; break;
-			default: qCritical() << "cannot handle " << PrimitiveNames(item.type) << " in cPrimitives::cPrimitives()";
-		}
-
-		primitive->position = par->Get<CVector3>(item.name + "_position");
-		primitive->materialId = par->Get<int>(item.name + "_material_id");
-		primitive->objectType = item.type;
-		primitive->SetRotation(par->Get<CVector3>(item.name + "_rotation"));
-		primitive->enable = par->Get<bool>(item.name + "_enabled");
-		//primitive->reflect = par->Get<double>(item.name + "_reflection");
-		//primitive->color = par->Get<sRGB>(item.name + "_color");
 
 		switch (item.type)
 		{
 			case objPlane:
 			{
+				primitive = new sPrimitivePlane;
 				sPrimitivePlane *obj = (sPrimitivePlane *) primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->size = CVector3(1.0, 1.0, 1.0);
@@ -152,6 +132,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			case objBox:
 			{
+				primitive = new sPrimitiveBox;
 				sPrimitiveBox *obj = (sPrimitiveBox *) primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->rounding = par->Get<double>(item.name + "_rounding");
@@ -161,6 +142,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			case objSphere:
 			{
+				primitive = new sPrimitiveSphere;
 				sPrimitiveSphere *obj = (sPrimitiveSphere *) primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
@@ -170,6 +152,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			case objWater:
 			{
+				primitive = new sPrimitiveWater;
 				sPrimitiveWater *obj = (sPrimitiveWater *) primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->amplitude = par->Get<double>(item.name + "_amplitude");
@@ -182,6 +165,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			case objCone:
 			{
+				primitive = new sPrimitiveCone;
 				sPrimitiveCone *obj = (sPrimitiveCone *) primitive;
 				obj->caps = par->Get<bool>(item.name + "_caps");
 				obj->empty = par->Get<bool>(item.name + "_empty");
@@ -195,6 +179,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			case objCylinder:
 			{
+				primitive = new sPrimitiveCylinder;
 				sPrimitiveCylinder *obj = (sPrimitiveCylinder *) primitive;
 				obj->caps = par->Get<bool>(item.name + "_caps");
 				obj->empty = par->Get<bool>(item.name + "_empty");
@@ -206,6 +191,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			case objTorus:
 			{
+				primitive = new sPrimitiveTorus;
 				sPrimitiveTorus *obj = (sPrimitiveTorus *) primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
@@ -218,6 +204,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			case objCircle:
 			{
+				primitive = new sPrimitiveCircle;
 				sPrimitiveCircle *obj = (sPrimitiveCircle *) primitive;
 				obj->radius = par->Get<double>(item.name + "_radius");
 				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, 1.0);
@@ -225,6 +212,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			case objRectangle:
 			{
+				primitive = new sPrimitiveRectangle;
 				sPrimitiveRectangle *obj = (sPrimitiveRectangle *) primitive;
 				obj->height = par->Get<double>(item.name + "_height");
 				obj->width = par->Get<double>(item.name + "_width");
@@ -232,8 +220,20 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 				break;
 			}
 			default:
-				break;
+			{
+				qCritical() << "cannot handle " << PrimitiveNames(item.type) << " in cPrimitives::cPrimitives()";
+			}
 		}
+
+		// set parameters, which all primitives have in common
+		primitive->position = par->Get<CVector3>(item.name + "_position");
+		primitive->materialId = par->Get<int>(item.name + "_material_id");
+		primitive->objectType = item.type;
+		primitive->SetRotation(par->Get<CVector3>(item.name + "_rotation"));
+		primitive->enable = par->Get<bool>(item.name + "_enabled");
+		//primitive->reflect = par->Get<double>(item.name + "_reflection");
+		//primitive->color = par->Get<sRGB>(item.name + "_color");
+
 		if(objectData)
 		{
 			objectData->append(*primitive);
