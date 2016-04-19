@@ -61,6 +61,7 @@ enum enumTextureSelection
   sRGB color;
   sRGB luminosityColor;
   sRGB transparencyInteriorColor;
+  sRGB specularColor;
 
   cColorPalette palette;
 

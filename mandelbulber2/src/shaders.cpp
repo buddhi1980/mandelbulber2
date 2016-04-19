@@ -34,11 +34,13 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	cMaterial *mat = input.material;
 	input.normal = vn;
 
+	//main light
 	sRGBAfloat mainLight;
 	mainLight.R = params->mainLightIntensity * params->mainLightColour.R / 65536.0;
 	mainLight.G = params->mainLightIntensity * params->mainLightColour.G / 65536.0;
 	mainLight.B = params->mainLightIntensity * params->mainLightColour.B / 65536.0;
 
+	//getting interpolated pixels from textures
 	sRGBfloat texColor, texLuminosity;
 	if(input.material->colorTexture.IsLoaded())
 		texColor = TextureShader(input, cMaterial::texColor, mat);
@@ -125,6 +127,12 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 		fakeLights = FakeLights(input, &fakeLightsSpecular);
 	}
 
+	//luminosity
+	sRGBAfloat luminosity;
+	luminosity.R = texLuminosity.R * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.R / 65536.0;
+	luminosity.G = texLuminosity.G * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.G / 65536.0;
+	luminosity.B = texLuminosity.B * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.B / 65536.0;
+
 	//total shader
 	output.R = envMapping.R + (ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
 	output.G = envMapping.G + (ambient2.G + mainLight.G * shade.G * shadow.G) * colour.G;
@@ -134,9 +142,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	output.G += (auxLights.G + fakeLights.G) * colour.G;
 	output.B += (auxLights.B + fakeLights.B) * colour.B;
 
-	output.R += texLuminosity.R * mat->luminosityTextureIntensity;
-	output.G += texLuminosity.G * mat->luminosityTextureIntensity;
-	output.B += texLuminosity.B * mat->luminosityTextureIntensity;
+	output.R += luminosity.R;
+	output.G += luminosity.G;
+	output.B += luminosity.B;
 
 	output.A = 1.0;
 
@@ -183,7 +191,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 		else
 		{
 			double alphaTexture = fmod(input.viewVector.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
-			double betaTexture = input.viewVector.GetBeta();
+			double betaTexture = -input.viewVector.GetBeta();
 			if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
 			if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
 			double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture.Width();
@@ -849,9 +857,9 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input)
 	double diffuse = 10.0	* (1.1 - input.material->diffussionTextureIntensity	* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
 	shade2 = pow(shade2, 30.0/input.material->specularWidth / diffuse) / diffuse;
 	if (shade2 > 15.0) shade2 = 15.0;
-	specular.R = shade2;
-	specular.G = shade2;
-	specular.B = shade2;
+	specular.R = shade2 * input.material->specularColor.R / 65536.0;
+	specular.G = shade2 * input.material->specularColor.G / 65536.0;
+	specular.B = shade2 * input.material->specularColor.B / 65536.0;
 	return specular;
 }
 
@@ -957,6 +965,12 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 							% 65536;
 				}
 				colour = input.material->palette.IndexToColour(color_number);
+			}
+			else
+			{
+				colour.R = input.material->color.R / 256.0;
+				colour.G = input.material->color.G / 256.0;
+				colour.B = input.material->color.B / 256.0;
 			}
 
 			out.R = colour.R / 256.0;

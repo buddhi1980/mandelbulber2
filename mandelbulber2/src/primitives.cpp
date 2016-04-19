@@ -390,7 +390,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 		int *closestObjectId, sRenderData *data) const
 {
 	using namespace fractal;
-	int closestObject = 0;
+	int closestObject = *closestObjectId;
 	sRGB color = sRGB(0, 0, 0);
 	double reflect = 0.0;
 	double distance = fractalDistance;

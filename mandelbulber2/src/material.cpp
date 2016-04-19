@@ -48,9 +48,9 @@ QStringList cMaterial::paramsList = {
     "shading",
     "specular",
     "specular_width",
+		"specular_color",
     "reflectance",
     "luminosity",
-    "bump_map_intensity",
     "transparency_of_surface",
     "transparency_of_interior",
     "transparency_index_of_refraction",
@@ -80,7 +80,10 @@ QStringList cMaterial::paramsList = {
 		"color_texture_intensity",
 		"luminosity_texture_intensity",
 		"diffusion_texture_intensity",
-		"bumpmap_texture_height"
+		"bumpmap_texture_height",
+		"fractal_coloring_algorithm",
+		"fractal_coloring_sphere_radius",
+		"fractal_coloring_line_direction"
 };
 
 void cMaterial::setParameters(int _id, const cParameterContainer &materialParam, bool quiet = false)
@@ -89,8 +92,9 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   shading = materialParam.Get<double>(Name("shading", id));
   specular = materialParam.Get<double>(Name("specular", id));
   specularWidth = materialParam.Get<double>(Name("specular_width", id));
+  specularColor = materialParam.Get<sRGB>(Name("specular_color", id));
   reflectance = materialParam.Get<double>(Name("reflectance", id));
-  luminosity = materialParam.Get<double>(Name("luminosity", id)); //TODO lightness intensity
+  luminosity = materialParam.Get<double>(Name("luminosity", id));
   transparencyIndexOfRefraction = materialParam.Get<double>(Name("transparency_index_of_refraction", id));
   transparencyOfInterior = materialParam.Get<double>(Name("transparency_of_interior", id));
   transparencyOfSurface = materialParam.Get<double>(Name("transparency_of_surface", id));
@@ -98,7 +102,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   coloring_speed = materialParam.Get<double>(Name("coloring_speed", id));
 
   color = materialParam.Get<sRGB>(Name("surface_color", id));
-  luminosityColor = materialParam.Get<sRGB>(Name("luminosity_color", id)); //TODO use of lightness color value
+  luminosityColor = materialParam.Get<sRGB>(Name("luminosity_color", id));
   transparencyInteriorColor = materialParam.Get<sRGB>(Name("transparency_interior_color", id));
 
   palette = materialParam.Get<cColorPalette>(Name("surface_color_palette", id));

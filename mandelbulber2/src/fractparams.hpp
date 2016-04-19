@@ -136,7 +136,6 @@ public:
 	sRGB iterFogColour2;
 	sRGB iterFogColour3;
 	sRGB mainLightColour;
-	sRGB transparencyInteriorColor;
 	sRGB volFogColour1;
 	sRGB volFogColour2;
 	sRGB volFogColour3;

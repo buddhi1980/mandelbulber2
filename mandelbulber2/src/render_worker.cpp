@@ -561,9 +561,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 
 	sRGBAfloat transparentShader = in.resultShader;
 	double transparent = shaderInputData.material->transparencyOfSurface;
-	sRGBfloat transparentColor = sRGBfloat(params->transparencyInteriorColor.R / 65536.0,
-																				 params->transparencyInteriorColor.G / 65536.0,
-																				 params->transparencyInteriorColor.B / 65536.0);
+	sRGBfloat transparentColor = sRGBfloat(shaderInputData.material->transparencyInteriorColor.R / 65536.0,
+																				 shaderInputData.material->transparencyInteriorColor.G / 65536.0,
+																				 shaderInputData.material->transparencyInteriorColor.B / 65536.0);
 	resultShader.R = transparentColor.R;
 	resultShader.G = transparentColor.G;
 	resultShader.B = transparentColor.B;

@@ -643,6 +643,9 @@ void cSettings::Compatibility(QString &name, QString &value)
 		if(name == QString("transparency_index_of_refraction"))
 			name.replace("transparency_index_of_refraction", "mat1_transparency_index_of_refraction");
 
+		if(name == QString("transparency_interior_color"))
+			name.replace("transparency_interior_color", "mat1_transparency_interior_color");
+
 		if(name == QString("fresnel_reflectance"))
 			name.replace("fresnel_reflectance", "mat1_fresnel_reflectance");
 

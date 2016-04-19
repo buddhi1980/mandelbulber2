@@ -47,7 +47,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		{
 			out->maxiter = false;
 			out->distance = limitBoxDist;
-			out->objectId = 0; //TODO to be checked if it can be zero (or -1)
+			out->objectId = -1; //TODO to be checked if it can be zero (or -1)
 			out->maxiter = false;
 			out->iters = 0;
 			return limitBoxDist;
