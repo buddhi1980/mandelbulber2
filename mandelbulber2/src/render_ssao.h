@@ -42,7 +42,6 @@ private:
 	const cParamRender *params;
 	const sRenderData *data;
 	cImage *image;
-	bool quiet;
 	double qualityFactor;
 	int progressive;
 	int numberOfThreads;

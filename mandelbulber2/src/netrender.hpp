@@ -32,8 +32,6 @@
 #include "fractparams.hpp"
 #include "scheduler.hpp"
 
-//TODO add sending job if new client is connected during rendering
-
 class CNetRender: public QObject
 {
 Q_OBJECT

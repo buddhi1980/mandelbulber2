@@ -27,6 +27,7 @@
 #include "primitives.h"
 #include "commonparams.hpp"
 #include "nine_fractals.hpp"
+#include "fractal_coloring.hpp"
 
 struct sFractalIn
 {
@@ -35,13 +36,15 @@ struct sFractalIn
 	int maxN;
 	sCommonParams common;
 	int forcedFormulaIndex;
+	sFractalColoring fractalColoring;
 	sFractalIn(CVector3 _point, int _minN, int _maxN, const sCommonParams &_common,
-			int _forcedFormulaIndex) :
+			int _forcedFormulaIndex, const sFractalColoring &_fractalColoring = sFractalColoring()) :
 					point(_point),
 					minN(_minN),
 					maxN(_maxN),
 					common(_common),
-					forcedFormulaIndex(_forcedFormulaIndex)
+					forcedFormulaIndex(_forcedFormulaIndex),
+					fractalColoring(_fractalColoring)
 	{
 	}
 

@@ -9,7 +9,6 @@
 
 cMaterial::cMaterial()
 {
-  // TODO Auto-generated constructor stub
   id = -1;
   shading = 0.0;
   specular = 0.0;
@@ -41,7 +40,7 @@ cMaterial::cMaterial(int _id, const cParameterContainer &materialParam, bool qui
 
 cMaterial::~cMaterial()
 {
-  // TODO Auto-generated destructor stub
+
 }
 
 //this static list will be use to optimize usage of material parameters
@@ -123,6 +122,12 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   luminosityTextureIntensity = materialParam.Get<double>(Name("luminosity_texture_intensity", id));
   bumpmapTextureHeight = materialParam.Get<double>(Name("bumpmap_texture_height", id));
 
+	fractalColoring.coloringAlgorithm =
+			(sFractalColoring::enumFractalColoringAlgorithm) materialParam.Get<int>(Name(	"fractal_coloring_algorithm",																																									id));
+  fractalColoring.sphereRadius = materialParam.Get<double>(Name("fractal_coloring_sphere_radius", id));
+  fractalColoring.lineDirection = materialParam.Get<CVector3>(Name("fractal_coloring_line_direction", id));
+
+
   if (useColorTexture)
     colorTexture = cTexture(materialParam.Get<QString>(Name("file_color_texture", id)), quiet);
 
@@ -135,5 +140,5 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   if (useBumpmapTexture)
     bumpmapTexture = cTexture(materialParam.Get<QString>(Name("file_bumpmap_texture", id)), quiet);
 
-  rotMatrix.SetRotation2(textureRotation);
+  rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
 }

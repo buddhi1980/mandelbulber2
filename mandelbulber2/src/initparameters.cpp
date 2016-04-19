@@ -687,7 +687,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
   par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 10.0, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1.0, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("bumpmap_texture_height", materialId), 0.1, -1e4, 1e4, morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId), (int)fractal::fractalColoringStandard, 0, 4, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId), (int)sFractalColoring::fractalColoringStandard, 0, 4, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId), CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
 

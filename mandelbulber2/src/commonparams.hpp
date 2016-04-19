@@ -40,14 +40,10 @@ struct sCommonParams
 {
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
-	fractal::enumFractalColoringAlgorithm fractalColoringAlgorithm;
-
-	double fractalColoringSphereRadius;
 
 	CVector3 fakeLightsOrbitTrap;
 	CVector3 fractalPosition;
 	CVector3 fractalRotation;
-	CVector3 fractalColoringLineDirection;
 	CVector3 repeat;
 	CRotationMatrix mRotFractalRotation;
 

@@ -95,8 +95,6 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 
 				params::enumBooleanOperator boolOperator = params.booleanOperator[i];
 
-				//TODO logic for out.maxIter
-
 				switch (boolOperator)
 				{
 					case params::booleanOperatorOR:
@@ -339,7 +337,7 @@ double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRender
 		if(mat->useBumpmapTexture)
 		{
 			CVector2<double> textureCoordinates;
-			textureCoordinates = cRenderWorker::TextureMapping(point, data->objectData[objectId], mat);
+			textureCoordinates = cRenderWorker::TextureMapping(point, data->objectData[objectId], mat) + CVector2<double>(0.5, 0.5);
 			sRGBfloat bump3 = mat->bumpmapTexture.Pixel(textureCoordinates);
 			double bump = bump3.R;
 			distance -= bump * mat->bumpmapTextureHeight;

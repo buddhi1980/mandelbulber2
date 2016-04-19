@@ -940,7 +940,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 					tempPoint *= params->formulaScale[formulaIndex];
 				}
 
-				sFractalIn fractIn(tempPoint, 0, params->N * 10, params->common, formulaIndex);
+				sFractalIn fractIn(tempPoint, 0, params->N * 10, params->common, formulaIndex, input.material->fractalColoring);
 				sFractalOut fractOut;
 				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
@@ -1258,7 +1258,7 @@ CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, const cObjectDa
 	point /= objectData.size;
 	point -= material->textureCenter;
 	point = material->rotMatrix.RotateVector(point);
-	point *= material->textureScale;
+	point /= material->textureScale;
 
 	switch(material->textureMappingType)
 	{

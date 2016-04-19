@@ -240,7 +240,6 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 
 void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 {
-  //TODO change number of fractals to 9 for boolean operators
   if (state) ui->checkBox_hybrid_fractal_enable->setChecked(false);
   gApplication->processEvents();
 
@@ -843,12 +842,12 @@ void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
 
 void RenderWindow::slotChangedComboFractalColoringAlgorithm(int index)
 {
-  fractal::enumFractalColoringAlgorithm selection = (fractal::enumFractalColoringAlgorithm)index;
-  ui->slider_fractal_coloring_sphere_radius->setEnabled(selection == fractal::fractalColoringSphere);
-  ui->spinbox_fractal_coloring_sphere_radius->setEnabled(selection == fractal::fractalColoringSphere);
-  ui->vect3_fractal_coloring_line_direction_x->setEnabled(selection == fractal::fractalColoringLine);
-  ui->vect3_fractal_coloring_line_direction_y->setEnabled(selection == fractal::fractalColoringLine);
-  ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == fractal::fractalColoringLine);
+	sFractalColoring::enumFractalColoringAlgorithm selection = (sFractalColoring::enumFractalColoringAlgorithm)index;
+  ui->slider_fractal_coloring_sphere_radius->setEnabled(selection == sFractalColoring::fractalColoringSphere);
+  ui->spinbox_fractal_coloring_sphere_radius->setEnabled(selection == sFractalColoring::fractalColoringSphere);
+  ui->vect3_fractal_coloring_line_direction_x->setEnabled(selection == sFractalColoring::fractalColoringLine);
+  ui->vect3_fractal_coloring_line_direction_y->setEnabled(selection == sFractalColoring::fractalColoringLine);
+  ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == sFractalColoring::fractalColoringLine);
 }
 
 void RenderWindow::slotChangedCheckBoxDOFHDR(int state)
