@@ -169,7 +169,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 
 cCommandLineInterface::~cCommandLineInterface()
 {
-	// TODO Auto-generated destructor stub
+
 }
 
 void cCommandLineInterface::ReadCLI(void)

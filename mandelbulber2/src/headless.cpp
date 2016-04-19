@@ -33,13 +33,12 @@
 cHeadless::cHeadless() :
 		QObject()
 {
-	// TODO Auto-generated constructor stub
+
 }
 
 cHeadless::~cHeadless()
 {
-	// TODO Auto-generated destructor stub
-	//qDebug() << "cHeadless::~cHeadless()";
+
 }
 
 void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)

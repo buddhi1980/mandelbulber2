@@ -33,7 +33,6 @@ cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_render
 	params = _params;
 	data = _renderData;
 	image = _image;
-	quiet = false; //TODO SSAO quiet mode
 	qualityFactor = 1.0;
 	progressive = 0;
 	numberOfThreads = data->configuration.GetNumberOfThreads();
@@ -150,10 +149,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		statusText = QObject::tr("Rendering SSAO effect in progress");
 		progressTxt = progressText.getText(percentDone);
 
-		if (!quiet)
-		{
-			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-		}
+		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 	}
 
 	for (int i = 0; i < numberOfThreads; i++)
@@ -170,10 +166,9 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	double percentDone = 1.0;
 	statusText = QObject::tr("Idle");
 	progressTxt = progressText.getText(percentDone);
-	if (!quiet)
-	{
-		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-	}
+
+	emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+
 	delete[] thread;
 	delete[] threadData;
 	delete[] worker;

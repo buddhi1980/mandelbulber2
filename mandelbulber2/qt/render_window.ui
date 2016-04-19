@@ -3005,7 +3005,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>476</width>
-          <height>159</height>
+          <height>339</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3073,9 +3073,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-472</y>
+                  <y>-796</y>
                   <width>426</width>
-                  <height>1306</height>
+                  <height>1305</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -3168,15 +3168,18 @@ to target:</string>
                          <number>2</number>
                         </property>
                         <item row="1" column="1">
-                         <widget class="QSlider" name="slider_bumpmap_texture_height">
+                         <widget class="QSlider" name="logslider_bumpmap_texture_height">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
+                          <property name="minimum">
+                           <number>-1500</number>
+                          </property>
                           <property name="maximum">
-                           <number>200</number>
+                           <number>400</number>
                           </property>
                           <property name="singleStep">
                            <number>1</number>
@@ -3189,7 +3192,7 @@ to target:</string>
                         <item row="1" column="0">
                          <widget class="QLabel" name="label_381">
                           <property name="text">
-                           <string>Texture intensity:</string>
+                           <string>Displacement height:</string>
                           </property>
                          </widget>
                         </item>
@@ -3211,27 +3214,15 @@ to target:</string>
                          </widget>
                         </item>
                         <item row="1" column="2">
-                         <widget class="MyDoubleSpinBox" name="spinbox_bumpmap_texture_height">
+                         <widget class="MyLineEdit" name="logedit_bumpmap_texture_height">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
                           </property>
-                          <property name="prefix">
-                           <string/>
-                          </property>
-                          <property name="suffix">
-                           <string/>
-                          </property>
-                          <property name="decimals">
-                           <number>2</number>
-                          </property>
-                          <property name="maximum">
-                           <double>1000.000000000000000</double>
-                          </property>
-                          <property name="singleStep">
-                           <double>0.100000000000000</double>
+                          <property name="toolTip">
+                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                           </property>
                          </widget>
                         </item>
@@ -4778,10 +4769,10 @@ object size)</string>
                          </sizepolicy>
                         </property>
                         <property name="minimum">
-                         <number>-100000</number>
+                         <number>-1000000</number>
                         </property>
                         <property name="maximum">
-                         <number>100000</number>
+                         <number>1000000</number>
                         </property>
                         <property name="singleStep">
                          <number>1</number>
@@ -5098,10 +5089,10 @@ object size)</string>
                          </sizepolicy>
                         </property>
                         <property name="minimum">
-                         <number>-100000</number>
+                         <number>-1000000</number>
                         </property>
                         <property name="maximum">
-                         <number>100000</number>
+                         <number>1000000</number>
                         </property>
                         <property name="singleStep">
                          <number>1</number>
@@ -5120,10 +5111,10 @@ object size)</string>
                          </sizepolicy>
                         </property>
                         <property name="minimum">
-                         <number>-100000</number>
+                         <number>-1000000</number>
                         </property>
                         <property name="maximum">
-                         <number>100000</number>
+                         <number>1000000</number>
                         </property>
                         <property name="singleStep">
                          <number>1</number>
@@ -7092,8 +7083,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>426</width>
-                  <height>225</height>
+                  <width>440</width>
+                  <height>325</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -21669,7 +21660,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-476</y>
           <width>462</width>
           <height>1071</height>
          </rect>

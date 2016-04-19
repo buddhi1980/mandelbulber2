@@ -240,7 +240,6 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 
 void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 {
-  //TODO change number of fractals to 9 for boolean operators
   if (state) ui->checkBox_hybrid_fractal_enable->setChecked(false);
   gApplication->processEvents();
 

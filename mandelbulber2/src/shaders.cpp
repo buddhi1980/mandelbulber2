@@ -1258,7 +1258,7 @@ CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, const cObjectDa
 	point /= objectData.size;
 	point -= material->textureCenter;
 	point = material->rotMatrix.RotateVector(point);
-	point *= material->textureScale;
+	point /= material->textureScale;
 
 	switch(material->textureMappingType)
 	{
