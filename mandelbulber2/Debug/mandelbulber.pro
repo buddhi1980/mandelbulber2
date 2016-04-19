@@ -106,6 +106,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/thumbnail.cpp\
 			../src/thumbnail_widget.cpp\
 			../src/undo.cpp\
+			../src/volume.cpp\
 			../qt/mygroupbox.cpp\
 			../qt/mylineedit.cpp\
 			../qt/myspinbox.cpp\
@@ -159,6 +160,7 @@ HEADERS  += ../src/render_window.hpp\
 			../src/headless.h\
 			../src/error_message.hpp\
                         ../src/lights.hpp\
+			../src/volume.hpp\
     	../qt/preferencesdialog.h
 
 FORMS    += ../qt/render_window.ui \
