@@ -3139,9 +3139,9 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="24" column="0" colspan="3">
-                    <widget class="MyGroupBox" name="groupCheck_use_bumpmap_texture">
+                    <widget class="MyGroupBox" name="groupCheck_use_displacement_texture">
                      <property name="title">
-                      <string>Use displacement map (bumpmap) texture</string>
+                      <string>Use displacement map texture</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -3168,7 +3168,7 @@ to target:</string>
                          <number>2</number>
                         </property>
                         <item row="1" column="1">
-                         <widget class="QSlider" name="logslider_bumpmap_texture_height">
+                         <widget class="QSlider" name="logslider_displacement_texture_height">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                             <horstretch>0</horstretch>
@@ -3197,7 +3197,7 @@ to target:</string>
                          </widget>
                         </item>
                         <item row="0" column="1">
-                         <widget class="MyLineEdit" name="text_file_bumpmap_texture">
+                         <widget class="MyLineEdit" name="text_file_displacement_texture">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                             <horstretch>0</horstretch>
@@ -3214,7 +3214,7 @@ to target:</string>
                          </widget>
                         </item>
                         <item row="1" column="2">
-                         <widget class="MyLineEdit" name="logedit_bumpmap_texture_height">
+                         <widget class="MyLineEdit" name="logedit_displacement_texture_height">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                             <horstretch>0</horstretch>

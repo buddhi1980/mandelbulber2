@@ -1233,7 +1233,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect, cMaterial *mat) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
-	CVector2<double> texPoint = TextureMapping(input.point, objectData, mat) + CVector2<double>(0.5, 0.5);
+	CVector2<double> texPoint = TextureMapping(input.point, input.normal, objectData, mat) + CVector2<double>(0.5, 0.5);
 
 	sRGBfloat tex;
 	switch(texSelect)
@@ -1255,7 +1255,7 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 		}
 		case cMaterial::texBumpmap:
 		{
-			tex = input.material->bumpmapTexture.Pixel(texPoint);
+			tex = input.material->displacementTexture.Pixel(texPoint);
 			break;
 		}
 	}
@@ -1263,7 +1263,7 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 	return sRGBfloat(tex.R, tex.G, tex.B);
 }
 
-CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, const cObjectData &objectData,
+CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, CVector3 normalVector, const cObjectData &objectData,
 		const cMaterial *material)
 {
 	CVector2<double> textureCoordinates;
@@ -1283,15 +1283,47 @@ CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, const cObjectDa
 		}
 		case cMaterial::mappingCylindrical:
 		{
-
+			double alphaTexture = fmod(point.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
+			textureCoordinates.x = alphaTexture / (2.0 * M_PI);
+			textureCoordinates.y = -point.z;
 			break;
 		}
 		case cMaterial::mappingSpherical:
 		{
+			double alphaTexture = fmod(point.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
+			double betaTexture = -point.GetBeta();
+			textureCoordinates.x = alphaTexture / (2.0 * M_PI);
+			textureCoordinates.y = (betaTexture / M_PI);
 			break;
 		}
 		case cMaterial::mappingCubic:
 		{
+			if(fabs(normalVector.x) > fabs(normalVector.y))
+			{
+				if(fabs(normalVector.x) > fabs(normalVector.z))
+				{
+					//x
+					textureCoordinates = CVector2<double>(point.y, -point.z);
+				}
+				else
+				{
+					//z
+					textureCoordinates = CVector2<double>(point.x, point.y);
+				}
+			}
+			else
+			{
+				if(fabs(normalVector.y) > fabs(normalVector.z))
+				{
+					//y
+					textureCoordinates = CVector2<double>(point.x, -point.z);
+				}
+				else
+				{
+					//z
+					textureCoordinates = CVector2<double>(point.x, point.y);
+				}
+			}
 			break;
 		}
 	}

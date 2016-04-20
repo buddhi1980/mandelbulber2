@@ -70,7 +70,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		{
 			CVector2<double> textureCoordinates;
 			textureCoordinates = CVector2<double>(in.point.x*1.0, in.point.y*1.0);
-			sRGBfloat bump3 = data->materials[1].bumpmapTexture.Pixel(textureCoordinates);
+			sRGBfloat bump3 = data->materials[1].displacementTexture.Pixel(textureCoordinates);
 			double bump = bump3.R;
 			distance -= bump * 0.025;
 			if(distance < 0.0) distance = 0.0;
@@ -337,10 +337,10 @@ double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRender
 		if(mat->useBumpmapTexture)
 		{
 			CVector2<double> textureCoordinates;
-			textureCoordinates = cRenderWorker::TextureMapping(point, data->objectData[objectId], mat) + CVector2<double>(0.5, 0.5);
-			sRGBfloat bump3 = mat->bumpmapTexture.Pixel(textureCoordinates);
+			textureCoordinates = cRenderWorker::TextureMapping(point, CVector3(0.0, 0.0, 1.0), data->objectData[objectId], mat) + CVector2<double>(0.5, 0.5);
+			sRGBfloat bump3 = mat->displacementTexture.Pixel(textureCoordinates);
 			double bump = bump3.R;
-			distance -= bump * mat->bumpmapTextureHeight;
+			distance -= bump * mat->displacementTextureHeight;
 			if(distance < 0.0) distance = 0.0;
 		}
 	}

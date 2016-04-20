@@ -56,7 +56,7 @@ enum enumTextureSelection
   double colorTextureIntensity;
   double diffussionTextureIntensity;
   double luminosityTextureIntensity;
-  double bumpmapTextureHeight;
+  double displacementTextureHeight;
 
   sRGB color;
   sRGB luminosityColor;
@@ -68,7 +68,7 @@ enum enumTextureSelection
   cTexture colorTexture;
   cTexture diffusionTexture;
   cTexture luminosityTexture;
-  cTexture bumpmapTexture;
+  cTexture displacementTexture;
 
   CVector3 textureCenter;
   CVector3 textureRotation;
