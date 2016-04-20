@@ -1,9 +1,9 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * cVolume calculates voxel volume and stores data in image slices for 3d reconstruction
+ * cVolumeSlicer calculates voxel volume and stores data in image slices for 3d reconstruction
  *
- * Copyright (C) 2014 Krzysztof Marczak
+ * Copyright (C) 2016 Krzysztof Marczak
  *
  * This file is part of Mandelbulber.
  *
@@ -17,37 +17,53 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
  */
 
-#ifndef VOLUME_H_
-#define VOLUME_H_
+#ifndef VOLUME_SLICER_H_
+#define VOLUME_SLICER_H_
 
 #include "algebra.hpp"
 #include "global_data.hpp"
 #include "system.hpp"
 
-class cVolume
+class cVolumeSlicer: public QObject
 {
+Q_OBJECT
+
 public:
-	cVolume(int w, int h, int l, CVector3 tlf, CVector3 brb)
+	cVolumeSlicer(int w, int h, int l, CVector3 tlf, CVector3 brb, QString folder, int maxIter) :
+		QObject()
 	{
 		this->w = w;
 		this->h = h;
 		this->l = l;
 		this->tlf = tlf;
 		this->brb = brb;
-		voxel = new unsigned char[w * h * l];
+		this->folder = folder;
+		this->maxIter = maxIter;
+		voxelSlice = new unsigned char[w * h];
 	}
 
-	void CalculateVolume();
-	void Store(QString folder);
+	~cVolumeSlicer()
+	{
+		delete voxelSlice;
+	}
 
-	unsigned char* voxel;
+	void ProcessVolume();
+	bool StoreSlice(int z);
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+
+private:
+	unsigned char* voxelSlice;
 	int w, h, l;
 	CVector3 tlf;
 	CVector3 brb;
+	QString folder;
+	int maxIter;
 };
 
 
-#endif /* VOLUME_H_ */
+#endif /* VOLUME_SLICER_H_ */

@@ -131,7 +131,7 @@ public:
 	static void SaveZBuffer(QString filename, cImage *image);
 	static void SaveZBuffer(QString filename, cImage *image, float minZ, float maxZ);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
-	static bool SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height, int offset = 0);
+	static bool SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height);
 };
 
 class ImageFileSaveJPG : public ImageFileSave

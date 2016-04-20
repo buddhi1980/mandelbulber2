@@ -718,7 +718,7 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(QString filename, unsigned char *imag
 	return result;
 }
 
-bool ImageFileSavePNG::SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height, int offset)
+bool ImageFileSavePNG::SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height)
 {
 	QImage *qimage = new QImage(width, height, QImage::Format_Mono);
 	QVector<QRgb> my_table;
@@ -730,7 +730,7 @@ bool ImageFileSavePNG::SavePNGQtBlackAndWhite(QString filename, unsigned char *i
 	{
 		for (int j = 0; j < height; j++)
 		{
-			qimage->setPixel(i, j, image[i + j * width + offset]);
+			qimage->setPixel(i, j, image[i + j * width]);
 		}
 	}
 	QFile file(filename);
