@@ -200,7 +200,7 @@ void cRenderWorker::doWork(void)
 			CVector3 normalRotated = mRotInv.RotateVector(normal);
 			normalFloat.R = (1.0 + normalRotated.x) / 2.0;
 			normalFloat.G = (1.0 + normalRotated.z) / 2.0;
-			normalFloat.B = -normalRotated.y;
+			normalFloat.B = 1.0 - normalRotated.y;
 
 			for (int xx = 0; xx < scheduler->GetProgressiveStep(); ++xx)
 			{
