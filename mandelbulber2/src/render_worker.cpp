@@ -197,9 +197,10 @@ void cRenderWorker::doWork(void)
 			colour.B = objectColour.B * 255;
 
 			sRGBfloat normalFloat;
-			normalFloat.R = 1.0 + normal.x / 2.0;
-			normalFloat.G = 1.0 + normal.y / 2.0;
-			normalFloat.B = normal.z;
+			CVector3 normalRotated = mRotInv.RotateVector(normal);
+			normalFloat.R = (1.0 + normalRotated.x) / 2.0;
+			normalFloat.G = (1.0 + normalRotated.z) / 2.0;
+			normalFloat.B = -normalRotated.y;
 
 			for (int xx = 0; xx < scheduler->GetProgressiveStep(); ++xx)
 			{
@@ -260,6 +261,8 @@ void cRenderWorker::PrepareMainVectors(void)
 
 	mRot.RotateZ(-params->sweetSpotHAngle);
 	mRot.RotateX(params->sweetSpotVAngle);
+
+	mRotInv = mRot.Transpose();
 }
 
 //reflection data

@@ -196,6 +196,7 @@ private:
 	//internal variables
 	int maxraymarchingSteps;
 	CRotationMatrix mRot;
+	CRotationMatrix mRotInv;
 	CVector3 baseX;
 	CVector3 baseY;
 	CVector3 baseZ;
