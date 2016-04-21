@@ -834,7 +834,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 		}
 
-		if(z == lastZ) //detection of dead computation
+		if(z.IsNotANumber()) //detection of dead computation
 		{
 			//if(Mode != calcModeColouring)
 			//qWarning() << "Dead computation\n"
@@ -845,6 +845,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			z = lastGoodZ;
 			break;
 		}
+
 	}
 
 	//final calculations
