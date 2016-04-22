@@ -14,6 +14,7 @@ cVolumeSliceDialog::cVolumeSliceDialog(QWidget *parent) :
 	gMainInterface->ConnectSignalsForSlidersInWindow(this);
 	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
 	initFinished = true;
+	ui->progressBar->hide();
 }
 
 cVolumeSliceDialog::~cVolumeSliceDialog()
@@ -25,6 +26,7 @@ void cVolumeSliceDialog::on_pushButton_start_render_slices_clicked()
 {
 	if(!slicerBusy)
 	{
+		gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
 		slicerBusy = true;
 		CVector3 limitMin;
 		CVector3 limitMax;

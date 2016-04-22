@@ -32,25 +32,8 @@ class cVolumeSlicer: public QObject
 Q_OBJECT
 
 public:
-	cVolumeSlicer(int w, int h, int l, CVector3 tlf, CVector3 brb, QString folder, int maxIter) :
-		QObject()
-	{
-		this->w = w;
-		this->h = h;
-		this->l = l;
-		this->tlf = tlf;
-		this->brb = brb;
-		this->folder = folder;
-		this->maxIter = maxIter;
-		voxelSlice = new unsigned char[w * h];
-		stop = false;
-		emit updateProgressAndStatus(tr("Idle"), "", 0.0);
-	}
-
-	~cVolumeSlicer()
-	{
-		delete voxelSlice;
-	}
+	cVolumeSlicer(int w, int h, int l, CVector3 tlf, CVector3 brb, QString folder, int maxIter);
+	~cVolumeSlicer();
 
 	bool StoreSlice(int z);
 

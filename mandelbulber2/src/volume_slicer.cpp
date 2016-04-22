@@ -24,6 +24,24 @@
 #include "calculate_distance.hpp"
 #include "compute_fractal.hpp"
 
+cVolumeSlicer::cVolumeSlicer(int w, int h, int l, CVector3 tlf, CVector3 brb, QString folder, int maxIter): QObject()
+{
+	this->w = w;
+	this->h = h;
+	this->l = l;
+	this->tlf = tlf;
+	this->brb = brb;
+	this->folder = folder;
+	this->maxIter = maxIter;
+	voxelSlice = new unsigned char[w * h];
+	stop = false;
+}
+
+cVolumeSlicer::~cVolumeSlicer()
+{
+	delete voxelSlice;
+}
+
 void cVolumeSlicer::ProcessVolume()
 {
 	const cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
@@ -35,9 +53,8 @@ void cVolumeSlicer::ProcessVolume()
 
 	for(int z = 0; z < l; z++)
 	{
-		QString progressText = tr("Processing slice %1 of %2").arg(z, l);
+		QString progressText = tr("Processing slice %1 of %2").arg(QString::number(z + 1), QString::number(l));
 		emit updateProgressAndStatus(tr("Volume Slicing"), progressText, (double) z / l);
-		gApplication->processEvents();
 
 #pragma omp parallel for
 		for(int x = 0; x < w; x++)

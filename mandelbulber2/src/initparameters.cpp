@@ -160,7 +160,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("volume_slice_samples_x", 100, 20, 10000, morphLinear, paramStandard);
 	par->addParam("volume_slice_samples_y", 100, 20, 10000, morphLinear, paramStandard);
 	par->addParam("volume_slice_samples_z", 100, 20, 10000, morphLinear, paramStandard);
-	par->addParam("volume_slice_max_iter", 1, 30, 1000, morphLinear, paramStandard);
+	par->addParam("volume_slice_max_iter", 30, 1, 10000, morphLinear, paramStandard);
 	par->addParam("volume_slice_image_path", QDir::toNativeSeparators(systemData.dataDirectory + "slices" + QDir::separator()), morphNone, paramStandard);
 
 	//foldings

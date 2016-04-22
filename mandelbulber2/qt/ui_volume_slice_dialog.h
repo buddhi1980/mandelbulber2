@@ -158,14 +158,14 @@ public:
         spinboxInt_volume_slice_max_iter = new MySpinBox(groupBox_2);
         spinboxInt_volume_slice_max_iter->setObjectName(QStringLiteral("spinboxInt_volume_slice_max_iter"));
         spinboxInt_volume_slice_max_iter->setMinimum(1);
-        spinboxInt_volume_slice_max_iter->setMaximum(100);
+        spinboxInt_volume_slice_max_iter->setMaximum(10000);
 
         gridLayout_2->addWidget(spinboxInt_volume_slice_max_iter, 0, 2, 1, 1);
 
         sliderInt_volume_slice_max_iter = new QSlider(groupBox_2);
         sliderInt_volume_slice_max_iter->setObjectName(QStringLiteral("sliderInt_volume_slice_max_iter"));
         sliderInt_volume_slice_max_iter->setMinimum(1);
-        sliderInt_volume_slice_max_iter->setMaximum(100);
+        sliderInt_volume_slice_max_iter->setMaximum(10000);
         sliderInt_volume_slice_max_iter->setSingleStep(8);
         sliderInt_volume_slice_max_iter->setPageStep(64);
         sliderInt_volume_slice_max_iter->setOrientation(Qt::Horizontal);
@@ -195,7 +195,7 @@ public:
         spinboxInt_volume_slice_samples_x = new MySpinBox(groupBox_3);
         spinboxInt_volume_slice_samples_x->setObjectName(QStringLiteral("spinboxInt_volume_slice_samples_x"));
         spinboxInt_volume_slice_samples_x->setMinimum(1);
-        spinboxInt_volume_slice_samples_x->setMaximum(100);
+        spinboxInt_volume_slice_samples_x->setMaximum(10000);
 
         gridLayout_3->addWidget(spinboxInt_volume_slice_samples_x, 0, 1, 1, 1);
 
@@ -207,7 +207,7 @@ public:
         spinboxInt_volume_slice_samples_y = new MySpinBox(groupBox_3);
         spinboxInt_volume_slice_samples_y->setObjectName(QStringLiteral("spinboxInt_volume_slice_samples_y"));
         spinboxInt_volume_slice_samples_y->setMinimum(1);
-        spinboxInt_volume_slice_samples_y->setMaximum(100);
+        spinboxInt_volume_slice_samples_y->setMaximum(10000);
 
         gridLayout_3->addWidget(spinboxInt_volume_slice_samples_y, 0, 3, 1, 1);
 
@@ -219,7 +219,7 @@ public:
         spinboxInt_volume_slice_samples_z = new MySpinBox(groupBox_3);
         spinboxInt_volume_slice_samples_z->setObjectName(QStringLiteral("spinboxInt_volume_slice_samples_z"));
         spinboxInt_volume_slice_samples_z->setMinimum(1);
-        spinboxInt_volume_slice_samples_z->setMaximum(100);
+        spinboxInt_volume_slice_samples_z->setMaximum(10000);
 
         gridLayout_3->addWidget(spinboxInt_volume_slice_samples_z, 0, 5, 1, 1);
 
