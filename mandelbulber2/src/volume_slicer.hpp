@@ -43,6 +43,8 @@ public:
 		this->folder = folder;
 		this->maxIter = maxIter;
 		voxelSlice = new unsigned char[w * h];
+		stop = false;
+		emit updateProgressAndStatus(tr("Idle"), "", 0.0);
 	}
 
 	~cVolumeSlicer()
@@ -50,11 +52,15 @@ public:
 		delete voxelSlice;
 	}
 
-	void ProcessVolume();
 	bool StoreSlice(int z);
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void finished();
+
+public slots:
+	void Stop(){ stop = true; }
+	void ProcessVolume();
 
 private:
 	unsigned char* voxelSlice;
@@ -63,6 +69,7 @@ private:
 	CVector3 brb;
 	QString folder;
 	int maxIter;
+	bool stop;
 };
 
 

@@ -120,7 +120,9 @@ SOURCES +=  ../src/algebra.cpp\
 			../qt/mytabbar.cpp \
 			../qt/mytabwidget.cpp \
     	../qt/preferencesdialog.cpp \
-    	../qt/color_palette_widget.cpp
+    	../qt/color_palette_widget.cpp \
+    	../qt/volume_slice_dialog.cpp
+
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
@@ -161,10 +163,12 @@ HEADERS  += ../src/render_window.hpp\
 			../src/error_message.hpp\
                         ../src/lights.hpp\
 			../src/volume_slicer.hpp\
-    	../qt/preferencesdialog.h
+    	../qt/preferencesdialog.h\
+    	../qt/volume_slice_dialog.h
 
 FORMS    += ../qt/render_window.ui \
-    				../qt/preferencesdialog.ui
+    				../qt/preferencesdialog.ui \
+    				../qt/volume_slice_dialog.ui
 
 RESOURCES = ../qt/icons.qrc
 

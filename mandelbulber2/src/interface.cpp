@@ -573,6 +573,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(triggered()),
 												mainWindow,
 												SLOT(slotImportOldSettings()));
+	QApplication::connect(mainWindow->ui->actionExportVolumeSlices,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotExportVolumeSlices()));
 	QApplication::connect(mainWindow->ui->actionSave_as_JPG,
 												SIGNAL(triggered()),
 												mainWindow,

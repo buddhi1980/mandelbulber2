@@ -46,6 +46,7 @@ void cVolumeSlicer::ProcessVolume()
 			CVector3 point;
 			for(int y = 0; y < h; y++)
 			{
+				if(stop) break;
 				point.x = tlf.x + x * stepX;
 				point.y = tlf.y + y * stepY;
 				point.z = tlf.z + z * stepZ;
@@ -65,7 +66,9 @@ void cVolumeSlicer::ProcessVolume()
 				voxelSlice[x + y * w] = fractOut.maxiter ? 0 : 1;
 			}
 		}
-		if(!StoreSlice(z)){
+
+		if(stop || !StoreSlice(z))
+		{
 			break;
 		}
 	}
@@ -73,6 +76,7 @@ void cVolumeSlicer::ProcessVolume()
 	delete fractals;
 	delete params;
 	emit updateProgressAndStatus(tr("Volume Slicing"), "Finished", 1.0);
+	emit finished();
 }
 
 bool cVolumeSlicer::StoreSlice(int z){
@@ -84,3 +88,4 @@ bool cVolumeSlicer::StoreSlice(int z){
 	}
 	return true;
 }
+
