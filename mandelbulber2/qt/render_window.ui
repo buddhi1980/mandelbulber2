@@ -25390,8 +25390,8 @@ keyframes</string>
   </action>
   <action name="actionExportVolumeSlices">
    <property name="icon">
-    <iconset theme="document-save" resource="icons.qrc">
-     <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+    <iconset resource="icons.qrc">
+     <normaloff>:/system/icons/layer.png</normaloff>:/system/icons/layer.png</iconset>
    </property>
    <property name="text">
     <string>Export Volume Slices</string>

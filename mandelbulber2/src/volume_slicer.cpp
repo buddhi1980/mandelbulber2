@@ -55,17 +55,20 @@ void cVolumeSlicer::ProcessVolume()
 	double stepZ = (brb.z - tlf.z) * (1.0 / l);
 	double dist_thresh = 0.5 * dMin(stepX, stepY, stepZ) / params->detailLevel;
 
+	cProgressText progressText;
+	progressText.ResetTimer();
+
 	for (int z = 0; z < l; z++)
 	{
-		QString progressText = tr("Processing slice %1 of %2").arg(	QString::number(z + 1),
+		QString statusText = tr("Processing slice %1 of %2").arg(	QString::number(z + 1),
 																																QString::number(l));
-
-		emit updateProgressAndStatus(tr("Volume Slicing"), progressText, (double) z / l);
+		double percentDone = (double) z / l;
+		statusText += " - " + progressText.getText(percentDone);
+		emit updateProgressAndStatus(tr("Volume Slicing"), statusText, percentDone);
 
 		#pragma omp parallel for
 		for (int x = 0; x < w; x++)
 		{
-			sFractalOut fractOut;
 			CVector3 point;
 			for (int y = 0; y < h; y++)
 			{
