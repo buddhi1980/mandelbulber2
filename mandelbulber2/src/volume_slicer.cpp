@@ -23,6 +23,7 @@
 #include "volume_slicer.hpp"
 #include "calculate_distance.hpp"
 #include "compute_fractal.hpp"
+#include "common_math.h"
 
 cVolumeSlicer::cVolumeSlicer(int w, int h, int l, CVector3 tlf, CVector3 brb, QString folder, int maxIter): QObject()
 {
@@ -47,44 +48,41 @@ void cVolumeSlicer::ProcessVolume()
 	const cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
 	cParamRender *params = new cParamRender(gPar);
 
+	params->N = maxIter;
+
 	double stepX = (brb.x - tlf.x) * (1.0 / w);
 	double stepY = (brb.y - tlf.y) * (1.0 / h);
 	double stepZ = (brb.z - tlf.z) * (1.0 / l);
+	double dist_thresh = 0.5 * dMin(stepX, stepY, stepZ) / params->detailLevel;
 
-	for(int z = 0; z < l; z++)
+	for (int z = 0; z < l; z++)
 	{
-		QString progressText = tr("Processing slice %1 of %2").arg(QString::number(z + 1), QString::number(l));
+		QString progressText = tr("Processing slice %1 of %2").arg(	QString::number(z + 1),
+																																QString::number(l));
+
 		emit updateProgressAndStatus(tr("Volume Slicing"), progressText, (double) z / l);
 
-#pragma omp parallel for
-		for(int x = 0; x < w; x++)
+		#pragma omp parallel for
+		for (int x = 0; x < w; x++)
 		{
 			sFractalOut fractOut;
 			CVector3 point;
-			for(int y = 0; y < h; y++)
+			for (int y = 0; y < h; y++)
 			{
-				if(stop) break;
 				point.x = tlf.x + x * stepX;
 				point.y = tlf.y + y * stepY;
 				point.z = tlf.z + z * stepZ;
 
-				if(fractOut.distance > fabs(stepY))
-				{
-					// since last voxel was at least stepY away from surface
-					fractOut.distance -= fabs(stepY);
-				}
-				else
-				{
-					const sFractalIn fractIn(point, params->minN, this->maxIter, params->common, -1);
-					Compute<fractal::calcModeNormal>(*fractals, fractIn, &fractOut);
-				}
-				// if maxiter reached -> inside fractal -> paint 0 (black)
-				// otherwise outside fractal -> paint 1 (white)
-				voxelSlice[x + y * w] = fractOut.maxiter ? 0 : 1;
+				sDistanceOut distanceOut;
+				sDistanceIn distanceIn(point, dist_thresh, false);
+
+				double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
+
+				voxelSlice[x + y * w] = dist > dist_thresh;
 			}
 		}
 
-		if(stop || !StoreSlice(z))
+		if (stop || !StoreSlice(z))
 		{
 			break;
 		}

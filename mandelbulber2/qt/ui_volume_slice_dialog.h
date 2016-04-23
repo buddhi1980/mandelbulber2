@@ -368,6 +368,7 @@ public:
 
         progressBar = new QProgressBar(scrollAreaWidgetContents);
         progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setMaximum(1000);
         progressBar->setValue(24);
 
         verticalLayout_2->addWidget(progressBar);
