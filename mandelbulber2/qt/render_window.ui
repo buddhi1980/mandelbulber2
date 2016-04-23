@@ -276,6 +276,8 @@
     <addaction name="separator"/>
     <addaction name="actionImport_settings_from_old_Mandelbulber"/>
     <addaction name="separator"/>
+    <addaction name="actionExportVolumeSlices"/>
+    <addaction name="separator"/>
     <addaction name="actionProgramSettings"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -25384,6 +25386,15 @@ keyframes</string>
    </property>
    <property name="text">
     <string>&amp;Import settings from old Mandelbulber (v1.21)...</string>
+   </property>
+  </action>
+  <action name="actionExportVolumeSlices">
+   <property name="icon">
+    <iconset theme="document-save" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Export Volume Slices</string>
    </property>
   </action>
   <action name="actionLoad_example">

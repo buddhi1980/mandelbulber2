@@ -26,10 +26,11 @@
 #include "initparameters.hpp"
 #include "settings.hpp"
 #include "preferencesdialog.h"
+#include "volume_slice_dialog.h"
 
 void RenderWindow::slotStartRender(void)
 {
-  gMainInterface->StartRender();
+	gMainInterface->StartRender();
 }
 
 void RenderWindow::slotStopRender(void)
@@ -777,6 +778,18 @@ void RenderWindow::slotMenuProgramSettings()
 	preferencesDialog->show();
 	preferencesDialog->raise();
 	preferencesDialog->activateWindow();
+}
+
+void RenderWindow::slotExportVolumeSlices()
+{
+	if(!volumeSliceDialog)
+	{
+		volumeSliceDialog = new cVolumeSliceDialog;
+	}
+
+	volumeSliceDialog->show();
+	volumeSliceDialog->raise();
+	volumeSliceDialog->activateWindow();
 }
 
 void RenderWindow::slotUpdateStatistics(cStatistics stat)

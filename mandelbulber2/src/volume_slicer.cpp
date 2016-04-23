@@ -24,6 +24,24 @@
 #include "calculate_distance.hpp"
 #include "compute_fractal.hpp"
 
+cVolumeSlicer::cVolumeSlicer(int w, int h, int l, CVector3 tlf, CVector3 brb, QString folder, int maxIter): QObject()
+{
+	this->w = w;
+	this->h = h;
+	this->l = l;
+	this->tlf = tlf;
+	this->brb = brb;
+	this->folder = folder;
+	this->maxIter = maxIter;
+	voxelSlice = new unsigned char[w * h];
+	stop = false;
+}
+
+cVolumeSlicer::~cVolumeSlicer()
+{
+	delete voxelSlice;
+}
+
 void cVolumeSlicer::ProcessVolume()
 {
 	const cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
@@ -35,9 +53,8 @@ void cVolumeSlicer::ProcessVolume()
 
 	for(int z = 0; z < l; z++)
 	{
-		QString progressText = tr("Processing slice %1 of %2").arg(z, l);
+		QString progressText = tr("Processing slice %1 of %2").arg(QString::number(z + 1), QString::number(l));
 		emit updateProgressAndStatus(tr("Volume Slicing"), progressText, (double) z / l);
-		gApplication->processEvents();
 
 #pragma omp parallel for
 		for(int x = 0; x < w; x++)
@@ -46,6 +63,7 @@ void cVolumeSlicer::ProcessVolume()
 			CVector3 point;
 			for(int y = 0; y < h; y++)
 			{
+				if(stop) break;
 				point.x = tlf.x + x * stepX;
 				point.y = tlf.y + y * stepY;
 				point.z = tlf.z + z * stepZ;
@@ -65,7 +83,9 @@ void cVolumeSlicer::ProcessVolume()
 				voxelSlice[x + y * w] = fractOut.maxiter ? 0 : 1;
 			}
 		}
-		if(!StoreSlice(z)){
+
+		if(stop || !StoreSlice(z))
+		{
 			break;
 		}
 	}
@@ -73,6 +93,7 @@ void cVolumeSlicer::ProcessVolume()
 	delete fractals;
 	delete params;
 	emit updateProgressAndStatus(tr("Volume Slicing"), "Finished", 1.0);
+	emit finished();
 }
 
 bool cVolumeSlicer::StoreSlice(int z){
@@ -84,3 +105,4 @@ bool cVolumeSlicer::StoreSlice(int z){
 	}
 	return true;
 }
+

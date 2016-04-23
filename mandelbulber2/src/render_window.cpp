@@ -29,6 +29,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
 	ui->setupUi(this);
 	fractalWidgets = new QWidget*[NUMBER_OF_FRACTALS];
 	preferencesDialog = NULL;
+	volumeSliceDialog = NULL;
 
 	//store default geometry and state
 	defaultGeometry = saveGeometry();
