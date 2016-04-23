@@ -73,7 +73,9 @@ private slots:
   void slotDialMoved(int value);
 	void slotSpinBoxDChanged(double value);
 	void slotLogSliderMoved(int value);
+	void slotLogSliderVect3Moved(int value);
 	void slotLogLineEditChanged(const QString &text);
+	void slotLogVect3Changed(const QString &text);
 
 	//other
 	void slotChangedCheckBoxCursorVisibility(int state);

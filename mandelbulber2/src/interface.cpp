@@ -966,7 +966,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 				}
 
 				//----- get vectors ------------
-				if (type == QString("vect3"))
+				if (type == QString("vect3") || type == QString("logvect3"))
 				{
 					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 					QString nameVect = parameterName.left(parameterName.length() - 2);
@@ -1582,6 +1582,28 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 																SIGNAL(textChanged(const QString&)),
 																mainWindow,
 																SLOT(slotLogLineEditChanged(const QString&)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("logslidervect3"))
+			{
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															mainWindow,
+															SLOT(slotLogSliderVect3Moved(int)));
+
+				QString editFieldName = QString("logvect3_") + parameterName;
+				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit*>(editFieldName);
+				if (lineEdit)
+				{
+					QApplication::connect(lineEdit,
+																SIGNAL(textChanged(const QString&)),
+																mainWindow,
+																SLOT(slotLogVect3Changed(const QString&)));
 				}
 				else
 				{

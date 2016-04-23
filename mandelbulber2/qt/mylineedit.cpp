@@ -44,7 +44,7 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 	menu->addSeparator();
 
 	QString type = GetType(objectName());
-	if (type == QString("vect3") || type == QString("vect4"))
+	if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
 	{
 		actionCopyVectorToClipboard = menu->addAction(tr("Copy vector"));
 		actionPasteVectorFromClipboard = menu->addAction(tr("Paste vector"));
@@ -74,7 +74,7 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 			{
 				QString parName = parameterName;
 				QString type = GetType(objectName());
-				if (type == QString("vect3") || type == QString("vect4"))
+				if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
 					parName = parameterName.left(parameterName.length() - 2);
 
 				gAnimFrames->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
@@ -87,7 +87,7 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 			{
 				QString parName = parameterName;
 				QString type = GetType(objectName());
-				if (type == QString("vect3") || type == QString("vect4"))
+				if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
 					parName = parameterName.left(parameterName.length() - 2);
 
 				gKeyframes->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
@@ -138,7 +138,7 @@ QString MyLineEdit::GetDefault()
 	if (parameterContainer && !gotDefault)
 	{
 		QString type = GetType(objectName());
-		if (type == QString("vect3"))
+		if (type == QString("vect3") || type == QString("logvect3"))
 		{
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
@@ -147,7 +147,7 @@ QString MyLineEdit::GetDefault()
 			defaultText = valS;
 			gotDefault = true;
 		}
-		else if (type == QString("vect4"))
+		else if (type == QString("vect4") || type == QString("logvect3"))
 		{
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
@@ -176,7 +176,7 @@ void MyLineEdit::CopyToClipboard()
 	if (parameterContainer)
 	{
 		QString type = GetType(objectName());
-		if (type == QString("vect3") || type == QString("vect4"))
+		if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
 		{
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			QString valS = parameterContainer->Get<QString>(nameVect);
@@ -194,15 +194,25 @@ void MyLineEdit::PasteFromClipboard()
 	if (parameterContainer)
 	{
 		QString type = GetType(objectName());
-		if (type == QString("vect3"))
+		if (type == QString("vect3") || type == QString("logvect3"))
 		{
 			QStringList numbersStr = text.split(' ');
 			if (numbersStr.length() == 3)
 			{
 				QString nameVect = parameterName.left(parameterName.length() - 2);
-				QString lineEditNameX = QString("vect3_%1_x").arg(nameVect);
-				QString lineEditNameY = QString("vect3_%1_y").arg(nameVect);
-				QString lineEditNameZ = QString("vect3_%1_z").arg(nameVect);
+				QString lineEditNameX, lineEditNameY, lineEditNameZ;
+				if(type == QString("vect3"))
+				{
+					lineEditNameX = QString("vect3_%1_x").arg(nameVect);
+					lineEditNameY = QString("vect3_%1_y").arg(nameVect);
+					lineEditNameZ = QString("vect3_%1_z").arg(nameVect);
+				}
+				else if(type == QString("logvect3"))
+				{
+					lineEditNameX = QString("logvect3_%1_x").arg(nameVect);
+					lineEditNameY = QString("logvect3_%1_y").arg(nameVect);
+					lineEditNameZ = QString("logvect3_%1_z").arg(nameVect);
+				}
 				MyLineEdit *lineEditX = parent()->findChild<MyLineEdit*>(lineEditNameX);
 				MyLineEdit *lineEditY = parent()->findChild<MyLineEdit*>(lineEditNameY);
 				MyLineEdit *lineEditZ = parent()->findChild<MyLineEdit*>(lineEditNameZ);
@@ -242,15 +252,25 @@ void MyLineEdit::ResetVectorToDefault()
 	if (parameterContainer)
 	{
 		QString type = GetType(objectName());
-		if (type == QString("vect3") || type == QString("vect4"))
+		if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
 		{
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			QStringList numbersStr = parameterContainer->GetDefault<QString>(nameVect).split(' ');
 			if(numbersStr.length() >= 3)
 			{
-				QString lineEditNameX = QString("vect3_%1_x").arg(nameVect);
-				QString lineEditNameY = QString("vect3_%1_y").arg(nameVect);
-				QString lineEditNameZ = QString("vect3_%1_z").arg(nameVect);
+				QString lineEditNameX, lineEditNameY, lineEditNameZ;
+				if(type == QString("vect3"))
+				{
+					lineEditNameX = QString("vect3_%1_x").arg(nameVect);
+					lineEditNameY = QString("vect3_%1_y").arg(nameVect);
+					lineEditNameZ = QString("vect3_%1_z").arg(nameVect);
+				}
+				else if(type == QString("logvect3"))
+				{
+					lineEditNameX = QString("logvect3_%1_x").arg(nameVect);
+					lineEditNameY = QString("logvect3_%1_y").arg(nameVect);
+					lineEditNameZ = QString("logvect3_%1_z").arg(nameVect);
+				}
 				MyLineEdit *lineEditX = parent()->findChild<MyLineEdit*>(lineEditNameX);
 				MyLineEdit *lineEditY = parent()->findChild<MyLineEdit*>(lineEditNameY);
 				MyLineEdit *lineEditZ = parent()->findChild<MyLineEdit*>(lineEditNameZ);

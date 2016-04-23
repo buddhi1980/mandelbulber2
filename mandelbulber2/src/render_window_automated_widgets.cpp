@@ -332,6 +332,28 @@ void RenderWindow::slotLogSliderMoved(int value)
   }
 }
 
+void RenderWindow::slotLogSliderVect3Moved(int value)
+{
+  using namespace std;
+  QString sliderName = this->sender()->objectName();
+  QString type, parameterName;
+  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  QString lineEditName = QString("logvect3_") + parameterName;
+
+  QLineEdit *lineEdit = this->sender()->parent()->findChild<QLineEdit*>(lineEditName);
+  if (lineEdit)
+  {
+    double dValue = pow(10.0, value / 100.0);
+    QString text = QString("%L1").arg(dValue);
+    lineEdit->setText(text);
+  }
+  else
+  {
+    qWarning() << "slotLogSlidervect3Moved() error: lineEdit " << lineEditName << " doesn't exists"
+        << endl;
+  }
+}
+
 void RenderWindow::slotLogLineEditChanged(const QString &text)
 {
   using namespace std;
@@ -358,6 +380,36 @@ void RenderWindow::slotLogLineEditChanged(const QString &text)
   else
   {
     qWarning() << "slotLogLineEditChanged() error: slider " << sliderName << " doesn't exists"
+        << endl;
+  }
+}
+
+void RenderWindow::slotLogVect3Changed(const QString &text)
+{
+  using namespace std;
+  QString lineEditName = this->sender()->objectName();
+  QString type, parameterName;
+  gMainInterface->GetNameAndType(lineEditName, &parameterName, &type);
+  QString sliderName = QString("logslidervect3_") + parameterName;
+
+  QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
+  if (slider)
+  {
+    double value = systemData.locale.toDouble(text);
+    if (value > 0.0)
+    {
+      int sliderPosition = log10(systemData.locale.toDouble(text)) * 100.0;
+      slider->setValue(sliderPosition);
+    }
+    else
+    {
+      qWarning() << "slotLogVect3Changed() error: value from " << lineEditName
+          << " is not greater zero" << endl;
+    }
+  }
+  else
+  {
+    qWarning() << "slotLogVect3Changed() error: slider " << sliderName << " doesn't exists"
         << endl;
   }
 }
