@@ -234,7 +234,7 @@ sRGB8 cTexture::FastPixel(int x, int y)
 	return bitmap[x + y * width];
 }
 
-CVector3 cTexture::NormalMap(CVector2<double> point, double bump) const
+CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump) const
 {
 	int intX = point.x;
 	int intY = point.y;
@@ -256,6 +256,23 @@ CVector3 cTexture::NormalMap(CVector2<double> point, double bump) const
 	normal.y = bump * (m[0][0]-m[0][2]+2*(m[1][0]-m[1][2])+m[2][0]-m[2][2]);
 	normal.z = 1.0;
 	normal.Normalize();
+	return normal;
+}
+
+CVector3 cTexture::NormalMap(CVector2<double> point, double bump) const
+{
+	int intX = point.x;
+	int intY = point.y;
+	point.x = point.x - intX;
+	point.y = point.y - intY;
+	if(point.x < 0.0) point.x += 1.0;
+	if(point.y < 0.0) point.y += 1.0;
+	sRGBfloat normalPixel = BicubicInterpolation(point.x * width, point.y * height);
+	CVector3 normal(normalPixel.R * 2.0 - 1.0, normalPixel.G * 2.0 - 1.0, normalPixel.B);
+	normal.x *= -bump;
+	normal.y *= -bump;
+	normal.Normalize();
+
 	return normal;
 }
 

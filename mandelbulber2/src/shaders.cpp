@@ -1461,8 +1461,19 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input)
 	b.Normalize();
 	CMatrix33 tbn(b, t, n);
 
-	CVector3 tex = input.material->normalMapTexture.NormalMap(texPoint,
-																														input.material->normalMapTextureHeight);
+	CVector3 tex;
+
+	if (input.material->normalMapTextureFromBumpmap)
+	{
+		tex = input.material->normalMapTexture.NormalMapFromBumpMap(texPoint,
+																																input.material
+																																		->normalMapTextureHeight);
+	}
+	else
+	{
+		tex = input.material->normalMapTexture.NormalMap(	texPoint,
+																											input.material->normalMapTextureHeight);
+	}
 
 	CVector3 result = tbn * tex;
 	result.Normalize();

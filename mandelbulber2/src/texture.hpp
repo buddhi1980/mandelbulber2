@@ -45,6 +45,7 @@ public:
 	bool IsLoaded(void) const {return loaded;}
 	QString GetFileName() {return originalFileName;}
 	void FromQByteArray(QByteArray buffer);
+	CVector3 NormalMapFromBumpMap(CVector2<double> point, double bump) const;
 	CVector3 NormalMap(CVector2<double> point, double bump) const;
 
 private:
