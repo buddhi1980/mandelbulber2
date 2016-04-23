@@ -539,6 +539,7 @@ class CMatrix33
 public:
 	CMatrix33();
 	CMatrix33(const CMatrix33 &matrix);
+	CMatrix33(const CVector3 &v1, const CVector3 &v2, const CVector3 &v3);
 	CMatrix33 operator*(const CMatrix33 &matrix) const;
 	CVector3 operator*(const CVector3 &vector) const;
 	CMatrix33& operator=(const CMatrix33&);

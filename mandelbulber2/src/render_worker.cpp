@@ -386,9 +386,9 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 
 		if (point == lastPoint || point == point/0.0) //detection of dead calculation
 		{
-			qWarning() << "Dead computation\n"
-					<< "Point:" << point.Debug()
-					<< "\nPrevious point:" << lastPoint.Debug();
+			//qWarning() << "Dead computation\n"
+			//		<< "Point:" << point.Debug()
+			//		<< "\nPrevious point:" << lastPoint.Debug();
 			point = lastPoint;
 			found = true;
 			deadComputationFound = true;
@@ -578,6 +578,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	{
 		//calculate normal vector
 		vn = CalculateNormals(shaderInputData);
+
+		if(shaderInputData.material->normalMapTexture.IsLoaded())
+		{
+			shaderInputData.normal = vn;
+			vn = NormalMapShader(shaderInputData);
+		}
 
 		//prepare refraction values
 		double n1, n2;

@@ -38,7 +38,7 @@ enum enumTextureSelection
 	texColor = 0,
 	texDiffuse = 1,
 	texLuminosity = 2,
-	texBumpmap = 3,
+	texDisplacement = 3,
 };
 
   int id;
@@ -57,6 +57,7 @@ enum enumTextureSelection
   double diffussionTextureIntensity;
   double luminosityTextureIntensity;
   double displacementTextureHeight;
+  double normalMapTextureHeight;
 
   sRGB color;
   sRGB luminosityColor;
@@ -69,6 +70,7 @@ enum enumTextureSelection
   cTexture diffusionTexture;
   cTexture luminosityTexture;
   cTexture displacementTexture;
+  cTexture normalMapTexture;
 
   CVector3 textureCenter;
   CVector3 textureRotation;
@@ -83,7 +85,9 @@ enum enumTextureSelection
   bool useColorTexture;
   bool useDiffusionTexture;
   bool useLuminosityTexture;
-  bool useBumpmapTexture;
+  bool useDisplacementTexture;
+  bool useNormalMapTexture;
+  bool normalMapTextureFromBumpmap;
 
   sFractalColoring fractalColoring;
 };

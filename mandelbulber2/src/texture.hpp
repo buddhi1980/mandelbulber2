@@ -42,9 +42,10 @@ public:
 	sRGBfloat Pixel(double x, double y);
 	sRGBfloat Pixel(CVector2<double> point) const;
 	sRGB8 FastPixel(int x, int y);
-	bool IsLoaded(void) {return loaded;}
+	bool IsLoaded(void) const {return loaded;}
 	QString GetFileName() {return originalFileName;}
 	void FromQByteArray(QByteArray buffer);
+	CVector3 NormalMap(CVector2<double> point, double bump) const;
 
 private:
 	sRGB8 LinearInterpolation(double x, double y);

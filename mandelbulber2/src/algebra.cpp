@@ -97,6 +97,19 @@ CMatrix33::CMatrix33(const CMatrix33 &matrix)
 	m33 = matrix.m33;
 }
 
+CMatrix33::CMatrix33(const CVector3 &v1, const CVector3 &v2, const CVector3 &v3)
+{
+	m11 = v1.x;
+	m12 = v2.x;
+	m13 = v3.x;
+	m21 = v1.y;
+	m22 = v2.y;
+	m23 = v3.y;
+	m31 = v1.z;
+	m32 = v2.z;
+	m33 = v3.z;
+}
+
 CMatrix33& CMatrix33::operator=(const CMatrix33 &matrix)
 {
 	m11 = matrix.m11;
