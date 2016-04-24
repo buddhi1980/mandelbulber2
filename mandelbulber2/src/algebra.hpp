@@ -156,7 +156,7 @@ public:
 	{
 		return x * vector.x + y * vector.y + z * vector.z;
 	}
-	inline CVector3 Cross(const CVector3& v)
+	inline CVector3 Cross(const CVector3& v) const
 	{
 		CVector3 c;
 		c.x = y * v.z - z * v.y;

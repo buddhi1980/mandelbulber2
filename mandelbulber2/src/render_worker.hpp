@@ -50,8 +50,9 @@ public:
 	~cRenderWorker();
 
 	//Texture mapping is a static function because it's used outside the class for displacement maps
-	static CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector, const cObjectData &objectData,
-			const cMaterial *material, CVector3 *textureVectorX = NULL, CVector3 *textureVectorY = NULL);
+	static CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
+			const cObjectData &objectData, const cMaterial *material, CVector3 *textureVectorX = NULL,
+			CVector3 *textureVectorY = NULL);
 
 	QThread workerThread;
 
@@ -159,7 +160,7 @@ private:
 	void PrepareAOVectors(void);
 	CVector3 RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out);
 	double CalcDistThresh(CVector3 point) const;
-	double CalcDelta(CVector3 point);
+	double CalcDelta(CVector3 point) const;
 	double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
 

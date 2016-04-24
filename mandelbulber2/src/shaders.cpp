@@ -22,6 +22,7 @@
 
 #include "render_worker.hpp"
 #include "calculate_distance.hpp"
+#include "common_math.h"
 
 sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour,
 		sRGBAfloat *specularOut)
@@ -1233,31 +1234,52 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect, cMaterial *mat) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
-	CVector2<double> texPoint = TextureMapping(input.point, input.normal, objectData, mat) + CVector2<double>(0.5, 0.5);
+	double texturePixelSize = 1.0;
+	CVector3 textureVectorX, textureVectorY;
+	CVector2<double> texPoint = TextureMapping(	input.point,
+																							input.normal,
+																							objectData,
+																							mat,
+																							&textureVectorX,
+																							&textureVectorY) + CVector2<double>(0.5, 0.5);
 
-	//double pointSize = 1.0 / ((params->camera - input.point).Length() * params->resolution * params->fov) * 3.0;  (3.0 is size of object/texture)
+	//mipmapping - calculation of texture pixel size
+	double delta = CalcDelta(input.point);
+	double deltaTexX = ((TextureMapping(input.point + textureVectorX * delta,
+																			input.normal,
+																			objectData,
+																			mat) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
+	double deltaTexY = ((TextureMapping(input.point + textureVectorY * delta,
+																			input.normal,
+																			objectData,
+																			mat) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
+
+	deltaTexX = deltaTexX / fabs(input.viewVector.Dot(input.normal));
+	deltaTexY = deltaTexY / fabs(input.viewVector.Dot(input.normal));
+
+	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
 	sRGBfloat tex;
 	switch(texSelect)
 	{
 		case cMaterial::texColor:
 		{
-			tex = input.material->colorTexture.Pixel(texPoint);
+			tex = input.material->colorTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
 		case cMaterial::texDiffuse:
 		{
-			tex = input.material->diffusionTexture.Pixel(texPoint);
+			tex = input.material->diffusionTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
 		case cMaterial::texLuminosity:
 		{
-			tex = input.material->luminosityTexture.Pixel(texPoint);
+			tex = input.material->luminosityTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
 		case cMaterial::texDisplacement:
 		{
-			tex = input.material->displacementTexture.Pixel(texPoint);
+			tex = input.material->displacementTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
 	}
@@ -1265,8 +1287,9 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 	return sRGBfloat(tex.R, tex.G, tex.B);
 }
 
-CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, CVector3 normalVector, const cObjectData &objectData,
-		const cMaterial *material, CVector3 *textureVectorX, CVector3 *textureVectorY)
+CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, CVector3 normalVector,
+		const cObjectData &objectData, const cMaterial *material,
+		CVector3 *textureVectorX, CVector3 *textureVectorY)
 {
 	CVector2<double> textureCoordinates;
 	CVector3 point = inPoint - objectData.position;
@@ -1282,6 +1305,7 @@ CVector2<double> cRenderWorker::TextureMapping(CVector3 inPoint, CVector3 normal
 			textureCoordinates = CVector2<double>(point.x, point.y);
 			textureCoordinates.x /= material->textureScale.x;
 			textureCoordinates.y /= material->textureScale.y;
+
 			if(textureVectorX && textureVectorY)
 			{
 				CVector3 texX(1.0, 0.0, 0.0);
@@ -1448,12 +1472,27 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input)
 {
 	cObjectData objectData = data->objectData[input.objectId];
 	CVector3 texX, texY;
+	double texturePixelSize = 1.0;
 	CVector2<double> texPoint = TextureMapping(	input.point,
 																							input.normal,
 																							objectData,
 																							input.material,
 																							&texX,
 																							&texY) + CVector2<double>(0.5, 0.5);
+
+	//mipmapping - calculation of texture pixel size
+	double delta = CalcDelta(input.point);
+	double deltaTexX = ((TextureMapping(input.point + texX * delta,
+																			input.normal,
+																			objectData,
+																			input.material) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
+	double deltaTexY = ((TextureMapping(input.point + texY * delta,
+																			input.normal,
+																			objectData,
+																			input.material) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
+	deltaTexX = deltaTexX / fabs(input.viewVector.Dot(input.normal));
+	deltaTexY = deltaTexY / fabs(input.viewVector.Dot(input.normal));
+	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
 	CVector3 n = input.normal;
 	//tangent vectors:
@@ -1469,12 +1508,14 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input)
 	{
 		tex = input.material->normalMapTexture.NormalMapFromBumpMap(texPoint,
 																																input.material
-																																		->normalMapTextureHeight);
+																																		->normalMapTextureHeight,
+																																texturePixelSize);
 	}
 	else
 	{
 		tex = input.material->normalMapTexture.NormalMap(	texPoint,
-																											input.material->normalMapTextureHeight);
+																											input.material->normalMapTextureHeight,
+																											texturePixelSize);
 	}
 
 	CVector3 result = tbn * tex;

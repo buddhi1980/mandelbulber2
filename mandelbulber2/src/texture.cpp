@@ -292,8 +292,8 @@ sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 		double dMipLayer = -log(pixelSize) / log(2.0);
 		if (dMipLayer < 0)
 			dMipLayer = 0;
-		if (dMipLayer + 1 > mipmaps.size())
-			dMipLayer = mipmaps.size() + 1;
+		if (dMipLayer + 1 >= mipmaps.size() -1)
+			dMipLayer = mipmaps.size() - 1;
 
 		int layerBig = dMipLayer;
 		int layerSmall = dMipLayer + 1;
@@ -349,7 +349,7 @@ void cTexture::CreateMipMaps()
 	int w = width / 2;
 	int h = height / 2;
 	sRGB8 *prevBitmap = bitmap;
-	while(w > 1 && h > 1)
+	while(w > 0 && h > 0)
 	{
 		QVector<sRGB8> newMipmapV(w * h);
 		sRGB8 *newMipmap = newMipmapV.data();

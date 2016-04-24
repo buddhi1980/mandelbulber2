@@ -347,7 +347,7 @@ double cRenderWorker::CalcDistThresh(CVector3 point) const
 }
 
 //calculation of "voxel" size
-double cRenderWorker::CalcDelta(CVector3 point)
+double cRenderWorker::CalcDelta(CVector3 point) const
 {
 	double delta;
 	delta = (params->camera - point).Length() * params->resolution * params->fov;
