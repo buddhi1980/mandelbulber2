@@ -50,6 +50,7 @@ cTexture::cTexture(QString filename, bool beQuiet)
 		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): (sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
 		loaded = true;
 		originalFileName = filename;
+		CreateMipMaps();
 	}
 	else
 	{
@@ -74,6 +75,8 @@ cTexture::cTexture(const cTexture &tex)
 	bitmap = new sRGB8[width * height];
 	//qDebug() << "cTexture::cTexture(const cTexture &tex):  new sRGB8[width * height]:" << width * height * sizeof(sRGB8);
 	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
+	mipmaps = tex.mipmaps;
+	mipmapSizes = tex.mipmapSizes;
 }
 
 cTexture& cTexture::operator=(const cTexture &tex)
@@ -91,6 +94,8 @@ cTexture& cTexture::operator=(const cTexture &tex)
 	bitmap = new sRGB8[width * height];
 	//qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): 	new sRGB8[width * height];:" << width * height * sizeof(sRGB8);
 	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
+	mipmaps = tex.mipmaps;
+	mipmapSizes = tex.mipmapSizes;
 
 	return *this;
 }
@@ -114,6 +119,7 @@ void cTexture::FromQByteArray(QByteArray buffer)
 		bitmap = new sRGB8[width * height];
 		memcpy(bitmap, qimage.constBits(), sizeof(sRGB8) * width * height);
 		//qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): (sRGB8*)(qimage.bits()):" << width * height * sizeof(sRGB8);
+		CreateMipMaps();
 		loaded = true;
 	}
 	else
@@ -149,11 +155,11 @@ cTexture::~cTexture(void)
 }
 
 //read pixel
-sRGBfloat cTexture::Pixel(double x, double y)
+sRGBfloat cTexture::Pixel(double x, double y, double pixelSize)
 {
 	if (x >= 0 && x < width && y >= 0 && y < height - 1.0)
 	{
-		return BicubicInterpolation(x, y);
+		return MipMap(x, y, pixelSize);
 	}
 	else
 	{
@@ -161,7 +167,7 @@ sRGBfloat cTexture::Pixel(double x, double y)
 	}
 }
 
-sRGBfloat cTexture::Pixel(CVector2<double> point) const
+sRGBfloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
 {
 	int intX = point.x;
 	int intY = point.y;
@@ -171,7 +177,7 @@ sRGBfloat cTexture::Pixel(CVector2<double> point) const
 	if(point.y < 0.0) point.y += 1.0;
 	point.x *= (double)width;
 	point.y *= (double)height;
-	return BicubicInterpolation(point.x, point.y);
+	return MipMap(point.x, point.y, pixelSize);
 }
 
 sRGB8 cTexture::LinearInterpolation(double x, double y)
@@ -194,7 +200,7 @@ sRGB8 cTexture::LinearInterpolation(double x, double y)
 	return color;
 }
 
-sRGBfloat cTexture::BicubicInterpolation(double x, double y) const
+sRGBfloat cTexture::BicubicInterpolation(double x, double y, const sRGB8 *bitmap, int w, int h) const
 {
 	int ix = x;
 	int iy = y;
@@ -209,9 +215,9 @@ sRGBfloat cTexture::BicubicInterpolation(double x, double y) const
 		{
 			int ixx = ix + xx - 1;
 			int iyy = iy + yy - 1;
-			ixx = (ixx + width) % width;
-			iyy = (iyy + height) % height;
-			int addess2 = ixx + iyy * width;
+			ixx = (ixx + w) % w;
+			iyy = (iyy + h) % h;
+			int addess2 = ixx + iyy * w;
 			sRGB8 pixel = bitmap[addess2];
 			R[xx][yy] = pixel.R;
 			G[xx][yy] = pixel.G;
@@ -234,7 +240,7 @@ sRGB8 cTexture::FastPixel(int x, int y)
 	return bitmap[x + y * width];
 }
 
-CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump) const
+CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump, double pixelSize) const
 {
 	int intX = point.x;
 	int intY = point.y;
@@ -248,7 +254,7 @@ CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump) con
 	{
 		for(int x = 0; x<=2; x++)
 		{
-			m[x][y] = BicubicInterpolation(point.x*width + x - 1.0, point.y*height + y - 1.0).R;
+			m[x][y] = MipMap(point.x*width + x - 1.0, point.y*height + y - 1.0, pixelSize).R;
 		}
 	}
 	CVector3 normal;
@@ -259,7 +265,7 @@ CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump) con
 	return normal;
 }
 
-CVector3 cTexture::NormalMap(CVector2<double> point, double bump) const
+CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSize) const
 {
 	int intX = point.x;
 	int intY = point.y;
@@ -267,13 +273,111 @@ CVector3 cTexture::NormalMap(CVector2<double> point, double bump) const
 	point.y = point.y - intY;
 	if(point.x < 0.0) point.x += 1.0;
 	if(point.y < 0.0) point.y += 1.0;
-	sRGBfloat normalPixel = BicubicInterpolation(point.x * width, point.y * height);
+	sRGBfloat normalPixel = MipMap(point.x * width, point.y * height, pixelSize);
 	CVector3 normal(normalPixel.R * 2.0 - 1.0, normalPixel.G * 2.0 - 1.0, normalPixel.B);
 	normal.x *= -bump;
 	normal.y *= -bump;
 	normal.Normalize();
 
 	return normal;
+}
+
+sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
+{
+	pixelSize /= (double)max(width, height);
+	if (mipmaps.size() > 0)
+	{
+		if (pixelSize < 1e-20)
+			pixelSize = 1e-20;
+		double dMipLayer = -log(pixelSize) / log(2.0);
+		if (dMipLayer < 0)
+			dMipLayer = 0;
+		if (dMipLayer + 1 > mipmaps.size())
+			dMipLayer = mipmaps.size() + 1;
+
+		int layerBig = dMipLayer;
+		int layerSmall = dMipLayer + 1;
+		double sizeMultipBig = pow(2.0, (double) layerBig);
+		double sizeMultipSmall = pow(2.0, (double) layerSmall);
+		double trans = dMipLayer - layerBig;
+		double transN = 1.0 - trans;
+
+		const sRGB8 *bigBitmap, *smallBitmap;
+		CVector2<int> bigBitmapSize, smallBitmapSize;
+		if (layerBig == 0)
+		{
+			bigBitmap = bitmap;
+			smallBitmap = mipmaps[layerSmall - 1].data();
+			bigBitmapSize.x = width;
+			bigBitmapSize.y = height;
+			smallBitmapSize = mipmapSizes[layerSmall - 1];
+		}
+		else
+		{
+			bigBitmap = mipmaps[layerBig -1].data();
+			smallBitmap = mipmaps[layerSmall -1].data();
+			bigBitmapSize = mipmapSizes[layerBig - 1];
+			smallBitmapSize = mipmapSizes[layerSmall - 1];
+		}
+		sRGBfloat pixelFromBig = BicubicInterpolation(x / sizeMultipBig,
+																									y / sizeMultipBig,
+																									bigBitmap,
+																									bigBitmapSize.x,
+																									bigBitmapSize.y);
+		sRGBfloat pixelFromSmall = BicubicInterpolation(x / sizeMultipSmall,
+																										y / sizeMultipSmall,
+																										smallBitmap,
+																										smallBitmapSize.x,
+																										smallBitmapSize.y);
+
+		sRGBfloat pixel;
+		pixel.R = pixelFromSmall.R * trans + pixelFromBig.R * transN;
+		pixel.G = pixelFromSmall.G * trans + pixelFromBig.G * transN;
+		pixel.B = pixelFromSmall.B * trans + pixelFromBig.B * transN;
+		return pixel;
+	}
+	else
+	{
+		return BicubicInterpolation(x, y, bitmap, width, height);
+	}
+}
+
+void cTexture::CreateMipMaps()
+{
+	int prevW = width;
+	int prevH = height;
+	int w = width / 2;
+	int h = height / 2;
+	sRGB8 *prevBitmap = bitmap;
+	while(w > 1 && h > 1)
+	{
+		QVector<sRGB8> newMipmapV(w * h);
+		sRGB8 *newMipmap = newMipmapV.data();
+
+		for(int y = 0; y < h; y++)
+		{
+			for (int x = 0; x < w; x++)
+			{
+				sRGB8 newPixel;
+				sRGB8 p1 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2, prevH) * prevW];
+				sRGB8 p2 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2, prevH) * prevW];
+				sRGB8 p3 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
+				sRGB8 p4 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
+				newPixel.R = ((int)p1.R + p2.R + p3.R + p4.R)/4;
+				newPixel.G = ((int)p1.G + p2.G + p3.G + p4.G)/4;
+				newPixel.B = ((int)p1.B + p2.B + p3.B + p4.B)/4;
+				newMipmap[x + y * w] = newPixel;
+			}
+		}
+		mipmapSizes.append(CVector2<int>(w, h));
+		mipmaps.append(newMipmapV);
+		prevH = h;
+		prevW = w;
+		w /= 2;
+		h /= 2;
+		prevBitmap = mipmaps.last().data();
+		qDebug() << "Create mipmap: w" << w << "h" << h;
+	}
 }
 
 

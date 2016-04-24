@@ -333,7 +333,7 @@ void cRenderWorker::PrepareAOVectors(void)
 }
 
 //calculation of distance where ray-marching stops
-double cRenderWorker::CalcDistThresh(CVector3 point)
+double cRenderWorker::CalcDistThresh(CVector3 point) const
 {
 	double distThresh;
 	if (params->constantDEThreshold) distThresh = params->DEThresh;

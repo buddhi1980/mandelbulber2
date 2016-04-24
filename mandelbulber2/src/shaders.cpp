@@ -1235,6 +1235,8 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 	cObjectData objectData = data->objectData[input.objectId];
 	CVector2<double> texPoint = TextureMapping(input.point, input.normal, objectData, mat) + CVector2<double>(0.5, 0.5);
 
+	//double pointSize = 1.0 / ((params->camera - input.point).Length() * params->resolution * params->fov) * 3.0;  (3.0 is size of object/texture)
+
 	sRGBfloat tex;
 	switch(texSelect)
 	{

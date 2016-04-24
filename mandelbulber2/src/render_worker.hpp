@@ -158,7 +158,7 @@ private:
 	void PrepareReflectionBuffer(void);
 	void PrepareAOVectors(void);
 	CVector3 RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out);
-	double CalcDistThresh(CVector3 point);
+	double CalcDistThresh(CVector3 point) const;
 	double CalcDelta(CVector3 point);
 	double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
