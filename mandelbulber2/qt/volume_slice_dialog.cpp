@@ -12,7 +12,6 @@ cVolumeSliceDialog::cVolumeSliceDialog(QWidget *parent) :
 	slicerBusy = false;
 	ui->setupUi(this);
 	gMainInterface->ConnectSignalsForSlidersInWindow(this);
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
 	initFinished = true;
 	ui->progressBar->hide();
 }
@@ -94,6 +93,21 @@ void cVolumeSliceDialog::on_pushButton_select_image_path_clicked()
 	}
 }
 
+void cVolumeSliceDialog::on_pushButton_show_slices_clicked()
+{
+	WriteLog("Prepare PlayerWidget class");
+	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
+	if(!gMainInterface->imageSequencePlayer)
+	{
+		gMainInterface->imageSequencePlayer = new PlayerWidget;
+	}
+
+	gMainInterface->imageSequencePlayer->SetFilePath(gPar->Get<QString>("volume_slice_image_path"));
+	gMainInterface->imageSequencePlayer->show();
+	gMainInterface->imageSequencePlayer->raise();
+	gMainInterface->imageSequencePlayer->activateWindow();
+}
+
 void cVolumeSliceDialog::slotSlicerFinished()
 {
 	slicerBusy = false;
@@ -123,4 +137,9 @@ void cVolumeSliceDialog::closeEvent(QCloseEvent * event)
 			cErrorMessage::errorMessage);
 		event->ignore();
 	}
+}
+
+void cVolumeSliceDialog::showEvent(QShowEvent * event)
+{
+	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
 }

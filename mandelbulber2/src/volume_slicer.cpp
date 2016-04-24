@@ -60,11 +60,10 @@ void cVolumeSlicer::ProcessVolume()
 
 	for (int z = 0; z < l; z++)
 	{
-		QString statusText = tr("Processing slice %1 of %2").arg(	QString::number(z + 1),
+		QString statusText = " - " + tr("Processing slice %1 of %2").arg(	QString::number(z + 1),
 																																QString::number(l));
 		double percentDone = (double) z / l;
-		statusText += " - " + progressText.getText(percentDone);
-		emit updateProgressAndStatus(tr("Volume Slicing"), statusText, percentDone);
+		emit updateProgressAndStatus(tr("Volume Slicing") + statusText, progressText.getText(percentDone), percentDone);
 
 		#pragma omp parallel for
 		for (int x = 0; x < w; x++)
@@ -72,6 +71,7 @@ void cVolumeSlicer::ProcessVolume()
 			CVector3 point;
 			for (int y = 0; y < h; y++)
 			{
+				if (stop) break;
 				point.x = tlf.x + x * stepX;
 				point.y = tlf.y + y * stepY;
 				point.z = tlf.z + z * stepZ;
@@ -93,7 +93,9 @@ void cVolumeSlicer::ProcessVolume()
 
 	delete fractals;
 	delete params;
-	emit updateProgressAndStatus(tr("Volume Slicing"), "Finished", 1.0);
+
+	QString statusText = tr("Volume Slicing finished - Processed %1 slices").arg(QString::number(l));
+	emit updateProgressAndStatus(statusText, progressText.getText(1.0), 1.0);
 	emit finished();
 }
 

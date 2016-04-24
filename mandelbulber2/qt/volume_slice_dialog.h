@@ -21,13 +21,14 @@ public slots:
 	void on_pushButton_start_render_slices_clicked();
 	void on_pushButton_stop_render_slices_clicked();
 	void on_pushButton_select_image_path_clicked();
+	void on_pushButton_show_slices_clicked();
 	void slotUpdateProgressAndStatus(const QString &text,
 		const QString &progressText, double progress);
 	void slotSlicerFinished();
 
 protected:
 	void closeEvent(QCloseEvent * event);
-
+	void showEvent(QShowEvent * event);
 private:
 	Ui::cVolumeSliceDialog *ui;
 	bool initFinished;
