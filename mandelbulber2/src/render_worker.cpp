@@ -197,10 +197,13 @@ void cRenderWorker::doWork(void)
 			colour.B = objectColour.B * 255;
 
 			sRGBfloat normalFloat;
-			CVector3 normalRotated = mRotInv.RotateVector(normal);
-			normalFloat.R = (1.0 + normalRotated.x) / 2.0;
-			normalFloat.G = (1.0 + normalRotated.z) / 2.0;
-			normalFloat.B = 1.0 - normalRotated.y;
+			if(image->GetImageOptional()->optionalNormal)
+			{
+				CVector3 normalRotated = mRotInv.RotateVector(normal);
+				normalFloat.R = (1.0 + normalRotated.x) / 2.0;
+				normalFloat.G = (1.0 + normalRotated.z) / 2.0;
+				normalFloat.B = 1.0 - normalRotated.y;
+			}
 
 			for (int xx = 0; xx < scheduler->GetProgressiveStep(); ++xx)
 			{
@@ -739,6 +742,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 		backgroundShader = BackgroundShader(shaderInputData);
 		resultShader = backgroundShader;
 		shaderInputData.depth = 1e20;
+		vn =  mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 	}
 
 	sRGBAfloat opacityOut;

@@ -326,9 +326,9 @@ unsigned char* cImage::ConvertNormalto16Bit(void)
 	if(!opt.optionalNormal) return NULL;
 	for (long int i = 0; i < width * height; i++)
 	{
-		normal16[i].R = normalFloat[i].R * 65536;
-		normal16[i].G = normalFloat[i].G * 65536;
-		normal16[i].B = normalFloat[i].B * 65536;
+		normal16[i].R = normalFloat[i].R * 65535;
+		normal16[i].G = normalFloat[i].G * 65535;
+		normal16[i].B = normalFloat[i].B * 65535;
 	}
 	return (unsigned char*) normal16;
 }
@@ -338,9 +338,9 @@ unsigned char* cImage::ConvertNormalto8Bit(void)
 	if(!opt.optionalNormal) return NULL;
 	for (long int i = 0; i < width * height; i++)
 	{
-		normal8[i].R = normalFloat[i].R * 256;
-		normal8[i].G = normalFloat[i].G * 256;
-		normal8[i].B = normalFloat[i].B * 256;
+		normal8[i].R = normalFloat[i].R * 255;
+		normal8[i].G = normalFloat[i].G * 255;
+		normal8[i].B = normalFloat[i].B * 255;
 	}
 	return (unsigned char*) normal8;
 }
