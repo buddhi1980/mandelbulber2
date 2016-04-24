@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>636</width>
+    <width>519</width>
     <height>454</height>
    </rect>
   </property>
@@ -43,7 +43,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>630</width>
+        <width>513</width>
         <height>448</height>
        </rect>
       </property>
@@ -504,6 +504,23 @@
            <property name="icon">
             <iconset theme="process-stop" resource="icons.qrc">
              <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_show_slices">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Show Slices</string>
+           </property>
+           <property name="icon">
+            <iconset theme="media-playback-start" resource="icons.qrc">
+             <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
            </property>
           </widget>
          </item>
