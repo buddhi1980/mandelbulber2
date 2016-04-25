@@ -18,7 +18,7 @@ install:
   
 build_script:
   - cd mandelbulber2/Release
-  - qmake mandelbulber.pro
+  - qmake -win32 mandelbulber.pro
   - SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\gsl
   - SET LIB=%LIB%;C:\projects\mandelbulber2\gsl\Release
   - nmake
