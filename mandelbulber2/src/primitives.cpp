@@ -222,6 +222,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			default:
 			{
 				qCritical() << "cannot handle " << PrimitiveNames(item.type) << " in cPrimitives::cPrimitives()";
+				return;
 			}
 		}
 
@@ -405,19 +406,38 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 			const sPrimitiveBasic* primitive = allPrimitives.at(i);
 			if (primitive->enable)
 			{
-				double distTemp;
+				double distTemp = 0;
 				switch (primitive->objectType)
 				{
-					case objPlane:	distTemp = ((sPrimitivePlane*) primitive)->PrimitiveDistance(point); break;
-					case objBox:		distTemp = ((sPrimitiveBox*) primitive)->PrimitiveDistance(point); break;
-					case objSphere:	distTemp = ((sPrimitiveSphere*) primitive)->PrimitiveDistance(point); break;
-					case objWater:	distTemp = ((sPrimitiveWater*) primitive)->PrimitiveDistance(point); break;
-					case objCone:		distTemp = ((sPrimitiveCone*) primitive)->PrimitiveDistance(point); break;
-					case objCylinder:	distTemp = ((sPrimitiveCylinder*) primitive)->PrimitiveDistance(point); break;
-					case objTorus:	distTemp = ((sPrimitiveTorus*) primitive)->PrimitiveDistance(point); break;
-					case objCircle:	distTemp = ((sPrimitiveCircle*) primitive)->PrimitiveDistance(point); break;
-					case objRectangle: distTemp = ((sPrimitiveRectangle*) primitive)->PrimitiveDistance(point); break;
-					default: qCritical() << "cannot handle " << PrimitiveNames(primitive->objectType) << " in cPrimitives::TotalDistance()";
+					case objPlane:
+						distTemp = ((sPrimitivePlane*) primitive)->PrimitiveDistance(point);
+						break;
+					case objBox:
+						distTemp = ((sPrimitiveBox*) primitive)->PrimitiveDistance(point);
+						break;
+					case objSphere:
+						distTemp = ((sPrimitiveSphere*) primitive)->PrimitiveDistance(point);
+						break;
+					case objWater:
+						distTemp = ((sPrimitiveWater*) primitive)->PrimitiveDistance(point);
+						break;
+					case objCone:
+						distTemp = ((sPrimitiveCone*) primitive)->PrimitiveDistance(point);
+						break;
+					case objCylinder:
+						distTemp = ((sPrimitiveCylinder*) primitive)->PrimitiveDistance(point);
+						break;
+					case objTorus:
+						distTemp = ((sPrimitiveTorus*) primitive)->PrimitiveDistance(point);
+						break;
+					case objCircle:
+						distTemp = ((sPrimitiveCircle*) primitive)->PrimitiveDistance(point);
+						break;
+					case objRectangle:
+						distTemp = ((sPrimitiveRectangle*) primitive)->PrimitiveDistance(point);
+						break;
+					default:
+						qCritical() << "cannot handle " << PrimitiveNames(primitive->objectType) << " in cPrimitives::TotalDistance()";
 				}
 				distTemp = DisplacementMap(distTemp, point, primitive->objectId, data);
 				if (distTemp < distance)

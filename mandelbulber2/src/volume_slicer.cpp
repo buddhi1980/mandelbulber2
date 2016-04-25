@@ -25,13 +25,13 @@
 #include "compute_fractal.hpp"
 #include "common_math.h"
 
-cVolumeSlicer::cVolumeSlicer(int w, int h, int l, CVector3 tlf, CVector3 brb, QString folder, int maxIter): QObject()
+cVolumeSlicer::cVolumeSlicer(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString folder, int maxIter): QObject()
 {
 	this->w = w;
 	this->h = h;
 	this->l = l;
-	this->tlf = tlf;
-	this->brb = brb;
+	this->limitMin = limitMin;
+	this->limitMax = limitMax;
 	this->folder = folder;
 	this->maxIter = maxIter;
 	voxelSlice = new unsigned char[w * h];
@@ -50,9 +50,9 @@ void cVolumeSlicer::ProcessVolume()
 
 	params->N = maxIter;
 
-	double stepX = (brb.x - tlf.x) * (1.0 / w);
-	double stepY = (brb.y - tlf.y) * (1.0 / h);
-	double stepZ = (brb.z - tlf.z) * (1.0 / l);
+	double stepX = (limitMax.x - limitMin.x) * (1.0 / w);
+	double stepY = (limitMax.y - limitMin.y) * (1.0 / h);
+	double stepZ = (limitMax.z - limitMin.z) * (1.0 / l);
 	double dist_thresh = 0.5 * dMin(stepX, stepY, stepZ) / params->detailLevel;
 
 	cProgressText progressText;
@@ -72,9 +72,9 @@ void cVolumeSlicer::ProcessVolume()
 			for (int y = 0; y < h; y++)
 			{
 				if (stop) break;
-				point.x = tlf.x + x * stepX;
-				point.y = tlf.y + y * stepY;
-				point.z = tlf.z + z * stepZ;
+				point.x = limitMin.x + x * stepX;
+				point.y = limitMin.y + y * stepY;
+				point.z = limitMin.z + z * stepZ;
 
 				sDistanceOut distanceOut;
 				sDistanceIn distanceIn(point, dist_thresh, false);
@@ -93,8 +93,11 @@ void cVolumeSlicer::ProcessVolume()
 
 	delete fractals;
 	delete params;
-
-	QString statusText = tr("Volume Slicing finished - Processed %1 slices").arg(QString::number(l));
+	QString statusText;
+	if(stop)
+		statusText = tr("Volume Slicing finished - Cancelled slicer");
+	else
+		statusText = tr("Volume Slicing finished - Processed %1 slices").arg(QString::number(l));
 	emit updateProgressAndStatus(statusText, progressText.getText(1.0), 1.0);
 	emit finished();
 }

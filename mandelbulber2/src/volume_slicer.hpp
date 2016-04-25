@@ -32,10 +32,8 @@ class cVolumeSlicer: public QObject
 Q_OBJECT
 
 public:
-	cVolumeSlicer(int w, int h, int l, CVector3 tlf, CVector3 brb, QString folder, int maxIter);
+	cVolumeSlicer(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString folder, int maxIter);
 	~cVolumeSlicer();
-
-	bool StoreSlice(int z);
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
@@ -46,10 +44,12 @@ public slots:
 	void ProcessVolume();
 
 private:
+	bool StoreSlice(int z);
+
 	unsigned char* voxelSlice;
 	int w, h, l;
-	CVector3 tlf;
-	CVector3 brb;
+	CVector3 limitMin;
+	CVector3 limitMax;
 	QString folder;
 	int maxIter;
 	bool stop;

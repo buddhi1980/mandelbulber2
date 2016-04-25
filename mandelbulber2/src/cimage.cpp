@@ -165,9 +165,12 @@ void cImage::ClearImage(void)
 	memset(colourBuffer, 0, (unsigned long int) sizeof(sRGB8) * width * height);
 	if(opt.optionalNormal)
 	{
-		memset(normalFloat, 0, (unsigned long int) sizeof(sRGBfloat) * width * height);
-		memset(normal16, 0, (unsigned long int) sizeof(sRGB16) * width * height);
-		memset(normal8, 0, (unsigned long int) sizeof(sRGB8) * width * height);
+		if(normalFloat)
+			memset(normalFloat, 0, (unsigned long int) sizeof(sRGBfloat) * width * height);
+		if(normal16)
+			memset(normal16, 0, (unsigned long int) sizeof(sRGB16) * width * height);
+		if(normal8)
+			memset(normal8, 0, (unsigned long int) sizeof(sRGB8) * width * height);
 	}
 	for (long int i = 0; i < width * height; ++i)
 		zBuffer[i] = 1e20;

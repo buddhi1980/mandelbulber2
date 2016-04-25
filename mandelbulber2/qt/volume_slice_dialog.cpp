@@ -14,6 +14,7 @@ cVolumeSliceDialog::cVolumeSliceDialog(QWidget *parent) :
 	gMainInterface->ConnectSignalsForSlidersInWindow(this);
 	initFinished = true;
 	ui->progressBar->hide();
+	volumeSlicer = NULL;
 }
 
 cVolumeSliceDialog::~cVolumeSliceDialog()
