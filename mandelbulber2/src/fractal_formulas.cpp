@@ -391,36 +391,7 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 }
 
-/**
- * CollatzIteration formula
- * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
- *            https://en.wikipedia.org/wiki/Collatz_conjecture#Iterating_on_real_or_complex_numbers
- */
-void CollatzIteration(CVector3 &z, sExtendedAux &aux)
-{
 
-  CVector3 xV(1.0, 1.0, 1.0);
-	z = xV + 4.0 * z
-		- CVector3(xV + 2.0 * z)
-				* z.RotateAroundVectorByAngle(xV, M_PI);
-  z /= 4.0;
-  aux.DE = aux.DE * 4.0 + 1.0;
-}
-
-/**
- * CollatzModIteration formula
- * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
- *            https://en.wikipedia.org/wiki/Collatz_conjecture#Iterating_on_real_or_complex_numbers
- */
-void CollatzModIteration(CVector3 &z,const cFractal *fractal, sExtendedAux &aux)
-{
-  CVector3 xV(1.0, 1.0, 1.0);
-  z = xV + fractal->transformCommon.scale4 * z
-    - (xV * fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.scale2 * z)
-        * z.RotateAroundVectorByAngle(xV, M_PI * fractal->transformCommon.scale1);
-  z *= fractal->transformCommon.scale025;
-  aux.DE = aux.DE * 4.0 * fractal->transformCommon.scaleA1 + 1.0;
-}
 
 /**
  * Hybrid of Mandelbox and Mandelbulb power 2 with scaling of z axis
@@ -1306,6 +1277,56 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
 	}
 	aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
+
+/**
+ * CollatzIteration formula
+ * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
+ *            https://en.wikipedia.org/wiki/Collatz_conjecture#Iterating_on_real_or_complex_numbers
+ */
+void CollatzIteration(CVector3 &z, sExtendedAux &aux)
+{
+
+  CVector3 xV(1.0, 1.0, 1.0);
+  z = xV + 4.0 * z
+    - CVector3(xV + 2.0 * z)
+        * z.RotateAroundVectorByAngle(xV, M_PI);
+  z /= 4.0;
+  aux.DE = aux.DE * 4.0 + 1.0;
+}
+
+/**
+ * CollatzModIteration formula
+ * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
+ *            https://en.wikipedia.org/wiki/Collatz_conjecture#Iterating_on_real_or_complex_numbers
+ */
+void CollatzModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  //CVector3 xV(1.0, 1.0, 1.0);
+
+  /*z = xV + fractal->transformCommon.scale4 * z
+    - (xV * fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.scale2 * z)
+        * z.RotateAroundVectorByAngle(xV, M_PI * fractal->transformCommon.scale1);*/
+
+/* for cos(PI * z)
+  CVector3 cPI;
+  cPI.x = cos(z.x * M_PI);
+  cPI.y = cos(z.y * M_PI);
+  cPI.z = cos(z.z * M_PI);*/
+
+  z = fractal->transformCommon.constantMultiplierB111 + fractal->transformCommon.scale4 * z
+    - (fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.scale2 * z)
+        * z.RotateAroundVectorByAngle(fractal->transformCommon.constantMultiplier111, M_PI * fractal->transformCommon.scale1);// * cPI ;
+
+  z *= fractal->transformCommon.scale025;
+  aux.DE = aux.DE * 4.0 * fractal->transformCommon.scaleA1 + 1.0;
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    c = CVector3(c.z, c.y, c.x);
+    z += c * fractal->transformCommon.constantMultiplierA111;
+  }
+}
+
 
 /**
  * Modified Mandelbox (ABox) formula
@@ -3442,7 +3463,72 @@ void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sE
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 }
+/**
+ * TransformSurfFoldMultiIteration
+ */
+void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (fractal->transformCommon.functionEnabledAx)
+  {
+    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+        - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+        - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  }
 
+  //z = fold - fabs( fabs(z) - fold)
+  if (fractal->transformCommon.functionEnabledAyFalse)
+  {
+    z.x = fractal->transformCommon.additionConstant111.x
+        - fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
+    z.y = fractal->transformCommon.additionConstant111.y
+        - fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
+  }
+
+  if (fractal->transformCommon.functionEnabledAzFalse)
+  {
+    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
+    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
+  }
+
+  // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
+  if (fractal->transformCommon.functionEnabledxFalse)
+  {
+    if (z.x > fractal->transformCommon.additionConstant111.x)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    else if (z.x < -fractal->transformCommon.additionConstant111.x)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    if (z.y > fractal->transformCommon.additionConstant111.y)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    else if (z.y < -fractal->transformCommon.additionConstant111.y)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+  }
+
+  //z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
+  if (fractal->transformCommon.functionEnabledyFalse)
+  {
+    z.x = fractal->transformCommon.offset2
+        - fabs(fabs(z.x + fractal->transformCommon.additionConstant111.x)
+        - fractal->transformCommon.offset2)
+        - fractal->transformCommon.additionConstant111.x;
+    z.y = fractal->transformCommon.offset2
+        - fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
+        - fractal->transformCommon.offset2)
+        - fractal->transformCommon.additionConstant111.y;
+  }
+}
 /**
  * z vector - axis swap
  */
@@ -3676,70 +3762,5 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 	}
 }
 
-/**
- * TransformSurfFoldMultiIteration
- */
-void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-  if (fractal->transformCommon.functionEnabledAx)
-  {
-    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-        - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-        - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-  }
 
-  //z = fold - fabs( fabs(z) - fold)
-  if (fractal->transformCommon.functionEnabledAyFalse)
-  {
-    z.x = fractal->transformCommon.additionConstant111.x
-        - fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
-    z.y = fractal->transformCommon.additionConstant111.y
-        - fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
-  }
-
-  if (fractal->transformCommon.functionEnabledAzFalse)
-  {
-    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
-    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
-  }
-
-  // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
-  if (fractal->transformCommon.functionEnabledxFalse)
-  {
-    if (z.x > fractal->transformCommon.additionConstant111.x)
-    {
-      z.x = fractal->mandelbox.foldingValue - z.x;
-      aux.color += fractal->mandelbox.color.factor.x;
-    }
-    else if (z.x < -fractal->transformCommon.additionConstant111.x)
-    {
-      z.x = -fractal->mandelbox.foldingValue - z.x;
-      aux.color += fractal->mandelbox.color.factor.x;
-    }
-    if (z.y > fractal->transformCommon.additionConstant111.y)
-    {
-      z.y = fractal->mandelbox.foldingValue - z.y;
-      aux.color += fractal->mandelbox.color.factor.y;
-    }
-    else if (z.y < -fractal->transformCommon.additionConstant111.y)
-    {
-      z.y = -fractal->mandelbox.foldingValue - z.y;
-      aux.color += fractal->mandelbox.color.factor.y;
-    }
-  }
-
-  //z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
-  if (fractal->transformCommon.functionEnabledyFalse)
-  {
-    z.x = fractal->transformCommon.offset2
-        - fabs(fabs(z.x + fractal->transformCommon.additionConstant111.x)
-        - fractal->transformCommon.offset2)
-        - fractal->transformCommon.additionConstant111.x;
-    z.y = fractal->transformCommon.offset2
-        - fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
-        - fractal->transformCommon.offset2)
-        - fractal->transformCommon.additionConstant111.y;
-  }
-}
 

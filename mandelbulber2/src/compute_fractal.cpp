@@ -333,6 +333,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           BenesiT1PineTreeIteration(z, c, i, fractal, extendedAux);
           break;
         }
+        case collatz:
+        {
+          CollatzIteration(z, extendedAux);
+          break;
+        }
+        case collatzMod:
+        {
+          CollatzModIteration(z, c, fractal, extendedAux);
+          break;
+        }
         case eiffieMsltoe:
         {
           EiffieMsltoeIteration(z, c, fractal, extendedAux);
@@ -391,16 +401,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case fastImagscaPower2:
         {
           FastImagscaPower2Iteration(z, fractal);
-          break;
-        }
-				case collatz:
-				{
-          CollatzIteration(z, extendedAux);
-					break;
-				}
-        case collatzMod:
-        {
-          CollatzModIteration(z, fractal, extendedAux);
           break;
         }
 

@@ -164,6 +164,22 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
+  fractalList->append(sFractalDescription("Collatz Fractal",
+                                          "collatz",
+                                          collatz,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
+
+  fractalList->append(sFractalDescription("Collatz Fractal Mod ",
+                                          "collatz_mod",
+                                          collatzMod,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
+
   fractalList->append(sFractalDescription("Fold_Box_Mod1",
                                           "fold_box_mod1",
                                           foldBoxMod1,
@@ -468,21 +484,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
-  fractalList->append(sFractalDescription("Collatz Fractal",
-																					"collatz",
-																					collatz,
-																					analyticDEType,
-																					logarithmicDEFunction,
-																					cpixelDisabledByDefault,
-																					10));
-
-  fractalList->append(sFractalDescription("Collatz Fractal Mod ",
-                                          "collatz_mod",
-                                          collatzMod,
-                                          analyticDEType,
-                                          linearDEFunction,
-                                          cpixelDisabledByDefault,
-                                          10));
 
 
 
