@@ -42,7 +42,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					deltaDEType,
 																					withoutDEFunction,
 																					cpixelDisabledByDefault,
-																					100));
+																					1));
 
 	fractalList->append(sFractalDescription("AboxMod1",
 																					"aboxMod1",
