@@ -235,6 +235,8 @@ void cInterface::ShowUi(void)
 			}
 		}
 	}
+
+	mainWindow->ui->widget_material_preview->AssignMaterial(gPar, 1, mainWindow->ui->tab_material);
 	/*****************************************************************/
 
 	WriteLog("cInterface::ConnectSignals(void)");
@@ -1917,10 +1919,6 @@ void cInterface::StartRender(bool noUndo)
 
 	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
 	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-
-	//TEMPORARY CODE FOR MATERIALS
-	mainWindow->ui->widget_material_preview->AssignMaterial(*gPar, 1);
-	mainWindow->ui->widget_material_preview->update();
 }
 
 void cInterface::MoveCamera(QString buttonName)

@@ -44,13 +44,16 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 	stopRequest = false;
 	isRendered = false;
 	hasParameters = false;
+	disableTimer = false;
+	disableThumbnailCache = false;
 	connect(this, SIGNAL(renderRequest()), this, SLOT(slotRender()));
 	params = new cParameterContainer;
 	fractal = new cFractalContainer;
 	useOneCPUCore = false;
 
-	timer = new QTimer(parent);
+	timer = new QTimer();
 	timer->setSingleShot(true);
+	connect(timer, SIGNAL(timeout()), this, SLOT(slotRandomRender()));
 	instanceCount++;
 	//qDebug() << "cThumbnailWidget constructed" << instanceCount;
 }
@@ -69,6 +72,7 @@ cThumbnailWidget::~cThumbnailWidget()
 		delete params;
 	if (fractal)
 		delete fractal;
+
 	instanceCount--;
 	//qDebug() << "cThumbnailWidget destructed" << instanceCount;
 }
@@ -91,52 +95,61 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 void cThumbnailWidget::AssignParameters(const cParameterContainer &_params,
 		const cFractalContainer &_fractal)
 {
-	stopRequest = true;
-	while (image->IsUsed())
-	{
-		//just wait and pray
-	}
+
 	*params = _params;
 	*fractal = _fractal;
 	params->Set("image_width", tWidth * oversample);
 	params->Set("image_height", tHeight * oversample);
 	cSettings tempSettings(cSettings::formatCondensedText);
 	tempSettings.CreateText(params, fractal);
+	oldHash = hash;
 	hash = tempSettings.GetHashCode();
-	isRendered = false;
-	hasParameters = true;
 
-	QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
-	if (QFileInfo::exists(thumbnailFileName))
+	if(hash != oldHash)
 	{
 		stopRequest = true;
-		isRendered = true;
 		while (image->IsUsed())
 		{
 			//just wait and pray
 		}
 
-		QPixmap pixmap;
-		pixmap.load(thumbnailFileName);
-		pixmap = pixmap.scaled(tWidth, tHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-		QImage qimage = pixmap.toImage();
-		qimage = qimage.convertToFormat(QImage::Format_RGB888);
-		sRGB8 *bitmap;
-		bitmap = (sRGB8*) (qimage.bits());
-		int bwidth = qimage.width();
-		int bheight = qimage.height();
-		sRGB8 *previewPointer = (sRGB8*) image->GetPreviewPrimaryPtr();
-		sRGB8 *preview2Pointer = (sRGB8*) image->GetPreviewPtr();
-		memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
-		memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
+		isRendered = false;
+		hasParameters = true;
 
-		emit thumbnailRendered();
-	}
-	else
-	{
-		//render thumbnail after random time. It forces rendering of widgets when they are not visible. It makes rendering of widgets when they are idle.
-		connect(timer, SIGNAL(timeout()), this, SLOT(slotRandomRender()));
-		timer->start(Random(100000) * 10 + 1);
+		QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
+		if (QFileInfo::exists(thumbnailFileName) && !disableThumbnailCache)
+		{
+			stopRequest = true;
+			isRendered = true;
+			while (image->IsUsed())
+			{
+				//just wait and pray
+			}
+
+			QPixmap pixmap;
+			pixmap.load(thumbnailFileName);
+			pixmap = pixmap.scaled(tWidth, tHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			QImage qimage = pixmap.toImage();
+			qimage = qimage.convertToFormat(QImage::Format_RGB888);
+			sRGB8 *bitmap;
+			bitmap = (sRGB8*) (qimage.bits());
+			int bwidth = qimage.width();
+			int bheight = qimage.height();
+			sRGB8 *previewPointer = (sRGB8*) image->GetPreviewPrimaryPtr();
+			sRGB8 *preview2Pointer = (sRGB8*) image->GetPreviewPtr();
+			memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
+			memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
+			emit thumbnailRendered();
+		}
+		else
+		{
+			if(!disableTimer)
+			{
+				//render thumbnail after random time. It forces rendering of widgets when they are not visible. It makes rendering of widgets when they are idle.
+
+				timer->start(Random(100000) * 10 + 1);
+			}
+		}
 	}
 }
 
@@ -186,16 +199,19 @@ void cThumbnailWidget::slotRender()
 
 void cThumbnailWidget::slotFullyRendered()
 {
-	QImage qImage((const uchar*) image->ConvertTo8bit(),
-								image->GetWidth(),
-								image->GetHeight(),
-								image->GetWidth() * sizeof(sRGB8),
-								QImage::Format_RGB888);
-	QPixmap pixmap;
-	pixmap.convertFromImage(qImage);
+	if(!disableThumbnailCache)
+	{
+		QImage qImage((const uchar*) image->ConvertTo8bit(),
+									image->GetWidth(),
+									image->GetHeight(),
+									image->GetWidth() * sizeof(sRGB8),
+									QImage::Format_RGB888);
+		QPixmap pixmap;
+		pixmap.convertFromImage(qImage);
 
-	QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
-	pixmap.save(thumbnailFileName, "PNG");
+		QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
+		pixmap.save(thumbnailFileName, "PNG");
+	}
 
 	emit thumbnailRendered();
 }

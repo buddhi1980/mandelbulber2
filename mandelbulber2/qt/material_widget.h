@@ -12,11 +12,23 @@
 
 class cMaterialWidget: public cThumbnailWidget
 {
+	Q_OBJECT
 public:
   cMaterialWidget(QWidget *parent);
 	cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
   ~cMaterialWidget();
-	void AssignMaterial(const cParameterContainer &_params, int materialIndex);
+	void AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget);
+
+private:
+	cParameterContainer *paramsHandle;
+	int lastMaterialIndex;
+	QTimer *timerPeriodicRefresh;
+	void Init();
+	QWidget *materialEditorWidget;
+
+private slots:
+
+	void slotPeriodicRender();
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_WIDGET_H_ */

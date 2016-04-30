@@ -7,17 +7,31 @@
 
 #include "../qt/material_widget.h"
 #include "../src/initparameters.hpp"
+#include "../src/interface.hpp"
+#include "../src/global_data.hpp"
 
 cMaterialWidget::cMaterialWidget(QWidget *parent) :
-		cThumbnailWidget(128, 128, 1, parent)
+		cThumbnailWidget(128, 128, 2, parent)
 {
-
+	Init();
 }
 
 cMaterialWidget::cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent) :
 		cThumbnailWidget(_width, _height, _oversample, parent)
 {
+	Init();
+}
 
+void cMaterialWidget::Init()
+{
+	paramsHandle = NULL;
+	DisableThumbnailCache();
+	DisableTimer();
+
+	timerPeriodicRefresh = new QTimer(parent());
+	timerPeriodicRefresh->setSingleShot(true);
+	connect(timerPeriodicRefresh, SIGNAL(timeout()), this, SLOT(slotPeriodicRender()));
+	lastMaterialIndex = 0;
 }
 
 cMaterialWidget::~cMaterialWidget()
@@ -25,8 +39,15 @@ cMaterialWidget::~cMaterialWidget()
 	// see destructor in parent cThumbnailWidget
 }
 
-void cMaterialWidget::AssignMaterial(const cParameterContainer &_params, int materialIndex)
+void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = NULL)
 {
+	if(paramsHandle == NULL)
+	{
+		paramsHandle = _params;
+		lastMaterialIndex = materialIndex;
+		materialEditorWidget = _materialEditorWidget;
+	}
+
 	cParameterContainer params;
 	cFractalContainer fractal;
 
@@ -42,7 +63,7 @@ void cMaterialWidget::AssignMaterial(const cParameterContainer &_params, int mat
 	//copy parameters from main parameter container to temporary container for material
 	for(int i=0; i < cMaterial::paramsList.size(); i++)
 	{
-		cOneParameter parameter = _params.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), materialIndex));
+		cOneParameter parameter = _params->GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), materialIndex));
 		params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
 	}
 
@@ -51,8 +72,35 @@ void cMaterialWidget::AssignMaterial(const cParameterContainer &_params, int mat
 	params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
 	params.Set("mat1_displacement_texture_height", 0.01);
 	params.Set("raytraced_reflections", true);
+	params.Set("N", 10);
+	params.Set("textured_background", true);
+	params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
 
 	// call parent assignation
 	// maybe disable preview saving, to not pollute hard drive?
 	AssignParameters(params, fractal);
+
+	if(materialEditorWidget)
+	{
+		timerPeriodicRefresh->start(2000);
+	}
+}
+
+void cMaterialWidget::slotPeriodicRender(void)
+{
+	if(!visibleRegion().isEmpty())
+	{
+		if(materialEditorWidget)
+		{
+			gMainInterface->SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, cInterface::read);
+		}
+
+		if(paramsHandle)
+		{
+			AssignMaterial(paramsHandle, lastMaterialIndex, materialEditorWidget);
+		}
+		update();
+	}
+
+	timerPeriodicRefresh->start(2000);
 }

@@ -35,6 +35,8 @@ public:
 	~cThumbnailWidget();
 	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
 	void UseOneCPUCore(bool onlyOne) {useOneCPUCore = onlyOne;}
+	void DisableTimer() {disableTimer = true;}
+	void DisableThumbnailCache() {disableThumbnailCache = true;}
 
 	static int instanceCount;
 
@@ -57,12 +59,16 @@ private:
 	int tHeight;
 	int oversample;
 	QString hash;
+	QString oldHash;
 	QProgressBar *progressBar;
 	bool stopRequest;
 	bool isRendered;
 	bool hasParameters;
 	bool useOneCPUCore;
+	bool disableTimer;
+	bool disableThumbnailCache;
 	QTimer *timer; //timer for random trigger for rendering (renders thumbnail even when is not visible)
+
 
 signals:
 	void renderRequest();

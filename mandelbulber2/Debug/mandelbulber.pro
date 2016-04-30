@@ -154,7 +154,6 @@ HEADERS  += ../src/render_window.hpp\
 			../src/file_image.hpp\
 			../src/keyframes.hpp\
 			../src/morph.hpp\
-			../src/thumbnail_widget.h\
 			../src/player_widget.hpp\
 			../src/queue.hpp\
 			../src/render_job.hpp\

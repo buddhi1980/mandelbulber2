@@ -376,7 +376,6 @@ void cTexture::CreateMipMaps()
 		w /= 2;
 		h /= 2;
 		prevBitmap = mipmaps.last().data();
-		qDebug() << "Create mipmap: w" << w << "h" << h;
 	}
 }
 
