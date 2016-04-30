@@ -13,9 +13,10 @@
 class cMaterialWidget: public cThumbnailWidget
 {
 public:
-  cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
+  cMaterialWidget(QWidget *parent);
+	cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
   ~cMaterialWidget();
-	void AssignMaterial(const cMaterial &_mat);
+	void AssignMaterial(const cParameterContainer &_params, int materialIndex);
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_WIDGET_H_ */
