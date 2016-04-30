@@ -5,7 +5,7 @@
  *      Author: krzysztof
  */
 
-#include "material_widget.h"
+#include "../qt/material_widget.h"
 
 cMaterialWidget::cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent) :
 		cThumbnailWidget(_width, _height, _oversample, parent)
@@ -18,7 +18,7 @@ cMaterialWidget::~cMaterialWidget()
 	// see destructor in parent cThumbnailWidget
 }
 
-void cMaterialWidget::AssignMaterial(cMaterial &_mat)
+void cMaterialWidget::AssignMaterial(const cMaterial &_mat)
 {
 	// TODO read fract file of a default preview, or hardcode here
 	// --> some sphere with maybe black and white tiled background

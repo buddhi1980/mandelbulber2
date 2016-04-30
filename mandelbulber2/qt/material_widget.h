@@ -5,8 +5,8 @@
  *      Author: krzysztof
  */
 
-#ifndef MANDELBULBER2_SRC_MATERIAL_WIDGET_H_
-#define MANDELBULBER2_SRC_MATERIAL_WIDGET_H_
+#ifndef MANDELBULBER2_QT_MATERIAL_WIDGET_H_
+#define MANDELBULBER2_QT_MATERIAL_WIDGET_H_
 
 #include "thumbnail_widget.h"
 
@@ -18,4 +18,4 @@ public:
 	void AssignMaterial(const cMaterial &_mat);
 };
 
-#endif /* MANDELBULBER2_SRC_MATERIAL_WIDGET_H_ */
+#endif /* MANDELBULBER2_QT_MATERIAL_WIDGET_H_ */

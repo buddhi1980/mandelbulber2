@@ -285,7 +285,7 @@ CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSi
 sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 {
 	pixelSize /= (double)max(width, height);
-	if (mipmaps.size() > 0)
+	if (mipmaps.size() > 0 && pixelSize > 0)
 	{
 		if (pixelSize < 1e-20)
 			pixelSize = 1e-20;

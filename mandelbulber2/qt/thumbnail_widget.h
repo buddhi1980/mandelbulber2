@@ -24,7 +24,7 @@
 #define QT_THUMBNAIL_WIDGET_H_
 
 #include <QWidget>
-#include "thumbnail.hpp"
+#include "../src/thumbnail.hpp"
 #include <QThread>
 
 class cThumbnailWidget: public QWidget

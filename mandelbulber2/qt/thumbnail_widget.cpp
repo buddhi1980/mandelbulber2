@@ -21,14 +21,14 @@
  */
 
 #include "thumbnail_widget.h"
-#include "settings.hpp"
+#include "../src/settings.hpp"
 #include <QPaintEvent>
-#include "render_job.hpp"
-#include "global_data.hpp"
+#include "../src/render_job.hpp"
+#include "../src/global_data.hpp"
 #include <QImage>
 
-#include "common_math.h"
-#include "system.hpp"
+#include "../src/common_math.h"
+#include "../src/system.hpp"
 
 cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent) :
 		QWidget(parent)

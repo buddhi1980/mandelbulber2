@@ -108,7 +108,6 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/statistics.cpp\
 			../src/texture.cpp\
 			../src/thumbnail.cpp\
-			../src/thumbnail_widget.cpp\
 			../src/undo.cpp\
 			../src/volume_slicer.cpp\
 			../qt/mygroupbox.cpp\
@@ -125,8 +124,9 @@ SOURCES +=  ../src/algebra.cpp\
 			../qt/mytabwidget.cpp \
     	../qt/preferencesdialog.cpp \
     	../qt/color_palette_widget.cpp \
-    	../qt/volume_slice_dialog.cpp
-
+    	../qt/volume_slice_dialog.cpp \
+    	../qt/thumbnail_widget.cpp \
+			../qt/material_widget.cpp
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
@@ -143,10 +143,14 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/myhistogramlabel.h\
 			../qt/mytabbar.h\
 			../qt/mytabwidget.h\
+			../qt/thumbnail_widget.h\
+			../qt/material_widget.h\
+			../qt/preferencesdialog.h\
+    	../qt/volume_slice_dialog.h\
+    	../qt/color_palette_widget.h\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
 			../src/ssao_worker.h\
-			../qt/color_palette_widget.h\
 			../src/rendered_image_widget.hpp\
 			../src/animation_flight.hpp\
 			../src/animation_keyframes.hpp\
@@ -165,10 +169,8 @@ HEADERS  += ../src/render_window.hpp\
 			../src/netrender.hpp \
 			../src/headless.h\
 			../src/error_message.hpp\
-                        ../src/lights.hpp\
-			../src/volume_slicer.hpp\
-    	../qt/preferencesdialog.h\
-    	../qt/volume_slice_dialog.h
+      ../src/lights.hpp\
+			../src/volume_slicer.hpp
 
 FORMS    += ../qt/render_window.ui \
     				../qt/preferencesdialog.ui \
