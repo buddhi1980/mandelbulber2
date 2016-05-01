@@ -53,6 +53,7 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 
 	params.SetContainerName("material");
 	InitParams(&params);
+
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		fractal.at(i).SetContainerName(QString("fractal") + QString::number(i));
@@ -67,14 +68,16 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 		params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
 	}
 
-	params.Set("julia_mode", true);
-	params.Set("camera", CVector3(1.0, -2.0, 0.7));
-	params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
-	params.Set("mat1_displacement_texture_height", 0.01);
+	params.Set("camera", CVector3(1.5, -2.5, 0.7));
 	params.Set("raytraced_reflections", true);
 	params.Set("N", 10);
+	params.Set("detail_level", 0.1);
+	params.Set("smoothness", 1.0);
+	fractal.at(0).Set("power", 5);
 	params.Set("textured_background", true);
 	params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
+	params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
+	params.Set("mat1_displacement_texture_height", 0.01);
 
 	// call parent assignation
 	// maybe disable preview saving, to not pollute hard drive?
@@ -82,12 +85,13 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 
 	if(materialEditorWidget)
 	{
-		timerPeriodicRefresh->start(2000);
+		timerPeriodicRefresh->start(1000);
 	}
 }
 
 void cMaterialWidget::slotPeriodicRender(void)
 {
+	qDebug() << "timerEvent";
 	if(!visibleRegion().isEmpty())
 	{
 		if(materialEditorWidget)
@@ -101,6 +105,8 @@ void cMaterialWidget::slotPeriodicRender(void)
 		}
 		update();
 	}
-
-	timerPeriodicRefresh->start(2000);
+	if(!timerPeriodicRefresh->isActive())
+	{
+		timerPeriodicRefresh->start(1000);
+	}
 }
