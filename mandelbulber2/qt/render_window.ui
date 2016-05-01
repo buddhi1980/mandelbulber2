@@ -3217,20 +3217,20 @@ to target:</string>
                           </property>
                          </widget>
                         </item>
-                        <item row="0" column="1">
-                         <widget class="MyLineEdit" name="text_file_color_texture">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_377">
+                          <property name="text">
+                           <string>Texture path:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1" colspan="2">
+                         <widget class="FileSelectWidget" name="text_file_color_texture">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="0">
-                         <widget class="QLabel" name="label_377">
-                          <property name="text">
-                           <string>Texture path:</string>
                           </property>
                          </widget>
                         </item>
@@ -3369,20 +3369,20 @@ brightness:</string>
                           </property>
                          </widget>
                         </item>
-                        <item row="0" column="1">
-                         <widget class="MyLineEdit" name="text_file_displacement_texture">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_382">
+                          <property name="text">
+                           <string>Texture path:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1" colspan="2">
+                         <widget class="FileSelectWidget" name="text_file_displacement_texture">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="0">
-                         <widget class="QLabel" name="label_382">
-                          <property name="text">
-                           <string>Texture path:</string>
                           </property>
                          </widget>
                         </item>
@@ -3463,20 +3463,20 @@ brightness:</string>
                           </property>
                          </widget>
                         </item>
-                        <item row="0" column="1">
-                         <widget class="MyLineEdit" name="text_file_diffusion_texture">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_384">
+                          <property name="text">
+                           <string>Texture path:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1" colspan="2">
+                         <widget class="FileSelectWidget" name="text_file_diffusion_texture">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="0">
-                         <widget class="QLabel" name="label_384">
-                          <property name="text">
-                           <string>Texture path:</string>
                           </property>
                          </widget>
                         </item>
@@ -3866,20 +3866,20 @@ width:</string>
                           </property>
                          </widget>
                         </item>
-                        <item row="0" column="1">
-                         <widget class="MyLineEdit" name="text_file_luminosity_texture">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_380">
+                          <property name="text">
+                           <string>Texture path:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1" colspan="2">
+                         <widget class="FileSelectWidget" name="text_file_luminosity_texture">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="0">
-                         <widget class="QLabel" name="label_380">
-                          <property name="text">
-                           <string>Texture path:</string>
                           </property>
                          </widget>
                         </item>
@@ -4694,6 +4694,16 @@ direction vector:</string>
                           </property>
                          </widget>
                         </item>
+                        <item row="0" column="1" colspan="2">
+                         <widget class="FileSelectWidget" name="text_file_normal_map_texture">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
                         <item row="2" column="0">
                          <widget class="QLabel" name="label_393">
                           <property name="text">
@@ -4705,16 +4715,6 @@ direction vector:</string>
                          <widget class="MyLineEdit" name="logedit_normal_map_texture_height">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="1">
-                         <widget class="MyLineEdit" name="text_file_normal_map_texture">
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
@@ -25622,6 +25622,11 @@ keyframes</string>
    <class>MyColorButton</class>
    <extends>QWidget</extends>
    <header>mycolorbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FileSelectWidget</class>
+   <extends>QWidget</extends>
+   <header>file_select_widget.h</header>
   </customwidget>
   <customwidget>
    <class>MyLogWidget</class>

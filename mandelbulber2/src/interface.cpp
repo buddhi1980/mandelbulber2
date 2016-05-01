@@ -1418,6 +1418,35 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		}
 	}
 
+	//---------- file select widgets -----------
+	{
+		QList<FileSelectWidget *> widgetListPushButton = window->findChildren<FileSelectWidget*>();
+		QList<FileSelectWidget *>::iterator it;
+		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
+		{
+			QString name = (*it)->objectName();
+			QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (*it)->metaObject()->className() == QString("FileSelectWidget"))
+			{
+				QString type, parameterName;
+				GetNameAndType(name, &parameterName, &type);
+
+				FileSelectWidget *fileSelectWidget = *it;
+				fileSelectWidget->AssignParameterContainer(par);
+				fileSelectWidget->AssingParameterName(parameterName);
+
+				if (mode == read)
+				{
+					par->Set(parameterName, fileSelectWidget->GetPath());
+				}
+				else if (mode == write)
+				{
+					fileSelectWidget->SetPath(par->Get<QString>(parameterName));
+				}
+			}
+		}
+	}
+
 	//---------- color buttons -----------
 	{
 		QList<MyColorButton *> widgetListPushButton = window->findChildren<MyColorButton*>();

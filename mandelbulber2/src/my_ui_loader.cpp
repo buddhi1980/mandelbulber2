@@ -27,6 +27,7 @@
 #include "../qt/mycheckbox.h"
 #include "../qt/mygroupbox.h"
 #include "../qt/mycolorbutton.h"
+#include "../qt/file_select_widget.h"
 
 MyUiLoader::~MyUiLoader()
 {
@@ -64,6 +65,11 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
 	else if (className == QString("MyColorButton"))
 	{
 		widget = new MyColorButton(parent);
+		widget->setObjectName(name);
+	}
+	else if (className == QString("FileSelectWidget"))
+	{
+		widget = new FileSelectWidget(parent);
 		widget->setObjectName(name);
 	}
 	else

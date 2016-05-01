@@ -106,6 +106,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/thumbnail.cpp\
 			../src/undo.cpp\
 			../src/volume_slicer.cpp\
+			../qt/file_select_widget.cpp\
 			../qt/mygroupbox.cpp\
 			../qt/mylineedit.cpp\
 			../qt/myspinbox.cpp\
@@ -126,6 +127,7 @@ SOURCES +=  ../src/algebra.cpp\
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
+			../qt/file_select_widget.h\
 			../qt/myscrolledarea.h\
 			../qt/mylineedit.h\
 			../qt/myspinbox.h\
