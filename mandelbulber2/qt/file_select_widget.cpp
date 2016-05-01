@@ -31,10 +31,10 @@
 FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
 {
 	QFrame *frameTextAndButton = new QFrame;
-	QHBoxLayout *layoutTextAndButton = new QHBoxLayout(this);
-	QVBoxLayout *vLayout = new QVBoxLayout(this);
-	vLayout->setContentsMargins(0, 0, 0, 0);
-	vLayout->setSpacing(2);
+	QHBoxLayout *layoutTextAndButton = new QHBoxLayout;
+	QVBoxLayout *layout = new QVBoxLayout(this);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(2);
 	layoutTextAndButton->setContentsMargins(0, 0, 0, 0);
 	layoutTextAndButton->setSpacing(2);
 	lineEdit = new QLineEdit;
@@ -44,7 +44,7 @@ FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
 	labelImage->setContentsMargins(0,0,0,0);
 	labelImage->setSizePolicy(QSizePolicy::MinimumExpanding,
 									 QSizePolicy::MinimumExpanding);
-	labelImage->setMaximumHeight(300);
+	labelImage->setMaximumHeight(200);
 	labelImage->setMaximumWidth(400);
 	QIcon iconFolder = QIcon::fromTheme("folder", QIcon(":/system/icons/folder.svg"));
 	button->setIcon(iconFolder);
@@ -52,9 +52,8 @@ FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
 	layoutTextAndButton->addWidget(button);
 	frameTextAndButton->setLayout(layoutTextAndButton);
 
-	vLayout->addWidget(frameTextAndButton);
-	vLayout->addWidget(labelImage);
-	setLayout(vLayout);
+	layout->addWidget(frameTextAndButton);
+	layout->addWidget(labelImage);
 
 	actionResetToDefault = NULL;
 	actionAddToFlightAnimation = NULL;
