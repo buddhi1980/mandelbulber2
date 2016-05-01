@@ -858,9 +858,9 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input)
 	double diffuse = 10.0	* (1.1 - input.material->diffussionTextureIntensity	* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
 	shade2 = pow(shade2, 30.0/input.material->specularWidth / diffuse) / diffuse;
 	if (shade2 > 15.0) shade2 = 15.0;
-	specular.R = shade2 * input.material->specularColor.R / 65536.0;
-	specular.G = shade2 * input.material->specularColor.G / 65536.0;
-	specular.B = shade2 * input.material->specularColor.B / 65536.0;
+	specular.R = shade2 * input.material->specularColor.R / 65536.0 * (input.texDiffuse.R * 0.5 + 0.5);
+	specular.G = shade2 * input.material->specularColor.G / 65536.0 * (input.texDiffuse.G * 0.5 + 0.5);
+	specular.B = shade2 * input.material->specularColor.B / 65536.0 * (input.texDiffuse.B * 0.5 + 0.5);
 	return specular;
 }
 

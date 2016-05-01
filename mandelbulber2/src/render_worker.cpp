@@ -557,11 +557,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	cObjectData objectData = data->objectData[shaderInputData.objectId];
 	shaderInputData.material = &data->materials[objectData.materialId];
 
-	if(shaderInputData.material->diffusionTexture.IsLoaded())
-		shaderInputData.texDiffuse = TextureShader(shaderInputData, cMaterial::texDiffuse, shaderInputData.material);
-	else
-		shaderInputData.texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
-
 	sRGBAfloat reflectShader = in.resultShader;
 	double reflect = shaderInputData.material->reflectance;
 
@@ -581,10 +576,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	{
 		//calculate normal vector
 		vn = CalculateNormals(shaderInputData);
+		shaderInputData.normal = vn;
+
+		if(shaderInputData.material->diffusionTexture.IsLoaded())
+			shaderInputData.texDiffuse = TextureShader(shaderInputData, cMaterial::texDiffuse, shaderInputData.material);
+		else
+			shaderInputData.texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
 
 		if(shaderInputData.material->normalMapTexture.IsLoaded())
 		{
-			shaderInputData.normal = vn;
 			vn = NormalMapShader(shaderInputData);
 		}
 
