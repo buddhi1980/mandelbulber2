@@ -157,16 +157,15 @@ void WriteLog(QString text)
 	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
 #ifdef WIN32
 	QString logtext =
-			QString("PID: %1, time: %2, %3\n").arg(QCoreApplication::applicationPid()).arg(QString::number(clock()
-																																																				 / 1.0e3,
-																																																		 'f',
-																																																		 3)).arg(text);
+	QString("PID: %1, time: %2, %3\n").arg(QCoreApplication::applicationPid()).arg(QString::number(clock()
+					/ 1.0e3,
+					'f',
+					3)).arg(text);
 #else
 	QString logtext =
-			QString("PID: %1, time: %2, %3\n").arg(QCoreApplication::applicationPid()).arg(QString::number(clock()
-																																																				 / 1.0e6,
-																																																		 'f',
-																																																		 6)).arg(text);
+			QString("PID: %1, time: %2, %3\n")
+				.arg(QCoreApplication::applicationPid()).arg(QString::number(	clock()	/ 1.0e6,'f', 6))
+					.arg(text);
 #endif
 
 	fputs(logtext.toLocal8Bit().constData(), logfile);
@@ -175,7 +174,8 @@ void WriteLog(QString text)
 	// write to log in window
 	if (gMainInterface && gMainInterface->mainWindow != NULL)
 	{
-		gMainInterface->mainWindow->AppendToLog(logtext);
+		//gMainInterface->mainWindow->AppendToLog(logtext);
+		//FIXME: AppendToLog consumes too much memory!
 	}
 }
 

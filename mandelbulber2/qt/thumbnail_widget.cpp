@@ -51,7 +51,7 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 	fractal = new cFractalContainer;
 	useOneCPUCore = false;
 
-	timer = new QTimer();
+	timer = new QTimer(parent);
 	timer->setSingleShot(true);
 	connect(timer, SIGNAL(timeout()), this, SLOT(slotRandomRender()));
 	instanceCount++;
