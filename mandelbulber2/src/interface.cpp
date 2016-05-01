@@ -251,18 +251,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotPressedButtonAutoFog()));
-	QApplication::connect(mainWindow->ui->button_selectBackgroundTexture,
-												SIGNAL(clicked()),
-												mainWindow,
-												SLOT(slotPressedButtonSelectBackgroundTexture()));
-	QApplication::connect(mainWindow->ui->button_selectEnvMapTexture,
-												SIGNAL(clicked()),
-												mainWindow,
-												SLOT(slotPressedButtonSelectEnvMapTexture()));
-	QApplication::connect(mainWindow->ui->button_selectLightMapTexture,
-												SIGNAL(clicked()),
-												mainWindow,
-												SLOT(slotPressedButtonSelectLightMapTexture()));
 	QApplication::connect(mainWindow->ui->checkBox_show_cursor,
 												SIGNAL(stateChanged(int)),
 												mainWindow,
@@ -435,18 +423,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(valueChanged(int)),
 												mainWindow,
 												SLOT(slotChangedSpinBoxPaletteSize(int)));
-	QApplication::connect(mainWindow->ui->text_file_background,
-												SIGNAL(textChanged(const QString&)),
-												mainWindow,
-												SLOT(slotEditedLineEditBackgroundTexture(const QString&)));
-	QApplication::connect(mainWindow->ui->text_file_envmap,
-												SIGNAL(textChanged(const QString&)),
-												mainWindow,
-												SLOT(slotEditedLineEditEnvMapTexture(const QString&)));
-	QApplication::connect(mainWindow->ui->text_file_lightmap,
-												SIGNAL(textChanged(const QString&)),
-												mainWindow,
-												SLOT(slotEditedLineEditLightMapTexture(const QString&)));
 	QApplication::connect(mainWindow,
 												SIGNAL(AppendToLog(const QString&)),
 												mainWindow->ui->log_text,

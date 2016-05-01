@@ -183,12 +183,6 @@ private slots:
 	void slotPresetAddToToolbar();
 
 	//textures
-	void slotPressedButtonSelectBackgroundTexture();
-	void slotPressedButtonSelectEnvMapTexture();
-	void slotPressedButtonSelectLightMapTexture();
-	void slotEditedLineEditBackgroundTexture(const QString &text);
-	void slotEditedLineEditEnvMapTexture(const QString &text);
-	void slotEditedLineEditLightMapTexture(const QString &text);
 	void slotChangedComboAmbientOcclusionMode(int index);
 
 	//resolution

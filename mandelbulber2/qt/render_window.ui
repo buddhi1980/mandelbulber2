@@ -5572,32 +5572,6 @@ object size)</string>
                       <property name="spacing">
                        <number>2</number>
                       </property>
-                      <item row="0" column="2">
-                       <widget class="QPushButton" name="button_selectEnvMapTexture">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Select file</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1">
-                       <widget class="MyLineEdit" name="text_file_envmap">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to reflection map image .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                        </property>
-                       </widget>
-                      </item>
                       <item row="0" column="0">
                        <widget class="QLabel" name="label_170">
                         <property name="text">
@@ -5605,20 +5579,20 @@ object size)</string>
                         </property>
                        </widget>
                       </item>
+                      <item row="0" column="1" colspan="2">
+                       <widget class="FileSelectWidget" name="text_file_envmap">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to reflection map image .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                       </widget>
+                      </item>
                      </layout>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_envmapTextureView">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>50</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -5899,23 +5873,17 @@ object size)</string>
                          <property name="spacing">
                           <number>2</number>
                          </property>
-                         <item row="0" column="2">
-                          <widget class="QPushButton" name="button_selectLightMapTexture">
-                           <property name="sizePolicy">
-                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                             <horstretch>0</horstretch>
-                             <verstretch>0</verstretch>
-                            </sizepolicy>
-                           </property>
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="label_171">
                            <property name="text">
-                            <string>Select file</string>
+                            <string>Light map texture:</string>
                            </property>
                           </widget>
                          </item>
-                         <item row="0" column="1">
-                          <widget class="MyLineEdit" name="text_file_lightmap">
+                         <item row="0" column="1" colspan="2">
+                          <widget class="FileSelectWidget" name="text_file_lightmap">
                            <property name="sizePolicy">
-                            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                              <horstretch>0</horstretch>
                              <verstretch>0</verstretch>
                             </sizepolicy>
@@ -5925,27 +5893,7 @@ object size)</string>
                            </property>
                           </widget>
                          </item>
-                         <item row="0" column="0">
-                          <widget class="QLabel" name="label_171">
-                           <property name="text">
-                            <string>Light map texture:</string>
-                           </property>
-                          </widget>
-                         </item>
                         </layout>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_lightmapTextureView">
-                         <property name="minimumSize">
-                          <size>
-                           <width>0</width>
-                           <height>50</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                        </widget>
                        </item>
                       </layout>
                      </widget>
@@ -7282,36 +7230,23 @@ Disables 'Update image' options)</string>
                       <property name="spacing">
                        <number>2</number>
                       </property>
-                      <item row="0" column="2">
-                       <widget class="QPushButton" name="button_selectBackgroundTexture">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_61">
                         <property name="text">
-                         <string>Select file</string>
+                         <string>Texture path:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="1">
-                       <widget class="MyLineEdit" name="text_file_background">
+                      <item row="0" column="1" colspan="2">
+                       <widget class="FileSelectWidget" name="text_file_background">
                         <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
                         </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to the background image. Acceptable formats are BMP, GIF, JPG, PNG&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_61">
-                        <property name="text">
-                         <string>Texture path:</string>
                         </property>
                        </widget>
                       </item>
@@ -7400,19 +7335,6 @@ Disables 'Update image' options)</string>
                        </widget>
                       </item>
                      </layout>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_backgroundTextureView">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>50</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
                     </item>
                    </layout>
                   </widget>
