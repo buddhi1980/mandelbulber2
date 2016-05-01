@@ -232,14 +232,14 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 	else
 	{
 		if (paramsContainer->Get<bool>("textured_background")) renderData->textures.backgroundTexture =
-				cTexture(paramsContainer->Get<QString>("file_background"), config.UseIgnoreErrors());
+				cTexture(paramsContainer->Get<QString>("file_background"), cTexture::doNotUseMipmaps, config.UseIgnoreErrors());
 
 		if (paramsContainer->Get<bool>("env_mapping_enable")) renderData->textures.envmapTexture =
-				cTexture(paramsContainer->Get<QString>("file_envmap"), config.UseIgnoreErrors());
+				cTexture(paramsContainer->Get<QString>("file_envmap"), cTexture::doNotUseMipmaps, config.UseIgnoreErrors());
 
 		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays
 				&& paramsContainer->Get<bool>("ambient_occlusion_enabled")) renderData->textures.lightmapTexture =
-				cTexture(paramsContainer->Get<QString>("file_lightmap"), config.UseIgnoreErrors());
+				cTexture(paramsContainer->Get<QString>("file_lightmap"), cTexture::doNotUseMipmaps, config.UseIgnoreErrors());
 	}
 
 	//assign stop handler

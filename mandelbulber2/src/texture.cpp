@@ -29,7 +29,7 @@
 #include "common_math.h"
 
 //constructor
-cTexture::cTexture(QString filename, bool beQuiet)
+cTexture::cTexture(QString filename, enumUseMipmaps useMipmaps, bool beQuiet)
 {
 	bitmap = NULL;
 	QImage qimage;
@@ -50,7 +50,10 @@ cTexture::cTexture(QString filename, bool beQuiet)
 		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): (sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
 		loaded = true;
 		originalFileName = filename;
-		CreateMipMaps();
+		if(useMipmaps == useMipmaps)
+		{
+			CreateMipMaps();
+		}
 	}
 	else
 	{

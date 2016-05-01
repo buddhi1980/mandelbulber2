@@ -142,19 +142,19 @@ void cMaterial::setParameters(int _id, const cParameterContainer &materialParam,
   fractalColoring.lineDirection = materialParam.Get<CVector3>(Name("fractal_coloring_line_direction", id));
 
   if (useColorTexture)
-    colorTexture = cTexture(materialParam.Get<QString>(Name("file_color_texture", id)), quiet);
+    colorTexture = cTexture(materialParam.Get<QString>(Name("file_color_texture", id)), cTexture::useMipmaps, quiet);
 
   if (useDiffusionTexture)
-    diffusionTexture = cTexture(materialParam.Get<QString>(Name("file_diffusion_texture", id)), quiet);
+    diffusionTexture = cTexture(materialParam.Get<QString>(Name("file_diffusion_texture", id)), cTexture::useMipmaps, quiet);
 
   if (useLuminosityTexture)
-    luminosityTexture = cTexture(materialParam.Get<QString>(Name("file_luminosity_texture", id)), quiet);
+    luminosityTexture = cTexture(materialParam.Get<QString>(Name("file_luminosity_texture", id)), cTexture::useMipmaps, quiet);
 
   if (useDisplacementTexture)
-    displacementTexture = cTexture(materialParam.Get<QString>(Name("file_displacement_texture", id)), quiet);
+    displacementTexture = cTexture(materialParam.Get<QString>(Name("file_displacement_texture", id)), cTexture::doNotUseMipmaps, quiet);
 
   if (useNormalMapTexture)
-    normalMapTexture = cTexture(materialParam.Get<QString>(Name("file_normal_map_texture", id)), quiet);
+    normalMapTexture = cTexture(materialParam.Get<QString>(Name("file_normal_map_texture", id)), cTexture::useMipmaps, quiet);
 
   rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
 }

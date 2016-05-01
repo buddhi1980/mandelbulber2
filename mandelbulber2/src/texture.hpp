@@ -33,7 +33,13 @@
 class cTexture
 {
 public:
-	cTexture(QString filename, bool beQuiet = false);
+	enum enumUseMipmaps
+	{
+		doNotUseMipmaps,
+		useMipmaps
+	};
+
+	cTexture(QString filename, enumUseMipmaps useMipmaps, bool beQuiet = false);
 	cTexture();
 	cTexture(const cTexture &tex);
 	cTexture& operator=(const cTexture &tex);
