@@ -2307,7 +2307,8 @@ void cInterface::ShowImageInLabel(QLabel *label, const QString &filename)
 	QPixmap pixmap(filename);
 	if (pixmap.isNull())
 	{
-		label->setText("Error: Texture cannot be loaded");
+		label->setText(QObject::tr("filepath invalid"));
+		label->setStyleSheet("QLabel { color: red; font-weight: bold; }");
 	}
 	else
 	{

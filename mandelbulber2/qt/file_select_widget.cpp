@@ -30,25 +30,30 @@
 
 FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
 {
-	QFrame *frame = new QFrame;
-	QHBoxLayout *hLayout = new QHBoxLayout(this);
+	QFrame *frameTextAndButton = new QFrame;
+	QHBoxLayout *layoutTextAndButton = new QHBoxLayout(this);
 	QVBoxLayout *vLayout = new QVBoxLayout(this);
 	vLayout->setContentsMargins(0, 0, 0, 0);
 	vLayout->setSpacing(2);
-	hLayout->setContentsMargins(0, 0, 0, 0);
-	hLayout->setSpacing(2);
+	layoutTextAndButton->setContentsMargins(0, 0, 0, 0);
+	layoutTextAndButton->setSpacing(2);
 	lineEdit = new QLineEdit;
 	button = new QPushButton;
 	labelImage = new QLabel;
-	labelImage->setFixedSize(80, 40);
-	QIcon icon = QIcon::fromTheme("folder", QIcon(":/system/icons/folder.svg"));
-	button->setIcon(icon);
-	hLayout->addWidget(button);
-	hLayout->addWidget(lineEdit);
-	frame->setLayout(hLayout);
+	labelImage->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+	labelImage->setContentsMargins(0,0,0,0);
+	labelImage->setSizePolicy(QSizePolicy::MinimumExpanding,
+									 QSizePolicy::MinimumExpanding);
+	labelImage->setMaximumHeight(300);
+	labelImage->setMaximumWidth(400);
+	QIcon iconFolder = QIcon::fromTheme("folder", QIcon(":/system/icons/folder.svg"));
+	button->setIcon(iconFolder);
+	layoutTextAndButton->addWidget(lineEdit);
+	layoutTextAndButton->addWidget(button);
+	frameTextAndButton->setLayout(layoutTextAndButton);
 
+	vLayout->addWidget(frameTextAndButton);
 	vLayout->addWidget(labelImage);
-	vLayout->addWidget(frame);
 	setLayout(vLayout);
 
 	actionResetToDefault = NULL;
@@ -57,8 +62,8 @@ FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
 	parameterContainer = NULL;
 	gotDefault = false;
 	defaultValue = "";
-
 	connect(button, SIGNAL(clicked()), this, SLOT(slotSelectFile()));
+	connect(lineEdit, SIGNAL(editingFinished()), this, SLOT(slotChangedFile()));
 }
 
 FileSelectWidget::~FileSelectWidget(void)
@@ -135,13 +140,17 @@ void FileSelectWidget::slotSelectFile()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
-		lineEdit->setText(filename);
-		gMainInterface->ShowImageInLabel(labelImage, filename);
+		SetPath(filename);
 	}
 }
 
-void FileSelectWidget::SetPath(QString text)
+void FileSelectWidget::slotChangedFile()
 {
-	lineEdit->setText(text);
-	gMainInterface->ShowImageInLabel(labelImage, text);
+	gMainInterface->ShowImageInLabel(labelImage, lineEdit->text());
+}
+
+void FileSelectWidget::SetPath(QString path)
+{
+	lineEdit->setText(path);
+	slotChangedFile();
 }

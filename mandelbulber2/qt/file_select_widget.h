@@ -41,11 +41,11 @@ public:
 	void AssignParameterContainer(cParameterContainer *container) {parameterContainer = container;}
 	void AssingParameterName(QString name) {parameterName = name;}
 	QString GetPath(){ return lineEdit->text(); }
-	void SetPath(QString text);
+	void SetPath(QString path);
 
 private slots:
 	void slotSelectFile();
-
+	void slotChangedFile();
 private:
 	QLineEdit* lineEdit;
 	QPushButton* button;
