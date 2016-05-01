@@ -65,7 +65,6 @@ void cImage::construct()
 	normal16 = NULL;
 
 	AllocMem();
-	gammaTable = new int[65536];
 	progressiveFactor = 1;
 	imageWidget = NULL;
 	isUsed = false;
@@ -82,8 +81,7 @@ cImage::~cImage()
 {
 	//qDebug() << "cImage::~cImage()";
 	FreeImage();
-	if (gammaTable) delete[] gammaTable;
-	gammaTable = NULL;
+
 	if (previewAllocated)
 	{
 		if (preview) delete[] preview;
@@ -100,6 +98,7 @@ bool cImage::AllocMem(void)
 	{
 		try
 		{
+			gammaTable = new int[65536];
 			imageFloat = new sRGBfloat[width * height];
 			image16 = new sRGB16[width * height];
 			image8 = new sRGB8[width * height];
@@ -201,6 +200,8 @@ void cImage::FreeImage(void)
 	normal16 = NULL;
 	if (normal8) delete[] normal8;
 	normal8 = NULL;
+	if (gammaTable) delete[] gammaTable;
+	gammaTable = NULL;
 }
 
 sRGB16 cImage::CalculatePixel(sRGBfloat pixel)

@@ -91,7 +91,6 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 
 void cMaterialWidget::slotPeriodicRender(void)
 {
-	qDebug() << "timerEvent";
 	if(!visibleRegion().isEmpty())
 	{
 		if(materialEditorWidget)

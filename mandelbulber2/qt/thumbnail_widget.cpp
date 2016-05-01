@@ -54,6 +54,8 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 	timer = new QTimer(parent);
 	timer->setSingleShot(true);
 	connect(timer, SIGNAL(timeout()), this, SLOT(slotRandomRender()));
+
+	instanceIndex = instanceCount;
 	instanceCount++;
 	//qDebug() << "cThumbnailWidget constructed" << instanceCount;
 }
@@ -63,10 +65,12 @@ cThumbnailWidget::~cThumbnailWidget()
 	stopRequest = true;
 	if (image)
 	{
+		//qDebug() << "cThumbnailWidget trying to delete" << instanceIndex;
 		while (image->IsUsed())
 		{
 		}
 		delete image;
+		//qDebug() << "cThumbnailWidget image deleted" << instanceIndex;
 	}
 	if (params)
 		delete params;
@@ -74,7 +78,7 @@ cThumbnailWidget::~cThumbnailWidget()
 		delete fractal;
 
 	instanceCount--;
-	//qDebug() << "cThumbnailWidget destructed" << instanceCount;
+	//qDebug() << "cThumbnailWidget destructed" << instanceIndex;
 }
 
 void cThumbnailWidget::paintEvent(QPaintEvent *event)
@@ -95,7 +99,6 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 void cThumbnailWidget::AssignParameters(const cParameterContainer &_params,
 		const cFractalContainer &_fractal)
 {
-
 	*params = _params;
 	*fractal = _fractal;
 	params->Set("image_width", tWidth * oversample);

@@ -39,6 +39,7 @@ public:
 	void DisableThumbnailCache() {disableThumbnailCache = true;}
 
 	static int instanceCount;
+	int instanceIndex;
 
 private:
 	void paintEvent(QPaintEvent *event);
