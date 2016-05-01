@@ -2278,21 +2278,6 @@ void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
 	parFractal->Set("IFS_edge_enabled", false);
 }
 
-void cInterface::ShowImageInLabel(QLabel *label, const QString &filename)
-{
-	QPixmap pixmap(filename);
-	if (pixmap.isNull())
-	{
-		label->setText(QObject::tr("filepath invalid"));
-		label->setStyleSheet("QLabel { color: red; font-weight: bold; }");
-	}
-	else
-	{
-		pixmap = pixmap.scaledToWidth(label->width() * 0.7, Qt::SmoothTransformation);
-		label->setPixmap(pixmap);
-	}
-}
-
 void cInterface::RefreshMainImage()
 {
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);

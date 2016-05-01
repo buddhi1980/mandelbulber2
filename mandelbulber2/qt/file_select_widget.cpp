@@ -46,6 +46,8 @@ FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
 									 QSizePolicy::MinimumExpanding);
 	labelImage->setMaximumHeight(200);
 	labelImage->setMaximumWidth(400);
+	labelImage->setStyleSheet("QLabel { color: red; font-weight: bold; border: 1px solid black;"
+														"background-color: white; padding: 1px; }");
 	QIcon iconFolder = QIcon::fromTheme("folder", QIcon(":/system/icons/folder.svg"));
 	button->setIcon(iconFolder);
 	layoutTextAndButton->addWidget(lineEdit);
@@ -143,13 +145,30 @@ void FileSelectWidget::slotSelectFile()
 	}
 }
 
-void FileSelectWidget::slotChangedFile()
-{
-	gMainInterface->ShowImageInLabel(labelImage, lineEdit->text());
-}
-
 void FileSelectWidget::SetPath(QString path)
 {
 	lineEdit->setText(path);
 	slotChangedFile();
+}
+
+
+void FileSelectWidget::slotChangedFile()
+{
+	QPixmap pixmap(lineEdit->text());
+
+	if (pixmap.isNull())
+	{
+		labelImage->setText(QObject::tr("filepath invalid"));
+	}
+	else
+	{
+		if(pixmap.height() / pixmap.width() > 200 / 400)
+		{
+			labelImage->setPixmap(pixmap.scaledToHeight(200));
+		}
+		else
+		{
+			labelImage->setPixmap(pixmap.scaledToWidth(400));
+		}
+	}
 }
