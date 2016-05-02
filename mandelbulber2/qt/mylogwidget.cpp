@@ -22,6 +22,20 @@
 
 #include "mylogwidget.h"
 
+MyLogWidget::MyLogWidget(QWidget *parent) : QPlainTextEdit(parent)
+{
+	setReadOnly(true);
+	initializedFromLogFile = false;
+	reBasic = new QRegularExpression("^(PID:) ([0-9]+), (time:) ([0-9.]+), (.*)");
+	reInnerType = new QRegularExpression("^(Debug|Warning|Critical|Error|NetRender|Gamepad)(.*)");
+}
+
+MyLogWidget::~MyLogWidget()
+{
+	delete reBasic;
+	delete reInnerType;
+}
+
 void MyLogWidget::appendMessage(const QString& text)
 {
 	if(!initializedFromLogFile)
@@ -50,14 +64,12 @@ void MyLogWidget::initFromLogFile()
 
 QString MyLogWidget::formatLine(const QString& text)
 {
-	QRegularExpression re("^(PID:) ([0-9]+), (time:) ([0-9.]+), (.*)");
-	QRegularExpressionMatch match = re.match(text);
+	QRegularExpressionMatch match = reBasic->match(text);
 	if (match.hasMatch())
 	{
 		QString out = "<span style=\"color: grey;\">" + match.captured(1) + " <b>" + match.captured(2) + "</b></span>, "
 			+ "<span style=\"color: orange;\">" + match.captured(3) + " <b>" + match.captured(4) + "</b></span>, ";
-		QRegularExpression reType("^(Debug|Warning|Critical|Error|NetRender|Gamepad)(.*)");
-		QRegularExpressionMatch matchType = reType.match(match.captured(5));
+		QRegularExpressionMatch matchType = reInnerType->match(match.captured(5));
 		if (matchType.hasMatch())
 		{
 			QString color = "";

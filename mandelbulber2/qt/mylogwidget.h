@@ -33,11 +33,8 @@ class MyLogWidget : public QPlainTextEdit
 	Q_OBJECT
 
 public:
-	MyLogWidget(QWidget *parent = 0)  : QPlainTextEdit(parent)
-	{
-		setReadOnly(true);
-		initializedFromLogFile = false;
-	};
+	explicit MyLogWidget(QWidget *parent = 0);
+	~MyLogWidget();
 
 public slots:
 	void appendMessage(const QString& text);
@@ -46,6 +43,8 @@ public slots:
 
 private:
 	bool initializedFromLogFile;
+	QRegularExpression *reBasic;
+	QRegularExpression *reInnerType;
 };
 
 #endif /* MYLOGWIDGET_HPP_ */
