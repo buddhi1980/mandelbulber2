@@ -163,7 +163,6 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 bool cRenderJob::InitImage(int w, int h)
 {
 	WriteLog("cRenderJob::InitImage");
-	QTextStream out(stdout);
 
 	if (!image->ChangeSize(w, h))
 	{
@@ -190,7 +189,7 @@ bool cRenderJob::InitImage(int w, int h)
 			emit SetMinimumWidgetSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		}
 
-		//out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
+		//qDebug() << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
 		return true;
 	}
 }

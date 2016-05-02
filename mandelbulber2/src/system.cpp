@@ -176,8 +176,8 @@ void WriteLog(QString text)
 	// write to log in window
 	if (gMainInterface && gMainInterface->mainWindow != NULL)
 	{
-		//gMainInterface->mainWindow->AppendToLog(logtext);
-		//FIXME: AppendToLog consumes too much memory!
+		//FIXME: AppendToLog consumes too much memory! may be fixed, please test
+		gMainInterface->mainWindow->AppendToLog(logtext);
 	}
 }
 

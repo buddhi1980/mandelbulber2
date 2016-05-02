@@ -105,8 +105,6 @@ bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 {
 	mutex.lock();
-	QTextStream out(stdout);
-
 	//qDebug() << "threadID:" << threadId << " Actual line:" << actualLine;
 
 	int nextLine = -1;

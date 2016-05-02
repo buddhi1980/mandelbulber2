@@ -951,7 +951,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		QList<int> fractalsListTemp;
 		for (int i = 0; i < HYBRID_COUNT; i++)
 		{
-			if ((oldSettings::enumFractalFormula) oldData->fractal.hybridFormula[i] != oldSettings::none)
+			if (oldData->fractal.hybridFormula[i] != oldSettings::none)
 			{
 				fractalsListTemp.append(i);
 			}

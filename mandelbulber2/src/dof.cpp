@@ -90,7 +90,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
         for (int x = 0; x < width; x++)
         {
           double z = image->GetPixelZBuffer(x, y);
-          double blur1 = ((double) z - neutral) / z * deep;
+          double blur1 = (z - neutral) / z * deep;
           double blur = fabs(blur1);
           if (blur > MAX_DOF_BLUR_SIZE)
             blur = MAX_DOF_BLUR_SIZE;
@@ -116,7 +116,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
                 weight = 1.0;
 
               double z2 = image->GetPixelZBuffer(xx, yy);
-              double blur2 = ((double) z2 - neutral) / z2 * deep;
+              double blur2 = (z2 - neutral) / z2 * deep;
               if (blur1 > blur2)
               {
                 if (blur1 * blur2 < 0)
@@ -285,7 +285,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
             int x = ii % width;
             int y = ii / width;
             double z = image->GetPixelZBuffer(x, y);
-            double blur = fabs((double) z - neutral) / z * deep + 1.0;
+            double blur = fabs(z - neutral) / z * deep + 1.0;
             if (blur > MAX_DOF_BLUR_SIZE)
               blur = MAX_DOF_BLUR_SIZE;
             int size = blur;
@@ -404,7 +404,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
         for (int x = 0; x < width; x++)
         {
           double z = image->GetPixelZBuffer(x, y);
-          double blur1 = ((double) z - neutral) / z * deep;
+          double blur1 = (z - neutral) / z * deep;
           double blur = fabs(blur1);
           if (blur > MAX_DOF_BLUR_SIZE)
             blur = MAX_DOF_BLUR_SIZE;
@@ -430,7 +430,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
                 weight = 1.0;
 
               double z2 = image->GetPixelZBuffer(xx, yy);
-              double blur2 = ((double) z2 - neutral) / z2 * deep;
+              double blur2 = (z2 - neutral) / z2 * deep;
               if (blur1 > blur2)
               {
                 if (blur1 * blur2 < 0)
@@ -598,7 +598,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
             int x = ii % width;
             int y = ii / width;
             double z = image->GetPixelZBuffer(x, y);
-            double blur = fabs((double) z - neutral) / z * deep + 1.0;
+            double blur = fabs(z - neutral) / z * deep + 1.0;
             if (blur > MAX_DOF_BLUR_SIZE)
               blur = MAX_DOF_BLUR_SIZE;
             int size = blur;

@@ -34,8 +34,6 @@
 
 void RenderWindow::slotImportOldSettings()
 {
-  cSettings parSettings(cSettings::formatFullText);
-
   QFileDialog dialog(this);
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setFileMode(QFileDialog::ExistingFile);

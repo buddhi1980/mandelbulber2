@@ -4,9 +4,9 @@ project(mandelbulber2)
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# qt intermediate build config
+# qt intermediate build config and setup
 set(CMAKE_AUTOMOC ON)
-#set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTORCC ON)
 #set(CMAKE_AUTOUIC ON)
 
 # find necessary qt libraries
@@ -22,7 +22,12 @@ find_package(GSL REQUIRED)
 
 # find optional other libraries
 find_package(TIFF)
-#FIND_PACKAGE(EXR) TODO
+find_package(ECM NO_MODULE)
+
+IF(ECM_FOUND)
+    set(CMAKE_MODULE_PATH ${ECM_FIND_MODULE_DIR})
+    find_package(OpenEXR)
+ENDIF()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -33,8 +38,11 @@ file(GLOB qtHeader "mandelbulber2/qt/*.h" "mandelbulber2/qt/*.hpp")
 file(GLOB qtDef "mandelbulber2/qt/*.c" "mandelbulber2/qt/*.cpp")
 set(SOURCE_FILES ${srcHeader} ${srcDef} ${qtHeader} ${qtDef})
 
+# set additional files for compilation
+set(ADDITIONAL_EXECUTABLE mandelbulber2/qt/icons.qrc)
+
 # add source files to the build target
-add_executable(mandelbulber2 ${SOURCE_FILES})
+add_executable(mandelbulber2 ${SOURCE_FILES}  ${ADDITIONAL_EXECUTABLE})
 
 # link qt libraries
 target_link_libraries(mandelbulber2 Qt5::Widgets)
@@ -54,8 +62,8 @@ IF(TIFF_FOUND)
     add_definitions(-DUSE_TIFF)
 ENDIF()
 
-IF(OPENEXR_FOUND)
-    include_directories(${OPENEXR_INCLUDE_DIR})
-    target_link_libraries(mandelbulber2 ${OPENEXR_LIBRARY})
-    add_definitions(-USE_EXR)
+IF(OpenEXR_FOUND)
+    include_directories(${OpenEXR_INCLUDE_DIRS})
+    target_link_libraries(mandelbulber2 ${OpenEXR_LIBRARIES})
+    add_definitions(-DUSE_EXR)
 ENDIF()
