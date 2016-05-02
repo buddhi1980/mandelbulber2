@@ -33,11 +33,8 @@ MyHistogramLabel::MyHistogramLabel(QWidget *parent) : QLabel(parent)
 	legendColor = QColor(255, 255, 255);
 	maxColor = QColor(255, 255, 255, 200);
 	legendX = 0;
-	isUpdating = false;
 	legendWidth = 15;
 	legendHeight = 15;
-	pixmapWidth = width();
-	pixmapHeight = height();
 }
 
 MyHistogramLabel::~MyHistogramLabel(void)

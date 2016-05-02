@@ -56,7 +56,6 @@ protected:
 	void paintEvent(QPaintEvent *event);
 
 private:
-	int getLegendY(int y);
 	void DrawLegend(QPainter &painter);
 	void RedrawHistogram(QPainter &painter);
 	QString GetShortNumberDisplay(int val);
@@ -66,11 +65,8 @@ private:
 	QColor legendColor;
 	QColor maxColor;
 	int legendX;
-	bool isUpdating;
 	int legendWidth;
 	int legendHeight;
-	int pixmapWidth;
-	int pixmapHeight;
 
 	cHistogram histData;
 };

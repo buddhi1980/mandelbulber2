@@ -59,7 +59,6 @@ public:
 
 private:
 	void Alloc(int size);
-	void Free();
 	void Copy(const cHistogram &source);
 
 	long *data;

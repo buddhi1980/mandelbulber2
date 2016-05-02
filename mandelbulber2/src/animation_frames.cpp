@@ -26,6 +26,10 @@ cAnimationFrames::cAnimationFrames()
 {
 }
 
+cAnimationFrames::~cAnimationFrames()
+{
+}
+
 void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal,
 		int index)
 {

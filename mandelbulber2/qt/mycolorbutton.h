@@ -53,7 +53,6 @@ private:
 	QString parameterName;
 
 	void mousePressEvent(QMouseEvent *event);
-	void SetDimension();
 	sRGB GetDefault();
 
 	sRGB defaultValue;

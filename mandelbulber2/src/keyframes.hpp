@@ -48,13 +48,13 @@ public:
 	{
 		return framesPerKeyframe;
 	}
-	int GetUnrenderedTotal();
-	int GetUnrenderedTillIndex(int frameIndex);
 	void ChangeMorphType(int parameterIndex, parameterContainer::enumMorphType morphType);
 	void ClearMorphCache()
 	{
 		morph.clear();
 	}
+	int GetUnrenderedTotal();
+	int GetUnrenderedTillIndex(int frameIndex);
 	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue);
 	bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param,
 			const cFractalContainer *fractal);

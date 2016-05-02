@@ -47,7 +47,7 @@ struct sPrimitiveBasic : cObjectData
 {
 	bool enable;
 	int objectId;
-	double PrimitiveDistance(CVector3 _point);
+	double PrimitiveDistance(CVector3 _point) const;
 };
 
 struct sPrimitivePlane: sPrimitiveBasic

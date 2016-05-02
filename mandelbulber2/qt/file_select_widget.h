@@ -54,7 +54,6 @@ private:
 	QAction *actionResetToDefault;
 	QAction *actionAddToFlightAnimation;
 	QAction *actionAddToKeyframeAnimation;
-	QString GetType(const QString &name);
 	cParameterContainer *parameterContainer;
 	QString parameterName;
 

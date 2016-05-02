@@ -209,7 +209,7 @@ public:
   int GetUsedMB(void);
 	void SetImageParameters(sImageAdjustments adjustments);
 	sImageAdjustments* GetImageAdjustments(void) {return &adj;}
-	void SetImageOptional(sImageAdjustments opt);
+	void SetImageOptional(sImageOptional opt){ this->opt = opt; }
 	sImageOptional* GetImageOptional(void) {return &opt;}
 
   unsigned char* ConvertTo8bit(void);

@@ -62,6 +62,7 @@ public:
 	};
 
 	cAnimationFrames();
+	virtual ~cAnimationFrames();
 	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal,
 			int index = -1);
 	void AddFrame(const sAnimationFrame &frame);
@@ -69,14 +70,14 @@ public:
 	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
 	sAnimationFrame GetFrame(int index) const;
 	int GetNumberOfFrames() const;
-	int GetUnrenderedTillIndex(int index);
-	int GetUnrenderedTotal();
+	virtual int GetUnrenderedTillIndex(int index);
+	virtual int GetUnrenderedTotal();
 	void Clear();
 	void ClearAll();
-	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue);
-	bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param,
+	virtual void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue);
+	virtual bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param,
 			const cFractalContainer *fractal);
-	void RemoveAnimatedParameter(const QString &fullParameterName);
+	virtual void RemoveAnimatedParameter(const QString &fullParameterName);
 	QList<sParameterDescription> GetListOfUsedParameters() const
 	{
 		return listOfParameters;

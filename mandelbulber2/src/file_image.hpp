@@ -128,8 +128,6 @@ public:
 	void SaveImage();
 	static void SavePNG(QString filename, cImage* image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 	static void SavePNG16(QString filename, int width, int height, sRGB16* image16);
-	static void SaveZBuffer(QString filename, cImage *image);
-	static void SaveZBuffer(QString filename, cImage *image, float minZ, float maxZ);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 	static bool SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height);
 };

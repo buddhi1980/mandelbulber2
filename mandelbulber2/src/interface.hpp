@@ -58,7 +58,6 @@ public:
 	void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode);
 	void SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode);
 	void ConnectSignalsForSlidersInWindow(QWidget *window);
-	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 	void InitializeFractalUi(QString &uiFileName);
 	void StartRender(bool noUndo = false);
