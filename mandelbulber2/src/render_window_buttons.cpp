@@ -21,7 +21,8 @@
  */
 
 #include "render_window.hpp"
-#include "global_data.hpp"
+#include "interface.hpp"
+#include "initparameters.hpp"
 #include "common_math.h"
 
 void RenderWindow::slotPressedButtonAutoFog()

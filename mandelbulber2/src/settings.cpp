@@ -20,14 +20,12 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#include "global_data.hpp"
 #include "settings.hpp"
 #include "system.hpp"
 #include "error_message.hpp"
 #include <QCryptographicHash>
 #include "primitives.h"
 #include "initparameters.hpp"
-#include "animation_frames.hpp"
 
 cSettings::cSettings(enumFormat _format)
 {

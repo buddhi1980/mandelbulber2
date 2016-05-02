@@ -21,8 +21,6 @@
  */
 
 #include "scheduler.hpp"
-
-#include <string.h>
 #include <QtCore>
 
 cScheduler::cScheduler(int _numberOfLines, int progressive)

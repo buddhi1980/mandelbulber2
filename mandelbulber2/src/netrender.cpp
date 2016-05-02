@@ -30,6 +30,10 @@
 #include "interface.hpp"
 #include "error_message.hpp"
 #include "headless.h"
+#include "initparameters.hpp"
+#include "fractal_container.hpp"
+
+CNetRender *gNetRender = NULL;
 
 CNetRender::CNetRender(qint32 workerCount) :
 		QObject(NULL)

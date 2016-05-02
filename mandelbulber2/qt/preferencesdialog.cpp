@@ -4,6 +4,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include "../src/file_downloader.hpp"
+#include "../src/interface.hpp"
+#include "../src/system.hpp"
+#include "../src/initparameters.hpp"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
   QDialog(parent),

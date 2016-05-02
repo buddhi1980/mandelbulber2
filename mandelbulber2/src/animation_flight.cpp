@@ -21,17 +21,15 @@
  */
 
 #include "animation_flight.hpp"
-#include "global_data.hpp"
-#include "render_job.hpp"
-#include "system.hpp"
-#include "error_message.hpp"
-#include "progress_text.hpp"
-#include "headless.h"
-#include <QFileDialog>
-#include <QMessageBox>
-#include "../qt/thumbnail_widget.h"
-#include <QInputDialog>
+#include "interface.hpp"
 #include "undo.h"
+#include "global_data.hpp"
+#include "files.h"
+#include "netrender.hpp"
+#include "initparameters.hpp"
+#include "render_job.hpp"
+
+cFlightAnimation *gFlightAnimation = NULL;
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames,
 		cImage *_image, QWidget *_imageWidget, cParameterContainer *_params,

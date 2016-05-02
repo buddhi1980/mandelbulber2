@@ -21,7 +21,6 @@
  */
 
 #include "render_window.hpp"
-#include "global_data.hpp"
 
 RenderWindow::RenderWindow(QWidget *parent) :
 		QMainWindow(parent), ui(new Ui::RenderWindow)

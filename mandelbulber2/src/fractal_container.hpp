@@ -39,4 +39,6 @@ private:
 	cParameterContainer fractals[NUMBER_OF_FRACTALS];
 };
 
+extern cFractalContainer *gParFractal;
+
 #endif /* SRC_FRACTAL_CONTAINER_HPP_ */

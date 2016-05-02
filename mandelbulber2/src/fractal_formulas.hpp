@@ -24,8 +24,7 @@
 #define FRACTAL_FORMULAS_HPP_
 
 #include "commonparams.hpp"
-#include "nine_fractals.hpp"
-
+#include "fractal.h"
 
 void AboxMod1Iteration(CVector3 &z,const cFractal *fractal, sExtendedAux &aux);
 void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

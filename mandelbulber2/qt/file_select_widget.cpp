@@ -22,9 +22,10 @@
  */
 
 #include "file_select_widget.h"
-#include "../src/parameters.hpp"
+#include "../src/animation_flight.hpp"
+#include "../src/animation_keyframes.hpp"
 #include <QLabel>
-#include "../src/global_data.hpp"
+#include <qmenu.h>
 #include "../src/preview_file_dialog.h"
 #include <algorithm>
 

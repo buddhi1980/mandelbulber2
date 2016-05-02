@@ -21,7 +21,7 @@
  */
 
 #include "render_window.hpp"
-#include "global_data.hpp"
+#include "interface.hpp"
 
 #ifdef USE_GAMEPAD
 void RenderWindow::slotChangeGamepadIndex(int index)

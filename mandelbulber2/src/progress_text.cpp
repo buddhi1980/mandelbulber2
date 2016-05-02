@@ -21,9 +21,8 @@
  */
 
 #include "progress_text.hpp"
-#include "global_data.hpp"
+#include "interface.hpp"
 #include "system.hpp"
-#include "headless.h"
 
 cProgressText::cProgressText()
 {

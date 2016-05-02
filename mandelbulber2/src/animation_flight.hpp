@@ -23,10 +23,9 @@
 #ifndef SRC_ANIMATION_FLIGHT_HPP_
 #define SRC_ANIMATION_FLIGHT_HPP_
 
-#include "keyframes.hpp"
+#include "cimage.hpp"
+#include "animation_frames.hpp"
 #include "interface.hpp"
-#include "../qt/thumbnail_widget.h"
-#include "files.h"
 #include "error_message.hpp"
 
 class cFlightAnimation: public QObject
@@ -112,5 +111,7 @@ signals:
 	void showErrorMessage(QString text, cErrorMessage::enumMessageType messageType, QWidget *parent =
 	NULL);
 };
+
+extern cFlightAnimation *gFlightAnimation;
 
 #endif /* SRC_ANIMATION_FLIGHT_HPP_ */

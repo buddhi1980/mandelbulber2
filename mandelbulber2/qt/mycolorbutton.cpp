@@ -21,10 +21,10 @@
  */
 
 #include "mycolorbutton.h"
-#include "../src/parameters.hpp"
 #include <QPushButton>
-#include "../src/global_data.hpp"
 #include <algorithm>
+#include "../src/animation_flight.hpp"
+#include "../src/animation_keyframes.hpp"
 
 MyColorButton::MyColorButton(QWidget *parent) : QPushButton(parent)
 {

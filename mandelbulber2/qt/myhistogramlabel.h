@@ -26,7 +26,6 @@
 #include <QtGui>
 #include <QtCore>
 #include <QLabel>
-#include "../src/parameters.hpp"
 #include "../src/histogram.hpp"
 
 class MyHistogramLabel : public QLabel

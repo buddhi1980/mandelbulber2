@@ -3,6 +3,9 @@
 #include <QtCore>
 #include <QFileDialog>
 #include <QMessageBox>
+#include "../src/interface.hpp"
+#include "../src/initparameters.hpp"
+#include "../src/error_message.hpp"
 
 cVolumeSliceDialog::cVolumeSliceDialog(QWidget *parent) :
 	QDialog(parent),

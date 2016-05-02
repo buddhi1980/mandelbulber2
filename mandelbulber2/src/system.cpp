@@ -29,8 +29,10 @@
 #include <QtGui>
 #include <ctime>
 #include <QTextStream>
+#include <qstylefactory.h>
 #include "global_data.hpp"
-#include "settings.hpp"
+#include "initparameters.hpp"
+#include "interface.hpp"
 
 #ifndef WIN32
 #include <sys/ioctl.h>

@@ -51,6 +51,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/command_line_interface.cpp\
 			../src/cimage.cpp\
 			../src/common_math.cpp\
+			../src/displacement_map.cpp\
 			../src/dof.cpp\
 			../src/error_message.cpp\
 			../src/fractparams.cpp\
@@ -62,6 +63,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/fractal_formulas.cpp\
 			../src/fractal_list.cpp\
 			../src/global_data.cpp\
+			../src/image_scale.cpp\
 			../src/initparameters.cpp\
 			../src/interface.cpp\
 			../src/headless.cpp\
@@ -81,6 +83,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/player_widget.cpp\
 			../src/primitives.cpp\
 			../src/progress_text.cpp\
+			../src/projection_3d.cpp\
 			../src/preview_file_dialog.cpp\
 			../src/queue.cpp\
 			../src/random.cpp\
@@ -107,6 +110,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/ssao_worker.cpp\
 			../src/statistics.cpp\
 			../src/texture.cpp\
+			../src/texture_mapping.cpp\
 			../src/thumbnail.cpp\
 			../src/undo.cpp\
 			../src/volume_slicer.cpp\

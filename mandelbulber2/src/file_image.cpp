@@ -22,8 +22,8 @@
 
 #include "file_image.hpp"
 #include "error_message.hpp"
-#include "cimage.hpp"
-#include "global_data.hpp"
+#include "initparameters.hpp"
+#include "files.h"
 
 #define PNG_DEBUG 3
 

@@ -21,12 +21,14 @@
  */
 
 #include "queue.hpp"
-#include "system.hpp"
 #include "settings.hpp"
 #include "preview_file_dialog.h"
-#include "global_data.hpp"
+#include "initparameters.hpp"
+#include "fractal_container.hpp"
 #include "error_message.hpp"
 #include "render_queue.hpp"
+
+cQueue *gQueue = NULL;
 
 cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 		const QString &_queueFolder, QObject *parent) :

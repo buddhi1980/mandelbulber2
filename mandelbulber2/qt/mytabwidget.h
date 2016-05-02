@@ -27,8 +27,6 @@
 #include <QtGui>
 #include <QtCore>
 #include <QTabWidget>
-#include <QMenu>
-#include "../src/parameters.hpp"
 
 class MyTabWidget : public QTabWidget
 {

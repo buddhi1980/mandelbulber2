@@ -26,8 +26,8 @@
 
 #include "parameters.hpp"
 #include "fractal_container.hpp"
-#include "animation_keyframes.hpp"
-#include "animation_flight.hpp"
+#include "keyframes.hpp"
+#include "animation_frames.hpp"
 #include "interface.hpp"
 #include <QtCore>
 
@@ -152,5 +152,7 @@ private:
 
 	QMutex mutex;
 };
+
+extern cQueue *gQueue;
 
 #endif /* MANDELBULBER2_SRC_QUEUE_HPP_ */

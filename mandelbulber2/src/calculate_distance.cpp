@@ -21,9 +21,9 @@
  */
 
 #include "calculate_distance.hpp"
-#include <algorithm>
-#include "common_math.h"
-#include "render_worker.hpp"
+#include "compute_fractal.hpp"
+#include "texture_mapping.hpp"
+#include "displacement_map.hpp"
 
 using namespace std;
 
@@ -325,29 +325,6 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 		out->maxiter = false;
 	}
 
-	return distance;
-}
-
-double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRenderData *data)
-{
-	double distance = oldDistance;
-	if (data)
-	{
-		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
-		if (mat->displacementTexture.IsLoaded())
-		{
-			CVector2<double> textureCoordinates;
-			textureCoordinates = cRenderWorker::TextureMapping(	point,
-																													CVector3(0.0, 0.0, 1.0),
-																													data->objectData[objectId],
-																													mat) + CVector2<double>(0.5, 0.5);
-			sRGBfloat bump3 = mat->displacementTexture.Pixel(textureCoordinates);
-			double bump = bump3.R;
-			distance -= bump * mat->displacementTextureHeight;
-			if (distance < 0.0)
-				distance = 0.0;
-		}
-	}
 	return distance;
 }
 

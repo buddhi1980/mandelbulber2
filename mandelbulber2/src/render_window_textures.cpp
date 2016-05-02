@@ -21,7 +21,7 @@
  */
 
 #include "render_window.hpp"
-#include "global_data.hpp"
+#include "interface.hpp"
 #include "preview_file_dialog.h"
 
 void RenderWindow::slotPressedButtonGetPaletteFromImage()

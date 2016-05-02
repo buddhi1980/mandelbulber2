@@ -22,16 +22,18 @@
 
 #include "main.hpp"
 #include "system.hpp"
-#include "fractparams.hpp"
 #include "interface.hpp"
 #include "initparameters.hpp"
 #include "fractal_list.hpp"
-#include "undo.h"
 #include "global_data.hpp"
 #include "settings.hpp"
 #include "command_line_interface.hpp"
 #include "headless.h"
 #include "error_message.hpp"
+#include "netrender.hpp"
+#include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
+#include "queue.hpp"
 
 #include <qapplication.h>
 

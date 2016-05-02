@@ -20,15 +20,9 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
 #include "cimage.hpp"
-
-#include <iostream>
-#include <new>
-#include <QtGui>
+#include <qpainter.h>
+#include <QtCore>
 
 cImage::cImage(int w, int h, sImageOptional optional, bool low_mem)
 {

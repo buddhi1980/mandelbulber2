@@ -2,7 +2,6 @@
 #define PREFERENCESDIALOG_H
 
 #include <QDialog>
-#include "../src/global_data.hpp"
 
 namespace Ui {
 	class cPreferencesDialog;

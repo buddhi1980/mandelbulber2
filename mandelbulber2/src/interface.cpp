@@ -21,32 +21,32 @@
  */
 
 #include "interface.hpp"
-#include "system.hpp"
-#include <QTextStream>
-#include <QtUiTools/QtUiTools>
-#include "fractal_list.hpp"
-#include <qpainter.h>
-#include "render_job.hpp"
+#include "initparameters.hpp"
+#include "fractal_container.hpp"
+#include "animation_frames.hpp"
+#include "keyframes.hpp"
+#include "netrender.hpp"
+#include "queue.hpp"
 #include "calculate_distance.hpp"
-#include "camera_target.hpp"
 #include "error_message.hpp"
 #include "my_ui_loader.h"
-#include <QDial>
 #include "render_ssao.h"
 #include "dof.hpp"
 #include "common_math.h"
 #include "undo.h"
-#include "initparameters.hpp"
 #include "global_data.hpp"
-#include "progress_text.hpp"
 #include "settings.hpp"
-#include "thumbnail.hpp"
-#include <QMessageBox>
 #include "../qt/mytabbar.h"
+#include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
+#include "projection_3d.hpp"
+#include "render_job.hpp"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
 #endif // USE_GAMEPAD
+
+cInterface *gMainInterface = NULL;
 
 //constructor of interface (loading of ui files)
 cInterface::cInterface()
@@ -3232,37 +3232,6 @@ void cInterface::MeasurementGetPoint()
 
 }
 
-//----------- functions outside cInterface class -------------
-
-double ImageScaleComboSelection2Double(int index)
-{
-	double scales[] = { 0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1 };
-	if (index < 7)
-	{
-		return scales[index];
-	}
-	else
-	{
-		qCritical() << "Wrong image scale";
-		return -1.0;
-	}
-}
-
-double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image)
-{
-	double scaleOut;
-	if (scale == 0.0)
-	{
-		double scale1 = (double) previewHeight / image->GetHeight();
-		double scale2 = (double) previewWidth / image->GetWidth();
-		scaleOut = min(scale1, scale2);
-	}
-	else
-	{
-		scaleOut = scale;
-	}
-	return scaleOut;
-}
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

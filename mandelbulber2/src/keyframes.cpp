@@ -23,6 +23,8 @@
 #include "keyframes.hpp"
 #include "animation_frames.hpp"
 
+cKeyframes *gKeyframes = NULL;
+
 cKeyframes::cKeyframes() :
 		cAnimationFrames()
 {

@@ -25,12 +25,13 @@
 #include <QtCore>
 
 #include "dof.hpp"
-#include "system.hpp"
+//#include "system.hpp"
 #include "render_worker.hpp"
 #include "progress_text.hpp"
-#include "error_message.hpp"
+//#include "error_message.hpp"
 #include "render_ssao.h"
 #include "global_data.hpp"
+#include "netrender.hpp"
 
 cRenderer::cRenderer(const cParamRender *_params, const cNineFractals *_fractal,
 		sRenderData *_renderData, cImage *_image) :

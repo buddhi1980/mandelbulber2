@@ -23,23 +23,17 @@
 #ifndef FRACTPARAMS_HPP_
 #define FRACTPARAMS_HPP_
 
-#include "texture.hpp"
-#include "cimage.hpp"
-#include "algebra.hpp"
-#include "primitives.h"
 #include "parameters.hpp"
-#include "commonparams.hpp"
-#include "fractal_container.hpp"
 #include "fractal.h"
+#include "fractal_container.hpp"
 #include "object_data.hpp"
+#include "image_adjustments.h"
+#include "primitives.h"
+#include "commonparams.hpp"
+#include "projection_3d.hpp"
 
 namespace params
 {
-enum enumPerspectiveType
-{
-	perspThreePoint = 0, perspFishEye = 1, perspEquirectangular = 2, perspFishEyeCut = 3
-};
-
 enum enumAOMode
 {
 	AOmodeFast = 0, AOmodeMultipeRays = 1, AOmodeScreenSpace = 2

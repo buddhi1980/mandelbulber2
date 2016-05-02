@@ -23,27 +23,29 @@
 #ifndef SRC_GLOBAL_DATA_HPP_
 #define SRC_GLOBAL_DATA_HPP_
 
-#include "parameters.hpp"
-#include "fractal_container.hpp"
-#include "animation_frames.hpp"
-#include "animation_flight.hpp"
-#include "animation_keyframes.hpp"
-#include "keyframes.hpp"
-#include "interface.hpp"
-#include "netrender.hpp"
-#include "queue.hpp"
-#include "error_message.hpp"
+#include <qapplication.h>
 
-extern cParameterContainer *gPar;
-extern cFractalContainer *gParFractal;
-extern cAnimationFrames *gAnimFrames;
-extern cKeyframes *gKeyframes;
-extern cInterface *gMainInterface;
-extern cFlightAnimation *gFlightAnimation;
-extern cKeyframeAnimation *gKeyframeAnimation;
+//#include "parameters.hpp"
+//#include "fractal_container.hpp"
+//#include "animation_frames.hpp"
+//#include "animation_flight.hpp"
+//#include "animation_keyframes.hpp"
+//#include "keyframes.hpp"
+//#include "interface.hpp"
+//#include "netrender.hpp"
+//#include "queue.hpp"
+//#include "error_message.hpp"
+//
+//extern cParameterContainer *gPar;
+//extern cFractalContainer *gParFractal;
+//extern cAnimationFrames *gAnimFrames;
+//extern cKeyframes *gKeyframes;
+//extern cInterface *gMainInterface;
+//extern cFlightAnimation *gFlightAnimation;
+//extern cKeyframeAnimation *gKeyframeAnimation;
 extern QApplication *gApplication;
-extern CNetRender *gNetRender;
-extern cQueue *gQueue;
-extern cErrorMessage *gErrorMessage;
+//extern CNetRender *gNetRender;
+//extern cQueue *gQueue;
+//extern cErrorMessage *gErrorMessage;
 
 #endif /* SRC_GLOBAL_DATA_HPP_ */

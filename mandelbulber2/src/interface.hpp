@@ -112,7 +112,6 @@ public:
 
 };
 
-double ImageScaleComboSelection2Double(int index);
-double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
+extern cInterface *gMainInterface;
 
 #endif /* INTERFACE_HPP_ */

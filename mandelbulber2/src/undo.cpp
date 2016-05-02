@@ -24,7 +24,7 @@
 #include "error_message.hpp"
 #include "system.hpp"
 #include "settings.hpp"
-#include "global_data.hpp"
+#include "initparameters.hpp"
 
 cUndo gUndo;
 

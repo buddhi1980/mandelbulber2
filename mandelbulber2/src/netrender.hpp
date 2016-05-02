@@ -29,8 +29,7 @@
 #include <QTcpServer>
 #include "parameters.hpp"
 #include "fractal_container.hpp"
-#include "fractparams.hpp"
-#include "scheduler.hpp"
+#include "render_data.hpp"
 
 class CNetRender: public QObject
 {
@@ -229,6 +228,6 @@ signals:
 	void NewStatusServer();
 };
 
-extern CNetRender *netRender;
+extern CNetRender *gNetRender;
 
 #endif /* NETRENDER_HPP_ */

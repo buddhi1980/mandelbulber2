@@ -24,7 +24,9 @@
 #define THUMBNAIL_HPP_
 
 #include <QtCore>
-#include "render_job.hpp"
+#include "parameters.hpp"
+#include "fractal_container.hpp"
+#include "cimage.hpp"
 
 class cThumbnail
 {

@@ -21,11 +21,11 @@
  */
 
 #include "primitives.h"
-#include <math.h>
+#include "displacement_map.hpp"
 #include "system.hpp"
-#include "common_math.h"
-#include "render_worker.hpp"
-#include "calculate_distance.hpp"
+//#include "common_math.h"
+//#include "render_worker.hpp"
+//#include "calculate_distance.hpp"
 
 using namespace fractal;
 

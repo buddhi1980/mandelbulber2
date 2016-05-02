@@ -20,11 +20,8 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#include <stdio.h>
-#include <cstring>
 #include "texture.hpp"
 #include "files.h"
-#include "system.hpp"
 #include "error_message.hpp"
 #include "common_math.h"
 

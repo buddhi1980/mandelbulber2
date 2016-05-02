@@ -31,6 +31,8 @@
 #include <QtCore>
 #include "material.h"
 
+cParameterContainer *gPar = NULL;
+
 //definition of all parameters
 void InitParams(cParameterContainer *par)
 {

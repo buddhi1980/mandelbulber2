@@ -25,8 +25,7 @@
 
 #include "fractparams.hpp"
 #include "render_data.hpp"
-#include <QProgressBar>
-#include <QStatusBar>
+#include "cimage.hpp"
 
 class cRenderSSAO : public QObject
 {

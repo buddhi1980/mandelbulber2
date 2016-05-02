@@ -21,9 +21,11 @@
  */
 
 #include "thumbnail.hpp"
-#include "file_image.hpp"
 #include <QFileInfo>
 #include "settings.hpp"
+#include "system.hpp"
+#include "render_job.hpp"
+#include "file_image.hpp"
 
 cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal,
 		int _width, int _height, const QString &_hash = QString()) :

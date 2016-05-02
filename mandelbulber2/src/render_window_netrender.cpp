@@ -21,7 +21,9 @@
  */
 
 #include "render_window.hpp"
-#include "global_data.hpp"
+#include "interface.hpp"
+#include "netrender.hpp"
+#include "initparameters.hpp"
 
 void RenderWindow::slotNetRenderServerStart()
 {

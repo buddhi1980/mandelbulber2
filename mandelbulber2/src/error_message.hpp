@@ -47,5 +47,7 @@ public slots:
 			NULL);
 };
 
+extern cErrorMessage *gErrorMessage;
+
 #endif /* ERROR_MESSAGE_HPP_ */
 

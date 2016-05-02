@@ -26,6 +26,11 @@
 #include "old_settings.hpp"
 #include "preview_file_dialog.h"
 #include "file_image.hpp"
+#include "interface.hpp"
+#include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
+#include "initparameters.hpp"
+#include "files.h"
 
 void RenderWindow::slotImportOldSettings()
 {

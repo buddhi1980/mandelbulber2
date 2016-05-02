@@ -21,10 +21,17 @@
  */
 
 #include "command_line_interface.hpp"
-#include "global_data.hpp"
-#include "settings.hpp"
+#include "system.hpp"
+#include "initparameters.hpp"
+#include "fractal_container.hpp"
 #include "headless.h"
 #include "error_message.hpp"
+#include "global_data.hpp"
+#include "queue.hpp"
+#include "netrender.hpp"
+#include "animation_frames.hpp"
+#include "keyframes.hpp"
+#include "settings.hpp"
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 {

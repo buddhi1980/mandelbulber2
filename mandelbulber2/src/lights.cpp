@@ -21,7 +21,6 @@
  */
 
 #include "lights.hpp"
-#include <stdlib.h>
 #include "calculate_distance.hpp"
 #include "system.hpp"
 #include "common_math.h"

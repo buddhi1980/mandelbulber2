@@ -8,7 +8,7 @@
 #include "../qt/material_widget.h"
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
-#include "../src/global_data.hpp"
+#include "../src/system.hpp"
 
 cMaterialWidget::cMaterialWidget(QWidget *parent) :
 		cThumbnailWidget(128, 128, 2, parent)

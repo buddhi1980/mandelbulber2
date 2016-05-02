@@ -24,10 +24,10 @@
 #define RENDER_JOB_HPP_
 
 #include "parameters.hpp"
+#include "fractal_container.hpp"
 #include "cimage.hpp"
-#include "render_image.hpp"
-#include <QProgressBar>
-#include <QStatusBar>
+#include "rendering_configuration.hpp"
+#include "render_data.hpp"
 #include "camera_target.hpp"
 
 class cRenderJob : public QObject

@@ -21,8 +21,6 @@
  */
 
 #include "parameters.hpp"
-#include "one_parameter.hpp"
-#include <QtCore>
 #include <QtAlgorithms>
 #include <algorithm>
 

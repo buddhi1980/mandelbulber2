@@ -22,7 +22,7 @@
 
 #include "rendering_configuration.hpp"
 #include "system.hpp"
-#include "global_data.hpp"
+#include "netrender.hpp"
 
 cRenderingConfiguration::cRenderingConfiguration()
 {

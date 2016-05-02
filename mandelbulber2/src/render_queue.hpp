@@ -26,7 +26,7 @@
 #include "rendered_image_widget.hpp"
 #include "animation_keyframes.hpp"
 #include "animation_flight.hpp"
-#include "nine_fractals.hpp"
+#include "fractal_container.hpp"
 
 #ifndef MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 #define MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
@@ -61,5 +61,7 @@ private:
 	cKeyframeAnimation *queueKeyframeAnimation;
 	cKeyframes *queueKeyframes;
 };
+
+
 
 #endif /* MANDELBULBER2_SRC_RENDER_QUEUE_HPP_ */

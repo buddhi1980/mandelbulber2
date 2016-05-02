@@ -21,8 +21,8 @@
  */
 
 #include "color_palette_widget.h"
-#include "../src/parameters.hpp"
-#include "../src/global_data.hpp"
+#include "../src/animation_flight.hpp"
+#include "../src/animation_keyframes.hpp"
 
 ColorPaletteWidget::ColorPaletteWidget(QWidget *parent) :	QWidget(parent)
 {

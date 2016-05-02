@@ -25,7 +25,7 @@
 
 #include "files.h"
 #include "error_message.hpp"
-#include "global_data.hpp"
+#include "initparameters.hpp"
 
 using namespace std;
 

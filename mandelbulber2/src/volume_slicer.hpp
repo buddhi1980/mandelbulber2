@@ -23,9 +23,8 @@
 #ifndef VOLUME_SLICER_H_
 #define VOLUME_SLICER_H_
 
+#include <QtCore>
 #include "algebra.hpp"
-#include "global_data.hpp"
-#include "system.hpp"
 
 class cVolumeSlicer: public QObject
 {

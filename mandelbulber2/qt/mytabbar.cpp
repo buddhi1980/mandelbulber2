@@ -21,9 +21,7 @@
  */
 
 #include "mytabbar.h"
-#include "../src/parameters.hpp"
-#include <QLineEdit>
-#include "../src/global_data.hpp"
+#include <QtWidgets/QtWidgets>
 
 MyTabBar::MyTabBar(QWidget *parent) :	QTabBar(parent)
 {

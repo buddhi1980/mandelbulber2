@@ -27,7 +27,6 @@
 #include <QtCore>
 #include "../qt/ui_render_window.h"
 #include <QSettings>
-#include "cimage.hpp"
 #include "statistics.h"
 #include "progress_text.hpp"
 #include <qmessagebox.h>

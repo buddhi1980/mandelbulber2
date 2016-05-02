@@ -27,6 +27,9 @@
 #include "settings.hpp"
 #include "../qt/preferencesdialog.h"
 #include "../qt/volume_slice_dialog.h"
+#include "interface.hpp"
+#include "error_message.hpp"
+#include "image_scale.hpp"
 
 void RenderWindow::slotStartRender(void)
 {
