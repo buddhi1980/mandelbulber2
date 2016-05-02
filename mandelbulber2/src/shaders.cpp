@@ -487,7 +487,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			if (opacity > 0)
 			{
 				//fog colour
-				double iterFactor1 = (double) (L - params->iterFogOpacityTrim)
+				double iterFactor1 = (L - params->iterFogOpacityTrim)
 						/ (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
 				double k = iterFactor1;
 				if (k > 1.0) k = 1.0;
@@ -497,7 +497,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				double fogColG = (params->iterFogColour1.G * kn + params->iterFogColour2.G * k);
 				double fogColB = (params->iterFogColour1.B * kn + params->iterFogColour2.B * k);
 
-				double iterFactor2 = (double) (L - params->iterFogColor1Maxiter)
+				double iterFactor2 = (L - params->iterFogColor1Maxiter)
 						/ (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
 				double k2 = iterFactor2;
 				if (k2 < 0.0) k2 = 0.0;
@@ -1155,7 +1155,7 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance,
 double cRenderWorker::IterOpacity(const double step, double iters, double maxN, double trim,
 		double opacitySp)
 {
-	double opacity = ((double) iters - trim) / maxN;
+	double opacity = (iters - trim) / maxN;
 	if (opacity < 0.0) opacity = 0.0;
 	opacity *= opacity;
 	opacity *= step * opacitySp;

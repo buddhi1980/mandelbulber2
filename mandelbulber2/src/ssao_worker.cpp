@@ -153,15 +153,15 @@ void cSSAOWorker::doWork()
 						double xx = x + rr * ca;
 						double yy = y + rr * sa;
 
-						if ((int) xx == (int) x && (int) yy == (int) y) continue;
+						if ((int) xx == x && (int) yy == y) continue;
 						if (xx < 0 || xx > width - 1 || yy < 0 || yy > height - 1) continue;
 						double z2 = image->GetPixelZBuffer(xx, yy);
 
 						double xx2, yy2;
 						if (perspectiveType == params::perspFishEye)
 						{
-							xx2 = M_PI * ((double) xx / width - 0.5) * aspectRatio;
-							yy2 = M_PI * ((double) yy / height - 0.5);
+							xx2 = M_PI * (xx / width - 0.5) * aspectRatio;
+							yy2 = M_PI * (yy / height - 0.5);
 							double r2 = sqrt(xx2 * xx2 + yy2 * yy2);
 							if (r != 0.0)
 							{

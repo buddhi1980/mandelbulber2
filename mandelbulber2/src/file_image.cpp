@@ -1133,7 +1133,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filename, cImage* image, structSaveImag
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
 						unsigned short* typedColorPtr = (unsigned short*) &colorPtr[ptr];
-						*typedColorPtr = (unsigned short) (image->GetPixelAlpha(x, y));
+						*typedColorPtr = image->GetPixelAlpha(x, y);
 					}
 					else
 					{
@@ -1142,7 +1142,7 @@ bool ImageFileSaveTIFF::SaveTIFF(QString filename, cImage* image, structSaveImag
 							image->ConvertAlphaTo8bit();
 						}
 						unsigned char* typedColorPtr = (unsigned char*) &colorPtr[ptr];
-						*typedColorPtr = (unsigned char) (image->GetPixelAlpha8(x, y));
+						*typedColorPtr = image->GetPixelAlpha8(x, y);
 					}
 				}
 					break;

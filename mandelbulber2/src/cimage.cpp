@@ -293,8 +293,8 @@ int cImage::GetUsedMB(void)
 		optionalSize += (long int) width * height * sizeof(sRGB16);
 		optionalSize += (long int) width * height * sizeof(sRGB8);
 	}
-	mb = (long int) (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size
-			+ imageFloatSize + colorSize + opacitySize + optionalSize) / 1024 / 1024;
+	mb = (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size
+		  + imageFloatSize + colorSize + opacitySize + optionalSize) / 1024 / 1024;
 
 	return mb;
 }
@@ -322,7 +322,7 @@ unsigned char* cImage::ConvertAlphaTo8bit(void)
 	{
 		alphaBuffer8[i] = alphaBuffer16[i] / 256;
 	}
-	return (unsigned char*) alphaBuffer8;
+	return alphaBuffer8;
 }
 
 unsigned char* cImage::ConvertNormalto16Bit(void)

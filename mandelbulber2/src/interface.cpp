@@ -2446,8 +2446,8 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 			mRot.RotateX(sweetSpotVAngle);
 
 			CVector2<double> normalizedPoint;
-			normalizedPoint.x = ((double) imagePoint.x / width - 0.5) * aspectRatio;
-			normalizedPoint.y = ((double) imagePoint.y / height - 0.5) * (-1.0) * reverse;
+			normalizedPoint.x = (imagePoint.x / width - 0.5) * aspectRatio;
+			normalizedPoint.y = (imagePoint.y / height - 0.5) * (-1.0) * reverse;
 
 			viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
 

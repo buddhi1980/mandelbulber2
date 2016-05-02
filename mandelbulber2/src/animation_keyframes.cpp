@@ -1084,7 +1084,7 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
 			+ QString("%1").arg(frameIndex, 5, 10, QChar('0'));
 	filename += "." + ImageFileSave::ImageFileExtension(
-				(ImageFileSave::enumImageFileType) params->Get<double>("keyframe_animation_image_type"));
+				(ImageFileSave::enumImageFileType) params->Get<int>("keyframe_animation_image_type"));
 	return filename;
 }
 

@@ -1257,7 +1257,7 @@ QString cFlightAnimation::GetFlightFilename(int index)
 	QString filename = params->Get<QString>("anim_flight_dir") + "frame_"
 			+ QString("%1").arg(index, 5, 10, QChar('0'));
 	filename += "." + ImageFileSave::ImageFileExtension(
-				(ImageFileSave::enumImageFileType) params->Get<double>("flight_animation_image_type"));
+				(ImageFileSave::enumImageFileType) params->Get<int>("flight_animation_image_type"));
 	return filename;
 }
 
