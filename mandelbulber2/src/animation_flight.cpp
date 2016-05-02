@@ -308,10 +308,11 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	//vector for speed and rotation control
 	CVector3 cameraSpeed;
 	CVector3 cameraAcceleration;
-	CVector3 cameraAccelerationRotation;
 	CVector3 cameraAngularSpeed;
 	CVector3 cameraAngularAcceleration;
-	CVector3 cameraRotation;
+
+	// CVector3 cameraAccelerationRotation; TODO: remove or use
+	// CVector3 cameraRotation;
 
 	int index = 0;
 	if (continueRecording)
@@ -333,8 +334,6 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	double rotationSpeedSp = params->Get<double>("flight_rotation_speed") / 100.0;
 	double rollSpeedSp = params->Get<double>("flight_roll_speed") / 100.0;
 	double inertia = params->Get<double>("flight_inertia");
-
-	QString framesDir = params->Get<QString>("anim_flight_dir");
 
 	recordPause = false;
 
@@ -737,8 +736,6 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	renderJob->Init(cRenderJob::flightAnim, config);
 	*stopRequest = false;
-
-	QString framesDir = params->Get<QString>("anim_flight_dir");
 
 	cProgressText progressText;
 	progressText.ResetTimer();

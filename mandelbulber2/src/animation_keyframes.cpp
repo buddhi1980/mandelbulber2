@@ -541,9 +541,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	renderJob->Init(cRenderJob::keyframeAnim, config);
 
-	//destination for frames
-	QString framesDir = params->Get<QString>("anim_keyframe_dir");
-
 	cProgressText progressText;
 	progressText.ResetTimer();
 
@@ -1254,9 +1251,6 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 	//updating parameters
 	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
 	gUndo.Store(params, fractalParams, NULL, keyframes);
-
-	cParameterContainer tempPar = *params;
-	cFractalContainer tempFractPar = *fractalParams;
 
 	double constDist = params->Get<double>("keyframe_constant_target_distance");
 

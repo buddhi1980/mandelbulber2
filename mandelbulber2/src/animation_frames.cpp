@@ -258,10 +258,10 @@ void cAnimationFrames::GetFrameAndConsolidate(int index, cParameterContainer *pa
 		{
 			cParameterContainer *container = ContainerSelector(listOfParameters[i].containerName,
 																												 params,
-																												 fractal);
+																								 fractal);
 			QString parameterName = listOfParameters[i].parameterName;
 			cOneParameter oneParameter =
-					frames[index].parameters.GetAsOneParameter(listOfParameters[i].containerName + "_"
+					frame.GetAsOneParameter(listOfParameters[i].containerName + "_"
 							+ parameterName);
 			container->SetFromOneParameter(parameterName, oneParameter);
 		}

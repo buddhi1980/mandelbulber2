@@ -74,8 +74,6 @@ cRenderWorker::~cRenderWorker()
 void cRenderWorker::doWork(void)
 {
 	// here will be rendering thread
-	QTextStream out(stdout);
-
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 	double aspectRatio = (double) width / height;
@@ -139,7 +137,6 @@ void cRenderWorker::doWork(void)
 			//---------------- 1us -------------
 
 			//Ray marching
-			CVector3 point;
 			CVector3 startRay = start;
 			sRGBAfloat resultShader;
 			sRGBAfloat objectColour;

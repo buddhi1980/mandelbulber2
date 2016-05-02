@@ -912,7 +912,6 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		enumReadWrite mode)
 {
-	QTextStream out(stdout);
 
 	//----------- QLineEdit -------------------
 	{
@@ -921,7 +920,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 		for (it = widgetListLineEdit.begin(); it != widgetListLineEdit.end(); ++it)
 		{
-			//out << "QLineEdit:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//qDebug() << "QLineEdit:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 
 			QString name = (*it)->objectName();
 			QString className = (*it)->metaObject()->className();
@@ -929,12 +928,12 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					&& (className == QString("QLineEdit") || className == QString("MyLineEdit")))
 			{
 				QLineEdit *lineEdit = *it;
-				QString text = lineEdit->text();
-				//out << name << " - text: " << text << endl;
+				// QString text = lineEdit->text();
+				//qDebug() << name << " - text: " << text << endl;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
-				//out << name << " - type: " << type << endl;
+				//qDebug() << name << " - type: " << type << endl;
 
 				if (className == QString("MyLineEdit"))
 				{
@@ -952,7 +951,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					if (mode == read)
 					{
 						double value = systemData.locale.toDouble(lineEdit->text());
-						//out << nameVect << " - " << lastChar << " axis = " << value << endl;
+						//qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
 						CVector3 vect = par->Get<CVector3>(nameVect);
 
 						switch (lastChar)
@@ -1014,7 +1013,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					if (mode == read)
 					{
 						double value = systemData.locale.toDouble(lineEdit->text());
-						//out << nameVect << " - " << lastChar << " axis = " << value << endl;
+						//qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
 						CVector4 vect = par->Get<CVector4>(nameVect);
 
 						switch (lastChar)
@@ -1116,7 +1115,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//qDebug() << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			QString className = (*it)->metaObject()->className();
 			if (name.length() > 1
 					&& (className == QString("QDoubleSpinBox") || className == QString("MyDoubleSpinBox")))
@@ -1279,7 +1278,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//qDebug() << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			QString className = (*it)->metaObject()->className();
 			if (name.length() > 1
 					&& (className == QString("QSpinBox") || className == QString("MySpinBox")))
@@ -1319,7 +1318,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			//out << "QCheckBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//qDebug() << "QCheckBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			QString className = (*it)->metaObject()->className();
 			if (name.length() > 1
 					&& (className == QString("QCheckBox") || className == QString("MyCheckBox")))
@@ -1360,7 +1359,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			//out << "QGroupBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//qDebug() << "QGroupBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			QString className = (*it)->metaObject()->className();
 			if (name.length() > 1
 					&& (className == QString("QGroupBox") || className == QString("MyGroupBox")))
@@ -1401,7 +1400,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			QString className = (*it)->metaObject()->className();
+			// QString className = (*it)->metaObject()->className();
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("FileSelectWidget"))
 			{
 				QString type, parameterName;
@@ -1430,7 +1429,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			QString className = (*it)->metaObject()->className();
+			// QString className = (*it)->metaObject()->className();
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("MyColorButton"))
 			{
 				QString type, parameterName;
@@ -1461,7 +1460,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		for (it = widgetListColorPalette.begin(); it != widgetListColorPalette.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			//out << "ColorPalette:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//qDebug() << "ColorPalette:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("ColorPaletteWidget"))
 			{
 				ColorPaletteWidget *colorPaletteWidget = *it;
@@ -1496,7 +1495,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			//out << "QComboBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//qDebug() << "QComboBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QComboBox"))
 			{
 				QComboBox *comboBox = *it;
@@ -2297,7 +2296,7 @@ void cInterface::RefreshMainImage()
 	{
 		cParamRender params(gPar);
 		sRenderData data;
-		cRenderingConfiguration config;
+		// cRenderingConfiguration config;
 		data.stopRequest = &stopRequest;
 		cRenderSSAO rendererSSAO(&params, &data, mainImage);
 		QObject::connect(&rendererSSAO,
@@ -2312,7 +2311,7 @@ void cInterface::RefreshMainImage()
 	if (gPar->Get<bool>("DOF_enabled"))
 	{
 		cParamRender params(gPar);
-		cRenderingConfiguration config;
+		// cRenderingConfiguration config;
 		cPostRenderingDOF dof(mainImage);
 		QObject::connect(&dof,
 										 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),

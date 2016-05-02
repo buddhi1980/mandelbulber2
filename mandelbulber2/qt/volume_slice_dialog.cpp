@@ -142,5 +142,6 @@ void cVolumeSliceDialog::closeEvent(QCloseEvent * event)
 
 void cVolumeSliceDialog::showEvent(QShowEvent * event)
 {
+	(void) event;
 	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
 }
