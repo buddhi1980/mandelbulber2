@@ -29,7 +29,7 @@
 #include <QCheckBox>
 #include <QProgressBar>
 #include <QPushButton>
-#include "thumbnail_widget.h"
+#include "../qt/thumbnail_widget.h"
 
 class PreviewFileDialog: public QFileDialog
 {

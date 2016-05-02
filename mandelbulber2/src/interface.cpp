@@ -42,7 +42,7 @@
 #include "settings.hpp"
 #include "thumbnail.hpp"
 #include <QMessageBox>
-#include "mytabbar.h"
+#include "../qt/mytabbar.h"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>

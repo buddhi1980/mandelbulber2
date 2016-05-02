@@ -29,7 +29,7 @@
 #include "headless.h"
 #include <QFileDialog>
 #include <QMessageBox>
-#include "thumbnail_widget.h"
+#include "../qt/thumbnail_widget.h"
 #include <QInputDialog>
 #include "undo.h"
 

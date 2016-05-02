@@ -25,8 +25,8 @@
 #include "my_ui_loader.h"
 #include "initparameters.hpp"
 #include "settings.hpp"
-#include "preferencesdialog.h"
-#include "volume_slice_dialog.h"
+#include "../qt/preferencesdialog.h"
+#include "../qt/volume_slice_dialog.h"
 
 void RenderWindow::slotStartRender(void)
 {

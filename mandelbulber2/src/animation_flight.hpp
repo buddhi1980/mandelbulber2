@@ -25,7 +25,7 @@
 
 #include "keyframes.hpp"
 #include "interface.hpp"
-#include "thumbnail_widget.h"
+#include "../qt/thumbnail_widget.h"
 #include "files.h"
 #include "error_message.hpp"
 

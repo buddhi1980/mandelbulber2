@@ -26,7 +26,7 @@
 #include "thumbnail.hpp"
 #include "settings.hpp"
 #include "initparameters.hpp"
-#include "thumbnail_widget.h"
+#include "../qt/thumbnail_widget.h"
 #include "progress_text.hpp"
 #include "global_data.hpp"
 
