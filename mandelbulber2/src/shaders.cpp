@@ -414,19 +414,18 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				const cLights::sLight* light = data->lights.GetLight(i - 1);
 				if (light->enabled && params->volumetricLightEnabled[i])
 				{
-					CVector3 d = light->position - point;
-					double distance = d.Length();
-					double distance2 = distance * distance;
-					CVector3 lightVectorTemp = d;
+					CVector3 lightVectorTemp = light->position - point;
+					double distanceLight = lightVectorTemp.Length();
+					double distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp.Normalize();
-					double lightShadow = AuxShadow(input2, distance, lightVectorTemp);
+					double lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp);
 					output.R += lightShadow * light->colour.R / 65536.0 * params->volumetricLightIntensity[i]
-							* step / distance2;
+							* step / distanceLight2;
 					output.G += lightShadow * light->colour.G / 65536.0 * params->volumetricLightIntensity[i]
-							* step / distance2;
+							* step / distanceLight2;
 					output.B += lightShadow * light->colour.B / 65536.0 * params->volumetricLightIntensity[i]
-							* step / distance2;
-					output.A += lightShadow * params->volumetricLightIntensity[i] * step / distance2;
+							* step / distanceLight2;
+					output.A += lightShadow * params->volumetricLightIntensity[i] * step / distanceLight2;
 				}
 			}
 		}
@@ -530,16 +529,15 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 						const cLights::sLight* light = data->lights.GetLight(i - 1);
 						if (light->enabled)
 						{
-							CVector3 d = light->position - point;
-							double distance = d.Length();
-							double distance2 = distance * distance;
-							CVector3 lightVectorTemp = d;
+							CVector3 lightVectorTemp = light->position - point;
+							double distanceLight = lightVectorTemp.Length();
+							double distanceLight2 = distanceLight * distanceLight;
 							lightVectorTemp.Normalize();
-							double lightShadow = AuxShadow(input2, distance, lightVectorTemp);
+							double lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp);
 							double intensity = light->intensity * 100.0;
-							newColour.R += lightShadow * light->colour.R / 65536.0 / distance2 * intensity;
-							newColour.G += lightShadow * light->colour.G / 65536.0 / distance2 * intensity;
-							newColour.B += lightShadow * light->colour.B / 65536.0 / distance2 * intensity;
+							newColour.R += lightShadow * light->colour.R / 65536.0 / distanceLight2 * intensity;
+							newColour.G += lightShadow * light->colour.G / 65536.0 / distanceLight2 * intensity;
+							newColour.B += lightShadow * light->colour.B / 65536.0 / distanceLight2 * intensity;
 						}
 					}
 
@@ -1042,9 +1040,9 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLig
 	//calculate shadow
 	if ((shade > 0.01 || shade2 > 0.01) && params->shadow)
 	{
-		double light = AuxShadow(input, distance, lightVector);
-		shade *= light;
-		shade2 *= light;
+		double auxShadow = AuxShadow(input, distance, lightVector);
+		shade *= auxShadow;
+		shade2 *= auxShadow;
 	}
 	else
 	{

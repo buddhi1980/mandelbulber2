@@ -1821,8 +1821,8 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *frac
 		z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
-			CVector3 temp = z;
-			double tempL = temp.Length();
+			CVector3 temp2 = z;
+			double tempL = temp2.Length();
 			z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
 			//if (tempL < 1e-21) tempL = 1e-21;
 			double avgScale = z.Length()/tempL;

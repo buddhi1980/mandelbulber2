@@ -73,7 +73,6 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 			if (parameterContainer)
 			{
 				QString parName = parameterName;
-				QString type = GetType(objectName());
 				if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
 					parName = parameterName.left(parameterName.length() - 2);
 
@@ -86,7 +85,6 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 			if (parameterContainer)
 			{
 				QString parName = parameterName;
-				QString type = GetType(objectName());
 				if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
 					parName = parameterName.left(parameterName.length() - 2);
 

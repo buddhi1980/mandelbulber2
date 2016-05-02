@@ -300,9 +300,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
-	double maxRenderTime = params->Get<double>("flight_sec_per_frame");
-	;
-	config.SetMaxRenderTime(maxRenderTime);
+	config.SetMaxRenderTime(params->Get<double>("flight_sec_per_frame"));
 
 	renderJob->Init(cRenderJob::flightAnimRecord, config);
 	mainInterface->stopRequest = false;
@@ -331,7 +329,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	cCameraTarget cameraTarget(cameraPosition, target, top);
 
 	linearSpeedSp = params->Get<double>("flight_speed");
-	enumSpeedMode speedMode = (enumSpeedMode) params->Get<double>("flight_speed_control");
+	enumSpeedMode speedMode = (enumSpeedMode) params->Get<int>("flight_speed_control");
 	double rotationSpeedSp = params->Get<double>("flight_rotation_speed") / 100.0;
 	double rollSpeedSp = params->Get<double>("flight_roll_speed") / 100.0;
 	double inertia = params->Get<double>("flight_inertia");
@@ -369,9 +367,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			rollSpeedSp = params->Get<double>("flight_roll_speed") / 100.0;
 			inertia = params->Get<double>("flight_inertia");
 
-			double maxRenderTime = params->Get<double>("flight_sec_per_frame");
-			;
-			config.SetMaxRenderTime(maxRenderTime);
+			config.SetMaxRenderTime(params->Get<double>("flight_sec_per_frame"));
 			renderJob->UpdateConfig(config);
 
 			if (mainInterface->stopRequest) break;
@@ -1076,7 +1072,7 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 			if (!thumbWidget)
 			{
-				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+				thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 				thumbWidget->UseOneCPUCore(true);
 				thumbWidget->AssignParameters(tempPar, tempFract);
 				table->setCellWidget(0, column, thumbWidget);

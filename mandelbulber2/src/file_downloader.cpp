@@ -75,8 +75,8 @@ void cFileDownloader::downloadFilelist()
 void cFileDownloader::filelistDownloaded()
 {
 	// read filelist content and determine files to download
-	QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
-	QString fileListContent = reply->readAll();
+	QNetworkReply *replyList = qobject_cast<QNetworkReply*>(sender());
+	QString fileListContent = replyList->readAll();
 	QStringList tempList = fileListContent.split("\n");
 
 	for(int i = 0; i < tempList.size(); i++){
@@ -93,7 +93,7 @@ void cFileDownloader::filelistDownloaded()
 	// process all files to download
 	for(int i = 0; i < this->filesToDownload.size(); i++){
 		QString file = this->filesToDownload.at(i);
-		QNetworkReply *reply = network->get(
+		QNetworkReply *replyFile = network->get(
 					QNetworkRequest(QUrl(sourceBaseURL + "/" + file)));
 		if(tempFile)
 		{
@@ -106,7 +106,7 @@ void cFileDownloader::filelistDownloaded()
 		}
 		else
 		{
-			connect(reply, SIGNAL(finished()),
+			connect(replyFile, SIGNAL(finished()),
 							this, SLOT(fileDownloaded()));
 			while(!currentFileFinished)
 			{

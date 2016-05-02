@@ -1096,13 +1096,13 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 				{
 					if (mode == read)
 					{
-						QString text = lineEdit->text();
-						par->Set(parameterName, text);
+						QString value = lineEdit->text();
+						par->Set(parameterName, value);
 					}
 					else if (mode == write)
 					{
-						QString text = par->Get<QString>(parameterName);
-						lineEdit->setText(text);
+						QString value = par->Get<QString>(parameterName);
+						lineEdit->setText(value);
 					}
 				}
 			}

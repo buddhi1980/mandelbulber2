@@ -69,7 +69,6 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 	}
 	else
 	{
-		QTextStream out(stdout);
 		QString header;
 		if (messageType == warningMessage)
 		{
