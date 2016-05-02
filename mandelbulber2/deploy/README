@@ -48,6 +48,14 @@ make
 make docs
 sudo make install
 
+2.1. Alternative compilation with cmake
+
+note: compilation with cmake is only beta and not feature complete
+
+in order to compile OpenEXR with cmake the ECM should be present
+to install on debian/ubuntu:
+sudo apt-get install extra-cmake-modules
+
 3. INSTALLATION
 ---------------
 
@@ -63,9 +71,11 @@ please type:
 - Ubuntu 14.10
 - Linux Mint 17.2
 - Chakra 2016.02 "Ian"
+- Raspbian
 
-- gcc 5.3.1
+- gcc5.3.1
 - clang 3.7.0
+
 - Qt 5.5.1
 
 5. USAGE
