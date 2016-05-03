@@ -72,15 +72,6 @@ void RenderWindow::slotPressedButtonNewPrimitive()
   gMainInterface->NewPrimitive(primitiveName);
 }
 
-void RenderWindow::slotPressedButtonNewRandomPalette()
-{
-//  gMainInterface->SynchronizeInterfaceWindow(ui->groupCheck_use_colors_from_palette, gPar, cInterface::read); //TODO new palette will work for actual material
-//  cColorPalette palette(gPar->Get<int>("coloring_palette_size"),
-//                        gPar->Get<int>("coloring_random_seed"),
-//                        gPar->Get<double>("coloring_saturation"));
-//  ui->colorpalette_surface_color_palette->SetPalette(palette);
-}
-
 void RenderWindow::slotPressedButtonOptimizeForLQ()
 {
   gMainInterface->OptimizeStepFactor(1.0);
@@ -93,14 +84,6 @@ void RenderWindow::slotPressedButtonOptimizeForMQ()
 void RenderWindow::slotPressedButtonOptimizeForHQ()
 {
   gMainInterface->OptimizeStepFactor(0.01);
-}
-
-void RenderWindow::slotPressedButtonRandomize()
-{
-//  srand((unsigned int) clock());
-//  int seed = Random(999999);
-//  ui->spinboxInt_coloring_random_seed->setValue(seed);
-//  slotPressedButtonNewRandomPalette();
 }
 
 void RenderWindow::slotPressedButtonResetFormula()

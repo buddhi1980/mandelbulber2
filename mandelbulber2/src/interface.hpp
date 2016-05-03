@@ -66,7 +66,6 @@ public:
 	void IFSDefaultsMengerSponge(cParameterContainer *parFractal);
 	void IFSDefaultsReset(cParameterContainer *parFractal);
 	void RefreshMainImage();
-	cColorPalette GetPaletteFromImage(const QString &filename);
 	void AutoFog();
 	double GetDistanceForPoint(CVector3 point);
 	double GetDistanceForPoint(CVector3 point, cParameterContainer *par, cFractalContainer *parFractal);

@@ -100,7 +100,6 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/render_window_gamepad.cpp\
 			../src/render_window_netrender.cpp\
 			../src/render_window_slots.cpp\
-			../src/render_window_textures.cpp\
 			../src/render_worker.cpp\
 			../src/rendering_configuration.cpp\
 			../src/scheduler.cpp\

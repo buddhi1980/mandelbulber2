@@ -10,6 +10,9 @@
 
 #include <QWidget>
 
+#include "../src/color_palette.hpp"
+#include "../src/parameters.hpp"
+
 namespace Ui {
 	class cMaterialEditor;
 }
@@ -21,9 +24,24 @@ class cMaterialEditor : public QWidget
 public:
 	explicit cMaterialEditor(QWidget *parent = NULL);
 	~cMaterialEditor();
+	void AssignMaterial(cParameterContainer *params, int index);
+
+private slots:
+void slotPressedButtonNewRandomPalette();
+void slotPressedButtonGetPaletteFromImage();
+void slotPressedButtonRandomize();
+void slotChangedSpinBoxPaletteOffset(double value);
+void slotChangedSpinBoxPaletteSize(int value);
+void slotChangedComboFractalColoringAlgorithm(int index);
 
 private:
+	void ConnectSignals(void);
+	cColorPalette GetPaletteFromImage(const QString &filename);
+
 	Ui::cMaterialEditor *ui;
+	int materialIndex;
+	cParameterContainer *parameterContainer;
+	bool isMaterialAssigned;
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_EDITOR_H_ */

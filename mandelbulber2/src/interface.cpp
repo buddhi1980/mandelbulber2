@@ -222,23 +222,7 @@ void cInterface::ShowUi(void)
 	mainWindow->slotPopulateToolbar();
 
 	/**************** temporary code for materials *******************/
-	QList<QWidget*> materalWidgets = mainWindow->ui->tab_material->findChildren<QWidget*>();
-	for(int i=0; i < materalWidgets.size(); i++)
-	{
-		if (!materalWidgets[i]->objectName().isEmpty())
-		{
-			QString objectName = materalWidgets[i]->objectName();
-			int posOfDash = objectName.indexOf('_');
-			if(posOfDash > 0)
-			{
-				QString newName = objectName.insert(posOfDash, "_mat1");
-				qDebug() << newName;
-				materalWidgets[i]->setObjectName(newName);
-			}
-		}
-	}
-
-//	mainWindow->ui->widget_material_preview->AssignMaterial(gPar, 1, mainWindow->ui->tab_material);
+	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
 	/*****************************************************************/
 
 	WriteLog("cInterface::ConnectSignals(void)");
@@ -269,10 +253,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
 												SLOT(slotChangedComboAmbientOcclusionMode(int)));
-//	QApplication::connect(mainWindow->ui->comboBox_fractal_coloring_algorithm,
-//												SIGNAL(currentIndexChanged(int)),
-//												mainWindow,
-//												SLOT(slotChangedComboFractalColoringAlgorithm(int)));
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
@@ -313,10 +293,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotPressedButtonGetPoint()));
-//	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage,
-//												SIGNAL(clicked()),
-//												mainWindow,
-//												SLOT(slotPressedButtonGetPaletteFromImage()));
 	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_1,
 												SIGNAL(clicked()),
 												mainWindow,
@@ -377,14 +353,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotMenuRedo()));
-//	QApplication::connect(mainWindow->ui->pushButton_randomize,
-//												SIGNAL(clicked()),
-//												mainWindow,
-//												SLOT(slotPressedButtonRandomize()));
-//	QApplication::connect(mainWindow->ui->pushButton_randomPalette,
-//												SIGNAL(clicked()),
-//												mainWindow,
-//												SLOT(slotPressedButtonNewRandomPalette()));
 	QApplication::connect(mainWindow->ui->pushButton_render,
 												SIGNAL(clicked()),
 												mainWindow,
@@ -417,14 +385,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotPressedButtonOptimizeForHQ()));
-//	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset,
-//												SIGNAL(valueChanged(double)),
-//												mainWindow,
-//												SLOT(slotChangedSpinBoxPaletteOffset(double)));
-//	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size,
-//												SIGNAL(valueChanged(int)),
-//												mainWindow,
-//												SLOT(slotChangedSpinBoxPaletteSize(int)));
 	QApplication::connect(mainWindow,
 												SIGNAL(AppendToLog(const QString&)),
 												mainWindow->ui->log_text,
@@ -1469,33 +1429,6 @@ void cInterface::RefreshMainImage()
 	mainImage->ConvertTo8bit();
 	mainImage->UpdatePreview();
 	mainImage->GetImageWidget()->update();
-}
-
-cColorPalette cInterface::GetPaletteFromImage(const QString &filename)
-{
-//	cColorPalette palette;
-//	QImage imagePalette(filename);
-//
-//	SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_use_color_texture, gPar, interface::read); //TODO get palette from image will work for actual material
-//	int paletteSize = gPar->Get<int>("coloring_palette_size");
-//
-//	if (!imagePalette.isNull())
-//	{
-//		int width = imagePalette.width();
-//		int height = imagePalette.height();
-//
-//		for (int i = 0; i < paletteSize; i++)
-//		{
-//			double angle = (double) i / paletteSize * M_PI * 2.0;
-//			double x = width / 2 + cos(angle) * width * 0.4;
-//			double y = height / 2 + sin(angle) * height * 0.4;
-//			QRgb pixel = imagePalette.pixel(x, y);
-//			sRGB pixelRGB(qRed(pixel), qGreen(pixel), qBlue(pixel));
-//			palette.AppendColor(pixelRGB);
-//		}
-//
-//	}
-//	return palette;
 }
 
 void cInterface::AutoFog()

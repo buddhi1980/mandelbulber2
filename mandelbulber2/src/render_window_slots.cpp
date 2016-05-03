@@ -428,16 +428,6 @@ void RenderWindow::slotChangedComboPerspectiveType(int index)
   }
 }
 
-void RenderWindow::slotChangedSpinBoxPaletteOffset(double value)
-{
-//  ui->colorpalette_surface_color_palette->SetOffset(value);
-}
-
-void RenderWindow::slotChangedSpinBoxPaletteSize(int value)
-{
-//  ui->slider_coloring_palette_offset->setMaximum(value * 100);
-}
-
 void RenderWindow::slotMouseMovedOnImage(int x, int y)
 {
   (void) x;
@@ -856,16 +846,6 @@ void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
 {
   ui->logslider_bailout->setEnabled(!state);
   ui->logedit_bailout->setEnabled(!state);
-}
-
-void RenderWindow::slotChangedComboFractalColoringAlgorithm(int index)
-{
-//	sFractalColoring::enumFractalColoringAlgorithm selection = (sFractalColoring::enumFractalColoringAlgorithm)index;
-//  ui->slider_fractal_coloring_sphere_radius->setEnabled(selection == sFractalColoring::fractalColoringSphere);
-//  ui->spinbox_fractal_coloring_sphere_radius->setEnabled(selection == sFractalColoring::fractalColoringSphere);
-//  ui->vect3_fractal_coloring_line_direction_x->setEnabled(selection == sFractalColoring::fractalColoringLine);
-//  ui->vect3_fractal_coloring_line_direction_y->setEnabled(selection == sFractalColoring::fractalColoringLine);
-//  ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == sFractalColoring::fractalColoringLine);
 }
 
 void RenderWindow::slotChangedCheckBoxDOFHDR(int state)
