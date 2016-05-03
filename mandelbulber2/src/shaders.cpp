@@ -886,9 +886,9 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input)
 	dty = fmod(dty, texHeight);
 	if (dtx < 0) dtx = 0;
 	if (dty < 0) dty = 0;
-	envReflect.R = data->textures.envmapTexture.Pixel(dtx, dty).R / 256.0;
-	envReflect.G = data->textures.envmapTexture.Pixel(dtx, dty).G / 256.0;
-	envReflect.B = data->textures.envmapTexture.Pixel(dtx, dty).B / 256.0;
+	envReflect.R = data->textures.envmapTexture.Pixel(dtx, dty).R;
+	envReflect.G = data->textures.envmapTexture.Pixel(dtx, dty).G;
+	envReflect.B = data->textures.envmapTexture.Pixel(dtx, dty).B;
 	return envReflect;
 }
 

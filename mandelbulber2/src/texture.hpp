@@ -39,7 +39,7 @@ public:
 		useMipmaps
 	};
 
-	cTexture(QString filename, enumUseMipmaps useMipmaps, bool beQuiet = false);
+	cTexture(QString filename, enumUseMipmaps mode, bool beQuiet = false);
 	cTexture();
 	cTexture(const cTexture &tex);
 	cTexture& operator=(const cTexture &tex);

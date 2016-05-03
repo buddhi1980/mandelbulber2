@@ -35,7 +35,6 @@ cMaterialEditor::cMaterialEditor(QWidget *parent) :
 			if(posOfDash > 0)
 			{
 				QString newName = objectName.insert(posOfDash, "_mat1");
-				qDebug() << newName;
 				materalWidgets[i]->setObjectName(newName);
 			}
 		}

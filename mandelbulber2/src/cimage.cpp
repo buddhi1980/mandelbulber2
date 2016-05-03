@@ -52,6 +52,7 @@ void cImage::construct()
 	opacityBuffer = NULL;
 	colourBuffer = NULL;
 	zBuffer = NULL;
+	gammaTable = NULL;
 
 	// optional image buffers
 	normalFloat = NULL;
