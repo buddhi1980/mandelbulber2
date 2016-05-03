@@ -378,6 +378,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MengerMod1Iteration(z, i, fractal, extendedAux);
           break;
         }
+        case mengerPwr2Poly:
+        {
+          MengerPwr2PolyIteration(z, c, i, fractal, extendedAux);
+          break;
+        }
         case riemannSphereMsltoe:
         {
           RiemannSphereMsltoeIteration(z, fractal);
@@ -541,6 +546,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfNegFabsAddConstant:
         {
           TransformNegFabsAddConstantIteration(z, fractal);
+          break;
+        }
+        case transfPwr2Polynomial:
+        {
+          TransformPwr2PolynomialIteration(z, fractal, extendedAux);
           break;
         }
         case transfRotation:
@@ -929,6 +939,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case collatz:
         case collatzMod:
         case mengerMod1:
+        case mengerPwr2Poly:
         {
 					if(extendedAux.r_dz > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);
@@ -985,6 +996,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case collatz:
         case collatzMod:
 				case kaleidoscopicIFS:
+        case mengerPwr2Poly:
 					out->colorIndex = minimumR * 1000.0;
 					break;
 
