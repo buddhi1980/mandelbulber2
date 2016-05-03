@@ -41,6 +41,7 @@
 #include "animation_keyframes.hpp"
 #include "projection_3d.hpp"
 #include "render_job.hpp"
+#include "file_image.hpp"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
