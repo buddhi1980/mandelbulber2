@@ -28,6 +28,7 @@
 #include "netrender.hpp"
 #include "initparameters.hpp"
 #include "render_job.hpp"
+#include "../qt/thumbnail_widget.h"
 
 cKeyframeAnimation *gKeyframeAnimation = NULL;
 
@@ -147,7 +148,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 void cKeyframeAnimation::slotAddKeyframe()
 {
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 
 	NewKeyframe(keyframes->GetNumberOfFrames());
@@ -158,7 +159,7 @@ void cKeyframeAnimation::slotInsertKeyframe()
 	int column = table->currentColumn();
 	if (column < 0) column = 0;
 
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 
 	NewKeyframe(column);
@@ -215,7 +216,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 	if (keyframes)
 	{
 		//get latest values of all parameters
-		mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+		mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 		gUndo.Store(params, fractalParams, NULL, keyframes);
 
 		//add new frame to container
@@ -551,7 +552,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		//updating parameters
 		if (!systemData.noGui && image->IsMainImage())
 		{
-			mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+			mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 			gUndo.Store(params, fractalParams, NULL, keyframes);
 		}
 
@@ -678,7 +679,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				if (!systemData.noGui && image->IsMainImage())
 				{
-					mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
+					mainInterface->SynchronizeInterface(params, fractalParams, interface::write);
 
 					//show distance in statistics table
 					double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"),
@@ -734,7 +735,7 @@ void cKeyframeAnimation::RefreshTable()
 
 	UpdateLimitsForFrameRange(); //it is needed to do it also here, because limits must be set just after loading of settings
 
-	mainInterface->SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, cInterface::read);
+	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, interface::read);
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
 
@@ -784,7 +785,7 @@ QString cKeyframeAnimation::GetParameterName(int rowNumber)
 
 void cKeyframeAnimation::RenderFrame(int index)
 {
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	keyframes->GetFrameAndConsolidate(index, params, fractalParams);
 
 	//recalculation of camera rotation and distance (just for display purposes)
@@ -795,7 +796,7 @@ void cKeyframeAnimation::RenderFrame(int index)
 	params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
 	params->Set("camera_distance_to_target", cameraTarget.GetDistance());
 
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::write);
 
 	params->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
 
@@ -916,9 +917,9 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 void cKeyframeAnimation::slotDeleteAllImages()
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
+	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
 																						params,
-																						cInterface::read);
+																						interface::read);
 
 	QMessageBox::StandardButton reply;
 	reply =
@@ -936,9 +937,9 @@ void cKeyframeAnimation::slotDeleteAllImages()
 void cKeyframeAnimation::slotShowAnimation()
 {
 	WriteLog("Prepare PlayerWidget class");
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
+	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
 																						params,
-																						cInterface::read);
+																						interface::read);
 
 	if(!mainInterface->imageSequencePlayer)
 	{
@@ -1101,7 +1102,7 @@ void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphT
 
 void cKeyframeAnimation::slotExportKeyframesToFlight()
 {
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	gUndo.Store(params, fractalParams, gAnimFrames, keyframes);
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
@@ -1209,7 +1210,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 void cKeyframeAnimation::slotValidate()
 {
 	//updating parameters
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
@@ -1247,7 +1248,7 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 void cKeyframeAnimation::slotSetConstantTargetDistance()
 {
 	//updating parameters
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 
 	double constDist = params->Get<double>("keyframe_constant_target_distance");

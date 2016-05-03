@@ -26,23 +26,23 @@
 
 void RenderWindow::slotPressedButtonGetPaletteFromImage()
 {
-  PreviewFileDialog dialog(this);
-  dialog.setFileMode(QFileDialog::ExistingFile);
-  dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-  dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "textures"
-      + QDir::separator()));
-  dialog.selectFile(QDir::toNativeSeparators(systemData.lastImagePaletteFile));
-  dialog.setAcceptMode(QFileDialog::AcceptOpen);
-  dialog.setWindowTitle(tr("Select image to grab colors..."));
-  QStringList filenames;
-  if (dialog.exec())
-  {
-    filenames = dialog.selectedFiles();
-    QString filename = QDir::toNativeSeparators(filenames.first());
-    cColorPalette palette = gMainInterface->GetPaletteFromImage(filename);
-    ui->colorpalette_surface_color_palette->SetPalette(palette);
-    systemData.lastImagePaletteFile = filename;
-  }
+//  PreviewFileDialog dialog(this);
+//  dialog.setFileMode(QFileDialog::ExistingFile);
+//  dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
+//  dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "textures"
+//      + QDir::separator()));
+//  dialog.selectFile(QDir::toNativeSeparators(systemData.lastImagePaletteFile));
+//  dialog.setAcceptMode(QFileDialog::AcceptOpen);
+//  dialog.setWindowTitle(tr("Select image to grab colors..."));
+//  QStringList filenames;
+//  if (dialog.exec())
+//  {
+//    filenames = dialog.selectedFiles();
+//    QString filename = QDir::toNativeSeparators(filenames.first());
+//    cColorPalette palette = gMainInterface->GetPaletteFromImage(filename);
+//    ui->colorpalette_surface_color_palette->SetPalette(palette);
+//    systemData.lastImagePaletteFile = filename;
+//  }
 }
 
 

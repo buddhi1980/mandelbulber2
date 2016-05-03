@@ -21,14 +21,14 @@
  */
 
 #include "render_window.hpp"
-#include "interface.hpp"
+#include "synchronize_interface.hpp"
 
 void RenderWindow::slotSliderMoved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString spinBoxName = QString("spinbox_") + parameterName;
 
   QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -49,7 +49,7 @@ void RenderWindow::slotDoubleSpinBoxChanged(double value)
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+  GetNameAndType(spinBoxName, &parameterName, &type);
   QString sliderName = QString("slider_") + parameterName;
   QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
   if (slider)
@@ -71,7 +71,7 @@ void RenderWindow::slotIntSliderMoved(int value)
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString spinboxName = QString("spinboxInt_") + parameterName;
 
   QSpinBox *spinbox = this->sender()->parent()->findChild<QSpinBox*>(spinboxName);
@@ -91,7 +91,7 @@ void RenderWindow::slotIntSpinBoxChanged(int value)
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+  GetNameAndType(spinBoxName, &parameterName, &type);
   QString sliderName = QString("sliderInt_") + parameterName;
 
   QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
@@ -111,7 +111,7 @@ void RenderWindow::slotSlider3Moved(int value)
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString spinBoxName = QString("spinbox3_") + parameterName;
 
   QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -133,7 +133,7 @@ void RenderWindow::slotSlider4Moved(int value)
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString spinBoxName = QString("spinbox4_") + parameterName;
 
   QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -155,7 +155,7 @@ void RenderWindow::slotSpinBox3Changed(double value)
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+  GetNameAndType(spinBoxName, &parameterName, &type);
   QString sliderName = QString("slider3_") + parameterName;
 
   QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
@@ -178,7 +178,7 @@ void RenderWindow::slotSpinBox4Changed(double value)
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+  GetNameAndType(spinBoxName, &parameterName, &type);
   QString sliderName = QString("slider4_") + parameterName;
 
   QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
@@ -201,7 +201,7 @@ void RenderWindow::slotDial3Moved(int value)
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString spinBoxName = QString("spinboxd3_") + parameterName;
 
   QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -220,7 +220,7 @@ void RenderWindow::slotDial4Moved(int value)
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString spinBoxName = QString("spinboxd4_") + parameterName;
 
   QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -239,7 +239,7 @@ void RenderWindow::slotSpinBoxD3Changed(double value)
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+  GetNameAndType(spinBoxName, &parameterName, &type);
   QString dialName = QString("dial3_") + parameterName;
 
   QDial *dial = this->sender()->parent()->findChild<QDial*>(dialName);
@@ -258,7 +258,7 @@ void RenderWindow::slotSpinBoxD4Changed(double value)
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+  GetNameAndType(spinBoxName, &parameterName, &type);
   QString dialName = QString("dial4_") + parameterName;
 
   QDial *dial = this->sender()->parent()->findChild<QDial*>(dialName);
@@ -277,7 +277,7 @@ void RenderWindow::slotDialMoved(int value)
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString spinBoxName = QString("spinboxd_") + parameterName;
 
   QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -296,7 +296,7 @@ void RenderWindow::slotSpinBoxDChanged(double value)
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+  GetNameAndType(spinBoxName, &parameterName, &type);
   QString dialName = QString("dial_") + parameterName;
 
   QDial *dial = this->sender()->parent()->findChild<QDial*>(dialName);
@@ -315,7 +315,7 @@ void RenderWindow::slotLogSliderMoved(int value)
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString lineEditName = QString("logedit_") + parameterName;
 
   QLineEdit *lineEdit = this->sender()->parent()->findChild<QLineEdit*>(lineEditName);
@@ -337,7 +337,7 @@ void RenderWindow::slotLogSliderVect3Moved(int value)
   using namespace std;
   QString sliderName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
+  GetNameAndType(sliderName, &parameterName, &type);
   QString lineEditName = QString("logvect3_") + parameterName;
 
   QLineEdit *lineEdit = this->sender()->parent()->findChild<QLineEdit*>(lineEditName);
@@ -359,7 +359,7 @@ void RenderWindow::slotLogLineEditChanged(const QString &text)
   using namespace std;
   QString lineEditName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(lineEditName, &parameterName, &type);
+  GetNameAndType(lineEditName, &parameterName, &type);
   QString sliderName = QString("logslider_") + parameterName;
 
   QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
@@ -389,7 +389,7 @@ void RenderWindow::slotLogVect3Changed(const QString &text)
   using namespace std;
   QString lineEditName = this->sender()->objectName();
   QString type, parameterName;
-  gMainInterface->GetNameAndType(lineEditName, &parameterName, &type);
+  GetNameAndType(lineEditName, &parameterName, &type);
   QString sliderName = QString("logslidervect3_") + parameterName;
 
   QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);

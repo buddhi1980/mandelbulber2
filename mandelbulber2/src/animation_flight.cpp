@@ -28,6 +28,8 @@
 #include "netrender.hpp"
 #include "initparameters.hpp"
 #include "render_job.hpp"
+#include "../qt/thumbnail_widget.h"
+#include "synchronize_interface.hpp"
 
 cFlightAnimation *gFlightAnimation = NULL;
 
@@ -194,7 +196,7 @@ void cFlightAnimation::slotRenderFlight()
 void cFlightAnimation::RecordFlight(bool continueRecording)
 {
 	//get latest values of all parameters
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	gUndo.Store(params, fractalParams, frames, NULL);
 
 	if (!continueRecording)
@@ -358,7 +360,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		if (wasPaused)
 		{
 			//parameter refresh after pause
-			mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+			mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 			renderJob->UpdateParameters(params, fractalParams);
 			rotationSpeedSp = params->Get<double>("flight_rotation_speed") / 100.0;
 			rollSpeedSp = params->Get<double>("flight_roll_speed") / 100.0;
@@ -441,7 +443,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		params->Set("flight_rotation_speed_vector", cameraAngularSpeed);
 		params->Set("frame_no", index);
 
-		mainInterface->SynchronizeInterfaceWindow(ui->dockWidget_navigation, params, cInterface::write);
+		SynchronizeInterfaceWindow(ui->dockWidget_navigation, params, interface::write);
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
 		//add new frame to container
@@ -707,7 +709,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	if (!systemData.noGui && image->IsMainImage())
 	{
-		mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+		mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 		gUndo.Store(params, fractalParams, frames, NULL);
 	}
 
@@ -828,7 +830,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 			if (!systemData.noGui && image->IsMainImage())
 			{
-				mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
+				mainInterface->SynchronizeInterface(params, fractalParams, interface::write);
 
 				//show distance in statistics table
 				double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"),
@@ -882,7 +884,7 @@ void cFlightAnimation::RefreshTable()
 
 	UpdateLimitsForFrameRange(); //it is needed to do it also here, because limits must be set just after loading of settings
 
-	mainInterface->SynchronizeInterfaceWindow(ui->tab_flight_animation, params, cInterface::read);
+	SynchronizeInterfaceWindow(ui->tab_flight_animation, params, interface::read);
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
 
@@ -931,9 +933,9 @@ QString cFlightAnimation::GetParameterName(int rowNumber)
 
 void cFlightAnimation::RenderFrame(int index)
 {
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	frames->GetFrameAndConsolidate(index, params, fractalParams);
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::write);
 
 	mainInterface->StartRender();
 }
@@ -968,14 +970,14 @@ void cFlightAnimation::slotFlightYawAndPitch(CVector2<double> _yawAndPitch)
 
 void cFlightAnimation::slotFlightChangeSpeed(double amount)
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
+	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
 																						params,
-																						cInterface::read);
+																						interface::read);
 	linearSpeedSp = params->Get<double>("flight_speed") * amount;
 	params->Set("flight_speed", linearSpeedSp);
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
+	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
 																						params,
-																						cInterface::write);
+																						interface::write);
 }
 
 void cFlightAnimation::slotFlightRotation(double direction)
@@ -1084,9 +1086,9 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 void cFlightAnimation::slotDeleteAllImages()
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
+	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
 																						params,
-																						cInterface::read);
+																						interface::read);
 
 	QMessageBox::StandardButton reply;
 	reply =
@@ -1104,9 +1106,9 @@ void cFlightAnimation::slotDeleteAllImages()
 void cFlightAnimation::slotShowAnimation()
 {
 	WriteLog("Prepare PlayerWidget class");
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
+	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
 																						params,
-																						cInterface::read);
+																						interface::read);
 
 	if(!mainInterface->imageSequencePlayer)
 	{
@@ -1258,7 +1260,7 @@ QString cFlightAnimation::GetFlightFilename(int index)
 
 void cFlightAnimation::slotExportFlightToKeyframes()
 {
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
 	gUndo.Store(params, fractalParams, gAnimFrames, gKeyframes);
 
 	if (gKeyframes->GetFrames().size() > 0)
@@ -1298,7 +1300,7 @@ void cFlightAnimation::UpdateLimitsForFrameRange(void)
 	ui->spinboxInt_flight_last_to_render->setMaximum(noOfFrames);
 	ui->sliderInt_flight_last_to_render->setMaximum(noOfFrames);
 
-	mainInterface->SynchronizeInterfaceWindow(ui->tab_flight_animation, gPar, cInterface::write);
+	SynchronizeInterfaceWindow(ui->tab_flight_animation, gPar, interface::write);
 }
 
 void cFlightAnimation::slotMovedSliderFirstFrame(int value)

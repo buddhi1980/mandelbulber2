@@ -30,14 +30,11 @@
 #include "rendered_image_widget.hpp"
 #include "player_widget.hpp"
 #include "primitives.h"
+#include "synchronize_interface.hpp"
 
 class cInterface
 {
 public:
-	enum enumReadWrite
-	{
-		read, write
-	};
 	enum enumCameraMovementStepMode
 	{
 		relative, absolute
@@ -55,10 +52,8 @@ public:
 	~cInterface();
 	void ShowUi(void);
 	void ConnectSignals(void);
-	void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode);
-	void SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode);
+	void SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, interface::enumReadWrite mode);
 	void ConnectSignalsForSlidersInWindow(QWidget *window);
-	void GetNameAndType(QString name, QString *parameterName, QString *type);
 	void InitializeFractalUi(QString &uiFileName);
 	void StartRender(bool noUndo = false);
 	void MoveCamera(QString buttonName);

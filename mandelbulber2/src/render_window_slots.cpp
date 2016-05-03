@@ -30,6 +30,8 @@
 #include "interface.hpp"
 #include "error_message.hpp"
 #include "image_scale.hpp"
+#include "../qt/thumbnail_widget.h"
+#include "synchronize_interface.hpp"
 
 void RenderWindow::slotStartRender(void)
 {
@@ -71,9 +73,9 @@ void RenderWindow::slotChangedComboFractal(int indexInComboBox)
       uiFile.close();
       fractalWidgets[fractalNumber]->show();
       gMainInterface->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
-      gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber],
+      SynchronizeInterfaceWindow(fractalWidgets[fractalNumber],
                                                  &gParFractal->at(fractalNumber),
-                                                 cInterface::write);
+                                                 interface::write);
 
       QFrame *frame = ui->tabWidget_fractals->findChild<QFrame*>("frame_iterations_formula_"
           + QString::number(fractalNumber + 1));
@@ -428,12 +430,12 @@ void RenderWindow::slotChangedComboPerspectiveType(int index)
 
 void RenderWindow::slotChangedSpinBoxPaletteOffset(double value)
 {
-  ui->colorpalette_surface_color_palette->SetOffset(value);
+//  ui->colorpalette_surface_color_palette->SetOffset(value);
 }
 
 void RenderWindow::slotChangedSpinBoxPaletteSize(int value)
 {
-  ui->slider_coloring_palette_offset->setMaximum(value * 100);
+//  ui->slider_coloring_palette_offset->setMaximum(value * 100);
 }
 
 void RenderWindow::slotMouseMovedOnImage(int x, int y)
@@ -661,7 +663,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 void RenderWindow::slotPresetAddToToolbar()
 {
   cSettings parSettings(cSettings::formatCondensedText);
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
   parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
   QString filename = systemData.dataDirectory + "toolbar/" + parSettings.GetHashCode() + ".fract";
   parSettings.SaveToFile(filename);
@@ -674,7 +676,7 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
   parSettings.LoadFromFile(filename);
   parSettings.Decode(gPar, gParFractal);
   gMainInterface->RebuildPrimitives(gPar);
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
   gMainInterface->ComboMouseClickUpdate();
   systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
       + QFileInfo(filename).fileName();
@@ -821,7 +823,7 @@ void RenderWindow::slotFractalSwap(int swapA, int swapB)
   // qDebug() << "swapping " << swapA << " with " << swapB;
 
   // read all data from ui
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
 
   // swap formula specific fields in gPar
   QStringList gParFormulaSpecificFields;
@@ -839,15 +841,15 @@ void RenderWindow::slotFractalSwap(int swapA, int swapB)
   }
 
   // swap formula specific fields in gParFractal by swapping whole container
-  gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapA],
+  SynchronizeInterfaceWindow(fractalWidgets[swapA],
                                              &gParFractal->at(swapB),
-                                             cInterface::read);
-  gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapB],
+                                             interface::read);
+  SynchronizeInterfaceWindow(fractalWidgets[swapB],
                                              &gParFractal->at(swapA),
-                                             cInterface::read);
+                                             interface::read);
 
   // write swapped changes to ui
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
 }
 
 void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
@@ -858,12 +860,12 @@ void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
 
 void RenderWindow::slotChangedComboFractalColoringAlgorithm(int index)
 {
-	sFractalColoring::enumFractalColoringAlgorithm selection = (sFractalColoring::enumFractalColoringAlgorithm)index;
-  ui->slider_fractal_coloring_sphere_radius->setEnabled(selection == sFractalColoring::fractalColoringSphere);
-  ui->spinbox_fractal_coloring_sphere_radius->setEnabled(selection == sFractalColoring::fractalColoringSphere);
-  ui->vect3_fractal_coloring_line_direction_x->setEnabled(selection == sFractalColoring::fractalColoringLine);
-  ui->vect3_fractal_coloring_line_direction_y->setEnabled(selection == sFractalColoring::fractalColoringLine);
-  ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == sFractalColoring::fractalColoringLine);
+//	sFractalColoring::enumFractalColoringAlgorithm selection = (sFractalColoring::enumFractalColoringAlgorithm)index;
+//  ui->slider_fractal_coloring_sphere_radius->setEnabled(selection == sFractalColoring::fractalColoringSphere);
+//  ui->spinbox_fractal_coloring_sphere_radius->setEnabled(selection == sFractalColoring::fractalColoringSphere);
+//  ui->vect3_fractal_coloring_line_direction_x->setEnabled(selection == sFractalColoring::fractalColoringLine);
+//  ui->vect3_fractal_coloring_line_direction_y->setEnabled(selection == sFractalColoring::fractalColoringLine);
+//  ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == sFractalColoring::fractalColoringLine);
 }
 
 void RenderWindow::slotChangedCheckBoxDOFHDR(int state)

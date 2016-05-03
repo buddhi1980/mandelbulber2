@@ -490,7 +490,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					if (!systemData.noGui)
 					{
-						gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+						gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
 						gMainInterface->StartRender(true);
 					}
 					else

@@ -29,7 +29,7 @@ void cVolumeSliceDialog::on_pushButton_start_render_slices_clicked()
 {
 	if(!slicerBusy)
 	{
-		gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
+		SynchronizeInterfaceWindow(this, gPar, interface::read);
 		slicerBusy = true;
 		CVector3 limitMin;
 		CVector3 limitMax;
@@ -100,7 +100,7 @@ void cVolumeSliceDialog::on_pushButton_select_image_path_clicked()
 void cVolumeSliceDialog::on_pushButton_show_slices_clicked()
 {
 	WriteLog("Prepare PlayerWidget class");
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
+	SynchronizeInterfaceWindow(this, gPar, interface::read);
 	if(!gMainInterface->imageSequencePlayer)
 	{
 		gMainInterface->imageSequencePlayer = new PlayerWidget;
@@ -146,5 +146,5 @@ void cVolumeSliceDialog::closeEvent(QCloseEvent * event)
 void cVolumeSliceDialog::showEvent(QShowEvent * event)
 {
 	(void) event;
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
+	SynchronizeInterfaceWindow(this, gPar, interface::write);
 }

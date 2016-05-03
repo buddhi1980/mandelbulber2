@@ -204,7 +204,7 @@ int main(int argc, char *argv[])
 	if (!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->ComboMouseClickUpdate();
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
 		gMainInterface->ComboMouseClickUpdate();
 
 		gMainInterface->AutoRecovery();

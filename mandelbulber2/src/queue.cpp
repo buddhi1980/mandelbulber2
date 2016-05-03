@@ -565,9 +565,9 @@ void cQueue::slotQueueRender()
 {
 	if (!systemData.noGui)
 	{
-		gMainInterface->SynchronizeInterfaceWindow(gMainInterface->mainWindow->ui->dockWidget_queue_dock,
+		SynchronizeInterfaceWindow(gMainInterface->mainWindow->ui->dockWidget_queue_dock,
 																							 gPar,
-																							 cInterface::read);
+																							 interface::read);
 	}
 	if (queueListFromFile.size() > 0)
 	{
@@ -583,7 +583,7 @@ void cQueue::slotQueueRender()
 
 void cQueue::slotQueueAddCurrentSettings()
 {
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read); //update appParam before loading new settings
 	Append();
 }
 

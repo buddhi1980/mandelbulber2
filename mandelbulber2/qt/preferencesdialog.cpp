@@ -16,7 +16,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
 	ui->setupUi(this);
 
 	gMainInterface->ConnectSignalsForSlidersInWindow(this);
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
+	SynchronizeInterfaceWindow(this, gPar, interface::write);
 	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
 	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));
 	ui->comboBox_ui_skin->setCurrentIndex(gPar->Get<int>("ui_skin"));
@@ -43,7 +43,7 @@ cPreferencesDialog::~cPreferencesDialog()
 
 void cPreferencesDialog::on_buttonBox_accepted()
 {
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
+	SynchronizeInterfaceWindow(this, gPar, interface::read);
 
 	QFont font = gMainInterface->mainWindow->font();
 	font.setPixelSize(gPar->Get<int>("ui_font_size"));

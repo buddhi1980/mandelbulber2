@@ -102,6 +102,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/scheduler.cpp\
 			../src/settings.cpp\
 			../src/shaders.cpp\
+			../src/synchronize_interface.cpp \
 			../src/system.cpp\
 			../src/ssao_worker.cpp\
 			../src/statistics.cpp\
@@ -110,72 +111,75 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/thumbnail.cpp\
 			../src/undo.cpp\
 			../src/volume_slicer.cpp\
+			../qt/color_palette_widget.cpp \
 			../qt/file_select_widget.cpp\
-			../qt/mygroupbox.cpp\
-			../qt/mylineedit.cpp\
-			../qt/myspinbox.cpp\
-			../qt/mydoublespinbox.cpp\
-			../qt/mycheckbox.cpp\
-			../qt/mycolorbutton.cpp\
+			../qt/material_editor.cpp \
+			../qt/material_widget.cpp \
 			../qt/my_table_widget_anim.cpp\
 			../qt/my_table_widget_keyframes.cpp\
-			../qt/mylogwidget.cpp\
+			../qt/mycheckbox.cpp\
+			../qt/mycolorbutton.cpp\
+			../qt/mydoublespinbox.cpp\
+			../qt/mygroupbox.cpp\
 			../qt/myhistogramlabel.cpp \
+			../qt/mylineedit.cpp\
+			../qt/mylogwidget.cpp\
+			../qt/myspinbox.cpp\
 			../qt/mytabbar.cpp \
 			../qt/mytabwidget.cpp \
-    	../qt/preferencesdialog.cpp \
-    	../qt/color_palette_widget.cpp \
-    	../qt/volume_slice_dialog.cpp \
-    	../qt/thumbnail_widget.cpp \
-			../qt/material_widget.cpp
+			../qt/preferencesdialog.cpp \
+			../qt/thumbnail_widget.cpp \
+			../qt/volume_slice_dialog.cpp
 
 HEADERS  += ../src/render_window.hpp\
-			../src/render_worker.hpp\
+			../qt/color_palette_widget.h\
 			../qt/file_select_widget.h\
-			../qt/myscrolledarea.h\
-			../qt/mylineedit.h\
-			../qt/myspinbox.h\
-			../qt/mydoublespinbox.h\
-			../qt/mycheckbox.h\
-			../qt/mygroupbox.h\
-			../qt/mycolorbutton.h\
+			../qt/material_editor.h\
+			../qt/material_widget.h\
 			../qt/my_table_widget_anim.hpp\
 			../qt/my_table_widget_keyframes.hpp\
-			../qt/mylogwidget.h\
+			../qt/mycheckbox.h\
+			../qt/mycolorbutton.h\
+			../qt/mydoublespinbox.h\
+			../qt/mygroupbox.h\
 			../qt/myhistogramlabel.h\
+			../qt/mylineedit.h\
+			../qt/mylogwidget.h\
+			../qt/myscrolledarea.h\
+			../qt/myspinbox.h\
 			../qt/mytabbar.h\
 			../qt/mytabwidget.h\
-			../qt/thumbnail_widget.h\
-			../qt/material_widget.h\
 			../qt/preferencesdialog.h\
-    	../qt/volume_slice_dialog.h\
-    	../qt/color_palette_widget.h\
-			../src/my_ui_loader.h\
-			../src/preview_file_dialog.h\
-			../src/ssao_worker.h\
-			../src/rendered_image_widget.hpp\
+			../qt/thumbnail_widget.h\
+			../qt/volume_slice_dialog.h\
 			../src/animation_flight.hpp\
 			../src/animation_keyframes.hpp\
+			../src/dof.hpp\
+			../src/error_message.hpp\
 			../src/file_downloader.hpp\
 			../src/file_image.hpp\
+			../src/headless.h\
 			../src/keyframes.hpp\
+			../src/lights.hpp\
 			../src/morph.hpp\
-			../src/player_widget.hpp\
+			../src/my_ui_loader.h\
+			../src/netrender.hpp\
+			../src/preview_file_dialog.h\
 			../src/queue.hpp\
+			../src/render_image.hpp\
 			../src/render_job.hpp\
 			../src/render_queue.hpp\
-			../src/render_image.hpp\
 			../src/render_ssao.h\
-			../src/dof.hpp\
-			../src/netrender.hpp \
-			../src/headless.h\
-			../src/error_message.hpp\
-      ../src/lights.hpp\
-			../src/volume_slicer.hpp
+			../src/render_worker.hpp\
+			../src/rendered_image_widget.hpp\
+			../src/ssao_worker.h\
+			../src/volume_slicer.hpp\
+			../src/player_widget.hpp
 
 FORMS    += ../qt/render_window.ui \
     				../qt/preferencesdialog.ui \
-    				../qt/volume_slice_dialog.ui
+    				../qt/volume_slice_dialog.ui \
+    				../qt/material_editor.ui \
 
 RESOURCES = ../qt/icons.qrc
 

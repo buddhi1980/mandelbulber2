@@ -7,7 +7,7 @@
 
 #include "../qt/material_widget.h"
 #include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
+#include "../src/synchronize_interface.hpp"
 #include "../src/system.hpp"
 
 cMaterialWidget::cMaterialWidget(QWidget *parent) :
@@ -95,7 +95,7 @@ void cMaterialWidget::slotPeriodicRender(void)
 	{
 		if(materialEditorWidget)
 		{
-			gMainInterface->SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, cInterface::read);
+			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, interface::read);
 		}
 
 		if(paramsHandle)
