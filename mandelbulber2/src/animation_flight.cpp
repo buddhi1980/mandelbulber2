@@ -1105,7 +1105,8 @@ void cFlightAnimation::slotDeleteAllImages()
 
 void cFlightAnimation::slotShowAnimation()
 {
-	WriteLog("Prepare PlayerWidget class");
+	WriteLog("Prepare PlayerWidget class", 2);
+
 	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
 																						params,
 																						interface::read);

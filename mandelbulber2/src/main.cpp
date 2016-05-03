@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 	//class for interface windows
 	gMainInterface = new cInterface;
 
-	WriteLog("Prepare QApplication");
+	WriteLog("Prepare QApplication", 2);
 	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
 	gCoreApplication->setOrganizationName("Mandelbulber");
 	gCoreApplication->setApplicationName("Mandelbulber");
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 	gErrorMessage = new cErrorMessage;
 
 	//create default directories and copy all needed files
-	WriteLog("CreateDefaultFolders()");
+	WriteLog("CreateDefaultFolders()", 2);
 	if (!CreateDefaultFolders())
 	{
 		qCritical() << "Files/directories initialization failed" << endl;
@@ -132,6 +132,8 @@ int main(int argc, char *argv[])
 		parSettings.LoadFromFile(systemData.dataDirectory + "mandelbulber.ini");
 		parSettings.Decode(gPar, gParFractal);
 	}
+
+	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
 	UpdateDefaultPaths();
 	if (!commandLineInterface.isNoGUI())
@@ -215,7 +217,7 @@ int main(int argc, char *argv[])
 	commandLineInterface.ProcessCLI();
 
 	//start main Qt loop
-	WriteLog("application->exec()");
+	WriteLog("application->exec()", 2);
 	int result = 0;
 	if (!commandLineInterface.isNoGUI()) result = gApplication->exec();
 

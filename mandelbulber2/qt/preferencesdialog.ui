@@ -58,7 +58,7 @@
             <x>0</x>
             <y>0</y>
             <width>455</width>
-            <height>459</height>
+            <height>467</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -290,6 +290,57 @@
             </widget>
            </item>
            <item>
+            <widget class="QGroupBox" name="groupBox_system_look_and_feel_2">
+             <property name="title">
+              <string>Advanced</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_9">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_system_look_and_feel_2">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Logging verbosity level</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_logging_verbosity">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>3</number>
+                  </property>
+                  <property name="value">
+                   <number>1</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
             <widget class="QCheckBox" name="checkBox_quit_do_not_ask_again">
              <property name="text">
               <string>Do not ask for quit confirmation</string>
@@ -317,7 +368,7 @@
      </widget>
      <widget class="QWidget" name="tabImage">
       <attribute name="icon">
-       <iconset theme="image-x-generic">
+       <iconset theme="image-x-generic" resource="icons.qrc">
         <normaloff>:/system/icons/image-x-generic.svg</normaloff>:/system/icons/image-x-generic.svg</iconset>
       </attribute>
       <attribute name="title">
@@ -334,8 +385,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>455</width>
-            <height>459</height>
+            <width>311</width>
+            <height>327</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">

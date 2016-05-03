@@ -545,7 +545,7 @@ void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
 //adds dynamic actions to the toolbar (example settings)
 void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 {
-  WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started");
+  WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started", 2);
   QDir toolbarDir = QDir(systemData.dataDirectory + "toolbar");
   toolbarDir.setSorting(QDir::Time);
   QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
@@ -582,7 +582,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 
     if (QFileInfo(filename).suffix() == QString("fract"))
     {
-      WriteLogString("Generating thumbnail for preset", filename);
+      WriteLogString("Generating thumbnail for preset", filename, 2);
       cSettings parSettings(cSettings::formatFullText);
       parSettings.BeQuiet(true);
 
@@ -647,7 +647,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
                         this,
                         SLOT(slotMenuRemovePreset(QString)));
 
-  WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
+  WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished", 2);
 }
 
 void RenderWindow::slotPresetAddToToolbar()

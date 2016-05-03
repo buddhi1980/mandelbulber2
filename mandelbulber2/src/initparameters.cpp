@@ -37,7 +37,8 @@ cParameterContainer *gPar = NULL;
 void InitParams(cParameterContainer *par)
 {
 	using namespace parameterContainer;
-	WriteLog("Parameters initialization started: " + par->GetContainerName());
+
+	WriteLog("Parameters initialization started: " + par->GetContainerName(), 2);
 
 	//image
 	par->addParam("image_width", 800, 32, 65535, morphNone, paramStandard);
@@ -380,6 +381,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("append_alpha_png", true, morphNone, paramApp);
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 
+	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
+
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);
 	par->SetAsAppParam("openCL_use_CPU", true);
@@ -402,13 +405,13 @@ void InitParams(cParameterContainer *par)
 #endif
 #endif
 
-	WriteLog("Parameters initialization finished");
+	WriteLog("Parameters initialization finished", 2);
 }
 
 //definition of all parameters
 void InitFractalParams(cParameterContainer *par)
 {
-	WriteLog("Fractal parameters initialization started: " + par->GetContainerName());
+	WriteLog("Fractal parameters initialization started: " + par->GetContainerName(), 2);
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -597,7 +600,7 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("info", false, morphNone, paramStandard); //dummy parameter for information groupbox
 
-	WriteLog("Fractal parameters initialization finished");
+	WriteLog("Fractal parameters initialization finished", 2);
 }
 
 void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)

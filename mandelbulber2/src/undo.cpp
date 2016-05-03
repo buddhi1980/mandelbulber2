@@ -43,13 +43,13 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 	sUndoRecord record;
 
 	//autosave
-	WriteLog("Autosave started");
+	WriteLog("Autosave started", 2);
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	parSettings.SaveToFile(systemData.autosaveFile);
-	WriteLog("Autosave finished");
+	WriteLog("Autosave finished", 2);
 
-	WriteLog("cUndo::Store() started");
+	WriteLog("cUndo::Store() started", 2);
 	record.mainParams = *par;
 	record.fractParams = *parFractal;
 	if (frames)
@@ -82,7 +82,7 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 
 	undoBuffer.append(record);
 	level++;
-	WriteLog("cUndo::Store() finished");
+	WriteLog("cUndo::Store() finished", 2);
 }
 
 bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,

@@ -66,6 +66,7 @@ struct sSystem
 	int terminalWidth;
 	bool statsOnCLI;
 	bool useColor;
+	int loggingVerbosity;
 };
 
 struct sActualFileNames
@@ -80,9 +81,9 @@ extern sSystem systemData;
 extern sActualFileNames actualFileNames;
 
 bool InitSystem(void);
-void WriteLog(QString text);
-void WriteLogDouble(QString text, double value);
-void WriteLogString(QString text, QString value);
+void WriteLog(QString text, int verbosityLevel);
+void WriteLogDouble(QString text, double value, int verbosityLevel);
+void WriteLogString(QString text, QString value, int verbosityLevel);
 void handle_winch(int sig);
 int get_cpu_count();
 bool CreateDefaultFolders(void);

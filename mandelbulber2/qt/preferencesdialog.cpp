@@ -56,6 +56,8 @@ void cPreferencesDialog::on_buttonBox_accepted()
 
 	gPar->Set<int>("toolbar_icon_size", gPar->Get<int>("toolbar_icon_size"));
 	gMainInterface->mainWindow->slotPopulateToolbar(true);
+
+	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 }
 
 void cPreferencesDialog::on_pushButton_select_image_path_clicked()

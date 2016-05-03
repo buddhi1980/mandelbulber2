@@ -213,7 +213,8 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
   transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 
-	WriteLog("cFractal::RecalculateFractalParams(void)");
+ 	WriteLog("cFractal::RecalculateFractalParams(void)", 2);
+
 	RecalculateFractalParams();
 }
 void cFractal::RecalculateFractalParams(void)

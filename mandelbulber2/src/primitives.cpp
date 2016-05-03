@@ -76,7 +76,7 @@ enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 
 cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *objectData)
 {
-	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) started");
+	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) started", 2);
 	isAnyPrimitive = false;
 
 	QList<QString> listOfParameters = par->GetListOfParameters();
@@ -247,7 +247,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 	allPrimitivesRotation = par->Get<CVector3>("all_primitives_rotation");
 	mRotAllPrimitivesRotation.SetRotation2(allPrimitivesRotation / 180.0 * M_PI);
 
-	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) finished");
+	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) finished", 2);
 }
 
 double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const

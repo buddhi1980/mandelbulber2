@@ -41,7 +41,7 @@ cSettings::cSettings(enumFormat _format)
 size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
 		cAnimationFrames *frames, cKeyframes *keyframes)
 {
-	WriteLog("Create settings text");
+	WriteLog("Create settings text", 2);
 	settingsText.clear();
 	settingsText += CreateHeader();
 	settingsText += "[main_parameters]\n";
@@ -80,7 +80,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	hash = hashCrypt.result();
 	//qDebug() << "hash code" << hash.toHex();
 
-	WriteLogString("Settings text prepared", settingsText);
+	WriteLogString("Settings text prepared", settingsText, 3);
 
 	return settingsText.size();
 }
@@ -264,7 +264,7 @@ QString cSettings::CreateOneLine(const cParameterContainer *par, QString name)
 
 bool cSettings::SaveToFile(QString filename)
 {
-	WriteLogString("Saving settings started", filename);
+	WriteLogString("Saving settings started", filename, 2);
 	QFile qfile(filename);
 	if (qfile.open(QIODevice::WriteOnly))
 	{
@@ -285,7 +285,7 @@ bool cSettings::SaveToFile(QString filename)
 
 void cSettings::SaveToClipboard()
 {
-	WriteLog("Save settings to clipboard");
+	WriteLog("Save settings to clipboard", 2);
 	QClipboard *clipboard = QApplication::clipboard();
 	clipboard->setText(settingsText);
 }
@@ -294,7 +294,7 @@ bool cSettings::LoadFromFile(QString filename)
 {
 	settingsText.clear();
 	textPrepared = false;
-	WriteLogString("Loading settings started", filename);
+	WriteLogString("Loading settings started", filename, 2);
 	QFile qfile(filename);
 	if (qfile.open(QIODevice::ReadOnly))
 	{
@@ -309,7 +309,7 @@ bool cSettings::LoadFromFile(QString filename)
 		hash = hashCrypt.result();
 		//qDebug() << "hash code" << hash.toHex();
 
-		WriteLogString("Settings loaded", settingsText);
+		WriteLogString("Settings loaded", settingsText, 2);
 
 		return true;
 	}
@@ -338,7 +338,7 @@ bool cSettings::LoadFromString(const QString &_settingsText)
 
 bool cSettings::LoadFromClipboard()
 {
-	WriteLog("Load settings from clipboard");
+	WriteLog("Load settings from clipboard", 2);
 	QClipboard *clipboard = QApplication::clipboard();
 	return LoadFromString(clipboard->text());
 }
@@ -401,7 +401,7 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		cAnimationFrames *frames, cKeyframes *keyframes)
 {
-	WriteLog("cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)");
+	WriteLog("cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)", 2);
 
 	//clear settings
 	par->ResetAllToDefault();

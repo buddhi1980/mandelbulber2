@@ -45,7 +45,7 @@ cRenderSSAO::~cRenderSSAO()
 
 void cRenderSSAO::RenderSSAO(QList<int> *list)
 {
-	WriteLog("cRenderSSAO::RenderSSAO()");
+	WriteLog("cRenderSSAO::RenderSSAO()", 2);
 	//prepare multiple threads
 	QThread **thread = new QThread*[numberOfThreads];
 	cSSAOWorker::sThreadData *threadData = new cSSAOWorker::sThreadData[numberOfThreads];
@@ -95,11 +95,11 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	QString statusText;
 	QString progressTxt;
 
-	WriteLog("Start rendering SSAO");
+	WriteLog("Start rendering SSAO", 2);
 
 	for (int i = 0; i < numberOfThreads; i++)
 	{
-		WriteLog(QString("Thread ") + QString::number(i) + " create");
+		WriteLog(QString("Thread ") + QString::number(i) + " create", 3);
 		thread[i] = new QThread;
 		worker[i] = new cSSAOWorker(params, &threadData[i], data, image); //Warning! not needed to delete object
 		worker[i]->moveToThread(thread[i]);
@@ -108,7 +108,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
 		thread[i]->setObjectName("SSAOWorker #" + QString::number(i));
 		thread[i]->start();
-		WriteLog(QString("Thread ") + QString::number(i) + " started");
+		WriteLog(QString("Thread ") + QString::number(i) + " started", 3);
 	}
 
 	int totalDone = 0;
@@ -158,7 +158,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		{
 			gApplication->processEvents();
 		};
-		WriteLog(QString("Thread ") + QString::number(i) + " finished");
+		WriteLog(QString("Thread ") + QString::number(i) + " finished", 3);
 		delete thread[i];
 	}
 
@@ -174,7 +174,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	delete[] worker;
 	if (list) delete[] lists;
 
-	WriteLog("cRenderSSAO::RenderSSAO(): memory released");
+	WriteLog("cRenderSSAO::RenderSSAO(): memory released", 2);
 
-	WriteLog("Rendering SSAO finished");
+	WriteLog("Rendering SSAO finished", 2);
 }

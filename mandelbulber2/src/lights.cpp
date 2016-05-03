@@ -54,7 +54,7 @@ cLights::~cLights()
 
 void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_fractal)
 {
-	WriteLog("Preparation of lights started");
+	WriteLog("Preparation of lights started", 2);
 	//move parameters from containers to structures
 	const cParamRender *params = new cParamRender(_params);
 	const cNineFractals *fractals = new cNineFractals(_fractal, _params);
@@ -145,7 +145,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	delete params;
 	delete fractals;
 
-	WriteLog("Preparation of lights finished");
+	WriteLog("Preparation of lights finished", 2);
 }
 
 cLights::sLight* cLights::GetLight(const int index) const

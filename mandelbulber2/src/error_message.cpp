@@ -43,7 +43,7 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		messageText += ": ";
 		messageText += text;
 
-		WriteLog(messageText);
+		WriteLog(messageText, 1);
 
 		if (messageType == warningMessage) outErr << messageText + "\n" << flush;
 		else if (messageType == errorMessage) outErr << messageText + "\n" << flush;

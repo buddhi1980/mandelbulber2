@@ -100,7 +100,7 @@ void cVolumeSliceDialog::on_pushButton_select_image_path_clicked()
 
 void cVolumeSliceDialog::on_pushButton_show_slices_clicked()
 {
-	WriteLog("Prepare PlayerWidget class");
+	WriteLog("Prepare PlayerWidget class", 2);
 	SynchronizeInterfaceWindow(this, gPar, interface::read);
 	if(!gMainInterface->imageSequencePlayer)
 	{

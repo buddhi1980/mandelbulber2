@@ -111,7 +111,7 @@ void cRenderQueue::slotRenderQueue()
 {
 	int queueFinished = 0;
 
-	WriteLog("cRenderQueue::slotRenderQueue()");
+	WriteLog("cRenderQueue::slotRenderQueue()", 2);
 	gQueue->stopRequest = false;
 
 	while (!gQueue->stopRequest)

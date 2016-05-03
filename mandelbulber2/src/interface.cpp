@@ -88,13 +88,15 @@ cInterface::~cInterface()
 
 void cInterface::ShowUi(void)
 {
-	WriteLog("Prepare RenderWindow class");
+	WriteLog("Prepare RenderWindow class", 2);
+
 	mainWindow = new RenderWindow;
 
-	WriteLog("Restoring window geometry");
+	WriteLog("Restoring window geometry", 2);
+
 	mainWindow->restoreGeometry(mainWindow->settings.value("mainWindowGeometry").toByteArray());
 
-	WriteLog("Restoring window state");
+	WriteLog("Restoring window state", 2);
 
 	if (!mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray()))
 	{
@@ -117,16 +119,17 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size")
 			+ 6);
 
-	WriteLog("mainWindow->show()");
+
+	WriteLog("mainWindow->show()", 2);
 	mainWindow->show();
 
-	WriteLog("Prepare RenderedImage class");
+	WriteLog("Prepare RenderedImage class", 2);
 	renderedImage = new RenderedImage(mainWindow);
 
 	mainWindow->ui->scrollAreaLayoutRenderedImage->addWidget(renderedImage);
 
 	//setup main image
-	WriteLog("Setup of main image");
+	WriteLog("Setup of main image", 2);
 	sImageOptional imageOptional;
 	imageOptional.optionalNormal = gPar->Get<bool>("normal_enabled");
 
@@ -141,7 +144,7 @@ void cInterface::ShowUi(void)
 	renderedImage->AssignImage(gMainInterface->mainImage);
 	renderedImage->AssignParameters(gPar);
 
-	WriteLog("Prepare progress and status bar");
+	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();
 	progressBarLayout->setSpacing(0);
 	progressBarLayout->setContentsMargins(0, 0, 0, 0);
@@ -225,9 +228,9 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
 	/*****************************************************************/
 
-	WriteLog("cInterface::ConnectSignals(void)");
+	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();
-	WriteLog("cInterface::ConnectSignals(void) finished");
+	WriteLog("cInterface::ConnectSignals(void) finished", 2);
 }
 
 void cInterface::ConnectSignals(void)
@@ -835,7 +838,7 @@ void cInterface::ConnectSignals(void)
 void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal,
 		interface::enumReadWrite mode)
 {
-	WriteLog("cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)");
+	WriteLog("cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)", 2);
 
 	if(!interfaceReady && mode == interface::read) return;
 
@@ -874,7 +877,7 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 //initialize ui for hybrid fractal components
 void cInterface::InitializeFractalUi(QString &uiFileName)
 {
-	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started");
+	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started", 2);
 	MyUiLoader loader;
 
 	QFile uiFile(uiFileName);
@@ -962,7 +965,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 															 cErrorMessage::errorMessage,
 															 mainWindow);
 	}
-	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
+	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished", 2);
 }
 
 void cInterface::StartRender(bool noUndo)
@@ -970,11 +973,11 @@ void cInterface::StartRender(bool noUndo)
 	if (!mainImage->IsUsed())
 	{
 		mainImage->BlockImage();
-		WriteLog("cInterface::StartRender(void) - image was free");
+		WriteLog("cInterface::StartRender(void) - image was free", 2);
 	}
 	else
 	{
-		WriteLog("cInterface::StartRender(void) - image was used by another instance");
+		WriteLog("cInterface::StartRender(void) - image was used by another instance", 2);
 		stopRequest = true;
 		while (mainImage->IsUsed())
 		{
@@ -1028,7 +1031,7 @@ void cInterface::StartRender(bool noUndo)
 
 void cInterface::MoveCamera(QString buttonName)
 {
-	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName);
+	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName, 2);
 	//get data from interface
 	SynchronizeInterface(gPar, gParFractal, interface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -1108,7 +1111,7 @@ void cInterface::MoveCamera(QString buttonName)
 
 void cInterface::CameraOrTargetEdited(void)
 {
-	WriteLog("cInterface::CameraOrTargetEdited(void)");
+	WriteLog("cInterface::CameraOrTargetEdited(void)", 2);
 
 	//get data from interface before synchronization
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -1139,7 +1142,7 @@ void cInterface::CameraOrTargetEdited(void)
 
 void cInterface::RotateCamera(QString buttonName)
 {
-	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName);
+	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName, 2);
 
 	//get data from interface
 	SynchronizeInterface(gPar, gParFractal, interface::read);
@@ -1228,7 +1231,7 @@ void cInterface::RotateCamera(QString buttonName)
 
 void cInterface::RotationEdited(void)
 {
-	WriteLog("cInterface::RotationEdited(void)");
+	WriteLog("cInterface::RotationEdited(void)", 2);
 	//get data from interface before synchronization
 	SynchronizeInterface(gPar, gParFractal, interface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -1263,7 +1266,7 @@ void cInterface::RotationEdited(void)
 
 void cInterface::CameraDistanceEdited()
 {
-	WriteLog("cInterface::CameraDistanceEdited()");
+	WriteLog("cInterface::CameraDistanceEdited()", 2);
 
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, interface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -1470,7 +1473,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 		const QList<QVariant> &mode)
 {
 	WriteLog(QString("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: ")
-			+ button);
+			+ button, 2);
 	//get data from interface
 
 	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode) mode.at(0).toInt();
@@ -2102,7 +2105,7 @@ bool cInterface::QuitApplicationDialog()
 		{
 			stopRequest = true;
 			gQueue->stopRequest = true;
-			WriteLog("Quit application");
+			WriteLog("Quit application", 2);
 			//save applications settings
 			cSettings parSettings(cSettings::formatAppSettings);
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
