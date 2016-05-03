@@ -20,10 +20,21 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#include "render_window.hpp"
-#include "synchronize_interface.hpp"
+#include "automated_widgets.hpp"
 
-void RenderWindow::slotSliderMoved(int value)
+#include <QDoubleSpinBox>
+#include <QtWidgets/QDial>
+#include <QtWidgets/QtWidgets>
+
+#include "synchronize_interface.hpp"
+#include "system.hpp"
+
+cAutomatedWidgets::cAutomatedWidgets(QObject *parent) : QObject(parent)
+{
+
+}
+
+void cAutomatedWidgets::slotSliderMoved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -44,7 +55,7 @@ void RenderWindow::slotSliderMoved(int value)
   }
 }
 
-void RenderWindow::slotDoubleSpinBoxChanged(double value)
+void cAutomatedWidgets::slotDoubleSpinBoxChanged(double value)
 {
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
@@ -66,7 +77,7 @@ void RenderWindow::slotDoubleSpinBoxChanged(double value)
   }
 }
 
-void RenderWindow::slotIntSliderMoved(int value)
+void cAutomatedWidgets::slotIntSliderMoved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -86,7 +97,7 @@ void RenderWindow::slotIntSliderMoved(int value)
   }
 }
 
-void RenderWindow::slotIntSpinBoxChanged(int value)
+void cAutomatedWidgets::slotIntSpinBoxChanged(int value)
 {
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
@@ -106,7 +117,7 @@ void RenderWindow::slotIntSpinBoxChanged(int value)
   }
 }
 
-void RenderWindow::slotSlider3Moved(int value)
+void cAutomatedWidgets::slotSlider3Moved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -128,7 +139,7 @@ void RenderWindow::slotSlider3Moved(int value)
   }
 }
 
-void RenderWindow::slotSlider4Moved(int value)
+void cAutomatedWidgets::slotSlider4Moved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -150,7 +161,7 @@ void RenderWindow::slotSlider4Moved(int value)
   }
 }
 
-void RenderWindow::slotSpinBox3Changed(double value)
+void cAutomatedWidgets::slotSpinBox3Changed(double value)
 {
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
@@ -173,7 +184,7 @@ void RenderWindow::slotSpinBox3Changed(double value)
   }
 }
 
-void RenderWindow::slotSpinBox4Changed(double value)
+void cAutomatedWidgets::slotSpinBox4Changed(double value)
 {
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
@@ -196,7 +207,7 @@ void RenderWindow::slotSpinBox4Changed(double value)
   }
 }
 
-void RenderWindow::slotDial3Moved(int value)
+void cAutomatedWidgets::slotDial3Moved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -215,7 +226,7 @@ void RenderWindow::slotDial3Moved(int value)
   }
 }
 
-void RenderWindow::slotDial4Moved(int value)
+void cAutomatedWidgets::slotDial4Moved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -234,7 +245,7 @@ void RenderWindow::slotDial4Moved(int value)
   }
 }
 
-void RenderWindow::slotSpinBoxD3Changed(double value)
+void cAutomatedWidgets::slotSpinBoxD3Changed(double value)
 {
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
@@ -253,7 +264,7 @@ void RenderWindow::slotSpinBoxD3Changed(double value)
   }
 }
 
-void RenderWindow::slotSpinBoxD4Changed(double value)
+void cAutomatedWidgets::slotSpinBoxD4Changed(double value)
 {
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
@@ -272,7 +283,7 @@ void RenderWindow::slotSpinBoxD4Changed(double value)
   }
 }
 
-void RenderWindow::slotDialMoved(int value)
+void cAutomatedWidgets::slotDialMoved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -291,7 +302,7 @@ void RenderWindow::slotDialMoved(int value)
   }
 }
 
-void RenderWindow::slotSpinBoxDChanged(double value)
+void cAutomatedWidgets::slotSpinBoxDChanged(double value)
 {
   using namespace std;
   QString spinBoxName = this->sender()->objectName();
@@ -310,7 +321,7 @@ void RenderWindow::slotSpinBoxDChanged(double value)
   }
 }
 
-void RenderWindow::slotLogSliderMoved(int value)
+void cAutomatedWidgets::slotLogSliderMoved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -332,7 +343,7 @@ void RenderWindow::slotLogSliderMoved(int value)
   }
 }
 
-void RenderWindow::slotLogSliderVect3Moved(int value)
+void cAutomatedWidgets::slotLogSliderVect3Moved(int value)
 {
   using namespace std;
   QString sliderName = this->sender()->objectName();
@@ -354,7 +365,7 @@ void RenderWindow::slotLogSliderVect3Moved(int value)
   }
 }
 
-void RenderWindow::slotLogLineEditChanged(const QString &text)
+void cAutomatedWidgets::slotLogLineEditChanged(const QString &text)
 {
   using namespace std;
   QString lineEditName = this->sender()->objectName();
@@ -384,7 +395,7 @@ void RenderWindow::slotLogLineEditChanged(const QString &text)
   }
 }
 
-void RenderWindow::slotLogVect3Changed(const QString &text)
+void cAutomatedWidgets::slotLogVect3Changed(const QString &text)
 {
   using namespace std;
   QString lineEditName = this->sender()->objectName();
@@ -412,4 +423,230 @@ void RenderWindow::slotLogVect3Changed(const QString &text)
     qWarning() << "slotLogVect3Changed() error: slider " << sliderName << " doesn't exists"
         << endl;
   }
+}
+
+//automatic setting of event slots for all sliders
+void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
+{
+	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
+	QList<QSlider *>::iterator it;
+	for (it = widgetList.begin(); it != widgetList.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		if (name.length() > 1 && (*it)->metaObject()->className() == QString("QSlider"))
+		{
+			const QSlider *slider = *it;
+
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if (type == QString("slider"))
+			{
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															this,
+															SLOT(slotSliderMoved(int)));
+
+				QString spinBoxName = QString("spinbox_") + parameterName;
+				QDoubleSpinBox *spinBox = slider->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+				if (spinBox)
+				{
+					QApplication::connect(spinBox,
+																SIGNAL(valueChanged(double)),
+																this,
+																SLOT(slotDoubleSpinBoxChanged(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox " << spinBoxName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("logslider"))
+			{
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															this,
+															SLOT(slotLogSliderMoved(int)));
+
+				QString editFieldName = QString("logedit_") + parameterName;
+				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit*>(editFieldName);
+				if (lineEdit)
+				{
+					QApplication::connect(lineEdit,
+																SIGNAL(textChanged(const QString&)),
+																this,
+																SLOT(slotLogLineEditChanged(const QString&)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("logslidervect3"))
+			{
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															this,
+															SLOT(slotLogSliderVect3Moved(int)));
+
+				QString editFieldName = QString("logvect3_") + parameterName;
+				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit*>(editFieldName);
+				if (lineEdit)
+				{
+					QApplication::connect(lineEdit,
+																SIGNAL(textChanged(const QString&)),
+																this,
+																SLOT(slotLogVect3Changed(const QString&)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("sliderInt"))
+			{
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															this,
+															SLOT(slotIntSliderMoved(int)));
+
+				QString spinboxName = QString("spinboxInt_") + parameterName;
+				QSpinBox *spinbox = slider->parent()->findChild<QSpinBox*>(spinboxName);
+				if (spinbox)
+				{
+					QApplication::connect(spinbox,
+																SIGNAL(valueChanged(int)),
+																this,
+																SLOT(slotIntSpinBoxChanged(int)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxInt " << spinboxName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("slider3"))
+			{
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															this,
+															SLOT(slotSlider3Moved(int)));
+				QString spinboxName = QString("spinbox3_") + parameterName;
+				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox*>(spinboxName);
+				if (spinbox)
+				{
+					QApplication::connect(spinbox,
+																SIGNAL(valueChanged(double)),
+																this,
+																SLOT(slotSpinBox3Changed(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox3 " << spinboxName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("slider4"))
+			{
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															this,
+															SLOT(slotSlider4Moved(int)));
+				QString spinboxName = QString("spinbox4_") + parameterName;
+				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox*>(spinboxName);
+				if (spinbox)
+				{
+					QApplication::connect(spinbox,
+																SIGNAL(valueChanged(double)),
+																this,
+																SLOT(slotSpinBox4Changed(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox4 " << spinboxName
+							<< " doesn't exists" << endl;
+				}
+			}
+		}
+	}
+
+	QList<QDial *> widgetList2 = window->findChildren<QDial *>(QString());
+	QList<QDial *>::iterator it2;
+	for (it2 = widgetList2.begin(); it2 != widgetList2.end(); ++it2)
+	{
+		QString name = (*it2)->objectName();
+		if (name.length() > 1 && (*it2)->metaObject()->className() == QString("QDial"))
+		{
+			const QDial *dial = *it2;
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if (type == QString("dial3"))
+			{
+				QApplication::connect(dial,
+															SIGNAL(sliderMoved(int)),
+															this,
+															SLOT(slotDial3Moved(int)));
+
+				QString spinBoxName = QString("spinboxd3_") + parameterName;
+				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+				if (spinBox)
+				{
+					QApplication::connect(spinBox,
+																SIGNAL(valueChanged(double)),
+																this,
+																SLOT(slotSpinBoxD3Changed(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("dial4"))
+			{
+				QApplication::connect(dial,
+															SIGNAL(sliderMoved(int)),
+															this,
+															SLOT(slotDial4Moved(int)));
+
+				QString spinBoxName = QString("spinboxd4_") + parameterName;
+				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+				if (spinBox)
+				{
+					QApplication::connect(spinBox,
+																SIGNAL(valueChanged(double)),
+																this,
+																SLOT(slotSpinBoxD4Changed(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd4 " << spinBoxName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("dial"))
+			{
+				QApplication::connect(dial, SIGNAL(sliderMoved(int)), this, SLOT(slotDialMoved(int)));
+
+				QString spinBoxName = QString("spinboxd_") + parameterName;
+				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+				if (spinBox)
+				{
+					QApplication::connect(spinBox,
+																SIGNAL(valueChanged(double)),
+																this,
+																SLOT(slotSpinBoxDChanged(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd " << spinBoxName
+							<< " doesn't exists" << endl;
+				}
+			}
+		}
+	}
 }

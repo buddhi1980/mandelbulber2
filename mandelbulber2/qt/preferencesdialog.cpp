@@ -15,7 +15,8 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
 	initFinished = false;
 	ui->setupUi(this);
 
-	gMainInterface->ConnectSignalsForSlidersInWindow(this);
+	automatedWidgets = new cAutomatedWidgets(this);
+	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	SynchronizeInterfaceWindow(this, gPar, interface::write);
 	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
 	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));

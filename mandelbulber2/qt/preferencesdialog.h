@@ -2,6 +2,7 @@
 #define PREFERENCESDIALOG_H
 
 #include <QDialog>
+#include "../src/automated_widgets.hpp"
 
 namespace Ui {
 	class cPreferencesDialog;
@@ -27,6 +28,7 @@ private slots:
 
 private:
 	Ui::cPreferencesDialog *ui;
+	cAutomatedWidgets *automatedWidgets;
 	bool initFinished;
 };
 

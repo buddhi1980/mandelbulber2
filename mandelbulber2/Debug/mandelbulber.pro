@@ -40,6 +40,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/animation_frames.cpp\
 			../src/animation_flight.cpp\
 			../src/animation_keyframes.cpp\
+			../src/automated_widgets.cpp \
 			../src/calculate_distance.cpp\
 			../src/camera_target.cpp\
 			../src/compute_fractal.cpp\
@@ -89,7 +90,6 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/render_queue.cpp\
 			../src/render_ssao.cpp\
 			../src/render_window.cpp\
-			../src/render_window_automated_widgets.cpp\
 			../src/render_window_buttons.cpp\
 			../src/render_window_camera.cpp\
 			../src/render_window_menu.cpp\
@@ -154,6 +154,7 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/volume_slice_dialog.h\
 			../src/animation_flight.hpp\
 			../src/animation_keyframes.hpp\
+			../src/automated_widgets.hpp\
 			../src/dof.hpp\
 			../src/error_message.hpp\
 			../src/file_downloader.hpp\

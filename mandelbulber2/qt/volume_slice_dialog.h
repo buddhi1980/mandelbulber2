@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "../src/global_data.hpp"
 #include "../src/volume_slicer.hpp"
+#include "../src/automated_widgets.hpp"
 
 namespace Ui {
 	class cVolumeSliceDialog;
@@ -31,6 +32,7 @@ protected:
 	void showEvent(QShowEvent * event);
 private:
 	Ui::cVolumeSliceDialog *ui;
+	cAutomatedWidgets *automatedWidgets;
 	bool initFinished;
 	bool slicerBusy;
 	cVolumeSlicer* volumeSlicer;

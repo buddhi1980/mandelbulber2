@@ -72,7 +72,7 @@ void RenderWindow::slotChangedComboFractal(int indexInComboBox)
       layout->addWidget(fractalWidgets[fractalNumber]);
       uiFile.close();
       fractalWidgets[fractalNumber]->show();
-      gMainInterface->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
+      automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
       SynchronizeInterfaceWindow(fractalWidgets[fractalNumber],
                                                  &gParFractal->at(fractalNumber),
                                                  interface::write);
