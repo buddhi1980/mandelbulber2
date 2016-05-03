@@ -183,7 +183,8 @@ HEADERS  += ../src/render_window.hpp\
 
 FORMS    += ../qt/render_window.ui \
     				../qt/preferencesdialog.ui \
-    				../qt/volume_slice_dialog.ui
+    				../qt/volume_slice_dialog.ui \
+    				../qt/material_editor.ui
 
 RESOURCES = ../qt/icons.qrc
 
