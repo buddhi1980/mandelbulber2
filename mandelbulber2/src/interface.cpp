@@ -231,6 +231,11 @@ void cInterface::ShowUi(void)
 	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished", 2);
+
+	autoRefreshTimer = new QTimer(mainWindow);
+	autoRefreshTimer->setSingleShot(true);
+	QApplication::connect(autoRefreshTimer, SIGNAL(timeout()), mainWindow, SLOT(slotAutoRefresh()));
+	autoRefreshTimer->start(2000);
 }
 
 void cInterface::ConnectSignals(void)
@@ -990,6 +995,14 @@ void cInterface::StartRender(bool noUndo)
 	repeatRequest = false;
 	progressBarAnimation->hide();
 	SynchronizeInterface(gPar, gParFractal, interface::read);
+
+	if(mainWindow->ui->checkBox_auto_refresh->isChecked())
+	{
+		//check if something was changed in settings
+		cSettings tempSettings(cSettings::formatCondensedText);
+		tempSettings.CreateText(gPar, gParFractal);
+		autoRefreshLastHash = tempSettings.GetHashCode();
+	}
 
 	if (!noUndo) gUndo.Store(gPar, gParFractal);
 
@@ -2303,11 +2316,25 @@ void cInterface::ResetFormula(int fractalNumber)
 	SynchronizeInterface(gPar, gParFractal, interface::write);
 }
 
-void cInterface::MeasurementGetPoint()
+void cInterface::PeriodicRefresh()
 {
+	autoRefreshTimer->start(2000);
 
+	if(mainWindow->ui->checkBox_auto_refresh->isChecked())
+	{
+		//check if something was changed in settings
+		SynchronizeInterface(gPar, gParFractal, interface::read);
+		cSettings tempSettings(cSettings::formatCondensedText);
+		tempSettings.CreateText(gPar, gParFractal);
+		QString newHash = tempSettings.GetHashCode();
+
+		if(newHash != autoRefreshLastHash)
+		{
+			autoRefreshLastHash = newHash;
+			StartRender();
+		}
+	}
 }
-
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

@@ -350,6 +350,8 @@ void InitParams(cParameterContainer *par)
 
 	par->addParam("quit_do_not_ask_again", false, morphNone, paramApp);
 
+	par->addParam("auto_refresh", false, morphNone, paramApp);
+
 	//measurement
 	par->addParam("meas_point", CVector3(0.0,0.0,0.0), morphNone, paramNoSave);
 	par->addParam("meas_distance_from_last", 0.0, morphNone, paramNoSave);
@@ -382,6 +384,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 
 	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
+
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);

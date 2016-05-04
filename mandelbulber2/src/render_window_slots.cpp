@@ -857,3 +857,8 @@ void RenderWindow::slotChangedCheckBoxDOFHDR(int state)
     ui->comboBox_ambient_occlusion_mode->setCurrentIndex(0);
   }
 }
+
+void RenderWindow::slotAutoRefresh(void)
+{
+	gMainInterface->PeriodicRefresh();
+}

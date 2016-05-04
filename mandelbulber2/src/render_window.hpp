@@ -101,6 +101,7 @@ private slots:
 	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
 			QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 	void slotFractalSwap(int swapA, int swapB);
+	void slotAutoRefresh();
 
 	//camera
 	void slotCameraMove();

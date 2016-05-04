@@ -74,6 +74,7 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 	params.Set("detail_level", 0.1);
 	params.Set("smoothness", 1.0);
 	fractal.at(0).Set("power", 5);
+	params.Set("julia_mode", true);
 	params.Set("textured_background", true);
 	params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
 	params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));

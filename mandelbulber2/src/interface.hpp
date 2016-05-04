@@ -81,7 +81,7 @@ public:
 	void AutoRecovery();
 	void OptimizeStepFactor(double qualityTarget);
 	void ResetFormula(int fractalNumber);
-	void MeasurementGetPoint();
+	void PeriodicRefresh();
 
 	bool QuitApplicationDialog();
 
@@ -98,6 +98,8 @@ public:
 	QVBoxLayout *progressBarLayout;
 	cImage *mainImage;
 	QList<sPrimitiveItem> listOfPrimitives;
+	QTimer *autoRefreshTimer;
+	QString autoRefreshLastHash;
 
 	bool interfaceReady;
 	bool stopRequest;
