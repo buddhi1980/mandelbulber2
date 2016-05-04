@@ -23,6 +23,9 @@
 #include "error_message.hpp"
 #include <QMessageBox>
 #include "global_data.hpp"
+#include "headless.h"
+
+cErrorMessage *gErrorMessage = NULL;
 
 void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidget *parent)
 {
@@ -40,7 +43,7 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		messageText += ": ";
 		messageText += text;
 
-		WriteLog(messageText);
+		WriteLog(messageText, 1);
 
 		if (messageType == warningMessage) outErr << messageText + "\n" << flush;
 		else if (messageType == errorMessage) outErr << messageText + "\n" << flush;

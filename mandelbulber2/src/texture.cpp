@@ -20,16 +20,13 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#include <stdio.h>
-#include <cstring>
 #include "texture.hpp"
 #include "files.h"
-#include "system.hpp"
 #include "error_message.hpp"
 #include "common_math.h"
 
 //constructor
-cTexture::cTexture(QString filename, enumUseMipmaps useMipmaps, bool beQuiet)
+cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 {
 	bitmap = NULL;
 	QImage qimage;
@@ -50,7 +47,7 @@ cTexture::cTexture(QString filename, enumUseMipmaps useMipmaps, bool beQuiet)
 		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): (sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
 		loaded = true;
 		originalFileName = filename;
-		if(useMipmaps == useMipmaps)
+		if(mode == useMipmaps)
 		{
 			CreateMipMaps();
 		}

@@ -24,11 +24,15 @@
 
 #include <QtCore>
 
+#include "queue.hpp"
 #include "progress_text.hpp"
 #include "global_data.hpp"
 #include "settings.hpp"
 #include "error_message.hpp"
 #include "initparameters.hpp"
+#include "file_image.hpp"
+#include "files.h"
+#include "render_job.hpp"
 
 cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) :
 		QObject()
@@ -107,7 +111,7 @@ void cRenderQueue::slotRenderQueue()
 {
 	int queueFinished = 0;
 
-	WriteLog("cRenderQueue::slotRenderQueue()");
+	WriteLog("cRenderQueue::slotRenderQueue()", 2);
 	gQueue->stopRequest = false;
 
 	while (!gQueue->stopRequest)

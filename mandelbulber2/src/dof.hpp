@@ -24,9 +24,6 @@
 #define DOF_HPP_
 
 #include "cimage.hpp"
-#include <QProgressBar>
-#include <QStatusBar>
-#include "rendering_configuration.hpp"
 
 class cPostRenderingDOF: public QObject
 {

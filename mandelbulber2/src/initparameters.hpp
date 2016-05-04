@@ -25,7 +25,9 @@
 
 #include "fractparams.hpp"
 #include "parameters.hpp"
-#include "primitives.h"
+#include "object_types.hpp"
+
+extern cParameterContainer *gPar;
 
 void InitParams(cParameterContainer *par);
 void InitFractalParams(cParameterContainer *par);

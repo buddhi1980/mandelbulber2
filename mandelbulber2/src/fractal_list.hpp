@@ -113,6 +113,7 @@ enum enumFractalFormula
 	aboxModKaliEiffie = 87,
 	collatz = 88,
         collatzMod = 89,
+        mengerPwr2Poly = 90,
 
 
 
@@ -165,7 +166,8 @@ enum enumFractalFormula
 	transfScale4D = 1043,
 	transfFabsAddConstant4D = 1044,
 	transfFabsAddConstantV24D = 1045,
-	transfSurfFoldMulti = 1046
+        transfSurfFoldMulti = 1046,
+        transfPwr2Polynomial = 1047
 };
 
 enum enumDEType

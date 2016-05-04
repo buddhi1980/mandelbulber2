@@ -27,8 +27,6 @@
 #include <QtGui>
 #include <QtCore>
 #include <QTabBar>
-#include <QMenu>
-#include "../src/parameters.hpp"
 
 class MyTabBar : public QTabBar
 {

@@ -21,11 +21,13 @@
  */
 
 #include "render_window.hpp"
-#include "global_data.hpp"
+#include "synchronize_interface.hpp"
+#include "netrender.hpp"
+#include "initparameters.hpp"
 
 void RenderWindow::slotNetRenderServerStart()
 {
-  gMainInterface->SynchronizeInterfaceWindow(ui->group_netrender, gPar, cInterface::read);
+  SynchronizeInterfaceWindow(ui->group_netrender, gPar, interface::read);
   qint32 port = gPar->Get<int>("netrender_server_local_port");
   gNetRender->SetServer(port);
 }
@@ -37,7 +39,7 @@ void RenderWindow::slotNetRenderServerStop()
 
 void RenderWindow::slotNetRenderClientConnect()
 {
-  gMainInterface->SynchronizeInterfaceWindow(ui->group_netrender, gPar, cInterface::read);
+  SynchronizeInterfaceWindow(ui->group_netrender, gPar, interface::read);
   QString address = gPar->Get<QString>("netrender_client_remote_address");
   qint32 port = gPar->Get<int>("netrender_client_remote_port");
   gNetRender->SetClient(address, port);

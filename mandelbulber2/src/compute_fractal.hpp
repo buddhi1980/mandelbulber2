@@ -23,11 +23,9 @@
 #ifndef COMPUTE_FRACTAL_HPP_
 #define COMPUTE_FRACTAL_HPP_
 
-#include "algebra.hpp"
-#include "primitives.h"
 #include "commonparams.hpp"
-#include "nine_fractals.hpp"
 #include "fractal_coloring.hpp"
+#include "nine_fractals.hpp"
 
 struct sFractalIn
 {

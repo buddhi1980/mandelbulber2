@@ -29,8 +29,10 @@
 #include <QtGui>
 #include <ctime>
 #include <QTextStream>
+#include <qstylefactory.h>
 #include "global_data.hpp"
-#include "settings.hpp"
+#include "initparameters.hpp"
+#include "interface.hpp"
 
 #ifndef WIN32
 #include <sys/ioctl.h>
@@ -76,13 +78,13 @@ bool InitSystem(void)
 	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING
 			<< "\n";
 	out << "Log file name: " << systemData.logfileName << endl;
-	WriteLogString("Mandelbulber version", QString(MANDELBULBER_VERSION_STRING));
+	WriteLogString("Mandelbulber version", QString(MANDELBULBER_VERSION_STRING), 1);
 
 	//detecting number of CPU cores
 	systemData.numberOfThreads = get_cpu_count();
 
 	printf("Detected %d CPUs\n", systemData.numberOfThreads);
-	WriteLogDouble("CPUs detected", systemData.numberOfThreads);
+	WriteLogDouble("CPUs detected", systemData.numberOfThreads, 2);
 
 #ifdef ONETHREAD //for debugging
 	NR_THREADS = 1;
@@ -96,7 +98,7 @@ bool InitSystem(void)
 			+ QDir::separator());
 #endif
 	out << "Default data directory: " << systemData.dataDirectory << endl;
-	WriteLogString("Default data directory", systemData.dataDirectory);
+	WriteLogString("Default data directory", systemData.dataDirectory, 1);
 
 	systemData.thumbnailDir = QDir::toNativeSeparators(systemData.dataDirectory + "thumbnails"
 			+ QDir::separator());
@@ -118,7 +120,7 @@ bool InitSystem(void)
 
 	QLocale systemLocale = QLocale::system();
 	systemData.decimalPoint = systemLocale.decimalPoint();
-	WriteLogString("Decimal point", QString(systemData.decimalPoint));
+	WriteLogString("Decimal point", QString(systemData.decimalPoint), 2);
 
 	systemData.supportedLanguages.insert("en_EN", "English");
 	systemData.supportedLanguages.insert("pl_PL", "Polski");
@@ -127,6 +129,9 @@ bool InitSystem(void)
 
 	//get number of columns of console
 	systemData.terminalWidth = 80;
+
+	systemData.loggingVerbosity = 3;
+
 #ifndef WIN32
 	handle_winch(-1);
 #endif
@@ -152,41 +157,44 @@ int get_cpu_count()
 	return QThread::idealThreadCount();
 }
 
-void WriteLog(QString text)
+void WriteLog(QString text, int verbosityLevel)
 {
-	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
-#ifdef WIN32
-	QString logtext =
-	QString("PID: %1, time: %2, %3\n").arg(QCoreApplication::applicationPid()).arg(QString::number(clock()
-					/ 1.0e3,
-					'f',
-					3)).arg(text);
-#else
-	QString logtext =
-			QString("PID: %1, time: %2, %3\n")
-				.arg(QCoreApplication::applicationPid()).arg(QString::number(	clock()	/ 1.0e6,'f', 6))
-					.arg(text);
-#endif
-
-	fputs(logtext.toLocal8Bit().constData(), logfile);
-	fclose(logfile);
-
-	// write to log in window
-	if (gMainInterface && gMainInterface->mainWindow != NULL)
+	if(verbosityLevel <= systemData.loggingVerbosity)
 	{
-		//FIXME: AppendToLog consumes too much memory! may be fixed, please test
-		gMainInterface->mainWindow->AppendToLog(logtext);
+		FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
+	#ifdef WIN32
+		QString logtext =
+		QString("PID: %1, time: %2, %3\n").arg(QCoreApplication::applicationPid()).arg(QString::number(clock()
+						/ 1.0e3,
+						'f',
+						3)).arg(text);
+	#else
+		QString logtext =
+				QString("PID: %1, time: %2, %3\n")
+					.arg(QCoreApplication::applicationPid()).arg(QString::number(	clock()	/ 1.0e6,'f', 6))
+						.arg(text);
+	#endif
+
+		fputs(logtext.toLocal8Bit().constData(), logfile);
+		fclose(logfile);
+
+		// write to log in window
+		if (gMainInterface && gMainInterface->mainWindow != NULL)
+		{
+			//FIXME: AppendToLog consumes too much memory! may be fixed, please test
+			gMainInterface->mainWindow->AppendToLog(logtext);
+		}
 	}
 }
 
-void WriteLogString(QString text, QString value)
+void WriteLogString(QString text, QString value, int verbosityLevel)
 {
-	WriteLog(text + ", value = " + value);
+	WriteLog(text + ", value = " + value, verbosityLevel);
 }
 
-void WriteLogDouble(QString text, double value)
+void WriteLogDouble(QString text, double value, int verbosityLevel)
 {
-	WriteLog(text + ", value = " + QString::number(value));
+	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
 
 bool CreateDefaultFolders(void)
@@ -259,19 +267,19 @@ bool CreateDirectory(QString qname)
 {
 	if (QDir(qname).exists())
 	{
-		WriteLogString("Directory already exists", qname);
+		WriteLogString("Directory already exists", qname, 1);
 		return true;
 	}
 	else
 	{
 		if (QDir().mkdir(qname))
 		{
-			WriteLogString("Directory created", qname);
+			WriteLogString("Directory created", qname, 2);
 			return true;
 		}
 		else
 		{
-			WriteLogString("Directory can't be created", qname);
+			WriteLogString("Directory can't be created", qname, 1);
 			qCritical() << "error: directory " << qname << " cannot be created" << endl;
 			return false;
 		}
@@ -294,18 +302,18 @@ void DeleteAllFilesFromDirectory(QString folder, QString filterExpression)
 			{
 				if (QFile::remove(folderIterator.filePath()))
 				{
-					WriteLogString("File deleted", folderIterator.filePath());
+					WriteLogString("File deleted", folderIterator.filePath(), 2);
 				}
 				else
 				{
-					WriteLogString("File not deleted", folderIterator.filePath());
+					WriteLogString("File not deleted", folderIterator.filePath(), 1);
 				}
 			}
 		}
 	}
 	else
 	{
-		WriteLogString("Directory does not exist", folder);
+		WriteLogString("Directory does not exist", folder, 1);
 	}
 }
 
@@ -322,7 +330,7 @@ int fcopy(QString source, QString dest)
 	if (pFile == NULL)
 	{
 		qCritical() << "Can't open source file for copying: " << source << endl;
-		WriteLogString("Can't open source file for copying", source);
+		WriteLogString("Can't open source file for copying", source, 1);
 		return 1;
 	}
 
@@ -341,7 +349,7 @@ int fcopy(QString source, QString dest)
 		if (result != (size_t) lSize)
 		{
 			qCritical() << "Can't read source file for copying: " << source << endl;
-			WriteLogString("Can't read source file for copying", source);
+			WriteLogString("Can't read source file for copying", source, 1);
 			delete[] buffer;
 			fclose(pFile);
 			return 2;
@@ -361,7 +369,7 @@ int fcopy(QString source, QString dest)
 	if (pFile == NULL)
 	{
 		qCritical() << "Can't open destination file for copying: " << dest << endl;
-		WriteLogString("Can't open destination file for copying", dest);
+		WriteLogString("Can't open destination file for copying", dest, 1);
 		delete[] buffer;
 		return 3;
 	}
@@ -369,7 +377,7 @@ int fcopy(QString source, QString dest)
 	fclose(pFile);
 
 	delete[] buffer;
-	WriteLogString("File copied", dest);
+	WriteLogString("File copied", dest, 2);
 	return 0;
 }
 
@@ -430,7 +438,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 			abort();
 	}
 
-	WriteLog(text);
+	WriteLog(text, 1);
 }
 
 void UpdateDefaultPaths(void)
@@ -511,7 +519,7 @@ void UpdateUISkin(void)
 void UpdateLanguage(QCoreApplication *app)
 {
 	// Set language from locale
-	WriteLog("Prepare translator");
+	WriteLog("Prepare translator", 2);
 	static QTranslator mandelbulberMainTranslator;
 	static QTranslator mandelbulberFractalUiTranslator;
 	static QTranslator qtTranslator;
@@ -525,12 +533,12 @@ void UpdateLanguage(QCoreApplication *app)
 		}
 	}
 
-	WriteLogString("locale", locale);
+	WriteLogString("locale", locale, 2);
 	mandelbulberMainTranslator.load(locale, systemData.sharedDir + QDir::separator() + "language");
 	mandelbulberFractalUiTranslator.load("qt_data_" + locale,
 																			 systemData.sharedDir + QDir::separator() + "language");
 
-	WriteLog("Instaling translator");
+	WriteLog("Instaling translator", 2);
 	app->installTranslator(&mandelbulberMainTranslator);
 	app->installTranslator(&mandelbulberFractalUiTranslator);
 

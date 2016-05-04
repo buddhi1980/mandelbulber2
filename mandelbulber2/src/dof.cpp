@@ -21,15 +21,16 @@
  */
 
 #include "dof.hpp"
+
+#include <algorithm>
 #include "common_math.h"
-
-#define _USE_MATH_DEFINES
-#include <math.h>
-
-#define MAX_DOF_BLUR_SIZE 500.0
-
 #include "progress_text.hpp"
 #include "global_data.hpp"
+
+using std::max;
+using std::min;
+
+#define MAX_DOF_BLUR_SIZE 500.0
 
 cPostRenderingDOF::cPostRenderingDOF(cImage *_image) :
     QObject(), image(_image)

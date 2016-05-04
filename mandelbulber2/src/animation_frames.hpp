@@ -23,9 +23,9 @@
 #ifndef SRC_ANIMATION_FRAMES_HPP_
 #define SRC_ANIMATION_FRAMES_HPP_
 
+#include <QtGui>
 #include "parameters.hpp"
 #include "fractal_container.hpp"
-#include <QPixmap>
 
 class cAnimationFrames
 {
@@ -113,5 +113,7 @@ protected:
 	QList<sParameterDescription> listOfParameters;
 
 };
+
+extern cAnimationFrames *gAnimFrames;
 
 #endif /* SRC_ANIMATION_FRAMES_HPP_ */

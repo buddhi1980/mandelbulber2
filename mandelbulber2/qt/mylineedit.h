@@ -26,7 +26,6 @@
 #include <QtGui>
 #include <QtCore>
 #include <QLineEdit>
-#include <QMenu>
 #include "../src/parameters.hpp"
 
 class MyLineEdit : public QLineEdit

@@ -606,8 +606,8 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 		if (!matched)
 		{
 			printf("Warning! Unknown parameter: %s %s\n", str1, str2);
-			WriteLog("Warning! Unknown parameter:");
-			WriteLog(str1);
+			WriteLog("Warning! Unknown parameter:", 1);
+			WriteLog(str1, 1);
 			return false;
 		}
 	}

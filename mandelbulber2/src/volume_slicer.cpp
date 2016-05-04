@@ -22,8 +22,11 @@
 
 #include "volume_slicer.hpp"
 #include "calculate_distance.hpp"
-#include "compute_fractal.hpp"
 #include "common_math.h"
+#include "progress_text.hpp"
+#include "nine_fractals.hpp"
+#include "file_image.hpp"
+#include "initparameters.hpp"
 
 cVolumeSlicer::cVolumeSlicer(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString folder, int maxIter): QObject()
 {

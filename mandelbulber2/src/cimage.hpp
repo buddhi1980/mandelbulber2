@@ -26,21 +26,7 @@
 //#include <QtGui/QWidget>
 #include <QWidget>
 #include "color_structures.hpp"
-
-//global variables
-
-struct sImageAdjustments
-{
-	sImageAdjustments() :
-			brightness(1.0), contrast(1.0), imageGamma(1.0), hdrEnabled(false)
-	{
-	}
-
-	double brightness;
-	double contrast;
-	double imageGamma;
-	bool hdrEnabled;
-};
+#include "image_adjustments.h"
 
 struct sImageOptional
 {

@@ -23,10 +23,9 @@
 #ifndef SRC_ANIMATION_KEYFRAMES_HPP_
 #define SRC_ANIMATION_KEYFRAMES_HPP_
 
-#include "keyframes.hpp"
 #include "interface.hpp"
-#include "../qt/thumbnail_widget.h"
-#include "files.h"
+#include "keyframes.hpp"
+#include "cimage.hpp"
 #include "error_message.hpp"
 
 class cKeyframeAnimation: public QObject
@@ -105,5 +104,7 @@ signals:
 			NULL);
 
 };
+
+extern cKeyframeAnimation *gKeyframeAnimation;
 
 #endif /* SRC_ANIMATION_KEYFRAMES_HPP_ */

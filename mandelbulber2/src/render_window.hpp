@@ -27,10 +27,10 @@
 #include <QtCore>
 #include "../qt/ui_render_window.h"
 #include <QSettings>
-#include "cimage.hpp"
 #include "statistics.h"
 #include "progress_text.hpp"
 #include <qmessagebox.h>
+#include "automated_widgets.hpp"
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepad.h>
 #endif // USE_GAMEPAD
@@ -57,52 +57,26 @@ private slots:
 	void slotStopRender();
 	void slotQuit();
 
-	//automated sliders, dials, buttons
-	void slotSliderMoved(int value);
-	void slotDoubleSpinBoxChanged(double value);
-	void slotIntSliderMoved(int value);
-	void slotIntSpinBoxChanged(int value);
-	void slotSlider3Moved(int value);
-	void slotSlider4Moved(int value);
-	void slotSpinBox3Changed(double value);
-	void slotSpinBox4Changed(double value);
-  void slotDial3Moved(int value);
-  void slotDial4Moved(int value);
-	void slotSpinBoxD3Changed(double value);
-	void slotSpinBoxD4Changed(double value);
-  void slotDialMoved(int value);
-	void slotSpinBoxDChanged(double value);
-	void slotLogSliderMoved(int value);
-	void slotLogSliderVect3Moved(int value);
-	void slotLogLineEditChanged(const QString &text);
-	void slotLogVect3Changed(const QString &text);
-
 	//other
 	void slotChangedCheckBoxCursorVisibility(int state);
 	void slotChangedCheckBoxUseDefaultBailout(int state);
 	void slotChangedCheckBoxDOFHDR(int state);
 	void slotChangedComboDistanceEstimationMethod(int index);
 	void slotChangedComboFractal(int index);
-	void slotChangedComboFractalColoringAlgorithm(int index);
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);
 	void slotChangedComboPerspectiveType(int index);
-	void slotChangedSpinBoxPaletteOffset(double value);
-	void slotChangedSpinBoxPaletteSize(int value);
 	void slotEditedLineEditManualLightPlacementDistance(const QString &text);
 	void slotPressedButtonAutoFog();
 	void slotPressedButtonDeletePrimitive();
 	void slotPressedButtonDOFUpdate();
 	void slotPressedButtonGetJuliaConstant();
 	void slotPressedButtonGetPoint();
-	void slotPressedButtonGetPaletteFromImage();
 	void slotPressedButtonImageApply();
 	void slotPressedButtonNewPrimitive();
-	void slotPressedButtonNewRandomPalette();
 	void slotPressedButtonOptimizeForLQ();
 	void slotPressedButtonOptimizeForMQ();
 	void slotPressedButtonOptimizeForHQ();
-	void slotPressedButtonRandomize();
 	void slotPressedButtonResetFormula();
 	void slotPressedButtonResetView();
 	void slotPressedButtonSetDOFByMouse();
@@ -233,6 +207,7 @@ private:
 	QWidget **fractalWidgets;
 	QDialog *preferencesDialog;
 	QDialog *volumeSliceDialog;
+	cAutomatedWidgets *automatedWidgets;
 
 	QSettings settings;
 	QByteArray defaultGeometry;

@@ -22,6 +22,8 @@
 
 #include "fractal_container.hpp"
 
+cFractalContainer *gParFractal = NULL;
+
 cParameterContainer &cFractalContainer::operator[](int index)
 {
 	if (index >= 0 && index < NUMBER_OF_FRACTALS)
@@ -77,4 +79,5 @@ const cParameterContainer &cFractalContainer::at(int index) const
 		return fractals[0];
 	}
 }
+
 

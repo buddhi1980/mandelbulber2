@@ -24,7 +24,6 @@
 #define COMMONPARAMS_HPP_
 
 #include "algebra.hpp"
-#include "fractal.h"
 
 struct sFractalFoldings
 {

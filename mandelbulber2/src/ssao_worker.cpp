@@ -21,9 +21,6 @@
  */
 
 #include "ssao_worker.h"
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include "fractparams.hpp"
 #include "common_math.h"
 
 cSSAOWorker::cSSAOWorker(const cParamRender *_params, sThreadData *_threadData,

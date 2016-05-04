@@ -7,8 +7,8 @@
 
 #include "../qt/material_widget.h"
 #include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
-#include "../src/global_data.hpp"
+#include "../src/synchronize_interface.hpp"
+#include "../src/system.hpp"
 
 cMaterialWidget::cMaterialWidget(QWidget *parent) :
 		cThumbnailWidget(128, 128, 2, parent)
@@ -78,6 +78,8 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 	params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
 	params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
 	params.Set("mat1_displacement_texture_height", 0.01);
+	params.Set("main_light_intensity", 1.2);
+	params.Set("shadows_enabled", false);
 
 	// call parent assignation
 	// maybe disable preview saving, to not pollute hard drive?
@@ -95,7 +97,7 @@ void cMaterialWidget::slotPeriodicRender(void)
 	{
 		if(materialEditorWidget)
 		{
-			gMainInterface->SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, cInterface::read);
+			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, interface::read);
 		}
 
 		if(paramsHandle)

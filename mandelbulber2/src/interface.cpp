@@ -21,32 +21,34 @@
  */
 
 #include "interface.hpp"
-#include "system.hpp"
-#include <QTextStream>
-#include <QtUiTools/QtUiTools>
-#include "fractal_list.hpp"
-#include <qpainter.h>
-#include "render_job.hpp"
+#include "initparameters.hpp"
+#include "fractal_container.hpp"
+#include "animation_frames.hpp"
+#include "keyframes.hpp"
+#include "netrender.hpp"
+#include "queue.hpp"
 #include "calculate_distance.hpp"
-#include "camera_target.hpp"
 #include "error_message.hpp"
 #include "my_ui_loader.h"
-#include <QDial>
 #include "render_ssao.h"
 #include "dof.hpp"
 #include "common_math.h"
 #include "undo.h"
-#include "initparameters.hpp"
 #include "global_data.hpp"
-#include "progress_text.hpp"
 #include "settings.hpp"
-#include "thumbnail.hpp"
-#include <QMessageBox>
 #include "../qt/mytabbar.h"
+#include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
+#include "projection_3d.hpp"
+#include "render_job.hpp"
+#include "file_image.hpp"
+#include "../qt/color_palette_widget.h"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
 #endif // USE_GAMEPAD
+
+cInterface *gMainInterface = NULL;
 
 //constructor of interface (loading of ui files)
 cInterface::cInterface()
@@ -86,13 +88,15 @@ cInterface::~cInterface()
 
 void cInterface::ShowUi(void)
 {
-	WriteLog("Prepare RenderWindow class");
+	WriteLog("Prepare RenderWindow class", 2);
+
 	mainWindow = new RenderWindow;
 
-	WriteLog("Restoring window geometry");
+	WriteLog("Restoring window geometry", 2);
+
 	mainWindow->restoreGeometry(mainWindow->settings.value("mainWindowGeometry").toByteArray());
 
-	WriteLog("Restoring window state");
+	WriteLog("Restoring window state", 2);
 
 	if (!mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray()))
 	{
@@ -115,16 +119,17 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size")
 			+ 6);
 
-	WriteLog("mainWindow->show()");
+
+	WriteLog("mainWindow->show()", 2);
 	mainWindow->show();
 
-	WriteLog("Prepare RenderedImage class");
+	WriteLog("Prepare RenderedImage class", 2);
 	renderedImage = new RenderedImage(mainWindow);
 
 	mainWindow->ui->scrollAreaLayoutRenderedImage->addWidget(renderedImage);
 
 	//setup main image
-	WriteLog("Setup of main image");
+	WriteLog("Setup of main image", 2);
 	sImageOptional imageOptional;
 	imageOptional.optionalNormal = gPar->Get<bool>("normal_enabled");
 
@@ -139,7 +144,7 @@ void cInterface::ShowUi(void)
 	renderedImage->AssignImage(gMainInterface->mainImage);
 	renderedImage->AssignParameters(gPar);
 
-	WriteLog("Prepare progress and status bar");
+	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();
 	progressBarLayout->setSpacing(0);
 	progressBarLayout->setContentsMargins(0, 0, 0, 0);
@@ -220,28 +225,12 @@ void cInterface::ShowUi(void)
 	mainWindow->slotPopulateToolbar();
 
 	/**************** temporary code for materials *******************/
-	QList<QWidget*> materalWidgets = mainWindow->ui->tab_material->findChildren<QWidget*>();
-	for(int i=0; i < materalWidgets.size(); i++)
-	{
-		if (!materalWidgets[i]->objectName().isEmpty())
-		{
-			QString objectName = materalWidgets[i]->objectName();
-			int posOfDash = objectName.indexOf('_');
-			if(posOfDash > 0)
-			{
-				QString newName = objectName.insert(posOfDash, "_mat1");
-				qDebug() << newName;
-				materalWidgets[i]->setObjectName(newName);
-			}
-		}
-	}
-
-	mainWindow->ui->widget_material_preview->AssignMaterial(gPar, 1, mainWindow->ui->tab_material);
+	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
 	/*****************************************************************/
 
-	WriteLog("cInterface::ConnectSignals(void)");
+	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();
-	WriteLog("cInterface::ConnectSignals(void) finished");
+	WriteLog("cInterface::ConnectSignals(void) finished", 2);
 }
 
 void cInterface::ConnectSignals(void)
@@ -267,10 +256,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
 												SLOT(slotChangedComboAmbientOcclusionMode(int)));
-	QApplication::connect(mainWindow->ui->comboBox_fractal_coloring_algorithm,
-												SIGNAL(currentIndexChanged(int)),
-												mainWindow,
-												SLOT(slotChangedComboFractalColoringAlgorithm(int)));
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
@@ -311,10 +296,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotPressedButtonGetPoint()));
-	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage,
-												SIGNAL(clicked()),
-												mainWindow,
-												SLOT(slotPressedButtonGetPaletteFromImage()));
 	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_1,
 												SIGNAL(clicked()),
 												mainWindow,
@@ -375,14 +356,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotMenuRedo()));
-	QApplication::connect(mainWindow->ui->pushButton_randomize,
-												SIGNAL(clicked()),
-												mainWindow,
-												SLOT(slotPressedButtonRandomize()));
-	QApplication::connect(mainWindow->ui->pushButton_randomPalette,
-												SIGNAL(clicked()),
-												mainWindow,
-												SLOT(slotPressedButtonNewRandomPalette()));
 	QApplication::connect(mainWindow->ui->pushButton_render,
 												SIGNAL(clicked()),
 												mainWindow,
@@ -415,14 +388,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotPressedButtonOptimizeForHQ()));
-	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset,
-												SIGNAL(valueChanged(double)),
-												mainWindow,
-												SLOT(slotChangedSpinBoxPaletteOffset(double)));
-	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size,
-												SIGNAL(valueChanged(int)),
-												mainWindow,
-												SLOT(slotChangedSpinBoxPaletteSize(int)));
 	QApplication::connect(mainWindow,
 												SIGNAL(AppendToLog(const QString&)),
 												mainWindow->ui->log_text,
@@ -866,17 +831,16 @@ void cInterface::ConnectSignals(void)
 #endif // USE_GAMEPAD
 
 	//------------------------------------------------
-	ConnectSignalsForSlidersInWindow(mainWindow);
 	mainWindow->slotUpdateDocksandToolbarbyView();
 }
 
 //Reading ad writing parameters from/to ui to/from parameters container
 void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal,
-		enumReadWrite mode)
+		interface::enumReadWrite mode)
 {
-	WriteLog("cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)");
+	WriteLog("cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)", 2);
 
-	if(!interfaceReady && mode == read) return;
+	if(!interfaceReady && mode == interface::read) return;
 
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
@@ -908,872 +872,12 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	}
 }
 
-//Reading ad writing parameters from/to selected widget to/from parameters container
-void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
-		enumReadWrite mode)
-{
 
-	//----------- QLineEdit -------------------
-	{
-		QList<QLineEdit *> widgetListLineEdit = window->findChildren<QLineEdit *>();
-		QList<QLineEdit *>::iterator it;
-
-		for (it = widgetListLineEdit.begin(); it != widgetListLineEdit.end(); ++it)
-		{
-			//qDebug() << "QLineEdit:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-
-			QString name = (*it)->objectName();
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QLineEdit") || className == QString("MyLineEdit")))
-			{
-				QLineEdit *lineEdit = *it;
-				// QString text = lineEdit->text();
-				//qDebug() << name << " - text: " << text << endl;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-				//qDebug() << name << " - type: " << type << endl;
-
-				if (className == QString("MyLineEdit"))
-				{
-					MyLineEdit *mylineedit = (MyLineEdit*) *it;
-					mylineedit->AssignParameterContainer(par);
-					mylineedit->AssingParameterName(parameterName);
-				}
-
-				//----- get vectors ------------
-				if (type == QString("vect3") || type == QString("logvect3"))
-				{
-					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
-					QString nameVect = parameterName.left(parameterName.length() - 2);
-
-					if (mode == read)
-					{
-						double value = systemData.locale.toDouble(lineEdit->text());
-						//qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
-						CVector3 vect = par->Get<CVector3>(nameVect);
-
-						switch (lastChar)
-						{
-							case 'x':
-								vect.x = value;
-								break;
-
-							case 'y':
-								vect.y = value;
-								break;
-
-							case 'z':
-								vect.z = value;
-								break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
-										<< " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						par->Set(nameVect, vect);
-					}
-					else if (mode == write)
-					{
-						CVector3 vect = par->Get<CVector3>(nameVect);
-						QString qtext;
-
-						switch (lastChar)
-						{
-							case 'x':
-								qtext = QString("%L1").arg(vect.x, 0, 'g', 16);
-								break;
-
-							case 'y':
-								qtext = QString("%L1").arg(vect.y, 0, 'g', 16);
-								break;
-
-							case 'z':
-								qtext = QString("%L1").arg(vect.z, 0, 'g', 16);
-								break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
-										<< " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						lineEdit->setText(qtext);
-						lineEdit->setCursorPosition(0);
-					}
-				}
-
-				//----- get vectors 4D  ------------
-				if (type == QString("vect4"))
-				{
-					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
-					QString nameVect = parameterName.left(parameterName.length() - 2);
-
-					if (mode == read)
-					{
-						double value = systemData.locale.toDouble(lineEdit->text());
-						//qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
-						CVector4 vect = par->Get<CVector4>(nameVect);
-
-						switch (lastChar)
-						{
-							case 'x':
-								vect.x = value;
-								break;
-
-							case 'y':
-								vect.y = value;
-								break;
-
-							case 'z':
-								vect.z = value;
-								break;
-
-							case 'w':
-								vect.w = value;
-								break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
-										<< " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						par->Set(nameVect, vect);
-					}
-					else if (mode == write)
-					{
-						CVector4 vect = par->Get<CVector4>(nameVect);
-						QString qtext;
-
-						switch (lastChar)
-						{
-							case 'x':
-								qtext = QString("%L1").arg(vect.x, 0, 'g', 16);
-								break;
-
-							case 'y':
-								qtext = QString("%L1").arg(vect.y, 0, 'g', 16);
-								break;
-
-							case 'z':
-								qtext = QString("%L1").arg(vect.z, 0, 'g', 16);
-								break;
-
-							case 'w':
-								qtext = QString("%L1").arg(vect.w, 0, 'g', 16);
-								break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
-										<< " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						lineEdit->setText(qtext);
-						lineEdit->setCursorPosition(0);
-					}
-				}
-
-				//---------- get double scalars --------
-				else if (type == QString("edit") || type == QString("logedit"))
-				{
-					if (mode == read)
-					{
-						double value = systemData.locale.toDouble(lineEdit->text());
-						par->Set(parameterName, value);
-					}
-					else if (mode == write)
-					{
-						double value = par->Get<double>(parameterName);
-						lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
-						lineEdit->setCursorPosition(0);
-					}
-				}
-
-				//----------- get texts ------------
-				else if (type == QString("text"))
-				{
-					if (mode == read)
-					{
-						QString value = lineEdit->text();
-						par->Set(parameterName, value);
-					}
-					else if (mode == write)
-					{
-						QString value = par->Get<QString>(parameterName);
-						lineEdit->setText(value);
-					}
-				}
-			}
-		} //end foreach
-	}
-
-	//------------ Double spin-box --------------
-	{
-		QList<QDoubleSpinBox *> widgetListDoubleSpinBox = window->findChildren<QDoubleSpinBox*>();
-		QList<QDoubleSpinBox *>::iterator it;
-		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			//qDebug() << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QDoubleSpinBox") || className == QString("MyDoubleSpinBox")))
-			{
-				QDoubleSpinBox *spinbox = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (className == QString("MyDoubleSpinBox"))
-				{
-					MyDoubleSpinBox *mydoublespinbox = (MyDoubleSpinBox*) *it;
-					mydoublespinbox->AssignParameterContainer(par);
-					mydoublespinbox->AssingParameterName(parameterName);
-				}
-
-				if (type == QString("spinbox") || type == QString("spinboxd"))
-				{
-					if (mode == read)
-					{
-						double value = spinbox->value();
-						par->Set(parameterName, value);
-					}
-					else if (mode == write)
-					{
-						double value = par->Get<double>(parameterName);
-						spinbox->setValue(value);
-					}
-				}
-				else if (type == QString("spinbox3") || type == QString("spinboxd3"))
-				{
-					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
-					QString nameVect = parameterName.left(parameterName.length() - 2);
-					if (mode == read)
-					{
-						double value = spinbox->value();
-						CVector3 vect = par->Get<CVector3>(nameVect);
-
-						switch (lastChar)
-						{
-							case 'x':
-								vect.x = value;
-								break;
-
-							case 'y':
-								vect.y = value;
-								break;
-
-							case 'z':
-								vect.z = value;
-								break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
-										<< nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						par->Set(nameVect, vect);
-					}
-					else if (mode == write)
-					{
-						CVector3 vect = par->Get<CVector3>(nameVect);
-						double value = 0;
-
-						switch (lastChar)
-						{
-							case 'x':
-								value = vect.x;
-								break;
-
-							case 'y':
-								value = vect.y;
-								break;
-
-							case 'z':
-								value = vect.z;
-								break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
-										<< nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						spinbox->setValue(value);
-					}
-				}
-				else if (type == QString("spinbox4") || type == QString("spinboxd4"))
-				{
-					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
-					QString nameVect = parameterName.left(parameterName.length() - 2);
-					if (mode == read)
-					{
-						double value = spinbox->value();
-						CVector4 vect = par->Get<CVector4>(nameVect);
-
-						switch (lastChar)
-						{
-							case 'x':
-								vect.x = value;
-								break;
-
-							case 'y':
-								vect.y = value;
-								break;
-
-							case 'z':
-								vect.z = value;
-								break;
-
-							case 'w':
-								vect.w = value;
-								break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
-										<< nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						par->Set(nameVect, vect);
-					}
-					else if (mode == write)
-					{
-						CVector4 vect = par->Get<CVector4>(nameVect);
-						double value = 0;
-
-						switch (lastChar)
-						{
-							case 'x':
-								value = vect.x;
-								break;
-
-							case 'y':
-								value = vect.y;
-								break;
-
-							case 'z':
-								value = vect.z;
-								break;
-
-							case 'w':
-								value = vect.w;
-								break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
-										<< nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						spinbox->setValue(value);
-					}
-				}
-			}
-		}
-	}
-
-	//------------ integer spin-box --------------
-	{
-		QList<QSpinBox *> widgetListDoubleSpinBox = window->findChildren<QSpinBox*>();
-		QList<QSpinBox *>::iterator it;
-		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			//qDebug() << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QSpinBox") || className == QString("MySpinBox")))
-			{
-				QSpinBox *spinbox = *it;
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (className == QString("MySpinBox"))
-				{
-					MySpinBox *myspinbox = (MySpinBox*) *it;
-					myspinbox->AssignParameterContainer(par);
-					myspinbox->AssingParameterName(parameterName);
-				}
-
-				if (type == QString("spinboxInt"))
-				{
-					if (mode == read)
-					{
-						int value = spinbox->value();
-						par->Set(parameterName, value);
-					}
-					else if (mode == write)
-					{
-						int value = par->Get<int>(parameterName);
-						spinbox->setValue(value);
-					}
-				}
-			}
-		}
-	}
-
-	//checkboxes
-	{
-		QList<QCheckBox *> widgetListDoubleSpinBox = window->findChildren<QCheckBox*>();
-		QList<QCheckBox *>::iterator it;
-		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			//qDebug() << "QCheckBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QCheckBox") || className == QString("MyCheckBox")))
-			{
-				QCheckBox *checkbox = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (className == QString("MyCheckBox"))
-				{
-					MyCheckBox *mycheckbox = (MyCheckBox*) *it;
-					mycheckbox->AssignParameterContainer(par);
-					mycheckbox->AssingParameterName(parameterName);
-				}
-
-				if (type == QString("checkBox"))
-				{
-					if (mode == read)
-					{
-						bool value = checkbox->isChecked();
-						par->Set(parameterName, value);
-					}
-					else if (mode == write)
-					{
-						bool value = par->Get<bool>(parameterName);
-						checkbox->setChecked(value);
-					}
-				}
-			}
-		}
-	}
-
-	//groupsBox with checkbox
-	{
-		QList<QGroupBox *> widgetListDoubleSpinBox = window->findChildren<QGroupBox*>();
-		QList<QGroupBox *>::iterator it;
-		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			//qDebug() << "QGroupBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QGroupBox") || className == QString("MyGroupBox")))
-			{
-				QGroupBox *groupbox = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (className == QString("MyGroupBox"))
-				{
-					MyGroupBox *mygroupbox = (MyGroupBox*) *it;
-					mygroupbox->AssignParameterContainer(par);
-					mygroupbox->AssingParameterName(parameterName);
-				}
-
-				if (type == QString("groupCheck"))
-				{
-					if (mode == read)
-					{
-						bool value = groupbox->isChecked();
-						par->Set(parameterName, value);
-					}
-					else if (mode == write)
-					{
-						bool value = par->Get<bool>(parameterName);
-						groupbox->setChecked(value);
-					}
-				}
-			}
-		}
-	}
-
-	//---------- file select widgets -----------
-	{
-		QList<FileSelectWidget *> widgetListPushButton = window->findChildren<FileSelectWidget*>();
-		QList<FileSelectWidget *>::iterator it;
-		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("FileSelectWidget"))
-			{
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				FileSelectWidget *fileSelectWidget = *it;
-				fileSelectWidget->AssignParameterContainer(par);
-				fileSelectWidget->AssingParameterName(parameterName);
-
-				if (mode == read)
-				{
-					par->Set(parameterName, fileSelectWidget->GetPath());
-				}
-				else if (mode == write)
-				{
-					fileSelectWidget->SetPath(par->Get<QString>(parameterName));
-				}
-			}
-		}
-	}
-
-	//---------- color buttons -----------
-	{
-		QList<MyColorButton *> widgetListPushButton = window->findChildren<MyColorButton*>();
-		QList<MyColorButton *>::iterator it;
-		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("MyColorButton"))
-			{
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				MyColorButton *colorButton = *it;
-				colorButton->AssignParameterContainer(par);
-				colorButton->AssingParameterName(parameterName);
-
-				if (mode == read)
-				{
-					par->Set(parameterName, colorButton->GetColor());
-				}
-				else if (mode == write)
-				{
-					colorButton->setText("");
-					colorButton->SetColor(par->Get<sRGB>(parameterName));
-				}
-			}
-		}
-	}
-
-	//---------- colorpalette -----------
-	{
-		QList<ColorPaletteWidget *> widgetListColorPalette =
-				window->findChildren<ColorPaletteWidget*>();
-		QList<ColorPaletteWidget *>::iterator it;
-		for (it = widgetListColorPalette.begin(); it != widgetListColorPalette.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			//qDebug() << "ColorPalette:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("ColorPaletteWidget"))
-			{
-				ColorPaletteWidget *colorPaletteWidget = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				colorPaletteWidget->AssignParameterContainer(par);
-				colorPaletteWidget->AssingParameterName(parameterName);
-
-				if (type == QString("colorpalette"))
-				{
-					if (mode == read)
-					{
-						cColorPalette palette = colorPaletteWidget->GetPalette();
-						par->Set(parameterName, palette);
-					}
-					else if (mode == write)
-					{
-						cColorPalette palette = par->Get<cColorPalette>(parameterName);
-						colorPaletteWidget->SetPalette(palette);
-					}
-				}
-			}
-		}
-	}
-
-	//combo boxes
-	{
-		QList<QComboBox *> widgetListPushButton = window->findChildren<QComboBox*>();
-		QList<QComboBox *>::iterator it;
-		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			//qDebug() << "QComboBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QComboBox"))
-			{
-				QComboBox *comboBox = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (type == QString("comboBox"))
-				{
-					if (mode == read)
-					{
-						int selection = comboBox->currentIndex();
-						if (parameterName.left(7) == QString("formula"))
-						{
-							selection = fractalList[comboBox->itemData(selection).toInt()].internalID;
-						}
-						par->Set(parameterName, selection);
-					}
-					else if (mode == write)
-					{
-						int selection = par->Get<int>(parameterName);
-						if (parameterName.left(7) == QString("formula"))
-						{
-							for (int i = 0; i < fractalList.size(); i++)
-							{
-								if (fractalList[i].internalID == selection)
-								{
-									selection = comboBox->findData(i);
-									break;
-								}
-							}
-						}
-						comboBox->setCurrentIndex(selection);
-					}
-				}
-			}
-		}
-	}
-}
-
-//automatic setting of event slots for all sliders
-void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
-{
-	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
-	QList<QSlider *>::iterator it;
-	for (it = widgetList.begin(); it != widgetList.end(); ++it)
-	{
-		QString name = (*it)->objectName();
-		if (name.length() > 1 && (*it)->metaObject()->className() == QString("QSlider"))
-		{
-			const QSlider *slider = *it;
-
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
-			if (type == QString("slider"))
-			{
-				QApplication::connect(slider,
-															SIGNAL(sliderMoved(int)),
-															mainWindow,
-															SLOT(slotSliderMoved(int)));
-
-				QString spinBoxName = QString("spinbox_") + parameterName;
-				QDoubleSpinBox *spinBox = slider->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
-				if (spinBox)
-				{
-					QApplication::connect(spinBox,
-																SIGNAL(valueChanged(double)),
-																mainWindow,
-																SLOT(slotDoubleSpinBoxChanged(double)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox " << spinBoxName
-							<< " doesn't exists" << endl;
-				}
-			}
-			if (type == QString("logslider"))
-			{
-				QApplication::connect(slider,
-															SIGNAL(sliderMoved(int)),
-															mainWindow,
-															SLOT(slotLogSliderMoved(int)));
-
-				QString editFieldName = QString("logedit_") + parameterName;
-				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit*>(editFieldName);
-				if (lineEdit)
-				{
-					QApplication::connect(lineEdit,
-																SIGNAL(textChanged(const QString&)),
-																mainWindow,
-																SLOT(slotLogLineEditChanged(const QString&)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
-							<< " doesn't exists" << endl;
-				}
-			}
-			if (type == QString("logslidervect3"))
-			{
-				QApplication::connect(slider,
-															SIGNAL(sliderMoved(int)),
-															mainWindow,
-															SLOT(slotLogSliderVect3Moved(int)));
-
-				QString editFieldName = QString("logvect3_") + parameterName;
-				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit*>(editFieldName);
-				if (lineEdit)
-				{
-					QApplication::connect(lineEdit,
-																SIGNAL(textChanged(const QString&)),
-																mainWindow,
-																SLOT(slotLogVect3Changed(const QString&)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
-							<< " doesn't exists" << endl;
-				}
-			}
-			if (type == QString("sliderInt"))
-			{
-				QApplication::connect(slider,
-															SIGNAL(sliderMoved(int)),
-															mainWindow,
-															SLOT(slotIntSliderMoved(int)));
-
-				QString spinboxName = QString("spinboxInt_") + parameterName;
-				QSpinBox *spinbox = slider->parent()->findChild<QSpinBox*>(spinboxName);
-				if (spinbox)
-				{
-					QApplication::connect(spinbox,
-																SIGNAL(valueChanged(int)),
-																mainWindow,
-																SLOT(slotIntSpinBoxChanged(int)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxInt " << spinboxName
-							<< " doesn't exists" << endl;
-				}
-			}
-			if (type == QString("slider3"))
-			{
-				QApplication::connect(slider,
-															SIGNAL(sliderMoved(int)),
-															mainWindow,
-															SLOT(slotSlider3Moved(int)));
-				QString spinboxName = QString("spinbox3_") + parameterName;
-				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox*>(spinboxName);
-				if (spinbox)
-				{
-					QApplication::connect(spinbox,
-																SIGNAL(valueChanged(double)),
-																mainWindow,
-																SLOT(slotSpinBox3Changed(double)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox3 " << spinboxName
-							<< " doesn't exists" << endl;
-				}
-			}
-			if (type == QString("slider4"))
-			{
-				QApplication::connect(slider,
-															SIGNAL(sliderMoved(int)),
-															mainWindow,
-															SLOT(slotSlider4Moved(int)));
-				QString spinboxName = QString("spinbox4_") + parameterName;
-				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox*>(spinboxName);
-				if (spinbox)
-				{
-					QApplication::connect(spinbox,
-																SIGNAL(valueChanged(double)),
-																mainWindow,
-																SLOT(slotSpinBox4Changed(double)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox4 " << spinboxName
-							<< " doesn't exists" << endl;
-				}
-			}
-		}
-	}
-
-	QList<QDial *> widgetList2 = window->findChildren<QDial *>(QString());
-	QList<QDial *>::iterator it2;
-	for (it2 = widgetList2.begin(); it2 != widgetList2.end(); ++it2)
-	{
-		QString name = (*it2)->objectName();
-		if (name.length() > 1 && (*it2)->metaObject()->className() == QString("QDial"))
-		{
-			const QDial *dial = *it2;
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
-			if (type == QString("dial3"))
-			{
-				QApplication::connect(dial,
-															SIGNAL(sliderMoved(int)),
-															mainWindow,
-															SLOT(slotDial3Moved(int)));
-
-				QString spinBoxName = QString("spinboxd3_") + parameterName;
-				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
-				if (spinBox)
-				{
-					QApplication::connect(spinBox,
-																SIGNAL(valueChanged(double)),
-																mainWindow,
-																SLOT(slotSpinBoxD3Changed(double)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName
-							<< " doesn't exists" << endl;
-				}
-			}
-			if (type == QString("dial4"))
-			{
-				QApplication::connect(dial,
-															SIGNAL(sliderMoved(int)),
-															mainWindow,
-															SLOT(slotDial4Moved(int)));
-
-				QString spinBoxName = QString("spinboxd4_") + parameterName;
-				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
-				if (spinBox)
-				{
-					QApplication::connect(spinBox,
-																SIGNAL(valueChanged(double)),
-																mainWindow,
-																SLOT(slotSpinBoxD4Changed(double)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd4 " << spinBoxName
-							<< " doesn't exists" << endl;
-				}
-			}
-			if (type == QString("dial"))
-			{
-				QApplication::connect(dial, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotDialMoved(int)));
-
-				QString spinBoxName = QString("spinboxd_") + parameterName;
-				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
-				if (spinBox)
-				{
-					QApplication::connect(spinBox,
-																SIGNAL(valueChanged(double)),
-																mainWindow,
-																SLOT(slotSpinBoxDChanged(double)));
-				}
-				else
-				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd " << spinBoxName
-							<< " doesn't exists" << endl;
-				}
-			}
-		}
-	}
-}
-
-//extract name and type string from widget name
-void cInterface::GetNameAndType(QString name, QString *parameterName, QString *type)
-{
-	size_t firstDashPosition = name.indexOf("_");
-	*type = name.left(firstDashPosition);
-	*parameterName = name.mid(firstDashPosition + 1);
-}
 
 //initialize ui for hybrid fractal components
 void cInterface::InitializeFractalUi(QString &uiFileName)
 {
-	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started");
+	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started", 2);
 	MyUiLoader loader;
 
 	QFile uiFile(uiFileName);
@@ -1861,7 +965,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 															 cErrorMessage::errorMessage,
 															 mainWindow);
 	}
-	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
+	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished", 2);
 }
 
 void cInterface::StartRender(bool noUndo)
@@ -1869,11 +973,11 @@ void cInterface::StartRender(bool noUndo)
 	if (!mainImage->IsUsed())
 	{
 		mainImage->BlockImage();
-		WriteLog("cInterface::StartRender(void) - image was free");
+		WriteLog("cInterface::StartRender(void) - image was free", 2);
 	}
 	else
 	{
-		WriteLog("cInterface::StartRender(void) - image was used by another instance");
+		WriteLog("cInterface::StartRender(void) - image was used by another instance", 2);
 		stopRequest = true;
 		while (mainImage->IsUsed())
 		{
@@ -1885,7 +989,7 @@ void cInterface::StartRender(bool noUndo)
 
 	repeatRequest = false;
 	progressBarAnimation->hide();
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 
 	if (!noUndo) gUndo.Store(gPar, gParFractal);
 
@@ -1927,9 +1031,9 @@ void cInterface::StartRender(bool noUndo)
 
 void cInterface::MoveCamera(QString buttonName)
 {
-	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName);
+	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName, 2);
 	//get data from interface
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -2000,14 +1104,14 @@ void cInterface::MoveCamera(QString buttonName)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, interface::write);
 
 	StartRender();
 }
 
 void cInterface::CameraOrTargetEdited(void)
 {
-	WriteLog("cInterface::CameraOrTargetEdited(void)");
+	WriteLog("cInterface::CameraOrTargetEdited(void)", 2);
 
 	//get data from interface before synchronization
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -2015,7 +1119,7 @@ void cInterface::CameraOrTargetEdited(void)
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	camera = gPar->Get<CVector3>("camera");
 	target = gPar->Get<CVector3>("target");
 
@@ -2032,16 +1136,16 @@ void cInterface::CameraOrTargetEdited(void)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, interface::write);
 
 }
 
 void cInterface::RotateCamera(QString buttonName)
 {
-	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName);
+	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName, 2);
 
 	//get data from interface
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -2120,16 +1224,16 @@ void cInterface::RotateCamera(QString buttonName)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, interface::write);
 
 	StartRender();
 }
 
 void cInterface::RotationEdited(void)
 {
-	WriteLog("cInterface::RotationEdited(void)");
+	WriteLog("cInterface::RotationEdited(void)", 2);
 	//get data from interface before synchronization
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -2157,14 +1261,14 @@ void cInterface::RotationEdited(void)
 	gPar->Set("camera", camera);
 	gPar->Set("target", target);
 	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, interface::write);
 }
 
 void cInterface::CameraDistanceEdited()
 {
-	WriteLog("cInterface::CameraDistanceEdited()");
+	WriteLog("cInterface::CameraDistanceEdited()", 2);
 
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::read);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, interface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -2188,7 +1292,7 @@ void cInterface::CameraDistanceEdited()
 	gPar->Set("camera", camera);
 	gPar->Set("target", target);
 	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::write);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, interface::write);
 }
 
 void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal)
@@ -2279,7 +1383,7 @@ void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
 
 void cInterface::RefreshMainImage()
 {
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	sImageAdjustments imageAdjustments;
 	imageAdjustments.brightness = gPar->Get<double>("brightness");
 	imageAdjustments.contrast = gPar->Get<double>("contrast");
@@ -2330,36 +1434,9 @@ void cInterface::RefreshMainImage()
 	mainImage->GetImageWidget()->update();
 }
 
-cColorPalette cInterface::GetPaletteFromImage(const QString &filename)
-{
-	cColorPalette palette;
-	QImage imagePalette(filename);
-
-	SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_use_color_texture, gPar, cInterface::read); //TODO get palette from image will work for actual material
-	int paletteSize = gPar->Get<int>("coloring_palette_size");
-
-	if (!imagePalette.isNull())
-	{
-		int width = imagePalette.width();
-		int height = imagePalette.height();
-
-		for (int i = 0; i < paletteSize; i++)
-		{
-			double angle = (double) i / paletteSize * M_PI * 2.0;
-			double x = width / 2 + cos(angle) * width * 0.4;
-			double y = height / 2 + sin(angle) * height * 0.4;
-			QRgb pixel = imagePalette.pixel(x, y);
-			sRGB pixelRGB(qRed(pixel), qGreen(pixel), qBlue(pixel));
-			palette.AppendColor(pixelRGB);
-		}
-
-	}
-	return palette;
-}
-
 void cInterface::AutoFog()
 {
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 	double fogDensity = 0.5;
 	double fogDistanceFactor = distance;
@@ -2369,7 +1446,7 @@ void cInterface::AutoFog()
 	gPar->Set("volumetric_fog_colour_1_distance", fogColour1Distance);
 	gPar->Set("volumetric_fog_colour_2_distance", fogColour2Distance);
 	gPar->Set("volumetric_fog_density", fogDensity);
-	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, interface::write);
 }
 
 double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par,
@@ -2387,7 +1464,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par,
 
 double cInterface::GetDistanceForPoint(CVector3 point)
 {
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	double distance = GetDistanceForPoint(point, gPar, gParFractal);
 	return distance;
 }
@@ -2396,12 +1473,12 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 		const QList<QVariant> &mode)
 {
 	WriteLog(QString("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: ")
-			+ button);
+			+ button, 2);
 	//get data from interface
 
 	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode) mode.at(0).toInt();
 
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -2506,7 +1583,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					double dist = cameraTarget.GetDistance();
 					gPar->Set("camera_distance_to_target", dist);
 
-					SynchronizeInterface(gPar, gParFractal, cInterface::write);
+					SynchronizeInterface(gPar, gParFractal, interface::write);
 					renderedImage->setNewZ(depth - moveDistance);
 
 					StartRender();
@@ -2519,7 +1596,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("basic_fog_visibility", fogDepth);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled,
 																		 gPar,
-																		 cInterface::write);
+																		 interface::write);
 					StartRender();
 					break;
 				}
@@ -2529,7 +1606,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("DOF_focus", DOF);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled,
 																		 gPar,
-																		 cInterface::write);
+																		 interface::write);
 					gUndo.Store(gPar, gParFractal);
 					RefreshMainImage();
 					break;
@@ -2543,7 +1620,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					int lightNumber = mode.at(1).toInt();
 					gPar->Set("aux_light_position", lightNumber, pointCorrected);
 					gPar->Set("aux_light_intensity", lightNumber, intensity);
-					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, interface::write);
 					StartRender();
 					break;
 				}
@@ -2553,7 +1630,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					mainWindow->ui->groupCheck_julia_mode->setChecked(true);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode,
 																		 gPar,
-																		 cInterface::write);
+																		 interface::write);
 
 				  QList<QVariant> item;
 				  item.append((int) RenderedImage::clickMoveCamera);
@@ -2570,7 +1647,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set(parameterName, point);
 					SynchronizeInterfaceWindow(mainWindow->ui->scrollArea_primitives,
 																		 gPar,
-																		 cInterface::write);
+																		 interface::write);
 					break;
 				}
 				case RenderedImage::clickDoNothing:
@@ -2585,20 +1662,20 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("random_lights_distribution_center", point);
 					gPar->Set("random_lights_distribution_radius", 0.5 * distanceCameraToCenter);
 					gPar->Set("random_lights_max_distance_from_fractal", 0.1 * distanceCameraToCenter);
-					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_random_lights_group, gPar, cInterface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_random_lights_group, gPar, interface::write);
 					StartRender();
 					break;
 				}
 				case RenderedImage::clickGetPoint:
 				{
-					SynchronizeInterface(gPar, gParFractal, cInterface::read);
+					SynchronizeInterface(gPar, gParFractal, interface::read);
 					CVector3 oldPoint = gPar->Get<CVector3>("meas_point");
 					double distanceFromLast = (point - oldPoint).Length();
 					double distanceFromCamera = (point - camera).Length();
 					gPar->Set("meas_point", point);
 					gPar->Set("meas_distance_from_last", distanceFromLast);
 					gPar->Set("meas_distance_from_camera", distanceFromCamera);
-					SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, gPar, cInterface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, gPar, interface::write);
 					if(!mainWindow->ui->actionShow_measurement_dock->isChecked())
 					{
 						mainWindow->ui->actionShow_measurement_dock->setChecked(true);
@@ -2613,7 +1690,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 
 void cInterface::MovementStepModeChanged(int mode)
 {
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode) mode;
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 	double oldStep = gPar->Get<double>("camera_movement_step");
@@ -2631,7 +1708,7 @@ void cInterface::MovementStepModeChanged(int mode)
 		  newStep = 0.5;
 	}
 	gPar->Set("camera_movement_step", newStep);
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::write);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, interface::write);
 }
 
 void cInterface::Undo()
@@ -2640,7 +1717,7 @@ void cInterface::Undo()
 	bool refreshKeyframes = false;
 	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
-		SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		SynchronizeInterface(gPar, gParFractal, interface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender(true);
@@ -2653,7 +1730,7 @@ void cInterface::Redo()
 	bool refreshKeyframes = false;
 	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
-		SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		SynchronizeInterface(gPar, gParFractal, interface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender(true);
@@ -2662,7 +1739,7 @@ void cInterface::Redo()
 
 void cInterface::ResetView()
 {
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
@@ -2731,7 +1808,7 @@ void cInterface::ResetView()
 	gPar->Set("camera", newCamera);
 	gPar->Set("camera_distance_to_target", newCameraDist);
 	gPar->Set("view_distance_max", (newCameraDist + maxDist) * 2.0);
-	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, interface::write);
 	StartRender();
 }
 
@@ -2841,8 +1918,8 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 
 		gPar->Set(primitiveFullName + "_enabled", true);
 
-		ConnectSignalsForSlidersInWindow(mainWidget);
-		SynchronizeInterfaceWindow(mainWidget, gPar, cInterface::write);
+		mainWindow->automatedWidgets->ConnectSignalsForSlidersInWindow(mainWidget);
+		SynchronizeInterfaceWindow(mainWidget, gPar, interface::write);
 
 		ComboMouseClickUpdate();
 	}
@@ -3028,10 +2105,10 @@ bool cInterface::QuitApplicationDialog()
 		{
 			stopRequest = true;
 			gQueue->stopRequest = true;
-			WriteLog("Quit application");
+			WriteLog("Quit application", 2);
 			//save applications settings
 			cSettings parSettings(cSettings::formatAppSettings);
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
 			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 			parSettings.SaveToFile(systemData.dataDirectory + "mandelbulber.ini");
 
@@ -3077,7 +2154,7 @@ void cInterface::AutoRecovery()
 			parSettings.LoadFromFile(systemData.autosaveFile);
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gMainInterface->RebuildPrimitives(gPar);
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();
 		}
@@ -3098,7 +2175,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 		return;
 	}
 
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	gUndo.Store(gPar, gParFractal);
 
 	cParameterContainer tempParam = *gPar;
@@ -3167,7 +2244,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 		tempParam.Set("DE_factor", DEfactor);
 
 		gPar->Set("DE_factor", DEfactor);
-		SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		SynchronizeInterface(gPar, gParFractal, interface::write);
 
 		renderJob->UpdateParameters(&tempParam, &tempFractal);
 		renderJob->Execute();
@@ -3207,7 +2284,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	}
 
 	gPar->Set("DE_factor", DEfactor);
-	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, interface::write);
 	cProgressText::ProgressStatusText(QObject::tr("Idle"),
 																		QObject::tr("Optimal DE factor is: %1 which gives %2% of bad distance estimations").arg(DEfactor).arg(missedDE),
 																		1.0,
@@ -3218,12 +2295,12 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 
 void cInterface::ResetFormula(int fractalNumber)
 {
-	SynchronizeInterface(gPar, gParFractal, read);
+	SynchronizeInterface(gPar, gParFractal, interface::read);
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	cParameterContainer *fractal = &gParFractal->at(fractalNumber);
 	fractal->ResetAllToDefault();
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
-	SynchronizeInterface(gPar, gParFractal, write);
+	SynchronizeInterface(gPar, gParFractal, interface::write);
 }
 
 void cInterface::MeasurementGetPoint()
@@ -3231,37 +2308,6 @@ void cInterface::MeasurementGetPoint()
 
 }
 
-//----------- functions outside cInterface class -------------
-
-double ImageScaleComboSelection2Double(int index)
-{
-	double scales[] = { 0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1 };
-	if (index < 7)
-	{
-		return scales[index];
-	}
-	else
-	{
-		qCritical() << "Wrong image scale";
-		return -1.0;
-	}
-}
-
-double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image)
-{
-	double scaleOut;
-	if (scale == 0.0)
-	{
-		double scale1 = (double) previewHeight / image->GetHeight();
-		double scale2 = (double) previewWidth / image->GetWidth();
-		scaleOut = min(scale1, scale2);
-	}
-	else
-	{
-		scaleOut = scale;
-	}
-	return scaleOut;
-}
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

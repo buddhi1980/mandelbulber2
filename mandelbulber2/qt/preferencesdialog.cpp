@@ -4,6 +4,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include "../src/file_downloader.hpp"
+#include "../src/interface.hpp"
+#include "../src/system.hpp"
+#include "../src/initparameters.hpp"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
   QDialog(parent),
@@ -12,8 +15,9 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
 	initFinished = false;
 	ui->setupUi(this);
 
-	gMainInterface->ConnectSignalsForSlidersInWindow(this);
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
+	automatedWidgets = new cAutomatedWidgets(this);
+	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
+	SynchronizeInterfaceWindow(this, gPar, interface::write);
 	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
 	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));
 	ui->comboBox_ui_skin->setCurrentIndex(gPar->Get<int>("ui_skin"));
@@ -40,7 +44,7 @@ cPreferencesDialog::~cPreferencesDialog()
 
 void cPreferencesDialog::on_buttonBox_accepted()
 {
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
+	SynchronizeInterfaceWindow(this, gPar, interface::read);
 
 	QFont font = gMainInterface->mainWindow->font();
 	font.setPixelSize(gPar->Get<int>("ui_font_size"));
@@ -52,6 +56,8 @@ void cPreferencesDialog::on_buttonBox_accepted()
 
 	gPar->Set<int>("toolbar_icon_size", gPar->Get<int>("toolbar_icon_size"));
 	gMainInterface->mainWindow->slotPopulateToolbar(true);
+
+	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 }
 
 void cPreferencesDialog::on_pushButton_select_image_path_clicked()

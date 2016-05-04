@@ -22,6 +22,8 @@
 
 #include "animation_frames.hpp"
 
+cAnimationFrames *gAnimFrames = NULL;
+
 cAnimationFrames::cAnimationFrames()
 {
 }

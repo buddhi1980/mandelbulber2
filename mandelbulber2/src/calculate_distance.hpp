@@ -23,10 +23,8 @@
 #ifndef CALCULATE_DISTANCE_HPP_
 #define CALCULATE_DISTANCE_HPP_
 
-#include "compute_fractal.hpp"
 #include "fractparams.hpp"
 #include "nine_fractals.hpp"
-#include "render_data.hpp"
 
 struct sDistanceIn
 {
@@ -53,7 +51,5 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		const sDistanceIn &in, sDistanceOut *out, sRenderData *data = NULL);
 double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
 		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
-double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRenderData *data);
-
 
 #endif /* CALCULATE_DISTANCE_HPP_ */

@@ -3,6 +3,9 @@
 #include <QtCore>
 #include <QFileDialog>
 #include <QMessageBox>
+#include "../src/interface.hpp"
+#include "../src/initparameters.hpp"
+#include "../src/error_message.hpp"
 
 cVolumeSliceDialog::cVolumeSliceDialog(QWidget *parent) :
 	QDialog(parent),
@@ -11,7 +14,8 @@ cVolumeSliceDialog::cVolumeSliceDialog(QWidget *parent) :
 	initFinished = false;
 	slicerBusy = false;
 	ui->setupUi(this);
-	gMainInterface->ConnectSignalsForSlidersInWindow(this);
+	automatedWidgets = new cAutomatedWidgets(this);
+	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	initFinished = true;
 	ui->progressBar->hide();
 	volumeSlicer = NULL;
@@ -26,7 +30,7 @@ void cVolumeSliceDialog::on_pushButton_start_render_slices_clicked()
 {
 	if(!slicerBusy)
 	{
-		gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
+		SynchronizeInterfaceWindow(this, gPar, interface::read);
 		slicerBusy = true;
 		CVector3 limitMin;
 		CVector3 limitMax;
@@ -96,8 +100,8 @@ void cVolumeSliceDialog::on_pushButton_select_image_path_clicked()
 
 void cVolumeSliceDialog::on_pushButton_show_slices_clicked()
 {
-	WriteLog("Prepare PlayerWidget class");
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
+	WriteLog("Prepare PlayerWidget class", 2);
+	SynchronizeInterfaceWindow(this, gPar, interface::read);
 	if(!gMainInterface->imageSequencePlayer)
 	{
 		gMainInterface->imageSequencePlayer = new PlayerWidget;
@@ -143,5 +147,5 @@ void cVolumeSliceDialog::closeEvent(QCloseEvent * event)
 void cVolumeSliceDialog::showEvent(QShowEvent * event)
 {
 	(void) event;
-	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
+	SynchronizeInterfaceWindow(this, gPar, interface::write);
 }

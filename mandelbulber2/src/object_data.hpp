@@ -9,6 +9,7 @@
 #define MANDELBULBER2_SRC_OBJECT_DATA_HPP_
 
 #include "object_types.hpp"
+#include "algebra.hpp"
 
 class cObjectData
 {

@@ -25,7 +25,7 @@
 #include <QMenu>
 #include <QContextMenuEvent>
 #include <QHeaderView>
-#include "../src/global_data.hpp"
+#include "../src/animation_flight.hpp"
 
 MyTableWidgetAnim::MyTableWidgetAnim(QWidget *parent) : QTableWidget(parent)
 {

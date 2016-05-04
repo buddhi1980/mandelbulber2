@@ -30,14 +30,11 @@
 #include "rendered_image_widget.hpp"
 #include "player_widget.hpp"
 #include "primitives.h"
+#include "synchronize_interface.hpp"
 
 class cInterface
 {
 public:
-	enum enumReadWrite
-	{
-		read, write
-	};
 	enum enumCameraMovementStepMode
 	{
 		relative, absolute
@@ -55,10 +52,7 @@ public:
 	~cInterface();
 	void ShowUi(void);
 	void ConnectSignals(void);
-	void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode);
-	void SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode);
-	void ConnectSignalsForSlidersInWindow(QWidget *window);
-	void GetNameAndType(QString name, QString *parameterName, QString *type);
+	void SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, interface::enumReadWrite mode);
 	void InitializeFractalUi(QString &uiFileName);
 	void StartRender(bool noUndo = false);
 	void MoveCamera(QString buttonName);
@@ -72,7 +66,6 @@ public:
 	void IFSDefaultsMengerSponge(cParameterContainer *parFractal);
 	void IFSDefaultsReset(cParameterContainer *parFractal);
 	void RefreshMainImage();
-	cColorPalette GetPaletteFromImage(const QString &filename);
 	void AutoFog();
 	double GetDistanceForPoint(CVector3 point);
 	double GetDistanceForPoint(CVector3 point, cParameterContainer *par, cFractalContainer *parFractal);
@@ -112,7 +105,6 @@ public:
 
 };
 
-double ImageScaleComboSelection2Double(int index);
-double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
+extern cInterface *gMainInterface;
 
 #endif /* INTERFACE_HPP_ */

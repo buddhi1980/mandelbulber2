@@ -21,14 +21,18 @@
  */
 
 #include "headless.h"
+#include "initparameters.hpp"
+#include "fractal_container.hpp"
+#include "queue.hpp"
 #include "cimage.hpp"
 #include "files.h"
 #include "file_image.hpp"
 #include "render_job.hpp"
 #include "global_data.hpp"
 #include "interface.hpp"
-#include "progress_text.hpp"
 #include "error_message.hpp"
+#include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
 
 cHeadless::cHeadless() :
 		QObject()

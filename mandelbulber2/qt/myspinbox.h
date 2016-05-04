@@ -26,7 +26,6 @@
 #include <QtGui>
 #include <QtCore>
 #include <QSpinBox>
-#include <QMenu>
 #include "../src/parameters.hpp"
 
 class MySpinBox : public QSpinBox

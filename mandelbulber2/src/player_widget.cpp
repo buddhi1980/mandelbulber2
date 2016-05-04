@@ -23,6 +23,7 @@
 #include "player_widget.hpp"
 #include "system.hpp"
 #include "global_data.hpp"
+#include "initparameters.hpp"
 
 PlayerWidget::PlayerWidget(QWidget *parent) :
 		QWidget(parent)
@@ -163,7 +164,7 @@ void PlayerWidget::setPosition(int position)
 
 void PlayerWidget::updateFrame()
 {
-	if (!gPar)
+	if (!gPar) //FIXME it works, but it's ugly solution
 	{
 		close();
 		return;

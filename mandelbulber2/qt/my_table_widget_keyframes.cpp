@@ -25,7 +25,7 @@
 #include <QMenu>
 #include <QContextMenuEvent>
 #include <QHeaderView>
-#include "../src/global_data.hpp"
+#include "../src/animation_keyframes.hpp"
 
 MyTableWidgetKeyframes::MyTableWidgetKeyframes(QWidget *parent) : QTableWidget(parent)
 {

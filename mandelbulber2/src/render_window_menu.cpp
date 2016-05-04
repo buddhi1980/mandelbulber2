@@ -26,6 +26,11 @@
 #include "old_settings.hpp"
 #include "preview_file_dialog.h"
 #include "file_image.hpp"
+#include "interface.hpp"
+#include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
+#include "initparameters.hpp"
+#include "files.h"
 
 void RenderWindow::slotImportOldSettings()
 {
@@ -46,7 +51,7 @@ void RenderWindow::slotImportOldSettings()
     oldSettings.LoadSettings(filename);
     oldSettings.ConvertToNewContainer(gPar, gParFractal);
     gMainInterface->RebuildPrimitives(gPar);
-    gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+    gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
     gMainInterface->ComboMouseClickUpdate();
     systemData.lastSettingsFile = filename;
     this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
@@ -113,7 +118,7 @@ void RenderWindow::slotMenuLoadExample()
     parSettings.LoadFromFile(filename);
     parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
     gMainInterface->RebuildPrimitives(gPar);
-    gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+    gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
     gMainInterface->ComboMouseClickUpdate();
     systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator()
         + QFileInfo(filename).fileName();
@@ -125,7 +130,7 @@ void RenderWindow::slotMenuLoadExample()
 
 void RenderWindow::slotMenuLoadSettings()
 {
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read); //update appParam before loading new settings
 
   cSettings parSettings(cSettings::formatFullText);
 
@@ -145,7 +150,7 @@ void RenderWindow::slotMenuLoadSettings()
     parSettings.LoadFromFile(filename);
     parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
     gMainInterface->RebuildPrimitives(gPar);
-    gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+    gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
     gMainInterface->ComboMouseClickUpdate();
     systemData.lastSettingsFile = filename;
     this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
@@ -156,7 +161,7 @@ void RenderWindow::slotMenuLoadSettings()
 
 void RenderWindow::slotMenuLoadSettingsFromClipboard()
 {
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read); //update appParam before loading new settings
 
   cSettings parSettings(cSettings::formatFullText);
 
@@ -164,7 +169,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
   {
     parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
     gMainInterface->RebuildPrimitives(gPar);
-    gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+    gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
     gMainInterface->ComboMouseClickUpdate();
     systemData.lastSettingsFile = "from clipboard";
     this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
@@ -393,7 +398,7 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 void RenderWindow::slotMenuSaveSettings()
 {
   cSettings parSettings(cSettings::formatCondensedText);
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
   parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 
   QFileDialog dialog(this);
@@ -424,7 +429,7 @@ void RenderWindow::slotMenuSaveSettings()
 void RenderWindow::slotMenuSaveSettingsToClipboard()
 {
   cSettings parSettings(cSettings::formatCondensedText);
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
   parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
   parSettings.SaveToClipboard();
   cErrorMessage::showMessage(QObject::tr("Settings saved to clipboard"),

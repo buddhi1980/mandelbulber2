@@ -40,6 +40,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/animation_frames.cpp\
 			../src/animation_flight.cpp\
 			../src/animation_keyframes.cpp\
+			../src/automated_widgets.cpp \
 			../src/calculate_distance.cpp\
 			../src/camera_target.cpp\
 			../src/compute_fractal.cpp\
@@ -47,6 +48,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/command_line_interface.cpp\
 			../src/cimage.cpp\
 			../src/common_math.cpp\
+			../src/displacement_map.cpp\
 			../src/dof.cpp\
 			../src/error_message.cpp\
 			../src/fractparams.cpp\
@@ -58,6 +60,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/fractal_formulas.cpp\
 			../src/fractal_list.cpp\
 			../src/global_data.cpp\
+			../src/image_scale.cpp\
 			../src/initparameters.cpp\
 			../src/interface.cpp\
 			../src/headless.cpp\
@@ -77,6 +80,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/player_widget.cpp\
 			../src/primitives.cpp\
 			../src/progress_text.cpp\
+			../src/projection_3d.cpp\
 			../src/preview_file_dialog.cpp\
 			../src/queue.cpp\
 			../src/random.cpp\
@@ -86,92 +90,96 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/render_queue.cpp\
 			../src/render_ssao.cpp\
 			../src/render_window.cpp\
-			../src/render_window_automated_widgets.cpp\
 			../src/render_window_buttons.cpp\
 			../src/render_window_camera.cpp\
 			../src/render_window_menu.cpp\
 			../src/render_window_gamepad.cpp\
 			../src/render_window_netrender.cpp\
 			../src/render_window_slots.cpp\
-			../src/render_window_textures.cpp\
 			../src/render_worker.cpp\
 			../src/rendering_configuration.cpp\
 			../src/scheduler.cpp\
 			../src/settings.cpp\
 			../src/shaders.cpp\
+			../src/synchronize_interface.cpp \
 			../src/system.cpp\
 			../src/ssao_worker.cpp\
 			../src/statistics.cpp\
 			../src/texture.cpp\
+			../src/texture_mapping.cpp\
 			../src/thumbnail.cpp\
 			../src/undo.cpp\
 			../src/volume_slicer.cpp\
+			../qt/color_palette_widget.cpp \
 			../qt/file_select_widget.cpp\
-			../qt/mygroupbox.cpp\
-			../qt/mylineedit.cpp\
-			../qt/myspinbox.cpp\
-			../qt/mydoublespinbox.cpp\
-			../qt/mycheckbox.cpp\
-			../qt/mycolorbutton.cpp\
+			../qt/material_editor.cpp \
+			../qt/material_widget.cpp \
 			../qt/my_table_widget_anim.cpp\
 			../qt/my_table_widget_keyframes.cpp\
-			../qt/mylogwidget.cpp\
+			../qt/mycheckbox.cpp\
+			../qt/mycolorbutton.cpp\
+			../qt/mydoublespinbox.cpp\
+			../qt/mygroupbox.cpp\
 			../qt/myhistogramlabel.cpp \
+			../qt/mylineedit.cpp\
+			../qt/mylogwidget.cpp\
+			../qt/myspinbox.cpp\
 			../qt/mytabbar.cpp \
 			../qt/mytabwidget.cpp \
-    	../qt/preferencesdialog.cpp \
-    	../qt/color_palette_widget.cpp \
-    	../qt/volume_slice_dialog.cpp \
-    	../qt/thumbnail_widget.cpp \
-			../qt/material_widget.cpp
+			../qt/preferencesdialog.cpp \
+			../qt/thumbnail_widget.cpp \
+			../qt/volume_slice_dialog.cpp
 
 HEADERS  += ../src/render_window.hpp\
-			../src/render_worker.hpp\
+			../qt/color_palette_widget.h\
 			../qt/file_select_widget.h\
-			../qt/myscrolledarea.h\
-			../qt/mylineedit.h\
-			../qt/myspinbox.h\
-			../qt/mydoublespinbox.h\
-			../qt/mycheckbox.h\
-			../qt/mygroupbox.h\
-			../qt/mycolorbutton.h\
+			../qt/material_editor.h\
+			../qt/material_widget.h\
 			../qt/my_table_widget_anim.hpp\
 			../qt/my_table_widget_keyframes.hpp\
-			../qt/mylogwidget.h\
+			../qt/mycheckbox.h\
+			../qt/mycolorbutton.h\
+			../qt/mydoublespinbox.h\
+			../qt/mygroupbox.h\
 			../qt/myhistogramlabel.h\
+			../qt/mylineedit.h\
+			../qt/mylogwidget.h\
+			../qt/myscrolledarea.h\
+			../qt/myspinbox.h\
 			../qt/mytabbar.h\
 			../qt/mytabwidget.h\
-			../qt/thumbnail_widget.h\
-			../qt/material_widget.h\
 			../qt/preferencesdialog.h\
-    	../qt/volume_slice_dialog.h\
-    	../qt/color_palette_widget.h\
-			../src/my_ui_loader.h\
-			../src/preview_file_dialog.h\
-			../src/ssao_worker.h\
-			../src/rendered_image_widget.hpp\
+			../qt/thumbnail_widget.h\
+			../qt/volume_slice_dialog.h\
 			../src/animation_flight.hpp\
 			../src/animation_keyframes.hpp\
+			../src/automated_widgets.hpp\
+			../src/dof.hpp\
+			../src/error_message.hpp\
 			../src/file_downloader.hpp\
 			../src/file_image.hpp\
+			../src/headless.h\
 			../src/keyframes.hpp\
+			../src/lights.hpp\
 			../src/morph.hpp\
-			../src/player_widget.hpp\
+			../src/my_ui_loader.h\
+			../src/netrender.hpp\
+			../src/preview_file_dialog.h\
 			../src/queue.hpp\
+			../src/render_image.hpp\
 			../src/render_job.hpp\
 			../src/render_queue.hpp\
-			../src/render_image.hpp\
 			../src/render_ssao.h\
-			../src/dof.hpp\
-			../src/netrender.hpp \
-			../src/headless.h\
-			../src/error_message.hpp\
-      ../src/lights.hpp\
-			../src/volume_slicer.hpp
+			../src/render_worker.hpp\
+			../src/rendered_image_widget.hpp\
+			../src/ssao_worker.h\
+			../src/volume_slicer.hpp\
+			../src/player_widget.hpp
 
 FORMS    += ../qt/render_window.ui \
     				../qt/preferencesdialog.ui \
-    				../qt/volume_slice_dialog.ui
+    				../qt/volume_slice_dialog.ui \
+    				../qt/material_editor.ui \
 
 RESOURCES = ../qt/icons.qrc
 

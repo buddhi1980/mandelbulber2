@@ -27,8 +27,7 @@
 
 #include "cimage.hpp"
 #include "fractparams.hpp"
-#include "fractal.h"
-#include "render_image.hpp"
+#include "nine_fractals.hpp"
 #include "scheduler.hpp"
 #include "camera_target.hpp"
 
@@ -48,11 +47,6 @@ public:
 	cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
 			sThreadData *_threadData, sRenderData *_data, cImage *_image);
 	~cRenderWorker();
-
-	//Texture mapping is a static function because it's used outside the class for displacement maps
-	static CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
-			const cObjectData &objectData, const cMaterial *material, CVector3 *textureVectorX = NULL,
-			CVector3 *textureVectorY = NULL);
 
 	QThread workerThread;
 

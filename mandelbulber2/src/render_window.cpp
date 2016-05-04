@@ -21,7 +21,7 @@
  */
 
 #include "render_window.hpp"
-#include "global_data.hpp"
+#include "fractal_container.hpp"
 
 RenderWindow::RenderWindow(QWidget *parent) :
 		QMainWindow(parent), ui(new Ui::RenderWindow)
@@ -30,6 +30,8 @@ RenderWindow::RenderWindow(QWidget *parent) :
 	fractalWidgets = new QWidget*[NUMBER_OF_FRACTALS];
 	preferencesDialog = NULL;
 	volumeSliceDialog = NULL;
+	automatedWidgets = new cAutomatedWidgets(this);
+	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
 	//store default geometry and state
 	defaultGeometry = saveGeometry();

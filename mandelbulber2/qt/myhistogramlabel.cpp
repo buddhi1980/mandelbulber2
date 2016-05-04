@@ -21,10 +21,9 @@
  */
 
 #include "myhistogramlabel.h"
-#include "../src/parameters.hpp"
 #include <QLabel>
-#include "../src/global_data.hpp"
 #include <algorithm>
+using std::max;
 
 MyHistogramLabel::MyHistogramLabel(QWidget *parent) : QLabel(parent)
 {

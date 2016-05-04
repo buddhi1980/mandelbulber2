@@ -21,9 +21,9 @@
  */
 
 #include "mydoublespinbox.h"
-#include "../src/parameters.hpp"
 #include <QLineEdit>
-#include "../src/global_data.hpp"
+#include "../src/animation_flight.hpp"
+#include "../src/animation_keyframes.hpp"
 
 void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 {

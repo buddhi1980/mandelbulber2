@@ -24,10 +24,7 @@
 #define RENDER_DATA_HPP_
 
 #include "lights.hpp"
-#include "color_palette.hpp"
 #include "region.hpp"
-#include <QProgressBar>
-#include <QStatusBar>
 #include "statistics.h"
 #include "rendering_configuration.hpp"
 #include "material.h"

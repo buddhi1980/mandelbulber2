@@ -21,9 +21,9 @@
  */
 
 #include "mygroupbox.h"
-#include "../src/parameters.hpp"
 #include <QLineEdit>
-#include "../src/global_data.hpp"
+#include "../src/animation_flight.hpp"
+#include "../src/animation_keyframes.hpp"
 
 MyGroupBox::MyGroupBox(QWidget *parent) :	QGroupBox(parent)
 {

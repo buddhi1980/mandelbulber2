@@ -21,12 +21,14 @@
  */
 
 #include "queue.hpp"
-#include "system.hpp"
 #include "settings.hpp"
 #include "preview_file_dialog.h"
-#include "global_data.hpp"
+#include "initparameters.hpp"
+#include "fractal_container.hpp"
 #include "error_message.hpp"
 #include "render_queue.hpp"
+
+cQueue *gQueue = NULL;
 
 cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 		const QString &_queueFolder, QObject *parent) :
@@ -563,9 +565,9 @@ void cQueue::slotQueueRender()
 {
 	if (!systemData.noGui)
 	{
-		gMainInterface->SynchronizeInterfaceWindow(gMainInterface->mainWindow->ui->dockWidget_queue_dock,
+		SynchronizeInterfaceWindow(gMainInterface->mainWindow->ui->dockWidget_queue_dock,
 																							 gPar,
-																							 cInterface::read);
+																							 interface::read);
 	}
 	if (queueListFromFile.size() > 0)
 	{
@@ -581,7 +583,7 @@ void cQueue::slotQueueRender()
 
 void cQueue::slotQueueAddCurrentSettings()
 {
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read); //update appParam before loading new settings
 	Append();
 }
 

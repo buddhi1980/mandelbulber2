@@ -21,13 +21,13 @@
  */
 
 #include "render_window.hpp"
-#include "global_data.hpp"
+#include "interface.hpp"
 
 #ifdef USE_GAMEPAD
 void RenderWindow::slotChangeGamepadIndex(int index)
 {
   gamepad.setDeviceId(index);
-  WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index));
+  WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index), 2);
 }
 
 void RenderWindow::slotGamePadDeviceConnected(int index)
@@ -35,7 +35,7 @@ void RenderWindow::slotGamePadDeviceConnected(int index)
   QString deviceName = ""; // TODO gamepad devicename
   if (deviceName == "") deviceName = "Device #" + QString::number(index);
   WriteLog("Gamepad - device connected | index: " + QString::number(index) + ", name: "
-      + deviceName);
+      + deviceName, 2);
 
   if (ui->comboBox_gamepad_device->count() == 0)
   {
@@ -48,7 +48,7 @@ void RenderWindow::slotGamePadDeviceConnected(int index)
 void RenderWindow::slotGamePadDeviceDisconnected(int index)
 {
   WriteLog("Gamepad - device disconnected | index: " + QString::number(index) + ", name: "
-      + ui->comboBox_gamepad_device->itemText(index));
+      + ui->comboBox_gamepad_device->itemText(index), 2);
   ui->comboBox_gamepad_device->removeItem(index);
   if (ui->comboBox_gamepad_device->count() == 0)
   {
@@ -59,7 +59,7 @@ void RenderWindow::slotGamePadDeviceDisconnected(int index)
 
 void RenderWindow::slotGamepadPitch(double value)
 {
-  WriteLog("Gamepad - slotGamepadPitch | value: " + QString::number(value));
+  WriteLog("Gamepad - slotGamepadPitch | value: " + QString::number(value), 3);
   ui->sl_gamepad_angle_pitch->setValue(-100 + 200 * value);
   CVector2<double> yawPitch(value, gamepad.axisLeftY());
   yawPitch = (yawPitch * 2) - CVector2<double>(1, 1);
@@ -68,7 +68,7 @@ void RenderWindow::slotGamepadPitch(double value)
 
 void RenderWindow::slotGamepadYaw(double value)
 {
-  WriteLog("Gamepad - slotGamepadYaw | value: " + QString::number(value));
+  WriteLog("Gamepad - slotGamepadYaw | value: " + QString::number(value), 3);
   ui->sl_gamepad_angle_yaw->setValue(-100 + 200 * value);
   CVector2<double> yawPitch(gamepad.axisLeftX(), value);
   yawPitch = (yawPitch * 2) - CVector2<double>(1, 1);
@@ -78,20 +78,20 @@ void RenderWindow::slotGamepadYaw(double value)
 void RenderWindow::slotGamepadRoll()
 {
   double value = 0.5 + (gamepad.buttonR2() - gamepad.buttonL2()) / 2.0;
-  WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value));
+  WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value), 3);
   ui->sl_gamepad_angle_roll->setValue(-100 + 200 * value);
   emit gMainInterface->renderedImage->RotationChanged(value * 2.0 - 1.0);
 }
 
 void RenderWindow::slotShiftModeChange(bool isShifting)
 {
-  WriteLog("Gamepad - slotShiftModeChange | value: " + QString::number(isShifting));
+  WriteLog("Gamepad - slotShiftModeChange | value: " + QString::number(isShifting), 3);
   emit gMainInterface->renderedImage->ShiftModeChanged(isShifting);
 }
 
 void RenderWindow::slotGamepadX(double value)
 {
-  WriteLog("Gamepad - slotGamepadX | value: " + QString::number(value));
+  WriteLog("Gamepad - slotGamepadX | value: " + QString::number(value), 3);
   ui->sl_gamepad_movement_x->setValue(-100 + 200 * value);
   CVector2<double> strafe(value, gamepad.axisRightY());
   strafe = (strafe * 2) - CVector2<double>(1, 1);
@@ -100,7 +100,7 @@ void RenderWindow::slotGamepadX(double value)
 
 void RenderWindow::slotGamepadY(double value)
 {
-  WriteLog("Gamepad - slotGamepadY | value: " + QString::number(value));
+  WriteLog("Gamepad - slotGamepadY | value: " + QString::number(value), 3);
   ui->sl_gamepad_movement_y->setValue(-100 + 200 * value);
   CVector2<double> strafe(gamepad.axisRightX(), value);
   strafe = (strafe * 2) - CVector2<double>(1, 1);
@@ -110,7 +110,7 @@ void RenderWindow::slotGamepadY(double value)
 void RenderWindow::slotGamepadZ()
 {
   double value = 0.5 + ((gamepad.buttonA() ? 1 : 0) - (gamepad.buttonB() ? 1 : 0)) / 2.0;
-  WriteLog("Gamepad - slotGamepadZ | value: " + QString::number(value));
+  WriteLog("Gamepad - slotGamepadZ | value: " + QString::number(value), 3);
   ui->sl_gamepad_movement_z->setValue(-100 + 200 * value);
   if (gamepad.buttonA() != gamepad.buttonB())
   {

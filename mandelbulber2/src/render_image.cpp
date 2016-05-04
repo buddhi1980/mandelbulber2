@@ -25,12 +25,13 @@
 #include <QtCore>
 
 #include "dof.hpp"
-#include "system.hpp"
+//#include "system.hpp"
 #include "render_worker.hpp"
 #include "progress_text.hpp"
-#include "error_message.hpp"
+//#include "error_message.hpp"
 #include "render_ssao.h"
 #include "global_data.hpp"
+#include "netrender.hpp"
 
 cRenderer::cRenderer(const cParamRender *_params, const cNineFractals *_fractal,
 		sRenderData *_renderData, cImage *_image) :
@@ -51,7 +52,7 @@ cRenderer::~cRenderer()
 
 bool cRenderer::RenderImage()
 {
-	WriteLog("cRenderer::RenderImage()");
+	WriteLog("cRenderer::RenderImage()", 2);
 
 	image->SetImageParameters(params->imageAdjustments);
 
@@ -108,13 +109,13 @@ bool cRenderer::RenderImage()
 	QList<int> listToRefresh;
 	QList<int> listToSend;
 
-	WriteLog("Start rendering");
+	WriteLog("Start rendering", 2);
 	do
 	{
-		WriteLogDouble("Progressive loop", scheduler->GetProgressiveStep());
+		WriteLogDouble("Progressive loop", scheduler->GetProgressiveStep(), 2);
 		for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 		{
-			WriteLog(QString("Thread ") + QString::number(i) + " create");
+			WriteLog(QString("Thread ") + QString::number(i) + " create", 3);
 			thread[i] = new QThread;
 			worker[i] = new cRenderWorker(params, fractal, &threadData[i], data, image); //Warning! not needed to delete object
 			worker[i]->moveToThread(thread[i]);
@@ -123,7 +124,7 @@ bool cRenderer::RenderImage()
 			QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
 			thread[i]->setObjectName("RenderWorker #" + QString::number(i));
 			thread[i]->start();
-			WriteLog(QString("Thread ") + QString::number(i) + " started");
+			WriteLog(QString("Thread ") + QString::number(i) + " started", 3);
 		}
 
 		while (!scheduler->AllLinesDone())
@@ -257,7 +258,7 @@ bool cRenderer::RenderImage()
 			{
 				gApplication->processEvents();
 			};
-			WriteLog(QString("Thread ") + QString::number(i) + " finished");
+			WriteLog(QString("Thread ") + QString::number(i) + " finished", 2);
 			delete thread[i];
 		}
 	} while (scheduler->ProgressiveNextStep());
@@ -307,7 +308,7 @@ bool cRenderer::RenderImage()
 		}
 	}
 	//refresh image at end
-	WriteLog("image->CompileImage()");
+	WriteLog("image->CompileImage()", 2);
 	image->CompileImage();
 
 	if (!(gNetRender->IsClient() && data->configuration.UseNetRender()))
@@ -342,15 +343,15 @@ bool cRenderer::RenderImage()
 
 	if (image->IsPreview())
 	{
-		WriteLog("image->ConvertTo8bit()");
+		WriteLog("image->ConvertTo8bit()", 2);
 		image->ConvertTo8bit();
-		WriteLog("image->UpdatePreview()");
+		WriteLog("image->UpdatePreview()", 2);
 		image->UpdatePreview();
-		WriteLog("image->GetImageWidget()->update()");
+		WriteLog("image->GetImageWidget()->update()", 2);
 		image->GetImageWidget()->update();
 	}
 
-	WriteLog("Rendering finished");
+	WriteLog("Rendering finished", 2);
 
 	//status bar and progress bar
 	double percentDone = 1.0;
@@ -366,7 +367,7 @@ bool cRenderer::RenderImage()
 	delete[] threadData;
 	delete[] worker;
 
-	WriteLog("cRenderer::RenderImage(): memory released");
+	WriteLog("cRenderer::RenderImage(): memory released", 2);
 
 	if (*data->stopRequest) return false;
 	else return true;

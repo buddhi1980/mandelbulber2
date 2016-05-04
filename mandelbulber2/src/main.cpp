@@ -22,16 +22,18 @@
 
 #include "main.hpp"
 #include "system.hpp"
-#include "fractparams.hpp"
 #include "interface.hpp"
 #include "initparameters.hpp"
 #include "fractal_list.hpp"
-#include "undo.h"
 #include "global_data.hpp"
 #include "settings.hpp"
 #include "command_line_interface.hpp"
 #include "headless.h"
 #include "error_message.hpp"
+#include "netrender.hpp"
+#include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
+#include "queue.hpp"
 
 #include <qapplication.h>
 
@@ -46,7 +48,7 @@ int main(int argc, char *argv[])
 	//class for interface windows
 	gMainInterface = new cInterface;
 
-	WriteLog("Prepare QApplication");
+	WriteLog("Prepare QApplication", 2);
 	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
 	gCoreApplication->setOrganizationName("Mandelbulber");
 	gCoreApplication->setApplicationName("Mandelbulber");
@@ -86,7 +88,7 @@ int main(int argc, char *argv[])
 	gErrorMessage = new cErrorMessage;
 
 	//create default directories and copy all needed files
-	WriteLog("CreateDefaultFolders()");
+	WriteLog("CreateDefaultFolders()", 2);
 	if (!CreateDefaultFolders())
 	{
 		qCritical() << "Files/directories initialization failed" << endl;
@@ -130,6 +132,8 @@ int main(int argc, char *argv[])
 		parSettings.LoadFromFile(systemData.dataDirectory + "mandelbulber.ini");
 		parSettings.Decode(gPar, gParFractal);
 	}
+
+	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
 	UpdateDefaultPaths();
 	if (!commandLineInterface.isNoGUI())
@@ -202,7 +206,7 @@ int main(int argc, char *argv[])
 	if (!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->ComboMouseClickUpdate();
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
 		gMainInterface->ComboMouseClickUpdate();
 
 		gMainInterface->AutoRecovery();
@@ -213,7 +217,7 @@ int main(int argc, char *argv[])
 	commandLineInterface.ProcessCLI();
 
 	//start main Qt loop
-	WriteLog("application->exec()");
+	WriteLog("application->exec()", 2);
 	int result = 0;
 	if (!commandLineInterface.isNoGUI()) result = gApplication->exec();
 

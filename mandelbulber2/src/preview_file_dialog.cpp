@@ -22,13 +22,10 @@
 
 #include "preview_file_dialog.h"
 #include <QGridLayout>
-#include "parameters.hpp"
-#include "thumbnail.hpp"
+#include "interface.hpp"
+#include "queue.hpp"
 #include "settings.hpp"
 #include "initparameters.hpp"
-#include "../qt/thumbnail_widget.h"
-#include "progress_text.hpp"
-#include "global_data.hpp"
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) :
 		QFileDialog(parent)

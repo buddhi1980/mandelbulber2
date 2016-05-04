@@ -26,9 +26,8 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QPainter>
-#include "fractparams.hpp"
 #include "common_math.h"
-#include "global_data.hpp"
+#include "initparameters.hpp"
 
 using namespace Qt;
 

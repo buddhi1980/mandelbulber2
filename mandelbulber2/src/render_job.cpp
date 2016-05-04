@@ -21,19 +21,22 @@
  */
 
 #include "render_job.hpp"
-#include <QtCore>
+//#include <QtCore>
 #include "system.hpp"
-#include "fractparams.hpp"
-#include "global_data.hpp"
-#include "progress_text.hpp"
-#include "error_message.hpp"
-#include "nine_fractals.hpp"
+#include "netrender.hpp"
+#include "render_image.hpp"
+#include "image_scale.hpp"
+//#include "fractparams.hpp"
+//#include "global_data.hpp"
+//#include "progress_text.hpp"
+//#include "error_message.hpp"
+//#include "nine_fractals.hpp"
 
 cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
 		cImage *_image, bool *_stopRequest, QWidget *_qwidget) :
 		QObject()
 {
-	WriteLog("cRenderJob::cRenderJob");
+	WriteLog("cRenderJob::cRenderJob", 2);
 	image = _image;
 
 	//create new copy of parameter container
@@ -84,12 +87,12 @@ cRenderJob::~cRenderJob()
 
 	if (canUseNetRender) gNetRender->Release();
 
-	WriteLog("Job finished and closed");
+	WriteLog("Job finished and closed", 2);
 }
 
 bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 {
-	WriteLog("cRenderJob::Init id = " + QString::number(id));
+	WriteLog("cRenderJob::Init id = " + QString::number(id), 2);
 
 	mode = _mode;
 
@@ -159,7 +162,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 bool cRenderJob::InitImage(int w, int h)
 {
-	WriteLog("cRenderJob::InitImage");
+	WriteLog("cRenderJob::InitImage", 2);
 
 	if (!image->ChangeSize(w, h))
 	{
@@ -168,7 +171,7 @@ bool cRenderJob::InitImage(int w, int h)
 	}
 	else
 	{
-		WriteLog("complexImage allocated");
+		WriteLog("complexImage allocated", 2);
 		if (hasQWidget)
 		{
 			double scale =
@@ -193,7 +196,7 @@ bool cRenderJob::InitImage(int w, int h)
 
 void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 {
-	WriteLog("Init renderData");
+	WriteLog("Init renderData", 2);
 	renderData->rendererID = id;
 	renderData->configuration = config;
 
@@ -332,7 +335,7 @@ bool cRenderJob::Execute(void)
 	inProgress = true;
 	*renderData->stopRequest = false;
 
-	WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs));
+	WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
 
 	//move parameters from containers to structures
 	cParamRender *params = new cParamRender(paramsContainer, &renderData->objectData);
@@ -400,7 +403,7 @@ bool cRenderJob::Execute(void)
 	delete renderer;
 	inProgress = false;
 
-	WriteLog("cRenderJob::Execute(void): finished");
+	WriteLog("cRenderJob::Execute(void): finished", 2);
 
 	image->ReleaseImage();
 

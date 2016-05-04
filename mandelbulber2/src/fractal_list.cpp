@@ -332,6 +332,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
 																					10));
 
+  fractalList->append(sFractalDescription("Menger Pwr2 Polynomial",
+                                          "menger_pwr2_poly",
+                                          mengerPwr2Poly,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
+
   fractalList->append(sFractalDescription("Menger-Mod1",
                                           "menger_mod1",
                                           mengerMod1,
@@ -731,13 +739,21 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
+  fractalList->append(sFractalDescription("Transform - Power2 Polynomial",
+                                          "transf_pwr2_polynomial",
+                                          transfPwr2Polynomial,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
+
 	fractalList->append(sFractalDescription("Transform - Rotation",
 																					"transf_rotation",
 																					transfRotation,
 																					analyticDEType,
 																					withoutDEFunction,
 																					cpixelDisabledByDefault,
-																					100));
+                                          100));
 
   fractalList->append(sFractalDescription("Transform - Rotation_VaryV1",
                                           "transf_rotation_varyV1",

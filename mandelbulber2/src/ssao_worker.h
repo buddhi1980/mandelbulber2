@@ -26,6 +26,7 @@
 #include <qobject.h>
 #include "fractparams.hpp"
 #include "render_data.hpp"
+#include "cimage.hpp"
 #include <QList>
 
 class cSSAOWorker: public QObject

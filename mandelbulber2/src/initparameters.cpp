@@ -31,11 +31,14 @@
 #include <QtCore>
 #include "material.h"
 
+cParameterContainer *gPar = NULL;
+
 //definition of all parameters
 void InitParams(cParameterContainer *par)
 {
 	using namespace parameterContainer;
-	WriteLog("Parameters initialization started: " + par->GetContainerName());
+
+	WriteLog("Parameters initialization started: " + par->GetContainerName(), 2);
 
 	//image
 	par->addParam("image_width", 800, 32, 65535, morphNone, paramStandard);
@@ -378,6 +381,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("append_alpha_png", true, morphNone, paramApp);
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 
+	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
+
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);
 	par->SetAsAppParam("openCL_use_CPU", true);
@@ -400,13 +405,13 @@ void InitParams(cParameterContainer *par)
 #endif
 #endif
 
-	WriteLog("Parameters initialization finished");
+	WriteLog("Parameters initialization finished", 2);
 }
 
 //definition of all parameters
 void InitFractalParams(cParameterContainer *par)
 {
-	WriteLog("Fractal parameters initialization started: " + par->GetContainerName());
+	WriteLog("Fractal parameters initialization started: " + par->GetContainerName(), 2);
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -514,6 +519,8 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_scale_025", 0.25, morphAkima, paramStandard);
   par->addParam("transf_scale_1", 1.0, morphAkima, paramStandard);
   par->addParam("transf_scaleA_1", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_scaleB_1", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_scaleC_1", 1.0, morphAkima, paramStandard);
   par->addParam("transf_scale_015", 1.5, morphAkima, paramStandard);
   par->addParam("transf_scale_2", 2.0, morphAkima, paramStandard);
   par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
@@ -521,6 +528,7 @@ void InitFractalParams(cParameterContainer *par)
 
   par->addParam("transf_int_A", 0, morphLinear, paramStandard);
   par->addParam("transf_int_B", 0, morphLinear, paramStandard);
+  par->addParam("transf_int_1", 1, morphLinear, paramStandard);
   par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("transf_start_iterations_250", 250, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
@@ -530,7 +538,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_stop_iterations_B", 250, morphLinear, paramStandard);
   par->addParam("transf_start_iterations_C", 0, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations_C", 250, morphLinear, paramStandard);
-
+  par->addParam("transf_stop_iterations_1", 1, morphLinear, paramStandard);
 
 
   par->addParam("transf_addition_constant_0555", CVector3(0.5, 0.5, 0.5), morphAkima, paramStandard);
@@ -549,6 +557,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_constant_multiplier_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplierA_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplierB_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_constant_multiplierC_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplier_121", CVector3(1.0, 2.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_constant_multiplier_122", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_constant_multiplier_221", CVector3(2.0, 2.0, 1.0), morphAkimaAngle, paramStandard);
@@ -585,6 +594,10 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_function_enabledAx_false", false, morphLinear, paramStandard);
   par->addParam("transf_function_enabledAy_false", false, morphLinear, paramStandard);
   par->addParam("transf_function_enabledAz_false", false, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledBx_false", false, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledBy_false", false, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledBz_false", false, morphLinear, paramStandard);
+
   par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
 
 	// platonic_solid
@@ -595,7 +608,7 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("info", false, morphNone, paramStandard); //dummy parameter for information groupbox
 
-	WriteLog("Fractal parameters initialization finished");
+	WriteLog("Fractal parameters initialization finished", 2);
 }
 
 void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
