@@ -738,24 +738,19 @@
        <widget class="QLabel" name="label_code_content">
         <property name="text">
          <string>&lt;p&gt;RiemannSphereMsltoe Variation1&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/&lt;br&gt;
+&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
-&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;
-&lt;title&gt;Source file&lt;/title&gt;
-&lt;/head&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
-&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New';&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;RiemannSphereMsltoeV1Iteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;RiemannSphereMsltoeV1Iteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; r &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;Length&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;();&lt;/span&gt;
-  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;r &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1e-21&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt; r &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1e-21&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;//if (r &amp;lt; 1e-21) r = 1e-21;&lt;/span&gt;
   z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; r&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; w &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;w &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt; -&lt;/span&gt;&lt;span style=&quot;color:#87df71&quot;&gt;1e-21&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; w &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1e-21&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-    w &lt;span style=&quot;color:#d0d0d0&quot;&gt;= (&lt;/span&gt;w &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt; ? &lt;span style=&quot;color:#87df71&quot;&gt;1e-21&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;: -&lt;/span&gt;&lt;span style=&quot;color:#87df71&quot;&gt;1e-21&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;//if (w &amp;gt; -1e-21 &amp;amp;&amp;amp; w &amp;lt; 1e-21)&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;//  w = (w &amp;gt; 0) ? 1e-21 : -1e-21;&lt;/span&gt;
   w &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; w&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   CVector3 t3&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   t3&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; w&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
@@ -774,10 +769,7 @@
   z &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;additionConstant000&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-&lt;!--HTML generated by highlight 3.9, http://www.andre-simon.de/--&gt;
-</string>
+&lt;/body&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

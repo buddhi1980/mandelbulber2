@@ -79,6 +79,11 @@ foreach($formulas as $index => $formula){
 	// remove hardcoded font-size, to use system defined font-size
 	$formattedEscapedCode = str_replace ('font-size:10pt;', '', $formattedEscapedCode);
 
+	// extract only body element, since html part and comment change between versions of highlight
+	$startCode = mb_strpos($formattedEscapedCode, '<body');
+	$endCode = mb_strpos($formattedEscapedCode, '</body>') + mb_strlen('</body>');
+	$formattedEscapedCode = mb_substr($formattedEscapedCode, $startCode, $endCode - $startCode);
+
 	$comment = $formula['comment'];
 	if(!empty($comment['description'])){
 		$informationText = '<p>' . implode('<br>', $comment['description']) . '</p>';
