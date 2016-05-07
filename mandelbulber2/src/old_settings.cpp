@@ -680,7 +680,11 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("limit_max", CVector3(oldData->fractal.doubles.amax, oldData->fractal.doubles.bmax, oldData->fractal.doubles.cmax));
 	par->Set("limits_enabled", oldData->fractal.limits_enabled);
 	par->Set("interior_mode", oldData->fractal.interiorMode);
-	par->Set("linear_DE_mode", oldData->fractal.linearDEmode);
+	if (oldData->fractal.linearDEmode)
+		par->Set("delta_DE_function", (int)fractal::linearDEFunction);
+	else
+		par->Set("delta_DE_function", (int)fractal::logarithmicDEFunction);
+
 	par->Set("constant_DE_threshold", oldData->fractal.constantDEThreshold);
 	par->Set("hybrid_fractal_enable", false);
 
@@ -688,7 +692,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("contrast", oldData->doubles.imageAdjustments.contrast);
 	par->Set("gamma", oldData->doubles.imageAdjustments.imageGamma);
 	par->Set("hdr", oldData->imageSwitches.hdrEnabled);
-	par->Set("reflect", oldData->doubles.imageAdjustments.reflect);
+	par->Set("mat1_reflectance", oldData->doubles.imageAdjustments.reflect);
 	par->Set("ambient_occlusion", oldData->doubles.imageAdjustments.globalIlum);
 	par->Set("ambient_occlusion_quality", oldData->globalIlumQuality);
 	par->Set("ambient_occlusion_fast_tune", oldData->doubles.fastAoTune);
@@ -700,8 +704,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("ambient_occlusion_mode", (int) AOmode);
 	if (AOmode == params::AOmodeScreenSpace) par->Set("ambient_occlusion_quality", sqrt(oldData->SSAOQuality));
 
-	par->Set("shading", oldData->doubles.imageAdjustments.shading);
-	par->Set("specular", oldData->doubles.imageAdjustments.specular);
+	par->Set("mat1_shading", oldData->doubles.imageAdjustments.shading);
+	par->Set("mat1_specular", oldData->doubles.imageAdjustments.specular);
 	par->Set("glow_enabled", (oldData->doubles.imageAdjustments.glow_intensity > 0.0) ? true : false);
 	par->Set("glow_intensity", oldData->doubles.imageAdjustments.glow_intensity);
 	par->Set("textured_background", oldData->texturedBackground);
@@ -736,12 +740,12 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("iteration_fog_color", 2, oldData->fogColour2);
 	par->Set("iteration_fog_color", 3, oldData->fogColour3);
 
-	par->Set("fractal_color", oldData->imageSwitches.coloringEnabled);
-	par->Set("coloring_random_seed", oldData->coloring_seed);
-	par->Set("coloring_saturation", oldData->doubles.colourSaturation);
-	par->Set("coloring_speed", oldData->doubles.imageAdjustments.coloring_speed);
-	par->Set("coloring_palette_size", 256);
-	par->Set("coloring_palette_offset", oldData->doubles.imageAdjustments.paletteOffset);
+	par->Set("mat1_use_colors_from_palette", oldData->imageSwitches.coloringEnabled);
+	par->Set("mat1_coloring_random_seed", oldData->coloring_seed);
+	par->Set("mat1_coloring_saturation", oldData->doubles.colourSaturation);
+	par->Set("mat1_coloring_speed", oldData->doubles.imageAdjustments.coloring_speed);
+	par->Set("mat1_coloring_palette_size", 256);
+	par->Set("mat1_coloring_palette_offset", oldData->doubles.imageAdjustments.paletteOffset);
 	par->Set("basic_fog_enabled", oldData->imageSwitches.fogEnabled);
 	par->Set("basic_fog_color", oldData->effectColours.fogColor);
 	par->Set("basic_fog_visibility", pow(10.0, oldData->doubles.imageAdjustments.fogVisibility / 10 - 16.0));
@@ -790,7 +794,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	cColorPalette palette;
 	for (int i = 0; i < 256; i++)
 		palette.AppendColor(oldData->palette[i]);
-	par->Set("surface_color_palette", palette);
+	par->Set("mat1_surface_color_palette", palette);
 
 	if (oldData->fractal.primitives.boxEnable)
 	{
@@ -941,6 +945,11 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 
 	fractal->at(0).Set("boxfold_bulbpow2_folding_factor", oldData->fractal.doubles.FoldingIntPowFoldFactor);
 	fractal->at(0).Set("boxfold_bulbpow2_z_factor", oldData->fractal.doubles.FoldingIntPowZfactor);
+
+	for(int i = 0; i < 4; i++)
+	{
+	  fractal->at(i).Set("IFS_rotation_enabled", true);
+	}
 
 	fractal->at(1) = fractal->at(2) = fractal->at(3) = fractal->at(0);
 
