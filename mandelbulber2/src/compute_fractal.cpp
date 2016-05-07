@@ -510,7 +510,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
         case transfBoxOffset:
         {
-          TransformBoxOffsetIteration(z, fractal);
+          TransformBoxOffsetIteration(z, fractal, extendedAux);
           break;
         }
         case transfFabsAddConstant:

@@ -1622,6 +1622,34 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 	z += fractal->transformCommon.additionConstant000;
+  if(fractal->transformCommon.functionEnabledxFalse  && i >= fractal->transformCommon.startIterationsA
+     && i < fractal->transformCommon.stopIterationsA)  // box offset
+  {
+    CVector3 temp = z;
+    if (z.x > 0)
+      z.x = z.x + fractal->transformCommon.additionConstantA000.x;
+    else
+      z.x = z.x - fractal->transformCommon.additionConstantA000.x;
+
+    if (z.y > 0)
+      z.y = z.y + fractal->transformCommon.additionConstantA000.y;
+    else
+      z.y = z.y - fractal->transformCommon.additionConstantA000.y;
+
+    if (z.z > 0)
+      z.z = z.z + fractal->transformCommon.additionConstantA000.z;
+    else
+      z.z = z.z - fractal->transformCommon.additionConstantA000.z;
+
+    if(fractal->transformCommon.functionEnabledFalse)
+    {
+      double tempL = temp.Length();
+    //if (tempL < 1e-21) tempL = 1e-21;
+      double avgScale = z.Length() / tempL;
+     aux.r_dz *= avgScale;
+     aux.DE = aux.DE * avgScale + 1.0;
+    }
+  }
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -2225,6 +2253,7 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 			tempFAB.z = fabs(tempFAB.z);
 
 		tempFAB *= fractal->transformCommon.constantMultiplier000;
+
 		if (z.x > 0)
 			z.x += tempFAB.x;
 		else
@@ -2824,37 +2853,28 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFracta
  */
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
-	if (fractal->transformCommon.addCpixelEnabled)
-	{
-		CVector3 tempFAB = c;
+  CVector3 tempFAB = c;
+  if (fractal->transformCommon.functionEnabledx)
+    tempFAB.x = fabs(tempFAB.x);
+  if (fractal->transformCommon.functionEnabledy)
+    tempFAB.y = fabs(tempFAB.y);
+  if (fractal->transformCommon.functionEnabledz)
+    tempFAB.z = fabs(tempFAB.z);
 
-		if (fractal->transformCommon.functionEnabledx)
-			tempFAB.x = fabs(tempFAB.x);
+  tempFAB *= fractal->transformCommon.constantMultiplier111;
 
-		if (fractal->transformCommon.functionEnabledy)
-
-			tempFAB.y = fabs(tempFAB.y);
-		if (fractal->transformCommon.functionEnabledz)
-			tempFAB.z = fabs(tempFAB.z);
-
-		tempFAB *= fractal->transformCommon.constantMultiplier111;
-
-		if (fractal->transformCommon.functionEnabledFalse)
-			tempFAB *= -1.0;
-
-		if (z.x > 0)
-			z.x += tempFAB.x;
-		else
-			z.x -= tempFAB.x;
-		if (z.y > 0)
-			z.y += tempFAB.y;
-		else
-			z.y -= tempFAB.y;
-		if (z.z > 0)
-			z.z += tempFAB.z;
-		else
-			z.z -= tempFAB.z;
-	}
+  if (z.x > 0)
+    z.x += tempFAB.x;
+  else
+    z.x -= tempFAB.x;
+  if (z.y > 0)
+    z.y += tempFAB.y;
+  else
+    z.y -= tempFAB.y;
+  if (z.z > 0)
+    z.z += tempFAB.z;
+  else
+    z.z -= tempFAB.z;
 }
 
 /**
@@ -3242,8 +3262,9 @@ void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtende
 /**
  * Box Offset, set different offset for each axis, added symmetrically about the origin
  */
-void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal)
+void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
+  CVector3 temp = z;
 	if (z.x > 0)
 		z.x = z.x + fractal->transformCommon.additionConstant000.x;
 	else
@@ -3258,6 +3279,15 @@ void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal)
 		z.z = z.z + fractal->transformCommon.additionConstant000.z;
 	else
 		z.z = z.z - fractal->transformCommon.additionConstant000.z;
+
+  if(fractal->transformCommon.functionEnabledFalse)
+  {
+    double tempL = temp.Length();
+  //if (tempL < 1e-21) tempL = 1e-21;
+    double avgScale = z.Length() / tempL;
+   aux.r_dz *= avgScale;
+   aux.DE = aux.DE * avgScale + 1.0;
+  }
 }
 
 /**
