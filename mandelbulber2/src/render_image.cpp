@@ -387,7 +387,8 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 			lineOfImage[x].colourBuffer = image->GetPixelColor(x, y);
 			lineOfImage[x].zBuffer = image->GetPixelZBuffer(x, y);
 			lineOfImage[x].opacityBuffer = image->GetPixelOpacity(x, y);
-			lineOfImage[x].normalFloat = image->GetPixelNormal(x, y);
+			if(image->GetImageOptional()->optionalNormal)
+				lineOfImage[x].normalFloat = image->GetPixelNormal(x, y);
 		}
 		lineData->append((char*) lineOfImage, dataSize);
 		delete[] lineOfImage;
@@ -414,7 +415,8 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 				image->PutPixelColour(x, y, lineOfImage[x].colourBuffer);
 				image->PutPixelZBuffer(x, y, lineOfImage[x].zBuffer);
 				image->PutPixelOpacity(x, y, lineOfImage[x].opacityBuffer);
-				image->PutPixelNormal(x, y, lineOfImage[x].normalFloat);
+				if(image->GetImageOptional()->optionalNormal)
+					image->PutPixelNormal(x, y, lineOfImage[x].normalFloat);
 			}
 		}
 		else

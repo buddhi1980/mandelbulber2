@@ -65,6 +65,7 @@ cInterface::cInterface()
 	progressBarQueueAnimation = NULL;
 	progressBarFrame = NULL;
 	progressBarLayout = NULL;
+	autoRefreshTimer = NULL;
 	stopRequest = false;
 	repeatRequest = false;
 	interfaceReady = false;
