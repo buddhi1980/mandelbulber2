@@ -556,6 +556,15 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 	}
 	else
 	{
+		if(varType != typeString)
+		{
+			if (value.size() == 0)
+			{
+				cErrorMessage::showMessage(	QObject::tr("Missing value for parameter %1").arg(parameterName),
+																		cErrorMessage::errorMessage);
+				return false;
+			}
+		}
 		if (varType == typeBool)
 		{
 			value = (value == QString("true")) ? "1" : "0";
