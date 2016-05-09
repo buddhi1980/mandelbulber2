@@ -93,7 +93,7 @@ cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename)
 	cColorPalette palette;
 	QImage imagePalette(filename);
 
-	SynchronizeInterfaceWindow(ui->groupCheck_use_color_texture, parameterContainer, interface::read); //TODO get palette from image will work for actual material
+	SynchronizeInterfaceWindow(ui->groupCheck_use_color_texture, parameterContainer, qInterface::read); //TODO get palette from image will work for actual material
 	int paletteSize = parameterContainer->Get<int>(cMaterial::Name("coloring_palette_size", materialIndex));
 
 	if (!imagePalette.isNull())
@@ -117,7 +117,7 @@ cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename)
 
 void cMaterialEditor::slotPressedButtonNewRandomPalette()
 {
-  SynchronizeInterfaceWindow(ui->groupCheck_use_colors_from_palette, parameterContainer, interface::read); //TODO new palette will work for actual material
+  SynchronizeInterfaceWindow(ui->groupCheck_use_colors_from_palette, parameterContainer, qInterface::read); //TODO new palette will work for actual material
   cColorPalette palette(parameterContainer->Get<int>(cMaterial::Name("coloring_palette_size", materialIndex)),
   		parameterContainer->Get<int>(cMaterial::Name("coloring_random_seed", materialIndex)),
 			parameterContainer->Get<double>(cMaterial::Name("coloring_saturation", materialIndex)));
@@ -126,7 +126,7 @@ void cMaterialEditor::slotPressedButtonNewRandomPalette()
 
 void cMaterialEditor::slotPressedButtonRandomize()
 {
-  srand((unsigned int) clock());
+  srand((unsigned int)QTime::currentTime().msec());
   int seed = Random(999999);
   ui->spinboxInt_coloring_random_seed->setValue(seed);
   slotPressedButtonNewRandomPalette();

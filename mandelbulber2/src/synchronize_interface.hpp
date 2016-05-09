@@ -12,7 +12,7 @@
 #include "parameters.hpp"
 #include "fractal_container.hpp"
 
-namespace interface
+namespace qInterface
 {
 enum enumReadWrite
 {
@@ -20,7 +20,7 @@ enum enumReadWrite
 };
 }
 
-void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, interface::enumReadWrite mode);
+void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, qInterface::enumReadWrite mode);
 void GetNameAndType(QString name, QString *parameterName, QString *type);
 
 #endif /* MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_ */

@@ -842,11 +842,11 @@ void cInterface::ConnectSignals(void)
 
 //Reading ad writing parameters from/to ui to/from parameters container
 void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal,
-		interface::enumReadWrite mode)
+		qInterface::enumReadWrite mode)
 {
 	WriteLog("cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)", 2);
 
-	if(!interfaceReady && mode == interface::read) return;
+	if(!interfaceReady && mode == qInterface::read) return;
 
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
@@ -995,7 +995,7 @@ void cInterface::StartRender(bool noUndo)
 
 	repeatRequest = false;
 	progressBarAnimation->hide();
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
 	if(mainWindow->ui->checkBox_auto_refresh->isChecked())
 	{
@@ -1047,7 +1047,7 @@ void cInterface::MoveCamera(QString buttonName)
 {
 	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName, 2);
 	//get data from interface
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1118,7 +1118,7 @@ void cInterface::MoveCamera(QString buttonName)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, interface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 	StartRender();
 }
@@ -1133,7 +1133,7 @@ void cInterface::CameraOrTargetEdited(void)
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	camera = gPar->Get<CVector3>("camera");
 	target = gPar->Get<CVector3>("target");
 
@@ -1150,7 +1150,7 @@ void cInterface::CameraOrTargetEdited(void)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, interface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 }
 
@@ -1159,7 +1159,7 @@ void cInterface::RotateCamera(QString buttonName)
 	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName, 2);
 
 	//get data from interface
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1238,7 +1238,7 @@ void cInterface::RotateCamera(QString buttonName)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, interface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 	StartRender();
 }
@@ -1247,7 +1247,7 @@ void cInterface::RotationEdited(void)
 {
 	WriteLog("cInterface::RotationEdited(void)", 2);
 	//get data from interface before synchronization
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1275,14 +1275,14 @@ void cInterface::RotationEdited(void)
 	gPar->Set("camera", camera);
 	gPar->Set("target", target);
 	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	SynchronizeInterface(gPar, gParFractal, interface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
 void cInterface::CameraDistanceEdited()
 {
 	WriteLog("cInterface::CameraDistanceEdited()", 2);
 
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, interface::read);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1306,7 +1306,7 @@ void cInterface::CameraDistanceEdited()
 	gPar->Set("camera", camera);
 	gPar->Set("target", target);
 	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, interface::write);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::write);
 }
 
 void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal)
@@ -1397,7 +1397,7 @@ void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
 
 void cInterface::RefreshMainImage()
 {
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	sImageAdjustments imageAdjustments;
 	imageAdjustments.brightness = gPar->Get<double>("brightness");
 	imageAdjustments.contrast = gPar->Get<double>("contrast");
@@ -1450,7 +1450,7 @@ void cInterface::RefreshMainImage()
 
 void cInterface::AutoFog()
 {
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 	double fogDensity = 0.5;
 	double fogDistanceFactor = distance;
@@ -1460,7 +1460,7 @@ void cInterface::AutoFog()
 	gPar->Set("volumetric_fog_colour_1_distance", fogColour1Distance);
 	gPar->Set("volumetric_fog_colour_2_distance", fogColour2Distance);
 	gPar->Set("volumetric_fog_density", fogDensity);
-	SynchronizeInterface(gPar, gParFractal, interface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
 double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par,
@@ -1478,7 +1478,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par,
 
 double cInterface::GetDistanceForPoint(CVector3 point)
 {
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	double distance = GetDistanceForPoint(point, gPar, gParFractal);
 	return distance;
 }
@@ -1492,7 +1492,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 
 	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode) mode.at(0).toInt();
 
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1597,7 +1597,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					double dist = cameraTarget.GetDistance();
 					gPar->Set("camera_distance_to_target", dist);
 
-					SynchronizeInterface(gPar, gParFractal, interface::write);
+					SynchronizeInterface(gPar, gParFractal, qInterface::write);
 					renderedImage->setNewZ(depth - moveDistance);
 
 					StartRender();
@@ -1610,7 +1610,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("basic_fog_visibility", fogDepth);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled,
 																		 gPar,
-																		 interface::write);
+																		 qInterface::write);
 					StartRender();
 					break;
 				}
@@ -1620,7 +1620,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("DOF_focus", DOF);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled,
 																		 gPar,
-																		 interface::write);
+																		 qInterface::write);
 					gUndo.Store(gPar, gParFractal);
 					RefreshMainImage();
 					break;
@@ -1634,7 +1634,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					int lightNumber = mode.at(1).toInt();
 					gPar->Set("aux_light_position", lightNumber, pointCorrected);
 					gPar->Set("aux_light_intensity", lightNumber, intensity);
-					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, interface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, qInterface::write);
 					StartRender();
 					break;
 				}
@@ -1644,7 +1644,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					mainWindow->ui->groupCheck_julia_mode->setChecked(true);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode,
 																		 gPar,
-																		 interface::write);
+																		 qInterface::write);
 
 				  QList<QVariant> item;
 				  item.append((int) RenderedImage::clickMoveCamera);
@@ -1661,7 +1661,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set(parameterName, point);
 					SynchronizeInterfaceWindow(mainWindow->ui->scrollArea_primitives,
 																		 gPar,
-																		 interface::write);
+																		 qInterface::write);
 					break;
 				}
 				case RenderedImage::clickDoNothing:
@@ -1676,20 +1676,20 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("random_lights_distribution_center", point);
 					gPar->Set("random_lights_distribution_radius", 0.5 * distanceCameraToCenter);
 					gPar->Set("random_lights_max_distance_from_fractal", 0.1 * distanceCameraToCenter);
-					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_random_lights_group, gPar, interface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_random_lights_group, gPar, qInterface::write);
 					StartRender();
 					break;
 				}
 				case RenderedImage::clickGetPoint:
 				{
-					SynchronizeInterface(gPar, gParFractal, interface::read);
+					SynchronizeInterface(gPar, gParFractal, qInterface::read);
 					CVector3 oldPoint = gPar->Get<CVector3>("meas_point");
 					double distanceFromLast = (point - oldPoint).Length();
 					double distanceFromCamera = (point - camera).Length();
 					gPar->Set("meas_point", point);
 					gPar->Set("meas_distance_from_last", distanceFromLast);
 					gPar->Set("meas_distance_from_camera", distanceFromCamera);
-					SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, gPar, interface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, gPar, qInterface::write);
 					if(!mainWindow->ui->actionShow_measurement_dock->isChecked())
 					{
 						mainWindow->ui->actionShow_measurement_dock->setChecked(true);
@@ -1704,7 +1704,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 
 void cInterface::MovementStepModeChanged(int mode)
 {
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode) mode;
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 	double oldStep = gPar->Get<double>("camera_movement_step");
@@ -1722,7 +1722,7 @@ void cInterface::MovementStepModeChanged(int mode)
 		  newStep = 0.5;
 	}
 	gPar->Set("camera_movement_step", newStep);
-	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, interface::write);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::write);
 }
 
 void cInterface::Undo()
@@ -1731,7 +1731,7 @@ void cInterface::Undo()
 	bool refreshKeyframes = false;
 	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
-		SynchronizeInterface(gPar, gParFractal, interface::write);
+		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender(true);
@@ -1744,7 +1744,7 @@ void cInterface::Redo()
 	bool refreshKeyframes = false;
 	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
-		SynchronizeInterface(gPar, gParFractal, interface::write);
+		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender(true);
@@ -1753,7 +1753,7 @@ void cInterface::Redo()
 
 void cInterface::ResetView()
 {
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
@@ -1822,7 +1822,7 @@ void cInterface::ResetView()
 	gPar->Set("camera", newCamera);
 	gPar->Set("camera_distance_to_target", newCameraDist);
 	gPar->Set("view_distance_max", (newCameraDist + maxDist) * 2.0);
-	SynchronizeInterface(gPar, gParFractal, interface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	StartRender();
 }
 
@@ -1933,7 +1933,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		gPar->Set(primitiveFullName + "_enabled", true);
 
 		mainWindow->automatedWidgets->ConnectSignalsForSlidersInWindow(mainWidget);
-		SynchronizeInterfaceWindow(mainWidget, gPar, interface::write);
+		SynchronizeInterfaceWindow(mainWidget, gPar, qInterface::write);
 
 		ComboMouseClickUpdate();
 	}
@@ -2122,7 +2122,7 @@ bool cInterface::QuitApplicationDialog()
 			WriteLog("Quit application", 2);
 			//save applications settings
 			cSettings parSettings(cSettings::formatAppSettings);
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 			parSettings.SaveToFile(systemData.dataDirectory + "mandelbulber.ini");
 
@@ -2168,7 +2168,7 @@ void cInterface::AutoRecovery()
 			parSettings.LoadFromFile(systemData.autosaveFile);
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gMainInterface->RebuildPrimitives(gPar);
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();
 		}
@@ -2189,7 +2189,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 		return;
 	}
 
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	gUndo.Store(gPar, gParFractal);
 
 	cParameterContainer tempParam = *gPar;
@@ -2258,7 +2258,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 		tempParam.Set("DE_factor", DEfactor);
 
 		gPar->Set("DE_factor", DEfactor);
-		SynchronizeInterface(gPar, gParFractal, interface::write);
+		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 		renderJob->UpdateParameters(&tempParam, &tempFractal);
 		renderJob->Execute();
@@ -2298,7 +2298,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	}
 
 	gPar->Set("DE_factor", DEfactor);
-	SynchronizeInterface(gPar, gParFractal, interface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	cProgressText::ProgressStatusText(QObject::tr("Idle"),
 																		QObject::tr("Optimal DE factor is: %1 which gives %2% of bad distance estimations").arg(DEfactor).arg(missedDE),
 																		1.0,
@@ -2309,12 +2309,12 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 
 void cInterface::ResetFormula(int fractalNumber)
 {
-	SynchronizeInterface(gPar, gParFractal, interface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	cParameterContainer *fractal = &gParFractal->at(fractalNumber);
 	fractal->ResetAllToDefault();
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
-	SynchronizeInterface(gPar, gParFractal, interface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
 void cInterface::PeriodicRefresh()
@@ -2324,7 +2324,7 @@ void cInterface::PeriodicRefresh()
 	if(mainWindow->ui->checkBox_auto_refresh->isChecked())
 	{
 		//check if something was changed in settings
-		SynchronizeInterface(gPar, gParFractal, interface::read);
+		SynchronizeInterface(gPar, gParFractal, qInterface::read);
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.CreateText(gPar, gParFractal);
 		QString newHash = tempSettings.GetHashCode();

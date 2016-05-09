@@ -196,7 +196,7 @@ void cFlightAnimation::slotRenderFlight()
 void cFlightAnimation::RecordFlight(bool continueRecording)
 {
 	//get latest values of all parameters
-	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	gUndo.Store(params, fractalParams, frames, NULL);
 
 	if (!continueRecording)
@@ -360,7 +360,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		if (wasPaused)
 		{
 			//parameter refresh after pause
-			mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
+			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 			renderJob->UpdateParameters(params, fractalParams);
 			rotationSpeedSp = params->Get<double>("flight_rotation_speed") / 100.0;
 			rollSpeedSp = params->Get<double>("flight_roll_speed") / 100.0;
@@ -443,7 +443,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		params->Set("flight_rotation_speed_vector", cameraAngularSpeed);
 		params->Set("frame_no", index);
 
-		SynchronizeInterfaceWindow(ui->dockWidget_navigation, params, interface::write);
+		SynchronizeInterfaceWindow(ui->dockWidget_navigation, params, qInterface::write);
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
 		//add new frame to container
@@ -709,7 +709,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	if (!systemData.noGui && image->IsMainImage())
 	{
-		mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
+		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 		gUndo.Store(params, fractalParams, frames, NULL);
 	}
 
@@ -830,7 +830,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 			if (!systemData.noGui && image->IsMainImage())
 			{
-				mainInterface->SynchronizeInterface(params, fractalParams, interface::write);
+				mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
 				//show distance in statistics table
 				double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"),
@@ -884,7 +884,7 @@ void cFlightAnimation::RefreshTable()
 
 	UpdateLimitsForFrameRange(); //it is needed to do it also here, because limits must be set just after loading of settings
 
-	SynchronizeInterfaceWindow(ui->tab_flight_animation, params, interface::read);
+	SynchronizeInterfaceWindow(ui->tab_flight_animation, params, qInterface::read);
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
 
@@ -933,9 +933,9 @@ QString cFlightAnimation::GetParameterName(int rowNumber)
 
 void cFlightAnimation::RenderFrame(int index)
 {
-	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	frames->GetFrameAndConsolidate(index, params, fractalParams);
-	mainInterface->SynchronizeInterface(params, fractalParams, interface::write);
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
 	mainInterface->StartRender();
 }
@@ -972,12 +972,12 @@ void cFlightAnimation::slotFlightChangeSpeed(double amount)
 {
 	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
 																						params,
-																						interface::read);
+																						qInterface::read);
 	linearSpeedSp = params->Get<double>("flight_speed") * amount;
 	params->Set("flight_speed", linearSpeedSp);
 	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
 																						params,
-																						interface::write);
+																						qInterface::write);
 }
 
 void cFlightAnimation::slotFlightRotation(double direction)
@@ -1088,7 +1088,7 @@ void cFlightAnimation::slotDeleteAllImages()
 {
 	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
 																						params,
-																						interface::read);
+																						qInterface::read);
 
 	QMessageBox::StandardButton reply;
 	reply =
@@ -1109,7 +1109,7 @@ void cFlightAnimation::slotShowAnimation()
 
 	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
 																						params,
-																						interface::read);
+																						qInterface::read);
 
 	if(!mainInterface->imageSequencePlayer)
 	{
@@ -1261,7 +1261,7 @@ QString cFlightAnimation::GetFlightFilename(int index)
 
 void cFlightAnimation::slotExportFlightToKeyframes()
 {
-	mainInterface->SynchronizeInterface(params, fractalParams, interface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	gUndo.Store(params, fractalParams, gAnimFrames, gKeyframes);
 
 	if (gKeyframes->GetFrames().size() > 0)
@@ -1301,7 +1301,7 @@ void cFlightAnimation::UpdateLimitsForFrameRange(void)
 	ui->spinboxInt_flight_last_to_render->setMaximum(noOfFrames);
 	ui->sliderInt_flight_last_to_render->setMaximum(noOfFrames);
 
-	SynchronizeInterfaceWindow(ui->tab_flight_animation, gPar, interface::write);
+	SynchronizeInterfaceWindow(ui->tab_flight_animation, gPar, qInterface::write);
 }
 
 void cFlightAnimation::slotMovedSliderFirstFrame(int value)

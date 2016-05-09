@@ -38,7 +38,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	queueListFileName = _queueListFileName;
 	queueFolder = _queueFolder;
 
-	if (!QFile::exists(queueFolder) && !CreateDirectory(queueFolder))
+	if (!QFile::exists(queueFolder) && !CreateFolder(queueFolder))
 	{
 		throw QString("cannot init queueListFileName folder to: " + queueFolder);
 	}
@@ -567,7 +567,7 @@ void cQueue::slotQueueRender()
 	{
 		SynchronizeInterfaceWindow(gMainInterface->mainWindow->ui->dockWidget_queue_dock,
 																							 gPar,
-																							 interface::read);
+																							 qInterface::read);
 	}
 	if (queueListFromFile.size() > 0)
 	{
@@ -583,7 +583,7 @@ void cQueue::slotQueueRender()
 
 void cQueue::slotQueueAddCurrentSettings()
 {
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read); //update appParam before loading new settings
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read); //update appParam before loading new settings
 	Append();
 }
 

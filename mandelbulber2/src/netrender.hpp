@@ -185,7 +185,7 @@ private:
 //------------------- public slots -------------------
 public slots:
 	//send parameters and textures to all clients and start rendering
-	void SetJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
+	void SetCurrentJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
 	//send to server a list of numbers and image data of already rendered lines
   void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 	//send list of already rendered lines

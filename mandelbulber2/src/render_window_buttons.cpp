@@ -187,11 +187,11 @@ void RenderWindow::slotPressedButtonIFSDefaultsDodecahedron()
   int index = ui->tabWidget_fractals->currentIndex();
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::read);
+                                             qInterface::read);
   gMainInterface->IFSDefaultsDodecahedron(&gParFractal->at(index));
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                             &gParFractal->at(index),
-                                             interface::write);
+                                             qInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsIcosahedron()
@@ -199,11 +199,11 @@ void RenderWindow::slotPressedButtonIFSDefaultsIcosahedron()
   int index = ui->tabWidget_fractals->currentIndex();
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::read);
+                                             qInterface::read);
   gMainInterface->IFSDefaultsIcosahedron(&gParFractal->at(index));
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::write);
+                                             qInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsOctahedron()
@@ -211,11 +211,11 @@ void RenderWindow::slotPressedButtonIFSDefaultsOctahedron()
   int index = ui->tabWidget_fractals->currentIndex();
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::read);
+                                             qInterface::read);
   gMainInterface->IFSDefaultsOctahedron(&gParFractal->at(index));
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::write);
+                                             qInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsMengerSponge()
@@ -223,11 +223,11 @@ void RenderWindow::slotPressedButtonIFSDefaultsMengerSponge()
   int index = ui->tabWidget_fractals->currentIndex();
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::read);
+                                             qInterface::read);
   gMainInterface->IFSDefaultsMengerSponge(&gParFractal->at(index));
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::write);
+                                             qInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsReset()
@@ -235,11 +235,11 @@ void RenderWindow::slotPressedButtonIFSDefaultsReset()
   int index = ui->tabWidget_fractals->currentIndex();
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::read);
+                                             qInterface::read);
   gMainInterface->IFSDefaultsReset(&gParFractal->at(index));
   SynchronizeInterfaceWindow(fractalWidgets[index],
                                              &gParFractal->at(index),
-                                             interface::write);
+                                             qInterface::write);
 }
 
 void RenderWindow::slotPressedImagesizeIncrease()

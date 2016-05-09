@@ -31,6 +31,7 @@ ENDIF()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
+
 # find all sources
 file(GLOB srcHeader "mandelbulber2/src/*.h" "mandelbulber2/src/*.hpp")
 file(GLOB srcDef "mandelbulber2/src/*.c" "mandelbulber2/src/*.cpp")
@@ -41,8 +42,15 @@ set(SOURCE_FILES ${srcHeader} ${srcDef} ${qtHeader} ${qtDef})
 # set additional files for compilation
 set(ADDITIONAL_EXECUTABLE mandelbulber2/qt/icons.qrc)
 
+# find all ui files in qt/*.ui and add for header generation and linking
+file(GLOB qt_UI "mandelbulber2/qt/*.ui")
+QT5_WRAP_UI(qt_UI_H ${qt_UI})
+
+include_directories(mandelbulber2/qt)
+include_directories(mandelbulber2/src)
+
 # add source files to the build target
-add_executable(mandelbulber2 ${SOURCE_FILES}  ${ADDITIONAL_EXECUTABLE})
+add_executable(mandelbulber2 ${SOURCE_FILES} ${ADDITIONAL_EXECUTABLE} ${qt_UI_H})
 
 # link qt libraries
 target_link_libraries(mandelbulber2 Qt5::Widgets)
@@ -66,4 +74,12 @@ IF(OpenEXR_FOUND)
     include_directories(${OpenEXR_INCLUDE_DIRS})
     target_link_libraries(mandelbulber2 ${OpenEXR_LIBRARIES})
     add_definitions(-DUSE_EXR)
+ENDIF()
+
+# generate proper GUI program on specified platform
+IF(WIN32 AND MSVC) # Check if we are using the Visual Studio compiler on windows
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+		WIN32_EXECUTABLE YES
+		LINK_FLAGS "/SUBSYSTEM:WINDOWS"
+	)
 ENDIF()

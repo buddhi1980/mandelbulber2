@@ -52,7 +52,7 @@ public:
 	~cInterface();
 	void ShowUi(void);
 	void ConnectSignals(void);
-	void SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, interface::enumReadWrite mode);
+	void SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode);
 	void InitializeFractalUi(QString &uiFileName);
 	void StartRender(bool noUndo = false);
 	void MoveCamera(QString buttonName);

@@ -25,7 +25,7 @@
 
 #include <QtGui>
 #include <QtCore>
-#include "../qt/ui_render_window.h"
+#include "ui_render_window.h"
 #include <QSettings>
 #include "statistics.h"
 #include "progress_text.hpp"

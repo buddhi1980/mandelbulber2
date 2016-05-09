@@ -490,7 +490,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					if (!systemData.noGui)
 					{
-						gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
+						gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 						gMainInterface->StartRender(true);
 					}
 					else
@@ -711,7 +711,7 @@ void CNetRender::Stop()
 	}
 }
 
-void CNetRender::SetJob(cParameterContainer settings, cFractalContainer fractal,
+void CNetRender::SetCurrentJob(cParameterContainer settings, cFractalContainer fractal,
 		sTextures textures)
 {
 	WriteLog("NetRender - Sending job", 2);

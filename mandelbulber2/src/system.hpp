@@ -27,7 +27,7 @@
 #define TO_STRING(a)	#a
 
 #ifdef WIN32 /* WINDOWS */
-#include <windows.h>
+// #include <windows.h>
 #define HAVE_BOOLEAN  /* prevent jmorecfg.h from redefining it */
 #endif
 
@@ -87,7 +87,7 @@ void WriteLogString(QString text, QString value, int verbosityLevel);
 void handle_winch(int sig);
 int get_cpu_count();
 bool CreateDefaultFolders(void);
-bool CreateDirectory(QString name);
+bool CreateFolder(QString name);
 void DeleteAllFilesFromDirectory(QString folder, QString filterExpression);
 int fcopy(QString source, QString dest);
 void Wait(long int time);

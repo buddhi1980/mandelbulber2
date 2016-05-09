@@ -1,12 +1,12 @@
 # AppVeyor build configuration
 # https://www.appveyor.com/docs/build-configuration
 
+os: Visual Studio 2015
+
 build: false # use custom build_script instead
 
-install:
-  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
-  - set QTDIR=C:\Qt\5.5\mingw492_32
-  - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
+before_build:
+  - mkdir deps
 # gsl
   - git clone git://github.com/ampl/gsl.git
   - cd gsl
@@ -16,11 +16,34 @@ install:
   - nmake
   - cd ..
   
+  #packages from nuget
+  - nuget install zlib-msvc14-x64-master -Version 1.2.8.4 -Source https://ci.appveyor.com/nuget/zlib-shallow-x0n34b3pfq1b
+  - ps: move zlib*\* deps -force
+  - move deps\zlibstatic.lib deps\zlib.lib
+  - nuget install libpng-msvc14-x64-master -Version 1.6.18.44 -Source https://ci.appveyor.com/nuget/libpng-7hwq4pmmrc48
+  - ps: move libpng*\* deps -force
+  - move deps\libpng16_static.lib deps\png.lib
+  #- nuget install libtiff-msvc14-x64-master -Version 4.0.6.85 -Source https://ci.appveyor.com/nuget/libtiff-i3h8tqqy7o7b
+ 
+install:
+  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
+  - set QTDIR=C:\Qt\5.5\mingw492_32
+  - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
+
 build_script:
-  - cd mandelbulber2/Release
-  - qmake -win32 mandelbulber.pro
+  #- cd mandelbulber2/Release
+  #- qmake -win32 mandelbulber.pro
   - SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\gsl
   - SET LIB=%LIB%;C:\projects\mandelbulber2\gsl\Release
+  - cmake -G "NMake Makefiles" -D CMAKE_CXX_FLAGS_RELEASE="/MD" \
+     -D CMAKE_CXX_FLAGS_DEBUG="/MDd" -D CMAKE_C_FLAGS_RELEASE="/MD" \
+     -D CMAKE_C_FLAGS_DEBUG="/MDd" \
+     -DPNG_LIBRARY=deps\png.lib -DPNG_PNG_INCLUDE_DIR=deps \
+     -DZLIB_LIBRARY=deps\zlib.lib -DZLIB_INCLUDE_DIR=deps \
+     -DGSL_CBLAS_LIBRARY=gsl\lib -DGSL_INCLUDE_DIR=gsl\include -DGSL_LIBRARY=gsl\lib \
+     .
+  # move the auto-generated ui files to qt folder
+  - move ui_* mandelbulber2\qt
   - nmake
 
 notifications:

@@ -75,7 +75,7 @@ void RenderWindow::slotChangedComboFractal(int indexInComboBox)
       automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
       SynchronizeInterfaceWindow(fractalWidgets[fractalNumber],
                                                  &gParFractal->at(fractalNumber),
-                                                 interface::write);
+                                                 qInterface::write);
 
       QFrame *frame = ui->tabWidget_fractals->findChild<QFrame*>("frame_iterations_formula_"
           + QString::number(fractalNumber + 1));
@@ -653,7 +653,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 void RenderWindow::slotPresetAddToToolbar()
 {
   cSettings parSettings(cSettings::formatCondensedText);
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
   parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
   QString filename = systemData.dataDirectory + "toolbar/" + parSettings.GetHashCode() + ".fract";
   parSettings.SaveToFile(filename);
@@ -666,7 +666,7 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
   parSettings.LoadFromFile(filename);
   parSettings.Decode(gPar, gParFractal);
   gMainInterface->RebuildPrimitives(gPar);
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
   gMainInterface->ComboMouseClickUpdate();
   systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
       + QFileInfo(filename).fileName();
@@ -813,7 +813,7 @@ void RenderWindow::slotFractalSwap(int swapA, int swapB)
   // qDebug() << "swapping " << swapA << " with " << swapB;
 
   // read all data from ui
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::read);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
   // swap formula specific fields in gPar
   QStringList gParFormulaSpecificFields;
@@ -833,13 +833,13 @@ void RenderWindow::slotFractalSwap(int swapA, int swapB)
   // swap formula specific fields in gParFractal by swapping whole container
   SynchronizeInterfaceWindow(fractalWidgets[swapA],
                                              &gParFractal->at(swapB),
-                                             interface::read);
+                                             qInterface::read);
   SynchronizeInterfaceWindow(fractalWidgets[swapB],
                                              &gParFractal->at(swapA),
-                                             interface::read);
+                                             qInterface::read);
 
   // write swapped changes to ui
-  gMainInterface->SynchronizeInterface(gPar, gParFractal, interface::write);
+  gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
 void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)

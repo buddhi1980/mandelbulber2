@@ -18,7 +18,7 @@
 #include "../qt/mylineedit.h"
 #include "../qt/myspinbox.h"
 
-using namespace interface;
+using namespace qInterface;
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
 void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,

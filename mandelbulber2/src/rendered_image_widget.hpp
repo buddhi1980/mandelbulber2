@@ -28,8 +28,6 @@
 #include "parameters.hpp"
 #include "algebra.hpp"
 
-using namespace Qt;
-
 class RenderedImage: public QWidget
 {
 Q_OBJECT

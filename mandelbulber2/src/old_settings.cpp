@@ -230,7 +230,7 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "angle_gamma")) params->doubles.gamma = atof2(str2) / 180.0 * M_PI;
 	else if (!strcmp(str1, "zoom")) params->doubles.zoom = atof2(str2);
 	else if (!strcmp(str1, "perspective")) params->doubles.persp = atof2(str2);
-	else if (!strcmp(str1, "formula")) params->fractal.formula = (enumFractalFormula) atoi(str2);
+	else if (!strcmp(str1, "formula")) params->fractal.formula = (enumFractalFormula)atoi(str2);
 	else if (!strcmp(str1, "power")) params->fractal.doubles.power = atof2(str2);
 	else if (!strcmp(str1, "N")) params->fractal.doubles.N = atoi(str2);
 	else if (!strcmp(str1, "minN")) params->fractal.minN = atoi(str2);
@@ -264,31 +264,40 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "ambient_occlusion_fast_tune")) params->doubles.fastAoTune = atof2(str2);
 	else if (!strcmp(str1, "shading")) params->doubles.imageAdjustments.shading = atof2(str2);
 	else if (!strcmp(str1, "specular")) params->doubles.imageAdjustments.specular = atof2(str2);
-	else if (!strcmp(str1, "glow_intensity")) params->doubles.imageAdjustments.glow_intensity = atof2(str2);
-	else if (!strcmp(str1, "glow_color_1_R")) params->effectColours.glow_color1.R = atoi(str2);
-	else if (!strcmp(str1, "glow_color_1_G")) params->effectColours.glow_color1.G = atoi(str2);
-	else if (!strcmp(str1, "glow_color_1_B")) params->effectColours.glow_color1.B = atoi(str2);
-	else if (!strcmp(str1, "glow_color_2_R")) params->effectColours.glow_color2.R = atoi(str2);
-	else if (!strcmp(str1, "glow_color_2_G")) params->effectColours.glow_color2.G = atoi(str2);
-	else if (!strcmp(str1, "glow_color_2_B")) params->effectColours.glow_color2.B = atoi(str2);
-	else if (!strcmp(str1, "background_color_1_R")) params->background_color1.R = atoi(str2);
-	else if (!strcmp(str1, "background_color_1_G")) params->background_color1.G = atoi(str2);
-	else if (!strcmp(str1, "background_color_1_B")) params->background_color1.B = atoi(str2);
-	else if (!strcmp(str1, "background_color_2_R")) params->background_color2.R = atoi(str2);
-	else if (!strcmp(str1, "background_color_2_G")) params->background_color2.G = atoi(str2);
-	else if (!strcmp(str1, "background_color_2_B")) params->background_color2.B = atoi(str2);
-	else if (!strcmp(str1, "background_color_3_R")) params->background_color3.R = atoi(str2);
-	else if (!strcmp(str1, "background_color_3_G")) params->background_color3.G = atoi(str2);
-	else if (!strcmp(str1, "background_color_3_B")) params->background_color3.B = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_1_R")) params->fogColour1.R = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_1_G")) params->fogColour1.G = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_1_B")) params->fogColour1.B = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_2_R")) params->fogColour2.R = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_2_G")) params->fogColour2.G = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_2_B")) params->fogColour2.B = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_3_R")) params->fogColour3.R = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_3_G")) params->fogColour3.G = atoi(str2);
-	else if (!strcmp(str1, "fog_colour_3_B")) params->fogColour3.B = atoi(str2);
+	else if (QString(str1).startsWith("glow_"))
+	{
+		if (!strcmp(str1, "glow_intensity")) params->doubles.imageAdjustments.glow_intensity = atof2(str2);
+		else if (!strcmp(str1, "glow_color_1_R")) params->effectColours.glow_color1.R = atoi(str2);
+		else if (!strcmp(str1, "glow_color_1_G")) params->effectColours.glow_color1.G = atoi(str2);
+		else if (!strcmp(str1, "glow_color_1_B")) params->effectColours.glow_color1.B = atoi(str2);
+		else if (!strcmp(str1, "glow_color_2_R")) params->effectColours.glow_color2.R = atoi(str2);
+		else if (!strcmp(str1, "glow_color_2_G")) params->effectColours.glow_color2.G = atoi(str2);
+		else if (!strcmp(str1, "glow_color_2_B")) params->effectColours.glow_color2.B = atoi(str2);
+	}
+	else if (QString(str1).startsWith("background_color_"))
+	{
+		if (!strcmp(str1, "background_color_1_R")) params->background_color1.R = atoi(str2);
+		else if (!strcmp(str1, "background_color_1_G")) params->background_color1.G = atoi(str2);
+		else if (!strcmp(str1, "background_color_1_B")) params->background_color1.B = atoi(str2);
+		else if (!strcmp(str1, "background_color_2_R")) params->background_color2.R = atoi(str2);
+		else if (!strcmp(str1, "background_color_2_G")) params->background_color2.G = atoi(str2);
+		else if (!strcmp(str1, "background_color_2_B")) params->background_color2.B = atoi(str2);
+		else if (!strcmp(str1, "background_color_3_R")) params->background_color3.R = atoi(str2);
+		else if (!strcmp(str1, "background_color_3_G")) params->background_color3.G = atoi(str2);
+		else if (!strcmp(str1, "background_color_3_B")) params->background_color3.B = atoi(str2);
+	}
+	else if (QString(str1).startsWith("fog_colour_"))
+	{
+		if (!strcmp(str1, "fog_colour_1_R")) params->fogColour1.R = atoi(str2);
+		else if (!strcmp(str1, "fog_colour_1_G")) params->fogColour1.G = atoi(str2);
+		else if (!strcmp(str1, "fog_colour_1_B")) params->fogColour1.B = atoi(str2);
+		else if (!strcmp(str1, "fog_colour_2_R")) params->fogColour2.R = atoi(str2);
+		else if (!strcmp(str1, "fog_colour_2_G")) params->fogColour2.G = atoi(str2);
+		else if (!strcmp(str1, "fog_colour_2_B")) params->fogColour2.B = atoi(str2);
+		else if (!strcmp(str1, "fog_colour_3_R")) params->fogColour3.R = atoi(str2);
+		else if (!strcmp(str1, "fog_colour_3_G")) params->fogColour3.G = atoi(str2);
+		else if (!strcmp(str1, "fog_colour_3_B")) params->fogColour3.B = atoi(str2);
+	}
 	else if (!strcmp(str1, "textured_background")) params->texturedBackground = atoi(str2);
 	else if (!strcmp(str1, "background_as_fuldome")) params->background_as_fulldome = atoi(str2);
 	else if (!strcmp(str1, "shadows_enabled")) params->shadow = atoi(str2);
@@ -301,79 +310,89 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "coloring_palette_offset")) params->doubles.imageAdjustments.paletteOffset = atof2(str2);
 	else if (!strcmp(str1, "slow_shading")) params->slowShading = atoi(str2);
 	else if (!strcmp(str1, "limits_enabled")) params->fractal.limits_enabled = atoi(str2);
-	else if (!strcmp(str1, "post_fog_enabled")) params->imageSwitches.fogEnabled = atoi(str2);
-	else if (!strcmp(str1, "post_fog_visibility")) params->doubles.imageAdjustments.fogVisibility = atof2(str2);
-	else if (!strcmp(str1, "post_fog_color_R")) params->effectColours.fogColor.R = atoi(str2);
-	else if (!strcmp(str1, "post_fog_color_G")) params->effectColours.fogColor.G = atoi(str2);
-	else if (!strcmp(str1, "post_fog_color_B")) params->effectColours.fogColor.B = atoi(str2);
-	else if (!strcmp(str1, "post_SSAO_enabled")) params->SSAOEnabled = atoi(str2);
-	else if (!strcmp(str1, "post_SSAO_quality")) params->SSAOQuality = atoi(str2);
-	else if (!strcmp(str1, "post_DOF_enabled")) params->DOFEnabled = atoi(str2);
-	else if (!strcmp(str1, "post_DOF_focus")) params->doubles.DOFFocus = atof2(str2);
-	else if (!strcmp(str1, "post_DOF_radius")) params->doubles.DOFRadius = atof2(str2);
-	else if (!strcmp(str1, "main_light_intensity")) params->doubles.imageAdjustments.mainLightIntensity = atof2(str2);
-	else if (!strcmp(str1, "main_light_alfa")) params->doubles.mainLightAlpha = atof2(str2);
-	else if (!strcmp(str1, "main_light_beta")) params->doubles.mainLightBeta = atof2(str2);
-	else if (!strcmp(str1, "main_light_colour_R")) params->effectColours.mainLightColour.R = atoi(str2);
-	else if (!strcmp(str1, "main_light_colour_G")) params->effectColours.mainLightColour.G = atoi(str2);
-	else if (!strcmp(str1, "main_light_colour_B")) params->effectColours.mainLightColour.B = atoi(str2);
-	else if (!strcmp(str1, "aux_light_intensity")) params->doubles.auxLightIntensity = atof2(str2);
-	else if (!strcmp(str1, "aux_light_random_seed")) params->auxLightRandomSeed = atoi(str2);
-	else if (!strcmp(str1, "aux_light_number")) params->auxLightNumber = atoi(str2);
-	else if (!strcmp(str1, "aux_light_max_dist")) params->doubles.auxLightMaxDist = atof2(str2);
-	else if (!strcmp(str1, "aux_light_distribution_radius")) params->doubles.auxLightDistributionRadius = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_1_x")) params->doubles.auxLightPre[0].x = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_1_y")) params->doubles.auxLightPre[0].y = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_1_z")) params->doubles.auxLightPre[0].z = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_1_intensity")) params->doubles.auxLightPreIntensity[0] = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_2_x")) params->doubles.auxLightPre[1].x = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_2_y")) params->doubles.auxLightPre[1].y = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_2_z")) params->doubles.auxLightPre[1].z = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_2_intensity")) params->doubles.auxLightPreIntensity[1] = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_3_x")) params->doubles.auxLightPre[2].x = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_3_y")) params->doubles.auxLightPre[2].y = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_3_z")) params->doubles.auxLightPre[2].z = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_3_intensity")) params->doubles.auxLightPreIntensity[2] = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_4_x")) params->doubles.auxLightPre[3].x = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_4_y")) params->doubles.auxLightPre[3].y = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_4_z")) params->doubles.auxLightPre[3].z = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_4_intensity")) params->doubles.auxLightPreIntensity[3] = atof2(str2);
-	else if (!strcmp(str1, "aux_light_predefined_1_enabled")) params->auxLightPreEnabled[0] = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_2_enabled")) params->auxLightPreEnabled[1] = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_3_enabled")) params->auxLightPreEnabled[2] = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_4_enabled")) params->auxLightPreEnabled[3] = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_1_colour_R")) params->auxLightPreColour[0].R = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_1_colour_G")) params->auxLightPreColour[0].G = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_1_colour_B")) params->auxLightPreColour[0].B = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_2_colour_R")) params->auxLightPreColour[1].R = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_2_colour_G")) params->auxLightPreColour[1].G = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_2_colour_B")) params->auxLightPreColour[1].B = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_3_colour_R")) params->auxLightPreColour[2].R = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_3_colour_G")) params->auxLightPreColour[2].G = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_3_colour_B")) params->auxLightPreColour[2].B = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_4_colour_R")) params->auxLightPreColour[3].R = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_4_colour_G")) params->auxLightPreColour[3].G = atoi(str2);
-	else if (!strcmp(str1, "aux_light_predefined_4_colour_B")) params->auxLightPreColour[3].B = atoi(str2);
-	else if (!strcmp(str1, "aux_light_visibility")) params->doubles.auxLightVisibility = atof2(str2);
-	else if (!strcmp(str1, "aux_light_random_center_X")) params->doubles.auxLightRandomCenter.x = atof2(str2);
-	else if (!strcmp(str1, "aux_light_random_center_Y")) params->doubles.auxLightRandomCenter.y = atof2(str2);
-	else if (!strcmp(str1, "aux_light_random_center_Z")) params->doubles.auxLightRandomCenter.z = atof2(str2);
-
-	else if (!strcmp(str1, "IFS_scale")) params->fractal.IFS.doubles.scale = atof2(str2);
-	else if (!strcmp(str1, "IFS_rot_alfa")) params->fractal.IFS.doubles.rotationAlfa = atof2(str2);
-	else if (!strcmp(str1, "IFS_rot_beta")) params->fractal.IFS.doubles.rotationBeta = atof2(str2);
-	else if (!strcmp(str1, "IFS_rot_gamma")) params->fractal.IFS.doubles.rotationGamma = atof2(str2);
-	else if (!strcmp(str1, "IFS_offsetX")) params->fractal.IFS.doubles.offset.x = atof2(str2);
-	else if (!strcmp(str1, "IFS_offsetY")) params->fractal.IFS.doubles.offset.y = atof2(str2);
-	else if (!strcmp(str1, "IFS_offsetZ")) params->fractal.IFS.doubles.offset.z = atof2(str2);
-	else if (!strcmp(str1, "IFS_edgeX")) params->fractal.IFS.doubles.edge.x = atof2(str2);
-	else if (!strcmp(str1, "IFS_edgeY")) params->fractal.IFS.doubles.edge.y = atof2(str2);
-	else if (!strcmp(str1, "IFS_edgeZ")) params->fractal.IFS.doubles.edge.z = atof2(str2);
-	else if (!strcmp(str1, "IFS_absX")) params->fractal.IFS.absX = atof(str2);
-	else if (!strcmp(str1, "IFS_absY")) params->fractal.IFS.absY = atof(str2);
-	else if (!strcmp(str1, "IFS_absZ")) params->fractal.IFS.absZ = atof(str2);
-	else if (!strcmp(str1, "IFS_menger_sponge_mode")) params->fractal.IFS.mengerSpongeMode = atof(str2);
-
+	else if (QString(str1).startsWith("post_"))
+	{
+		if (!strcmp(str1, "post_fog_enabled")) params->imageSwitches.fogEnabled = atoi(str2);
+		else if (!strcmp(str1, "post_fog_visibility")) params->doubles.imageAdjustments.fogVisibility = atof2(str2);
+		else if (!strcmp(str1, "post_fog_color_R")) params->effectColours.fogColor.R = atoi(str2);
+		else if (!strcmp(str1, "post_fog_color_G")) params->effectColours.fogColor.G = atoi(str2);
+		else if (!strcmp(str1, "post_fog_color_B")) params->effectColours.fogColor.B = atoi(str2);
+		else if (!strcmp(str1, "post_SSAO_enabled")) params->SSAOEnabled = atoi(str2);
+		else if (!strcmp(str1, "post_SSAO_quality")) params->SSAOQuality = atoi(str2);
+		else if (!strcmp(str1, "post_DOF_enabled")) params->DOFEnabled = atoi(str2);
+		else if (!strcmp(str1, "post_DOF_focus")) params->doubles.DOFFocus = atof2(str2);
+		else if (!strcmp(str1, "post_DOF_radius")) params->doubles.DOFRadius = atof2(str2);
+	}
+	else if (QString(str1).startsWith("main_light_"))
+	{
+		if (!strcmp(str1, "main_light_intensity")) params->doubles.imageAdjustments.mainLightIntensity = atof2(str2);
+		else if (!strcmp(str1, "main_light_alfa")) params->doubles.mainLightAlpha = atof2(str2);
+		else if (!strcmp(str1, "main_light_beta")) params->doubles.mainLightBeta = atof2(str2);
+		else if (!strcmp(str1, "main_light_colour_R")) params->effectColours.mainLightColour.R = atoi(str2);
+		else if (!strcmp(str1, "main_light_colour_G")) params->effectColours.mainLightColour.G = atoi(str2);
+		else if (!strcmp(str1, "main_light_colour_B")) params->effectColours.mainLightColour.B = atoi(str2);
+	}
+	else if (QString(str1).startsWith("aux_light_"))
+	{
+		if (!strcmp(str1, "aux_light_intensity")) params->doubles.auxLightIntensity = atof2(str2);
+		else if (!strcmp(str1, "aux_light_random_seed")) params->auxLightRandomSeed = atoi(str2);
+		else if (!strcmp(str1, "aux_light_number")) params->auxLightNumber = atoi(str2);
+		else if (!strcmp(str1, "aux_light_max_dist")) params->doubles.auxLightMaxDist = atof2(str2);
+		else if (!strcmp(str1, "aux_light_distribution_radius")) params->doubles.auxLightDistributionRadius = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_1_x")) params->doubles.auxLightPre[0].x = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_1_y")) params->doubles.auxLightPre[0].y = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_1_z")) params->doubles.auxLightPre[0].z = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_1_intensity")) params->doubles.auxLightPreIntensity[0] = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_2_x")) params->doubles.auxLightPre[1].x = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_2_y")) params->doubles.auxLightPre[1].y = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_2_z")) params->doubles.auxLightPre[1].z = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_2_intensity")) params->doubles.auxLightPreIntensity[1] = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_3_x")) params->doubles.auxLightPre[2].x = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_3_y")) params->doubles.auxLightPre[2].y = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_3_z")) params->doubles.auxLightPre[2].z = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_3_intensity")) params->doubles.auxLightPreIntensity[2] = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_4_x")) params->doubles.auxLightPre[3].x = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_4_y")) params->doubles.auxLightPre[3].y = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_4_z")) params->doubles.auxLightPre[3].z = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_4_intensity")) params->doubles.auxLightPreIntensity[3] = atof2(str2);
+		else if (!strcmp(str1, "aux_light_predefined_1_enabled")) params->auxLightPreEnabled[0] = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_2_enabled")) params->auxLightPreEnabled[1] = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_3_enabled")) params->auxLightPreEnabled[2] = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_4_enabled")) params->auxLightPreEnabled[3] = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_1_colour_R")) params->auxLightPreColour[0].R = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_1_colour_G")) params->auxLightPreColour[0].G = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_1_colour_B")) params->auxLightPreColour[0].B = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_2_colour_R")) params->auxLightPreColour[1].R = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_2_colour_G")) params->auxLightPreColour[1].G = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_2_colour_B")) params->auxLightPreColour[1].B = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_3_colour_R")) params->auxLightPreColour[2].R = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_3_colour_G")) params->auxLightPreColour[2].G = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_3_colour_B")) params->auxLightPreColour[2].B = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_4_colour_R")) params->auxLightPreColour[3].R = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_4_colour_G")) params->auxLightPreColour[3].G = atoi(str2);
+		else if (!strcmp(str1, "aux_light_predefined_4_colour_B")) params->auxLightPreColour[3].B = atoi(str2);
+		else if (!strcmp(str1, "aux_light_visibility")) params->doubles.auxLightVisibility = atof2(str2);
+		else if (!strcmp(str1, "aux_light_random_center_X")) params->doubles.auxLightRandomCenter.x = atof2(str2);
+		else if (!strcmp(str1, "aux_light_random_center_Y")) params->doubles.auxLightRandomCenter.y = atof2(str2);
+		else if (!strcmp(str1, "aux_light_random_center_Z")) params->doubles.auxLightRandomCenter.z = atof2(str2);
+	}
+	else if (QString(str1).startsWith("IFS_"))
+	{
+		if (!strcmp(str1, "IFS_scale")) params->fractal.IFS.doubles.scale = atof2(str2);
+		else if (!strcmp(str1, "IFS_rot_alfa")) params->fractal.IFS.doubles.rotationAlfa = atof2(str2);
+		else if (!strcmp(str1, "IFS_rot_beta")) params->fractal.IFS.doubles.rotationBeta = atof2(str2);
+		else if (!strcmp(str1, "IFS_rot_gamma")) params->fractal.IFS.doubles.rotationGamma = atof2(str2);
+		else if (!strcmp(str1, "IFS_offsetX")) params->fractal.IFS.doubles.offset.x = atof2(str2);
+		else if (!strcmp(str1, "IFS_offsetY")) params->fractal.IFS.doubles.offset.y = atof2(str2);
+		else if (!strcmp(str1, "IFS_offsetZ")) params->fractal.IFS.doubles.offset.z = atof2(str2);
+		else if (!strcmp(str1, "IFS_edgeX")) params->fractal.IFS.doubles.edge.x = atof2(str2);
+		else if (!strcmp(str1, "IFS_edgeY")) params->fractal.IFS.doubles.edge.y = atof2(str2);
+		else if (!strcmp(str1, "IFS_edgeZ")) params->fractal.IFS.doubles.edge.z = atof2(str2);
+		else if (!strcmp(str1, "IFS_absX")) params->fractal.IFS.absX = atof(str2);
+		else if (!strcmp(str1, "IFS_absY")) params->fractal.IFS.absY = atof(str2);
+		else if (!strcmp(str1, "IFS_absZ")) params->fractal.IFS.absZ = atof(str2);
+		else if (!strcmp(str1, "IFS_menger_sponge_mode")) params->fractal.IFS.mengerSpongeMode = atof(str2);
+	}
 	else if (!strcmp(str1, "start_frame")) params->startFrame = atoi(str2);
 	else if (!strcmp(str1, "end_frame")) params->endFrame = atoi(str2);
 	else if (!strcmp(str1, "frames_per_keyframe")) params->framesPerKeyframe = atoi(str2);
@@ -385,27 +404,34 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 
 	else if (!strcmp(str1, "stereo_enabled")) params->stereoEnabled = atoi(str2);
 	else if (!strcmp(str1, "stereo_eye_distance")) params->doubles.stereoEyeDistance = atof2(str2);
+	else if (QString(str1).startsWith("mandelbox_"))
+	{
+		if (!strcmp(str1, "mandelbox_scale")) params->fractal.mandelbox.doubles.scale = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_folding_limit")) params->fractal.mandelbox.doubles.foldingLimit = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_folding_value")) params->fractal.mandelbox.doubles.foldingValue = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_folding_min_radius")) params->fractal.mandelbox.doubles.foldingSphericalMin = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_folding_fixed_radius")) params->fractal.mandelbox.doubles.foldingSphericalFixed = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_sharpness")) params->fractal.mandelbox.doubles.sharpness = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_offset_X")) params->fractal.mandelbox.doubles.offset.x = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_offset_Y")) params->fractal.mandelbox.doubles.offset.y = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_offset_Z")) params->fractal.mandelbox.doubles.offset.z = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_color_R")) params->fractal.mandelbox.doubles.colorFactorR = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_color_X")) params->fractal.mandelbox.doubles.colorFactorX = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_color_Y")) params->fractal.mandelbox.doubles.colorFactorY = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_color_Z")) params->fractal.mandelbox.doubles.colorFactorZ = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_color_Sp1")) params->fractal.mandelbox.doubles.colorFactorSp1 = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_color_Sp2")) params->fractal.mandelbox.doubles.colorFactorSp2 = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_rotation_enabled")) params->fractal.mandelbox.rotationsEnabled = atoi(str2);
+		else if (!strcmp(str1, "mandelbox_fold_mode")) params->fractal.genFoldBox.type = (enumGeneralizedFoldBoxType)atoi(str2);
+		else if (!strcmp(str1, "mandelbox_solid")) params->fractal.mandelbox.doubles.solid = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_melt")) params->fractal.mandelbox.doubles.melt = atof2(str2);
 
-	else if (!strcmp(str1, "mandelbox_scale")) params->fractal.mandelbox.doubles.scale = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_folding_limit")) params->fractal.mandelbox.doubles.foldingLimit = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_folding_value")) params->fractal.mandelbox.doubles.foldingValue = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_folding_min_radius")) params->fractal.mandelbox.doubles.foldingSphericalMin = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_folding_fixed_radius")) params->fractal.mandelbox.doubles.foldingSphericalFixed = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_sharpness")) params->fractal.mandelbox.doubles.sharpness = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_offset_X")) params->fractal.mandelbox.doubles.offset.x = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_offset_Y")) params->fractal.mandelbox.doubles.offset.y = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_offset_Z")) params->fractal.mandelbox.doubles.offset.z = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_color_R")) params->fractal.mandelbox.doubles.colorFactorR = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_color_X")) params->fractal.mandelbox.doubles.colorFactorX = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_color_Y")) params->fractal.mandelbox.doubles.colorFactorY = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_color_Z")) params->fractal.mandelbox.doubles.colorFactorZ = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_color_Sp1")) params->fractal.mandelbox.doubles.colorFactorSp1 = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_color_Sp2")) params->fractal.mandelbox.doubles.colorFactorSp2 = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_rotation_enabled")) params->fractal.mandelbox.rotationsEnabled = atoi(str2);
-	else if (!strcmp(str1, "mandelbox_fold_mode")) params->fractal.genFoldBox.type = (enumGeneralizedFoldBoxType) atoi(str2);
-	else if (!strcmp(str1, "mandelbox_solid")) params->fractal.mandelbox.doubles.solid = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_melt")) params->fractal.mandelbox.doubles.melt = atof2(str2);
-
+		else if (!strcmp(str1, "mandelbox_vary_scale_vary")) params->fractal.mandelbox.doubles.vary4D.scaleVary = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_vary_fold")) params->fractal.mandelbox.doubles.vary4D.fold = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_vary_minr")) params->fractal.mandelbox.doubles.vary4D.minR = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_vary_rpower")) params->fractal.mandelbox.doubles.vary4D.rPower = atof2(str2);
+		else if (!strcmp(str1, "mandelbox_vary_wadd")) params->fractal.mandelbox.doubles.vary4D.wadd = atof2(str2);
+	}
 	else if (!strcmp(str1, "view_distance_max")) params->doubles.viewDistanceMax = atof2(str2);
 	else if (!strcmp(str1, "view_distance_min")) params->doubles.viewDistanceMin = atof2(str2);
 	else if (!strcmp(str1, "interior_mode")) params->fractal.interiorMode = atoi(str2);
@@ -419,12 +445,6 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "raytraced_reflections")) params->imageSwitches.raytracedReflections = atoi(str2);
 	else if (!strcmp(str1, "reflections_max")) params->reflectionsMax = atoi(str2);
 
-	else if (!strcmp(str1, "mandelbox_vary_scale_vary")) params->fractal.mandelbox.doubles.vary4D.scaleVary = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_vary_fold")) params->fractal.mandelbox.doubles.vary4D.fold = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_vary_minr")) params->fractal.mandelbox.doubles.vary4D.minR = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_vary_rpower")) params->fractal.mandelbox.doubles.vary4D.rPower = atof2(str2);
-	else if (!strcmp(str1, "mandelbox_vary_wadd")) params->fractal.mandelbox.doubles.vary4D.wadd = atof2(str2);
-
 	else if (!strcmp(str1, "c_add")) params->fractal.doubles.cadd = atof2(str2);
 
 	else if (!strcmp(str1, "volumetric_fog_density")) params->doubles.fogDensity = atof2(str2);
@@ -437,84 +457,98 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "iteration_fog_opacity_trim")) params->doubles.iterFogOpacityTrim = atof2(str2);
 
 	else if (!strcmp(str1, "primitive_only_plane")) params->fractal.primitives.onlyPlane = atoi(str2);
-
-	else if (!strcmp(str1, "primitive_plane_enabled")) params->fractal.primitives.planeEnable = atoi(str2);
-	else if (!strcmp(str1, "primitive_plane_centre_X")) params->fractal.doubles.primitives.planeCentre.x = atof2(str2);
-	else if (!strcmp(str1, "primitive_plane_centre_Y")) params->fractal.doubles.primitives.planeCentre.y = atof2(str2);
-	else if (!strcmp(str1, "primitive_plane_centre_Z")) params->fractal.doubles.primitives.planeCentre.z = atof2(str2);
-	else if (!strcmp(str1, "primitive_plane_normal_X")) params->fractal.doubles.primitives.planeNormal.x = atof2(str2);
-	else if (!strcmp(str1, "primitive_plane_normal_Y")) params->fractal.doubles.primitives.planeNormal.y = atof2(str2);
-	else if (!strcmp(str1, "primitive_plane_normal_Z")) params->fractal.doubles.primitives.planeNormal.z = atof2(str2);
-	else if (!strcmp(str1, "primitive_plane_colour_R")) params->primitivePlaneColour.R = atoi(str2);
-	else if (!strcmp(str1, "primitive_plane_colour_G")) params->primitivePlaneColour.G = atoi(str2);
-	else if (!strcmp(str1, "primitive_plane_colour_B")) params->primitivePlaneColour.B = atoi(str2);
-	else if (!strcmp(str1, "primitive_plane_reflect")) params->doubles.primitivePlaneReflect = atof2(str2);
-
-	else if (!strcmp(str1, "primitive_box_enabled")) params->fractal.primitives.boxEnable = atoi(str2);
-	else if (!strcmp(str1, "primitive_box_centre_X")) params->fractal.doubles.primitives.boxCentre.x = atof2(str2);
-	else if (!strcmp(str1, "primitive_box_centre_Y")) params->fractal.doubles.primitives.boxCentre.y = atof2(str2);
-	else if (!strcmp(str1, "primitive_box_centre_Z")) params->fractal.doubles.primitives.boxCentre.z = atof2(str2);
-	else if (!strcmp(str1, "primitive_box_size_X")) params->fractal.doubles.primitives.boxSize.x = atof2(str2);
-	else if (!strcmp(str1, "primitive_box_size_Y")) params->fractal.doubles.primitives.boxSize.y = atof2(str2);
-	else if (!strcmp(str1, "primitive_box_size_Z")) params->fractal.doubles.primitives.boxSize.z = atof2(str2);
-	else if (!strcmp(str1, "primitive_box_colour_R")) params->primitiveBoxColour.R = atoi(str2);
-	else if (!strcmp(str1, "primitive_box_colour_G")) params->primitiveBoxColour.G = atoi(str2);
-	else if (!strcmp(str1, "primitive_box_colour_B")) params->primitiveBoxColour.B = atoi(str2);
-	else if (!strcmp(str1, "primitive_box_reflect")) params->doubles.primitiveBoxReflect = atof2(str2);
-
-	else if (!strcmp(str1, "primitive_invertedBox_enabled")) params->fractal.primitives.invertedBoxEnable = atoi(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_centre_X")) params->fractal.doubles.primitives.invertedBoxCentre.x = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_centre_Y")) params->fractal.doubles.primitives.invertedBoxCentre.y = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_centre_Z")) params->fractal.doubles.primitives.invertedBoxCentre.z = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_size_X")) params->fractal.doubles.primitives.invertedBoxSize.x = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_size_Y")) params->fractal.doubles.primitives.invertedBoxSize.y = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_size_Z")) params->fractal.doubles.primitives.invertedBoxSize.z = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_colour_R")) params->primitiveInvertedBoxColour.R = atoi(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_colour_G")) params->primitiveInvertedBoxColour.G = atoi(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_colour_B")) params->primitiveInvertedBoxColour.B = atoi(str2);
-	else if (!strcmp(str1, "primitive_invertedBox_reflect")) params->doubles.primitiveInvertedBoxReflect = atof2(str2);
-
-	else if (!strcmp(str1, "primitive_sphere_enabled")) params->fractal.primitives.sphereEnable = atoi(str2);
-	else if (!strcmp(str1, "primitive_sphere_centre_X")) params->fractal.doubles.primitives.sphereCentre.x = atof2(str2);
-	else if (!strcmp(str1, "primitive_sphere_centre_Y")) params->fractal.doubles.primitives.sphereCentre.y = atof2(str2);
-	else if (!strcmp(str1, "primitive_sphere_centre_Z")) params->fractal.doubles.primitives.sphereCentre.z = atof2(str2);
-	else if (!strcmp(str1, "primitive_sphere_radius")) params->fractal.doubles.primitives.sphereRadius = atof2(str2);
-	else if (!strcmp(str1, "primitive_sphere_colour_R")) params->primitiveSphereColour.R = atoi(str2);
-	else if (!strcmp(str1, "primitive_sphere_colour_G")) params->primitiveSphereColour.G = atoi(str2);
-	else if (!strcmp(str1, "primitive_sphere_colour_B")) params->primitiveSphereColour.B = atoi(str2);
-	else if (!strcmp(str1, "primitive_sphere_reflect")) params->doubles.primitiveSphereReflect = atof2(str2);
-
-	else if (!strcmp(str1, "primitive_invertedSphere_enabled")) params->fractal.primitives.invertedSphereEnable = atoi(str2);
-	else if (!strcmp(str1, "primitive_invertedSphere_centre_X")) params->fractal.doubles.primitives.invertedSphereCentre.x = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedSphere_centre_Y")) params->fractal.doubles.primitives.invertedSphereCentre.y = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedSphere_centre_Z")) params->fractal.doubles.primitives.invertedSphereCentre.z = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedSphere_radius")) params->fractal.doubles.primitives.invertedSphereRadius = atof2(str2);
-	else if (!strcmp(str1, "primitive_invertedSphere_colour_R")) params->primitiveInvertedSphereColour.R = atoi(str2);
-	else if (!strcmp(str1, "primitive_invertedSphere_colour_G")) params->primitiveInvertedSphereColour.G = atoi(str2);
-	else if (!strcmp(str1, "primitive_invertedSphere_colour_B")) params->primitiveInvertedSphereColour.B = atoi(str2);
-	else if (!strcmp(str1, "primitive_invertedSphere_reflect")) params->doubles.primitiveInvertedSphereReflect = atof2(str2);
-
-	else if (!strcmp(str1, "primitive_water_enabled")) params->fractal.primitives.waterEnable = atoi(str2);
-	else if (!strcmp(str1, "primitive_water_level")) params->fractal.doubles.primitives.waterHeight = atof2(str2);
-	else if (!strcmp(str1, "primitive_water_amplitude")) params->fractal.doubles.primitives.waterAmplitude = atof2(str2);
-	else if (!strcmp(str1, "primitive_water_length")) params->fractal.doubles.primitives.waterLength = atof2(str2);
-	else if (!strcmp(str1, "primitive_water_iterations")) params->fractal.primitives.waterIterations = atoi(str2);
-	else if (!strcmp(str1, "primitive_water_rotation")) params->fractal.doubles.primitives.waterRotation = atof2(str2);
-	else if (!strcmp(str1, "primitive_water_anim_speed")) params->fractal.doubles.primitives.waterAnimSpeed = atof2(str2);
-	else if (!strcmp(str1, "primitive_water_colour_R")) params->primitiveWaterColour.R = atoi(str2);
-	else if (!strcmp(str1, "primitive_water_colour_G")) params->primitiveWaterColour.G = atoi(str2);
-	else if (!strcmp(str1, "primitive_water_colour_B")) params->primitiveWaterColour.B = atoi(str2);
-	else if (!strcmp(str1, "primitive_water_reflect")) params->doubles.primitiveWaterReflect = atof2(str2);
-
-	else if (!strcmp(str1, "fake_lights_enabled")) params->fakeLightsEnabled = atoi(str2);
-	else if (!strcmp(str1, "fake_lights_min_iter")) params->fractal.fakeLightsMinIter = atoi(str2);
-	else if (!strcmp(str1, "fake_lights_max_iter")) params->fractal.fakeLightsMaxIter = atoi(str2);
-	else if (!strcmp(str1, "fake_lights_visibility")) params->doubles.fakeLightsVisibility = atof2(str2);
-	else if (!strcmp(str1, "fake_lights_visibility_size")) params->doubles.fakeLightsVisibilitySize = atof2(str2);
-	else if (!strcmp(str1, "fake_lights_intensity")) params->doubles.fakeLightsIntensity = atof2(str2);
-	else if (!strcmp(str1, "fake_lights_orbit_trap_X")) params->fractal.doubles.fakeLightsOrbitTrap.x = atof2(str2);
-	else if (!strcmp(str1, "fake_lights_orbit_trap_Y")) params->fractal.doubles.fakeLightsOrbitTrap.y = atof2(str2);
-	else if (!strcmp(str1, "fake_lights_orbit_trap_Z")) params->fractal.doubles.fakeLightsOrbitTrap.z = atof2(str2);
+	else if (QString(str1).startsWith("primitive_plane_"))
+	{
+		if (!strcmp(str1, "primitive_plane_enabled")) params->fractal.primitives.planeEnable = atoi(str2);
+		else if (!strcmp(str1, "primitive_plane_centre_X")) params->fractal.doubles.primitives.planeCentre.x = atof2(str2);
+		else if (!strcmp(str1, "primitive_plane_centre_Y")) params->fractal.doubles.primitives.planeCentre.y = atof2(str2);
+		else if (!strcmp(str1, "primitive_plane_centre_Z")) params->fractal.doubles.primitives.planeCentre.z = atof2(str2);
+		else if (!strcmp(str1, "primitive_plane_normal_X")) params->fractal.doubles.primitives.planeNormal.x = atof2(str2);
+		else if (!strcmp(str1, "primitive_plane_normal_Y")) params->fractal.doubles.primitives.planeNormal.y = atof2(str2);
+		else if (!strcmp(str1, "primitive_plane_normal_Z")) params->fractal.doubles.primitives.planeNormal.z = atof2(str2);
+		else if (!strcmp(str1, "primitive_plane_colour_R")) params->primitivePlaneColour.R = atoi(str2);
+		else if (!strcmp(str1, "primitive_plane_colour_G")) params->primitivePlaneColour.G = atoi(str2);
+		else if (!strcmp(str1, "primitive_plane_colour_B")) params->primitivePlaneColour.B = atoi(str2);
+		else if (!strcmp(str1, "primitive_plane_reflect")) params->doubles.primitivePlaneReflect = atof2(str2);
+	}
+	else if (QString(str1).startsWith("primitive_box_"))
+	{
+		if (!strcmp(str1, "primitive_box_enabled")) params->fractal.primitives.boxEnable = atoi(str2);
+		else if (!strcmp(str1, "primitive_box_centre_X")) params->fractal.doubles.primitives.boxCentre.x = atof2(str2);
+		else if (!strcmp(str1, "primitive_box_centre_Y")) params->fractal.doubles.primitives.boxCentre.y = atof2(str2);
+		else if (!strcmp(str1, "primitive_box_centre_Z")) params->fractal.doubles.primitives.boxCentre.z = atof2(str2);
+		else if (!strcmp(str1, "primitive_box_size_X")) params->fractal.doubles.primitives.boxSize.x = atof2(str2);
+		else if (!strcmp(str1, "primitive_box_size_Y")) params->fractal.doubles.primitives.boxSize.y = atof2(str2);
+		else if (!strcmp(str1, "primitive_box_size_Z")) params->fractal.doubles.primitives.boxSize.z = atof2(str2);
+		else if (!strcmp(str1, "primitive_box_colour_R")) params->primitiveBoxColour.R = atoi(str2);
+		else if (!strcmp(str1, "primitive_box_colour_G")) params->primitiveBoxColour.G = atoi(str2);
+		else if (!strcmp(str1, "primitive_box_colour_B")) params->primitiveBoxColour.B = atoi(str2);
+		else if (!strcmp(str1, "primitive_box_reflect")) params->doubles.primitiveBoxReflect = atof2(str2);
+	}
+	else if (QString(str1).startsWith("primitive_invertedBox_"))
+	{
+		if (!strcmp(str1, "primitive_invertedBox_enabled")) params->fractal.primitives.invertedBoxEnable = atoi(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_centre_X")) params->fractal.doubles.primitives.invertedBoxCentre.x = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_centre_Y")) params->fractal.doubles.primitives.invertedBoxCentre.y = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_centre_Z")) params->fractal.doubles.primitives.invertedBoxCentre.z = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_size_X")) params->fractal.doubles.primitives.invertedBoxSize.x = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_size_Y")) params->fractal.doubles.primitives.invertedBoxSize.y = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_size_Z")) params->fractal.doubles.primitives.invertedBoxSize.z = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_colour_R")) params->primitiveInvertedBoxColour.R = atoi(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_colour_G")) params->primitiveInvertedBoxColour.G = atoi(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_colour_B")) params->primitiveInvertedBoxColour.B = atoi(str2);
+		else if (!strcmp(str1, "primitive_invertedBox_reflect")) params->doubles.primitiveInvertedBoxReflect = atof2(str2);
+	}
+	else if (QString(str1).startsWith("primitive_sphere_"))
+	{
+		if (!strcmp(str1, "primitive_sphere_enabled")) params->fractal.primitives.sphereEnable = atoi(str2);
+		else if (!strcmp(str1, "primitive_sphere_centre_X")) params->fractal.doubles.primitives.sphereCentre.x = atof2(str2);
+		else if (!strcmp(str1, "primitive_sphere_centre_Y")) params->fractal.doubles.primitives.sphereCentre.y = atof2(str2);
+		else if (!strcmp(str1, "primitive_sphere_centre_Z")) params->fractal.doubles.primitives.sphereCentre.z = atof2(str2);
+		else if (!strcmp(str1, "primitive_sphere_radius")) params->fractal.doubles.primitives.sphereRadius = atof2(str2);
+		else if (!strcmp(str1, "primitive_sphere_colour_R")) params->primitiveSphereColour.R = atoi(str2);
+		else if (!strcmp(str1, "primitive_sphere_colour_G")) params->primitiveSphereColour.G = atoi(str2);
+		else if (!strcmp(str1, "primitive_sphere_colour_B")) params->primitiveSphereColour.B = atoi(str2);
+		else if (!strcmp(str1, "primitive_sphere_reflect")) params->doubles.primitiveSphereReflect = atof2(str2);
+	}
+	else if (QString(str1).startsWith("primitive_invertedSphere_"))
+	{
+		if (!strcmp(str1, "primitive_invertedSphere_enabled")) params->fractal.primitives.invertedSphereEnable = atoi(str2);
+		else if (!strcmp(str1, "primitive_invertedSphere_centre_X")) params->fractal.doubles.primitives.invertedSphereCentre.x = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedSphere_centre_Y")) params->fractal.doubles.primitives.invertedSphereCentre.y = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedSphere_centre_Z")) params->fractal.doubles.primitives.invertedSphereCentre.z = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedSphere_radius")) params->fractal.doubles.primitives.invertedSphereRadius = atof2(str2);
+		else if (!strcmp(str1, "primitive_invertedSphere_colour_R")) params->primitiveInvertedSphereColour.R = atoi(str2);
+		else if (!strcmp(str1, "primitive_invertedSphere_colour_G")) params->primitiveInvertedSphereColour.G = atoi(str2);
+		else if (!strcmp(str1, "primitive_invertedSphere_colour_B")) params->primitiveInvertedSphereColour.B = atoi(str2);
+		else if (!strcmp(str1, "primitive_invertedSphere_reflect")) params->doubles.primitiveInvertedSphereReflect = atof2(str2);
+	}
+	else if (QString(str1).startsWith("primitive_water_"))
+	{
+		if (!strcmp(str1, "primitive_water_enabled")) params->fractal.primitives.waterEnable = atoi(str2);
+		else if (!strcmp(str1, "primitive_water_level")) params->fractal.doubles.primitives.waterHeight = atof2(str2);
+		else if (!strcmp(str1, "primitive_water_amplitude")) params->fractal.doubles.primitives.waterAmplitude = atof2(str2);
+		else if (!strcmp(str1, "primitive_water_length")) params->fractal.doubles.primitives.waterLength = atof2(str2);
+		else if (!strcmp(str1, "primitive_water_iterations")) params->fractal.primitives.waterIterations = atoi(str2);
+		else if (!strcmp(str1, "primitive_water_rotation")) params->fractal.doubles.primitives.waterRotation = atof2(str2);
+		else if (!strcmp(str1, "primitive_water_anim_speed")) params->fractal.doubles.primitives.waterAnimSpeed = atof2(str2);
+		else if (!strcmp(str1, "primitive_water_colour_R")) params->primitiveWaterColour.R = atoi(str2);
+		else if (!strcmp(str1, "primitive_water_colour_G")) params->primitiveWaterColour.G = atoi(str2);
+		else if (!strcmp(str1, "primitive_water_colour_B")) params->primitiveWaterColour.B = atoi(str2);
+		else if (!strcmp(str1, "primitive_water_reflect")) params->doubles.primitiveWaterReflect = atof2(str2);
+	}
+	else if (QString(str1).startsWith("fake_lights_"))
+	{
+		if (!strcmp(str1, "fake_lights_enabled")) params->fakeLightsEnabled = atoi(str2);
+		else if (!strcmp(str1, "fake_lights_min_iter")) params->fractal.fakeLightsMinIter = atoi(str2);
+		else if (!strcmp(str1, "fake_lights_max_iter")) params->fractal.fakeLightsMaxIter = atoi(str2);
+		else if (!strcmp(str1, "fake_lights_visibility")) params->doubles.fakeLightsVisibility = atof2(str2);
+		else if (!strcmp(str1, "fake_lights_visibility_size")) params->doubles.fakeLightsVisibilitySize = atof2(str2);
+		else if (!strcmp(str1, "fake_lights_intensity")) params->doubles.fakeLightsIntensity = atof2(str2);
+		else if (!strcmp(str1, "fake_lights_orbit_trap_X")) params->fractal.doubles.fakeLightsOrbitTrap.x = atof2(str2);
+		else if (!strcmp(str1, "fake_lights_orbit_trap_Y")) params->fractal.doubles.fakeLightsOrbitTrap.y = atof2(str2);
+		else if (!strcmp(str1, "fake_lights_orbit_trap_Z")) params->fractal.doubles.fakeLightsOrbitTrap.z = atof2(str2);
+	}
 
 	else if (!strcmp(str1, "frame_no")) params->fractal.frameNo = atoi(str2);
 	else if (!strcmp(str1, "tile_no")) params->tileCount = atoi(str2);

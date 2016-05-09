@@ -98,7 +98,7 @@ void cMaterialWidget::slotPeriodicRender(void)
 	{
 		if(materialEditorWidget)
 		{
-			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, interface::read);
+			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, qInterface::read);
 		}
 
 		if(paramsHandle)

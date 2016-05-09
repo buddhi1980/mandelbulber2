@@ -36,13 +36,11 @@
 
 #ifndef WIN32
 #include <sys/ioctl.h>
-#endif
-#include <stdio.h>
-#include <unistd.h>
-
-#ifndef WIN32
 #include <signal.h>
+#include <unistd.h>
 #endif
+
+#include <stdio.h>
 
 //#define CLSUPPORT
 
@@ -202,16 +200,16 @@ bool CreateDefaultFolders(void)
 	//create data directory if not exists
 	bool result = true;
 
-	result &= CreateDirectory(systemData.dataDirectory);
-	result &= CreateDirectory(systemData.dataDirectory + "images");
-	result &= CreateDirectory(systemData.dataDirectory + "keyframes");
-	result &= CreateDirectory(systemData.dataDirectory + "paths");
-	result &= CreateDirectory(systemData.dataDirectory + "undo");
-	result &= CreateDirectory(systemData.dataDirectory + "paths");
-	result &= CreateDirectory(systemData.dataDirectory + "thumbnails");
-	result &= CreateDirectory(systemData.dataDirectory + "toolbar");
-	result &= CreateDirectory(systemData.dataDirectory + "settings");
-	result &= CreateDirectory(systemData.dataDirectory + "slices");
+	result &= CreateFolder(systemData.dataDirectory);
+	result &= CreateFolder(systemData.dataDirectory + "images");
+	result &= CreateFolder(systemData.dataDirectory + "keyframes");
+	result &= CreateFolder(systemData.dataDirectory + "paths");
+	result &= CreateFolder(systemData.dataDirectory + "undo");
+	result &= CreateFolder(systemData.dataDirectory + "paths");
+	result &= CreateFolder(systemData.dataDirectory + "thumbnails");
+	result &= CreateFolder(systemData.dataDirectory + "toolbar");
+	result &= CreateFolder(systemData.dataDirectory + "settings");
+	result &= CreateFolder(systemData.dataDirectory + "slices");
 
 	// if(!QFileInfo(systemData.dataDirectory + "toolbar/default.fract").exists())
 	if (QDir(systemData.dataDirectory + "toolbar").entryInfoList(QDir::NoDotAndDotDot
@@ -233,7 +231,7 @@ bool CreateDefaultFolders(void)
 	QString qoclDir = QString::fromStdString(oclDir);
 	if(!QDir(qoclDir).exists())
 	{
-		result &= CreateDirectory(oclDir);
+		result &= CreateFolder(oclDir);
 		if(result)
 		{
 			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example1.c", oclDir + "/cl_example1.c");
@@ -263,7 +261,7 @@ bool CreateDefaultFolders(void)
 	return result;
 }
 
-bool CreateDirectory(QString qname)
+bool CreateFolder(QString qname)
 {
 	if (QDir(qname).exists())
 	{
