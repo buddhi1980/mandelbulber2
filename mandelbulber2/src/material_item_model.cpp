@@ -17,3 +17,20 @@ cMaterialItemModel::~cMaterialItemModel()
 	// TODO Auto-generated destructor stub
 }
 
+int cMaterialItemModel::rowCount(const QModelIndex &parent) const
+{
+	// TODO
+	return -1;
+}
+
+QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
+{
+	// TODO Material data
+	return "TODO Material data";
+}
+
+QVariant cMaterialItemModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+	// TODO Material name
+	return "TODO Material name";
+}
