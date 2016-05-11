@@ -210,6 +210,8 @@ int main(int argc, char *argv[])
 		gMainInterface->ComboMouseClickUpdate();
 
 		gMainInterface->AutoRecovery();
+
+		gMainInterface->InitPeriodicRefresh();
 	}
 
 	gMainInterface->interfaceReady = true;

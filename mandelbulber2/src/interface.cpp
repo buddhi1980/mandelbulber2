@@ -232,11 +232,6 @@ void cInterface::ShowUi(void)
 	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished", 2);
-
-	autoRefreshTimer = new QTimer(mainWindow);
-	autoRefreshTimer->setSingleShot(true);
-	QApplication::connect(autoRefreshTimer, SIGNAL(timeout()), mainWindow, SLOT(slotAutoRefresh()));
-	autoRefreshTimer->start(2000);
 }
 
 void cInterface::ConnectSignals(void)
@@ -2335,6 +2330,14 @@ void cInterface::PeriodicRefresh()
 			StartRender();
 		}
 	}
+}
+
+void cInterface::InitPeriodicRefresh()
+{
+	autoRefreshTimer = new QTimer(mainWindow);
+	autoRefreshTimer->setSingleShot(true);
+	QApplication::connect(autoRefreshTimer, SIGNAL(timeout()), mainWindow, SLOT(slotAutoRefresh()));
+	autoRefreshTimer->start(2000);
 }
 
 //function to create icons with actual color in ColorButtons

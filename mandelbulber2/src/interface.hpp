@@ -82,6 +82,7 @@ public:
 	void OptimizeStepFactor(double qualityTarget);
 	void ResetFormula(int fractalNumber);
 	void PeriodicRefresh();
+	void InitPeriodicRefresh();
 
 	bool QuitApplicationDialog();
 
