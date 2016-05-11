@@ -23,7 +23,9 @@ before_build:
   - nuget install libpng-msvc14-x64-master -Version 1.6.18.44 -Source https://ci.appveyor.com/nuget/libpng-7hwq4pmmrc48
   - ps: move libpng*\* deps -force
   - move deps\libpng16_static.lib deps\png.lib
-  #- nuget install libtiff-msvc14-x64-master -Version 4.0.6.85 -Source https://ci.appveyor.com/nuget/libtiff-i3h8tqqy7o7b
+  - nuget install libtiff-msvc14x64-master -Source https://ci.appveyor.com/nuget/libtiff-i3h8tqqy7o7b
+  - ps move libtiff*\* deps -force
+  - move deps\tiff_static.lib deps\tiff.lib
  
 install:
   - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
@@ -40,11 +42,18 @@ build_script:
      -D CMAKE_C_FLAGS_DEBUG="/MDd" \
      -DPNG_LIBRARY=deps\png.lib -DPNG_PNG_INCLUDE_DIR=deps \
      -DZLIB_LIBRARY=deps\zlib.lib -DZLIB_INCLUDE_DIR=deps \
+     -DTIFF_LIBRARY=deps\tiff.lib -DTIFF_INCLUDE_DIR=deps \
      -DGSL_CBLAS_LIBRARY=gsl\lib -DGSL_INCLUDE_DIR=gsl\include -DGSL_LIBRARY=gsl\lib \
      .
   # move the auto-generated ui files to qt folder
   - move ui_* mandelbulber2\qt
   - nmake
+
+#test:
+ # todo, see here for instructions: https://www.appveyor.com/docs/running-tests
+ 
+#deploy:
+ # todo, see here for instructions: https://www.appveyor.com/docs/deployment/github
 
 notifications:
   - provider: Webhook
