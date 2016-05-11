@@ -41,9 +41,7 @@ CONFIG += qt thread
 CONFIG += console
 
 SOURCES +=  ../src/*.cpp
-SOURCES +=  ../src/*.c
 SOURCES +=  ../qt/*.cpp
-SOURCES +=  ../qt/*.c
 
 HEADERS += ../src/*.hpp
 HEADERS += ../src/*.h
