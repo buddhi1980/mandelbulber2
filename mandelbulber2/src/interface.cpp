@@ -522,10 +522,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(triggered()),
 												mainWindow,
 												SLOT(slotImportOldSettings()));
-	QApplication::connect(mainWindow->ui->actionExportVolumeSlices,
+	QApplication::connect(mainWindow->ui->actionExportVoxelLayers,
 												SIGNAL(triggered()),
 												mainWindow,
-												SLOT(slotExportVolumeSlices()));
+												SLOT(slotExportVoxelLayers()));
 	QApplication::connect(mainWindow->ui->actionSave_as_JPG,
 												SIGNAL(triggered()),
 												mainWindow,

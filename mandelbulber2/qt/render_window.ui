@@ -276,7 +276,7 @@
     <addaction name="separator"/>
     <addaction name="actionImport_settings_from_old_Mandelbulber"/>
     <addaction name="separator"/>
-    <addaction name="actionExportVolumeSlices"/>
+    <addaction name="actionExportVoxelLayers"/>
     <addaction name="separator"/>
     <addaction name="actionProgramSettings"/>
     <addaction name="separator"/>
@@ -23083,13 +23083,13 @@ keyframes</string>
     <string>&amp;Import settings from old Mandelbulber (v1.21)...</string>
    </property>
   </action>
-  <action name="actionExportVolumeSlices">
+  <action name="actionExportVoxelLayers">
    <property name="icon">
     <iconset resource="icons.qrc">
      <normaloff>:/system/icons/layer.png</normaloff>:/system/icons/layer.png</iconset>
    </property>
    <property name="text">
-    <string>Export &amp;Volume Slices</string>
+    <string>Export &amp;Voxel Layers</string>
    </property>
   </action>
   <action name="actionLoad_example">

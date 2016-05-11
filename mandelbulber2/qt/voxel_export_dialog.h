@@ -1,28 +1,28 @@
-#ifndef VOLUME_SLICE_DIALOG_H
-#define VOLUME_SLICE_DIALOG_H
+#ifndef VOXEL_EXPORT_DIALOG_H
+#define VOXEL_EXPORT_DIALOG_H
 
 #include <QDialog>
 #include "../src/global_data.hpp"
-#include "../src/volume_slicer.hpp"
+#include "../src/voxel_export.hpp"
 #include "../src/automated_widgets.hpp"
 
 namespace Ui {
-	class cVolumeSliceDialog;
+	class cVoxelExportDialog;
 }
 
-class cVolumeSliceDialog : public QDialog
+class cVoxelExportDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	explicit cVolumeSliceDialog(QWidget *parent = 0);
-	~cVolumeSliceDialog();
+	explicit cVoxelExportDialog(QWidget *parent = 0);
+	~cVoxelExportDialog();
 
 public slots:
-	void on_pushButton_start_render_slices_clicked();
-	void on_pushButton_stop_render_slices_clicked();
+	void on_pushButton_start_render_layers_clicked();
+	void on_pushButton_stop_render_layers_clicked();
 	void on_pushButton_select_image_path_clicked();
-	void on_pushButton_show_slices_clicked();
+	void on_pushButton_show_layers_clicked();
 	void slotUpdateProgressAndStatus(const QString &text,
 		const QString &progressText, double progress);
 	void slotSlicerFinished();
@@ -31,11 +31,11 @@ protected:
 	void closeEvent(QCloseEvent * event);
 	void showEvent(QShowEvent * event);
 private:
-	Ui::cVolumeSliceDialog *ui;
+	Ui::cVoxelExportDialog *ui;
 	cAutomatedWidgets *automatedWidgets;
 	bool initFinished;
 	bool slicerBusy;
-	cVolumeSlicer* volumeSlicer;
+	cVoxelExport* voxelExport;
 };
 
-#endif // VOLUME_SLICE_DIALOG_H
+#endif // VOXEL_EXPORT_DIALOG_H

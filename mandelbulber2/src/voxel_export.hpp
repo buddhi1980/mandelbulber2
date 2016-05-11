@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * cVolumeSlicer calculates voxel volume and stores data in image slices for 3d reconstruction
+ * cVoxelExport calculates voxel volume and stores data in image layers for 3d reconstruction
  *
  * Copyright (C) 2016 Krzysztof Marczak
  *
@@ -20,19 +20,19 @@
  * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
  */
 
-#ifndef VOLUME_SLICER_H_
-#define VOLUME_SLICER_H_
+#ifndef VOXEL_EXPORT_H_
+#define VOXEL_EXPORT_H_
 
 #include <QtCore>
 #include "algebra.hpp"
 
-class cVolumeSlicer: public QObject
+class cVoxelExport: public QObject
 {
 Q_OBJECT
 
 public:
-	cVolumeSlicer(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString folder, int maxIter);
-	~cVolumeSlicer();
+	cVoxelExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString folder, int maxIter);
+	~cVoxelExport();
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
@@ -43,9 +43,9 @@ public slots:
 	void ProcessVolume();
 
 private:
-	bool StoreSlice(int z);
+	bool StoreLayer(int z);
 
-	unsigned char* voxelSlice;
+	unsigned char* voxelLayer;
 	int w, h, l;
 	CVector3 limitMin;
 	CVector3 limitMax;
@@ -55,4 +55,4 @@ private:
 };
 
 
-#endif /* VOLUME_SLICER_H_ */
+#endif /* VOXEL_EXPORT_H_ */

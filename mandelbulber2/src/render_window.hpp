@@ -97,7 +97,7 @@ private slots:
 	void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotUpdateStatistics(cStatistics);
 	void slotMenuProgramSettings();
-	void slotExportVolumeSlices();
+	void slotExportVoxelLayers();
 	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
 			QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 	void slotFractalSwap(int swapA, int swapB);
@@ -207,7 +207,7 @@ private:
 	Ui::RenderWindow *ui;
 	QWidget **fractalWidgets;
 	QDialog *preferencesDialog;
-	QDialog *volumeSliceDialog;
+	QDialog *voxelExportDialog;
 	cAutomatedWidgets *automatedWidgets;
 
 	QSettings settings;

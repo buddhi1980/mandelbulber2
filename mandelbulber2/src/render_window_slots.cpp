@@ -26,7 +26,7 @@
 #include "initparameters.hpp"
 #include "settings.hpp"
 #include "../qt/preferencesdialog.h"
-#include "../qt/volume_slice_dialog.h"
+#include "../qt/voxel_export_dialog.h"
 #include "interface.hpp"
 #include "error_message.hpp"
 #include "image_scale.hpp"
@@ -775,16 +775,16 @@ void RenderWindow::slotMenuProgramSettings()
 	preferencesDialog->activateWindow();
 }
 
-void RenderWindow::slotExportVolumeSlices()
+void RenderWindow::slotExportVoxelLayers()
 {
-	if(!volumeSliceDialog)
+	if(!voxelExportDialog)
 	{
-		volumeSliceDialog = new cVolumeSliceDialog;
+		voxelExportDialog = new cVoxelExportDialog;
 	}
 
-	volumeSliceDialog->show();
-	volumeSliceDialog->raise();
-	volumeSliceDialog->activateWindow();
+	voxelExportDialog->show();
+	voxelExportDialog->raise();
+	voxelExportDialog->activateWindow();
 }
 
 void RenderWindow::slotUpdateStatistics(cStatistics stat)

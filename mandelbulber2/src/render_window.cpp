@@ -29,7 +29,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
 	ui->setupUi(this);
 	fractalWidgets = new QWidget*[NUMBER_OF_FRACTALS];
 	preferencesDialog = NULL;
-	volumeSliceDialog = NULL;
+	voxelExportDialog = NULL;
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 

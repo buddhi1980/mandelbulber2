@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * cVolume calculates voxel volume and stores data in image slices for 3d reconstruction
+ * cVoxelExport calculates voxel volume and stores data in image layers for 3d reconstruction
  *
  * Copyright (C) 2016 Krzysztof Marczak
  *
@@ -20,7 +20,7 @@
  * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
  */
 
-#include "volume_slicer.hpp"
+#include "voxel_export.hpp"
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "progress_text.hpp"
@@ -28,7 +28,7 @@
 #include "file_image.hpp"
 #include "initparameters.hpp"
 
-cVolumeSlicer::cVolumeSlicer(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString folder, int maxIter): QObject()
+cVoxelExport::cVoxelExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString folder, int maxIter): QObject()
 {
 	this->w = w;
 	this->h = h;
@@ -37,16 +37,16 @@ cVolumeSlicer::cVolumeSlicer(int w, int h, int l, CVector3 limitMin, CVector3 li
 	this->limitMax = limitMax;
 	this->folder = folder;
 	this->maxIter = maxIter;
-	voxelSlice = new unsigned char[w * h];
+	voxelLayer = new unsigned char[w * h];
 	stop = false;
 }
 
-cVolumeSlicer::~cVolumeSlicer()
+cVoxelExport::~cVoxelExport()
 {
-	delete voxelSlice;
+	delete voxelLayer;
 }
 
-void cVolumeSlicer::ProcessVolume()
+void cVoxelExport::ProcessVolume()
 {
 	const cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
 	cParamRender *params = new cParamRender(gPar);
@@ -63,10 +63,10 @@ void cVolumeSlicer::ProcessVolume()
 
 	for (int z = 0; z < l; z++)
 	{
-		QString statusText = " - " + tr("Processing slice %1 of %2").arg(	QString::number(z + 1),
+		QString statusText = " - " + tr("Processing layer %1 of %2").arg(	QString::number(z + 1),
 																																QString::number(l));
 		double percentDone = (double) z / l;
-		emit updateProgressAndStatus(tr("Volume Slicing") + statusText, progressText.getText(percentDone), percentDone);
+		emit updateProgressAndStatus(tr("Voxel Export") + statusText, progressText.getText(percentDone), percentDone);
 
 		#pragma omp parallel for
 		for (int x = 0; x < w; x++)
@@ -84,11 +84,11 @@ void cVolumeSlicer::ProcessVolume()
 
 				double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
 
-				voxelSlice[x + y * w] = dist > dist_thresh;
+				voxelLayer[x + y * w] = dist > dist_thresh;
 			}
 		}
 
-		if (stop || !StoreSlice(z))
+		if (stop || !StoreLayer(z))
 		{
 			break;
 		}
@@ -98,16 +98,16 @@ void cVolumeSlicer::ProcessVolume()
 	delete params;
 	QString statusText;
 	if(stop)
-		statusText = tr("Volume Slicing finished - Cancelled slicer");
+		statusText = tr("Voxel Export finished - Cancelled export");
 	else
-		statusText = tr("Volume Slicing finished - Processed %1 slices").arg(QString::number(l));
+		statusText = tr("Voxel Export finished - Processed %1 layers").arg(QString::number(l));
 	emit updateProgressAndStatus(statusText, progressText.getText(1.0), 1.0);
 	emit finished();
 }
 
-bool cVolumeSlicer::StoreSlice(int z){
-	QString filename = folder + QString("strip_%1.png").arg(z, 5, 10, QChar('0'));
-	if(!ImageFileSavePNG::SavePNGQtBlackAndWhite(filename, voxelSlice, w, h))
+bool cVoxelExport::StoreLayer(int z){
+	QString filename = folder + QString("layer_%1.png").arg(z, 5, 10, QChar('0'));
+	if(!ImageFileSavePNG::SavePNGQtBlackAndWhite(filename, voxelLayer, w, h))
 	{
 		qCritical() << "Cannot write to file " << filename;
 		return false;
