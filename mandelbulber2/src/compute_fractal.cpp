@@ -88,8 +88,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	for (i = 0; i < in.maxN; i++)
 	{
-		lastGoodZ = lastZ;
-		lastZ = z;
+    lastGoodZ = lastZ;
+    lastZ = z;
 
 		//hybrid fractal sequence
 		if (in.forcedFormulaIndex >= 0)

@@ -1669,7 +1669,7 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
 }
 
 /**
- * Menger Sponge modified by Mclarekin
+ * Menger Sponge Polynomial Hybrid modified by Mclarekin
  */
 void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1684,8 +1684,18 @@ void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fr
     partA = partA * fractal->transformCommon.scale2 + fractal->transformCommon.constantMultiplier111;
 
     CVector3 fnZ1 = z;
+
+    if(fractal->transformCommon.functionEnabledBxFalse) // cos(z*Pi)
+    {
+      double scalePi = M_PI * fractal->transformCommon.scaleC1;
+      fnZ1.x = cos(z.x * scalePi);
+      fnZ1.y = cos(z.y * scalePi);
+      fnZ1.z = cos(z.z * scalePi);
+    }
+
     if(fractal->transformCommon.functionEnabledyFalse) // pi rotation
-      fnZ1 = z.RotateAroundVectorByAngle(fractal->transformCommon.constantMultiplier111, M_PI * fractal->transformCommon.scaleB1);
+      fnZ1 = fnZ1.RotateAroundVectorByAngle
+          (fractal->transformCommon.constantMultiplier111, M_PI * fractal->transformCommon.scaleB1);
 
     if(fractal->transformCommon.functionEnabledzFalse) // box offset
     {
@@ -1702,13 +1712,7 @@ void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fr
       else
         fnZ1.z = fnZ1.z - fractal->transformCommon.additionConstant000.z;
     }
-    if(fractal->transformCommon.functionEnabledBxFalse) // cos(z*Pi)
-    {
-      double scalePi = M_PI * fractal->transformCommon.scaleC1;
-      fnZ1.x = cos(z.x * scalePi);
-      fnZ1.y = cos(z.y * scalePi);
-      fnZ1.z = cos(z.z * scalePi);
-    }
+
     if(fractal->transformCommon.functionEnabledAxFalse) // fabs(fnZ1)
       fnZ1 = fabs(fnZ1);
     CVector3 partB = z;
@@ -1719,7 +1723,7 @@ void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fr
     z *= fractal->transformCommon.scale025;
     aux.DE = aux.DE * 4.0 * fractal->transformCommon.scaleA1 + fractal->transformCommon.offset1;
   }
-  if (fractal->transformCommon.addCpixelEnabledFalse)
+  if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
   {
     switch (fractal->mandelbulbMulti.orderOfxyz)
     {
@@ -1745,7 +1749,8 @@ void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fr
     }
     z += c * fractal->transformCommon.constantMultiplierC111;
   }
-  int count = fractal->transformCommon.int1;
+
+  int count = fractal->transformCommon.int1;  // Menger Sponge
   int k;
   for (k = 0; k < count; k++)
   {
@@ -1778,7 +1783,7 @@ void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fr
     aux.DE *= fractal->transformCommon.scale3;
 
     if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsA
-        && i < fractal->transformCommon.stopIterationsA)
+        && i < fractal->transformCommon.stopIterationsA) // rotation
     {
       z = fractal->transformCommon.rotationMatrix.RotateVector(z);
     }
@@ -3452,8 +3457,16 @@ void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExt
   partA = partA * fractal->transformCommon.scale2 + fractal->transformCommon.constantMultiplier111;
 
   CVector3 fnZ1 = z;
+  if(fractal->transformCommon.functionEnabledBxFalse) // cos(z*Pi)
+  {
+    double scalePi = M_PI * fractal->transformCommon.scaleC1;
+    fnZ1.x = cos(z.x * scalePi);
+    fnZ1.y = cos(z.y * scalePi);
+    fnZ1.z = cos(z.z * scalePi);
+  }
   if(fractal->transformCommon.functionEnabledyFalse) // pi rotation
-    fnZ1 = z.RotateAroundVectorByAngle(fractal->transformCommon.constantMultiplier111, M_PI * fractal->transformCommon.scale0);// * cPI ;
+    fnZ1 = fnZ1.RotateAroundVectorByAngle
+        (fractal->transformCommon.constantMultiplier111, M_PI * fractal->transformCommon.scale0);// * cPI ;
   if(fractal->transformCommon.functionEnabledzFalse) // box offset
   {
     if (fnZ1.x > 0)
@@ -3469,13 +3482,7 @@ void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExt
     else
       fnZ1.z = fnZ1.z - fractal->transformCommon.additionConstant000.z;
   }
-  if(fractal->transformCommon.functionEnabledBxFalse) // cos(z*Pi)
-  {
-    double scalePi = M_PI * fractal->transformCommon.scaleC1;
-    fnZ1.x = cos(z.x * scalePi);
-    fnZ1.y = cos(z.y * scalePi);
-    fnZ1.z = cos(z.z * scalePi);
-  }
+
   if(fractal->transformCommon.functionEnabledAxFalse) // fabs fnZ1
     fnZ1 = fabs(fnZ1);
 
