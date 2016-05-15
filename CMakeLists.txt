@@ -22,6 +22,8 @@ find_package(GSL REQUIRED)
 
 # find optional other libraries
 find_package(TIFF)
+find_package(JPEG)
+find_package(ZLIB)
 find_package(ECM NO_MODULE)
 
 IF(ECM_FOUND)
@@ -74,6 +76,16 @@ IF(OpenEXR_FOUND)
     include_directories(${OpenEXR_INCLUDE_DIRS})
     target_link_libraries(mandelbulber2 ${OpenEXR_LIBRARIES})
     add_definitions(-DUSE_EXR)
+ENDIF()
+
+IF(ZLIB_FOUND)
+    include_directories(${ZLIB_INCLUDE_DIRS})
+    target_link_libraries(mandelbulber2 ${ZLIB_LIBRARIES})
+ENDIF()
+
+IF(JPEG_FOUND)
+    include_directories(${JPEG_INCLUDE_DIR})
+    target_link_libraries(mandelbulber2 ${JPEG_LIBRARY})
 ENDIF()
 
 # generate proper GUI program on specified platform

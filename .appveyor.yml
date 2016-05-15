@@ -5,55 +5,67 @@ os: Visual Studio 2015
 
 build: false # use custom build_script instead
 
+environment:
+  matrix:
+    - tbs_arch: "x86"
+    - tbs_arch: "x64"
+  
+install:
+  - ps: if($env:tbs_arch -eq 'x64') { $env:vcvar_arg = 'x86_amd64'; } else { $env:vcvar_arg = 'x86'; }
+  - ps: if($env:tbs_arch -eq 'x64') { $env:qt_version = '5.6\msvc2015_64'; } else { $env:qt_version = '5.6\msvc2015'; }
+  - ps: if($env:tbs_arch -eq 'x64') { $env:ms_build_suffix = 'Bin\amd64'; } else { $env:ms_build_suffix = 'Bin'; }
+  - ps: if($env:tbs_arch -eq 'x64') { $env:cmake_platform = 'Visual Studio 14 2015 Win64'; } else { $env:cmake_platform = 'Visual Studio 14 2015'; }
+  - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall" %vcvar_arg%'
+  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /%tbs_arch%'
+  - set QTDIR=C:\Qt\%qt_version%
+  - set PATH=%QTDIR%\bin;C:\MinGW\bin;C:\Program Files (x86)\MSBuild\14.0\%ms_build_suffix%;%PATH%
+
 before_build:
   - mkdir deps
 # gsl
   - git clone git://github.com/ampl/gsl.git
   - cd gsl
-  - cmake -G "NMake Makefiles" -D CMAKE_CXX_FLAGS_RELEASE="/MD" \
-     -D CMAKE_CXX_FLAGS_DEBUG="/MDd" -D CMAKE_C_FLAGS_RELEASE="/MD" \
-     -D CMAKE_C_FLAGS_DEBUG="/MDd" .
-  - nmake
+  - cmake -G "%cmake_platform%" -DCMAKE_CXX_FLAGS_RELEASE="/MD" \
+     -DCMAKE_CXX_FLAGS_DEBUG="/MDd" -DCMAKE_C_FLAGS_RELEASE="/MD" \
+     -DCMAKE_C_FLAGS_DEBUG="/MDd" -DCMAKE_BUILD_TYPE="Release" .
+  - msbuild gsl.sln /p:Configuration=Release /m
   - cd ..
   
   #packages from nuget
-  - nuget install zlib-msvc14-x64-master -Version 1.2.8.4 -Source https://ci.appveyor.com/nuget/zlib-shallow-x0n34b3pfq1b
+  - nuget install zlib-msvc14-%tbs_arch%-master -Version 1.2.8.4 -Source https://ci.appveyor.com/nuget/zlib-shallow-x0n34b3pfq1b
   - ps: move zlib*\* deps -force
   - move deps\zlibstatic.lib deps\zlib.lib
-  - nuget install libpng-msvc14-x64-master -Version 1.6.18.44 -Source https://ci.appveyor.com/nuget/libpng-7hwq4pmmrc48
+  - nuget install libpng-msvc14-%tbs_arch%-master -Version 1.6.18.44 -Source https://ci.appveyor.com/nuget/libpng-7hwq4pmmrc48
   - ps: move libpng*\* deps -force
   - move deps\libpng16_static.lib deps\png.lib
-  - nuget install libtiff-msvc14x64-master -Source https://ci.appveyor.com/nuget/libtiff-i3h8tqqy7o7b
-  - ps move libtiff*\* deps -force
+  - nuget install libtiff-msvc14-%tbs_arch%-master -Version 4.0.6.85 -Source https://ci.appveyor.com/nuget/libtiff-i3h8tqqy7o7b
+  - ps: move libtiff*\* deps -force
   - move deps\tiff_static.lib deps\tiff.lib
+  - nuget install libjpeg-msvc14-%tbs_arch%-master -Version 1.4.80.21 -Source https://ci.appveyor.com/nuget/libjpegturbo-o6k4js4y7pjw
+  - ps: move libjpeg*\* deps -force
+  - move deps\jpeg-static.lib deps\jpeg.lib
  
-install:
-  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
-  - set QTDIR=C:\Qt\5.5\mingw492_32
-  - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
-
 build_script:
   #- cd mandelbulber2/Release
   #- qmake -win32 mandelbulber.pro
   - SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\gsl
   - SET LIB=%LIB%;C:\projects\mandelbulber2\gsl\Release
-  - cmake -G "NMake Makefiles" -D CMAKE_CXX_FLAGS_RELEASE="/MD" \
-     -D CMAKE_CXX_FLAGS_DEBUG="/MDd" -D CMAKE_C_FLAGS_RELEASE="/MD" \
-     -D CMAKE_C_FLAGS_DEBUG="/MDd" \
+  - cmake -G "%cmake_platform%" \
      -DPNG_LIBRARY=deps\png.lib -DPNG_PNG_INCLUDE_DIR=deps \
      -DZLIB_LIBRARY=deps\zlib.lib -DZLIB_INCLUDE_DIR=deps \
      -DTIFF_LIBRARY=deps\tiff.lib -DTIFF_INCLUDE_DIR=deps \
-     -DGSL_CBLAS_LIBRARY=gsl\lib -DGSL_INCLUDE_DIR=gsl\include -DGSL_LIBRARY=gsl\lib \
-     .
+     -DJPEG_LIBRARY=deps\jpeg.lib -DJPEG_INCLUDE_DIR=deps \
+     -DGSL_CBLAS_LIBRARY=gsl\Release\gslcblas.lib -DGSL_LIBRARY=gsl\Release\gsl.lib -DGSL_INCLUDE_DIR=gsl \
+     -DCMAKE_BUILD_TYPE=Release .
   # move the auto-generated ui files to qt folder
-  - move ui_* mandelbulber2\qt
-  - nmake
+  #- move ui_* mandelbulber2\qt
+  - msbuild mandelbulber2.sln /p:Configuration=Release /m
 
 #test:
- # todo, see here for instructions: https://www.appveyor.com/docs/running-tests
+# todo, see here for instructions: https://www.appveyor.com/docs/running-tests
  
 #deploy:
- # todo, see here for instructions: https://www.appveyor.com/docs/deployment/github
+# todo, see here for instructions: https://www.appveyor.com/docs/deployment/github
 
 notifications:
   - provider: Webhook
