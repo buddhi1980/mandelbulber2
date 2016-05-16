@@ -31,6 +31,7 @@
 #include "player_widget.hpp"
 #include "primitives.h"
 #include "synchronize_interface.hpp"
+#include "material_item_model.h"
 
 class cInterface
 {
@@ -101,6 +102,7 @@ public:
 	QList<sPrimitiveItem> listOfPrimitives;
 	QTimer *autoRefreshTimer;
 	QString autoRefreshLastHash;
+	cMaterialItemModel *materialListModel;
 
 	bool interfaceReady;
 	bool stopRequest;

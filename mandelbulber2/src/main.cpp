@@ -116,6 +116,8 @@ int main(int argc, char *argv[])
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 	InitMaterialParams(1, gPar);
+	InitMaterialParams(2, gPar);
+	InitMaterialParams(3, gPar);
 
 	/*******************************************************************/
 

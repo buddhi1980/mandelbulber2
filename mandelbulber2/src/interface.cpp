@@ -66,6 +66,7 @@ cInterface::cInterface()
 	progressBarFrame = NULL;
 	progressBarLayout = NULL;
 	autoRefreshTimer = NULL;
+	materialListModel = NULL;
 	stopRequest = false;
 	repeatRequest = false;
 	interfaceReady = false;
@@ -119,7 +120,6 @@ void cInterface::ShowUi(void)
 	mainWindow->setFont(font);
 	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size")
 			+ 6);
-
 
 	WriteLog("mainWindow->show()", 2);
 	mainWindow->show();
@@ -209,6 +209,7 @@ void cInterface::ShowUi(void)
 	}
 #endif
 
+
 	renderedImage->show();
 
   mainWindow->setCorner( Qt::TopLeftCorner, Qt::LeftDockWidgetArea );
@@ -227,6 +228,11 @@ void cInterface::ShowUi(void)
 
 	/**************** temporary code for materials *******************/
 	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
+
+	materialListModel = new cMaterialItemModel(mainWindow->ui->listViewMaterials);
+	materialListModel->AssignContainer(gPar);
+	mainWindow->ui->listViewMaterials->setModel(materialListModel);
+	materialListModel->insertRows(0, 2, QModelIndex());
 	/*****************************************************************/
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);

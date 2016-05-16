@@ -27,12 +27,16 @@ public:
 	//will return QString with settings string (from cSettings) for selected index
 	//will be also used to update material data after editing
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 
 	//will provide material name
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
+	bool insertRows(int position, int rows, const QModelIndex &parent);
+
 private:
 	cParameterContainer *container;
+	QList<int> materialIndexes;
 };
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_ITEM_MODEL_H_ */
