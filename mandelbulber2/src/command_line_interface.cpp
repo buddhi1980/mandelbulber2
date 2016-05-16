@@ -241,8 +241,8 @@ void cCommandLineInterface::ReadCLI()
 
 	// run test cases
 	if (cliData.test) {
-		aQStringList arguments = gApplication->arguments();
-		rguments.removeOne(QString("--test"));
+		QStringList arguments = gApplication->arguments();
+		arguments.removeOne(QString("--test"));
 		arguments.removeOne(QString("t"));
 
 		int status = 0;
