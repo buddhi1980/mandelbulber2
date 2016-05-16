@@ -33,6 +33,7 @@ install:
     fi
 
 script:
+#build
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
          QTDIR="/opt/qt56"
       && PATH="$QTDIR/bin:$PATH"
@@ -47,14 +48,17 @@ script:
     fi
   - cd mandelbulber2/Release
   - qmake mandelbulber.pro
-  - make
+	- make -j3
+
 # testing
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-         ./mandelbulber --test
+         sudo ln -s `pwd`/../deploy/share/mandelbulber2 /usr/share/mandelbulber2
+      && ./mandelbulber2 --test
     else
          echo 'TODO test...'
       ;
     fi
+
 notifications:
   email:
     - buddhi1980@gmail.com
