@@ -48,7 +48,13 @@ script:
   - cd mandelbulber2/Release
   - qmake mandelbulber.pro
   - make
-
+# testing
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+         ./mandelbulber --test
+    else
+         echo 'TODO test...'
+      ;
+    fi
 notifications:
   email:
     - buddhi1980@gmail.com
