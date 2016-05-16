@@ -32,6 +32,7 @@
 #include "animation_frames.hpp"
 #include "keyframes.hpp"
 #include "settings.hpp"
+#include "test.hpp"
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 {
@@ -107,7 +108,10 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "N"));
 
 	QCommandLineOption queueOption(QStringList() << "q" << "queue",
-		QCoreApplication::translate("main", "Renders all images from common queue."));
+								   QCoreApplication::translate("main", "Renders all images from common queue."));
+
+	QCommandLineOption testOption(QStringList() << "t" << "test",
+								   QCoreApplication::translate("main", "This will run testcases on the mandelbulber instance"));
 
 	QCommandLineOption statsOption(QStringList() << "stats",
 		QCoreApplication::translate("main", "Shows statistics while rendering in CLI mode."));
@@ -137,6 +141,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(portOption);
 	parser.addOption(noColorOption);
 	parser.addOption(queueOption);
+	parser.addOption(testOption);
 	parser.addOption(statsOption);
 	parser.addOption(helpInputOption);
 
@@ -159,6 +164,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.outputText = parser.value(outputOption);
 	cliData.listParameters = parser.isSet(listOption);
 	cliData.queue = parser.isSet(queueOption);
+	cliData.test = parser.isSet(testOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
 	systemData.statsOnCLI = parser.isSet(statsOption);
 
@@ -170,7 +176,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 
 	if (cliData.listParameters) cliData.nogui = true;
 	if (cliData.queue) cliData.nogui = true;
-
+	if (cliData.test) cliData.nogui = true;
 	cliTODO = modeBootOnly;
 }
 
@@ -179,7 +185,7 @@ cCommandLineInterface::~cCommandLineInterface()
 
 }
 
-void cCommandLineInterface::ReadCLI(void)
+void cCommandLineInterface::ReadCLI()
 {
 	bool checkParse = true;
 	bool settingsSpecified = false;
@@ -231,6 +237,18 @@ void cCommandLineInterface::ReadCLI(void)
 
 		out.flush();
 		exit(0);
+	}
+
+	// run test cases
+	if (cliData.test) {
+		aQStringList arguments = gApplication->arguments();
+		rguments.removeOne(QString("--test"));
+		arguments.removeOne(QString("t"));
+
+		int status = 0;
+		Test test;
+		status |= QTest::qExec(&test, arguments);
+		exit(status);
 	}
 
 	// check netrender server / client

@@ -15,6 +15,7 @@ find_package(Qt5Core)
 find_package(Qt5Network)
 find_package(Qt5Gui)
 find_package(Qt5UiTools)
+find_package(QtTest)
 
 # find required other libraries
 find_package(PNG REQUIRED)
@@ -60,6 +61,7 @@ target_link_libraries(mandelbulber2 Qt5::Core)
 target_link_libraries(mandelbulber2 Qt5::Network)
 target_link_libraries(mandelbulber2 Qt5::Gui)
 target_link_libraries(mandelbulber2 Qt5::UiTools)
+target_link_libraries(mandelbulber2 Qt5::Test)
 
 # link required other libraries
 include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS})

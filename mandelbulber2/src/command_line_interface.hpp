@@ -72,6 +72,7 @@ private:
 		bool keyframe;
 		bool flight;
 		bool queue;
+		bool test;
 		QString startFrameText;
 		QString endFrameText;
 		QString overrideParametersText;
