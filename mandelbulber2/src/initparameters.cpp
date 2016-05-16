@@ -494,6 +494,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("mandelbulbMulti_acos_or_asin", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_atan_or_atan2", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_order_of_xyz", 0, morphNone, paramStandard);
+  par->addParam("mandelbulbMulti_order_of_xyz_2", 0, morphNone, paramStandard);
 
   //donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
@@ -541,6 +542,12 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_stop_iterations_B", 250, morphLinear, paramStandard);
   par->addParam("transf_start_iterations_C", 0, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations_C", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_R", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_R", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_S", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_S", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_M", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_M", 250, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations_1", 1, morphLinear, paramStandard);
 
 

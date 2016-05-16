@@ -363,6 +363,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           Kalisets1Iteration(z, c, fractal, extendedAux);
           break;
         }
+      case mandelboxMenger:
+      {
+        MandelboxMengerIteration(z, c, i, fractal, extendedAux);
+        break;
+      }
         case mandelbulbMulti:
         {
           MandelbulbMultiIteration(z, fractal, extendedAux);
@@ -915,6 +920,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 				case mandelbox:
+        case mandelboxMenger:
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
@@ -978,6 +984,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			switch (formula)
 			{
 				case mandelbox:
+        case mandelboxMenger:
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:

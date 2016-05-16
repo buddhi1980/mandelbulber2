@@ -251,9 +251,14 @@ struct sFractalMandelbulbMulti
   {
     xyz, xzy, yxz, yzx, zxy, zyx
   };
+  enum multi_OrderOfxyz2
+  {
+    xyz2, xzy2, yxz2, yzx2, zxy2, zyx2
+  };
   multi_acosOrasin acosOrasin;
   multi_atanOratan2 atanOratan2;
   multi_OrderOfxyz orderOfxyz;
+  multi_OrderOfxyz2 orderOfxyz2;
 };
 
 //common parameters for transforming formulas
@@ -295,6 +300,12 @@ struct sFractalTransformCommon
   int stopIterationsB;
   int startIterationsC;
   int stopIterationsC;
+  int startIterationsR;
+  int stopIterationsR;
+  int startIterationsS;
+  int stopIterationsS;
+  int startIterationsM;
+  int stopIterationsM;
   int stopIterations1;
   int intA;
   int intB;
@@ -377,9 +388,9 @@ public:
 	sFractalAexion aexion;
 	sFractalBuffalo buffalo;
 	sFractalPlatonicSolid platonicSolid;
-        sFractalTransformCommon transformCommon;
-        sFractalMandelbulbMulti mandelbulbMulti;
-        sFractalDonut donut;
+  sFractalTransformCommon transformCommon;
+  sFractalMandelbulbMulti mandelbulbMulti;
+  sFractalDonut donut;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

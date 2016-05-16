@@ -54,6 +54,7 @@ void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExte
 void LkmitchIteration(CVector3 &z);
 void Makin3D2Iteration(CVector3 &z);
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MandelboxVaryScale4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux);

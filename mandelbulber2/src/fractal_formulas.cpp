@@ -1317,6 +1317,230 @@ void CollatzModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExt
   }
 }
 
+/**
+ * Mandelbox Menger Sponge Hybrid
+ * @reference http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ */
+void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (fractal->mandelbox.rotationsEnabled)
+  {
+    bool lockout = false;
+    z = fractal->mandelbox.rot[0][0].RotateVector(z);
+    if (z.x > fractal->mandelbox.foldingLimit)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+      lockout = true;
+    }
+    z = fractal->mandelbox.rotinv[0][0].RotateVector(z);
+
+    z = fractal->mandelbox.rot[1][0].RotateVector(z);
+    if (!lockout && z.x < -fractal->mandelbox.foldingLimit)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    z = fractal->mandelbox.rotinv[1][0].RotateVector(z);
+
+    lockout = false;
+    z = fractal->mandelbox.rot[0][1].RotateVector(z);
+    if (z.y > fractal->mandelbox.foldingLimit)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+      lockout = true;
+    }
+    z = fractal->mandelbox.rotinv[0][1].RotateVector(z);
+
+    z = fractal->mandelbox.rot[1][1].RotateVector(z);
+    if (!lockout && z.y < -fractal->mandelbox.foldingLimit)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    z = fractal->mandelbox.rotinv[1][1].RotateVector(z);
+
+    lockout = false;
+    z = fractal->mandelbox.rot[0][2].RotateVector(z);
+    if (z.z > fractal->mandelbox.foldingLimit)
+    {
+      z.z = fractal->mandelbox.foldingValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+      lockout = true;
+    }
+    z = fractal->mandelbox.rotinv[0][2].RotateVector(z);
+
+    z = fractal->mandelbox.rot[1][2].RotateVector(z);
+    if (!lockout && z.z < -fractal->mandelbox.foldingLimit)
+    {
+      z.z = -fractal->mandelbox.foldingValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+    z = fractal->mandelbox.rotinv[1][2].RotateVector(z);
+  }
+  else
+  {
+    if (i >= fractal->transformCommon.startIterationsA
+        && i < fractal->transformCommon.stopIterationsA)
+    {
+      if (z.x > fractal->mandelbox.foldingLimit)
+      {
+        z.x = fractal->mandelbox.foldingValue - z.x;
+        aux.color += fractal->mandelbox.color.factor.x;
+      }
+      else if (z.x < -fractal->mandelbox.foldingLimit)
+      {
+        z.x = -fractal->mandelbox.foldingValue - z.x;
+        aux.color += fractal->mandelbox.color.factor.x;
+      }
+      if (z.y > fractal->mandelbox.foldingLimit)
+      {
+        z.y = fractal->mandelbox.foldingValue - z.y;
+        aux.color += fractal->mandelbox.color.factor.y;
+      }
+      else if (z.y < -fractal->mandelbox.foldingLimit)
+      {
+        z.y = -fractal->mandelbox.foldingValue - z.y;
+        aux.color += fractal->mandelbox.color.factor.y;
+      }
+      double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
+      double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
+      if (z.z > zLimit)
+      {
+        z.z = zValue - z.z;
+        aux.color += fractal->mandelbox.color.factor.z;
+      }
+      else if (z.z < -zLimit)
+      {
+        z.z = -zValue - z.z;
+        aux.color += fractal->mandelbox.color.factor.z;
+      }
+    }
+  }
+  if (i >= fractal->transformCommon.startIterationsB
+      && i < fractal->transformCommon.stopIterationsB)
+  {
+    double r2 = z.Dot(z);
+    z += fractal->mandelbox.offset;
+    if (r2 < fractal->mandelbox.mR2)
+    {
+      z *= fractal->mandelbox.mboxFactor1;
+      aux.DE *= fractal->mandelbox.mboxFactor1;
+      aux.color += fractal->mandelbox.color.factorSp1;
+    }
+    else if (r2 < fractal->mandelbox.fR2)
+    {
+      double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+      z *= tglad_factor2;
+      aux.DE *= tglad_factor2;
+      aux.color += fractal->mandelbox.color.factorSp2;
+    }
+    z -= fractal->mandelbox.offset;
+  }
+  if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsR
+    && i < fractal->transformCommon.stopIterationsR)
+      z = fractal->mandelbox.mainRot.RotateVector(z);
+
+  if (i >= fractal->transformCommon.startIterationsS
+      && i < fractal->transformCommon.stopIterationsS)
+  {
+    z = z * fractal->mandelbox.scale;
+    aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+  }
+
+  if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
+  {
+    switch (fractal->mandelbulbMulti.orderOfxyz)
+    {
+    case sFractalMandelbulbMulti::xyz:
+    default:
+      c = CVector3(c.x, c.y, c.z);
+      break;
+    case sFractalMandelbulbMulti::xzy:
+      c = CVector3(c.x, c.z, c.y);
+      break;
+    case sFractalMandelbulbMulti::yxz:
+      c = CVector3(c.y, c.x, c.z);
+      break;
+    case sFractalMandelbulbMulti::yzx:
+      c = CVector3(c.y, c.z, c.x);
+      break;
+    case sFractalMandelbulbMulti::zxy:
+      c = CVector3(c.z, c.x, c.y);
+      break;
+    case sFractalMandelbulbMulti::zyx:
+      c = CVector3(c.z, c.y, c.x);
+      break;
+    }
+    z += c * fractal->transformCommon.constantMultiplierC111;
+  }
+  if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterationsM
+      && i < fractal->transformCommon.stopIterationsM)
+  {
+    int count = fractal->transformCommon.int1;  // Menger Sponge
+    int k;
+    for (k = 0; k < count; k++)
+    {
+      double tempMS;
+      z = fabs(z);
+      if (z.x - z.y < 0)
+      {
+        tempMS = z.y;
+        z.y = z.x;
+        z.x = tempMS;
+      }
+      if (z.x - z.z < 0)
+      {
+        tempMS = z.z;
+        z.z = z.x;
+        z.x = tempMS;
+      }
+      if (z.y - z.z < 0)
+      {
+        tempMS = z.z;
+        z.z = z.y;
+        z.y = tempMS;
+      }
+      z *= fractal->transformCommon.scale3;
+      z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
+      z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
+      if (z.z > 1)
+        z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
+      aux.DE *= fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1;
+
+      z += fractal->transformCommon.additionConstantA000;
+
+      if (fractal->transformCommon.functionEnabledxFalse) //addCpixel options
+      {
+        switch (fractal->mandelbulbMulti.orderOfxyz2)
+        {
+        case sFractalMandelbulbMulti::xyz2:
+        default:
+          c = CVector3(c.x, c.y, c.z);
+          break;
+        case sFractalMandelbulbMulti::xzy2:
+          c = CVector3(c.x, c.z, c.y);
+          break;
+        case sFractalMandelbulbMulti::yxz2:
+          c = CVector3(c.y, c.x, c.z);
+          break;
+        case sFractalMandelbulbMulti::yzx2:
+          c = CVector3(c.y, c.z, c.x);
+          break;
+        case sFractalMandelbulbMulti::zxy2:
+          c = CVector3(c.z, c.x, c.y);
+          break;
+        case sFractalMandelbulbMulti::zyx2:
+          c = CVector3(c.z, c.y, c.x);
+          break;
+        }
+        z += c * fractal->transformCommon.constantMultiplierB111;
+      }
+    }
+  }
+}
+
 
 /**
  * Modified Mandelbox (ABox) formula

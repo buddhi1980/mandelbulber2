@@ -112,9 +112,9 @@ enum enumFractalFormula
 	msltoeToroidal = 86,
 	aboxModKaliEiffie = 87,
 	collatz = 88,
-        collatzMod = 89,
-        mengerPwr2Poly = 90,
-
+  collatzMod = 89,
+  mengerPwr2Poly = 90,
+  mandelboxMenger = 91,
 
 
 	// 152 to 172 reserved for scator
@@ -166,8 +166,8 @@ enum enumFractalFormula
 	transfScale4D = 1043,
 	transfFabsAddConstant4D = 1044,
 	transfFabsAddConstantV24D = 1045,
-        transfSurfFoldMulti = 1046,
-        transfPwr2Polynomial = 1047
+  transfSurfFoldMulti = 1046,
+  transfPwr2Polynomial = 1047
 };
 
 enum enumDEType

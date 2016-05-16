@@ -268,6 +268,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					100));
 
+  fractalList->append(sFractalDescription("Mandelbox Menger",
+                                          "mandelbox_menger",
+                                          mandelboxMenger,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelEnabledByDefault,
+                                          100));
+
 	fractalList->append(sFractalDescription("Mandelbulb",
 																					"mandelbulb",
 																					mandelbulb,

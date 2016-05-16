@@ -121,6 +121,8 @@ cFractal::cFractal(const cParameterContainer *container)
       (sFractalMandelbulbMulti::multi_atanOratan2) container->Get<int>("mandelbulbMulti_atan_or_atan2");
   mandelbulbMulti.orderOfxyz =
       (sFractalMandelbulbMulti::multi_OrderOfxyz) container->Get<int>("mandelbulbMulti_order_of_xyz");
+  mandelbulbMulti.orderOfxyz2 =
+      (sFractalMandelbulbMulti::multi_OrderOfxyz2) container->Get<int>("mandelbulbMulti_order_of_xyz_2");
 
 	//common parameters for transforming formulas
 
@@ -162,6 +164,12 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.stopIterationsB = container->Get<int>("transf_stop_iterations_B");
   transformCommon.startIterationsC = container->Get<int>("transf_start_iterations_C");
   transformCommon.stopIterationsC = container->Get<int>("transf_stop_iterations_C");
+  transformCommon.startIterationsR = container->Get<int>("transf_start_iterations_R");
+  transformCommon.stopIterationsR = container->Get<int>("transf_stop_iterations_R");
+  transformCommon.startIterationsS = container->Get<int>("transf_start_iterations_S");
+  transformCommon.stopIterationsS = container->Get<int>("transf_stop_iterations_S");
+  transformCommon.startIterationsM = container->Get<int>("transf_start_iterations_M");
+  transformCommon.stopIterationsM = container->Get<int>("transf_stop_iterations_M");
   transformCommon.stopIterations1 = container->Get<int>("transf_stop_iterations_1");
 
   transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
