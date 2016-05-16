@@ -30,7 +30,7 @@ class Test: public QObject
 {
 	Q_OBJECT
 private slots:
-	void toUpper();
+	void renderExamples();
 };
 
-#endif /* TEXTURE_HPP_ */
+#endif /* MANDELBULBER2_TEST_HPP_ */

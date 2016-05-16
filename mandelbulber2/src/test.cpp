@@ -22,10 +22,69 @@
 
 #include "test.hpp"
 #include "system.hpp"
+#include "parameters.hpp"
+#include "fractal_container.hpp"
+#include "animation_frames.hpp"
+#include "keyframes.hpp"
+#include "initparameters.hpp"
+#include "settings.hpp"
+#include "cimage.hpp"
+#include "render_job.hpp"
 
-void Test::toUpper()
+void Test::renderExamples()
 {
-	// TODO add tests
-	QString str = "Hello";
-	QVERIFY(str.toUpper() == "HELLO");
+	// this renders all example files in a resolution of 32x32
+	// and checks if the render succeeded
+
+	QString examplePath = QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
+	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
+
+	cParameterContainer* testPar = new cParameterContainer;
+	cFractalContainer* testParFractal = new cFractalContainer;
+	cAnimationFrames* testAnimFrames = new cAnimationFrames;
+	cKeyframes* testKeyframes = new cKeyframes;
+
+	testPar->SetContainerName("main");
+	InitParams(testPar);
+	/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+	InitMaterialParams(1, testPar);
+
+	/*******************************************************************/
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(&testParFractal->at(i));
+	}
+	bool stopRequest = false;
+	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+
+	while (it.hasNext())
+	{
+		QString filename = it.next();
+		cSettings parSettings(cSettings::formatFullText);
+		parSettings.BeQuiet(true);
+		parSettings.LoadFromFile(filename);
+		parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
+		testPar->Set("image_width", 5);
+		testPar->Set("image_height", 5);
+
+		cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
+
+		cRenderingConfiguration config;
+		config.DisableRefresh();
+		config.DisableProgressiveRender();
+
+		renderJob->Init(cRenderJob::still, config);
+		qDebug() << "Testing: " << filename;
+		QBENCHMARK_ONCE(renderJob->Execute());
+
+		delete renderJob;	
+	}
+
+	delete image;
+	delete testKeyframes;
+	delete testAnimFrames;
+	delete testParFractal;
+	delete testPar;
 }
