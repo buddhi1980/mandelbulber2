@@ -48,7 +48,7 @@ script:
     fi
   - cd mandelbulber2/Release
   - qmake mandelbulber.pro
-	- make -j3
+  - make -j3
 
 # testing
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
