@@ -33,8 +33,8 @@
 
 void Test::renderExamples()
 {
-	// this renders all example files in a resolution of 32x32
-	// and checks if the render succeeded
+	// this renders all example files in a resolution of 5x5 px
+	// and benchmarks the runtime
 
 	QString examplePath = QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
 	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);

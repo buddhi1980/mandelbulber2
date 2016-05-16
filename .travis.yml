@@ -54,6 +54,7 @@ script:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
          sudo ln -s `pwd`/../deploy/share/mandelbulber2 /usr/share/mandelbulber2
       && ./mandelbulber2 --test
+      ;
     else
          echo 'TODO test...'
       ;
