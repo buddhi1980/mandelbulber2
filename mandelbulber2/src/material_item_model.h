@@ -35,6 +35,9 @@ public:
 	bool insertRows(int position, int rows, const QModelIndex &parent);
 
 private:
+
+	int FindFreeIndex();
+
 	cParameterContainer *container;
 	QList<int> materialIndexes;
 };

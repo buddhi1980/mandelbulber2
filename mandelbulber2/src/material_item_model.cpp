@@ -37,37 +37,29 @@ void cMaterialItemModel::AssignContainer(cParameterContainer *_parameterContaine
 
 int cMaterialItemModel::rowCount(const QModelIndex &parent) const
 {
-	// TODO
-	return 3;
+	Q_UNUSED(parent);
+	return materialIndexes.size();
 }
 
 QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 {
-	// TODO Material data
 	Qt::ItemDataRole itemRole = (Qt::ItemDataRole)role;
 
 	if(itemRole == Qt::DisplayRole)
 	{
-		int matIndex = index.row() + 1;
+		int matIndex = materialIndexes.at(index.row());
 
 		cParameterContainer params;
 		cFractalContainer fractal;
 
 		params.SetContainerName("material");
-		InitParams(&params);
-
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-		{
-			fractal.at(i).SetContainerName(QString("fractal") + QString::number(i));
-			InitFractalParams(&fractal.at(i));
-		}
-		InitMaterialParams(1, &params);
+		InitMaterialParams(matIndex, &params);
 
 		//copy parameters from main parameter container to temporary container for material
 		for(int i=0; i < cMaterial::paramsList.size(); i++)
 		{
 			cOneParameter parameter = container->GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
-			params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
+			params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex), parameter);
 		}
 
 		cSettings tempSettings(cSettings::formatCondensedText);
@@ -80,6 +72,30 @@ QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 
 bool cMaterialItemModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+	Qt::ItemDataRole itemRole = (Qt::ItemDataRole)role;
+
+	if(itemRole == Qt::EditRole)
+	{
+		//look for first free material index
+		int matIndex = materialIndexes.at(index.row());
+
+		cParameterContainer params;
+		cFractalContainer fractal;
+		params.SetContainerName("material");
+		InitMaterialParams(matIndex, &params);
+
+		cSettings tempSettings(cSettings::formatCondensedText);
+		tempSettings.LoadFromString(value.toString());
+		tempSettings.Decode(&params, &fractal);
+
+		//copy parameters from temporary container for material to main parameter container
+		for(int i=0; i < cMaterial::paramsList.size(); i++)
+		{
+			cOneParameter parameter = params.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
+			container->SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex), parameter);
+		}
+	}
+
 	return true;
 }
 
@@ -91,7 +107,39 @@ QVariant cMaterialItemModel::headerData(int section, Qt::Orientation orientation
 
 bool cMaterialItemModel::insertRows(int position, int rows, const QModelIndex &parent)
 {
+	Q_UNUSED(parent);
+
 	beginInsertRows(QModelIndex(), position, position+rows-1);
+
+	for(int r = 0; r < rows; r++)
+	{
+		//look for first free material indes
+		int matIndex = FindFreeIndex();
+		materialIndexes.insert(position + r, matIndex);
+		InitMaterialParams(matIndex, container);
+	}
 	endInsertRows();
 	return true;
+}
+
+int cMaterialItemModel::FindFreeIndex()
+{
+	bool occupied = false;
+	int materialIndex = 1;
+	do
+	{
+		occupied = false;
+		for(int i = 0; i < materialIndexes.size(); i++)
+		{
+			if(materialIndex == materialIndexes[i])
+			{
+				occupied = true;
+				materialIndex++;
+				break;
+			}
+		}
+	}
+	while(occupied);
+
+	return materialIndex;
 }

@@ -227,12 +227,12 @@ void cInterface::ShowUi(void)
 	mainWindow->slotPopulateToolbar();
 
 	/**************** temporary code for materials *******************/
-	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
-
 	materialListModel = new cMaterialItemModel(mainWindow->ui->listViewMaterials);
 	materialListModel->AssignContainer(gPar);
 	mainWindow->ui->listViewMaterials->setModel(materialListModel);
-	materialListModel->insertRows(0, 2, QModelIndex());
+	materialListModel->insertRows(0, 3, QModelIndex());
+
+	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
 	/*****************************************************************/
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);
