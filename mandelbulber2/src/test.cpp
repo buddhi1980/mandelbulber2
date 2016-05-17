@@ -30,6 +30,7 @@
 #include "settings.hpp"
 #include "cimage.hpp"
 #include "render_job.hpp"
+#include "netrender.hpp"
 
 void Test::renderExamples()
 {
@@ -37,7 +38,7 @@ void Test::renderExamples()
 	// and benchmarks the runtime
 
 	QString examplePath = QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
-	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
+	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files);
 
 	cParameterContainer* testPar = new cParameterContainer;
 	cFractalContainer* testParFractal = new cFractalContainer;
@@ -58,6 +59,9 @@ void Test::renderExamples()
 	}
 	bool stopRequest = false;
 	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	cRenderingConfiguration config;
+	config.DisableRefresh();
+	config.DisableProgressiveRender();
 
 	while (it.hasNext())
 	{
@@ -68,17 +72,9 @@ void Test::renderExamples()
 		parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
 		testPar->Set("image_width", 5);
 		testPar->Set("image_height", 5);
-
 		cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
-
-		cRenderingConfiguration config;
-		config.DisableRefresh();
-		config.DisableProgressiveRender();
-
 		renderJob->Init(cRenderJob::still, config);
-		qDebug() << "Testing: " << filename;
-		QBENCHMARK_ONCE(renderJob->Execute());
-
+		QVERIFY2(renderJob->Execute(), "execution failed.");
 		delete renderJob;	
 	}
 
@@ -87,4 +83,28 @@ void Test::renderExamples()
 	delete testAnimFrames;
 	delete testParFractal;
 	delete testPar;
+}
+
+void Test::netrender()
+{
+	// test connection of server / client over localhost
+	CNetRender* netRenderServer = new CNetRender(1);
+	CNetRender* netRenderClient = new CNetRender(1);
+	netRenderServer->SetServer(5555);
+	netRenderClient->SetClient("127.0.0.1", 5555);
+
+	QTest::qWait(100);
+
+	CNetRender::netRenderStatus clientStatus = netRenderClient->GetStatus();
+	QVERIFY2(clientStatus == CNetRender::netRender_READY,
+		QString("client status wrong: should be 'READY' but is '%1'.")
+			.arg(CNetRender::GetStatusText(clientStatus)).toStdString().c_str()
+	);
+
+	QVERIFY2(netRenderServer->GetClientCount() == 1,
+		QString("client not connected to server.").toStdString().c_str()
+	);
+
+	delete netRenderClient;
+	delete netRenderServer;
 }

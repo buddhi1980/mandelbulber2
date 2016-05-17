@@ -136,7 +136,7 @@ bool cRenderer::RenderImage()
 				scheduler->Stop();
 			}
 
-			Wait(100); //wait 100ms
+			Wait(10); //wait 100ms
 
 			if (data->configuration.UseRefreshRenderedList())
 			{

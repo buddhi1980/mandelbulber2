@@ -226,6 +226,7 @@ void CNetRender::SetClient(QString address, int portNo)
 	connect(clientSocket, SIGNAL(readyRead()), this, SLOT(ReceiveFromServer()));
 
 	reconnectTimer->start();
+	QTimer::singleShot(50, this, SLOT(TryServerConnect()));
 	WriteLog("NetRender - Client Setup, link to server: " + address + ", port: "
 			+ QString::number(portNo), 2);
 	emit NotifyStatus();
@@ -241,6 +242,7 @@ void CNetRender::SetClient(QString address, int portNo)
 
 void CNetRender::ServerDisconnected()
 {
+	if (deviceType != netRender_CLIENT) return;
 	status = netRender_ERROR;
 	emit NotifyStatus();
 
