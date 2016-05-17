@@ -423,7 +423,6 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 							context.function);
 			text = QString("Critical: ") + QString(localMsg.constData()) + " (" + context.file + ":"
 					+ QString::number(context.line) + ", " + context.function;
-			abort();
 			break;
 		case QtFatalMsg:
 			fprintf(stderr,
