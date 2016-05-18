@@ -136,7 +136,7 @@ bool cRenderer::RenderImage()
 				scheduler->Stop();
 			}
 
-			Wait(10); //wait 100ms
+			Wait(10); //wait 10ms
 
 			if (data->configuration.UseRefreshRenderedList())
 			{
@@ -153,9 +153,6 @@ bool cRenderer::RenderImage()
 			progressTxt = progressText.getText(percentDone);
 			data->statistics.time = progressText.getTime();
 
-			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-			emit updateStatistics(data->statistics);
-
 			//refresh image
 			if (listToRefresh.size() > 0)
 			{
@@ -163,6 +160,10 @@ bool cRenderer::RenderImage()
 						&& (scheduler->GetProgressivePass() > 1 || !data->configuration.UseProgressive()))
 				{
 					timerRefresh.restart();
+
+					emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+					emit updateStatistics(data->statistics);
+
 					QSet<int> set_listToRefresh = listToRefresh.toSet(); //removing duplicates
 					listToRefresh = set_listToRefresh.toList();
 					qSort(listToRefresh);
