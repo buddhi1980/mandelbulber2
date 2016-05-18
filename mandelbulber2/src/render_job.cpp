@@ -137,7 +137,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 			connect(this,
 							SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)),
 							gNetRender,
-							SLOT(SetJob(cParameterContainer, cFractalContainer, sTextures)));
+							SLOT(SetCurrentJob(cParameterContainer, cFractalContainer, sTextures)));
 			connect(this,
 							SIGNAL(SendNetRenderSetup(int , int, QList<int>)),
 							gNetRender,
