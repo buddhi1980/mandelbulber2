@@ -177,10 +177,6 @@ bool cRenderer::RenderImage()
 								&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
 						{
 							cRenderSSAO rendererSSAO(params, data, image);
-							connect(&rendererSSAO,
-											SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-											this,
-											SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 							rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
 							rendererSSAO.RenderSSAO(&listToRefresh);
 						}
