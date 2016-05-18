@@ -227,7 +227,7 @@ void RenderWindow::slotMenuSaveImageJPEG()
                                       0.0,
                                       cProgressText::progress_IMAGE);
     gApplication->processEvents();
-		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_JPG, gMainInterface->mainImage);
+		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_JPG, gMainInterface->mainImage, gMainInterface->mainWindow);
     cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"),
                                       tr("Saving image finished"),
                                       1.0,
@@ -252,16 +252,8 @@ void RenderWindow::slotMenuSaveImagePNG()
   {
     filenames = dialog.selectedFiles();
     QString filename = QDir::toNativeSeparators(filenames.first());
-    cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"),
-                                      tr("Saving image started"),
-                                      0.0,
-                                      cProgressText::progress_IMAGE);
     gApplication->processEvents();
-		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_PNG, gMainInterface->mainImage);
-    cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"),
-                                      tr("Saving image finished"),
-                                      1.0,
-                                      cProgressText::progress_IMAGE);
+		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_PNG, gMainInterface->mainImage, gMainInterface->mainWindow);
     gApplication->processEvents();
     systemData.lastImageFile = filename;
   }
@@ -283,17 +275,9 @@ void RenderWindow::slotMenuSaveImageEXR()
   {
     filenames = dialog.selectedFiles();
     QString filename = QDir::toNativeSeparators(filenames.first());
-    cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"),
-                                      tr("Saving EXR image started"),
-                                      0.0,
-                                      cProgressText::progress_IMAGE);
-    gApplication->processEvents();
-		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_EXR, gMainInterface->mainImage);
-    cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"),
-                                      tr("Saving EXR image finished"),
-                                      1.0,
-                                      cProgressText::progress_IMAGE);
-    gApplication->processEvents();
+		gApplication->processEvents();
+		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_EXR, gMainInterface->mainImage, gMainInterface->mainWindow);
+		gApplication->processEvents();
     systemData.lastImageFile = filename;
   }
 }
@@ -315,17 +299,9 @@ void RenderWindow::slotMenuSaveImageTIFF()
   {
     filenames = dialog.selectedFiles();
     QString filename = QDir::toNativeSeparators(filenames.first());
-    cProgressText::ProgressStatusText(tr("Saving %1 image").arg("TIFF"),
-                                      tr("Saving TIFF image started"),
-                                      0.0,
-                                      cProgressText::progress_IMAGE);
-    gApplication->processEvents();
-		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_TIFF, gMainInterface->mainImage);
-    cProgressText::ProgressStatusText(tr("Saving %1 image").arg("TIFF"),
-                                      tr("Saving TIFF image finished"),
-                                      1.0,
-                                      cProgressText::progress_IMAGE);
-    gApplication->processEvents();
+		gApplication->processEvents();
+		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_TIFF, gMainInterface->mainImage, gMainInterface->mainWindow);
+		gApplication->processEvents();
     systemData.lastImageFile = filename;
   }
 }

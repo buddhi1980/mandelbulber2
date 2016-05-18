@@ -86,91 +86,115 @@ ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileE
 
 void ImageFileSavePNG::SaveImage()
 {
+	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
+
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 			&& imageConfig.contains(IMAGE_CONTENT_COLOR) && imageConfig.contains(IMAGE_CONTENT_ALPHA);
-	if (imageConfig.contains(IMAGE_CONTENT_COLOR))
+
+	int i = 0;
+	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".png";
-		SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_COLOR], appendAlpha);
+		QString fullFilename = filename + channel.value().postfix + ".png";
+		emit updateProgressAndStatus(getJobName(),
+			QString("Saving %1").arg(fullFilename), 1.0 * i / imageConfig.size());
+		i++;
+
+		switch(channel.key())
+		{
+			case IMAGE_CONTENT_COLOR:
+				SavePNG(fullFilename, image, channel.value(), appendAlpha);
+				break;
+			case IMAGE_CONTENT_ALPHA:
+				if(!appendAlpha) SavePNG(fullFilename, image, channel.value());
+				break;
+			case IMAGE_CONTENT_ZBUFFER:
+			case IMAGE_CONTENT_NORMAL:
+			default:
+				SavePNG(fullFilename, image, channel.value());
+				break;
+		}
 	}
-	if (imageConfig.contains(IMAGE_CONTENT_ALPHA) && !appendAlpha)
-	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ALPHA].postfix + ".png";
-		SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_ALPHA]);
-	}
-	if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
-	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ZBUFFER].postfix + ".png";
-		SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_ZBUFFER]);
-	}
-	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
-	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_NORMAL].postfix + ".png";
-		SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_NORMAL]);
-	}
+	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
 }
 
 void ImageFileSaveJPG::SaveImage()
 {
-	if (imageConfig.contains(IMAGE_CONTENT_COLOR))
+	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
+
+	int i = 0;
+	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".jpg";
-		SaveJPEGQt(fullFilename,
-							 image->ConvertTo8bit(),
-							 image->GetWidth(),
-							 image->GetHeight(),
-							 gPar->Get<int>("jpeg_quality"));
+		QString fullFilename = filename + channel.value().postfix + ".jpg";
+		emit updateProgressAndStatus(getJobName(),
+			QString("Saving %1").arg(fullFilename), 1.0 * i / imageConfig.size());
+		i++;
+
+		switch(channel.key())
+		{
+			case IMAGE_CONTENT_COLOR:
+				SaveJPEGQt(fullFilename,
+									 image->ConvertTo8bit(),
+									 image->GetWidth(),
+									 image->GetHeight(),
+									 gPar->Get<int>("jpeg_quality"));
+				break;
+			case IMAGE_CONTENT_ALPHA:
+				SaveJPEGQtGreyscale(fullFilename,
+														image->ConvertAlphaTo8bit(),
+														image->GetWidth(),
+														image->GetHeight(),
+														gPar->Get<int>("jpeg_quality"));
+				break;
+			case IMAGE_CONTENT_ZBUFFER:
+				qWarning() << "JPG cannot save zbuffer (loss of precision to strong)";
+				break;
+			case IMAGE_CONTENT_NORMAL:
+				SaveJPEGQt(fullFilename,
+									 image->ConvertNormalto8Bit(),
+									 image->GetWidth(),
+									 image->GetHeight(),
+									 gPar->Get<int>("jpeg_quality"));
+				break;
+			default:
+				qWarning() << "Unknown channel for JPG";
+				break;
+		}
 	}
-	if (imageConfig.contains(IMAGE_CONTENT_ALPHA))
-	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ALPHA].postfix + ".jpg";
-		SaveJPEGQtGreyscale(fullFilename,
-												image->ConvertAlphaTo8bit(),
-												image->GetWidth(),
-												image->GetHeight(),
-												gPar->Get<int>("jpeg_quality"));
-	}
-	if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
-	{
-		qWarning() << "JPG cannot save zbuffer (loss of precision to strong)";
-	}
-	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
-	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_NORMAL].postfix + ".jpg";
-		SaveJPEGQt(fullFilename,
-							 image->ConvertNormalto8Bit(),
-							 image->GetWidth(),
-							 image->GetHeight(),
-							 gPar->Get<int>("jpeg_quality"));
-	}
+	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
 }
 
 #ifdef USE_TIFF
 void ImageFileSaveTIFF::SaveImage()
 {
+	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
+
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 			&& imageConfig.contains(IMAGE_CONTENT_COLOR) && imageConfig.contains(IMAGE_CONTENT_ALPHA);
 
-	if (imageConfig.contains(IMAGE_CONTENT_COLOR))
+	int i = 0;
+	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".tiff";
-		SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_COLOR], appendAlpha);
+		QString fullFilename = filename + channel.value().postfix + ".tiff";
+		emit updateProgressAndStatus(getJobName(),
+			QString("Saving %1").arg(fullFilename), 1.0 * i / imageConfig.size());
+		i++;
+
+		switch(channel.key())
+		{
+			case IMAGE_CONTENT_COLOR:
+				SaveTIFF(fullFilename, image, channel.value(), appendAlpha);
+				break;
+			case IMAGE_CONTENT_ALPHA:
+				if(!appendAlpha) SaveTIFF(fullFilename, image, channel.value());
+				break;
+			case IMAGE_CONTENT_ZBUFFER:
+			case IMAGE_CONTENT_NORMAL:
+			default:
+				SaveTIFF(fullFilename, image, channel.value());
+				break;
+		}
 	}
-	if (imageConfig.contains(IMAGE_CONTENT_ALPHA) && !appendAlpha)
-	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ALPHA].postfix + ".tiff";
-		SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_ALPHA]);
-	}
-	if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
-	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ZBUFFER].postfix + ".tiff";
-		SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_ZBUFFER]);
-	}
-	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
-	{
-		QString fullFilename = filename + imageConfig[IMAGE_CONTENT_NORMAL].postfix + ".tiff";
-		SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_NORMAL]);
-	}
+	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
 }
 #endif /* USE_TIFF */
 

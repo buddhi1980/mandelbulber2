@@ -477,7 +477,9 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		}
 
 		QString filename = GetFlightFilename(index);
-		SaveImage(filename, (ImageFileSave::enumImageFileType) params->Get<int>("flight_animation_image_type"), image);
+		ImageFileSave::enumImageFileType fileType = (ImageFileSave::enumImageFileType)
+				params->Get<int>("flight_animation_image_type");
+		SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 		index++;
 	}
 
@@ -851,9 +853,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			if (!result) throw false;
 
 			QString filename = GetFlightFilename(index);
-			SaveImage(filename,
-								(ImageFileSave::enumImageFileType) params->Get<int>("flight_animation_image_type"),
-								image);
+			ImageFileSave::enumImageFileType fileType = (ImageFileSave::enumImageFileType)
+					params->Get<int>("flight_animation_image_type");
+			SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 		}
 
 		emit updateProgressAndStatus(QObject::tr("Animation finished"),

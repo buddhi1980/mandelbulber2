@@ -698,9 +698,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				int result = renderJob->Execute();
 				if (!result) throw false;
 				QString filename = GetKeyframeFilename(index, subindex);
-				SaveImage(filename,
-									(ImageFileSave::enumImageFileType) params->Get<int>("keyframe_animation_image_type"),
-									image);
+				ImageFileSave::enumImageFileType fileType = (ImageFileSave::enumImageFileType)
+						params->Get<int>("keyframe_animation_image_type");
+				SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 			}
 			//--------------------------------------------------------------------
 

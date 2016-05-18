@@ -250,7 +250,7 @@ bool cRenderQueue::RenderStill(const QString& filename)
 
 	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator()
 			+ saveFilename;
-	SaveImage(fullSaveFilename, imageFormat, image);
+	SaveImage(fullSaveFilename, imageFormat, image, this);
 
 	fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator()
 			+ QFileInfo(filename).baseName() + ".fract";

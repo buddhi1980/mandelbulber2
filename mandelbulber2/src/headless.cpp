@@ -83,7 +83,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	{
 		ext = "." + imageFileFormat;
 		ImageFileSave::enumImageFileType imageFileType = ImageFileSave::ImageFileType(imageFileFormat);
-		SaveImage(filename + ext, imageFileType, image);
+		SaveImage(filename + ext, imageFileType, image, this);
 	}
 
 	QTextStream out(stdout);

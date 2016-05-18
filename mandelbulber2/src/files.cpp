@@ -272,7 +272,7 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
  }
  */
 
-void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cImage *image)
+void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cImage *image, QObject *updateReceiver)
 {
 	ImageFileSave::ImageConfig imageConfig;
 	QStringList imageChannelNames;
@@ -293,6 +293,13 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cIma
 	QFileInfo fi(filename);
 	QString fileWithoutExtension = fi.path() + QDir::separator() + fi.baseName();
 	ImageFileSave *imageFileSave = ImageFileSave::create(fileWithoutExtension, filetype, image, imageConfig);
+	if(updateReceiver != 0)
+	{
+		QObject::connect(imageFileSave,
+			SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+			updateReceiver,
+			SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	}
 	imageFileSave->SaveImage();
 	// return SaveImage(fileWithoutExtension, filetype, image, imageConfig);
 }

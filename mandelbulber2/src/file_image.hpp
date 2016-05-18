@@ -100,6 +100,7 @@ public:
 		enumImageFileType filetype, cImage *image,
 		ImageConfig imageConfig);
 	virtual void SaveImage() = 0;
+	virtual QString getJobName() = 0;
 
 protected:
 	QString filename;
@@ -126,6 +127,7 @@ public:
 		ImageConfig imageConfig)
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
+	QString getJobName() { return tr("Saving PNG"); }
 	static void SavePNG(QString filename, cImage* image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 	static void SavePNG16(QString filename, int width, int height, sRGB16* image16);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
@@ -139,6 +141,7 @@ public:
 		ImageConfig imageConfig)
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
+	QString getJobName() { return tr("Saving JPG"); }
 	static bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
 	static bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height,
 			int quality);
@@ -152,6 +155,7 @@ public:
 		ImageConfig imageConfig)
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
+	QString getJobName() { return tr("Saving TIFF"); }
 	static bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChannel,
 			bool appendAlpha = false);
 };
@@ -165,6 +169,7 @@ public:
 		ImageConfig imageConfig)
 		: ImageFileSave(filename, image, imageConfig){}
 	void SaveImage();
+	QString getJobName() { return tr("Saving EXR"); }
 	static void SaveEXR(QString filename, cImage* image,
 		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
 };
