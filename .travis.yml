@@ -21,7 +21,7 @@ install:
       && sudo apt-get -qq install g++-4.8 libc6-i386
       && sudo apt-get install -y qt56base qt56tools
       && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1
-      && sudo apt-get install -y extra-cmake-modules libtiff5
+      && sudo apt-get install -y extra-cmake-modules libtiff4
       && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 100
       && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 100
       && lsb_release -a
@@ -29,7 +29,7 @@ install:
     else
          brew update > /dev/null
       && brew install qt5 gsl
-      && brew install libtiff openexr
+      && brew install openexr
       && chmod -R 755 /usr/local/opt/qt5/*
       ;
     fi
