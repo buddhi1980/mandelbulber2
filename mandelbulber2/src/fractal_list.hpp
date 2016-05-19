@@ -115,7 +115,8 @@ enum enumFractalFormula
   collatzMod = 89,
   mengerPwr2Poly = 90,
   mandelboxMenger = 91,
-
+  mandelbulbKali = 92,
+  mandelbulbKaliMulti = 93,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

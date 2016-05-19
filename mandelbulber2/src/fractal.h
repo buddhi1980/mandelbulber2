@@ -264,7 +264,8 @@ struct sFractalMandelbulbMulti
 //common parameters for transforming formulas
 struct sFractalTransformCommon
 {
-
+  double alphaAngleOffset;
+  double betaAngleOffset;
   double offset;
   double offset0;
   double offset05;

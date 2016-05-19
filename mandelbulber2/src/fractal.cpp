@@ -125,7 +125,8 @@ cFractal::cFractal(const cParameterContainer *container)
       (sFractalMandelbulbMulti::multi_OrderOfxyz2) container->Get<int>("mandelbulbMulti_order_of_xyz_2");
 
 	//common parameters for transforming formulas
-
+  transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
+  transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
   transformCommon.offset = container->Get<double>("transf_offset");
   transformCommon.offset0 = container->Get<double>("transf_offset_0");
   transformCommon.offset05 = container->Get<double>("transf_offset_05");
@@ -259,6 +260,8 @@ void cFractal::RecalculateFractalParams(void)
 
 	bulb.alphaAngleOffset *= M_PI / 180.0;
 	bulb.betaAngleOffset *= M_PI / 180.0;
+  transformCommon.alphaAngleOffset *= M_PI / 180.0;
+  transformCommon.betaAngleOffset *= M_PI / 180.0;
 
   transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
   transformCommon.tempRotmatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
