@@ -12,7 +12,7 @@ env:
     - CONFIG=release
 
 install:
- # qt5-default libqt5gui5
+ # extra-cmake-modules not present in precise (needed for openexr)
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
       sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
       && sudo apt-add-repository -y ppa:beineri/opt-qt56
@@ -21,7 +21,7 @@ install:
       && sudo apt-get -qq install g++-4.8 libc6-i386
       && sudo apt-get install -y qt56base qt56tools
       && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1
-      && sudo apt-get install -y extra-cmake-modules libtiff4
+      && sudo apt-get install -y libtiff4
       && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 100
       && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 100
       && lsb_release -a
