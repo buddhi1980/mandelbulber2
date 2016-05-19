@@ -75,6 +75,18 @@ QString ImageFileSave::ImageFileExtension(enumImageFileType imageFileType)
 	return "";
 }
 
+QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
+{
+	switch(imageContentType)
+	{
+		case IMAGE_CONTENT_COLOR: return "color"; break;
+		case IMAGE_CONTENT_ALPHA: return "alpha"; break;
+		case IMAGE_CONTENT_ZBUFFER: return "zbuffer"; break;
+		case IMAGE_CONTENT_NORMAL: return "normal"; break;
+	}
+	return "";
+}
+
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
 {
 	if(imageFileExtension == "jpg") return IMAGE_FILE_TYPE_JPG;
@@ -91,15 +103,17 @@ void ImageFileSavePNG::SaveImage()
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 			&& imageConfig.contains(IMAGE_CONTENT_COLOR) && imageConfig.contains(IMAGE_CONTENT_ALPHA);
 
-	int i = 0;
+	currentChannel = 0;
+	totalChannel = imageConfig.size();
 	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
+		currentChannelKey = channel.key();
 		QString fullFilename = filename + channel.value().postfix + ".png";
 		emit updateProgressAndStatus(getJobName(),
-			QString("Saving %1").arg(fullFilename), 1.0 * i / imageConfig.size());
-		i++;
+			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)), 1.0 * currentChannel / totalChannel);
+		currentChannel++;
 
-		switch(channel.key())
+		switch(currentChannelKey)
 		{
 			case IMAGE_CONTENT_COLOR:
 				SavePNG(fullFilename, image, channel.value(), appendAlpha);
@@ -121,15 +135,17 @@ void ImageFileSaveJPG::SaveImage()
 {
 	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
 
-	int i = 0;
+	currentChannel = 0;
+	totalChannel = imageConfig.size();
 	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
+		currentChannelKey = channel.key();
 		QString fullFilename = filename + channel.value().postfix + ".jpg";
 		emit updateProgressAndStatus(getJobName(),
-			QString("Saving %1").arg(fullFilename), 1.0 * i / imageConfig.size());
-		i++;
+			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)), 1.0 * currentChannel / totalChannel);
+		currentChannel++;
 
-		switch(channel.key())
+		switch(currentChannelKey)
 		{
 			case IMAGE_CONTENT_COLOR:
 				SaveJPEGQt(fullFilename,
@@ -171,15 +187,17 @@ void ImageFileSaveTIFF::SaveImage()
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 			&& imageConfig.contains(IMAGE_CONTENT_COLOR) && imageConfig.contains(IMAGE_CONTENT_ALPHA);
 
-	int i = 0;
+	int currentChannel = 0;
+	totalChannel = imageConfig.size();
 	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
+		currentChannelKey = channel.key();
 		QString fullFilename = filename + channel.value().postfix + ".tiff";
 		emit updateProgressAndStatus(getJobName(),
-			QString("Saving %1").arg(fullFilename), 1.0 * i / imageConfig.size());
-		i++;
+			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)), 1.0 * currentChannel / totalChannel);
+		currentChannel++;
 
-		switch(channel.key())
+		switch(currentChannelKey)
 		{
 			case IMAGE_CONTENT_COLOR:
 				SaveTIFF(fullFilename, image, channel.value(), appendAlpha);
@@ -201,8 +219,10 @@ void ImageFileSaveTIFF::SaveImage()
 #ifdef USE_EXR
 void ImageFileSaveEXR::SaveImage()
 {
+	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
 	QString fullFilename = filename + ".exr";
 	SaveEXR(fullFilename, image, imageConfig);
+	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
 }
 #endif /* USE_EXR */
 
@@ -467,7 +487,17 @@ void ImageFileSavePNG::SavePNG(QString filename, cImage* image, structSaveImageC
 			}
 		}
 
-		png_write_image(png_ptr, row_pointers);
+		// png_write_image(png_ptr, row_pointers);
+		int chunkSize = 100;
+		for(int r = 0; r < height; r+= chunkSize)
+		{
+			int leftToWrite = height - r;
+			png_write_rows(png_ptr, (png_bytepp) &row_pointers[r], min(leftToWrite, chunkSize));
+			/* TODO: make SavePNG private non static and rewrite direct accesses to static function
+			 emit updateProgressAndStatus(getJobName(),
+				QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
+				(1.0 * currentChannel / totalChannel) + (1.0 * r / (totalChannel * height)));*/
+		}
 
 		/* end write */
 		if (setjmp(png_jmpbuf(png_ptr)))

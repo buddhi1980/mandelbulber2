@@ -15,7 +15,7 @@ find_package(Qt5Core)
 find_package(Qt5Network)
 find_package(Qt5Gui)
 find_package(Qt5UiTools)
-find_package(QtTest)
+find_package(Qt5Test)
 
 # find required other libraries
 find_package(PNG REQUIRED)
@@ -32,8 +32,11 @@ IF(ECM_FOUND)
     find_package(OpenEXR)
 ENDIF()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
+IF(WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GL /Ox")
+ELSE()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -fopenmp -std=c++11")
+ENDIF()
 
 # find all sources
 file(GLOB srcHeader "mandelbulber2/src/*.h" "mandelbulber2/src/*.hpp")
