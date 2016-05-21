@@ -107,12 +107,16 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
+	sImageOptional imageOptional;
+	imageOptional.optionalNormal = paramsContainer->Get<bool>("normal_enabled");
+
+
 	emit updateProgressAndStatus(QObject::tr("Initialization"),
 															 QObject::tr("Setting up image buffers"),
 															 0.0);
 	//gApplication->processEvents();
 
-	if (!InitImage(width, height))
+	if (!InitImage(width, height, imageOptional))
 	{
 		ready = false;
 		return false;
@@ -160,11 +164,11 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	return true;
 }
 
-bool cRenderJob::InitImage(int w, int h)
+bool cRenderJob::InitImage(int w, int h, sImageOptional optional)
 {
 	WriteLog("cRenderJob::InitImage", 2);
 
-	if (!image->ChangeSize(w, h))
+	if (!image->ChangeSize(w, h, optional))
 	{
 		printf("Cannot allocate memory. Maybe image is too big");
 		return false;

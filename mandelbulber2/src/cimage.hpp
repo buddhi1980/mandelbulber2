@@ -34,6 +34,9 @@ struct sImageOptional
 			optionalNormal(false)
 	{
 	}
+	inline bool operator==(sImageOptional other) {
+		return other.optionalNormal == optionalNormal;
+	}
 
 	bool optionalNormal;
 };
@@ -51,12 +54,11 @@ struct sAllImageData
 class cImage
 {
 public:
-	cImage(int w, int h, sImageOptional optional, bool low_mem = false);
 	cImage(int w, int h, bool low_mem = false);
 	void construct(void);
 
 	~cImage();
-	bool ChangeSize(int w, int h);
+	bool ChangeSize(int w, int h, sImageOptional optional);
 	void ClearImage(void);
 
 	bool IsUsed() {return isUsed;}
@@ -195,7 +197,7 @@ public:
   int GetUsedMB(void);
 	void SetImageParameters(sImageAdjustments adjustments);
 	sImageAdjustments* GetImageAdjustments(void) {return &adj;}
-	void SetImageOptional(sImageOptional opt){ this->opt = opt; }
+	void SetImageOptional(sImageOptional opt) { this->opt = opt; }
 	sImageOptional* GetImageOptional(void) {return &opt;}
 
   unsigned char* ConvertTo8bit(void);

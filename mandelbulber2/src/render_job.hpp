@@ -47,7 +47,7 @@ public:
 	bool Init(enumMode _mode, const cRenderingConfiguration &config);
 	bool Execute();
 	cImage* GetImagePtr() {return image;}
-	int GetNumberOfCPUs() {return totalNumberOfCPUs;};
+	int GetNumberOfCPUs() {return totalNumberOfCPUs;}
 	void UseSizeFromImage(bool mode) {useSizeFromImage = mode;}
 	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget);
 
@@ -60,7 +60,7 @@ public slots:
 	void slotExecute();
 
 private:
-	bool InitImage(int w, int h);
+	bool InitImage(int w, int h, sImageOptional optional);
 	void PrepareData(const cRenderingConfiguration &config);
 	void ReduceDetail();
 
