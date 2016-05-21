@@ -493,8 +493,13 @@ void InitFractalParams(cParameterContainer *par)
   // mandelbulbMulti
   par->addParam("mandelbulbMulti_acos_or_asin", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_atan_or_atan2", 0, morphNone, paramStandard);
+
+  par->addParam("mandelbulbMulti_acos_or_asin_A", 0, morphNone, paramStandard);
+  par->addParam("mandelbulbMulti_atan_or_atan2_A", 0, morphNone, paramStandard);
+
   par->addParam("mandelbulbMulti_order_of_xyz", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_order_of_xyz_2", 0, morphNone, paramStandard);
+  par->addParam("mandelbulbMulti_order_of_xyz_C", 0, morphNone, paramStandard);
 
   //donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
