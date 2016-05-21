@@ -32,6 +32,7 @@ void cMaterialWidget::Init()
 	timerPeriodicRefresh->setSingleShot(true);
 	connect(timerPeriodicRefresh, SIGNAL(timeout()), this, SLOT(slotPeriodicRender()));
 	lastMaterialIndex = 0;
+	setMinimumSize(128, 128);
 }
 
 cMaterialWidget::~cMaterialWidget()
@@ -111,4 +112,9 @@ void cMaterialWidget::slotPeriodicRender(void)
 	{
 		timerPeriodicRefresh->start(1000);
 	}
+}
+
+QSize cMaterialWidget::sizeHint() const
+{
+	return QSize(128, 128);
 }

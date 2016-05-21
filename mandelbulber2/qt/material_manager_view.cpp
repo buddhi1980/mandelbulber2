@@ -11,8 +11,9 @@
 cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QGroupBox(parent)
 {
 	// TODO Auto-generated constructor stub
-	itemView = new cMaterialItemView(parent);
+	itemView = new cMaterialItemView(this);
 	QVBoxLayout *layout = new QVBoxLayout();
+	layout->setMargin(0);
 	this->setLayout(layout);
 	layout->addWidget(itemView);
 }

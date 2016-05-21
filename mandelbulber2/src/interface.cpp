@@ -209,7 +209,6 @@ void cInterface::ShowUi(void)
 	}
 #endif
 
-
 	renderedImage->show();
 
   mainWindow->setCorner( Qt::TopLeftCorner, Qt::LeftDockWidgetArea );
@@ -227,7 +226,7 @@ void cInterface::ShowUi(void)
 	mainWindow->slotPopulateToolbar();
 
 	/**************** temporary code for materials *******************/
-	materialListModel = new cMaterialItemModel(mainWindow->ui->listViewMaterials);
+	materialListModel = new cMaterialItemModel(mainWindow->ui->tabWidget_material);
 	materialListModel->AssignContainer(gPar);
 	mainWindow->ui->listViewMaterials->setModel(materialListModel);
 	mainWindow->ui->groupBox_material_list_view->SetModel(materialListModel);

@@ -25,6 +25,10 @@ public:
 	virtual QModelIndex	moveCursor(CursorAction cursorAction, Qt::KeyboardModifiers modifiers);
 	virtual QRect	visualRect(const QModelIndex &index) const;
 	virtual bool isIndexHidden(const QModelIndex &index) const;
+
+	protected slots:
+	virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int> ());
+	virtual void rowsInserted(const QModelIndex &parent, int start, int end);
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_ITEM_VIEW_H_ */

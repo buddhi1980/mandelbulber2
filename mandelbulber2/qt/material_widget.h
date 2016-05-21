@@ -25,6 +25,7 @@ private:
 	QTimer *timerPeriodicRefresh;
 	void Init();
 	QWidget *materialEditorWidget;
+	QSize sizeHint() const;
 
 private slots:
 
