@@ -308,6 +308,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
+ fractalList->append(sFractalDescription("Mandelbulb_Bermarte",
+                                          "mandelbulb_bermarte",
+                                          mandelbulbBermarte,
+                                          analyticDEType,
+                                          logarithmicDEFunction,
+                                          cpixelEnabledByDefault,
+                                          10));
+
 	fractalList->append(sFractalDescription("Mandelbulb Classic Power 2",
 																					"mandelbulb_power_2",
 																					fast_mandelbulb_power2,

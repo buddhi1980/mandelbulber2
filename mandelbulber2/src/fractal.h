@@ -243,9 +243,18 @@ struct sFractalMandelbulbMulti
   {
     acos, asin
   };
+
   enum multi_atanOratan2
   {
     atan, atan2
+  };
+  enum multi_acosOrasinA
+  {
+    acosA, asinA
+  };
+  enum multi_atanOratan2A
+  {
+    atanA, atan2A
   };
   enum multi_OrderOfxyz
   {
@@ -255,10 +264,18 @@ struct sFractalMandelbulbMulti
   {
     xyz2, xzy2, yxz2, yzx2, zxy2, zyx2
   };
+  enum multi_OrderOfxyzC
+  {
+    xyzC, xzyC, yxzC, yzxC, zxyC, zyxC
+  };
   multi_acosOrasin acosOrasin;
+  multi_acosOrasinA acosOrasinA;
   multi_atanOratan2 atanOratan2;
+  multi_atanOratan2A atanOratan2A;
+
   multi_OrderOfxyz orderOfxyz;
   multi_OrderOfxyz2 orderOfxyz2;
+  multi_OrderOfxyzC orderOfxyzC;
 };
 
 //common parameters for transforming formulas

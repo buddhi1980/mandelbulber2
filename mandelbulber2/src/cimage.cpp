@@ -24,15 +24,6 @@
 #include <qpainter.h>
 #include <QtCore>
 
-cImage::cImage(int w, int h, sImageOptional optional, bool low_mem)
-{
-	opt = optional;
-	width = w;
-	height = h;
-	lowMem = low_mem;
-	construct();
-}
-
 cImage::cImage(int w, int h, bool low_mem)
 {
 	width = w;
@@ -136,12 +127,13 @@ bool cImage::AllocMem(void)
 	return true;
 }
 
-bool cImage::ChangeSize(int w, int h)
+bool cImage::ChangeSize(int w, int h, sImageOptional optional)
 {
-	if (w != width || h != height)
+	if (w != width || h != height || !(optional == *GetImageOptional()))
 	{
 		width = w;
 		height = h;
+		SetImageOptional(optional);
 		FreeImage();
 		return AllocMem();
 	}

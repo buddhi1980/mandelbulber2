@@ -131,10 +131,7 @@ void cInterface::ShowUi(void)
 
 	//setup main image
 	WriteLog("Setup of main image", 2);
-	sImageOptional imageOptional;
-	imageOptional.optionalNormal = gPar->Get<bool>("normal_enabled");
-
-	mainImage = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"), imageOptional);
+	mainImage = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	mainImage->CreatePreview(1.0, 800, 600, gMainInterface->renderedImage);
 	mainImage->CompileImage();
 	mainImage->ConvertTo8bit();
@@ -229,8 +226,8 @@ void cInterface::ShowUi(void)
 	materialListModel = new cMaterialItemModel(mainWindow->ui->tabWidget_material);
 	materialListModel->AssignContainer(gPar);
 	mainWindow->ui->listViewMaterials->setModel(materialListModel);
-	mainWindow->ui->groupBox_material_list_view->SetModel(materialListModel);
-	materialListModel->insertRows(0, 3, QModelIndex());
+  mainWindow->ui->groupBox_material_list_view->SetModel(materialListModel);
+  materialListModel->insertRows(0, 3, QModelIndex());
 
 	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
 	/*****************************************************************/
