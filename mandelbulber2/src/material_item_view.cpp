@@ -9,6 +9,9 @@
 #include "../qt/material_widget.h"
 #include "system.hpp"
 #include <qpushbutton.h>
+#include <qscrollbar.h>
+
+int cMaterialItemView::iconMargin = 10;
 
 cMaterialItemView::cMaterialItemView(QWidget *parent) : QAbstractItemView(parent)
 {
@@ -16,6 +19,9 @@ cMaterialItemView::cMaterialItemView(QWidget *parent) : QAbstractItemView(parent
 //	widget->setGeometry(10, 10, 128, 128);
 //	setIndexWidget(QModelIndex(), widget);
 	setMinimumHeight(150);
+	setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+	horizontalScrollBar()->setVisible(true);
+	setAutoScroll(true);
 }
 
 cMaterialItemView::~cMaterialItemView()
@@ -25,7 +31,7 @@ cMaterialItemView::~cMaterialItemView()
 
 QModelIndex cMaterialItemView::indexAt(const QPoint& point) const
 {
-	return QModelIndex();
+	return QModelIndex(model()->index(point.x() / (cMaterialWidget::previewWidth + iconMargin), 0, QModelIndex()));
 }
 
 QRegion cMaterialItemView::visualRegionForSelection(const QItemSelection& selection) const
@@ -39,12 +45,12 @@ void cMaterialItemView::scrollTo(const QModelIndex& index, ScrollHint hint)
 
 int cMaterialItemView::verticalOffset() const
 {
-	return 0;
+	return verticalScrollBar()->value();
 }
 
 int cMaterialItemView::horizontalOffset() const
 {
-	return 0;
+	return horizontalScrollBar()->value();
 }
 
 void cMaterialItemView::setSelection(const QRect& rect, QItemSelectionModel::SelectionFlags flags)
@@ -59,7 +65,7 @@ QModelIndex cMaterialItemView::moveCursor(CursorAction cursorAction,
 
 QRect cMaterialItemView::visualRect(const QModelIndex& index) const
 {
-	return QRect(index.row()*150,0,128,128);
+	return QRect(index.row() * (cMaterialWidget::previewWidth + iconMargin), 0, cMaterialWidget::previewWidth, cMaterialWidget::previewHeight);
 }
 
 bool cMaterialItemView::isIndexHidden(const QModelIndex& index) const
@@ -71,6 +77,11 @@ void cMaterialItemView::dataChanged(const QModelIndex &topLeft, const QModelInde
 {
 	qDebug() << "dataChanged:" << topLeft << bottomRight << roles;
 	QString settings = model()->data(topLeft).toString();
+	cMaterialWidget *widget = (cMaterialWidget*)indexWidget(topLeft);
+	if(widget)
+	{
+		widget->AssignMaterial(settings);
+	}
 	qDebug() << settings;
 	qDebug() << indexWidget(topLeft);
 	qDebug() << indexWidget(topLeft)->sizeHint();
@@ -92,5 +103,21 @@ void	cMaterialItemView::rowsInserted(const QModelIndex &parent, int start, int e
 	}
 	QAbstractItemView::rowsInserted(parent, start, end);
 	updateGeometries();
-	 viewport()->update();
+
+  viewport()->update();
+}
+
+void cMaterialItemView::resizeEvent(QResizeEvent *event)
+{
+	QAbstractItemView::resizeEvent(event);
+	if(model())
+	{
+    horizontalScrollBar()->setRange(0, model()->rowCount() * (cMaterialWidget::previewWidth + iconMargin) - width());
+	}
+}
+
+void cMaterialItemView::scrollContentsBy(int dx, int dy)
+{
+    scrollDirtyRegion(dx, dy);
+    viewport()->scroll(dx, dy);
 }

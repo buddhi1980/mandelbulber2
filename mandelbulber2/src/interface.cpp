@@ -227,7 +227,7 @@ void cInterface::ShowUi(void)
 	materialListModel->AssignContainer(gPar);
 	mainWindow->ui->listViewMaterials->setModel(materialListModel);
   mainWindow->ui->groupBox_material_list_view->SetModel(materialListModel);
-  materialListModel->insertRows(0, 3, QModelIndex());
+  materialListModel->insertRows(0, 5, QModelIndex());
 
 	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
 	/*****************************************************************/

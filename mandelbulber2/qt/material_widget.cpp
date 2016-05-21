@@ -9,9 +9,13 @@
 #include "../src/initparameters.hpp"
 #include "../src/synchronize_interface.hpp"
 #include "../src/system.hpp"
+#include "../src/settings.hpp"
+
+int cMaterialWidget::previewWidth = 128;
+int cMaterialWidget::previewHeight = 128;
 
 cMaterialWidget::cMaterialWidget(QWidget *parent) :
-		cThumbnailWidget(128, 128, 2, parent)
+		cThumbnailWidget(previewWidth, previewHeight, 2, parent)
 {
 	Init();
 }
@@ -32,7 +36,7 @@ void cMaterialWidget::Init()
 	timerPeriodicRefresh->setSingleShot(true);
 	connect(timerPeriodicRefresh, SIGNAL(timeout()), this, SLOT(slotPeriodicRender()));
 	lastMaterialIndex = 0;
-	setMinimumSize(128, 128);
+	setMinimumSize(previewWidth, previewHeight);
 }
 
 cMaterialWidget::~cMaterialWidget()
@@ -116,5 +120,16 @@ void cMaterialWidget::slotPeriodicRender(void)
 
 QSize cMaterialWidget::sizeHint() const
 {
-	return QSize(128, 128);
+	return QSize(previewWidth, previewHeight);
+}
+
+void cMaterialWidget::AssignMaterial(const QString &text)
+{
+	cSettings settings(cSettings::formatCondensedText);
+	settings.LoadFromString(text);
+	cParameterContainer params;
+	cFractalContainer fractal;
+	InitMaterialParams(1, &params);
+	settings.Decode(&params, &fractal);
+	AssignMaterial(&params, 1);
 }
