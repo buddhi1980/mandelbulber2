@@ -6,16 +6,16 @@
  */
 
 #include "material_manager_view.h"
+#include "ui_material_manager_view.h"
 #include <QtWidgets/QtWidgets>
 
-cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QGroupBox(parent)
+cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), ui(new Ui::cMaterialManagerView)
 {
+	ui->setupUi(this);
+
 	// TODO Auto-generated constructor stub
 	itemView = new cMaterialItemView(this);
-	QVBoxLayout *layout = new QVBoxLayout();
-	layout->setMargin(0);
-	this->setLayout(layout);
-	layout->addWidget(itemView);
+	ui->verticalLayout_material_view->addWidget(itemView);
 }
 
 cMaterialManagerView::~cMaterialManagerView()

@@ -8,19 +8,25 @@
 #ifndef MANDELBULBER2_QT_MATERIAL_MANAGER_VIEW_H_
 #define MANDELBULBER2_QT_MATERIAL_MANAGER_VIEW_H_
 
-#include <qgroupbox.h>
+#include <QWidget>
+
 #include "../src/material_item_view.h"
 #include "../src/material_item_model.h"
 
-class cMaterialManagerView: public QGroupBox
+namespace Ui {
+	class cMaterialManagerView;
+}
+
+class cMaterialManagerView: public QWidget
 {
 	Q_OBJECT;
 public:
-	cMaterialManagerView(QWidget *parent);
+	explicit cMaterialManagerView(QWidget *parent = NULL);
 	~cMaterialManagerView();
 	void SetModel(cMaterialItemModel *model);
 
 private:
+	Ui::cMaterialManagerView *ui;
 	cMaterialItemView *itemView;
 };
 

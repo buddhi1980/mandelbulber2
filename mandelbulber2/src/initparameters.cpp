@@ -697,7 +697,7 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 
 void InitMaterialParams(int materialId, cParameterContainer *par)
 {
-  par->addParam(cMaterial::Name("material_name", materialId), QString("material %1").arg(materialId), morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("material_name", materialId), QString("material %1").arg(materialId), morphNone, paramStandard);
 	par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("specular", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("specular_width", materialId), 1.0, 1e-10, 1e15, morphAkima, paramStandard);

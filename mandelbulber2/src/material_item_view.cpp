@@ -89,6 +89,8 @@ void cMaterialItemView::dataChanged(const QModelIndex &topLeft, const QModelInde
 	qDebug() << indexWidget(topLeft);
 	qDebug() << indexWidget(topLeft)->sizeHint();
 	qDebug() << visualRect(topLeft);
+
+	viewport()->update();
 }
 
 void	cMaterialItemView::rowsInserted(const QModelIndex &parent, int start, int end)

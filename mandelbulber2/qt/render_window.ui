@@ -3110,11 +3110,7 @@ to target:</string>
                   <number>2</number>
                  </property>
                  <item>
-                  <widget class="cMaterialManagerView" name="groupBox_material_list_view">
-                   <property name="title">
-                    <string>Material Manager</string>
-                   </property>
-                  </widget>
+                  <widget class="cMaterialManagerView" name="widget_material_list_view" native="true"/>
                  </item>
                  <item>
                   <widget class="cMaterialEditor" name="widget_material_editor" native="true"/>
@@ -3155,7 +3151,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>304</width>
+                  <width>334</width>
                   <height>469</height>
                  </rect>
                 </property>
@@ -3973,7 +3969,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>218</width>
+                  <width>334</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -4813,7 +4809,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>262</width>
+                  <width>334</width>
                   <height>165</height>
                  </rect>
                 </property>
@@ -5105,7 +5101,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
+                  <width>334</width>
                   <height>1477</height>
                  </rect>
                 </property>
@@ -8652,7 +8648,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -9717,7 +9713,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -10776,7 +10772,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -11835,7 +11831,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -12894,7 +12890,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -13953,7 +13949,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -15012,7 +15008,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -16068,7 +16064,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -17141,7 +17137,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
+                  <width>320</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -18820,8 +18816,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>334</width>
+                  <height>416</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -21806,8 +21802,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
-                  <height>242</height>
+                  <width>317</width>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -23290,7 +23286,7 @@ keyframes</string>
   </customwidget>
   <customwidget>
    <class>cMaterialManagerView</class>
-   <extends>QGroupBox</extends>
+   <extends>QWidget</extends>
    <header>material_manager_view.h</header>
    <container>1</container>
   </customwidget>
