@@ -15,10 +15,12 @@
 #include <qscrollbar.h>
 
 int cMaterialItemView::iconMargin = 10;
+int cMaterialItemView::maxNameHeight = 20;
 
 cMaterialItemView::cMaterialItemView(QWidget *parent) : QAbstractItemView(parent)
 {
-	setMinimumHeight(cMaterialWidget::previewHeight + iconMargin * 2 + horizontalScrollBar()->height());
+	viewHeight = cMaterialWidget::previewHeight + iconMargin * 3 + horizontalScrollBar()->height() + maxNameHeight;
+	setMinimumHeight(viewHeight);
 	setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	horizontalScrollBar()->setVisible(true);
 	setAutoScroll(true);
@@ -112,7 +114,7 @@ void cMaterialItemView::resizeEvent(QResizeEvent *event)
 	{
     horizontalScrollBar()->setRange(0, model()->rowCount() * (cMaterialWidget::previewWidth + iconMargin) - width());
 	}
-	setMinimumHeight(cMaterialWidget::previewHeight + iconMargin * 2 + horizontalScrollBar()->height());
+	setMinimumHeight(viewHeight);
 }
 
 void cMaterialItemView::scrollContentsBy(int dx, int dy)
@@ -124,6 +126,18 @@ void cMaterialItemView::scrollContentsBy(int dx, int dy)
 
 void cMaterialItemView::paintEvent(QPaintEvent *event)
 {
-	 QPainter painter(viewport());
-	 painter.setRenderHint(QPainter::Antialiasing);
+	QAbstractItemView::paintEvent(event);
+	QPainter painter(viewport());
+	painter.setRenderHint(QPainter::Antialiasing);
+
+	for (int r = 0; r < model()->rowCount(); r++)
+	{
+		QString name = model()->headerData(r, Qt::Horizontal).toString();
+		int x = r * (cMaterialWidget::previewWidth + iconMargin) + iconMargin - horizontalOffset();
+
+		painter.drawText(QRect(x,
+													cMaterialWidget::previewHeight + iconMargin * 2,
+													cMaterialWidget::previewWidth,
+													maxNameHeight), Qt::AlignHCenter | Qt::TextWordWrap, name);
+	}
 }

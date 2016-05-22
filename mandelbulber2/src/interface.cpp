@@ -225,7 +225,6 @@ void cInterface::ShowUi(void)
 	/**************** temporary code for materials *******************/
 	materialListModel = new cMaterialItemModel(mainWindow->ui->tabWidget_material);
 	materialListModel->AssignContainer(gPar);
-	mainWindow->ui->listViewMaterials->setModel(materialListModel);
   mainWindow->ui->groupBox_material_list_view->SetModel(materialListModel);
   materialListModel->insertRows(0, 5, QModelIndex());
 

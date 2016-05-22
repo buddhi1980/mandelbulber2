@@ -48,6 +48,7 @@ cMaterial::~cMaterial()
 
 //this static list will be use to optimize usage of material parameters
 QStringList cMaterial::paramsList = {
+		"material_name",
     "shading",
     "specular",
     "specular_width",

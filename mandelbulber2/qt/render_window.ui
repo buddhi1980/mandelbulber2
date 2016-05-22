@@ -3089,8 +3089,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>241</height>
+                  <width>348</width>
+                  <height>145</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -3113,19 +3113,6 @@ to target:</string>
                   <widget class="cMaterialManagerView" name="groupBox_material_list_view">
                    <property name="title">
                     <string>Material Manager</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QListView" name="listViewMaterials">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="alternatingRowColors">
-                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>

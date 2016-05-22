@@ -104,8 +104,15 @@ bool cMaterialItemModel::setData(const QModelIndex &index, const QVariant &value
 
 QVariant cMaterialItemModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-	// TODO Material name
-	return "TODO Material name";
+	Qt::ItemDataRole itemRole = (Qt::ItemDataRole)role;
+
+	if(itemRole == Qt::DisplayRole && orientation == Qt::Horizontal)
+	{
+		int matIndex = materialIndexes.at(section);
+		QString materialName = container->Get<QString>(cMaterial::Name("material_name", matIndex));
+		return materialName;
+	}
+	return QString();
 }
 
 bool cMaterialItemModel::insertRows(int position, int rows, const QModelIndex &parent)
