@@ -116,6 +116,8 @@ void cThumbnailWidget::AssignParameters(const cParameterContainer &_params,
 			//just wait and pray
 		}
 
+		emit settingsChanged();
+
 		isRendered = false;
 		hasParameters = true;
 

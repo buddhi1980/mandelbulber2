@@ -34,6 +34,9 @@ public:
 
 	bool insertRows(int position, int rows, const QModelIndex &parent);
 
+public slots:
+	void slotMaterialChanged(int matIndex);
+
 private:
 
 	int FindFreeIndex();

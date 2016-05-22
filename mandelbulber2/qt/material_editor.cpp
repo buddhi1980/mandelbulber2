@@ -71,6 +71,10 @@ void cMaterialEditor::ConnectSignals(void)
 					SIGNAL(clicked()),
 					this,
 					SLOT(slotPressedButtonGetPaletteFromImage()));
+	connect(ui->widget_material_preview,
+					SIGNAL(materialChanged(int)),
+					this,
+					SIGNAL(materialChanged(int)));
 }
 
 void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)

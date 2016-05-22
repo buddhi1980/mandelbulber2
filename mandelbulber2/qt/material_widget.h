@@ -18,7 +18,7 @@ public:
 	cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
   ~cMaterialWidget();
 	void AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget);
-	void AssignMaterial(const QString &settings);
+	void AssignMaterial(const QString &settings, int materialIndex);
 
 private:
 	cParameterContainer *paramsHandle;
@@ -32,9 +32,15 @@ private slots:
 
 	void slotPeriodicRender();
 
+public slots:
+	void slotMaterialChanged();
+
 public:
 	static int previewWidth;
 	static int previewHeight;
+
+signals:
+  void materialChanged(int matIndex);
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_WIDGET_H_ */

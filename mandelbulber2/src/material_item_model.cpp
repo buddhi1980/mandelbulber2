@@ -14,8 +14,6 @@
 cMaterialItemModel::cMaterialItemModel(QObject *parent) : QAbstractListModel(parent)
 {
 	container = NULL;
-
-
 }
 
 cMaterialItemModel::~cMaterialItemModel()
@@ -65,6 +63,11 @@ QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.CreateText(&params, &fractal);
 		return tempSettings.GetSettingsText();
+	}
+
+	if(itemRole == Qt::UserRole)
+	{
+		return materialIndexes.at(index.row());
 	}
 
 	return QVariant();
@@ -142,4 +145,18 @@ int cMaterialItemModel::FindFreeIndex()
 	while(occupied);
 
 	return materialIndex;
+}
+
+void cMaterialItemModel::slotMaterialChanged(int matIndex)
+{
+	int row = 0;
+	for(int i = 0; i <materialIndexes.size(); i++)
+	{
+		if(matIndex == materialIndexes[i])
+		{
+			row = i;
+			break;
+		}
+	}
+	emit dataChanged(index(row, 0, QModelIndex()), index(row, 0, QModelIndex()));
 }

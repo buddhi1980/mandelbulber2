@@ -6,6 +6,9 @@
  */
 
 #include "material_item_view.h"
+
+#include <qpainter.h>
+
 #include "../qt/material_widget.h"
 #include "system.hpp"
 #include <qpushbutton.h>
@@ -15,10 +18,7 @@ int cMaterialItemView::iconMargin = 10;
 
 cMaterialItemView::cMaterialItemView(QWidget *parent) : QAbstractItemView(parent)
 {
-//cMaterialWidget *widget = new cMaterialWidget(128, 128, 2, this);
-//	widget->setGeometry(10, 10, 128, 128);
-//	setIndexWidget(QModelIndex(), widget);
-	setMinimumHeight(150);
+	setMinimumHeight(cMaterialWidget::previewHeight + iconMargin * 2 + horizontalScrollBar()->height());
 	setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	horizontalScrollBar()->setVisible(true);
 	setAutoScroll(true);
@@ -65,7 +65,7 @@ QModelIndex cMaterialItemView::moveCursor(CursorAction cursorAction,
 
 QRect cMaterialItemView::visualRect(const QModelIndex& index) const
 {
-	return QRect(index.row() * (cMaterialWidget::previewWidth + iconMargin), 0, cMaterialWidget::previewWidth, cMaterialWidget::previewHeight);
+	return QRect(iconMargin + index.row() * (cMaterialWidget::previewWidth + iconMargin), iconMargin, cMaterialWidget::previewWidth, cMaterialWidget::previewHeight);
 }
 
 bool cMaterialItemView::isIndexHidden(const QModelIndex& index) const
@@ -80,7 +80,8 @@ void cMaterialItemView::dataChanged(const QModelIndex &topLeft, const QModelInde
 	cMaterialWidget *widget = (cMaterialWidget*)indexWidget(topLeft);
 	if(widget)
 	{
-		widget->AssignMaterial(settings);
+		int materialId = model()->data(topLeft, Qt::UserRole).toInt();
+		widget->AssignMaterial(settings, materialId);
 	}
 	qDebug() << settings;
 	qDebug() << indexWidget(topLeft);
@@ -94,15 +95,12 @@ void	cMaterialItemView::rowsInserted(const QModelIndex &parent, int start, int e
 	qDebug() << "rowsInserted:" << parent << start << end;
 	for(int r = start; r <= end; r++)
 	{
-		cMaterialWidget *widget = new cMaterialWidget(128, 128, 2, this);
-		//QPushButton *widget = new QPushButton(this);
-		qDebug() << widget;
-		widget->setGeometry(10 + r * 138, 10, 128, 128);
+		cMaterialWidget *widget = new cMaterialWidget(this);
 		widget->setAutoFillBackground(true);
 		setIndexWidget(model()->index(r, 0, parent), widget);
 	}
 	QAbstractItemView::rowsInserted(parent, start, end);
-	updateGeometries();
+	//updateGeometries();
 
   viewport()->update();
 }
@@ -114,10 +112,18 @@ void cMaterialItemView::resizeEvent(QResizeEvent *event)
 	{
     horizontalScrollBar()->setRange(0, model()->rowCount() * (cMaterialWidget::previewWidth + iconMargin) - width());
 	}
+	setMinimumHeight(cMaterialWidget::previewHeight + iconMargin * 2 + horizontalScrollBar()->height());
 }
 
 void cMaterialItemView::scrollContentsBy(int dx, int dy)
 {
     scrollDirtyRegion(dx, dy);
     viewport()->scroll(dx, dy);
+    viewport()->update();
+}
+
+void cMaterialItemView::paintEvent(QPaintEvent *event)
+{
+	 QPainter painter(viewport());
+	 painter.setRenderHint(QPainter::Antialiasing);
 }

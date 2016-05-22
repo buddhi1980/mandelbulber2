@@ -35,6 +35,7 @@ void cMaterialWidget::Init()
 	timerPeriodicRefresh = new QTimer(parent());
 	timerPeriodicRefresh->setSingleShot(true);
 	connect(timerPeriodicRefresh, SIGNAL(timeout()), this, SLOT(slotPeriodicRender()));
+	connect(this, SIGNAL(settingsChanged()), this, SLOT(slotMaterialChanged()));
 	lastMaterialIndex = 0;
 	setMinimumSize(previewWidth, previewHeight);
 }
@@ -90,6 +91,7 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 	// call parent assignation
 	// maybe disable preview saving, to not pollute hard drive?
 	AssignParameters(params, fractal);
+	update();
 
 	if(materialEditorWidget)
 	{
@@ -106,7 +108,7 @@ void cMaterialWidget::slotPeriodicRender(void)
 			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, qInterface::read);
 		}
 
-		if(paramsHandle)
+		if(paramsHandle && materialEditorWidget)
 		{
 			AssignMaterial(paramsHandle, lastMaterialIndex, materialEditorWidget);
 		}
@@ -123,13 +125,18 @@ QSize cMaterialWidget::sizeHint() const
 	return QSize(previewWidth, previewHeight);
 }
 
-void cMaterialWidget::AssignMaterial(const QString &text)
+void cMaterialWidget::AssignMaterial(const QString &text, int materialIndex)
 {
 	cSettings settings(cSettings::formatCondensedText);
 	settings.LoadFromString(text);
 	cParameterContainer params;
 	cFractalContainer fractal;
-	InitMaterialParams(1, &params);
+	InitMaterialParams(materialIndex, &params);
 	settings.Decode(&params, &fractal);
-	AssignMaterial(&params, 1);
+	AssignMaterial(&params, materialIndex);
+}
+
+void cMaterialWidget::slotMaterialChanged()
+{
+	emit materialChanged(lastMaterialIndex);
 }

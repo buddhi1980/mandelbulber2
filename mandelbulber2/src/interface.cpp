@@ -230,6 +230,11 @@ void cInterface::ShowUi(void)
   materialListModel->insertRows(0, 5, QModelIndex());
 
 	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
+	QApplication::connect(mainWindow->ui->widget_material_editor,
+												SIGNAL(materialChanged(int)),
+												materialListModel,
+												SLOT(slotMaterialChanged(int)));
+
 	/*****************************************************************/
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);

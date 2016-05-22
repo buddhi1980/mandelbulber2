@@ -67,6 +67,9 @@ private:
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
 	void UpdateColor();
+
+signals:
+	void valueChanged();
 };
 
 

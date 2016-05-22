@@ -42,6 +42,9 @@ private:
 	int materialIndex;
 	cParameterContainer *parameterContainer;
 	bool isMaterialAssigned;
+
+signals:
+	void materialChanged(int matIndex);
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_EDITOR_H_ */

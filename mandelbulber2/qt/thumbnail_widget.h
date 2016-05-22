@@ -75,6 +75,7 @@ signals:
 	void renderRequest();
 	void thumbnailRendered();
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void settingsChanged();
 };
 
 #endif /* QT_THUMBNAIL_WIDGET_H_ */

@@ -29,6 +29,7 @@ public:
 private:
 	void resizeEvent(QResizeEvent *event);
 	void scrollContentsBy(int dx, int dy);
+	void paintEvent(QPaintEvent *event);
 
 protected slots:
 	virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int> ());
