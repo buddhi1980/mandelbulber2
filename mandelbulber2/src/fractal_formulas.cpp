@@ -1707,43 +1707,64 @@ void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 /**
  * mandelbulbBermarte
  * http://www.fractalforums.com/theory/mandelbulb-variant/
- * abs() version posted by visual.bermarte
+ * abs() version of Mandelbulb Kali modified by visual.bermarte
  */
 void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-
-    if (fractal->transformCommon.functionEnabledAxFalse)
-      z.x = fabs(z.x);
-    if (fractal->transformCommon.functionEnabledAyFalse)
-      z.y = fabs(z.y);
-
-
-
-  if (fractal->transformCommon.functionEnabledFalse)
-    z = fabs(z);
-  double th0 = acos(z.z / aux.r) + fractal->bulb.betaAngleOffset + 1e-061; // MUST keep exception catch ??
-  double ph0 = atan(z.y/ z.x) + fractal->bulb.alphaAngleOffset;
-  th0  *= fractal->transformCommon.pwr8a;
-  double sinth = sin(th0);
-  z = aux.r * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
   if (fractal->transformCommon.functionEnabledAxFalse)
     z.x = fabs(z.x);
+  if (fractal->transformCommon.functionEnabledAyFalse)
+    z.y = fabs(z.y);
+
+  double th0;
+  double ph0;
+  double costh;
+  double sinth;
+  double zp;
+
+  if (fractal->transformCommon.functionEnabledFalse)
+  {
+    th0 = acos(z.z / aux.r) + fractal->bulb.betaAngleOffset + 1e-061; // MUST keep exception catch ??
+    ph0 = atan(z.y/ z.x) + fractal->bulb.alphaAngleOffset;
+    th0  *= fractal->transformCommon.pwr8a;
+    sinth = sin(th0);
+    z = aux.r * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
+  }
+  else
+  {
+    th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset + 1e-061; // MUST keep exception catch ??
+    ph0 = atan2(z.y , z.x) + fractal->bulb.alphaAngleOffset;
+    th0  *= fractal->transformCommon.pwr8a;
+    costh = cos(th0);
+    z = aux.r * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
+  }
 
   if (fractal->transformCommon.functionEnabledAy)
     z.y = fabs(z.y);
   if (fractal->transformCommon.functionEnabledAz)
     z.z = fabs(z.z);
 
-  th0 = acos(z.z / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061; // MUST keep exception catch ??;
-  ph0 = atan(z.y/ z.x);
-  ph0 *= fractal->transformCommon.pwr8;
-  double zp = pow(aux.r, fractal->bulb.power);
-  sinth = sin(th0);
-  z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
+  if (fractal->transformCommon.functionEnabledxFalse)
+  {
+    th0 = acos(z.z / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061; // MUST keep exception catch ??;
+    ph0 = atan(z.y/ z.x);
+    ph0 *= fractal->transformCommon.pwr8;
+    zp = pow(aux.r, fractal->bulb.power);
+    sinth = sin(th0);
+    z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
+  }
+  else
+  {
+    th0 = asin(z.z / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061; // MUST keep exception catch ??;
+    ph0 = atan2(z.y , z.x);
+    ph0 *= fractal->transformCommon.pwr8;
+    zp = pow(aux.r, fractal->bulb.power);
+    costh = cos(th0);
+    z = zp  * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
+  }
 
   if (fractal->transformCommon.functionEnabledAx)
     z.x = fabs(z.x);
-
 
   if (fractal->transformCommon.functionEnabledyFalse)
   {
@@ -1757,7 +1778,7 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
 
 
 /**
- * mandelbulbKali
+ * mandelbulb Kali modification
  * http://www.fractalforums.com/theory/mandelbulb-variant/
  */
 void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1787,15 +1808,22 @@ void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 }
 
 
-
-
-
 /**
  * mandelbulb Kali multi
  * http://www.fractalforums.com/theory/mandelbulb-variant/
  */
 void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
+  if (fractal->transformCommon.functionEnabledFalse)
+  {
+    if (fractal->transformCommon.functionEnabledAxFalse)
+      z.x = fabs(z.x);
+    if (fractal->transformCommon.functionEnabledAyFalse)
+      z.y = fabs(z.y);
+    if (fractal->transformCommon.functionEnabledAzFalse)
+      z.z = fabs(z.z);
+  }
+
   double th0 = fractal->bulb.betaAngleOffset + 1e-061;
   double ph0 = fractal->bulb.alphaAngleOffset;
   double v1, v2, v3;
@@ -1834,9 +1862,8 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
           v2 = z.y;
           v3 = z.x;
           break;
-
-
   }
+
   if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
           th0 += acos(v1 / aux.r);
   else
@@ -1897,13 +1924,10 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   else
           ph0 += atan2(v2, v3);
 
-
   ph0 *= fractal->transformCommon.pwr8;
   double zp = pow(aux.r, fractal->bulb.power);
   sinth = sin(th0);
   z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
-  if (fractal->transformCommon.functionEnabledFalse)
-    z = fabs(z);
 
 
   if (fractal->transformCommon.functionEnabledyFalse)
@@ -1941,7 +1965,6 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
     }
     z += c * fractal->transformCommon.constantMultiplierC111;
   }
-
 }
 
 /**
@@ -1950,14 +1973,15 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
 void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
 	aux.r = z.Length();
-
-  if (fractal->transformCommon.functionEnabledAxFalse)
-    z.x = fabs(z.x);
-  if (fractal->transformCommon.functionEnabledAyFalse)
-    z.y = fabs(z.y);
-  if (fractal->transformCommon.functionEnabledAzFalse)
-    z.z = fabs(z.z);
-
+  if (fractal->transformCommon.functionEnabledFalse)
+  {
+    if (fractal->transformCommon.functionEnabledAxFalse)
+      z.x = fabs(z.x);
+    if (fractal->transformCommon.functionEnabledAyFalse)
+      z.y = fabs(z.y);
+    if (fractal->transformCommon.functionEnabledAzFalse)
+      z.z = fabs(z.z);
+  }
 
 	double th0 = fractal->bulb.betaAngleOffset;
 	double ph0 = fractal->bulb.alphaAngleOffset;
@@ -2003,9 +2027,10 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
 	//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
 
 	if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
-		th0 += acos(v1 / aux.r);
+    th0 += acos(v1 / aux.r);
 	else
-		th0 += asin(v1 / aux.r);
+    th0 += asin(v1 / aux.r);
+
 
 	if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
 		ph0 += atan(v2 / v3);
@@ -2013,15 +2038,12 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
 		ph0 += atan2(v2, v3);
 
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
-	double th = th0 * fractal->bulb.power;
-	double ph = ph0 * fractal->bulb.power;
+  double th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
+  double ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
 	double cth = cos(th);
 	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
 	rp *= aux.r;
 	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
-
-
-
 
   if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
   {
@@ -2049,7 +2071,6 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
     }
     z += c * fractal->transformCommon.constantMultiplierC111;
   }
-
 }
 
 /**
