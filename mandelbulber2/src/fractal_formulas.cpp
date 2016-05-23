@@ -1728,7 +1728,7 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
   {
     th0 = acos(z.z / aux.r) + fractal->bulb.betaAngleOffset + 1e-061; // MUST keep exception catch ??
     ph0 = atan(z.y/ z.x) + fractal->bulb.alphaAngleOffset;
-    th0  *= fractal->bulb.power * fractal->transformCommon.scaleA1;
+    th0  *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
     sinth = sin(th0);
     z = aux.r * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
   }
@@ -1736,7 +1736,7 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
   {
     th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset + 1e-061; // MUST keep exception catch ??
     ph0 = atan2(z.y , z.x) + fractal->bulb.alphaAngleOffset;
-    th0  *= fractal->bulb.power * fractal->transformCommon.scaleA1;
+    th0  *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
     costh = cos(th0);
     z = aux.r * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
   }
@@ -1751,8 +1751,8 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
   {
     th0 = acos(z.z / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061; // MUST keep exception catch ??;
     ph0 = atan(z.y/ z.x);
-    ph0 *= fractal->bulb.power * fractal->transformCommon.scaleB1;
-    zp = pow(aux.r, fractal->bulb.power);
+    ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
+    zp = pow(aux.r, fractal->transformCommon.pwr8);
     sinth = sin(th0);
     z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
   }
@@ -1760,8 +1760,8 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
   {
     th0 = asin(z.z / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061; // MUST keep exception catch ??;
     ph0 = atan2(z.y , z.x);
-    ph0 *= fractal->bulb.power * fractal->transformCommon.scaleB1;
-    zp = pow(aux.r, fractal->bulb.power);
+    ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
+    zp = pow(aux.r, fractal->transformCommon.pwr8);
     costh = cos(th0);
     z = zp  * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
   }
@@ -1773,11 +1773,11 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
 
   if (fractal->transformCommon.functionEnabledyFalse)
   {
-    aux.r_dz = pow( aux.r, fractal->bulb.power - 1.0) * fractal->bulb.power * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->bulb.power * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->bulb.power - 1.0) * fractal->bulb.power * aux.r_dz + 1.0;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->bulb.power * aux.r_dz + 1.0;
   }
 }
 
@@ -1788,27 +1788,36 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
  */
 void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
+  if (fractal->transformCommon.functionEnabledFalse)
+  {
+    if (fractal->transformCommon.functionEnabledAxFalse)
+      z.x = fabs(z.x);
+    if (fractal->transformCommon.functionEnabledAyFalse)
+      z.y = fabs(z.y);
+    if (fractal->transformCommon.functionEnabledAzFalse)
+      z.z = fabs(z.z);
+  }
 
   double th0 = acos(z.z / aux.r) + fractal->bulb.betaAngleOffset + 1e-061; // MUST keep exception catch ??
   double ph0 = atan(z.y/ z.x) + fractal->bulb.alphaAngleOffset;
-  th0  *= fractal->transformCommon.pwr8a;
+  th0  *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
   double sinth = sin(th0);
   z = aux.r * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
 
   th0 = acos(z.z / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061; // MUST keep exception catch ??;
   ph0 = atan(z.y/ z.x);
-  ph0 *= fractal->transformCommon.pwr8;
-  double zp = pow(aux.r, fractal->bulb.power);
+  ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
+  double zp = pow(aux.r, fractal->transformCommon.pwr8);
   sinth = sin(th0);
   z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
 
   if (fractal->transformCommon.functionEnabledyFalse)
   {
-    aux.r_dz = pow( aux.r, fractal->bulb.power - 1.0) * fractal->bulb.power * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->bulb.power * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->bulb.power - 1.0) * fractal->bulb.power * aux.r_dz + 1.0;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->bulb.power * aux.r_dz + 1.0;
   }
 }
 
