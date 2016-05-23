@@ -1773,11 +1773,11 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
 
   if (fractal->transformCommon.functionEnabledyFalse)
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->bulb.power * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8 * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->bulb.power * aux.r_dz + 1.0;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8 * aux.r_dz + 1.0;
   }
 }
 
@@ -1813,11 +1813,11 @@ void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 
   if (fractal->transformCommon.functionEnabledyFalse)
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->bulb.power * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8 * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->bulb.power * aux.r_dz + 1.0;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8 * aux.r_dz + 1.0;
   }
 }
 
