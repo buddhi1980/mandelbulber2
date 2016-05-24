@@ -49,6 +49,7 @@ public:
 
 	void RenderStillImage(QString filename, QString imageFileFormat);
 	void RenderQueue();
+	void RenderVoxel();
 	void RenderFlightAnimation();
 	void RenderKeyframeAnimation();
 	static void RenderingProgressOutput(const QString &header, const QString &progressTxt,

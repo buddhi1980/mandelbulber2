@@ -113,6 +113,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption testOption(QStringList() << "t" << "test",
 								   QCoreApplication::translate("main", "This will run testcases on the mandelbulber instance"));
 
+	QCommandLineOption voxelOption(QStringList() << "V" << "voxel",
+									 QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));
+
 	QCommandLineOption statsOption(QStringList() << "stats",
 		QCoreApplication::translate("main", "Shows statistics while rendering in CLI mode."));
 
@@ -142,6 +145,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(noColorOption);
 	parser.addOption(queueOption);
 	parser.addOption(testOption);
+	parser.addOption(voxelOption);
 	parser.addOption(statsOption);
 	parser.addOption(helpInputOption);
 
@@ -164,6 +168,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.outputText = parser.value(outputOption);
 	cliData.listParameters = parser.isSet(listOption);
 	cliData.queue = parser.isSet(queueOption);
+	cliData.voxel = parser.isSet(voxelOption);
 	cliData.test = parser.isSet(testOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
 	systemData.statsOnCLI = parser.isSet(statsOption);
@@ -625,6 +630,14 @@ void cCommandLineInterface::ReadCLI()
 		}
 	}
 
+	//voxel export
+	if (cliData.voxel)
+	{
+		cliTODO = modeVoxel;
+		cliData.nogui = true;
+		systemData.noGui = true;
+	}
+
 	//folder for animation frames
 	if (cliData.outputText != "" && cliTODO == modeFlight)
 	{
@@ -642,7 +655,7 @@ void cCommandLineInterface::ReadCLI()
 		parser.showHelp(cliErrorSettingsFileNotSpecified);
 	}
 
-	if (cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight && cliTODO != modeQueue)
+	if (cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight && cliTODO != modeQueue && cliTODO != modeVoxel)
 	{
 		//creating output filename if it's not specified
 		if (cliData.outputText == "")
@@ -688,6 +701,12 @@ void cCommandLineInterface::ProcessCLI(void)
 		{
 			gMainInterface->headless = new cHeadless();
 			gMainInterface->headless->RenderQueue();
+			break;
+		}
+		case modeVoxel:
+		{
+			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless->RenderVoxel();
 			break;
 		}
 		case modeBootOnly:

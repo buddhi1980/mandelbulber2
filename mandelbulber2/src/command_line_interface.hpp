@@ -32,7 +32,7 @@ public:
 
 	enum cliTODOMode
 	{
-		modeBootOnly, modeNetrender, modeKeyframe, modeFlight, modeStill, modeQueue
+		modeBootOnly, modeNetrender, modeKeyframe, modeFlight, modeStill, modeQueue, modeVoxel
 	};
 	enum cliErrors
 	{
@@ -72,6 +72,7 @@ private:
 		bool keyframe;
 		bool flight;
 		bool queue;
+		bool voxel;
 		bool test;
 		QString startFrameText;
 		QString endFrameText;

@@ -33,6 +33,7 @@
 #include "error_message.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
+#include "voxel_export.hpp"
 
 cHeadless::cHeadless() :
 		QObject()
@@ -116,6 +117,35 @@ void cHeadless::RenderQueue()
 
 		gQueue->slotQueueRender();
 	}
+}
+
+void cHeadless::RenderVoxel()
+{
+	CVector3 limitMin;
+	CVector3 limitMax;
+	if(gPar->Get<bool>("voxel_custom_limit_enabled"))
+	{
+		limitMin = gPar->Get<CVector3>("voxel_limit_min");
+		limitMax = gPar->Get<CVector3>("voxel_limit_max");
+	}
+	else
+	{
+		limitMin = gPar->Get<CVector3>("limit_min");
+		limitMax = gPar->Get<CVector3>("limit_max");
+	}
+	int maxIter = gPar->Get<int>("voxel_max_iter");
+	QString folder = gPar->Get<QString>("voxel_image_path");
+	int samplesX = gPar->Get<int>("voxel_samples_x");
+	int samplesY = gPar->Get<int>("voxel_samples_y");
+	int samplesZ = gPar->Get<int>("voxel_samples_z");
+	cVoxelExport* voxelExport = new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
+	QObject::connect(voxelExport,
+		SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+		this,
+		SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	voxelExport->ProcessVolume();
+	delete voxelExport;
+	emit finished();
 }
 
 void cHeadless::RenderFlightAnimation()
