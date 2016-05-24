@@ -1773,11 +1773,13 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
 
   if (fractal->transformCommon.functionEnabledyFalse)
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8 * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8
+        * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8 * aux.r_dz + 1.0;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0)
+        * fractal->transformCommon.pwr8 * aux.r_dz + 1.0;
   }
 }
 
@@ -1813,11 +1815,13 @@ void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 
   if (fractal->transformCommon.functionEnabledyFalse)
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8 * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8
+        * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8 * aux.r_dz + 1.0;
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0)
+        * fractal->transformCommon.pwr8 * aux.r_dz + 1.0;
   }
 }
 
@@ -1837,7 +1841,8 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
     if (fractal->transformCommon.functionEnabledAzFalse)
       z.z = fabs(z.z);
   }
-
+  double costh;
+  double sinth;
   double th0 = fractal->bulb.betaAngleOffset + 1e-061;
   double ph0 = fractal->bulb.alphaAngleOffset;
   double v1, v2, v3;
@@ -1845,7 +1850,7 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   {
 
   case sFractalMandelbulbMulti::xyz:
-  default:
+  //default:
           v1 = z.x;
           v2 = z.y;
           v3 = z.z;
@@ -1871,7 +1876,7 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
           v3 = z.y;
           break;
   case sFractalMandelbulbMulti::zyx:
-  //default:
+  default:
           v1 = z.z;
           v2 = z.y;
           v3 = z.x;
@@ -1887,15 +1892,23 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   else
           ph0 += atan2(v2, v3);
 
-  th0 *= fractal->transformCommon.pwr8a;
-  double sinth = sin(th0);
-  z = aux.r * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
+  th0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
 
+  if (fractal->transformCommon.functionEnabled)
+  {
+    sinth = sin(th0);
+    z = aux.r * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
+  }
+  else
+  {
+    costh = cos(th0);
+    z = aux.r * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
+  }
   switch (fractal->mandelbulbMulti.orderOfxyz)
   {
 
   case sFractalMandelbulbMulti::xyz2:
-  default:
+  //default:
           v1 = z.x;
           v2 = z.y;
           v3 = z.z;
@@ -1921,7 +1934,7 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
           v3 = z.y;
           break;
   case sFractalMandelbulbMulti::zyx2:
-  //default:
+  default:
           v1 = z.z;
           v2 = z.y;
           v3 = z.x;
@@ -1938,21 +1951,29 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   else
           ph0 += atan2(v2, v3);
 
-  ph0 *= fractal->transformCommon.pwr8;
-  double zp = pow(aux.r, fractal->bulb.power);
-  sinth = sin(th0);
-  z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
+  ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1 * 0.5;// 0.5 retain
+  double zp = pow(aux.r, fractal->transformCommon.pwr8);
 
-
-  if (fractal->transformCommon.functionEnabledyFalse)
+  if (fractal->transformCommon.functionEnabledx)
   {
-    aux.r_dz = pow( aux.r, fractal->bulb.power - 1.0) * fractal->bulb.power * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
+    sinth = sin(th0);
+    z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->bulb.power - 1.0) * fractal->bulb.power * aux.r_dz + 1.0;
+    costh = cos(th0);
+    z = zp  * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
   }
-
+  if (fractal->transformCommon.functionEnabledyFalse)
+  {
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8
+        * aux.r_dz * fractal->transformCommon.scale1 + fractal->transformCommon.offset1;
+  }
+  else
+  {
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0)
+        * fractal->transformCommon.pwr8 * aux.r_dz + 1.0;
+  }
   if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
   {
     switch (fractal->mandelbulbMulti.orderOfxyzC)
