@@ -1254,6 +1254,9 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 																			objectData,
 																			mat) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
 
+	if(deltaTexX > 0.5) deltaTexX = 1.0 - deltaTexX;
+	if(deltaTexY > 0.5) deltaTexY = 1.0 - deltaTexY;
+
 	deltaTexX = deltaTexX / fabs(input.viewVector.Dot(input.normal));
 	deltaTexY = deltaTexY / fabs(input.viewVector.Dot(input.normal));
 

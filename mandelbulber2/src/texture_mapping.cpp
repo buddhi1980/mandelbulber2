@@ -23,7 +23,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 		case cMaterial::mappingPlanar:
 		{
 			textureCoordinates = CVector2<double>(point.x, point.y);
-			textureCoordinates.x /= material->textureScale.x;
+			textureCoordinates.x /= -material->textureScale.x;
 			textureCoordinates.y /= material->textureScale.y;
 
 			if(textureVectorX && textureVectorY)
@@ -33,7 +33,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				texX = material->rotMatrix.Transpose().RotateVector(texX);
 				*textureVectorX = texX;
 
-				CVector3 texY(0.0, 1.0, 0.0);
+				CVector3 texY(0.0, -1.0, 0.0);
 				texY = objectData.rotationMatrix.Transpose().RotateVector(texY);
 				texY = material->rotMatrix.Transpose().RotateVector(texY);
 				*textureVectorY = texY;
@@ -42,7 +42,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 		}
 		case cMaterial::mappingCylindrical:
 		{
-			double alphaTexture = fmod(-point.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
+			double alphaTexture = fmod(point.GetAlpha() + 2.0 * M_PI, 2.0 * M_PI);
 			textureCoordinates.x = alphaTexture / (2.0 * M_PI);
 			textureCoordinates.y = -point.z;
 			textureCoordinates.x /= material->textureScale.x;
@@ -50,8 +50,8 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 
 			if(textureVectorX && textureVectorY)
 			{
-				CVector3 texY(0.0, 0.0, -1.0);
-				CVector3 texX = texY.Cross(point);
+				CVector3 texY(0.0, 0.0, 1.0);
+				CVector3 texX = point.Cross(texY);
 				texX = objectData.rotationMatrix.Transpose().RotateVector(texX);
 				texX = material->rotMatrix.Transpose().RotateVector(texX);
 				*textureVectorX = texX;
@@ -64,7 +64,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 		}
 		case cMaterial::mappingSpherical:
 		{
-			double alphaTexture = fmod(-point.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
+			double alphaTexture = fmod(point.GetAlpha() + 2.0 * M_PI, 2.0 * M_PI);
 			double betaTexture = -point.GetBeta();
 			textureCoordinates.x = alphaTexture / (2.0 * M_PI);
 			textureCoordinates.y = (betaTexture / M_PI);
@@ -74,7 +74,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			CVector3 texY(0.0, 0.0, -1.0);
 			CVector3 texX = texY.Cross(point);
 			texX.Normalize();
-			texY = point.Cross(texX);
+			texY = texX.Cross(point);
 
 			if(textureVectorX && textureVectorY)
 			{
@@ -97,7 +97,11 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				if(fabs(normalVector.x) > fabs(normalVector.z))
 				{
 					//x
-					textureCoordinates = CVector2<double>(point.y, -point.z);
+					if(normalVector.x > 0)
+						textureCoordinates = CVector2<double>(point.y, -point.z);
+					else
+						textureCoordinates = CVector2<double>(-point.y, -point.z);
+
 					if(textureVectorX && textureVectorY)
 					{
 						if(normalVector.x > 0)
@@ -108,20 +112,24 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 						else
 						{
 							texX = CVector3(0.0, 1.0, 0.0);
-							texY = CVector3(0.0, 0.0, -1.0);
+							texY = CVector3(0.0, 0.0, 1.0);
 						}
 					}
 				}
 				else
 				{
 					//z
-					textureCoordinates = CVector2<double>(point.x, point.y);
+					if(normalVector.z > 0)
+						textureCoordinates = CVector2<double>(-point.x, point.y);
+					else
+						textureCoordinates = CVector2<double>(point.x, point.y);
+
 					if(textureVectorX && textureVectorY)
 					{
 						if(normalVector.z > 0)
 						{
 							texX = CVector3(1.0, 0.0, 0.0);
-							texY = CVector3(0.0, 1.0, 0.0);
+							texY = CVector3(0.0, -1.0, 0.0);
 						}
 						else
 						{
@@ -136,13 +144,17 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				if(fabs(normalVector.y) > fabs(normalVector.z))
 				{
 					//y
-					textureCoordinates = CVector2<double>(point.x, -point.z);
+					if(normalVector.y > 0)
+						textureCoordinates = CVector2<double>(-point.x, -point.z);
+					else
+						textureCoordinates = CVector2<double>(point.x, -point.z);
+
 					if(textureVectorX && textureVectorY)
 					{
 						if(normalVector.y > 0)
 						{
 							texX = CVector3(1.0, 0.0, 0.0);
-							texY = CVector3(0.0, 0.0, -1.0);
+							texY = CVector3(0.0, 0.0, 1.0);
 						}
 						else
 						{
@@ -154,13 +166,17 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 				else
 				{
 					//z
-					textureCoordinates = CVector2<double>(point.x, point.y);
+					if(normalVector.z > 0)
+						textureCoordinates = CVector2<double>(-point.x, point.y);
+					else
+						textureCoordinates = CVector2<double>(point.x, point.y);
+
 					if(textureVectorX && textureVectorY)
 					{
 						if(normalVector.z > 0)
 						{
 							texX = CVector3(1.0, 0.0, 0.0);
-							texY = CVector3(0.0, 1.0, 0.0);
+							texY = CVector3(0.0, -1.0, 0.0);
 						}
 						else
 						{

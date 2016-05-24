@@ -126,7 +126,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	{
 		gApplication->processEvents();
 
-		Wait(100);
+		Wait(10);
 
 		if (*data->stopRequest)
 		{
