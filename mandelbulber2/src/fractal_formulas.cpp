@@ -1676,25 +1676,25 @@ void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 
       if (fractal->transformCommon.functionEnabledxFalse) //addCpixel options
       {
-        switch (fractal->mandelbulbMulti.orderOfxyz2)
+				switch (fractal->mandelbulbMulti.orderOfxyzC)
         {
-        case sFractalMandelbulbMulti::xyz2:
+				case sFractalMandelbulbMulti::xyz:
         default:
           c = CVector3(c.x, c.y, c.z);
           break;
-        case sFractalMandelbulbMulti::xzy2:
+				case sFractalMandelbulbMulti::xzy:
           c = CVector3(c.x, c.z, c.y);
           break;
-        case sFractalMandelbulbMulti::yxz2:
+				case sFractalMandelbulbMulti::yxz:
           c = CVector3(c.y, c.x, c.z);
           break;
-        case sFractalMandelbulbMulti::yzx2:
+				case sFractalMandelbulbMulti::yzx:
           c = CVector3(c.y, c.z, c.x);
           break;
-        case sFractalMandelbulbMulti::zxy2:
+				case sFractalMandelbulbMulti::zxy:
           c = CVector3(c.z, c.x, c.y);
           break;
-        case sFractalMandelbulbMulti::zyx2:
+				case sFractalMandelbulbMulti::zyx:
           c = CVector3(c.z, c.y, c.x);
           break;
         }
@@ -1904,36 +1904,36 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
     costh = cos(th0);
     z = aux.r * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
   }
-  switch (fractal->mandelbulbMulti.orderOfxyz)
+	switch (fractal->mandelbulbMulti.orderOfxyz2)
   {
 
-  case sFractalMandelbulbMulti::xyz2:
+	case sFractalMandelbulbMulti::xyz:
   //default:
           v1 = z.x;
           v2 = z.y;
           v3 = z.z;
           break;
-  case sFractalMandelbulbMulti::xzy2:
+	case sFractalMandelbulbMulti::xzy:
           v1 = z.x;
           v2 = z.z;
           v3 = z.y;
           break;
-  case sFractalMandelbulbMulti::yxz2:
+	case sFractalMandelbulbMulti::yxz:
           v1 = z.y;
           v2 = z.x;
           v3 = z.z;
           break;
-  case sFractalMandelbulbMulti::yzx2:
+	case sFractalMandelbulbMulti::yzx:
           v1 = z.y;
           v2 = z.z;
           v3 = z.x;
           break;
-  case sFractalMandelbulbMulti::zxy2:
+	case sFractalMandelbulbMulti::zxy:
           v1 = z.z;
           v2 = z.x;
           v3 = z.y;
           break;
-  case sFractalMandelbulbMulti::zyx2:
+	case sFractalMandelbulbMulti::zyx:
   default:
           v1 = z.z;
           v2 = z.y;
@@ -1978,23 +1978,23 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   {
     switch (fractal->mandelbulbMulti.orderOfxyzC)
     {
-    case sFractalMandelbulbMulti::xyzC:
+		case sFractalMandelbulbMulti::xyz:
     default:
       c = CVector3(c.x, c.y, c.z);
       break;
-    case sFractalMandelbulbMulti::xzyC:
+		case sFractalMandelbulbMulti::xzy:
       c = CVector3(c.x, c.z, c.y);
       break;
-    case sFractalMandelbulbMulti::yxzC:
+		case sFractalMandelbulbMulti::yxz:
       c = CVector3(c.y, c.x, c.z);
       break;
-    case sFractalMandelbulbMulti::yzxC:
+		case sFractalMandelbulbMulti::yzx:
       c = CVector3(c.y, c.z, c.x);
       break;
-    case sFractalMandelbulbMulti::zxyC:
+		case sFractalMandelbulbMulti::zxy:
       c = CVector3(c.z, c.x, c.y);
       break;
-    case sFractalMandelbulbMulti::zyxC:
+		case sFractalMandelbulbMulti::zyx:
       c = CVector3(c.z, c.y, c.x);
       break;
     }
@@ -2082,25 +2082,25 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
 
   if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
   {
-    switch (fractal->mandelbulbMulti.orderOfxyzC)
+		switch (fractal->mandelbulbMulti.orderOfxyzC)
     {
-    case sFractalMandelbulbMulti::xyzC:
+		case sFractalMandelbulbMulti::xyz:
     default:
       c = CVector3(c.x, c.y, c.z);
       break;
-    case sFractalMandelbulbMulti::xzyC:
+		case sFractalMandelbulbMulti::xzy:
       c = CVector3(c.x, c.z, c.y);
       break;
-    case sFractalMandelbulbMulti::yxzC:
+		case sFractalMandelbulbMulti::yxz:
       c = CVector3(c.y, c.x, c.z);
       break;
-    case sFractalMandelbulbMulti::yzxC:
+		case sFractalMandelbulbMulti::yzx:
       c = CVector3(c.y, c.z, c.x);
       break;
-    case sFractalMandelbulbMulti::zxyC:
+		case sFractalMandelbulbMulti::zxy:
       c = CVector3(c.z, c.x, c.y);
       break;
-    case sFractalMandelbulbMulti::zyxC:
+		case sFractalMandelbulbMulti::zyx:
       c = CVector3(c.z, c.y, c.x);
       break;
     }

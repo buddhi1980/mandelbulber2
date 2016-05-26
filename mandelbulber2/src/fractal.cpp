@@ -121,16 +121,16 @@ cFractal::cFractal(const cParameterContainer *container)
       (sFractalMandelbulbMulti::multi_atanOratan2) container->Get<int>("mandelbulbMulti_atan_or_atan2");
 
   mandelbulbMulti.acosOrasinA =
-      (sFractalMandelbulbMulti::multi_acosOrasinA) container->Get<int>("mandelbulbMulti_acos_or_asin_A");
+			(sFractalMandelbulbMulti::multi_acosOrasin) container->Get<int>("mandelbulbMulti_acos_or_asin_A");
   mandelbulbMulti.atanOratan2A =
-      (sFractalMandelbulbMulti::multi_atanOratan2A) container->Get<int>("mandelbulbMulti_atan_or_atan2_A");
+			(sFractalMandelbulbMulti::multi_atanOratan2) container->Get<int>("mandelbulbMulti_atan_or_atan2_A");
 
   mandelbulbMulti.orderOfxyz =
       (sFractalMandelbulbMulti::multi_OrderOfxyz) container->Get<int>("mandelbulbMulti_order_of_xyz");
   mandelbulbMulti.orderOfxyz2 =
-      (sFractalMandelbulbMulti::multi_OrderOfxyz2) container->Get<int>("mandelbulbMulti_order_of_xyz_2");
+			(sFractalMandelbulbMulti::multi_OrderOfxyz) container->Get<int>("mandelbulbMulti_order_of_xyz_2");
   mandelbulbMulti.orderOfxyzC =
-      (sFractalMandelbulbMulti::multi_OrderOfxyzC) container->Get<int>("mandelbulbMulti_order_of_xyz_C");
+			(sFractalMandelbulbMulti::multi_OrderOfxyz) container->Get<int>("mandelbulbMulti_order_of_xyz_C");
 
 	//common parameters for transforming formulas
   transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
