@@ -12,18 +12,19 @@
 
 class cMaterialItemView: public QAbstractItemView
 {
-	Q_OBJECT;
+Q_OBJECT
+	;
 public:
 	cMaterialItemView(QWidget *parent);
 	~cMaterialItemView();
-	virtual QModelIndex	indexAt(const QPoint &point) const;
-	virtual QRegion	visualRegionForSelection(const QItemSelection &selection) const;
+	virtual QModelIndex indexAt(const QPoint &point) const;
+	virtual QRegion visualRegionForSelection(const QItemSelection &selection) const;
 	virtual void scrollTo(const QModelIndex &index, ScrollHint hint = EnsureVisible);
-	virtual int	verticalOffset() const;
-	virtual int	horizontalOffset() const;
+	virtual int verticalOffset() const;
+	virtual int horizontalOffset() const;
 	virtual void setSelection(const QRect &rect, QItemSelectionModel::SelectionFlags flags);
-	virtual QModelIndex	moveCursor(CursorAction cursorAction, Qt::KeyboardModifiers modifiers);
-	virtual QRect	visualRect(const QModelIndex &index) const;
+	virtual QModelIndex moveCursor(CursorAction cursorAction, Qt::KeyboardModifiers modifiers);
+	virtual QRect visualRect(const QModelIndex &index) const;
 	virtual bool isIndexHidden(const QModelIndex &index) const;
 
 private:
@@ -33,7 +34,8 @@ private:
 	int viewHeight;
 
 protected slots:
-	virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int> ());
+	virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
+			const QVector<int> &roles = QVector<int>());
 	virtual void rowsInserted(const QModelIndex &parent, int start, int end);
 
 public:
