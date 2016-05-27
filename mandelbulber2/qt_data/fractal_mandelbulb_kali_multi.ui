@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>790</width>
-    <height>1771</height>
+    <height>1824</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,7 +56,7 @@
       <item>
        <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string/>
         </property>
         <property name="title">
          <string>fabs() &amp;Controls</string>
@@ -918,41 +918,6 @@
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_177">
-             <property name="text">
-              <string>Analytic Logrithmic DE offset: </string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>2</number>
-             </property>
-             <property name="minimum">
-              <double>-36000.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>36000.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
              <property name="sizePolicy">
@@ -1000,6 +965,41 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_177">
+             <property name="text">
+              <string>Analytic Logrithmic DE offset: </string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="minimum">
+              <double>-36000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>36000.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
