@@ -63,7 +63,6 @@ int cMaterialItemView::horizontalOffset() const
 
 void cMaterialItemView::setSelection(const QRect& rect, QItemSelectionModel::SelectionFlags flags)
 {
-	emit activated(currentIndex());
 	viewport()->update();
 }
 
@@ -122,8 +121,6 @@ void cMaterialItemView::rowsInserted(const QModelIndex &parent, int start, int e
 	updateGeometries();
 
 	setCurrentIndex(model()->index(start,0));
-	emit activated(currentIndex());
-
 	viewport()->update();
 }
 
@@ -177,4 +174,11 @@ void cMaterialItemView::updateScrollBar()
 	horizontalScrollBar()->setRange(0,
 																	model()->rowCount() * (cMaterialWidget::previewWidth + iconMargin)
 																			- width());
+}
+
+void cMaterialItemView::currentChanged(const QModelIndex& current, const QModelIndex& previous)
+{
+	Q_UNUSED(previous);
+	emit activated(current);
+	viewport()->update();
 }

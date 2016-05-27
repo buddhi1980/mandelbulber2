@@ -33,6 +33,7 @@ public:
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 	bool insertRows(int position, int rows, const QModelIndex &parent = QModelIndex());
+	bool removeRows(int position, int rows, const QModelIndex &parent = QModelIndex());
 
 	int materialIndex(const QModelIndex &index);
 

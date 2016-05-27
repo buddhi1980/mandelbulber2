@@ -32,6 +32,7 @@ private:
 
 private slots:
 	void slotAddMaterial();
+	void slotDeleteMaterial();
 	void slotItemSelected(const QModelIndex &index);
 
 private:

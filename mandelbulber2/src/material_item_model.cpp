@@ -127,8 +127,27 @@ bool cMaterialItemModel::insertRows(int position, int rows, const QModelIndex &p
 		int matIndex = FindFreeIndex();
 		materialIndexes.insert(position + r, matIndex);
 		InitMaterialParams(matIndex, container);
+		container->Set(cMaterial::Name("is_defined", matIndex), true);
 	}
 	endInsertRows();
+	return true;
+}
+
+bool cMaterialItemModel::removeRows(int position, int rows, const QModelIndex &parent)
+{
+	Q_UNUSED(parent);
+	beginRemoveRows(QModelIndex(), position, position+rows-1);
+
+	for(int r = position + rows - 1; r >= position; r--)
+	{
+		int matIndex = materialIndexes.at(r);
+		for(int i = 0; i < cMaterial::paramsList.length(); i++)
+		{
+			container->DeleteParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
+		}
+		materialIndexes.removeAt(r);
+	}
+	endRemoveRows();
 	return true;
 }
 
