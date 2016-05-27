@@ -109,7 +109,7 @@ QVariant cMaterialItemModel::headerData(int section, Qt::Orientation orientation
 	if(itemRole == Qt::DisplayRole && orientation == Qt::Horizontal)
 	{
 		int matIndex = materialIndexes.at(section);
-		QString materialName = container->Get<QString>(cMaterial::Name("material_name", matIndex)) + QString(" [mat%1]").arg(matIndex);
+		QString materialName = container->Get<QString>(cMaterial::Name("name", matIndex)) + QString(" [mat%1]").arg(matIndex);
 		return materialName;
 	}
 	return QString();
@@ -149,6 +149,31 @@ bool cMaterialItemModel::removeRows(int position, int rows, const QModelIndex &p
 	}
 	endRemoveRows();
 	return true;
+}
+
+void cMaterialItemModel::Regenerate()
+{
+	beginRemoveRows(QModelIndex(), 0, rowCount() - 1);
+	materialIndexes.clear();
+	endRemoveRows();
+
+	QList<QString> list = container->GetListOfParameters();
+	for (int i = 0; i < list.size(); i++)
+	{
+		QString parameterName = list.at(i);
+		if (parameterName.left(3) == "mat")
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
+			if(materialIndexes.indexOf(matIndex) < 0)
+			{
+				materialIndexes.append(matIndex);
+			}
+		}
+	}
+
+	beginInsertRows(QModelIndex(), 0, materialIndexes.length() - 1);
+	endInsertRows();
 }
 
 int cMaterialItemModel::FindFreeIndex()

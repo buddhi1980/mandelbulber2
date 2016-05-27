@@ -20,7 +20,7 @@ int cMaterialItemView::maxNameHeight = 20;
 cMaterialItemView::cMaterialItemView(QWidget *parent) :
 		QAbstractItemView(parent)
 {
-	viewHeight = cMaterialWidget::previewHeight + iconMargin * 3 + horizontalScrollBar()->height()
+	viewHeight = cMaterialWidget::previewHeight + iconMargin * 2 + horizontalScrollBar()->height()
 			+ maxNameHeight;
 	setMinimumHeight(viewHeight);
 	setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -179,6 +179,9 @@ void cMaterialItemView::updateScrollBar()
 void cMaterialItemView::currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
 	Q_UNUSED(previous);
-	emit activated(current);
+	if(current.isValid())
+	{
+		emit activated(current);
+	}
 	viewport()->update();
 }

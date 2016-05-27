@@ -655,6 +655,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		fractal->at(i).ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
+	DeleteAllMaterialParams(par);
+	InitMaterialParams(1, par);
 
 	par->Set("legacy_coordinate_system", true);
 

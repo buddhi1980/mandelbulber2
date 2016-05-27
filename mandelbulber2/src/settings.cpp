@@ -408,6 +408,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		fractPar->at(i).ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
+	DeleteAllMaterialParams(par);
 
 	if (frames) frames->ClearAll();
 	if (keyframes)
@@ -543,6 +544,27 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
 			fractal::enumObjectType objectType = PrimitiveNameToEnum(split.at(1));
 			InitPrimitiveParams(objectType, primitiveName, par);
+		}
+	}
+
+	if (parameterName.left(3) == "mat")
+	{
+		if (!par->IfExists(parameterName))
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
+			QString shortName = parameterName.mid(positionOfDash+1);
+			if(cMaterial::paramsList.indexOf(shortName) >= 0)
+			{
+				InitMaterialParams(matIndex, par);
+			}
+			else
+			{
+				cErrorMessage::showMessage(QObject::tr("Unknown parameter: ") + parameterName,
+																	 cErrorMessage::errorMessage);
+				return false;
+			}
+
 		}
 	}
 

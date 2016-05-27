@@ -21,6 +21,9 @@ public:
 	//will be used to synchronize the data
 	void AssignContainer(cParameterContainer *_parameterContainer);
 
+	//regenerate model from parametr container data
+	void Regenerate();
+
 	//will return number of material items
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 

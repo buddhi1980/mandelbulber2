@@ -698,7 +698,7 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 void InitMaterialParams(int materialId, cParameterContainer *par)
 {
 	par->addParam(cMaterial::Name("is_defined", materialId), false, morphNone, paramStandard);
-	par->addParam(cMaterial::Name("material_name", materialId), QString("material %1").arg(materialId), morphNone, paramStandard);
+	par->addParam(cMaterial::Name("name", materialId), QString("material %1").arg(materialId), morphNone, paramStandard);
 	par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("specular", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("specular_width", materialId), 1.0, 1e-10, 1e15, morphAkima, paramStandard);
@@ -842,6 +842,19 @@ void DeleteAllPrimitiveParams(cParameterContainer *par)
 	{
 		QString parameterName = list.at(i);
 		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
+		{
+			par->DeleteParameter(parameterName);
+		}
+	}
+}
+
+void DeleteAllMaterialParams(cParameterContainer *par)
+{
+	QList<QString> list = par->GetListOfParameters();
+	for (int i = 0; i < list.size(); i++)
+	{
+		QString parameterName = list.at(i);
+		if (parameterName.left(3) == "mat")
 		{
 			par->DeleteParameter(parameterName);
 		}

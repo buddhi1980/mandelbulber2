@@ -34,6 +34,7 @@ void InitFractalParams(cParameterContainer *par);
 void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par);
 void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par);
 void DeleteAllPrimitiveParams(cParameterContainer *par);
+void DeleteAllMaterialParams(cParameterContainer *par);
 void InitMaterialParams(int materialId, cParameterContainer *par);
 
 #endif /* INITPARAMETERS_HPP_ */
