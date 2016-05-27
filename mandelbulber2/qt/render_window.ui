@@ -3080,11 +3080,11 @@ to target:</string>
               <number>2</number>
              </property>
              <item>
-              <widget class="QScrollArea" name="scrollArea_6">
+              <widget class="QScrollArea" name="scrollArea_material">
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_7">
+               <widget class="QWidget" name="scrollAreaWidgetContents_material">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
@@ -3093,7 +3093,7 @@ to target:</string>
                   <height>145</height>
                  </rect>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_29">
+                <layout class="QVBoxLayout" name="verticalLayout_materials">
                  <property name="spacing">
                   <number>3</number>
                  </property>
@@ -3111,9 +3111,6 @@ to target:</string>
                  </property>
                  <item>
                   <widget class="cMaterialManagerView" name="widget_material_list_view" native="true"/>
-                 </item>
-                 <item>
-                  <widget class="cMaterialEditor" name="widget_material_editor" native="true"/>
                  </item>
                 </layout>
                </widget>
@@ -23279,12 +23276,6 @@ keyframes</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>cMaterialEditor</class>
-   <extends>QWidget</extends>
-   <header>material_editor.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>cMaterialManagerView</class>
    <extends>QWidget</extends>
    <header>material_manager_view.h</header>
@@ -23449,7 +23440,7 @@ keyframes</string>
   <tabstop>tabWidgetFlightKeyframe</tabstop>
   <tabstop>scrollArea_5</tabstop>
   <tabstop>tabWidget_fractals</tabstop>
-  <tabstop>scrollArea_6</tabstop>
+  <tabstop>scrollArea_material</tabstop>
   <tabstop>scrollArea_fractal_1</tabstop>
   <tabstop>comboBox_formula_1</tabstop>
   <tabstop>sliderInt_formula_iterations_1</tabstop>

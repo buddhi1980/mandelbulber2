@@ -25,20 +25,8 @@ cMaterialEditor::cMaterialEditor(QWidget *parent) :
 	parameterContainer = NULL;
 	isMaterialAssigned = false;
 
-	QList<QWidget*> materalWidgets = this->findChildren<QWidget*>();
-	for(int i=0; i < materalWidgets.size(); i++)
-	{
-		if (!materalWidgets[i]->objectName().isEmpty())
-		{
-			QString objectName = materalWidgets[i]->objectName();
-			int posOfDash = objectName.indexOf('_');
-			if(posOfDash > 0)
-			{
-				QString newName = objectName.insert(posOfDash, "_mat1");
-				materalWidgets[i]->setObjectName(newName);
-			}
-		}
-	}
+	automatedWidgets = new cAutomatedWidgets(this);
+	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
 	ConnectSignals();
 }
@@ -87,8 +75,25 @@ void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)
 	{
 		materialIndex = index;
 		parameterContainer = params;
-		ui->widget_material_preview->AssignMaterial(parameterContainer, 1, this);
+		ui->widget_material_preview->AssignMaterial(parameterContainer, index, this);
 		isMaterialAssigned = true;
+
+		QList<QWidget*> materalWidgets = this->findChildren<QWidget*>();
+		for(int i=0; i < materalWidgets.size(); i++)
+		{
+			if (!materalWidgets[i]->objectName().isEmpty())
+			{
+				QString objectName = materalWidgets[i]->objectName();
+				int posOfDash = objectName.indexOf('_');
+				if(posOfDash > 0)
+				{
+					QString newName = objectName.insert(posOfDash, QString("_mat%1").arg(index));
+					materalWidgets[i]->setObjectName(newName);
+				}
+			}
+		}
+
+		SynchronizeInterfaceWindow(this, parameterContainer, qInterface::write);
 	}
 }
 

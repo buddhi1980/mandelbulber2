@@ -32,7 +32,9 @@ public:
 	//will provide material name
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-	bool insertRows(int position, int rows, const QModelIndex &parent);
+	bool insertRows(int position, int rows, const QModelIndex &parent = QModelIndex());
+
+	int materialIndex(const QModelIndex &index);
 
 public slots:
 	void slotMaterialChanged(int matIndex);

@@ -31,6 +31,8 @@ private:
 	void resizeEvent(QResizeEvent *event);
 	void scrollContentsBy(int dx, int dy);
 	void paintEvent(QPaintEvent *event);
+	void updateScrollBar();
+
 	int viewHeight;
 
 protected slots:

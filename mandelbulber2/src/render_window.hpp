@@ -102,6 +102,7 @@ private slots:
 			QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 	void slotFractalSwap(int swapA, int swapB);
 	void slotAutoRefresh();
+	void slotMaterialSelected(int matIndex);
 
 	//camera
 	void slotCameraMove();

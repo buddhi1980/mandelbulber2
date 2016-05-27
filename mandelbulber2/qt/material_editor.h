@@ -12,6 +12,7 @@
 
 #include "../src/color_palette.hpp"
 #include "../src/parameters.hpp"
+#include "../src/automated_widgets.hpp"
 
 namespace Ui {
 	class cMaterialEditor;
@@ -42,6 +43,8 @@ private:
 	int materialIndex;
 	cParameterContainer *parameterContainer;
 	bool isMaterialAssigned;
+
+	cAutomatedWidgets *automatedWidgets;
 
 signals:
 	void materialChanged(int matIndex);

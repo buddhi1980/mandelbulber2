@@ -47,6 +47,8 @@ QRegion cMaterialItemView::visualRegionForSelection(const QItemSelection& select
 
 void cMaterialItemView::scrollTo(const QModelIndex& index, ScrollHint hint)
 {
+	Q_UNUSED(hint);
+	horizontalScrollBar()->setValue(iconMargin + index.row() * (cMaterialWidget::previewWidth + iconMargin));
 }
 
 int cMaterialItemView::verticalOffset() const
@@ -61,6 +63,7 @@ int cMaterialItemView::horizontalOffset() const
 
 void cMaterialItemView::setSelection(const QRect& rect, QItemSelectionModel::SelectionFlags flags)
 {
+	emit activated(currentIndex());
 	viewport()->update();
 }
 
@@ -72,7 +75,7 @@ QModelIndex cMaterialItemView::moveCursor(CursorAction cursorAction,
 
 QRect cMaterialItemView::visualRect(const QModelIndex& index) const
 {
-	return QRect(	iconMargin + index.row() * (cMaterialWidget::previewWidth + iconMargin),
+	return QRect(	iconMargin + index.row() * (cMaterialWidget::previewWidth + iconMargin) - horizontalOffset(),
 								iconMargin,
 								cMaterialWidget::previewWidth,
 								cMaterialWidget::previewHeight + iconMargin + maxNameHeight);
@@ -115,7 +118,11 @@ void cMaterialItemView::rowsInserted(const QModelIndex &parent, int start, int e
 	QAbstractItemView::rowsInserted(parent, start, end);
 	//updateGeometries();
 
+	updateScrollBar();
+	updateGeometries();
+
 	setCurrentIndex(model()->index(start,0));
+	emit activated(currentIndex());
 
 	viewport()->update();
 }
@@ -125,9 +132,7 @@ void cMaterialItemView::resizeEvent(QResizeEvent *event)
 	QAbstractItemView::resizeEvent(event);
 	if (model())
 	{
-		horizontalScrollBar()->setRange(0,
-																		model()->rowCount()
-																				* (cMaterialWidget::previewWidth + iconMargin) - width());
+		updateScrollBar();
 	}
 	setMinimumHeight(viewHeight);
 }
@@ -148,7 +153,7 @@ void cMaterialItemView::paintEvent(QPaintEvent *event)
 	//paint selection box
 	QModelIndex current = currentIndex();
 	QRect rectCurrent = visualRect(current);
-	rectCurrent.translate(QPoint(-horizontalOffset(), 0));
+	rectCurrent.translate(QPoint(0, 0));
 	rectCurrent.adjust(-3, -3, 3, 3);
 	painter.fillRect(rectCurrent, QApplication::palette().highlight());
 
@@ -165,4 +170,11 @@ void cMaterialItemView::paintEvent(QPaintEvent *event)
 											Qt::AlignHCenter | Qt::TextWordWrap,
 											name);
 	}
+}
+
+void cMaterialItemView::updateScrollBar()
+{
+	horizontalScrollBar()->setRange(0,
+																	model()->rowCount() * (cMaterialWidget::previewWidth + iconMargin)
+																			- width());
 }

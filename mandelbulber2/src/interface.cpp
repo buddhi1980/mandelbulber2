@@ -67,6 +67,7 @@ cInterface::cInterface()
 	progressBarLayout = NULL;
 	autoRefreshTimer = NULL;
 	materialListModel = NULL;
+	materialEditor = NULL;
 	stopRequest = false;
 	repeatRequest = false;
 	interfaceReady = false;
@@ -217,24 +218,11 @@ void cInterface::ShowUi(void)
 	QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator()
 			+ "fractal_mandelbulb.ui";
 	InitializeFractalUi(uiFilename);
+	InitMaterialsUi();
 
 	ComboMouseClickUpdate();
 
 	mainWindow->slotPopulateToolbar();
-
-	/**************** temporary code for materials *******************/
-	materialListModel = new cMaterialItemModel(mainWindow->ui->tabWidget_material);
-	materialListModel->AssignContainer(gPar);
-  mainWindow->ui->widget_material_list_view->SetModel(materialListModel);
-  materialListModel->insertRows(0, 5, QModelIndex());
-
-	mainWindow->ui->widget_material_editor->AssignMaterial(gPar, 1);
-	QApplication::connect(mainWindow->ui->widget_material_editor,
-												SIGNAL(materialChanged(int)),
-												materialListModel,
-												SLOT(slotMaterialChanged(int)));
-
-	/*****************************************************************/
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();
@@ -2346,6 +2334,45 @@ void cInterface::InitPeriodicRefresh()
 	QApplication::connect(autoRefreshTimer, SIGNAL(timeout()), mainWindow, SLOT(slotAutoRefresh()));
 	autoRefreshTimer->start(2000);
 }
+
+void cInterface::InitMaterialsUi()
+{
+	materialEditor = new cMaterialEditor(mainWindow->ui->scrollArea_material);
+	mainWindow->ui->verticalLayout_materials->addWidget(materialEditor);
+
+	materialListModel = new cMaterialItemModel(mainWindow->ui->tabWidget_material);
+	materialListModel->AssignContainer(gPar);
+  mainWindow->ui->widget_material_list_view->SetModel(materialListModel);
+  materialListModel->insertRows(0, 1, QModelIndex());
+
+	materialEditor->AssignMaterial(gPar, 1);
+	QApplication::connect(materialEditor,
+												SIGNAL(materialChanged(int)),
+												materialListModel,
+												SLOT(slotMaterialChanged(int)));
+
+	QApplication::connect(mainWindow->ui->widget_material_list_view,
+												SIGNAL(materialSelected(int)),
+												mainWindow,
+												SLOT(slotMaterialSelected(int)));
+
+}
+
+void cInterface::MaterialSelected(int matIndex)
+{
+	if(materialEditor)
+	{
+		delete materialEditor;
+		materialEditor = new cMaterialEditor(mainWindow->ui->scrollArea_material);
+		mainWindow->ui->verticalLayout_materials->addWidget(materialEditor);
+		materialEditor->AssignMaterial(gPar, matIndex);
+		QApplication::connect(materialEditor,
+													SIGNAL(materialChanged(int)),
+													materialListModel,
+													SLOT(slotMaterialChanged(int)));
+	}
+}
+
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

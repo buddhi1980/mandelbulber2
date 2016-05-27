@@ -23,11 +23,22 @@ class cMaterialManagerView: public QWidget
 public:
 	explicit cMaterialManagerView(QWidget *parent = NULL);
 	~cMaterialManagerView();
-	void SetModel(cMaterialItemModel *model);
+	void SetModel(cMaterialItemModel *_model);
 
 private:
 	Ui::cMaterialManagerView *ui;
 	cMaterialItemView *itemView;
+	cMaterialItemModel *model;
+
+private slots:
+	void slotAddMaterial();
+	void slotItemSelected(const QModelIndex &index);
+
+private:
+	int lastMaterialSelected;
+
+signals:
+	void materialSelected(int matIndex);
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_MANAGER_VIEW_H_ */

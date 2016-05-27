@@ -16,6 +16,11 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), u
 	// TODO Auto-generated constructor stub
 	itemView = new cMaterialItemView(this);
 	ui->verticalLayout_material_view->addWidget(itemView);
+	model = NULL;
+	lastMaterialSelected = 1;
+
+	connect(ui->pushButton_newMaterial, SIGNAL(clicked()), this, SLOT(slotAddMaterial()));
+	connect(itemView, SIGNAL(activated(const QModelIndex&)), this, SLOT(slotItemSelected(const QModelIndex&)));
 }
 
 cMaterialManagerView::~cMaterialManagerView()
@@ -23,7 +28,25 @@ cMaterialManagerView::~cMaterialManagerView()
 	// TODO Auto-generated destructor stub
 }
 
-void cMaterialManagerView::SetModel(cMaterialItemModel *model)
+void cMaterialManagerView::SetModel(cMaterialItemModel *_model)
 {
-	itemView->setModel(model);
+	itemView->setModel(_model);
+	model = _model;
+}
+
+void cMaterialManagerView::slotAddMaterial()
+{
+	int rows = model->rowCount();
+	model->insertRows(rows, 1);
+}
+
+void cMaterialManagerView::slotItemSelected(const QModelIndex& index)
+{
+	qDebug() << "slotItemSelected" << index;
+	int selection = model->materialIndex(index);
+	if(selection != lastMaterialSelected)
+	{
+		emit materialSelected(selection);
+	}
+	lastMaterialSelected = selection;
 }

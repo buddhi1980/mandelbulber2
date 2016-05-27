@@ -109,7 +109,7 @@ QVariant cMaterialItemModel::headerData(int section, Qt::Orientation orientation
 	if(itemRole == Qt::DisplayRole && orientation == Qt::Horizontal)
 	{
 		int matIndex = materialIndexes.at(section);
-		QString materialName = container->Get<QString>(cMaterial::Name("material_name", matIndex));
+		QString materialName = container->Get<QString>(cMaterial::Name("material_name", matIndex)) + QString(" [mat%1]").arg(matIndex);
 		return materialName;
 	}
 	return QString();
@@ -166,4 +166,17 @@ void cMaterialItemModel::slotMaterialChanged(int matIndex)
 		}
 	}
 	emit dataChanged(index(row, 0, QModelIndex()), index(row, 0, QModelIndex()));
+}
+
+int cMaterialItemModel::materialIndex(const QModelIndex& index)
+{
+	if(index.row() < materialIndexes.count())
+	{
+		return materialIndexes.at(index.row());
+	}
+	else
+	{
+		qCritical() << "cMaterialItemModel::materialIndex(const QModelIndex& index): index out of range";
+		return 0;
+	}
 }

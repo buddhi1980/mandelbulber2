@@ -862,3 +862,8 @@ void RenderWindow::slotAutoRefresh(void)
 {
 	gMainInterface->PeriodicRefresh();
 }
+
+void RenderWindow::slotMaterialSelected(int matIndex)
+{
+	gMainInterface->MaterialSelected(matIndex);
+}

@@ -32,6 +32,7 @@
 #include "primitives.h"
 #include "synchronize_interface.hpp"
 #include "material_item_model.h"
+#include "../qt/material_editor.h"
 
 class cInterface
 {
@@ -84,6 +85,8 @@ public:
 	void ResetFormula(int fractalNumber);
 	void PeriodicRefresh();
 	void InitPeriodicRefresh();
+	void InitMaterialsUi();
+	void MaterialSelected(int matIndex);
 
 	bool QuitApplicationDialog();
 
@@ -103,6 +106,7 @@ public:
 	QTimer *autoRefreshTimer;
 	QString autoRefreshLastHash;
 	cMaterialItemModel *materialListModel;
+	cMaterialEditor *materialEditor;
 
 	bool interfaceReady;
 	bool stopRequest;
