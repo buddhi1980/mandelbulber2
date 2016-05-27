@@ -1850,7 +1850,7 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   {
 
   case sFractalMandelbulbMulti::xyz:
-  //default:
+  default:
           v1 = z.x;
           v2 = z.y;
           v3 = z.z;
@@ -1876,7 +1876,6 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
           v3 = z.y;
           break;
   case sFractalMandelbulbMulti::zyx:
-  default:
           v1 = z.z;
           v2 = z.y;
           v3 = z.x;
@@ -1904,11 +1903,11 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
     costh = cos(th0);
     z = aux.r * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
   }
-	switch (fractal->mandelbulbMulti.orderOfxyz2)
+  switch (fractal->mandelbulbMulti.orderOfxyz)
   {
 
 	case sFractalMandelbulbMulti::xyz:
-  //default:
+  default:
           v1 = z.x;
           v2 = z.y;
           v3 = z.z;
@@ -1934,7 +1933,6 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
           v3 = z.y;
           break;
 	case sFractalMandelbulbMulti::zyx:
-  default:
           v1 = z.z;
           v2 = z.y;
           v3 = z.x;
@@ -2590,7 +2588,14 @@ void EiffieMsltoeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sE
 	z *= fractal->transformCommon.scale1;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale1);
-
+  if (fractal->transformCommon.functionEnabledyFalse)
+  {
+      aux.r_dz *= fabs(fractal->transformCommon.scale1) * fractal->transformCommon.scaleA1;
+  }
+  else
+  {
+  aux.r_dz *= fabs(fractal->transformCommon.scale1);
+  }
 }
 
 /**
