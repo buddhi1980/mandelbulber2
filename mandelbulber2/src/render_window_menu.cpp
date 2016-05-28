@@ -125,6 +125,7 @@ void RenderWindow::slotMenuLoadExample()
     this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
     gFlightAnimation->RefreshTable();
     gKeyframeAnimation->RefreshTable();
+    gMainInterface->materialListModel->Regenerate();
   }
 }
 
@@ -176,6 +177,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
     this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
     gFlightAnimation->RefreshTable();
     gKeyframeAnimation->RefreshTable();
+    gMainInterface->materialListModel->Regenerate();
   }
   else
   {

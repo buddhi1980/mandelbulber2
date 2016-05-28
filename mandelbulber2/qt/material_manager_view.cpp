@@ -68,7 +68,6 @@ void cMaterialManagerView::slotDeleteMaterial()
 
 void cMaterialManagerView::slotItemSelected(const QModelIndex& index)
 {
-	qDebug() << "slotItemSelected" << index;
 	int selection = model->materialIndex(index);
 	if(selection != lastMaterialSelected)
 	{

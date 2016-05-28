@@ -88,7 +88,6 @@ bool cMaterialItemView::isIndexHidden(const QModelIndex& index) const
 void cMaterialItemView::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
 		const QVector<int> &roles)
 {
-	qDebug() << "dataChanged:" << topLeft << bottomRight << roles;
 	QString settings = model()->data(topLeft).toString();
 	cMaterialWidget *widget = (cMaterialWidget*) indexWidget(topLeft);
 	if (widget)
@@ -96,18 +95,12 @@ void cMaterialItemView::dataChanged(const QModelIndex &topLeft, const QModelInde
 		int materialId = model()->data(topLeft, Qt::UserRole).toInt();
 		widget->AssignMaterial(settings, materialId);
 	}
-	qDebug() << settings;
-	qDebug() << indexWidget(topLeft);
-	qDebug() << indexWidget(topLeft)->sizeHint();
-	qDebug() << visualRect(topLeft);
 
 	viewport()->update();
 }
 
 void cMaterialItemView::rowsInserted(const QModelIndex &parent, int start, int end)
 {
-
-	qDebug() << "rowsInserted:" << parent << start << end;
 	for (int r = start; r <= end; r++)
 	{
 		cMaterialWidget *widget = new cMaterialWidget(this);
@@ -121,6 +114,7 @@ void cMaterialItemView::rowsInserted(const QModelIndex &parent, int start, int e
 	updateGeometries();
 
 	setCurrentIndex(model()->index(start,0));
+	scrollTo(model()->index(start,0));
 	viewport()->update();
 }
 

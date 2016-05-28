@@ -517,6 +517,26 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			}
 		}
 
+		//check if there is at least one material defined
+		if(format != formatAppSettings)
+		{
+			bool matParameterFound = false;
+			QList<QString> list = par->GetListOfParameters();
+			for (int i = 0; i < list.size(); i++)
+			{
+				QString parameterName = list.at(i);
+				if (parameterName.left(3) == "mat")
+				{
+					matParameterFound = true;
+					break;
+				}
+			}
+			if (!matParameterFound)
+			{
+				InitMaterialParams(1, par);
+			}
+		}
+
 		Compatibility2(par, fractPar);
 
 		return true;
@@ -712,14 +732,15 @@ void cSettings::Compatibility(QString &name, QString &value)
 
 void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *fract)
 {
-	if(fileVersion <= 2.06)
+	if (fileVersion <= 2.06)
 	{
-		if((fractal::enumDEFunctionType)par->Get<int>("delta_DE_function") != fractal::linearDEFunction)
-			par->Set("delta_DE_function", (int)fractal::logarithmicDEFunction);
+		if ((fractal::enumDEFunctionType) par->Get<int>("delta_DE_function")
+				!= fractal::linearDEFunction)
+			par->Set("delta_DE_function", (int) fractal::logarithmicDEFunction);
 
-		for(int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
-		  fract->at(i).Set("IFS_rotation_enabled", true);
+			fract->at(i).Set("IFS_rotation_enabled", true);
 		}
 	}
 }

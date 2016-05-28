@@ -2161,6 +2161,7 @@ void cInterface::AutoRecovery()
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();
+			gMainInterface->materialListModel->Regenerate();
 		}
 		else
 		{
