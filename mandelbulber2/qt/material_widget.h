@@ -17,7 +17,7 @@ public:
   cMaterialWidget(QWidget *parent);
 	cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
   ~cMaterialWidget();
-	void AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget);
+	void AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = NULL);
 	void AssignMaterial(const QString &settings, int materialIndex);
 
 private:
@@ -27,6 +27,8 @@ private:
 	void Init();
 	QWidget *materialEditorWidget;
 	QSize sizeHint() const;
+
+	virtual void mousePressEvent(QMouseEvent *event);
 
 private slots:
 
@@ -41,6 +43,7 @@ public:
 
 signals:
   void materialChanged(int matIndex);
+  void clicked(Qt::MouseButton button);
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_WIDGET_H_ */

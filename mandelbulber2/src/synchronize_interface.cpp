@@ -12,6 +12,7 @@
 #include "../qt/mycolorbutton.h"
 #include "../qt/color_palette_widget.h"
 #include "../qt/file_select_widget.h"
+#include "../qt/material_selector.h"
 #include "../qt/mycheckbox.h"
 #include "../qt/mydoublespinbox.h"
 #include "../qt/mygroupbox.h"
@@ -641,6 +642,39 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 							}
 						}
 						comboBox->setCurrentIndex(selection);
+					}
+				}
+			}
+		}
+	}
+
+	//---------- material selector -----------
+	{
+		QList<cMaterialSelector *> widgetListMaterialSelector =
+				window->findChildren<cMaterialSelector*>();
+		QList<cMaterialSelector *>::iterator it;
+		for (it = widgetListMaterialSelector.begin(); it != widgetListMaterialSelector.end(); ++it)
+		{
+			QString name = (*it)->objectName();
+			// QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (*it)->metaObject()->className() == QString("cMaterialSelector"))
+			{
+				QString type, parameterName;
+				GetNameAndType(name, &parameterName, &type);
+
+				cMaterialSelector *materialSelector = *it;
+				materialSelector->AssignParameterContainer(par);
+				materialSelector->AssingParameterName(parameterName);
+
+				if (type == QString("materialselector"))
+				{
+					if (mode == read)
+					{
+						par->Set(parameterName, materialSelector->GetMaterialIndex());
+					}
+					else if (mode == write)
+					{
+						materialSelector->SetMaterialIndex(par->Get<int>(parameterName));
 					}
 				}
 			}

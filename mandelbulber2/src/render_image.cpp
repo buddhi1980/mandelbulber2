@@ -109,6 +109,9 @@ bool cRenderer::RenderImage()
 	QList<int> listToRefresh;
 	QList<int> listToSend;
 
+	QElapsedTimer timerProgressRefresh;
+	timerProgressRefresh.start();
+
 	WriteLog("Start rendering", 2);
 	do
 	{
@@ -152,6 +155,13 @@ bool cRenderer::RenderImage()
 			statusText = QObject::tr("Rendering image");
 			progressTxt = progressText.getText(percentDone);
 			data->statistics.time = progressText.getTime();
+
+			if(timerProgressRefresh.elapsed() > 1000)
+			{
+				emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+				emit updateStatistics(data->statistics);
+				timerProgressRefresh.restart();
+			}
 
 			//refresh image
 			if (listToRefresh.size() > 0)

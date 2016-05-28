@@ -26,6 +26,7 @@ public:
 	virtual QModelIndex moveCursor(CursorAction cursorAction, Qt::KeyboardModifiers modifiers);
 	virtual QRect visualRect(const QModelIndex &index) const;
 	virtual bool isIndexHidden(const QModelIndex &index) const;
+	virtual void setModel(QAbstractItemModel *model);
 
 private:
 	void resizeEvent(QResizeEvent *event);

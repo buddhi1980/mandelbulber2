@@ -32,8 +32,8 @@ cMaterialManagerView::~cMaterialManagerView()
 
 void cMaterialManagerView::SetModel(cMaterialItemModel *_model)
 {
-	itemView->setModel(_model);
 	model = _model;
+	itemView->setModel(_model);
 }
 
 void cMaterialManagerView::slotAddMaterial()

@@ -29,7 +29,7 @@ cMaterialWidget::cMaterialWidget(int _width, int _height, int _oversample, QWidg
 void cMaterialWidget::Init()
 {
 	paramsHandle = NULL;
-	DisableThumbnailCache();
+	//DisableThumbnailCache();
 	DisableTimer();
 
 	timerPeriodicRefresh = new QTimer(parent());
@@ -45,7 +45,7 @@ cMaterialWidget::~cMaterialWidget()
 	// see destructor in parent cThumbnailWidget
 }
 
-void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = NULL)
+void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget)
 {
 	if(paramsHandle == NULL)
 	{
@@ -139,4 +139,10 @@ void cMaterialWidget::AssignMaterial(const QString &text, int materialIndex)
 void cMaterialWidget::slotMaterialChanged()
 {
 	emit materialChanged(lastMaterialIndex);
+}
+
+void cMaterialWidget::mousePressEvent(QMouseEvent* event)
+{
+	emit clicked(event->button());
+	QWidget::mousePressEvent(event);
 }

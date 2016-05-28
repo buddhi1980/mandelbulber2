@@ -115,6 +115,8 @@ void cMaterialItemView::rowsInserted(const QModelIndex &parent, int start, int e
 
 	setCurrentIndex(model()->index(start,0));
 	scrollTo(model()->index(start,0));
+
+	model()->fetchMore(QModelIndex());
 	viewport()->update();
 }
 
@@ -173,9 +175,15 @@ void cMaterialItemView::updateScrollBar()
 void cMaterialItemView::currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
 	Q_UNUSED(previous);
-	if(current.isValid())
+	if(current.isValid() && model())
 	{
 		emit activated(current);
 	}
 	viewport()->update();
+}
+
+void cMaterialItemView::setModel(QAbstractItemModel* model)
+{
+	QAbstractItemView::setModel(model);
+	rowsInserted(QModelIndex(), 0, model->rowCount() -1);
 }
