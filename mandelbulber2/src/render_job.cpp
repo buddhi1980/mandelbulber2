@@ -251,11 +251,7 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 	//assign stop handler
 	renderData->stopRequest = stopRequest;
 
-  /****************** TEMPORARY CODE FOR MATERIALS *******************/
-
   CreateMaterialsMap(paramsContainer, &renderData->materials, renderData->configuration.UseIgnoreErrors());
-
-  /*******************************************************************/
 
 	//preparation of lights
 	//connect signal for progress bar update

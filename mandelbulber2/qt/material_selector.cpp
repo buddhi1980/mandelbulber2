@@ -134,6 +134,7 @@ void cMaterialSelector::slotClicked(Qt::MouseButton button)
 		view->window()->setWindowTitle(tr("Material manager"));
 		view->setWindowFlags(Qt::Dialog);
 		view->setWindowModality(Qt::ApplicationModal);
+		view->setAttribute(Qt::WA_DeleteOnClose);
 		view->show();
 		view->SetSelection(model->getModelIndexByMaterialId(actualValue));
 

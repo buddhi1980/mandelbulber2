@@ -18,7 +18,6 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), u
 	itemView = new cMaterialItemView(this);
 	ui->verticalLayout_material_view->addWidget(itemView);
 	model = NULL;
-	lastMaterialSelected = 1;
 
 	connect(ui->pushButton_newMaterial, SIGNAL(clicked()), this, SLOT(slotAddMaterial()));
 	connect(ui->pushButton_deleteMaterial, SIGNAL(clicked()), this, SLOT(slotDeleteMaterial()));
@@ -55,7 +54,7 @@ void cMaterialManagerView::slotDeleteMaterial()
 		if (reply == QMessageBox::Yes)
 		{
 			QModelIndex index = itemView->currentIndex();
-			itemView->setCurrentIndex(model->index(index.row()-1, 0));
+			itemView->setCurrentIndex(model->index(index.row(), 0));
 			model->removeRows(index.row(), 1);
 		}
 	}
@@ -69,11 +68,7 @@ void cMaterialManagerView::slotDeleteMaterial()
 void cMaterialManagerView::slotItemSelected(const QModelIndex& index)
 {
 	int selection = model->materialIndex(index);
-	if(selection != lastMaterialSelected)
-	{
-		emit materialSelected(selection);
-	}
-	lastMaterialSelected = selection;
+	emit materialSelected(selection);
 }
 
 void cMaterialManagerView::SetSelection(QModelIndex index)

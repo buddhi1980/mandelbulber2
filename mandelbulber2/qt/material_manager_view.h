@@ -36,9 +36,6 @@ private slots:
 	void slotDeleteMaterial();
 	void slotItemSelected(const QModelIndex &index);
 
-private:
-	int lastMaterialSelected;
-
 signals:
 	void materialSelected(int matIndex);
 };

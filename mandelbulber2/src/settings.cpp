@@ -403,23 +403,6 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 {
 	WriteLog("cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)", 2);
 
-	//clear settings
-	par->ResetAllToDefault();
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-		fractPar->at(i).ResetAllToDefault();
-	DeleteAllPrimitiveParams(par);
-	DeleteAllMaterialParams(par);
-
-	if (frames) frames->ClearAll();
-	if (keyframes)
-	{
-		keyframes->ClearAll();
-		keyframes->ClearMorphCache();
-	}
-	//temporary containers to decode frames
-	cParameterContainer parTemp = *par;
-	cFractalContainer fractTemp = *fractPar;
-
 	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 	DecodeHeader(separatedText);
 
@@ -429,6 +412,23 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 	QString section;
 	if (textPrepared)
 	{
+		//clear settings
+		par->ResetAllToDefault();
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+			fractPar->at(i).ResetAllToDefault();
+		DeleteAllPrimitiveParams(par);
+		DeleteAllMaterialParams(par);
+
+		if (frames) frames->ClearAll();
+		if (keyframes)
+		{
+			keyframes->ClearAll();
+			keyframes->ClearMorphCache();
+		}
+		//temporary containers to decode frames
+		cParameterContainer parTemp = *par;
+		cFractalContainer fractTemp = *fractPar;
+
 		for (int l = 3; l < separatedText.size(); l++)
 		{
 			QString line = separatedText[l];
