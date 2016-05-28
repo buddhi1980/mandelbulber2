@@ -17,9 +17,9 @@ class cMaterial
 {
 public:
   cMaterial();
-  cMaterial(int _id, const cParameterContainer &materialParam, bool quiet);
+  cMaterial(int _id, const cParameterContainer *materialParam, bool quiet);
   ~cMaterial();
-  void setParameters(int _id, const cParameterContainer &materialParam, bool quiet);
+  void setParameters(int _id, const cParameterContainer *materialParam, bool quiet);
 
 static QString Name(const QString &name, int materialId) {return QString("mat%1_").arg(materialId) + name;}
 
@@ -92,6 +92,7 @@ enum enumTextureSelection
   sFractalColoring fractalColoring;
 };
 
+void CreateMaterialsMap(const cParameterContainer *params, QMap<int, cMaterial> *materials, bool quiet);
 
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_H_ */

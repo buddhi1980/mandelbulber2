@@ -36,7 +36,7 @@ cMaterial::cMaterial()
   normalMapTextureHeight = 0.0;
 }
 
-cMaterial::cMaterial(int _id, const cParameterContainer &materialParam, bool quiet)
+cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool quiet)
 {
   setParameters(_id, materialParam, quiet);
 }
@@ -95,68 +95,87 @@ QStringList cMaterial::paramsList = {
 		"file_normal_map_texture"
 };
 
-void cMaterial::setParameters(int _id, const cParameterContainer &materialParam, bool quiet = false)
+void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet = false)
 {
   id = _id;
-  shading = materialParam.Get<double>(Name("shading", id));
-  specular = materialParam.Get<double>(Name("specular", id));
-  specularWidth = materialParam.Get<double>(Name("specular_width", id));
-  specularColor = materialParam.Get<sRGB>(Name("specular_color", id));
-  reflectance = materialParam.Get<double>(Name("reflectance", id));
-  luminosity = materialParam.Get<double>(Name("luminosity", id));
-  transparencyIndexOfRefraction = materialParam.Get<double>(Name("transparency_index_of_refraction", id));
-  transparencyOfInterior = materialParam.Get<double>(Name("transparency_of_interior", id));
-  transparencyOfSurface = materialParam.Get<double>(Name("transparency_of_surface", id));
-  paletteOffset = materialParam.Get<double>(Name("coloring_palette_offset", id));
-  coloring_speed = materialParam.Get<double>(Name("coloring_speed", id));
+  shading = materialParam->Get<double>(Name("shading", id));
+  specular = materialParam->Get<double>(Name("specular", id));
+  specularWidth = materialParam->Get<double>(Name("specular_width", id));
+  specularColor = materialParam->Get<sRGB>(Name("specular_color", id));
+  reflectance = materialParam->Get<double>(Name("reflectance", id));
+  luminosity = materialParam->Get<double>(Name("luminosity", id));
+  transparencyIndexOfRefraction = materialParam->Get<double>(Name("transparency_index_of_refraction", id));
+  transparencyOfInterior = materialParam->Get<double>(Name("transparency_of_interior", id));
+  transparencyOfSurface = materialParam->Get<double>(Name("transparency_of_surface", id));
+  paletteOffset = materialParam->Get<double>(Name("coloring_palette_offset", id));
+  coloring_speed = materialParam->Get<double>(Name("coloring_speed", id));
 
-  color = materialParam.Get<sRGB>(Name("surface_color", id));
-  luminosityColor = materialParam.Get<sRGB>(Name("luminosity_color", id));
-  transparencyInteriorColor = materialParam.Get<sRGB>(Name("transparency_interior_color", id));
+  color = materialParam->Get<sRGB>(Name("surface_color", id));
+  luminosityColor = materialParam->Get<sRGB>(Name("luminosity_color", id));
+  transparencyInteriorColor = materialParam->Get<sRGB>(Name("transparency_interior_color", id));
 
-  palette = materialParam.Get<cColorPalette>(Name("surface_color_palette", id));
+  palette = materialParam->Get<cColorPalette>(Name("surface_color_palette", id));
 
-  textureCenter = materialParam.Get<CVector3>(Name("texture_center", id));
-  textureRotation = materialParam.Get<CVector3>(Name("texture_rotation", id));
-  textureScale = materialParam.Get<CVector3>(Name("texture_scale", id));
+  textureCenter = materialParam->Get<CVector3>(Name("texture_center", id));
+  textureRotation = materialParam->Get<CVector3>(Name("texture_rotation", id));
+  textureScale = materialParam->Get<CVector3>(Name("texture_scale", id));
 
-  textureMappingType = (enumTextureMapping)materialParam.Get<int>(Name("texture_mapping_type", id));
+  textureMappingType = (enumTextureMapping)materialParam->Get<int>(Name("texture_mapping_type", id));
 
-  fresnelReflectance = materialParam.Get<bool>(Name("fresnel_reflectance", id));
-  useColorsFromPalette = materialParam.Get<bool>(Name("use_colors_from_palette", id));
+  fresnelReflectance = materialParam->Get<bool>(Name("fresnel_reflectance", id));
+  useColorsFromPalette = materialParam->Get<bool>(Name("use_colors_from_palette", id));
 
-  useColorTexture = materialParam.Get<bool>(Name("use_color_texture", id));
-  useDiffusionTexture = materialParam.Get<bool>(Name("use_diffusion_texture", id));
-  useLuminosityTexture = materialParam.Get<bool>(Name("use_luminosity_texture", id));
-  useDisplacementTexture = materialParam.Get<bool>(Name("use_displacement_texture", id));
-  useNormalMapTexture = materialParam.Get<bool>(Name("use_normal_map_texture", id));
-  normalMapTextureFromBumpmap = materialParam.Get<bool>(Name("normal_map_texture_from_bumpmap", id));
+  useColorTexture = materialParam->Get<bool>(Name("use_color_texture", id));
+  useDiffusionTexture = materialParam->Get<bool>(Name("use_diffusion_texture", id));
+  useLuminosityTexture = materialParam->Get<bool>(Name("use_luminosity_texture", id));
+  useDisplacementTexture = materialParam->Get<bool>(Name("use_displacement_texture", id));
+  useNormalMapTexture = materialParam->Get<bool>(Name("use_normal_map_texture", id));
+  normalMapTextureFromBumpmap = materialParam->Get<bool>(Name("normal_map_texture_from_bumpmap", id));
 
-  colorTextureIntensity = materialParam.Get<double>(Name("color_texture_intensity", id));
-  diffussionTextureIntensity = materialParam.Get<double>(Name("diffusion_texture_intensity", id));
-  luminosityTextureIntensity = materialParam.Get<double>(Name("luminosity_texture_intensity", id));
-  displacementTextureHeight = materialParam.Get<double>(Name("displacement_texture_height", id));
-  normalMapTextureHeight = materialParam.Get<double>(Name("normal_map_texture_height", id));
+  colorTextureIntensity = materialParam->Get<double>(Name("color_texture_intensity", id));
+  diffussionTextureIntensity = materialParam->Get<double>(Name("diffusion_texture_intensity", id));
+  luminosityTextureIntensity = materialParam->Get<double>(Name("luminosity_texture_intensity", id));
+  displacementTextureHeight = materialParam->Get<double>(Name("displacement_texture_height", id));
+  normalMapTextureHeight = materialParam->Get<double>(Name("normal_map_texture_height", id));
 
 	fractalColoring.coloringAlgorithm =
-			(sFractalColoring::enumFractalColoringAlgorithm) materialParam.Get<int>(Name(	"fractal_coloring_algorithm",																																									id));
-  fractalColoring.sphereRadius = materialParam.Get<double>(Name("fractal_coloring_sphere_radius", id));
-  fractalColoring.lineDirection = materialParam.Get<CVector3>(Name("fractal_coloring_line_direction", id));
+			(sFractalColoring::enumFractalColoringAlgorithm) materialParam->Get<int>(Name(	"fractal_coloring_algorithm",																																									id));
+  fractalColoring.sphereRadius = materialParam->Get<double>(Name("fractal_coloring_sphere_radius", id));
+  fractalColoring.lineDirection = materialParam->Get<CVector3>(Name("fractal_coloring_line_direction", id));
 
   if (useColorTexture)
-    colorTexture = cTexture(materialParam.Get<QString>(Name("file_color_texture", id)), cTexture::useMipmaps, quiet);
+    colorTexture = cTexture(materialParam->Get<QString>(Name("file_color_texture", id)), cTexture::useMipmaps, quiet);
 
   if (useDiffusionTexture)
-    diffusionTexture = cTexture(materialParam.Get<QString>(Name("file_diffusion_texture", id)), cTexture::useMipmaps, quiet);
+    diffusionTexture = cTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id)), cTexture::useMipmaps, quiet);
 
   if (useLuminosityTexture)
-    luminosityTexture = cTexture(materialParam.Get<QString>(Name("file_luminosity_texture", id)), cTexture::useMipmaps, quiet);
+    luminosityTexture = cTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id)), cTexture::useMipmaps, quiet);
 
   if (useDisplacementTexture)
-    displacementTexture = cTexture(materialParam.Get<QString>(Name("file_displacement_texture", id)), cTexture::doNotUseMipmaps, quiet);
+    displacementTexture = cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)), cTexture::doNotUseMipmaps, quiet);
 
   if (useNormalMapTexture)
-    normalMapTexture = cTexture(materialParam.Get<QString>(Name("file_normal_map_texture", id)), cTexture::useMipmaps, quiet);
+    normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)), cTexture::useMipmaps, quiet);
 
   rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
+}
+
+void CreateMaterialsMap(const cParameterContainer *params, QMap<int, cMaterial> *materials, bool quiet)
+{
+	QList<QString> listOfParameters = params->GetListOfParameters();
+	for (int i = 0; i < listOfParameters.size(); i++)
+	{
+		QString parameterName = listOfParameters.at(i);
+		if (parameterName.left(3) == "mat")
+		{
+			int positionOfDash = parameterName.indexOf('_');
+			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
+			QString shortName = parameterName.mid(positionOfDash+1);
+			if(shortName == "is_defined")
+			{
+				materials->insert(matIndex, cMaterial(matIndex, params, quiet));
+			}
+		}
+	}
 }

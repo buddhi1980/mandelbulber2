@@ -155,7 +155,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("delta_DE_function", (int)fractal::preferedDEfunction, 0, 2, morphNone, paramStandard);
 	par->addParam("delta_DE_method", (int)fractal::preferedDEMethod, 0, 1, morphNone, paramStandard);
 	par->addParam("use_default_bailout", true, morphNone, paramStandard);
-	par->addParam("fractal_material_id", 1, morphNone, paramStandard);
 
 	//volume slicing
 	par->addParam("voxel_limit_min", CVector3(-1.0, -1.0, -1.0), morphLinear, paramStandard);

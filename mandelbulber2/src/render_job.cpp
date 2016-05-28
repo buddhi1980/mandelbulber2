@@ -253,7 +253,7 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 
   /****************** TEMPORARY CODE FOR MATERIALS *******************/
 
-  renderData->materials.insert(1, cMaterial(1, *paramsContainer, renderData->configuration.UseIgnoreErrors()));
+  CreateMaterialsMap(paramsContainer, &renderData->materials, renderData->configuration.UseIgnoreErrors());
 
   /*******************************************************************/
 

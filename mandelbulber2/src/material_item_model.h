@@ -39,6 +39,7 @@ public:
 	bool removeRows(int position, int rows, const QModelIndex &parent = QModelIndex());
 
 	int materialIndex(const QModelIndex &index);
+	QModelIndex getModelIndexByMaterialId(int materialId);
 
 public slots:
 	void slotMaterialChanged(int matIndex);

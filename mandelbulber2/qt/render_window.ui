@@ -3148,7 +3148,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>304</width>
                   <height>469</height>
                  </rect>
                 </property>
@@ -3966,7 +3966,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>218</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -4806,8 +4806,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>348</width>
-                  <height>191</height>
+                  <width>262</width>
+                  <height>165</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5098,7 +5098,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>277</width>
                   <height>1477</height>
                  </rect>
                 </property>
@@ -7498,7 +7498,7 @@ Disables 'Update image' options)</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -7574,7 +7574,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -17314,7 +17314,7 @@ Disables 'Update image' options)</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="cMaterialSelector" name="materialselector_fractal_material_id" native="true">
+                     <widget class="cMaterialSelector" name="materialselector_formula_material_id_1" native="true">
                       <property name="minimumSize">
                        <size>
                         <width>128</width>
@@ -18847,8 +18847,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>416</height>
+                  <width>207</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -21833,8 +21833,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>198</width>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">

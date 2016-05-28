@@ -135,6 +135,7 @@ void cMaterialSelector::slotClicked(Qt::MouseButton button)
 		view->setWindowFlags(Qt::Dialog);
 		view->setWindowModality(Qt::ApplicationModal);
 		view->show();
+		view->SetSelection(model->getModelIndexByMaterialId(actualValue));
 
 		connect(view, SIGNAL(materialSelected(int)), this, SLOT(slotMaterialSelected(int)));
 	}

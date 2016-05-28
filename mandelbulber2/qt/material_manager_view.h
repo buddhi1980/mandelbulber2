@@ -24,6 +24,7 @@ public:
 	explicit cMaterialManagerView(QWidget *parent = NULL);
 	~cMaterialManagerView();
 	void SetModel(cMaterialItemModel *_model);
+	void SetSelection(QModelIndex index);
 
 private:
 	Ui::cMaterialManagerView *ui;

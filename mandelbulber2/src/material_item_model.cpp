@@ -224,3 +224,17 @@ int cMaterialItemModel::materialIndex(const QModelIndex& index)
 		return 0;
 	}
 }
+
+QModelIndex cMaterialItemModel::getModelIndexByMaterialId(int materialId)
+{
+	int row = materialIndexes.indexOf(materialId);
+	if(row >= 0)
+	{
+		return index(row, 0);
+	}
+	else
+	{
+		qCritical() << "cMaterialItemModel::getModelIndexByMaterialId(int materialId): wrong material id!";
+		return QModelIndex();
+	}
+}

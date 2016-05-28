@@ -75,3 +75,8 @@ void cMaterialManagerView::slotItemSelected(const QModelIndex& index)
 	}
 	lastMaterialSelected = selection;
 }
+
+void cMaterialManagerView::SetSelection(QModelIndex index)
+{
+	itemView->setCurrentIndex(index);
+}
