@@ -28,6 +28,7 @@
 #include "../qt/mygroupbox.h"
 #include "../qt/mycolorbutton.h"
 #include "../qt/file_select_widget.h"
+#include "../qt/material_selector.h"
 
 MyUiLoader::~MyUiLoader()
 {
@@ -70,6 +71,11 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
 	else if (className == QString("FileSelectWidget"))
 	{
 		widget = new FileSelectWidget(parent);
+		widget->setObjectName(name);
+	}
+	else if (className == QString("cMaterialSelector"))
+	{
+		widget = new cMaterialSelector(parent);
 		widget->setObjectName(name);
 	}
 	else

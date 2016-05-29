@@ -47,12 +47,9 @@ cMaterialWidget::~cMaterialWidget()
 
 void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget)
 {
-	if(paramsHandle == NULL)
-	{
-		paramsHandle = _params;
-		lastMaterialIndex = materialIndex;
-		materialEditorWidget = _materialEditorWidget;
-	}
+	paramsHandle = _params;
+	lastMaterialIndex = materialIndex;
+	materialEditorWidget = _materialEditorWidget;
 
 	cParameterContainer params;
 	cFractalContainer fractal;

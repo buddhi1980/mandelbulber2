@@ -119,7 +119,7 @@ void cMaterialSelector::SetMaterialIndex(int materialIndex)
 	actualValue = materialIndex;
 	if(actualValue > 0)
 	{
-		materialWidget->AssignMaterial(parameterContainer, actualValue);
+		materialWidget->AssignMaterial(parameterContainer, actualValue, gMainInterface->materialEditor);
 	}
 	label->setText(QString("%1 [mat%2]").arg(parameterContainer->Get<QString>(cMaterial::Name("name", materialIndex))).arg(materialIndex));
 }
@@ -131,9 +131,9 @@ void cMaterialSelector::slotClicked(Qt::MouseButton button)
 		cMaterialItemModel *model = gMainInterface->materialListModel;
 		cMaterialManagerView *view = new cMaterialManagerView(this);
 		view->SetModel(model);
-		view->window()->setWindowTitle(tr("Material manager"));
 		view->setWindowFlags(Qt::Dialog);
 		view->setWindowModality(Qt::ApplicationModal);
+		view->window()->setWindowTitle(tr("Material manager"));
 		view->setAttribute(Qt::WA_DeleteOnClose);
 		view->show();
 		view->SetSelection(model->getModelIndexByMaterialId(actualValue));
