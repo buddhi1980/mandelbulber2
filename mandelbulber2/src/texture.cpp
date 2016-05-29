@@ -284,7 +284,7 @@ CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSi
 
 sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 {
-	pixelSize /= (double)max(width, height);
+	pixelSize /= (double) max(width, height);
 	if (mipmaps.size() > 0 && pixelSize > 0)
 	{
 		if (pixelSize < 1e-20)
@@ -292,7 +292,7 @@ sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 		double dMipLayer = -log(pixelSize) / log(2.0);
 		if (dMipLayer < 0)
 			dMipLayer = 0;
-		if (dMipLayer + 1 >= mipmaps.size() -1)
+		if (dMipLayer + 1 >= mipmaps.size() - 1)
 			dMipLayer = mipmaps.size() - 1;
 
 		int layerBig = dMipLayer;
@@ -304,37 +304,45 @@ sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 
 		const sRGB8 *bigBitmap, *smallBitmap;
 		CVector2<int> bigBitmapSize, smallBitmapSize;
-		if (layerBig == 0)
+		if (layerBig >= 0 && layerBig < mipmaps.length() && layerSmall >= 0
+				&& layerSmall < mipmaps.length())
 		{
-			bigBitmap = bitmap;
-			smallBitmap = mipmaps[layerSmall - 1].data();
-			bigBitmapSize.x = width;
-			bigBitmapSize.y = height;
-			smallBitmapSize = mipmapSizes[layerSmall - 1];
+			if (layerBig == 0)
+			{
+				bigBitmap = bitmap;
+				smallBitmap = mipmaps[layerSmall - 1].data();
+				bigBitmapSize.x = width;
+				bigBitmapSize.y = height;
+				smallBitmapSize = mipmapSizes[layerSmall - 1];
+			}
+			else
+			{
+				bigBitmap = mipmaps[layerBig - 1].data();
+				smallBitmap = mipmaps[layerSmall - 1].data();
+				bigBitmapSize = mipmapSizes[layerBig - 1];
+				smallBitmapSize = mipmapSizes[layerSmall - 1];
+			}
+			sRGBfloat pixelFromBig = BicubicInterpolation(x / sizeMultipBig,
+																										y / sizeMultipBig,
+																										bigBitmap,
+																										bigBitmapSize.x,
+																										bigBitmapSize.y);
+			sRGBfloat pixelFromSmall = BicubicInterpolation(x / sizeMultipSmall,
+																											y / sizeMultipSmall,
+																											smallBitmap,
+																											smallBitmapSize.x,
+																											smallBitmapSize.y);
+
+			sRGBfloat pixel;
+			pixel.R = pixelFromSmall.R * trans + pixelFromBig.R * transN;
+			pixel.G = pixelFromSmall.G * trans + pixelFromBig.G * transN;
+			pixel.B = pixelFromSmall.B * trans + pixelFromBig.B * transN;
+			return pixel;
 		}
 		else
 		{
-			bigBitmap = mipmaps[layerBig -1].data();
-			smallBitmap = mipmaps[layerSmall -1].data();
-			bigBitmapSize = mipmapSizes[layerBig - 1];
-			smallBitmapSize = mipmapSizes[layerSmall - 1];
+			return sRGBfloat();
 		}
-		sRGBfloat pixelFromBig = BicubicInterpolation(x / sizeMultipBig,
-																									y / sizeMultipBig,
-																									bigBitmap,
-																									bigBitmapSize.x,
-																									bigBitmapSize.y);
-		sRGBfloat pixelFromSmall = BicubicInterpolation(x / sizeMultipSmall,
-																										y / sizeMultipSmall,
-																										smallBitmap,
-																										smallBitmapSize.x,
-																										smallBitmapSize.y);
-
-		sRGBfloat pixel;
-		pixel.R = pixelFromSmall.R * trans + pixelFromBig.R * transN;
-		pixel.G = pixelFromSmall.G * trans + pixelFromBig.G * transN;
-		pixel.B = pixelFromSmall.B * trans + pixelFromBig.B * transN;
-		return pixel;
 	}
 	else
 	{
