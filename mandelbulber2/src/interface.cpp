@@ -103,6 +103,8 @@ void cInterface::ShowUi(void)
 
 	if (!mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray()))
 	{
+		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_materials,
+																 mainWindow->ui->dockWidget_effects);
 		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_effects,
 																 mainWindow->ui->dockWidget_image_adjustments);
 		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_image_adjustments,
@@ -849,6 +851,7 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidgetContents_animation, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, par, mode);
+	SynchronizeInterfaceWindow(materialEditor, par, mode);
 
 	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
