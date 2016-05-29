@@ -31,6 +31,8 @@ cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent)
 	defaultValue = 0;
 	actualValue = 0;
 
+	setMinimumHeight(cMaterialWidget::previewHeight);
+
 	connect(materialWidget, SIGNAL(clicked(Qt::MouseButton)), this, SLOT(slotClicked(Qt::MouseButton)));
 }
 

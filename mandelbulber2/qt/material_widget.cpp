@@ -11,8 +11,8 @@
 #include "../src/system.hpp"
 #include "../src/settings.hpp"
 
-int cMaterialWidget::previewWidth = 128;
-int cMaterialWidget::previewHeight = 128;
+int cMaterialWidget::previewWidth = 80;
+int cMaterialWidget::previewHeight = 80;
 
 cMaterialWidget::cMaterialWidget(QWidget *parent) :
 		cThumbnailWidget(previewWidth, previewHeight, 2, parent)
@@ -74,8 +74,8 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 	params.Set("camera", CVector3(1.5, -2.5, 0.7));
 	params.Set("raytraced_reflections", true);
 	params.Set("N", 10);
-	params.Set("detail_level", 0.1);
-	params.Set("smoothness", 1.0);
+	params.Set("detail_level", 0.2);
+	params.Set("smoothness", 5.0);
 	fractal.at(0).Set("power", 5);
 	params.Set("julia_mode", true);
 	params.Set("textured_background", true);

@@ -3020,7 +3020,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>384</width>
-          <height>205</height>
+          <height>177</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3059,65 +3059,6 @@ to target:</string>
            <property name="movable">
             <bool>true</bool>
            </property>
-           <widget class="QWidget" name="tab_material">
-            <attribute name="title">
-             <string>Material</string>
-            </attribute>
-            <layout class="QVBoxLayout" name="verticalLayout_63">
-             <property name="spacing">
-              <number>2</number>
-             </property>
-             <property name="leftMargin">
-              <number>2</number>
-             </property>
-             <property name="topMargin">
-              <number>2</number>
-             </property>
-             <property name="rightMargin">
-              <number>2</number>
-             </property>
-             <property name="bottomMargin">
-              <number>2</number>
-             </property>
-             <item>
-              <widget class="QScrollArea" name="scrollArea_material">
-               <property name="widgetResizable">
-                <bool>true</bool>
-               </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_material">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>0</y>
-                  <width>348</width>
-                  <height>191</height>
-                 </rect>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_materials">
-                 <property name="spacing">
-                  <number>3</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <widget class="cMaterialManagerView" name="widget_material_list_view" native="true"/>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-            </layout>
-           </widget>
            <widget class="QWidget" name="tab_2">
             <attribute name="title">
              <string>Ray-tracing</string>
@@ -3148,7 +3089,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>304</width>
+                  <width>334</width>
                   <height>469</height>
                  </rect>
                 </property>
@@ -3966,7 +3907,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>218</width>
+                  <width>334</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -4806,7 +4747,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>262</width>
+                  <width>334</width>
                   <height>165</height>
                  </rect>
                 </property>
@@ -5098,7 +5039,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
+                  <width>334</width>
                   <height>1477</height>
                  </rect>
                 </property>
@@ -7574,7 +7515,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -17135,7 +17076,7 @@ Disables 'Update image' options)</string>
                   <x>0</x>
                   <y>0</y>
                   <width>320</width>
-                  <height>639</height>
+                  <height>527</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -17294,6 +17235,12 @@ Disables 'Update image' options)</string>
                  </item>
                  <item>
                   <widget class="QGroupBox" name="groupBox_12">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="title">
                     <string>Material for fractal</string>
                    </property>
@@ -17315,11 +17262,11 @@ Disables 'Update image' options)</string>
                     </property>
                     <item>
                      <widget class="cMaterialSelector" name="materialselector_formula_material_id_1" native="true">
-                      <property name="minimumSize">
-                       <size>
-                        <width>128</width>
-                        <height>128</height>
-                       </size>
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
                       </property>
                      </widget>
                     </item>
@@ -18847,8 +18794,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>334</width>
+                  <height>416</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -21833,8 +21780,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
-                  <height>242</height>
+                  <width>317</width>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -22953,6 +22900,58 @@ keyframes</string>
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockWidget_materials">
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Materials</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_7">
+    <layout class="QVBoxLayout" name="verticalLayout_31">
+     <item>
+      <widget class="QScrollArea" name="scrollArea_material">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_material">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>370</width>
+          <height>68</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_materials">
+         <property name="spacing">
+          <number>3</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="cMaterialManagerView" name="widget_material_list_view" native="true"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionSave_as_JPG">
    <property name="icon">
     <iconset theme="document-save-as" resource="icons.qrc">
@@ -23242,30 +23241,19 @@ keyframes</string>
  <layoutdefault spacing="2" margin="2"/>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>mydoublespinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>mygroupbox.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>mylineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>myspinbox.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mydoublespinbox.h</header>
   </customwidget>
   <customwidget>
-   <class>MyScrolledArea</class>
-   <extends>QScrollArea</extends>
-   <header>myscrolledarea.h</header>
+   <class>cMaterialSelector</class>
+   <extends>QWidget</extends>
+   <header>material_selector.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -23274,14 +23262,31 @@ keyframes</string>
    <header>mycheckbox.h</header>
   </customwidget>
   <customwidget>
-   <class>MyTableWidgetAnim</class>
-   <extends>QTableWidget</extends>
-   <header>my_table_widget_anim.hpp</header>
-  </customwidget>
-  <customwidget>
    <class>MyColorButton</class>
    <extends>QWidget</extends>
    <header>mycolorbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>myspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>mygroupbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyScrolledArea</class>
+   <extends>QScrollArea</extends>
+   <header>myscrolledarea.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyTableWidgetAnim</class>
+   <extends>QTableWidget</extends>
+   <header>my_table_widget_anim.hpp</header>
   </customwidget>
   <customwidget>
    <class>FileSelectWidget</class>
@@ -23313,12 +23318,6 @@ keyframes</string>
    <class>cMaterialManagerView</class>
    <extends>QWidget</extends>
    <header>material_manager_view.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>cMaterialSelector</class>
-   <extends>QWidget</extends>
-   <header>material_selector.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
@@ -23480,7 +23479,6 @@ keyframes</string>
   <tabstop>tabWidgetFlightKeyframe</tabstop>
   <tabstop>scrollArea_5</tabstop>
   <tabstop>tabWidget_fractals</tabstop>
-  <tabstop>scrollArea_material</tabstop>
   <tabstop>scrollArea_fractal_1</tabstop>
   <tabstop>comboBox_formula_1</tabstop>
   <tabstop>sliderInt_formula_iterations_1</tabstop>

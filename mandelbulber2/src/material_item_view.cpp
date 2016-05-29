@@ -14,17 +14,18 @@
 #include <qpushbutton.h>
 #include <qscrollbar.h>
 
-int cMaterialItemView::iconMargin = 10;
-int cMaterialItemView::maxNameHeight = 20;
-
 cMaterialItemView::cMaterialItemView(QWidget *parent) :
 		QAbstractItemView(parent)
 {
-	viewHeight = cMaterialWidget::previewHeight + iconMargin * 2 + horizontalScrollBar()->height()
-			+ maxNameHeight;
+	updateNameHeight();
+	iconMargin = 10;
+	if(horizontalScrollBar()->isVisible())
+		viewHeight = cMaterialWidget::previewHeight + horizontalScrollBar()->height() + iconMargin * 2 + maxNameHeight;
+	else
+		viewHeight = cMaterialWidget::previewHeight + iconMargin * 2 + maxNameHeight;
+
 	setMinimumHeight(viewHeight);
 	setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-	horizontalScrollBar()->setVisible(true);
 	setAutoScroll(true);
 }
 
@@ -77,7 +78,7 @@ QRect cMaterialItemView::visualRect(const QModelIndex& index) const
 	return QRect(	iconMargin + index.row() * (cMaterialWidget::previewWidth + iconMargin) - horizontalOffset(),
 								iconMargin,
 								cMaterialWidget::previewWidth,
-								cMaterialWidget::previewHeight + iconMargin + maxNameHeight);
+								cMaterialWidget::previewHeight + maxNameHeight);
 }
 
 bool cMaterialItemView::isIndexHidden(const QModelIndex& index) const
@@ -127,6 +128,12 @@ void cMaterialItemView::resizeEvent(QResizeEvent *event)
 	{
 		updateScrollBar();
 	}
+
+	updateNameHeight();
+	if(horizontalScrollBar()->isVisible())
+		viewHeight = cMaterialWidget::previewHeight + horizontalScrollBar()->height() + iconMargin * 2 + maxNameHeight;
+	else
+		viewHeight = cMaterialWidget::previewHeight + iconMargin * 2 + maxNameHeight;
 	setMinimumHeight(viewHeight);
 }
 
@@ -157,7 +164,7 @@ void cMaterialItemView::paintEvent(QPaintEvent *event)
 		int x = r * (cMaterialWidget::previewWidth + iconMargin) + iconMargin - horizontalOffset();
 
 		painter.drawText(	QRect(x,
-														cMaterialWidget::previewHeight + iconMargin * 2,
+														cMaterialWidget::previewHeight + iconMargin,
 														cMaterialWidget::previewWidth,
 														maxNameHeight),
 											Qt::AlignHCenter | Qt::TextWordWrap,
@@ -186,4 +193,10 @@ void cMaterialItemView::setModel(QAbstractItemModel* model)
 {
 	QAbstractItemView::setModel(model);
 	rowsInserted(QModelIndex(), 0, model->rowCount() -1);
+}
+
+void cMaterialItemView::updateNameHeight()
+{
+	QFont f = font();
+	maxNameHeight = max(f.pixelSize(), (int)f.pointSizeF()) * 3;
 }

@@ -33,18 +33,17 @@ private:
 	void scrollContentsBy(int dx, int dy);
 	void paintEvent(QPaintEvent *event);
 	void updateScrollBar();
+	void updateNameHeight();
 
 	int viewHeight;
+	int iconMargin;
+	int maxNameHeight;
 
 protected slots:
 	virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
 			const QVector<int> &roles = QVector<int>());
 	virtual void rowsInserted(const QModelIndex &parent, int start, int end);
 	virtual void currentChanged(const QModelIndex &current, const QModelIndex &previous);
-
-public:
-	static int iconMargin;
-	static int maxNameHeight;
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_ITEM_VIEW_H_ */

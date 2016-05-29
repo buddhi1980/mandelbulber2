@@ -32,16 +32,10 @@
    <item>
     <widget class="cMaterialWidget" name="widget_material_preview" native="true">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+      <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>128</width>
-       <height>128</height>
-      </size>
      </property>
     </widget>
    </item>
@@ -1558,7 +1552,7 @@ direction vector:</string>
      <item row="25" column="0" colspan="3">
       <widget class="MyGroupBox" name="groupCheck_use_normal_map_texture">
        <property name="title">
-        <string>&amp;Use normal map texture</string>
+        <string>Use &amp;normal map texture</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -2343,31 +2337,14 @@ object size)</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>mydoublespinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>mygroupbox.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>mylineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>myspinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ColorPaletteWidget</class>
-   <extends>QWidget</extends>
-   <header>color_palette_widget.h</header>
-   <container>1</container>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mydoublespinbox.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
@@ -2380,9 +2357,26 @@ object size)</string>
    <header>mycolorbutton.h</header>
   </customwidget>
   <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>myspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>mygroupbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>FileSelectWidget</class>
    <extends>QWidget</extends>
    <header>file_select_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ColorPaletteWidget</class>
+   <extends>QWidget</extends>
+   <header>color_palette_widget.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>cMaterialWidget</class>
