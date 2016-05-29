@@ -304,8 +304,8 @@ sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 
 		const sRGB8 *bigBitmap, *smallBitmap;
 		CVector2<int> bigBitmapSize, smallBitmapSize;
-		if (layerBig >= 0 && layerBig < mipmaps.length() && layerSmall >= 0
-				&& layerSmall < mipmaps.length())
+		if (layerBig >= 0 && layerBig <= mipmaps.length() && layerSmall >= 0
+				&& layerSmall <= mipmaps.length())
 		{
 			if (layerBig == 0)
 			{
