@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1581</width>
-    <height>1475</height>
+    <height>2000</height>
    </rect>
   </property>
   <property name="font">
@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>935</width>
-           <height>890</height>
+           <height>1415</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -1215,7 +1215,7 @@
           <x>0</x>
           <y>0</y>
           <width>210</width>
-          <height>267</height>
+          <height>471</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -3020,7 +3020,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>384</width>
-          <height>177</height>
+          <height>307</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -4747,8 +4747,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>165</height>
+                  <width>348</width>
+                  <height>293</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -7439,7 +7439,7 @@ Disables 'Update image' options)</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -7514,9 +7514,9 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
+                      <y>-203</y>
                       <width>312</width>
-                      <height>716</height>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8145,6 +8145,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_1">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_63">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_1" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_1">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -8586,8 +8626,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>716</height>
+                      <width>312</width>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -9216,6 +9256,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_70">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_2" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_2">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -9651,8 +9731,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>716</height>
+                      <width>312</width>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -10275,6 +10355,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_3">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_139">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_3" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_3">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -10710,8 +10830,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>716</height>
+                      <width>312</width>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -11334,6 +11454,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_4">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_140">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_4" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_4">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -11769,8 +11929,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>716</height>
+                      <width>312</width>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -12393,6 +12553,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_5">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_141">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_5" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_5">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -12827,9 +13027,9 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
-                      <width>264</width>
-                      <height>716</height>
+                      <y>-149</y>
+                      <width>312</width>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -13452,6 +13652,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_6">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_142">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_6" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_6">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -13886,9 +14126,9 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
-                      <width>264</width>
-                      <height>716</height>
+                      <y>-163</y>
+                      <width>312</width>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -14511,6 +14751,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_7">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_143">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_7" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_7">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -14945,9 +15225,9 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
-                      <width>264</width>
-                      <height>716</height>
+                      <y>-191</y>
+                      <width>312</width>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -15567,6 +15847,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_8">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_144">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_8" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_8">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -16001,9 +16321,9 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
-                      <width>264</width>
-                      <height>716</height>
+                      <y>-182</y>
+                      <width>312</width>
+                      <height>755</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -16626,6 +16946,46 @@ Disables 'Update image' options)</string>
                       </widget>
                      </item>
                      <item>
+                      <widget class="QGroupBox" name="groupBox_material_fractal_9">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Material for fractal</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_145">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <widget class="cMaterialSelector" name="materialselector_formula_material_id_9" native="true">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_9">
                        <property name="title">
                         <string>Transform (fractal positioning)</string>
@@ -17076,7 +17436,7 @@ Disables 'Update image' options)</string>
                   <x>0</x>
                   <y>0</y>
                   <width>320</width>
-                  <height>527</height>
+                  <height>521</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -17234,7 +17594,7 @@ Disables 'Update image' options)</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupBox_12">
+                  <widget class="QGroupBox" name="groupBox_material_fractal">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -17261,7 +17621,7 @@ Disables 'Update image' options)</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="cMaterialSelector" name="materialselector_formula_material_id_1" native="true">
+                     <widget class="cMaterialSelector" name="materialselector_formula_material_id" native="true">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                         <horstretch>0</horstretch>
@@ -22923,7 +23283,7 @@ keyframes</string>
           <x>0</x>
           <y>0</y>
           <width>370</width>
-          <height>68</height>
+          <height>75</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
