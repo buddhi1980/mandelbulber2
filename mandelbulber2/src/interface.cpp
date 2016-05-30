@@ -68,6 +68,7 @@ cInterface::cInterface()
 	autoRefreshTimer = NULL;
 	materialListModel = NULL;
 	materialEditor = NULL;
+	scrollAreaMaterialEditor = NULL;
 	stopRequest = false;
 	repeatRequest = false;
 	interfaceReady = false;
@@ -221,6 +222,9 @@ void cInterface::ShowUi(void)
 			+ "fractal_mandelbulb.ui";
 	InitializeFractalUi(uiFilename);
 	InitMaterialsUi();
+	//change material selector name which is used for main fractal to the same name as for first fractal
+	mainWindow->ui->materialselector_formula_material_id->setObjectName("materialselector_formula_material_id_1");
+	scrollAreaMaterialEditor = mainWindow->ui->scrollArea_material;
 
 	ComboMouseClickUpdate();
 
@@ -868,6 +872,10 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 																	 .arg(i + 1)),
 															 par,
 															 mode);
+		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>(QString("groupBox_material_fractal_%1")
+																	 .arg(i + 1)),
+															 par,
+															 mode);
 	}
 }
 
@@ -954,6 +962,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 
 			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_formula_transform_" + QString::number(i))->setVisible(false);
 			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_" + QString::number(i))->setVisible(false);
+			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_material_fractal_" + QString::number(i))->setVisible(false);
 		}
 		static_cast<MyTabBar *>(mainWindow->ui->tabWidget_fractals->tabBar())->setupMoveButtons();
 	}

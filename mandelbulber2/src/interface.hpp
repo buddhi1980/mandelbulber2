@@ -107,6 +107,7 @@ public:
 	QString autoRefreshLastHash;
 	cMaterialItemModel *materialListModel;
 	cMaterialEditor *materialEditor;
+	QWidget *scrollAreaMaterialEditor;
 
 	bool interfaceReady;
 	bool stopRequest;

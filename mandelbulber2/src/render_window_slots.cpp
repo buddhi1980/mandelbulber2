@@ -269,9 +269,12 @@ void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
           + QString::number(i))->setVisible(false);
     else ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_"
         + QString::number(i))->setVisible(state);
+
+		ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_material_fractal_" + QString::number(i))->setVisible(state);
   }
 
   ui->comboBox_delta_DE_function->setEnabled(!state);
+  ui->groupBox_material_fractal->setVisible(!state);
 }
 
 void RenderWindow::slotChangedCheckBoxJuliaMode(bool state)

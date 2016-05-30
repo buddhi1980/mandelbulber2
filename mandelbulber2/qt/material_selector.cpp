@@ -121,7 +121,7 @@ void cMaterialSelector::SetMaterialIndex(int materialIndex)
 	actualValue = materialIndex;
 	if(actualValue > 0)
 	{
-		materialWidget->AssignMaterial(parameterContainer, actualValue, gMainInterface->materialEditor);
+		materialWidget->AssignMaterial(parameterContainer, actualValue, gMainInterface->scrollAreaMaterialEditor);
 	}
 	label->setText(QString("%1 [mat%2]").arg(parameterContainer->Get<QString>(cMaterial::Name("name", materialIndex))).arg(materialIndex));
 }
