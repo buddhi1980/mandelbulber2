@@ -37,7 +37,7 @@
      <property name="checkable">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_39" stretch="0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_39" stretch="0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -521,6 +521,13 @@
           </property>
          </widget>
         </item>
+        <item row="6" column="0" colspan="3">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_alpha_angle_offset">
           <property name="sizePolicy">
@@ -574,8 +581,8 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="0" colspan="3">
-         <widget class="Line" name="line">
+        <item row="0" column="0" colspan="3">
+         <widget class="Line" name="line_3">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -595,11 +602,140 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="Line" name="line_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+        <item row="7" column="0" colspan="3">
+         <widget class="MyGroupBox" name="groupCheck_transf_function_enabledx_false">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
+          <property name="title">
+           <string>Enable seperate trig&amp; control of second  function</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_53">
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <property name="leftMargin">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="rightMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
+           </property>
+           <item>
+            <layout class="QGridLayout" name="gridLayout_27">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="gridLayout_77">
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <item row="2" column="3">
+                <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_2">
+                 <item>
+                  <property name="text">
+                   <string>xyz</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>xzy</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>yxz</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>yzx</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>zxy</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>zyx</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QComboBox" name="comboBox_mandelbulbMulti_acos_or_asin_A">
+                 <item>
+                  <property name="text">
+                   <string>acos</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>asin</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="3">
+                <widget class="QLabel" name="label_multi1_order_of_xyz_3">
+                 <property name="text">
+                  <string>function order of x, y and z: </string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="5">
+                <widget class="QComboBox" name="comboBox_mandelbulbMulti_atan_or_atan2_A">
+                 <item>
+                  <property name="text">
+                   <string>atan</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>atan2</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="1" column="0" colspan="2">
+                <widget class="QLabel" name="label_multi1_th0_function_3">
+                 <property name="text">
+                  <string>th0 function2: </string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3" colspan="2">
+                <widget class="QLabel" name="label_multi1_ph0_function_3">
+                 <property name="text">
+                  <string>ph0 function2: </string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -610,13 +746,6 @@
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_77">
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-       </layout>
       </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
