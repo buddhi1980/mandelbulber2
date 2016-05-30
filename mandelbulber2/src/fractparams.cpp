@@ -178,7 +178,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 		{
 			cObjectData oneObjectData;
 			oneObjectData.position = formulaPosition[i];
-			oneObjectData.size = CVector3(1.0, 1.0, 1.0) * formulaScale[i];
+			oneObjectData.size = CVector3(1.0, 1.0, 1.0) / formulaScale[i];
 			oneObjectData.SetRotation(formulaRotation[i]);
 			oneObjectData.materialId = formulaMaterialId[i];
 			oneObjectData.objectType = fractal::objFractal;

@@ -14,7 +14,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	CVector2<double> textureCoordinates;
 	CVector3 point = inPoint - objectData.position;
 	point = objectData.rotationMatrix.RotateVector(point);
-	point *= objectData.size;
+	point /= objectData.size;
 	point -= material->textureCenter;
 	point = material->rotMatrix.RotateVector(point);
 
