@@ -173,17 +173,27 @@ void cFlightAnimation::slotContinueRecording()
 
 void cFlightAnimation::slotRenderFlight()
 {
+	//get latest values of all parameters
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+
 	if (frames)
 	{
-		if (frames->GetNumberOfFrames() > 0)
-		{
-			RenderFlight(&gMainInterface->stopRequest);
-		}
-		else
+		if (frames->GetNumberOfFrames() == 0)
 		{
 			emit showErrorMessage(QObject::tr("No frames to render"),
 														cErrorMessage::errorMessage,
 														ui->centralwidget);
+		}
+		else if (!QDir(params->Get<QString>("anim_flight_dir")).exists())
+		{
+			emit showErrorMessage(
+				QObject::tr("The folder %1 does not exist. Please specify a valid location.")
+						.arg(params->Get<QString>("anim_flight_dir")),
+				cErrorMessage::errorMessage, ui->centralwidget);
+		}
+		else
+		{
+			RenderFlight(&gMainInterface->stopRequest);
 		}
 
 	}

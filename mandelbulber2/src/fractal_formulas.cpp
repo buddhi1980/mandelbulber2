@@ -1317,9 +1317,6 @@ void CollatzModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExt
   }
 }
 
-
-
-
 /**
  * Modified Mandelbox (ABox) formula
  */
@@ -1903,51 +1900,108 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
     costh = cos(th0);
     z = aux.r * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
   }
-  switch (fractal->mandelbulbMulti.orderOfxyz)
-  {
 
-	case sFractalMandelbulbMulti::xyz:
-  default:
-          v1 = z.x;
-          v2 = z.y;
-          v3 = z.z;
-          break;
-	case sFractalMandelbulbMulti::xzy:
-          v1 = z.x;
-          v2 = z.z;
-          v3 = z.y;
-          break;
-	case sFractalMandelbulbMulti::yxz:
-          v1 = z.y;
-          v2 = z.x;
-          v3 = z.z;
-          break;
-	case sFractalMandelbulbMulti::yzx:
-          v1 = z.y;
-          v2 = z.z;
-          v3 = z.x;
-          break;
-	case sFractalMandelbulbMulti::zxy:
-          v1 = z.z;
-          v2 = z.x;
-          v3 = z.y;
-          break;
-	case sFractalMandelbulbMulti::zyx:
-          v1 = z.z;
-          v2 = z.y;
-          v3 = z.x;
-          break;
+  if (fractal->transformCommon.functionEnabledxFalse)
+  {
+    switch (fractal->mandelbulbMulti.orderOfxyz2)
+    {
+
+    case sFractalMandelbulbMulti::xyz:
+    default:
+            v1 = z.x;
+            v2 = z.y;
+            v3 = z.z;
+            break;
+    case sFractalMandelbulbMulti::xzy:
+            v1 = z.x;
+            v2 = z.z;
+            v3 = z.y;
+            break;
+    case sFractalMandelbulbMulti::yxz:
+            v1 = z.y;
+            v2 = z.x;
+            v3 = z.z;
+            break;
+    case sFractalMandelbulbMulti::yzx:
+            v1 = z.y;
+            v2 = z.z;
+            v3 = z.x;
+            break;
+    case sFractalMandelbulbMulti::zxy:
+            v1 = z.z;
+            v2 = z.x;
+            v3 = z.y;
+            break;
+    case sFractalMandelbulbMulti::zyx:
+            v1 = z.z;
+            v2 = z.y;
+            v3 = z.x;
+            break;
+    }
+    if (fractal->mandelbulbMulti.acosOrasinA == sFractalMandelbulbMulti::acos)
+            th0 = acos(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
+    else
+            th0 += asin(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
+
+    if (fractal->mandelbulbMulti.atanOratan2A == sFractalMandelbulbMulti::atan)
+            ph0 += atan(v2 / v3);
+    else
+            ph0 += atan2(v2, v3);
+  }
+  else
+  {
+    switch (fractal->mandelbulbMulti.orderOfxyz)
+    {
+
+    case sFractalMandelbulbMulti::xyz:
+    default:
+            v1 = z.x;
+            v2 = z.y;
+            v3 = z.z;
+            break;
+    case sFractalMandelbulbMulti::xzy:
+            v1 = z.x;
+            v2 = z.z;
+            v3 = z.y;
+            break;
+    case sFractalMandelbulbMulti::yxz:
+            v1 = z.y;
+            v2 = z.x;
+            v3 = z.z;
+            break;
+    case sFractalMandelbulbMulti::yzx:
+            v1 = z.y;
+            v2 = z.z;
+            v3 = z.x;
+            break;
+    case sFractalMandelbulbMulti::zxy:
+            v1 = z.z;
+            v2 = z.x;
+            v3 = z.y;
+            break;
+    case sFractalMandelbulbMulti::zyx:
+            v1 = z.z;
+            v2 = z.y;
+            v3 = z.x;
+            break;
+    }
+
+
+    if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
+            th0 = acos(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
+    else
+            th0 += asin(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
+
+    if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
+            ph0 += atan(v2 / v3);
+    else
+            ph0 += atan2(v2, v3);
+
   }
 
-  if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
-          th0 = acos(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
-  else
-          th0 += asin(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
 
-  if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
-          ph0 += atan(v2 / v3);
-  else
-          ph0 += atan2(v2, v3);
+
+
 
   ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1 * 0.5;// 0.5 retain
   double zp = pow(aux.r, fractal->transformCommon.pwr8);
@@ -1962,6 +2016,7 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
     costh = cos(th0);
     z = zp  * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
   }
+
   if (fractal->transformCommon.functionEnabledyFalse)
   {
     aux.r_dz = pow( aux.r, fractal->transformCommon.pwr8 - 1.0) * fractal->transformCommon.pwr8
