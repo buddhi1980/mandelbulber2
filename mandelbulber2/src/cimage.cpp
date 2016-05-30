@@ -26,6 +26,7 @@
 
 cImage::cImage(int w, int h, bool low_mem)
 {
+	isAllocated = false;
 	width = w;
 	height = h;
 	lowMem = low_mem;
@@ -65,6 +66,7 @@ void cImage::construct()
 
 cImage::~cImage()
 {
+	isAllocated = false;
 	//qDebug() << "cImage::~cImage()";
 	FreeImage();
 
@@ -79,6 +81,7 @@ cImage::~cImage()
 
 bool cImage::AllocMem(void)
 {
+	isAllocated = false;
 	//qDebug() << "bool cImage::AllocMem(void)";
 	if (width > 0 && height > 0)
 	{
@@ -124,6 +127,7 @@ bool cImage::AllocMem(void)
 
 	preview = NULL;
 	preview2 = NULL;
+	isAllocated = true;
 	return true;
 }
 
@@ -164,6 +168,7 @@ void cImage::ClearImage(void)
 
 void cImage::FreeImage(void)
 {
+	isAllocated = false;
 	//qDebug() << "void cImage::FreeImage(void)";
 	if (imageFloat) delete[] imageFloat;
 	imageFloat = NULL;

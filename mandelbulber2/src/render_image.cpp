@@ -54,330 +54,346 @@ bool cRenderer::RenderImage()
 {
 	WriteLog("cRenderer::RenderImage()", 2);
 
-	image->SetImageParameters(params->imageAdjustments);
-
-	int progressiveSteps;
-	if (data->configuration.UseProgressive()) progressiveSteps =
-			(int) (log((double) max(image->GetWidth(), image->GetHeight())) / log(2.0)) - 3;
-	else progressiveSteps = 0;
-
-	if (progressiveSteps < 0) progressiveSteps = 0;
-	int progressive = pow(2.0, (double) progressiveSteps - 1);
-	if (progressive == 0) progressive = 1;
-
-	//prepare multiple threads
-	QThread **thread = new QThread*[data->configuration.GetNumberOfThreads()];
-	cRenderWorker::sThreadData *threadData =
-			new cRenderWorker::sThreadData[data->configuration.GetNumberOfThreads()];
-	cRenderWorker **worker = new cRenderWorker*[data->configuration.GetNumberOfThreads()];
-
-	if (scheduler) delete scheduler;
-	scheduler = new cScheduler(image->GetHeight(), progressive);
-
-	cProgressText progressText;
-	progressText.ResetTimer();
-
-	for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
+	if (image->IsAllocated())
 	{
-		threadData[i].id = i + 1;
-		if (data->configuration.UseNetRender())
+		image->SetImageParameters(params->imageAdjustments);
+
+		int progressiveSteps;
+		if (data->configuration.UseProgressive())
+			progressiveSteps = (int) (log((double) max(image->GetWidth(), image->GetHeight())) / log(2.0))
+					- 3;
+		else
+			progressiveSteps = 0;
+
+		if (progressiveSteps < 0)
+			progressiveSteps = 0;
+		int progressive = pow(2.0, (double) progressiveSteps - 1);
+		if (progressive == 0)
+			progressive = 1;
+
+		//prepare multiple threads
+		QThread **thread = new QThread*[data->configuration.GetNumberOfThreads()];
+		cRenderWorker::sThreadData *threadData = new cRenderWorker::sThreadData[data->configuration
+				.GetNumberOfThreads()];
+		cRenderWorker **worker = new cRenderWorker*[data->configuration.GetNumberOfThreads()];
+
+		if (scheduler)
+			delete scheduler;
+		scheduler = new cScheduler(image->GetHeight(), progressive);
+
+		cProgressText progressText;
+		progressText.ResetTimer();
+
+		for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 		{
-			if (i < data->netRenderStartingPositions.size())
+			threadData[i].id = i + 1;
+			if (data->configuration.UseNetRender())
 			{
-				threadData[i].startLine = data->netRenderStartingPositions.at(i);
+				if (i < data->netRenderStartingPositions.size())
+				{
+					threadData[i].startLine = data->netRenderStartingPositions.at(i);
+				}
+				else
+				{
+					threadData[i].startLine = 0;
+					qCritical() << "NetRender - Mising starting positions data";
+				}
 			}
 			else
 			{
-				threadData[i].startLine = 0;
-				qCritical() << "NetRender - Mising starting positions data";
+				threadData[i].startLine = (image->GetHeight() / data->configuration.GetNumberOfThreads())
+						* i / scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
 			}
-		}
-		else
-		{
-			threadData[i].startLine = (image->GetHeight() / data->configuration.GetNumberOfThreads()) * i
-					/ scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
-		}
-		threadData[i].scheduler = scheduler;
-	}
-
-	QString statusText;
-	QString progressTxt;
-
-	QElapsedTimer timerRefresh;
-	timerRefresh.start();
-	qint64 lastRefreshTime = 0;
-	QList<int> listToRefresh;
-	QList<int> listToSend;
-
-	QElapsedTimer timerProgressRefresh;
-	timerProgressRefresh.start();
-
-	WriteLog("Start rendering", 2);
-	do
-	{
-		WriteLogDouble("Progressive loop", scheduler->GetProgressiveStep(), 2);
-		for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
-		{
-			WriteLog(QString("Thread ") + QString::number(i) + " create", 3);
-			thread[i] = new QThread;
-			worker[i] = new cRenderWorker(params, fractal, &threadData[i], data, image); //Warning! not needed to delete object
-			worker[i]->moveToThread(thread[i]);
-			QObject::connect(thread[i], SIGNAL(started()), worker[i], SLOT(doWork()));
-			QObject::connect(worker[i], SIGNAL(finished()), thread[i], SLOT(quit()));
-			QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
-			thread[i]->setObjectName("RenderWorker #" + QString::number(i));
-			thread[i]->start();
-			WriteLog(QString("Thread ") + QString::number(i) + " started", 3);
+			threadData[i].scheduler = scheduler;
 		}
 
-		while (!scheduler->AllLinesDone())
+		QString statusText;
+		QString progressTxt;
+
+		QElapsedTimer timerRefresh;
+		timerRefresh.start();
+		qint64 lastRefreshTime = 0;
+		QList<int> listToRefresh;
+		QList<int> listToSend;
+
+		QElapsedTimer timerProgressRefresh;
+		timerProgressRefresh.start();
+
+		WriteLog("Start rendering", 2);
+		do
 		{
-			gApplication->processEvents();
-
-			if (*data->stopRequest || progressText.getTime() > data->configuration.GetMaxRenderTime())
+			WriteLogDouble("Progressive loop", scheduler->GetProgressiveStep(), 2);
+			for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 			{
-				scheduler->Stop();
+				WriteLog(QString("Thread ") + QString::number(i) + " create", 3);
+				thread[i] = new QThread;
+				worker[i] = new cRenderWorker(params, fractal, &threadData[i], data, image); //Warning! not needed to delete object
+				worker[i]->moveToThread(thread[i]);
+				QObject::connect(thread[i], SIGNAL(started()), worker[i], SLOT(doWork()));
+				QObject::connect(worker[i], SIGNAL(finished()), thread[i], SLOT(quit()));
+				QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
+				thread[i]->setObjectName("RenderWorker #" + QString::number(i));
+				thread[i]->start();
+				WriteLog(QString("Thread ") + QString::number(i) + " started", 3);
 			}
 
-			Wait(10); //wait 10ms
-
-			if (data->configuration.UseRefreshRenderedList())
-			{
-				//get list of last rendered lines
-				QList<int> list = scheduler->GetLastRenderedLines();
-				//create list of lines for image refresh
-				listToRefresh += list;
-			}
-
-			//status bar and progress bar
-			double percentDone = scheduler->PercentDone();
-			data->lastPercentage = percentDone;
-			statusText = QObject::tr("Rendering image");
-			progressTxt = progressText.getText(percentDone);
-			data->statistics.time = progressText.getTime();
-
-			if(timerProgressRefresh.elapsed() > 1000)
-			{
-				emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-				emit updateStatistics(data->statistics);
-				timerProgressRefresh.restart();
-			}
-
-			//refresh image
-			if (listToRefresh.size() > 0)
-			{
-				if (timerRefresh.elapsed() > lastRefreshTime
-						&& (scheduler->GetProgressivePass() > 1 || !data->configuration.UseProgressive()))
-				{
-					timerRefresh.restart();
-
-					emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-					emit updateStatistics(data->statistics);
-
-					QSet<int> set_listToRefresh = listToRefresh.toSet(); //removing duplicates
-					listToRefresh = set_listToRefresh.toList();
-					qSort(listToRefresh);
-					listToSend += listToRefresh;
-
-					image->CompileImage(&listToRefresh);
-
-					if (data->configuration.UseRenderTimeEffects())
-					{
-						if (params->ambientOcclusionEnabled
-								&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
-						{
-							cRenderSSAO rendererSSAO(params, data, image);
-							rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
-							rendererSSAO.RenderSSAO(&listToRefresh);
-						}
-					}
-
-					image->ConvertTo8bit();
-
-					if (data->configuration.UseImageRefresh())
-					{
-						image->UpdatePreview(&listToRefresh);
-						image->GetImageWidget()->update();
-					}
-
-					//sending rendered lines to NetRender server
-					if (data->configuration.UseNetRender() && gNetRender->IsClient()
-							&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
-					{
-						if (netRenderAckReceived) //is ACK was already received. Server is ready to take new data
-						{
-							QList<QByteArray> renderedLinesData;
-							for (int i = 0; i < listToSend.size(); i++)
-							{
-								//avoid sending already rendered lines
-								if (scheduler->IsLineDoneByServer(listToSend.at(i)))
-								{
-									listToSend.removeAt(i);
-									i--;
-									continue;
-								}
-								//creating data set to send
-								QByteArray lineData;
-								CreateLineData(listToSend.at(i), &lineData);
-								renderedLinesData.append(lineData);
-							}
-							//sending data
-							if (listToSend.size() > 0)
-							{
-								emit sendRenderedLines(listToSend, renderedLinesData);
-								emit NotifyClientStatus();
-								netRenderAckReceived = false;
-								listToSend.clear();
-							}
-						}
-					}
-
-					if (data->configuration.UseNetRender() && gNetRender->IsServer())
-					{
-						QList<int> toDoList = scheduler->CreateDoneList();
-						if (toDoList.size() > data->configuration.GetNumberOfThreads())
-						{
-							for (int c = 0; c < gNetRender->GetClientCount(); c++)
-							{
-								emit SendToDoList(c, toDoList);
-							}
-						}
-					}
-
-					lastRefreshTime = timerRefresh.elapsed() * data->configuration.GetRefreshRate()
-							/ (listToRefresh.size());
-
-					//do not refresh and send data too often
-					if (data->configuration.UseNetRender())
-					{
-						if (lastRefreshTime < 500) lastRefreshTime = 500;
-					}
-
-					timerRefresh.restart();
-					listToRefresh.clear();
-				} //timerRefresh
-			} //isPreview
-		} //while scheduler
-
-		for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
-		{
-			while (thread[i]->isRunning())
+			while (!scheduler->AllLinesDone())
 			{
 				gApplication->processEvents();
-			};
-			WriteLog(QString("Thread ") + QString::number(i) + " finished", 2);
-			delete thread[i];
-		}
-	} while (scheduler->ProgressiveNextStep());
 
-	//send last rendered lines
-	if (data->configuration.UseNetRender() && gNetRender->IsClient()
-			&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
-	{
-		if (netRenderAckReceived)
-		{
-			QList<QByteArray> renderedLinesData;
-			for (int i = 0; i < listToSend.size(); i++)
-			{
-				//avoid sending already rendered lines
-				if (scheduler->IsLineDoneByServer(listToSend.at(i)))
+				if (*data->stopRequest || progressText.getTime() > data->configuration.GetMaxRenderTime())
 				{
-					listToSend.removeAt(i);
-					i--;
-					continue;
+					scheduler->Stop();
 				}
-				QByteArray lineData;
-				CreateLineData(listToSend.at(i), &lineData);
-				renderedLinesData.append(lineData);
-			}
 
-			if (listToSend.size() > 0)
+				Wait(10); //wait 10ms
+
+				if (data->configuration.UseRefreshRenderedList())
+				{
+					//get list of last rendered lines
+					QList<int> list = scheduler->GetLastRenderedLines();
+					//create list of lines for image refresh
+					listToRefresh += list;
+				}
+
+				//status bar and progress bar
+				double percentDone = scheduler->PercentDone();
+				data->lastPercentage = percentDone;
+				statusText = QObject::tr("Rendering image");
+				progressTxt = progressText.getText(percentDone);
+				data->statistics.time = progressText.getTime();
+
+				if (timerProgressRefresh.elapsed() > 1000)
+				{
+					emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+					emit updateStatistics(data->statistics);
+					timerProgressRefresh.restart();
+				}
+
+				//refresh image
+				if (listToRefresh.size() > 0)
+				{
+					if (timerRefresh.elapsed() > lastRefreshTime
+							&& (scheduler->GetProgressivePass() > 1 || !data->configuration.UseProgressive()))
+					{
+						timerRefresh.restart();
+
+						emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+						emit updateStatistics(data->statistics);
+
+						QSet<int> set_listToRefresh = listToRefresh.toSet(); //removing duplicates
+						listToRefresh = set_listToRefresh.toList();
+						qSort(listToRefresh);
+						listToSend += listToRefresh;
+
+						image->CompileImage(&listToRefresh);
+
+						if (data->configuration.UseRenderTimeEffects())
+						{
+							if (params->ambientOcclusionEnabled
+									&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
+							{
+								cRenderSSAO rendererSSAO(params, data, image);
+								rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
+								rendererSSAO.RenderSSAO(&listToRefresh);
+							}
+						}
+
+						image->ConvertTo8bit();
+
+						if (data->configuration.UseImageRefresh())
+						{
+							image->UpdatePreview(&listToRefresh);
+							image->GetImageWidget()->update();
+						}
+
+						//sending rendered lines to NetRender server
+						if (data->configuration.UseNetRender() && gNetRender->IsClient()
+								&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+						{
+							if (netRenderAckReceived) //is ACK was already received. Server is ready to take new data
+							{
+								QList<QByteArray> renderedLinesData;
+								for (int i = 0; i < listToSend.size(); i++)
+								{
+									//avoid sending already rendered lines
+									if (scheduler->IsLineDoneByServer(listToSend.at(i)))
+									{
+										listToSend.removeAt(i);
+										i--;
+										continue;
+									}
+									//creating data set to send
+									QByteArray lineData;
+									CreateLineData(listToSend.at(i), &lineData);
+									renderedLinesData.append(lineData);
+								}
+								//sending data
+								if (listToSend.size() > 0)
+								{
+									emit sendRenderedLines(listToSend, renderedLinesData);
+									emit NotifyClientStatus();
+									netRenderAckReceived = false;
+									listToSend.clear();
+								}
+							}
+						}
+
+						if (data->configuration.UseNetRender() && gNetRender->IsServer())
+						{
+							QList<int> toDoList = scheduler->CreateDoneList();
+							if (toDoList.size() > data->configuration.GetNumberOfThreads())
+							{
+								for (int c = 0; c < gNetRender->GetClientCount(); c++)
+								{
+									emit SendToDoList(c, toDoList);
+								}
+							}
+						}
+
+						lastRefreshTime = timerRefresh.elapsed() * data->configuration.GetRefreshRate()
+								/ (listToRefresh.size());
+
+						//do not refresh and send data too often
+						if (data->configuration.UseNetRender())
+						{
+							if (lastRefreshTime < 500)
+								lastRefreshTime = 500;
+						}
+
+						timerRefresh.restart();
+						listToRefresh.clear();
+					} //timerRefresh
+				} //isPreview
+			} //while scheduler
+
+			for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 			{
-				emit sendRenderedLines(listToSend, renderedLinesData);
-				emit NotifyClientStatus();
-				netRenderAckReceived = false;
-				listToSend.clear();
+				while (thread[i]->isRunning())
+				{
+					gApplication->processEvents();
+				};
+				WriteLog(QString("Thread ") + QString::number(i) + " finished", 2);
+				delete thread[i];
+			}
+		} while (scheduler->ProgressiveNextStep());
+
+		//send last rendered lines
+		if (data->configuration.UseNetRender() && gNetRender->IsClient()
+				&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+		{
+			if (netRenderAckReceived)
+			{
+				QList<QByteArray> renderedLinesData;
+				for (int i = 0; i < listToSend.size(); i++)
+				{
+					//avoid sending already rendered lines
+					if (scheduler->IsLineDoneByServer(listToSend.at(i)))
+					{
+						listToSend.removeAt(i);
+						i--;
+						continue;
+					}
+					QByteArray lineData;
+					CreateLineData(listToSend.at(i), &lineData);
+					renderedLinesData.append(lineData);
+				}
+
+				if (listToSend.size() > 0)
+				{
+					emit sendRenderedLines(listToSend, renderedLinesData);
+					emit NotifyClientStatus();
+					netRenderAckReceived = false;
+					listToSend.clear();
+				}
 			}
 		}
-	}
 
-	if (data->configuration.UseNetRender())
+		if (data->configuration.UseNetRender())
+		{
+			if (gNetRender->IsClient())
+			{
+				gNetRender->SetStatus(CNetRender::netRender_READY);
+				emit NotifyClientStatus();
+			}
+
+			if (gNetRender->IsServer())
+			{
+				emit StopAllClients();
+			}
+		}
+		//refresh image at end
+		WriteLog("image->CompileImage()", 2);
+		image->CompileImage();
+
+		if (!(gNetRender->IsClient() && data->configuration.UseNetRender()))
+		{
+			bool ssaoUsed = false;
+			if (params->ambientOcclusionEnabled
+					&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
+			{
+				cRenderSSAO rendererSSAO(params, data, image);
+				connect(&rendererSSAO,
+								SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+								this,
+								SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+				rendererSSAO.RenderSSAO();
+				ssaoUsed = true;
+			}
+			if (params->DOFEnabled && !*data->stopRequest)
+			{
+				cPostRenderingDOF dof(image);
+				connect(&dof,
+								SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+								this,
+								SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+				dof.Render(	params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
+										params->DOFFocus,
+										!ssaoUsed && params->DOFHDRmode,
+										params->DOFNumberOfPasses,
+										params->DOFBlurOpacity,
+										data->stopRequest);
+			}
+		}
+
+		if (image->IsPreview())
+		{
+			WriteLog("image->ConvertTo8bit()", 2);
+			image->ConvertTo8bit();
+			WriteLog("image->UpdatePreview()", 2);
+			image->UpdatePreview();
+			WriteLog("image->GetImageWidget()->update()", 2);
+			image->GetImageWidget()->update();
+		}
+
+		WriteLog("Rendering finished", 2);
+
+		//status bar and progress bar
+		double percentDone = 1.0;
+		statusText = QObject::tr("Idle");
+		progressTxt = progressText.getText(percentDone);
+
+		//update histograms
+		data->statistics.time = progressText.getTime();
+		emit updateStatistics(data->statistics);
+		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+
+		delete[] thread;
+		delete[] threadData;
+		delete[] worker;
+
+		WriteLog("cRenderer::RenderImage(): memory released", 2);
+
+		if (*data->stopRequest)
+			return false;
+		else
+			return true;
+	}
+	else
 	{
-		if (gNetRender->IsClient())
-		{
-			gNetRender->SetStatus(CNetRender::netRender_READY);
-			emit NotifyClientStatus();
-		}
-
-		if (gNetRender->IsServer())
-		{
-			emit StopAllClients();
-		}
+		qCritical() << "Image not allocated!";
+		return false;
 	}
-	//refresh image at end
-	WriteLog("image->CompileImage()", 2);
-	image->CompileImage();
-
-	if (!(gNetRender->IsClient() && data->configuration.UseNetRender()))
-	{
-		bool ssaoUsed = false;
-		if (params->ambientOcclusionEnabled
-				&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
-		{
-			cRenderSSAO rendererSSAO(params, data, image);
-			connect(&rendererSSAO,
-							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-							this,
-							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-			rendererSSAO.RenderSSAO();
-			ssaoUsed = true;
-		}
-		if (params->DOFEnabled && !*data->stopRequest)
-		{
-			cPostRenderingDOF dof(image);
-			connect(&dof,
-							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-							this,
-							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-								 params->DOFFocus,
-								 !ssaoUsed && params->DOFHDRmode,
-								 params->DOFNumberOfPasses,
-								 params->DOFBlurOpacity,
-								 data->stopRequest);
-		}
-	}
-
-	if (image->IsPreview())
-	{
-		WriteLog("image->ConvertTo8bit()", 2);
-		image->ConvertTo8bit();
-		WriteLog("image->UpdatePreview()", 2);
-		image->UpdatePreview();
-		WriteLog("image->GetImageWidget()->update()", 2);
-		image->GetImageWidget()->update();
-	}
-
-	WriteLog("Rendering finished", 2);
-
-	//status bar and progress bar
-	double percentDone = 1.0;
-	statusText = QObject::tr("Idle");
-	progressTxt = progressText.getText(percentDone);
-
-	//update histograms
-	data->statistics.time = progressText.getTime();
-	emit updateStatistics(data->statistics);
-	emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-
-	delete[] thread;
-	delete[] threadData;
-	delete[] worker;
-
-	WriteLog("cRenderer::RenderImage(): memory released", 2);
-
-	if (*data->stopRequest) return false;
-	else return true;
 }
 
 void cRenderer::CreateLineData(int y, QByteArray *lineData)

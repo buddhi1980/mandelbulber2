@@ -58,6 +58,7 @@ public:
 	void construct(void);
 
 	~cImage();
+	bool IsAllocated() {return isAllocated;}
 	bool ChangeSize(int w, int h, sImageOptional optional);
 	void ClearImage(void);
 
@@ -225,6 +226,7 @@ public:
 	int progressiveFactor;
 
 private:
+  bool isAllocated;
   sRGB8 Interpolation(float x, float y);
 	bool AllocMem(void);
 	void FreeImage(void);
