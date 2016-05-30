@@ -61,59 +61,61 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->mandelbox.rotationsEnabled)
 	{
-		bool lockout = false;
-		z = fractal->mandelbox.rot[0][0].RotateVector(z);
-		if (z.x > fractal->mandelbox.foldingLimit)
-		{
-			z.x = fractal->mandelbox.foldingValue - z.x;
-			aux.color += fractal->mandelbox.color.factor.x;
-			lockout = true;
-		}
-		z = fractal->mandelbox.rotinv[0][0].RotateVector(z);
+		CVector3 zRot;
 
-		z = fractal->mandelbox.rot[1][0].RotateVector(z);
-		if (!lockout && z.x < -fractal->mandelbox.foldingLimit)
+		zRot = fractal->mandelbox.rot[0][0].RotateVector(z);
+		if (zRot.x > fractal->mandelbox.foldingLimit)
 		{
-			z.x = -fractal->mandelbox.foldingValue - z.x;
+			zRot.x = fractal->mandelbox.foldingValue - zRot.x;
+			z = fractal->mandelbox.rotinv[0][0].RotateVector(zRot);
 			aux.color += fractal->mandelbox.color.factor.x;
 		}
-		z = fractal->mandelbox.rotinv[1][0].RotateVector(z);
-
-		lockout = false;
-		z = fractal->mandelbox.rot[0][1].RotateVector(z);
-		if (z.y > fractal->mandelbox.foldingLimit)
+		else
 		{
-			z.y = fractal->mandelbox.foldingValue - z.y;
+			zRot = fractal->mandelbox.rot[1][0].RotateVector(z);
+			if (zRot.x < -fractal->mandelbox.foldingLimit)
+			{
+				zRot.x = -fractal->mandelbox.foldingValue - zRot.x;
+				z = fractal->mandelbox.rotinv[1][0].RotateVector(zRot);
+				aux.color += fractal->mandelbox.color.factor.x;
+			}
+		}
+
+		zRot = fractal->mandelbox.rot[0][1].RotateVector(z);
+		if (zRot.y > fractal->mandelbox.foldingLimit)
+		{
+			zRot.y = fractal->mandelbox.foldingValue - zRot.y;
+			z = fractal->mandelbox.rotinv[0][1].RotateVector(zRot);
 			aux.color += fractal->mandelbox.color.factor.y;
-			lockout = true;
 		}
-		z = fractal->mandelbox.rotinv[0][1].RotateVector(z);
-
-		z = fractal->mandelbox.rot[1][1].RotateVector(z);
-		if (!lockout && z.y < -fractal->mandelbox.foldingLimit)
+		else
 		{
-			z.y = -fractal->mandelbox.foldingValue - z.y;
-			aux.color += fractal->mandelbox.color.factor.y;
+			zRot = fractal->mandelbox.rot[1][1].RotateVector(z);
+			if (zRot.y < -fractal->mandelbox.foldingLimit)
+			{
+				zRot.y = -fractal->mandelbox.foldingValue - zRot.y;
+				z = fractal->mandelbox.rotinv[1][1].RotateVector(zRot);
+				aux.color += fractal->mandelbox.color.factor.y;
+			}
 		}
-		z = fractal->mandelbox.rotinv[1][1].RotateVector(z);
 
-		lockout = false;
-		z = fractal->mandelbox.rot[0][2].RotateVector(z);
-		if (z.z > fractal->mandelbox.foldingLimit)
+		zRot = fractal->mandelbox.rot[0][2].RotateVector(z);
+		if (zRot.z > fractal->mandelbox.foldingLimit)
 		{
-			z.z = fractal->mandelbox.foldingValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
-			lockout = true;
-		}
-		z = fractal->mandelbox.rotinv[0][2].RotateVector(z);
-
-		z = fractal->mandelbox.rot[1][2].RotateVector(z);
-		if (!lockout && z.z < -fractal->mandelbox.foldingLimit)
-		{
-			z.z = -fractal->mandelbox.foldingValue - z.z;
+			zRot.z = fractal->mandelbox.foldingValue - zRot.z;
+			z = fractal->mandelbox.rotinv[0][2].RotateVector(zRot);
 			aux.color += fractal->mandelbox.color.factor.z;
 		}
-		z = fractal->mandelbox.rotinv[1][2].RotateVector(z);
+		else
+		{
+			zRot = fractal->mandelbox.rot[1][2].RotateVector(z);
+			if (zRot.z < -fractal->mandelbox.foldingLimit)
+			{
+				zRot.z = -fractal->mandelbox.foldingValue - zRot.z;
+				z = fractal->mandelbox.rotinv[1][2].RotateVector(zRot);
+				aux.color += fractal->mandelbox.color.factor.z;
+			}
+		}
 	}
 	else
 	{
