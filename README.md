@@ -27,8 +27,11 @@ The possibilities are literally **infinite**!
 - program compiled for x86 and x64 CPUs (Linux, Windows, OS X)
 - simple 3D navigator
 - network rendering
-- key-frame animation of all parameters
-- OpenCL support (not yet in v2, soon to be added)
+- key-frame animation of all parameters with different interpolations
+- material management
+- texture mapping (color, luminosity, diffussion, normal maps, displacement)
+- rendering queue
+- command line interface for headless systems
 
 
 ![image](https://cloud.githubusercontent.com/assets/11696990/13788910/173cf11a-eae2-11e5-884e-f1d03924a5f3.png)
