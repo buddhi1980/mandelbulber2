@@ -635,9 +635,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case transfZvectorAxisSwap:
         {
-          TransformZvectorAxisSwapIteration(z, fractal );
+					TransformZvectorAxisSwapIteration(z, fractal);
           break;
         }
+				case transfRotationFoldingPlane:
+				{
+					TransformRotationFoldingPlane(z, fractal, extendedAux);
+					break;
+				}
         // 4D  ---------------------------------------------------------------------------
         case quaternion4D:
         {

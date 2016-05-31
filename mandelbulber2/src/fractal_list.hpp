@@ -169,7 +169,8 @@ enum enumFractalFormula
 	transfFabsAddConstant4D = 1044,
 	transfFabsAddConstantV24D = 1045,
   transfSurfFoldMulti = 1046,
-  transfPwr2Polynomial = 1047
+	transfPwr2Polynomial = 1047,
+	transfRotationFoldingPlane = 1048
 };
 
 enum enumDEType

@@ -142,7 +142,7 @@ void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sEx
 void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);
-
+void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

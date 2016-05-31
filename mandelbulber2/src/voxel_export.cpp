@@ -84,7 +84,7 @@ void cVoxelExport::ProcessVolume()
 
 				double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
 
-				voxelLayer[x + y * w] = dist > dist_thresh;
+				voxelLayer[x + y * w] = dist <= dist_thresh;
 			}
 		}
 
