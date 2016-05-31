@@ -103,6 +103,7 @@ private slots:
 	void slotFractalSwap(int swapA, int swapB);
 	void slotAutoRefresh();
 	void slotMaterialSelected(int matIndex);
+	void slotMaterialEdited();
 
 	//camera
 	void slotCameraMove();

@@ -97,6 +97,7 @@ bool cMaterialItemModel::setData(const QModelIndex &index, const QVariant &value
 			cOneParameter parameter = params.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
 			container->SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex), parameter);
 		}
+		emit dataChanged(index, index);
 	}
 
 	return true;

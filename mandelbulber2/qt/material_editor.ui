@@ -281,7 +281,7 @@ color:</string>
      <item row="23" column="0" colspan="3">
       <widget class="MyGroupBox" name="groupCheck_use_diffusion_texture">
        <property name="title">
-        <string>Use d&amp;iffusion texture</string>
+        <string>&amp;Use diffusion texture</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -436,7 +436,7 @@ color:</string>
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>200</number>
+        <number>1000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -1552,7 +1552,7 @@ direction vector:</string>
      <item row="25" column="0" colspan="3">
       <widget class="MyGroupBox" name="groupCheck_use_normal_map_texture">
        <property name="title">
-        <string>Use &amp;normal map texture</string>
+        <string>Use norma&amp;l map texture</string>
        </property>
        <property name="checkable">
         <bool>true</bool>

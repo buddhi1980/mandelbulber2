@@ -49,6 +49,7 @@ protected:
 private slots:
 	void slotClicked(Qt::MouseButton button);
 	void slotMaterialSelected(int matIndex);
+	void slotMaterialEdited();
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_SELECTOR_H_ */

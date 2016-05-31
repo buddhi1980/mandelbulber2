@@ -8,7 +8,14 @@
 #include "material_manager_view.h"
 #include "ui_material_manager_view.h"
 #include <QtWidgets/QtWidgets>
+
+#include "../qt/material_editor.h"
+#include "../src/fractal_container.hpp"
 #include "../src/error_message.hpp"
+#include "../src/initparameters.hpp"
+#include "../src/settings.hpp"
+#include "../src/synchronize_interface.hpp"
+
 
 cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), ui(new Ui::cMaterialManagerView)
 {
@@ -21,6 +28,7 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), u
 
 	connect(ui->pushButton_newMaterial, SIGNAL(clicked()), this, SLOT(slotAddMaterial()));
 	connect(ui->pushButton_deleteMaterial, SIGNAL(clicked()), this, SLOT(slotDeleteMaterial()));
+	connect(ui->pushButton_editMaterial, SIGNAL(clicked()), this, SLOT(slotEditMaterial()));
 	connect(itemView, SIGNAL(activated(const QModelIndex&)), this, SLOT(slotItemSelected(const QModelIndex&)));
 }
 
@@ -74,4 +82,51 @@ void cMaterialManagerView::slotItemSelected(const QModelIndex& index)
 void cMaterialManagerView::SetSelection(QModelIndex index)
 {
 	itemView->setCurrentIndex(index);
+}
+
+void cMaterialManagerView::slotEditMaterial()
+{
+	QDialog *dialog = new QDialog(this);
+	QVBoxLayout *layout = new QVBoxLayout(dialog);
+	dialog->setLayout(layout);
+
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
+	dialog->layout()->addWidget(buttonBox);
+
+	QScrollArea *scrollArea = new QScrollArea(dialog);
+	scrollArea->setWidgetResizable( true );
+	dialog->layout()->addWidget(scrollArea);
+
+	cMaterialEditor *materialEditor = new cMaterialEditor(dialog);
+
+	scrollArea->setWidget(materialEditor);
+
+	QModelIndex index = itemView->currentIndex();
+	QString settingsFromModel = model->data(index).toString();
+	int matIndex = model->materialIndex(index);
+
+	cParameterContainer params;
+	cFractalContainer fractal;
+	params.SetContainerName("materialEdited");
+	InitMaterialParams(matIndex, &params);
+
+	cSettings tempSettings(cSettings::formatCondensedText);
+	tempSettings.LoadFromString(settingsFromModel);
+	tempSettings.Decode(&params, &fractal);
+
+	materialEditor->AssignMaterial(&params, matIndex);
+
+	connect(buttonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
+
+	int result = dialog->exec();
+
+	if(result == QDialog::Accepted)
+	{
+		SynchronizeInterfaceWindow(dialog, &params, qInterface::read);
+		cSettings tempSettings2(cSettings::formatCondensedText);
+		tempSettings2.CreateText(&params, &fractal);
+		model->setData(index, tempSettings2.GetSettingsText());
+		emit materialEdited();
+	}
 }

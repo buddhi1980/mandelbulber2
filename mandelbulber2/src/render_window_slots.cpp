@@ -871,3 +871,8 @@ void RenderWindow::slotMaterialSelected(int matIndex)
 {
 	gMainInterface->MaterialSelected(matIndex);
 }
+
+void RenderWindow::slotMaterialEdited()
+{
+	SynchronizeInterfaceWindow(gMainInterface->materialEditor, gPar, qInterface::write);
+}

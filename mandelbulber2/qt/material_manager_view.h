@@ -34,10 +34,12 @@ private:
 private slots:
 	void slotAddMaterial();
 	void slotDeleteMaterial();
+	void slotEditMaterial();
 	void slotItemSelected(const QModelIndex &index);
 
 signals:
 	void materialSelected(int matIndex);
+	void materialEdited();
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_MANAGER_VIEW_H_ */

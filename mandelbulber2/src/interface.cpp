@@ -2369,6 +2369,12 @@ void cInterface::InitMaterialsUi()
 												mainWindow,
 												SLOT(slotMaterialSelected(int)));
 
+	QApplication::connect(mainWindow->ui->widget_material_list_view,
+												SIGNAL(materialEdited()),
+												mainWindow,
+												SLOT(slotMaterialEdited()));
+
+
 }
 
 void cInterface::MaterialSelected(int matIndex)

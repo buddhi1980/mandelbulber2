@@ -141,6 +141,7 @@ void cMaterialSelector::slotClicked(Qt::MouseButton button)
 		view->SetSelection(model->getModelIndexByMaterialId(actualValue));
 
 		connect(view, SIGNAL(materialSelected(int)), this, SLOT(slotMaterialSelected(int)));
+		connect(view, SIGNAL(materialEdited()), this, SLOT(slotMaterialEdited()));
 	}
 }
 
@@ -148,4 +149,9 @@ void cMaterialSelector::slotMaterialSelected(int matIndex)
 {
 	actualValue = matIndex;
 	SetMaterialIndex(actualValue);
+}
+
+void cMaterialSelector::slotMaterialEdited()
+{
+	SynchronizeInterfaceWindow(gMainInterface->scrollAreaMaterialEditor, parameterContainer, qInterface::write);
 }
