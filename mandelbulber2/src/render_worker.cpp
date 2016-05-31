@@ -757,7 +757,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 			//transparentColor.G = color.G;
 			//transparentColor.B = color.B;
 
-			double opacity = -log(shaderInputData.material ->transparencyOfInterior) * step;
+			double opacity = (-1.0 + 1.0/shaderInputData.material ->transparencyOfInterior) * step;
 			if (opacity > 1.0) opacity = 1.0;
 
 			resultShader.R = opacity * transparentColor.R + (1.0 - opacity) * resultShader.R;
