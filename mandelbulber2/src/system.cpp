@@ -210,6 +210,7 @@ bool CreateDefaultFolders(void)
 	result &= CreateFolder(systemData.dataDirectory + "toolbar");
 	result &= CreateFolder(systemData.dataDirectory + "settings");
 	result &= CreateFolder(systemData.dataDirectory + "slices");
+	result &= CreateFolder(systemData.dataDirectory + "materials");
 
 	// if(!QFileInfo(systemData.dataDirectory + "toolbar/default.fract").exists())
 	if (QDir(systemData.dataDirectory + "toolbar").entryInfoList(QDir::NoDotAndDotDot

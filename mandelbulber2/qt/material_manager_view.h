@@ -35,6 +35,8 @@ private slots:
 	void slotAddMaterial();
 	void slotDeleteMaterial();
 	void slotEditMaterial();
+	void slotLoadMaterial();
+	void slotSaveMaterial();
 	void slotItemSelected(const QModelIndex &index);
 
 signals:

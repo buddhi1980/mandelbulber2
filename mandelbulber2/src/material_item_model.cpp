@@ -6,7 +6,6 @@
  */
 
 #include "material_item_model.h"
-#include "fractal_container.hpp"
 #include "material.h"
 #include "settings.hpp"
 #include "initparameters.hpp"
@@ -48,7 +47,6 @@ QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 		int matIndex = materialIndexes.at(index.row());
 
 		cParameterContainer params;
-		cFractalContainer fractal;
 
 		params.SetContainerName("material");
 		InitMaterialParams(matIndex, &params);
@@ -61,7 +59,7 @@ QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 		}
 
 		cSettings tempSettings(cSettings::formatCondensedText);
-		tempSettings.CreateText(&params, &fractal);
+		tempSettings.CreateText(&params, NULL);
 		return tempSettings.GetSettingsText();
 	}
 
@@ -83,13 +81,12 @@ bool cMaterialItemModel::setData(const QModelIndex &index, const QVariant &value
 		int matIndex = materialIndexes.at(index.row());
 
 		cParameterContainer params;
-		cFractalContainer fractal;
 		params.SetContainerName("material");
 		InitMaterialParams(matIndex, &params);
 
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.LoadFromString(value.toString());
-		tempSettings.Decode(&params, &fractal);
+		tempSettings.Decode(&params, NULL);
 
 		//copy parameters from temporary container for material to main parameter container
 		for(int i=0; i < cMaterial::paramsList.size(); i++)

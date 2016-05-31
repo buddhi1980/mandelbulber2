@@ -55,15 +55,18 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 
 	if (format != formatAppSettings)
 	{
-		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+		if(fractPar)
 		{
-			settingsText += "[fractal_" + QString::number(f + 1) + "]\n";
-			QList<QString> parameterListFractal = fractPar->at(f).GetListOfParameters();
-			for (int i = 0; i < parameterListFractal.size(); i++)
+			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 			{
-				settingsText += CreateOneLine(&fractPar->at(f), parameterListFractal[i]);
+				settingsText += "[fractal_" + QString::number(f + 1) + "]\n";
+				QList<QString> parameterListFractal = fractPar->at(f).GetListOfParameters();
+				for (int i = 0; i < parameterListFractal.size(); i++)
+				{
+					settingsText += CreateOneLine(&fractPar->at(f), parameterListFractal[i]);
+				}
+				parameterListFractal.clear();
 			}
-			parameterListFractal.clear();
 		}
 
 		//flight animation
@@ -414,8 +417,11 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 	{
 		//clear settings
 		par->ResetAllToDefault();
-		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-			fractPar->at(i).ResetAllToDefault();
+		if(fractPar)
+		{
+			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				fractPar->at(i).ResetAllToDefault();
+		}
 		DeleteAllPrimitiveParams(par);
 		DeleteAllMaterialParams(par);
 
@@ -427,7 +433,12 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		}
 		//temporary containers to decode frames
 		cParameterContainer parTemp = *par;
-		cFractalContainer fractTemp = *fractPar;
+		cFractalContainer fractTemp;
+		if(fractPar)
+		{
+			fractTemp = *fractPar;
+		}
+
 
 		for (int l = 3; l < separatedText.size(); l++)
 		{
@@ -446,7 +457,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 				else if (section.contains("fractal"))
 				{
 					int i = section.right(1).toInt() - 1;
-					result = DecodeOneLine(&fractPar->at(i), line);
+					if(fractPar) result = DecodeOneLine(&fractPar->at(i), line);
 				}
 				else if (section == QString("frames"))
 				{

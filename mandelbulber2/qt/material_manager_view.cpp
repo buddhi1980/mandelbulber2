@@ -29,6 +29,8 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), u
 	connect(ui->pushButton_newMaterial, SIGNAL(clicked()), this, SLOT(slotAddMaterial()));
 	connect(ui->pushButton_deleteMaterial, SIGNAL(clicked()), this, SLOT(slotDeleteMaterial()));
 	connect(ui->pushButton_editMaterial, SIGNAL(clicked()), this, SLOT(slotEditMaterial()));
+	connect(ui->pushButton_LoadMaterial, SIGNAL(clicked()), this, SLOT(slotLoadMaterial()));
+	connect(ui->pushButton_SaveMaterial, SIGNAL(clicked()), this, SLOT(slotSaveMaterial()));
 	connect(itemView, SIGNAL(activated(const QModelIndex&)), this, SLOT(slotItemSelected(const QModelIndex&)));
 }
 
@@ -73,6 +75,55 @@ void cMaterialManagerView::slotDeleteMaterial()
 	}
 }
 
+void cMaterialManagerView::slotLoadMaterial()
+{
+
+}
+
+void cMaterialManagerView::slotSaveMaterial()
+{
+	//take settings from model
+	QModelIndex index = itemView->currentIndex();
+	QString settingsFromModel = model->data(index).toString();
+	int matIndex = model->materialIndex(index);
+	cParameterContainer params;
+	params.SetContainerName("materialToSave");
+	cSettings tempSettings(cSettings::formatCondensedText);
+	tempSettings.LoadFromString(settingsFromModel);
+	tempSettings.Decode(&params, NULL);
+
+	//change material number to 1
+	cParameterContainer params1;
+	InitMaterialParams(1, &params1);
+	for(int i=0; i < cMaterial::paramsList.size(); i++)
+	{
+		cOneParameter parameter = params.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
+		params1.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
+	}
+
+	cSettings settingsToSave(cSettings::formatCondensedText);
+	settingsToSave.CreateText(&params1, NULL);
+
+	QString suggestedFilename = params1.Get<QString>("mat1_name");
+
+  QFileDialog dialog(this);
+  dialog.setOption(QFileDialog::DontUseNativeDialog);
+  dialog.setFileMode(QFileDialog::AnyFile);
+  dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+  dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.dataDirectory + "materials/").absolutePath()));
+  dialog.selectFile(QDir::toNativeSeparators(suggestedFilename));
+  dialog.setAcceptMode(QFileDialog::AcceptSave);
+  dialog.setWindowTitle(tr("Save settings..."));
+  dialog.setDefaultSuffix("fract");
+  QStringList filenames;
+  if (dialog.exec())
+  {
+    filenames = dialog.selectedFiles();
+    QString filename = QDir::toNativeSeparators(filenames.first());
+    settingsToSave.SaveToFile(filename);
+  }
+}
+
 void cMaterialManagerView::slotItemSelected(const QModelIndex& index)
 {
 	int selection = model->materialIndex(index);
@@ -106,13 +157,12 @@ void cMaterialManagerView::slotEditMaterial()
 	int matIndex = model->materialIndex(index);
 
 	cParameterContainer params;
-	cFractalContainer fractal;
 	params.SetContainerName("materialEdited");
 	InitMaterialParams(matIndex, &params);
 
 	cSettings tempSettings(cSettings::formatCondensedText);
 	tempSettings.LoadFromString(settingsFromModel);
-	tempSettings.Decode(&params, &fractal);
+	tempSettings.Decode(&params, NULL);
 
 	materialEditor->AssignMaterial(&params, matIndex);
 
@@ -125,8 +175,10 @@ void cMaterialManagerView::slotEditMaterial()
 	{
 		SynchronizeInterfaceWindow(dialog, &params, qInterface::read);
 		cSettings tempSettings2(cSettings::formatCondensedText);
-		tempSettings2.CreateText(&params, &fractal);
+		tempSettings2.CreateText(&params, NULL);
 		model->setData(index, tempSettings2.GetSettingsText());
 		emit materialEdited();
 	}
+
+	delete dialog;
 }

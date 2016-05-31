@@ -127,9 +127,8 @@ void cMaterialWidget::AssignMaterial(const QString &text, int materialIndex)
 	cSettings settings(cSettings::formatCondensedText);
 	settings.LoadFromString(text);
 	cParameterContainer params;
-	cFractalContainer fractal;
 	InitMaterialParams(materialIndex, &params);
-	settings.Decode(&params, &fractal);
+	settings.Decode(&params, NULL);
 	AssignMaterial(&params, materialIndex);
 }
 
