@@ -1826,7 +1826,7 @@ void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 
 
 /**
- * mandelbulb Kali multi
+ * based on mandelbulb Kali multi
  * http://www.fractalforums.com/theory/mandelbulb-variant/
  */
 void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
@@ -1988,7 +1988,6 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
             break;
     }
 
-
     if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
             th0 = acos(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
     else
@@ -1998,12 +1997,7 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
             ph0 += atan(v2 / v3);
     else
             ph0 += atan2(v2, v3);
-
   }
-
-
-
-
 
   ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1 * 0.5;// 0.5 retain
   double zp = pow(aux.r, fractal->transformCommon.pwr8);
@@ -2130,10 +2124,27 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
   double th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
   double ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
-	double cth = cos(th);
+  //double costh = cos(th);
 	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
 	rp *= aux.r;
-	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+
+  if (fractal->transformCommon.functionEnabledxFalse)
+  {  //cosine mode
+    double sinth = th;
+    if (fractal->transformCommon.functionEnabledyFalse)
+      sinth = th0;
+    sinth = sin(sinth);
+    z = rp  * CVector3(sinth * sin(ph), cos(ph) * sinth, cos(th));
+  }
+  else
+  {  //sine mode ( default = V2.07))
+    double costh = th;
+    if (fractal->transformCommon.functionEnabledzFalse)
+      costh = th0;
+    costh = cos(costh);
+    z = rp  * CVector3(costh * cos(ph), sin(ph) * costh, sin(th));
+  }
+  //z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 
   if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
   {
