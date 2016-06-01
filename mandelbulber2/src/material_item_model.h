@@ -41,6 +41,8 @@ public:
 	int materialIndex(const QModelIndex &index);
 	QModelIndex getModelIndexByMaterialId(int materialId);
 
+	void insertRowWithParameters(const cParameterContainer *params1);
+
 public slots:
 	void slotMaterialChanged(int matIndex);
 

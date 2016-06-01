@@ -236,3 +236,22 @@ QModelIndex cMaterialItemModel::getModelIndexByMaterialId(int materialId)
 		return QModelIndex();
 	}
 }
+
+void cMaterialItemModel::insertRowWithParameters(const cParameterContainer *params1)
+{
+	insertRows(rowCount(), 1);
+	int matIndex = materialIndexes[rowCount()-1];
+	QModelIndex newIndex = index(rowCount()-1, 0);
+
+	cParameterContainer params;
+	params.SetContainerName("material");
+	InitMaterialParams(matIndex, &params);
+
+	//copy parameters from temporary container for material to main parameter container
+	for(int i=0; i < cMaterial::paramsList.size(); i++)
+	{
+		cOneParameter parameter = params1->GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1));
+		container->SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex), parameter);
+	}
+	emit dataChanged(newIndex, newIndex);
+}
