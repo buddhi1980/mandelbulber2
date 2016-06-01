@@ -363,42 +363,35 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="6" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="label_256">
           <property name="text">
            <string>Offset :                    </string>
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
+        <item row="0" column="1">
          <widget class="QLabel" name="label_120">
           <property name="text">
            <string>x:</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
+        <item row="1" column="1">
          <widget class="QLabel" name="label_121">
           <property name="text">
            <string>y:</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
+        <item row="2" column="1">
          <widget class="QLabel" name="label_119">
           <property name="text">
            <string>z:</string>
           </property>
          </widget>
         </item>
-        <item row="9" column="1" colspan="3">
-         <widget class="Line" name="line_22">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="3">
+        <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -426,7 +419,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="3">
+        <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -454,7 +447,7 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="3">
+        <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -482,7 +475,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="0" column="2">
          <widget class="QSlider" name="slider3_transf_addition_constant_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -504,7 +497,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
+        <item row="1" column="2">
          <widget class="QSlider" name="slider3_transf_addition_constant_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -526,7 +519,7 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="2">
+        <item row="2" column="2">
          <widget class="QSlider" name="slider3_transf_addition_constant_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -548,6 +541,13 @@
           </property>
          </widget>
         </item>
+        <item row="3" column="0" colspan="4">
+         <widget class="Line" name="line_22">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -555,14 +555,14 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="10" column="0">
+        <item row="3" column="0">
          <widget class="QLabel" name="label_171">
           <property name="text">
            <string>Scale:</string>
           </property>
          </widget>
         </item>
-        <item row="9" column="1">
+        <item row="2" column="1">
          <widget class="QSlider" name="slider_transf_minimum_radius_05">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -587,7 +587,7 @@
           </property>
          </widget>
         </item>
-        <item row="10" column="1">
+        <item row="3" column="1">
          <widget class="QSlider" name="slider_mandelbox_scale">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -612,7 +612,7 @@
           </property>
          </widget>
         </item>
-        <item row="10" column="2">
+        <item row="3" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_scale">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -640,14 +640,14 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="0" colspan="3">
+        <item row="1" column="0" colspan="3">
          <widget class="Line" name="line_21">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="11" column="2">
+        <item row="4" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_scale_vary">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -675,7 +675,7 @@
           </property>
          </widget>
         </item>
-        <item row="12" column="1">
+        <item row="5" column="1">
          <widget class="QSlider" name="slider_transf_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -700,7 +700,7 @@
           </property>
          </widget>
         </item>
-        <item row="9" column="2">
+        <item row="2" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_05">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -728,28 +728,28 @@
           </property>
          </widget>
         </item>
-        <item row="12" column="0">
+        <item row="5" column="0">
          <widget class="QLabel" name="label_173">
           <property name="text">
            <string>Scale and fold influence:</string>
           </property>
          </widget>
         </item>
-        <item row="9" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_167">
           <property name="text">
            <string>Minimum Radius :</string>
           </property>
          </widget>
         </item>
-        <item row="11" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_172">
           <property name="text">
            <string>Scale Vary :</string>
           </property>
          </widget>
         </item>
-        <item row="11" column="1">
+        <item row="4" column="1">
          <widget class="QSlider" name="slider_mandelbox_vary_scale_vary">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -774,7 +774,7 @@
           </property>
          </widget>
         </item>
-        <item row="12" column="2">
+        <item row="5" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -802,7 +802,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0" colspan="2">
+        <item row="0" column="0" colspan="2">
          <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
           <property name="text">
            <string>Force Cylindrical Fold</string>
@@ -1011,7 +1011,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
      <property name="title">
-      <string>I&amp;nformation</string>
+      <string>&amp;Information</string>
      </property>
      <property name="flat">
       <bool>false</bool>
