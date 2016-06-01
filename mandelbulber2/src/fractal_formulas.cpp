@@ -1707,8 +1707,9 @@ void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 
 /**
  * mandelbulbBermarte
- * http://www.fractalforums.com/theory/mandelbulb-variant/
+ *
  * abs() version of Mandelbulb Kali modified by visual.bermarte
+ * @reference http://www.fractalforums.com/theory/mandelbulb-variant/
  */
 void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1787,7 +1788,7 @@ void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtended
 
 /**
  * mandelbulb Kali modification
- * http://www.fractalforums.com/theory/mandelbulb-variant/
+ * @reference http://www.fractalforums.com/theory/mandelbulb-variant/
  */
 void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1829,7 +1830,7 @@ void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 
 /**
  * based on mandelbulb Kali multi
- * http://www.fractalforums.com/theory/mandelbulb-variant/
+ * @reference http://www.fractalforums.com/theory/mandelbulb-variant/
  */
 void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
