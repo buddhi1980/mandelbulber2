@@ -651,7 +651,9 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;mandelbulb Kali modification&lt;br&gt;http://www.fractalforums.com/theory/mandelbulb-variant/&lt;/p&gt;&lt;table&gt;
+         <string>&lt;p&gt;mandelbulb Kali modification&lt;/p&gt;&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/theory/mandelbulb-variant/&quot;&gt;http://www.fractalforums.com/theory/mandelbulb-variant/&lt;br&gt;
+&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
