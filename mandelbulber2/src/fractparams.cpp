@@ -186,6 +186,12 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 		}
 	}
 
+	if(!booleanOperatorsEnabled && objectData)
+	{
+		formulaMaterialId[0] = container->Get<int>("formula_material_id");
+		(*objectData)[0].materialId = formulaMaterialId[0];
+	}
+
 	common.fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
 	common.fakeLightsMinIter = container->Get<double>("fake_lights_min_iter");
 	common.fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");

@@ -128,6 +128,7 @@ void InitParams(cParameterContainer *par)
 		par->addParam("check_for_bailout", i, true, morphLinear, paramStandard);
 		par->addParam("formula_material_id", i, 1, morphLinear, paramStandard);
 	}
+	par->addParam("formula_material_id", 1, morphLinear, paramStandard);
 
 	//general fractal and engine
 	par->addParam("julia_mode", false, morphLinear, paramStandard);

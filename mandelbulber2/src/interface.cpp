@@ -222,8 +222,6 @@ void cInterface::ShowUi(void)
 			+ "fractal_mandelbulb.ui";
 	InitializeFractalUi(uiFilename);
 	InitMaterialsUi();
-	//change material selector name which is used for main fractal to the same name as for first fractal
-	mainWindow->ui->materialselector_formula_material_id->setObjectName("materialselector_formula_material_id_1");
 	scrollAreaMaterialEditor = mainWindow->ui->scrollArea_material;
 
 	ComboMouseClickUpdate();
