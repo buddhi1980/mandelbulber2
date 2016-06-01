@@ -1894,15 +1894,16 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
 
   th0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
 
-  if (fractal->transformCommon.functionEnabled)
-  {
-    sinth = sin(th0);
-    z = aux.r * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
-  }
-  else
+  if (fractal->transformCommon.functionEnabledBxFalse)
   {
     costh = cos(th0);
     z = aux.r * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
+
+  }
+  else
+  { //cosine mode default
+    sinth = sin(th0);
+    z = aux.r * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
   }
 
   if (fractal->transformCommon.functionEnabledxFalse)
@@ -2004,15 +2005,15 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1 * 0.5;// 0.5 retain
   double zp = pow(aux.r, fractal->transformCommon.pwr8);
 
-  if (fractal->transformCommon.functionEnabledx)
-  {
-    sinth = sin(th0);
-    z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
-  }
-  else
-  {
+  if (fractal->transformCommon.functionEnabledzFalse)
+  { //sine mode
     costh = cos(th0);
     z = zp  * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
+  }
+  else
+  {  //cosine mode default
+    sinth = sin(th0);
+    z = zp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
   }
 
   if (fractal->transformCommon.functionEnabledyFalse)
