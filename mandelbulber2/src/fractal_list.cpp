@@ -755,6 +755,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelAlreadyHas,
                                           100));
 
+  fractalList->append(sFractalDescription("Transform - Menger Fold",
+                                          "transf_menger_fold",
+                                          transfMengerFold,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
+
   fractalList->append(sFractalDescription("Transform - Multiple angle",
                                           "transf_multiple_angle",
                                           transfMultipleAngle,
@@ -779,6 +787,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
                                           10));
 
+  fractalList->append(sFractalDescription("Transform - Quaternion Fold",
+                                          "transf_quaternion_fold",
+                                          transfQuaternionFold,
+                                          analyticDEType,
+                                          logarithmicDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
 	fractalList->append(sFractalDescription("Transform - Rotation",
 																					"transf_rotation",
 																					transfRotation,
@@ -790,6 +806,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Rotation_VaryV1",
                                           "transf_rotation_varyV1",
                                           transfRotationVaryV1,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Rotation Folding Plane",
+                                          "transf_rotation_folding_plane",
+                                          transfRotationFoldingPlane,
                                           analyticDEType,
                                           withoutDEFunction,
                                           cpixelDisabledByDefault,
@@ -868,6 +892,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           100));
 
 
+
 	fractalList->append(sFractalDescription("Transform - Zvector_Axis_Swap",
 																					"transf_zVector_axis_swap",
 																					transfZvectorAxisSwap,
@@ -876,13 +901,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
-	fractalList->append(sFractalDescription("Transform - Rotation Folding Plane",
-																					"transf_rotation_folding_plane",
-																					transfRotationFoldingPlane,
-																					analyticDEType,
-																					withoutDEFunction,
-																					cpixelDisabledByDefault,
-																					100));
+
 
   fractalList->append(sFractalDescription("Transform - Addition Constant_4D",
                                           "transf_addition_constant_4D",

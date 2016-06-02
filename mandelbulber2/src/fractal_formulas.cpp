@@ -4044,6 +4044,74 @@ void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal)
 }
 
 /**
+ * Transform Menger Fold
+ */
+void TransformMengerFoldIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{  // menger fold
+  double tempMS;
+  z = fabs(z);
+  if (z.x - z.y < 0)
+  {
+    tempMS = z.y;
+    z.y = z.x;
+    z.x = tempMS;
+  }
+  if (z.x - z.z < 0)
+  {
+    tempMS = z.z;
+    z.z = z.x;
+    z.x = tempMS;
+  }
+  if (z.y - z.z < 0)
+  {
+    tempMS = z.z;
+    z.z = z.y;
+    z.y = tempMS;
+  }
+
+  if (fractal->transformCommon.functionEnabledFalse)
+  { // menger scales and offsets
+    z *= fractal->transformCommon.scale3;
+    z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
+    z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
+
+    if ((fractal->transformCommon.functionEnabledx) && z.z > 1.0)
+      z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+
+    aux.DE *= fractal->transformCommon.scale3;
+
+    z += fractal->transformCommon.additionConstant000;
+  }
+  if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
+  {
+    switch (fractal->mandelbulbMulti.orderOfxyzC)
+    {
+    case sFractalMandelbulbMulti::xyz:
+    default:
+      c = CVector3(c.x, c.y, c.z);
+      break;
+    case sFractalMandelbulbMulti::xzy:
+      c = CVector3(c.x, c.z, c.y);
+      break;
+    case sFractalMandelbulbMulti::yxz:
+      c = CVector3(c.y, c.x, c.z);
+      break;
+    case sFractalMandelbulbMulti::yzx:
+      c = CVector3(c.y, c.z, c.x);
+      break;
+    case sFractalMandelbulbMulti::zxy:
+      c = CVector3(c.z, c.x, c.y);
+      break;
+    case sFractalMandelbulbMulti::zyx:
+      c = CVector3(c.z, c.y, c.x);
+      break;
+    }
+    z += c * fractal->transformCommon.constantMultiplierC111;
+  }
+}
+
+
+/**
  * multiple angle
  */
 void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -4135,7 +4203,51 @@ void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExt
 }
 
 
-
+/**
+ * Quaternion Fold Transform
+ * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/
+ */
+void TransformQuaternionFoldIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);// quat fold
+  if (fractal->transformCommon.functionEnabledFalse) //
+  {
+    aux.r_dz = aux.r_dz * 2.0 * aux.r;
+    double tempL = z.Length();
+    z *= fractal->transformCommon.constantMultiplier122; // mult. scale (1,2,2)
+    //if (tempL < 1e-21) tempL = 1e-21;
+    double avgScale = CVector3(z.x, z.y / 2.0, z.z / 2.0).Length() / tempL;
+    double tempAux = aux.r_dz * avgScale;
+    aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
+    z += fractal->transformCommon.additionConstant000; // addition of constant (0,0,0)
+  }
+  if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
+  {
+    switch (fractal->mandelbulbMulti.orderOfxyzC)
+    {
+    case sFractalMandelbulbMulti::xyz:
+    default:
+      c = CVector3(c.x, c.y, c.z);
+      break;
+    case sFractalMandelbulbMulti::xzy:
+      c = CVector3(c.x, c.z, c.y);
+      break;
+    case sFractalMandelbulbMulti::yxz:
+      c = CVector3(c.y, c.x, c.z);
+      break;
+    case sFractalMandelbulbMulti::yzx:
+      c = CVector3(c.y, c.z, c.x);
+      break;
+    case sFractalMandelbulbMulti::zxy:
+      c = CVector3(c.z, c.x, c.y);
+      break;
+    case sFractalMandelbulbMulti::zyx:
+      c = CVector3(c.z, c.y, c.x);
+      break;
+    }
+    z += c * fractal->transformCommon.constantMultiplierC111;
+  }
+}
 
 /**
  * rotation

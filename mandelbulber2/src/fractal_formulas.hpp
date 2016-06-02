@@ -116,6 +116,7 @@ void TransformBoxFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtend
 void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal);
+void TransformMengerFoldIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal);
@@ -128,7 +129,9 @@ void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *f
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformQuaternionFoldIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
+void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
@@ -140,9 +143,8 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);
-void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+
 
 
 #endif /* FRACTAL_FORMULAS_HPP_ */
