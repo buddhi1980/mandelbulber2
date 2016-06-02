@@ -643,6 +643,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformRotationFoldingPlane(z, fractal, extendedAux);
 					break;
 				}
+
+        case transfQuaternionFold:
+        {
+          TransformQuaternionFoldIteration(z, c, fractal, extendedAux);
+          break;
+        }
         // 4D  ---------------------------------------------------------------------------
         case quaternion4D:
         {

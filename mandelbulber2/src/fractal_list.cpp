@@ -795,6 +795,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
                                           100));
 
+  fractalList->append(sFractalDescription("Transform - Rotation Folding Plane",
+                                          "transf_rotation_folding_plane",
+                                          transfRotationFoldingPlane,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
 	fractalList->append(sFractalDescription("Transform - R^Power",
 																					"transf_rpower",
 																					transfRPower,
@@ -867,6 +875,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
                                           100));
 
+  fractalList->append(sFractalDescription("Transform - Quaternion Fold",
+                                          "transf_quaternion_fold",
+                                          transfQuaternionFold,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
 
 	fractalList->append(sFractalDescription("Transform - Zvector_Axis_Swap",
 																					"transf_zVector_axis_swap",
@@ -876,13 +891,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
-	fractalList->append(sFractalDescription("Transform - Rotation Folding Plane",
-																					"transf_rotation_folding_plane",
-																					transfRotationFoldingPlane,
-																					analyticDEType,
-																					withoutDEFunction,
-																					cpixelDisabledByDefault,
-																					100));
+
 
   fractalList->append(sFractalDescription("Transform - Addition Constant_4D",
                                           "transf_addition_constant_4D",
