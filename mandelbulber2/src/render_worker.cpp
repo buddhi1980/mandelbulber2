@@ -575,6 +575,17 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 		vn = CalculateNormals(shaderInputData);
 		shaderInputData.normal = vn;
 
+		//letting colors from textures (before normal map shader)
+		if(shaderInputData.material->colorTexture.IsLoaded())
+			shaderInputData.texColor = TextureShader(shaderInputData, cMaterial::texColor, shaderInputData.material);
+		else
+			shaderInputData.texColor = sRGBfloat(1.0, 1.0, 1.0);
+
+		if(shaderInputData.material->luminosityTexture.IsLoaded())
+			shaderInputData.texLuminosity = TextureShader(shaderInputData, cMaterial::texLuminosity, shaderInputData.material);
+		else
+			shaderInputData.texLuminosity = sRGBfloat(0.0, 0.0, 0.0);
+
 		if(shaderInputData.material->diffusionTexture.IsLoaded())
 			shaderInputData.texDiffuse = TextureShader(shaderInputData, cMaterial::texDiffuse, shaderInputData.material);
 		else

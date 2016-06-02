@@ -43,18 +43,6 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	mainLight.G = params->mainLightIntensity * params->mainLightColour.G / 65536.0;
 	mainLight.B = params->mainLightIntensity * params->mainLightColour.B / 65536.0;
 
-	//getting interpolated pixels from textures
-	sRGBfloat texColor, texLuminosity;
-	if(input.material->colorTexture.IsLoaded())
-		texColor = TextureShader(input, cMaterial::texColor, mat);
-	else
-		texColor = sRGBfloat(1.0, 1.0, 1.0);
-
-	if(input.material->luminosityTexture.IsLoaded())
-		texLuminosity = TextureShader(input, cMaterial::texLuminosity, mat);
-	else
-		texLuminosity = sRGBfloat(0.0, 0.0, 0.0);
-
 	//calculate shading based on angle of incidence
 	sRGBAfloat shade;
 	if (params->mainLightEnable)
@@ -83,9 +71,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat colour = SurfaceColour(input);
 	double texColInt = mat->colorTextureIntensity;
 	double texColIntN = 1.0 - mat->colorTextureIntensity;
-	colour.R *= texColor.R * texColInt + texColIntN;
-	colour.G *= texColor.G * texColInt + texColIntN;
-	colour.B *= texColor.B * texColInt + texColIntN;
+	colour.R *= input.texColor.R * texColInt + texColIntN;
+	colour.G *= input.texColor.G * texColInt + texColIntN;
+	colour.B *= input.texColor.B * texColInt + texColIntN;
 	*surfaceColour = colour;
 
 	//ambient occlusion
@@ -132,9 +120,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	//luminosity
 	sRGBAfloat luminosity;
-	luminosity.R = texLuminosity.R * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.R / 65536.0;
-	luminosity.G = texLuminosity.G * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.G / 65536.0;
-	luminosity.B = texLuminosity.B * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.B / 65536.0;
+	luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.R / 65536.0;
+	luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.G / 65536.0;
+	luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.B / 65536.0;
 
 	//total shader
 	output.R = envMapping.R + (ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;

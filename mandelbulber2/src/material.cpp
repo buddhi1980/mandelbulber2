@@ -92,6 +92,7 @@ QStringList cMaterial::paramsList = {
 		"fractal_coloring_line_direction",
 		"normal_map_texture_from_bumpmap",
 		"normal_map_texture_height",
+		"normal_map_texture_invert_green",
 		"file_normal_map_texture"
 };
 

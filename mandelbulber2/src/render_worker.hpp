@@ -146,6 +146,8 @@ private:
 		bool invertMode;
 		cMaterial *material;
 		sRGBfloat texDiffuse;
+		sRGBfloat texColor;
+		sRGBfloat texLuminosity;
 	};
 
 	//functions
