@@ -728,13 +728,14 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
   par->addParam(cMaterial::Name("use_luminosity_texture", materialId), false, morphLinear, paramStandard);
   par->addParam(cMaterial::Name("use_displacement_texture", materialId), false, morphLinear, paramStandard);
   par->addParam(cMaterial::Name("use_normal_map_texture", materialId), false, morphLinear, paramStandard);
-  par->addParam(cMaterial::Name("normal_map_texture_from_bumpmap", materialId), true, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("normal_map_texture_from_bumpmap", materialId), false, morphLinear, paramStandard);
   par->addParam(cMaterial::Name("color_texture_intensity", materialId), 1.0, 0.0, 1e10, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 10.0, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1.0, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("displacement_texture_height", materialId), 0.1, 1e-12, 1e4, morphAkima, paramStandard);
   par->addParam(cMaterial::Name("normal_map_texture_height", materialId), 1.0, 1e-4, 1e4, morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId), (int)sFractalColoring::fractalColoringStandard, 0, 4, morphNone, paramStandard);
+  par->addParam(cMaterial::Name("normal_map_texture_invert_green", materialId), false, morphNone, paramStandard);
+  par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId), (int)sFractalColoring::fractalColoringStandard, 0, 4, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId), CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
 
@@ -761,7 +762,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 
   par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
                 QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-                    + "mormal_map_texture.jpg"),
+                    + "normal_map_texture.jpg"),
                 morphNone,
                 paramStandard);
 

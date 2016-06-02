@@ -156,8 +156,10 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
     displacementTexture = cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)), cTexture::doNotUseMipmaps, quiet);
 
   if (useNormalMapTexture)
+  {
     normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)), cTexture::useMipmaps, quiet);
-
+    if(materialParam->Get<bool>(Name("normal_map_texture_invert_green", id))) normalMapTexture.SetInvertGreen(true);
+  }
   rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
 }
 
