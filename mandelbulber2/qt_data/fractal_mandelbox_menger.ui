@@ -2550,13 +2550,6 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_5">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled">
      <property name="toolTip">
       <string/>
