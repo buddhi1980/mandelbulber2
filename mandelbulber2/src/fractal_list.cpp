@@ -755,6 +755,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelAlreadyHas,
                                           100));
 
+  fractalList->append(sFractalDescription("Transform - Menger Fold",
+                                          "transf_menger_fold",
+                                          transfMengerFold,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
+
   fractalList->append(sFractalDescription("Transform - Multiple angle",
                                           "transf_multiple_angle",
                                           transfMultipleAngle,
@@ -778,6 +786,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           linearDEFunction,
                                           cpixelDisabledByDefault,
                                           10));
+
+  fractalList->append(sFractalDescription("Transform - Quaternion Fold",
+                                          "transf_quaternion_fold",
+                                          transfQuaternionFold,
+                                          analyticDEType,
+                                          logarithmicDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
 
 	fractalList->append(sFractalDescription("Transform - Rotation",
 																					"transf_rotation",
@@ -875,13 +891,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
                                           100));
 
-  fractalList->append(sFractalDescription("Transform - Quaternion Fold",
-                                          "transf_quaternion_fold",
-                                          transfQuaternionFold,
-                                          analyticDEType,
-                                          withoutDEFunction,
-                                          cpixelDisabledByDefault,
-                                          100));
+
 
 	fractalList->append(sFractalDescription("Transform - Zvector_Axis_Swap",
 																					"transf_zVector_axis_swap",

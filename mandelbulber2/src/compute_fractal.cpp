@@ -643,10 +643,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformRotationFoldingPlane(z, fractal, extendedAux);
 					break;
 				}
-
         case transfQuaternionFold:
         {
           TransformQuaternionFoldIteration(z, c, fractal, extendedAux);
+          break;
+        }
+        case transfMengerFold:
+        {
+          TransformMengerFoldIteration(z, c, fractal, extendedAux);
           break;
         }
         // 4D  ---------------------------------------------------------------------------
@@ -939,6 +943,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym4Mod:
         //case msltoeToroidal:
 				case quaternion:
+        case transfQuaternionFold: // hmmm, this issue again
 				case quaternion3D:
 				case xenodreambuie:
 				{
@@ -974,6 +979,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case collatz:
         case collatzMod:
         case mengerMod1:
+        case transfMengerFold: // hmmm, this issue again
         case mengerPwr2Poly:
         {
 					if(extendedAux.r_dz > 0)
