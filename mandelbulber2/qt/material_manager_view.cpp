@@ -23,7 +23,7 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), u
 
 	// TODO Auto-generated constructor stub
 	itemView = new cMaterialItemView(this);
-	ui->verticalLayout_material_view->addWidget(itemView);
+	ui->verticalLayout->addWidget(itemView);
 	model = NULL;
 
 	connect(ui->pushButton_newMaterial, SIGNAL(clicked()), this, SLOT(slotAddMaterial()));
@@ -166,13 +166,10 @@ void cMaterialManagerView::slotEditMaterial()
 	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
 	dialog->layout()->addWidget(buttonBox);
 
-	QScrollArea *scrollArea = new QScrollArea(dialog);
-	scrollArea->setWidgetResizable( true );
-	dialog->layout()->addWidget(scrollArea);
-
 	cMaterialEditor *materialEditor = new cMaterialEditor(dialog);
+	materialEditor->setMinimumWidth(500);
 
-	scrollArea->setWidget(materialEditor);
+	dialog->layout()->addWidget(materialEditor);
 
 	QModelIndex index = itemView->currentIndex();
 	QString settingsFromModel = model->data(index).toString();

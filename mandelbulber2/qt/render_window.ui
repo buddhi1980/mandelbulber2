@@ -3907,7 +3907,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>218</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -4747,8 +4747,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>348</width>
-                  <height>293</height>
+                  <width>262</width>
+                  <height>165</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5039,7 +5039,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>277</width>
                   <height>1477</height>
                  </rect>
                 </property>
@@ -7514,7 +7514,7 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-203</y>
+                      <y>0</y>
                       <width>312</width>
                       <height>755</height>
                      </rect>
@@ -8626,7 +8626,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -9731,7 +9731,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -10830,7 +10830,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -11929,7 +11929,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -13027,8 +13027,8 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-149</y>
-                      <width>312</width>
+                      <y>0</y>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -14126,8 +14126,8 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-163</y>
-                      <width>312</width>
+                      <y>0</y>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -15225,8 +15225,8 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-191</y>
-                      <width>312</width>
+                      <y>0</y>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -16321,8 +16321,8 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-182</y>
-                      <width>312</width>
+                      <y>0</y>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -17435,7 +17435,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>210</width>
                   <height>521</height>
                  </rect>
                 </property>
@@ -19154,8 +19154,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>416</height>
+                  <width>207</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -22140,8 +22140,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>198</width>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -22838,7 +22838,7 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>289</width>
+          <width>279</width>
           <height>428</height>
          </rect>
         </property>
@@ -23260,12 +23260,12 @@ keyframes</string>
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_materials">
+  <widget class="QDockWidget" name="dockWidget_materialEditor">
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
-    <string>Materials</string>
+    <string>Material editor</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -23302,12 +23302,42 @@ keyframes</string>
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <item>
-          <widget class="cMaterialManagerView" name="widget_material_list_view" native="true"/>
-         </item>
         </layout>
        </widget>
       </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_Materials">
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Materials</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_8">
+    <layout class="QVBoxLayout" name="verticalLayout_32">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
+     <item>
+      <widget class="cMaterialManagerView" name="widget_material_list_view" native="true"/>
      </item>
     </layout>
    </widget>

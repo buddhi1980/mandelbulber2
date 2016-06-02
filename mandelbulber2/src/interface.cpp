@@ -104,7 +104,7 @@ void cInterface::ShowUi(void)
 
 	if (!mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray()))
 	{
-		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_materials,
+		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_materialEditor,
 																 mainWindow->ui->dockWidget_effects);
 		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_effects,
 																 mainWindow->ui->dockWidget_image_adjustments);

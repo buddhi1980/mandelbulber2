@@ -564,7 +564,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 
 void RenderWindow::slotStackAllDocks()
 {
-  tabifyDockWidget(ui->dockWidget_materials, ui->dockWidget_effects);
+  tabifyDockWidget(ui->dockWidget_materialEditor, ui->dockWidget_effects);
 	tabifyDockWidget(ui->dockWidget_effects, ui->dockWidget_image_adjustments);
   tabifyDockWidget(ui->dockWidget_image_adjustments, ui->dockWidget_rendering_engine);
   tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_fractal);
