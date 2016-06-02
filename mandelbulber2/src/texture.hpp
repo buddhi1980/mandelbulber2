@@ -55,6 +55,7 @@ public:
 	void FromQByteArray(QByteArray buffer);
 	CVector3 NormalMapFromBumpMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
 	CVector3 NormalMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
+	void SetInvertGreen(bool invert) {invertGreen = invert;}
 
 private:
 	sRGB8 LinearInterpolation(double x, double y);
@@ -69,6 +70,7 @@ private:
 	QString originalFileName;
 	QList<QVector<sRGB8 >>mipmaps;
 	QList<CVector2<int> >mipmapSizes;
+	bool invertGreen;
 };
 
 #endif /* TEXTURE_HPP_ */

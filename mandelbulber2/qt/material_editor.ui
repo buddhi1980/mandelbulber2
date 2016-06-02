@@ -1574,7 +1574,7 @@ direction vector:</string>
          <number>2</number>
         </property>
         <item>
-         <layout class="QGridLayout" name="gridLayout_100" rowstretch="0,0,0">
+         <layout class="QGridLayout" name="gridLayout_100" rowstretch="0,0,0,0">
           <property name="spacing">
            <number>2</number>
           </property>
@@ -1595,14 +1595,14 @@ direction vector:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_393">
             <property name="text">
              <string>Intensity:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
+          <item row="3" column="2">
            <widget class="MyLineEdit" name="logedit_normal_map_texture_height">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1612,7 +1612,7 @@ direction vector:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QSlider" name="logslider_normal_map_texture_height">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1638,6 +1638,13 @@ direction vector:</string>
            <widget class="MyCheckBox" name="checkBox_normal_map_texture_from_bumpmap">
             <property name="text">
              <string>Normal map derived from greyscale bumpmap</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="3">
+           <widget class="MyCheckBox" name="checkBox_normal_map_texture_invert_green">
+            <property name="text">
+             <string>Invert green (Y+ / Y-)</string>
             </property>
            </widget>
           </item>

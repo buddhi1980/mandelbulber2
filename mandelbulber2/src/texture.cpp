@@ -63,6 +63,7 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 		memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
 		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
 	}
+	invertGreen = false;
 }
 
 //copy constructor
@@ -77,6 +78,7 @@ cTexture::cTexture(const cTexture &tex)
 	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
+	invertGreen = tex.invertGreen;
 }
 
 cTexture& cTexture::operator=(const cTexture &tex)
@@ -96,6 +98,7 @@ cTexture& cTexture::operator=(const cTexture &tex)
 	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
+	invertGreen = tex.invertGreen;
 
 	return *this;
 }
@@ -137,6 +140,7 @@ cTexture::cTexture(void)
 	bitmap = new sRGB8[100 * 100];
 	memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
 	//qDebug() << "cTexture::cTexture(void): new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
+	invertGreen = false;
 }
 
 //destructor
@@ -277,6 +281,7 @@ CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSi
 	CVector3 normal(normalPixel.R * 2.0 - 1.0, normalPixel.G * 2.0 - 1.0, normalPixel.B);
 	normal.x *= -bump;
 	normal.y *= -bump;
+	if(invertGreen) normal.y *= -1.0;
 	normal.Normalize();
 
 	return normal;
