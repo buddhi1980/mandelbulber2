@@ -2300,6 +2300,147 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
 }
 
 /**
+ * Menger Middle Mod
+ */
+void MengerMiddleModIteration(CVector3 &z, CVector3 &c, int i,const cFractal *fractal, sExtendedAux &aux)
+{  // fabs() and menger fold
+  double tempMS;
+  z = fabs(z + fractal->transformCommon.additionConstantA000);
+  if (z.x - z.y < 0)
+  {
+    tempMS = z.y;
+    z.y = z.x;
+    z.x = tempMS;
+  }
+  if (z.x - z.z < 0)
+  {
+    tempMS = z.z;
+    z.z = z.x;
+    z.x = tempMS;
+  }
+  if (z.y - z.z < 0)
+  {
+    tempMS = z.z;
+    z.z = z.y;
+    z.y = tempMS;
+  }
+  if (fractal->transformCommon.functionEnabledBxFalse
+      && i >= fractal->transformCommon.startIterationsA
+      && i < fractal->transformCommon.stopIterationsA) // box fold
+  {
+    if (z.x > fractal->mandelbox.foldingLimit)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    else if (z.x < -fractal->mandelbox.foldingLimit)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    if (z.y > fractal->mandelbox.foldingLimit)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    else if (z.y < -fractal->mandelbox.foldingLimit)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
+    double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
+    if (z.z > zLimit)
+    {
+      z.z = zValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+    else if (z.z < -zLimit)
+    {
+      z.z = -zValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+  }
+  if (fractal->transformCommon.functionEnabledByFalse
+      && i >= fractal->transformCommon.startIterations
+      && i < fractal->transformCommon.stopIterations)
+  { // fabsBoxFold
+    CVector3 tempA, tempB;
+
+    if (fractal->transformCommon.functionEnabledx)
+      tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
+    if (fractal->transformCommon.functionEnabledAx)
+      tempB.x = fabs(z.x - fractal->transformCommon.additionConstantA111.x);
+    z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
+
+    if (fractal->transformCommon.functionEnabledy)
+      tempA.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
+    if (fractal->transformCommon.functionEnabledAy)
+      tempB.y = fabs(z.y - fractal->transformCommon.additionConstantA111.y);
+    z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
+
+    if (fractal->transformCommon.functionEnabledz)
+      tempA.z = fabs(z.z + fractal->transformCommon.additionConstant111.z);
+    if (fractal->transformCommon.functionEnabledAz)
+      tempB.z = fabs(z.z - fractal->transformCommon.additionConstantA111.z);
+    z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
+
+    if ( i >= fractal->transformCommon.startIterationsB
+        && i < fractal->transformCommon.stopIterationsB)
+    {
+      z *= fractal->transformCommon.scaleA1;
+      aux.DE *= fabs(fractal->transformCommon.scaleA1);
+    }
+
+  }
+  if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsC
+      && i < fractal->transformCommon.stopIterationsC) // rotation
+  {
+    z = fractal->mandelbox.mainRot.RotateVector(z);
+  }
+  //{ // menger scales and offsets
+  z *= fractal->transformCommon.scale3;
+  z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
+  z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
+
+  if ((fractal->transformCommon.functionEnabled) && z.z > 1.0)
+    z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+
+  aux.DE *= fractal->transformCommon.scale3;
+
+  z += fractal->transformCommon.additionConstant000;
+  //}
+  if (fractal->transformCommon.addCpixelEnabledFalse) //addCpixel options
+  {
+    switch (fractal->mandelbulbMulti.orderOfxyzC)
+    {
+    case sFractalMandelbulbMulti::xyz:
+    default:
+      c = CVector3(c.x, c.y, c.z);
+      break;
+    case sFractalMandelbulbMulti::xzy:
+      c = CVector3(c.x, c.z, c.y);
+      break;
+    case sFractalMandelbulbMulti::yxz:
+      c = CVector3(c.y, c.x, c.z);
+      break;
+    case sFractalMandelbulbMulti::yzx:
+      c = CVector3(c.y, c.z, c.x);
+      break;
+    case sFractalMandelbulbMulti::zxy:
+      c = CVector3(c.z, c.x, c.y);
+      break;
+    case sFractalMandelbulbMulti::zyx:
+      c = CVector3(c.z, c.y, c.x);
+      break;
+    }
+    z += c * fractal->transformCommon.constantMultiplierC111;
+  }
+}
+
+
+
+/**
  * Menger Sponge Polynomial Hybrid modified by Mclarekin
  */
 void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)

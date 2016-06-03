@@ -380,6 +380,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
 																					10));
 
+  fractalList->append(sFractalDescription("Menger Middle Mod",
+                                          "menger_middle_mod",
+                                          mengerMiddleMod,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
+
+
   fractalList->append(sFractalDescription("Msltoe Donut",
                                           "msltoe_donut",
 																					msltoeDonut,

@@ -398,6 +398,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MengerMod1Iteration(z, i, fractal, extendedAux);
           break;
         }
+        case mengerMiddleMod:
+        {
+          MengerMiddleModIteration(z, c, i, fractal, extendedAux);
+          break;
+        }
         case mengerPwr2Poly:
         {
           MengerPwr2PolyIteration(z, c, i, fractal, extendedAux);
@@ -979,6 +984,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case collatz:
         case collatzMod:
         case mengerMod1:
+        case mengerMiddleMod:
         case transfMengerFold: // hmmm, this issue again
         case mengerPwr2Poly:
         {
@@ -1039,6 +1045,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case collatzMod:
 				case kaleidoscopicIFS:
         case mengerPwr2Poly:
+        case mengerMiddleMod:
 					out->colorIndex = minimumR * 1000.0;
 					break;
 
