@@ -52,7 +52,7 @@ public:
 	sRGB8 FastPixel(int x, int y);
 	bool IsLoaded(void) const {return loaded;}
 	QString GetFileName() {return originalFileName;}
-	void FromQByteArray(QByteArray buffer);
+	void FromQByteArray(QByteArray *buffer, enumUseMipmaps mode);
 	CVector3 NormalMapFromBumpMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
 	CVector3 NormalMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
 	void SetInvertGreen(bool invert) {invertGreen = invert;}

@@ -103,7 +103,7 @@ cTexture& cTexture::operator=(const cTexture &tex)
 	return *this;
 }
 
-void cTexture::FromQByteArray(QByteArray buffer)
+void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 {
 	if (bitmap)
 	{
@@ -112,8 +112,8 @@ void cTexture::FromQByteArray(QByteArray buffer)
 	}
 
 	bitmap = NULL;
-	QImage qimage(buffer);
-	qimage.loadFromData(buffer);
+	QImage qimage(*buffer);
+	qimage.loadFromData(*buffer);
 	qimage = qimage.convertToFormat(QImage::Format_RGB888);
 	if (!qimage.isNull())
 	{
@@ -124,6 +124,11 @@ void cTexture::FromQByteArray(QByteArray buffer)
 		//qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): (sRGB8*)(qimage.bits()):" << width * height * sizeof(sRGB8);
 		CreateMipMaps();
 		loaded = true;
+
+		if(mode == useMipmaps)
+		{
+			CreateMipMaps();
+		}
 	}
 	else
 	{

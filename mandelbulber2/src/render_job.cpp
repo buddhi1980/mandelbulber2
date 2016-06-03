@@ -139,9 +139,9 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 		if (gNetRender->IsServer())
 		{
 			connect(this,
-							SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)),
+							SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, QStringList)),
 							gNetRender,
-							SLOT(SetCurrentJob(cParameterContainer, cFractalContainer, sTextures)));
+							SLOT(SetCurrentJob(cParameterContainer, cFractalContainer, QStringList)));
 			connect(this,
 							SIGNAL(SendNetRenderSetup(int , int, QList<int>)),
 							gNetRender,
@@ -225,27 +225,41 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 	if (gNetRender->IsClient())
 	{
 		//get received textures from NetRender buffer
-		if (paramsContainer->Get<bool>("textured_background")) renderData->textures.backgroundTexture =
-				gNetRender->GetTextures()->backgroundTexture;
+		if (paramsContainer->Get<bool>("textured_background"))
+			renderData->textures.backgroundTexture.FromQByteArray(gNetRender->GetTexture(paramsContainer
+																																->Get<QString>("file_background")),
+																														cTexture::doNotUseMipmaps);
 
-		if (paramsContainer->Get<bool>("env_mapping_enable")) renderData->textures.envmapTexture =
-				gNetRender->GetTextures()->envmapTexture;
+		if (paramsContainer->Get<bool>("env_mapping_enable"))
+			renderData->textures.envmapTexture.FromQByteArray(gNetRender->GetTexture(paramsContainer
+																														->Get<QString>("file_envmap")),
+																												cTexture::doNotUseMipmaps);
 
 		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays
-				&& paramsContainer->Get<bool>("ambient_occlusion_enabled")) renderData->textures.lightmapTexture =
-				gNetRender->GetTextures()->lightmapTexture;
+				&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
+			renderData->textures.lightmapTexture.FromQByteArray(gNetRender->GetTexture(paramsContainer
+																															->Get<QString>("file_lightmap")),
+																													cTexture::doNotUseMipmaps);
 	}
 	else
 	{
-		if (paramsContainer->Get<bool>("textured_background")) renderData->textures.backgroundTexture =
-				cTexture(paramsContainer->Get<QString>("file_background"), cTexture::doNotUseMipmaps, config.UseIgnoreErrors());
+		if (paramsContainer->Get<bool>("textured_background"))
+			renderData->textures.backgroundTexture =
+					cTexture(	paramsContainer->Get<QString>("file_background"),
+										cTexture::doNotUseMipmaps,
+										config.UseIgnoreErrors());
 
-		if (paramsContainer->Get<bool>("env_mapping_enable")) renderData->textures.envmapTexture =
-				cTexture(paramsContainer->Get<QString>("file_envmap"), cTexture::doNotUseMipmaps, config.UseIgnoreErrors());
+		if (paramsContainer->Get<bool>("env_mapping_enable"))
+			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"),
+																										cTexture::doNotUseMipmaps,
+																										config.UseIgnoreErrors());
 
 		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays
-				&& paramsContainer->Get<bool>("ambient_occlusion_enabled")) renderData->textures.lightmapTexture =
-				cTexture(paramsContainer->Get<QString>("file_lightmap"), cTexture::doNotUseMipmaps, config.UseIgnoreErrors());
+				&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
+			renderData->textures.lightmapTexture =
+					cTexture(	paramsContainer->Get<QString>("file_lightmap"),
+										cTexture::doNotUseMipmaps,
+										config.UseIgnoreErrors());
 	}
 
 	//assign stop handler
@@ -318,8 +332,11 @@ bool cRenderJob::Execute(void)
 				}
 			}
 
+			QStringList listOfUsedTextures = CreateListOfUsedTextures();
+			qDebug() << listOfUsedTextures;
+
 			//send settings to all clients
-			emit SendNetRenderJob(*paramsContainer, *fractalContainer, renderData->textures);
+			emit SendNetRenderJob(*paramsContainer, *fractalContainer, listOfUsedTextures);
 		}
 
 		//get starting positions received from server
@@ -448,4 +465,41 @@ void cRenderJob::slotExecute()
 {
 	Execute();
 	emit finished();
+}
+
+QStringList cRenderJob::CreateListOfUsedTextures()
+{
+	QSet<QString> listOfTextures;
+	if(renderData)
+	{
+		QList<int> keys = renderData->materials.keys();
+		for(int i = 0; i < keys.size(); i++)
+		{
+			int matIndex = keys[i];
+			if(renderData->materials[matIndex].colorTexture.IsLoaded())
+			listOfTextures.insert(renderData->materials[matIndex].colorTexture.GetFileName());
+
+			if(renderData->materials[matIndex].diffusionTexture.IsLoaded())
+			listOfTextures.insert(renderData->materials[matIndex].diffusionTexture.GetFileName());
+
+			if(renderData->materials[matIndex].normalMapTexture.IsLoaded())
+			listOfTextures.insert(renderData->materials[matIndex].normalMapTexture.GetFileName());
+
+			if(renderData->materials[matIndex].displacementTexture.IsLoaded())
+			listOfTextures.insert(renderData->materials[matIndex].displacementTexture.GetFileName());
+
+			if(renderData->materials[matIndex].luminosityTexture.IsLoaded())
+			listOfTextures.insert(renderData->materials[matIndex].luminosityTexture.GetFileName());
+		}
+
+		for (int i = 0; i < renderData->textures.textureList.size(); i++)
+		{
+			if (renderData->textures.textureList[i]->IsLoaded())
+				listOfTextures.insert(renderData->textures.textureList[i]->GetFileName());
+		}
+
+		return listOfTextures.toList();
+	}
+	return QStringList();
+
 }

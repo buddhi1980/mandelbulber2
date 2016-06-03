@@ -473,16 +473,38 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					stream.readRawData(buffer.data(), size);
 					settingsText = QString::fromUtf8(buffer.data(), buffer.size());
 
+					qint32 numberOfTextures;
+					stream >> numberOfTextures;
+					qDebug() << "number of textures:" << numberOfTextures;
+
 					// read textures
-					for (int i = 0; i < textures.textureList.size(); i++)
+					for (int i = 0; i < numberOfTextures; i++)
 					{
+						qint32 sizeOfName;
+						stream >> sizeOfName;
+
+						qDebug() << "size of name" << sizeOfName;
+
+						QString textureName;
+						if(sizeOfName > 0)
+						{
+							QByteArray bufferForName;
+							bufferForName.resize(sizeOfName);
+							stream.readRawData(bufferForName.data(), sizeOfName);
+							qDebug() << bufferForName;
+							textureName = QString::fromUtf8(bufferForName);
+
+							qDebug() << "CNetRender::ProcessData: texture name:" << textureName;
+						}
+
+						cTexture texture;
 						stream >> size;
 						if (size > 0)
 						{
 							buffer.resize(size);
 							stream.readRawData(buffer.data(), size);
-							textures.textureList[i]->FromQByteArray(buffer);
 						}
+						textures.insert(textureName, buffer);
 					}
 
 					cSettings parSettings(cSettings::formatCondensedText);
@@ -714,7 +736,7 @@ void CNetRender::Stop()
 }
 
 void CNetRender::SetCurrentJob(cParameterContainer settings, cFractalContainer fractal,
-		sTextures textures)
+		QStringList listOfTextures)
 {
 	WriteLog("NetRender - Sending job", 2);
 	cSettings settingsData(cSettings::formatNetRender);
@@ -729,20 +751,31 @@ void CNetRender::SetCurrentJob(cParameterContainer settings, cFractalContainer f
 		stream << (qint32) settingsText.toUtf8().size();
 		stream.writeRawData(settingsText.toUtf8().data(), settingsText.toUtf8().size());
 
+		//send number of textures
+		stream << (qint32)listOfTextures.size();
+
 		// write textures (from files)
-		for (int i = 0; i < textures.textureList.size(); i++)
+		for (int i = 0; i < listOfTextures.size(); i++)
 		{
-			if (textures.textureList[i]->IsLoaded())
+			qDebug() << "Server: list of textures:" << listOfTextures[i];
+
+			//send length of texture name
+			stream << (qint32)listOfTextures[i].toUtf8().size();
+
+			//send texture name
+			stream.writeRawData(listOfTextures[i].toUtf8(), listOfTextures[i].length());
+
+			QFile file(listOfTextures[i]);
+			if (file.open(QIODevice::ReadOnly))
 			{
-				QFile file(textures.textureList[i]->GetFileName());
-				if (file.open(QIODevice::ReadOnly))
-				{
-					QByteArray buffer = file.readAll();
-					stream << (qint32) buffer.size();
-					stream.writeRawData(buffer.data(), buffer.size());
-					continue;
-				}
+				QByteArray buffer = file.readAll();
+				//send size of file
+				stream << (qint32) buffer.size();
+				//send file content
+				stream.writeRawData(buffer.data(), buffer.size());
+				continue;
 			}
+
 			stream << (qint32) 0; // empty entry
 		}
 
@@ -933,4 +966,9 @@ bool CNetRender::CompareMajorVersion(qint32 version1, qint32 version2)
   qint32 majorVersion1 = version1 / 10;
   qint32 majorVersion2 = version2 / 10;
   return majorVersion1 == majorVersion2;
+}
+
+QByteArray *CNetRender::GetTexture(QString textureName)
+{
+	return &textures[textureName];
 }

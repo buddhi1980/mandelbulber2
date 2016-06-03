@@ -6,6 +6,7 @@
  */
 
 #include "material.h"
+#include "netrender.hpp"
 
 cMaterial::cMaterial()
 {
@@ -144,23 +145,53 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
   fractalColoring.sphereRadius = materialParam->Get<double>(Name("fractal_coloring_sphere_radius", id));
   fractalColoring.lineDirection = materialParam->Get<CVector3>(Name("fractal_coloring_line_direction", id));
 
-  if (useColorTexture)
-    colorTexture = cTexture(materialParam->Get<QString>(Name("file_color_texture", id)), cTexture::useMipmaps, quiet);
-
-  if (useDiffusionTexture)
-    diffusionTexture = cTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id)), cTexture::useMipmaps, quiet);
-
-  if (useLuminosityTexture)
-    luminosityTexture = cTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id)), cTexture::useMipmaps, quiet);
-
-  if (useDisplacementTexture)
-    displacementTexture = cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)), cTexture::doNotUseMipmaps, quiet);
-
-  if (useNormalMapTexture)
+  if(gNetRender->IsClient())
   {
-    normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)), cTexture::useMipmaps, quiet);
-    if(materialParam->Get<bool>(Name("normal_map_texture_invert_green", id))) normalMapTexture.SetInvertGreen(true);
+  	if (useColorTexture)
+  	colorTexture.FromQByteArray(gNetRender->GetTexture(materialParam->Get<QString>(Name("file_color_texture", id))),
+																cTexture::useMipmaps);
+
+  	if (useDiffusionTexture)
+  		diffusionTexture.FromQByteArray(gNetRender->GetTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id))),
+																			cTexture::useMipmaps);
+
+  	if (useLuminosityTexture)
+  		luminosityTexture.FromQByteArray(gNetRender->GetTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id))),
+																			 cTexture::useMipmaps);
+
+  	 if (useDisplacementTexture)
+  		 displacementTexture.FromQByteArray(gNetRender->GetTexture(materialParam->Get<QString>(Name("file_displacement_texture", id))),
+																					cTexture::doNotUseMipmaps);
+
+     if (useNormalMapTexture)
+     {
+    	 normalMapTexture.FromQByteArray(gNetRender->GetTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id))),
+																			 cTexture::doNotUseMipmaps);
+
+       if(materialParam->Get<bool>(Name("normal_map_texture_invert_green", id))) normalMapTexture.SetInvertGreen(true);
+     }
   }
+  else
+  {
+    if (useColorTexture)
+      colorTexture = cTexture(materialParam->Get<QString>(Name("file_color_texture", id)), cTexture::useMipmaps, quiet);
+
+    if (useDiffusionTexture)
+      diffusionTexture = cTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id)), cTexture::useMipmaps, quiet);
+
+    if (useLuminosityTexture)
+      luminosityTexture = cTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id)), cTexture::useMipmaps, quiet);
+
+    if (useDisplacementTexture)
+      displacementTexture = cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)), cTexture::doNotUseMipmaps, quiet);
+
+    if (useNormalMapTexture)
+    {
+      normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)), cTexture::useMipmaps, quiet);
+      if(materialParam->Get<bool>(Name("normal_map_texture_invert_green", id))) normalMapTexture.SetInvertGreen(true);
+    }
+  }
+
   rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
 }
 

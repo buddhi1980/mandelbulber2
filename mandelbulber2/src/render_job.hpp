@@ -63,6 +63,7 @@ private:
 	bool InitImage(int w, int h, sImageOptional optional);
 	void PrepareData(const cRenderingConfiguration &config);
 	void ReduceDetail();
+	QStringList CreateListOfUsedTextures();
 
 	bool hasQWidget;
 	bool inProgress;
@@ -90,7 +91,7 @@ private:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateStatistics(cStatistics statistics);
 	void updateImage();
-	void SendNetRenderJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
+	void SendNetRenderJob(cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
 	void SendNetRenderSetup(int clientIndex, int id, QList<int> startingPositions);
 	void SetMinimumWidgetSize(int width, int height);
 

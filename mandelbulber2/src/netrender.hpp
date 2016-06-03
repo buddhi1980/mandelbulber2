@@ -131,7 +131,7 @@ public:
 	//get line numbers which should be rendered first
 	QList<int> GetStartingPositions() {return startingPositions;}
 	//get received textures
-	sTextures *GetTextures() {return &textures;}
+	QByteArray *GetTexture(QString textureName);
 
 	bool WaitForAllClientsReady(double timeout);
 
@@ -177,15 +177,15 @@ private:
 
 	//client data buffers
 	QString settingsText;
-	sTextures textures;
 	qint32 actualId;
 	QList<int> startingPositions;
 	bool isUsed;
+	QMap<QString, QByteArray> textures;
 
 //------------------- public slots -------------------
 public slots:
 	//send parameters and textures to all clients and start rendering
-	void SetCurrentJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
+	void SetCurrentJob(cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
 	//send to server a list of numbers and image data of already rendered lines
   void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 	//send list of already rendered lines
