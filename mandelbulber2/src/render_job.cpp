@@ -333,7 +333,6 @@ bool cRenderJob::Execute(void)
 			}
 
 			QStringList listOfUsedTextures = CreateListOfUsedTextures();
-			qDebug() << listOfUsedTextures;
 
 			//send settings to all clients
 			emit SendNetRenderJob(*paramsContainer, *fractalContainer, listOfUsedTextures);

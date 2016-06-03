@@ -475,7 +475,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					qint32 numberOfTextures;
 					stream >> numberOfTextures;
-					qDebug() << "number of textures:" << numberOfTextures;
 
 					// read textures
 					for (int i = 0; i < numberOfTextures; i++)
@@ -483,18 +482,13 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 						qint32 sizeOfName;
 						stream >> sizeOfName;
 
-						qDebug() << "size of name" << sizeOfName;
-
 						QString textureName;
 						if(sizeOfName > 0)
 						{
 							QByteArray bufferForName;
 							bufferForName.resize(sizeOfName);
 							stream.readRawData(bufferForName.data(), sizeOfName);
-							qDebug() << bufferForName;
 							textureName = QString::fromUtf8(bufferForName);
-
-							qDebug() << "CNetRender::ProcessData: texture name:" << textureName;
 						}
 
 						cTexture texture;
@@ -757,8 +751,6 @@ void CNetRender::SetCurrentJob(cParameterContainer settings, cFractalContainer f
 		// write textures (from files)
 		for (int i = 0; i < listOfTextures.size(); i++)
 		{
-			qDebug() << "Server: list of textures:" << listOfTextures[i];
-
 			//send length of texture name
 			stream << (qint32)listOfTextures[i].toUtf8().size();
 
