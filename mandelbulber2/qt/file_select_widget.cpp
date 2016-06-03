@@ -112,11 +112,28 @@ void FileSelectWidget::contextMenuEvent(QContextMenuEvent *event)
 	delete menu;
 }
 
+void FileSelectWidget::paintEvent(QPaintEvent *event)
+{
+	if (lineEdit->text() != GetDefault())
+	{
+		QFont f = font();
+		f.setBold(true);
+		setFont(f);
+	}
+	else
+	{
+		QFont f = font();
+		f.setBold(false);
+		setFont(f);
+	}
+	QWidget::paintEvent(event);
+}
+
 QString FileSelectWidget::GetDefault()
 {
 	if (parameterContainer && !gotDefault)
 	{
-		int val = parameterContainer->GetDefault<int>(parameterName);
+		QString val = parameterContainer->GetDefault<QString>(parameterName);
 		defaultValue = val;
 		gotDefault = true;
 

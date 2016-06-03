@@ -64,6 +64,7 @@ private:
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
+	void paintEvent(QPaintEvent *event);
 };
 
 #endif /* MANDELBULBER2_QT_FILE_SELECT_WIDGET_WIDGET_H_ */
