@@ -67,6 +67,7 @@ struct sSystem
 	bool statsOnCLI;
 	bool useColor;
 	int loggingVerbosity;
+	bool settingsLoadedFromCLI;
 };
 
 struct sActualFileNames

@@ -130,6 +130,8 @@ bool InitSystem(void)
 
 	systemData.loggingVerbosity = 3;
 
+	systemData.settingsLoadedFromCLI = false;
+
 #ifndef WIN32
 	handle_winch(-1);
 #endif

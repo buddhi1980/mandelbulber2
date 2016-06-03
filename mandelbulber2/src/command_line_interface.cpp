@@ -212,6 +212,7 @@ void cCommandLineInterface::ReadCLI()
 	// list parameters only
 	if (cliData.listParameters)
 	{
+		InitMaterialParams(1, gPar);
 		QList<QString> listOfParameters = gPar->GetListOfParameters();
 		out
 				<< cHeadless::colorize("\nList of main parameters:\n",
@@ -350,6 +351,7 @@ void cCommandLineInterface::ReadCLI()
 					parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 					settingsSpecified = true;
 					systemData.lastSettingsFile = filename;
+					systemData.settingsLoadedFromCLI = true;
 				}
 				else
 				{

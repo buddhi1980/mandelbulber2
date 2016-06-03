@@ -2354,7 +2354,15 @@ void cInterface::InitMaterialsUi()
 	materialListModel = new cMaterialItemModel(mainWindow->ui->tabWidget_material);
 	materialListModel->AssignContainer(gPar);
   mainWindow->ui->widget_material_list_view->SetModel(materialListModel);
-  materialListModel->insertRows(0, 1, QModelIndex());
+
+  if(systemData.settingsLoadedFromCLI)
+  {
+  	materialListModel->Regenerate();
+  }
+  else
+  {
+  	materialListModel->insertRows(0, 1, QModelIndex());
+  }
 
 	materialEditor->AssignMaterial(gPar, 1);
 	QApplication::connect(materialEditor,
@@ -2371,8 +2379,6 @@ void cInterface::InitMaterialsUi()
 												SIGNAL(materialEdited()),
 												mainWindow,
 												SLOT(slotMaterialEdited()));
-
-
 }
 
 void cInterface::MaterialSelected(int matIndex)
