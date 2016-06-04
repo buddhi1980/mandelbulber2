@@ -2325,13 +2325,11 @@ void MengerMiddleModIteration(CVector3 &z, CVector3 &c, int i,const cFractal *fr
     z.y = tempMS;
   }
 
-
   if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsC
       && i < fractal->transformCommon.stopIterationsC) // rotation
   {
     z = fractal->mandelbox.mainRot.RotateVector(z);
   }
-
 
   if (fractal->transformCommon.functionEnabledBxFalse
       && i >= fractal->transformCommon.startIterationsA
@@ -2401,12 +2399,6 @@ void MengerMiddleModIteration(CVector3 &z, CVector3 &c, int i,const cFractal *fr
       aux.DE *= fabs(fractal->transformCommon.scaleA1);
     }
   }
-  /*if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsC
-      && i < fractal->transformCommon.stopIterationsC) // rotation
-  {
-    z = fractal->mandelbox.mainRot.RotateVector(z);
-  }*/
-
  //menger scales and offsets
   z *= fractal->transformCommon.scale3;
   z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
@@ -2450,8 +2442,6 @@ void MengerMiddleModIteration(CVector3 &z, CVector3 &c, int i,const cFractal *fr
     z += c * fractal->transformCommon.constantMultiplierC111;
   }
 }
-
-
 
 /**
  * Menger Sponge Polynomial Hybrid modified by Mclarekin
