@@ -117,7 +117,7 @@ void TransformBoxFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtend
 void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal);
-void TransformMengerFoldIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+void TransformMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal);

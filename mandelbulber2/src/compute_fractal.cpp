@@ -655,7 +655,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case transfMengerFold:
         {
-          TransformMengerFoldIteration(z, c, fractal, extendedAux);
+          TransformMengerFoldIteration(z, fractal, extendedAux);
           break;
         }
         // 4D  ---------------------------------------------------------------------------
