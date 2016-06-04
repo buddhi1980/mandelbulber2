@@ -68,6 +68,7 @@ struct sSystem
 	bool useColor;
 	int loggingVerbosity;
 	bool settingsLoadedFromCLI;
+	QElapsedTimer globalTimer;
 };
 
 struct sActualFileNames

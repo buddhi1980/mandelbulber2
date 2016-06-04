@@ -22,17 +22,26 @@ public:
 
 private:
 	cParameterContainer *paramsHandle;
-	int lastMaterialIndex;
+	cParameterContainer paramsCopy;
+	int actualMaterialIndex;
 	QTimer *timerPeriodicRefresh;
+	QTimer *timerPeriodicUpdateData;
 	void Init();
 	QWidget *materialEditorWidget;
 	QSize sizeHint() const;
+	void InitializeData();
+
+	bool initialized;
+	bool dataAssigned;
+	double timeUpdateData;
+	double timeAssingData;
 
 	virtual void mousePressEvent(QMouseEvent *event);
 
 private slots:
 
 	void slotPeriodicRender();
+	void slotPeriodicUpdateData();
 
 public slots:
 	void slotMaterialChanged();
@@ -44,6 +53,7 @@ public:
 signals:
   void materialChanged(int matIndex);
   void clicked(Qt::MouseButton button);
+
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_WIDGET_H_ */

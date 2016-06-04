@@ -35,9 +35,19 @@ void cMaterialWidget::Init()
 	timerPeriodicRefresh = new QTimer(parent());
 	timerPeriodicRefresh->setSingleShot(true);
 	connect(timerPeriodicRefresh, SIGNAL(timeout()), this, SLOT(slotPeriodicRender()));
+
+	timerPeriodicUpdateData = new QTimer(parent());
+	timerPeriodicUpdateData->setSingleShot(true);
+	connect(timerPeriodicUpdateData, SIGNAL(timeout()), this, SLOT(slotPeriodicUpdateData()));
+	timerPeriodicUpdateData->start(1000);
+
 	connect(this, SIGNAL(settingsChanged()), this, SLOT(slotMaterialChanged()));
-	lastMaterialIndex = 0;
+	actualMaterialIndex = 0;
 	setMinimumSize(previewWidth, previewHeight);
+	initialized = false;
+	dataAssigned = false;
+	timeUpdateData = 0;
+	timeAssingData = 0;
 }
 
 cMaterialWidget::~cMaterialWidget()
@@ -48,51 +58,67 @@ cMaterialWidget::~cMaterialWidget()
 void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget)
 {
 	paramsHandle = _params;
-	lastMaterialIndex = materialIndex;
+	paramsCopy = *_params;
+	actualMaterialIndex = materialIndex;
 	materialEditorWidget = _materialEditorWidget;
+	dataAssigned = true;
+	initialized = false;
+}
 
-	cParameterContainer params;
-	cFractalContainer fractal;
-
-	params.SetContainerName("material");
-	InitParams(&params);
-
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+void cMaterialWidget::InitializeData()
+{
+	if(dataAssigned && !initialized)
 	{
-		fractal.at(i).SetContainerName(QString("fractal") + QString::number(i));
-		InitFractalParams(&fractal.at(i));
-	}
-	InitMaterialParams(1, &params);
+		QElapsedTimer timer;
+		timer.start();
 
-	//copy parameters from main parameter container to temporary container for material
-	for(int i=0; i < cMaterial::paramsList.size(); i++)
-	{
-		cOneParameter parameter = _params->GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), materialIndex));
-		params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
-	}
+		cParameterContainer params;
+		cFractalContainer fractal;
 
-	params.Set("camera", CVector3(1.5, -2.5, 0.7));
-	params.Set("raytraced_reflections", true);
-	params.Set("N", 10);
-	params.Set("detail_level", 0.2);
-	params.Set("smoothness", 5.0);
-	fractal.at(0).Set("power", 5);
-	params.Set("julia_mode", true);
-	params.Set("textured_background", true);
-	params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
-	params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
-	params.Set("mat1_displacement_texture_height", 0.01);
-	params.Set("main_light_intensity", 1.2);
-	params.Set("shadows_enabled", false);
+		params.SetContainerName("material");
+		InitParams(&params);
 
-	// call parent assignation
-	// maybe disable preview saving, to not pollute hard drive?
-	AssignParameters(params, fractal);
-	update();
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		{
+			fractal.at(i).SetContainerName(QString("fractal") + QString::number(i));
+			InitFractalParams(&fractal.at(i));
+		}
+		InitMaterialParams(1, &params);
 
-	if(materialEditorWidget)
-	{
-		timerPeriodicRefresh->start(1000);
+		//copy parameters from main parameter container to temporary container for material
+		for(int i=0; i < cMaterial::paramsList.size(); i++)
+		{
+			cOneParameter parameter = paramsCopy.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), actualMaterialIndex));
+			params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
+		}
+
+		params.Set("camera", CVector3(1.5, -2.5, 0.7));
+		params.Set("raytraced_reflections", true);
+		params.Set("N", 10);
+		params.Set("detail_level", 0.2);
+		params.Set("smoothness", 5.0);
+		fractal.at(0).Set("power", 5);
+		params.Set("julia_mode", true);
+		params.Set("textured_background", true);
+		params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
+		params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
+		params.Set("mat1_displacement_texture_height", 0.01);
+		params.Set("main_light_intensity", 1.2);
+		params.Set("shadows_enabled", false);
+
+		// call parent assignation
+		// maybe disable preview saving, to not pollute hard drive?
+		AssignParameters(params, fractal);
+		update();
+		timeAssingData = timer.nsecsElapsed() / 1e9;
+
+		if(materialEditorWidget)
+		{
+			int time = (timeUpdateData + timeAssingData + lastRenderTime) * 2000.0 + 1;
+			//qDebug() << timeAssingData << timeUpdateData << lastRenderTime << time;
+			timerPeriodicRefresh->start(time);
+		}
+		initialized = true;
 	}
 }
 
@@ -100,21 +126,32 @@ void cMaterialWidget::slotPeriodicRender(void)
 {
 	if(!visibleRegion().isEmpty())
 	{
-		if(materialEditorWidget)
-		{
-			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, qInterface::read);
-		}
-
+		QElapsedTimer timer;
+		timer.start();
 		if(paramsHandle && materialEditorWidget)
 		{
-			AssignMaterial(paramsHandle, lastMaterialIndex, materialEditorWidget);
+			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, qInterface::read);
+			AssignMaterial(paramsHandle, actualMaterialIndex, materialEditorWidget);
 		}
 		update();
+		timeUpdateData = timer.nsecsElapsed() / 1e9;
 	}
 	if(!timerPeriodicRefresh->isActive())
 	{
-		timerPeriodicRefresh->start(1000);
+		int time = (timeUpdateData + timeAssingData + lastRenderTime) * 2000.0 + 1;
+		if(time > 10000) time = 10000;
+
+		timerPeriodicRefresh->start(time);
 	}
+}
+
+void cMaterialWidget::slotPeriodicUpdateData(void)
+{
+	if(!visibleRegion().isEmpty())
+	{
+		InitializeData();
+	}
+	timerPeriodicUpdateData->start(500);
 }
 
 QSize cMaterialWidget::sizeHint() const
@@ -134,7 +171,7 @@ void cMaterialWidget::AssignMaterial(const QString &text, int materialIndex)
 
 void cMaterialWidget::slotMaterialChanged()
 {
-	emit materialChanged(lastMaterialIndex);
+	emit materialChanged(actualMaterialIndex);
 }
 
 void cMaterialWidget::mousePressEvent(QMouseEvent* event)

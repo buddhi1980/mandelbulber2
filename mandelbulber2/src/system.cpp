@@ -56,6 +56,8 @@ bool InitSystem(void)
 
 	QTextStream out(stdout);
 
+	systemData.globalTimer.start();
+
 	systemData.homedir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
 
 #ifdef WIN32 /* WINDOWS */
@@ -171,7 +173,7 @@ void WriteLog(QString text, int verbosityLevel)
 	#else
 		QString logtext =
 				QString("PID: %1, time: %2, %3\n")
-					.arg(QCoreApplication::applicationPid()).arg(QString::number(	clock()	/ 1.0e6,'f', 6))
+					.arg(QCoreApplication::applicationPid()).arg(QString::number((systemData.globalTimer.nsecsElapsed())	/ 1.0e9,'f', 9))
 						.arg(text);
 	#endif
 

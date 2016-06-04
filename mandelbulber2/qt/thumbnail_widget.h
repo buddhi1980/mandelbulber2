@@ -69,7 +69,10 @@ private:
 	bool disableTimer;
 	bool disableThumbnailCache;
 	QTimer *timer; //timer for random trigger for rendering (renders thumbnail even when is not visible)
+	QElapsedTimer renderingTimeTimer;
 
+protected:
+	double lastRenderTime;
 
 signals:
 	void renderRequest();

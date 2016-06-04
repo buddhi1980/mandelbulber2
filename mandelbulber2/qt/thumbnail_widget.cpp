@@ -55,6 +55,8 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 	timer->setSingleShot(true);
 	connect(timer, SIGNAL(timeout()), this, SLOT(slotRandomRender()));
 
+	lastRenderTime = 0.0;
+
 	instanceIndex = instanceCount;
 	instanceCount++;
 	//qDebug() << "cThumbnailWidget constructed" << instanceCount;
@@ -178,6 +180,8 @@ void cThumbnailWidget::slotRender()
 					this,
 					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 
+
+	renderingTimeTimer.start();
 	renderJob->UseSizeFromImage(true);
 
 	cRenderingConfiguration config;
@@ -217,7 +221,7 @@ void cThumbnailWidget::slotFullyRendered()
 		QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
 		pixmap.save(thumbnailFileName, "PNG");
 	}
-
+	lastRenderTime = renderingTimeTimer.nsecsElapsed() / 1e9;
 	emit thumbnailRendered();
 }
 
