@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>772</width>
-    <height>789</height>
+    <height>811</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -224,7 +224,7 @@
         <item row="3" column="1">
          <widget class="QLabel" name="label_91">
           <property name="text">
-           <string>Quaternion Scales:    </string>
+           <string>Scale:    </string>
           </property>
          </widget>
         </item>
@@ -365,16 +365,6 @@
           </property>
          </widget>
         </item>
-        <item row="10" column="1">
-         <widget class="QLabel" name="label_2">
-          <property name="layoutDirection">
-           <enum>Qt::RightToLeft</enum>
-          </property>
-          <property name="text">
-           <string>DE Vector Influence: </string>
-          </property>
-         </widget>
-        </item>
         <item row="10" column="3">
          <widget class="QSlider" name="slider_transf_scaleA_1">
           <property name="sizePolicy">
@@ -435,7 +425,7 @@
         <item row="7" column="1">
          <widget class="QLabel" name="label_255">
           <property name="text">
-           <string>Offset  </string>
+           <string>Offset:  </string>
           </property>
          </widget>
         </item>
@@ -478,6 +468,23 @@
          <widget class="Line" name="line_53">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1" colspan="4">
+         <widget class="Line" name="line_54">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="1">
+         <widget class="QLabel" name="label_2">
+          <property name="layoutDirection">
+           <enum>Qt::RightToLeft</enum>
+          </property>
+          <property name="text">
+           <string>DE Vector Influence: </string>
           </property>
          </widget>
         </item>
