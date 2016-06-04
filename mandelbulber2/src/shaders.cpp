@@ -156,41 +156,61 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 
 	if (params->texturedBackground)
 	{
-		if (params->texturedBackgroundMapType == params::mapDoubleHemisphere)
+		switch(params->texturedBackgroundMapType)
 		{
-			double alphaTexture = input.viewVector.GetAlpha();
-			double betaTexture = input.viewVector.GetBeta();
-			int texWidth = data->textures.backgroundTexture.Width() * 0.5;
-			int texHeight = data->textures.backgroundTexture.Height();
-			int offset = 0;
-
-			if (betaTexture < 0)
+			case params::mapDoubleHemisphere:
 			{
-				betaTexture = -betaTexture;
-				alphaTexture = M_PI - alphaTexture;
-				offset = texWidth;
+				double alphaTexture = input.viewVector.GetAlpha();
+				double betaTexture = input.viewVector.GetBeta();
+				int texWidth = data->textures.backgroundTexture.Width() * 0.5;
+				int texHeight = data->textures.backgroundTexture.Height();
+				int offset = 0;
+
+				if (betaTexture < 0)
+				{
+					betaTexture = -betaTexture;
+					alphaTexture = M_PI - alphaTexture;
+					offset = texWidth;
+				}
+				double texX = 0.5 * texWidth
+						+ cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
+				double texY = 0.5 * texHeight
+						+ sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
+				sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
+				pixel2.R = pixel.R;
+				pixel2.G = pixel.G;
+				pixel2.B = pixel.B;
+				break;
 			}
-			double texX = 0.5 * texWidth
-					+ cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
-			double texY = 0.5 * texHeight
-					+ sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
-			sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
-			pixel2.R = pixel.R;
-			pixel2.G = pixel.G;
-			pixel2.B = pixel.B;
-		}
-		else
-		{
-			double alphaTexture = fmod(input.viewVector.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
-			double betaTexture = -input.viewVector.GetBeta();
-			if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
-			if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
-			double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture.Width();
-			double texY = (betaTexture / (M_PI) + 0.5) * data->textures.backgroundTexture.Height();
-			sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
-			pixel2.R = pixel.R;
-			pixel2.G = pixel.G;
-			pixel2.B = pixel.B;
+			case params::mapEquirectangular:
+			{
+				double alphaTexture = fmod(input.viewVector.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
+				double betaTexture = -input.viewVector.GetBeta();
+				if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
+				if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
+				double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture.Width();
+				double texY = (betaTexture / (M_PI) + 0.5) * data->textures.backgroundTexture.Height();
+				sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
+				pixel2.R = pixel.R;
+				pixel2.G = pixel.G;
+				pixel2.B = pixel.B;
+				break;
+			}
+			case params::mapFlat:
+			{
+				CVector3 vect = mRotInv.RotateVector(input.viewVector);
+
+				double texX = vect.x / vect.y / params->fov * params->imageHeight / params->imageWidth;
+				double texY = -vect.z / vect.y / params->fov;
+				texX  = (texX + 0.5);
+				texY  = (texY + 0.5);
+
+				sRGBfloat pixel = data->textures.backgroundTexture.Pixel(CVector2<double>(texX, texY));
+				pixel2.R = pixel.R;
+				pixel2.G = pixel.G;
+				pixel2.B = pixel.B;
+				break;
+			}
 		}
 		pixel2.R *= params->background_brightness;
 		pixel2.G *= params->background_brightness;

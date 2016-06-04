@@ -41,7 +41,7 @@ enum enumAOMode
 
 enum enumTextureMapType
 {
-	mapEquirectangular = 0, mapDoubleHemisphere = 1,
+	mapEquirectangular = 0, mapDoubleHemisphere = 1, mapFlat = 2
 };
 
 enum enumBooleanOperator

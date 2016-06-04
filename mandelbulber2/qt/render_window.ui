@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>935</width>
-           <height>1415</height>
+           <height>1417</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -249,7 +249,7 @@
      <x>0</x>
      <y>0</y>
      <width>1581</width>
-     <height>19</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -1215,7 +1215,7 @@
           <x>0</x>
           <y>0</y>
           <width>210</width>
-          <height>471</height>
+          <height>472</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -3020,7 +3020,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>384</width>
-          <height>307</height>
+          <height>306</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3051,7 +3051,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -4747,8 +4747,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>262</width>
-                  <height>165</height>
+                  <width>348</width>
+                  <height>292</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4927,6 +4927,11 @@ Disables 'Update image' options)</string>
                         <item>
                          <property name="text">
                           <string>Double hemisphere</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>Flat</string>
                          </property>
                         </item>
                        </widget>
