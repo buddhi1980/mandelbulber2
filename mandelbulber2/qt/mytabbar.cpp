@@ -22,6 +22,7 @@
 
 #include "mytabbar.h"
 #include <QtWidgets/QtWidgets>
+#include "../qt/mycheckbox.h"
 
 MyTabBar::MyTabBar(QWidget *parent) :	QTabBar(parent)
 {
@@ -32,20 +33,20 @@ void MyTabBar::setupMoveButtons()
 {
 	for(int i = 0; i < count(); i++)
 	{
-		QFrame *leftFrame = new QFrame;
+		QFrame *leftFrame = new QFrame(this);
 		QHBoxLayout *leftSide = new QHBoxLayout;
 		leftSide->setContentsMargins(0, 0, 0, 0);
 		leftSide->setSpacing(2);
 
-		QCheckBox* chActive = new QCheckBox();
-		chActive->setObjectName(QString::number(i));
+		MyCheckBox* chActive = new MyCheckBox(this);
+		chActive->setObjectName(QString("checkBox_fractal_enable_%1").arg(i + 1));
 		leftSide->addWidget(chActive);
 		connect(chActive, SIGNAL(stateChanged(int)), this, SLOT(slotToggleActive(int)));
 		chActive->setChecked(i == 0);
 
 		if(i > 0)
 		{
-			QToolButton* tbMoveLeft = new QToolButton();
+			QToolButton* tbMoveLeft = new QToolButton(this);
 			QIcon arrowLeft = this->style()->standardIcon(QStyle::SP_ArrowLeft);
 			tbMoveLeft->setIcon(arrowLeft);
 			tbMoveLeft->setIconSize(QSize(10, 10));
@@ -58,7 +59,7 @@ void MyTabBar::setupMoveButtons()
 
 		if(i < count() - 1)
 		{
-			QToolButton* tbMoveRight = new QToolButton();
+			QToolButton* tbMoveRight = new QToolButton(this);
 			QIcon arrowRight = this->style()->standardIcon(QStyle::SP_ArrowRight);
 			tbMoveRight->setIcon(arrowRight);
 			tbMoveRight->setIconSize(QSize(10, 10));
@@ -88,10 +89,11 @@ void MyTabBar::slotMoveRight()
 void MyTabBar::slotToggleActive(int state){
 
 	QString buttonName = this->sender()->objectName();
-	int index = buttonName.toInt();
-	QPalette palette;
-	setTabTextColor(index, state == Qt::Checked ? palette.text().color() : palette.highlight().color());
+	int index = buttonName.right(1).toInt() - 1;
+	QPalette palette = QApplication::palette();
+	setTabTextColor(index, state == Qt::Checked ? palette.text().color() : palette.dark().color());
 	// setTabEnabled(index, state == Qt::Checked);
+	emit toggledEnable(index + 1, state == Qt::Checked);
 }
 
 void MyTabBar::mouseReleaseEvent(QMouseEvent *event)

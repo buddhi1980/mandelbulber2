@@ -102,6 +102,7 @@ void InitParams(cParameterContainer *par)
 
 	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 	{
+		par->addParam("fractal_enable", i, true, morphLinear, paramStandard);
 		par->addParam("formula_weight", i, 1.0, 0.0, 1.0, morphAkima, paramStandard);
 		par->addParam("formula_start_iteration", i, 0, 0, 65536, morphAkima, paramStandard);
 		par->addParam("formula_stop_iteration", i, 250, 0, 65536, morphAkima, paramStandard);

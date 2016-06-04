@@ -38,6 +38,7 @@ public:
 
 signals:
 	void swapTabs(int, int);
+	void toggledEnable(int, bool);
 
 public slots:
 	// void dragDropChange();

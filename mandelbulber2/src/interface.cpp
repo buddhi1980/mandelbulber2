@@ -587,6 +587,11 @@ void cInterface::ConnectSignals(void)
                         SIGNAL(toggled(bool)),
                         mainWindow,
                         SLOT(slotChangedCheckBoxJuliaMode(bool)));
+  QApplication::connect(mainWindow->ui->tabWidget_fractals->tabBar(),
+                        SIGNAL(toggledEnable(int, bool)),
+                        mainWindow,
+                        SLOT(slotToggledFractalEnable(int, bool)));
+
 	QApplication::connect(mainWindow->ui->comboBox_delta_DE_method,
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
@@ -854,6 +859,7 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidgetContents_animation, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, par, mode);
 	SynchronizeInterfaceWindow(materialEditor, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->tabBar(), par, mode);
 
 	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{

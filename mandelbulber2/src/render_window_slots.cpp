@@ -877,3 +877,8 @@ void RenderWindow::slotMaterialEdited()
 {
 	SynchronizeInterfaceWindow(gMainInterface->materialEditor, gPar, qInterface::write);
 }
+
+void RenderWindow::slotToggledFractalEnable(int fractalIndex, bool enabled)
+{
+	ui->tabWidget_fractals->widget(fractalIndex - 1)->setEnabled(enabled);
+}

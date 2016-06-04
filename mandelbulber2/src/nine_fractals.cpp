@@ -54,6 +54,10 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	{
 		fractals[i] = new cFractal(&par->at(i));
 		fractals[i]->formula = (fractal::enumFractalFormula) generalPar->Get<int>("formula", i + 1);
+		if(!generalPar->Get<bool>("fractal_enable", i + 1))
+		{
+			fractals[i]->formula = fractal::none;
+		}
 		formulaWeight[i] = generalPar->Get<double>("formula_weight", i + 1);
 		formulaStartIteriation[i] = generalPar->Get<int>("formula_start_iteration", i + 1);
 		formulaStopIteration[i] = generalPar->Get<int>("formula_stop_iteration", i + 1);
