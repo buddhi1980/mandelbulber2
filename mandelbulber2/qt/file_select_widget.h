@@ -61,6 +61,7 @@ private:
 	QString defaultValue;
 	bool gotDefault;
 	QString originalText;
+	QString actualText;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);

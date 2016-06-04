@@ -847,35 +847,53 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 
 	if(!interfaceReady && mode == qInterface::read) return;
 
+	WriteLog("cInterface::SynchronizeInterface: dockWidget_effects", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: dockWidget_image_adjustments", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: dockWidget_navigation", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: dockWidget_rendering_engine", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: dockWidget_queue_dock", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_queue_dock, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_common", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_hybrid", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: tab_primitives", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: centralwidget", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: dockWidgetContents_animation", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidgetContents_animation, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: dockWidget_measurement", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: materialEditor", 3);
 	SynchronizeInterfaceWindow(materialEditor, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractals", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->tabBar(), par, mode);
 
 	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
+		WriteLog("cInterface::SynchronizeInterface: fractalWidgets[i]", 3);
 		SynchronizeInterfaceWindow(mainWindow->fractalWidgets[i], &parFractal->at(i), mode);
+		WriteLog("cInterface::SynchronizeInterface: frame_iterations_formula", 3);
 		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QFrame*>(QString("frame_iterations_formula_%1")
 																	 .arg(i + 1)),
 															 par,
 															 mode);
+		WriteLog("cInterface::SynchronizeInterface: groupBox_formula_transform", 3);
 		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>(QString("groupBox_formula_transform_%1")
 																	 .arg(i + 1)),
 															 par,
 															 mode);
+		WriteLog("cInterface::SynchronizeInterface: groupBox_c_constant_addition", 3);
 		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>(QString("groupBox_c_constant_addition_%1")
 																	 .arg(i + 1)),
 															 par,
 															 mode);
+		WriteLog("cInterface::SynchronizeInterface: groupBox_material_fractal", 3);
 		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>(QString("groupBox_material_fractal_%1")
 																	 .arg(i + 1)),
 															 par,

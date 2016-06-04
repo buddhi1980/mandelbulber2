@@ -172,21 +172,25 @@ void FileSelectWidget::SetPath(QString path)
 
 void FileSelectWidget::slotChangedFile()
 {
-	QPixmap pixmap(lineEdit->text());
+	if(lineEdit->text() != actualText)
+	{
+		actualText = lineEdit->text();
+		QPixmap pixmap(lineEdit->text());
 
-	if (pixmap.isNull())
-	{
-		labelImage->setText(QObject::tr("filepath invalid"));
-	}
-	else
-	{
-		if(pixmap.height() / pixmap.width() > 150 / 300)
+		if (pixmap.isNull())
 		{
-			labelImage->setPixmap(pixmap.scaledToHeight(150, Qt::SmoothTransformation));
+			labelImage->setText(QObject::tr("filepath invalid"));
 		}
 		else
 		{
-			labelImage->setPixmap(pixmap.scaledToWidth(300, Qt::SmoothTransformation));
+			if(pixmap.height() / pixmap.width() > 150 / 300)
+			{
+				labelImage->setPixmap(pixmap.scaledToHeight(150, Qt::SmoothTransformation));
+			}
+			else
+			{
+				labelImage->setPixmap(pixmap.scaledToWidth(300, Qt::SmoothTransformation));
+			}
 		}
 	}
 }

@@ -25,7 +25,7 @@ using namespace qInterface;
 void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		enumReadWrite mode)
 {
-
+	WriteLog("cInterface::SynchronizeInterface: QLineEdit", 3);
 	//----------- QLineEdit -------------------
 	{
 		QList<QLineEdit *> widgetListLineEdit = window->findChildren<QLineEdit *>();
@@ -221,6 +221,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		} //end foreach
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: QDoubleSpinBox", 3);
 	//------------ Double spin-box --------------
 	{
 		QList<QDoubleSpinBox *> widgetListDoubleSpinBox = window->findChildren<QDoubleSpinBox*>();
@@ -384,6 +385,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		}
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: QSpinBox", 3);
 	//------------ integer spin-box --------------
 	{
 		QList<QSpinBox *> widgetListDoubleSpinBox = window->findChildren<QSpinBox*>();
@@ -424,6 +426,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		}
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: QCheckBox", 3);
 	//checkboxes
 	{
 		QList<QCheckBox *> widgetListDoubleSpinBox = window->findChildren<QCheckBox*>();
@@ -465,6 +468,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		}
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: QGroupBox", 3);
 	//groupsBox with checkbox
 	{
 		QList<QGroupBox *> widgetListDoubleSpinBox = window->findChildren<QGroupBox*>();
@@ -506,6 +510,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		}
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: FileSelectWidget", 3);
 	//---------- file select widgets -----------
 	{
 		QList<FileSelectWidget *> widgetListPushButton = window->findChildren<FileSelectWidget*>();
@@ -535,6 +540,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		}
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: MyColorButton", 3);
 	//---------- color buttons -----------
 	{
 		QList<MyColorButton *> widgetListPushButton = window->findChildren<MyColorButton*>();
@@ -565,6 +571,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		}
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: ColorPaletteWidget", 3);
 	//---------- colorpalette -----------
 	{
 		QList<ColorPaletteWidget *> widgetListColorPalette =
@@ -601,6 +608,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		}
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: QComboBox", 3);
 	//combo boxes
 	{
 		QList<QComboBox *> widgetListPushButton = window->findChildren<QComboBox*>();
@@ -648,6 +656,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 		}
 	}
 
+	WriteLog("cInterface::SynchronizeInterface: cMaterialSelector", 3);
 	//---------- material selector -----------
 	{
 		QList<cMaterialSelector *> widgetListMaterialSelector =
@@ -680,6 +689,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
 			}
 		}
 	}
+	WriteLog("cInterface::SynchronizeInterface: Done", 3);
 }
 
 //extract name and type string from widget name
