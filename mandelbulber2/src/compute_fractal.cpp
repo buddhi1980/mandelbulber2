@@ -733,7 +733,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
 
 				default:
-					z = CVector3(0.0, 0.0, 0.0);
+					double high = fractals.GetBailout(sequence) * 10.0;
+					z = CVector3(high, high, high);
 					break;
 			}
 		}
@@ -797,8 +798,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
         break;
       }
-
-
     }
 
     if(z.IsNotANumber())
