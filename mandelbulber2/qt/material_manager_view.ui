@@ -84,7 +84,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_LoadMaterial">
        <property name="text">
-        <string>Load material...</string>
+        <string>Load materials...</string>
        </property>
       </widget>
      </item>

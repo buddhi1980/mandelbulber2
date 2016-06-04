@@ -81,7 +81,7 @@ void cMaterialManagerView::slotLoadMaterial()
 
   QFileDialog dialog(this);
   dialog.setOption(QFileDialog::DontUseNativeDialog);
-  dialog.setFileMode(QFileDialog::ExistingFile);
+  dialog.setFileMode(QFileDialog::ExistingFiles);
   dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
   dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.dataDirectory + "materials/").absolutePath()));
   //dialog.selectFile(QDir::toNativeSeparators("");
@@ -91,14 +91,17 @@ void cMaterialManagerView::slotLoadMaterial()
   if (dialog.exec())
   {
     filenames = dialog.selectedFiles();
-    QString filename = QDir::toNativeSeparators(filenames.first());
-    parSettings.LoadFromFile(filename);
+    for(int i = 0; i < filenames.size(); i++)
+    {
+			QString filename = QDir::toNativeSeparators(filenames[i]);
+			parSettings.LoadFromFile(filename);
 
-  	cParameterContainer params1;
-    parSettings.Decode(&params1, NULL);
+			cParameterContainer params1;
+			parSettings.Decode(&params1, NULL);
 
-    model->insertRowWithParameters(&params1);
-		emit materialEdited();
+			model->insertRowWithParameters(&params1);
+			emit materialEdited();
+    }
   }
 }
 
