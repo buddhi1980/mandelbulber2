@@ -2324,6 +2324,15 @@ void MengerMiddleModIteration(CVector3 &z, CVector3 &c, int i,const cFractal *fr
     z.z = z.y;
     z.y = tempMS;
   }
+
+
+  if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsC
+      && i < fractal->transformCommon.stopIterationsC) // rotation
+  {
+    z = fractal->mandelbox.mainRot.RotateVector(z);
+  }
+
+
   if (fractal->transformCommon.functionEnabledBxFalse
       && i >= fractal->transformCommon.startIterationsA
       && i < fractal->transformCommon.stopIterationsA) // box fold
@@ -2391,13 +2400,12 @@ void MengerMiddleModIteration(CVector3 &z, CVector3 &c, int i,const cFractal *fr
       z *= fractal->transformCommon.scaleA1;
       aux.DE *= fabs(fractal->transformCommon.scaleA1);
     }
-
   }
-  if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsC
+  /*if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsC
       && i < fractal->transformCommon.stopIterationsC) // rotation
   {
     z = fractal->mandelbox.mainRot.RotateVector(z);
-  }
+  }*/
 
  //menger scales and offsets
   z *= fractal->transformCommon.scale3;
@@ -4224,7 +4232,7 @@ void TransformMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtende
     z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
     if (fractal->transformCommon.functionEnabled)
     {
-      if ( z.z > 1.0)
+      if ( z.z > 1.0)// z.z < 1.0  z.z = z.z
         z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
     }
     else
