@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>970</width>
+           <width>935</width>
            <height>1417</height>
           </rect>
          </property>
@@ -376,7 +376,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>335</width>
+          <width>370</width>
           <height>559</height>
          </rect>
         </property>
@@ -764,9 +764,6 @@
          </item>
          <item>
           <widget class="QGroupBox" name="groupBox_12">
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets for rendered image size&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
            <property name="title">
             <string>Image quality presets</string>
            </property>
@@ -802,6 +799,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is nornal quality.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Screen Space Ambient Occlusion (SSAO) mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Normal</string>
                 </property>
@@ -814,6 +814,9 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is fastest preset but with low quality.&lt;/p&gt;&lt;p&gt;It tuns off ambient occlusion.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Low
@@ -829,6 +832,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is the preset with the highest quality.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned with Multiple Rays mode. Raymarching step is decreased to 0.2 to reduce fractal calculation errors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string> High
 (HQ ambient occusion
@@ -843,6 +849,9 @@ accurate raymarching)</string>
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is the fastest preset but with the lowest quality.&lt;/p&gt;&lt;p&gt;It tuns off shadows and ambient occlusion. Detail level is decreased to 0.5. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Very low
@@ -3113,8 +3122,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>349</width>
-          <height>278</height>
+          <width>384</width>
+          <height>306</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3182,8 +3191,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-4</y>
-                  <width>304</width>
+                  <y>0</y>
+                  <width>334</width>
                   <height>469</height>
                  </rect>
                 </property>
@@ -4001,7 +4010,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>299</width>
+                  <width>218</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -4841,8 +4850,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>313</width>
-                  <height>264</height>
+                  <width>262</width>
+                  <height>165</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5138,7 +5147,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>299</width>
+                  <width>277</width>
                   <height>1477</height>
                  </rect>
                 </property>
@@ -7512,7 +7521,7 @@ Disables 'Update image' options)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>335</width>
+          <width>370</width>
           <height>430</height>
          </rect>
         </property>
@@ -7614,7 +7623,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -8725,7 +8734,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -9830,7 +9839,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -10929,7 +10938,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -12028,7 +12037,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -13127,7 +13136,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -14226,7 +14235,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -15325,7 +15334,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -16421,7 +16430,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>277</width>
+                      <width>264</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -17534,7 +17543,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>285</width>
+                  <width>210</width>
                   <height>521</height>
                  </rect>
                 </property>
@@ -19253,8 +19262,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>299</width>
-                  <height>416</height>
+                  <width>207</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -19798,7 +19807,7 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
+          <width>370</width>
           <height>1071</height>
          </rect>
         </property>
@@ -22239,8 +22248,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>198</width>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -23381,7 +23390,7 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>335</width>
+          <width>370</width>
           <height>75</height>
          </rect>
         </property>

@@ -2449,7 +2449,7 @@ void cInterface::StartupDefaultSettings(void)
 	gPar->Set("ambient_occlusion_quality", 4);
 	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);
-	gPar->Set("detail_level", 2.0);
+	gPar->Set("detail_level", 1.0);
 }
 
 //function to create icons with actual color in ColorButtons
