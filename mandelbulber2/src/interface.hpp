@@ -87,6 +87,7 @@ public:
 	void InitPeriodicRefresh();
 	void InitMaterialsUi();
 	void MaterialSelected(int matIndex);
+	void StartupDefaultSettings(void);
 
 	bool QuitApplicationDialog();
 

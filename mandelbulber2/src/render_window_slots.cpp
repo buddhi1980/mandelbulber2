@@ -882,3 +882,45 @@ void RenderWindow::slotToggledFractalEnable(int fractalIndex, bool enabled)
 {
 	ui->tabWidget_fractals->widget(fractalIndex - 1)->setEnabled(enabled);
 }
+
+void RenderWindow::slotQualityPresetVeryLow()
+{
+	gPar->Set("DE_factor", 1.0);
+	gPar->Set("ambient_occlusion_enabled", false);
+	gPar->Set("shadows_enabled", false);
+	gPar->Set("raytraced_reflections", false);
+	gPar->Set("detail_level", 0.5);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+void RenderWindow::slotQualityPresetLow()
+{
+	gPar->Set("DE_factor", 1.0);
+	gPar->Set("ambient_occlusion_enabled", false);
+	gPar->Set("shadows_enabled", true);
+	gPar->Set("raytraced_reflections", true);
+	gPar->Set("detail_level", 1.0);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+void RenderWindow::slotQualityPresetNormal()
+{
+	gPar->Set("DE_factor", 1.0);
+	gPar->Set("ambient_occlusion_enabled", true);
+	gPar->Set("ambient_occlusion_mode", (int) params::AOmodeScreenSpace);
+	gPar->Set("ambient_occlusion_quality", 4);
+	gPar->Set("shadows_enabled", true);
+	gPar->Set("raytraced_reflections", true);
+	gPar->Set("detail_level", 2.0);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+void RenderWindow::slotQualityPresetHigh()
+{
+	gPar->Set("DE_factor", 0.2);
+	gPar->Set("ambient_occlusion_enabled", true);
+	gPar->Set("ambient_occlusion_mode", (int) params::AOmodeMultipeRays);
+	gPar->Set("ambient_occlusion_quality", 4);
+	gPar->Set("shadows_enabled", true);
+	gPar->Set("raytraced_reflections", true);
+	gPar->Set("detail_level", 2.0);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+

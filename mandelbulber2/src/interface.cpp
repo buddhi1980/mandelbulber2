@@ -224,6 +224,9 @@ void cInterface::ShowUi(void)
 	InitMaterialsUi();
 	scrollAreaMaterialEditor = mainWindow->ui->scrollArea_material;
 
+	//change sone default settings with keeping compatibility with older versions
+	StartupDefaultSettings();
+
 	ComboMouseClickUpdate();
 
 	mainWindow->slotPopulateToolbar();
@@ -446,6 +449,24 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(valueChanged(int)),
 												mainWindow,
 												SLOT(slotImageHeightChanged(int)));
+
+	//quality presets
+	QApplication::connect(mainWindow->ui->pushButton_quality_preset_very_low,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotQualityPresetVeryLow()));
+	QApplication::connect(mainWindow->ui->pushButton_quality_preset_low,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotQualityPresetLow()));
+	QApplication::connect(mainWindow->ui->pushButton_quality_preset_normal,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotQualityPresetNormal()));
+	QApplication::connect(mainWindow->ui->pushButton_quality_preset_high,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotQualityPresetHigh()));
 
 	//menu actions
 	QApplication::connect(mainWindow->ui->actionQuit,
@@ -2420,6 +2441,16 @@ void cInterface::MaterialSelected(int matIndex)
 	}
 }
 
+void cInterface::StartupDefaultSettings(void)
+{
+	gPar->Set("DE_factor", 1.0);
+	gPar->Set("ambient_occlusion_enabled", true);
+	gPar->Set("ambient_occlusion_mode", (int) params::AOmodeScreenSpace);
+	gPar->Set("ambient_occlusion_quality", 4);
+	gPar->Set("shadows_enabled", true);
+	gPar->Set("raytraced_reflections", true);
+	gPar->Set("detail_level", 2.0);
+}
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

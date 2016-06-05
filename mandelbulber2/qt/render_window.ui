@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>935</width>
+           <width>970</width>
            <height>1417</height>
           </rect>
          </property>
@@ -376,8 +376,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>442</height>
+          <width>335</width>
+          <height>559</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -758,6 +758,100 @@
                </item>
               </layout>
              </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_12">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets for rendered image size&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="title">
+            <string>Image quality presets</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_146">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
+            <item>
+             <layout class="QGridLayout" name="gridLayout_34">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="pushButton_quality_preset_normal">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Normal</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_quality_preset_low">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Low
+(no ambient occlusion)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_quality_preset_high">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string> High
+(HQ ambient occusion
+accurate raymarching)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="pushButton_quality_preset_very_low">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Very low
+(no shadows
+no ambient occusion)</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -3019,8 +3113,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>384</width>
-          <height>306</height>
+          <width>349</width>
+          <height>278</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3051,7 +3145,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -3088,8 +3182,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>334</width>
+                  <y>-4</y>
+                  <width>304</width>
                   <height>469</height>
                  </rect>
                 </property>
@@ -3907,7 +4001,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>218</width>
+                  <width>299</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -4747,8 +4841,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>348</width>
-                  <height>292</height>
+                  <width>313</width>
+                  <height>264</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5044,7 +5138,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
+                  <width>299</width>
                   <height>1477</height>
                  </rect>
                 </property>
@@ -7418,7 +7512,7 @@ Disables 'Update image' options)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>335</width>
           <height>430</height>
          </rect>
         </property>
@@ -7520,7 +7614,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -8631,7 +8725,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -9736,7 +9830,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -10835,7 +10929,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -11934,7 +12028,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -13033,7 +13127,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -14132,7 +14226,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -15231,7 +15325,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -16327,7 +16421,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>277</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -17440,7 +17534,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
+                  <width>285</width>
                   <height>521</height>
                  </rect>
                 </property>
@@ -19159,8 +19253,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>299</width>
+                  <height>416</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -19704,7 +19798,7 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>339</width>
           <height>1071</height>
          </rect>
         </property>
@@ -22145,8 +22239,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
-                  <height>242</height>
+                  <width>317</width>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -23287,7 +23381,7 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>335</width>
           <height>75</height>
          </rect>
         </property>

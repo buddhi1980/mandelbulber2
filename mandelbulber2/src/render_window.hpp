@@ -105,6 +105,12 @@ private slots:
 	void slotMaterialSelected(int matIndex);
 	void slotMaterialEdited();
 
+	//Quality presets
+	void slotQualityPresetVeryLow();
+	void slotQualityPresetLow();
+	void slotQualityPresetNormal();
+	void slotQualityPresetHigh();
+
 	//camera
 	void slotCameraMove();
 	void slotCameraRotation();
