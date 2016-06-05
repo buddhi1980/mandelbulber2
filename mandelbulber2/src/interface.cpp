@@ -2163,6 +2163,7 @@ bool cInterface::QuitApplicationDialog()
 		case QMessageBox::Ok:
 		{
 			stopRequest = true;
+			systemData.globalStopRequest = true;
 			gQueue->stopRequest = true;
 			WriteLog("Quit application", 2);
 			//save applications settings

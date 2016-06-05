@@ -141,7 +141,7 @@ bool cRenderer::RenderImage()
 			{
 				gApplication->processEvents();
 
-				if (*data->stopRequest || progressText.getTime() > data->configuration.GetMaxRenderTime())
+				if (*data->stopRequest || progressText.getTime() > data->configuration.GetMaxRenderTime() || systemData.globalStopRequest)
 				{
 					scheduler->Stop();
 				}
@@ -384,7 +384,7 @@ bool cRenderer::RenderImage()
 
 		WriteLog("cRenderer::RenderImage(): memory released", 2);
 
-		if (*data->stopRequest)
+		if (*data->stopRequest || systemData.globalStopRequest)
 			return false;
 		else
 			return true;

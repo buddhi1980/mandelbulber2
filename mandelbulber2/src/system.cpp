@@ -134,6 +134,8 @@ bool InitSystem(void)
 
 	systemData.settingsLoadedFromCLI = false;
 
+	systemData.globalStopRequest = false;
+
 #ifndef WIN32
 	handle_winch(-1);
 #endif

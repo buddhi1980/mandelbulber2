@@ -103,7 +103,7 @@ void cRenderWorker::doWork(void)
 		//main loop for x
 		for (int xs = 0; xs < width; xs += scheduler->GetProgressiveStep())
 		{
-
+			if(systemData.globalStopRequest) break;
 			//break if by coincidence this thread started rendering the same line as some other
 			lastLineWasBroken = false;
 			if (scheduler->ShouldIBreak(threadData->id, ys))

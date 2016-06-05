@@ -23,6 +23,7 @@
 #include "scheduler.hpp"
 #include <QtCore>
 
+#include "system.hpp"
 cScheduler::cScheduler(int _numberOfLines, int progressive)
 {
 	numberOfLines = _numberOfLines;
@@ -66,6 +67,7 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 	}
 
 	if (stopRequest) result = false;
+	if (systemData.globalStopRequest) result = false;
 
 	return result;
 }

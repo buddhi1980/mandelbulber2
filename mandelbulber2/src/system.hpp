@@ -69,6 +69,7 @@ struct sSystem
 	int loggingVerbosity;
 	bool settingsLoadedFromCLI;
 	QElapsedTimer globalTimer;
+	bool globalStopRequest;
 };
 
 struct sActualFileNames
