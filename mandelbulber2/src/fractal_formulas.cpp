@@ -186,21 +186,21 @@ void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
 	double temp, tempR;
-	tempR = sqrt(z.x * z.x + z.y * z.y + 1e-061);
+  tempR = sqrt(z.x * z.x + z.y * z.y); //+ 1e-061
 	z *= (1.0 / tempR);
 	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
 	z.x = temp;
 	z *= tempR;
 
-	tempR = sqrt(z.y * z.y + z.z * z.z + 1e-061);
+  tempR = sqrt(z.y * z.y + z.z * z.z);//+ 1e-061
 	z *= (1.0 / tempR);
 	temp = z.y * z.y - z.z * z.z;
 	z.z = 2.0 * z.y * z.z;
 	z.y = temp;
 	z *= tempR;
 
-	tempR = sqrt(z.x * z.x + z.z * z.z + 1e-061);
+  tempR = sqrt(z.x * z.x + z.z * z.z ); //+ 1e-061
 	z *= (1.0 / tempR);
 	temp = z.x * z.x - z.z * z.z;
 	z.z = 2.0 * z.x * z.z;
@@ -224,7 +224,7 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 
 	if (z.x < 0)
 		sign2 = -1.0;
-	tempR = sqrt(z.x * z.x + z.y * z.y + 1e-061);
+  tempR = sqrt(z.x * z.x + z.y * z.y);//+ 1e-061
 	z *= (1.0 / tempR);
 	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
@@ -233,7 +233,7 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 
 	if (z.x < 0)
 		sign = -1.0;
-	tempR = sqrt(z.x * z.x + z.z * z.z + 1e-061);
+  tempR = sqrt(z.x * z.x + z.z * z.z); //+ 1e-061
 	z *= (1.0 / tempR);
 	temp = z.x * z.x - z.z * z.z;
 	z.z = 2.0 * z.x * z.z * sign2;
@@ -659,7 +659,7 @@ void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2); // may need exception catching
+  double temp = 1.0 - z2 / (x2 + y2);
 	double newx = (x2 - y2) * temp;
 	double newy = 2.0 * z.x * z.y * temp;
 	double newz;
@@ -1845,7 +1845,7 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   }
   double costh;
   double sinth;
-  double th0 = fractal->bulb.betaAngleOffset + 1e-061;
+  double th0 = fractal->bulb.betaAngleOffset + 1e-061;// MUST keep exception catch ??;
   double ph0 = fractal->bulb.alphaAngleOffset;
   double v1, v2, v3;
   switch (fractal->mandelbulbMulti.orderOfxyz)
@@ -1945,9 +1945,9 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
             break;
     }
     if (fractal->mandelbulbMulti.acosOrasinA == sFractalMandelbulbMulti::acos)
-            th0 = acos(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
+            th0 = acos(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;// MUST keep exception catch ??;
     else
-            th0 += asin(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
+            th0 += asin(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;// MUST keep exception catch ??;
 
     if (fractal->mandelbulbMulti.atanOratan2A == sFractalMandelbulbMulti::atan)
             ph0 += atan(v2 / v3);
@@ -1993,9 +1993,9 @@ void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 &c, const cFractal *frac
     }
 
     if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
-            th0 = acos(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
+            th0 = acos(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;// MUST keep exception catch ??;
     else
-            th0 += asin(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;
+            th0 += asin(v1 / aux.r) + fractal->transformCommon.betaAngleOffset + 1e-061;// MUST keep exception catch ??;
 
     if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
             ph0 += atan(v2 / v3);
@@ -3080,7 +3080,7 @@ void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 	double theta = atan2(z.y, z.x);
 	double x1 = r1 * cos(theta);
 	double y1 = r1 * sin(theta);
-	double r = (z.x -  x1) * (z.x -  x1) + ( z.y - y1) *  (z.y - y1) + z.z * z.z + 1e-061;
+  double r = (z.x -  x1) * (z.x -  x1) + ( z.y - y1) *  (z.y - y1) + z.z * z.z; //+ 1e-061
 
 	aux.r = r;
 	double rp = pow(aux.r, fractal->transformCommon.pwr4);// default 4.0
@@ -3201,7 +3201,7 @@ void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal)
 	{
 		z *= fractal->transformCommon.constantMultiplier222; //1st scale variable, default vect3 (1.7, 1.7, 1.7),
 		double shift = fractal->transformCommon.offset1;
-		double r1 = z.x * z.x + (z.y-shift)*(z.y-shift) + z.z * z.z  + 1e-061;// r1 = length^2,
+    double r1 = z.x * z.x + (z.y-shift)*(z.y-shift) + z.z * z.z ;// r1 = length^2,  //  + 1e-061
 		z.x = z.x / r1; // inversions by length^2
 		z.y = (z.y - shift) / r1;
 		z.z = z.z / r1;
@@ -3530,7 +3530,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
  */
 void FastImagscaPower2Iteration(CVector3 &z, const cFractal *fractal)
 {
-  double x2 = z.x * z.x + 1e-061;
+  double x2 = z.x * z.x ; //+ 1e-061
   double y2 = z.y * z.y;
   double z2 = z.z * z.z;
 
@@ -3929,7 +3929,7 @@ void TransformBenesiCubeSphereIteration(CVector3 &z)
 	double rCxyz = (z.y + z.z) / z.x;
 
 	if (rCxyz == -1.0)
-		z.z = 1.0 + 1e-21;
+    z.z = 1.0; //+ 1e-21 new comment out
 	if (rCyz < 1.0)
 		rCyz = sqrt(rCyz + 1.0);
 	else
