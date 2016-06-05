@@ -84,6 +84,7 @@ private:
 	double fileVersion;
 	QByteArray hash;
 	int csvNoOfColumns;
+	QStringList listOfLoadedPrimitives;
 };
 
 #endif /* SETTINGS_HPP_ */

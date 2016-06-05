@@ -634,7 +634,7 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 	par->addParam(QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
-	//TODO to be removed after implementation of materials
+	//left to keep compatibility with older versions
 	par->addParam(QString(primitiveName) + "_color", sRGB(32000, 32000, 32000), morphAkima, paramStandard);
 	par->addParam(QString(primitiveName) + "_reflection", 0.0, 0.0, 1.0, morphAkima, paramStandard);
 

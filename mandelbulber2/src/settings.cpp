@@ -423,6 +423,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 				fractPar->at(i).ResetAllToDefault();
 		}
 		DeleteAllPrimitiveParams(par);
+		listOfLoadedPrimitives.clear();
 		DeleteAllMaterialParams(par);
 
 		if (frames) frames->ClearAll();
@@ -575,6 +576,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
 			fractal::enumObjectType objectType = PrimitiveNameToEnum(split.at(1));
 			InitPrimitiveParams(objectType, primitiveName, par);
+			listOfLoadedPrimitives.append(primitiveName);
 		}
 	}
 
@@ -752,6 +754,28 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 		for (int i = 0; i < 4; i++)
 		{
 			fract->at(i).Set("IFS_rotation_enabled", true);
+		}
+	}
+
+	if (fileVersion <= 2.071)
+	{
+		for(int i = 0; i < listOfLoadedPrimitives.size(); i++)
+		{
+			int materialId = i + 2;
+			InitMaterialParams(materialId, par);
+			par->Set(cMaterial::Name("is_defined", materialId), true);
+			par->Set(cMaterial::Name("name", materialId), listOfLoadedPrimitives[i]);
+			par->Set(cMaterial::Name("surface_color", materialId), par->Get<sRGB>(listOfLoadedPrimitives[i]+"_color"));
+			par->Set(cMaterial::Name("reflectance", materialId), par->Get<double>(listOfLoadedPrimitives[i]+"_reflection"));
+			par->Set(cMaterial::Name("use_colors_from_palette", materialId), false);
+			par->Set(cMaterial::Name("fresnel_reflectance", materialId), par->Get<bool>("mat1_fresnel_reflectance"));
+			par->Set(cMaterial::Name("transparency_index_of_refraction", materialId), par->Get<double>("mat1_transparency_index_of_refraction"));
+			par->Set(cMaterial::Name("transparency_of_surface", materialId), par->Get<double>("mat1_transparency_of_surface"));
+			par->Set(cMaterial::Name("transparency_of_interior", materialId), par->Get<double>("mat1_transparency_of_interior"));
+			par->Set(cMaterial::Name("transparency_interior_color", materialId), par->Get<double>("mat1_transparency_interior_color"));
+			par->Set(cMaterial::Name("specular", materialId), par->Get<double>("mat1_specular"));
+			par->Set(cMaterial::Name("shading", materialId), par->Get<double>("mat1_shading"));
+			par->Set(listOfLoadedPrimitives[i]+"_material_id", materialId);
 		}
 	}
 }
