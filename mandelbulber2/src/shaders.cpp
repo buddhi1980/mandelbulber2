@@ -681,6 +681,7 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 	double delta = input.distThresh;
 	double aoTemp = 0;
 	double quality = params->ambientOcclusionQuality;
+	double lastDist = 1e20;
 	for (int i = 1; i < quality * quality; i++)
 	{
 		double scan = i * i * delta;
@@ -689,6 +690,8 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(pointTemp, input.distThresh, false);
 		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+		if(dist > lastDist * 2) dist = lastDist * 2.0;
+		lastDist = dist;
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 		aoTemp += 1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist)
 				/ input.distThresh;
