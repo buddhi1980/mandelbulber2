@@ -98,5 +98,7 @@ void UpdateDefaultPaths();
 void UpdateUIStyle();
 void UpdateUISkin();
 void UpdateLanguage(QCoreApplication *app);
+void RetrieveToolbarPresets(bool force);
+void RetrieveExampleMaterials(bool force);
 
 #endif /* SYSTEM_HPP_ */

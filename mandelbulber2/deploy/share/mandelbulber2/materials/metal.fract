@@ -1,0 +1,11 @@
+# Mandelbulber settings file
+# version 2.08
+# only modified parameters
+[main_parameters]
+mat1_is_defined true;
+mat1_name metal;
+mat1_reflectance 0,87;
+mat1_specular 10;
+mat1_specular_width 0,199;
+mat1_surface_color 6100 6100 6100;
+mat1_use_colors_from_palette false;

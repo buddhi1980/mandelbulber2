@@ -25,6 +25,8 @@ private slots:
 	void on_pushButton_load_thumbnail_cache_clicked();
 	void on_comboBox_ui_style_type_currentIndexChanged(int index);
 	void on_comboBox_ui_skin_currentIndexChanged(int index);
+	void on_pushButton_retrieve_toolbar_clicked();
+	void on_pushButton_retrieve_materials_clicked();
 
 private:
 	Ui::cPreferencesDialog *ui;

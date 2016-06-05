@@ -1,0 +1,8 @@
+# Mandelbulber settings file
+# version 2.08
+# only modified parameters
+[main_parameters]
+mat1_is_defined true;
+mat1_name blue plastic;
+mat1_surface_color 0000 0000 ff00;
+mat1_use_colors_from_palette false;

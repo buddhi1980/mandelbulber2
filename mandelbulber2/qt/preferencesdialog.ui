@@ -348,6 +348,20 @@
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="pushButton_retrieve_toolbar">
+             <property name="text">
+              <string>Retrieve default toolbar presets</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_retrieve_materials">
+             <property name="text">
+              <string>Retrieve default materials in material folder</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -385,8 +399,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>311</width>
-            <height>327</height>
+            <width>455</width>
+            <height>467</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">

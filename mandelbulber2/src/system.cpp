@@ -216,20 +216,8 @@ bool CreateDefaultFolders(void)
 	result &= CreateFolder(systemData.dataDirectory + "slices");
 	result &= CreateFolder(systemData.dataDirectory + "materials");
 
-	// if(!QFileInfo(systemData.dataDirectory + "toolbar/default.fract").exists())
-	if (QDir(systemData.dataDirectory + "toolbar").entryInfoList(QDir::NoDotAndDotDot
-			| QDir::AllEntries).count() == 0)
-	{
-		// first run of program (or all toolbar items deleted) -> copy toolbar presets to working folder
-		QDirIterator toolbarFiles(systemData.sharedDir + "toolbar");
-		while (toolbarFiles.hasNext())
-		{
-			toolbarFiles.next();
-			if (toolbarFiles.fileName() == "." || toolbarFiles.fileName() == "..") continue;
-			fcopy(toolbarFiles.filePath(),
-						systemData.dataDirectory + "toolbar/" + toolbarFiles.fileName());
-		}
-	}
+	RetrieveToolbarPresets(false);
+	RetrieveExampleMaterials(false);
 
 #ifdef CLSUPPORT
 	string oclDir = systemData.dataDirectory + "/custom_ocl_formulas";
@@ -555,3 +543,36 @@ void UpdateLanguage(QCoreApplication *app)
 	}
 }
 
+void RetrieveToolbarPresets(bool force)
+{
+	if (QDir(systemData.dataDirectory + "toolbar").entryInfoList(QDir::NoDotAndDotDot
+			| QDir::AllEntries).count() == 0 || force)
+	{
+		// first run of program (or all toolbar items deleted) -> copy toolbar presets to working folder
+		QDirIterator toolbarFiles(systemData.sharedDir + "toolbar");
+		while (toolbarFiles.hasNext())
+		{
+			toolbarFiles.next();
+			if (toolbarFiles.fileName() == "." || toolbarFiles.fileName() == "..") continue;
+			fcopy(toolbarFiles.filePath(),
+						systemData.dataDirectory + "toolbar/" + toolbarFiles.fileName());
+		}
+	}
+}
+
+void RetrieveExampleMaterials(bool force)
+{
+	if (QDir(systemData.dataDirectory + "materials").entryInfoList(QDir::NoDotAndDotDot
+			| QDir::AllEntries).count() == 0 || force)
+	{
+		// first run of program (or all material items deleted) -> copy materials to working folder
+		QDirIterator materialFiles(systemData.sharedDir + "materials");
+		while (materialFiles.hasNext())
+		{
+			materialFiles.next();
+			if (materialFiles.fileName() == "." || materialFiles.fileName() == "..") continue;
+			fcopy(materialFiles.filePath(),
+						systemData.dataDirectory + "materials/" + materialFiles.fileName());
+		}
+	}
+}

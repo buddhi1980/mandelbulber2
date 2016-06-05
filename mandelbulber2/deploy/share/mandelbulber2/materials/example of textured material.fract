@@ -1,0 +1,13 @@
+# Mandelbulber settings file
+# version 2.08
+# only modified parameters
+[main_parameters]
+mat1_is_defined true;
+mat1_specular 2;
+mat1_specular_width 0,596;
+mat1_texture_mapping_type 1;
+mat1_use_color_texture true;
+mat1_use_colors_from_palette false;
+mat1_use_diffusion_texture true;
+mat1_use_luminosity_texture true;
+mat1_use_normal_map_texture true;

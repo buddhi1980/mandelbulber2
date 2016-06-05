@@ -837,7 +837,7 @@
                 </property>
                 <property name="text">
                  <string> High
-(HQ ambient occusion
+(HQ ambient occlusion
 accurate raymarching)</string>
                 </property>
                </widget>
@@ -851,12 +851,12 @@ accurate raymarching)</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is the fastest preset but with the lowest quality.&lt;/p&gt;&lt;p&gt;It tuns off shadows and ambient occlusion. Detail level is decreased to 0.5. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is the fastest preset but with the lowest quality.&lt;/p&gt;&lt;p&gt;It tuns off shadows and ambient occlusion. Detail level is decreased to 0.5. raytraced reflections are off.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Very low
 (no shadows
-no ambient occusion)</string>
+no ambient occlusion)</string>
                 </property>
                </widget>
               </item>

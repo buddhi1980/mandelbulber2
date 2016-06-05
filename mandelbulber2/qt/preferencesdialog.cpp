@@ -98,7 +98,7 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 	reply = QMessageBox::question(
 		NULL,
 		QObject::tr("Are you sure to clear the thumbnail cache?"),
-		QObject::tr("There are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.\n Clear now?").arg(thumbnailDirCount),
+		QObject::tr("Are you sure to clear the thumbnail cache?\nThere are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.\n Clear now?").arg(thumbnailDirCount),
 		QMessageBox::Yes|QMessageBox::No);
 
 	if (reply == QMessageBox::Yes)
@@ -153,3 +153,32 @@ void cPreferencesDialog::on_comboBox_ui_skin_currentIndexChanged(int index)
 	UpdateUISkin();
 }
 
+void cPreferencesDialog::on_pushButton_retrieve_toolbar_clicked()
+{
+	QMessageBox::StandardButton reply;
+	reply =
+			QMessageBox::question(
+			NULL,
+			QObject::tr("Retrieve toolbar"), QObject::tr("Are you sure to retrieve default presets into toolbar?\nIt could overwrite some of existing presets.\nProceed?"),
+			QMessageBox::Yes | QMessageBox::No);
+
+	if (reply == QMessageBox::Yes)
+	{
+		RetrieveToolbarPresets(true);
+	}
+}
+
+void cPreferencesDialog::on_pushButton_retrieve_materials_clicked()
+{
+	QMessageBox::StandardButton reply;
+	reply =
+			QMessageBox::question(
+			NULL,
+			QObject::tr("Retrieve materials"), QObject::tr("Are you sure to retrieve default materials into materials folder?\nIt could overwrite some of existing materials.\nProceed?"),
+			QMessageBox::Yes | QMessageBox::No);
+
+	if (reply == QMessageBox::Yes)
+	{
+		RetrieveExampleMaterials(true);
+	}
+}

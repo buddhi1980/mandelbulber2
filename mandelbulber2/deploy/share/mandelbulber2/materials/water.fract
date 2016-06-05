@@ -1,0 +1,11 @@
+# Mandelbulber settings file
+# version 2.08
+# only modified parameters
+[main_parameters]
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_name water;
+mat1_reflectance 1;
+mat1_specular_width 0,161;
+mat1_surface_color 2300 4800 6800;
+mat1_use_colors_from_palette false;
