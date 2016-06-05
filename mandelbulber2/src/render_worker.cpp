@@ -598,7 +598,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 
 		//prepare refraction values
 		double n1, n2;
-		if (in.calcInside) //if trance is inside the object
+		if (in.calcInside) //if trace is inside the object
 		{
 			n1 = shaderInputData.material ->transparencyIndexOfRefraction; //reverse refractive indices
 			n2 = 1.0;

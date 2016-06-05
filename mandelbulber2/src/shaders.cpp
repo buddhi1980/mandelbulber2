@@ -184,7 +184,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			}
 			case params::mapEquirectangular:
 			{
-				double alphaTexture = fmod(input.viewVector.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
+				double alphaTexture = fmod(-input.viewVector.GetAlpha() + 3.5 * M_PI, 2 * M_PI);
 				double betaTexture = -input.viewVector.GetBeta();
 				if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
 				if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
@@ -879,8 +879,8 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input)
 	double dot = -input.viewVector.Dot(input.normal);
 	reflect = input.normal * 2.0 * dot + input.viewVector;
 
-	double alphaTexture = reflect.GetAlpha() + M_PI;
-	double betaTexture = reflect.GetBeta();
+	double alphaTexture = -reflect.GetAlpha() + M_PI;
+	double betaTexture = -reflect.GetBeta();
 	double texWidth = data->textures.envmapTexture.Width();
 	double texHeight = data->textures.envmapTexture.Height();
 
@@ -894,9 +894,20 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input)
 	dty = fmod(dty, texHeight);
 	if (dtx < 0) dtx = 0;
 	if (dty < 0) dty = 0;
-	envReflect.R = data->textures.envmapTexture.Pixel(dtx, dty).R;
-	envReflect.G = data->textures.envmapTexture.Pixel(dtx, dty).G;
-	envReflect.B = data->textures.envmapTexture.Pixel(dtx, dty).B;
+
+	double reflectance = 1.0;
+	if (input.material->fresnelReflectance)
+	{
+		double n1 = 1.0;
+		double n2 = input.material ->transparencyIndexOfRefraction;
+		reflectance = Reflectance(input.normal, input.viewVector, n1, n2);
+		if (reflectance < 0.0) reflectance = 0.0;
+		if (reflectance > 1.0) reflectance = 1.0;
+	}
+
+	envReflect.R = data->textures.envmapTexture.Pixel(dtx, dty).R * reflectance;
+	envReflect.G = data->textures.envmapTexture.Pixel(dtx, dty).G * reflectance;
+	envReflect.B = data->textures.envmapTexture.Pixel(dtx, dty).B * reflectance;
 	return envReflect;
 }
 

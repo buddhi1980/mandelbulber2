@@ -39,7 +39,7 @@ void cMaterialWidget::Init()
 	timerPeriodicUpdateData = new QTimer(parent());
 	timerPeriodicUpdateData->setSingleShot(true);
 	connect(timerPeriodicUpdateData, SIGNAL(timeout()), this, SLOT(slotPeriodicUpdateData()));
-	timerPeriodicUpdateData->start(1000);
+	timerPeriodicUpdateData->start(100);
 
 	connect(this, SIGNAL(settingsChanged()), this, SLOT(slotMaterialChanged()));
 	actualMaterialIndex = 0;
