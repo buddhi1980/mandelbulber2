@@ -945,7 +945,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym3Mod2:
         case msltoesym3Mod3:
         case msltoesym4Mod:
-        //case msltoeToroidal:
+        case msltoeToroidal: // TO DO fix??
 				case quaternion:
         case transfQuaternionFold: // hmmm, this issue again
 				case quaternion3D:

@@ -2910,7 +2910,8 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
 	//if (zs2 < 1e-21)
 	//	zs2 = 1e-21;
 	double zs3 = (zs2 + zs.z)
-			+ fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * zs.y * zs.z;
+      + fractal->transformCommon.scale0
+      * fractal->transformCommon.scale0 * zs.y * zs.z;
 	double zsd = (1 - zs.z / zs3);
 
 	z1.x = (zs.x - zs.y) * zsd;
@@ -2956,7 +2957,8 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
 	aux.r_dz *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->transformCommon.functionEnabledFalse // quaternion fold
-			&& i >= fractal->transformCommon.startIterationsA && i < fractal->transformCommon.stopIterationsA)
+      && i >= fractal->transformCommon.startIterationsA
+      && i < fractal->transformCommon.stopIterationsA)
 	{
 		aux.r_dz = aux.r_dz * 2.0 * z.Length();
 		z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
@@ -3080,19 +3082,36 @@ void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 	double theta = atan2(z.y, z.x);
 	double x1 = r1 * cos(theta);
 	double y1 = r1 * sin(theta);
-  double r = (z.x -  x1) * (z.x -  x1) + ( z.y - y1) *  (z.y - y1) + z.z * z.z; //+ 1e-061
-
-	aux.r = r;
+  aux.r = (z.x -  x1) * (z.x -  x1) + ( z.y - y1) *  (z.y - y1) + z.z * z.z; //+ 1e-061
+  double phi = asin( z.z / sqrt( aux.r ));
 	double rp = pow(aux.r, fractal->transformCommon.pwr4);// default 4.0
 
-	double phi = asin( z.z / sqrt( aux.r ));
 
-	phi = fractal->transformCommon.pwr8 * phi; // default 8
-	theta = fractal->bulb.power * theta;// default 9 gives 8 symmetry
+
+  phi *= fractal->transformCommon.pwr8; // default 8
+  theta *= fractal->bulb.power;// default 9 gives 8 symmetry
 	// convert back to cartesian coordinates
 	z.x= ( r1 + rp * cos(phi)) * cos(theta);
 	z.y = ( r1 + rp * cos(phi)) * sin(theta);
 	z.z = -rp * sin(phi);
+
+
+
+
+  if (fractal->transformCommon.functionEnabledyFalse)
+  {
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz
+        * fractal->transformCommon.pwr4 * fractal->transformCommon.scale8
+        + fractal->transformCommon.offset1;
+  }
+  else
+  {
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz
+        * fractal->transformCommon.pwr4 * 8.0 + 1.0;//8.0??
+  }
+
+
+
 
 	if (fractal->transformCommon.functionEnabledAxFalse)// spherical offset
 	{

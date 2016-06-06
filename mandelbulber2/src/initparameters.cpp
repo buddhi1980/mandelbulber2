@@ -537,6 +537,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_scale_2", 2.0, morphAkima, paramStandard);
   par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
   par->addParam("transf_scale_4", 4.0, morphAkima, paramStandard);
+  par->addParam("transf_scale_8", 8.0, morphAkima, paramStandard);
 
   par->addParam("transf_int_A", 0, morphLinear, paramStandard);
   par->addParam("transf_int_B", 0, morphLinear, paramStandard);

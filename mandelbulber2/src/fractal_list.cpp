@@ -448,7 +448,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Msltoe Toroidal Bulb",
                                           "msltoe_toroidal",
                                           msltoeToroidal,
-                                          deltaDEType,
+                                          analyticDEType, // TO DO fix??
                                           logarithmicDEFunction,
                                           cpixelEnabledByDefault,
                                           10));
