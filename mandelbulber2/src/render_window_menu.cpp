@@ -196,10 +196,17 @@ void RenderWindow::slotMenuResetDocksPositions()
 {
   restoreGeometry(defaultGeometry);
   restoreState(defaultState);
+  setCorner( Qt::TopLeftCorner, Qt::LeftDockWidgetArea );
+  setCorner( Qt::TopRightCorner, Qt::RightDockWidgetArea );
+  setCorner( Qt::BottomLeftCorner, Qt::LeftDockWidgetArea );
+  setCorner( Qt::BottomRightCorner, Qt::RightDockWidgetArea );
+
   ui->dockWidget_histogram->hide();
   ui->dockWidget_info->hide();
   ui->dockWidget_animation->hide();
+#ifdef USE_GAMEPAD
   ui->dockWidget_gamepad_dock->hide();
+#endif
   ui->dockWidget_queue_dock->hide();
 }
 
