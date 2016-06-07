@@ -120,6 +120,7 @@ enum enumFractalFormula
   mandelbulbKaliMulti = 93,
   mandelbulbBermarte = 94,
   mengerMiddleMod = 95,
+  msltoeToroidalMulti = 96,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

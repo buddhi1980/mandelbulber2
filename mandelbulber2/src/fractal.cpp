@@ -132,6 +132,15 @@ cFractal::cFractal(const cParameterContainer *container)
   mandelbulbMulti.orderOfxyzC =
 			(sFractalMandelbulbMulti::multi_OrderOfxyz) container->Get<int>("mandelbulbMulti_order_of_xyz_C");
 
+  //sinTan2Trig
+  sinTan2Trig.asinOracos =
+      (sFractalSinTan2Trig::multi_asinOracos) container->Get<int>("sinTan2Trig_asin_or_acos");
+  sinTan2Trig.atan2Oratan =
+      (sFractalSinTan2Trig::multi_atan2Oratan) container->Get<int>("sinTan2Trig_atan2_or_atan");
+  sinTan2Trig.orderOfzyx =
+      (sFractalSinTan2Trig::multi_OrderOfzyx) container->Get<int>("sinTan2Trig_order_of_zyx");
+
+
 	//common parameters for transforming formulas
   transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
   transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");

@@ -263,6 +263,28 @@ struct sFractalMandelbulbMulti
 	multi_OrderOfxyz orderOfxyz2;
 	multi_OrderOfxyz orderOfxyzC;
 };
+//sinTan2Trig
+struct sFractalSinTan2Trig
+{
+  enum multi_asinOracos
+  {
+    asin, acos
+  };
+
+  enum multi_atan2Oratan
+  {
+    atan2, atan
+  };
+
+  enum multi_OrderOfzyx
+  {
+    zyx, zxy, yzx, yxz, xzy, xyz
+  };
+
+  multi_asinOracos asinOracos;
+  multi_atan2Oratan atan2Oratan;
+  multi_OrderOfzyx orderOfzyx;
+};
 
 //common parameters for transforming formulas
 struct sFractalTransformCommon
@@ -395,6 +417,7 @@ public:
 	sFractalPlatonicSolid platonicSolid;
   sFractalTransformCommon transformCommon;
   sFractalMandelbulbMulti mandelbulbMulti;
+  sFractalSinTan2Trig sinTan2Trig;
   sFractalDonut donut;
 
 #ifdef CLSUPPORT

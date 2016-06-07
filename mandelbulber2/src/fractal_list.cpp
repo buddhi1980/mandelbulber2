@@ -453,6 +453,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
                                           10));
 
+  fractalList->append(sFractalDescription("Msltoe Toroidal Multi",
+                                          "msltoe_toroidal_multi",
+                                          msltoeToroidalMulti,
+                                          analyticDEType, // TO DO fix??
+                                          logarithmicDEFunction,
+                                          cpixelEnabledByDefault,
+                                          10));
+
 	fractalList->append(sFractalDescription("Quaternion",
 																					"quaternion",
 																					quaternion,

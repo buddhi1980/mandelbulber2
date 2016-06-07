@@ -278,6 +278,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MsltoeToroidalIteration(z, fractal, extendedAux);
           break;
         }
+        case msltoeToroidalMulti:
+        {
+          MsltoeToroidalMultiIteration(z, fractal, extendedAux);
+          break;
+        }
 				case generalizedFoldBox:
 				{
 					GeneralizedFoldBoxIteration(z, fractal, extendedAux);
@@ -946,6 +951,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym3Mod3:
         case msltoesym4Mod:
         case msltoeToroidal: // TO DO fix??
+        case msltoeToroidalMulti: // TO DO fix??
 				case quaternion:
         case transfQuaternionFold: // hmmm, this issue again
 				case quaternion3D:

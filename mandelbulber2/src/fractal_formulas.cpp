@@ -3086,14 +3086,169 @@ void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
   double phi = asin( z.z / sqrt( aux.r ));
 	double rp = pow(aux.r, fractal->transformCommon.pwr4);// default 4.0
 
-
-
   phi *= fractal->transformCommon.pwr8; // default 8
   theta *= fractal->bulb.power;// default 9 gives 8 symmetry
 	// convert back to cartesian coordinates
 	z.x= ( r1 + rp * cos(phi)) * cos(theta);
 	z.y = ( r1 + rp * cos(phi)) * sin(theta);
 	z.z = -rp * sin(phi);
+
+  if (fractal->transformCommon.functionEnabledyFalse)
+  {
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz
+        * fractal->transformCommon.pwr4 * fractal->transformCommon.scale8
+        + fractal->transformCommon.offset1;
+  }
+  else
+  {
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz
+        * fractal->transformCommon.pwr4 * 8.0 + 1.0;//8.0??
+  }
+
+	if (fractal->transformCommon.functionEnabledAxFalse)// spherical offset
+	{
+		double lengthTempZ = -z.Length();
+		//if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+		z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+		z *= fractal->transformCommon.scale;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+		aux.r_dz *= fabs(fractal->transformCommon.scale);
+	}
+	// then add Cpixel constant vector
+}
+
+/**
+ * MsltoeToroidalMulti
+ * @reference http://www.fractalforums.com/theory/toroidal-coordinates/msg9428/
+ */
+void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (fractal->transformCommon.functionEnabledFalse)// pre-scale
+  {
+    z *= fractal->transformCommon.scale3D111;
+    aux.r_dz *= z.Length() / aux.r;
+    aux.DE = aux.DE * z.Length() / aux.r + 1.0;
+  }
+  // Torioidal bulb
+
+  double th0 = fractal->bulb.betaAngleOffset;
+  double ph0 = fractal->bulb.alphaAngleOffset;
+  double v1, v2, v3;
+
+  switch (fractal->sinTan2Trig.orderOfzyx)
+  {
+  case sFractalSinTan2Trig::zyx:
+  default:
+    v1 = z.z;
+    v2 = z.y;
+    v3 = z.x;
+    break;
+  case sFractalSinTan2Trig::zxy:
+    v1 = z.z;
+    v2 = z.x;
+    v3 = z.y;
+    break;
+  case sFractalSinTan2Trig::yzx:
+    v1 = z.y;
+    v2 = z.z;
+    v3 = z.x;
+    break;
+  case sFractalSinTan2Trig::yxz:
+    v1 = z.y;
+    v2 = z.x;
+    v3 = z.z;
+    break;
+  case sFractalSinTan2Trig::xzy:
+    v1 = z.x;
+    v2 = z.z;
+    v3 = z.y;
+    break;
+  case sFractalSinTan2Trig::xyz:
+    v1 = z.x;
+    v2 = z.y;
+    v3 = z.z;
+    break;
+  }
+
+  //double theta = atan2(z.y, z.x);
+  if (fractal->sinTan2Trig.atan2Oratan == sFractalSinTan2Trig::atan2)
+  {
+    ph0 += atan2(v2 , v3);
+  }
+  else
+  {
+    ph0 += atan(v2 / v3);
+  }
+
+  double r1 = fractal->transformCommon.minR05;// default 0.5
+  double x1 = r1 * cos(ph0);
+  double y1 = r1 * sin(ph0);
+
+  aux.r = (z.x -  x1) * (z.x -  x1) + ( z.y - y1) *  (z.y - y1) + z.z * z.z; //+ 1e-061
+
+  double sqrT =  aux.r;
+  if (fractal->transformCommon.functionEnabledAyFalse)// sqrts
+  {
+    sqrT = sqrt(aux.r);
+  }
+  if (fractal->sinTan2Trig.asinOracos == sFractalSinTan2Trig::asin)
+  {
+    th0 += asin(v1 / sqrT);
+  }
+  else
+  {
+    th0 += acos(v1 / sqrT);
+  }
+
+
+
+  double rp = pow(aux.r, fractal->transformCommon.pwr4);// default 4.0
+
+  /*double th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
+  double ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
+
+
+
+  //double costh = cos(th);
+  aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+  rp *= aux.r;
+
+  if (fractal->transformCommon.functionEnabledxFalse)
+  {  //cosine mode
+    double sinth = th;
+    if (fractal->transformCommon.functionEnabledyFalse)
+      sinth = th0;
+    sinth = sin(sinth);
+    z = rp  * CVector3(sinth * sin(ph), cos(ph) * sinth, cos(th));
+  }
+  else
+  {  //sine mode
+    double costh = th;
+    if (fractal->transformCommon.functionEnabledzFalse)
+      costh = th0;
+    costh = cos(costh);
+    z = rp  * CVector3(costh * cos(ph), sin(ph) * costh, sin(th));
+  }
+  //z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;*/
+
+
+
+
+
+  th0 *= fractal->transformCommon.pwr8; // default 8
+  ph0 *= fractal->bulb.power;// default 9 gives 8 symmetry
+
+
+  double phi = th0;
+  double theta = ph0;
+
+
+  // convert back to cartesian coordinates
+  z.x= ( r1 + rp * cos(phi)) * cos(theta);
+  z.y = ( r1 + rp * cos(phi)) * sin(theta);
+  z.z = -rp * sin(phi);
+
+
 
 
 
@@ -3110,21 +3265,17 @@ void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
         * fractal->transformCommon.pwr4 * 8.0 + 1.0;//8.0??
   }
 
-
-
-
-	if (fractal->transformCommon.functionEnabledAxFalse)// spherical offset
-	{
-		double lengthTempZ = -z.Length();
-		//if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
-		z *= 1 + fractal->transformCommon.offset / lengthTempZ;
-		z *= fractal->transformCommon.scale;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-		aux.r_dz *= fabs(fractal->transformCommon.scale);
-	}
-	// then add Cpixel constant vector
+  if (fractal->transformCommon.functionEnabledAxFalse)// spherical offset
+  {
+    double lengthTempZ = -z.Length();
+    //if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+    z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+    z *= fractal->transformCommon.scale;
+    aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+    aux.r_dz *= fabs(fractal->transformCommon.scale);
+  }
+  // then add Cpixel constant vector
 }
-
 /**
  * RiemannSphereMsltoe
  * @reference http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500

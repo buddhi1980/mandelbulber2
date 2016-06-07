@@ -503,6 +503,11 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("mandelbulbMulti_order_of_xyz_2", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_order_of_xyz_C", 0, morphNone, paramStandard);
 
+  // sinTan2Trig
+  par->addParam("sinTan2Trig_asin_or_acos", 0, morphNone, paramStandard);
+  par->addParam("sinTan2Trig_atan2_or_atan", 0, morphNone, paramStandard);
+  par->addParam("sinTan2Trig_order_of_zyx", 0, morphNone, paramStandard);
+
   //donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
 	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
