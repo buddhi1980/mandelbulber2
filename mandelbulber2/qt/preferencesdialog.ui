@@ -700,17 +700,55 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_clear_thumbnail_cache">
-             <property name="text">
-              <string>Clear thumbnail cache</string>
+            <widget class="QGroupBox" name="groupBox_thumbnail_options">
+             <property name="title">
+              <string>Thumbnail options</string>
              </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_load_thumbnail_cache">
-             <property name="text">
-              <string>Load thumbnail cache</string>
-             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_thumbnail_options">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_thumbnail_options">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                 <item row="0" column="0">
+                  <widget class="QPushButton" name="pushButton_clear_thumbnail_cache">
+                   <property name="text">
+                    <string>Clear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QPushButton" name="pushButton_load_thumbnail_cache">
+                   <property name="text">
+                    <string>Load</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QPushButton" name="pushButton_generate_thumbnail_cache">
+                   <property name="text">
+                    <string>Generate</string>
+                   </property>
+                  </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>

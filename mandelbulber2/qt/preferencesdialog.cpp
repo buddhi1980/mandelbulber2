@@ -7,6 +7,8 @@
 #include "../src/interface.hpp"
 #include "../src/system.hpp"
 #include "../src/initparameters.hpp"
+#include "../src/settings.hpp"
+#include "../src/global_data.hpp"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
   QDialog(parent),
@@ -132,6 +134,86 @@ void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked()
 		 gMainInterface->mainWindow,
 		 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		fileDownloader.downloadFilelist();
+	}
+	else
+	{
+		return;
+	}
+}
+
+void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
+{
+	QMessageBox::StandardButton reply;
+	QString infoGenerateCacheFiles = "This is a development feature. If you want to obtain all example cache files, click load!\n\n";
+	infoGenerateCacheFiles += "This will render all example files which are yet missing in your thumbnail cache.\n";
+	infoGenerateCacheFiles += "This process will take a lot of time and cannot be cancelled.\nProceed?";
+
+	reply = QMessageBox::question(
+		NULL,
+		QObject::tr("Are you sure to generate all example thumbnail cache files?"),
+		infoGenerateCacheFiles,
+		QMessageBox::Yes|QMessageBox::No);
+
+	if (reply == QMessageBox::Yes)
+	{
+		// this renders all example files as a thumbnail and saves them to the thumbnail cache
+		QString examplePath = QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
+		QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
+		QStringList exampleFiles;
+		while (it.hasNext()) exampleFiles << it.next();
+
+		cParameterContainer* examplePar = new cParameterContainer;
+		cFractalContainer* exampleParFractal = new cFractalContainer;
+		cThumbnailWidget* thumbWidget = new cThumbnailWidget(200, 200, 1, this);
+		QObject::connect(thumbWidget,
+		 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+		 gMainInterface->mainWindow,
+		 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+
+		examplePar->SetContainerName("main");
+		InitParams(examplePar);
+		/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+		InitMaterialParams(1, examplePar);
+
+		/*******************************************************************/
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		{
+			exampleParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
+			InitFractalParams(&exampleParFractal->at(i));
+		}
+		for(int i = 0; i < exampleFiles.size(); i++)
+		{
+			QString filename = exampleFiles.at(i);
+			gMainInterface->mainWindow->slotUpdateProgressAndStatus(
+				QString("Rendering examples"), tr("rendering %1, %2 of %3").arg(
+							filename,
+							QString::number(i + 1),
+							QString::number(exampleFiles.size())),
+				1.0 * (i + 1) / exampleFiles.size(),
+				cProgressText::progress_ANIMATION);
+
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.BeQuiet(true);
+			parSettings.LoadFromFile(filename);
+
+			if (parSettings.Decode(examplePar, exampleParFractal))
+			{
+				thumbWidget->AssignParameters(*examplePar, *exampleParFractal);
+				if(!thumbWidget->IsRendered())
+				{
+					thumbWidget->slotRender();
+					while(!thumbWidget->IsRendered())
+					{
+						gApplication->processEvents();
+						Wait(100);
+					}
+				}
+			}
+		}
+		delete exampleParFractal;
+		delete examplePar;
+		delete thumbWidget;
 	}
 	else
 	{

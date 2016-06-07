@@ -37,6 +37,7 @@ public:
 	void UseOneCPUCore(bool onlyOne) {useOneCPUCore = onlyOne;}
 	void DisableTimer() {disableTimer = true;}
 	void DisableThumbnailCache() {disableThumbnailCache = true;}
+	bool IsRendered() { return isRendered; }
 
 	static int instanceCount;
 	int instanceIndex;
@@ -45,12 +46,12 @@ private:
 	void paintEvent(QPaintEvent *event);
 
 private slots:
-	void slotRender();
 	void slotFullyRendered();
 	void slotRandomRender();
 
 public slots:
 	void slotSetMinimumSize(int width, int height);
+	void slotRender();
 
 private:
 	cImage *image;

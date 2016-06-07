@@ -208,6 +208,7 @@ void cThumbnailWidget::slotRender()
 
 void cThumbnailWidget::slotFullyRendered()
 {
+	isRendered = true;
 	if(!disableThumbnailCache)
 	{
 		QImage qImage((const uchar*) image->ConvertTo8bit(),
