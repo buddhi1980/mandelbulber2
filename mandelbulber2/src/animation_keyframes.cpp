@@ -573,6 +573,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			if (params->Get<bool>("keyframe_auto_validate"))
 			{
+				gKeyframes->ClearMorphCache();
+
 				QList<int> listOfCollisions =
 						CheckForCollisions(params->Get<double>("keyframe_collision_thresh"), stopRequest);
 				if (*stopRequest) throw false;
@@ -648,6 +650,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 		//total number of frames
 		int totalFrames = (keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
+
+		gKeyframes->ClearMorphCache();
 
 		//main loop for rendering of frames
 		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
