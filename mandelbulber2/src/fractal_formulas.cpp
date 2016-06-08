@@ -3129,8 +3129,7 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
     aux.r_dz *= z.Length() / aux.r;
     aux.DE = aux.DE * z.Length() / aux.r + 1.0;
   }
-  // Torioidal bulb
-
+  // Torioidal bulb multi
   double th0 = fractal->bulb.betaAngleOffset;
   double ph0 = fractal->bulb.alphaAngleOffset;
   double v1, v2, v3;
@@ -3187,7 +3186,7 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
   aux.r = (z.x -  x1) * (z.x -  x1) + ( z.y - y1) *  (z.y - y1) + z.z * z.z; //+ 1e-061
 
   double sqrT =  aux.r;
-  if (fractal->transformCommon.functionEnabledAyFalse)// sqrts
+  if (fractal->transformCommon.functionEnabledAy)// sqrts
   {
     sqrT = sqrt(aux.r);
   }
@@ -3202,45 +3201,25 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
   th0 *= fractal->transformCommon.pwr8; // default 8
   ph0 *= fractal->bulb.power;// default 9 gives 8 symmetry
 
-
   double rp = pow(aux.r, fractal->transformCommon.pwr4);// default 4.0
 
-  /*
-  //double costh = cos(th);
-  aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
-  rp *= aux.r;
+  double costh = cos(th0);
+  double sinth = sin(th0);
 
-  if (fractal->transformCommon.functionEnabledxFalse)
-  {  //cosine mode
-    double sinth = th;
-    if (fractal->transformCommon.functionEnabledyFalse)
-      sinth = th0;
-    sinth = sin(sinth);
-    z = rp  * CVector3(sinth * sin(ph), cos(ph) * sinth, cos(th));
+  if (fractal->transformCommon.functionEnabledzFalse)
+  { //cosine mode
+    //z = rp  * CVector3(sinth * cos(ph0), sin(ph0) * sinth, cos(th0));
+    z.x = ( r1 + rp * sinth) * sin(ph0);
+    z.y = ( r1 + rp * sinth) * cos(ph0);
+    z.z = -rp * costh;
   }
   else
-  {  //sine mode
-    double costh = th;
-    if (fractal->transformCommon.functionEnabledzFalse)
-      costh = th0;
-    costh = cos(costh);
-    z = rp  * CVector3(costh * cos(ph), sin(ph) * costh, sin(th));
+  {  //sine mode default
+    //z = rp  * CVector3(costh * sin(ph0), cos(ph0) * costh, sin(th0));
+    z.x = ( r1 + rp * costh) * cos(ph0);
+    z.y = ( r1 + rp * costh) * sin(ph0);
+    z.z = -rp * sinth;
   }
-  //z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;*/
-
-  //double phi = th0;
-  //double theta = ph0;
-
-
-  // convert back to cartesian coordinates
-  z.x = ( r1 + rp * cos(th0)) * cos(ph0);
-  z.y = ( r1 + rp * cos(th0)) * sin(ph0);
-  z.z = -rp * sin(th0);
-
-
-
-
-
 
   if (fractal->transformCommon.functionEnabledyFalse)
   {
