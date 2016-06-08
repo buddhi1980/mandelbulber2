@@ -224,7 +224,7 @@
                <number>1</number>
               </property>
               <property name="maximum">
-               <number>10000</number>
+               <number>65535</number>
               </property>
              </widget>
             </item>
@@ -241,10 +241,10 @@
             <item row="0" column="3">
              <widget class="MySpinBox" name="spinboxInt_voxel_samples_y">
               <property name="minimum">
-               <number>1</number>
+               <number>2</number>
               </property>
               <property name="maximum">
-               <number>10000</number>
+               <number>65535</number>
               </property>
              </widget>
             </item>
@@ -261,10 +261,10 @@
             <item row="0" column="5">
              <widget class="MySpinBox" name="spinboxInt_voxel_samples_z">
               <property name="minimum">
-               <number>1</number>
+               <number>2</number>
               </property>
               <property name="maximum">
-               <number>10000</number>
+               <number>65535</number>
               </property>
              </widget>
             </item>

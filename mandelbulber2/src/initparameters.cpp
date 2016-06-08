@@ -162,9 +162,9 @@ void InitParams(cParameterContainer *par)
 	par->addParam("voxel_limit_min", CVector3(-1.0, -1.0, -1.0), morphLinear, paramStandard);
 	par->addParam("voxel_limit_max", CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
 	par->addParam("voxel_custom_limit_enabled", false, morphLinear, paramStandard);
-	par->addParam("voxel_samples_x", 100, 20, 10000, morphLinear, paramStandard);
-	par->addParam("voxel_samples_y", 100, 20, 10000, morphLinear, paramStandard);
-	par->addParam("voxel_samples_z", 100, 20, 10000, morphLinear, paramStandard);
+	par->addParam("voxel_samples_x", 100, 2, 65535, morphLinear, paramStandard);
+	par->addParam("voxel_samples_y", 100, 2, 65535, morphLinear, paramStandard);
+	par->addParam("voxel_samples_z", 100, 2, 65535, morphLinear, paramStandard);
 	par->addParam("voxel_max_iter", 30, 1, 10000, morphLinear, paramStandard);
 	par->addParam("voxel_image_path", QDir::toNativeSeparators(systemData.dataDirectory + "slices" + QDir::separator()), morphNone, paramStandard);
 
