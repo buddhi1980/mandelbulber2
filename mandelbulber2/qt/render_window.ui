@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>935</width>
-           <height>1417</height>
+           <width>879</width>
+           <height>1395</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -249,7 +249,7 @@
      <x>0</x>
      <y>0</y>
      <width>1581</width>
-     <height>17</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -376,8 +376,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>559</height>
+          <width>414</width>
+          <height>628</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -800,7 +800,7 @@
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is nornal quality.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Screen Space Ambient Occlusion (SSAO) mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Norrmal quality preset.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Screen Space Ambient Occlusion (SSAO) mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Normal</string>
@@ -816,7 +816,7 @@
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is fastest preset but with low quality.&lt;/p&gt;&lt;p&gt;It tuns off ambient occlusion.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A fast preset but with low quality.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned off.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Low
@@ -833,7 +833,7 @@
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is the preset with the highest quality.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned with Multiple Rays mode. Raymarching step is decreased to 0.2 to reduce fractal calculation errors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The highest quality preset and the slowest.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Multiple Rays mode. Raymarching step is decreased to 0.2 to reduce fractal calculation errors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string> High
@@ -851,7 +851,7 @@ accurate raymarching)</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is the fastest preset but with the lowest quality.&lt;/p&gt;&lt;p&gt;It tuns off shadows and ambient occlusion. Detail level is decreased to 0.5. raytraced reflections are off.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the fastest preset but with the lowest quality.&lt;/p&gt;&lt;p&gt;Shadows, ambient occlusion and raytraced reflections are turned off. Detail level is decreased to 0.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Very low
@@ -1317,8 +1317,8 @@ no ambient occlusion)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>210</width>
-          <height>472</height>
+          <width>229</width>
+          <height>447</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -1743,8 +1743,8 @@ no ambient occlusion)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>202</width>
-          <height>838</height>
+          <width>221</width>
+          <height>888</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_coordinates">
@@ -3122,8 +3122,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>384</width>
-          <height>306</height>
+          <width>430</width>
+          <height>298</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3192,8 +3192,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>469</height>
+                  <width>376</width>
+                  <height>536</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3290,367 +3290,6 @@ to target:</string>
                        </widget>
                       </item>
                      </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="MyGroupBox" name="groupCheck_env_mapping_enable">
-                   <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Environment mapping is an image-based lighting technique for approximating the appearance of a reflective surface by means of a precomputed texture image. The texture is used to store the image of the distant environment surrounding the rendered object.&lt;/p&gt;&lt;p&gt;To adjust effect intensity use &lt;span style=&quot; font-style:italic;&quot;&gt;reflection&lt;/span&gt; slider&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="title">
-                    <string>Environment mappring</string>
-                   </property>
-                   <property name="checkable">
-                    <bool>true</bool>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_119">
-                    <property name="spacing">
-                     <number>2</number>
-                    </property>
-                    <property name="leftMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>2</number>
-                    </property>
-                    <item>
-                     <layout class="QGridLayout" name="gridLayout_73">
-                      <property name="spacing">
-                       <number>2</number>
-                      </property>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_170">
-                        <property name="text">
-                         <string>Texture path:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1" colspan="2">
-                       <widget class="FileSelectWidget" name="text_file_envmap" native="true">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to reflection map image .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="MyGroupBox" name="groupCheck_ambient_occlusion_enabled">
-                   <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings for scattered light effect&lt;/p&gt;&lt;p&gt;Types of ambient occlusion effect:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Multiple rays&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fast&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relatively fast post-effect based on z-Buffer&lt;/p&gt;&lt;p&gt;Multiple rays - based on calculation of rays in different directions. It uses texture to create colored light map. This effect slows down rendering.&lt;/p&gt;&lt;p&gt;Fast - simple and fast method to calculate scattered light effect. This the least accurate effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="title">
-                    <string>Ambient occlusion</string>
-                   </property>
-                   <property name="checkable">
-                    <bool>true</bool>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_69">
-                    <property name="spacing">
-                     <number>2</number>
-                    </property>
-                    <property name="leftMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>2</number>
-                    </property>
-                    <item>
-                     <layout class="QGridLayout" name="gridLayout_33">
-                      <property name="spacing">
-                       <number>2</number>
-                      </property>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="label_103">
-                        <property name="text">
-                         <string>Quality:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="1">
-                       <widget class="QSlider" name="slider_ambient_occlusion_fast_tune">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="minimum">
-                         <number>5</number>
-                        </property>
-                        <property name="maximum">
-                         <number>500</number>
-                        </property>
-                        <property name="singleStep">
-                         <number>1</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="0">
-                       <widget class="QLabel" name="label_127">
-                        <property name="text">
-                         <string>Type:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="2">
-                       <widget class="MySpinBox" name="spinboxInt_ambient_occlusion_quality">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quality of ambient occlusion effect. Higher quality increases rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                        </property>
-                        <property name="maximum">
-                         <number>30</number>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="2">
-                       <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion_fast_tune">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter controls brightness of fast ambient occlusion effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                        </property>
-                        <property name="prefix">
-                         <string/>
-                        </property>
-                        <property name="suffix">
-                         <string/>
-                        </property>
-                        <property name="decimals">
-                         <number>2</number>
-                        </property>
-                        <property name="minimum">
-                         <double>0.010000000000000</double>
-                        </property>
-                        <property name="maximum">
-                         <double>10.000000000000000</double>
-                        </property>
-                        <property name="singleStep">
-                         <double>0.100000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="1">
-                       <widget class="QSlider" name="sliderInt_ambient_occlusion_quality">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="minimum">
-                         <number>1</number>
-                        </property>
-                        <property name="maximum">
-                         <number>30</number>
-                        </property>
-                        <property name="singleStep">
-                         <number>1</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="1">
-                       <widget class="QComboBox" name="comboBox_ambient_occlusion_mode">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of method to calculate ambient occlusion effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                        </property>
-                        <item>
-                         <property name="text">
-                          <string>Fast</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Multiple rays with light map</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string>Screen space</string>
-                         </property>
-                        </item>
-                       </widget>
-                      </item>
-                      <item row="2" column="0">
-                       <widget class="QLabel" name="label_132">
-                        <property name="text">
-                         <string>Fast AO tune:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_68">
-                        <property name="text">
-                         <string>Intensity:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1">
-                       <widget class="QSlider" name="slider_ambient_occlusion">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="maximum">
-                         <number>200</number>
-                        </property>
-                        <property name="singleStep">
-                         <number>1</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="2">
-                       <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of scattered light&lt;/p&gt;&lt;p&gt;example of effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                        </property>
-                        <property name="prefix">
-                         <string/>
-                        </property>
-                        <property name="suffix">
-                         <string/>
-                        </property>
-                        <property name="decimals">
-                         <number>2</number>
-                        </property>
-                        <property name="maximum">
-                         <double>1000.000000000000000</double>
-                        </property>
-                        <property name="singleStep">
-                         <double>0.100000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="MyCheckBox" name="checkBox_SSAO_random_mode">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables random directions of ray vectors&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                      </property>
-                      <property name="text">
-                       <string>SSAO random mode</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QFrame" name="frame_lightmap_texture">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                      <property name="frameShape">
-                       <enum>QFrame::StyledPanel</enum>
-                      </property>
-                      <property name="frameShadow">
-                       <enum>QFrame::Raised</enum>
-                      </property>
-                      <layout class="QVBoxLayout" name="verticalLayout_138">
-                       <property name="spacing">
-                        <number>2</number>
-                       </property>
-                       <property name="leftMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="topMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="rightMargin">
-                        <number>2</number>
-                       </property>
-                       <property name="bottomMargin">
-                        <number>2</number>
-                       </property>
-                       <item>
-                        <layout class="QGridLayout" name="gridLayout_74">
-                         <property name="spacing">
-                          <number>2</number>
-                         </property>
-                         <item row="0" column="0">
-                          <widget class="QLabel" name="label_171">
-                           <property name="text">
-                            <string>Light map texture:</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item row="0" column="1" colspan="2">
-                          <widget class="FileSelectWidget" name="text_file_lightmap" native="true">
-                           <property name="sizePolicy">
-                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                             <horstretch>0</horstretch>
-                             <verstretch>0</verstretch>
-                            </sizepolicy>
-                           </property>
-                           <property name="toolTip">
-                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to light map image. For ambient occlusion effect based on multiple rays&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </item>
-                      </layout>
-                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -3962,6 +3601,367 @@ Disables 'Update image' options)</string>
                   </widget>
                  </item>
                  <item>
+                  <widget class="MyGroupBox" name="groupCheck_ambient_occlusion_enabled">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings for scattered light effect&lt;/p&gt;&lt;p&gt;Types of ambient occlusion effect:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Multiple rays&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fast&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relatively fast post-effect based on z-Buffer&lt;/p&gt;&lt;p&gt;Multiple rays - based on calculation of rays in different directions. It uses texture to create colored light map. This effect slows down rendering.&lt;/p&gt;&lt;p&gt;Fast - simple and fast method to calculate scattered light effect. This the least accurate effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="title">
+                    <string>Ambient occlusion</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_69">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
+                    <item>
+                     <layout class="QGridLayout" name="gridLayout_33">
+                      <property name="spacing">
+                       <number>2</number>
+                      </property>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_103">
+                        <property name="text">
+                         <string>Quality:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QSlider" name="slider_ambient_occlusion_fast_tune">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="minimum">
+                         <number>5</number>
+                        </property>
+                        <property name="maximum">
+                         <number>500</number>
+                        </property>
+                        <property name="singleStep">
+                         <number>1</number>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="0">
+                       <widget class="QLabel" name="label_127">
+                        <property name="text">
+                         <string>Type:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
+                       <widget class="MySpinBox" name="spinboxInt_ambient_occlusion_quality">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quality of ambient occlusion effect. Higher quality increases rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                        <property name="maximum">
+                         <number>30</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="2">
+                       <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion_fast_tune">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter controls brightness of fast ambient occlusion effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                        <property name="prefix">
+                         <string/>
+                        </property>
+                        <property name="suffix">
+                         <string/>
+                        </property>
+                        <property name="decimals">
+                         <number>2</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>10.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.100000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QSlider" name="sliderInt_ambient_occlusion_quality">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="minimum">
+                         <number>1</number>
+                        </property>
+                        <property name="maximum">
+                         <number>30</number>
+                        </property>
+                        <property name="singleStep">
+                         <number>1</number>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="1">
+                       <widget class="QComboBox" name="comboBox_ambient_occlusion_mode">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of method to calculate ambient occlusion effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                        <item>
+                         <property name="text">
+                          <string>Fast</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>Multiple rays with light map</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>Screen space</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="label_132">
+                        <property name="text">
+                         <string>Fast AO tune:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_68">
+                        <property name="text">
+                         <string>Intensity:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QSlider" name="slider_ambient_occlusion">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="maximum">
+                         <number>200</number>
+                        </property>
+                        <property name="singleStep">
+                         <number>1</number>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="2">
+                       <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of scattered light&lt;/p&gt;&lt;p&gt;example of effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                        <property name="prefix">
+                         <string/>
+                        </property>
+                        <property name="suffix">
+                         <string/>
+                        </property>
+                        <property name="decimals">
+                         <number>2</number>
+                        </property>
+                        <property name="maximum">
+                         <double>1000.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.100000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="MyCheckBox" name="checkBox_SSAO_random_mode">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables random directions of ray vectors&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                      <property name="text">
+                       <string>SSAO random mode</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_lightmap_texture">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_138">
+                       <property name="spacing">
+                        <number>2</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>2</number>
+                       </property>
+                       <item>
+                        <layout class="QGridLayout" name="gridLayout_74">
+                         <property name="spacing">
+                          <number>2</number>
+                         </property>
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="label_171">
+                           <property name="text">
+                            <string>Light map texture:</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1" colspan="2">
+                          <widget class="FileSelectWidget" name="text_file_lightmap" native="true">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="toolTip">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to light map image. For ambient occlusion effect based on multiple rays&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="MyGroupBox" name="groupCheck_env_mapping_enable">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Environment mapping is an image-based lighting technique for approximating the appearance of a reflective surface by means of a precomputed texture image. The texture is used to store the image of the distant environment surrounding the rendered object.&lt;/p&gt;&lt;p&gt;To adjust effect intensity use &lt;span style=&quot; font-style:italic;&quot;&gt;reflection&lt;/span&gt; slider&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="title">
+                    <string>Environment mapping</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_119">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
+                    <item>
+                     <layout class="QGridLayout" name="gridLayout_73">
+                      <property name="spacing">
+                       <number>2</number>
+                      </property>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_170">
+                        <property name="text">
+                         <string>Texture path:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1" colspan="2">
+                       <widget class="FileSelectWidget" name="text_file_envmap" native="true">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to reflection map image .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
                   <spacer name="verticalSpacer_2">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
@@ -4010,8 +4010,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>218</width>
-                  <height>513</height>
+                  <width>376</width>
+                  <height>594</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -4850,8 +4850,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>262</width>
-                  <height>165</height>
+                  <width>392</width>
+                  <height>284</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5147,8 +5147,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
-                  <height>1477</height>
+                  <width>376</width>
+                  <height>1705</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -7521,8 +7521,8 @@ Disables 'Update image' options)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>430</height>
+          <width>414</width>
+          <height>472</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -7623,8 +7623,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8734,8 +8734,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -9839,8 +9839,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -10938,8 +10938,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -12037,8 +12037,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -13136,8 +13136,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -14235,8 +14235,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -15334,8 +15334,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -16430,8 +16430,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>755</height>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -17543,8 +17543,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
-                  <height>521</height>
+                  <width>360</width>
+                  <height>560</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -19262,8 +19262,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>376</width>
+                  <height>458</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -19807,8 +19807,8 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>1071</height>
+          <width>414</width>
+          <height>1161</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -21413,8 +21413,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
-                  <height>318</height>
+                  <width>408</width>
+                  <height>363</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -22248,8 +22248,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
-                  <height>242</height>
+                  <width>360</width>
+                  <height>298</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -22946,8 +22946,8 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>279</width>
-          <height>428</height>
+          <width>294</width>
+          <height>441</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -23390,8 +23390,8 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>75</height>
+          <width>416</width>
+          <height>81</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -23855,7 +23855,6 @@ keyframes</string>
   <tabstop>groupCheck_raytraced_reflections</tabstop>
   <tabstop>sliderInt_reflections_max</tabstop>
   <tabstop>spinboxInt_reflections_max</tabstop>
-  <tabstop>groupCheck_DOF_enabled</tabstop>
   <tabstop>logslider_DOF_focus</tabstop>
   <tabstop>logedit_DOF_focus</tabstop>
   <tabstop>slider_DOF_radius</tabstop>

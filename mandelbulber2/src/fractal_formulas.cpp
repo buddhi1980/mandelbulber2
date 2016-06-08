@@ -3199,16 +3199,13 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
   {
     th0 += acos(v1 / sqrT);
   }
-
+  th0 *= fractal->transformCommon.pwr8; // default 8
+  ph0 *= fractal->bulb.power;// default 9 gives 8 symmetry
 
 
   double rp = pow(aux.r, fractal->transformCommon.pwr4);// default 4.0
 
-  /*double th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
-  double ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
-
-
-
+  /*
   //double costh = cos(th);
   aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
   rp *= aux.r;
@@ -3231,22 +3228,14 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
   }
   //z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;*/
 
-
-
-
-
-  th0 *= fractal->transformCommon.pwr8; // default 8
-  ph0 *= fractal->bulb.power;// default 9 gives 8 symmetry
-
-
-  double phi = th0;
-  double theta = ph0;
+  //double phi = th0;
+  //double theta = ph0;
 
 
   // convert back to cartesian coordinates
-  z.x= ( r1 + rp * cos(phi)) * cos(theta);
-  z.y = ( r1 + rp * cos(phi)) * sin(theta);
-  z.z = -rp * sin(phi);
+  z.x = ( r1 + rp * cos(th0)) * cos(ph0);
+  z.y = ( r1 + rp * cos(th0)) * sin(ph0);
+  z.z = -rp * sin(th0);
 
 
 
