@@ -1,101 +1,137 @@
 <RCC>
-    <qresource prefix="/system">
-        <file>icons/dialog-ok-apply.png</file>
-        <file>icons/mandelbulber.png</file>
-        <file>icons/layer.png</file>
-        <file>icons/edit-undo.png</file>
-        <file>icons/edit-redo.png</file>
-        <file>icons/document-open.svg</file>
-        <file>icons/document-save.svg</file>
-        <file>icons/document-save-as.svg</file>
-        <file>icons/applications-graphics.svg</file>
-        <file>icons/media-playback-start.svg</file>
-        <file>icons/media-record.svg</file>
-        <file>icons/process-stop.svg</file>
-        <file>icons/edit-delete.svg</file>
-        <file>icons/view-refresh.svg</file>
-        <file>icons/video-x-generic.svg</file>
-        <file>icons/image-x-generic.svg</file>
-        <file>icons/preferences-system.svg</file>
-        <file>icons/system-shutdown.svg</file>
-        <file>icons/folder.svg</file>
-        <file>icons/list-add.svg</file>
-        <file>icons/list-remove.svg</file>
-    </qresource>
-    <qresource prefix="/tooltips">
-        <file>tooltips_images/equirectangular_bkg.jpg</file>
-        <file>tooltips_images/full_dome_bkg_axes.png</file>
-        <file>tooltips_images/image - shader - backhround texture.jpg</file>
-        <file>tooltips_images/image - shader - orbit trap lights.jpg</file>
-        <file>tooltips_images/god rays.jpg</file>
-        <file>tooltips_images/image - shader - shadow cone 0.jpeg</file>
-        <file>tooltips_images/image - shader - shadow cone 5.jpg</file>
-        <file>tooltips_images/image - shader - iterfog - 4 - 1000.jpg</file>
-        <file>tooltips_images/image - shader - iterfog - 4 - 4000.jpg</file>
-        <file>tooltips_images/image - shader - iterfog - 4 - 16000.jpg</file>
-        <file>tooltips_images/image - shader - iterfog - 6 - 30000.jpg</file>
-        <file>tooltips_images/image - shader - iterfog - 8 - 40000.jpg</file>
-        <file>tooltips_images/image - shader - iterfog - lights.jpeg</file>
-        <file>tooltips_images/image - shader - glow.jpeg</file>
-        <file>tooltips_images/image - shader - distance glow.jpg</file>
-        <file>tooltips_images/image - shader - distance glow 2.jpeg</file>
-        <file>tooltips_images/image - shader - fog.jpeg</file>
-        <file>tooltips_images/rotate camera around target.png</file>
-        <file>tooltips_images/rotate target around camera.png</file>
-        <file>tooltips_images/Yaw_Pich_Roll.png</file>
-        <file>tooltips_images/move only target.png</file>
-        <file>tooltips_images/move only camera.png</file>
-        <file>tooltips_images/move camera and target.png</file>
-        <file>tooltips_images/Camera target.png</file>
-        <file>tooltips_images/image - DOF - focus close.jpg</file>
-        <file>tooltips_images/image - DOF - focus far.jpg</file>
-        <file>tooltips_images/image - DOF - radius 10.jpg</file>
-        <file>tooltips_images/image - DOF - radius 50.jpg</file>
-        <file>tooltips_images/image - limits x, y, z.jpeg</file>
-        <file>tooltips_images/image - limits z.jpeg</file>
-        <file>tooltips_images/image - interior disabled.jpg</file>
-        <file>tooltips_images/image - interior enabled.jpg</file>
-        <file>tooltips_images/image - smoothness 0.1.jpg</file>
-        <file>tooltips_images/image - smoothness 1.jpg</file>
-        <file>tooltips_images/image - smoothness 5.jpg</file>
-        <file>tooltips_images/image - DE step factor 1.jpg</file>
-        <file>tooltips_images/image - DE step factor 4.jpg</file>
-        <file>tooltips_images/image - resolution 0.2.jpg</file>
-        <file>tooltips_images/image - resolution 0.5.jpg</file>
-        <file>tooltips_images/image - resolution 1.jpg</file>
-        <file>tooltips_images/image - maxiter - 10.jpg</file>
-        <file>tooltips_images/image - maxiter - 15.jpg</file>
-        <file>tooltips_images/image - shader - colouring enabled.jpg</file>
-        <file>tooltips_images/image - shader - colour speed 0.3.jpg</file>
-        <file>tooltips_images/image - shader - colour speed 5.jpg</file>
-        <file>tooltips_images/image - shader - ambient occlusion high quality.jpg</file>
-        <file>tooltips_images/image - shader - ambient occlusion fast mode.jpg</file>
-        <file>tooltips_images/image - shader - ambient occlusion 1.0.jpg</file>
-        <file>tooltips_images/image - shader - specularity 0.jpg</file>
-        <file>tooltips_images/image - shader - specularity 5.jpg</file>
-        <file>tooltips_images/image - shader - shading 0.jpg</file>
-        <file>tooltips_images/image - shader - shading 1.jpg</file>
-        <file>tooltips_images/random lights placement.png</file>
-    </qresource>
-    <qresource prefix="/primitives">
-        <file>icons/box.png</file>
-        <file>icons/circle.png</file>
-        <file>icons/cone.png</file>
-        <file>icons/cylinder.png</file>
-        <file>icons/plane.png</file>
-        <file>icons/rectangle.png</file>
-        <file>icons/sphere.png</file>
-        <file>icons/torus.png</file>
-        <file>icons/water.png</file>
-    </qresource>
-    <qresource prefix="/navigation">
-        <file>icons/arrow-down-double.png</file>
-        <file>icons/arrow-up-double.png</file>
-        <file>icons/go-down.png</file>
-        <file>icons/go-next.png</file>
-        <file>icons/go-previous.png</file>
-        <file>icons/go-up.png</file>
-        <file>icons/object-rotate-left.png</file>
-        <file>icons/object-rotate-right.png</file>
-    </qresource>
+  <qresource prefix="/system">
+    <file>icons/dialog-ok-apply.png</file>
+    <file>icons/mandelbulber.png</file>
+    <file>icons/layer.png</file>
+    <file>icons/edit-undo.png</file>
+    <file>icons/edit-redo.png</file>
+    <file>icons/document-open.svg</file>
+    <file>icons/document-save.svg</file>
+    <file>icons/document-save-as.svg</file>
+    <file>icons/applications-graphics.svg</file>
+    <file>icons/media-playback-start.svg</file>
+    <file>icons/media-record.svg</file>
+    <file>icons/process-stop.svg</file>
+    <file>icons/edit-delete.svg</file>
+    <file>icons/view-refresh.svg</file>
+    <file>icons/video-x-generic.svg</file>
+    <file>icons/image-x-generic.svg</file>
+    <file>icons/preferences-system.svg</file>
+    <file>icons/system-shutdown.svg</file>
+    <file>icons/folder.svg</file>
+    <file>icons/list-add.svg</file>
+    <file>icons/list-remove.svg</file>
+  </qresource>
+  <qresource prefix="/tooltips">
+    <file>tooltips_images/material - transparency of volume 0.5.jpg</file>
+    <file>tooltips_images/material - transparency of volume 0.8.jpg</file>
+    <file>tooltips_images/material - reflectance 1.0.jpg</file>
+    <file>tooltips_images/material - transparency index of refraction 1.0.jpg</file>
+    <file>tooltips_images/material - reflectance fresnel.jpg</file>
+    <file>tooltips_images/material - specular highlight color.jpg</file>
+    <file>tooltips_images/material - specular highlight width 1.jpg</file>
+    <file>tooltips_images/material - transparency of surface 0.5.jpg</file>
+    <file>tooltips_images/material - luminosity.jpg</file>
+    <file>tooltips_images/material - cubic mapping - center 0.3 0.3 0.0.jpg</file>
+    <file>tooltips_images/material - planar mapping - rotated.jpg</file>
+    <file>tooltips_images/material - planar mapping - default orientation.jpg</file>
+    <file>tooltips_images/material - spherical mapping.jpg</file>
+    <file>tooltips_images/material - displacement map.jpg</file>
+    <file>tooltips_images/material - diffusion texture.jpg</file>
+    <file>tooltips_images/material - normal map texture from bumpmap.jpg</file>
+    <file>tooltips_images/material - transparency index of refraction 1.5.jpg</file>
+    <file>tooltips_images/material - transparency of surface 1.0.jpg</file>
+    <file>tooltips_images/material - reflectance 0.8.jpg</file>
+    <file>tooltips_images/material - transparency index of refraction 2.0.jpg</file>
+    <file>tooltips_images/material - reflectance 0.5.jpg</file>
+    <file>tooltips_images/material - transparency of surface 0.8.jpg</file>
+    <file>tooltips_images/material - transparency.jpg</file>
+    <file>tooltips_images/material - specular highlight width 0.1.jpg</file>
+    <file>tooltips_images/material - cubic mapping - scaled up.jpg</file>
+    <file>tooltips_images/material - planar mapping.jpg</file>
+    <file>tooltips_images/material - reflectance 0.3.jpg</file>
+    <file>tooltips_images/material - specular highlight width 5.jpg</file>
+    <file>tooltips_images/material - cubic mapping - scaled down.jpg</file>
+    <file>tooltips_images/material - cubic mapping.jpg</file>
+    <file>tooltips_images/material - cyllindrical mapping.jpg</file>
+    <file>tooltips_images/material - normal map texture invert green off.jpg</file>
+    <file>tooltips_images/material - normal map texture.jpg</file>
+    <file>tooltips_images/material - normal map texture invert green on.jpg</file>
+    <file>tooltips_images/material - luminosity texture.jpg</file>
+    <file>tooltips_images/material - color texture.jpg</file>
+    <file>tooltips_images/equirectangular_bkg.jpg</file>
+    <file>tooltips_images/full_dome_bkg_axes.png</file>
+    <file>tooltips_images/image - shader - backhround texture.jpg</file>
+    <file>tooltips_images/image - shader - orbit trap lights.jpg</file>
+    <file>tooltips_images/god rays.jpg</file>
+    <file>tooltips_images/image - shader - shadow cone 0.jpeg</file>
+    <file>tooltips_images/image - shader - shadow cone 5.jpg</file>
+    <file>tooltips_images/image - shader - iterfog - 4 - 1000.jpg</file>
+    <file>tooltips_images/image - shader - iterfog - 4 - 4000.jpg</file>
+    <file>tooltips_images/image - shader - iterfog - 4 - 16000.jpg</file>
+    <file>tooltips_images/image - shader - iterfog - 6 - 30000.jpg</file>
+    <file>tooltips_images/image - shader - iterfog - 8 - 40000.jpg</file>
+    <file>tooltips_images/image - shader - iterfog - lights.jpeg</file>
+    <file>tooltips_images/image - shader - glow.jpeg</file>
+    <file>tooltips_images/image - shader - distance glow.jpg</file>
+    <file>tooltips_images/image - shader - distance glow 2.jpeg</file>
+    <file>tooltips_images/image - shader - fog.jpeg</file>
+    <file>tooltips_images/rotate camera around target.png</file>
+    <file>tooltips_images/rotate target around camera.png</file>
+    <file>tooltips_images/Yaw_Pich_Roll.png</file>
+    <file>tooltips_images/move only target.png</file>
+    <file>tooltips_images/move only camera.png</file>
+    <file>tooltips_images/move camera and target.png</file>
+    <file>tooltips_images/Camera target.png</file>
+    <file>tooltips_images/image - DOF - focus close.jpg</file>
+    <file>tooltips_images/image - DOF - focus far.jpg</file>
+    <file>tooltips_images/image - DOF - radius 10.jpg</file>
+    <file>tooltips_images/image - DOF - radius 50.jpg</file>
+    <file>tooltips_images/image - limits x, y, z.jpeg</file>
+    <file>tooltips_images/image - limits z.jpeg</file>
+    <file>tooltips_images/image - interior disabled.jpg</file>
+    <file>tooltips_images/image - interior enabled.jpg</file>
+    <file>tooltips_images/image - smoothness 0.1.jpg</file>
+    <file>tooltips_images/image - smoothness 1.jpg</file>
+    <file>tooltips_images/image - smoothness 5.jpg</file>
+    <file>tooltips_images/image - DE step factor 1.jpg</file>
+    <file>tooltips_images/image - DE step factor 4.jpg</file>
+    <file>tooltips_images/image - resolution 0.2.jpg</file>
+    <file>tooltips_images/image - resolution 0.5.jpg</file>
+    <file>tooltips_images/image - resolution 1.jpg</file>
+    <file>tooltips_images/image - maxiter - 10.jpg</file>
+    <file>tooltips_images/image - maxiter - 15.jpg</file>
+    <file>tooltips_images/image - shader - colouring enabled.jpg</file>
+    <file>tooltips_images/image - shader - colour speed 0.3.jpg</file>
+    <file>tooltips_images/image - shader - colour speed 5.jpg</file>
+    <file>tooltips_images/image - shader - ambient occlusion high quality.jpg</file>
+    <file>tooltips_images/image - shader - ambient occlusion fast mode.jpg</file>
+    <file>tooltips_images/image - shader - ambient occlusion 1.0.jpg</file>
+    <file>tooltips_images/image - shader - specularity 0.jpg</file>
+    <file>tooltips_images/image - shader - specularity 5.jpg</file>
+    <file>tooltips_images/image - shader - shading 0.jpg</file>
+    <file>tooltips_images/image - shader - shading 1.jpg</file>
+    <file>tooltips_images/random lights placement.png</file>
+  </qresource>
+  <qresource prefix="/primitives">
+    <file>icons/box.png</file>
+    <file>icons/circle.png</file>
+    <file>icons/cone.png</file>
+    <file>icons/cylinder.png</file>
+    <file>icons/plane.png</file>
+    <file>icons/rectangle.png</file>
+    <file>icons/sphere.png</file>
+    <file>icons/torus.png</file>
+    <file>icons/water.png</file>
+  </qresource>
+  <qresource prefix="/navigation">
+    <file>icons/arrow-down-double.png</file>
+    <file>icons/arrow-up-double.png</file>
+    <file>icons/go-down.png</file>
+    <file>icons/go-next.png</file>
+    <file>icons/go-previous.png</file>
+    <file>icons/go-up.png</file>
+    <file>icons/object-rotate-left.png</file>
+    <file>icons/object-rotate-right.png</file>
+  </qresource>
 </RCC>
