@@ -328,6 +328,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           AmazingSurfMod1Iteration(z, fractal, extendedAux);
           break;
         }
+        case amazingSurfMulti:
+        {
+          AmazingSurfMultiIteration(z, i, fractal, extendedAux);
+          break;
+        }
         case benesiPineTree:
         {
           BenesiPineTreeIteration(z, c, fractal, extendedAux);
@@ -975,6 +980,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case aboxMod2:
         case amazingSurf:
         case amazingSurfMod1:
+        case amazingSurfMulti:
         case kalisets1:
         case aboxVSIcen1:
         {
@@ -1056,6 +1062,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				case amazingSurf:
 				case amazingSurfMod1:
+        case amazingSurfMulti:
 					out->colorIndex = minimumR * 200.0;
 					break;
 

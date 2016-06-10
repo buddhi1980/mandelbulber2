@@ -263,6 +263,7 @@ struct sFractalMandelbulbMulti
 	multi_OrderOfxyz orderOfxyz2;
 	multi_OrderOfxyz orderOfxyzC;
 };
+
 //sinTan2Trig
 struct sFractalSinTan2Trig
 {
@@ -284,6 +285,20 @@ struct sFractalSinTan2Trig
   multi_asinOracos asinOracos;
   multi_atan2Oratan atan2Oratan;
   multi_OrderOfzyx orderOfzyx;
+};
+
+//surf fold box
+struct sFractalSurfFolds
+{
+  enum multi_orderOfFolds
+  {
+    type1, type2, type3, type4, type5
+  };
+  multi_orderOfFolds orderOfFolds1;
+  multi_orderOfFolds orderOfFolds2;
+  multi_orderOfFolds orderOfFolds3;
+  multi_orderOfFolds orderOfFolds4;
+  multi_orderOfFolds orderOfFolds5;
 };
 
 //common parameters for transforming formulas
@@ -327,6 +342,10 @@ struct sFractalTransformCommon
   int stopIterationsB;
   int startIterationsC;
   int stopIterationsC;
+  int startIterationsD;
+  int stopIterationsD;
+  int startIterationsE;
+  int stopIterationsE;
   int startIterationsR;
   int stopIterationsR;
   int startIterationsS;
@@ -418,6 +437,7 @@ public:
   sFractalTransformCommon transformCommon;
   sFractalMandelbulbMulti mandelbulbMulti;
   sFractalSinTan2Trig sinTan2Trig;
+  sFractalSurfFolds surfFolds;
   sFractalDonut donut;
 
 #ifdef CLSUPPORT

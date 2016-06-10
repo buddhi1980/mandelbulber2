@@ -508,6 +508,14 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("sinTan2Trig_atan2_or_atan", 0, morphNone, paramStandard);
   par->addParam("sinTan2Trig_order_of_zyx", 0, morphNone, paramStandard);
 
+  //SurfFold
+  par->addParam("surfFolds_order_of_folds_1", 0, morphNone, paramStandard);
+  par->addParam("surfFolds_order_of_folds_2", 0, morphNone, paramStandard);
+  par->addParam("surfFolds_order_of_folds_3", 0, morphNone, paramStandard);
+  par->addParam("surfFolds_order_of_folds_4", 0, morphNone, paramStandard);
+  par->addParam("surfFolds_order_of_folds_5", 0, morphNone, paramStandard);
+
+
   //donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
 	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
@@ -556,6 +564,10 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_stop_iterations_B", 250, morphLinear, paramStandard);
   par->addParam("transf_start_iterations_C", 0, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations_C", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_D", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_D", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_E", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_E", 250, morphLinear, paramStandard);
   par->addParam("transf_start_iterations_R", 0, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations_R", 250, morphLinear, paramStandard);
   par->addParam("transf_start_iterations_S", 0, morphLinear, paramStandard);

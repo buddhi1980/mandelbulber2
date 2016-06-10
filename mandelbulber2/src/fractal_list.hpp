@@ -121,6 +121,8 @@ enum enumFractalFormula
   mandelbulbBermarte = 94,
   mengerMiddleMod = 95,
   msltoeToroidalMulti = 96,
+  amazingSurfMulti = 97,
+
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
@@ -175,8 +177,8 @@ enum enumFractalFormula
   transfSurfFoldMulti = 1046,
 	transfPwr2Polynomial = 1047,
   transfRotationFoldingPlane = 1048,
-  //transfCartesianPolar = 1049,
-  //transfPolarCartesian = 1050,
+  //= 1049,
+  // = 1050,
   transfQuaternionFold = 1051,
   transfMengerFold = 1052
 

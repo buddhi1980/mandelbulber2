@@ -116,6 +116,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
                                           100));
 
+  fractalList->append(sFractalDescription("Amazing_Surf_Multi",
+                                          "amazing_surf_multi",
+                                          amazingSurfMulti,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
 	fractalList->append(sFractalDescription("Benesi",
 																					"benesi",
 																					benesi,
@@ -907,8 +915,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           withoutDEFunction,
                                           cpixelDisabledByDefault,
                                           100));
-
-
 
 	fractalList->append(sFractalDescription("Transform - Zvector_Axis_Swap",
 																					"transf_zVector_axis_swap",

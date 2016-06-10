@@ -140,6 +140,17 @@ cFractal::cFractal(const cParameterContainer *container)
   sinTan2Trig.orderOfzyx =
       (sFractalSinTan2Trig::multi_OrderOfzyx) container->Get<int>("sinTan2Trig_order_of_zyx");
 
+  //surfFolds
+  surfFolds.orderOfFolds1 =
+      (sFractalSurfFolds::multi_orderOfFolds) container->Get<int>("surfFolds_order_of_folds_1");
+  surfFolds.orderOfFolds2 =
+      (sFractalSurfFolds::multi_orderOfFolds) container->Get<int>("surfFolds_order_of_folds_2");
+  surfFolds.orderOfFolds3 =
+      (sFractalSurfFolds::multi_orderOfFolds) container->Get<int>("surfFolds_order_of_folds_3");
+  surfFolds.orderOfFolds4 =
+      (sFractalSurfFolds::multi_orderOfFolds) container->Get<int>("surfFolds_order_of_folds_4");
+  surfFolds.orderOfFolds5 =
+      (sFractalSurfFolds::multi_orderOfFolds) container->Get<int>("surfFolds_order_of_folds_5");
 
 	//common parameters for transforming formulas
   transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
@@ -183,6 +194,10 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.stopIterationsB = container->Get<int>("transf_stop_iterations_B");
   transformCommon.startIterationsC = container->Get<int>("transf_start_iterations_C");
   transformCommon.stopIterationsC = container->Get<int>("transf_stop_iterations_C");
+  transformCommon.startIterationsD = container->Get<int>("transf_start_iterations_D");
+  transformCommon.stopIterationsD = container->Get<int>("transf_stop_iterations_D");
+  transformCommon.startIterationsE = container->Get<int>("transf_start_iterations_E");
+  transformCommon.stopIterationsE = container->Get<int>("transf_stop_iterations_E");
   transformCommon.startIterationsR = container->Get<int>("transf_start_iterations_R");
   transformCommon.stopIterationsR = container->Get<int>("transf_stop_iterations_R");
   transformCommon.startIterationsS = container->Get<int>("transf_start_iterations_S");
