@@ -518,6 +518,8 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 
 bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 {
+	mainInterface->DisablePeriodicRefresh();
+
 	if (image->IsUsed())
 	{
 		emit showErrorMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),

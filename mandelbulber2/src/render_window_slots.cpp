@@ -924,3 +924,11 @@ void RenderWindow::slotQualityPresetHigh()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
+void RenderWindow::slotGroupCheckJuliaModeToggled(bool state)
+{
+	if(state)
+	{
+		gMainInterface->DisablePeriodicRefresh();
+	}
+}
+

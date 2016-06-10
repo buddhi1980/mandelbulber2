@@ -104,6 +104,7 @@ private slots:
 	void slotAutoRefresh();
 	void slotMaterialSelected(int matIndex);
 	void slotMaterialEdited();
+	void slotGroupCheckJuliaModeToggled(bool state);
 
 	//Quality presets
 	void slotQualityPresetVeryLow();

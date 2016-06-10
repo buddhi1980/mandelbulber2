@@ -72,6 +72,7 @@ cInterface::cInterface()
 	stopRequest = false;
 	repeatRequest = false;
 	interfaceReady = false;
+	autoRefreshLastState = false;
 }
 
 cInterface::~cInterface()
@@ -395,6 +396,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(AppendToLog(const QString&)),
 												mainWindow->ui->log_text,
 												SLOT(appendMessage(const QString&)));
+	QApplication::connect(mainWindow->ui->groupCheck_julia_mode,
+												SIGNAL(toggled(bool)),
+												mainWindow,
+												SLOT(slotGroupCheckJuliaModeToggled(bool)));
 
 	//image resolution
 	QApplication::connect(mainWindow->ui->comboBox_image_proportion,
@@ -1661,6 +1666,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				}
 				case RenderedImage::clickDOFFocus:
 				{
+					DisablePeriodicRefresh();
 					double DOF = depth;
 					gPar->Set("DOF_focus", DOF);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled,
@@ -1668,6 +1674,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 																		 qInterface::write);
 					gUndo.Store(gPar, gParFractal);
 					RefreshMainImage();
+					ReEnablePeriodicRefresh();
 					break;
 				}
 				case RenderedImage::clickPlaceLight:
@@ -1727,6 +1734,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				}
 				case RenderedImage::clickGetPoint:
 				{
+					DisablePeriodicRefresh();
 					SynchronizeInterface(gPar, gParFractal, qInterface::read);
 					CVector3 oldPoint = gPar->Get<CVector3>("meas_point");
 					double distanceFromLast = (point - oldPoint).Length();
@@ -1740,6 +1748,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 						mainWindow->ui->actionShow_measurement_dock->setChecked(true);
 						mainWindow->slotUpdateDocksandToolbarbyAction();
 					}
+					ReEnablePeriodicRefresh();
 					break;
 				}
 			}
@@ -2162,6 +2171,7 @@ bool cInterface::QuitApplicationDialog()
 	{
 		case QMessageBox::Ok:
 		{
+			DisablePeriodicRefresh();
 			stopRequest = true;
 			systemData.globalStopRequest = true;
 			gQueue->stopRequest = true;
@@ -2228,6 +2238,8 @@ void cInterface::AutoRecovery()
 
 void cInterface::OptimizeStepFactor(double qualityTarget)
 {
+	DisablePeriodicRefresh();
+
 	//check if main image is not used by other rendering process
 	if (mainImage->IsUsed())
 	{
@@ -2351,6 +2363,8 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 																		1.0,
 																		cProgressText::progress_IMAGE);
 
+	ReEnablePeriodicRefresh();
+
 	delete renderJob;
 }
 
@@ -2366,8 +2380,6 @@ void cInterface::ResetFormula(int fractalNumber)
 
 void cInterface::PeriodicRefresh()
 {
-	autoRefreshTimer->start(2000);
-
 	if(mainWindow->ui->checkBox_auto_refresh->isChecked())
 	{
 		//check if something was changed in settings
@@ -2381,6 +2393,26 @@ void cInterface::PeriodicRefresh()
 			autoRefreshLastHash = newHash;
 			StartRender();
 		}
+	}
+
+	autoRefreshTimer->start(2000);
+}
+
+void cInterface::DisablePeriodicRefresh()
+{
+	autoRefreshLastState = mainWindow->ui->checkBox_auto_refresh->isChecked();
+	mainWindow->ui->checkBox_auto_refresh->setChecked(false);
+}
+
+void cInterface::ReEnablePeriodicRefresh()
+{
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	cSettings tempSettings(cSettings::formatCondensedText);
+	tempSettings.CreateText(gPar, gParFractal);
+	autoRefreshLastHash = tempSettings.GetHashCode();
+	if(autoRefreshLastState)
+	{
+		mainWindow->ui->checkBox_auto_refresh->setChecked(true);
 	}
 }
 

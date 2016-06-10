@@ -205,6 +205,8 @@ void cFlightAnimation::slotRenderFlight()
 
 void cFlightAnimation::RecordFlight(bool continueRecording)
 {
+	mainInterface->DisablePeriodicRefresh();
+
 	//get latest values of all parameters
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	gUndo.Store(params, fractalParams, frames, NULL);
@@ -712,6 +714,8 @@ int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 
 bool cFlightAnimation::RenderFlight(bool *stopRequest)
 {
+	mainInterface->DisablePeriodicRefresh();
+
 	if (image->IsUsed())
 	{
 		emit showErrorMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),

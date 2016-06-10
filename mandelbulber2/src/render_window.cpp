@@ -80,7 +80,3 @@ RenderWindow::~RenderWindow()
 		delete fractalWidgets[i];
 	delete[] fractalWidgets;
 }
-
-
-
-

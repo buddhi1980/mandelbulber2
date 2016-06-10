@@ -84,6 +84,8 @@ public:
 	void OptimizeStepFactor(double qualityTarget);
 	void ResetFormula(int fractalNumber);
 	void PeriodicRefresh();
+	void DisablePeriodicRefresh();
+	void ReEnablePeriodicRefresh();
 	void InitPeriodicRefresh();
 	void InitMaterialsUi();
 	void MaterialSelected(int matIndex);
@@ -106,6 +108,7 @@ public:
 	QList<sPrimitiveItem> listOfPrimitives;
 	QTimer *autoRefreshTimer;
 	QString autoRefreshLastHash;
+	bool autoRefreshLastState;
 	cMaterialItemModel *materialListModel;
 	cMaterialEditor *materialEditor;
 	QWidget *scrollAreaMaterialEditor;
@@ -113,7 +116,6 @@ public:
 	bool interfaceReady;
 	bool stopRequest;
 	bool repeatRequest; //request to repeat start loop
-
 };
 
 extern cInterface *gMainInterface;
