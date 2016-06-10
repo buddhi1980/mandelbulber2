@@ -175,8 +175,8 @@ enum enumFractalFormula
   transfSurfFoldMulti = 1046,
 	transfPwr2Polynomial = 1047,
   transfRotationFoldingPlane = 1048,
-  transfCartesianPolar = 1049,
-  transfPolarCartesian = 1050,
+  //transfCartesianPolar = 1049,
+  //transfPolarCartesian = 1050,
   transfQuaternionFold = 1051,
   transfMengerFold = 1052
 

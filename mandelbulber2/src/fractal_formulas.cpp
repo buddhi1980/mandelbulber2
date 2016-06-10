@@ -875,13 +875,14 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 void AboxModKaliEiffieIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   CVector3 z1 = z;
-  z1.x = fabs(z.x + fractal->transformCommon.additionConstant111.x) // swapping x and z
+  z1.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
                   - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
   z1.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
                   - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
   z1.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
                   - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
   z = z1;
+  z.z *= fractal->transformCommon.scale1;
   if (fractal->transformCommon.functionEnabled)
   {
     z = CVector3(z.z, z.y, z.x); // swap
@@ -893,10 +894,10 @@ void AboxModKaliEiffieIteration(CVector3 &z, CVector3 &c, int i, const cFractal 
   double MinR = fractal->transformCommon.minR05;
   //if (MinR < -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
   double m;
-  if (rr < (MinR)) m = fractal->transformCommon.scale015/(MinR);
+  if (rr < MinR) m = fractal->transformCommon.scale015/MinR;
   else
   {
-    if (rr < 1) m =  fractal->transformCommon.scale015/rr;
+    if (rr < 1.0) m = fractal->transformCommon.scale015/rr;
     else m = fractal->transformCommon.scale015;
   }
   z = z * m;
@@ -1344,7 +1345,6 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
 			tempA.z = fabs(z.z + fractal->transformCommon.additionConstant111.z);
 		if (fractal->transformCommon.functionEnabledAz)
 			tempB.z = fabs(z.z - fractal->transformCommon.additionConstantA111.z);
-
 		z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
 	}
 
