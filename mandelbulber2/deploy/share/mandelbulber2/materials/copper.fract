@@ -4,7 +4,7 @@
 [main_parameters]
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
-mat1_name metal;
+mat1_name copper;
 mat1_reflectance 0,8100000000000001;
 mat1_specular 6,97;
 mat1_specular_color ff00 c700 a600;

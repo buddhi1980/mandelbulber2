@@ -4,6 +4,7 @@
 [main_parameters]
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
+mat1_name black stone;
 mat1_reflectance 1;
 mat1_specular_width 0,578;
 mat1_surface_color 0000 0000 0000;

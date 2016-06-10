@@ -9,6 +9,6 @@ mat1_reflectance 0,72;
 mat1_specular 5;
 mat1_specular_color ff00 e100 3400;
 mat1_specular_width 0,215;
-mat1_surface_color e200 c900 4d00;
+mat1_surface_color ff00 cc00 1000;
 mat1_transparency_index_of_refraction 10;
 mat1_use_colors_from_palette false;
