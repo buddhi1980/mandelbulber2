@@ -126,7 +126,7 @@ void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked()
 	if (reply == QMessageBox::Yes)
 	{
 		cFileDownloader fileDownloader(
-					"https://raw.githubusercontent.com/zebastian/mandelbulber2Thumbnails/master/",
+					QString("http://cdn.mandelbulber.org/thumbnail/%1").arg(MANDELBULBER_VERSION_STRING),
 					systemData.thumbnailDir
 				);
 		QObject::connect(&fileDownloader,
