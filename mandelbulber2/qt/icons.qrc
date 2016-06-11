@@ -23,6 +23,7 @@
     <file>icons/list-remove.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/material - reflectance fresnel off.jpg</file>
     <file>tooltips_images/material - transparency of volume 0.5.jpg</file>
     <file>tooltips_images/material - transparency of volume 0.8.jpg</file>
     <file>tooltips_images/material - reflectance 1.0.jpg</file>
