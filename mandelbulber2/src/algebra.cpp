@@ -1,26 +1,44 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * CVector2, CVector3 and CMatrix33 classes - vector and matrix manipulation
- *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * See the GNU General Public License for more details. You should have received
+ * a copy of the GNU
+ * General Public License along with Mandelbulber. If not, see
+ * <http://www.gnu.org/licenses/>.
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * CVector2, CVector3, CVector4 and CMatrix33 classes - vector and matrix
+ * manipulation
+ *
+ * These classes get used throughout the program to realize 2d, 3d and 4d
+ * variable representation and manipulation. The class CMatrix33 is used for
+ * rotation in 3d space.
+ *
  */
 
 #include "algebra.hpp"
+
 CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle)
 {
 	CVector3 vector = *this * cos(angle);
@@ -33,18 +51,10 @@ double CVector3::itemByName(char item)
 {
 	switch (item)
 	{
-		case 'x':
-			return x;
-			break;
-		case 'y':
-			return y;
-			break;
-		case 'z':
-			return z;
-			break;
-		default:
-			return 0.0;
-			break;
+		case 'x': return x; break;
+		case 'y': return y; break;
+		case 'z': return z; break;
+		default: return 0.0; break;
 	}
 }
 
@@ -52,21 +62,11 @@ double CVector4::itemByName(char item)
 {
 	switch (item)
 	{
-		case 'x':
-			return x;
-			break;
-		case 'y':
-			return y;
-			break;
-		case 'z':
-			return z;
-			break;
-		case 'w':
-			return w;
-			break;
-		default:
-			return 0.0;
-			break;
+		case 'x': return x; break;
+		case 'y': return y; break;
+		case 'z': return z; break;
+		case 'w': return w; break;
+		default: return 0.0; break;
 	}
 }
 
@@ -110,7 +110,7 @@ CMatrix33::CMatrix33(const CVector3 &v1, const CVector3 &v2, const CVector3 &v3)
 	m33 = v3.z;
 }
 
-CMatrix33& CMatrix33::operator=(const CMatrix33 &matrix)
+CMatrix33 &CMatrix33::operator=(const CMatrix33 &matrix)
 {
 	m11 = matrix.m11;
 	m12 = matrix.m12;
@@ -254,7 +254,7 @@ void CRotationMatrix::SetRotation3(CVector3 rotation)
 	RotateX(rotation.z);
 }
 
-CVector3 CRotationMatrix::RotateVector(const CVector3& vector) const
+CVector3 CRotationMatrix::RotateVector(const CVector3 &vector) const
 {
 	if (!zero)
 	{
@@ -269,7 +269,7 @@ CVector3 CRotationMatrix::RotateVector(const CVector3& vector) const
 
 void CRotationMatrix::Null()
 {
-	//CRotationMatrix();
+	// CRotationMatrix();
 	matrix.m11 = 1.0;
 	matrix.m12 = 0.0;
 	matrix.m13 = 0.0;

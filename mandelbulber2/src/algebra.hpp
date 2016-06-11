@@ -1,23 +1,40 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * CVector2, CVector3 and CMatrix33 classes - vector and matrix manipulation
- *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * See the GNU General Public License for more details. You should have received
+ * a copy of the GNU
+ * General Public License along with Mandelbulber. If not, see
+ * <http://www.gnu.org/licenses/>.
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * CVector2, CVector3, CVector4 and CMatrix33 classes - vector and matrix
+ * manipulation
+ *
+ * These classes get used throughout the program to realize 2d, 3d and 4d
+ * variable representation and manipulation. The class CMatrix33 is used for
+ * rotation in 3d space.
+ *
  */
 
 #ifndef ALGEBRA_H_
@@ -27,8 +44,8 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include <math.h>
 #include <QString>
+#include <math.h>
 
 /************************* vector 3D **********************/
 class CVector3
@@ -75,8 +92,8 @@ public:
 	inline CVector3 operator%(const CVector3 &vector) const
 	{
 		return CVector3((vector.x > 0.0 ? fmod(x, vector.x) : x),
-										(vector.y > 0.0 ? fmod(y, vector.y) : y),
-										(vector.z > 0.0 ? fmod(z, vector.z) : z));
+			(vector.y > 0.0 ? fmod(y, vector.y) : y),
+			(vector.z > 0.0 ? fmod(z, vector.z) : z));
 	}
 	inline CVector3 mod(const CVector3 &vector) const
 	{
@@ -95,49 +112,49 @@ public:
 	{
 		return CVector3(x / scalar, y / scalar, z / scalar);
 	}
-	inline CVector3& operator=(const CVector3 &vector)
+	inline CVector3 &operator=(const CVector3 &vector)
 	{
 		x = vector.x;
 		y = vector.y;
 		z = vector.z;
 		return *this;
 	}
-	inline CVector3& operator+=(const CVector3 &vector)
+	inline CVector3 &operator+=(const CVector3 &vector)
 	{
 		x += vector.x;
 		y += vector.y;
 		z += vector.z;
 		return *this;
 	}
-	inline CVector3& operator-=(const CVector3 &vector)
+	inline CVector3 &operator-=(const CVector3 &vector)
 	{
 		x -= vector.x;
 		y -= vector.y;
 		z -= vector.z;
 		return *this;
 	}
-	inline CVector3& operator*=(const double &scalar)
+	inline CVector3 &operator*=(const double &scalar)
 	{
 		x *= scalar;
 		y *= scalar;
 		z *= scalar;
 		return *this;
 	}
-	inline CVector3& operator*=(const CVector3 &vector)
+	inline CVector3 &operator*=(const CVector3 &vector)
 	{
 		x *= vector.x;
 		y *= vector.y;
 		z *= vector.z;
 		return *this;
 	}
-	inline CVector3& operator/=(const double &scalar)
+	inline CVector3 &operator/=(const double &scalar)
 	{
 		x /= scalar;
 		y /= scalar;
 		z /= scalar;
 		return *this;
 	}
-	inline CVector3& operator/=(const CVector3 &vector)
+	inline CVector3 &operator/=(const CVector3 &vector)
 	{
 		x /= vector.x;
 		y /= vector.y;
@@ -148,15 +165,12 @@ public:
 	{
 		return x == vector.x && y == vector.y && z == vector.z;
 	}
-	inline double Length() const
-	{
-		return sqrt(x * x + y * y + z * z);
-	}
-	inline double Dot(const CVector3& vector) const
+	inline double Length() const { return sqrt(x * x + y * y + z * z); }
+	inline double Dot(const CVector3 &vector) const
 	{
 		return x * vector.x + y * vector.y + z * vector.z;
 	}
-	inline CVector3 Cross(const CVector3& v) const
+	inline CVector3 Cross(const CVector3 &v) const
 	{
 		CVector3 c;
 		c.x = y * v.z - z * v.y;
@@ -172,7 +186,7 @@ public:
 		c.z = fabs(z);
 		return c;
 	}
-	inline double Normalize() //returns normalization factor
+	inline double Normalize() // returns normalization factor
 	{
 		double norm = 1.0 / Length();
 		x = x * norm;
@@ -180,14 +194,8 @@ public:
 		z = z * norm;
 		return norm;
 	}
-	inline double GetAlpha() const
-	{
-		return atan2(y, x);
-	}
-	inline double GetBeta() const
-	{
-		return atan2(z, sqrt(x * x + y * y));
-	}
+	inline double GetAlpha() const { return atan2(y, x); }
+	inline double GetBeta() const { return atan2(z, sqrt(x * x + y * y)); }
 	bool IsNotANumber()
 	{
 		return x == (x + 1e60) / 0.0 || y == (y + 1e60) / 0.0 || z == (z + 1e60) / 0.0;
@@ -195,8 +203,7 @@ public:
 	CVector3 RotateAroundVectorByAngle(CVector3 axis, double angle);
 	QString Debug() const
 	{
-		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString(", ")
-				+ QString::number(z) + QString("]");
+		return QString("[%1, %2, %3]").arg(QString::number(x), QString::number(y), QString::number(z));
 	}
 
 	double itemByName(char item);
@@ -222,6 +229,7 @@ inline CVector3 fabs(CVector3 v)
 	v.z = fabs(v.z);
 	return v;
 }
+
 /************************* vector 4D **********************/
 class CVector4
 {
@@ -269,19 +277,13 @@ public:
 	{
 		return CVector4(x - v.x, y - v.y, z - v.z, w - v.w);
 	}
-	inline CVector4 operator*(const double &s) const
-	{
-		return CVector4(x * s, y * s, z * s, w * s);
-	}
+	inline CVector4 operator*(const double &s) const { return CVector4(x * s, y * s, z * s, w * s); }
 	inline CVector4 operator*(const CVector4 &v) const
 	{
 		return CVector4(x * v.x, y * v.y, z * v.z, w * v.w);
 	}
-	inline CVector4 operator/(const double &s) const
-	{
-		return CVector4(x / s, y / s, z / s, w / s);
-	}
-	inline CVector4& operator=(const CVector4 &v)
+	inline CVector4 operator/(const double &s) const { return CVector4(x / s, y / s, z / s, w / s); }
+	inline CVector4 &operator=(const CVector4 &v)
 	{
 		x = v.x;
 		y = v.y;
@@ -289,7 +291,7 @@ public:
 		w = v.w;
 		return *this;
 	}
-	inline CVector4& operator+=(const CVector4 &v)
+	inline CVector4 &operator+=(const CVector4 &v)
 	{
 		x += v.x;
 		y += v.y;
@@ -297,7 +299,7 @@ public:
 		w += v.w;
 		return *this;
 	}
-	inline CVector4& operator-=(const CVector4 &v)
+	inline CVector4 &operator-=(const CVector4 &v)
 	{
 		x -= v.x;
 		y -= v.y;
@@ -305,7 +307,7 @@ public:
 		w -= v.w;
 		return *this;
 	}
-	inline CVector4& operator*=(const double &s)
+	inline CVector4 &operator*=(const double &s)
 	{
 		x *= s;
 		y *= s;
@@ -313,7 +315,7 @@ public:
 		w *= s;
 		return *this;
 	}
-	inline CVector4& operator*=(const CVector4 &v)
+	inline CVector4 &operator*=(const CVector4 &v)
 	{
 		x *= v.x;
 		y *= v.y;
@@ -321,7 +323,7 @@ public:
 		w *= v.w;
 		return *this;
 	}
-	inline CVector4& operator/=(const double &s)
+	inline CVector4 &operator/=(const double &s)
 	{
 		x /= s;
 		y /= s;
@@ -329,18 +331,9 @@ public:
 		w /= s;
 		return *this;
 	}
-	inline bool operator==(const CVector4 &v)
-	{
-		return x == v.x && y == v.y && z == v.z && w == v.w;
-	}
-	inline double Length() const
-	{
-		return sqrt(x * x + y * y + z * z + w * w);
-	}
-	inline double Dot(const CVector4& v) const
-	{
-		return x * v.x + y * v.y + z * v.z + w * v.w;
-	}
+	inline bool operator==(const CVector4 &v) { return x == v.x && y == v.y && z == v.z && w == v.w; }
+	inline double Length() const { return sqrt(x * x + y * y + z * z + w * w); }
+	inline double Dot(const CVector4 &v) const { return x * v.x + y * v.y + z * v.z + w * v.w; }
 	inline CVector4 Abs()
 	{
 		CVector4 c;
@@ -350,10 +343,7 @@ public:
 		c.w = fabs(w);
 		return c;
 	}
-	inline CVector3 GetXYZ()
-	{
-		return CVector3(x, y, z);
-	}
+	inline CVector3 GetXYZ() { return CVector3(x, y, z); }
 
 	inline double Normalize()
 	{
@@ -367,9 +357,9 @@ public:
 	inline CVector4 operator%(const CVector4 &vector) const
 	{
 		return CVector4((vector.x > 0.0 ? fmod(x, vector.x) : x),
-										(vector.y > 0.0 ? fmod(y, vector.y) : y),
-										(vector.z > 0.0 ? fmod(z, vector.z) : z),
-										(vector.w > 0.0 ? fmod(w, vector.w) : w));
+			(vector.y > 0.0 ? fmod(y, vector.y) : y),
+			(vector.z > 0.0 ? fmod(z, vector.z) : z),
+			(vector.w > 0.0 ? fmod(w, vector.w) : w));
 	}
 	inline CVector4 mod(const CVector4 &v) const
 	{
@@ -378,8 +368,8 @@ public:
 	}
 	QString Debug() const
 	{
-		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString(", ")
-				+ QString::number(z) + QString(", ") + QString::number(w) + QString(" ]");
+		return QString("[%1, %2, %3, %4]")
+			.arg(QString::number(x), QString::number(y), QString::number(z), QString::number(w));
 	}
 
 	double itemByName(char item);
@@ -407,20 +397,12 @@ inline CVector4 fabs(CVector4 v)
 }
 /************************* vector 2D **********************/
 
-template<typename T>
+template <typename T>
 class CVector2
 {
 public:
-	inline CVector2() :
-					x(), y()
-	{
-	}
-	;
-	inline CVector2(T x_init, T y_init) :
-					x(x_init), y(y_init)
-	{
-	}
-	;
+	inline CVector2() : x(), y(){};
+	inline CVector2(T x_init, T y_init) : x(x_init), y(y_init){};
 	inline CVector2(const CVector2<T> &vector)
 	{
 		x = vector.x;
@@ -434,52 +416,40 @@ public:
 	{
 		return CVector2(x - vector.x, y - vector.y);
 	}
-	inline CVector2 operator*(const double &scalar) const
-	{
-		return CVector2(x * scalar, y * scalar);
-	}
-	inline CVector2 operator/(const double &scalar) const
-	{
-		return CVector2(x / scalar, y / scalar);
-	}
-	inline CVector2& operator=(const CVector2 &vector)
+	inline CVector2 operator*(const double &scalar) const { return CVector2(x * scalar, y * scalar); }
+	inline CVector2 operator/(const double &scalar) const { return CVector2(x / scalar, y / scalar); }
+	inline CVector2 &operator=(const CVector2 &vector)
 	{
 		x = vector.x;
 		y = vector.y;
 		return *this;
 	}
-	inline CVector2& operator+=(const CVector2 &vector)
+	inline CVector2 &operator+=(const CVector2 &vector)
 	{
 		x += vector.x;
 		y += vector.y;
 		return *this;
 	}
-	inline CVector2& operator-=(const CVector2 &vector)
+	inline CVector2 &operator-=(const CVector2 &vector)
 	{
 		x -= vector.x;
 		y -= vector.y;
 		return *this;
 	}
-	inline CVector2& operator*=(const double &scalar)
+	inline CVector2 &operator*=(const double &scalar)
 	{
 		x *= scalar;
 		y *= scalar;
 		return *this;
 	}
-	inline CVector2& operator/=(const double &scalar)
+	inline CVector2 &operator/=(const double &scalar)
 	{
 		x /= scalar;
 		y /= scalar;
 		return *this;
 	}
-	inline double Length() const
-	{
-		return sqrt(x * x + y * y);
-	}
-	inline double Dot(const CVector2& vector) const
-	{
-		return x * vector.x + y * vector.y;
-	}
+	inline double Length() const { return sqrt(x * x + y * y); }
+	inline double Dot(const CVector2 &vector) const { return x * vector.x + y * vector.y; }
 	inline CVector2 Abs()
 	{
 		CVector2 c;
@@ -489,43 +459,40 @@ public:
 	}
 	inline CVector2 operator%(const CVector2 &vector) const
 	{
-		return CVector2((vector.x > 0.0 ? fmod(x, vector.x) : x),
-										(vector.y > 0.0 ? fmod(y, vector.y) : y));
+		return CVector2(
+			(vector.x > 0.0 ? fmod(x, vector.x) : x), (vector.y > 0.0 ? fmod(y, vector.y) : y));
 	}
 	inline CVector2 mod(const CVector2 &vector) const
 	{
 		if (vector.Length() == 0.0) return *this;
 		return (((*this - vector * 0.5) % vector) + vector) % vector - vector * 0.5;
 	}
-	inline double Normalize() //returns normalization factor
+	inline double Normalize() // returns normalization factor
 	{
 		double norm = 1.0 / Length();
 		x = x * norm;
 		y = y * norm;
 		return norm;
 	}
-	QString Debug()
-	{
-		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString("]");
-	}
+	QString Debug() { return QString("[%1, %2]").arg(QString::number(x), QString::number(y)); }
 
 	T x;
 	T y;
 };
 
-template<typename T>
+template <typename T>
 inline CVector2<T> operator*(T scalar, CVector2<T> vector)
 {
 	return CVector2<T>(vector.x * scalar, vector.y * scalar);
 }
 
-template<typename T>
+template <typename T>
 inline CVector2<T> operator/(T scalar, CVector2<T> vector)
 {
 	return CVector2<T>(vector.x / scalar, vector.y / scalar);
 }
 
-template<typename T>
+template <typename T>
 inline CVector2<T> fabs(CVector2<T> v)
 {
 	v.x = fabs(v.x);
@@ -542,7 +509,7 @@ public:
 	CMatrix33(const CVector3 &v1, const CVector3 &v2, const CVector3 &v3);
 	CMatrix33 operator*(const CMatrix33 &matrix) const;
 	CVector3 operator*(const CVector3 &vector) const;
-	CMatrix33& operator=(const CMatrix33&);
+	CMatrix33 &operator=(const CMatrix33 &);
 	double m11;
 	double m12;
 	double m13;
@@ -563,7 +530,7 @@ public:
 	void RotateY(double angle);
 	void RotateZ(double angle);
 	void Null();
-	CVector3 RotateVector(const CVector3& vector) const;
+	CVector3 RotateVector(const CVector3 &vector) const;
 	double GetAlfa() const;
 	double GetBeta() const;
 	double GetGamma() const;
@@ -573,10 +540,7 @@ public:
 	void SetRotation2(CVector3 rotation);
 	void SetRotation3(CVector3 rotation);
 	CRotationMatrix Transpose(void) const;
-	CMatrix33 GetMatrix()
-	{
-		return matrix;
-	}
+	CMatrix33 GetMatrix() { return matrix; }
 
 private:
 	CMatrix33 matrix;
