@@ -302,7 +302,7 @@ void cFractal::RecalculateFractalParams(void)
   transformCommon.tempRotmatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
 
   transformCommon.sqtR = sqrt(transformCommon.minR05);
-  //transformCommon.foldFactor1 = 1.0 / transformCommon.minR05; //hmmm??
+  transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; //hmmm??
 
 
 	//Generalized Fold Box precalculated vectors

@@ -892,6 +892,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
                                           100));
 
+  fractalList->append(sFractalDescription("Transform - Spherical_Fold ABox",
+                                          "transf_spherical_fold_abox",
+                                          transfSphericalFoldAbox,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+
   fractalList->append(sFractalDescription("Transform - Spherical_Pwr_Fold",
                                           "transf_spherical_pwr_fold",
                                           transfSphericalPwrFold,

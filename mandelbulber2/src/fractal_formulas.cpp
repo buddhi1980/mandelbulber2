@@ -1523,8 +1523,7 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
   //standard functions
   if (fractal->transformCommon.functionEnabledAy)
 
-  {
-    double m = fractal->mandelbox.scale;
+  { // Spherical Folds
     double r2;
     if (fractal->transformCommon.functionEnabledzFalse
         && i >= fractal->transformCommon.startIterationsT
@@ -1532,29 +1531,23 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
     { // Abox Spherical fold
       z += fractal->mandelbox.offset;
       r2 = z.Dot(z);
-
       double sqrtMinR = fractal->transformCommon.sqtR;
+
       if (r2 < sqrtMinR)
       {
-        m *= 1.0 / sqrtMinR;
+        z *= fractal->transformCommon.mboxFactor1;
+        aux.DE *= fractal->transformCommon.mboxFactor1;
+        //aux.color += fractal->mandelbox.color.factorSp1;
       }
-      else
+      else if (r2 < 1.0)
       {
-        if (r2 < 1)
-        {
-          m *= 1.0 / r2;
-        }
-        else
-        {
-          m = m;  // what?
-        }
-      z -= fractal->mandelbox.offset;
+        z *= 1.0 / r2;
+        aux.DE *= 1.0 / r2;
+        //aux.color += fractal->mandelbox.color.factorSp2;
       }
+      z -= fractal->mandelbox.offset;
     }
-
-
     // Mandelbox Spherical fold
-
     if (fractal->transformCommon.functionEnabledAz
         && i >= fractal->transformCommon.startIterationsM
         && i < fractal->transformCommon.stopIterationsM)
@@ -1577,18 +1570,16 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       z -= fractal->mandelbox.offset;
     }
 
-
-
-
-    if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsR
+    if (fractal->mandelbox.mainRotationEnabled
+      && i >= fractal->transformCommon.startIterationsR
       && i < fractal->transformCommon.stopIterationsR)
         z = fractal->mandelbox.mainRot.RotateVector(z);
 
     if (i >= fractal->transformCommon.startIterationsS
         && i < fractal->transformCommon.stopIterationsS)
     {
-      z = z * m;
-      aux.DE = aux.DE * fabs(m) + 1.0;
+      z = z * fractal->mandelbox.scale;
+      aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
     }
   }
 }
@@ -5001,11 +4992,12 @@ void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *frac
 }
 
 /**
- * spherical fold
+ * spherical fold MBox
  */
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	double r2 = z.Dot(z);
+  z += fractal->mandelbox.offset;
 	//if (r2 < 1e-21) r2 = 1e-21;
 	if (r2 < fractal->mandelbox.mR2)
 	{
@@ -5020,7 +5012,33 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 		aux.DE *= tglad_factor2;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
+  z -= fractal->mandelbox.offset;
 }
+
+/**
+ * spherical fold ABox
+ * from Fractal Forums and M3D
+ */
+void TransformSphericalFoldAboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  double r2 = z.Dot(z);
+  z += fractal->mandelbox.offset;
+  double sqrtMinR = fractal->transformCommon.sqtR;
+  if (r2 < sqrtMinR)
+  {
+    z *= fractal->transformCommon.mboxFactor1;
+    aux.DE *= fractal->transformCommon.mboxFactor1;
+    //aux.color += fractal->mandelbox.color.factorSp1;
+  }
+  else if (r2 < 1.0)
+  {
+    z *= 1.0 / r2;
+    aux.DE *= 1.0 / r2;
+    //aux.color += fractal->mandelbox.color.factorSp2;
+  }
+  z -= fractal->mandelbox.offset;
+}
+
 
 /**
  * spherical radial offset.
