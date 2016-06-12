@@ -1,23 +1,38 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details. You should have received
+ * a copy of the GNU
+ * General Public License along with Mandelbulber. If not, see
+ * <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
  *
  * file image class to store different image file formats
  *
- * Copyright (C) 2014 Krzysztof Marczak
+ * Each imagefiletype derives ImageFileSave and implements the SaveImage
+ * method to store the image data with the corresponding file format
  *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
  */
 
 #ifndef FILE_IMAGE_H_
@@ -26,19 +41,18 @@
 #include "cimage.hpp"
 #include <QtCore>
 
-extern "C"
-{
+extern "C" {
 #include <png.h>
 }
 
 /**********************************************************/
-//source of libraries:
-//libpng: http://www.libpng.org/pub/png/libpng.html
+// source of libraries:
+// libpng: http://www.libpng.org/pub/png/libpng.html
 /**********************************************************/
 
 class ImageFileSave : public QObject
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	enum enumImageFileType
@@ -76,15 +90,16 @@ public:
 
 	struct structSaveImageChannel
 	{
-		structSaveImageChannel() :
-						contentType((enumImageContentType) 0),
-						channelQuality((enumImageChannelQualityType) 0),
-						postfix("")
+		structSaveImageChannel()
+				: contentType((enumImageContentType)0),
+					channelQuality((enumImageChannelQualityType)0),
+					postfix("")
 		{
 		}
 		structSaveImageChannel(enumImageContentType _contentType,
-				enumImageChannelQualityType _channelQuality, QString _postfix) :
-				contentType(_contentType), channelQuality(_channelQuality), postfix(_postfix)
+			enumImageChannelQualityType _channelQuality,
+			QString _postfix)
+				: contentType(_contentType), channelQuality(_channelQuality), postfix(_postfix)
 		{
 		}
 
@@ -97,22 +112,20 @@ public:
 	static QString ImageFileExtension(enumImageFileType imageFileType);
 	static QString ImageChannelName(enumImageContentType imageContentType);
 	static enumImageFileType ImageFileType(QString imageFileExtension);
-	static ImageFileSave* create(QString filename,
-		enumImageFileType filetype, cImage *image,
-		ImageConfig imageConfig);
+	static ImageFileSave *create(
+		QString filename, enumImageFileType filetype, cImage *image, ImageConfig imageConfig);
 	virtual void SaveImage() = 0;
 	virtual QString getJobName() = 0;
 
 protected:
 	QString filename;
-	cImage* image;
+	cImage *image;
 	ImageConfig imageConfig;
 	enumImageContentType currentChannelKey;
 	int currentChannel;
 	int totalChannel;
 
-	ImageFileSave(QString filename, cImage *image,
-		ImageConfig imageConfig)
+	ImageFileSave(QString filename, cImage *image, ImageConfig imageConfig)
 	{
 		this->filename = filename;
 		this->image = image;
@@ -120,20 +133,21 @@ protected:
 	}
 
 signals:
-	void updateProgressAndStatus(
-			const QString &text, const QString &progressText, double progress);
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
 
 class ImageFileSavePNG : public ImageFileSave
 {
 public:
-	ImageFileSavePNG(QString filename, cImage *image,
-		ImageConfig imageConfig)
-		: ImageFileSave(filename, image, imageConfig){}
+	ImageFileSavePNG(QString filename, cImage *image, ImageConfig imageConfig)
+			: ImageFileSave(filename, image, imageConfig)
+	{
+	}
 	void SaveImage();
-	QString getJobName() { return tr("Saving PNG"); }
-	static void SavePNG(QString filename, cImage* image, structSaveImageChannel imageChannel, bool appendAlpha = false);
-	static void SavePNG16(QString filename, int width, int height, sRGB16* image16);
+	QString getJobName() { return tr("Saving %1").arg("PNG"); }
+	static void SavePNG(
+		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
+	static void SavePNG16(QString filename, int width, int height, sRGB16 *image16);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 	static bool SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height);
 };
@@ -141,27 +155,30 @@ public:
 class ImageFileSaveJPG : public ImageFileSave
 {
 public:
-	ImageFileSaveJPG(QString filename, cImage *image,
-		ImageConfig imageConfig)
-		: ImageFileSave(filename, image, imageConfig){}
+	ImageFileSaveJPG(QString filename, cImage *image, ImageConfig imageConfig)
+			: ImageFileSave(filename, image, imageConfig)
+	{
+	}
 	void SaveImage();
-	QString getJobName() { return tr("Saving JPG"); }
-	static bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
-	static bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height,
-			int quality);
+	QString getJobName() { return tr("Saving %1").arg("JPG"); }
+	static bool SaveJPEGQt(
+		QString filename, unsigned char *image, int width, int height, int quality);
+	static bool SaveJPEGQtGreyscale(
+		QString filename, unsigned char *image, int width, int height, int quality);
 };
 
 #ifdef USE_TIFF
 class ImageFileSaveTIFF : public ImageFileSave
 {
 public:
-	ImageFileSaveTIFF(QString filename, cImage *image,
-		ImageConfig imageConfig)
-		: ImageFileSave(filename, image, imageConfig){}
+	ImageFileSaveTIFF(QString filename, cImage *image, ImageConfig imageConfig)
+			: ImageFileSave(filename, image, imageConfig)
+	{
+	}
 	void SaveImage();
-	QString getJobName() { return tr("Saving TIFF"); }
-	static bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChannel,
-			bool appendAlpha = false);
+	QString getJobName() { return tr("Saving %1").arg("TIFF"); }
+	static bool SaveTIFF(
+		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 };
 #endif /* USE_TIFF */
 
@@ -169,16 +186,16 @@ public:
 class ImageFileSaveEXR : public ImageFileSave
 {
 public:
-	ImageFileSaveEXR(QString filename, cImage *image,
-		ImageConfig imageConfig)
-		: ImageFileSave(filename, image, imageConfig){}
+	ImageFileSaveEXR(QString filename, cImage *image, ImageConfig imageConfig)
+			: ImageFileSave(filename, image, imageConfig)
+	{
+	}
 	void SaveImage();
-	QString getJobName() { return tr("Saving EXR"); }
-	static void SaveEXR(QString filename, cImage* image,
+	QString getJobName() { return tr("Saving %1").arg("EXR"); }
+	static void SaveEXR(QString filename,
+		cImage *image,
 		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
 };
 #endif /* USE_EXR */
 
-
 #endif /* FILE_IMAGE_H_ */
-
