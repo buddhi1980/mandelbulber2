@@ -121,7 +121,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           amazingSurfMulti,
                                           analyticDEType,
                                           linearDEFunction,
-                                          cpixelDisabledByDefault,
+                                          cpixelEnabledByDefault,
                                           100));
 
 	fractalList->append(sFractalDescription("Benesi",
@@ -887,6 +887,22 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Spherical_Fold",
                                           "transf_spherical_fold",
                                           transfSphericalFold,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Spherical_Fold ABox",
+                                          "transf_spherical_fold_abox",
+                                          transfSphericalFoldAbox,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Spherical_Fold VaryV1",
+                                          "transf_spherical_fold_varyV1",
+                                          transfSphericalFoldVaryV1,
                                           analyticDEType,
                                           linearDEFunction,
                                           cpixelDisabledByDefault,

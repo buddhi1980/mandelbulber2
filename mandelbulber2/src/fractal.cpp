@@ -202,6 +202,8 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.stopIterationsR = container->Get<int>("transf_stop_iterations_R");
   transformCommon.startIterationsS = container->Get<int>("transf_start_iterations_S");
   transformCommon.stopIterationsS = container->Get<int>("transf_stop_iterations_S");
+  transformCommon.startIterationsT = container->Get<int>("transf_start_iterations_T");
+  transformCommon.stopIterationsT = container->Get<int>("transf_stop_iterations_T");
   transformCommon.startIterationsM = container->Get<int>("transf_start_iterations_M");
   transformCommon.stopIterationsM = container->Get<int>("transf_stop_iterations_M");
   transformCommon.stopIterations1 = container->Get<int>("transf_stop_iterations_1");
@@ -298,6 +300,10 @@ void cFractal::RecalculateFractalParams(void)
 
   transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
   transformCommon.tempRotmatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
+
+  transformCommon.sqtR = sqrt(transformCommon.minR05);
+  transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; //hmmm??
+
 
 	//Generalized Fold Box precalculated vectors
 	double sqrt_i3 = 1.0 / sqrt(3.0);

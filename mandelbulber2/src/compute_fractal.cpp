@@ -638,6 +638,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformSphericalFoldIteration(z, fractal, extendedAux);
           break;
         }
+        case transfSphericalFoldAbox:
+        {
+          TransformSphericalFoldAboxIteration(z, fractal, extendedAux);
+          break;
+        }
+        case transfSphericalFoldVaryV1:
+        {
+          TransformSphericalFoldVaryV1Iteration(z, i, fractal, extendedAux);
+          break;
+        }
         case transfSphericalPwrFold:
         {
           TransformSphericalPwrFoldIteration(z, fractal, extendedAux);

@@ -177,8 +177,8 @@ enum enumFractalFormula
   transfSurfFoldMulti = 1046,
 	transfPwr2Polynomial = 1047,
   transfRotationFoldingPlane = 1048,
-  //= 1049,
-  // = 1050,
+  transfSphericalFoldAbox = 1049,
+  transfSphericalFoldVaryV1 = 1050,
   transfQuaternionFold = 1051,
   transfMengerFold = 1052
 
