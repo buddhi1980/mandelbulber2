@@ -111,7 +111,7 @@
         <translation type="obsolete">S</translation>
     </message>
     <message>
-        <location filename="../src/file_image.hpp" line="176"/>
+        <location filename="../src/file_image.hpp" line="194"/>
         <source>Saving %1</source>
         <translation>Speichere %1</translation>
     </message>
@@ -119,7 +119,7 @@
 <context>
     <name>ImageFileSaveJPG</name>
     <message>
-        <location filename="../src/file_image.hpp" line="148"/>
+        <location filename="../src/file_image.hpp" line="163"/>
         <source>Saving %1</source>
         <translation>Speichere %1</translation>
     </message>
@@ -127,7 +127,7 @@
 <context>
     <name>ImageFileSavePNG</name>
     <message>
-        <location filename="../src/file_image.hpp" line="134"/>
+        <location filename="../src/file_image.hpp" line="147"/>
         <source>Saving %1</source>
         <translation>Speichere %1</translation>
     </message>
@@ -135,7 +135,7 @@
 <context>
     <name>ImageFileSaveTIFF</name>
     <message>
-        <location filename="../src/file_image.hpp" line="162"/>
+        <location filename="../src/file_image.hpp" line="179"/>
         <source>Saving %1</source>
         <translation>Speichere %1</translation>
     </message>
@@ -602,16 +602,16 @@ Note: </source>
 Notiz: </translation>
     </message>
     <message>
-        <location filename="../src/file_image.cpp" line="515"/>
-        <location filename="../src/file_image.cpp" line="589"/>
+        <location filename="../src/file_image.cpp" line="498"/>
+        <location filename="../src/file_image.cpp" line="566"/>
         <source>Can&apos;t save image to PNG file!
 </source>
         <translation>Konnte Bild nicht als PNG Datei speichern!</translation>
     </message>
     <message>
-        <location filename="../src/file_image.cpp" line="737"/>
-        <location filename="../src/file_image.cpp" line="766"/>
-        <location filename="../src/file_image.cpp" line="795"/>
+        <location filename="../src/file_image.cpp" line="716"/>
+        <location filename="../src/file_image.cpp" line="746"/>
+        <location filename="../src/file_image.cpp" line="776"/>
         <source>Can&apos;t save image to JPEG file!
 </source>
         <translation>Konnte Bild nicht als JPEG Datei speichern!</translation>
@@ -888,7 +888,7 @@ Fortsetzen?</translation>
         <location filename="../src/animation_keyframes.cpp" line="525"/>
         <location filename="../src/interface.cpp" line="2246"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
-        <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können.</translation>
+        <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="256"/>
@@ -1096,7 +1096,9 @@ Jetzt löschen?</translation>
         <source>Are you sure to clear the thumbnail cache?
 There are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.
  Clear now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sind sie sicher, dass sie den Thumbnail Cache löschen wollen?
+Es befinden sich zur Zeit %1 Thumbnails im Cache. Diese werden gelöscht und bei Bedarf neu gerendert.
+Jetzt löschen?</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.cpp" line="122"/>
@@ -1113,31 +1115,35 @@ Fortsetzen?</translation>
     <message>
         <location filename="../qt/preferencesdialog.cpp" line="153"/>
         <source>Are you sure to generate all example thumbnail cache files?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sind sie sicher, dass alle Beispiel Thumbnails im Cache neu erzeugt werden sollen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.cpp" line="244"/>
+        <location filename="../qt/preferencesdialog.cpp" line="246"/>
         <source>Retrieve toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Toolbar holen</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.cpp" line="244"/>
+        <location filename="../qt/preferencesdialog.cpp" line="246"/>
         <source>Are you sure to retrieve default presets into toolbar?
 It could overwrite some of existing presets.
 Proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sind sie sicher, dass alle Standard Toolbar Elemente neu geholt werden sollen?
+Dies kann existierende Toolbar Elemente überschreiben.
+Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.cpp" line="259"/>
+        <location filename="../qt/preferencesdialog.cpp" line="261"/>
         <source>Retrieve materials</source>
-        <translation type="unfinished"></translation>
+        <translation>Hole Materialien</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.cpp" line="259"/>
+        <location filename="../qt/preferencesdialog.cpp" line="261"/>
         <source>Are you sure to retrieve default materials into materials folder?
 It could overwrite some of existing materials.
 Proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sind sie sicher, dass alle Standard Materialien neu in den Materialordner geholt werden sollen?
+Dies kann existierende Materialien überschreiben.
+Fortfahren?</translation>
     </message>
     <message>
         <source>There are currently %1 thumbnails cached, these will be deleted and rerendered when necessary.
@@ -3113,7 +3119,7 @@ Keine &apos;Bild updaten&apos; Option)</translation>
         <location filename="../qt/render_window.ui" line="836"/>
         <location filename="../qt/ui_render_window.h" line="14140"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The highest quality preset and the slowest.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Multiple Rays mode. Raymarching step is decreased to 0.2 to reduce fractal calculation errors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die höchste und langsamste Qualitätseinstellung&lt;/p&gt;&lt;p&gt;Umgebungsverdeckung ist an in &apos;Multiple Strahlen&apos; Modus. Raymarching Schritt ist auf 0.2 herabgesetzt um Fraktal DE klein zu halten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="839"/>
@@ -3121,13 +3127,15 @@ Keine &apos;Bild updaten&apos; Option)</translation>
         <source> High
 (HQ ambient occlusion
 accurate raymarching)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoch
+(HQ Umgebungsverdeckung
+akkurates Raymarching)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="854"/>
         <location filename="../qt/ui_render_window.h" line="14146"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the fastest preset but with the lowest quality.&lt;/p&gt;&lt;p&gt;Shadows, ambient occlusion and raytraced reflections are turned off. Detail level is decreased to 0.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die geringste und schnellste Qualitätseinstellung&lt;/p&gt;&lt;p&gt;Schatten, Umgebungsverdeckung und Raytraced Reflektionen sind aus. Das Detail Level ist auf 0.5 herabgesetzt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="857"/>
@@ -3135,7 +3143,9 @@ accurate raymarching)</source>
         <source>Very low
 (no shadows
 no ambient occlusion)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sehr Gering
+(keine Schatten,
+keine Umgebungsverdunklung)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1729"/>
@@ -7052,25 +7062,25 @@ Vorschau</translation>
         <location filename="../qt/material_editor.ui" line="14"/>
         <location filename="../qt/ui_material_editor.h" line="1436"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="50"/>
         <location filename="../qt/ui_material_editor.h" line="1437"/>
         <source>Material name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Material Name:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="63"/>
         <location filename="../qt/ui_material_editor.h" line="1439"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Material name used in Material Manager&lt;/p&gt;&lt;p&gt;When materials will be named well, then will be easier to find them in Material Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Material Name der im Material Manager verwendet wird.&lt;/p&gt;&lt;p&gt;Eine korrekte Benamung der Materialien macht es einfacher die Materialien im Material Manager zu verwalten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="120"/>
         <location filename="../qt/ui_material_editor.h" line="1441"/>
         <source>Reflectance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Reflektivität:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="127"/>
@@ -7083,7 +7093,7 @@ width:</source>
         <location filename="../qt/material_editor.ui" line="142"/>
         <location filename="../qt/ui_material_editor.h" line="1444"/>
         <source>Transparency of volume:</source>
-        <translation type="unfinished">Transparenz des Volumens:</translation>
+        <translation>Transparenz des Volumens:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="149"/>
@@ -7109,7 +7119,7 @@ width:</source>
         <location filename="../qt/ui_material_editor.h" line="1609"/>
         <location filename="../qt/ui_material_editor.h" line="1622"/>
         <source>Texture path:</source>
-        <translation type="unfinished">Texturpfad:</translation>
+        <translation>Texturpfad:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="239"/>
@@ -7138,7 +7148,7 @@ color:</source>
         <location filename="../qt/ui_material_editor.h" line="1594"/>
         <location filename="../qt/ui_material_editor.h" line="1621"/>
         <source>Texture intensity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Textue Intensität:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="386"/>
@@ -7162,7 +7172,7 @@ color:</source>
         <location filename="../qt/material_editor.ui" line="428"/>
         <location filename="../qt/ui_material_editor.h" line="1470"/>
         <source>Shading:</source>
-        <translation type="unfinished">Schattierung:</translation>
+        <translation>Schattierung:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="435"/>
@@ -7187,7 +7197,7 @@ brightness:</source>
         <location filename="../qt/material_editor.ui" line="545"/>
         <location filename="../qt/ui_material_editor.h" line="1477"/>
         <source>Coloring algorithm:</source>
-        <translation type="unfinished">Färbungsalgorithmus:</translation>
+        <translation>Färbungsalgorithmus:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="561"/>
@@ -7203,117 +7213,117 @@ brightness:</source>
         <location filename="../qt/material_editor.ui" line="568"/>
         <location filename="../qt/ui_material_editor.h" line="1481"/>
         <source>Color speed:</source>
-        <translation type="unfinished">Farbgeschwindigkeit:</translation>
+        <translation>Farbgeschwindigkeit:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="581"/>
         <location filename="../qt/ui_material_editor.h" line="1483"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Random seed for palette generator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zufallsstartwert für den Palettengenerator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zufallsstartwert für den Palettengenerator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="591"/>
         <location filename="../qt/ui_material_editor.h" line="1485"/>
         <source>Random seed:</source>
-        <translation type="unfinished">Zufallsstartwert:</translation>
+        <translation>Zufallsstartwert:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="598"/>
         <location filename="../qt/ui_material_editor.h" line="1486"/>
         <source>Saturation:</source>
-        <translation type="unfinished">Sättigung:</translation>
+        <translation>Sättigung:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="611"/>
         <location filename="../qt/ui_material_editor.h" line="1488"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saturation of colors in random color palette &lt;/p&gt;&lt;p&gt;To apply changes of saturation, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbsättigung der Zufallspalette &lt;/p&gt;&lt;p&gt;Um die Änderungen der Sättigung anzuwenden, klicken Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Erzeuge neue Zufallspalette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbsättigung der Zufallspalette &lt;/p&gt;&lt;p&gt;Um die Änderungen der Sättigung anzuwenden, klicken Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Erzeuge neue Zufallspalette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="648"/>
         <location filename="../qt/ui_material_editor.h" line="1493"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cyclic palette of colors which is used to color fractal surface.&lt;/p&gt;&lt;p&gt;To edit palette click on chosen color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zykllische Palette von Farben, welche zur Einfärbung der Fraktaloberfläche verwendet wird.&lt;/p&gt;&lt;p&gt;Zum Editieren auf die gewünschte Farbe klicken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zyklische Palette von Farben, welche zur Einfärbung der Fraktaloberfläche verwendet wird.&lt;/p&gt;&lt;p&gt;Zum Editieren auf die gewünschte Farbe klicken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="661"/>
         <location filename="../qt/ui_material_editor.h" line="1496"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color palette speed sets frequency of color changing&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;speed 0.3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbgeschwindigkeit setzt die Frequenz der Farbänderung&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 0,3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 1,0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 5,0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbgeschwindigkeit setzt die Frequenz der Farbänderung&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 0,3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 1,0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 5,0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="698"/>
         <location filename="../qt/ui_material_editor.h" line="1501"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grab color palette from selected picture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hole die Farbpalette aus dem ausgewähltem Bild&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hole die Farbpalette aus dem ausgewähltem Bild&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="701"/>
         <location filename="../qt/ui_material_editor.h" line="1503"/>
         <source>Grab colors from image...</source>
-        <translation type="unfinished">Farbe aus Bild bestimmen...</translation>
+        <translation>Farbe aus Bild bestimmen...</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="752"/>
         <location filename="../qt/ui_material_editor.h" line="1504"/>
         <source>Palette size:</source>
-        <translation type="unfinished">Palettengröße:</translation>
+        <translation>Palettengröße:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="759"/>
         <location filename="../qt/ui_material_editor.h" line="1505"/>
         <source>Palette:
 (click to edit)</source>
-        <translation type="unfinished">Palette: (Klicken zum ändern)</translation>
+        <translation>Palette: (Klicken zum ändern)</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="792"/>
         <location filename="../qt/ui_material_editor.h" line="1507"/>
         <source>Palette offset:</source>
-        <translation type="unfinished">Palettenversatz:</translation>
+        <translation>Palettenversatz:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="805"/>
         <location filename="../qt/ui_material_editor.h" line="1509"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of colors used in color palette.&lt;/p&gt;&lt;p&gt;To apply changes of palette size, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anzahl der Farben in der Farbpalette &lt;/p&gt;&lt;p&gt;Um die Änderungen der Palettengröße anzuwenden, klicken Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Erzeuge neue Zufallspalette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anzahl der Farben in der Farbpalette &lt;/p&gt;&lt;p&gt;Um die Änderungen der Palettengröße anzuwenden, klicken Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Erzeuge neue Zufallspalette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="824"/>
         <location filename="../qt/ui_material_editor.h" line="1512"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate palette from  random seed.&lt;/p&gt;&lt;p&gt;This applies changes to palette size and color saturation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generiere Palette aus einem Zufallsstartwert.&lt;/p&gt;&lt;p&gt;Dies wirkt sich auf die Palettengröße und die Farbwerte aus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generiere Palette aus einem Zufallsstartwert.&lt;/p&gt;&lt;p&gt;Dies wirkt sich auf die Palettengröße und die Farbwerte aus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="827"/>
         <location filename="../qt/ui_material_editor.h" line="1514"/>
         <source>Generate new random palette</source>
-        <translation type="unfinished">Erzeuge neue Zufallspalette</translation>
+        <translation>Erzeuge neue Zufallspalette</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="862"/>
         <location filename="../qt/ui_material_editor.h" line="1516"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate new random seed and palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generiere neuen Zufallsstartwert und Farbpalette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generiere neuen Zufallsstartwert und Farbpalette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="865"/>
         <location filename="../qt/ui_material_editor.h" line="1518"/>
         <source>Randomize</source>
-        <translation type="unfinished">zufällig erzeugen</translation>
+        <translation>zufällig erzeugen</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="878"/>
         <location filename="../qt/ui_material_editor.h" line="1520"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift of color palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Versatz der Farbpalette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Versatz der Farbpalette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="909"/>
         <location filename="../qt/ui_material_editor.h" line="1524"/>
         <source>Orbit trap
 sphere radius:</source>
-        <translation type="unfinished">Orbit trap
+        <translation>Orbit trap
 Kugelradius:</translation>
     </message>
     <message>
@@ -7324,7 +7334,7 @@ Kugelradius:</translation>
         <location filename="../qt/ui_material_editor.h" line="1648"/>
         <location filename="../qt/ui_material_editor.h" line="1667"/>
         <source>y:</source>
-        <translation type="unfinished"></translation>
+        <translation>y:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="952"/>
@@ -7334,7 +7344,7 @@ Kugelradius:</translation>
         <location filename="../qt/ui_material_editor.h" line="1639"/>
         <location filename="../qt/ui_material_editor.h" line="1668"/>
         <source>z:</source>
-        <translation type="unfinished"></translation>
+        <translation>z:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="968"/>
@@ -7342,43 +7352,43 @@ Kugelradius:</translation>
         <location filename="../qt/ui_material_editor.h" line="1537"/>
         <location filename="../qt/ui_material_editor.h" line="1665"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection between different coloring algorithms based on orbit trap calculation.&lt;/p&gt;&lt;p&gt;- Standard: orbit trap defined as a point at origin&lt;/p&gt;&lt;p&gt;- orbit trap: z.Dot(point): orbit trap defined as point at actual calculated fractal coordinates&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- orbit trap: Cross: orbit trap defined as a cross&lt;/p&gt;&lt;p&gt;- orbit trap: Line: orbit trap defined as a line in given direction&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Auswahl zwischen verschiedenen Färbe-Algorithmen basierend auf der Orbit Trap Berechnung&lt;/p&gt;&lt;p&gt;- Standard: Orbit Trap definiert als Punkt im Ursprung&lt;/p&gt;&lt;p&gt;- Orbit Trap: z.Dot(point): Orbit Trap definiert als Punkt der aktuellen berechneten fraktalen Koordinaten&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- Orbit Trap: Cross: Orbit Trap definiert als Kreuzprodukt&lt;/p&gt;&lt;p&gt;- Orbit Trap: Line: Orbit Trap definiert als die Linie in gegebener Richtung.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Auswahl zwischen verschiedenen Färbe-Algorithmen basierend auf der Orbit Trap Berechnung&lt;/p&gt;&lt;p&gt;- Standard: Orbit Trap definiert als Punkt im Ursprung&lt;/p&gt;&lt;p&gt;- Orbit Trap: z.Dot(point): Orbit Trap definiert als Punkt der aktuellen berechneten fraktalen Koordinaten&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- Orbit Trap: Cross: Orbit Trap definiert als Kreuzprodukt&lt;/p&gt;&lt;p&gt;- Orbit Trap: Line: Orbit Trap definiert als die Linie in gegebener Richtung.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="972"/>
         <location filename="../qt/ui_material_editor.h" line="1530"/>
         <source>Standard</source>
-        <translation type="unfinished">Standard</translation>
+        <translation>Standard</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="977"/>
         <location filename="../qt/ui_material_editor.h" line="1531"/>
         <source>orbit trap: z.Dot(point)</source>
-        <translation type="unfinished">Orbit trap: z.Dot(point)</translation>
+        <translation>Orbit trap: z.Dot(point)</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="982"/>
         <location filename="../qt/ui_material_editor.h" line="1532"/>
         <source>orbit trap: Sphere</source>
-        <translation type="unfinished">Orbit trap: Kugel</translation>
+        <translation>Orbit trap: Kugel</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="987"/>
         <location filename="../qt/ui_material_editor.h" line="1533"/>
         <source>orbit trap: Cross</source>
-        <translation type="unfinished">Orbit trap: Kreuz</translation>
+        <translation>Orbit trap: Kreuz</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="992"/>
         <location filename="../qt/ui_material_editor.h" line="1534"/>
         <source>orbit trap: Line</source>
-        <translation type="unfinished">Orbit trap: Linie</translation>
+        <translation>Orbit trap: Linie</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1025"/>
         <location filename="../qt/ui_material_editor.h" line="1543"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius of sphere in orbit trap algorithm for coloring&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius der Kugel im Orbit Trap Algorithmus, der zum Färben verwendet wird&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius der Kugel im Orbit Trap Algorithmus, der zum Färben verwendet wird&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1072"/>
@@ -7388,14 +7398,14 @@ Kugelradius:</translation>
         <location filename="../qt/ui_material_editor.h" line="1649"/>
         <location filename="../qt/ui_material_editor.h" line="1652"/>
         <source>x:</source>
-        <translation type="unfinished"></translation>
+        <translation>x:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1082"/>
         <location filename="../qt/ui_material_editor.h" line="1551"/>
         <source>Orbit trap line
 direction vector:</source>
-        <translation type="unfinished">Orbit Trap Linie
+        <translation>Orbit Trap Linie
 Richtungsvektor:</translation>
     </message>
     <message>
@@ -7444,7 +7454,7 @@ Richtungsvektor:</translation>
         <location filename="../qt/material_editor.ui" line="1240"/>
         <location filename="../qt/ui_material_editor.h" line="1568"/>
         <source>Color:</source>
-        <translation type="unfinished">Farbe:</translation>
+        <translation>Farbe:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1260"/>
@@ -7480,7 +7490,7 @@ Richtungsvektor:</translation>
         <location filename="../qt/material_editor.ui" line="1380"/>
         <location filename="../qt/ui_material_editor.h" line="1589"/>
         <source>Index of refraction:</source>
-        <translation type="unfinished">Brechungsindex:</translation>
+        <translation>Brechungsindex:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1394"/>
@@ -7516,7 +7526,7 @@ Richtungsvektor:</translation>
         <location filename="../qt/material_editor.ui" line="1514"/>
         <location filename="../qt/ui_material_editor.h" line="1607"/>
         <source>Fresnel&apos;s equations for reflectance</source>
-        <translation type="unfinished">Fresnel&apos;sche Brechungsgleichung</translation>
+        <translation>Fresnel&apos;sche Brechungsgleichung</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1521"/>
@@ -7528,7 +7538,7 @@ Richtungsvektor:</translation>
         <location filename="../qt/material_editor.ui" line="1567"/>
         <location filename="../qt/ui_material_editor.h" line="1610"/>
         <source>Intensity:</source>
-        <translation type="unfinished">Intensität:</translation>
+        <translation>Intensität:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1606"/>
@@ -7588,7 +7598,7 @@ Richtungsvektor:</translation>
         <location filename="../qt/material_editor.ui" line="1899"/>
         <location filename="../qt/ui_material_editor.h" line="1640"/>
         <source>Mapping type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapping Typ:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="1906"/>
@@ -7610,59 +7620,59 @@ object size)</source>
         <location filename="../qt/material_editor.ui" line="2119"/>
         <location filename="../qt/ui_material_editor.h" line="1656"/>
         <source>alpha:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alpha:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2205"/>
         <location filename="../qt/ui_material_editor.h" line="1659"/>
         <source>Spherical</source>
-        <translation type="unfinished"></translation>
+        <translation>Spherisch</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2210"/>
         <location filename="../qt/ui_material_editor.h" line="1660"/>
         <source>Cubic</source>
-        <translation type="unfinished"></translation>
+        <translation>Kubisch</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2215"/>
         <location filename="../qt/ui_material_editor.h" line="1661"/>
         <source>Cylindrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Zylindrisch</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2220"/>
         <location filename="../qt/ui_material_editor.h" line="1662"/>
         <source>Planar</source>
-        <translation type="unfinished"></translation>
+        <translation>Planar</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2351"/>
         <location filename="../qt/ui_material_editor.h" line="1673"/>
         <source>Texture rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Textur Rotation:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2364"/>
         <location filename="../qt/ui_material_editor.h" line="1674"/>
         <source>beta:</source>
-        <translation type="unfinished"></translation>
+        <translation>Beta:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2380"/>
         <location filename="../qt/ui_material_editor.h" line="1675"/>
         <source>gamma:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamma:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.cpp" line="168"/>
         <source>Images (*.jpg *.jpeg *.png *.bmp)</source>
-        <translation type="unfinished">Bilder (*.jpg *.jpeg *.png *.bmp)</translation>
+        <translation>Bilder (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.cpp" line="173"/>
         <source>Select image to grab colors...</source>
-        <translation type="unfinished">Wähle Bild zum Farben holen...</translation>
+        <translation>Wähle Bild zum Farben holen...</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of fractal interior.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -7703,53 +7713,53 @@ object size)</source>
         <location filename="../qt/material_manager_view.ui" line="20"/>
         <location filename="../qt/ui_material_manager_view.h" line="106"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="46"/>
         <location filename="../qt/ui_material_manager_view.h" line="107"/>
         <source>New material</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Material</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="53"/>
         <location filename="../qt/ui_material_manager_view.h" line="108"/>
         <source>Delete material</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösche Material</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="60"/>
         <location filename="../qt/ui_material_manager_view.h" line="109"/>
         <source>Edit material</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeite Material</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="87"/>
         <location filename="../qt/ui_material_manager_view.h" line="110"/>
         <source>Load materials...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Materialien...</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="94"/>
         <location filename="../qt/ui_material_manager_view.h" line="111"/>
         <source>Save material as....</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichere Material als...</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="85"/>
         <location filename="../qt/material_manager_view.cpp" line="137"/>
         <source>Fractals (*.txt *.fract)</source>
-        <translation type="unfinished">Fraktale (*.txt *.fract)</translation>
+        <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="89"/>
         <source>Load material...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Material...</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="141"/>
         <source>Save material...</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichere Material...</translation>
     </message>
 </context>
 <context>
@@ -7792,43 +7802,43 @@ object size)</source>
     <name>cPreferencesDialog</name>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="83"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="573"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="597"/>
         <source>Default file paths</source>
         <translation>Standard Dateipfade</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="123"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="575"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="599"/>
         <source>Settings:</source>
         <translation>Einstellungen:</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="141"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="577"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="601"/>
         <source>Images:</source>
         <translation>Bilder:</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="151"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="578"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="602"/>
         <source>Textures:</source>
         <translation>Texturen:</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="253"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="593"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="617"/>
         <source>UI font size (pixels)</source>
         <translation>UI Schriftgröße (Pixel)</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="203"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="581"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="605"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="210"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="583"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="607"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprache der Programmtexte.&lt;/p&gt;&lt;p&gt;Sie müssen die Anwendung neu starten, um die Änderungen zu übernehmen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -7838,7 +7848,7 @@ object size)</source>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="428"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="605"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="629"/>
         <source>Image Settings</source>
         <translation>Bildeinstellungen</translation>
     </message>
@@ -7851,25 +7861,25 @@ und das Speichern der Animationsframes.</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="270"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="594"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="618"/>
         <source>Toolbar icon size (pixels)</source>
         <translation>Toolbar Icongröße (Pixel)</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="389"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="652"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="676"/>
         <source>Image</source>
         <translation>Bild</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="425"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="602"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="626"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert wird ignoriert, da JPG nur 8-Bit-Genauigkeit unterstützt.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit oder 16-Bit einnehmen (32-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG und TIFF)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit, 16-Bit, oder 32 bit einnehmen.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG und TIFF)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 16-Bit oder 32-Bit einnehmen (8-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Der Postfix wird ignoriert, da alle Bildkanäle in einer Datei gespeichert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="449"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="606"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="630"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
  and saving animation frames.</source>
         <translation>Diese Einstellungen beeinflussen 
@@ -7878,7 +7888,7 @@ und das Speichern der Animationsframes.</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="552"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="627"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="651"/>
         <source>Z Buffer</source>
         <translation>Z Buffer</translation>
     </message>
@@ -7887,10 +7897,10 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferencesdialog.ui" line="527"/>
         <location filename="../qt/preferencesdialog.ui" line="560"/>
         <location filename="../qt/preferencesdialog.ui" line="601"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="614"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="622"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="630"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="640"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="638"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="646"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="654"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="664"/>
         <source>8 bit</source>
         <translation>8 bit</translation>
     </message>
@@ -7899,10 +7909,10 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferencesdialog.ui" line="532"/>
         <location filename="../qt/preferencesdialog.ui" line="565"/>
         <location filename="../qt/preferencesdialog.ui" line="606"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="615"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="623"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="631"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="641"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="639"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="647"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="655"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="665"/>
         <source>16 bit</source>
         <translation>16 bit</translation>
     </message>
@@ -7911,70 +7921,70 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferencesdialog.ui" line="537"/>
         <location filename="../qt/preferencesdialog.ui" line="570"/>
         <location filename="../qt/preferencesdialog.ui" line="611"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="616"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="624"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="632"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="642"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="640"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="648"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="656"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="666"/>
         <source>32 bit</source>
         <translation>32 bit</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="519"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="619"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="643"/>
         <source>Alpha</source>
         <translation>Alpha</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="469"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="609"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="633"/>
         <source>Quality</source>
         <translation>Qualität</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="476"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="610"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="634"/>
         <source>Postfix</source>
         <translation>Postfix</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="462"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="608"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="632"/>
         <source>Image Channel</source>
         <translation>Bildkanal</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="295"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="595"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="619"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="321"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="596"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="620"/>
         <source>Logging verbosity level</source>
-        <translation type="unfinished"></translation>
+        <translation>Logging Level</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="353"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="598"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="622"/>
         <source>Retrieve default toolbar presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Hole Standard Toolbar Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="360"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="599"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="623"/>
         <source>Retrieve default materials in material folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Hole Standard Materialien in Materialordner</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="483"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="611"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="635"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="585"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="635"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="659"/>
         <source>Following channels are only rendered on demand
 and will only be present after enabling and re-render.</source>
         <translation>Die folgenden Bildkanäle werden nur auf Abruf gerendert
@@ -7982,45 +7992,45 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="593"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="637"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="661"/>
         <source>Surface Normal</source>
         <translation>Oberflächennormale</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="631"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="645"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="669"/>
         <source>Misc Image Settings</source>
         <translation>Diverse Bildeinstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="693"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="647"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="671"/>
         <source>Append alpha to image (only PNG and TIFF)</source>
         <translation>Alpha an das Bild anhängen (nur bei PNG und TIFF)</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="705"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="648"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="672"/>
         <source>Thumbnail options</source>
-        <translation type="unfinished"></translation>
+        <translation>Thumbnail Optionen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="731"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="649"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="673"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Leeren</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="738"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="650"/>
+        <location filename="../qt/preferencesdialog.ui" line="742"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="674"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Laden</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="745"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="651"/>
+        <location filename="../qt/preferencesdialog.ui" line="753"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="675"/>
         <source>Generate</source>
-        <translation type="unfinished"></translation>
+        <translation>Generieren</translation>
     </message>
     <message>
         <source>Append alpha to image (only PNG)</source>
@@ -8032,7 +8042,7 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="346"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="597"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="621"/>
         <source>Do not ask for quit confirmation</source>
         <translation>Bei Beenden keine Bestätigung erfragen</translation>
     </message>
@@ -8042,55 +8052,55 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="657"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="646"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="670"/>
         <source>JPEG quality:</source>
         <translation>JPEG Qualität:</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="177"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="580"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="604"/>
         <source>System Look and Feel</source>
         <translation>Darstellung</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="14"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="572"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="596"/>
         <source>Program Settings</source>
         <translation>Programm Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="47"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="600"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="624"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="217"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="585"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="609"/>
         <source>UI Style type</source>
         <translation>Oberfläche</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="227"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="586"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="610"/>
         <source>UI Skin</source>
         <translation>Skin</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="235"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="589"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="613"/>
         <source>normal</source>
         <translation>Normal</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="240"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="590"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="614"/>
         <source>dark</source>
         <translation>Dunkel</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="245"/>
-        <location filename="../qt/ui_preferencesdialog.h" line="591"/>
+        <location filename="../qt/ui_preferencesdialog.h" line="615"/>
         <source>light</source>
         <translation>Hell</translation>
     </message>
@@ -8114,9 +8124,9 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation>Standardordner für Texturen wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.cpp" line="189"/>
+        <location filename="../qt/preferencesdialog.cpp" line="184"/>
         <source>rendering %1, %2 of %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendere %1, %2 von %3</translation>
     </message>
 </context>
 <context>
@@ -8200,122 +8210,128 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation>Exportiere Voxel</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="69"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="439"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="39"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="440"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;this is the tooltip!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/voxel_export_dialog.ui" line="72"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="442"/>
         <source>Layer settings</source>
         <translation>Schicht Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="109"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="441"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="112"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="444"/>
         <source>layer folder</source>
         <translation>Ordner für Schichten</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="121"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="442"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="124"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="445"/>
         <source>Render settings</source>
         <translation>Render Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="147"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="443"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="150"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="446"/>
         <source>MaxIter</source>
         <translation>MaxIter</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="188"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="444"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="191"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="447"/>
         <source>Sample count</source>
         <translation>Abtastung</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="214"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="445"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="217"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="448"/>
         <source>Samples X</source>
         <translation>Abtastung X</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="234"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="446"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="237"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="449"/>
         <source>Samples Y</source>
         <translation>Abtastung Y</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="254"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="447"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="257"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="450"/>
         <source>Samples Z</source>
         <translation>Abtastung Z</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="279"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="448"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="282"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="451"/>
         <source>Custom Limits (leave untoggled to use global limits)</source>
         <translation>individuelle Grenzen (unmarkiert lassen, für globale Grenzen)</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="318"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="449"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="321"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="452"/>
         <source>top right back corner:</source>
         <translation>Ecke - oben recht hinten:</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="341"/>
-        <location filename="../qt/voxel_export_dialog.ui" line="436"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="450"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="454"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="344"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="439"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="453"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="457"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="387"/>
-        <location filename="../qt/voxel_export_dialog.ui" line="452"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="451"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="455"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="390"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="455"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="454"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="458"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="413"/>
-        <location filename="../qt/voxel_export_dialog.ui" line="468"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="452"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="456"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="416"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="471"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="455"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="459"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="423"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="453"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="426"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="456"/>
         <source>bottom left front corner:</source>
         <translation>Ecke - unten links vorne:</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="485"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="458"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="488"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="461"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start rendering of layers based on actual settings&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starte Rendern der Schichten nach aktuellen Einstellungen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="488"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="460"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="491"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="463"/>
         <source>Render Layers</source>
         <translation>Rendere Schichten</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="499"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="462"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="502"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="465"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering of layers&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Beendet das Rendern der Schichten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="502"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="464"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="505"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="467"/>
         <source>Stop Render</source>
         <translation>Stoppe Render</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="519"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="465"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="522"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="468"/>
         <source>Show Layers</source>
         <translation>Zeige Schichten</translation>
     </message>
