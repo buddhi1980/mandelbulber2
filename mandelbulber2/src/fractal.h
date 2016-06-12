@@ -332,6 +332,8 @@ struct sFractalTransformCommon
   double pwr4;
   double pwr8;
   double pwr8a;
+  double sqtR;
+  double mboxFactor1;
 
   int startIterations;
   int startIterations250;
@@ -350,6 +352,8 @@ struct sFractalTransformCommon
   int stopIterationsR;
   int startIterationsS;
   int stopIterationsS;
+  int startIterationsT;
+  int stopIterationsT;
   int startIterationsM;
   int stopIterationsM;
   int stopIterations1;

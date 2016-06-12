@@ -158,7 +158,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	if (r2 < fractal->mandelbox.mR2)
 	{
 		z *= fractal->mandelbox.mboxFactor1;
-		aux.DE *= fractal->mandelbox.mboxFactor1;
+    aux.DE *= fractal->mandelbox.mboxFactor1;
 		aux.color += fractal->mandelbox.color.factorSp1;
 	}
 	else if (r2 < fractal->mandelbox.fR2)
@@ -1206,6 +1206,7 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 
 /**
  * Amazing Surface Multi
+ * Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali, with features added by Darkbeam
  */
 void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1386,7 +1387,7 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       break;
     }
   }
-  if (fractal->transformCommon.functionEnabledxFalse
+  if (fractal->transformCommon.functionEnabledBxFalse
       && i >= fractal->transformCommon.startIterationsD
       && i < fractal->transformCommon.stopIterationsD)
   {
@@ -1445,7 +1446,7 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       break;
     }
   }
-  if (fractal->transformCommon.functionEnabledyFalse
+  if (fractal->transformCommon.functionEnabledByFalse
       && i >= fractal->transformCommon.startIterationsE
       && i < fractal->transformCommon.stopIterationsE)
   {
@@ -1504,25 +1505,81 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       break;
     }
   }
+  if (fractal->transformCommon.functionEnabledAxFalse)
+  {  // enable z scale
+    double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale0;
+    double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale0;
+    if (z.z > zLimit)
+    {
+      z.z = zValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+    else if (z.z < -zLimit)
+    {
+      z.z = -zValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+  }
+  //standard functions
+  if (fractal->transformCommon.functionEnabledAy)
 
-  if (fractal->transformCommon.functionEnabled)
   {
-    double r2 = z.Dot(z);
-    z += fractal->mandelbox.offset;
-    if (r2 < fractal->mandelbox.mR2)
-    {
-      z *= fractal->mandelbox.mboxFactor1;
-      aux.DE *= fractal->mandelbox.mboxFactor1;
-      aux.color += fractal->mandelbox.color.factorSp1;
+    double m = fractal->mandelbox.scale;
+    double r2;
+    if (fractal->transformCommon.functionEnabledzFalse
+        && i >= fractal->transformCommon.startIterationsT
+        && i < fractal->transformCommon.stopIterationsT)
+    { // Abox Spherical fold
+      z += fractal->mandelbox.offset;
+      r2 = z.Dot(z);
+
+      double sqrtMinR = fractal->transformCommon.sqtR;
+      if (r2 < sqrtMinR)
+      {
+        m *= 1.0 / sqrtMinR;
+      }
+      else
+      {
+        if (r2 < 1)
+        {
+          m *= 1.0 / r2;
+        }
+        else
+        {
+          m = m;  // what?
+        }
+      z -= fractal->mandelbox.offset;
+      }
     }
-    else if (r2 < fractal->mandelbox.fR2)
+
+
+    // Mandelbox Spherical fold
+
+    if (fractal->transformCommon.functionEnabledAz
+        && i >= fractal->transformCommon.startIterationsM
+        && i < fractal->transformCommon.stopIterationsM)
     {
-      double tglad_factor2 = fractal->mandelbox.fR2 / r2;
-      z *= tglad_factor2;
-      aux.DE *= tglad_factor2;
-      aux.color += fractal->mandelbox.color.factorSp2;
+      r2 = z.Dot(z);
+      z += fractal->mandelbox.offset;
+      if (r2 < fractal->mandelbox.mR2)//mR2 = minR^2
+      {
+        z *= fractal->mandelbox.mboxFactor1;// fR2/mR2
+        aux.DE *= fractal->mandelbox.mboxFactor1;
+        aux.color += fractal->mandelbox.color.factorSp1;
+      }
+      else if (r2 < fractal->mandelbox.fR2)
+      {
+        double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+        z *= tglad_factor2;
+        aux.DE *= tglad_factor2;
+        aux.color += fractal->mandelbox.color.factorSp2;
+      }
+      z -= fractal->mandelbox.offset;
     }
-    z -= fractal->mandelbox.offset;
+
+
+
+
     if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsR
       && i < fractal->transformCommon.stopIterationsR)
         z = fractal->mandelbox.mainRot.RotateVector(z);
@@ -1530,8 +1587,8 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
     if (i >= fractal->transformCommon.startIterationsS
         && i < fractal->transformCommon.stopIterationsS)
     {
-      z = z * fractal->mandelbox.scale;
-      aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+      z = z * m;
+      aux.DE = aux.DE * fabs(m) + 1.0;
     }
   }
 }
@@ -4966,7 +5023,7 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 }
 
 /**
- * spherical fold with offset. Offset radially.
+ * spherical radial offset.
  */
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {

@@ -121,7 +121,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           amazingSurfMulti,
                                           analyticDEType,
                                           linearDEFunction,
-                                          cpixelDisabledByDefault,
+                                          cpixelEnabledByDefault,
                                           100));
 
 	fractalList->append(sFractalDescription("Benesi",
