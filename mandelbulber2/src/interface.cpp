@@ -1785,9 +1785,11 @@ void cInterface::Undo()
 	bool refreshKeyframes = false;
 	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
+    gMainInterface->RebuildPrimitives(gPar);
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
+    gMainInterface->materialListModel->Regenerate();
 		StartRender(true);
 	}
 }
@@ -1798,9 +1800,11 @@ void cInterface::Redo()
 	bool refreshKeyframes = false;
 	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
+    gMainInterface->RebuildPrimitives(gPar);
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
+    gMainInterface->materialListModel->Regenerate();
 		StartRender(true);
 	}
 }
