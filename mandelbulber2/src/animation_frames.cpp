@@ -1,23 +1,38 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * Class to store settings for animation frames
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Handles the 2D matrix of the list of parameters / list of frames
+ * and exposes functions to modify this matrix.
  */
 
 #include "animation_frames.hpp"
@@ -32,27 +47,26 @@ cAnimationFrames::~cAnimationFrames()
 {
 }
 
-void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal,
-		int index)
+void cAnimationFrames::AddFrame(
+	const cParameterContainer &params, const cFractalContainer &fractal, int index)
 {
 	sAnimationFrame frame;
 	frame.alreadyRendered = false;
 	for (int i = 0; i < listOfParameters.size(); ++i)
 	{
-		const cParameterContainer *container = ContainerSelector(listOfParameters[i].containerName,
-																														 &params,
-																														 &fractal);
+		const cParameterContainer *container =
+			ContainerSelector(listOfParameters[i].containerName, &params, &fractal);
 		if (container)
 		{
 			QString parameterName = listOfParameters[i].parameterName;
 			frame.parameters.AddParamFromOneParameter(container->GetContainerName() + "_" + parameterName,
-																								container->GetAsOneParameter(parameterName));
+				container->GetAsOneParameter(parameterName));
 		}
 		else
 		{
-			qCritical()
-					<< "cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal): Wrong container name: "
-					<< listOfParameters[i].containerName;
+			qCritical() << "cAnimationFrames::AddFrame(const cParameterContainer &params, const "
+										 "cFractalContainer &fractal): Wrong container name: "
+									<< listOfParameters[i].containerName;
 		}
 	}
 	int indexTemp = index;
@@ -60,32 +74,30 @@ void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFracta
 	frames.insert(indexTemp, frame);
 }
 
-void cAnimationFrames::AddAnimatedParameter(const QString &parameterName,
-		const cOneParameter &defaultValue)
+void cAnimationFrames::AddAnimatedParameter(
+	const QString &parameterName, const cOneParameter &defaultValue)
 {
 	if (IndexOnList(parameterName, defaultValue.GetOriginalContainerName()) == -1)
 	{
-		listOfParameters.append(sParameterDescription(parameterName,
-																									defaultValue.GetOriginalContainerName(),
-																									defaultValue.GetValueType(),
-																									defaultValue.GetMorphType()));
+		listOfParameters.append(
+			sParameterDescription(parameterName, defaultValue.GetOriginalContainerName(),
+				defaultValue.GetValueType(), defaultValue.GetMorphType()));
 		for (int i = 0; i < frames.size(); ++i)
 		{
-			frames[i].parameters.AddParamFromOneParameter(defaultValue.GetOriginalContainerName() + "_"
-																												+ parameterName,
-																										defaultValue);
+			frames[i].parameters.AddParamFromOneParameter(
+				defaultValue.GetOriginalContainerName() + "_" + parameterName, defaultValue);
 		}
 	}
 	else
 	{
-		qWarning()
-				<< "cAnimationFrames::AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue): element '"
-				<< parameterName << "' already exists" << endl;
+		qWarning() << "cAnimationFrames::AddAnimatedParameter(const QString &parameterName, const "
+									"cOneParameter &defaultValue): element '"
+							 << parameterName << "' already exists" << endl;
 	}
 }
 
 bool cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName,
-		const cParameterContainer *param, const cFractalContainer *fractal)
+	const cParameterContainer *param, const cFractalContainer *fractal)
 {
 	int firstUnderscore = fullParameterName.indexOf('_');
 	QString containerName = fullParameterName.left(firstUnderscore);
@@ -97,9 +109,10 @@ bool cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName,
 		cOneParameter parameter = container->GetAsOneParameter(parameterName);
 		if (parameter.IsEmpty())
 		{
-			qWarning()
-					<< "cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): unknown parameter"
-					<< fullParameterName;
+			qWarning() << "cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName, "
+										"const cParameterContainer *param, const cFractalContainer *fractal): unknown "
+										"parameter"
+								 << fullParameterName;
 			return false;
 		}
 		else
@@ -110,9 +123,10 @@ bool cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName,
 	}
 	else
 	{
-		qCritical()
-				<< "cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): Wrong container name: "
-				<< containerName;
+		qCritical() << "cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName, const "
+									 "cParameterContainer *param, const cFractalContainer *fractal): Wrong container "
+									 "name: "
+								<< containerName;
 		return false;
 	}
 }
@@ -161,8 +175,8 @@ int cAnimationFrames::IndexOnList(QString parameterName, QString containerName)
 	int index = -1;
 	for (int i = 0; i < listOfParameters.size(); ++i)
 	{
-		if (listOfParameters[i].parameterName == parameterName
-				&& listOfParameters[i].containerName == containerName)
+		if (listOfParameters[i].parameterName == parameterName &&
+				listOfParameters[i].containerName == containerName)
 		{
 			index = i;
 			break;
@@ -171,8 +185,8 @@ int cAnimationFrames::IndexOnList(QString parameterName, QString containerName)
 	return index;
 }
 
-const cParameterContainer* cAnimationFrames::ContainerSelector(QString containerName,
-		const cParameterContainer *params, const cFractalContainer *fractal) const
+const cParameterContainer *cAnimationFrames::ContainerSelector(
+	QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const
 {
 	const cParameterContainer *container = NULL;
 	if (containerName == "main")
@@ -188,24 +202,25 @@ const cParameterContainer* cAnimationFrames::ContainerSelector(QString container
 		}
 		else
 		{
-			qWarning()
-					<< "cAnimationFrames::ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal): wrong fracta container index"
-					<< containerName << index;
-
+			qWarning() << "cAnimationFrames::ContainerSelector(QString containerName, const "
+										"cParameterContainer *params, const cFractalContainer *fractal): wrong fractal "
+										"container index"
+								 << containerName << index;
 		}
 	}
 	else
 	{
-		qWarning()
-				<< "cAnimationFrames::ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal): wrong container name"
-				<< containerName;
+		qWarning() << "cAnimationFrames::ContainerSelector(QString containerName, const "
+									"cParameterContainer *params, const cFractalContainer *fractal): wrong container "
+									"name"
+							 << containerName;
 	}
 
 	return container;
 }
 
-cParameterContainer* cAnimationFrames::ContainerSelector(QString containerName,
-		cParameterContainer *params, cFractalContainer *fractal) const
+cParameterContainer *cAnimationFrames::ContainerSelector(
+	QString containerName, cParameterContainer *params, cFractalContainer *fractal) const
 {
 	cParameterContainer *container = NULL;
 	if (containerName == "main")
@@ -221,16 +236,17 @@ cParameterContainer* cAnimationFrames::ContainerSelector(QString containerName,
 		}
 		else
 		{
-			qWarning()
-					<< "cAnimationFrames::ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal): wrong fracta container index"
-					<< containerName << index;
+			qWarning() << "cAnimationFrames::ContainerSelector(QString containerName, "
+										"cParameterContainer *params, cFractalContainer *fractal): wrong fractal "
+										"container index"
+								 << containerName << index;
 		}
 	}
 	else
 	{
-		qWarning()
-				<< "cAnimationFrames::ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal): wrong container name"
-				<< containerName;
+		qWarning() << "cAnimationFrames::ContainerSelector(QString containerName, cParameterContainer "
+									"*params, cFractalContainer *fractal): wrong container name"
+							 << containerName;
 	}
 
 	return container;
@@ -249,8 +265,8 @@ cAnimationFrames::sAnimationFrame cAnimationFrames::GetFrame(int index) const
 	}
 }
 
-void cAnimationFrames::GetFrameAndConsolidate(int index, cParameterContainer *params,
-		cFractalContainer *fractal)
+void cAnimationFrames::GetFrameAndConsolidate(
+	int index, cParameterContainer *params, cFractalContainer *fractal)
 {
 	if (index >= 0 && index < frames.count())
 	{
@@ -258,16 +274,13 @@ void cAnimationFrames::GetFrameAndConsolidate(int index, cParameterContainer *pa
 
 		for (int i = 0; i < listOfParameters.size(); ++i)
 		{
-			cParameterContainer *container = ContainerSelector(listOfParameters[i].containerName,
-																												 params,
-																								 fractal);
+			cParameterContainer *container =
+				ContainerSelector(listOfParameters[i].containerName, params, fractal);
 			QString parameterName = listOfParameters[i].parameterName;
 			cOneParameter oneParameter =
-					frame.GetAsOneParameter(listOfParameters[i].containerName + "_"
-							+ parameterName);
+				frame.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
 			container->SetFromOneParameter(parameterName, oneParameter);
 		}
-
 	}
 	else
 	{
@@ -284,8 +297,8 @@ void cAnimationFrames::RemoveAnimatedParameter(const QString &fullParameterName)
 
 	for (int i = 0; i < listOfParameters.size(); ++i)
 	{
-		if (listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName
-				== fullParameterName)
+		if (listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName ==
+				fullParameterName)
 		{
 			listOfParameters.removeAt(i);
 			break;
@@ -313,4 +326,3 @@ void cAnimationFrames::AddFrame(const sAnimationFrame &frame)
 {
 	frames.append(frame);
 }
-
