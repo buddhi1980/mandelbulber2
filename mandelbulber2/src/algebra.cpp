@@ -21,10 +21,11 @@
  * without even the implied warranty
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * See the GNU General Public License for more details. You should have received
- * a copy of the GNU
- * General Public License along with Mandelbulber. If not, see
- * <http://www.gnu.org/licenses/>.
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
@@ -34,7 +35,6 @@
  * These classes get used throughout the program to realize 2d, 3d and 4d
  * variable representation and manipulation. The class CMatrix33 is used for
  * rotation in 3d space.
- *
  */
 
 #include "algebra.hpp"
