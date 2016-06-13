@@ -1183,13 +1183,13 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   {
     z *= fractal->transformCommon.mboxFactor1;
     aux.DE *= fractal->transformCommon.mboxFactor1;
-    //aux.color += fractal->mandelbox.color.factorSp1;
+    aux.color += fractal->mandelbox.color.factorSp1;
   }
   else if (r2 < 1.0)
   {
     z *= 1.0 / r2;
     aux.DE *= 1.0 / r2;
-    //aux.color += fractal->mandelbox.color.factorSp2;
+    aux.color += fractal->mandelbox.color.factorSp2;
   }
 
   z *= aux.actualScale * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
@@ -1531,13 +1531,13 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       {
         z *= fractal->transformCommon.mboxFactor1;
         aux.DE *= fractal->transformCommon.mboxFactor1;
-        //aux.color += fractal->mandelbox.color.factorSp1;
+        aux.color += fractal->mandelbox.color.factorSp1;
       }
       else if (r2 < 1.0)
       {
         z *= 1.0 / r2;
         aux.DE *= 1.0 / r2;
-        //aux.color += fractal->mandelbox.color.factorSp2;
+        aux.color += fractal->mandelbox.color.factorSp2;
       }
       z -= fractal->mandelbox.offset;
     }
@@ -1978,9 +1978,10 @@ void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     }
     z -= fractal->mandelbox.offset;
   }
-  if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsR
-    && i < fractal->transformCommon.stopIterationsR)
-      z = fractal->mandelbox.mainRot.RotateVector(z);
+  if (fractal->mandelbox.mainRotationEnabled
+      && i >= fractal->transformCommon.startIterationsR
+      && i < fractal->transformCommon.stopIterationsR)
+    z = fractal->mandelbox.mainRot.RotateVector(z);
 
   if (i >= fractal->transformCommon.startIterationsS
       && i < fractal->transformCommon.stopIterationsS)
@@ -2015,7 +2016,8 @@ void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     }
     z += c * fractal->transformCommon.constantMultiplierC111;
   }
-  if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterationsM
+  if (fractal->transformCommon.functionEnabled
+      && i >= fractal->transformCommon.startIterationsM
       && i < fractal->transformCommon.stopIterationsM)
   {
     int count = fractal->transformCommon.int1;  // Menger Sponge
@@ -5022,13 +5024,13 @@ void TransformSphericalFoldAboxIteration(CVector3 &z, const cFractal *fractal, s
   {
     z *= fractal->transformCommon.mboxFactor1;
     aux.DE *= fractal->transformCommon.mboxFactor1;
-    //aux.color += fractal->mandelbox.color.factorSp1;
+    aux.color += fractal->mandelbox.color.factorSp1;
   }
   else if (r2 < 1.0)
   {
     z *= 1.0 / r2;
     aux.DE *= 1.0 / r2;
-    //aux.color += fractal->mandelbox.color.factorSp2;
+    aux.color += fractal->mandelbox.color.factorSp2;
   }
   z -= fractal->mandelbox.offset;
 }

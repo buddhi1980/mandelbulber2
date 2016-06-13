@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>772</width>
-    <height>811</height>
+    <height>816</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="title">
-      <string>Sca&amp;le and Offset controls; </string>
+      <string>Enable Sca&amp;le and Offset controls; (  iterates only the quaternion fold when disabled.)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
