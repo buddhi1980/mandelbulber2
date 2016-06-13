@@ -392,8 +392,6 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 {
 	using namespace fractal;
 	int closestObject = *closestObjectId;
-	sRGB color = sRGB(0, 0, 0);
-	double reflect = 0.0;
 	double distance = fractalDistance;
 
 	if (isAnyPrimitive)
@@ -438,6 +436,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 						break;
 					default:
 						qCritical() << "cannot handle " << PrimitiveNames(primitive->objectType) << " in cPrimitives::TotalDistance()";
+						break;
 				}
 				distTemp = DisplacementMap(distTemp, point, primitive->objectId, data);
 				if (distTemp < distance)

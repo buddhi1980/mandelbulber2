@@ -347,7 +347,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			gMainInterface->GetDistanceForPoint(cameraPosition, params, fractalParams);
 
 		// speed
-		double linearSpeed;
+		double linearSpeed = 0;
 		switch (speedMode)
 		{
 			case speedRelative: linearSpeed = distanceToSurface * linearSpeedSp; break;

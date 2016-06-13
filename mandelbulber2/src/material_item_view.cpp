@@ -64,6 +64,8 @@ int cMaterialItemView::horizontalOffset() const
 
 void cMaterialItemView::setSelection(const QRect& rect, QItemSelectionModel::SelectionFlags flags)
 {
+	Q_UNUSED(flags);
+	Q_UNUSED(rect);
 	viewport()->update();
 }
 
@@ -89,6 +91,8 @@ bool cMaterialItemView::isIndexHidden(const QModelIndex& index) const
 void cMaterialItemView::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
 		const QVector<int> &roles)
 {
+	Q_UNUSED(bottomRight);
+	Q_UNUSED(roles);
 	QString settings = model()->data(topLeft).toString();
 	cMaterialWidget *widget = (cMaterialWidget*) indexWidget(topLeft);
 	if (widget)

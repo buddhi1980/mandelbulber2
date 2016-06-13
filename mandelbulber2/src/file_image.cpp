@@ -307,11 +307,12 @@ void ImageFileSavePNG::SavePNG(
 		png_write_info(png_ptr, info_ptr);
 		png_set_swap(png_ptr);
 
+		char *colorPtr = NULL;
+
 		/* write bytes */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during writing bytes");
 
 		row_pointers = new png_bytep[height];
-		char *colorPtr = NULL;
 
 		int pixelSize = qualitySizeByte;
 

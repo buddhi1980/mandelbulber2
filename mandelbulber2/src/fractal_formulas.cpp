@@ -4044,7 +4044,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
  *            http://luz.izt.uam.mx/index.html/?q=node/95&language=en
  * @author Manuel Fernandez-Guasti
  */
-void FastImagscaPower2Iteration(CVector3 &z, const cFractal *fractal)
+void FastImagscaPower2Iteration(CVector3 &z)
 {
   double x2 = z.x * z.x ; //+ 1e-061
   double y2 = z.y * z.y;

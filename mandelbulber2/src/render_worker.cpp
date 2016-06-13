@@ -367,7 +367,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	int counter = 0;
 	double step = 0.0;
 	(*inOut->buffCount) = 0;
-	double distThresh;
+	double distThresh = 0;
 	out->objectId = 0;
 
 	//qDebug() << "Start ************************";

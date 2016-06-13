@@ -440,7 +440,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case fastImagscaPower2:
         {
-          FastImagscaPower2Iteration(z, fractal);
+          FastImagscaPower2Iteration(z);
           break;
         }
 
@@ -880,6 +880,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					case sFractalColoring::fractalColoringLine:
 					{
 						len = fabs(z.Dot(in.fractalColoring.lineDirection));
+						break;
+					}
+					case sFractalColoring::fractalColoringNone:
+					{
+						len = r;
 						break;
 					}
 				}
