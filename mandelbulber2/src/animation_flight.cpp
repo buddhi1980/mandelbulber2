@@ -1,128 +1,102 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
  *
  * Functions for flight animation.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
+ * cFlightAnimation contains all functionality for capturing, editing
+ * and rendering of a flight path. The class holds a cAnimationFrames to store
+ * the parameters of the frames and a table to display the frames in a widget.
+ * The class keeps track of current velocity and acceleration and exposes
+ * slots to change the camera acceleration.
  */
 
 #include "animation_flight.hpp"
-#include "interface.hpp"
-#include "undo.h"
-#include "global_data.hpp"
-#include "files.h"
-#include "netrender.hpp"
-#include "initparameters.hpp"
-#include "render_job.hpp"
 #include "../qt/thumbnail_widget.h"
-#include "synchronize_interface.hpp"
+#include "files.h"
+#include "global_data.hpp"
+#include "initparameters.hpp"
+#include "netrender.hpp"
+#include "render_job.hpp"
+#include "undo.h"
 
 cFlightAnimation *gFlightAnimation = NULL;
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames,
-		cImage *_image, QWidget *_imageWidget, cParameterContainer *_params,
-		cFractalContainer *_fractal, QObject *parent) :
-				QObject(parent),
-				mainInterface(_interface),
-				frames(_frames)
+	cImage *_image, QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
+	QObject *parent)
+		: QObject(parent), mainInterface(_interface), frames(_frames)
 {
 	if (mainInterface->mainWindow)
 	{
 		ui = mainInterface->mainWindow->ui;
-		QApplication::connect(ui->pushButton_record_flight,
-													SIGNAL(clicked()),
-													this,
-													SLOT(slotRecordFlight()));
-		QApplication::connect(ui->pushButton_continue_recording,
-													SIGNAL(clicked()),
-													this,
-													SLOT(slotContinueRecording()));
-		QApplication::connect(ui->pushButton_render_flight,
-													SIGNAL(clicked()),
-													this,
-													SLOT(slotRenderFlight()));
-		QApplication::connect(ui->pushButton_delete_all_images,
-													SIGNAL(clicked()),
-													this,
-													SLOT(slotDeleteAllImages()));
-		QApplication::connect(ui->pushButton_show_animation,
-													SIGNAL(clicked()),
-													this,
-													SLOT(slotShowAnimation()));
-		QApplication::connect(ui->pushButton_flight_refresh_table,
-													SIGNAL(clicked()),
-													this,
-													SLOT(slotRefreshTable()));
-		QApplication::connect(ui->pushButton_flight_to_keyframe_export,
-													SIGNAL(clicked()),
-													this,
-													SLOT(slotExportFlightToKeyframes()));
 
-		QApplication::connect(ui->button_selectAnimFlightImageDir,
-													SIGNAL(clicked()),
-													this,
-													SLOT(slotSelectAnimFlightImageDir()));
-		QApplication::connect(mainInterface->renderedImage,
-													SIGNAL(StrafeChanged(CVector2<double>)),
-													this,
-													SLOT(slotFlightStrafe(CVector2<double>)));
-		QApplication::connect(mainInterface->renderedImage,
-													SIGNAL(YawAndPitchChanged(CVector2<double>)),
-													this,
-													SLOT(slotFlightYawAndPitch(CVector2<double>)));
-		QApplication::connect(mainInterface->renderedImage,
-													SIGNAL(SpeedChanged(double)),
-													this,
-													SLOT(slotFlightChangeSpeed(double)));
-		QApplication::connect(mainInterface->renderedImage,
-													SIGNAL(RotationChanged(double)),
-													this,
-													SLOT(slotFlightRotation(double)));
-		QApplication::connect(mainInterface->renderedImage,
-													SIGNAL(Pause()),
-													this,
-													SLOT(slotRecordPause()));
-		QApplication::connect(mainInterface->renderedImage,
-													SIGNAL(ShiftModeChanged(bool)),
-													this,
-													SLOT(slotOrthogonalStrafe(bool)));
-		QApplication::connect(ui->tableWidget_flightAnimation,
-													SIGNAL(cellChanged(int, int)),
-													this,
-													SLOT(slotTableCellChanged(int, int)));
+		// connect flight control buttons
+		connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
+		connect(
+			ui->pushButton_continue_recording, SIGNAL(clicked()), this, SLOT(slotContinueRecording()));
+		connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
+		connect(ui->pushButton_delete_all_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
+		connect(ui->pushButton_show_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
+		connect(ui->pushButton_flight_refresh_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
+		connect(ui->pushButton_flight_to_keyframe_export, SIGNAL(clicked()), this,
+			SLOT(slotExportFlightToKeyframes()));
+		connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this,
+			SLOT(slotSelectAnimFlightImageDir()));
+		connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this,
+			SLOT(slotTableCellChanged(int, int)));
+		connect(ui->spinboxInt_flight_first_to_render, SIGNAL(valueChanged(int)), this,
+			SLOT(slotMovedSliderFirstFrame(int)));
+		connect(ui->spinboxInt_flight_last_to_render, SIGNAL(valueChanged(int)), this,
+			SLOT(slotMovedSliderLastFrame(int)));
+		connect(ui->tableWidget_flightAnimation, SIGNAL(cellDoubleClicked(int, int)), this,
+			SLOT(slotCellDoubleClicked(int, int)));
 
-		QApplication::connect(ui->spinboxInt_flight_first_to_render,
-													SIGNAL(valueChanged(int)),
-													this,
-													SLOT(slotMovedSliderFirstFrame(int)));
-		QApplication::connect(ui->spinboxInt_flight_last_to_render,
-													SIGNAL(valueChanged(int)),
-													this,
-													SLOT(slotMovedSliderLastFrame(int)));
+		// connect renderedImage signals
+		connect(mainInterface->renderedImage, SIGNAL(StrafeChanged(CVector2<double>)), this,
+			SLOT(slotFlightStrafe(CVector2<double>)));
+		connect(mainInterface->renderedImage, SIGNAL(YawAndPitchChanged(CVector2<double>)), this,
+			SLOT(slotFlightYawAndPitch(CVector2<double>)));
+		connect(mainInterface->renderedImage, SIGNAL(SpeedChanged(double)), this,
+			SLOT(slotFlightChangeSpeed(double)));
+		connect(mainInterface->renderedImage, SIGNAL(RotationChanged(double)), this,
+			SLOT(slotFlightRotation(double)));
+		connect(mainInterface->renderedImage, SIGNAL(Pause()), this, SLOT(slotRecordPause()));
+		connect(mainInterface->renderedImage, SIGNAL(ShiftModeChanged(bool)), this,
+			SLOT(slotOrthogonalStrafe(bool)));
 
-		QApplication::connect(ui->tableWidget_flightAnimation,
-													SIGNAL(cellDoubleClicked(int, int)),
-													this,
-													SLOT(slotCellDoubleClicked(int, int)));
-
-		QApplication::connect(this,
-													SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)),
-													mainInterface->mainWindow,
-													SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)));
+		// connect QuestionMessage signal
+		connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
+										QMessageBox::StandardButton *)),
+			mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString,
+																	 QMessageBox::StandardButtons, QMessageBox::StandardButton *)));
 
 		table = ui->tableWidget_flightAnimation;
 	}
@@ -132,10 +106,8 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		table = NULL;
 	}
 
-	QApplication::connect(this,
-												SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget*)),
-												gErrorMessage,
-												SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget*)));
+	connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)),
+		gErrorMessage, SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
 
 	image = _image;
 	imageWidget = _imageWidget;
@@ -173,29 +145,27 @@ void cFlightAnimation::slotContinueRecording()
 
 void cFlightAnimation::slotRenderFlight()
 {
-	//get latest values of all parameters
+	// get latest values of all parameters
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 
 	if (frames)
 	{
 		if (frames->GetNumberOfFrames() == 0)
 		{
-			emit showErrorMessage(QObject::tr("No frames to render"),
-														cErrorMessage::errorMessage,
-														ui->centralwidget);
+			emit showErrorMessage(
+				QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
 		}
 		else if (!QDir(params->Get<QString>("anim_flight_dir")).exists())
 		{
 			emit showErrorMessage(
 				QObject::tr("The folder %1 does not exist. Please specify a valid location.")
-						.arg(params->Get<QString>("anim_flight_dir")),
+					.arg(params->Get<QString>("anim_flight_dir")),
 				cErrorMessage::errorMessage, ui->centralwidget);
 		}
 		else
 		{
 			RenderFlight(&gMainInterface->stopRequest);
 		}
-
 	}
 	else
 	{
@@ -207,19 +177,18 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 {
 	mainInterface->DisablePeriodicRefresh();
 
-	//get latest values of all parameters
+	// get latest values of all parameters
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	gUndo.Store(params, fractalParams, frames, NULL);
 
 	if (!continueRecording)
 	{
-		//confirmation dialog before start
+		// confirmation dialog before start
 		QMessageBox::StandardButton reply;
-		reply =
-				QMessageBox::question(ui->centralwidget,
-															QObject::tr("Are you sure to start recording of new animation?"),
-															QObject::tr("This will delete all images in the image folder.\nProceed?"),
-															QMessageBox::Yes | QMessageBox::No);
+		reply = QMessageBox::question(ui->centralwidget,
+			QObject::tr("Are you sure to start recording of new animation?"),
+			QObject::tr("This will delete all images in the image folder.\nProceed?"),
+			QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::Yes)
 		{
@@ -234,32 +203,32 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	{
 		if (frames->GetNumberOfFrames() == 0)
 		{
-			cErrorMessage::showMessage(QObject::tr("No frames recorded before. Unable to continue."),
-																 cErrorMessage::errorMessage);
+			cErrorMessage::showMessage(
+				QObject::tr("No frames recorded before. Unable to continue."), cErrorMessage::errorMessage);
 			return;
 		}
 	}
 
-	//check if main image is not used by other rendering process
+	// check if main image is not used by other rendering process
 	if (image->IsUsed())
 	{
-		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),
-															 cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(
+			QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),
+			cErrorMessage::errorMessage);
 		return;
 	}
 
 	mainInterface->stopRequest = false;
-	for(int i = 0; i < 30; i++)
+	for (int i = 0; i < 30; i++)
 	{
-		if(mainInterface->stopRequest)
+		if (mainInterface->stopRequest)
 		{
 			emit updateProgressHide();
 			return;
 		}
 		emit updateProgressAndStatus(QObject::tr("Recordning flight path"),
-																 tr("waiting %1 seconds").arg(QString::number(3.0 - 0.1 * i)),
-																 0.0,
-																 cProgressText::progress_ANIMATION);
+			tr("waiting %1 seconds").arg(QString::number(3.0 - 0.1 * i)), 0.0,
+			cProgressText::progress_ANIMATION);
 		gApplication->processEvents();
 		Wait(100);
 	}
@@ -270,7 +239,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 		bool addSpeeds = params->Get<bool>("flight_add_speeds");
 
-		//add default parameters for animation
+		// add default parameters for animation
 		if (frames->GetListOfUsedParameters().size() == 0)
 		{
 			gAnimFrames->AddAnimatedParameter("camera", params->GetAsOneParameter("camera"));
@@ -280,9 +249,9 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			{
 				{
 					gAnimFrames->AddAnimatedParameter("flight_movement_speed_vector",
-																						params->GetAsOneParameter("flight_movement_speed_vector"));
+						params->GetAsOneParameter("flight_movement_speed_vector"));
 					gAnimFrames->AddAnimatedParameter("flight_rotation_speed_vector",
-																						params->GetAsOneParameter("flight_rotation_speed_vector"));
+						params->GetAsOneParameter("flight_rotation_speed_vector"));
 				}
 			}
 		}
@@ -290,25 +259,18 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		PrepareTable();
 	}
 
-	//setup cursor mode for renderedImage widget
+	// setup cursor mode for renderedImage widget
 	QList<QVariant> clickMode;
-	clickMode.append((int) RenderedImage::clickFlightSpeedControl);
+	clickMode.append((int)RenderedImage::clickFlightSpeedControl);
 	mainInterface->renderedImage->setClickMode(clickMode);
 
-	//setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(params,
-																				 fractalParams,
-																				 mainInterface->mainImage,
-																				 &mainInterface->stopRequest,
-																				 mainInterface->renderedImage);
-	connect(renderJob,
-					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-					this,
-					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-	connect(renderJob,
-					SIGNAL(updateStatistics(cStatistics)),
-					this,
-					SIGNAL(updateStatistics(cStatistics)));
+	// setup of rendering engine
+	cRenderJob *renderJob = new cRenderJob(params, fractalParams, mainInterface->mainImage,
+		&mainInterface->stopRequest, mainInterface->renderedImage);
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(
+		renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -317,7 +279,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	renderJob->Init(cRenderJob::flightAnimRecord, config);
 	mainInterface->stopRequest = false;
 
-	//vector for speed and rotation control
+	// vector for speed and rotation control
 	CVector3 cameraSpeed;
 	CVector3 cameraAcceleration;
 	CVector3 cameraAngularSpeed;
@@ -342,7 +304,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	cCameraTarget cameraTarget(cameraPosition, target, top);
 
 	linearSpeedSp = params->Get<double>("flight_speed");
-	enumSpeedMode speedMode = (enumSpeedMode) params->Get<int>("flight_speed_control");
+	enumSpeedMode speedMode = (enumSpeedMode)params->Get<int>("flight_speed_control");
 	double rotationSpeedSp = params->Get<double>("flight_rotation_speed") / 100.0;
 	double rollSpeedSp = params->Get<double>("flight_roll_speed") / 100.0;
 	double inertia = params->Get<double>("flight_inertia");
@@ -353,25 +315,22 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	while (!mainInterface->stopRequest)
 	{
 		emit updateProgressAndStatus(QObject::tr("Recording flight animation"),
-																 tr("Recording flight animation. Frame: ") + QString::number(index),
-																 0.0,
-																 cProgressText::progress_ANIMATION);
+			tr("Recording flight animation. Frame: ") + QString::number(index), 0.0,
+			cProgressText::progress_ANIMATION);
 
 		bool wasPaused = false;
 		while (recordPause)
 		{
 			wasPaused = true;
 			emit updateProgressAndStatus(QObject::tr("Recording flight animation"),
-																	 tr("Paused. Frame: ") + QString::number(index),
-																	 0.0,
-																	 cProgressText::progress_ANIMATION);
+				tr("Paused. Frame: ") + QString::number(index), 0.0, cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 			if (mainInterface->stopRequest) break;
 		}
 
 		if (wasPaused)
 		{
-			//parameter refresh after pause
+			// parameter refresh after pause
 			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 			renderJob->UpdateParameters(params, fractalParams);
 			rotationSpeedSp = params->Get<double>("flight_rotation_speed") / 100.0;
@@ -384,25 +343,22 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			if (mainInterface->stopRequest) break;
 		}
 
-		//speed
+		double distanceToSurface =
+			gMainInterface->GetDistanceForPoint(cameraPosition, params, fractalParams);
+
+		// speed
 		double linearSpeed;
-		double distanceToSurface = gMainInterface->GetDistanceForPoint(cameraPosition,
-																																	 params,
-																																	 fractalParams);
-		if (speedMode == speedRelative)
+		switch (speedMode)
 		{
-			linearSpeed = distanceToSurface * linearSpeedSp;
-		}
-		else
-		{
-			linearSpeed = linearSpeedSp;
+			case speedRelative: linearSpeed = distanceToSurface * linearSpeedSp; break;
+			case speedConstant: linearSpeed = linearSpeedSp; break;
 		}
 
-		//integrator for position
+		// integrator for position
 		if (strafe.Length() == 0)
 		{
-			cameraAcceleration = (cameraTarget.GetForwardVector() * linearSpeed - cameraSpeed)
-					/ (inertia + 1.0);
+			cameraAcceleration =
+				(cameraTarget.GetForwardVector() * linearSpeed - cameraSpeed) / (inertia + 1.0);
 		}
 		else
 		{
@@ -422,30 +378,30 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		cameraSpeed += cameraAcceleration;
 		cameraPosition += cameraSpeed;
 
-		//rotation
-		cameraAngularAcceleration.x = (yawAndPitch.x * rotationSpeedSp - cameraAngularSpeed.x)
-				/ (inertia + 1.0);
-		cameraAngularAcceleration.y = (yawAndPitch.y * rotationSpeedSp - cameraAngularSpeed.y)
-				/ (inertia + 1.0);
-		cameraAngularAcceleration.z = (rotationDirection * rollSpeedSp - cameraAngularSpeed.z)
-				/ (inertia + 1.0);
+		// rotation
+		cameraAngularAcceleration.x =
+			(yawAndPitch.x * rotationSpeedSp - cameraAngularSpeed.x) / (inertia + 1.0);
+		cameraAngularAcceleration.y =
+			(yawAndPitch.y * rotationSpeedSp - cameraAngularSpeed.y) / (inertia + 1.0);
+		cameraAngularAcceleration.z =
+			(rotationDirection * rollSpeedSp - cameraAngularSpeed.z) / (inertia + 1.0);
 		cameraAngularSpeed += cameraAngularAcceleration;
 
 		CVector3 forwardVector = cameraTarget.GetForwardVector();
-		forwardVector = forwardVector.RotateAroundVectorByAngle(cameraTarget.GetTopVector(),
-																														-cameraAngularSpeed.x);
-		forwardVector = forwardVector.RotateAroundVectorByAngle(cameraTarget.GetRightVector(),
-																														-cameraAngularSpeed.y);
+		forwardVector =
+			forwardVector.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), -cameraAngularSpeed.x);
+		forwardVector =
+			forwardVector.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), -cameraAngularSpeed.y);
 
 		top = cameraTarget.GetTopVector();
 		top = top.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), -cameraAngularSpeed.y);
 		top = top.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), -cameraAngularSpeed.z);
 
-		//update position and rotation
+		// update position and rotation
 		target = cameraPosition + forwardVector * cameraSpeed.Length();
 		cameraTarget.SetCameraTargetTop(cameraPosition, target, top);
 
-		//update parameters
+		// update parameters
 		params->Set("camera", cameraPosition);
 		params->Set("target", target);
 		params->Set("camera_top", top);
@@ -458,13 +414,13 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		SynchronizeInterfaceWindow(ui->dockWidget_navigation, params, qInterface::write);
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
-		//add new frame to container
+		// add new frame to container
 		frames->AddFrame(*params, *fractalParams);
 
-		//add column to table
+		// add column to table
 		int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));
 
-		//update HUD
+		// update HUD
 		RenderedImage::sFlightData flightData;
 		flightData.frame = frames->GetNumberOfFrames();
 		flightData.camera = cameraPosition;
@@ -478,26 +434,27 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 		mainInterface->renderedImage->SetFlightData(flightData);
 
-		//render frame
+		// render frame
 		bool result = renderJob->Execute();
 		if (!result) break;
 
-		//create thumbnail
+		// create thumbnail
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
 			UpdateThumbnailFromImage(newColumn);
 		}
 
 		QString filename = GetFlightFilename(index);
-		ImageFileSave::enumImageFileType fileType = (ImageFileSave::enumImageFileType)
-				params->Get<int>("flight_animation_image_type");
+		ImageFileSave::enumImageFileType fileType =
+			(ImageFileSave::enumImageFileType)params->Get<int>("flight_animation_image_type");
 		SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 		index++;
 	}
 
-	//retrieve original click mode
+	// retrieve original click mode
 	QList<QVariant> item =
-			ui->comboBox_mouse_click_function->itemData(ui->comboBox_mouse_click_function->currentIndex()).toList();
+		ui->comboBox_mouse_click_function->itemData(ui->comboBox_mouse_click_function->currentIndex())
+			.toList();
 	gMainInterface->renderedImage->setClickMode(item);
 
 	UpdateLimitsForFrameRange();
@@ -509,37 +466,35 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 void cFlightAnimation::UpdateThumbnailFromImage(int index)
 {
 	table->blockSignals(true);
-	QImage qimage((const uchar*) image->ConvertTo8bit(),
-								image->GetWidth(),
-								image->GetHeight(),
-								image->GetWidth() * sizeof(sRGB8),
-								QImage::Format_RGB888);
+	QImage qimage((const uchar *)image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(),
+		image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qimage);
-	QIcon icon(pixmap.scaled(QSize(100, 70),
-													 Qt::KeepAspectRatioByExpanding,
-													 Qt::SmoothTransformation));
+	QIcon icon(
+		pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
 	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
 	table->blockSignals(false);
 }
 
 void cFlightAnimation::PrepareTable()
 {
-	//manual delete of all cellWidgets
-	//FIXME deleting of cell widgets doesn't work properly. QTableWidgets don't free memory when clear() or removeCellWidget is used
-	//It calls destructors for cell widgets only when QTable widget is destroyed.
-	//even if cThumbnailWidget destructors are called, there is still some copy of widget inside the table.
+	// manual delete of all cellWidgets
+	// FIXME deleting of cell widgets doesn't work properly. QTableWidgets don't free memory
+	// when clear() or removeCellWidget is used
+	// It calls destructors for cell widgets only when QTable widget is destroyed.
+	// even if cThumbnailWidget destructors are called, there is still some copy of widget inside the
+	// table.
 
-//	for(int i = 1; i < table->columnCount(); i++)
-//	{
-//		table->removeCellWidget(0, i);
-//	}
-//	for(int i=0; i<thumbnailWidgets.size(); i++)
-//	{
-//		qDebug() << thumbnailWidgets[i];
-//		delete thumbnailWidgets[i];
-//	}
-// thumbnailWidgets.clear();
+	//	for(int i = 1; i < table->columnCount(); i++)
+	//	{
+	//		table->removeCellWidget(0, i);
+	//	}
+	//	for(int i=0; i<thumbnailWidgets.size(); i++)
+	//	{
+	//		qDebug() << thumbnailWidgets[i];
+	//		delete thumbnailWidgets[i];
+	//	}
+	// thumbnailWidgets.clear();
 
 	table->setRowCount(0);
 	table->setColumnCount(0);
@@ -570,7 +525,7 @@ void cFlightAnimation::CreateRowsInTable()
 }
 
 int cFlightAnimation::AddVariableToTable(
-		const cAnimationFrames::sParameterDescription &parameterDescription, int index)
+	const cAnimationFrames::sParameterDescription &parameterDescription, int index)
 {
 	using namespace parameterContainer;
 	enumVarType type = parameterDescription.varType;
@@ -674,26 +629,21 @@ int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 		{
 			CVector3 val = frame.parameters.Get<CVector3>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
-			table->setItem(row + 1,
-										 newColumn,
-										 new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
-			table->setItem(row + 2,
-										 newColumn,
-										 new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+			table->setItem(
+				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+			table->setItem(
+				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
 		}
 		else if (type == typeVector4)
 		{
 			CVector4 val = frame.parameters.Get<CVector4>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
-			table->setItem(row + 1,
-										 newColumn,
-										 new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
-			table->setItem(row + 2,
-										 newColumn,
-										 new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
-			table->setItem(row + 3,
-										 newColumn,
-										 new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 16)));
+			table->setItem(
+				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+			table->setItem(
+				row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+			table->setItem(
+				row + 3, newColumn, new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 16)));
 		}
 		else if (type == typeRgb)
 		{
@@ -718,8 +668,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	if (image->IsUsed())
 	{
-		emit showErrorMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),
-													cErrorMessage::errorMessage);
+		emit showErrorMessage(
+			QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),
+			cErrorMessage::errorMessage);
 		return false;
 	}
 
@@ -731,14 +682,10 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
 
-	connect(renderJob,
-					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-					this,
-					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-	connect(renderJob,
-					SIGNAL(updateStatistics(cStatistics)),
-					this,
-					SIGNAL(updateStatistics(cStatistics)));
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(
+		renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -776,19 +723,20 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 		if (frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0)
 		{
-			bool deletePreviousRender = false;
+			bool deletePreviousRender;
 			QString questionTitle = QObject::tr("Truncate Image Folder");
 			QString questionText =
-					QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
-							+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+				QObject::tr(
+					"The animation has already been rendered completely.\n Do you want to purge "
+					"the output "
+					"folder?\n") +
+				QObject::tr("This will delete all images in the image folder.\nProceed?");
 
 			if (!systemData.noGui)
 			{
 				QMessageBox::StandardButton reply = QMessageBox::NoButton;
-				emit QuestionMessage(questionTitle,
-														 questionText,
-														 QMessageBox::Yes | QMessageBox::No,
-														 &reply);
+				emit QuestionMessage(
+					questionTitle, questionText, QMessageBox::Yes | QMessageBox::No, &reply);
 				while (reply == QMessageBox::NoButton)
 				{
 					gApplication->processEvents();
@@ -814,31 +762,32 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 		{
 
-			double percentDoneFrame = 0.0;
-			if (unrenderedTotal > 0) percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0)
-					/ unrenderedTotal;
-			else percentDoneFrame = 1.0;
+			double percentDoneFrame;
+			if (unrenderedTotal > 0)
+				percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
+			else
+				percentDoneFrame = 1.0;
 
 			QString progressTxt = progressText.getText(percentDoneFrame);
 
 			// Skip already rendered frames
 			if (frames->GetFrame(index).alreadyRendered)
 			{
-				//int firstMissing = index;
+				// int firstMissing = index;
 				while (index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
 				{
 					index++;
 				}
 				index--;
-				//qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
+				// qDebug() << QObject::tr("Skip already rendered frame(s) %1 -
+				// %2").arg(firstMissing).arg(index);
 				continue;
 			}
 
 			emit updateProgressAndStatus(QObject::tr("Animation start"),
-																	 QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames())
-																			 + " " + progressTxt,
-																	 percentDoneFrame,
-																	 cProgressText::progress_ANIMATION);
+				QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " +
+					progressTxt,
+				percentDoneFrame, cProgressText::progress_ANIMATION);
 
 			if (*stopRequest) throw false;
 
@@ -848,10 +797,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			{
 				mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
-				//show distance in statistics table
-				double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"),
-																														 params,
-																														 fractalParams);
+				// show distance in statistics table
+				double distance = mainInterface->GetDistanceForPoint(
+					params->Get<CVector3>("camera"), params, fractalParams);
 				ui->tableWidget_statistics->item(5, 0)->setText(QString("%L1").arg(distance));
 			}
 
@@ -867,21 +815,19 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			if (!result) throw false;
 
 			QString filename = GetFlightFilename(index);
-			ImageFileSave::enumImageFileType fileType = (ImageFileSave::enumImageFileType)
-					params->Get<int>("flight_animation_image_type");
+			ImageFileSave::enumImageFileType fileType =
+				(ImageFileSave::enumImageFileType)params->Get<int>("flight_animation_image_type");
 			SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 		}
 
-		emit updateProgressAndStatus(QObject::tr("Animation finished"),
-																 progressText.getText(1.0),
-																 1.0,
-																 cProgressText::progress_ANIMATION);
+		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,
+			cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
-	} catch (bool ex)
+	}
+	catch (bool ex)
 	{
-		emit updateProgressAndStatus(QObject::tr("Rendering terminated"),
-																 progressText.getText(1.0),
-																 cProgressText::progress_ANIMATION);
+		emit updateProgressAndStatus(QObject::tr("Rendering terminated"), progressText.getText(1.0),
+			cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 		delete renderJob;
 		return false;
@@ -898,7 +844,8 @@ void cFlightAnimation::RefreshTable()
 
 	int noOfFrames = frames->GetNumberOfFrames();
 
-	UpdateLimitsForFrameRange(); //it is needed to do it also here, because limits must be set just after loading of settings
+	// it is needed to do it also here, because limits must be set just after loading of settings
+	UpdateLimitsForFrameRange();
 
 	SynchronizeInterfaceWindow(ui->tab_flight_animation, params, qInterface::read);
 	cParameterContainer tempPar = *params;
@@ -919,9 +866,8 @@ void cFlightAnimation::RefreshTable()
 		if (i % 100 == 0)
 		{
 			emit updateProgressAndStatus(QObject::tr("Refreshing animation"),
-																	 tr("Refreshing animation frames"),
-																	 (double) i / noOfFrames,
-																	 cProgressText::progress_ANIMATION);
+				tr("Refreshing animation frames"), (double)i / noOfFrames,
+				cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
 	}
@@ -937,8 +883,8 @@ QString cFlightAnimation::GetParameterName(int rowNumber)
 	QList<cAnimationFrames::sParameterDescription> list = frames->GetListOfUsedParameters();
 	if (parameterNumber >= 0)
 	{
-		fullParameterName = list[parameterNumber].containerName + "_"
-				+ list[parameterNumber].parameterName;
+		fullParameterName =
+			list[parameterNumber].containerName + "_" + list[parameterNumber].parameterName;
 	}
 	else
 	{
@@ -986,14 +932,12 @@ void cFlightAnimation::slotFlightYawAndPitch(CVector2<double> _yawAndPitch)
 
 void cFlightAnimation::slotFlightChangeSpeed(double amount)
 {
-	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
-																						params,
-																						qInterface::read);
+	SynchronizeInterfaceWindow(
+		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
 	linearSpeedSp = params->Get<double>("flight_speed") * amount;
 	params->Set("flight_speed", linearSpeedSp);
-	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
-																						params,
-																						qInterface::write);
+	SynchronizeInterfaceWindow(
+		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::write);
 }
 
 void cFlightAnimation::slotFlightRotation(double direction)
@@ -1008,7 +952,7 @@ void cFlightAnimation::slotOrthogonalStrafe(bool _orthogonalStrafe)
 
 void cFlightAnimation::slotSelectAnimFlightImageDir()
 {
-	QFileDialog* dialog = new QFileDialog();
+	QFileDialog *dialog = new QFileDialog();
 	dialog->setFileMode(QFileDialog::DirectoryOnly);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
 	dialog->setDirectory(QDir::toNativeSeparators(params->Get<QString>("anim_flight_dir")));
@@ -1075,13 +1019,13 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 		frames->ModifyFrame(column, frame);
 
-		//update thumbnail
+		// update thumbnail
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
 			cParameterContainer tempPar = *params;
 			cFractalContainer tempFract = *fractalParams;
 			frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
-			cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(0, column);
+			cThumbnailWidget *thumbWidget = (cThumbnailWidget *)table->cellWidget(0, column);
 
 			if (!thumbWidget)
 			{
@@ -1102,16 +1046,13 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 void cFlightAnimation::slotDeleteAllImages()
 {
-	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters,
-																						params,
-																						qInterface::read);
+	SynchronizeInterfaceWindow(
+		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
 
 	QMessageBox::StandardButton reply;
-	reply =
-			QMessageBox::question(ui->centralwidget,
-														QObject::tr("Truncate Image Folder"),
-														QObject::tr("This will delete all images in the image folder.\nProceed?"),
-														QMessageBox::Yes | QMessageBox::No);
+	reply = QMessageBox::question(ui->centralwidget, QObject::tr("Truncate Image Folder"),
+		QObject::tr("This will delete all images in the image folder.\nProceed?"),
+		QMessageBox::Yes | QMessageBox::No);
 
 	if (reply == QMessageBox::Yes)
 	{
@@ -1123,11 +1064,10 @@ void cFlightAnimation::slotShowAnimation()
 {
 	WriteLog("Prepare PlayerWidget class", 2);
 
-	SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
-																						params,
-																						qInterface::read);
+	SynchronizeInterfaceWindow(
+		ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, qInterface::read);
 
-	if(!mainInterface->imageSequencePlayer)
+	if (!mainInterface->imageSequencePlayer)
 	{
 		mainInterface->imageSequencePlayer = new PlayerWidget;
 	}
@@ -1141,7 +1081,7 @@ void cFlightAnimation::slotShowAnimation()
 void cFlightAnimation::slotRecordPause()
 {
 	recordPause = !recordPause;
-	//qDebug() << recordPause;
+	// qDebug() << recordPause;
 }
 
 void cFlightAnimation::InterpolateForward(int row, int column)
@@ -1166,14 +1106,8 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	QString valueText;
 
 	bool ok;
-	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow,
-																			 "Parameter interpolation",
-																			 "Enter last frame number",
-																			 column + 1,
-																			 column + 2,
-																			 frames->GetNumberOfFrames(),
-																			 1,
-																			 &ok);
+	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
+		"Enter last frame number", column + 1, column + 2, frames->GetNumberOfFrames(), 1, &ok);
 	if (!ok) return;
 
 	int numberOfFrames = (lastFrame - column - 1);
@@ -1186,7 +1120,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		{
 			valueIsInteger = true;
 			valueInteger = cellText.toInt();
-			//qDebug() << valueInteger;
+			// qDebug() << valueInteger;
 			break;
 		}
 		case typeDouble:
@@ -1195,7 +1129,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		{
 			valueIsDouble = true;
 			valueDouble = systemData.locale.toDouble(cellText);
-			//qDebug() << valueDouble;
+			// qDebug() << valueDouble;
 			break;
 		}
 		default:
@@ -1207,33 +1141,22 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	}
 
 	int finalInteger = 0;
-	double finalDouble = 0.0;
+	double finalDouble;
+
 	double integerStep = 0.0;
 	double doubleStep = 0.0;
 
 	if (valueIsInteger)
 	{
-		finalInteger = QInputDialog::getInt(mainInterface->mainWindow,
-																				"Parameter interpolation",
-																				"Enter value for last frame",
-																				valueInteger,
-																				0,
-																				2147483647,
-																				1,
-																				&ok);
-		integerStep = (double) (finalInteger - valueInteger) / numberOfFrames;
+		finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
+			"Enter value for last frame", valueInteger, 0, 2147483647, 1, &ok);
+		integerStep = (double)(finalInteger - valueInteger) / numberOfFrames;
 	}
 	else if (valueIsDouble)
 	{
 		finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
-																																	 "Parameter interpolation",
-																																	 "Enter value for last frame",
-																																	 QLineEdit::Normal,
-																																	 QString("%L1").arg(valueDouble,
-																																											0,
-																																											'g',
-																																											16),
-																																	 &ok));
+			"Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
+			QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -1244,7 +1167,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		QString newCellText;
 		if (valueIsInteger)
 		{
-			int newValue = integerStep * (i - column) + valueInteger;
+			int newValue = (int)(integerStep * (i - column) + valueInteger);
 			newCellText = QString::number(newValue);
 		}
 		else if (valueIsDouble)
@@ -1268,10 +1191,11 @@ void cFlightAnimation::slotRefreshTable()
 
 QString cFlightAnimation::GetFlightFilename(int index)
 {
-	QString filename = params->Get<QString>("anim_flight_dir") + "frame_"
-			+ QString("%1").arg(index, 5, 10, QChar('0'));
-	filename += "." + ImageFileSave::ImageFileExtension(
-				(ImageFileSave::enumImageFileType) params->Get<int>("flight_animation_image_type"));
+	QString filename = params->Get<QString>("anim_flight_dir") + "frame_" +
+										 QString("%1").arg(index, 5, 10, QChar('0'));
+	filename +=
+		"." + ImageFileSave::ImageFileExtension(
+						(ImageFileSave::enumImageFileType)params->Get<int>("flight_animation_image_type"));
 	return filename;
 }
 
@@ -1283,11 +1207,9 @@ void cFlightAnimation::slotExportFlightToKeyframes()
 	if (gKeyframes->GetFrames().size() > 0)
 	{
 		QMessageBox::StandardButton reply;
-		reply =
-				QMessageBox::question(ui->centralwidget,
-															QObject::tr("Export flight to keyframes"),
-															QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
-															QMessageBox::Yes | QMessageBox::No);
+		reply = QMessageBox::question(ui->centralwidget, QObject::tr("Export flight to keyframes"),
+			QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
+			QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::No) return;
 	}
@@ -1322,11 +1244,14 @@ void cFlightAnimation::UpdateLimitsForFrameRange(void)
 
 void cFlightAnimation::slotMovedSliderFirstFrame(int value)
 {
-	if (value > ui->spinboxInt_flight_last_to_render->value()) ui->spinboxInt_flight_last_to_render->setValue(value);
+	if (value > ui->spinboxInt_flight_last_to_render->value())
+		ui->spinboxInt_flight_last_to_render->setValue(value);
 }
+
 void cFlightAnimation::slotMovedSliderLastFrame(int value)
 {
-	if (value < ui->spinboxInt_flight_first_to_render->value()) ui->spinboxInt_flight_first_to_render->setValue(value);
+	if (value < ui->spinboxInt_flight_first_to_render->value())
+		ui->spinboxInt_flight_first_to_render->setValue(value);
 }
 
 void cFlightAnimation::slotCellDoubleClicked(int row, int column)

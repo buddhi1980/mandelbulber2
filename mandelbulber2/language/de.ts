@@ -850,26 +850,26 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Rendere SSAO Effekt</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="182"/>
+        <location filename="../src/animation_flight.cpp" line="156"/>
         <location filename="../src/animation_keyframes.cpp" line="260"/>
         <source>No frames to render</source>
         <translation>Keine Frames zu Rendern</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="187"/>
+        <location filename="../src/animation_flight.cpp" line="161"/>
         <location filename="../src/animation_keyframes.cpp" line="267"/>
         <source>The folder %1 does not exist. Please specify a valid location.</source>
         <translation>Der Ordner %1 existiert nicht. Bitte einen validen Ordner angeben.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="216"/>
+        <location filename="../src/animation_flight.cpp" line="189"/>
         <source>Are you sure to start recording of new animation?</source>
         <translation>Eine neue Animation aufnehmen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="217"/>
-        <location filename="../src/animation_flight.cpp" line="779"/>
-        <location filename="../src/animation_flight.cpp" line="1108"/>
+        <location filename="../src/animation_flight.cpp" line="190"/>
+        <location filename="../src/animation_flight.cpp" line="733"/>
+        <location filename="../src/animation_flight.cpp" line="1054"/>
         <location filename="../src/animation_keyframes.cpp" line="621"/>
         <location filename="../src/animation_keyframes.cpp" line="944"/>
         <source>This will delete all images in the image folder.
@@ -878,39 +878,39 @@ Proceed?</source>
 Fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="234"/>
+        <location filename="../src/animation_flight.cpp" line="207"/>
         <source>No frames recorded before. Unable to continue.</source>
         <translation>Noch keine Frames aufgenommen. Kann nicht fortfahren.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="243"/>
-        <location filename="../src/animation_flight.cpp" line="716"/>
+        <location filename="../src/animation_flight.cpp" line="216"/>
+        <location filename="../src/animation_flight.cpp" line="672"/>
         <location filename="../src/animation_keyframes.cpp" line="525"/>
         <location filename="../src/interface.cpp" line="2246"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
         <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="256"/>
+        <location filename="../src/animation_flight.cpp" line="229"/>
         <source>Recordning flight path</source>
         <translation>Flug aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="350"/>
-        <location filename="../src/animation_flight.cpp" line="359"/>
+        <location filename="../src/animation_flight.cpp" line="317"/>
+        <location filename="../src/animation_flight.cpp" line="325"/>
         <source>Recording flight animation</source>
         <translation>Fluganimation aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="773"/>
-        <location filename="../src/animation_flight.cpp" line="1107"/>
+        <location filename="../src/animation_flight.cpp" line="727"/>
+        <location filename="../src/animation_flight.cpp" line="1053"/>
         <location filename="../src/animation_keyframes.cpp" line="618"/>
         <location filename="../src/animation_keyframes.cpp" line="943"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="775"/>
+        <location filename="../src/animation_flight.cpp" line="729"/>
         <location filename="../src/animation_keyframes.cpp" line="620"/>
         <source>The animation has already been rendered completely.
  Do you want to purge the output folder?
@@ -919,54 +919,54 @@ Fortsetzen?</translation>
 Soll der Bilderordner geleert werden?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="833"/>
+        <location filename="../src/animation_flight.cpp" line="787"/>
         <source>Animation start</source>
         <translation>Animationsstart</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="834"/>
+        <location filename="../src/animation_flight.cpp" line="788"/>
         <location filename="../src/animation_keyframes.cpp" line="680"/>
         <location filename="../src/player_widget.cpp" line="180"/>
         <source>Frame %1 of %2</source>
         <translation>Frame %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="870"/>
+        <location filename="../src/animation_flight.cpp" line="823"/>
         <location filename="../src/animation_keyframes.cpp" line="725"/>
         <source>Animation finished</source>
         <translation>Animation beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="878"/>
+        <location filename="../src/animation_flight.cpp" line="829"/>
         <location filename="../src/animation_keyframes.cpp" line="732"/>
         <source>Rendering terminated</source>
         <translation>Rendern beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="920"/>
+        <location filename="../src/animation_flight.cpp" line="868"/>
         <location filename="../src/animation_keyframes.cpp" line="773"/>
         <source>Refreshing animation</source>
         <translation>Animationsframes werden aktualisiert</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1010"/>
+        <location filename="../src/animation_flight.cpp" line="957"/>
         <location filename="../src/animation_keyframes.cpp" line="844"/>
         <source>Animation Image Folder</source>
         <translation>Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1013"/>
+        <location filename="../src/animation_flight.cpp" line="960"/>
         <location filename="../src/animation_keyframes.cpp" line="847"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wähle Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1279"/>
+        <location filename="../src/animation_flight.cpp" line="1210"/>
         <source>Export flight to keyframes</source>
         <translation>Flug zu Keyframe exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1280"/>
+        <location filename="../src/animation_flight.cpp" line="1211"/>
         <source>There are already captured keyframes present.
 Discard current keyframes?</source>
         <translation>Es sind bereits aufgenommene Keyframes vorhanden.
@@ -6982,28 +6982,28 @@ und Distanz</translation>
         <translation type="vanished">3 Sekunden warten</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="257"/>
+        <location filename="../src/animation_flight.cpp" line="230"/>
         <source>waiting %1 seconds</source>
         <translation>Warte %1 Sekunden</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="351"/>
+        <location filename="../src/animation_flight.cpp" line="318"/>
         <source>Recording flight animation. Frame: </source>
         <translation>Fluganimation aufzeichnen. Frame: </translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="360"/>
+        <location filename="../src/animation_flight.cpp" line="326"/>
         <source>Paused. Frame: </source>
         <translation>Pausiert. Frame: </translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="556"/>
-        <location filename="../src/animation_flight.cpp" line="558"/>
+        <location filename="../src/animation_flight.cpp" line="512"/>
+        <location filename="../src/animation_flight.cpp" line="514"/>
         <source>preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="921"/>
+        <location filename="../src/animation_flight.cpp" line="869"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
@@ -7071,7 +7071,6 @@ Vorschau</translation>
         <translation>Material Name:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="63"/>
         <location filename="../qt/ui_material_editor.h" line="1439"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Material name used in Material Manager&lt;/p&gt;&lt;p&gt;When materials will be named well, then will be easier to find them in Material Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Material Name der im Material Manager verwendet wird.&lt;/p&gt;&lt;p&gt;Eine korrekte Benamung der Materialien macht es einfacher die Materialien im Material Manager zu verwalten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -7087,7 +7086,7 @@ Vorschau</translation>
         <location filename="../qt/ui_material_editor.h" line="1442"/>
         <source>Specular highlight
 width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Glanz Breite:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="142"/>
@@ -7096,571 +7095,728 @@ width:</source>
         <translation>Transparenz des Volumens:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="149"/>
-        <location filename="../qt/ui_material_editor.h" line="1445"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displacement map technique uses texture to cause an effect where the actual geometric position of points over the textured surface are displaced. It gives surfaces a great sense of depth and detail, permitting in self-shadowing. In contrast to normal mapping, it deforms object surface.&lt;/p&gt;&lt;p&gt;Example displacement map texture (in most cases can be the same as for bump maps). Brighter pixels will give bigger embossing of surface.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Example result:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - displacement map.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Note: displacement map doesn&apos;t work with cubic mapping of texture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Verschiebungsmap Technik verwendet eine Textur, um die eigentliche geometrische Lage der Punkte um den Wert aus der jeweiligen Texturposition zu verschieben. Dies gibt der Oberfläche ein hohen Wert an Tiefe und Detail, was Selbstbeschattung ermöglicht. Im Gegensatz zum Normal-Mapping, wird die Oberfläche der Objekts deformiert.&lt;/p&gt;&lt;p&gt;Beispiel Verschiebungssmap Textur (in den meisten Fällen kann dieselbe Textur, wie für Bumpmaps verwendet werden). Hellere Pixel geben tiefere Prägung der Oberfläche.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Beispiel Ergebnis:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - displacement map.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Hinweis: Verschiebungsmap funktioniert nicht mit kubischem-Mapping der Textur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="152"/>
+        <location filename="../qt/ui_material_editor.h" line="1448"/>
         <source>Use displacement &amp;map texture</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende Verschiebungsmap Textur</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="200"/>
-        <location filename="../qt/ui_material_editor.h" line="1446"/>
+        <location filename="../qt/material_editor.ui" line="203"/>
+        <location filename="../qt/ui_material_editor.h" line="1449"/>
         <source>Displacement height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschiebung Höhe:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="207"/>
-        <location filename="../qt/material_editor.ui" line="333"/>
-        <location filename="../qt/material_editor.ui" line="1452"/>
-        <location filename="../qt/material_editor.ui" line="1550"/>
-        <location filename="../qt/material_editor.ui" line="1712"/>
-        <location filename="../qt/ui_material_editor.h" line="1447"/>
-        <location filename="../qt/ui_material_editor.h" line="1457"/>
-        <location filename="../qt/ui_material_editor.h" line="1595"/>
-        <location filename="../qt/ui_material_editor.h" line="1609"/>
-        <location filename="../qt/ui_material_editor.h" line="1622"/>
+        <location filename="../qt/material_editor.ui" line="210"/>
+        <location filename="../qt/material_editor.ui" line="345"/>
+        <location filename="../qt/material_editor.ui" line="1470"/>
+        <location filename="../qt/material_editor.ui" line="1571"/>
+        <location filename="../qt/material_editor.ui" line="1745"/>
+        <location filename="../qt/ui_material_editor.h" line="1450"/>
+        <location filename="../qt/ui_material_editor.h" line="1469"/>
+        <location filename="../qt/ui_material_editor.h" line="1613"/>
+        <location filename="../qt/ui_material_editor.h" line="1631"/>
+        <location filename="../qt/ui_material_editor.h" line="1656"/>
         <source>Texture path:</source>
         <translation>Texturpfad:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="239"/>
-        <location filename="../qt/ui_material_editor.h" line="1448"/>
+        <location filename="../qt/material_editor.ui" line="223"/>
+        <location filename="../qt/ui_material_editor.h" line="1452"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with displacement map texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dateipfad zur Textur für die Verschiebung.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="236"/>
+        <location filename="../qt/ui_material_editor.h" line="1455"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Height of displacement. Height is in the same units as object sizes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Höhe der Verschiebung. Die Höhe ist in der selben Einheit, wie die Objektgröße.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="248"/>
+        <location filename="../qt/ui_material_editor.h" line="1457"/>
         <source>Specular highlight
 color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Glanz Farbe:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="253"/>
-        <location filename="../qt/ui_material_editor.h" line="1451"/>
+        <location filename="../qt/material_editor.ui" line="262"/>
+        <location filename="../qt/ui_material_editor.h" line="1460"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Size of specular highlights&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;width 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;width 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;width 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - specular highlight width 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - specular highlight width 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - specular highlight width 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Breite der Glanzlichtes&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Breite 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Breite 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Breite 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - specular highlight width 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - specular highlight width 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - specular highlight width 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="278"/>
-        <location filename="../qt/ui_material_editor.h" line="1455"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diffusion texture controls amount and color of reflected light and also controls intensity and width of specular reflections.&lt;/p&gt;&lt;p&gt;Area with brighter colors will reflect more light, specular reflection will be brighter and size of specular reflections will be smaller. That will simulate polished surface.&lt;/p&gt;&lt;p&gt;Dark areas will not reflect light and specular reflections will be dark and wide. That will simulate rough surface. &lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - diffusion texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diffusion Textur steuert Wert und Farbe des reflektierten Lichts, sowie die Intensität und Breite der Glanz Reflektionen.&lt;/p&gt;&lt;p&gt;Ein Bereich mit helleren Farben wird mehr Licht reflektieren, Glanz Reflexion wird heller und kleiner (polierte Oberfläche).&lt;/p&gt;&lt;p&gt;Dunkle Bereiche reflektieren kein Licht und Glanz Reflexionen werden dunkel und breit sein (raue Oberfläche).&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - diffusion texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="290"/>
+        <location filename="../qt/ui_material_editor.h" line="1467"/>
         <source>Use d&amp;iffusion texture</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende Diffusion Textur</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="326"/>
-        <location filename="../qt/material_editor.ui" line="1445"/>
-        <location filename="../qt/material_editor.ui" line="1705"/>
-        <location filename="../qt/ui_material_editor.h" line="1456"/>
-        <location filename="../qt/ui_material_editor.h" line="1594"/>
-        <location filename="../qt/ui_material_editor.h" line="1621"/>
+        <location filename="../qt/material_editor.ui" line="338"/>
+        <location filename="../qt/material_editor.ui" line="1463"/>
+        <location filename="../qt/material_editor.ui" line="1738"/>
+        <location filename="../qt/ui_material_editor.h" line="1468"/>
+        <location filename="../qt/ui_material_editor.h" line="1612"/>
+        <location filename="../qt/ui_material_editor.h" line="1655"/>
         <source>Texture intensity:</source>
-        <translation>Textue Intensität:</translation>
+        <translation>Textur Intensität:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="386"/>
-        <location filename="../qt/ui_material_editor.h" line="1461"/>
+        <location filename="../qt/material_editor.ui" line="358"/>
+        <location filename="../qt/ui_material_editor.h" line="1471"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with diffusion texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dateipfad zur Textur für die Diffusion.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="371"/>
+        <location filename="../qt/ui_material_editor.h" line="1474"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of diffusion texture. Higher value will simulate more polished surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Helligkeit der Diffusion Textur. Ein höherer Wert simuliert eine &apos;poliertere&apos; Oberfläche.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/ui_material_editor.h" line="1479"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of fractal interior. Thicker body of object is less transparent.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;Examples for yellow color of volume&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;transparency 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Transparenz des fraktalen Inneren. Dickere Körper sind weniger transparent.&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab aktiviert sein.&lt;/p&gt;&lt;p&gt;Beispiel für gelbe Farbe des Volumens&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Transparenz 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Transparenz 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Transparenz 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="393"/>
-        <location filename="../qt/ui_material_editor.h" line="1463"/>
+        <location filename="../qt/material_editor.ui" line="411"/>
+        <location filename="../qt/ui_material_editor.h" line="1481"/>
         <source>Luminosity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Leuchtkraft:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="406"/>
-        <location filename="../qt/ui_material_editor.h" line="1465"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of fractal surface. &lt;/p&gt;&lt;p&gt;This effect simulates glass or another refractive materials. If this effect is applied of fractal object, there is recomented to decrease &apos;maximum number of iterations&apos; to as low value as it will not decrease image quality (to e.g. about 20). Then rendering will be much faster.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab &lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;transparency 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="428"/>
-        <location filename="../qt/ui_material_editor.h" line="1470"/>
+        <location filename="../qt/material_editor.ui" line="446"/>
+        <location filename="../qt/ui_material_editor.h" line="1488"/>
         <source>Shading:</source>
         <translation>Schattierung:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="435"/>
-        <location filename="../qt/ui_material_editor.h" line="1471"/>
+        <location filename="../qt/material_editor.ui" line="453"/>
+        <location filename="../qt/ui_material_editor.h" line="1489"/>
         <source>Specular highlight
 brightness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Glanz Helligkeit:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="513"/>
-        <location filename="../qt/ui_material_editor.h" line="1474"/>
+        <location filename="../qt/material_editor.ui" line="531"/>
+        <location filename="../qt/ui_material_editor.h" line="1492"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables coloring of fractal surface using mathematical algorithms and color palette. &lt;/p&gt;&lt;p&gt;This option works only for fractal objects. For primitive objects it will be ignored.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;palette off&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;palette on&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ermöglicht Färbung der fraktalen Oberfläche mit Hilfe von mathematischen Algorithmen und der Farbpalette.&lt;/p&gt;&lt;p&gt;Diese Option funktioniert nur für fraktale Objekte. Für primitive Objekte wird sie ignoriert.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Palette aus&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Palette an&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="516"/>
-        <location filename="../qt/ui_material_editor.h" line="1476"/>
-        <source>Use colo&amp;r from palette</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt/ui_material_editor.h" line="1483"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of fractal surface. &lt;/p&gt;&lt;p&gt;This effect simulates glass or another refractive materials. If this effect is applied of fractal object, there is recommended to decrease &apos;maximum number of iterations&apos; to as low value as it will not decrease image quality (to e.g. about 20). Then rendering will be much faster.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab &lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;transparency 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparenz der Fraktaloberfläche.&lt;/p&gt;&lt;p&gt;Dieser Effekt simuliert Glas, oder andere lichtbrechende Materialien. Wenn dieser Effekt auf das Fraktal angewandt wird, es wird empfohlen der Wert für &apos;maximalen Anzahl der Iterationen&apos; so gering wie möglich zu setzen, da dieser die Bildqualität nicht beeinträchtigt (zu bspw. 20). Dadurch läuft das Rendering schneller.&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab aktiviert sein &lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Transparenz 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Transparenz 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Transparenz 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="545"/>
-        <location filename="../qt/ui_material_editor.h" line="1477"/>
+        <location filename="../qt/material_editor.ui" line="149"/>
+        <location filename="../qt/ui_material_editor.h" line="1446"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displacement map technique uses texture to cause an effect where the actual geometric position of points over the textured surface are displaced. It gives the surfaces a greater sense of depth and detail, permitting self-shadowing. In contrast to normal mapping, it deforms object surface.&lt;/p&gt;&lt;p&gt;Example displacement map texture (in most cases it can be the same as for bump maps). Brighter pixels will give bigger embossing of surface.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Example result:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - displacement map.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Note: displacement map doesn&apos;t work with cubic mapping of texture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Verschiebungsmap Technik verwendet eine Textur, um die eigentliche geometrische Lage der Punkte um den Wert aus der jeweiligen Texturposition zu verschieben. Dies gibt der Oberfläche ein hohen Wert an Tiefe und Detail, was Selbstbeschattung ermöglicht. Im Gegensatz zum Normal-Mapping, wird die Oberfläche der Objekts deformiert.&lt;/p&gt;&lt;p&gt;Beispiel Verschiebungssmap Textur (in den meisten Fällen kann dieselbe Textur, wie für Bumpmaps verwendet werden). Hellere Pixel geben tiefere Prägung der Oberfläche.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Beispiel Ergebnis:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - displacement map.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Hinweis: Verschiebungsmap funktioniert nicht mit kubischem-Mapping der Textur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="287"/>
+        <location filename="../qt/ui_material_editor.h" line="1465"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diffusion texture controls the amount and color of reflected light. It also controls the intensity and width of the specular reflections.&lt;/p&gt;&lt;p&gt;Areas with brighter colors will reflect more light, the specular reflection will be brighter and the size of the specular reflections will be smaller (i.e.  simulates polished surface.)&lt;/p&gt;&lt;p&gt;Dark areas will not reflect light, and the specular reflections will be dark and wide (i.e.  simulates a rough surface). &lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - diffusion texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diffusion Textur steuert Wert und Farbe des reflektierten Lichts, sowie die Intensität und Breite der Glanz Reflektionen.&lt;/p&gt;&lt;p&gt;Ein Bereich mit helleren Farben wird mehr Licht reflektieren, Glanz Reflexion wird heller und kleiner (polierte Oberfläche).&lt;/p&gt;&lt;p&gt;Dunkle Bereiche reflektieren kein Licht und Glanz Reflexionen werden dunkel und breit sein (raue Oberfläche).&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - diffusion texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="404"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of fractal interior. Thicker parts of the object will appear less transparent than thinner parts.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;Examples for yellow color of volume&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;transparency 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Transparenz des fraktalen Inneren. Dickere Teile des Objektes sind weniger transparent, als dünnere.&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab aktiviert sein.&lt;/p&gt;&lt;p&gt;Beispiel für gelbe Farbe des Volumens&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Transparenz 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Transparenz 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Transparenz 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="424"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of fractal surface. &lt;/p&gt;&lt;p&gt;This effect simulates glass or another refractive materials. If this effect is applied of fractal object, there is recommended to decrease &apos;maximum number of iterations&apos; to as low value as it will not decrease image quality (to e.g. about 20). Then the rendering will be much faster.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab &lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;transparency 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparenz der Fraktaloberfläche.&lt;/p&gt;&lt;p&gt;Dieser Effekt simuliert Glas, oder andere lichtbrechende Materialien. Wenn dieser Effekt auf das Fraktal angewandt wird, es wird empfohlen der Wert für &apos;maximalen Anzahl der Iterationen&apos; so gering wie möglich zu setzen, da dieser die Bildqualität nicht beeinträchtigt (zu bspw. 20). Dadurch läuft das Rendering schneller.&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab aktiviert sein &lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Transparenz 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Transparenz 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Transparenz 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="534"/>
+        <location filename="../qt/ui_material_editor.h" line="1494"/>
+        <source>Use co&amp;lors from a palette</source>
+        <translation>Verwende Farben aus Palette</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="563"/>
+        <location filename="../qt/ui_material_editor.h" line="1495"/>
         <source>Coloring algorithm:</source>
         <translation>Färbungsalgorithmus:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="561"/>
-        <location filename="../qt/material_editor.ui" line="1009"/>
-        <location filename="../qt/material_editor.ui" line="1065"/>
-        <location filename="../qt/ui_material_editor.h" line="1479"/>
-        <location filename="../qt/ui_material_editor.h" line="1540"/>
-        <location filename="../qt/ui_material_editor.h" line="1548"/>
+        <location filename="../qt/material_editor.ui" line="579"/>
+        <location filename="../qt/material_editor.ui" line="1027"/>
+        <location filename="../qt/material_editor.ui" line="1083"/>
+        <location filename="../qt/ui_material_editor.h" line="1497"/>
+        <location filename="../qt/ui_material_editor.h" line="1558"/>
+        <location filename="../qt/ui_material_editor.h" line="1566"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direction vector of line in orbit trap algorithm for coloring&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Richtungsvektor der Linie im Orbit Trap-Algorithmus, der zum Färben verwendet wird&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Richtungsvektor der Linie im Orbit Trap-Algorithmus, der zum Färben verwendet wird&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="568"/>
-        <location filename="../qt/ui_material_editor.h" line="1481"/>
+        <location filename="../qt/material_editor.ui" line="586"/>
+        <location filename="../qt/ui_material_editor.h" line="1499"/>
         <source>Color speed:</source>
         <translation>Farbgeschwindigkeit:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="581"/>
-        <location filename="../qt/ui_material_editor.h" line="1483"/>
+        <location filename="../qt/material_editor.ui" line="599"/>
+        <location filename="../qt/ui_material_editor.h" line="1501"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Random seed for palette generator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zufallsstartwert für den Palettengenerator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="591"/>
-        <location filename="../qt/ui_material_editor.h" line="1485"/>
+        <location filename="../qt/material_editor.ui" line="609"/>
+        <location filename="../qt/ui_material_editor.h" line="1503"/>
         <source>Random seed:</source>
         <translation>Zufallsstartwert:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="598"/>
-        <location filename="../qt/ui_material_editor.h" line="1486"/>
+        <location filename="../qt/material_editor.ui" line="616"/>
+        <location filename="../qt/ui_material_editor.h" line="1504"/>
         <source>Saturation:</source>
         <translation>Sättigung:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="611"/>
-        <location filename="../qt/ui_material_editor.h" line="1488"/>
+        <location filename="../qt/material_editor.ui" line="629"/>
+        <location filename="../qt/ui_material_editor.h" line="1506"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saturation of colors in random color palette &lt;/p&gt;&lt;p&gt;To apply changes of saturation, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbsättigung der Zufallspalette &lt;/p&gt;&lt;p&gt;Um die Änderungen der Sättigung anzuwenden, klicken Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Erzeuge neue Zufallspalette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="648"/>
-        <location filename="../qt/ui_material_editor.h" line="1493"/>
+        <location filename="../qt/material_editor.ui" line="666"/>
+        <location filename="../qt/ui_material_editor.h" line="1511"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cyclic palette of colors which is used to color fractal surface.&lt;/p&gt;&lt;p&gt;To edit palette click on chosen color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zyklische Palette von Farben, welche zur Einfärbung der Fraktaloberfläche verwendet wird.&lt;/p&gt;&lt;p&gt;Zum Editieren auf die gewünschte Farbe klicken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="661"/>
-        <location filename="../qt/ui_material_editor.h" line="1496"/>
+        <location filename="../qt/material_editor.ui" line="679"/>
+        <location filename="../qt/ui_material_editor.h" line="1514"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color palette speed sets frequency of color changing&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;speed 0.3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbgeschwindigkeit setzt die Frequenz der Farbänderung&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 0,3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 1,0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 5,0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="698"/>
-        <location filename="../qt/ui_material_editor.h" line="1501"/>
+        <location filename="../qt/material_editor.ui" line="716"/>
+        <location filename="../qt/ui_material_editor.h" line="1519"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grab color palette from selected picture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hole die Farbpalette aus dem ausgewähltem Bild&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="701"/>
-        <location filename="../qt/ui_material_editor.h" line="1503"/>
+        <location filename="../qt/material_editor.ui" line="719"/>
+        <location filename="../qt/ui_material_editor.h" line="1521"/>
         <source>Grab colors from image...</source>
         <translation>Farbe aus Bild bestimmen...</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="752"/>
-        <location filename="../qt/ui_material_editor.h" line="1504"/>
+        <location filename="../qt/material_editor.ui" line="770"/>
+        <location filename="../qt/ui_material_editor.h" line="1522"/>
         <source>Palette size:</source>
         <translation>Palettengröße:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="759"/>
-        <location filename="../qt/ui_material_editor.h" line="1505"/>
+        <location filename="../qt/material_editor.ui" line="777"/>
+        <location filename="../qt/ui_material_editor.h" line="1523"/>
         <source>Palette:
 (click to edit)</source>
         <translation>Palette: (Klicken zum ändern)</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="792"/>
-        <location filename="../qt/ui_material_editor.h" line="1507"/>
+        <location filename="../qt/material_editor.ui" line="810"/>
+        <location filename="../qt/ui_material_editor.h" line="1525"/>
         <source>Palette offset:</source>
         <translation>Palettenversatz:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="805"/>
-        <location filename="../qt/ui_material_editor.h" line="1509"/>
+        <location filename="../qt/material_editor.ui" line="823"/>
+        <location filename="../qt/ui_material_editor.h" line="1527"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of colors used in color palette.&lt;/p&gt;&lt;p&gt;To apply changes of palette size, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anzahl der Farben in der Farbpalette &lt;/p&gt;&lt;p&gt;Um die Änderungen der Palettengröße anzuwenden, klicken Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Erzeuge neue Zufallspalette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="824"/>
-        <location filename="../qt/ui_material_editor.h" line="1512"/>
+        <location filename="../qt/material_editor.ui" line="842"/>
+        <location filename="../qt/ui_material_editor.h" line="1530"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate palette from  random seed.&lt;/p&gt;&lt;p&gt;This applies changes to palette size and color saturation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generiere Palette aus einem Zufallsstartwert.&lt;/p&gt;&lt;p&gt;Dies wirkt sich auf die Palettengröße und die Farbwerte aus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="827"/>
-        <location filename="../qt/ui_material_editor.h" line="1514"/>
+        <location filename="../qt/material_editor.ui" line="845"/>
+        <location filename="../qt/ui_material_editor.h" line="1532"/>
         <source>Generate new random palette</source>
         <translation>Erzeuge neue Zufallspalette</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="862"/>
-        <location filename="../qt/ui_material_editor.h" line="1516"/>
+        <location filename="../qt/material_editor.ui" line="880"/>
+        <location filename="../qt/ui_material_editor.h" line="1534"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate new random seed and palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generiere neuen Zufallsstartwert und Farbpalette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="865"/>
-        <location filename="../qt/ui_material_editor.h" line="1518"/>
+        <location filename="../qt/material_editor.ui" line="883"/>
+        <location filename="../qt/ui_material_editor.h" line="1536"/>
         <source>Randomize</source>
         <translation>zufällig erzeugen</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="878"/>
-        <location filename="../qt/ui_material_editor.h" line="1520"/>
+        <location filename="../qt/material_editor.ui" line="896"/>
+        <location filename="../qt/ui_material_editor.h" line="1538"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift of color palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Versatz der Farbpalette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="909"/>
-        <location filename="../qt/ui_material_editor.h" line="1524"/>
+        <location filename="../qt/material_editor.ui" line="927"/>
+        <location filename="../qt/ui_material_editor.h" line="1542"/>
         <source>Orbit trap
 sphere radius:</source>
         <translation>Orbit trap
 Kugelradius:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="917"/>
-        <location filename="../qt/material_editor.ui" line="1999"/>
-        <location filename="../qt/material_editor.ui" line="2234"/>
-        <location filename="../qt/ui_material_editor.h" line="1526"/>
-        <location filename="../qt/ui_material_editor.h" line="1648"/>
-        <location filename="../qt/ui_material_editor.h" line="1667"/>
+        <location filename="../qt/material_editor.ui" line="935"/>
+        <location filename="../qt/material_editor.ui" line="2041"/>
+        <location filename="../qt/material_editor.ui" line="2279"/>
+        <location filename="../qt/ui_material_editor.h" line="1544"/>
+        <location filename="../qt/ui_material_editor.h" line="1691"/>
+        <location filename="../qt/ui_material_editor.h" line="1714"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="952"/>
-        <location filename="../qt/material_editor.ui" line="1889"/>
-        <location filename="../qt/material_editor.ui" line="2250"/>
-        <location filename="../qt/ui_material_editor.h" line="1527"/>
-        <location filename="../qt/ui_material_editor.h" line="1639"/>
-        <location filename="../qt/ui_material_editor.h" line="1668"/>
+        <location filename="../qt/material_editor.ui" line="970"/>
+        <location filename="../qt/material_editor.ui" line="1925"/>
+        <location filename="../qt/material_editor.ui" line="2295"/>
+        <location filename="../qt/ui_material_editor.h" line="1545"/>
+        <location filename="../qt/ui_material_editor.h" line="1676"/>
+        <location filename="../qt/ui_material_editor.h" line="1715"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="968"/>
-        <location filename="../qt/material_editor.ui" line="2201"/>
-        <location filename="../qt/ui_material_editor.h" line="1537"/>
-        <location filename="../qt/ui_material_editor.h" line="1665"/>
+        <location filename="../qt/material_editor.ui" line="986"/>
+        <location filename="../qt/ui_material_editor.h" line="1555"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection between different coloring algorithms based on orbit trap calculation.&lt;/p&gt;&lt;p&gt;- Standard: orbit trap defined as a point at origin&lt;/p&gt;&lt;p&gt;- orbit trap: z.Dot(point): orbit trap defined as point at actual calculated fractal coordinates&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- orbit trap: Cross: orbit trap defined as a cross&lt;/p&gt;&lt;p&gt;- orbit trap: Line: orbit trap defined as a line in given direction&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Auswahl zwischen verschiedenen Färbe-Algorithmen basierend auf der Orbit Trap Berechnung&lt;/p&gt;&lt;p&gt;- Standard: Orbit Trap definiert als Punkt im Ursprung&lt;/p&gt;&lt;p&gt;- Orbit Trap: z.Dot(point): Orbit Trap definiert als Punkt der aktuellen berechneten fraktalen Koordinaten&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- Orbit Trap: Cross: Orbit Trap definiert als Kreuzprodukt&lt;/p&gt;&lt;p&gt;- Orbit Trap: Line: Orbit Trap definiert als die Linie in gegebener Richtung.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="972"/>
-        <location filename="../qt/ui_material_editor.h" line="1530"/>
+        <location filename="../qt/material_editor.ui" line="990"/>
+        <location filename="../qt/ui_material_editor.h" line="1548"/>
         <source>Standard</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="977"/>
-        <location filename="../qt/ui_material_editor.h" line="1531"/>
+        <location filename="../qt/material_editor.ui" line="995"/>
+        <location filename="../qt/ui_material_editor.h" line="1549"/>
         <source>orbit trap: z.Dot(point)</source>
         <translation>Orbit trap: z.Dot(point)</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="982"/>
-        <location filename="../qt/ui_material_editor.h" line="1532"/>
+        <location filename="../qt/material_editor.ui" line="1000"/>
+        <location filename="../qt/ui_material_editor.h" line="1550"/>
         <source>orbit trap: Sphere</source>
         <translation>Orbit trap: Kugel</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="987"/>
-        <location filename="../qt/ui_material_editor.h" line="1533"/>
+        <location filename="../qt/material_editor.ui" line="1005"/>
+        <location filename="../qt/ui_material_editor.h" line="1551"/>
         <source>orbit trap: Cross</source>
         <translation>Orbit trap: Kreuz</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="992"/>
-        <location filename="../qt/ui_material_editor.h" line="1534"/>
+        <location filename="../qt/material_editor.ui" line="1010"/>
+        <location filename="../qt/ui_material_editor.h" line="1552"/>
         <source>orbit trap: Line</source>
         <translation>Orbit trap: Linie</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1025"/>
-        <location filename="../qt/ui_material_editor.h" line="1543"/>
+        <location filename="../qt/material_editor.ui" line="1043"/>
+        <location filename="../qt/ui_material_editor.h" line="1561"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius of sphere in orbit trap algorithm for coloring&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius der Kugel im Orbit Trap Algorithmus, der zum Färben verwendet wird&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1072"/>
-        <location filename="../qt/material_editor.ui" line="2015"/>
-        <location filename="../qt/material_editor.ui" line="2059"/>
-        <location filename="../qt/ui_material_editor.h" line="1550"/>
-        <location filename="../qt/ui_material_editor.h" line="1649"/>
-        <location filename="../qt/ui_material_editor.h" line="1652"/>
+        <location filename="../qt/material_editor.ui" line="1090"/>
+        <location filename="../qt/material_editor.ui" line="2057"/>
+        <location filename="../qt/material_editor.ui" line="2104"/>
+        <location filename="../qt/ui_material_editor.h" line="1568"/>
+        <location filename="../qt/ui_material_editor.h" line="1692"/>
+        <location filename="../qt/ui_material_editor.h" line="1698"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1082"/>
-        <location filename="../qt/ui_material_editor.h" line="1551"/>
+        <location filename="../qt/material_editor.ui" line="1100"/>
+        <location filename="../qt/ui_material_editor.h" line="1569"/>
         <source>Orbit trap line
 direction vector:</source>
         <translation>Orbit Trap Linie
 Richtungsvektor:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1108"/>
-        <location filename="../qt/ui_material_editor.h" line="1554"/>
+        <location filename="../qt/material_editor.ui" line="1126"/>
+        <location filename="../qt/ui_material_editor.h" line="1572"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of specular highlights&lt;/p&gt;&lt;p&gt;example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - specular highlight color.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe des Glanzes&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - specular highlight color.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1111"/>
-        <location filename="../qt/material_editor.ui" line="1191"/>
-        <location filename="../qt/material_editor.ui" line="1326"/>
-        <location filename="../qt/material_editor.ui" line="1628"/>
-        <location filename="../qt/ui_material_editor.h" line="1556"/>
-        <location filename="../qt/ui_material_editor.h" line="1560"/>
-        <location filename="../qt/ui_material_editor.h" line="1583"/>
-        <location filename="../qt/ui_material_editor.h" line="1616"/>
+        <location filename="../qt/material_editor.ui" line="1129"/>
+        <location filename="../qt/material_editor.ui" line="1209"/>
+        <location filename="../qt/material_editor.ui" line="1344"/>
+        <location filename="../qt/material_editor.ui" line="1661"/>
+        <location filename="../qt/ui_material_editor.h" line="1574"/>
+        <location filename="../qt/ui_material_editor.h" line="1578"/>
+        <location filename="../qt/ui_material_editor.h" line="1601"/>
+        <location filename="../qt/ui_material_editor.h" line="1650"/>
         <source>PushButton</source>
-        <translation type="unfinished"></translation>
+        <translation>PushButton</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1188"/>
-        <location filename="../qt/ui_material_editor.h" line="1558"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of surface of object&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt/material_editor.ui" line="1206"/>
+        <location filename="../qt/ui_material_editor.h" line="1576"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of surface of object. This color is used when &apos;Use colors from palette&apos; is off or when material is applied on non-fractal object.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe der Oberfläche. Diese Farbe wird verwendet, wenn &apos;Verwende Farben aus Palette&apos; ausgeschaltet ist, oder wenn das Material auf nicht fraktalen Objekt angewendet wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1204"/>
-        <location filename="../qt/ui_material_editor.h" line="1562"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of luminosity of selected color.&lt;/p&gt;&lt;p&gt;Note: luminosity effect doesn&apos;t iluminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt/material_editor.ui" line="1222"/>
+        <location filename="../qt/ui_material_editor.h" line="1580"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of luminosity of selected color.&lt;/p&gt;&lt;p&gt;Note: luminosity effect doesn&apos;t illuminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Intensität des Leuchtens.&lt;/p&gt;&lt;p&gt;Hinweis: Leucht-Effekt erhellt keine nahen Objekten.&lt;/p&gt;&lt;p&gt;Beispiel des Leucht-Effektes:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1226"/>
-        <location filename="../qt/ui_material_editor.h" line="1566"/>
+        <location filename="../qt/material_editor.ui" line="1258"/>
+        <location filename="../qt/ui_material_editor.h" line="1586"/>
+        <source>Single color:</source>
+        <translation>Einzelfarbe:</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1341"/>
+        <location filename="../qt/ui_material_editor.h" line="1599"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of luminosity effect.&lt;/p&gt;&lt;p&gt;Note: luminosity effect doesn&apos;t illuminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Farbe des Leuchtens.&lt;/p&gt;&lt;p&gt;Hinweis: Leucht-Effekt erhellt keine nahen Objekten.&lt;/p&gt;&lt;p&gt;Beispiel des Leucht-Effektes:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="2246"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Geometry of texture mapping&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Planar - texture is mapped as a 2D plane&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Spherical - texture is mapped as a sphere around object center&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - spherical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Cylindrical - texture is mapped as a cyllinder around object axis&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Cubic - texture is mapped according with the surface direction of a cube.&lt;br/&gt;Note: this mapping cannot be used with displacement map &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cyllindrical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Geometrie des Textur Mappings&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Planar - Textur wird als 2d-Fläche gemapped&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Spherisch - Textur wird als Kugel um das Objekt Zentrum gemapped&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - spherical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Zylindrisch - Textur wird als Zylinder um die Objekt Achse gemapped&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Kubisch - Textur wird anhand der Oberflächennormalen eines Würfels gemapped.&lt;br/&gt;Hinweis: Dieses Mapping kann nicht mit der Verschiebungsmap verwendet werden.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cylindrical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/ui_material_editor.h" line="1603"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Index of refraction of material. It has influence on transparent objects and also on Fresnel&apos;s equations (also on reflective non-transparent objects). &lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;Example values: vacuum 1.0; glass.1.5; water 1.35; diamond 2.41&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;index of refraction 1.0 (gas or vacuum)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;index of refraction 1.5 (glass)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;index of refraction 2.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 2.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brechungsindex des Materials. Dieser Wert hat Einfluss auf transparente Objekte und auf die Fresnelsche Gleichung (auch auf nicht transparente reflektierende Objekte). &lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab aktiviert sein.&lt;/p&gt;&lt;p&gt;Beispielwerte: Vakuum 1.0; Glas.1.5; Wasser 1.35; Diamant 2.41&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Brechungsindex 1.0 (Gas oder Vakuum)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Brechungsindex 1.5 (Glas)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Brechungsindex 2.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 2.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1412"/>
+        <location filename="../qt/ui_material_editor.h" line="1609"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use image file as color texture.&lt;/p&gt;&lt;p&gt;Color texture is mixed with &apos;Single Color&apos; (if palette is off) or &apos;Palette&apos; (if palette is on). &lt;/p&gt;&lt;p&gt;example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - color texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Verwende Bild als Farbtextur.&lt;/p&gt;&lt;p&gt;Die Farbtextur wird mit der &apos;Einzelfarbe&apos; (wenn Palette aus), oder der &apos;Palette&apos; (wenn Palette an) gemixt. &lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - color texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1415"/>
+        <location filename="../qt/ui_material_editor.h" line="1611"/>
+        <source>Use color &amp;texture from an image</source>
+        <translation>Verwende Farbtextur aus einem Bild</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1529"/>
+        <location filename="../qt/ui_material_editor.h" line="1623"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled the reflectance is calculated from Fresnel&apos;s equations. In other words reflectance depends on angle of incidence of ray.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Fresnel&apos;s equations off&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fresnel&apos;s equations on&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance fresnel off.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance fresnel.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wenn aktiviert, wird die Brechung / Spiegelung aus der Fresnelschen Gleichung berechnet. Dadurch basiert die Spiegelelung auf dem Einfallswinkel des Strahls.&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab aktiviert sein.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Fresnelsche Gleichung aus&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fresnelsche Gleichung an&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance fresnel off.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance fresnel.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1539"/>
+        <location filename="../qt/ui_material_editor.h" line="1627"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normal mapping is a technique used for faking the lighting of bumps and dents – an implementation of bump mapping. Normal map texture changes locally the direction of the surface normal vector, (i.e. &lt;span style=&quot; text-decoration: underline;&quot;&gt;simulates&lt;/span&gt; local changes of the surface angle). It causes changes to the way that the light is reflected or diffused. Normal maps do not deform the object surface, but just give the appearance of deformation.&lt;/p&gt;&lt;p&gt;Normal map textures uses color components to define the direction of the deflection of a normal vector. Red represents X axis, green represents Y axis and blue represents Z axis. &lt;/p&gt;&lt;p&gt;Normal maps can be derived from height maps (bumpmaps)&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Example normal map texture:&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Example height map&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Example object with normal map texture:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normal Mapping ist eine Technik zum Fälschen der Beleuchtung von Beulen und Dellen –  eine Implementierung von Bump-Mapping. Die Normal Map Textur ändert lokal den Oberflächennormalen Vektor, (bspw.. &lt;span style=&quot; text-decoration: underline;&quot;&gt;simuliert&lt;/span&gt; lokale Änderungen des Oberflächen-Winkels). Dies ändert die Art, wie Licht reflektiert oder diffusiert wird. Normal Maps deformieren die Objektoberfläche nicht, aber erzeugen den Anschein von Deformation.&lt;/p&gt;&lt;p&gt;Normal map Texturen benutzen die Farbkomponenten, um den Winkel der Oberflächennormalen anzugeben. Rot steht für X Achse, Grün steht für Y Achse und Blau steht für Z Achse. &lt;/p&gt;&lt;p&gt;Normal maps können von Höhen Maps (Bump Maps) abgeleitet werden.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Beispiel Normal Map Textur:&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Beispiel Bump Map:&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Beispiel Objekt mit Normal Map Textur:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1604"/>
+        <location filename="../qt/ui_material_editor.h" line="1637"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of bumps.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität der Erhebungen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It switches to use greyscale heightmaps as a bump maps, like on image below:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Bump map is internally converted to normal map.&lt;/p&gt;&lt;p&gt;This texture can give following result:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture from bumpmap.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sorgt dafür, dass Greyscale Höhenmaps als Bump Maps verwendet werden, wie im Bild hierunter:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Die Bump Map wird intern zu einer Normal map konvertiert.&lt;/p&gt;&lt;p&gt;Diese Textur kann folgendes Ergebnis produzieren:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture from bumpmap.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1636"/>
+        <location filename="../qt/ui_material_editor.h" line="1642"/>
+        <source>Normal map derived from greyscale bump map</source>
+        <translation>Normal Map von Bump Map ableiten</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;There are two standards of normal maps. The difference between them is in direction of Y component of normal vector. Visually when Y component is swapped then green component of texture is inverted.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;standard&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;inverted&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture_g_inv.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;To recognize which standard it is, is enough to check how colors are located on convex part of texture.&lt;/p&gt;&lt;p&gt;Standard: top left corner - green, right bottom - red&lt;/p&gt;&lt;p&gt;Inverted: bottom left - green, right top - red&lt;/p&gt;&lt;p&gt;If you use inverted texture, then this check box should be ticked.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Es gibt zwei Standards von Normal Maps. Die Unterscheidung liegt in der Ausrichtung der Y-Komponente des Normalen Vektors. Wenn die Y Komponente vertauscht wird, so wird visuell die grüne Komponente der Textur invertiert.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Standard&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Inverted&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture_g_inv.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Um zu erkennen, welcher Standard verwendet wird, reicht es aus zu überprüfen, wie Farben sich auf einem konvexen Teil der Textur befinden.&lt;/p&gt;&lt;p&gt;Standard: Ecke oben links - grün, rechts unten - rot&lt;/p&gt;&lt;p&gt;Invertiert: unten links - grün, rechts oben - rot&lt;/p&gt;&lt;p&gt;Wenn Sie eine invertierte Textur verwenden, dann sollte diese Checkbox aktiviert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1771"/>
+        <location filename="../qt/ui_material_editor.h" line="1661"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of luminosity texture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Helligkeit der Leucht-Textur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1894"/>
+        <location filename="../qt/material_editor.ui" line="2010"/>
+        <location filename="../qt/material_editor.ui" line="2377"/>
+        <location filename="../qt/ui_material_editor.h" line="1672"/>
+        <location filename="../qt/ui_material_editor.h" line="1687"/>
+        <location filename="../qt/ui_material_editor.h" line="1722"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation der Textur relativ zur Objekt Orientierung.&lt;/p&gt;&lt;p&gt;Beispiel einer rotierten Textur&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1942"/>
+        <location filename="../qt/ui_material_editor.h" line="1678"/>
+        <source>Texture center:
+(relative to
+object size)</source>
+        <translation>Textur Zentrum:
+(relativ zur
+Objektgröße)</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1979"/>
+        <location filename="../qt/material_editor.ui" line="2073"/>
+        <location filename="../qt/material_editor.ui" line="2333"/>
+        <location filename="../qt/ui_material_editor.h" line="1682"/>
+        <location filename="../qt/ui_material_editor.h" line="1694"/>
+        <location filename="../qt/ui_material_editor.h" line="1717"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position of center of the texture. Position is relative to object size.&lt;/p&gt;&lt;p&gt;Note: object size of fractal object is always 1 x 1 x 1.&lt;/p&gt;&lt;p&gt;Example of changed texture center [0.3, 0.3, 0.0] &lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping - center 0.3 0.3 0.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position des Zentrums der Textur. Die Position ist relativ zur Objektgröße.&lt;/p&gt;&lt;p&gt;Hinweis: Objektgröße des fraktalen Objekts ist immer 1 x 1 x 1.&lt;/p&gt;&lt;p&gt;Beispiel eines geänderten Texturzentrums [0.3, 0.3, 0.0] &lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping - center 0.3 0.3 0.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="2114"/>
+        <location filename="../qt/ui_material_editor.h" line="1699"/>
+        <source>Texture scale:
+(relative to
+object size)</source>
+        <translation>Textur Skalierung:
+(relativ zur
+Objektgröße)</translation>
+    </message>
+    <message>
+        <location filename="../qt/ui_material_editor.h" line="1711"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Geometry of texture mapping&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Planar - texture is mapped as a 2D plane&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Spherical - texture is mapped as a sphere around object center&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - spherical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Cylindrical - texture is mapped as a cyllinder around object axis&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Cubic - texture is mapped according with the surface direction of a cube.&lt;br/&gt;Note: this mapping cannot be used with displacement map &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cylindrical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Geometrie des Textur Mappings&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Planar - Textur wird als 2d-Fläche gemapped&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Spherisch - Textur wird als Kugel um das Object Zentrum gemapped&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - spherical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Zylindrisch - Textur wird als Zylinder um die Objekt Achse gemapped&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Kubisch - Textur wird anhand der Oberflächennormalen eines Würfels gemapped.&lt;br/&gt;Hinweis: Dieses Mapping kann nicht mit der Verschiebungsmap verwendet werden.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cylindrical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="2447"/>
+        <location filename="../qt/material_editor.ui" line="2460"/>
+        <location filename="../qt/material_editor.ui" line="2473"/>
+        <location filename="../qt/ui_material_editor.h" line="1730"/>
+        <location filename="../qt/ui_material_editor.h" line="1733"/>
+        <location filename="../qt/ui_material_editor.h" line="1736"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Size of the texture. Size is relative to object size.&lt;/p&gt;&lt;p&gt;Note: object size of fractal object is always 1 x 1 x 1.&lt;/p&gt;&lt;p&gt;Example of changed texture scale [0.3, 0.3, 0.3] &lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping - scaled down.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Größe der Textur. Die Größe ist relativ zur Objektgröße.&lt;/p&gt;&lt;p&gt;Hinweis: Objektgröße des fraktalen Objekts ist immer 1 x 1 x 1.&lt;/p&gt;&lt;p&gt;Beispiel einer geänderten Texturgröße [0.3, 0.3, 0.3] &lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping - scaled down.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1244"/>
+        <location filename="../qt/ui_material_editor.h" line="1584"/>
         <source>Transparency of surface:</source>
-        <translation type="unfinished">Transparenz der Oberfläche:</translation>
+        <translation>Transparenz der Oberfläche:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1233"/>
-        <location filename="../qt/ui_material_editor.h" line="1567"/>
-        <source>Luminosity color:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt/material_editor.ui" line="63"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Material name used in Material Manager&lt;/p&gt;&lt;p&gt;Tip: Well named materials will be easier to find in Material Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Material Name der im Material Manager verwendet wird.&lt;/p&gt;&lt;p&gt;Tipp: Eine gute Benamung der Materialien macht es einfacher die Materialien im Material Manager zu verwalten&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1240"/>
-        <location filename="../qt/ui_material_editor.h" line="1568"/>
-        <source>Color:</source>
-        <translation>Farbe:</translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1260"/>
-        <location filename="../qt/ui_material_editor.h" line="1570"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of light reflection effect&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab or environment mapping&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;reflectance 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;reflectance 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;reflectance 1.0 (perfect reflection)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1288"/>
-        <location filename="../qt/ui_material_editor.h" line="1575"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effects intensity&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;shading 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;shading 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität des Einfallswinkel Effekts&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Schattierung 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schattierung 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1310"/>
-        <location filename="../qt/ui_material_editor.h" line="1579"/>
-        <source>Color of volume:</source>
-        <translation type="unfinished">Farbe des Volumens:</translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1323"/>
-        <location filename="../qt/ui_material_editor.h" line="1581"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of luminosity effect.&lt;/p&gt;&lt;p&gt;Note: luminosity effect doesn&apos;t iluminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1358"/>
+        <location filename="../qt/material_editor.ui" line="1251"/>
         <location filename="../qt/ui_material_editor.h" line="1585"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Index of refraction of material. It has influence on transparent objects and also on Fresnel&apos;s equations (also on reflective non-transparent objects). &lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;Example values: vacuum 1.0; glass.1.5; water 1.35; diamond 2.41&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;index of refraction 1.0 (gas or vacuum)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;index of refraction 1.5 (glass)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;index of refraction 2.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 2.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>Luminosity color:</source>
+        <translation>Leuchtfarbe:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1380"/>
-        <location filename="../qt/ui_material_editor.h" line="1589"/>
+        <source>Color:</source>
+        <translation type="vanished">Farbe:</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1278"/>
+        <location filename="../qt/ui_material_editor.h" line="1588"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of light reflection effect&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab or environment mapping&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;reflectance 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;reflectance 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;reflectance 1.0 (perfect reflection)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität der Lichtreflektion&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab oder Umgebungsmapping aktiviert sein.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Reflektion 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Reflektion 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Reflektion 1.0 (Totalreflektion)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1306"/>
+        <location filename="../qt/ui_material_editor.h" line="1593"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effects intensity&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;shading 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;shading 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität des Einfallswinkel Effekts&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Schattierung 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schattierung 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1328"/>
+        <location filename="../qt/ui_material_editor.h" line="1597"/>
+        <source>Color of volume:</source>
+        <translation>Farbe des Volumens:</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1376"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Index of refraction of material. It has influence on transparent objects and on non-transparent reflective objects. It affects the calculation in Fresnel&apos;s equations. &lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;Example values: vacuum 1.0; glass.1.5; water 1.35; diamond 2.41&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;index of refraction 1.0 (gas or vacuum)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;index of refraction 1.5 (glass)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;index of refraction 2.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 2.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brechungsindex des Materials. Dieser Wert hat Einfluss auf transparente Objekte und auf nicht transparente reflektierende Objekte. Es beeinflusst die Fresnelsche Gleichung. &lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab aktiviert sein.&lt;/p&gt;&lt;p&gt;Beispielwerte: Vakuum 1.0; Glas.1.5; Wasser 1.35; Diamant 2.41&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Brechungsindex 1.0 (Gas oder Vakuum)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Brechungsindex 1.5 (Glas)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Brechungsindex 2.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 1.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency index of refraction 2.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1398"/>
+        <location filename="../qt/ui_material_editor.h" line="1607"/>
         <source>Index of refraction:</source>
         <translation>Brechungsindex:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1394"/>
-        <location filename="../qt/ui_material_editor.h" line="1591"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use image file as color texture.&lt;/p&gt;&lt;p&gt;Color texture is mixed with &apos;Color&apos; or &apos;Palette&apos;&lt;/p&gt;&lt;p&gt;example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - color texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1397"/>
-        <location filename="../qt/ui_material_editor.h" line="1593"/>
-        <source>Use color &amp;texture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1465"/>
-        <location filename="../qt/ui_material_editor.h" line="1597"/>
+        <location filename="../qt/material_editor.ui" line="1483"/>
+        <location filename="../qt/ui_material_editor.h" line="1615"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with color texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dateipfad zur Farbtextur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1478"/>
-        <location filename="../qt/ui_material_editor.h" line="1600"/>
+        <location filename="../qt/material_editor.ui" line="1496"/>
+        <location filename="../qt/ui_material_editor.h" line="1618"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of color texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrast der Farbtextur&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1511"/>
-        <location filename="../qt/ui_material_editor.h" line="1605"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled the reflectance is calculated from Fresnel&apos;s equations. In other words reflectance depends on angle of incidence of ray.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Fresnels&apos; equations off&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fresnels&apos; equations on&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance fresnel off.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - reflectance fresnel.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1514"/>
-        <location filename="../qt/ui_material_editor.h" line="1607"/>
+        <location filename="../qt/material_editor.ui" line="1532"/>
+        <location filename="../qt/ui_material_editor.h" line="1625"/>
         <source>Fresnel&apos;s equations for reflectance</source>
         <translation>Fresnel&apos;sche Brechungsgleichung</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1521"/>
-        <location filename="../qt/ui_material_editor.h" line="1608"/>
-        <source>&amp;Use normal map texture</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normal mapping is a technique used for faking the lighting of bumps and dents – an implementation of bump mapping. Normal map texture changes locally direction of surface normal vector, which in other words simulates local changes of surface angle. It causes changes of way how the light is reflected or diffused. Normal maps don&apos;t deform object surface, but just give appearance of deformation.&lt;/p&gt;&lt;p&gt;Normal map textures uses color components to define direction of deflection of normal vector. Red represents X axis, green represents Y axis and blue represents Z axis. &lt;/p&gt;&lt;p&gt;Normal maps can be derived from height maps (bumpmaps)&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Example normal map texture:&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Example height map&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Example object with normal map texture:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normal Mapping ist eine Technik zum Fälschen der Beleuchtung von Beulen und Dellen –  eine Implementierung von Bump-Mapping. Die Normal Map Textur ändert lokal den Oberflächennormalen Vektor, (bspw.. &lt;span style=&quot; text-decoration: underline;&quot;&gt;simuliert&lt;/span&gt; lokale Änderungen des Oberflächen-Winkels). Dies ändert die Art, wie Licht reflektiert oder diffusiert wird. Normal Maps deformieren die Objektoberfläche nicht, aber erzeugen den Anschein von Deformation.&lt;/p&gt;&lt;p&gt;Normal map Texturen benutzen die Farbkomponenten, um den Winkel der Oberflächennormalen anzugeben. Rot steht für X Achse, Grün steht für Y Achse und Blau steht für Z Achse. &lt;/p&gt;&lt;p&gt;Normal maps können von Höhen Maps (Bump Maps) abgeleitet werden.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Beispiel Normal Map Textur:&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Beispiel Bump Map:&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Beispiel Objekt mit Normal Map Textur:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1567"/>
-        <location filename="../qt/ui_material_editor.h" line="1610"/>
+        <location filename="../qt/material_editor.ui" line="1542"/>
+        <location filename="../qt/ui_material_editor.h" line="1630"/>
+        <source>&amp;Use normal map texture</source>
+        <translation>Verwende Normal Map Textur</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1584"/>
+        <location filename="../qt/ui_material_editor.h" line="1633"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with normal map texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dateipfad zur Textur für die Normal Map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1591"/>
+        <location filename="../qt/ui_material_editor.h" line="1635"/>
         <source>Intensity:</source>
         <translation>Intensität:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1606"/>
-        <location filename="../qt/ui_material_editor.h" line="1611"/>
-        <source>Normal map derived from greyscale bumpmap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1613"/>
-        <location filename="../qt/ui_material_editor.h" line="1612"/>
-        <source>Invert green (Y+ / Y-)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1625"/>
-        <location filename="../qt/ui_material_editor.h" line="1614"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of interior of transparent objects.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1654"/>
-        <location filename="../qt/ui_material_editor.h" line="1618"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use image as a texture for luminosity effect.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1657"/>
-        <location filename="../qt/ui_material_editor.h" line="1620"/>
-        <source>Use luminosity te&amp;xture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1725"/>
-        <location filename="../qt/ui_material_editor.h" line="1624"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with luminosity texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1738"/>
-        <location filename="../qt/ui_material_editor.h" line="1627"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brighness of luminosity texture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1785"/>
-        <location filename="../qt/ui_material_editor.h" line="1632"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of specular highlights&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;brightness 0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;brightness 5 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1816"/>
-        <location filename="../qt/ui_material_editor.h" line="1636"/>
-        <source>Texture mapping</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="1899"/>
+        <location filename="../qt/material_editor.ui" line="1633"/>
         <location filename="../qt/ui_material_editor.h" line="1640"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables the use of greyscale heightmaps as bump maps like on the image below. The bump map is internally converted to a normal map. &lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;This texture can give the following result:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture from bumpmap.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sorgt dafür, dass Greyscale Höhenmaps als Bump Maps verwendet werden, wie im Bild hierunter:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;Die Bump Map wird intern zu einer Normal map konvertiert.&lt;/p&gt;&lt;p&gt;Diese Textur kann folgendes Ergebnis produzieren:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture from bumpmap.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1643"/>
+        <location filename="../qt/ui_material_editor.h" line="1644"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;There are two standards of normal maps. The difference between them is in the direction of the Y component of the normal vector. Visually when the Y component is swapped then the green component of the texture is inverted.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;standard&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;inverted&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture_g_inv.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;To recognize which standard it is, check how the colors are located on the convex part of the texture.&lt;/p&gt;&lt;p&gt;Standard:   top left corner - green,  bottom right- red&lt;/p&gt;&lt;p&gt;Inverted:    bottom left corner - green,  right top - red&lt;/p&gt;&lt;p&gt;If you use inverted texture, then this check box should be ticked.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Es gibt zwei Standards von Normal Maps. Die Unterscheidung liegt in der Ausrichtung der Y-Komponente des Normalen Vektors. Wenn die Y Komponente vertauscht wird, so wird visuell die grüne Komponente der Textur invertiert.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Standard&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Inverted&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture_g_inv.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Um zu erkennen, welcher Standard verwendet wird, reicht es aus zu überprüfen, wie Farben sich auf einem konvexen Teil der Textur befinden.&lt;/p&gt;&lt;p&gt;Standard: Ecke oben links - grün, rechts unten - rot&lt;/p&gt;&lt;p&gt;Invertiert: unten links - grün, rechts oben - rot&lt;/p&gt;&lt;p&gt;Wenn Sie eine invertierte Textur verwenden, dann sollte diese Checkbox aktiviert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1646"/>
+        <location filename="../qt/ui_material_editor.h" line="1646"/>
+        <source>Invert green (Y+ / Y-)</source>
+        <translation>Invertiere grün (Y+ / Y-)</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1658"/>
+        <location filename="../qt/ui_material_editor.h" line="1648"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of interior of transparent objects.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe des Fraktal Interiors bei transparenten Objekten&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab angewählt sein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1687"/>
+        <location filename="../qt/ui_material_editor.h" line="1652"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use image as a texture for luminosity effect.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Verwende Bild als Textur für Leucht-Effekt&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1690"/>
+        <location filename="../qt/ui_material_editor.h" line="1654"/>
+        <source>Use luminosity te&amp;xture</source>
+        <translation>Verwende Leucht-Textur</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1758"/>
+        <location filename="../qt/ui_material_editor.h" line="1658"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with luminosity texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dateipfad zur Textur für das Leuchten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1818"/>
+        <location filename="../qt/ui_material_editor.h" line="1666"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of specular highlights&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;brightness 0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;brightness 5 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität des Glanzes&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Helligkeit 0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Helligkeit 5 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1849"/>
+        <location filename="../qt/ui_material_editor.h" line="1670"/>
+        <source>Texture mapping</source>
+        <translation>Textur Mapping</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relatively to object rotation&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation der Textur relativ zur Objekt Rotation.&lt;/p&gt;&lt;p&gt;Beispiel einer rotierten Textur&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="1935"/>
+        <location filename="../qt/ui_material_editor.h" line="1677"/>
         <source>Mapping type:</source>
         <translation>Mapping Typ:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="1906"/>
-        <location filename="../qt/ui_material_editor.h" line="1641"/>
-        <source>Texture center:
-(percentage of
-object size)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="2069"/>
-        <location filename="../qt/ui_material_editor.h" line="1653"/>
-        <source>Texture scale:
-(percentage of
-object size)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/material_editor.ui" line="2119"/>
-        <location filename="../qt/ui_material_editor.h" line="1656"/>
+        <location filename="../qt/material_editor.ui" line="2164"/>
+        <location filename="../qt/ui_material_editor.h" line="1702"/>
         <source>alpha:</source>
         <translation>Alpha:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="2205"/>
-        <location filename="../qt/ui_material_editor.h" line="1659"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Geometry of texture mapping&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Planar - texture is mapped as a 2D plane&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Spherical - texture is mapped as a sphere around object center&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - spherical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Cylindrical - texture is mapped as a cyllinder around object axis&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Cubic - texture is mapped according to a surface direction as a cube.&lt;br/&gt;Note: this mapping cannot be used with displacement map &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cylindrical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Geometrie des Textur Mappings&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Planar - Textur wird als 2d-Fläche gemapped&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Spherisch - Textur wird als Kugel um das Object Zentrum gemapped&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - spherical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Zylindrisch - Textur wird als Zylinder um die Objekt Achse gemapped&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Kubisch - Textur wird anhand der Oberflächennormalen eines Würfels gemapped.&lt;br/&gt;Hinweis: Dieses Mapping kann nicht mit der Verschiebungsmap verwendet werden.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cylindrical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/material_editor.ui" line="2250"/>
+        <location filename="../qt/ui_material_editor.h" line="1705"/>
         <source>Spherical</source>
         <translation>Spherisch</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="2210"/>
-        <location filename="../qt/ui_material_editor.h" line="1660"/>
+        <location filename="../qt/material_editor.ui" line="2255"/>
+        <location filename="../qt/ui_material_editor.h" line="1706"/>
         <source>Cubic</source>
         <translation>Kubisch</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="2215"/>
-        <location filename="../qt/ui_material_editor.h" line="1661"/>
+        <location filename="../qt/material_editor.ui" line="2260"/>
+        <location filename="../qt/ui_material_editor.h" line="1707"/>
         <source>Cylindrical</source>
         <translation>Zylindrisch</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="2220"/>
-        <location filename="../qt/ui_material_editor.h" line="1662"/>
+        <location filename="../qt/material_editor.ui" line="2265"/>
+        <location filename="../qt/ui_material_editor.h" line="1708"/>
         <source>Planar</source>
         <translation>Planar</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="2351"/>
-        <location filename="../qt/ui_material_editor.h" line="1673"/>
+        <location filename="../qt/material_editor.ui" line="2402"/>
+        <location filename="../qt/ui_material_editor.h" line="1726"/>
         <source>Texture rotation:</source>
         <translation>Textur Rotation:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="2364"/>
-        <location filename="../qt/ui_material_editor.h" line="1674"/>
+        <location filename="../qt/material_editor.ui" line="2415"/>
+        <location filename="../qt/ui_material_editor.h" line="1727"/>
         <source>beta:</source>
         <translation>Beta:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.ui" line="2380"/>
-        <location filename="../qt/ui_material_editor.h" line="1675"/>
+        <location filename="../qt/material_editor.ui" line="2431"/>
+        <location filename="../qt/ui_material_editor.h" line="1728"/>
         <source>gamma:</source>
         <translation>Gamma:</translation>
     </message>
@@ -7711,37 +7867,37 @@ object size)</source>
     <name>cMaterialManagerView</name>
     <message>
         <location filename="../qt/material_manager_view.ui" line="20"/>
-        <location filename="../qt/ui_material_manager_view.h" line="106"/>
+        <location filename="../qt/ui_material_manager_view.h" line="146"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="46"/>
-        <location filename="../qt/ui_material_manager_view.h" line="107"/>
+        <location filename="../qt/ui_material_manager_view.h" line="147"/>
         <source>New material</source>
         <translation>Neues Material</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.ui" line="53"/>
-        <location filename="../qt/ui_material_manager_view.h" line="108"/>
+        <location filename="../qt/material_manager_view.ui" line="57"/>
+        <location filename="../qt/ui_material_manager_view.h" line="148"/>
         <source>Delete material</source>
         <translation>Lösche Material</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.ui" line="60"/>
-        <location filename="../qt/ui_material_manager_view.h" line="109"/>
+        <location filename="../qt/material_manager_view.ui" line="68"/>
+        <location filename="../qt/ui_material_manager_view.h" line="149"/>
         <source>Edit material</source>
         <translation>Bearbeite Material</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.ui" line="87"/>
-        <location filename="../qt/ui_material_manager_view.h" line="110"/>
+        <location filename="../qt/material_manager_view.ui" line="99"/>
+        <location filename="../qt/ui_material_manager_view.h" line="150"/>
         <source>Load materials...</source>
         <translation>Lade Materialien...</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.ui" line="94"/>
-        <location filename="../qt/ui_material_manager_view.h" line="111"/>
+        <location filename="../qt/material_manager_view.ui" line="110"/>
+        <location filename="../qt/ui_material_manager_view.h" line="151"/>
         <source>Save material as....</source>
         <translation>Speichere Material als...</translation>
     </message>
@@ -8181,22 +8337,22 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
 <context>
     <name>cVoxelExport</name>
     <message>
-        <location filename="../src/voxel_export.cpp" line="66"/>
+        <location filename="../src/voxel_export.cpp" line="83"/>
         <source>Processing layer %1 of %2</source>
         <translation>Bearbeite Schicht %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="69"/>
+        <location filename="../src/voxel_export.cpp" line="86"/>
         <source>Voxel Export</source>
         <translation>Voxel Export</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="101"/>
+        <location filename="../src/voxel_export.cpp" line="118"/>
         <source>Voxel Export finished - Cancelled export</source>
         <translation>Voxel Export abgeschlossen - Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="103"/>
+        <location filename="../src/voxel_export.cpp" line="120"/>
         <source>Voxel Export finished - Processed %1 layers</source>
         <translation>Voxel Export abgeschlossen - %1 Schichten bearbeitet</translation>
     </message>

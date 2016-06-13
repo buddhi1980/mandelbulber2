@@ -21,10 +21,11 @@
  * without even the implied warranty
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * See the GNU General Public License for more details. You should have received
- * a copy of the GNU
- * General Public License along with Mandelbulber. If not, see
- * <http://www.gnu.org/licenses/>.
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
@@ -34,7 +35,6 @@
  * These classes get used throughout the program to realize 2d, 3d and 4d
  * variable representation and manipulation. The class CMatrix33 is used for
  * rotation in 3d space.
- *
  */
 
 #ifndef ALGEBRA_H_
@@ -92,8 +92,7 @@ public:
 	inline CVector3 operator%(const CVector3 &vector) const
 	{
 		return CVector3((vector.x > 0.0 ? fmod(x, vector.x) : x),
-			(vector.y > 0.0 ? fmod(y, vector.y) : y),
-			(vector.z > 0.0 ? fmod(z, vector.z) : z));
+			(vector.y > 0.0 ? fmod(y, vector.y) : y), (vector.z > 0.0 ? fmod(z, vector.z) : z));
 	}
 	inline CVector3 mod(const CVector3 &vector) const
 	{
@@ -357,8 +356,7 @@ public:
 	inline CVector4 operator%(const CVector4 &vector) const
 	{
 		return CVector4((vector.x > 0.0 ? fmod(x, vector.x) : x),
-			(vector.y > 0.0 ? fmod(y, vector.y) : y),
-			(vector.z > 0.0 ? fmod(z, vector.z) : z),
+			(vector.y > 0.0 ? fmod(y, vector.y) : y), (vector.z > 0.0 ? fmod(z, vector.z) : z),
 			(vector.w > 0.0 ? fmod(w, vector.w) : w));
 	}
 	inline CVector4 mod(const CVector4 &v) const
