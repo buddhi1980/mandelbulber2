@@ -43,6 +43,7 @@ QModelIndex cMaterialItemView::indexAt(const QPoint& point) const
 
 QRegion cMaterialItemView::visualRegionForSelection(const QItemSelection& selection) const
 {
+	Q_UNUSED(selection);
 	return QRegion();
 }
 
@@ -72,7 +73,25 @@ void cMaterialItemView::setSelection(const QRect& rect, QItemSelectionModel::Sel
 QModelIndex cMaterialItemView::moveCursor(CursorAction cursorAction,
 		Qt::KeyboardModifiers modifiers)
 {
-	return QModelIndex();
+	Q_UNUSED(modifiers);
+	QModelIndex newIndex;
+	if(cursorAction == MoveRight)
+	{
+		newIndex = model()->index(currentIndex().row() + 1, 0);
+	}
+	else if(cursorAction == MoveLeft)
+	{
+		newIndex = model()->index(currentIndex().row() - 1, 0);
+	}
+	else if(cursorAction == MoveHome)
+	{
+		newIndex = model()->index(0, 0);
+	}
+	else if(cursorAction == MoveEnd)
+	{
+		newIndex = model()->index(model()->rowCount() - 1, 0);
+	}
+	return newIndex;
 }
 
 QRect cMaterialItemView::visualRect(const QModelIndex& index) const
@@ -85,6 +104,7 @@ QRect cMaterialItemView::visualRect(const QModelIndex& index) const
 
 bool cMaterialItemView::isIndexHidden(const QModelIndex& index) const
 {
+	Q_UNUSED(index);
 	return false;
 }
 
