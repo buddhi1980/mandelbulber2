@@ -1055,6 +1055,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
+        //case amazingSurfMulti:
+        case amazingSurfMod1:
 				case foldBoxMod1:
 					out->colorIndex = extendedAux.color * 100.0
 							+ r * defaultFractal->mandelbox.color.factorR
@@ -1076,7 +1078,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 
 				case amazingSurf:
-				case amazingSurfMod1:
+        //case amazingSurfMod1:
         case amazingSurfMulti:
 					out->colorIndex = minimumR * 200.0;
 					break;
