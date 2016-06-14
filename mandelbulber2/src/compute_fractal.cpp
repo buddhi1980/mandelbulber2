@@ -1059,7 +1059,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case amazingSurfMod1:
 				case foldBoxMod1:
 					out->colorIndex = extendedAux.color * 100.0
-							+ r * defaultFractal->mandelbox.color.factorR
+							+ r * defaultFractal->mandelbox.color.factorR / 1e13
 							+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard) ? minimumR
 									* 1000.0 :
 									0.0);
