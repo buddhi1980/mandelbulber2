@@ -1786,10 +1786,10 @@ void cInterface::Undo()
 	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
     gMainInterface->RebuildPrimitives(gPar);
+    gMainInterface->materialListModel->Regenerate();
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
-    gMainInterface->materialListModel->Regenerate();
 		StartRender(true);
 	}
 }
@@ -1801,10 +1801,10 @@ void cInterface::Redo()
 	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
     gMainInterface->RebuildPrimitives(gPar);
+    gMainInterface->materialListModel->Regenerate();
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
-    gMainInterface->materialListModel->Regenerate();
 		StartRender(true);
 	}
 }
@@ -2228,10 +2228,10 @@ void cInterface::AutoRecovery()
 			parSettings.LoadFromFile(systemData.autosaveFile);
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gMainInterface->RebuildPrimitives(gPar);
+			gMainInterface->materialListModel->Regenerate();
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();
-			gMainInterface->materialListModel->Regenerate();
 		}
 		else
 		{

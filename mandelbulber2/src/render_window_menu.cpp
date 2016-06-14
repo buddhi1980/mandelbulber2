@@ -118,6 +118,7 @@ void RenderWindow::slotMenuLoadExample()
     parSettings.LoadFromFile(filename);
     parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
     gMainInterface->RebuildPrimitives(gPar);
+    gMainInterface->materialListModel->Regenerate();
     gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
     gMainInterface->ComboMouseClickUpdate();
     systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator()
@@ -125,7 +126,6 @@ void RenderWindow::slotMenuLoadExample()
     this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
     gFlightAnimation->RefreshTable();
     gKeyframeAnimation->RefreshTable();
-    gMainInterface->materialListModel->Regenerate();
   }
 }
 
@@ -151,13 +151,13 @@ void RenderWindow::slotMenuLoadSettings()
     parSettings.LoadFromFile(filename);
     parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
     gMainInterface->RebuildPrimitives(gPar);
+    gMainInterface->materialListModel->Regenerate();
     gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
     gMainInterface->ComboMouseClickUpdate();
     systemData.lastSettingsFile = filename;
     this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
     gFlightAnimation->RefreshTable();
     gKeyframeAnimation->RefreshTable();
-    gMainInterface->materialListModel->Regenerate();
   }
 }
 
@@ -171,13 +171,13 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
   {
     parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
     gMainInterface->RebuildPrimitives(gPar);
+    gMainInterface->materialListModel->Regenerate();
     gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
     gMainInterface->ComboMouseClickUpdate();
     systemData.lastSettingsFile = "from clipboard";
     this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
     gFlightAnimation->RefreshTable();
     gKeyframeAnimation->RefreshTable();
-    gMainInterface->materialListModel->Regenerate();
   }
   else
   {

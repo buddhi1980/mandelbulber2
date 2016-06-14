@@ -669,9 +669,9 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
   parSettings.LoadFromFile(filename);
   parSettings.Decode(gPar, gParFractal);
   gMainInterface->RebuildPrimitives(gPar);
+  gMainInterface->materialListModel->Regenerate();
   gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
   gMainInterface->ComboMouseClickUpdate();
-  gMainInterface->materialListModel->Regenerate();
   systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
       + QFileInfo(filename).fileName();
   this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
