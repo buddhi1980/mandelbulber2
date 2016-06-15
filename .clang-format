@@ -15,7 +15,7 @@ AllowShortFunctionsOnASingleLine: Inline
 AlwaysBreakAfterDefinitionReturnType: false
 AlwaysBreakTemplateDeclarations: true
 AlwaysBreakBeforeMultilineStrings: true
-BreakBeforeBinaryOperators: None
+BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: false
 BinPackParameters: true

@@ -29,43 +29,65 @@
  *
  * Authors: Sebastian Jennen
  *
- * MyCheckBox class - promoted QCheckBox widget with context menu
+ * CommonMyWidgetWrapper - contains context menu and common widget functionality
+ *
+ * this class contains all common functionality needed for custom widgets, including:
+ * contextmenu:   creation and result handling
+ * assignment:    assignment of parameterContainer / parameterName
+ * toolTipText:   puts additional info to tooltip
+ * In order to use this class inherit it and override the pure virtual methods
+ * See also example mycheckbox.*
  */
 
-#include "mycheckbox.h"
+#ifndef COMMON_MY_WIDGET_WRAPPER_HPP_
+#define COMMON_MY_WIDGET_WRAPPER_HPP_
 
-void MyCheckBox::resetToDefault()
-{
-	setChecked(defaultValue);
-	emit stateChanged(defaultValue);
-}
+#include "../src/parameters.hpp"
+#include <QMenu>
+#include <QWidget>
+#include <QtCore>
+#include <QtGui>
 
-void MyCheckBox::paintEvent(QPaintEvent *event)
+class CommonMyWidgetWrapper
 {
-	QFont f = font();
-	// set bold, if current checked state is non default
-	f.setBold(isChecked() != GetDefault());
-	setFont(f);
-	QCheckBox::paintEvent(event);
-}
-
-QString MyCheckBox::getDefaultAsString()
-{
-	return GetDefault() ? "true" : "false";
-}
-
-QString MyCheckBox::getFullParameterName()
-{
-	return parameterName;
-}
-
-bool MyCheckBox::GetDefault()
-{
-	if (parameterContainer && !gotDefault)
+public:
+	CommonMyWidgetWrapper(QWidget *referenceWidget)
 	{
-		defaultValue = parameterContainer->GetDefault<bool>(parameterName);
-		gotDefault = true;
-		setToolTipText();
+		actionResetToDefault = NULL;
+		actionAddToFlightAnimation = NULL;
+		actionAddToKeyframeAnimation = NULL;
+		parameterContainer = NULL;
+		gotDefault = false;
+		widget = referenceWidget;
+	};
+
+	void AssignParameterContainer(cParameterContainer *container) {
+		parameterContainer = container;
 	}
-	return defaultValue;
-}
+	void AssingParameterName(QString name)
+	{
+		parameterName = name;
+	}
+
+private:
+	QAction *actionResetToDefault;
+	QAction *actionAddToFlightAnimation;
+	QAction *actionAddToKeyframeAnimation;
+	QString GetType(const QString &name);
+
+protected:
+	cParameterContainer *parameterContainer;
+	QString parameterName;
+	bool gotDefault;
+	QWidget *widget;
+
+	void setToolTipText();
+	void contextMenuEvent(QContextMenuEvent *event);
+
+	// these methods have to be implemented by widgets inherting this class
+	virtual void resetToDefault() = 0;
+	virtual QString getDefaultAsString() = 0;
+	virtual QString getFullParameterName() = 0;
+};
+
+#endif /* COMMON_MY_WIDGET_WRAPPER_HPP_ */
