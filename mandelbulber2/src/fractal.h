@@ -104,13 +104,15 @@ struct sExtendedAux
 	double axisBias;
 	double transformSampling;
 	double cw;
+  double funcFactor;
+  double minRFactor;
 	CVector3 c;
 };
 
 struct sFoldColor
 {
 	CVector3 factor;
-        CVector4 factor4D;
+  CVector4 factor4D;
 	double factorR;
 	double factorSp1;
 	double factorSp2;
@@ -376,6 +378,7 @@ struct sFractalTransformCommon
   CVector3 constantMultiplierA111;
   CVector3 constantMultiplierB111;
   CVector3 constantMultiplierC111;
+  CVector3 constantMultiplierW111;
   CVector3 constantMultiplier121;
   CVector3 constantMultiplier122;
   CVector3 constantMultiplier221;

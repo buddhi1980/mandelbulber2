@@ -74,10 +74,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.DE = 1.0;
 	extendedAux.c = c;
 	extendedAux.cw = 0;
-	extendedAux.newR = 1e+20;
-	extendedAux.axisBias = 1e+20;
-	extendedAux.orbitTraps = 1e+20;
-	extendedAux.transformSampling = 1e+20;
+  extendedAux.funcFactor = 1.0;
+  extendedAux.minRFactor = 1.0;
+  //extendedAux.newR = 1e+20;
+  //extendedAux.axisBias = 1e+20;
+  //extendedAux.orbitTraps = 1e+20;
+  //extendedAux.transformSampling = 1e+20;
 
 	//main iteration loop
 	int i;
@@ -1058,8 +1060,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         //case amazingSurfMulti:
         case amazingSurfMod1:
 				case foldBoxMod1:
-					out->colorIndex = extendedAux.color * 100.0
-							+ r * defaultFractal->mandelbox.color.factorR / 1e13
+          out->colorIndex = extendedAux.color * 100.0   // folds part
+              + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 							+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard) ? minimumR
 									* 1000.0 :
 									0.0);
@@ -1079,9 +1081,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				case amazingSurf:
         //case amazingSurfMod1:
-        case amazingSurfMulti:
-					out->colorIndex = minimumR * 200.0;
+        //case amazingSurfMulti:
+          out->colorIndex = minimumR * 200.0;
 					break;
+
+      case amazingSurfMulti:
+      //case amazingSurfMod1:
+        out->colorIndex = extendedAux.color * 100.0 * extendedAux.funcFactor  // folds part
+            + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+            + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard) ? minimumR
+                * 1000 * extendedAux.minRFactor :
+                0.0);
+        break;
 
 				case msltoeDonut:
 					out->colorIndex = extendedAux.color * 2000.0 / i;
