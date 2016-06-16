@@ -2133,6 +2133,12 @@ void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
       }
     }
   }
+  aux.funcFactor = fractal->transformCommon.constantMultiplierW111.x; //TODO fix?
+  aux.minRFactor = fractal->transformCommon.constantMultiplierW111.z;
+  double scaleColor = fractal->transformCommon.colorMin;
+  scaleColor += fabs(fractal->mandelbox.scale);
+
+  aux.scaleFactor = scaleColor * fractal->transformCommon.constantMultiplierW111.y;
 }
 
 /**

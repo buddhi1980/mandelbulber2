@@ -106,6 +106,7 @@ struct sExtendedAux
 	double cw;
   double funcFactor;
   double minRFactor;
+  double scaleFactor;
 	CVector3 c;
 };
 
@@ -308,6 +309,7 @@ struct sFractalTransformCommon
 {
   double alphaAngleOffset;
   double betaAngleOffset;
+  double colorMin;
   double offset;
   double offset0;
   double offset05;

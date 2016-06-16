@@ -525,6 +525,7 @@ void InitFractalParams(cParameterContainer *par)
   //common parameters for transforming formulas
   par->addParam("transf_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
   par->addParam("transf_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
+  par->addParam("transf_color_min", 0.0, morphAkima, paramStandard);
   par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
   par->addParam("transf_offset_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);

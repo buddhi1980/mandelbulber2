@@ -155,6 +155,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	//common parameters for transforming formulas
   transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
   transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
+  transformCommon.colorMin = container->Get<double>("transf_color_min");
   transformCommon.offset = container->Get<double>("transf_offset");
   transformCommon.offset0 = container->Get<double>("transf_offset_0");
   transformCommon.offset05 = container->Get<double>("transf_offset_05");
