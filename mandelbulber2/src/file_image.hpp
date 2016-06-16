@@ -125,12 +125,7 @@ protected:
 	int currentChannel;
 	int totalChannel;
 
-	ImageFileSave(QString filename, cImage *image, ImageConfig imageConfig)
-	{
-		this->filename = filename;
-		this->image = image;
-		this->imageConfig = imageConfig;
-	}
+	ImageFileSave(QString filename, cImage *image, ImageConfig imageConfig);
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

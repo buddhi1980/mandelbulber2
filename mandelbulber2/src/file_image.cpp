@@ -56,6 +56,16 @@
 #include <half.h>
 #endif // USE_EXR
 
+ImageFileSave::ImageFileSave(QString filename, cImage *image, ImageConfig imageConfig)
+{
+	this->filename = filename;
+	this->image = image;
+	this->imageConfig = imageConfig;
+	currentChannel = 0;
+	totalChannel = 0;
+	currentChannelKey = IMAGE_CONTENT_COLOR;
+}
+
 ImageFileSave *ImageFileSave::create(
 	QString filename, enumImageFileType filetype, cImage *image, ImageConfig imageConfig)
 {
