@@ -4949,6 +4949,68 @@ void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
+ * rotation folding plane
+ */
+void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  CVector3 zRot;
+
+  zRot = fractal->mandelbox.rot[0][0].RotateVector(z);
+  if (zRot.x > fractal->mandelbox.foldingLimit)
+  {
+    zRot.x = fractal->mandelbox.foldingValue - zRot.x;
+    z = fractal->mandelbox.rotinv[0][0].RotateVector(zRot);
+    aux.color += fractal->mandelbox.color.factor.x;
+  }
+  else
+  {
+    zRot = fractal->mandelbox.rot[1][0].RotateVector(z);
+    if (zRot.x < -fractal->mandelbox.foldingLimit)
+    {
+      zRot.x = -fractal->mandelbox.foldingValue - zRot.x;
+      z = fractal->mandelbox.rotinv[1][0].RotateVector(zRot);
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+  }
+
+  zRot = fractal->mandelbox.rot[0][1].RotateVector(z);
+  if (zRot.y > fractal->mandelbox.foldingLimit)
+  {
+    zRot.y = fractal->mandelbox.foldingValue - zRot.y;
+    z = fractal->mandelbox.rotinv[0][1].RotateVector(zRot);
+    aux.color += fractal->mandelbox.color.factor.y;
+  }
+  else
+  {
+    zRot = fractal->mandelbox.rot[1][1].RotateVector(z);
+    if (zRot.y < -fractal->mandelbox.foldingLimit)
+    {
+      zRot.y = -fractal->mandelbox.foldingValue - zRot.y;
+      z = fractal->mandelbox.rotinv[1][1].RotateVector(zRot);
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+  }
+
+  zRot = fractal->mandelbox.rot[0][2].RotateVector(z);
+  if (zRot.z > fractal->mandelbox.foldingLimit)
+  {
+    zRot.z = fractal->mandelbox.foldingValue - zRot.z;
+    z = fractal->mandelbox.rotinv[0][2].RotateVector(zRot);
+    aux.color += fractal->mandelbox.color.factor.z;
+  }
+  else
+  {
+    zRot = fractal->mandelbox.rot[1][2].RotateVector(z);
+    if (zRot.z < -fractal->mandelbox.foldingLimit)
+    {
+      zRot.z = -fractal->mandelbox.foldingValue - zRot.z;
+      z = fractal->mandelbox.rotinv[1][2].RotateVector(zRot);
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+  }
+}
+
+/**
  * rotation variation v1. Rotation angles vary based on iteration parameters.
  */
 void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
@@ -5280,67 +5342,6 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 	}
 }
 
-/**
- * rotation folding plane
- */
-void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-	CVector3 zRot;
-
-	zRot = fractal->mandelbox.rot[0][0].RotateVector(z);
-	if (zRot.x > fractal->mandelbox.foldingLimit)
-	{
-		zRot.x = fractal->mandelbox.foldingValue - zRot.x;
-		z = fractal->mandelbox.rotinv[0][0].RotateVector(zRot);
-		aux.color += fractal->mandelbox.color.factor.x;
-	}
-	else
-	{
-		zRot = fractal->mandelbox.rot[1][0].RotateVector(z);
-		if (zRot.x < -fractal->mandelbox.foldingLimit)
-		{
-			zRot.x = -fractal->mandelbox.foldingValue - zRot.x;
-			z = fractal->mandelbox.rotinv[1][0].RotateVector(zRot);
-			aux.color += fractal->mandelbox.color.factor.x;
-		}
-	}
-
-	zRot = fractal->mandelbox.rot[0][1].RotateVector(z);
-	if (zRot.y > fractal->mandelbox.foldingLimit)
-	{
-		zRot.y = fractal->mandelbox.foldingValue - zRot.y;
-		z = fractal->mandelbox.rotinv[0][1].RotateVector(zRot);
-		aux.color += fractal->mandelbox.color.factor.y;
-	}
-	else
-	{
-		zRot = fractal->mandelbox.rot[1][1].RotateVector(z);
-		if (zRot.y < -fractal->mandelbox.foldingLimit)
-		{
-			zRot.y = -fractal->mandelbox.foldingValue - zRot.y;
-			z = fractal->mandelbox.rotinv[1][1].RotateVector(zRot);
-			aux.color += fractal->mandelbox.color.factor.y;
-		}
-	}
-
-	zRot = fractal->mandelbox.rot[0][2].RotateVector(z);
-	if (zRot.z > fractal->mandelbox.foldingLimit)
-	{
-		zRot.z = fractal->mandelbox.foldingValue - zRot.z;
-		z = fractal->mandelbox.rotinv[0][2].RotateVector(zRot);
-		aux.color += fractal->mandelbox.color.factor.z;
-	}
-	else
-	{
-		zRot = fractal->mandelbox.rot[1][2].RotateVector(z);
-		if (zRot.z < -fractal->mandelbox.foldingLimit)
-		{
-			zRot.z = -fractal->mandelbox.foldingValue - zRot.z;
-			z = fractal->mandelbox.rotinv[1][2].RotateVector(zRot);
-			aux.color += fractal->mandelbox.color.factor.z;
-		}
-	}
-}
 
 //-------------------------------- 4D ----------------------------------------------
 
