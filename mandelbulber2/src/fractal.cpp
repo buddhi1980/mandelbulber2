@@ -156,6 +156,9 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
   transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
   transformCommon.colorMin = container->Get<double>("transf_color_min");
+  transformCommon.compFold = container->Get<double>("transf_comp_fold");
+  transformCommon.compMinR = container->Get<double>("transf_comp_minR");
+  transformCommon.compScale = container->Get<double>("transf_comp_scale");
   transformCommon.offset = container->Get<double>("transf_offset");
   transformCommon.offset0 = container->Get<double>("transf_offset_0");
   transformCommon.offset05 = container->Get<double>("transf_offset_05");
@@ -224,7 +227,6 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.constantMultiplierA111 = container->Get<CVector3>("transf_constant_multiplierA_111");
   transformCommon.constantMultiplierB111 = container->Get<CVector3>("transf_constant_multiplierB_111");
   transformCommon.constantMultiplierC111 = container->Get<CVector3>("transf_constant_multiplierC_111");
-  transformCommon.constantMultiplierW111 = container->Get<CVector3>("transf_constant_multiplierW_111");
   transformCommon.constantMultiplier121 = container->Get<CVector3>("transf_constant_multiplier_121");
   transformCommon.constantMultiplier122 = container->Get<CVector3>("transf_constant_multiplier_122");
   transformCommon.constantMultiplier221 = container->Get<CVector3>("transf_constant_multiplier_221");

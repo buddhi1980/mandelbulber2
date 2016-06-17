@@ -104,7 +104,7 @@ struct sExtendedAux
 	double axisBias;
 	double transformSampling;
 	double cw;
-  double funcFactor;
+  double foldFactor;
   double minRFactor;
   double scaleFactor;
 	CVector3 c;
@@ -310,6 +310,9 @@ struct sFractalTransformCommon
   double alphaAngleOffset;
   double betaAngleOffset;
   double colorMin;
+  double compFold;
+  double compMinR;
+  double compScale;
   double offset;
   double offset0;
   double offset05;
@@ -380,7 +383,6 @@ struct sFractalTransformCommon
   CVector3 constantMultiplierA111;
   CVector3 constantMultiplierB111;
   CVector3 constantMultiplierC111;
-  CVector3 constantMultiplierW111;
   CVector3 constantMultiplier121;
   CVector3 constantMultiplier122;
   CVector3 constantMultiplier221;

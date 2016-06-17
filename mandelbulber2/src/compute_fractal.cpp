@@ -74,9 +74,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.DE = 1.0;
 	extendedAux.c = c;
 	extendedAux.cw = 0;
-  extendedAux.funcFactor = 1.0;
-  extendedAux.minRFactor = 1.0;
-  extendedAux.scaleFactor = 1.0;
+  extendedAux.foldFactor = 0.0;
+  extendedAux.minRFactor = 0.0;
+  extendedAux.scaleFactor = 0.0;
   //extendedAux.newR = 1e+20;
   //extendedAux.axisBias = 1e+20;
   //extendedAux.orbitTraps = 1e+20;
@@ -1087,11 +1087,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case amazingSurfMulti:
         case mandelboxMenger:
       //case amazingSurfMod1:
-          out->colorIndex = extendedAux.color * 100.0 * extendedAux.funcFactor  // folds part
+          out->colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor  // folds part
               + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
               + extendedAux.scaleFactor * r * i / 1e14  // scale part conditional on i & r
               + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard) ? minimumR
-                  * 1000 * extendedAux.minRFactor :
+                  * extendedAux.minRFactor * 1000.0 :
                   0.0);
         break;
 

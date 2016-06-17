@@ -41,7 +41,7 @@
        </property>
       </widget>
      </item>
-     <item row="11" column="0">
+     <item row="12" column="0">
       <widget class="QLabel" name="label_105">
        <property name="text">
         <string>Fold z.x:</string>
@@ -76,14 +76,27 @@
        </property>
       </widget>
      </item>
-     <item row="12" column="0">
+     <item row="13" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
         <string>Type 4 Fold Value</string>
        </property>
       </widget>
      </item>
-     <item row="13" column="0">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_108">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Fold Type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="0">
       <widget class="QLabel" name="label_11">
        <property name="text">
         <string>Type 5 Fold2 Value</string>
@@ -104,7 +117,7 @@
        </property>
       </widget>
      </item>
-     <item row="13" column="2">
+     <item row="14" column="2">
       <widget class="QSlider" name="slider_transf_offset_2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -123,7 +136,7 @@
        </property>
       </widget>
      </item>
-     <item row="13" column="3">
+     <item row="14" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -166,7 +179,14 @@
        </property>
       </widget>
      </item>
-     <item row="11" column="2">
+     <item row="10" column="1">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="2">
       <widget class="QSlider" name="slider3_transf_addition_constant_111_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -185,7 +205,7 @@
        </property>
       </widget>
      </item>
-     <item row="12" column="3">
+     <item row="13" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_value">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -207,7 +227,7 @@
        </property>
       </widget>
      </item>
-     <item row="12" column="2">
+     <item row="13" column="2">
       <widget class="QSlider" name="slider_mandelbox_folding_value">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -226,14 +246,14 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="0">
+     <item row="11" column="0">
       <widget class="QLabel" name="label_106">
        <property name="text">
         <string>Fold z.y:</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="2">
+     <item row="11" column="2">
       <widget class="QSlider" name="slider3_transf_addition_constant_111_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -252,7 +272,7 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="3">
+     <item row="11" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -274,7 +294,7 @@
        </property>
       </widget>
      </item>
-     <item row="11" column="3">
+     <item row="12" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -296,7 +316,7 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="0">
+     <item row="10" column="0">
       <widget class="QLabel" name="label_107">
        <property name="font">
         <font>
@@ -309,23 +329,10 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
-      <widget class="Line" name="line">
+     <item row="9" column="0" colspan="4">
+      <widget class="Line" name="line_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_108">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Fold Type</string>
        </property>
       </widget>
      </item>
