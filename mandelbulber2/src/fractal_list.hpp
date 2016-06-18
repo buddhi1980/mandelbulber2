@@ -108,7 +108,7 @@ enum enumFractalFormula
 	msltoeDonut = 82,
 	iqBulb = 83,
 	quickDudleyMod = 84,
-  //V2.08 ??
+  //V2.08
 	riemannBulbMsltoeMod2 = 85,
 	msltoeToroidal = 86,
 	aboxModKaliEiffie = 87,
@@ -173,7 +173,7 @@ enum enumFractalFormula
 	transfScale4D = 1043,
 	transfFabsAddConstant4D = 1044,
 	transfFabsAddConstantV24D = 1045,
-  // v2.08 ??
+  // v2.08
   transfSurfFoldMulti = 1046,
 	transfPwr2Polynomial = 1047,
   transfRotationFoldingPlane = 1048,

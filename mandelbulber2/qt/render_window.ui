@@ -4010,7 +4010,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>376</width>
+                  <width>253</width>
                   <height>594</height>
                  </rect>
                 </property>
@@ -4850,8 +4850,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>392</width>
-                  <height>284</height>
+                  <width>283</width>
+                  <height>165</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5147,7 +5147,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>376</width>
+                  <width>318</width>
                   <height>1705</height>
                  </rect>
                 </property>
@@ -7622,7 +7622,7 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
+                      <y>-63</y>
                       <width>352</width>
                       <height>810</height>
                      </rect>
@@ -8090,7 +8090,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
+                          <item row="0" column="2">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_1_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -8112,7 +8112,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
+                          <item row="0" column="3">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_1_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -8140,7 +8140,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="1">
+                          <item row="2" column="2">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_1_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -8162,7 +8162,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
+                          <item row="1" column="3">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_1_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -8190,7 +8190,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="2" column="3">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_1_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -8218,7 +8218,30 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="0" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_304">
+                            <property name="text">
+                             <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QLabel" name="label_351">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_1_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -8240,10 +8263,35 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
-                           <widget class="QLabel" name="label_304">
+                          <item row="1" column="1">
+                           <widget class="QLabel" name="label_352">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
                             <property name="text">
-                             <string>Constant multiplier:</string>
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QLabel" name="label_353">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                             </property>
                            </widget>
                           </item>
@@ -8734,7 +8782,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>352</width>
+                      <width>290</width>
                       <height>810</height>
                      </rect>
                     </property>
@@ -9839,7 +9887,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>352</width>
+                      <width>290</width>
                       <height>810</height>
                      </rect>
                     </property>
@@ -10938,7 +10986,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>352</width>
+                      <width>290</width>
                       <height>810</height>
                      </rect>
                     </property>
@@ -12037,7 +12085,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>352</width>
+                      <width>290</width>
                       <height>810</height>
                      </rect>
                     </property>
@@ -13136,7 +13184,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>352</width>
+                      <width>290</width>
                       <height>810</height>
                      </rect>
                     </property>
@@ -14235,7 +14283,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>352</width>
+                      <width>290</width>
                       <height>810</height>
                      </rect>
                     </property>
@@ -15334,7 +15382,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>352</width>
+                      <width>290</width>
                       <height>810</height>
                      </rect>
                     </property>
@@ -16430,7 +16478,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>352</width>
+                      <width>290</width>
                       <height>810</height>
                      </rect>
                     </property>
@@ -17543,7 +17591,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>360</width>
+                  <width>220</width>
                   <height>560</height>
                  </rect>
                 </property>
@@ -19262,8 +19310,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>376</width>
-                  <height>458</height>
+                  <width>216</width>
+                  <height>372</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -22248,7 +22296,7 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>360</width>
+                  <width>247</width>
                   <height>298</height>
                  </rect>
                 </property>
@@ -23739,14 +23787,25 @@ keyframes</string>
  <layoutdefault spacing="2" margin="2"/>
  <customwidgets>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>mylineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>mydoublespinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>mygroupbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>myspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
   </customwidget>
   <customwidget>
    <class>cMaterialSelector</class>
@@ -23763,17 +23822,6 @@ keyframes</string>
    <class>MyColorButton</class>
    <extends>QWidget</extends>
    <header>mycolorbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>myspinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>mygroupbox.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MyScrolledArea</class>

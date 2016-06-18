@@ -3536,15 +3536,16 @@ void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 	z.z = -rp * sin(phi);
 
   if (fractal->transformCommon.functionEnabledyFalse)
-  {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz
-        * fractal->transformCommon.pwr4 * fractal->transformCommon.scale8
+  { // analytic log DE adjustment
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - fractal->transformCommon.scaleA1)
+        * aux.r_dz * aux.r_dz // squared
+        * fractal->transformCommon.pwr4 * fractal->transformCommon.scale1
         + fractal->transformCommon.offset1;
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz
-        * fractal->transformCommon.pwr4 * 8.0 + 1.0;//8.0??
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz * aux.r_dz
+        * fractal->transformCommon.pwr4 + 1.0;
   }
 
 	if (fractal->transformCommon.functionEnabledAxFalse)// spherical offset
@@ -3664,15 +3665,16 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
   }
 
   if (fractal->transformCommon.functionEnabledyFalse)
-  {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz
-        * fractal->transformCommon.pwr4 * fractal->transformCommon.scale8
+  { // analytic log DE adjustment
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - fractal->transformCommon.scaleA1)
+        * aux.r_dz * aux.r_dz // squared
+        * fractal->transformCommon.pwr4 * fractal->transformCommon.scale1
         + fractal->transformCommon.offset1;
   }
   else
   {
-    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz
-        * fractal->transformCommon.pwr4 * 8.0 + 1.0;//8.0??
+    aux.r_dz = pow( aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.r_dz * aux.r_dz
+        * fractal->transformCommon.pwr4 + 1.0;
   }
 
   if (fractal->transformCommon.functionEnabledAxFalse)// spherical offset

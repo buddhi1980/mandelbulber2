@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>1336</height>
+    <height>1375</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -736,12 +736,12 @@
       <string/>
      </property>
      <property name="title">
-      <string>Analytic &amp;Logrithmic DE adjustment</string>
+      <string>Analytic &amp;Logrithmic DE adjustment ( beta version only, may need to force Delta DE method)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_52">
+     <layout class="QVBoxLayout" name="verticalLayout_53">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -758,16 +758,64 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_26">
+       <layout class="QGridLayout" name="gridLayout_27">
         <property name="spacing">
          <number>2</number>
         </property>
         <item row="1" column="1">
-         <widget class="QLabel" name="label_177">
+         <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>Analytic Logrithmic DE offset: </string>
+           <string>Analytic Logrithmic DE offset1: </string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_179">
+          <property name="text">
+           <string>Analytic Logrithmic DE multiplier: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item row="1" column="0">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
@@ -797,8 +845,8 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_8">
+        <item row="2" column="0">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -825,25 +873,12 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_176">
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_180">
           <property name="text">
-           <string>Analytic Logrithmic DE multiplier: </string>
+           <string>Analytic Logrithmic DE offset2: </string>
           </property>
          </widget>
-        </item>
-        <item row="0" column="2">
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>
