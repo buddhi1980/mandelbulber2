@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>535</width>
+    <width>1240</width>
     <height>988</height>
    </rect>
   </property>
@@ -213,7 +213,7 @@
          </widget>
         </item>
         <item row="20" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_linear">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1004,15 +1004,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mydoublespinbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>mygroupbox.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>mydoublespinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

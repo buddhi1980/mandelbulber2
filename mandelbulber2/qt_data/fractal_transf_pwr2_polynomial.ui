@@ -64,7 +64,7 @@
       </widget>
      </item>
      <item row="40" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_linear">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -342,7 +342,7 @@
       </widget>
      </item>
      <item row="41" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_linear">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>

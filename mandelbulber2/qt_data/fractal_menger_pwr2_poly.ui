@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>899</width>
-    <height>3399</height>
+    <width>961</width>
+    <height>3453</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -191,7 +191,7 @@
       </widget>
      </item>
      <item row="26" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_linear">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1138,7 +1138,7 @@
       </widget>
      </item>
      <item row="25" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_linear">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>

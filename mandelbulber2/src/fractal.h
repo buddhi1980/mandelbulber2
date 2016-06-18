@@ -304,6 +304,17 @@ struct sFractalSurfFolds
   multi_orderOfFolds orderOfFolds5;
 };
 
+struct sFractalAnalyticDE
+{
+  bool enabledFalse;
+  double scale1;
+  double offset1;
+  double offset2;
+  double scaleLin;
+  double offsetLin;
+};
+
+
 //common parameters for transforming formulas
 struct sFractalTransformCommon
 {
@@ -446,6 +457,7 @@ public:
 	sFractalBuffalo buffalo;
 	sFractalPlatonicSolid platonicSolid;
   sFractalTransformCommon transformCommon;
+  sFractalAnalyticDE analyticDE;
   sFractalMandelbulbMulti mandelbulbMulti;
   sFractalSinTan2Trig sinTan2Trig;
   sFractalSurfFolds surfFolds;

@@ -152,6 +152,15 @@ cFractal::cFractal(const cParameterContainer *container)
   surfFolds.orderOfFolds5 =
       (sFractalSurfFolds::multi_orderOfFolds) container->Get<int>("surfFolds_order_of_folds_5");
 
+
+  analyticDE.scale1 = container->Get<double>("analyticDE_scale_1");
+  analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
+  analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
+  analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
+  analyticDE.scaleLin = container->Get<double>("analyticDE_scale_linear");
+  analyticDE.offsetLin = container->Get<double>("analyticDE_offset_linear");
+
+
 	//common parameters for transforming formulas
   transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
   transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");

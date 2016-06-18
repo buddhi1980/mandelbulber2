@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>880</width>
-    <height>1340</height>
+    <height>1512</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -460,7 +460,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledy_false">
+    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
      <property name="toolTip">
       <string/>
      </property>
@@ -492,7 +492,7 @@
          <number>2</number>
         </property>
         <item row="0" column="0">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

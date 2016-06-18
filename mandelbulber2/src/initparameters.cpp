@@ -515,12 +515,19 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("surfFolds_order_of_folds_4", 0, morphNone, paramStandard);
   par->addParam("surfFolds_order_of_folds_5", 0, morphNone, paramStandard);
 
-
   //donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
 	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
 	par->addParam("donut_factor", 3.0, morphAkima, paramStandard);
 	par->addParam("donut_number", 9.0, morphAkima, paramStandard);
+
+// analyticDE controls
+  par->addParam("analyticDE_offset_1", 1.0, morphAkima, paramStandard);
+  par->addParam("analyticDE_offset_2", 1.0, morphAkima, paramStandard);
+  par->addParam("analyticDE_scale_1", 1.0, morphAkima, paramStandard);
+  par->addParam("analyticDE_enabled_false", false, morphLinear, paramStandard);
+  par->addParam("analyticDE_offset_linear", 1.0, morphAkima, paramStandard);
+  par->addParam("analyticDE_scale_linear", 1.0, morphAkima, paramStandard);
 
   //common parameters for transforming formulas
   par->addParam("transf_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
