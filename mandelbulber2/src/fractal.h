@@ -307,6 +307,7 @@ struct sFractalSurfFolds
 struct sFractalAnalyticDE
 {
   bool enabledFalse;
+  bool enabledAuxR2False;
   double scale1;
   double offset1;
   double offset2;

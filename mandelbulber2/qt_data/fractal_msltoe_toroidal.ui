@@ -467,7 +467,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledy_false">
+    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
      <property name="toolTip">
       <string/>
      </property>
@@ -513,7 +513,7 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -554,7 +554,7 @@
          </spacer>
         </item>
         <item row="1" column="0">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -582,7 +582,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -616,9 +616,23 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="2">
+         <widget class="QCheckBox" name="checkBox_analyticDE_enabled_auxR2_false">
+          <property name="text">
+           <string>enable aux.r_dz squared</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
     </widget>
    </item>
    <item>
