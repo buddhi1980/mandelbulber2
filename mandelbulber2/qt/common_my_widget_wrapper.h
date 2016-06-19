@@ -63,13 +63,8 @@ public:
 		widget = referenceWidget;
 	};
 
-	void AssignParameterContainer(cParameterContainer *container) {
-		parameterContainer = container;
-	}
-	void AssingParameterName(QString name)
-	{
-		parameterName = name;
-	}
+	void AssignParameterContainer(cParameterContainer *container) { parameterContainer = container; }
+	void AssingParameterName(QString name) { parameterName = name; }
 
 private:
 	QAction *actionResetToDefault;
@@ -87,7 +82,7 @@ protected:
 
 	void setToolTipText();
 
-	//contextMenuEvent doesn't overwrite method from child class, but this function cal be called
+	// contextMenuEvent doesn't overwrite method from child class, but this function cal be called
 	void contextMenuEvent(QContextMenuEvent *event);
 
 	// these methods have to be implemented by widgets inherting this class

@@ -50,29 +50,34 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
 	QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
 	QIcon iconReset = QIcon(":system/icons/edit-undo.png");
 
-	actionResetToDefault = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper","Reset to default"));
+	actionResetToDefault =
+		menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Reset to default"));
 	actionResetToDefault->setIcon(iconReset);
 
-	if(gAnimFrames->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName()) == -1)
+	if (gAnimFrames->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName())
+			== -1)
 	{
-		actionAddToFlightAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Add to flight animation"));
+		actionAddToFlightAnimation = menu->addAction(
+			QCoreApplication::translate("CommonMyWidgetWrapper", "Add to flight animation"));
 		actionAddToFlightAnimation->setIcon(iconAdd);
 	}
 	else
 	{
-		actionRemoveFromFlightAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from flight animation"));
+		actionRemoveFromFlightAnimation = menu->addAction(
+			QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from flight animation"));
 		actionRemoveFromFlightAnimation->setIcon(iconDelete);
 	}
 
-	if(gKeyframes->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName()) == -1)
+	if (gKeyframes->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName()) == -1)
 	{
-		actionAddToKeyframeAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Add to keyframe animation"));
+		actionAddToKeyframeAnimation = menu->addAction(
+			QCoreApplication::translate("CommonMyWidgetWrapper", "Add to keyframe animation"));
 		actionAddToKeyframeAnimation->setIcon(iconAdd);
-
 	}
 	else
 	{
-		actionnRemoveFromKeyframeAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from keyframe animation"));
+		actionnRemoveFromKeyframeAnimation = menu->addAction(
+			QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from keyframe animation"));
 		actionnRemoveFromKeyframeAnimation->setIcon(iconDelete);
 	}
 
@@ -105,7 +110,8 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
 		{
 			if (parameterContainer)
 			{
-				gAnimFrames->RemoveAnimatedParameter(parameterContainer->GetContainerName() + "_" + getFullParameterName());
+				gAnimFrames->RemoveAnimatedParameter(
+					parameterContainer->GetContainerName() + "_" + getFullParameterName());
 				gFlightAnimation->RefreshTable();
 			}
 		}
@@ -122,7 +128,8 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
 		{
 			if (parameterContainer)
 			{
-				gKeyframes->RemoveAnimatedParameter(parameterContainer->GetContainerName() + "_" + getFullParameterName());
+				gKeyframes->RemoveAnimatedParameter(
+					parameterContainer->GetContainerName() + "_" + getFullParameterName());
 				gKeyframeAnimation->RefreshTable();
 			}
 		}
@@ -133,7 +140,11 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
 void CommonMyWidgetWrapper::setToolTipText()
 {
 	QString toolTipText = widget->toolTip();
-	toolTipText += "\n" + QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter name: %1").arg(parameterName) + "<br>";
-	toolTipText += QCoreApplication::translate("CommonMyWidgetWrapper", "Default value: %1").arg(getDefaultAsString());
+	toolTipText +=
+		"\n"
+		+ QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter name: %1").arg(parameterName)
+		+ "<br>";
+	toolTipText += QCoreApplication::translate("CommonMyWidgetWrapper", "Default value: %1")
+									 .arg(getDefaultAsString());
 	widget->setToolTip(toolTipText);
 }
