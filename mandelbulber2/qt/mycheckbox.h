@@ -61,6 +61,8 @@ public:
 
 private:
 	bool GetDefault();
+	void contextMenuEvent(QContextMenuEvent *event);
+
 	bool defaultValue;
 };
 

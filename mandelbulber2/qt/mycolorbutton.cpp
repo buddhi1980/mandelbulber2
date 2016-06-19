@@ -137,3 +137,8 @@ void MyColorButton::mousePressEvent(QMouseEvent *event)
 		}
 	}
 }
+
+void MyColorButton::contextMenuEvent(QContextMenuEvent *event)
+{
+	CommonMyWidgetWrapper::contextMenuEvent(event);
+}

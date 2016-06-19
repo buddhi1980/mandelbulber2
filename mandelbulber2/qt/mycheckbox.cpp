@@ -69,3 +69,8 @@ bool MyCheckBox::GetDefault()
 	}
 	return defaultValue;
 }
+
+void MyCheckBox::contextMenuEvent(QContextMenuEvent *event)
+{
+	CommonMyWidgetWrapper::contextMenuEvent(event);
+}

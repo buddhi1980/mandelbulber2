@@ -61,6 +61,7 @@ public:
 
 private:
 	void mousePressEvent(QMouseEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event);
 	sRGB GetDefault();
 
 	sRGB defaultValue;

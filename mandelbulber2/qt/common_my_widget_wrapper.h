@@ -82,6 +82,8 @@ protected:
 	QWidget *widget;
 
 	void setToolTipText();
+
+	//contextMenuEvent doesn't overwrite method from child class, but this function cal be called
 	void contextMenuEvent(QContextMenuEvent *event);
 
 	// these methods have to be implemented by widgets inherting this class
