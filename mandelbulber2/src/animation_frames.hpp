@@ -108,9 +108,9 @@ public:
 		listOfParameters = _listOfParameters;
 		frames.clear();
 	}
+	int IndexOnList(QString parameterName, QString containerName);
 
 protected:
-	int IndexOnList(QString parameterName, QString containerName);
 
 	QList<sAnimationFrame> frames;
 	QList<sParameterDescription> listOfParameters;

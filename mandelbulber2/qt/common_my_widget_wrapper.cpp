@@ -46,9 +46,36 @@
 void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = new QMenu;
+	QIcon iconAdd = QIcon::fromTheme("list-add", QIcon(":system/icons/list-add.svg"));
+	QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
+	QIcon iconReset = QIcon(":system/icons/edit-undo.png");
+
 	actionResetToDefault = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper","Reset to default"));
-	actionAddToFlightAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Add to flight animation"));
-	actionAddToKeyframeAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Add to keyframe animation"));
+	actionResetToDefault->setIcon(iconReset);
+
+	if(gAnimFrames->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName()) == -1)
+	{
+		actionAddToFlightAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Add to flight animation"));
+		actionAddToFlightAnimation->setIcon(iconAdd);
+	}
+	else
+	{
+		actionRemoveFromFlightAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from flight animation"));
+		actionRemoveFromFlightAnimation->setIcon(iconDelete);
+	}
+
+	if(gKeyframes->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName()) == -1)
+	{
+		actionAddToKeyframeAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Add to keyframe animation"));
+		actionAddToKeyframeAnimation->setIcon(iconAdd);
+
+	}
+	else
+	{
+		actionnRemoveFromKeyframeAnimation = menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from keyframe animation"));
+		actionnRemoveFromKeyframeAnimation->setIcon(iconDelete);
+	}
+
 	QAction *selectedItem = menu->exec(event->globalPos());
 	if (selectedItem)
 	{
@@ -74,12 +101,28 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
 				gFlightAnimation->RefreshTable();
 			}
 		}
+		else if (selectedItem == actionRemoveFromFlightAnimation)
+		{
+			if (parameterContainer)
+			{
+				gAnimFrames->RemoveAnimatedParameter(parameterContainer->GetContainerName() + "_" + getFullParameterName());
+				gFlightAnimation->RefreshTable();
+			}
+		}
 		else if (selectedItem == actionAddToKeyframeAnimation)
 		{
 			if (parameterContainer)
 			{
 				gKeyframes->AddAnimatedParameter(
 					getFullParameterName(), parameterContainer->GetAsOneParameter(getFullParameterName()));
+				gKeyframeAnimation->RefreshTable();
+			}
+		}
+		else if (selectedItem == actionnRemoveFromKeyframeAnimation)
+		{
+			if (parameterContainer)
+			{
+				gKeyframes->RemoveAnimatedParameter(parameterContainer->GetContainerName() + "_" + getFullParameterName());
 				gKeyframeAnimation->RefreshTable();
 			}
 		}

@@ -55,7 +55,9 @@ public:
 	{
 		actionResetToDefault = NULL;
 		actionAddToFlightAnimation = NULL;
+		actionRemoveFromFlightAnimation = NULL;
 		actionAddToKeyframeAnimation = NULL;
+		actionnRemoveFromKeyframeAnimation = NULL;
 		parameterContainer = NULL;
 		gotDefault = false;
 		widget = referenceWidget;
@@ -72,7 +74,9 @@ public:
 private:
 	QAction *actionResetToDefault;
 	QAction *actionAddToFlightAnimation;
+	QAction *actionRemoveFromFlightAnimation;
 	QAction *actionAddToKeyframeAnimation;
+	QAction *actionnRemoveFromKeyframeAnimation;
 	QString GetType(const QString &name);
 
 protected:
