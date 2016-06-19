@@ -133,6 +133,7 @@ signals:
 
 class ImageFileSavePNG : public ImageFileSave
 {
+	Q_OBJECT
 public:
 	ImageFileSavePNG(QString filename, cImage *image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
@@ -149,6 +150,7 @@ public:
 
 class ImageFileSaveJPG : public ImageFileSave
 {
+	Q_OBJECT
 public:
 	ImageFileSaveJPG(QString filename, cImage *image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
@@ -165,6 +167,7 @@ public:
 #ifdef USE_TIFF
 class ImageFileSaveTIFF : public ImageFileSave
 {
+	Q_OBJECT
 public:
 	ImageFileSaveTIFF(QString filename, cImage *image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
@@ -180,6 +183,7 @@ public:
 #ifdef USE_EXR
 class ImageFileSaveEXR : public ImageFileSave
 {
+	Q_OBJECT
 public:
 	ImageFileSaveEXR(QString filename, cImage *image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
