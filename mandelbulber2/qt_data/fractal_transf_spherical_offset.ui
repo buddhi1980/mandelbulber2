@@ -186,7 +186,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;spherical fold with offset. Offset radially.&lt;/p&gt;&lt;table&gt;
+         <string>&lt;p&gt;spherical radial offset.&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
