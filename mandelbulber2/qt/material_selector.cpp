@@ -1,18 +1,43 @@
-/*
- * material_selector.cpp
+/**
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- *  Created on: 28 maj 2016
- *      Author: krzysztof
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cMaterialSelector class - promoted QWidget for selection of a material
  */
 
 #include "material_selector.h"
 #include "../src/animation_flight.hpp"
-#include "../src/animation_keyframes.hpp"
-#include "../src/interface.hpp"
+#include "material_manager_view.h"
 
-cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent)
+cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {
-	// TODO Auto-generated constructor stub
 	layout = new QHBoxLayout(this);
 	layout->setSpacing(2);
 	layout->setMargin(2);
@@ -23,80 +48,45 @@ cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent)
 	layout->addWidget(materialWidget);
 	layout->addWidget(label);
 
-	actionResetToDefault = NULL;
-	actionAddToFlightAnimation = NULL;
-	actionAddToKeyframeAnimation = NULL;
-	parameterContainer = NULL;
-	gotDefault = false;
 	defaultValue = 0;
 	actualValue = 0;
 
 	setMinimumHeight(cMaterialWidget::previewHeight);
 
-	connect(materialWidget, SIGNAL(clicked(Qt::MouseButton)), this, SLOT(slotClicked(Qt::MouseButton)));
+	connect(
+		materialWidget, SIGNAL(clicked(Qt::MouseButton)), this, SLOT(slotClicked(Qt::MouseButton)));
 }
 
 cMaterialSelector::~cMaterialSelector()
 {
-	// TODO Auto-generated destructor stub
+}
+
+void cMaterialSelector::resetToDefault()
+{
+	SetMaterialIndex(defaultValue);
+	// emit valueChanged(defaultValue);
+}
+
+QString cMaterialSelector::getDefaultAsString()
+{
+	return QString::number(defaultValue);
+}
+
+QString cMaterialSelector::getFullParameterName()
+{
+	return parameterName;
 }
 
 void cMaterialSelector::contextMenuEvent(QContextMenuEvent *event)
 {
-	QMenu *menu = new QMenu;
-	menu->addSeparator();
-	actionResetToDefault = menu->addAction(tr("Reset to default"));
-	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
-	actionAddToKeyframeAnimation = menu->addAction(tr("Add to keyframe animation"));
-	QAction *selectedItem = menu->exec(event->globalPos());
-	if (selectedItem)
-	{
-		if (selectedItem == actionResetToDefault)
-		{
-			if (parameterContainer)
-			{
-				SetMaterialIndex(defaultValue);
-				//emit valueChanged(defaultValue);
-			}
-			else
-			{
-				qCritical() << "cMaterialSelector::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
-			}
-		}
-		else if (selectedItem == actionAddToFlightAnimation)
-		{
-			if (parameterContainer)
-			{
-				gAnimFrames->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
-				gFlightAnimation->RefreshTable();
-			}
-		}
-		else if (selectedItem == actionAddToKeyframeAnimation)
-		{
-			if (parameterContainer)
-			{
-				gKeyframes->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
-				gKeyframeAnimation->RefreshTable();
-			}
-		}
-	}
-	delete menu;
+	CommonMyWidgetWrapper::contextMenuEvent(event);
 }
 
 void cMaterialSelector::paintEvent(QPaintEvent *event)
 {
-	if (actualValue != GetDefault())
-	{
-		QFont f = font();
-		f.setBold(true);
-		setFont(f);
-	}
-	else
-	{
-		QFont f = font();
-		f.setBold(false);
-		setFont(f);
-	}
+	QFont f = font();
+	f.setBold(actualValue != GetDefault());
+	setFont(f);
 	QWidget::paintEvent(event);
 }
 
@@ -107,11 +97,7 @@ int cMaterialSelector::GetDefault()
 		int val = parameterContainer->GetDefault<int>(parameterName);
 		defaultValue = val;
 		gotDefault = true;
-
-		QString toolTipText = toolTip();
-		toolTipText += "\nParameter name: " + parameterName + "<br>";
-		toolTipText += "Default: " + QString::number(defaultValue);
-		setToolTip(toolTipText);
+		setToolTipText();
 	}
 	return defaultValue;
 }
@@ -119,16 +105,19 @@ int cMaterialSelector::GetDefault()
 void cMaterialSelector::SetMaterialIndex(int materialIndex)
 {
 	actualValue = materialIndex;
-	if(actualValue > 0)
+	if (actualValue > 0)
 	{
-		materialWidget->AssignMaterial(parameterContainer, actualValue, gMainInterface->scrollAreaMaterialEditor);
+		materialWidget->AssignMaterial(
+			parameterContainer, actualValue, gMainInterface->scrollAreaMaterialEditor);
 	}
-	label->setText(QString("%1 [mat%2]").arg(parameterContainer->Get<QString>(cMaterial::Name("name", materialIndex))).arg(materialIndex));
+	label->setText(QString("%1 [mat%2]")
+									 .arg(parameterContainer->Get<QString>(cMaterial::Name("name", materialIndex)))
+									 .arg(materialIndex));
 }
 
 void cMaterialSelector::slotClicked(Qt::MouseButton button)
 {
-	if(button == Qt::LeftButton)
+	if (button == Qt::LeftButton)
 	{
 		cMaterialItemModel *model = gMainInterface->materialListModel;
 		cMaterialManagerView *view = new cMaterialManagerView(this);
@@ -153,5 +142,6 @@ void cMaterialSelector::slotMaterialSelected(int matIndex)
 
 void cMaterialSelector::slotMaterialEdited()
 {
-	SynchronizeInterfaceWindow(gMainInterface->scrollAreaMaterialEditor, parameterContainer, qInterface::write);
+	SynchronizeInterfaceWindow(
+		gMainInterface->scrollAreaMaterialEditor, parameterContainer, qInterface::write);
 }

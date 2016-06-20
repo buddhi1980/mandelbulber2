@@ -1,35 +1,43 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * MyFileSelectLabel class - promoted QLabel widget for selecting a file
  * showing the selected file in a MyLineEdit and opening the QFileDialog by pressing the QPushButton
- *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Sebastian Jennen (jenzebas@gmail.com)
  */
 
 #include "file_select_widget.h"
 #include "../src/animation_flight.hpp"
-#include "../src/animation_keyframes.hpp"
-#include <QLabel>
-#include <qmenu.h>
 #include "../src/preview_file_dialog.h"
-#include <algorithm>
 
-FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
+FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {
 	QFrame *frameTextAndButton = new QFrame;
 	QHBoxLayout *layoutTextAndButton = new QHBoxLayout;
@@ -42,13 +50,13 @@ FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
 	button = new QPushButton;
 	labelImage = new QLabel;
 	labelImage->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
-	labelImage->setContentsMargins(0,0,0,0);
-	labelImage->setSizePolicy(QSizePolicy::MinimumExpanding,
-									 QSizePolicy::MinimumExpanding);
+	labelImage->setContentsMargins(0, 0, 0, 0);
+	labelImage->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 	labelImage->setMaximumHeight(150);
 	labelImage->setMaximumWidth(300);
-	labelImage->setStyleSheet("QLabel { color: red; font-weight: bold; border: 1px solid black;"
-														"background-color: white; padding: 1px; }");
+	labelImage->setStyleSheet(
+		"QLabel { color: red; font-weight: bold; border: 1px solid black;"
+		"background-color: white; padding: 1px; }");
 	QIcon iconFolder = QIcon::fromTheme("folder", QIcon(":/system/icons/folder.svg"));
 	button->setIcon(iconFolder);
 	layoutTextAndButton->addWidget(lineEdit);
@@ -58,11 +66,6 @@ FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent)
 	layout->addWidget(frameTextAndButton);
 	layout->addWidget(labelImage);
 
-	actionResetToDefault = NULL;
-	actionAddToFlightAnimation = NULL;
-	actionAddToKeyframeAnimation = NULL;
-	parameterContainer = NULL;
-	gotDefault = false;
 	defaultValue = "";
 	connect(button, SIGNAL(clicked()), this, SLOT(slotSelectFile()));
 	connect(lineEdit, SIGNAL(editingFinished()), this, SLOT(slotChangedFile()));
@@ -72,60 +75,30 @@ FileSelectWidget::~FileSelectWidget(void)
 {
 }
 
+void FileSelectWidget::resetToDefault()
+{
+	SetPath(defaultValue);
+}
+
+QString FileSelectWidget::getDefaultAsString()
+{
+	return defaultValue;
+}
+
+QString FileSelectWidget::getFullParameterName()
+{
+	return parameterName;
+}
+
 void FileSelectWidget::contextMenuEvent(QContextMenuEvent *event)
 {
-	QMenu *menu = new QMenu;
-	actionResetToDefault = menu->addAction(tr("Reset to default"));
-	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
-	actionAddToKeyframeAnimation = menu->addAction(tr("Add to keyframe animation"));
-	QAction *selectedItem = menu->exec(event->globalPos());
-	if (selectedItem)
-	{
-		if (selectedItem == actionResetToDefault)
-		{
-			if (parameterContainer)
-			{
-				SetPath(defaultValue);
-			}
-			else
-			{
-				qCritical() << " FileSelectWidget::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
-			}
-		}
-		else if (selectedItem == actionAddToFlightAnimation)
-		{
-			if (parameterContainer)
-			{
-				gAnimFrames->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
-				gFlightAnimation->RefreshTable();
-			}
-		}
-		else if (selectedItem == actionAddToKeyframeAnimation)
-		{
-			if (parameterContainer)
-			{
-				gKeyframes->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
-				gKeyframeAnimation->RefreshTable();
-			}
-		}
-	}
-	delete menu;
+	CommonMyWidgetWrapper::contextMenuEvent(event);
 }
 
 void FileSelectWidget::paintEvent(QPaintEvent *event)
 {
-	if (lineEdit->text() != GetDefault())
-	{
-		QFont f = font();
-		f.setBold(true);
-		setFont(f);
-	}
-	else
-	{
-		QFont f = font();
-		f.setBold(false);
-		setFont(f);
-	}
+	QFont f = font();
+	f.setBold(lineEdit->text() != GetDefault());
 	QWidget::paintEvent(event);
 }
 
@@ -136,11 +109,7 @@ QString FileSelectWidget::GetDefault()
 		QString val = parameterContainer->GetDefault<QString>(parameterName);
 		defaultValue = val;
 		gotDefault = true;
-
-		QString toolTipText = toolTip();
-		toolTipText += "\nParameter name: " + parameterName + "<br>";
-		toolTipText += "Default: " + defaultValue;
-		setToolTip(toolTipText);
+		setToolTipText();
 	}
 	return defaultValue;
 }
@@ -169,10 +138,9 @@ void FileSelectWidget::SetPath(QString path)
 	slotChangedFile();
 }
 
-
 void FileSelectWidget::slotChangedFile()
 {
-	if(lineEdit->text() != actualText)
+	if (lineEdit->text() != actualText)
 	{
 		actualText = lineEdit->text();
 		QPixmap pixmap(lineEdit->text());
@@ -183,7 +151,7 @@ void FileSelectWidget::slotChangedFile()
 		}
 		else
 		{
-			if(pixmap.height() / pixmap.width() > 150 / 300)
+			if (pixmap.height() / pixmap.width() > 150 / 300)
 			{
 				labelImage->setPixmap(pixmap.scaledToHeight(150, Qt::SmoothTransformation));
 			}
