@@ -117,6 +117,10 @@ struct sFoldColor
 	double factorR;
 	double factorSp1;
 	double factorSp2;
+  double colorMin;
+  double compFold;
+  double compMinR;
+  double compScale;
 };
 
 struct sFractalGeneralizedFoldBox
@@ -321,10 +325,10 @@ struct sFractalTransformCommon
 {
   double alphaAngleOffset;
   double betaAngleOffset;
-  double colorMin;
-  double compFold;
-  double compMinR;
-  double compScale;
+  //double colorMin;
+  //double compFold;
+  //double compMinR;
+  //double compScale;
   double offset;
   double offset0;
   double offset05;
@@ -463,6 +467,7 @@ public:
   sFractalSinTan2Trig sinTan2Trig;
   sFractalSurfFolds surfFolds;
   sFractalDonut donut;
+  sFoldColor foldColor;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

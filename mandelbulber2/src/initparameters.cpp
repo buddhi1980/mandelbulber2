@@ -530,6 +530,11 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("analyticDE_offset_linear", 1.0, morphAkima, paramStandard);
   par->addParam("analyticDE_scale_linear", 1.0, morphAkima, paramStandard);
 
+  par->addParam("fold_color_color_min", 0.0, morphAkima, paramStandard);
+  par->addParam("fold_color_comp_fold", 1.0, morphAkima, paramStandard);
+  par->addParam("fold_color_comp_minR", 1.0, morphAkima, paramStandard);
+  par->addParam("fold_color_comp_scale", 0.0, morphAkima, paramStandard);
+
   //common parameters for transforming formulas
   par->addParam("transf_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
   par->addParam("transf_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);

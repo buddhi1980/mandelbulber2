@@ -1047,7 +1047,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 			if (mboxColor > 1000) mboxColor = 1000;
 
-			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+      out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+     /* out->colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor  // folds part
+          + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+          + extendedAux.scaleFactor * r * i / 1e15  // scale part conditional on i & r
+          + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard) ? minimumR
+              * extendedAux.minRFactor * 1000.0 :
+              0.0);*/
 		}
 		else
 		{
@@ -1087,13 +1093,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case amazingSurfMulti:
         case mandelboxMenger:
       //case amazingSurfMod1:
+
           out->colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor  // folds part
               + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-              + extendedAux.scaleFactor * r * i / 1e14  // scale part conditional on i & r
+              + extendedAux.scaleFactor * r * i / 1e15  // scale part conditional on i & r
               + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard) ? minimumR
                   * extendedAux.minRFactor * 1000.0 :
                   0.0);
-        break;
+          break;
 
 				case msltoeDonut:
 					out->colorIndex = extendedAux.color * 2000.0 / i;

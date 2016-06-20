@@ -1622,15 +1622,17 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
     if (i >= fractal->transformCommon.startIterationsS
         && i < fractal->transformCommon.stopIterationsS)
     { // scale
-      z *= fractal->mandelbox.scale * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
+      z *= fractal->mandelbox.scale * fractal->transformCommon.scale1 + 1.0
+          * (1.0 - fractal->transformCommon.scale1);
       aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
     }
   }
-  aux.foldFactor = fractal->transformCommon.compFold; //TODO fix?
-  aux.minRFactor = fractal->transformCommon.compMinR;
-  double scaleColor = fractal->transformCommon.colorMin;
-  scaleColor += fabs(fractal->mandelbox.scale);
-  aux.scaleFactor = scaleColor * fractal->transformCommon.compScale;
+  aux.foldFactor = fractal->foldColor.compFold; //TODO fix?
+  aux.minRFactor = fractal->foldColor.compMinR;
+  double scaleColor = fractal->foldColor.colorMin
+      + fabs(fractal->mandelbox.scale);
+  //scaleColor += fabs(fractal->mandelbox.scale);
+  aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 
 }
 
@@ -2137,13 +2139,12 @@ void MandelboxMengerIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
       }
     }
   }
-
-  aux.foldFactor = fractal->transformCommon.compFold; //TODO fix?
-  aux.minRFactor = fractal->transformCommon.compMinR;
-  double scaleColor = fractal->transformCommon.colorMin;
-  scaleColor += fabs(fractal->mandelbox.scale);
-  aux.scaleFactor = scaleColor * fractal->transformCommon.compScale;
-
+  aux.foldFactor = fractal->foldColor.compFold; //TODO fix?
+  aux.minRFactor = fractal->foldColor.compMinR;
+  double scaleColor = fractal->foldColor.colorMin
+      + fabs(fractal->mandelbox.scale);
+  //scaleColor += fabs(fractal->mandelbox.scale);
+  aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 
 }
 

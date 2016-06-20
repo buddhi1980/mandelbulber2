@@ -1826,7 +1826,7 @@ offset:</string>
       <number>2</number>
      </property>
      <item row="10" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_color_min">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_color_min">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -2180,7 +2180,7 @@ offset:</string>
       </widget>
      </item>
      <item row="14" column="1">
-      <widget class="QSlider" name="slider_transf_comp_minR">
+      <widget class="QSlider" name="slider_fold_color_comp_minR">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -2215,7 +2215,7 @@ offset:</string>
       </widget>
      </item>
      <item row="14" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_comp_minR">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_minR">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -2256,7 +2256,7 @@ offset:</string>
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_comp_fold">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_fold">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -2362,7 +2362,7 @@ offset:</string>
       </widget>
      </item>
      <item row="9" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_comp_scale">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_scale">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -2376,13 +2376,13 @@ offset:</string>
         <string/>
        </property>
        <property name="decimals">
-        <number>6</number>
+        <number>2</number>
        </property>
        <property name="minimum">
-        <double>-1000000.000000000000000</double>
+        <double>-100.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>1000000.000000000000000</double>
+        <double>100.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -2397,7 +2397,7 @@ offset:</string>
       </widget>
      </item>
      <item row="9" column="1">
-      <widget class="QSlider" name="slider_transf_comp_scale">
+      <widget class="QSlider" name="slider_fold_color_comp_scale">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -2408,7 +2408,7 @@ offset:</string>
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>10000000</number>
+        <number>1000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -2419,7 +2419,7 @@ offset:</string>
       </widget>
      </item>
      <item row="10" column="1">
-      <widget class="QSlider" name="slider_transf_color_min">
+      <widget class="QSlider" name="slider_fold_color_color_min">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -2440,7 +2440,7 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
+     <item row="0" column="0" colspan="2">
       <widget class="QLabel" name="label_69">
        <property name="font">
         <font>
@@ -2449,7 +2449,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Coloring parameters</string>
+        <string>Coloring components (beta version only)</string>
        </property>
       </widget>
      </item>
