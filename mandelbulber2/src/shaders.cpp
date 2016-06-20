@@ -838,13 +838,20 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 			}
 		}
 	}
-	if (normal.x == 0 && normal.y == 0 && normal.z == 0)
+
+	if ((normal.x == 0 && normal.y == 0 && normal.z == 0))
 	{
-		normal.x = 1;
+		normal = CVector3(1.0, 0.0, 0.0);
+
 	}
 	else
 	{
 		normal.Normalize();
+	}
+
+	if(normal.IsNotANumber())
+	{
+		normal = CVector3(1.0, 0.0, 0.0);
 	}
 
 	if (input.invertMode) normal *= (-1.0);
