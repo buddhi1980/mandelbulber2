@@ -1177,14 +1177,10 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 	z += fractal->transformCommon.additionConstant000;
 
   double r2;
+  r2 = z.Dot(z);
 	if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
-	{
-    r2 = (z.x * z.x + z.y * z.y); // cylinder fold  ;
-	}
-	else
-	{
-    r2 = z.Dot(z);
-	}
+    r2 -=  z.z * z.z;
+
   //if (r2 < 1e-21)
   //	r2 = 1e-21;
 
@@ -1564,17 +1560,23 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       aux.color += fractal->mandelbox.color.factor.z;
     }
   }
+  z += fractal->transformCommon.additionConstant000;
+
   //standard functions
   if (fractal->transformCommon.functionEnabledAy)
-
   {
     double r2;
+    r2 = z.Dot(z);
+    if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
+        r2 -=  z.z * z.z * fractal->transformCommon.scaleB1; // fold weight  ;
+
     if (fractal->transformCommon.functionEnabledAz
         && i >= fractal->transformCommon.startIterationsT
         && i < fractal->transformCommon.stopIterationsT)
-    { // Abox Spherical fold
+    {
+      // Abox Spherical fold
       z += fractal->mandelbox.offset;
-      r2 = z.Dot(z);
+      //r2 = z.Dot(z);
       double sqrtMinR = fractal->transformCommon.sqtR;
 
       if (r2 < sqrtMinR)
@@ -1591,12 +1593,13 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       }
       z -= fractal->mandelbox.offset;
     }
+
     // Mandelbox Spherical fold
     if (fractal->transformCommon.functionEnabledzFalse
         && i >= fractal->transformCommon.startIterationsM
         && i < fractal->transformCommon.stopIterationsM)
     {
-      r2 = z.Dot(z);
+      //r2 = z.Dot(z);
       z += fractal->mandelbox.offset;
       if (r2 < fractal->mandelbox.mR2)//mR2 = minR^2
       {
@@ -1823,9 +1826,9 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
 	if (i >= fractal->transformCommon.startIterationsB
 			&& i < fractal->transformCommon.stopIterationsB) // spherical fold
 	{
-		double r2 = z.Dot(z);
-		//if (r2 < 1e-21 && r2 > -1e-21)
-		//	r2 = (r2 > 0) ? 1e-21 : -1e-21;
+    double r2 = z.Dot(z);
+    //if (r2 < 1e-21 && r2 > -1e-21)
+    //	r2 = (r2 > 0) ? 1e-21 : -1e-21;
 		if (r2 < fractal->mandelbox.mR2)
 		{
 			z *= fractal->mandelbox.mboxFactor1;
