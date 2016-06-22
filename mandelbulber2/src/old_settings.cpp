@@ -1085,6 +1085,15 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		par->Set("hybrid_fractal_enable", true);
 		par->Set("formula", 2, (int) fractal::kaleidoscopicIFS);
 	}
+
+	if(oldData->fractal.juliaMode)
+	{
+		par->Set("fractal_constant_factor", CVector3(0.0, 0.0, 0.0));
+		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+		{
+			par->Set("fractal_constant_factor", CVector3(1.0, 1.0, 1.0));
+		}
+	}
 }
 
 } /* namespace oldSettings */
