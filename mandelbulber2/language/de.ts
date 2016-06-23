@@ -8761,12 +8761,12 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
     <message>
         <location filename="../src/command_line_interface.cpp" line="84"/>
         <source>Overrides image resolution. Specify as width and height separated by &apos;x&apos;</source>
-        <translation>Überschreibt die Bildauflösung. Wert muss mit Höhe und Breite getrennt durch &apos;x&apos; angegeben werden.</translation>
+        <translation>Überschreibt die Bildauflösung. Wert muss mit Breite und Höhe getrennt durch &apos;x&apos; angegeben werden.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="85"/>
         <source>WxH</source>
-        <translation>HxB</translation>
+        <translation>BxH</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="88"/>
