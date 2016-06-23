@@ -54,79 +54,62 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
 		menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Reset to default"));
 	actionResetToDefault->setIcon(iconReset);
 
-	if (gAnimFrames->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName())
-			== -1)
+	if (parameterContainer)
 	{
-		actionAddToFlightAnimation = menu->addAction(
-			QCoreApplication::translate("CommonMyWidgetWrapper", "Add to flight animation"));
-		actionAddToFlightAnimation->setIcon(iconAdd);
-	}
-	else
-	{
-		actionRemoveFromFlightAnimation = menu->addAction(
-			QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from flight animation"));
-		actionRemoveFromFlightAnimation->setIcon(iconDelete);
-	}
-
-	if (gKeyframes->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName()) == -1)
-	{
-		actionAddToKeyframeAnimation = menu->addAction(
-			QCoreApplication::translate("CommonMyWidgetWrapper", "Add to keyframe animation"));
-		actionAddToKeyframeAnimation->setIcon(iconAdd);
-	}
-	else
-	{
-		actionnRemoveFromKeyframeAnimation = menu->addAction(
-			QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from keyframe animation"));
-		actionnRemoveFromKeyframeAnimation->setIcon(iconDelete);
-	}
-
-	QAction *selectedItem = menu->exec(event->globalPos());
-	if (selectedItem)
-	{
-		if (selectedItem == actionResetToDefault)
+		if (gAnimFrames->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName())
+				== -1)
 		{
-			if (parameterContainer)
+			actionAddToFlightAnimation = menu->addAction(
+				QCoreApplication::translate("CommonMyWidgetWrapper", "Add to flight animation"));
+			actionAddToFlightAnimation->setIcon(iconAdd);
+		}
+		else
+		{
+			actionRemoveFromFlightAnimation = menu->addAction(
+				QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from flight animation"));
+			actionRemoveFromFlightAnimation->setIcon(iconDelete);
+		}
+
+		if (gKeyframes->IndexOnList(getFullParameterName(), parameterContainer->GetContainerName())
+				== -1)
+		{
+			actionAddToKeyframeAnimation = menu->addAction(
+				QCoreApplication::translate("CommonMyWidgetWrapper", "Add to keyframe animation"));
+			actionAddToKeyframeAnimation->setIcon(iconAdd);
+		}
+		else
+		{
+			actionnRemoveFromKeyframeAnimation = menu->addAction(
+				QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from keyframe animation"));
+			actionnRemoveFromKeyframeAnimation->setIcon(iconDelete);
+		}
+
+		QAction *selectedItem = menu->exec(event->globalPos());
+		if (selectedItem)
+		{
+			if (selectedItem == actionResetToDefault)
 			{
 				resetToDefault();
 			}
-			else
-			{
-				qCritical() << " MyBasicContextMenuElement::contextMenuEvent(QContextMenuEvent *event): "
-											 "parameter container not assigned. Object:"
-										<< widget->objectName();
-			}
-		}
-		else if (selectedItem == actionAddToFlightAnimation)
-		{
-			if (parameterContainer)
+			else if (selectedItem == actionAddToFlightAnimation)
 			{
 				gAnimFrames->AddAnimatedParameter(
 					getFullParameterName(), parameterContainer->GetAsOneParameter(getFullParameterName()));
 				gFlightAnimation->RefreshTable();
 			}
-		}
-		else if (selectedItem == actionRemoveFromFlightAnimation)
-		{
-			if (parameterContainer)
+			else if (selectedItem == actionRemoveFromFlightAnimation)
 			{
 				gAnimFrames->RemoveAnimatedParameter(
 					parameterContainer->GetContainerName() + "_" + getFullParameterName());
 				gFlightAnimation->RefreshTable();
 			}
-		}
-		else if (selectedItem == actionAddToKeyframeAnimation)
-		{
-			if (parameterContainer)
+			else if (selectedItem == actionAddToKeyframeAnimation)
 			{
 				gKeyframes->AddAnimatedParameter(
 					getFullParameterName(), parameterContainer->GetAsOneParameter(getFullParameterName()));
 				gKeyframeAnimation->RefreshTable();
 			}
-		}
-		else if (selectedItem == actionnRemoveFromKeyframeAnimation)
-		{
-			if (parameterContainer)
+			else if (selectedItem == actionnRemoveFromKeyframeAnimation)
 			{
 				gKeyframes->RemoveAnimatedParameter(
 					parameterContainer->GetContainerName() + "_" + getFullParameterName());
@@ -134,16 +117,20 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
 			}
 		}
 	}
+	else
+	{
+		qCritical() << " MyBasicContextMenuElement::contextMenuEvent(QContextMenuEvent *event): "
+									 "parameter container not assigned. Object:" << widget->objectName();
+	}
 	delete menu;
 }
 
 void CommonMyWidgetWrapper::setToolTipText()
 {
 	QString toolTipText = widget->toolTip();
-	toolTipText +=
-		"\n"
-		+ QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter name: %1").arg(parameterName)
-		+ "<br>";
+	toolTipText += "\n"
+								 + QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter name: %1")
+										 .arg(parameterName) + "<br>";
 	toolTipText += QCoreApplication::translate("CommonMyWidgetWrapper", "Default value: %1")
 									 .arg(getDefaultAsString());
 	widget->setToolTip(toolTipText);
