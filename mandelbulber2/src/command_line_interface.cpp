@@ -62,27 +62,27 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "N"));
 
 	QCommandLineOption overrideOption(QStringList() << "O" << "override",
-		QCoreApplication::translate("main", "Overrides item '<KEY>' from settings file with new value '<VALUE>'.\n"
-			"Specify multiple KEY=VALUE pairs by separating with a '#' (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues\n"
-			"Override fractal parameter in the form 'fractal<N>_KEY=VALUE' with <N> as index of fractal"),
-		QCoreApplication::translate("main", "KEY=VALUE"));
+		QCoreApplication::translate("main", "<KEY=VALUE> overrides item '<KEY>' from settings file with new value '<VALUE>'.\n"
+			"Specify multiple KEY=VALUE pairs by separating with a '#': <KEY1=VALUE1#KEY2=VALUE2>. Quote whole expression to avoid whitespace parsing issues\n"
+			"Override fractal parameter in the form 'fractal<N>_KEY=VALUE' with <N> being index of fractal"),
+		QCoreApplication::translate("main", "..."));
 
 	QCommandLineOption listOption(QStringList() << "L" << "list",
 				QCoreApplication::translate("main", "Lists all possible parameters '<KEY>' with corresponding default value '<VALUE>'."));
 
 	QCommandLineOption formatOption(QStringList() << "f" << "format",
 		QCoreApplication::translate("main", "Image output format:\n"
-			"jpg - JPEG format (default)\n"
-			"png - PNG format\n"
-			"png16 - 16-bit PNG format\n"
-			"png16alpha - 16-bit PNG with alpha channel format\n"
-			"exr - EXR format\n"
-			"tiff - TIFF format"),
+			"  jpg - JPEG format (default)\n"
+			"  png - PNG format\n"
+			"  png16 - 16-bit PNG format\n"
+			"  png16alpha - 16-bit PNG with alpha channel format\n"
+			"  exr - EXR format\n"
+			"  tiff - TIFF format"),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	QCommandLineOption resOption(QStringList() << "r" << "res",
-		QCoreApplication::translate("main", "Overrides image resolution."),
-		QCoreApplication::translate("main", "WIDTHxHEIGHT"));
+		QCoreApplication::translate("main", "Overrides image resolution. Specify as width and height separated by 'x'"),
+		QCoreApplication::translate("main", "WxH"));
 
 	QCommandLineOption fpkOption("fpk",
 		QCoreApplication::translate("main", "Overrides frames per key parameter."),
@@ -134,7 +134,6 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(flightOption);
 	parser.addOption(startOption);
 	parser.addOption(endOption);
-	parser.addOption(overrideOption);
 	parser.addOption(listOption);
 	parser.addOption(formatOption);
 	parser.addOption(resOption);
@@ -146,6 +145,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(queueOption);
 	parser.addOption(testOption);
 	parser.addOption(voxelOption);
+	parser.addOption(overrideOption);
 	parser.addOption(statsOption);
 	parser.addOption(helpInputOption);
 
