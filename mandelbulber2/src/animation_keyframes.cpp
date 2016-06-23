@@ -702,8 +702,8 @@ void cKeyframeAnimation::RefreshTable()
 
 	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
 															 // after loading of settings
-
 	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
+
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
 
@@ -728,7 +728,9 @@ void cKeyframeAnimation::RefreshTable()
 			gApplication->processEvents();
 		}
 	}
+
 	UpdateLimitsForFrameRange();
+
 	mainInterface->progressBarAnimation->hide();
 }
 
@@ -1101,7 +1103,7 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 	ui->sliderInt_keyframe_last_to_render->setMaximum(noOfFrames);
 
 	ui->spinboxInt_keyframe_first_to_render->setValue(params->Get<int>("keyframe_first_to_render"));
-	ui->sliderInt_keyframe_last_to_render->setValue(params->Get<int>("keyframe_last_to_render"));
+	ui->spinboxInt_keyframe_last_to_render->setValue(params->Get<int>("keyframe_last_to_render"));
 }
 
 void cKeyframeAnimation::slotMovedSliderFirstFrame(int value)
