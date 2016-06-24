@@ -65,7 +65,6 @@ private:
 
 	int GetDefault();
 	int defaultValue;
-	bool gotDefault;
 	int actualValue;
 
 protected:

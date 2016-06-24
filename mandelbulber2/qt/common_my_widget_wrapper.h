@@ -72,7 +72,6 @@ private:
 	QAction *actionRemoveFromFlightAnimation;
 	QAction *actionAddToKeyframeAnimation;
 	QAction *actionnRemoveFromKeyframeAnimation;
-	QString GetType(const QString &name);
 
 protected:
 	cParameterContainer *parameterContainer;
@@ -81,11 +80,12 @@ protected:
 	QWidget *widget;
 
 	void setToolTipText();
+	QString GetType(const QString &name);
 
 	// contextMenuEvent doesn't overwrite method from child class, but this function cal be called
-	void contextMenuEvent(QContextMenuEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu = NULL);
 
-	// these methods have to be implemented by widgets inherting this class
+	// these methods have to be implemented by widgets inheriting this class
 	virtual void resetToDefault() = 0;
 	virtual QString getDefaultAsString() = 0;
 	virtual QString getFullParameterName() = 0;

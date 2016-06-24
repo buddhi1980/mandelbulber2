@@ -25,62 +25,32 @@
 #include "../src/animation_flight.hpp"
 #include "../src/animation_keyframes.hpp"
 
-MyGroupBox::MyGroupBox(QWidget *parent) :	QGroupBox(parent)
+MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapper(this)
 {
-	actionResetToDefault = NULL;
-	actionAddToFlightAnimation = NULL;
-	actionAddToKeyframeAnimation = NULL;
-	parameterContainer = NULL;
-	gotDefault = false;
 	defaultValue = 0;
 	firstDisplay = true;
 	connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
 }
 
-void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
+void MyGroupBox::resetToDefault()
 {
-	QMenu *menu = new QMenu;
-	actionResetToDefault = menu->addAction(tr("Reset to default"));
-	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
-	actionAddToKeyframeAnimation = menu->addAction(tr("Add to keyframe animation"));
-	QAction *selectedItem = menu->exec(event->globalPos());
-	if (selectedItem)
-	{
-		if (selectedItem == actionResetToDefault)
-		{
-			if (parameterContainer)
-			{
-				setChecked(defaultValue);
-				emit toggled(defaultValue);
-			}
-			else
-			{
-				qCritical() << " MyGroupBox::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
-			}
-		}
-		else if (selectedItem == actionAddToFlightAnimation)
-		{
-			if (parameterContainer)
-			{
-				gAnimFrames->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
-				gFlightAnimation->RefreshTable();
-			}
-		}
-		else if (selectedItem == actionAddToKeyframeAnimation)
-		{
-			if (parameterContainer)
-			{
-				gKeyframes->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
-				gKeyframeAnimation->RefreshTable();
-			}
-		}
-	}
-	delete menu;
+	setChecked(defaultValue);
+	emit toggled(defaultValue);
+}
+
+QString MyGroupBox::getDefaultAsString()
+{
+	return defaultValue ? "true" : "false";
+}
+
+QString MyGroupBox::getFullParameterName()
+{
+	return parameterName;
 }
 
 void MyGroupBox::paintEvent(QPaintEvent *event)
 {
-	if(firstDisplay)
+	if (firstDisplay)
 	{
 		originalText = title();
 		firstDisplay = false;
@@ -97,7 +67,6 @@ void MyGroupBox::paintEvent(QPaintEvent *event)
 	}
 	setTitle(displayTitle);
 	QGroupBox::paintEvent(event);
-
 }
 
 bool MyGroupBox::GetDefault()
@@ -111,16 +80,17 @@ bool MyGroupBox::GetDefault()
 		QString toolTipText = toolTip();
 		toolTipText += "\nParameter name: " + parameterName + "<br>";
 		toolTipText += "Default: " + ((defaultValue) ? QString("true") : QString("false"));
-		setToolTip(toolTipText);
+		setToolTipText();
 	}
 	return defaultValue;
 }
 
 void MyGroupBox::slotToggled(bool on)
 {
-	QList<QWidget*> list = this->findChildren<QWidget*>(QString(), Qt::FindDirectChildrenOnly);
-	for (int i = 0; i < list.size(); ++i) {
-		if(on)
+	QList<QWidget *> list = this->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
+	for (int i = 0; i < list.size(); ++i)
+	{
+		if (on)
 		{
 			list[i]->show();
 		}
@@ -129,4 +99,9 @@ void MyGroupBox::slotToggled(bool on)
 			list[i]->hide();
 		}
 	}
+}
+
+void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
+{
+	CommonMyWidgetWrapper::contextMenuEvent(event);
 }

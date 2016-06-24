@@ -43,9 +43,19 @@
 #include "../src/animation_flight.hpp"
 #include "../src/animation_keyframes.hpp"
 
-void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event)
+void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu)
 {
-	QMenu *menu = new QMenu;
+	QMenu *menu;
+	if(existingMenu)
+		{
+			menu = existingMenu;
+			menu->addSeparator();
+		}
+	else
+	{
+		menu = new QMenu;
+	}
+
 	QIcon iconAdd = QIcon::fromTheme("list-add", QIcon(":system/icons/list-add.svg"));
 	QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
 	QIcon iconReset = QIcon(":system/icons/edit-undo.png");
@@ -134,4 +144,10 @@ void CommonMyWidgetWrapper::setToolTipText()
 	toolTipText += QCoreApplication::translate("CommonMyWidgetWrapper", "Default value: %1")
 									 .arg(getDefaultAsString());
 	widget->setToolTip(toolTipText);
+}
+
+QString CommonMyWidgetWrapper::GetType(const QString &name)
+{
+	size_t firstDashPosition = name.indexOf("_");
+	return name.left(firstDashPosition);
 }

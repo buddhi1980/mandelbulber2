@@ -55,7 +55,7 @@ QString MySpinBox::getFullParameterName()
 
 void MySpinBox::contextMenuEvent(QContextMenuEvent *event)
 {
-	CommonMyWidgetWrapper::contextMenuEvent(event);
+	CommonMyWidgetWrapper::contextMenuEvent(event, lineEdit()->createStandardContextMenu());
 }
 
 void MySpinBox::paintEvent(QPaintEvent *event)

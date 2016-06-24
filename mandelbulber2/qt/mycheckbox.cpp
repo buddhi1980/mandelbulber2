@@ -51,7 +51,7 @@ void MyCheckBox::paintEvent(QPaintEvent *event)
 
 QString MyCheckBox::getDefaultAsString()
 {
-	return GetDefault() ? "true" : "false";
+	return defaultValue ? "true" : "false";
 }
 
 QString MyCheckBox::getFullParameterName()

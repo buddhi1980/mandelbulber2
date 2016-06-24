@@ -25,58 +25,6 @@
 #include "../src/animation_flight.hpp"
 #include "../src/animation_keyframes.hpp"
 
-void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
-{
-	QMenu *menu = lineEdit()->createStandardContextMenu();
-	menu->addSeparator();
-	actionResetToDefault = menu->addAction(tr("Reset to default"));
-	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
-	actionAddToKeyframeAnimation = menu->addAction(tr("Add to keyframe animation"));
-	QAction *selectedItem = menu->exec(event->globalPos());
-	if (selectedItem)
-	{
-		if (selectedItem == actionResetToDefault)
-		{
-			if (parameterContainer)
-			{
-				setValue(defaultValue);
-				emit valueChanged(defaultValue);
-			}
-			else
-			{
-				qCritical() << "MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
-			}
-		}
-		else if (selectedItem == actionAddToFlightAnimation)
-		{
-			if (parameterContainer)
-			{
-				QString parName = parameterName;
-				QString type = GetType(objectName());
-				if (type == QString("spinbox3") || type == QString("spinboxd3") || type == QString("spinbox4") || type == QString("spinboxd4"))
-					parName = parameterName.left(parameterName.length() - 2);
-
-				gAnimFrames->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
-				gFlightAnimation->RefreshTable();
-			}
-		}
-		else if (selectedItem == actionAddToKeyframeAnimation)
-		{
-			if (parameterContainer)
-			{
-				QString parName = parameterName;
-				QString type = GetType(objectName());
-				if (type == QString("spinbox3") || type == QString("spinboxd3") || type == QString("spinbox4") || type == QString("spinboxd4"))
-					parName = parameterName.left(parameterName.length() - 2);
-
-				gKeyframes->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
-				gKeyframeAnimation->RefreshTable();
-			}
-		}
-	}
-	delete menu;
-}
-
 void MyDoubleSpinBox::paintEvent(QPaintEvent *event)
 {
 	if (value() != GetDefault())
@@ -94,12 +42,6 @@ void MyDoubleSpinBox::paintEvent(QPaintEvent *event)
 	QDoubleSpinBox::paintEvent(event);
 }
 
-QString MyDoubleSpinBox::GetType(const QString &name)
-{
-	size_t firstDashPosition = name.indexOf("_");
-	return name.left(firstDashPosition);
-}
-
 double MyDoubleSpinBox::GetDefault()
 {
 	if (parameterContainer && !gotDefault)
@@ -112,6 +54,7 @@ double MyDoubleSpinBox::GetDefault()
 			CVector3 val = parameterContainer->GetDefault<CVector3>(nameVect);
 			defaultValue = val.itemByName(lastChar);
 			gotDefault = true;
+			setToolTipText();
 		}
 		else if (type == QString("spinbox4") || type == QString("spinboxd4"))
 		{
@@ -120,17 +63,40 @@ double MyDoubleSpinBox::GetDefault()
 			CVector4 val = parameterContainer->GetDefault<CVector4>(nameVect);
 			defaultValue = val.itemByName(lastChar);
 			gotDefault = true;
+			setToolTipText();
 		}
 		else
 		{
 			defaultValue = parameterContainer->GetDefault<double>(parameterName);
 			gotDefault = true;
+			setToolTipText();
 		}
-
-		QString toolTipText = toolTip();
-		toolTipText += "\nParameter name: " + parameterName + "<br>";
-		toolTipText += "Default: " + QString("%L1").arg(defaultValue, 0, 'g', 16);
-		setToolTip(toolTipText);
 	}
 	return defaultValue;
+}
+
+void MyDoubleSpinBox::resetToDefault()
+{
+	setValue(defaultValue);
+	emit valueChanged(defaultValue);
+}
+
+QString MyDoubleSpinBox::getDefaultAsString()
+{
+	return QString("%L1").arg(defaultValue, 0, 'g', 16);
+}
+
+QString MyDoubleSpinBox::getFullParameterName()
+{
+	QString parName = parameterName;
+	QString type = GetType(objectName());
+	if (type == QString("spinbox3") || type == QString("spinboxd3") || type == QString("spinbox4")
+			|| type == QString("spinboxd4"))
+		parName = parameterName.left(parameterName.length() - 2);
+	return parName;
+}
+
+void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
+{
+	CommonMyWidgetWrapper::contextMenuEvent(event, lineEdit()->createStandardContextMenu());
 }

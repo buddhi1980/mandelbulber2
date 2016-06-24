@@ -28,42 +28,29 @@
 #include <QDoubleSpinBox>
 #include <QMenu>
 #include "../src/parameters.hpp"
+#include "../qt/common_my_widget_wrapper.h"
 
-class MyDoubleSpinBox : public QDoubleSpinBox
+class MyDoubleSpinBox : public QDoubleSpinBox, public CommonMyWidgetWrapper
 {
 	Q_OBJECT
 
 public:
-	MyDoubleSpinBox(QWidget *parent = 0)  : QDoubleSpinBox(parent)
+	MyDoubleSpinBox(QWidget *parent = 0) : QDoubleSpinBox(parent), CommonMyWidgetWrapper(this)
 	{
-		actionResetToDefault = NULL;
-		actionAddToFlightAnimation = NULL;
-		actionAddToKeyframeAnimation = NULL;
-		parameterContainer = NULL;
-		gotDefault = false;
 		defaultValue = 0;
 	};
 
-	void AssignParameterContainer(cParameterContainer *container) {parameterContainer = container;}
-	void AssingParameterName(QString name) {parameterName = name;}
+	virtual void resetToDefault();
+	virtual QString getDefaultAsString();
+	virtual QString getFullParameterName();
 
 private:
-	QAction *actionResetToDefault;
-	QAction *actionAddToFlightAnimation;
-	QAction *actionAddToKeyframeAnimation;
-	QString GetType(const QString &name);
-	cParameterContainer *parameterContainer;
-	QString parameterName;
-
 	double GetDefault();
 	double defaultValue;
-	bool gotDefault;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
 	void paintEvent(QPaintEvent *event);
 };
-
-
 
 #endif /* MYDOUBLESPINBOX_HPP_ */

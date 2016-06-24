@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #ifndef MYGROUPBOX_HPP_
 #define MYGROUPBOX_HPP_
 
@@ -29,38 +28,31 @@
 #include <QGroupBox>
 #include <QMenu>
 #include "../src/parameters.hpp"
+#include "../qt/common_my_widget_wrapper.h"
 
-class MyGroupBox : public QGroupBox
+class MyGroupBox : public QGroupBox, public CommonMyWidgetWrapper
 {
 	Q_OBJECT
 
 public:
 	MyGroupBox(QWidget *parent = 0);
 
-	void AssignParameterContainer(cParameterContainer *container) {parameterContainer = container;}
-	void AssingParameterName(QString name) {parameterName = name;}
-
 private:
-	QAction *actionResetToDefault;
-	QAction *actionAddToFlightAnimation;
-	QAction *actionAddToKeyframeAnimation;
-	cParameterContainer *parameterContainer;
-	QString parameterName;
-
 	bool GetDefault();
 	bool defaultValue;
-	bool gotDefault;
 	QString originalText;
 	bool firstDisplay;
 
+	virtual void resetToDefault();
+	virtual QString getDefaultAsString();
+	virtual QString getFullParameterName();
+
 private slots:
-  void slotToggled(bool on);
+	void slotToggled(bool on);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
 	void paintEvent(QPaintEvent *event);
 };
-
-
 
 #endif /* MYGROUPBOX_HPP_ */
