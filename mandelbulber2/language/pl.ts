@@ -76,37 +76,37 @@
 <context>
     <name>CommonMyWidgetWrapper</name>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="54"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="64"/>
         <source>Reset to default</source>
         <translation>Przywróć domyślne</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="63"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="73"/>
         <source>Add to flight animation</source>
         <translation>Dodaj do animacji lotu</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="69"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="79"/>
         <source>Remove from flight animation</source>
         <translation>Usuń z animacji lotu</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="77"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="87"/>
         <source>Add to keyframe animation</source>
         <translation>Dodaj do animacji z klatkami kluczowymi</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="83"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="93"/>
         <source>Remove from keyframe animation</source>
         <translation>Usuń z animacji z klatkami kluczowymi</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="132"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="142"/>
         <source>Parameter name: %1</source>
         <translation>Nazwa parametru: %1</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="134"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="144"/>
         <source>Default value: %1</source>
         <translation>Wartość domyślna: %1</translation>
     </message>
@@ -206,88 +206,76 @@
 <context>
     <name>MyDoubleSpinBox</name>
     <message>
-        <location filename="../qt/mydoublespinbox.cpp" line="32"/>
         <source>Reset to default</source>
-        <translation>Przywróć domyślne</translation>
+        <translation type="vanished">Przywróć domyślne</translation>
     </message>
     <message>
-        <location filename="../qt/mydoublespinbox.cpp" line="33"/>
         <source>Add to flight animation</source>
-        <translation>Dodaj do animacji lotu</translation>
+        <translation type="vanished">Dodaj do animacji lotu</translation>
     </message>
     <message>
-        <location filename="../qt/mydoublespinbox.cpp" line="34"/>
         <source>Add to keyframe animation</source>
-        <translation>Dodaj do animacji z klatkami kluczowymi</translation>
+        <translation type="vanished">Dodaj do animacji z klatkami kluczowymi</translation>
     </message>
 </context>
 <context>
     <name>MyGroupBox</name>
     <message>
-        <location filename="../qt/mygroupbox.cpp" line="43"/>
         <source>Reset to default</source>
-        <translation>Przywróć domyślne</translation>
+        <translation type="vanished">Przywróć domyślne</translation>
     </message>
     <message>
-        <location filename="../qt/mygroupbox.cpp" line="44"/>
         <source>Add to flight animation</source>
-        <translation>Dodaj do animacji lotu</translation>
+        <translation type="vanished">Dodaj do animacji lotu</translation>
     </message>
     <message>
-        <location filename="../qt/mygroupbox.cpp" line="45"/>
         <source>Add to keyframe animation</source>
-        <translation>Dodaj do animacji z klatkami kluczowymi</translation>
+        <translation type="vanished">Dodaj do animacji z klatkami kluczowymi</translation>
     </message>
 </context>
 <context>
     <name>MyLineEdit</name>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="50"/>
+        <location filename="../qt/mylineedit.cpp" line="215"/>
         <source>Copy vector</source>
         <translation>Kopiuj wektor</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="51"/>
+        <location filename="../qt/mylineedit.cpp" line="216"/>
         <source>Paste vector</source>
         <translation>Wklej wektor</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="52"/>
+        <location filename="../qt/mylineedit.cpp" line="217"/>
         <source>Reset vector to default</source>
         <translation>Zresetuj wektor</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="54"/>
         <source>Reset to default</source>
-        <translation>Przywróć domyślne</translation>
+        <translation type="vanished">Przywróć domyślne</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="55"/>
         <source>Add to flight animation</source>
-        <translation>Dodaj do animacji lotu</translation>
+        <translation type="vanished">Dodaj do animacji lotu</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="56"/>
         <source>Add to keyframe animation</source>
-        <translation>Dodaj do animacji z klatkami kluczowymi</translation>
+        <translation type="vanished">Dodaj do animacji z klatkami kluczowymi</translation>
     </message>
 </context>
 <context>
     <name>MySpinBox</name>
     <message>
-        <location filename="../qt/myspinbox.cpp" line="32"/>
         <source>Reset to default</source>
-        <translation>Przywróć domyślne</translation>
+        <translation type="vanished">Przywróć domyślne</translation>
     </message>
     <message>
-        <location filename="../qt/myspinbox.cpp" line="33"/>
         <source>Add to flight animation</source>
-        <translation>Dodaj do animacji lotu</translation>
+        <translation type="vanished">Dodaj do animacji lotu</translation>
     </message>
     <message>
-        <location filename="../qt/myspinbox.cpp" line="34"/>
         <source>Add to keyframe animation</source>
-        <translation>Dodaj do animacji z klatkami kluczowymi</translation>
+        <translation type="vanished">Dodaj do animacji z klatkami kluczowymi</translation>
     </message>
 </context>
 <context>
@@ -911,7 +899,7 @@ Wersja pliku: </translation>
         <location filename="../src/animation_flight.cpp" line="733"/>
         <location filename="../src/animation_flight.cpp" line="1054"/>
         <location filename="../src/animation_keyframes.cpp" line="578"/>
-        <location filename="../src/animation_keyframes.cpp" line="892"/>
+        <location filename="../src/animation_keyframes.cpp" line="894"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Spowoduje to usunięcie z folderu wszystkich wcześniej zrenderowanych klatek.
@@ -945,7 +933,7 @@ Kontynuować?</translation>
         <location filename="../src/animation_flight.cpp" line="727"/>
         <location filename="../src/animation_flight.cpp" line="1053"/>
         <location filename="../src/animation_keyframes.cpp" line="573"/>
-        <location filename="../src/animation_keyframes.cpp" line="891"/>
+        <location filename="../src/animation_keyframes.cpp" line="893"/>
         <source>Truncate Image Folder</source>
         <translation>Opróżnianie folderu z animacją</translation>
     </message>
@@ -991,13 +979,13 @@ Czy chcesz opróżnić folder z klatkami animacji?
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="957"/>
-        <location filename="../src/animation_keyframes.cpp" line="795"/>
+        <location filename="../src/animation_keyframes.cpp" line="797"/>
         <source>Animation Image Folder</source>
         <translation>Folder na klatki animacji</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="960"/>
-        <location filename="../src/animation_keyframes.cpp" line="798"/>
+        <location filename="../src/animation_keyframes.cpp" line="800"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wybór folderu na klatki animacji</translation>
     </message>
@@ -1051,7 +1039,7 @@ Is there already a mandelbulber server instance running on this port?</source>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="547"/>
-        <location filename="../src/animation_keyframes.cpp" line="1174"/>
+        <location filename="../src/animation_keyframes.cpp" line="1176"/>
         <source>Camera collides with fractal at following frames:
 </source>
         <translation>Kamera koliduje z fraktalem na następujących klatkach:
@@ -1063,35 +1051,35 @@ Is there already a mandelbulber server instance running on this port?</source>
         <translation>Renderowanie animacji</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1060"/>
+        <location filename="../src/animation_keyframes.cpp" line="1062"/>
         <source>Export keyframes to flight</source>
         <translation>Eksport klatek kluczowych do animacji lotu</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1061"/>
+        <location filename="../src/animation_keyframes.cpp" line="1063"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
         <translation>Istnieją już zdefiniowane klatki animacji lotu.
 Czy usunąć istniejące klatki?</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1080"/>
+        <location filename="../src/animation_keyframes.cpp" line="1082"/>
         <source>Exporting</source>
         <translation>Eksportowanie</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1128"/>
-        <location filename="../src/animation_keyframes.cpp" line="1148"/>
+        <location filename="../src/animation_keyframes.cpp" line="1130"/>
+        <location filename="../src/animation_keyframes.cpp" line="1150"/>
         <source>Checking for collissions</source>
         <translation>Sprawdzanie kolizji</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1129"/>
+        <location filename="../src/animation_keyframes.cpp" line="1131"/>
         <source>Checking for collissions on keyframe # %1</source>
         <translation>Sprawdzanie kolizji na klatce kluczowej # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1227"/>
+        <location filename="../src/animation_keyframes.cpp" line="1229"/>
         <source>Cannot change target distance. Missing camera parameters in keyframes</source>
         <translation>Nie można zmienić odległości celu. Brakuje parametrów kamery w animacji</translation>
     </message>
@@ -1100,12 +1088,12 @@ Czy usunąć istniejące klatki?</translation>
         <translation type="vanished">Sprawdzanie kolizji na klatce kluczowej # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1149"/>
+        <location filename="../src/animation_keyframes.cpp" line="1151"/>
         <source>Checking for collisions finished</source>
         <translation>Sprawdzanie kolizji zakończone</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1179"/>
+        <location filename="../src/animation_keyframes.cpp" line="1181"/>
         <source>No collisions detected
 </source>
         <translation>Kolizji nie znaleziono</translation>
@@ -7068,7 +7056,7 @@ klatek</translation>
         <translation>Odświeżenie klatek animacji</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1080"/>
+        <location filename="../src/animation_keyframes.cpp" line="1082"/>
         <source>Exporting keyframes to flight</source>
         <translation>Eksport klatek kluczowych do animacji lotu</translation>
     </message>
@@ -8583,7 +8571,7 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <location filename="../src/command_line_interface.cpp" line="101"/>
         <location filename="../src/command_line_interface.cpp" line="108"/>
         <source>N</source>
-        <translation>N </translation>
+        <translation>N</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="61"/>
@@ -8591,11 +8579,10 @@ i będą dostępne tylko po ponownym zrederowaniu obrazu.</translation>
         <translation>Zatrzymanie renderowania na klatce numer &lt;N&gt;. </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="65"/>
         <source>Overrides item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;VALUE&gt;&apos;.
 Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos; (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues
 Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; as index of fractal</source>
-        <translation>Nadpisuje parameter &lt;KLUCZ&gt; z pliku z ustawieniami nową wartością &lt;WARTOŚĆ&gt;.
+        <translation type="vanished">Nadpisuje parameter &lt;KLUCZ&gt; z pliku z ustawieniami nową wartością &lt;WARTOŚĆ&gt;.
 Wyspecyfikuj wiele par KLUCZ=WARTOŚĆ przez separowanie ich znakiem # (KLUCZ1=WARTOŚĆ1#KLUCZ2=WARTOŚĆ2). Weź całe wyrażenie w cudzysłów aby uniknąć problemów z przetwarzaniem spacji
 nadpisanie parametru danego fraktala musi być w formie: fractal&lt;N&gt;_KLUCZ=WARTOŚĆ z &lt;N&gt; jako numer fraktala</translation>
     </message>
@@ -8619,7 +8606,6 @@ png16alpha - 16 bitowy format PNG z kanałem alpha
 exr - format EXR</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="74"/>
         <source>Image output format:
 jpg - JPEG format (default)
 png - PNG format
@@ -8627,7 +8613,7 @@ png16 - 16-bit PNG format
 png16alpha - 16-bit PNG with alpha channel format
 exr - EXR format
 tiff - TIFF format</source>
-        <translation>Format zapisywanego obrazu:
+        <translation type="vanished">Format zapisywanego obrazu:
 jpg - format JPEG
 png - format PNG
 png16 - 16-bitowy format PNG
@@ -8636,9 +8622,49 @@ exr - format EXR
 tiff - format TIFF</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="84"/>
         <source>Overrides image resolution.</source>
-        <translation>Nadpisanie rozdzielczości obrazu. </translation>
+        <translation type="vanished">Nadpisanie rozdzielczości obrazu. </translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="65"/>
+        <source>&lt;KEY=VALUE&gt; overrides item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;VALUE&gt;&apos;.
+Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos;: &lt;KEY1=VALUE1#KEY2=VALUE2&gt;. Quote whole expression to avoid whitespace parsing issues
+Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; being index of fractal</source>
+        <translation>&lt;KLUCZ=WARTOSC&gt; Nadpisuje parameter &lt;KLUCZ&gt; z pliku z ustawieniami nową wartością &lt;WARTOSC&gt;.
+Wyspecyfikuj wiele par KLUCZ=WARTOŚĆ przez separowanie ich znakiem # &lt;KLUCZ1=WARTOSC1#KLUCZ2=WARTOSC2&gt;. Weź całe wyrażenie w cudzysłów aby uniknąć problemów z przetwarzaniem spacji
+Nadpisanie parametru danego fraktala musi być w formie: fractal&lt;N&gt;_KLUCZ=WARTOSC z &lt;N&gt; jako numer fraktala</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="68"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="74"/>
+        <source>Image output format:
+  jpg - JPEG format (default)
+  png - PNG format
+  png16 - 16-bit PNG format
+  png16alpha - 16-bit PNG with alpha channel format
+  exr - EXR format
+  tiff - TIFF format</source>
+        <translation>Format zapisywanego obrazu:
+  jpg - format JPEG
+  png - format PNG
+  png16 - 16-bitowy format PNG
+  png16alpha - 16 bitowy format PNG z kanałem alpha
+  exr - format EXR
+  tiff - format TIFF</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="84"/>
+        <source>Overrides image resolution. Specify as width and height separated by &apos;x&apos;</source>
+        <translation>Nadpisanie rozdzielczości obrazu. Rozdzielczość musi być podana jako szerokość i wysokość oddzielone znakiem &apos;x&apos;</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="85"/>
+        <source>WxH</source>
+        <translation>SZERxWYS</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="88"/>
@@ -8704,9 +8730,8 @@ tiff - format TIFF</translation>
         <translation type="obsolete"> </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="68"/>
         <source>KEY=VALUE</source>
-        <translation>KLUCZ=WAROTŚĆ </translation>
+        <translation type="vanished">KLUCZ=WAROTŚĆ </translation>
     </message>
     <message>
         <source>Image output format:
@@ -8762,16 +8787,15 @@ exr - format EXR</translation>
     <message>
         <location filename="../src/command_line_interface.cpp" line="81"/>
         <source>FORMAT</source>
-        <translation>FORMAT </translation>
+        <translation>FORMAT</translation>
     </message>
     <message>
         <source>Override image resolution.</source>
         <translation type="vanished">Nadpisanie rozdzielczości obrazu. </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="85"/>
         <source>WIDTHxHEIGHT</source>
-        <translation>SZEROKOŚĆxWYSOKOŚĆ </translation>
+        <translation type="vanished">SZEROKOŚĆxWYSOKOŚĆ </translation>
     </message>
     <message>
         <source>Override frames per key parameter.</source>
