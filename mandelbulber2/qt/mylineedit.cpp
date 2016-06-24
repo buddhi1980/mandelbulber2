@@ -27,92 +27,11 @@
 #include "../src/animation_keyframes.hpp"
 
 MyLineEdit::MyLineEdit(QWidget *parent) :
-		QLineEdit(parent)
+		QLineEdit(parent) , CommonMyWidgetWrapper(this)
 {
-	actionResetToDefault = NULL;
 	actionResetVectorToDefault = NULL;
-	actionAddToFlightAnimation = NULL;
-	actionAddToKeyframeAnimation = NULL;
 	actionCopyVectorToClipboard = NULL;
 	actionPasteVectorFromClipboard = NULL;
-	parameterContainer = NULL;
-	gotDefault = false;
-}
-
-void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
-{
-	QMenu *menu = createStandardContextMenu();
-	menu->addSeparator();
-
-	QString type = GetType(objectName());
-	if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
-	{
-		actionCopyVectorToClipboard = menu->addAction(tr("Copy vector"));
-		actionPasteVectorFromClipboard = menu->addAction(tr("Paste vector"));
-		actionResetVectorToDefault = menu->addAction(tr("Reset vector to default"));
-	}
-	actionResetToDefault = menu->addAction(tr("Reset to default"));
-	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
-	actionAddToKeyframeAnimation = menu->addAction(tr("Add to keyframe animation"));
-	QAction *selectedItem = menu->exec(event->globalPos());
-	if (selectedItem)
-	{
-		if (selectedItem == actionResetToDefault)
-		{
-			if (parameterContainer)
-			{
-				setText(defaultText);
-				emit editingFinished();
-			}
-			else
-			{
-				qCritical() << "MyLineEdit::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
-			}
-		}
-		else if (selectedItem == actionAddToFlightAnimation)
-		{
-			if (parameterContainer)
-			{
-				QString parName = parameterName;
-				if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
-					parName = parameterName.left(parameterName.length() - 2);
-
-				gAnimFrames->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
-				gFlightAnimation->RefreshTable();
-			}
-		}
-		else if (selectedItem == actionAddToKeyframeAnimation)
-		{
-			if (parameterContainer)
-			{
-				QString parName = parameterName;
-				if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
-					parName = parameterName.left(parameterName.length() - 2);
-
-				gKeyframes->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
-				gKeyframeAnimation->RefreshTable();
-			}
-		}
-		else if (selectedItem == actionCopyVectorToClipboard)
-		{
-			CopyToClipboard();
-		}
-		else if (selectedItem == actionPasteVectorFromClipboard)
-		{
-			PasteFromClipboard();
-		}
-		else if (selectedItem == actionResetVectorToDefault)
-		{
-			ResetVectorToDefault();
-		}
-	}
-	delete menu;
-}
-
-QString MyLineEdit::GetType(const QString &name)
-{
-	size_t firstDashPosition = name.indexOf("_");
-	return name.left(firstDashPosition);
 }
 
 void MyLineEdit::paintEvent(QPaintEvent *event)
@@ -162,10 +81,7 @@ QString MyLineEdit::GetDefault()
 			gotDefault = true;
 		}
 
-		QString toolTipText = toolTip();
-		toolTipText += "\nParameter name: " + parameterName + "<br>";
-		toolTipText += "Default: " + defaultText;
-		setToolTip(toolTipText);
+		setToolTipText();
 	}
 	return defaultText;
 }
@@ -286,4 +202,65 @@ void MyLineEdit::ResetVectorToDefault()
 			emit editingFinished();
 		}
 	}
+}
+
+void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
+{
+	QMenu *menu = createStandardContextMenu();
+
+	QString type = GetType(objectName());
+	if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
+	{
+		menu->addSeparator();
+		actionCopyVectorToClipboard = menu->addAction(tr("Copy vector"));
+		actionPasteVectorFromClipboard = menu->addAction(tr("Paste vector"));
+		actionResetVectorToDefault = menu->addAction(tr("Reset vector to default"));
+
+		QIcon iconReset = QIcon(":system/icons/edit-undo.png");
+		actionResetVectorToDefault->setIcon(iconReset);
+		QIcon iconCopy = QIcon::fromTheme("edit-copy");
+		actionCopyVectorToClipboard->setIcon(iconCopy);
+		QIcon iconPaste = QIcon::fromTheme("edit-paste");
+		actionPasteVectorFromClipboard->setIcon(iconPaste);
+
+		connect(actionCopyVectorToClipboard, SIGNAL(triggered()), this, SLOT(slotCopyVector()));
+		connect(actionPasteVectorFromClipboard, SIGNAL(triggered()), this, SLOT(slotPasteVector()));
+		connect(actionResetVectorToDefault, SIGNAL(triggered()), this, SLOT(slotResetVector()));
+	}
+	CommonMyWidgetWrapper::contextMenuEvent(event, menu);
+}
+
+void MyLineEdit::resetToDefault()
+{
+	setText(defaultText);
+	emit editingFinished();
+}
+
+QString MyLineEdit::getDefaultAsString()
+{
+	return defaultText;
+}
+
+QString MyLineEdit::getFullParameterName()
+{
+	QString type = GetType(objectName());
+	QString parName = parameterName;
+	if (type == QString("vect3") || type == QString("vect4") || type == QString("logvect3"))
+		parName = parameterName.left(parameterName.length() - 2);
+	return parName;
+}
+
+void MyLineEdit::slotCopyVector()
+{
+	CopyToClipboard();
+}
+
+void MyLineEdit::slotPasteVector()
+{
+	PasteFromClipboard();
+}
+
+void MyLineEdit::slotResetVector()
+{
+	ResetVectorToDefault();
 }

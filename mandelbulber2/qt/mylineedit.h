@@ -27,38 +27,38 @@
 #include <QtCore>
 #include <QLineEdit>
 #include "../src/parameters.hpp"
+#include "../qt/common_my_widget_wrapper.h"
 
-class MyLineEdit : public QLineEdit
+class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 {
 	Q_OBJECT
 
 public:
 	MyLineEdit(QWidget *parent = 0);
 
-	void AssignParameterContainer(cParameterContainer *container) {parameterContainer = container;}
-	void AssingParameterName(QString name) {parameterName = name;}
-
 private:
-	QAction *actionResetToDefault;
 	QAction *actionResetVectorToDefault;
-	QAction *actionAddToFlightAnimation;
-	QAction *actionAddToKeyframeAnimation;
 	QAction *actionCopyVectorToClipboard;
 	QAction *actionPasteVectorFromClipboard;
-	QString GetType(const QString &name);
-	cParameterContainer *parameterContainer;
-	QString parameterName;
 
 	QString GetDefault();
 	QString defaultText;
-	bool gotDefault;
 	void CopyToClipboard();
 	void PasteFromClipboard();
 	void ResetVectorToDefault();
 
+	virtual void resetToDefault();
+	virtual QString getDefaultAsString();
+	virtual QString getFullParameterName();
+
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
 	void paintEvent(QPaintEvent *event);
+
+private slots:
+	void slotCopyVector();
+	void slotPasteVector();
+	void slotResetVector();
 };
 
 
