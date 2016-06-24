@@ -1,23 +1,39 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * CalculateDistance function - calculates approximate distance to fractal surface
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * CalculateDistanceSimple() function calculates approximate distance to
+ * the fractal surface using fractal computation functions.
+ *
+ * CalculateDistance() function calculates resultant distance to all
+ * objects on scene including boolean operators.
  */
 
 #include "calculate_distance.hpp"
@@ -28,7 +44,7 @@
 using namespace std;
 
 double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
-		const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
+	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
 	double distance;
 	out->objectId = 0;
@@ -47,7 +63,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		{
 			out->maxiter = false;
 			out->distance = limitBoxDist;
-			out->objectId = 0; //TODO to be checked if it can be zero (or -1)
+			out->objectId = 0; // TODO to be checked if it can be zero (or -1)
 			out->maxiter = false;
 			out->iters = 0;
 			return limitBoxDist;
@@ -66,14 +82,14 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 
 		distance = CalculateDistanceSimple(params, fractals, inTemp, out, 0) / params.formulaScale[0];
 
-		if(data && data->materials[data->objectData[0].materialId].useDisplacementTexture)
+		if (data && data->materials[data->objectData[0].materialId].useDisplacementTexture)
 		{
 			CVector2<double> textureCoordinates;
-			textureCoordinates = CVector2<double>(in.point.x*1.0, in.point.y*1.0);
+			textureCoordinates = CVector2<double>(in.point.x * 1.0, in.point.y * 1.0);
 			sRGBfloat bump3 = data->materials[1].displacementTexture.Pixel(textureCoordinates);
 			double bump = bump3.R;
 			distance -= bump * 0.025;
-			if(distance < 0.0) distance = 0.0;
+			if (distance < 0.0) distance = 0.0;
 		}
 
 		for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
@@ -89,7 +105,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 				inTemp.point = point;
 
 				double distTemp = CalculateDistanceSimple(params, fractals, inTemp, &outTemp, i + 1)
-						/ params.formulaScale[i + 1];
+													/ params.formulaScale[i + 1];
 
 				distTemp = DisplacementMap(distTemp, in.point, i + 1, data);
 
@@ -116,9 +132,9 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 					case params::booleanOperatorSUB:
 					{
 						double limit = 1.5;
-						if (distance < in.detailSize) //if inside 1st
+						if (distance < in.detailSize) // if inside 1st
 						{
-							if (distTemp < in.detailSize * limit) //if inside 2nd
+							if (distTemp < in.detailSize * limit) // if inside 2nd
 							{
 								if (in.normalCalculationMode)
 								{
@@ -128,9 +144,8 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 								{
 									distance = in.detailSize * limit;
 								}
-
 							}
-							else //if outside of 2nd
+							else // if outside of 2nd
 							{
 								if (in.detailSize * limit - distTemp > distance)
 								{
@@ -142,14 +157,13 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 								if (distance < 0) distance = 0;
 							}
 						}
-						else //if outside of 1st
+						else // if outside of 1st
 						{
 							//
 						}
 						break;
 					}
-					default:
-						break;
+					default: break;
 				}
 			}
 		}
@@ -160,8 +174,8 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		distance = DisplacementMap(distance, in.point, 0, data);
 	}
 
-	distance = min(distance, params.primitives.TotalDistance(in.point, distance, &out->objectId, data));
-
+	distance =
+		min(distance, params.primitives.TotalDistance(in.point, distance, &out->objectId, data));
 
 	//****************************************************
 
@@ -173,7 +187,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		}
 	}
 
-	if(distance == distance/0.0) //check if not a number
+	if (distance == distance / 0.0) // check if not a number
 	{
 		distance = 0.0;
 	}
@@ -184,7 +198,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 }
 
 double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
-		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
+	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
 {
 	double distance;
 
@@ -194,21 +208,21 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 	sFractalOut fractOut;
 	fractOut.colorIndex = 0;
 
-	if (true) //TODO !params.primitives.plane.onlyPlane
+	if (true) // TODO !params.primitives.plane.onlyPlane
 	{
 		if (fractals.GetDEType(forcedFormulaIndex) == fractal::analyticDEType)
 		{
 			Compute<fractal::calcModeNormal>(fractals, fractIn, &fractOut);
 			distance = fractOut.distance;
-			//qDebug() << "computed distance" << distance;
+			// qDebug() << "computed distance" << distance;
 			out->maxiter = fractOut.maxiter;
 			out->iters = fractOut.iters;
 			out->colorIndex = fractOut.colorIndex;
 			out->totalIters += fractOut.iters;
 
-			//if (distance < 1e-20) distance = 1e-20;
+			// if (distance < 1e-20) distance = 1e-20;
 
-      if (out->maxiter) distance = 0.0;
+			if (out->maxiter) distance = 0.0;
 
 			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
 
@@ -236,7 +250,6 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 					distance = in.detailSize * 1.01;
 				}
 			}
-
 		}
 		else
 		{
@@ -249,7 +262,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 			out->colorIndex = fractOut.colorIndex;
 			out->totalIters += fractOut.iters;
 
-			fractIn.maxN = fractOut.iters; //for other directions must be the same number of iterations
+			fractIn.maxN = fractOut.iters; // for other directions must be the same number of iterations
 
 			fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
 			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
@@ -283,7 +296,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 				distance = r;
 			}
 
-			//if (distance < 1e-20) distance = 1e-20;
+			// if (distance < 1e-20) distance = 1e-20;
 
 			if (maxiter)
 			{
@@ -316,7 +329,6 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 					distance = in.detailSize * 1.01;
 				}
 			}
-
 		}
 	}
 	else
