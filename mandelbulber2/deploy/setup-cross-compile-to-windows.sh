@@ -36,7 +36,7 @@ if [ ! -f qt-everywhere-opensource-src-5.6.1-1.tar.gz ]; then
 	wget $MANDELBULBER_QT_URL
 fi
 
-if [ ! -d qt-everywhere-opensource-src-5.6.1-1 ]; then
+if [ ! -d qt-everywhere-opensource-src-5.6.1 ]; then
 	tar xf qt-everywhere-*.tar.gz
 	cd qt-everywhere-*
 	yes | ./configure -release -xplatform win32-g++ -opengl desktop -nomake examples -device-option \

@@ -1,24 +1,37 @@
 # Mandelbulber settings file
-# version 2.03
+# version 2.08
 # only modified parameters
 [main_parameters]
-camera 1.486015714285714 -2.972031428571429 0.9906771428571416;
-camera_distance_to_target 4.89779;
-camera_top -0.1277753129999879 0.2555506259999764 0.9583148474999099;
+ambient_occlusion_enabled true;
+camera 1,486015714285714 -2,972031428571429 0,9906771428571416;
+camera_distance_to_target 4,89779;
+camera_top -0,1277753129999879 0,2555506259999764 0,9583148474999099;
+delta_DE_function 0;
+flight_last_to_render 0;
 formula_1 10;
-view_distance_max 50.0;
+keyframe_last_to_render 0;
+raytraced_reflections true;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;
 IFS_abs_z true;
-IFS_direction_0 2.62 1 -1.62;
-IFS_direction_1 -1.62 2.62 1;
-IFS_direction_2 1 -1.62 2.62;
+IFS_direction_0 2,62 1 -1,62;
+IFS_direction_1 -1,62 2,62 1;
+IFS_direction_2 1 -1,62 2,62;
 IFS_enabled_0 true;
 IFS_enabled_1 true;
 IFS_enabled_2 true;
 IFS_offset 1 1 1;
-IFS_scale 2.62;
+IFS_rotation_enabled true;
+IFS_scale 2,62;
 [fractal_2]
+IFS_rotation_enabled true;
 [fractal_3]
+IFS_rotation_enabled true;
 [fractal_4]
+IFS_rotation_enabled true;
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]

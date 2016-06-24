@@ -1,15 +1,28 @@
 # Mandelbulber settings file
-# version 2.03
+# version 2.08
 # only modified parameters
 [main_parameters]
-camera 1.536385357964839 -2.661097500000001 1.774064999999999;
-camera_distance_to_target 3.46737;
-camera_rotation 29.99999999999996 -30 0;
-camera_top -0.2499999999999994 0.433012701892219 0.8660254037844389;
-coloring_palette_offset 8.210000000000001;
+ambient_occlusion_enabled true;
+camera 1,536385357964839 -2,661097500000001 1,774064999999999;
+camera_distance_to_target 3,46737;
+camera_rotation 29,99999999999996 -30 0;
+camera_top -0,2499999999999994 0,433012701892219 0,8660254037844389;
+delta_DE_function 0;
+flight_last_to_render 0;
 formula_1 7;
-view_distance_max 50.0;
+keyframe_last_to_render 0;
+mat1_coloring_palette_offset 8,210000000000001;
+raytraced_reflections true;
 [fractal_1]
+IFS_rotation_enabled true;
 [fractal_2]
+IFS_rotation_enabled true;
 [fractal_3]
+IFS_rotation_enabled true;
 [fractal_4]
+IFS_rotation_enabled true;
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]
