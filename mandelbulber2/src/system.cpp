@@ -1,42 +1,54 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * system data - place for system functions and definition of default file paths
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * system data - place for system functions and definition of default file paths
  */
 
 #include "system.hpp"
 
-#include <locale.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <QtGui>
-#include <ctime>
-#include <QTextStream>
-#include <qstylefactory.h>
 #include "global_data.hpp"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include <QTextStream>
+#include <QtGui>
+#include <ctime>
+#include <locale.h>
+#include <qstylefactory.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifndef WIN32
-#include <sys/ioctl.h>
 #include <signal.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 #endif
 
@@ -64,9 +76,9 @@ bool InitSystem(void)
 	systemData.sharedDir = QDir::toNativeSeparators((QDir::currentPath() + QDir::separator()));
 #else
 	systemData.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
-#endif  /* WINDOWS */
+#endif /* WINDOWS */
 
-	//logfile
+// logfile
 #ifdef WIN32 /* WINDOWS */
 	systemData.logfileName = systemData.homedir + "mandelbulber_log.txt";
 #else
@@ -75,48 +87,44 @@ bool InitSystem(void)
 	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "w");
 	fclose(logfile);
 
-	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING
-			<< "\n";
+	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING << "\n";
 	out << "Log file name: " << systemData.logfileName << endl;
 	WriteLogString("Mandelbulber version", QString(MANDELBULBER_VERSION_STRING), 1);
 
-	//detecting number of CPU cores
+	// detecting number of CPU cores
 	systemData.numberOfThreads = get_cpu_count();
 
 	printf("Detected %d CPUs\n", systemData.numberOfThreads);
 	WriteLogDouble("CPUs detected", systemData.numberOfThreads, 2);
 
-#ifdef ONETHREAD //for debugging
+#ifdef ONETHREAD // for debugging
 	NR_THREADS = 1;
 #endif
 
-	//data directory location
+// data directory location
 #ifdef WIN32 /* WINDOWS */
 	systemData.dataDirectory = systemData.homedir + "mandelbulber" + QDir::separator();
 #else
-	systemData.dataDirectory = QDir::toNativeSeparators(systemData.homedir + ".mandelbulber"
-			+ QDir::separator());
+	systemData.dataDirectory =
+		QDir::toNativeSeparators(systemData.homedir + ".mandelbulber" + QDir::separator());
 #endif
 	out << "Default data directory: " << systemData.dataDirectory << endl;
 	WriteLogString("Default data directory", systemData.dataDirectory, 1);
 
-	systemData.thumbnailDir = QDir::toNativeSeparators(systemData.dataDirectory + "thumbnails"
-			+ QDir::separator());
+	systemData.thumbnailDir =
+		QDir::toNativeSeparators(systemData.dataDirectory + "thumbnails" + QDir::separator());
 
 	systemData.autosaveFile = QDir::toNativeSeparators(systemData.dataDirectory + ".autosave.fract");
 
 	//*********** temporary set to false ************
 	systemData.noGui = false;
 
-	systemData.lastSettingsFile = QDir::toNativeSeparators(systemData.dataDirectory + "settings"
-			+ QDir::separator()
-			+ QString("settings.fract"));
-	systemData.lastImageFile = QDir::toNativeSeparators(systemData.dataDirectory + "images"
-			+ QDir::separator()
-			+ QString("image.jpg"));
-	systemData.lastImagePaletteFile = QDir::toNativeSeparators(systemData.sharedDir + "textures"
-			+ QDir::separator()
-			+ QString("colour palette.jpg"));
+	systemData.lastSettingsFile = QDir::toNativeSeparators(
+		systemData.dataDirectory + "settings" + QDir::separator() + QString("settings.fract"));
+	systemData.lastImageFile = QDir::toNativeSeparators(
+		systemData.dataDirectory + "images" + QDir::separator() + QString("image.jpg"));
+	systemData.lastImagePaletteFile = QDir::toNativeSeparators(
+		systemData.sharedDir + "textures" + QDir::separator() + QString("colour palette.jpg"));
 
 	QLocale systemLocale = QLocale::system();
 	systemData.decimalPoint = systemLocale.decimalPoint();
@@ -127,7 +135,7 @@ bool InitSystem(void)
 	systemData.supportedLanguages.insert("de_DE", "Deutsch");
 	systemData.supportedLanguages.insert("it_IT", "Italiano");
 
-	//get number of columns of console
+	// get number of columns of console
 	systemData.terminalWidth = 80;
 
 	systemData.loggingVerbosity = 3;
@@ -145,7 +153,7 @@ bool InitSystem(void)
 // SIGWINCH is called when the window is resized.
 void handle_winch(int sig)
 {
-	(void) sig;
+	(void)sig;
 #ifndef WIN32
 	signal(SIGWINCH, SIG_IGN);
 	struct winsize w;
@@ -163,21 +171,21 @@ int get_cpu_count()
 
 void WriteLog(QString text, int verbosityLevel)
 {
-	if(verbosityLevel <= systemData.loggingVerbosity)
+	if (verbosityLevel <= systemData.loggingVerbosity)
 	{
 		FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
-	#ifdef WIN32
+#ifdef WIN32
+		QString logtext = QString("PID: %1, time: %2, %3\n")
+												.arg(QCoreApplication::applicationPid())
+												.arg(QString::number(clock() / 1.0e3, 'f', 3))
+												.arg(text);
+#else
 		QString logtext =
-		QString("PID: %1, time: %2, %3\n").arg(QCoreApplication::applicationPid()).arg(QString::number(clock()
-						/ 1.0e3,
-						'f',
-						3)).arg(text);
-	#else
-		QString logtext =
-				QString("PID: %1, time: %2, %3\n")
-					.arg(QCoreApplication::applicationPid()).arg(QString::number((systemData.globalTimer.nsecsElapsed())	/ 1.0e9,'f', 9))
-						.arg(text);
-	#endif
+			QString("PID: %1, time: %2, %3\n")
+				.arg(QCoreApplication::applicationPid())
+				.arg(QString::number((systemData.globalTimer.nsecsElapsed()) / 1.0e9, 'f', 9))
+				.arg(text);
+#endif
 
 		fputs(logtext.toLocal8Bit().constData(), logfile);
 		fclose(logfile);
@@ -185,7 +193,7 @@ void WriteLog(QString text, int verbosityLevel)
 		// write to log in window
 		if (gMainInterface && gMainInterface->mainWindow != NULL)
 		{
-			//FIXME: AppendToLog consumes too much memory! may be fixed, please test
+			// FIXME: AppendToLog consumes too much memory! may be fixed, please test
 			gMainInterface->mainWindow->AppendToLog(logtext);
 		}
 	}
@@ -203,7 +211,7 @@ void WriteLogDouble(QString text, double value, int verbosityLevel)
 
 bool CreateDefaultFolders(void)
 {
-	//create data directory if not exists
+	// create data directory if not exists
 	bool result = true;
 
 	result &= CreateFolder(systemData.dataDirectory);
@@ -224,34 +232,37 @@ bool CreateDefaultFolders(void)
 #ifdef CLSUPPORT
 	string oclDir = systemData.dataDirectory + "/custom_ocl_formulas";
 	QString qoclDir = QString::fromStdString(oclDir);
-	if(!QDir(qoclDir).exists())
+	if (!QDir(qoclDir).exists())
 	{
 		result &= CreateFolder(oclDir);
-		if(result)
+		if (result)
 		{
 			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example1.c", oclDir + "/cl_example1.c");
 			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example2.c", oclDir + "/cl_example2.c");
 			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example3.c", oclDir + +"/cl_example3.c");
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example1Init.c", oclDir + "/cl_example1Init.c");
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example2Init.c", oclDir + "/cl_example2Init.c");
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example3Init.c", oclDir + "/cl_example3Init.c");
+			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example1Init.c",
+				oclDir + "/cl_example1Init.c");
+			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example2Init.c",
+				oclDir + "/cl_example2Init.c");
+			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example3Init.c",
+				oclDir + "/cl_example3Init.c");
 		}
 	}
 #endif
 
-	actualFileNames.actualFilenameSettings = QString("settings") + QDir::separator()
-			+ "default.fract";
-	actualFileNames.actualFilenameSettings = QDir::toNativeSeparators(actualFileNames
-			.actualFilenameSettings);
+	actualFileNames.actualFilenameSettings =
+		QString("settings") + QDir::separator() + "default.fract";
+	actualFileNames.actualFilenameSettings =
+		QDir::toNativeSeparators(actualFileNames.actualFilenameSettings);
 
 	actualFileNames.actualFilenameImage = QString("images") + QDir::separator() + "image.jpg";
 	actualFileNames.actualFilenameImage =
-			QDir::toNativeSeparators(actualFileNames.actualFilenameImage);
+		QDir::toNativeSeparators(actualFileNames.actualFilenameImage);
 
-	actualFileNames.actualFilenamePalette = systemData.sharedDir + "textures" + QDir::separator()
-			+ "colour palette.jpg";
-	actualFileNames.actualFilenamePalette = QDir::toNativeSeparators(actualFileNames
-			.actualFilenamePalette);
+	actualFileNames.actualFilenamePalette =
+		systemData.sharedDir + "textures" + QDir::separator() + "colour palette.jpg";
+	actualFileNames.actualFilenamePalette =
+		QDir::toNativeSeparators(actualFileNames.actualFilenamePalette);
 
 	return result;
 }
@@ -314,7 +325,7 @@ int fcopy(QString source, QString dest)
 {
 	// ------ file reading
 
-	FILE * pFile;
+	FILE *pFile;
 	long int lSize;
 	char *buffer;
 	size_t result;
@@ -339,7 +350,7 @@ int fcopy(QString source, QString dest)
 
 		// copy the file into the buffer:
 		result = fread(buffer, 1, lSize, pFile);
-		if (result != (size_t) lSize)
+		if (result != (size_t)lSize)
 		{
 			qCritical() << "Can't read source file for copying: " << source << endl;
 			WriteLogString("Can't read source file for copying", source, 1);
@@ -400,52 +411,41 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 			text = QString("Debug: ") + QString(localMsg.constData());
 			break;
 		case QtWarningMsg:
-			fprintf(stderr,
-							"Warning: %s\n(%s:%u, %s)\n\n",
-							localMsg.constData(),
-							context.file,
-							context.line,
-							context.function);
+			fprintf(stderr, "Warning: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
+				context.line, context.function);
 			text = QString("Warning: ") + QString(localMsg.constData()) + " (" + context.file + ":"
-					+ QString::number(context.line) + ", " + context.function;
+						 + QString::number(context.line) + ", " + context.function;
 			break;
 		case QtCriticalMsg:
-			fprintf(stderr,
-							"Critical: %s\n(%s:%u, %s)\n\n",
-							localMsg.constData(),
-							context.file,
-							context.line,
-							context.function);
+			fprintf(stderr, "Critical: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
+				context.line, context.function);
 			text = QString("Critical: ") + QString(localMsg.constData()) + " (" + context.file + ":"
-					+ QString::number(context.line) + ", " + context.function;
+						 + QString::number(context.line) + ", " + context.function;
 			break;
 		case QtFatalMsg:
-			fprintf(stderr,
-							"Fatal: %s\n(%s:%u, %s)\n\n",
-							localMsg.constData(),
-							context.file,
-							context.line,
-							context.function);
+			fprintf(stderr, "Fatal: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file,
+				context.line, context.function);
 			text = QString("Fatal: ") + QString(localMsg.constData()) + " (" + context.file + ":"
-					+ QString::number(context.line) + ", " + context.function;
-			abort();
+						 + QString::number(context.line) + ", " + context.function;
+			break;
 	}
-
 	WriteLog(text, 1);
+
+	if(type == QtFatalMsg) abort();
 }
 
 void UpdateDefaultPaths(void)
 {
-	systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
-			+ QString("settings.fract");
-	systemData.lastImageFile = gPar->Get<QString>("default_image_path") + QDir::separator()
-			+ QString("image.jpg");
+	systemData.lastSettingsFile =
+		gPar->Get<QString>("default_settings_path") + QDir::separator() + QString("settings.fract");
+	systemData.lastImageFile =
+		gPar->Get<QString>("default_image_path") + QDir::separator() + QString("image.jpg");
 	gPar->Set("file_background",
-						gPar->Get<QString>("default_textures_path") + QDir::separator() + "background.jpg");
-	gPar->Set("file_envmap",
-						gPar->Get<QString>("default_textures_path") + QDir::separator() + "envmap.jpg");
+		gPar->Get<QString>("default_textures_path") + QDir::separator() + "background.jpg");
+	gPar->Set(
+		"file_envmap", gPar->Get<QString>("default_textures_path") + QDir::separator() + "envmap.jpg");
 	gPar->Set("file_lightmap",
-						gPar->Get<QString>("default_textures_path") + QDir::separator() + "lightmap.jpg");
+		gPar->Get<QString>("default_textures_path") + QDir::separator() + "lightmap.jpg");
 }
 
 void UpdateUIStyle(void)
@@ -454,7 +454,8 @@ void UpdateUIStyle(void)
 	if (gPar->Get<int>("ui_style_type") >= 0
 			&& gPar->Get<int>("ui_style_type") < QStyleFactory::keys().size())
 	{
-		gApplication->setStyle(QStyleFactory::create(QStyleFactory::keys().at(gPar->Get<int>("ui_style_type"))));
+		gApplication->setStyle(
+			QStyleFactory::create(QStyleFactory::keys().at(gPar->Get<int>("ui_style_type"))));
 	}
 }
 
@@ -528,18 +529,18 @@ void UpdateLanguage(QCoreApplication *app)
 
 	WriteLogString("locale", locale, 2);
 	mandelbulberMainTranslator.load(locale, systemData.sharedDir + QDir::separator() + "language");
-	mandelbulberFractalUiTranslator.load("qt_data_" + locale,
-																			 systemData.sharedDir + QDir::separator() + "language");
+	mandelbulberFractalUiTranslator.load(
+		"qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
-	WriteLog("Instaling translator", 2);
+	WriteLog("Installing translator", 2);
 	app->installTranslator(&mandelbulberMainTranslator);
 	app->installTranslator(&mandelbulberFractalUiTranslator);
 
 	// try to load qt translator
-	if (qtTranslator.load(QLatin1String("qt_") + locale,
-												QLibraryInfo::location(QLibraryInfo::TranslationsPath))
+	if (qtTranslator.load(
+				QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))
 			|| qtTranslator.load(QLatin1String("qtbase_") + locale,
-													 QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+					 QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
 	{
 		app->installTranslator(&qtTranslator);
 	}
@@ -547,8 +548,11 @@ void UpdateLanguage(QCoreApplication *app)
 
 void RetrieveToolbarPresets(bool force)
 {
-	if (QDir(systemData.dataDirectory + "toolbar").entryInfoList(QDir::NoDotAndDotDot
-			| QDir::AllEntries).count() == 0 || force)
+	if (QDir(systemData.dataDirectory + "toolbar")
+					.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries)
+					.count()
+				== 0
+			|| force)
 	{
 		// first run of program (or all toolbar items deleted) -> copy toolbar presets to working folder
 		QDirIterator toolbarFiles(systemData.sharedDir + "toolbar");
@@ -556,16 +560,19 @@ void RetrieveToolbarPresets(bool force)
 		{
 			toolbarFiles.next();
 			if (toolbarFiles.fileName() == "." || toolbarFiles.fileName() == "..") continue;
-			fcopy(toolbarFiles.filePath(),
-						systemData.dataDirectory + "toolbar/" + toolbarFiles.fileName());
+			fcopy(
+				toolbarFiles.filePath(), systemData.dataDirectory + "toolbar/" + toolbarFiles.fileName());
 		}
 	}
 }
 
 void RetrieveExampleMaterials(bool force)
 {
-	if (QDir(systemData.dataDirectory + "materials").entryInfoList(QDir::NoDotAndDotDot
-			| QDir::AllEntries).count() == 0 || force)
+	if (QDir(systemData.dataDirectory + "materials")
+					.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries)
+					.count()
+				== 0
+			|| force)
 	{
 		// first run of program (or all material items deleted) -> copy materials to working folder
 		QDirIterator materialFiles(systemData.sharedDir + "materials");
@@ -574,7 +581,7 @@ void RetrieveExampleMaterials(bool force)
 			materialFiles.next();
 			if (materialFiles.fileName() == "." || materialFiles.fileName() == "..") continue;
 			fcopy(materialFiles.filePath(),
-						systemData.dataDirectory + "materials/" + materialFiles.fileName());
+				systemData.dataDirectory + "materials/" + materialFiles.fileName());
 		}
 	}
 }
