@@ -1,5 +1,91 @@
 Version history
 
+v2.08
+- Materials: Added editor for materials as a separate dock
+- Materials: Added real-time preview for edited material
+- Materials: Added Material Manager dock which can be used to select, add, remove, load and save materials
+- Materials: Added selection widgets for materials (with preview)
+- Materials: Added possibility to assign selected materials to fractals and primitives. In boolean mode each fractal can use different material
+- Materials: Added loading and saving materials to separate .fract file
+- Shaders: SSAO and raytraced reflections are enabled by default
+- Shaders: Converted existing shaders to use material data
+- Shaders: Added bicubic interpolation for textures
+- Shaders: Added mipmapping for textures
+- Shaders: Added texture mapping algorithms: planar, spherical, cylindrical, cubic
+- Shaders: Added support for color, luminosity, diffuse, normal map, bump map, displacement map textures
+- Shaders: Corrected calculation of opacity for transparency effect
+- Shaders: Added "flat" mapping for background picture
+- Shaders: Corrected orientation of textures for background and environment mapping
+- Shaders: Fixed bug in FastAmbientOcclusion. Sometimes it generated white points.
+- Shaders: Calculating of normal vector converted from 4 point version to 6 point version which is more symmetrical and accurate. Rendering speed change is mostly not visible.
+- Volume export: added tool (Export Volume Layers) to export fractal shape as images with slices (e.g. to use for 3D printing)
+- SSAO: Much improved quality of Random SSAO effect
+- DOF: Corrected equations for blur opacity
+- DOF: Added multi-pass rendering of second phase
+- DOF: Corrected randomizing algorithm (eliminated stepping)
+- DOF: Added adjustment for blur opacity
+- Added new fractal formulas:
+  * Msltoe Toroidal Bulb
+  * Riemann Bulb Msltoe Mod2
+  * Transform - Surf Fold Multi
+  * AboxModKaliEiffie
+  * Imaginary scator Power 2
+  * Collatz fractal
+  * Menger Pwr2 Polynomial
+  * Transform - Power2 Polynomial
+  * Mandelbox Menger
+  * Mandelbulb_Bermarte
+  * Mandelbulb_Kali
+  * Mandelbulb_Kali_Multi
+  * Transform - Rotation Folding Plane
+  * Transform - Quaternion Fold
+  * Transform - Menger Fold
+  * Menger Middle Mod
+  * Msltoe Toroidal Multi
+  * Amazing_Surf_Multi
+  * Mandelbox Menger
+- Fractals: Added checkbox on each formula tab to disable selected formulas in hybrid or boolean mode
+- Fractals: Corrected incompatibility for IFS formula with older settings files.
+- Fractals: Added detection of Not-A-Number results to avoid computation hanging
+- Fractals: Changed 'get Julia constant' behavior. When Julia constant is set, the Julia mode is automatically enabled and image renders.
+- Fractals: After selecting Julia constant, mouse click mode is changed back to "move the camera" mode.
+- Image: Added possibility to save an image as surface normals
+- NetRender: client-server are compatible until major version is the same (e.g. 2.08 will be compatible with 2.08-1)
+- NetRender: now there is possible to connect client during rendering of image
+- NetRender: Updated NetRender to send all textures through the network.
+- NetRender: Fixed bug: - crash - when client version was wrong it cleared message buffer after client was deleted (with message buffer)
+- UI: Added auto-refresh function. There is new checkbox just below RENDER button. This function should be good for experimenting with different fractal parameters, because image will re-rendered automatically when any parameter will be changed.
+- UI: Added image quality presets
+- UI: in preferences dialog now there are two tabs: general, image
+- UI: preferences dialog and animation player now opens only once (bring to front, when already opened)
+- UI: added option to load thumbnail cache from server (mandelbulber.org) which speeds up displaying previews for examples
+- UI: added generate thumbnails option to render thumbnails for all example files
+- UI: improved UI elements for selecting textures
+- UI: in edit field's context menu there are added options: "remove from keyframe animation" and "remove from flight animation". Added icons. 
+- CLI: added voxel export as CLI option
+- CLI: added test option
+- CLI: fixed bug: Progress bar was not showed in CLI mode.
+- Animation: the player gets new images from current animation render, as they get saved to the animation folder
+- Animation: notification for keyframe/flight folder does not exist
+- Animation: Fixed problem with not updated interpolation of keyframes after change of parameters. There was missing clearing of interpolator cache.
+- Settings: Added error handling for missing value for any parameter in settings file.
+- Settings: Updated conversion of old settings (v1.21) to be compatible with new materials
+- Settings: Added conversion of settings older than 2.08 to be compatible with new materials.
+- OSX: Changed shared Dir for OSX
+- Performance: optimized access to light sources data
+- Performance: extendedAux now is not an array. It makes rendering of hybrid fractals faster
+- Performance: Added logging verbosity level parameter for WriteLog. This will reduce memory usage caused by log.
+- Performance: Changed refreshing if progress bar to be only when image is updated. This speeds up rendering when main loop is processed by every 10ms.
+- Performance: Added protection against using of partially allocated image (now is more thread safe)
+- Examples: Added animation: hybrid 02 - rectangle hieroglyphs animation.fract
+- Examples: Added example materials
+- Examples: Added example textures
+- Compilation: added CMakeLists.txt to build the project with cmake
+- Compilation: source code cleanup to eliminate cmake, clang and gcc  warnings
+- Compilation: cleaned up structure of includes
+- Compilation: program prepared for compilation with MSVC
+- Compilation: switched to Qt 5.6.1
+
 v2.07-1
 - Fixed bug: program crashed on win64/win32 if any sub-menu in "View" was de-selected
 

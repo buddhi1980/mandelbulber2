@@ -1,8 +1,9 @@
-MANDELBULBER 2.07-1
+MANDELBULBER 2.08
 
 project leader: Krzysztof Marczak
-project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen, Graeme McLaren
-
+project members: Sebastian Jennen, Graeme McLaren, Bernardo Martelli
+                 knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
+                 
 contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
 download site: http://sourceforge.net/projects/mandelbulber/
@@ -29,6 +30,11 @@ Copy this folder somewhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx
 - Windows 7
 - Windows 8
 - Windows 10
+
+- gcc 5.4.0
+- clang 3.7.0
+- msvc14
+- Qt 5.6.1
 
 5. USAGE
 

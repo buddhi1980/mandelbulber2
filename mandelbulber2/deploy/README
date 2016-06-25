@@ -1,10 +1,10 @@
 
-MANDELBULBER 2.07-1
+MANDELBULBER 2.08
 -----------------
 
 project leader: Krzysztof Marczak
-project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, 
-                 Quazgaa, Sebastian Jennen, Graeme McLaren, Bernardo Martelli
+project members: Sebastian Jennen, Graeme McLaren, Bernardo Martelli
+                 knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
 
 contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
@@ -69,14 +69,14 @@ please type:
 
 - Debian Stretch x64
 - Ubuntu 14.10
-- Linux Mint 17.2
 - Chakra 2016.02 "Ian"
 - Raspbian
 
-- gcc5.3.1
+- gcc 5.4.0
 - clang 3.7.0
+- msvc14
 
-- Qt 5.5.1
+- Qt 5.6.1
 
 5. USAGE
 --------
