@@ -531,7 +531,7 @@ brightness:</string>
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables coloring of fractal surface using mathematical algorithms and color palette. &lt;/p&gt;&lt;p&gt;This option works only for fractal objects. For primitive objects it will be ignored.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;palette off&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;palette on&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="title">
-            <string>Use colors from &amp;a palette</string>
+            <string>&amp;Use colors from a palette</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -1539,7 +1539,7 @@ direction vector:</string>
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normal mapping is a technique used for faking the lighting of bumps and dents – an implementation of bump mapping. Normal map texture changes locally the direction of the surface normal vector, (i.e. &lt;span style=&quot; text-decoration: underline;&quot;&gt;simulates&lt;/span&gt; local changes of the surface angle). It causes changes to the way that the light is reflected or diffused. Normal maps do not deform the object surface, but just give the appearance of deformation.&lt;/p&gt;&lt;p&gt;Normal map textures uses color components to define the direction of the deflection of a normal vector. Red represents X axis, green represents Y axis and blue represents Z axis. &lt;/p&gt;&lt;p&gt;Normal maps can be derived from height maps (bumpmaps)&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Example normal map texture:&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Example height map&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/normal_map_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/displacement_texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Example object with normal map texture:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - normal map texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="title">
-            <string>Use &amp;normal map texture</string>
+            <string>Use normal map &amp;texture</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -2535,6 +2535,82 @@ object size)</string>
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>text_name</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>groupCheck_use_colors_from_palette</tabstop>
+  <tabstop>slider_coloring_palette_offset</tabstop>
+  <tabstop>sliderInt_coloring_palette_size</tabstop>
+  <tabstop>slider_coloring_saturation</tabstop>
+  <tabstop>slider_coloring_speed</tabstop>
+  <tabstop>pushButton_randomize</tabstop>
+  <tabstop>spinbox_coloring_palette_offset</tabstop>
+  <tabstop>spinboxInt_coloring_palette_size</tabstop>
+  <tabstop>spinbox_coloring_saturation</tabstop>
+  <tabstop>spinbox_coloring_speed</tabstop>
+  <tabstop>spinboxInt_coloring_random_seed</tabstop>
+  <tabstop>pushButton_randomPalette</tabstop>
+  <tabstop>pushButton_getPaletteFromImage</tabstop>
+  <tabstop>comboBox_fractal_coloring_algorithm</tabstop>
+  <tabstop>slider_fractal_coloring_sphere_radius</tabstop>
+  <tabstop>spinbox_fractal_coloring_sphere_radius</tabstop>
+  <tabstop>vect3_fractal_coloring_line_direction_x</tabstop>
+  <tabstop>vect3_fractal_coloring_line_direction_y</tabstop>
+  <tabstop>vect3_fractal_coloring_line_direction_z</tabstop>
+  <tabstop>groupCheck_use_color_texture</tabstop>
+  <tabstop>slider_color_texture_intensity</tabstop>
+  <tabstop>spinbox_color_texture_intensity</tabstop>
+  <tabstop>slider_shading</tabstop>
+  <tabstop>spinbox_shading</tabstop>
+  <tabstop>slider_specular</tabstop>
+  <tabstop>slider_specular_width</tabstop>
+  <tabstop>spinbox_specular</tabstop>
+  <tabstop>spinbox_specular_width</tabstop>
+  <tabstop>slider_luminosity</tabstop>
+  <tabstop>spinbox_luminosity</tabstop>
+  <tabstop>groupCheck_use_luminosity_texture</tabstop>
+  <tabstop>slider_luminosity_texture_intensity</tabstop>
+  <tabstop>spinbox_luminosity_texture_intensity</tabstop>
+  <tabstop>slider_reflectance</tabstop>
+  <tabstop>spinbox_reflectance</tabstop>
+  <tabstop>checkBox_fresnel_reflectance</tabstop>
+  <tabstop>slider_transparency_of_surface</tabstop>
+  <tabstop>logslider_transparency_of_interior</tabstop>
+  <tabstop>slider_transparency_index_of_refraction</tabstop>
+  <tabstop>spinbox_transparency_of_surface</tabstop>
+  <tabstop>logedit_transparency_of_interior</tabstop>
+  <tabstop>spinbox_transparency_index_of_refraction</tabstop>
+  <tabstop>groupCheck_use_diffusion_texture</tabstop>
+  <tabstop>slider_diffusion_texture_intensity</tabstop>
+  <tabstop>spinbox_diffusion_texture_intensity</tabstop>
+  <tabstop>groupCheck_use_normal_map_texture</tabstop>
+  <tabstop>checkBox_normal_map_texture_from_bumpmap</tabstop>
+  <tabstop>checkBox_normal_map_texture_invert_green</tabstop>
+  <tabstop>logslider_normal_map_texture_height</tabstop>
+  <tabstop>logedit_normal_map_texture_height</tabstop>
+  <tabstop>groupCheck_use_displacement_texture</tabstop>
+  <tabstop>logslider_displacement_texture_height</tabstop>
+  <tabstop>logedit_displacement_texture_height</tabstop>
+  <tabstop>comboBox_texture_mapping_type</tabstop>
+  <tabstop>slider3_texture_center_x</tabstop>
+  <tabstop>slider3_texture_center_y</tabstop>
+  <tabstop>slider3_texture_center_z</tabstop>
+  <tabstop>logslidervect3_texture_scale_x</tabstop>
+  <tabstop>logslidervect3_texture_scale_y</tabstop>
+  <tabstop>logslidervect3_texture_scale_z</tabstop>
+  <tabstop>dial3_texture_rotation_x</tabstop>
+  <tabstop>spinbox3_texture_center_x</tabstop>
+  <tabstop>spinbox3_texture_center_y</tabstop>
+  <tabstop>spinbox3_texture_center_z</tabstop>
+  <tabstop>logvect3_texture_scale_x</tabstop>
+  <tabstop>logvect3_texture_scale_y</tabstop>
+  <tabstop>logvect3_texture_scale_z</tabstop>
+  <tabstop>dial3_texture_rotation_y</tabstop>
+  <tabstop>spinboxd3_texture_rotation_x</tabstop>
+  <tabstop>dial3_texture_rotation_z</tabstop>
+  <tabstop>spinboxd3_texture_rotation_y</tabstop>
+  <tabstop>spinboxd3_texture_rotation_z</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>
