@@ -1,49 +1,59 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * class for testing mandelbulber functionality on the cli
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * class for testing mandelbulber functionality on the cli
  */
 
 #include "test.hpp"
-#include "system.hpp"
-#include "parameters.hpp"
-#include "fractal_container.hpp"
 #include "animation_frames.hpp"
-#include "keyframes.hpp"
-#include "initparameters.hpp"
-#include "settings.hpp"
 #include "cimage.hpp"
-#include "render_job.hpp"
+#include "initparameters.hpp"
+#include "keyframes.hpp"
 #include "netrender.hpp"
+#include "render_job.hpp"
+#include "settings.hpp"
 
 void Test::renderExamples()
 {
 	// this renders all example files in a resolution of 5x5 px
 	// and benchmarks the runtime
 
-	QString examplePath = QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
+	QString examplePath =
+		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
 	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files);
 
-	cParameterContainer* testPar = new cParameterContainer;
-	cFractalContainer* testParFractal = new cFractalContainer;
-	cAnimationFrames* testAnimFrames = new cAnimationFrames;
-	cKeyframes* testKeyframes = new cKeyframes;
+	cParameterContainer *testPar = new cParameterContainer;
+	cFractalContainer *testParFractal = new cFractalContainer;
+	cAnimationFrames *testAnimFrames = new cAnimationFrames;
+	cKeyframes *testKeyframes = new cKeyframes;
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
@@ -75,7 +85,7 @@ void Test::renderExamples()
 		cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 		renderJob->Init(cRenderJob::still, config);
 		QVERIFY2(renderJob->Execute(), "execution failed.");
-		delete renderJob;	
+		delete renderJob;
 	}
 
 	delete image;
@@ -88,8 +98,8 @@ void Test::renderExamples()
 void Test::netrender()
 {
 	// test connection of server / client over localhost
-	CNetRender* netRenderServer = new CNetRender(1);
-	CNetRender* netRenderClient = new CNetRender(1);
+	CNetRender *netRenderServer = new CNetRender(1);
+	CNetRender *netRenderClient = new CNetRender(1);
 	netRenderServer->SetServer(5555);
 	netRenderClient->SetClient("127.0.0.1", 5555);
 
@@ -98,12 +108,12 @@ void Test::netrender()
 	CNetRender::netRenderStatus clientStatus = netRenderClient->GetStatus();
 	QVERIFY2(clientStatus == CNetRender::netRender_READY,
 		QString("client status wrong: should be 'READY' but is '%1'.")
-			.arg(CNetRender::GetStatusText(clientStatus)).toStdString().c_str()
-	);
+			.arg(CNetRender::GetStatusText(clientStatus))
+			.toStdString()
+			.c_str());
 
 	QVERIFY2(netRenderServer->GetClientCount() == 1,
-		QString("client not connected to server.").toStdString().c_str()
-	);
+		QString("client not connected to server.").toStdString().c_str());
 
 	delete netRenderClient;
 	delete netRenderServer;

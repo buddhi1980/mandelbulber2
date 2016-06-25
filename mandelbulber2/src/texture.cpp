@@ -1,31 +1,49 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * cTexture class - simple bitmap container with pixel interpolation
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * This class holds an sRGB8 *bitmap to store texture information. The class
+ * can be initialized by loading an image file, or by loading a QByteArray (network).
+ * Pixel(...) gets the pixel at a given point. The image data is MipMap-ped and
+ * bicubic interpolated to give a "smooth" result.
+ * more information on Mipmaps:  https://en.wikipedia.org/wiki/Mipmap
  */
 
 #include "texture.hpp"
-#include "files.h"
-#include "error_message.hpp"
 #include "common_math.h"
+#include "error_message.hpp"
+#include "files.h"
 
-//constructor
+// constructor
 cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 {
 	bitmap = NULL;
@@ -39,34 +57,37 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 		height = qimage.height();
 		bitmap = new sRGB8[width * height];
 
-		for(int y = 0; y < height; y++)
+		for (int y = 0; y < height; y++)
 		{
 			memcpy(&bitmap[y * width], qimage.scanLine(y), sizeof(sRGB8) * width);
 		}
 
-		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): (sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
+		// qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): "
+		// 				 << "(sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
 		loaded = true;
 		originalFileName = filename;
-		if(mode == useMipmaps)
+		if (mode == useMipmaps)
 		{
 			CreateMipMaps();
 		}
 	}
 	else
 	{
-		if (!beQuiet) cErrorMessage::showMessage(QObject::tr("Can't load texture!\n") + filename,
-																						 cErrorMessage::errorMessage);
+		if (!beQuiet)
+			cErrorMessage::showMessage(
+				QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
 		width = 100;
 		height = 100;
 		loaded = false;
 		bitmap = new sRGB8[100 * 100];
 		memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
-		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
+		// qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): "
+		// 				 << "new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
 	}
 	invertGreen = false;
 }
 
-//copy constructor
+// copy constructor
 cTexture::cTexture(const cTexture &tex)
 {
 	width = tex.width;
@@ -74,27 +95,30 @@ cTexture::cTexture(const cTexture &tex)
 	loaded = tex.loaded;
 	originalFileName = tex.originalFileName;
 	bitmap = new sRGB8[width * height];
-	//qDebug() << "cTexture::cTexture(const cTexture &tex):  new sRGB8[width * height]:" << width * height * sizeof(sRGB8);
+	// qDebug() << "cTexture::cTexture(const cTexture &tex): "
+	// 				 << "new sRGB8[width * height]:" << width * height * sizeof(sRGB8);
 	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
 	invertGreen = tex.invertGreen;
 }
 
-cTexture& cTexture::operator=(const cTexture &tex)
+cTexture &cTexture::operator=(const cTexture &tex)
 {
 	if (bitmap)
 	{
 		delete[] bitmap;
 		bitmap = NULL;
-		//qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): 	delete[] bitmap;:" << width * height * sizeof(sRGB8);
+		// qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): "
+		// 				 << "delete[] bitmap;:" << width * height * sizeof(sRGB8);
 	}
 	width = tex.width;
 	height = tex.height;
 	loaded = tex.loaded;
 	originalFileName = tex.originalFileName;
 	bitmap = new sRGB8[width * height];
-	//qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): 	new sRGB8[width * height];:" << width * height * sizeof(sRGB8);
+	// qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): "
+	// 				 << "new sRGB8[width * height];:" << width * height * sizeof(sRGB8);
 	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
@@ -107,7 +131,8 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 {
 	if (bitmap)
 	{
-		//qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): delete[] bitmap;:" << width * height * sizeof(sRGB8);
+		// qDebug() << "void cTexture::FromQByteArray(QByteArray buffer):"
+		// 				 << "delete[] bitmap;:" << width * height * sizeof(sRGB8);
 		delete[] bitmap;
 	}
 
@@ -121,19 +146,20 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 		height = qimage.height();
 		bitmap = new sRGB8[width * height];
 		memcpy(bitmap, qimage.constBits(), sizeof(sRGB8) * width * height);
-		//qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): (sRGB8*)(qimage.bits()):" << width * height * sizeof(sRGB8);
+		// qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): "
+		// 				 << "(sRGB8*)(qimage.bits()):" << width * height * sizeof(sRGB8);
 		CreateMipMaps();
 		loaded = true;
 
-		if(mode == useMipmaps)
+		if (mode == useMipmaps)
 		{
 			CreateMipMaps();
 		}
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("Can't load texture from QByteArray!\n"),
-															 cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(
+			QObject::tr("Can't load texture from QByteArray!\n"), cErrorMessage::errorMessage);
 	}
 }
 
@@ -144,18 +170,20 @@ cTexture::cTexture(void)
 	loaded = false;
 	bitmap = new sRGB8[100 * 100];
 	memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
-	//qDebug() << "cTexture::cTexture(void): new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
+	// qDebug() << "cTexture::cTexture(void):"
+	// 				 << "new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
 	invertGreen = false;
 }
 
-//destructor
+// destructor
 cTexture::~cTexture(void)
 {
 	if (bitmap)
 	{
 		delete[] bitmap;
 		bitmap = NULL;
-		//qDebug() << "cTexture::~cTexture(void): delete[] bitmap:" << width * height * sizeof(sRGB8);
+		// qDebug() << "cTexture::~cTexture(void):"
+		// 				 << "delete[] bitmap:" << width * height * sizeof(sRGB8);
 	}
 	else
 	{
@@ -163,7 +191,7 @@ cTexture::~cTexture(void)
 	}
 }
 
-//read pixel
+// read pixel
 sRGBfloat cTexture::Pixel(double x, double y, double pixelSize)
 {
 	if (x >= 0 && x < width && y >= 0 && y < height - 1.0)
@@ -178,12 +206,12 @@ sRGBfloat cTexture::Pixel(double x, double y, double pixelSize)
 
 sRGBfloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
 {
-	int intX = point.x;
-	int intY = point.y;
+	int intX = (int)point.x;
+	int intY = (int)point.y;
 	point.x = point.x - intX;
 	point.y = point.y - intY;
-	if(point.x < 0.0) point.x += 1.0;
-	if(point.y < 0.0) point.y += 1.0;
+	if (point.x < 0.0) point.x += 1.0;
+	if (point.y < 0.0) point.y += 1.0;
 	point.x *= (double)width;
 	point.y *= (double)height;
 	return MipMap(point.x, point.y, pixelSize);
@@ -192,42 +220,43 @@ sRGBfloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
 sRGB8 cTexture::LinearInterpolation(double x, double y)
 {
 	sRGB8 color;
-	int ix = x;
-	int iy = y;
-	double rx = (x - (int) x);
-	double ry = (y - (int) y);
+	int ix = (int)x;
+	int iy = (int)y;
+	double rx = (x - (int)x);
+	double ry = (y - (int)y);
 	sRGB8 k1 = bitmap[iy * width + ix];
 	sRGB8 k2 = bitmap[iy * width + ix + 1];
 	sRGB8 k3 = bitmap[(iy + 1) * width + ix];
 	sRGB8 k4 = bitmap[(iy + 1) * width + ix + 1];
-	color.R = (k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry) + k3.R * (1.0 - rx) * ry
-			+ k4.R * (rx * ry));
-	color.G = (k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry) + k3.G * (1.0 - rx) * ry
-			+ k4.G * (rx * ry));
-	color.B = (k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry) + k3.B * (1.0 - rx) * ry
-			+ k4.B * (rx * ry));
+	color.R = (unsigned char)(k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry)
+														+ k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
+	color.G = (unsigned char)(k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry)
+														+ k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
+	color.B = (unsigned char)(k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry)
+														+ k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
 	return color;
 }
 
-sRGBfloat cTexture::BicubicInterpolation(double x, double y, const sRGB8 *bitmap, int w, int h) const
+sRGBfloat cTexture::BicubicInterpolation(
+	double x, double y, const sRGB8 *bitmap, int w, int h) const
 {
-	int ix = x;
-	int iy = y;
+	int ix = (int)x;
+	int iy = (int)y;
 	double rx = (x - ix);
 	double ry = (y - iy);
 
 	double R[4][4], G[4][4], B[4][4];
 
-	for(int yy = 0; yy < 4; yy++)
+	for (int yy = 0; yy < 4; yy++)
 	{
-		for(int xx = 0; xx < 4; xx++)
+		for (int xx = 0; xx < 4; xx++)
 		{
 			int ixx = ix + xx - 1;
 			int iyy = iy + yy - 1;
 			ixx = (ixx + w) % w;
 			iyy = (iyy + h) % h;
-			int addess2 = ixx + iyy * w;
-			sRGB8 pixel = bitmap[addess2];
+			int address2 = ixx + iyy * w;
+			sRGB8 pixel = bitmap[address2];
 			R[xx][yy] = pixel.R;
 			G[xx][yy] = pixel.G;
 			B[xx][yy] = pixel.B;
@@ -237,11 +266,14 @@ sRGBfloat cTexture::BicubicInterpolation(double x, double y, const sRGB8 *bitmap
 	double dR = bicubicInterpolate(R, rx, ry);
 	double dG = bicubicInterpolate(G, rx, ry);
 	double dB = bicubicInterpolate(B, rx, ry);
-	if(dR < 0) dR = 0; if(dR > 255) dR = 255;
-	if(dG < 0) dG = 0; if(dG > 255) dG = 255;
-	if(dB < 0) dB = 0; if(dB > 255) dB = 255;
+	if (dR < 0) dR = 0;
+	if (dR > 255) dR = 255;
+	if (dG < 0) dG = 0;
+	if (dG > 255) dG = 255;
+	if (dB < 0) dB = 0;
+	if (dB > 255) dB = 255;
 
-	return sRGBfloat(dR/256.0, dG/256.0, dB/256.0);
+	return sRGBfloat((float)(dR / 256.0), (float)(dG / 256.0), (float)(dB / 256.0));
 }
 
 sRGB8 cTexture::FastPixel(int x, int y)
@@ -251,24 +283,24 @@ sRGB8 cTexture::FastPixel(int x, int y)
 
 CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump, double pixelSize) const
 {
-	int intX = point.x;
-	int intY = point.y;
+	int intX = (int)point.x;
+	int intY = (int)point.y;
 	point.x = point.x - intX;
 	point.y = point.y - intY;
-	if(point.x < 0.0) point.x += 1.0;
-	if(point.y < 0.0) point.y += 1.0;
+	if (point.x < 0.0) point.x += 1.0;
+	if (point.y < 0.0) point.y += 1.0;
 
 	double m[3][3];
-	for(int y = 0; y<=2; y++)
+	for (int y = 0; y <= 2; y++)
 	{
-		for(int x = 0; x<=2; x++)
+		for (int x = 0; x <= 2; x++)
 		{
-			m[x][y] = MipMap(point.x*width + x - 1.0, point.y*height + y - 1.0, pixelSize).R;
+			m[x][y] = MipMap(point.x * width + x - 1.0, point.y * height + y - 1.0, pixelSize).R;
 		}
 	}
 	CVector3 normal;
-	normal.x = bump * (m[2][2]-m[0][2]+2*(m[2][1]-m[0][1])+m[2][0]-m[0][0]);
-	normal.y = bump * (m[0][0]-m[0][2]+2*(m[1][0]-m[1][2])+m[2][0]-m[2][2]);
+	normal.x = bump * (m[2][2] - m[0][2] + 2 * (m[2][1] - m[0][1]) + m[2][0] - m[0][0]);
+	normal.y = bump * (m[0][0] - m[0][2] + 2 * (m[1][0] - m[1][2]) + m[2][0] - m[2][2]);
 	normal.z = 1.0;
 	normal.Normalize();
 	return normal;
@@ -276,17 +308,17 @@ CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump, dou
 
 CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSize) const
 {
-	int intX = point.x;
-	int intY = point.y;
+	int intX = (int)point.x;
+	int intY = (int)point.y;
 	point.x = point.x - intX;
 	point.y = point.y - intY;
-	if(point.x < 0.0) point.x += 1.0;
-	if(point.y < 0.0) point.y += 1.0;
+	if (point.x < 0.0) point.x += 1.0;
+	if (point.y < 0.0) point.y += 1.0;
 	sRGBfloat normalPixel = MipMap(point.x * width, point.y * height, pixelSize);
 	CVector3 normal(normalPixel.R * 2.0 - 1.0, normalPixel.G * 2.0 - 1.0, normalPixel.B);
 	normal.x *= -bump;
 	normal.y *= -bump;
-	if(invertGreen) normal.y *= -1.0;
+	if (invertGreen) normal.y *= -1.0;
 	normal.Normalize();
 
 	return normal;
@@ -294,21 +326,18 @@ CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSi
 
 sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 {
-	pixelSize /= (double) max(width, height);
+	pixelSize /= (double)max(width, height);
 	if (mipmaps.size() > 0 && pixelSize > 0)
 	{
-		if (pixelSize < 1e-20)
-			pixelSize = 1e-20;
+		if (pixelSize < 1e-20) pixelSize = 1e-20;
 		double dMipLayer = -log(pixelSize) / log(2.0);
-		if (dMipLayer < 0)
-			dMipLayer = 0;
-		if (dMipLayer + 1 >= mipmaps.size() - 1)
-			dMipLayer = mipmaps.size() - 1;
+		if (dMipLayer < 0) dMipLayer = 0;
+		if (dMipLayer + 1 >= mipmaps.size() - 1) dMipLayer = mipmaps.size() - 1;
 
-		int layerBig = dMipLayer;
-		int layerSmall = dMipLayer + 1;
-		double sizeMultipBig = pow(2.0, (double) layerBig);
-		double sizeMultipSmall = pow(2.0, (double) layerSmall);
+		int layerBig = (int)dMipLayer;
+		int layerSmall = (int)(dMipLayer + 1);
+		double sizeMultipBig = pow(2.0, (double)layerBig);
+		double sizeMultipSmall = pow(2.0, (double)layerSmall);
 		double trans = dMipLayer - layerBig;
 		double transN = 1.0 - trans;
 
@@ -332,21 +361,15 @@ sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 				bigBitmapSize = mipmapSizes[layerBig - 1];
 				smallBitmapSize = mipmapSizes[layerSmall - 1];
 			}
-			sRGBfloat pixelFromBig = BicubicInterpolation(x / sizeMultipBig,
-																										y / sizeMultipBig,
-																										bigBitmap,
-																										bigBitmapSize.x,
-																										bigBitmapSize.y);
-			sRGBfloat pixelFromSmall = BicubicInterpolation(x / sizeMultipSmall,
-																											y / sizeMultipSmall,
-																											smallBitmap,
-																											smallBitmapSize.x,
-																											smallBitmapSize.y);
+			sRGBfloat pixelFromBig = BicubicInterpolation(
+				x / sizeMultipBig, y / sizeMultipBig, bigBitmap, bigBitmapSize.x, bigBitmapSize.y);
+			sRGBfloat pixelFromSmall = BicubicInterpolation(x / sizeMultipSmall, y / sizeMultipSmall,
+				smallBitmap, smallBitmapSize.x, smallBitmapSize.y);
 
 			sRGBfloat pixel;
-			pixel.R = pixelFromSmall.R * trans + pixelFromBig.R * transN;
-			pixel.G = pixelFromSmall.G * trans + pixelFromBig.G * transN;
-			pixel.B = pixelFromSmall.B * trans + pixelFromBig.B * transN;
+			pixel.R = (float)(pixelFromSmall.R * trans + pixelFromBig.R * transN);
+			pixel.G = (float)(pixelFromSmall.G * trans + pixelFromBig.G * transN);
+			pixel.B = (float)(pixelFromSmall.B * trans + pixelFromBig.B * transN);
 			return pixel;
 		}
 		else
@@ -367,12 +390,12 @@ void cTexture::CreateMipMaps()
 	int w = width / 2;
 	int h = height / 2;
 	sRGB8 *prevBitmap = bitmap;
-	while(w > 0 && h > 0)
+	while (w > 0 && h > 0)
 	{
 		QVector<sRGB8> newMipmapV(w * h);
 		sRGB8 *newMipmap = newMipmapV.data();
 
-		for(int y = 0; y < h; y++)
+		for (int y = 0; y < h; y++)
 		{
 			for (int x = 0; x < w; x++)
 			{
@@ -381,9 +404,9 @@ void cTexture::CreateMipMaps()
 				sRGB8 p2 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2, prevH) * prevW];
 				sRGB8 p3 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
 				sRGB8 p4 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
-				newPixel.R = ((int)p1.R + p2.R + p3.R + p4.R)/4;
-				newPixel.G = ((int)p1.G + p2.G + p3.G + p4.G)/4;
-				newPixel.B = ((int)p1.B + p2.B + p3.B + p4.B)/4;
+				newPixel.R = (unsigned char)(((int)p1.R + p2.R + p3.R + p4.R) / 4);
+				newPixel.G = (unsigned char)(((int)p1.G + p2.G + p3.G + p4.G) / 4);
+				newPixel.B = (unsigned char)(((int)p1.B + p2.B + p3.B + p4.B) / 4);
 				newMipmap[x + y * w] = newPixel;
 			}
 		}
@@ -396,5 +419,3 @@ void cTexture::CreateMipMaps()
 		prevBitmap = mipmaps.last().data();
 	}
 }
-
-
