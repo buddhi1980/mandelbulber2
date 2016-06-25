@@ -579,6 +579,25 @@
    <header>mygroupbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>text_voxel_image_path</tabstop>
+  <tabstop>pushButton_select_image_path</tabstop>
+  <tabstop>sliderInt_voxel_max_iter</tabstop>
+  <tabstop>spinboxInt_voxel_max_iter</tabstop>
+  <tabstop>spinboxInt_voxel_samples_x</tabstop>
+  <tabstop>spinboxInt_voxel_samples_y</tabstop>
+  <tabstop>spinboxInt_voxel_samples_z</tabstop>
+  <tabstop>vect3_voxel_limit_min_x</tabstop>
+  <tabstop>vect3_voxel_limit_min_y</tabstop>
+  <tabstop>vect3_voxel_limit_min_z</tabstop>
+  <tabstop>vect3_voxel_limit_max_x</tabstop>
+  <tabstop>vect3_voxel_limit_max_y</tabstop>
+  <tabstop>vect3_voxel_limit_max_z</tabstop>
+  <tabstop>pushButton_start_render_layers</tabstop>
+  <tabstop>pushButton_stop_render_layers</tabstop>
+  <tabstop>pushButton_show_layers</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>
