@@ -33,7 +33,7 @@
  *
  * This class holds an undoBuffer to store changes to the settings.
  * The methods Undo and Redo are used to navigate inside the undo timeline.
- * The buffer is a simple LIFO buffer which holds as much as MAX_UNDO_LEVELS entries.
+ * The buffer is a simple LIFO buffer which holds the parameter entries.
  * (A Store() invocation while Undo-ed in the list will truncate to the current level
  * and append the new entry. The Redo entries will be lost.)
  */
