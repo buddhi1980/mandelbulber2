@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>519</width>
-    <height>505</height>
+    <height>1149</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,9 +42,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-137</y>
-        <width>497</width>
-        <height>687</height>
+        <y>0</y>
+        <width>513</width>
+        <height>1143</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -274,11 +274,11 @@
         </widget>
        </item>
        <item>
-        <widget class="MyGroupBox" name="groupCheck_voxel_custom_limit_enabled" native="true">
-         <property name="title" stdset="0">
+        <widget class="MyGroupBox" name="groupCheck_voxel_custom_limit_enabled">
+         <property name="title">
           <string>Custom Limits (leave untoggled to use global limits)</string>
          </property>
-         <property name="checkable" stdset="0">
+         <property name="checkable">
           <bool>true</bool>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_45">
@@ -544,11 +544,11 @@
         </widget>
        </item>
        <item>
-        <widget class="MyGroupBox" name="groupCheck_voxel_show_information" native="true">
-         <property name="title" stdset="0">
+        <widget class="MyGroupBox" name="groupCheck_voxel_show_information">
+         <property name="title">
           <string>Show Voxel Information</string>
          </property>
-         <property name="checkable" stdset="0">
+         <property name="checkable">
           <bool>true</bool>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_voxel_show_information">
@@ -598,9 +598,10 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>mylineedit.h</header>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>mygroupbox.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -608,9 +609,9 @@
    <header>myspinbox.h</header>
   </customwidget>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QWidget</extends>
-   <header>mygroupbox.h</header>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
