@@ -167,6 +167,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("voxel_samples_z", 100, 2, 65535, morphLinear, paramStandard);
 	par->addParam("voxel_max_iter", 30, 1, 10000, morphLinear, paramStandard);
 	par->addParam("voxel_image_path", QDir::toNativeSeparators(systemData.dataDirectory + "slices" + QDir::separator()), morphNone, paramStandard);
+	par->addParam("voxel_show_information", true, morphLinear, paramApp);
 
 	//foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);

@@ -76,37 +76,37 @@
 <context>
     <name>CommonMyWidgetWrapper</name>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="54"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="64"/>
         <source>Reset to default</source>
         <translation>Auf Standardwert zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="63"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="73"/>
         <source>Add to flight animation</source>
         <translation>Zur Fluganimation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="69"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="79"/>
         <source>Remove from flight animation</source>
         <translation>Von der Fluganimation entfernen</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="77"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="87"/>
         <source>Add to keyframe animation</source>
         <translation>Zur Keyframeanimation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="83"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="93"/>
         <source>Remove from keyframe animation</source>
         <translation>Von der Keyframeanimation entfernen</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="132"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="142"/>
         <source>Parameter name: %1</source>
         <translation>Parameter Name: %1</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="134"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="144"/>
         <source>Default value: %1</source>
         <translation>Standard Wert: %1</translation>
     </message>
@@ -210,70 +210,61 @@
 <context>
     <name>MyDoubleSpinBox</name>
     <message>
-        <location filename="../qt/mydoublespinbox.cpp" line="32"/>
         <source>Reset to default</source>
-        <translation>Auf Standardwert zurücksetzen</translation>
+        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../qt/mydoublespinbox.cpp" line="33"/>
         <source>Add to flight animation</source>
-        <translation>Zur Fluganimation hinzufügen</translation>
+        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/mydoublespinbox.cpp" line="34"/>
         <source>Add to keyframe animation</source>
-        <translation>Zur Keyframeanimation hinzufügen</translation>
+        <translation type="vanished">Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
     <name>MyGroupBox</name>
     <message>
-        <location filename="../qt/mygroupbox.cpp" line="43"/>
         <source>Reset to default</source>
-        <translation>Auf Standardwert zurücksetzen</translation>
+        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../qt/mygroupbox.cpp" line="44"/>
         <source>Add to flight animation</source>
-        <translation>Zur Fluganimation hinzufügen</translation>
+        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/mygroupbox.cpp" line="45"/>
         <source>Add to keyframe animation</source>
-        <translation>Zur Keyframeanimation hinzufügen</translation>
+        <translation type="vanished">Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
     <name>MyLineEdit</name>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="50"/>
+        <location filename="../qt/mylineedit.cpp" line="215"/>
         <source>Copy vector</source>
         <translation>Vektor kopieren</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="51"/>
+        <location filename="../qt/mylineedit.cpp" line="216"/>
         <source>Paste vector</source>
         <translation>Vektor einfügen</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="52"/>
+        <location filename="../qt/mylineedit.cpp" line="217"/>
         <source>Reset vector to default</source>
         <translation>Vektor zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="54"/>
         <source>Reset to default</source>
-        <translation>Auf Standardwert zurücksetzen</translation>
+        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="55"/>
         <source>Add to flight animation</source>
-        <translation>Zur Fluganimation hinzufügen</translation>
+        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/mylineedit.cpp" line="56"/>
         <source>Add to keyframe animation</source>
-        <translation>Zur Keyframeanimation hinzufügen</translation>
+        <translation type="vanished">Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -529,24 +520,24 @@ File version: </source>
         <translation>Falsche Anzahl an Spalten</translation>
     </message>
     <message>
-        <location filename="../src/texture.cpp" line="57"/>
+        <location filename="../src/texture.cpp" line="78"/>
         <source>Can&apos;t load texture!
 </source>
         <translation>Textur konnte nicht geladen werden!</translation>
     </message>
     <message>
-        <location filename="../src/texture.cpp" line="135"/>
+        <location filename="../src/texture.cpp" line="162"/>
         <source>Can&apos;t load texture from QByteArray!
 </source>
         <translation>Textur konnte nicht von QByteArray geladen werden!</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="115"/>
+        <location filename="../src/undo.cpp" line="132"/>
         <source>No more undo</source>
         <translation>Kein Undo mehr möglich</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="144"/>
+        <location filename="../src/undo.cpp" line="161"/>
         <source>No more redo</source>
         <translation>Kein Redo mehr möglich</translation>
     </message>
@@ -899,7 +890,7 @@ Den letzten Stand wiederherstellen?</translation>
         <location filename="../src/animation_flight.cpp" line="733"/>
         <location filename="../src/animation_flight.cpp" line="1054"/>
         <location filename="../src/animation_keyframes.cpp" line="578"/>
-        <location filename="../src/animation_keyframes.cpp" line="892"/>
+        <location filename="../src/animation_keyframes.cpp" line="894"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Das wird alle Bilder im Bildordner löschen.
@@ -933,7 +924,7 @@ Fortsetzen?</translation>
         <location filename="../src/animation_flight.cpp" line="727"/>
         <location filename="../src/animation_flight.cpp" line="1053"/>
         <location filename="../src/animation_keyframes.cpp" line="573"/>
-        <location filename="../src/animation_keyframes.cpp" line="891"/>
+        <location filename="../src/animation_keyframes.cpp" line="893"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
@@ -978,13 +969,13 @@ Soll der Bilderordner geleert werden?</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="957"/>
-        <location filename="../src/animation_keyframes.cpp" line="795"/>
+        <location filename="../src/animation_keyframes.cpp" line="797"/>
         <source>Animation Image Folder</source>
         <translation>Ordner für Animationsbilder</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="960"/>
-        <location filename="../src/animation_keyframes.cpp" line="798"/>
+        <location filename="../src/animation_keyframes.cpp" line="800"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wähle Ordner für Animationsbilder</translation>
     </message>
@@ -1043,7 +1034,7 @@ Adresse des Klienten:</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="547"/>
-        <location filename="../src/animation_keyframes.cpp" line="1174"/>
+        <location filename="../src/animation_keyframes.cpp" line="1176"/>
         <source>Camera collides with fractal at following frames:
 </source>
         <translation>Die Kamera kollidiert mit dem Fraktal an folgenden Frames:
@@ -1055,47 +1046,47 @@ Adresse des Klienten:</translation>
         <translation>Rendere Animation</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1060"/>
+        <location filename="../src/animation_keyframes.cpp" line="1062"/>
         <source>Export keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1061"/>
+        <location filename="../src/animation_keyframes.cpp" line="1063"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
         <translation>Es sind bereits aufgenommene Flugframes vorhanden.
 Aktuelle Flugframes verwerfen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1080"/>
+        <location filename="../src/animation_keyframes.cpp" line="1082"/>
         <source>Exporting</source>
         <translation>Exportiere</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1128"/>
-        <location filename="../src/animation_keyframes.cpp" line="1148"/>
+        <location filename="../src/animation_keyframes.cpp" line="1130"/>
+        <location filename="../src/animation_keyframes.cpp" line="1150"/>
         <source>Checking for collissions</source>
         <translation>Prüfe auf Kollisionen</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1129"/>
+        <location filename="../src/animation_keyframes.cpp" line="1131"/>
         <source>Checking for collissions on keyframe # %1</source>
         <translation>Prüfe auf Kollisionen bei Keyframe # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1149"/>
+        <location filename="../src/animation_keyframes.cpp" line="1151"/>
         <source>Checking for collisions finished</source>
         <translation>Kollisionsprüfung beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1179"/>
+        <location filename="../src/animation_keyframes.cpp" line="1181"/>
         <source>No collisions detected
 </source>
         <translation>Keine Kollisionen erkannt
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1227"/>
+        <location filename="../src/animation_keyframes.cpp" line="1229"/>
         <source>Cannot change target distance. Missing camera parameters in keyframes</source>
         <translation>Zielentfernung kann nicht geändert werden. Fehlende Kameraparameter in Keyframes</translation>
     </message>
@@ -7091,7 +7082,7 @@ Vorschau</translation>
         <translation>Animationsframes aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1080"/>
+        <location filename="../src/animation_keyframes.cpp" line="1082"/>
         <source>Exporting keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
@@ -8386,22 +8377,22 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
 <context>
     <name>cVoxelExport</name>
     <message>
-        <location filename="../src/voxel_export.cpp" line="66"/>
+        <location filename="../src/voxel_export.cpp" line="85"/>
         <source>Processing layer %1 of %2</source>
         <translation>Bearbeite Schicht %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="69"/>
+        <location filename="../src/voxel_export.cpp" line="88"/>
         <source>Voxel Export</source>
         <translation>Voxel Export</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="101"/>
+        <location filename="../src/voxel_export.cpp" line="120"/>
         <source>Voxel Export finished - Cancelled export</source>
         <translation>Voxel Export abgeschlossen - Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="103"/>
+        <location filename="../src/voxel_export.cpp" line="122"/>
         <source>Voxel Export finished - Processed %1 layers</source>
         <translation>Voxel Export abgeschlossen - %1 Schichten bearbeitet</translation>
     </message>
@@ -8410,127 +8401,139 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     <name>cVoxelExportDialog</name>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="14"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="438"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="472"/>
         <source>Export Voxel</source>
         <translation>Exportiere Voxel</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="69"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="439"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="473"/>
         <source>Layer settings</source>
         <translation>Schicht Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="109"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="441"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="475"/>
         <source>layer folder</source>
         <translation>Ordner für Schichten</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="121"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="442"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="476"/>
         <source>Render settings</source>
         <translation>Render Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="147"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="443"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="477"/>
         <source>MaxIter</source>
         <translation>MaxIter</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="188"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="444"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="478"/>
         <source>Sample count</source>
         <translation>Abtastung</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="214"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="445"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="479"/>
         <source>Samples X</source>
         <translation>Abtastung X</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="234"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="446"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="480"/>
         <source>Samples Y</source>
         <translation>Abtastung Y</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="254"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="447"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="481"/>
         <source>Samples Z</source>
         <translation>Abtastung Z</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="279"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="448"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="482"/>
         <source>Custom Limits (leave untoggled to use global limits)</source>
         <translation>individuelle Grenzen (unmarkiert lassen, für globale Grenzen)</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="318"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="449"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="483"/>
         <source>top right back corner:</source>
         <translation>Ecke - oben recht hinten:</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="341"/>
         <location filename="../qt/voxel_export_dialog.ui" line="436"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="450"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="454"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="484"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="488"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="387"/>
         <location filename="../qt/voxel_export_dialog.ui" line="452"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="451"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="455"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="485"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="489"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="413"/>
         <location filename="../qt/voxel_export_dialog.ui" line="468"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="452"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="456"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="486"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="490"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.ui" line="423"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="453"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="487"/>
         <source>bottom left front corner:</source>
         <translation>Ecke - unten links vorne:</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="485"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="458"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="483"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="491"/>
+        <source>Show Voxel Information</source>
+        <translation>Zeige Voxel Informationen</translation>
+    </message>
+    <message>
+        <location filename="../qt/voxel_export_dialog.ui" line="507"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="492"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The generated image layers can be used to generate &lt;/p&gt;&lt;p&gt;a &lt;span style=&quot; font-weight:600;&quot;&gt;3d model&lt;/span&gt; for various applications.&lt;/p&gt;&lt;p&gt;A possible workflow to work with these images:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Program&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Input&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Output&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mandelbulber&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;---&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;image layers&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;a href=&quot;http://fiji.sc/&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;FIJI&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;image layers&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;3D model&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;a href=&quot;http://meshlab.sourceforge.net/&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;Meshlab&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;3D model&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;optimized 3D model&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Online 3d print service&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;optimized 3D model&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;printed model&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Here are some good articles on this topic:&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://henri-hebeisen.com/tag/mandelbulb&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://henri-hebeisen.com/tag/mandelbulb&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.instructables.com/id/Create-a-3D-printed-3D-fractal/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.instructables.com/id/Create-a-3D-printed-3D-fractal/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die generierten Bildschichten können verwendet werden, &lt;/p&gt;&lt;p&gt;um ein &lt;span style=&quot; font-weight:600;&quot;&gt;3d Modell&lt;/span&gt; für verschiedene Anwendungen zu erzeugen.&lt;/p&gt;&lt;p&gt;Ein möglicher Workflow wäre:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Programm&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Input&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Output&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mandelbulber&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;---&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;Bildschichten&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;a href=&quot;http://fiji.sc/&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;FIJI&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;Bildschichten&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;3D Modell&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;a href=&quot;http://meshlab.sourceforge.net/&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline; color:#0000ff;&quot;&gt;Meshlab&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;3D Modell&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;optimiertes 3D Modell&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Online 3d Druck Service&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;optimiertes 3D Modell&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;gedrucktes Modell&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Hier sind einige gute Artikel über dieses Thema:&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://henri-hebeisen.com/tag/mandelbulb&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://henri-hebeisen.com/tag/mandelbulb&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.instructables.com/id/Create-a-3D-printed-3D-fractal/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.instructables.com/id/Create-a-3D-printed-3D-fractal/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/voxel_export_dialog.ui" line="519"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="495"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start rendering of layers based on actual settings&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starte Rendern der Schichten nach aktuellen Einstellungen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="488"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="460"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="522"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="497"/>
         <source>Render Layers</source>
         <translation>Rendere Schichten</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="499"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="462"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="533"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="499"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering of layers&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Beendet das Rendern der Schichten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="502"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="464"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="536"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="501"/>
         <source>Stop Render</source>
         <translation>Stoppe Render</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.ui" line="519"/>
-        <location filename="../qt/ui_voxel_export_dialog.h" line="465"/>
+        <location filename="../qt/voxel_export_dialog.ui" line="553"/>
+        <location filename="../qt/ui_voxel_export_dialog.h" line="502"/>
         <source>Show Layers</source>
         <translation>Zeige Schichten</translation>
     </message>
