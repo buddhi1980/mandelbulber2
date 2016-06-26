@@ -25,11 +25,11 @@ Copy this folder somewhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx
 
 4. TESTED ON:
 
-- Windows XP
-- Windows Vista
-- Windows 7
-- Windows 8
-- Windows 10
+- Windows XP 32-bit
+- Windows Vista 64-bit
+- Windows 7 32-bit
+- Windows 8 64-bit
+- Windows 10 64-bit
 
 - gcc 5.4.0
 - clang 3.7.0

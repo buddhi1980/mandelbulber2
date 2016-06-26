@@ -12,7 +12,7 @@ else
   if [ "$answer" = "y" ] ; then
     cd makefiles/
 	qmake mandelbulber.pro
-	make all
+	make -j4
 	make clean
 	cd ..
 	mv makefiles/mandelbulber2 usr/bin/mandelbulber2
