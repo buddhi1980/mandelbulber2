@@ -343,6 +343,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
             image->GetImageWidget()->update();
 
             lastRefreshTime = timerRefresh.elapsed() * 20.0;
+            if(lastRefreshTime < 100) lastRefreshTime = 100;
             timerRefresh.restart();
           }
         }
@@ -655,6 +656,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
             image->GetImageWidget()->update();
 
             lastRefreshTime = timerRefresh.elapsed() * 20.0;
+            if(lastRefreshTime < 100) lastRefreshTime = 100;
             timerRefresh.restart();
           }
         } //next i

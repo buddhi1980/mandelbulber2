@@ -254,6 +254,8 @@ bool cRenderer::RenderImage()
 						lastRefreshTime = timerRefresh.elapsed() * data->configuration.GetRefreshRate()
 								/ (listToRefresh.size());
 
+						if(lastRefreshTime < 100) lastRefreshTime =100; //the shortest refresh time can be 100ms
+
 						//do not refresh and send data too often
 						if (data->configuration.UseNetRender())
 						{
