@@ -1,29 +1,47 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * cScheduler class - class to schedule rendering job between CPU cores
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * The image to render is divided into [height] horizontal lines of size [width] x 1.
+ * Each line will be managed by the scheduler and given to the asking threads,
+ * while the image renders.
  */
 
 #include "scheduler.hpp"
 #include <QtCore>
 
 #include "system.hpp"
+#define LINE_DONE_BY_SERVER 9999
+
 cScheduler::cScheduler(int _numberOfLines, int progressive)
 {
 	numberOfLines = _numberOfLines;
@@ -33,8 +51,7 @@ cScheduler::cScheduler(int _numberOfLines, int progressive)
 	stopRequest = false;
 	progressiveStep = progressive;
 	progressivePass = 1;
-	if (progressive > 1) progressiveEnabled = true;
-	else progressiveEnabled = false;
+	progressiveEnabled = progressive > 1;
 	Reset();
 }
 
@@ -57,9 +74,8 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 	bool result = false;
 	for (int i = 0; i < numberOfLines; i++)
 	{
-		//qDebug() << "ThereIsStillSomethingToDo:" << i << lineDone[i];
-		if ((lineDone[i] == false)
-				&& (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
+		// qDebug() << "ThereIsStillSomethingToDo:" << i << lineDone[i];
+		if (!lineDone[i] && (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
 		{
 			result = true;
 			break;
@@ -77,8 +93,8 @@ bool cScheduler::AllLinesDone(void)
 	bool result = true;
 	for (int i = 0; i < numberOfLines; i++)
 	{
-		//qDebug() << "AllLinesDone:" << i << lineDone[i];
-		if (lineDone[i] == false)
+		// qDebug() << "AllLinesDone:" << i << lineDone[i];
+		if (!lineDone[i])
 		{
 			result = false;
 			break;
@@ -99,7 +115,7 @@ bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 	else
 	{
 		qCritical()
-				<< "cScheduler::ShouldIBreak(int threadId, int actualLine): actualLine lower than zero";
+			<< "cScheduler::ShouldIBreak(int threadId, int actualLine): actualLine lower than zero";
 		return true;
 	}
 }
@@ -107,7 +123,7 @@ bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 {
 	mutex.lock();
-	//qDebug() << "threadID:" << threadId << " Actual line:" << actualLine;
+	// qDebug() << "threadID:" << threadId << " Actual line:" << actualLine;
 
 	int nextLine = -1;
 
@@ -124,21 +140,21 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	}
 	else
 	{
-		//qDebug() << "threadID:" << threadId << " lastLineWasBroken, line:" << actualLine;
+		// qDebug() << "threadID:" << threadId << " lastLineWasBroken, line:" << actualLine;
 	}
 
-	//next line is not occupied by any thread
+	// next line is not occupied by any thread
 	if (actualLine < numberOfLines - progressiveStep
 			&& linePendingThreadId[actualLine + progressiveStep] == 0 && !lastLineWasBroken)
 	{
 		nextLine = actualLine + progressiveStep;
-		//qDebug() << "threadID:" << threadId << " one after:" << nextLine;
+		// qDebug() << "threadID:" << threadId << " one after:" << nextLine;
 	}
 	else
-	//next line is occupied or it's last line. There is needed to find new optimal line for rendering
+	// next line is occupied or it's last line. There is needed to find new optimal line for rendering
 	{
 		nextLine = FindBiggestGap();
-		//qDebug() << "threadID:" << threadId << " gap:" << nextLine;
+		// qDebug() << "threadID:" << threadId << " gap:" << nextLine;
 	}
 
 	if (nextLine >= 0)
@@ -158,11 +174,12 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 
 	if (nextLine < 0)
 	{
-		//qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new line";
+		// qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new
+		// line";
 		return -1;
 	}
 
-	//qDebug() << "threadID:" << threadId << " Next line:" << nextLine;
+	// qDebug() << "threadID:" << threadId << " Next line:" << nextLine;
 	return nextLine;
 }
 
@@ -199,11 +216,12 @@ int cScheduler::FindBiggestGap()
 			if (holeSize > maxHole)
 			{
 				maxHole = holeSize;
-				//next line should be in the middle of the biggest gap
+				// next line should be in the middle of the biggest gap
 				theBest = (lastFree + firstFree) / 2;
 				theBest /= progressiveStep;
 				theBest *= progressiveStep;
-				//out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree << endl;
+				// out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree <<
+				// endl;
 			}
 		}
 	}
@@ -238,17 +256,19 @@ double cScheduler::PercentDone()
 	}
 
 	double progressiveDone, percent_done;
-	if (progressivePass == 1) progressiveDone = 0;
-	else progressiveDone = 0.25 / (progressiveStep * progressiveStep);
+	if (progressivePass == 1)
+		progressiveDone = 0;
+	else
+		progressiveDone = 0.25 / (progressiveStep * progressiveStep);
 
 	if (progressiveEnabled)
 	{
-		percent_done = ((double) count / numberOfLines) * 0.75 / (progressiveStep * progressiveStep)
-				+ progressiveDone;
+		percent_done = ((double)count / numberOfLines) * 0.75 / (progressiveStep * progressiveStep)
+									 + progressiveDone;
 	}
 	else
 	{
-		percent_done = (double) count / numberOfLines;
+		percent_done = (double)count / numberOfLines;
 	}
 
 	return percent_done;
@@ -278,7 +298,7 @@ void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 		int line = lineNumbers.at(i);
 		lineDone[line] = true;
 		lastLinesDone[line] = true;
-		linePendingThreadId[line] = 9999; //just set some number, to inform that this line was already taken
+		linePendingThreadId[line] = LINE_DONE_BY_SERVER;
 	}
 }
 
@@ -304,7 +324,7 @@ void cScheduler::UpdateDoneLines(const QList<int> &done)
 		int line = done.at(i);
 		lastLinesDone[line] = false;
 		lineDone[line] = true;
-		linePendingThreadId[line] = 9999; //just set some number, to inform that this line was already taken
+		linePendingThreadId[line] = LINE_DONE_BY_SERVER;
 	}
 	mutex.unlock();
 }
@@ -313,10 +333,7 @@ bool cScheduler::IsLineDoneByServer(int line)
 {
 	if (line >= 0 && line < numberOfLines)
 	{
-		return linePendingThreadId[line] == 9999;
+		return linePendingThreadId[line] == LINE_DONE_BY_SERVER;
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }

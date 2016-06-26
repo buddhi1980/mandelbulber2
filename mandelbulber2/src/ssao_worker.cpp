@@ -1,30 +1,46 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * cSSAOWorker class - worker for multithread SSAO effect
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * SSAO shades inner edges and corners. For each pixel the surrounding
+ * z-buffer (depth from camera) is scanned and based on the angle of the surface
+ * each pixel will be shaded. This class gets used in render_ssao.cpp as multiple threads.
  */
 
 #include "ssao_worker.h"
 #include "common_math.h"
 
-cSSAOWorker::cSSAOWorker(const cParamRender *_params, sThreadData *_threadData,
-		const sRenderData *_data, cImage *_image)
+cSSAOWorker::cSSAOWorker(
+	const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
 {
 	params = _params;
 	data = _data;
@@ -34,7 +50,7 @@ cSSAOWorker::cSSAOWorker(const cParamRender *_params, sThreadData *_threadData,
 
 cSSAOWorker::~cSSAOWorker()
 {
-	//nothing to destroy
+	// nothing to destroy
 }
 
 void cSSAOWorker::doWork()
@@ -48,12 +64,12 @@ void cSSAOWorker::doWork()
 	double *sine = new double[quality];
 	for (int i = 0; i < quality; i++)
 	{
-		sine[i] = sin((double) i / quality * 2.0 * M_PI);
-		cosine[i] = cos((double) i / quality * 2.0 * M_PI);
+		sine[i] = sin((double)i / quality * 2.0 * M_PI);
+		cosine[i] = cos((double)i / quality * 2.0 * M_PI);
 	}
 
-	double scale_factor = (double) width / (quality * quality) / 2.0;
-	double aspectRatio = (double) width / height;
+	double scale_factor = (double)width / (quality * quality) / 2.0;
+	double aspectRatio = (double)width / height;
 
 	params::enumPerspectiveType perspectiveType = params->perspectiveType;
 	double fov = params->fov;
@@ -91,12 +107,12 @@ void cSSAOWorker::doWork()
 
 			if (z < 1e19)
 			{
-				//printf("SSAO point on object\n");
+				// printf("SSAO point on object\n");
 				double x2, y2;
 				if (perspectiveType == params::perspFishEye)
 				{
-					x2 = M_PI * ((double) x / width - 0.5) * aspectRatio;
-					y2 = M_PI * ((double) y / height - 0.5);
+					x2 = M_PI * ((double)x / width - 0.5) * aspectRatio;
+					y2 = M_PI * ((double)y / height - 0.5);
 					double r = sqrt(x2 * x2 + y2 * y2);
 					if (r != 0.0)
 					{
@@ -106,15 +122,15 @@ void cSSAOWorker::doWork()
 				}
 				else if (perspectiveType == params::perspEquirectangular)
 				{
-					x2 = M_PI * ((double) x / width - 0.5) * aspectRatio;
-					y2 = M_PI * ((double) y / height - 0.5);
+					x2 = M_PI * ((double)x / width - 0.5) * aspectRatio;
+					y2 = M_PI * ((double)y / height - 0.5);
 					x2 = sin(fov * x2) * cos(fov * y2) * z;
 					y2 = sin(fov * y2) * z;
 				}
 				else
 				{
-					x2 = ((double) x / width - 0.5) * aspectRatio;
-					y2 = ((double) y / height - 0.5);
+					x2 = ((double)x / width - 0.5) * aspectRatio;
+					y2 = ((double)y / height - 0.5);
 					x2 = x2 * z * fov;
 					y2 = y2 * z * fov;
 				}
@@ -124,8 +140,7 @@ void cSSAOWorker::doWork()
 				int maxRandom = 62831 / quality;
 				double rRandom = 1.0;
 
-				if (params->SSAO_random_mode)
-				  rRandom = 0.5 + Random(65536) / 65536.0;
+				if (params->SSAO_random_mode) rRandom = 0.5 + Random(65536) / 65536.0;
 
 				for (int angleIndex = 0; angleIndex < quality; angleIndex++)
 				{
@@ -150,9 +165,9 @@ void cSSAOWorker::doWork()
 						double xx = x + rr * ca;
 						double yy = y + rr * sa;
 
-						if ((int) xx == x && (int) yy == y) continue;
+						if ((int)xx == x && (int)yy == y) continue;
 						if (xx < 0 || xx > width - 1 || yy < 0 || yy > height - 1) continue;
-						double z2 = image->GetPixelZBuffer(xx, yy);
+						double z2 = image->GetPixelZBuffer((int)xx, (int)yy);
 
 						double xx2, yy2;
 						if (perspectiveType == params::perspFishEye)
@@ -188,17 +203,14 @@ void cSSAOWorker::doWork()
 						double diff = -dz / dr;
 
 						if (diff > max_diff) max_diff = diff;
-
 					}
 					double max_angle = atan(max_diff);
 
 					ambient += -max_angle / M_PI + 0.5;
-
 				}
 
 				total_ambient = ambient / quality;
 				if (total_ambient < 0) total_ambient = 0;
-
 			}
 
 			for (int xx = 0; xx < step; xx++)
@@ -206,22 +218,12 @@ void cSSAOWorker::doWork()
 				if (xx >= width - 1) break;
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGB16 pixel = image->GetPixelImage16(x + xx, y);
-				double R = pixel.R
-						+ 65535.0 * colour.R / 256.0 * total_ambient * intensity * (1.0 - opacity);
-				double G = pixel.G
-						+ 65535.0 * colour.G / 256.0 * total_ambient * intensity * (1.0 - opacity);
-				double B = pixel.B
-						+ 65535.0 * colour.B / 256.0 * total_ambient * intensity * (1.0 - opacity);
-				if (R > 65535) R = 65535;
-				if (G > 65535) G = 65535;
-				if (B > 65535) B = 65535;
-
-				pixel.R = R;
-				pixel.G = G;
-				pixel.B = B;
+				double shadeFactor = (65535.0 / 256.0) * total_ambient * intensity * (1.0 - opacity);
+				pixel.R = (unsigned short)min(pixel.R + (int)(colour.R * shadeFactor), 65535);
+				pixel.G = (unsigned short)min(pixel.G + (int)(colour.G * shadeFactor), 65535);
+				pixel.B = (unsigned short)min(pixel.B + (int)(colour.B * shadeFactor), 65535);
 				image->PutPixelImage16(x + xx, y, pixel);
 			}
-
 		}
 
 		threadData->done++;
@@ -231,7 +233,7 @@ void cSSAOWorker::doWork()
 	delete[] sine;
 	delete[] cosine;
 
-	//emit signal to main thread when finished
+	// emit signal to main thread when finished
 	emit finished();
 	return;
 }
