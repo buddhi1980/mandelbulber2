@@ -454,7 +454,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 
 			if (type == QString("slider"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSliderMoved(int)));
+				QApplication::connect(slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderMoved(int)));
 
 				QString spinBoxName = QString("spinbox_") + parameterName;
 				QDoubleSpinBox *spinBox = slider->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
@@ -472,7 +472,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 			if (type == QString("logslider"))
 			{
 				QApplication::connect(
-					slider, SIGNAL(sliderMoved(int)), this, SLOT(slotLogSliderMoved(int)));
+					slider, SIGNAL(valueChanged(int)), this, SLOT(slotLogSliderMoved(int)));
 
 				QString editFieldName = QString("logedit_") + parameterName;
 				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit *>(editFieldName);
@@ -490,7 +490,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 			if (type == QString("logslidervect3"))
 			{
 				QApplication::connect(
-					slider, SIGNAL(sliderMoved(int)), this, SLOT(slotLogSliderVect3Moved(int)));
+					slider, SIGNAL(valueChanged(int)), this, SLOT(slotLogSliderVect3Moved(int)));
 
 				QString editFieldName = QString("logvect3_") + parameterName;
 				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit *>(editFieldName);
@@ -508,7 +508,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 			if (type == QString("sliderInt"))
 			{
 				QApplication::connect(
-					slider, SIGNAL(sliderMoved(int)), this, SLOT(slotIntSliderMoved(int)));
+					slider, SIGNAL(valueChanged(int)), this, SLOT(slotIntSliderMoved(int)));
 
 				QString spinboxName = QString("spinboxInt_") + parameterName;
 				QSpinBox *spinbox = slider->parent()->findChild<QSpinBox *>(spinboxName);
@@ -525,7 +525,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 			}
 			if (type == QString("slider3"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSlider3Moved(int)));
+				QApplication::connect(slider, SIGNAL(valueChanged(int)), this, SLOT(slotSlider3Moved(int)));
 				QString spinboxName = QString("spinbox3_") + parameterName;
 				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox *>(spinboxName);
 				if (spinbox)
@@ -541,7 +541,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 			}
 			if (type == QString("slider4"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSlider4Moved(int)));
+				QApplication::connect(slider, SIGNAL(valueChanged(int)), this, SLOT(slotSlider4Moved(int)));
 				QString spinboxName = QString("spinbox4_") + parameterName;
 				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox *>(spinboxName);
 				if (spinbox)
@@ -571,7 +571,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 
 			if (type == QString("dial3"))
 			{
-				QApplication::connect(dial, SIGNAL(sliderMoved(int)), this, SLOT(slotDial3Moved(int)));
+				QApplication::connect(dial, SIGNAL(valueChanged(int)), this, SLOT(slotDial3Moved(int)));
 
 				QString spinBoxName = QString("spinboxd3_") + parameterName;
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
@@ -588,7 +588,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 			}
 			if (type == QString("dial4"))
 			{
-				QApplication::connect(dial, SIGNAL(sliderMoved(int)), this, SLOT(slotDial4Moved(int)));
+				QApplication::connect(dial, SIGNAL(valueChanged(int)), this, SLOT(slotDial4Moved(int)));
 
 				QString spinBoxName = QString("spinboxd4_") + parameterName;
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
@@ -605,7 +605,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window)
 			}
 			if (type == QString("dial"))
 			{
-				QApplication::connect(dial, SIGNAL(sliderMoved(int)), this, SLOT(slotDialMoved(int)));
+				QApplication::connect(dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialMoved(int)));
 
 				QString spinBoxName = QString("spinboxd_") + parameterName;
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
