@@ -122,7 +122,7 @@ public:
 		if (x >= 0 && x < width && y >= 0 && y < height) return alphaBuffer8[x + y * width];
 		else return 0;
 	}
-	inline short int GetPixelOpacity(int x, int y)
+	inline unsigned short int GetPixelOpacity(int x, int y)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height) return opacityBuffer[x + y * width];
 		else return 0;
