@@ -228,7 +228,7 @@ void cKeyframeAnimation::slotDeleteKeyframe()
 bool cKeyframeAnimation::slotRenderKeyframes()
 {
 	// get latest values of all parameters
-	// if (mainInterface->mainWindow)
+	if (mainInterface->mainWindow)
 	{
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	}
