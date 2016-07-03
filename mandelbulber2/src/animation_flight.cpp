@@ -143,10 +143,10 @@ void cFlightAnimation::slotContinueRecording()
 	}
 }
 
-void cFlightAnimation::slotRenderFlight()
+bool cFlightAnimation::slotRenderFlight()
 {
 	// get latest values of all parameters
-	if (mainInterface->mainWindow)
+	// if (mainInterface->mainWindow)
 	{
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	}
@@ -167,13 +167,14 @@ void cFlightAnimation::slotRenderFlight()
 		}
 		else
 		{
-			RenderFlight(&gMainInterface->stopRequest);
+			return RenderFlight(&gMainInterface->stopRequest);
 		}
 	}
 	else
 	{
 		qCritical() << "gAnimFrames not allocated";
 	}
+	return false;
 }
 
 void cFlightAnimation::RecordFlight(bool continueRecording)

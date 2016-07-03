@@ -69,7 +69,7 @@ public:
 
 public slots:
 	void UpdateLimitsForFrameRange();
-	void slotRenderKeyframes();
+	bool slotRenderKeyframes();
 
 private slots:
 	void slotAddKeyframe();

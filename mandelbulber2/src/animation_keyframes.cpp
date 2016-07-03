@@ -225,10 +225,10 @@ void cKeyframeAnimation::slotDeleteKeyframe()
 	DeleteKeyframe(column);
 }
 
-void cKeyframeAnimation::slotRenderKeyframes()
+bool cKeyframeAnimation::slotRenderKeyframes()
 {
 	// get latest values of all parameters
-	if (mainInterface->mainWindow)
+	// if (mainInterface->mainWindow)
 	{
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	}
@@ -249,13 +249,14 @@ void cKeyframeAnimation::slotRenderKeyframes()
 		}
 		else
 		{
-			RenderKeyframes(&gMainInterface->stopRequest);
+			return RenderKeyframes(&gMainInterface->stopRequest);
 		}
 	}
 	else
 	{
 		qCritical() << "gAnimFrames not allocated";
 	}
+	return false;
 }
 
 void cKeyframeAnimation::PrepareTable()

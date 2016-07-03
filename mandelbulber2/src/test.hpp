@@ -44,6 +44,8 @@ class Test : public QObject
 private slots:
 	void renderExamples();
 	void netrender();
+	void testFlight();
+	void testKeyframe();
 };
 
 #endif /* MANDELBULBER2_TEST_HPP_ */

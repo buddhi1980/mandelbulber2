@@ -33,8 +33,11 @@
  */
 
 #include "test.hpp"
+#include "animation_flight.hpp"
 #include "animation_frames.hpp"
+#include "animation_keyframes.hpp"
 #include "cimage.hpp"
+#include "headless.h"
 #include "initparameters.hpp"
 #include "keyframes.hpp"
 #include "netrender.hpp"
@@ -84,7 +87,7 @@ void Test::renderExamples()
 		testPar->Set("image_height", 5);
 		cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 		renderJob->Init(cRenderJob::still, config);
-		QVERIFY2(renderJob->Execute(), "execution failed.");
+		QVERIFY2(renderJob->Execute(), "example render failed.");
 		delete renderJob;
 	}
 
@@ -117,4 +120,106 @@ void Test::netrender()
 
 	delete netRenderClient;
 	delete netRenderServer;
+}
+
+void Test::testFlight()
+{
+	QString exampleFlightFile =
+		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
+														 + QDir::separator() + "flight_anim_menger sponge_3.fract");
+
+	cParameterContainer *testPar = new cParameterContainer;
+	cFractalContainer *testParFractal = new cFractalContainer;
+	cAnimationFrames *testAnimFrames = new cAnimationFrames;
+	cKeyframes *testKeyframes = new cKeyframes;
+
+	testPar->SetContainerName("main");
+	InitParams(testPar);
+	/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+	InitMaterialParams(1, testPar);
+
+	/*******************************************************************/
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(&testParFractal->at(i));
+	}
+	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	cRenderingConfiguration config;
+	config.DisableRefresh();
+	config.DisableProgressiveRender();
+
+	cSettings parSettings(cSettings::formatFullText);
+	parSettings.BeQuiet(true);
+	parSettings.LoadFromFile(exampleFlightFile);
+	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
+	testPar->Set("image_width", 5);
+	testPar->Set("image_height", 5);
+	testPar->Set("flight_first_to_render", 5);
+	testPar->Set("flight_last_to_render", 8);
+
+	cFlightAnimation *flightAnimation = new cFlightAnimation(
+		gMainInterface, testAnimFrames, image, NULL, testPar, testParFractal, NULL);
+
+	QVERIFY2(flightAnimation->slotRenderFlight(), "flight render failed.");
+	delete image;
+	delete testKeyframes;
+	delete testAnimFrames;
+	delete testParFractal;
+	delete testPar;
+	delete flightAnimation;
+	flightAnimation = NULL;
+	return;
+}
+
+void Test::testKeyframe()
+{
+	QString exampleKeyframeFile =
+		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
+														 + QDir::separator() + "keyframe_anim_mandelbulb.fract");
+
+	cParameterContainer *testPar = new cParameterContainer;
+	cFractalContainer *testParFractal = new cFractalContainer;
+	cAnimationFrames *testAnimFrames = new cAnimationFrames;
+	cKeyframes *testKeyframes = new cKeyframes;
+
+	testPar->SetContainerName("main");
+	InitParams(testPar);
+	/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+	InitMaterialParams(1, testPar);
+
+	/*******************************************************************/
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(&testParFractal->at(i));
+	}
+	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	cRenderingConfiguration config;
+	config.DisableRefresh();
+	config.DisableProgressiveRender();
+
+	cSettings parSettings(cSettings::formatFullText);
+	parSettings.BeQuiet(true);
+	parSettings.LoadFromFile(exampleKeyframeFile);
+	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
+	testPar->Set("image_width", 5);
+	testPar->Set("image_height", 5);
+	testPar->Set("keyframe_first_to_render", 50);
+	testPar->Set("keyframe_last_to_render", 55);
+
+	cKeyframeAnimation *testKeyframeAnimation = new cKeyframeAnimation(
+		gMainInterface, testKeyframes, image, NULL, testPar, testParFractal, NULL);
+
+	QVERIFY2(testKeyframeAnimation->slotRenderKeyframes(), "keyframe render failed.");
+	delete image;
+	delete testKeyframes;
+	delete testAnimFrames;
+	delete testParFractal;
+	delete testPar;
+	delete testKeyframeAnimation;
+	testKeyframeAnimation = NULL;
+	return;
 }

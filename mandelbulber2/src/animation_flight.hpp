@@ -73,7 +73,7 @@ public:
 	void UpdateLimitsForFrameRange(void);
 
 public slots:
-	void slotRenderFlight();
+	bool slotRenderFlight();
 
 private slots:
 	void slotRecordFlight();
