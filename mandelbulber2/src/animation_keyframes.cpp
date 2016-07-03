@@ -228,7 +228,10 @@ void cKeyframeAnimation::slotDeleteKeyframe()
 void cKeyframeAnimation::slotRenderKeyframes()
 {
 	// get latest values of all parameters
-	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	if (mainInterface->mainWindow)
+	{
+		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	}
 
 	if (keyframes)
 	{
@@ -574,8 +577,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			QString questionText =
 				QObject::tr(
 					"The animation has already been rendered completely.\n Do you want to purge the output "
-					"folder?\n") +
-				QObject::tr("This will delete all images in the image folder.\nProceed?");
+					"folder?\n")
+				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
 
 			if (!systemData.noGui)
 			{
@@ -1000,7 +1003,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		QString newCellText;
 		if (valueIsInteger)
 		{
-			int newValue = (int) (integerStep * (i - column) + valueInteger);
+			int newValue = (int)(integerStep * (i - column) + valueInteger);
 			newCellText = QString::number(newValue);
 		}
 		else if (valueIsDouble)
@@ -1025,8 +1028,8 @@ void cKeyframeAnimation::slotRefreshTable()
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex)
 {
 	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
-	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_" +
-										 QString("%1").arg(frameIndex, 5, 10, QChar('0'));
+	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
+										 + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
 	filename +=
 		"." + ImageFileSave::ImageFileExtension(
 						(ImageFileSave::enumImageFileType)params->Get<int>("keyframe_animation_image_type"));
@@ -1202,9 +1205,8 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 	{
 		cAnimationFrames::sAnimationFrame keyframe = keyframes->GetFrame(key);
 
-		if (keyframe.parameters.IfExists("main_camera") &&
-				keyframe.parameters.IfExists("main_target") &&
-				keyframe.parameters.IfExists("main_camera_top"))
+		if (keyframe.parameters.IfExists("main_camera") && keyframe.parameters.IfExists("main_target")
+				&& keyframe.parameters.IfExists("main_camera_top"))
 		{
 			CVector3 camera = keyframe.parameters.Get<CVector3>("main_camera");
 			CVector3 target = keyframe.parameters.Get<CVector3>("main_target");

@@ -146,7 +146,10 @@ void cFlightAnimation::slotContinueRecording()
 void cFlightAnimation::slotRenderFlight()
 {
 	// get latest values of all parameters
-	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	if (mainInterface->mainWindow)
+	{
+		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	}
 
 	if (frames)
 	{
@@ -729,8 +732,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 				QObject::tr(
 					"The animation has already been rendered completely.\n Do you want to purge "
 					"the output "
-					"folder?\n") +
-				QObject::tr("This will delete all images in the image folder.\nProceed?");
+					"folder?\n")
+				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
 
 			if (!systemData.noGui)
 			{
@@ -785,8 +788,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			}
 
 			emit updateProgressAndStatus(QObject::tr("Animation start"),
-				QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " +
-					progressTxt,
+				QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " "
+					+ progressTxt,
 				percentDoneFrame, cProgressText::progress_ANIMATION);
 
 			if (*stopRequest) throw false;
@@ -1191,8 +1194,8 @@ void cFlightAnimation::slotRefreshTable()
 
 QString cFlightAnimation::GetFlightFilename(int index)
 {
-	QString filename = params->Get<QString>("anim_flight_dir") + "frame_" +
-										 QString("%1").arg(index, 5, 10, QChar('0'));
+	QString filename = params->Get<QString>("anim_flight_dir") + "frame_"
+										 + QString("%1").arg(index, 5, 10, QChar('0'));
 	filename +=
 		"." + ImageFileSave::ImageFileExtension(
 						(ImageFileSave::enumImageFileType)params->Get<int>("flight_animation_image_type"));

@@ -2404,8 +2404,11 @@ void cInterface::PeriodicRefresh()
 
 void cInterface::DisablePeriodicRefresh()
 {
-	autoRefreshLastState = mainWindow->ui->checkBox_auto_refresh->isChecked();
-	mainWindow->ui->checkBox_auto_refresh->setChecked(false);
+	if(mainWindow)
+	{
+		autoRefreshLastState = mainWindow->ui->checkBox_auto_refresh->isChecked();
+		mainWindow->ui->checkBox_auto_refresh->setChecked(false);
+	}
 }
 
 void cInterface::ReEnablePeriodicRefresh()
