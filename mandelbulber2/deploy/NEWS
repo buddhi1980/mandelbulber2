@@ -1,5 +1,8 @@
 Version history
 
+v2.08-1
+- CLI: fixed bug: program crashed when rendering of animation was started from command line
+
 v2.08
 - Materials: Added editor for materials as a separate dock
 - Materials: Added real-time preview for edited material
