@@ -226,6 +226,8 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.startIterationsM = container->Get<int>("transf_start_iterations_M");
   transformCommon.stopIterationsM = container->Get<int>("transf_stop_iterations_M");
   transformCommon.stopIterations1 = container->Get<int>("transf_stop_iterations_1");
+  transformCommon.stopIterationsT1 = container->Get<int>("transf_stop_iterationsT_1");
+  transformCommon.stopIterationsTM1 = container->Get<int>("transf_stop_iterationsTM_1");
 
   transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
   transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
@@ -264,6 +266,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.addCpixelEnabled = container->Get<bool>("transf_addCpixel_enabled");
   transformCommon.addCpixelEnabledFalse = container->Get<bool>("transf_addCpixel_enabled_false");
   transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
+  transformCommon.benesiT1EnabledFalse = container->Get<bool>("transf_benesi_T1_enabled_false");
   transformCommon.functionEnabled = container->Get<bool>("transf_function_enabled");
   transformCommon.functionEnabledFalse = container->Get<bool>("transf_function_enabled_false");
   transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");

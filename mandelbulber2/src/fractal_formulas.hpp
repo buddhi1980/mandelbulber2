@@ -69,7 +69,9 @@ void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux);
 void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerMiddleModIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
+
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
+void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
@@ -91,6 +93,8 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector3 &z, sExtendedAux &aux);
 void CollatzModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+void CrossMengerIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
+
 
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
@@ -132,6 +136,7 @@ void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *f
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+
 void TransformQuaternionFoldIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

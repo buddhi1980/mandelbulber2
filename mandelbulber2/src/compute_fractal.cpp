@@ -416,6 +416,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MengerMiddleModIteration(z, c, i, fractal, extendedAux);
           break;
         }
+        case mengerPrismShape:
+        {
+          MengerPrismShapeIteration(z, i, fractal, extendedAux);
+          break;
+        }
         case mengerPwr2Poly:
         {
           MengerPwr2PolyIteration(z, c, i, fractal, extendedAux);
@@ -446,7 +451,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           FastImagscaPower2Iteration(z);
           break;
         }
-
+        case crossMenger:
+        {
+          CrossMengerIteration(z, c, i, fractal, extendedAux);
+          break;
+        }
 
 
         //transforms ------------------------------------------------------------------------------------------
@@ -681,6 +690,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformMengerFoldIteration(z, fractal, extendedAux);
           break;
         }
+
+
         // 4D  ---------------------------------------------------------------------------
         case quaternion4D:
         {
@@ -1002,7 +1013,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case kalisets1:
         case aboxVSIcen1:
         {
-					if(extendedAux.r_dz > 0)
+          if(extendedAux.r_dz > 0)// or should this be DE
 						out->distance = r / fabs(extendedAux.DE);
 					else
 						out->distance = r;
@@ -1010,6 +1021,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
 				case kaleidoscopicIFS:
 				case menger_sponge:
+        case crossMenger:
+        case mengerPrismShape:
 				case collatz:
         case collatzMod:
         case mengerMod1:
@@ -1017,7 +1030,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfMengerFold: // hmmm, this issue again
         case mengerPwr2Poly:
         {
-					if(extendedAux.r_dz > 0)
+          if(extendedAux.r_dz > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);
 					else
 						out->distance = r;

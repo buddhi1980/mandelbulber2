@@ -595,7 +595,8 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_start_iterations_M", 0, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations_M", 250, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations_1", 1, morphLinear, paramStandard);
-
+  par->addParam("transf_stop_iterationsT_1", 1, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterationsTM_1", 1, morphLinear, paramStandard);
 
   par->addParam("transf_addition_constant_0555", CVector3(0.5, 0.5, 0.5), morphAkima, paramStandard);
   par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
@@ -635,6 +636,8 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_addCpixel_enabled_false", false, morphLinear, paramStandard);
   par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
+  par->addParam("transf_benesi_T1_enabled_false", false, morphLinear, paramStandard);
+
   par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
   par->addParam("transf_function_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_function_enabled_false", false, morphLinear, paramStandard);

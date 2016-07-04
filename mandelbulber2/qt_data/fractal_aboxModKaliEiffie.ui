@@ -40,7 +40,7 @@
      <property name="checkable">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -215,7 +215,68 @@
         <item row="0" column="1" colspan="3">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Pre- addition Constant - Offset</string>
+           <string>Box Fold offsets</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_16">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_172">
+          <property name="text">
+           <string>z.z  scale : </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSlider" name="slider_transf_scale_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>2000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-9.990000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>9.990000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -233,7 +294,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="0" colspan="3">
+        <item row="7" column="0" colspan="3">
          <widget class="Line" name="line_23">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -335,7 +396,7 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="0" colspan="2">
+        <item row="8" column="0" colspan="2">
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string>Addition Constant - Offset</string>
@@ -378,34 +439,6 @@
          <widget class="QLabel" name="label_167">
           <property name="text">
            <string>Minimum Radius:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -1254,15 +1287,15 @@
    <header>mydoublespinbox.h</header>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>myspinbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>mygroupbox.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>myspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

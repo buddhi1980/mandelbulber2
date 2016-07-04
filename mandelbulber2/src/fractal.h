@@ -325,10 +325,6 @@ struct sFractalTransformCommon
 {
   double alphaAngleOffset;
   double betaAngleOffset;
-  //double colorMin;
-  //double compFold;
-  //double compMinR;
-  //double compScale;
   double offset;
   double offset0;
   double offset05;
@@ -380,6 +376,8 @@ struct sFractalTransformCommon
   int startIterationsM;
   int stopIterationsM;
   int stopIterations1;
+  int stopIterationsT1;
+  int stopIterationsTM1;
   int intA;
   int intB;
   int int1;
@@ -424,6 +422,7 @@ struct sFractalTransformCommon
   bool addCpixelEnabled;
   bool addCpixelEnabledFalse;
   bool benesiT1Enabled;
+  bool benesiT1EnabledFalse;
   bool functionEnabled;
   bool functionEnabledFalse;
   bool functionEnabledx;

@@ -396,6 +396,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
                                           10));
 
+  fractalList->append(sFractalDescription("Menger - Prism Shape",
+                                          "menger_prism_shape",
+                                          mengerPrismShape,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
 
   fractalList->append(sFractalDescription("Msltoe Donut",
                                           "msltoe_donut",
@@ -549,6 +556,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
+  fractalList->append(sFractalDescription("Cross Menger",
+                                          "cross_menger",
+                                          crossMenger,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          10));
 
 
 

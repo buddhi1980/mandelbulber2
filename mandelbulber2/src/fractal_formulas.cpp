@@ -28,6 +28,9 @@
 #define SQRT_1_2 0.70710678118654752440084436210485
 #define SQRT_2_3 0.81649658092772603273242802490196
 #define SQRT_3_2 1.22474487139158904909864203735295
+#define SQRT_3   1.73205080756887729352744634150587
+
+
 
 #ifndef M_PI_8
 #define M_PI_8  0.39269908169872415480783042290994
@@ -3016,6 +3019,150 @@ void MengerPwr2PolyIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fr
 }
 
 /**
+ * Menger Prism Shape
+ * from code by Knighty http://www.fractalforums.com/fragmentarium/cross-menger!-can-anyone-do-this/msg93972/#new
+ */
+void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  CVector3 gap = fractal->transformCommon.constantMultiplier000; // default 0,0,0
+  double t;
+  double temp;
+  double sqr3 = SQRT_3;
+  double sqr305 = 0.86602540378443864676372317075294;
+  double dot1;
+
+  if ( i >= fractal->transformCommon.startIterationsA // default 0.0
+     && i < fractal->transformCommon.stopIterations1)// default 1.0
+  {
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    dot1 = (z.x * -sqr305 + z.y * 0.5) * fractal->transformCommon.scale; // default 1
+    t = max(0.0, dot1);
+    z.x -= t * -sqr3;
+    z.y = fabs(z.y - t);
+
+    if(z.y > z.z)
+    {
+      temp =z.y;
+      z.y = z.z;
+      z.z = temp;
+    }
+    z -= gap * CVector3( sqr305, 1.5, 1.5);
+    // z was pos, now some points neg (ie neg shift)
+    if(z.z > z.x)
+    {
+      temp =z.z;
+      z.z = z.x;
+      z.x = temp;
+    }
+    if(z.x < 0.0 )
+    {
+      z.x = z.x;
+    }
+    else
+    {
+      z.y = max(0.0, z.y);
+      z.z = max(0.0, z.z);
+    }
+  }
+
+  if (fractal->transformCommon.functionEnabledFalse
+      && i >= fractal->transformCommon.startIterationsR
+      && i < fractal->transformCommon.stopIterationsR)
+        z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+  if (fractal->transformCommon.benesiT1EnabledFalse
+      && i >= fractal->transformCommon.startIterations
+      && i < fractal->transformCommon.stopIterationsT1)
+  {
+    double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+    z = CVector3((tempXZ - z.y) * SQRT_1_2,
+                 (tempXZ + z.y) * SQRT_1_2,
+                 z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+    CVector3 tempZ = z;
+    double tempL = tempZ.Length();
+    z = fabs(z) * fractal->transformCommon.scale3D222;
+    //if (tempL < 1e-21) tempL = 1e-21;
+    double avgScale = z.Length() / tempL;
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * avgScale + 1.0;
+
+    tempXZ = (z.y + z.x) * SQRT_1_2;
+
+    z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+                 (z.y - z.x) * SQRT_1_2,
+                 z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+    z = z - fractal->transformCommon.offset200;
+  }
+
+  if (fractal->transformCommon.functionEnabledxFalse
+      && i >= fractal->transformCommon.startIterationsD
+      && i < fractal->transformCommon.stopIterationsTM1)
+  {
+    double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+    z = CVector3((tempXZ - z.y) * SQRT_1_2,
+                 (tempXZ + z.y) * SQRT_1_2,
+                 z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+    CVector3 temp = z;
+    double tempL = temp.Length();
+    z = fabs(z) * fractal->transformCommon.scale3D333;
+    //if (tempL < 1e-21) tempL = 1e-21;
+    double avgScale = z.Length() / tempL;
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * avgScale + 1.0;
+
+    z = (fabs(z + fractal->transformCommon.additionConstant111)
+         - fabs(z - fractal->transformCommon.additionConstant111) - z);
+
+    tempXZ = (z.y + z.x) * SQRT_1_2;
+
+    z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+                 (z.y - z.x) * SQRT_1_2,
+                 z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+  }//...............................
+
+
+  if (fractal->transformCommon.functionEnabled
+      && i >= fractal->transformCommon.startIterationsM
+      && i < fractal->transformCommon.stopIterationsM)
+  {
+    double tempMS;
+    z = fabs(z);
+    if (z.x - z.y < 0)
+    {
+      tempMS = z.y;
+      z.y = z.x;
+      z.x = tempMS;
+    }
+    if (z.x - z.z < 0)
+    {
+      tempMS = z.z;
+      z.z = z.x;
+      z.x = tempMS;
+    }
+    if (z.y - z.z < 0)
+    {
+      tempMS = z.z;
+      z.z = z.y;
+      z.y = tempMS;
+    }
+    z *= fractal->transformCommon.scale3;
+    z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
+    z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
+    if (z.z > 1)
+      z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
+    aux.DE *= fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1;
+
+    z += fractal->transformCommon.additionConstantA000;
+
+  }
+  aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
+
+}
+
+/**
  * Msltoe Donut formula
  * @reference http://www.fractalforums.com/new-theories-and-research/low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
  */
@@ -4912,6 +5059,7 @@ void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExt
 }
 
 
+
 /**
  * Quaternion Fold Transform
  * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/
@@ -5564,6 +5712,294 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 }
+/**
+   * Cross Menger
+   * from code by Knighty http://www.fractalforums.com/fragmentarium/cross-menger!-can-anyone-do-this/msg93972/#new
+   * FYI, The base shape is not really necessary if you use a lot of iterations.
+   * It is there only for low iteration. One can replace it with a sphere as usual.
+   */
+void CrossMengerIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  CVector3 s = fractal->transformCommon.constantMultiplier000;//fractal->transformCommon.scale1; // find out where s comes from
+  double gap = fractal->transformCommon.scale;// slider[0.,1.,1.]
+  double t;
+  double temp;
+  double sqr3 = SQRT_3;
+  double sqr305 = 0.86602540378443864676372317075294;
+  double dot1;
+
+
+  if(fractal->transformCommon.functionEnabledxFalse
+     && i >= fractal->transformCommon.startIterationsA
+     && i < fractal->transformCommon.stopIterationsA) // bool switch
+  { // CrossMengerTrick(CVector3 z){//use Msltoe's method. Gives correct result but the DE is discontinuous
+
+    double dd = aux.DE; // aux.DE intially set at 1.0
+
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    dot1 = z.x * -sqr305 + z.y * 0.5;
+    double t = 1 * max(0.0, dot1); // check
+    z.x -= t  * -sqr3;
+    z.y = fabs(z.y) - t;
+
+    z.x -= sqr305; // neg shift, could include z.x above
+
+
+    //Choose nearest corner/edge --> to get translation symmetry (all y & z code)
+    double dy = 0.0;
+    double dz = 0.0;
+    if(z.y > 0.5 && z.z > 0.5) // if both y & z > 0.5  then =1.5
+    {
+      dy = 1.5;
+      dz = 1.5;
+    }
+    else if((z.y - 1.5) * (z.y - 1.5) + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
+    {
+      dy = 1.5; // and dz is unchanged
+    }
+    else dz = 1.5;// and dy is unchanged
+
+    z.y -= dy;
+    z.z -= dz;
+    z *= 3.0; //  menger scale, possible parameter and DE
+    dd *= 0.33333333333333333333333333333333; // constant
+    z.y += dy;
+    z.z += dz;
+
+    z.x += sqr305;
+
+    gap = dd * gap;
+    z = dd * z;
+    aux.DE =  gap;
+        //return dd * baseshape(z,Gap);  //
+  }
+  //}
+  //void CrossMengerKIFS(vec3 z)
+  //{//Pure KIFS... almost correct
+  if(fractal->transformCommon.functionEnabledFalse
+      && i >= fractal->transformCommon.startIterationsB
+      && i < fractal->transformCommon.stopIterationsB)
+  {
+    double dd = aux.DE;
+
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    dot1 = z.x * -sqr305 + z.y * 0.5;
+    double t = 1 * max(0.0, dot1); // check
+    z.x -= t  * -sqr3;
+    z.y = fabs(z.y) - t;
+
+
+    double temp1;
+    if(z.y > z.z)
+     temp1= z.z;
+      z.z = z.y;
+      z.y = temp1;
+      //CVector2(z.y, z.z) = CVector2(z.z, z.y);
+    z.y = fabs(z.y - 0.5) + 0.5;
+    z -= CVector3(0.5 * sqr3, 1.5, 1.5);
+    z *= 3.0;
+    dd *= 0.33333333333333333333333333333333; // constant
+    z += CVector3(0.5 * sqr3, 1.5, 1.5);
+    gap = dd * gap;
+    z = dd * z;
+    aux.DE =  gap;
+    //     return dd * baseshape(z,Gap);  //
+  }
+
+  if(fractal->transformCommon.functionEnabledx
+     && i >= fractal->transformCommon.startIterations
+     && i < fractal->transformCommon.stopIterations1)  // temporary controls
+  {
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    dot1 = (z.x * -sqr305 + z.y * 0.5) * fractal->transformCommon.scale1;
+    t = max(0.0, dot1); // if dot neg , t= 0
+    z.x -= t * -sqr3; // z.x moves pos dir
+    z.y = fabs(z.y - t);
+
+    if(z.y > z.z) // z.z pos
+    {
+      temp =z.y;
+      z.y = z.z;
+      z.z = temp; // z.z is the biggest pos
+    }
+    z -= s * gap * CVector3( sqr305, 1.5, 1.5); //  "s" scale of vec being subtracted,
+    // z was pos, now some points neg (ie neg shift)
+    if(z.z > z.x)
+    {
+      temp =z.z;
+      z.z = z.x;
+      z.x = temp; // z.x is the biggest
+    }
+    if(z.x < 0.0 )
+    {
+      z.x = z.x;
+    }
+    else
+    {
+      z.y = max(0.0, z.y);
+      z.z = max(0.0, z.z);
+    }
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+    aux.DE *= fractal->transformCommon.scaleA1; // not needed but interesting??
+
+  }
+
+
+  //void DE(vec3 pos)
+  // {
+   //       if(KIFS)        return CrossMengerKIFS(pos);
+   //       return CrossMengerTrick(pos);
+   // }
+}
+
+
+  /*
+   /**
+   * Cross Menger
+   * from code by Knighty http://www.fractalforums.com/fragmentarium/cross-menger!-can-anyone-do-this/msg93972/#new
+   * FYI, The base shape is not really necessary if you use a lot of iterations.
+   * It is there only for low iteration. One can replace it with a sphere as usual.
+   */
+/*void CrossMengerIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  CVector3 s = fractal->transformCommon.constantMultiplier000; // find out where s comes from
+  double gap = fractal->transformCommon.scale;// slider[0.,1.,1.]
+  double t;
+  double temp;
+  double sqr3 = SQRT_3;
+  double sqr305 = 0.86602540378443864676372317075294;
+  double dot1;
+
+
+
+
+  if(fractal->transformCommon.functionEnabledxFalse
+     && fractal->transformCommon.startIterationsA
+     && i < fractal->transformCommon.stopIterationsA) // bool switch
+  { // CrossMengerTrick(CVector3 z){//use Msltoe's method. Gives correct result but the DE is discontinuous
+    double dd = aux.DE; // aux.DE intially set at 1.0
+
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    dot1 = z.x * -sqr305 + z.y * 0.5;
+    double t =  max(0.0, dot1);
+    z.x -= t * -sqr3;
+    z.y = fabs(z.y - t);
+
+    z.x -= sqr305; // can include z.x above
+
+    //Choose nearest corner/edge --> to get translation symmetry (all y & z code)
+    double dy = 0.0;
+    double dz = 0.0;
+
+    if(z.y > 0.5 && z.z > 0.5) // if both y & z > 0.5  then =1.5
+    {
+      dy = 1.5;
+      dz = 1.5;
+    }
+    else if((z.y - 1.5) * (z.y - 1.5) + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
+    {
+      dy = 1.5; // and dz is unchanged
+    }
+    else dz = 1.5;// and dy is unchanged
+    z.y -= dy;
+    z.z -= dz;
+
+    z *= 3.0; //  menger scale, possible parameter and DE
+    dd *= 0.333333333333333333333333; // constant  * DE
+    z.y += dy;
+    z.z += dz;
+    z.x += sqr305;
+    gap = dd * gap;
+    z = dd * z; //
+    aux.DE  = aux.DE * 3.0;
+        //return dd * baseshape(z,Gap);  //
+  }
+
+  //}
+  //void CrossMengerKIFS(vec3 z)
+  //{//Pure KIFS... almost correct
+
+  if(fractal->transformCommon.functionEnabledFalse
+      && i >= fractal->transformCommon.startIterationsB
+      && i < fractal->transformCommon.stopIterationsB)
+  {
+    double dd = aux.DE;
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    dot1 = z.x * -sqr305 + z.y * 0.5;
+    double t = 1 * max(0.0, dot1); // check
+    z.x -= t  * -sqr3;
+    z.y = fabs(z.y) - t;
+
+    double temp1;
+    if(z.y > z.z)
+     temp1= z.z;
+      z.z = z.y;
+      z.y = temp1;
+      //CVector2(z.y, z.z) = CVector2(z.z, z.y);
+
+    z.y = fabs(z.y - 0.5) + 0.5;
+
+    z -= CVector3(0.5 * sqr3, 1.5, 1.5);
+
+    z *= 3.0;
+    dd *= 0.33333333333333333333333333333333; // constant
+    z += CVector3(0.5 * sqr3, 1.5, 1.5);
+    aux.DE = dd * gap;
+    z = dd * z;
+    //     return dd * baseshape(z,Gap);  //
+  }
+  if(fractal->transformCommon.functionEnabledx
+     && i >= fractal->transformCommon.startIterations
+     && i < fractal->transformCommon.stopIterations)  // temporary controls
+  {
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    dot1 = z.x * -sqr305 + z.y * 0.5;//double dot = z.x * -sqr3 + z.y;
+    t = max(0.0, dot1); // if dot neg , t= 0
+    z.x -= t * -sqr3; // z.x moves pos dir
+    z.y = fabs(z.y - t);
+
+
+    if(z.y > z.z) // z.z pos
+    {
+      temp =z.y;
+      z.y = z.z;
+      z.z = temp; // z.z is the biggest pos
+    }
+    z -= s * CVector3( sqr305, 1.5, 1.5); //  "s" scale of vec being subtracted, s  from where??
+    // z was pos, now some points neg (ie neg shift)
+    if(z.z > z.x)
+    {
+      temp =z.z;
+      z.z = z.x;
+      z.x = temp; // z.x is the biggest
+    }
+    if(z.x < 0.0 )
+    {
+      z.x = z.x;
+    }
+    else
+    {
+      z.y = max(0.0, z.y);
+      z.z = max(0.0, z.z);
+    }
+
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+    aux.DE *= fractal->transformCommon.scaleA1; // not needed but interesting??
+    double length = z.Length();
+  }
+  //void DE(vec3 pos)
+  // {
+   //       if(KIFS)        return CrossMengerKIFS(pos);
+   //       return CrossMengerTrick(pos);
+   // }
+
+}*/
 
 
 

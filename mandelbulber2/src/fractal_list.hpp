@@ -93,14 +93,14 @@ enum enumFractalFormula
 	benesiT1PineTree = 67,
 	msltoesym3Mod = 68,
 	msltoesym4Mod = 69,
-	eiffieMsltoe = 70,
+  eiffieMsltoe = 70, // updated V2.08
 	riemannSphereMsltoeV1 = 71,
 	riemannSphereMsltoe = 72,
 	amazingSurf = 73,
 	kalisets1 = 74,
 	aboxMod2 = 75,
 	aboxVSIcen1 = 76,
-	amazingSurfMod1 = 77,
+  amazingSurfMod1 = 77, // updated V2.08
 	mandelbulbVaryPowerV1 = 78,
 	quaternion4D = 79,
 	msltoesym3Mod2 = 80,
@@ -122,6 +122,11 @@ enum enumFractalFormula
   mengerMiddleMod = 95,
   msltoeToroidalMulti = 96,
   amazingSurfMulti = 97,
+  //V2.09
+  crossMenger = 98,
+  mengerPrismShape = 99,
+
+
 
 
 	// 152 to 172 reserved for scator
@@ -181,6 +186,8 @@ enum enumFractalFormula
   transfSphericalFoldVaryV1 = 1050,
   transfQuaternionFold = 1051,
   transfMengerFold = 1052
+  //V2.09
+
 
 };
 
