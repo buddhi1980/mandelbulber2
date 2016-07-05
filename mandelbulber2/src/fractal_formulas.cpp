@@ -4710,36 +4710,38 @@ void TransformBenesiSphereCubeIteration(CVector3 &z)
  */
 void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	if (z.x > fractal->mandelbox.foldingLimit)
-	{
-		z.x = fractal->mandelbox.foldingValue - z.x;
-		aux.color += fractal->mandelbox.color.factor.x;
-	}
-	else if (z.x < -fractal->mandelbox.foldingLimit)
-	{
-		z.x = -fractal->mandelbox.foldingValue - z.x;
-		aux.color += fractal->mandelbox.color.factor.x;
-	}
-	if (z.y > fractal->mandelbox.foldingLimit)
-	{
-		z.y = fractal->mandelbox.foldingValue - z.y;
-		aux.color += fractal->mandelbox.color.factor.y;
-	}
-	else if (z.y < -fractal->mandelbox.foldingLimit)
-	{
-		z.y = -fractal->mandelbox.foldingValue - z.y;
-		aux.color += fractal->mandelbox.color.factor.y;
-	}
-	if (z.z > fractal->mandelbox.foldingLimit)
-	{
-		z.z = fractal->mandelbox.foldingValue - z.z;
-		aux.color += fractal->mandelbox.color.factor.z;
-	}
-	else if (z.z < -fractal->mandelbox.foldingLimit)
-	{
-		z.z = -fractal->mandelbox.foldingValue - z.z;
-		aux.color += fractal->mandelbox.color.factor.z;
-	}
+  if (z.x > fractal->mandelbox.foldingLimit)
+  {
+    z.x = fractal->mandelbox.foldingValue - z.x;
+    aux.color += fractal->mandelbox.color.factor.x;
+  }
+  else if (z.x < -fractal->mandelbox.foldingLimit)
+  {
+    z.x = -fractal->mandelbox.foldingValue - z.x;
+    aux.color += fractal->mandelbox.color.factor.x;
+  }
+  if (z.y > fractal->mandelbox.foldingLimit)
+  {
+    z.y = fractal->mandelbox.foldingValue - z.y;
+    aux.color += fractal->mandelbox.color.factor.y;
+  }
+  else if (z.y < -fractal->mandelbox.foldingLimit)
+  {
+    z.y = -fractal->mandelbox.foldingValue - z.y;
+    aux.color += fractal->mandelbox.color.factor.y;
+  }
+  double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
+  double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
+  if (z.z > zLimit)
+  {
+    z.z = zValue - z.z;
+    aux.color += fractal->mandelbox.color.factor.z;
+  }
+  else if (z.z < -zLimit)
+  {
+    z.z = -zValue - z.z;
+    aux.color += fractal->mandelbox.color.factor.z;
+  }
 }
 
 /**
