@@ -67,6 +67,7 @@ private:
 		bool server;
 		bool listParameters;
 		bool showInputHelp;
+		bool showExampleHelp;
 		bool keyframe;
 		bool flight;
 		bool queue;

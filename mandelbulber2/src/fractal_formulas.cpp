@@ -28,6 +28,7 @@
 #define SQRT_1_2 0.70710678118654752440084436210485
 #define SQRT_2_3 0.81649658092772603273242802490196
 #define SQRT_3_2 1.22474487139158904909864203735295
+#define SQRT_3_4 0.86602540378443864676372317075294
 #define SQRT_3   1.73205080756887729352744634150587
 
 
@@ -3027,8 +3028,6 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
   CVector3 gap = fractal->transformCommon.constantMultiplier000; // default 0,0,0
   double t;
   double temp;
-  double sqr3 = SQRT_3;
-  double sqr305 = 0.86602540378443864676372317075294;
   double dot1;
 
   if ( i >= fractal->transformCommon.startIterationsA // default 0.0
@@ -3036,9 +3035,9 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
   {
     z.y = fabs(z.y);
     z.z = fabs(z.z);
-    dot1 = (z.x * -sqr305 + z.y * 0.5) * fractal->transformCommon.scale; // default 1
+		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale; // default 1
     t = max(0.0, dot1);
-    z.x -= t * -sqr3;
+		z.x -= t * -SQRT_3;
     z.y = fabs(z.y - t);
 
     if(z.y > z.z)
@@ -3047,7 +3046,7 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       z.y = z.z;
       z.z = temp;
     }
-    z -= gap * CVector3( sqr305, 1.5, 1.5);
+		z -= gap * CVector3( SQRT_3_4, 1.5, 1.5);
     // z was pos, now some points neg (ie neg shift)
     if(z.z > z.x)
     {

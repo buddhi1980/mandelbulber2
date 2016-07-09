@@ -121,6 +121,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 
 	QCommandLineOption helpInputOption(QStringList() << "help-input",
 		QCoreApplication::translate("main", "Shows help about input."));
+	QCommandLineOption helpExamplesOption(QStringList() << "help-examples",
+		QCoreApplication::translate("main", "Shows example commands."));
 
 	parser.addPositionalArgument("settings_file", QCoreApplication::translate("main",
 		"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings directory)\n"
@@ -148,6 +150,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(overrideOption);
 	parser.addOption(statsOption);
 	parser.addOption(helpInputOption);
+	parser.addOption(helpExamplesOption);
 
 	// Process the actual command line arguments given by the user
 	parser.process(*qapplication);
@@ -171,6 +174,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.voxel = parser.isSet(voxelOption);
 	cliData.test = parser.isSet(testOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
+	cliData.showExampleHelp = parser.isSet(helpExamplesOption);
 	systemData.statsOnCLI = parser.isSet(statsOption);
 
 #ifdef WIN32 /* WINDOWS */
@@ -197,6 +201,23 @@ void cCommandLineInterface::ReadCLI()
 	QTextStream out(stdout);
 
 	// show input help only
+	if (cliData.showExampleHelp)
+	{
+		out << "Some useful example commands:\n\n";
+		out << cHeadless::colorize("mandelbulber2 -n filename.fract", cHeadless::ansiYellow, cHeadless::noExplicitColor, true) << "\n";
+		out << "Renders the file on the cli (no window required).\n\n";
+		out << cHeadless::colorize("mandelbulber2 -n -K -s 200 -e 300 keyframe_fractal.fract", cHeadless::ansiYellow, cHeadless::noExplicitColor, true) << "\n";
+		out << "Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.\n\n";
+		out << cHeadless::colorize("nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow, cHeadless::noExplicitColor, true) << "\n";
+		out << "Runs the mandelbulber instance in queue mode and daemonizes it.\n"
+					 "Mandelbulber runs in background and waits for jobs.\n"
+					 "The output will be written to /tmp/queue.log\n"
+					 "(This will only work properly on a unix system)\n\n";
+
+		out.flush();
+		exit(0);
+	}
+	// show example help only
 	if (cliData.showInputHelp)
 	{
 		out
