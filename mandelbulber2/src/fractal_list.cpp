@@ -786,6 +786,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
                                           100));
 
+  fractalList->append(sFractalDescription("Transform - Inverse Cylindrical",
+                                          "transf_inv_cylindrical",
+                                          transfInvCylindrical,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
   fractalList->append(sFractalDescription("Transform - Linear Combine Cxyz",
                                           "transf_lin_combine_Cxyz",
                                           transfLinCombineCxyz,

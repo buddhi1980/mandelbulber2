@@ -580,6 +580,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformIterationWeightIteration(z, i, fractal);
           break;
         }
+        case transfInvCylindrical:
+        {
+          TransformInvCylindricalIteration(z, fractal, extendedAux);
+          break;
+        }
+
+
+
         case transfLinCombineCxyz:
         {
           TransformLinCombineCxyz(c, fractal);

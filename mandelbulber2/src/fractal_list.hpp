@@ -185,9 +185,9 @@ enum enumFractalFormula
   transfSphericalFoldAbox = 1049,
   transfSphericalFoldVaryV1 = 1050,
   transfQuaternionFold = 1051,
-  transfMengerFold = 1052
+  transfMengerFold = 1052,
   //V2.09
-
+  transfInvCylindrical = 1053,
 
 };
 

@@ -3065,7 +3065,7 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
     }
   }
 
-  if (fractal->transformCommon.functionEnabledFalse
+  if (fractal->transformCommon.functionEnabledRFalse
       && i >= fractal->transformCommon.startIterationsR
       && i < fractal->transformCommon.stopIterationsR)
         z = fractal->transformCommon.rotationMatrix.RotateVector(z);
@@ -3120,9 +3120,39 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
     z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
                  (z.y - z.x) * SQRT_1_2,
                  z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
-  }//...............................
+  }
+  if (fractal->transformCommon.functionEnabledFFalse
+      && i >= fractal->transformCommon.startIterationsF
+      && i < fractal->transformCommon.stopIterationsF)
+  {
+    CVector3 tempA, tempB;
 
+    if (fractal->transformCommon.functionEnabledAx)
+      tempA.x = fabs(z.x + fractal->transformCommon.offsetF000.x);
 
+    if (fractal->transformCommon.functionEnabledx)
+      tempB.x = fabs(z.x - fractal->transformCommon.offset000.x);
+
+    z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
+
+    if (fractal->transformCommon.functionEnabledAy)
+      tempA.y = fabs(z.y + fractal->transformCommon.offsetF000.y);
+
+    if (fractal->transformCommon.functionEnabledy)
+      tempB.y = fabs(z.y - fractal->transformCommon.offset000.y);
+
+    z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
+
+    if (fractal->transformCommon.functionEnabledAz)
+      tempA.z = fabs(z.z + fractal->transformCommon.offsetF000.z);
+
+    if (fractal->transformCommon.functionEnabledz)
+      tempB.z = fabs(z.z - fractal->transformCommon.offset000.z);
+
+    z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
+
+    z += fractal->transformCommon.offsetA000;
+  }
   if (fractal->transformCommon.functionEnabled
       && i >= fractal->transformCommon.startIterationsM
       && i < fractal->transformCommon.stopIterationsM)
@@ -3157,6 +3187,8 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
     z += fractal->transformCommon.additionConstantA000;
 
   }
+
+
   aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
 
 }
@@ -4861,7 +4893,7 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 	CVector3 tempA, tempB;
 
 	if (fractal->transformCommon.functionEnabledAx)
-		tempA.x = fabs(z.x + fractal->transformCommon.additionConstant000.x);
+    tempA.x = fabs(z.x + fractal->transformCommon.additionConstant000.x);
 
 	if (fractal->transformCommon.functionEnabledx)
 		tempB.x = fabs(z.x - fractal->transformCommon.offset000.x);
@@ -4869,7 +4901,7 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 	z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
 
 	if (fractal->transformCommon.functionEnabledAy)
-		tempA.y = fabs(z.y + fractal->transformCommon.additionConstant000.y);
+    tempA.y = fabs(z.y + fractal->transformCommon.additionConstant000.y);
 
 	if (fractal->transformCommon.functionEnabledy)
 		tempB.y = fabs(z.y - fractal->transformCommon.offset000.y);
@@ -4877,12 +4909,14 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 	z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
 
 	if (fractal->transformCommon.functionEnabledAz)
-		tempA.z = fabs(z.z + fractal->transformCommon.additionConstant000.z);
+    tempA.z = fabs(z.z + fractal->transformCommon.additionConstant000.z);
 
 	if (fractal->transformCommon.functionEnabledz)
 		tempB.z = fabs(z.z - fractal->transformCommon.offset000.z);
 
 	z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
+
+  z += fractal->transformCommon.offsetA000;
 }
 
 /**
@@ -4905,6 +4939,32 @@ void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fract
 			+ (zA * fractal->transformCommon.offset)
 			+ (zB * fractal->transformCommon.offset0);
 }
+
+/**
+ * Inverse cylindrical coords, very easy transform
+ * Formula by Luca GN 2011
+ */
+void TransformInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  double newZx = z.x;
+  double newZy = z.y;
+
+
+  if (fractal->transformCommon.functionEnabledFalse)
+    newZx = z.x * cos (z.y);
+  if (fractal->transformCommon.functionEnabledxFalse)
+    newZy = z.x * sin (z.y);
+
+
+
+  z = CVector3(z.x * cos (newZy * fractal->transformCommon.scale1),
+               newZx * sin (z.y * fractal->transformCommon.scale1), // back to
+               z.z * fractal->transformCommon.scaleC1) * fractal->transformCommon.scaleA1;
+
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scaleA1)  * fractal->transformCommon.scaleB1 + fractal->transformCommon.offset1;
+  aux.r_dz *= fabs(fractal->transformCommon.scaleA1) * fractal->transformCommon.scaleB1;
+}
+
 
 /**
  * Linear Combine transform from Mandelbulb3D.

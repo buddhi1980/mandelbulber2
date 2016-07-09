@@ -367,6 +367,8 @@ struct sFractalTransformCommon
   int stopIterationsD;
   int startIterationsE;
   int stopIterationsE;
+  int startIterationsF;
+  int stopIterationsF;
   int startIterationsR;
   int stopIterationsR;
   int startIterationsS;
@@ -404,6 +406,8 @@ struct sFractalTransformCommon
   CVector3 constantMultiplier441;
   CVector3 juliaC;
   CVector3 offset000;
+  CVector3 offsetA000;
+  CVector3 offsetF000;
   CVector3 offset200;
   CVector3 power025;
   CVector3 power8;
@@ -440,6 +444,8 @@ struct sFractalTransformCommon
   bool functionEnabledBxFalse;
   bool functionEnabledByFalse;
   bool functionEnabledBzFalse;
+  bool functionEnabledFFalse;
+  bool functionEnabledRFalse;
   bool juliaMode;
   bool rotationEnabled;
 };

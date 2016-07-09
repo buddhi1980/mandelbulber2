@@ -217,6 +217,8 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.stopIterationsD = container->Get<int>("transf_stop_iterations_D");
   transformCommon.startIterationsE = container->Get<int>("transf_start_iterations_E");
   transformCommon.stopIterationsE = container->Get<int>("transf_stop_iterations_E");
+  transformCommon.startIterationsF = container->Get<int>("transf_start_iterations_F");
+  transformCommon.stopIterationsF = container->Get<int>("transf_stop_iterations_F");
   transformCommon.startIterationsR = container->Get<int>("transf_start_iterations_R");
   transformCommon.stopIterationsR = container->Get<int>("transf_stop_iterations_R");
   transformCommon.startIterationsS = container->Get<int>("transf_start_iterations_S");
@@ -251,6 +253,8 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.constantMultiplier441 = container->Get<CVector3>("transf_constant_multiplier_441");
   transformCommon.juliaC = container->Get<CVector3>("transf_constant_julia_c");
   transformCommon.offset000 = container->Get<CVector3>("transf_offset_000");
+  transformCommon.offsetA000 = container->Get<CVector3>("transf_offsetA_000");
+  transformCommon.offsetF000 = container->Get<CVector3>("transf_offsetF_000");
   transformCommon.offset200 = container->Get<CVector3>("transf_offset_200");
   transformCommon.power025 = container->Get<CVector3>("transf_power_025");
   transformCommon.power8 = container->Get<CVector3>("transf_power_8");
@@ -284,6 +288,8 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.functionEnabledBxFalse = container->Get<bool>("transf_function_enabledBx_false");
   transformCommon.functionEnabledByFalse = container->Get<bool>("transf_function_enabledBy_false");
   transformCommon.functionEnabledBzFalse = container->Get<bool>("transf_function_enabledBz_false");
+  transformCommon.functionEnabledFFalse = container->Get<bool>("transf_function_enabledF_false");
+  transformCommon.functionEnabledRFalse = container->Get<bool>("transf_function_enabledR_false");
   transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
   transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 
