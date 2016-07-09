@@ -31,8 +31,10 @@
  *
  * cMaterialManagerView - promoted QWidget for managing a list of materials
  *
- * This class is a UI wrapper which exposes slots and signals to work on the underlying cMaterialItemModel.
- * See also more information on QT's model-view scheme here: http://doc.qt.io/qt-5/model-view-programming.html
+ * This class is a UI wrapper which exposes slots and signals to work on the underlying
+ * cMaterialItemModel.
+ * See also more information on QT's model-view scheme here:
+ * http://doc.qt.io/qt-5/model-view-programming.html
  */
 
 #include "material_manager_view.h"
@@ -40,14 +42,14 @@
 #include <QtWidgets/QtWidgets>
 
 #include "../qt/material_editor.h"
-#include "../src/fractal_container.hpp"
 #include "../src/error_message.hpp"
+#include "../src/fractal_container.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/settings.hpp"
 #include "../src/synchronize_interface.hpp"
 
-
-cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), ui(new Ui::cMaterialManagerView)
+cMaterialManagerView::cMaterialManagerView(QWidget *parent)
+		: QWidget(parent), ui(new Ui::cMaterialManagerView)
 {
 	ui->setupUi(this);
 
@@ -61,7 +63,8 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent) : QWidget(parent), u
 	connect(ui->pushButton_editMaterial, SIGNAL(clicked()), this, SLOT(slotEditMaterial()));
 	connect(ui->pushButton_LoadMaterial, SIGNAL(clicked()), this, SLOT(slotLoadMaterial()));
 	connect(ui->pushButton_SaveMaterial, SIGNAL(clicked()), this, SLOT(slotSaveMaterial()));
-	connect(itemView, SIGNAL(activated(const QModelIndex&)), this, SLOT(slotItemSelected(const QModelIndex&)));
+	connect(itemView, SIGNAL(activated(const QModelIndex &)), this,
+		SLOT(slotItemSelected(const QModelIndex &)));
 }
 
 cMaterialManagerView::~cMaterialManagerView()
@@ -86,10 +89,8 @@ void cMaterialManagerView::slotDeleteMaterial()
 	if (model->rowCount() > 1)
 	{
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(this,
-																	QObject::tr("Delete material?"),
-																	QObject::tr("Are you sure to delete selected material?"),
-																	QMessageBox::Yes | QMessageBox::No);
+		reply = QMessageBox::question(this, QObject::tr("Delete material?"),
+			QObject::tr("Are you sure to delete selected material?"), QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::Yes)
 		{
@@ -100,29 +101,30 @@ void cMaterialManagerView::slotDeleteMaterial()
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("You cannot delete last material!"),
-															 cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(
+			QObject::tr("You cannot delete last material!"), cErrorMessage::errorMessage);
 	}
 }
 
 void cMaterialManagerView::slotLoadMaterial()
 {
-  cSettings parSettings(cSettings::formatFullText);
+	cSettings parSettings(cSettings::formatFullText);
 
-  QFileDialog dialog(this);
-  dialog.setOption(QFileDialog::DontUseNativeDialog);
-  dialog.setFileMode(QFileDialog::ExistingFiles);
-  dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-  dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.dataDirectory + "materials/").absolutePath()));
-  //dialog.selectFile(QDir::toNativeSeparators("");
-  dialog.setAcceptMode(QFileDialog::AcceptOpen);
-  dialog.setWindowTitle(tr("Load material..."));
-  QStringList filenames;
-  if (dialog.exec())
-  {
-    filenames = dialog.selectedFiles();
-    for(int i = 0; i < filenames.size(); i++)
-    {
+	QFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::ExistingFiles);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(
+		QDir::toNativeSeparators(QFileInfo(systemData.dataDirectory + "materials/").absolutePath()));
+	// dialog.selectFile(QDir::toNativeSeparators("");
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle(tr("Load material..."));
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		for (int i = 0; i < filenames.size(); i++)
+		{
 			QString filename = QDir::toNativeSeparators(filenames[i]);
 			parSettings.LoadFromFile(filename);
 
@@ -131,13 +133,13 @@ void cMaterialManagerView::slotLoadMaterial()
 
 			model->insertRowWithParameters(&params1);
 			emit materialEdited();
-    }
-  }
+		}
+	}
 }
 
 void cMaterialManagerView::slotSaveMaterial()
 {
-	//take settings from model
+	// take settings from model
 	QModelIndex index = itemView->currentIndex();
 	QString settingsFromModel = model->data(index).toString();
 	int matIndex = model->materialIndex(index);
@@ -147,12 +149,13 @@ void cMaterialManagerView::slotSaveMaterial()
 	tempSettings.LoadFromString(settingsFromModel);
 	tempSettings.Decode(&params, NULL);
 
-	//change material number to 1
+	// change material number to 1
 	cParameterContainer params1;
 	InitMaterialParams(1, &params1);
-	for(int i=0; i < cMaterial::paramsList.size(); i++)
+	for (int i = 0; i < cMaterial::paramsList.size(); i++)
 	{
-		cOneParameter parameter = params.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
+		cOneParameter parameter =
+			params.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), matIndex));
 		params1.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
 	}
 
@@ -161,25 +164,26 @@ void cMaterialManagerView::slotSaveMaterial()
 
 	QString suggestedFilename = params1.Get<QString>("mat1_name");
 
-  QFileDialog dialog(this);
-  dialog.setOption(QFileDialog::DontUseNativeDialog);
-  dialog.setFileMode(QFileDialog::AnyFile);
-  dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-  dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.dataDirectory + "materials/").absolutePath()));
-  dialog.selectFile(QDir::toNativeSeparators(suggestedFilename));
-  dialog.setAcceptMode(QFileDialog::AcceptSave);
-  dialog.setWindowTitle(tr("Save material..."));
-  dialog.setDefaultSuffix("fract");
-  QStringList filenames;
-  if (dialog.exec())
-  {
-    filenames = dialog.selectedFiles();
-    QString filename = QDir::toNativeSeparators(filenames.first());
-    settingsToSave.SaveToFile(filename);
-  }
+	QFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(
+		QDir::toNativeSeparators(QFileInfo(systemData.dataDirectory + "materials/").absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(suggestedFilename));
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Save material..."));
+	dialog.setDefaultSuffix("fract");
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = QDir::toNativeSeparators(filenames.first());
+		settingsToSave.SaveToFile(filename);
+	}
 }
 
-void cMaterialManagerView::slotItemSelected(const QModelIndex& index)
+void cMaterialManagerView::slotItemSelected(const QModelIndex &index)
 {
 	int selection = model->materialIndex(index);
 	emit materialSelected(selection);
@@ -196,7 +200,8 @@ void cMaterialManagerView::slotEditMaterial()
 	QVBoxLayout *layout = new QVBoxLayout(dialog);
 	dialog->setLayout(layout);
 
-	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
+	QDialogButtonBox *buttonBox =
+		new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, dialog);
 	dialog->layout()->addWidget(buttonBox);
 
 	cMaterialEditor *materialEditor = new cMaterialEditor(dialog);
@@ -223,7 +228,7 @@ void cMaterialManagerView::slotEditMaterial()
 
 	int result = dialog->exec();
 
-	if(result == QDialog::Accepted)
+	if (result == QDialog::Accepted)
 	{
 		SynchronizeInterfaceWindow(dialog, &params, qInterface::read);
 		cSettings tempSettings2(cSettings::formatCondensedText);

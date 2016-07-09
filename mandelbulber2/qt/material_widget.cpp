@@ -38,21 +38,21 @@
 
 #include "../qt/material_widget.h"
 #include "../src/initparameters.hpp"
+#include "../src/settings.hpp"
 #include "../src/synchronize_interface.hpp"
 #include "../src/system.hpp"
-#include "../src/settings.hpp"
 
 int cMaterialWidget::previewWidth = 80;
 int cMaterialWidget::previewHeight = 80;
 
-cMaterialWidget::cMaterialWidget(QWidget *parent) :
-		cThumbnailWidget(previewWidth, previewHeight, 2, parent)
+cMaterialWidget::cMaterialWidget(QWidget *parent)
+		: cThumbnailWidget(previewWidth, previewHeight, 2, parent)
 {
 	Init();
 }
 
-cMaterialWidget::cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent) :
-		cThumbnailWidget(_width, _height, _oversample, parent)
+cMaterialWidget::cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent)
+		: cThumbnailWidget(_width, _height, _oversample, parent)
 {
 	Init();
 }
@@ -60,7 +60,7 @@ cMaterialWidget::cMaterialWidget(int _width, int _height, int _oversample, QWidg
 void cMaterialWidget::Init()
 {
 	paramsHandle = NULL;
-	//DisableThumbnailCache();
+	// DisableThumbnailCache();
 	DisableTimer();
 
 	timerPeriodicRefresh = new QTimer(parent());
@@ -86,7 +86,8 @@ cMaterialWidget::~cMaterialWidget()
 	// see destructor in parent cThumbnailWidget
 }
 
-void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget)
+void cMaterialWidget::AssignMaterial(
+	cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget)
 {
 	paramsHandle = _params;
 	paramsCopy = *_params;
@@ -98,7 +99,7 @@ void cMaterialWidget::AssignMaterial(cParameterContainer *_params, int materialI
 
 void cMaterialWidget::InitializeData()
 {
-	if(dataAssigned && !initialized)
+	if (dataAssigned && !initialized)
 	{
 		QElapsedTimer timer;
 		timer.start();
@@ -116,10 +117,11 @@ void cMaterialWidget::InitializeData()
 		}
 		InitMaterialParams(1, &params);
 
-		//copy parameters from main parameter container to temporary container for material
-		for(int i=0; i < cMaterial::paramsList.size(); i++)
+		// copy parameters from main parameter container to temporary container for material
+		for (int i = 0; i < cMaterial::paramsList.size(); i++)
 		{
-			cOneParameter parameter = paramsCopy.GetAsOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), actualMaterialIndex));
+			cOneParameter parameter = paramsCopy.GetAsOneParameter(
+				cMaterial::Name(cMaterial::paramsList.at(i), actualMaterialIndex));
 			params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
 		}
 
@@ -131,7 +133,8 @@ void cMaterialWidget::InitializeData()
 		fractal.at(0).Set("power", 5);
 		params.Set("julia_mode", true);
 		params.Set("textured_background", true);
-		params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
+		params.Set("file_background",
+			QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
 		params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
 		params.Set("mat1_displacement_texture_height", 0.01);
 		params.Set("main_light_intensity", 1.2);
@@ -143,10 +146,10 @@ void cMaterialWidget::InitializeData()
 		update();
 		timeAssingData = timer.nsecsElapsed() / 1e9;
 
-		if(materialEditorWidget)
+		if (materialEditorWidget)
 		{
 			int time = (timeUpdateData + timeAssingData + lastRenderTime) * 2000.0 + 1;
-			//qDebug() << timeAssingData << timeUpdateData << lastRenderTime << time;
+			// qDebug() << timeAssingData << timeUpdateData << lastRenderTime << time;
 			timerPeriodicRefresh->start(time);
 		}
 		initialized = true;
@@ -155,11 +158,11 @@ void cMaterialWidget::InitializeData()
 
 void cMaterialWidget::slotPeriodicRender(void)
 {
-	if(!visibleRegion().isEmpty())
+	if (!visibleRegion().isEmpty())
 	{
 		QElapsedTimer timer;
 		timer.start();
-		if(paramsHandle && materialEditorWidget)
+		if (paramsHandle && materialEditorWidget)
 		{
 			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, qInterface::read);
 			AssignMaterial(paramsHandle, actualMaterialIndex, materialEditorWidget);
@@ -167,10 +170,10 @@ void cMaterialWidget::slotPeriodicRender(void)
 		update();
 		timeUpdateData = timer.nsecsElapsed() / 1e9;
 	}
-	if(!timerPeriodicRefresh->isActive())
+	if (!timerPeriodicRefresh->isActive())
 	{
 		int time = (timeUpdateData + timeAssingData + lastRenderTime) * 2000.0 + 1;
-		if(time > 10000) time = 10000;
+		if (time > 10000) time = 10000;
 
 		timerPeriodicRefresh->start(time);
 	}
@@ -178,7 +181,7 @@ void cMaterialWidget::slotPeriodicRender(void)
 
 void cMaterialWidget::slotPeriodicUpdateData(void)
 {
-	if(!visibleRegion().isEmpty())
+	if (!visibleRegion().isEmpty())
 	{
 		InitializeData();
 	}
@@ -205,7 +208,7 @@ void cMaterialWidget::slotMaterialChanged()
 	emit materialChanged(actualMaterialIndex);
 }
 
-void cMaterialWidget::mousePressEvent(QMouseEvent* event)
+void cMaterialWidget::mousePressEvent(QMouseEvent *event)
 {
 	emit clicked(event->button());
 	QWidget::mousePressEvent(event);

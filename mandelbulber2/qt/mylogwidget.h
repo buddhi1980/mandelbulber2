@@ -38,10 +38,10 @@
 #ifndef MYLOGWIDGET_HPP_
 #define MYLOGWIDGET_HPP_
 
-#include <QtGui>
-#include <QtCore>
-#include <QPlainTextEdit>
 #include "../src/system.hpp"
+#include <QPlainTextEdit>
+#include <QtCore>
+#include <QtGui>
 
 class MyLogWidget : public QPlainTextEdit
 {
@@ -52,9 +52,9 @@ public:
 	~MyLogWidget();
 
 public slots:
-	void appendMessage(const QString& text);
+	void appendMessage(const QString &text);
 	void initFromLogFile();
-	QString formatLine(const QString& text);
+	QString formatLine(const QString &text);
 
 private:
 	bool initializedFromLogFile;

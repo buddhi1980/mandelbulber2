@@ -40,20 +40,20 @@
 #ifndef QT_THUMBNAIL_WIDGET_H_
 #define QT_THUMBNAIL_WIDGET_H_
 
+#include "../src/thumbnail.hpp"
 #include <QWidget>
 #include <qprogressbar.h>
-#include "../src/thumbnail.hpp"
 
-class cThumbnailWidget: public QWidget
+class cThumbnailWidget : public QWidget
 {
 	Q_OBJECT
 public:
 	cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent);
 	~cThumbnailWidget();
 	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
-	void UseOneCPUCore(bool onlyOne) {useOneCPUCore = onlyOne;}
-	void DisableTimer() {disableTimer = true;}
-	void DisableThumbnailCache() {disableThumbnailCache = true;}
+	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
+	void DisableTimer() { disableTimer = true; }
+	void DisableThumbnailCache() { disableThumbnailCache = true; }
 	bool IsRendered() { return isRendered; }
 
 	static int instanceCount;
@@ -86,7 +86,8 @@ private:
 	bool useOneCPUCore;
 	bool disableTimer;
 	bool disableThumbnailCache;
-	QTimer *timer; //timer for random trigger for rendering (renders thumbnail even when is not visible)
+	// timer for random trigger for rendering (renders thumbnail even when is not visible)
+	QTimer *timer;
 	QElapsedTimer renderingTimeTimer;
 
 protected:

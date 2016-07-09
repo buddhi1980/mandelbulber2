@@ -31,8 +31,10 @@
  *
  * cMaterialManagerView - promoted QWidget for managing a list of materials
  *
- * This class is a UI wrapper which exposes slots and signals to work on the underlying cMaterialItemModel.
- * See also more information on QT's model-view scheme here: http://doc.qt.io/qt-5/model-view-programming.html
+ * This class is a UI wrapper which exposes slots and signals to work on the underlying
+ * cMaterialItemModel.
+ * See also more information on QT's model-view scheme here:
+ * http://doc.qt.io/qt-5/model-view-programming.html
  */
 
 #ifndef MANDELBULBER2_QT_MATERIAL_MANAGER_VIEW_H_
@@ -40,16 +42,18 @@
 
 #include <QWidget>
 
-#include "../src/material_item_view.h"
 #include "../src/material_item_model.h"
+#include "../src/material_item_view.h"
 
-namespace Ui {
-	class cMaterialManagerView;
+namespace Ui
+{
+class cMaterialManagerView;
 }
 
-class cMaterialManagerView: public QWidget
+class cMaterialManagerView : public QWidget
 {
 	Q_OBJECT;
+
 public:
 	explicit cMaterialManagerView(QWidget *parent = NULL);
 	~cMaterialManagerView();

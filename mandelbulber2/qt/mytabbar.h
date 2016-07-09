@@ -35,9 +35,9 @@
 #ifndef MYTABBAR_HPP_
 #define MYTABBAR_HPP_
 
-#include <QtGui>
-#include <QtCore>
 #include <QTabBar>
+#include <QtCore>
+#include <QtGui>
 
 class MyTabBar : public QTabBar
 {
@@ -60,7 +60,5 @@ public slots:
 protected:
 	void mouseReleaseEvent(QMouseEvent *event);
 };
-
-
 
 #endif /* MYTABBAR_HPP_ */

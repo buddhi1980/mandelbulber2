@@ -35,10 +35,10 @@
 #ifndef MYHISTOGRAMLABEL_HPP_
 #define MYHISTOGRAMLABEL_HPP_
 
-#include <QtGui>
-#include <QtCore>
-#include <QLabel>
 #include "../src/histogram.hpp"
+#include <QLabel>
+#include <QtCore>
+#include <QtGui>
 
 class MyHistogramLabel : public QLabel
 {
@@ -48,17 +48,17 @@ public:
 	MyHistogramLabel(QWidget *parent = 0);
 	~MyHistogramLabel();
 
-	void SetBarcolor(const QColor& c){ barColor = c; }
-	QColor GetBarcolor(){ return barColor; }
+	void SetBarcolor(const QColor &c) { barColor = c; }
+	QColor GetBarcolor() { return barColor; }
 
-	void SetBackgroundcolor(const QColor& c){ backgroundColor = c; }
-	QColor GetBackgroundcolor(){ return backgroundColor; }
+	void SetBackgroundcolor(const QColor &c) { backgroundColor = c; }
+	QColor GetBackgroundcolor() { return backgroundColor; }
 
-	void SetLegendcolor(const QColor& c){ legendColor = c; }
-	QColor GetLegendcolor(){ return legendColor; }
+	void SetLegendcolor(const QColor &c) { legendColor = c; }
+	QColor GetLegendcolor() { return legendColor; }
 
-	void SetMaxcolor(const QColor& c){ maxColor = c; }
-	QColor GetMaxcolor(){ return maxColor; }
+	void SetMaxcolor(const QColor &c) { maxColor = c; }
+	QColor GetMaxcolor() { return maxColor; }
 
 	void UpdateHistogram(const cHistogram &histData);
 

@@ -37,12 +37,13 @@
 
 #include <QWidget>
 
+#include "../src/automated_widgets.hpp"
 #include "../src/color_palette.hpp"
 #include "../src/parameters.hpp"
-#include "../src/automated_widgets.hpp"
 
-namespace Ui {
-	class cMaterialEditor;
+namespace Ui
+{
+class cMaterialEditor;
 }
 
 class cMaterialEditor : public QWidget
@@ -55,12 +56,12 @@ public:
 	void AssignMaterial(cParameterContainer *params, int index);
 
 private slots:
-void slotPressedButtonNewRandomPalette();
-void slotPressedButtonGetPaletteFromImage();
-void slotPressedButtonRandomize();
-void slotChangedSpinBoxPaletteOffset(double value);
-void slotChangedSpinBoxPaletteSize(int value);
-void slotChangedComboFractalColoringAlgorithm(int index);
+	void slotPressedButtonNewRandomPalette();
+	void slotPressedButtonGetPaletteFromImage();
+	void slotPressedButtonRandomize();
+	void slotChangedSpinBoxPaletteOffset(double value);
+	void slotChangedSpinBoxPaletteSize(int value);
+	void slotChangedComboFractalColoringAlgorithm(int index);
 
 private:
 	void ConnectSignals(void);
@@ -78,6 +79,3 @@ signals:
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_EDITOR_H_ */
-
-
-

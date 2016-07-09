@@ -46,11 +46,11 @@
 void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu)
 {
 	QMenu *menu;
-	if(existingMenu)
-		{
-			menu = existingMenu;
-			menu->addSeparator();
-		}
+	if (existingMenu)
+	{
+		menu = existingMenu;
+		menu->addSeparator();
+	}
 	else
 	{
 		menu = new QMenu;
@@ -130,7 +130,8 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *ex
 	else
 	{
 		qCritical() << " MyBasicContextMenuElement::contextMenuEvent(QContextMenuEvent *event): "
-									 "parameter container not assigned. Object:" << widget->objectName();
+									 "parameter container not assigned. Object:"
+								<< widget->objectName();
 	}
 	delete menu;
 }
@@ -138,9 +139,10 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *ex
 void CommonMyWidgetWrapper::setToolTipText()
 {
 	QString toolTipText = widget->toolTip();
-	toolTipText += "\n"
-								 + QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter name: %1")
-										 .arg(parameterName) + "<br>";
+	toolTipText +=
+		"\n"
+		+ QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter name: %1").arg(parameterName)
+		+ "<br>";
 	toolTipText += QCoreApplication::translate("CommonMyWidgetWrapper", "Default value: %1")
 									 .arg(getDefaultAsString());
 	widget->setToolTip(toolTipText);

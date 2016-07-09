@@ -50,7 +50,7 @@ MyHistogramLabel::MyHistogramLabel(QWidget *parent) : QLabel(parent)
 
 MyHistogramLabel::~MyHistogramLabel(void)
 {
-	//delete pix;
+	// delete pix;
 }
 
 void MyHistogramLabel::UpdateHistogram(const cHistogram &_histData)
@@ -62,17 +62,18 @@ void MyHistogramLabel::UpdateHistogram(const cHistogram &_histData)
 void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 {
 	// get max Element
-	long maxH = 1; //1 to prevent division by zero
+	long maxH = 1; // 1 to prevent division by zero
 	int extrIndex = 0;
 	int minIndex = 0;
 	int maxIndex = 0;
 
-  int size = histData.GetSize();
+	int size = histData.GetSize();
 
-  long long sum = 0;
+	long long sum = 0;
 	for (int i = 0; i <= size; i++)
 	{
-		if (histData.GetHist(i) > maxH) {
+		if (histData.GetHist(i) > maxH)
+		{
 			maxH = histData.GetHist(i);
 			extrIndex = i;
 		}
@@ -82,7 +83,7 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 		if (prob < 0.9938) maxIndex = i;
 	}
 
-	if(histData.GetCount() > 0)
+	if (histData.GetCount() > 0)
 	{
 		int legendWidthP1 = legendWidth + 1;
 		int legendHeightP1 = legendHeight + 1;
@@ -103,34 +104,29 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 		{
 			int height = (double)drawHeight * max(0L, histData.GetHist(i)) / maxH;
 
-			painter.drawRect(
-				QRect(legendWidthP1 + i * drawWidth / size,
-					drawHeight - height,
-					floor(1.0 * drawWidth / size),
-					height)
-			);
+			painter.drawRect(QRect(legendWidthP1 + i * drawWidth / size, drawHeight - height,
+				floor(1.0 * drawWidth / size), height));
 		}
 
 		// draw max description
 		painter.setPen(QPen(maxColor));
 		painter.setBrush(QBrush(maxColor));
 
-		painter.drawText(
-					fmin(legendWidthP1 + (extrIndex * drawWidth / size) + 20, width() - 100), 20,
-					QString("min: ")	+ GetShortNumberDisplay(minIndex)
-					+ QString(", extr: ")	+ GetShortNumberDisplay(extrIndex)
-					+ QString(", max: ")	+ GetShortNumberDisplay(maxIndex)
-					+ QString(", avg: ")	+ QString::number((double)histData.GetSum() / histData.GetCount()));
-
+		painter.drawText(fmin(legendWidthP1 + (extrIndex * drawWidth / size) + 20, width() - 100), 20,
+			QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", extr: ")
+				+ GetShortNumberDisplay(extrIndex) + QString(", max: ") + GetShortNumberDisplay(maxIndex)
+				+ QString(", avg: ") + QString::number((double)histData.GetSum() / histData.GetCount()));
 	}
 }
 
 QString MyHistogramLabel::GetShortNumberDisplay(int val)
 {
-	if(val < 10000){
+	if (val < 10000)
+	{
 		return QString::number(val);
 	}
-	else if(val < 10000000){
+	else if (val < 10000000)
+	{
 		return QString::number((val / 1000)) + "K";
 	}
 	return QString::number((val / 1000000)) + "M";
@@ -156,11 +152,14 @@ void MyHistogramLabel::DrawLegend(QPainter &painter)
 
 	int mul = (legendX > 250) ? 10 : 1;
 
-	for(int i = 0; i < legendX; i++){
-		if(i % (5 * mul) == 0){
+	for (int i = 0; i < legendX; i++)
+	{
+		if (i % (5 * mul) == 0)
+		{
 			int xPos = legendWidth + (width() - legendWidth) * i / legendX;
 			int nuntiusLength = (i % (10 * mul) == 0 ? legendHeight / 2 : legendHeight / 4);
-			painter.drawLine(xPos, height() - legendHeight, xPos, height() - legendHeight + nuntiusLength);
+			painter.drawLine(
+				xPos, height() - legendHeight, xPos, height() - legendHeight + nuntiusLength);
 		}
 	}
 
@@ -172,8 +171,8 @@ void MyHistogramLabel::DrawLegend(QPainter &painter)
 void MyHistogramLabel::resizeEvent(QResizeEvent *event)
 {
 	QWidget::resizeEvent(event);
-	//delete pix;
-	//pix = new QPixmap(event->size().width(), event->size().height());
+	// delete pix;
+	// pix = new QPixmap(event->size().width(), event->size().height());
 }
 
 void MyHistogramLabel::paintEvent(QPaintEvent *event)
@@ -182,7 +181,7 @@ void MyHistogramLabel::paintEvent(QPaintEvent *event)
 	QPainter painter(this);
 	DrawLegend(painter);
 
-	if(histData.GetCount() > 0)
+	if (histData.GetCount() > 0)
 	{
 		RedrawHistogram(painter);
 	}

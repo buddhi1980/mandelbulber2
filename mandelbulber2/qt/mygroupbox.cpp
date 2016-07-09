@@ -33,9 +33,9 @@
  */
 
 #include "mygroupbox.h"
-#include <QLineEdit>
 #include "../src/animation_flight.hpp"
 #include "../src/animation_keyframes.hpp"
+#include <QLineEdit>
 
 MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapper(this)
 {

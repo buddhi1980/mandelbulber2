@@ -35,12 +35,12 @@
 #ifndef MYGROUPBOX_HPP_
 #define MYGROUPBOX_HPP_
 
-#include <QtGui>
-#include <QtCore>
+#include "../qt/common_my_widget_wrapper.h"
+#include "../src/parameters.hpp"
 #include <QGroupBox>
 #include <QMenu>
-#include "../src/parameters.hpp"
-#include "../qt/common_my_widget_wrapper.h"
+#include <QtCore>
+#include <QtGui>
 
 class MyGroupBox : public QGroupBox, public CommonMyWidgetWrapper
 {

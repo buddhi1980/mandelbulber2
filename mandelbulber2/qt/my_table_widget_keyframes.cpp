@@ -33,11 +33,11 @@
  */
 
 #include "my_table_widget_keyframes.hpp"
-#include <QtCore>
-#include <QMenu>
+#include "../src/animation_keyframes.hpp"
 #include <QContextMenuEvent>
 #include <QHeaderView>
-#include "../src/animation_keyframes.hpp"
+#include <QMenu>
+#include <QtCore>
 
 MyTableWidgetKeyframes::MyTableWidgetKeyframes(QWidget *parent) : QTableWidget(parent)
 {
@@ -45,10 +45,12 @@ MyTableWidgetKeyframes::MyTableWidgetKeyframes(QWidget *parent) : QTableWidget(p
 	connect(this, SIGNAL(customContextMenuRequested(QPoint)), SLOT(tableContextMenuRequest(QPoint)));
 
 	horizontalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this->horizontalHeader(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(columnContextMenuRequest(QPoint)));
+	connect(this->horizontalHeader(), SIGNAL(customContextMenuRequested(QPoint)),
+		SLOT(columnContextMenuRequest(QPoint)));
 
 	verticalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this->verticalHeader(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(rowContextMenuRequest(QPoint)));
+	connect(this->verticalHeader(), SIGNAL(customContextMenuRequested(QPoint)),
+		SLOT(rowContextMenuRequest(QPoint)));
 }
 
 MyTableWidgetKeyframes::~MyTableWidgetKeyframes()
@@ -66,13 +68,13 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
 	QAction *actionRender = NULL;
 	QAction *interpolateForward = NULL;
 
-	if(row == 0)
+	if (row == 0)
 	{
 		actionRender = menu->addAction(tr("Render this keyframe"));
 	}
 	else
 	{
-		if(column < columnCount() - 1 && column >= 0)
+		if (column < columnCount() - 1 && column >= 0)
 		{
 			interpolateForward = menu->addAction(tr("Interpolate next keyframes"));
 		}
@@ -119,15 +121,15 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point)
 		{
 			gKeyframeAnimation->RenderFrame(column);
 		}
-		else if(selectedItem == actionDelete)
+		else if (selectedItem == actionDelete)
 		{
 			gKeyframeAnimation->DeleteKeyframe(column);
 		}
-		else if(selectedItem == actionDeleteFrom)
+		else if (selectedItem == actionDeleteFrom)
 		{
 			gKeyframeAnimation->DeleteFramesFrom(column);
 		}
-		else if(selectedItem == actionDeleteTo)
+		else if (selectedItem == actionDeleteTo)
 		{
 			gKeyframeAnimation->DeleteFramesTo(column);
 		}
@@ -142,7 +144,7 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 
 	QMenu *menu = new QMenu;
 
-	if(row > 0)
+	if (row > 0)
 	{
 		QString name = gKeyframeAnimation->GetParameterName(row);
 		QAction *actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
@@ -174,29 +176,15 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 
 		using namespace parameterContainer;
 		enumMorphType morphType = gKeyframeAnimation->GetMorphType(row);
-		switch(morphType)
+		switch (morphType)
 		{
-			case morphNone:
-				actionNoInterpolation->setChecked(true);
-				break;
-			case morphLinear:
-				actionLinearInterpolation->setChecked(true);
-				break;
-			case morphLinearAngle:
-				actionLinearAngleInterpolation->setChecked(true);
-				break;
-			case morphCatMullRom:
-				actionCatMulRomInterpolation->setChecked(true);
-				break;
-			case morphCatMullRomAngle:
-				actionCatMulRomAngleInterpolation->setChecked(true);
-				break;
-			case morphAkima:
-				actionAkimaInterpolation->setChecked(true);
-				break;
-			case morphAkimaAngle:
-				actionAkimaAngleInterpolation->setChecked(true);
-				break;
+			case morphNone: actionNoInterpolation->setChecked(true); break;
+			case morphLinear: actionLinearInterpolation->setChecked(true); break;
+			case morphLinearAngle: actionLinearAngleInterpolation->setChecked(true); break;
+			case morphCatMullRom: actionCatMulRomInterpolation->setChecked(true); break;
+			case morphCatMullRomAngle: actionCatMulRomAngleInterpolation->setChecked(true); break;
+			case morphAkima: actionAkimaInterpolation->setChecked(true); break;
+			case morphAkimaAngle: actionAkimaAngleInterpolation->setChecked(true); break;
 		}
 
 		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
@@ -208,13 +196,20 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 				gKeyframes->RemoveAnimatedParameter(name);
 				gKeyframeAnimation->RefreshTable();
 			}
-			else if(selectedItem == actionNoInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphNone);
-			else if(selectedItem == actionLinearInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphLinear);
-			else if(selectedItem == actionLinearAngleInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphLinearAngle);
-			else if(selectedItem == actionCatMulRomInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphCatMullRom);
-			else if(selectedItem == actionCatMulRomAngleInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphCatMullRomAngle);
-			else if(selectedItem == actionAkimaInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphAkima);
-			else if(selectedItem == actionAkimaAngleInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphAkimaAngle);
+			else if (selectedItem == actionNoInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphNone);
+			else if (selectedItem == actionLinearInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphLinear);
+			else if (selectedItem == actionLinearAngleInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphLinearAngle);
+			else if (selectedItem == actionCatMulRomInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphCatMullRom);
+			else if (selectedItem == actionCatMulRomAngleInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphCatMullRomAngle);
+			else if (selectedItem == actionAkimaInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphAkima);
+			else if (selectedItem == actionAkimaAngleInterpolation)
+				gKeyframeAnimation->ChangeMorphType(row, morphAkimaAngle);
 		}
 	}
 	else

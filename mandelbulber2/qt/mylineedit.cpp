@@ -33,12 +33,11 @@
  */
 
 #include "mylineedit.h"
-#include <QMenu>
 #include "../src/animation_flight.hpp"
 #include "../src/animation_keyframes.hpp"
+#include <QMenu>
 
-MyLineEdit::MyLineEdit(QWidget *parent) :
-		QLineEdit(parent) , CommonMyWidgetWrapper(this)
+MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapper(this)
 {
 	actionResetVectorToDefault = NULL;
 	actionCopyVectorToClipboard = NULL;
@@ -127,21 +126,21 @@ void MyLineEdit::PasteFromClipboard()
 			{
 				QString nameVect = parameterName.left(parameterName.length() - 2);
 				QString lineEditNameX, lineEditNameY, lineEditNameZ;
-				if(type == QString("vect3"))
+				if (type == QString("vect3"))
 				{
 					lineEditNameX = QString("vect3_%1_x").arg(nameVect);
 					lineEditNameY = QString("vect3_%1_y").arg(nameVect);
 					lineEditNameZ = QString("vect3_%1_z").arg(nameVect);
 				}
-				else if(type == QString("logvect3"))
+				else if (type == QString("logvect3"))
 				{
 					lineEditNameX = QString("logvect3_%1_x").arg(nameVect);
 					lineEditNameY = QString("logvect3_%1_y").arg(nameVect);
 					lineEditNameZ = QString("logvect3_%1_z").arg(nameVect);
 				}
-				MyLineEdit *lineEditX = parent()->findChild<MyLineEdit*>(lineEditNameX);
-				MyLineEdit *lineEditY = parent()->findChild<MyLineEdit*>(lineEditNameY);
-				MyLineEdit *lineEditZ = parent()->findChild<MyLineEdit*>(lineEditNameZ);
+				MyLineEdit *lineEditX = parent()->findChild<MyLineEdit *>(lineEditNameX);
+				MyLineEdit *lineEditY = parent()->findChild<MyLineEdit *>(lineEditNameY);
+				MyLineEdit *lineEditZ = parent()->findChild<MyLineEdit *>(lineEditNameZ);
 				if (lineEditX) lineEditX->setText(numbersStr[0]);
 				if (lineEditY) lineEditY->setText(numbersStr[1]);
 				if (lineEditZ) lineEditZ->setText(numbersStr[2]);
@@ -159,10 +158,10 @@ void MyLineEdit::PasteFromClipboard()
 				QString lineEditNameY = QString("vect4_%1_y").arg(nameVect);
 				QString lineEditNameZ = QString("vect4_%1_z").arg(nameVect);
 				QString lineEditNameW = QString("vect4_%1_w").arg(nameVect);
-				MyLineEdit *lineEditX = parent()->findChild<MyLineEdit*>(lineEditNameX);
-				MyLineEdit *lineEditY = parent()->findChild<MyLineEdit*>(lineEditNameY);
-				MyLineEdit *lineEditZ = parent()->findChild<MyLineEdit*>(lineEditNameZ);
-				MyLineEdit *lineEditW = parent()->findChild<MyLineEdit*>(lineEditNameW);
+				MyLineEdit *lineEditX = parent()->findChild<MyLineEdit *>(lineEditNameX);
+				MyLineEdit *lineEditY = parent()->findChild<MyLineEdit *>(lineEditNameY);
+				MyLineEdit *lineEditZ = parent()->findChild<MyLineEdit *>(lineEditNameZ);
+				MyLineEdit *lineEditW = parent()->findChild<MyLineEdit *>(lineEditNameW);
 				if (lineEditX) lineEditX->setText(numbersStr[0]);
 				if (lineEditY) lineEditY->setText(numbersStr[1]);
 				if (lineEditZ) lineEditZ->setText(numbersStr[2]);
@@ -182,24 +181,24 @@ void MyLineEdit::ResetVectorToDefault()
 		{
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			QStringList numbersStr = parameterContainer->GetDefault<QString>(nameVect).split(' ');
-			if(numbersStr.length() >= 3)
+			if (numbersStr.length() >= 3)
 			{
 				QString lineEditNameX, lineEditNameY, lineEditNameZ;
-				if(type == QString("vect3"))
+				if (type == QString("vect3"))
 				{
 					lineEditNameX = QString("vect3_%1_x").arg(nameVect);
 					lineEditNameY = QString("vect3_%1_y").arg(nameVect);
 					lineEditNameZ = QString("vect3_%1_z").arg(nameVect);
 				}
-				else if(type == QString("logvect3"))
+				else if (type == QString("logvect3"))
 				{
 					lineEditNameX = QString("logvect3_%1_x").arg(nameVect);
 					lineEditNameY = QString("logvect3_%1_y").arg(nameVect);
 					lineEditNameZ = QString("logvect3_%1_z").arg(nameVect);
 				}
-				MyLineEdit *lineEditX = parent()->findChild<MyLineEdit*>(lineEditNameX);
-				MyLineEdit *lineEditY = parent()->findChild<MyLineEdit*>(lineEditNameY);
-				MyLineEdit *lineEditZ = parent()->findChild<MyLineEdit*>(lineEditNameZ);
+				MyLineEdit *lineEditX = parent()->findChild<MyLineEdit *>(lineEditNameX);
+				MyLineEdit *lineEditY = parent()->findChild<MyLineEdit *>(lineEditNameY);
+				MyLineEdit *lineEditZ = parent()->findChild<MyLineEdit *>(lineEditNameZ);
 				if (lineEditX) lineEditX->setText(numbersStr[0]);
 				if (lineEditY) lineEditY->setText(numbersStr[1]);
 				if (lineEditZ) lineEditZ->setText(numbersStr[2]);
@@ -207,7 +206,7 @@ void MyLineEdit::ResetVectorToDefault()
 			if (type == QString("vect4") && numbersStr.length() == 4)
 			{
 				QString lineEditNameW = QString("vect3_%1_w").arg(nameVect);
-				MyLineEdit *lineEditW = parent()->findChild<MyLineEdit*>(lineEditNameW);
+				MyLineEdit *lineEditW = parent()->findChild<MyLineEdit *>(lineEditNameW);
 				if (lineEditW) lineEditW->setText(numbersStr[3]);
 			}
 			emit editingFinished();

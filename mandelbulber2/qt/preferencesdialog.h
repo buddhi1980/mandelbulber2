@@ -35,11 +35,12 @@
 #ifndef PREFERENCESDIALOG_H
 #define PREFERENCESDIALOG_H
 
-#include <QDialog>
 #include "../src/automated_widgets.hpp"
+#include <QDialog>
 
-namespace Ui {
-	class cPreferencesDialog;
+namespace Ui
+{
+class cPreferencesDialog;
 }
 
 class cPreferencesDialog : public QDialog
@@ -70,5 +71,3 @@ private:
 };
 
 #endif // PREFERENCESDIALOG_H
-
-

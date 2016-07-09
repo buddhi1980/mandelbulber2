@@ -33,11 +33,11 @@
  */
 
 #include "my_table_widget_anim.hpp"
-#include <QtCore>
-#include <QMenu>
+#include "../src/animation_flight.hpp"
 #include <QContextMenuEvent>
 #include <QHeaderView>
-#include "../src/animation_flight.hpp"
+#include <QMenu>
+#include <QtCore>
 
 MyTableWidgetAnim::MyTableWidgetAnim(QWidget *parent) : QTableWidget(parent)
 {
@@ -45,10 +45,12 @@ MyTableWidgetAnim::MyTableWidgetAnim(QWidget *parent) : QTableWidget(parent)
 	connect(this, SIGNAL(customContextMenuRequested(QPoint)), SLOT(tableContextMenuRequest(QPoint)));
 
 	horizontalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this->horizontalHeader(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(columnContextMenuRequest(QPoint)));
+	connect(this->horizontalHeader(), SIGNAL(customContextMenuRequested(QPoint)),
+		SLOT(columnContextMenuRequest(QPoint)));
 
 	verticalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this->verticalHeader(), SIGNAL(customContextMenuRequested(QPoint)), SLOT(rowContextMenuRequest(QPoint)));
+	connect(this->verticalHeader(), SIGNAL(customContextMenuRequested(QPoint)),
+		SLOT(rowContextMenuRequest(QPoint)));
 }
 
 MyTableWidgetAnim::~MyTableWidgetAnim()
@@ -66,13 +68,13 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point)
 	QAction *actionRender = NULL;
 	QAction *interpolateForward = NULL;
 
-	if(row == 0)
+	if (row == 0)
 	{
 		actionRender = menu->addAction(tr("Render this frame"));
 	}
 	else
 	{
-		if(column < columnCount() - 1 && column >=0)
+		if (column < columnCount() - 1 && column >= 0)
 		{
 			interpolateForward = menu->addAction(tr("Interpolate next frames"));
 		}
@@ -117,11 +119,11 @@ void MyTableWidgetAnim::columnContextMenuRequest(QPoint point)
 		{
 			gFlightAnimation->RenderFrame(column);
 		}
-		else if(selectedItem == actionDeleteFrom)
+		else if (selectedItem == actionDeleteFrom)
 		{
 			gFlightAnimation->DeleteFramesFrom(column);
 		}
-		else if(selectedItem == actionDeleteTo)
+		else if (selectedItem == actionDeleteTo)
 		{
 			gFlightAnimation->DeleteFramesTo(column);
 		}
@@ -136,7 +138,7 @@ void MyTableWidgetAnim::rowContextMenuRequest(QPoint point)
 
 	QMenu *menu = new QMenu;
 
-	if(row > 0)
+	if (row > 0)
 	{
 		QAction *actionDeleteParameter;
 

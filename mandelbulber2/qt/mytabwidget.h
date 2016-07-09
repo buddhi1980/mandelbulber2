@@ -35,9 +35,9 @@
 #ifndef MYTABWIDGET_HPP_
 #define MYTABWIDGET_HPP_
 
-#include <QtGui>
-#include <QtCore>
 #include <QTabWidget>
+#include <QtCore>
+#include <QtGui>
 
 class MyTabWidget : public QTabWidget
 {
@@ -52,7 +52,5 @@ signals:
 private slots:
 	// void slotDragDropChange();
 };
-
-
 
 #endif /* MYTABWIDGET_HPP_ */

@@ -35,11 +35,11 @@
 #ifndef MYLINEEDIT_HPP_
 #define MYLINEEDIT_HPP_
 
-#include <QtGui>
-#include <QtCore>
-#include <QLineEdit>
-#include "../src/parameters.hpp"
 #include "../qt/common_my_widget_wrapper.h"
+#include "../src/parameters.hpp"
+#include <QLineEdit>
+#include <QtCore>
+#include <QtGui>
 
 class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 {
@@ -72,7 +72,5 @@ private slots:
 	void slotPasteVector();
 	void slotResetVector();
 };
-
-
 
 #endif /* MYLINEEDIT_HPP_ */

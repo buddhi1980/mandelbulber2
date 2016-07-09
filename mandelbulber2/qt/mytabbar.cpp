@@ -33,32 +33,32 @@
  */
 
 #include "mytabbar.h"
-#include <QtWidgets/QtWidgets>
 #include "../qt/mycheckbox.h"
+#include <QtWidgets/QtWidgets>
 
-MyTabBar::MyTabBar(QWidget *parent) :	QTabBar(parent)
+MyTabBar::MyTabBar(QWidget *parent) : QTabBar(parent)
 {
 	// setMovable (true);
 }
 
 void MyTabBar::setupMoveButtons()
 {
-	for(int i = 0; i < count(); i++)
+	for (int i = 0; i < count(); i++)
 	{
 		QFrame *leftFrame = new QFrame(this);
 		QHBoxLayout *leftSide = new QHBoxLayout;
 		leftSide->setContentsMargins(0, 0, 0, 0);
 		leftSide->setSpacing(2);
 
-		MyCheckBox* chActive = new MyCheckBox(this);
+		MyCheckBox *chActive = new MyCheckBox(this);
 		chActive->setObjectName(QString("checkBox_fractal_enable_%1").arg(i + 1));
 		leftSide->addWidget(chActive);
 		connect(chActive, SIGNAL(stateChanged(int)), this, SLOT(slotToggleActive(int)));
 		chActive->setChecked(i == 0);
 
-		if(i > 0)
+		if (i > 0)
 		{
-			QToolButton* tbMoveLeft = new QToolButton(this);
+			QToolButton *tbMoveLeft = new QToolButton(this);
 			QIcon arrowLeft = this->style()->standardIcon(QStyle::SP_ArrowLeft);
 			tbMoveLeft->setIcon(arrowLeft);
 			tbMoveLeft->setIconSize(QSize(10, 10));
@@ -69,9 +69,9 @@ void MyTabBar::setupMoveButtons()
 		leftFrame->setLayout(leftSide);
 		setTabButton(i, QTabBar::LeftSide, leftFrame);
 
-		if(i < count() - 1)
+		if (i < count() - 1)
 		{
-			QToolButton* tbMoveRight = new QToolButton(this);
+			QToolButton *tbMoveRight = new QToolButton(this);
 			QIcon arrowRight = this->style()->standardIcon(QStyle::SP_ArrowRight);
 			tbMoveRight->setIcon(arrowRight);
 			tbMoveRight->setIconSize(QSize(10, 10));
@@ -86,7 +86,7 @@ void MyTabBar::slotMoveLeft()
 {
 	QString buttonName = this->sender()->objectName();
 	int index = buttonName.toInt();
-	if(index == 0) return;
+	if (index == 0) return;
 	emit swapTabs(index - 1, index);
 }
 
@@ -94,11 +94,12 @@ void MyTabBar::slotMoveRight()
 {
 	QString buttonName = this->sender()->objectName();
 	int index = buttonName.toInt();
-	if(index == count() - 1) return;
+	if (index == count() - 1) return;
 	emit swapTabs(index, index + 1);
 }
 
-void MyTabBar::slotToggleActive(int state){
+void MyTabBar::slotToggleActive(int state)
+{
 
 	QString buttonName = this->sender()->objectName();
 	int index = buttonName.right(1).toInt() - 1;

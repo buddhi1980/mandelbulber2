@@ -32,7 +32,6 @@
  * MyTableWidgetAnim class -  to display flight animation frames
  */
 
-
 #ifndef QT_MY_TABLE_WIDGET_ANIM_HPP_
 #define QT_MY_TABLE_WIDGET_ANIM_HPP_
 
@@ -47,8 +46,6 @@ public:
 	~MyTableWidgetAnim();
 
 private:
-
-
 public slots:
 	void tableContextMenuRequest(QPoint point);
 	void columnContextMenuRequest(QPoint point);

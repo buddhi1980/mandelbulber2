@@ -51,9 +51,9 @@ MyLogWidget::~MyLogWidget()
 	delete reInnerType;
 }
 
-void MyLogWidget::appendMessage(const QString& text)
+void MyLogWidget::appendMessage(const QString &text)
 {
-	if(!initializedFromLogFile)
+	if (!initializedFromLogFile)
 	{
 		this->initFromLogFile();
 		initializedFromLogFile = true;
@@ -77,23 +77,30 @@ void MyLogWidget::initFromLogFile()
 	this->ensureCursorVisible();
 }
 
-QString MyLogWidget::formatLine(const QString& text)
+QString MyLogWidget::formatLine(const QString &text)
 {
 	QRegularExpressionMatch match = reBasic->match(text);
 	if (match.hasMatch())
 	{
-		QString out = "<span style=\"color: grey;\">" + match.captured(1) + " <b>" + match.captured(2) + "</b></span>, "
-			+ "<span style=\"color: orange;\">" + match.captured(3) + " <b>" + match.captured(4) + "</b></span>, ";
+		QString out = "<span style=\"color: grey;\">" + match.captured(1) + " <b>" + match.captured(2)
+									+ "</b></span>, " + "<span style=\"color: orange;\">" + match.captured(3) + " <b>"
+									+ match.captured(4) + "</b></span>, ";
 		QRegularExpressionMatch matchType = reInnerType->match(match.captured(5));
 		if (matchType.hasMatch())
 		{
 			QString color = "";
-			if(matchType.captured(1) == "Debug") color = "green";
-			else if(matchType.captured(1) == "Warning") color = "orange";
-			else if(matchType.captured(1) == "Critical") color = "red";
-			else if(matchType.captured(1) == "Error") color = "red";
-			else if(matchType.captured(1) == "NetRender") color = "darkblue";
-			else if(matchType.captured(1) == "Gamepad") color = "purple";
+			if (matchType.captured(1) == "Debug")
+				color = "green";
+			else if (matchType.captured(1) == "Warning")
+				color = "orange";
+			else if (matchType.captured(1) == "Critical")
+				color = "red";
+			else if (matchType.captured(1) == "Error")
+				color = "red";
+			else if (matchType.captured(1) == "NetRender")
+				color = "darkblue";
+			else if (matchType.captured(1) == "Gamepad")
+				color = "purple";
 
 			out += color != "" ? "<span style=\"color: " + color + ";\">" : "<span>";
 			out += matchType.captured(1) + "<b>" + matchType.captured(2) + "</b></span>";

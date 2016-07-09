@@ -41,14 +41,15 @@
 
 #include "thumbnail_widget.h"
 
-class cMaterialWidget: public cThumbnailWidget
+class cMaterialWidget : public cThumbnailWidget
 {
 	Q_OBJECT
 public:
-  cMaterialWidget(QWidget *parent);
+	cMaterialWidget(QWidget *parent);
 	cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
-  ~cMaterialWidget();
-	void AssignMaterial(cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = NULL);
+	~cMaterialWidget();
+	void AssignMaterial(
+		cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = NULL);
 	void AssignMaterial(const QString &settings, int materialIndex);
 
 private:
@@ -82,9 +83,8 @@ public:
 	static int previewHeight;
 
 signals:
-  void materialChanged(int matIndex);
-  void clicked(Qt::MouseButton button);
-
+	void materialChanged(int matIndex);
+	void clicked(Qt::MouseButton button);
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_WIDGET_H_ */

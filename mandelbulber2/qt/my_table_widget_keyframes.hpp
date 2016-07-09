@@ -46,8 +46,6 @@ public:
 	~MyTableWidgetKeyframes();
 
 private:
-
-
 public slots:
 	void tableContextMenuRequest(QPoint point);
 	void columnContextMenuRequest(QPoint point);

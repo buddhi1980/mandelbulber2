@@ -35,12 +35,12 @@
 #ifndef MYDOUBLESPINBOX_HPP_
 #define MYDOUBLESPINBOX_HPP_
 
-#include <QtGui>
-#include <QtCore>
+#include "../qt/common_my_widget_wrapper.h"
+#include "../src/parameters.hpp"
 #include <QDoubleSpinBox>
 #include <QMenu>
-#include "../src/parameters.hpp"
-#include "../qt/common_my_widget_wrapper.h"
+#include <QtCore>
+#include <QtGui>
 
 class MyDoubleSpinBox : public QDoubleSpinBox, public CommonMyWidgetWrapper
 {
