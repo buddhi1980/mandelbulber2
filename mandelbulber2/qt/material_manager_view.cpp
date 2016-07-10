@@ -53,7 +53,6 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent)
 {
 	ui->setupUi(this);
 
-	// TODO Auto-generated constructor stub
 	itemView = new cMaterialItemView(this);
 	ui->verticalLayout->addWidget(itemView);
 	model = NULL;
@@ -69,7 +68,6 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent)
 
 cMaterialManagerView::~cMaterialManagerView()
 {
-	// TODO Auto-generated destructor stub
 }
 
 void cMaterialManagerView::SetModel(cMaterialItemModel *_model)

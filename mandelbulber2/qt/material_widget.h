@@ -66,7 +66,7 @@ private:
 	bool initialized;
 	bool dataAssigned;
 	double timeUpdateData;
-	double timeAssingData;
+	double timeAssignData;
 
 	virtual void mousePressEvent(QMouseEvent *event);
 

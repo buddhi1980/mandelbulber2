@@ -78,7 +78,7 @@ void cMaterialWidget::Init()
 	initialized = false;
 	dataAssigned = false;
 	timeUpdateData = 0;
-	timeAssingData = 0;
+	timeAssignData = 0;
 }
 
 cMaterialWidget::~cMaterialWidget()
@@ -144,12 +144,12 @@ void cMaterialWidget::InitializeData()
 		// maybe disable preview saving, to not pollute hard drive?
 		AssignParameters(params, fractal);
 		update();
-		timeAssingData = timer.nsecsElapsed() / 1e9;
+		timeAssignData = timer.nsecsElapsed() / 1e9;
 
 		if (materialEditorWidget)
 		{
-			int time = (timeUpdateData + timeAssingData + lastRenderTime) * 2000.0 + 1;
-			// qDebug() << timeAssingData << timeUpdateData << lastRenderTime << time;
+			int time = (timeUpdateData + timeAssignData + lastRenderTime) * 2000.0 + 1;
+			// qDebug() << timeAssignData << timeUpdateData << lastRenderTime << time;
 			timerPeriodicRefresh->start(time);
 		}
 		initialized = true;
@@ -172,7 +172,7 @@ void cMaterialWidget::slotPeriodicRender(void)
 	}
 	if (!timerPeriodicRefresh->isActive())
 	{
-		int time = (timeUpdateData + timeAssingData + lastRenderTime) * 2000.0 + 1;
+		int time = (timeUpdateData + timeAssignData + lastRenderTime) * 2000.0 + 1;
 		if (time > 10000) time = 10000;
 
 		timerPeriodicRefresh->start(time);

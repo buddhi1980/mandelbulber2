@@ -88,10 +88,6 @@ bool MyGroupBox::GetDefault()
 		int val = parameterContainer->GetDefault<int>(parameterName);
 		defaultValue = val;
 		gotDefault = true;
-
-		QString toolTipText = toolTip();
-		toolTipText += "\nParameter name: " + parameterName + "<br>";
-		toolTipText += "Default: " + ((defaultValue) ? QString("true") : QString("false"));
 		setToolTipText();
 	}
 	return defaultValue;

@@ -46,18 +46,9 @@ MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapp
 
 void MyLineEdit::paintEvent(QPaintEvent *event)
 {
-	if (text() != GetDefault())
-	{
-		QFont f = font();
-		f.setBold(true);
-		setFont(f);
-	}
-	else
-	{
-		QFont f = font();
-		f.setBold(false);
-		setFont(f);
-	}
+	QFont f = font();
+	f.setBold(text() != GetDefault());
+	setFont(f);
 	QLineEdit::paintEvent(event);
 }
 

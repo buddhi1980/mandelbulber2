@@ -39,18 +39,9 @@
 
 void MyDoubleSpinBox::paintEvent(QPaintEvent *event)
 {
-	if (value() != GetDefault())
-	{
-		QFont f = font();
-		f.setBold(true);
-		setFont(f);
-	}
-	else
-	{
-		QFont f = font();
-		f.setBold(false);
-		setFont(f);
-	}
+	QFont f = font();
+	f.setBold(value() != GetDefault());
+	setFont(f);
 	QDoubleSpinBox::paintEvent(event);
 }
 

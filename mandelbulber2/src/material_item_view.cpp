@@ -31,7 +31,6 @@ cMaterialItemView::cMaterialItemView(QWidget *parent) :
 
 cMaterialItemView::~cMaterialItemView()
 {
-	// TODO Auto-generated destructor stub
 }
 
 QModelIndex cMaterialItemView::indexAt(const QPoint& point) const

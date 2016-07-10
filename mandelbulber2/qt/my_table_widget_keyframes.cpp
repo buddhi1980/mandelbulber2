@@ -214,13 +214,13 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 	}
 	else
 	{
-		QAction *actionRefresThumbnails = menu->addAction(tr("Refresh all thumbnails"));
+		QAction *actionRefreshThumbnails = menu->addAction(tr("Refresh all thumbnails"));
 
 		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
 
 		if (selectedItem)
 		{
-			if (selectedItem == actionRefresThumbnails)
+			if (selectedItem == actionRefreshThumbnails)
 			{
 				gKeyframeAnimation->RefreshTable();
 			}

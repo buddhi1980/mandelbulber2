@@ -17,7 +17,6 @@ cMaterialItemModel::cMaterialItemModel(QObject *parent) : QAbstractListModel(par
 
 cMaterialItemModel::~cMaterialItemModel()
 {
-	// TODO Auto-generated destructor stub
 }
 
 void cMaterialItemModel::AssignContainer(cParameterContainer *_parameterContainer)

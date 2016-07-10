@@ -32,7 +32,7 @@
  * CommonMyWidgetWrapper - contains context menu and common widget functionality
  *
  * this class contains all common functionality needed for custom widgets, including:
- * contextmenu:   creation and result handling
+ * contextMenu:   creation and result handling
  * assignment:    assignment of parameterContainer / parameterName
  * toolTipText:   puts additional info to tooltip
  * In order to use this class inherit it and override the pure virtual methods
@@ -89,9 +89,9 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *ex
 		}
 		else
 		{
-			actionnRemoveFromKeyframeAnimation = menu->addAction(
+			actionRemoveFromKeyframeAnimation = menu->addAction(
 				QCoreApplication::translate("CommonMyWidgetWrapper", "Remove from keyframe animation"));
-			actionnRemoveFromKeyframeAnimation->setIcon(iconDelete);
+			actionRemoveFromKeyframeAnimation->setIcon(iconDelete);
 		}
 
 		QAction *selectedItem = menu->exec(event->globalPos());
@@ -119,7 +119,7 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *ex
 					getFullParameterName(), parameterContainer->GetAsOneParameter(getFullParameterName()));
 				gKeyframeAnimation->RefreshTable();
 			}
-			else if (selectedItem == actionnRemoveFromKeyframeAnimation)
+			else if (selectedItem == actionRemoveFromKeyframeAnimation)
 			{
 				gKeyframes->RemoveAnimatedParameter(
 					parameterContainer->GetContainerName() + "_" + getFullParameterName());

@@ -79,7 +79,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				{
 					MyLineEdit *mylineedit = (MyLineEdit *)*it;
 					mylineedit->AssignParameterContainer(par);
-					mylineedit->AssingParameterName(parameterName);
+					mylineedit->AssignParameterName(parameterName);
 				}
 
 				//----- get vectors ------------
@@ -243,7 +243,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				{
 					MyDoubleSpinBox *mydoublespinbox = (MyDoubleSpinBox *)*it;
 					mydoublespinbox->AssignParameterContainer(par);
-					mydoublespinbox->AssingParameterName(parameterName);
+					mydoublespinbox->AssignParameterName(parameterName);
 				}
 
 				if (type == QString("spinbox") || type == QString("spinboxd"))
@@ -379,7 +379,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				{
 					MySpinBox *myspinbox = (MySpinBox *)*it;
 					myspinbox->AssignParameterContainer(par);
-					myspinbox->AssingParameterName(parameterName);
+					myspinbox->AssignParameterName(parameterName);
 				}
 
 				if (type == QString("spinboxInt"))
@@ -422,7 +422,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				{
 					MyCheckBox *mycheckbox = (MyCheckBox *)*it;
 					mycheckbox->AssignParameterContainer(par);
-					mycheckbox->AssingParameterName(parameterName);
+					mycheckbox->AssignParameterName(parameterName);
 				}
 
 				if (type == QString("checkBox"))
@@ -465,7 +465,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				{
 					MyGroupBox *mygroupbox = (MyGroupBox *)*it;
 					mygroupbox->AssignParameterContainer(par);
-					mygroupbox->AssingParameterName(parameterName);
+					mygroupbox->AssignParameterName(parameterName);
 				}
 
 				if (type == QString("groupCheck"))
@@ -501,7 +501,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				FileSelectWidget *fileSelectWidget = *it;
 				fileSelectWidget->AssignParameterContainer(par);
-				fileSelectWidget->AssingParameterName(parameterName);
+				fileSelectWidget->AssignParameterName(parameterName);
 
 				if (mode == read)
 				{
@@ -531,7 +531,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				MyColorButton *colorButton = *it;
 				colorButton->AssignParameterContainer(par);
-				colorButton->AssingParameterName(parameterName);
+				colorButton->AssignParameterName(parameterName);
 
 				if (mode == read)
 				{
@@ -565,7 +565,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				GetNameAndType(name, &parameterName, &type);
 
 				colorPaletteWidget->AssignParameterContainer(par);
-				colorPaletteWidget->AssingParameterName(parameterName);
+				colorPaletteWidget->AssignParameterName(parameterName);
 
 				if (type == QString("colorpalette"))
 				{
@@ -650,7 +650,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				cMaterialSelector *materialSelector = *it;
 				materialSelector->AssignParameterContainer(par);
-				materialSelector->AssingParameterName(parameterName);
+				materialSelector->AssignParameterName(parameterName);
 
 				if (type == QString("materialselector"))
 				{

@@ -32,7 +32,7 @@
  * CommonMyWidgetWrapper - contains context menu and common widget functionality
  *
  * this class contains all common functionality needed for custom widgets, including:
- * contextmenu:   creation and result handling
+ * contextMenu:   creation and result handling
  * assignment:    assignment of parameterContainer / parameterName
  * toolTipText:   puts additional info to tooltip
  * In order to use this class inherit it and override the pure virtual methods
@@ -57,21 +57,21 @@ public:
 		actionAddToFlightAnimation = NULL;
 		actionRemoveFromFlightAnimation = NULL;
 		actionAddToKeyframeAnimation = NULL;
-		actionnRemoveFromKeyframeAnimation = NULL;
+		actionRemoveFromKeyframeAnimation = NULL;
 		parameterContainer = NULL;
 		gotDefault = false;
 		widget = referenceWidget;
 	};
 
 	void AssignParameterContainer(cParameterContainer *container) { parameterContainer = container; }
-	void AssingParameterName(QString name) { parameterName = name; }
+	void AssignParameterName(QString name) { parameterName = name; }
 
 private:
 	QAction *actionResetToDefault;
 	QAction *actionAddToFlightAnimation;
 	QAction *actionRemoveFromFlightAnimation;
 	QAction *actionAddToKeyframeAnimation;
-	QAction *actionnRemoveFromKeyframeAnimation;
+	QAction *actionRemoveFromKeyframeAnimation;
 
 protected:
 	cParameterContainer *parameterContainer;
