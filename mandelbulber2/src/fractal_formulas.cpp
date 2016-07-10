@@ -3037,7 +3037,7 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
     z.z = fabs(z.z);
 		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale; // default 1
     t = max(0.0, dot1);
-		z.x -= t * -SQRT_3;
+    z.x -= t * -SQRT_3;
     z.y = fabs(z.y - t);
 
     if(z.y > z.z)
@@ -3046,7 +3046,7 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
       z.y = z.z;
       z.z = temp;
     }
-		z -= gap * CVector3( SQRT_3_4, 1.5, 1.5);
+    z -= gap * CVector3( SQRT_3_4, 1.5, 1.5);
     // z was pos, now some points neg (ie neg shift)
     if(z.z > z.x)
     {
@@ -4858,6 +4858,8 @@ void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
 
 	if (fractal->transformCommon.functionEnabledz)
 		z.z = fabs(z.z);
+
+  z += fractal->transformCommon.offsetA000;
 }
 
 /**
