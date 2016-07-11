@@ -32,7 +32,7 @@
  * MyHistogramLabel class - promoted QLabel widget for displaying histogram data
  */
 
-#include "myhistogramlabel.h"
+#include "my_histogram_label.h"
 #include <QLabel>
 #include <algorithm>
 using std::max;

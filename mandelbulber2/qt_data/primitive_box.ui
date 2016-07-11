@@ -469,12 +469,12 @@
   <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>mylineedit.h</header>
+   <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>mydoublespinbox.h</header>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>cMaterialSelector</class>
@@ -485,7 +485,7 @@
   <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
-   <header>mycheckbox.h</header>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

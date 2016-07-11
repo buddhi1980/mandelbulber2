@@ -27,53 +27,50 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Sebastian Jennen
  *
- * MySpinBox class - promoted QSpinBox widget with context menu
+ * MyCheckBox class - promoted QCheckBox widget with context menu
  */
 
-#include "myspinbox.h"
-#include "../src/animation_flight.hpp"
-#include "../src/animation_keyframes.hpp"
-#include <QMenu>
+#include "my_check_box.h"
 
-void MySpinBox::resetToDefault()
+void MyCheckBox::resetToDefault()
 {
-	setValue(defaultValue);
-	emit valueChanged(defaultValue);
+	setChecked(defaultValue);
+	emit stateChanged(defaultValue);
 }
 
-QString MySpinBox::getDefaultAsString()
+void MyCheckBox::paintEvent(QPaintEvent *event)
 {
-	return QString::number(defaultValue);
+	QFont f = font();
+	// set bold, if current checked state is non default
+	f.setBold(isChecked() != GetDefault());
+	setFont(f);
+	QCheckBox::paintEvent(event);
 }
 
-QString MySpinBox::getFullParameterName()
+QString MyCheckBox::getDefaultAsString()
+{
+	return defaultValue ? "true" : "false";
+}
+
+QString MyCheckBox::getFullParameterName()
 {
 	return parameterName;
 }
 
-void MySpinBox::contextMenuEvent(QContextMenuEvent *event)
-{
-	CommonMyWidgetWrapper::contextMenuEvent(event, lineEdit()->createStandardContextMenu());
-}
-
-void MySpinBox::paintEvent(QPaintEvent *event)
-{
-	QFont f = font();
-	f.setBold(value() != GetDefault());
-	setFont(f);
-	QSpinBox::paintEvent(event);
-}
-
-int MySpinBox::GetDefault()
+bool MyCheckBox::GetDefault()
 {
 	if (parameterContainer && !gotDefault)
 	{
-		int val = parameterContainer->GetDefault<int>(parameterName);
-		defaultValue = val;
+		defaultValue = parameterContainer->GetDefault<bool>(parameterName);
 		gotDefault = true;
 		setToolTipText();
 	}
 	return defaultValue;
+}
+
+void MyCheckBox::contextMenuEvent(QContextMenuEvent *event)
+{
+	CommonMyWidgetWrapper::contextMenuEvent(event);
 }

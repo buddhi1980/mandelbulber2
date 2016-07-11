@@ -832,18 +832,18 @@
   <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>mydoublespinbox.h</header>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>mygroupbox.h</header>
+   <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>mylineedit.h</header>
+   <header>my_line_edit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

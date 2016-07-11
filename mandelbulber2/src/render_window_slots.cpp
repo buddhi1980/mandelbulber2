@@ -25,7 +25,7 @@
 #include "my_ui_loader.h"
 #include "initparameters.hpp"
 #include "settings.hpp"
-#include "../qt/preferencesdialog.h"
+#include "../qt/preferences_dialog.h"
 #include "../qt/voxel_export_dialog.h"
 #include "interface.hpp"
 #include "error_message.hpp"

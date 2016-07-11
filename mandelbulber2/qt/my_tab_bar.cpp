@@ -32,8 +32,8 @@
  * MyTabBar - promoted QTabBar widget with swap tabs functionality
  */
 
-#include "mytabbar.h"
-#include "../qt/mycheckbox.h"
+#include "my_tab_bar.h"
+#include "my_check_box.h"
 #include <QtWidgets/QtWidgets>
 
 MyTabBar::MyTabBar(QWidget *parent) : QTabBar(parent)

@@ -36,7 +36,7 @@
 #include "undo.h"
 #include "global_data.hpp"
 #include "settings.hpp"
-#include "../qt/mytabbar.h"
+#include "../qt/my_tab_bar.h"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "projection_3d.hpp"

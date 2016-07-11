@@ -32,14 +32,14 @@
  * cPreferencesDialog - dialog to configure program wide settings and program maintaining
  */
 
-#include "preferencesdialog.h"
+#include "preferences_dialog.h"
 #include "../src/file_downloader.hpp"
 #include "../src/global_data.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/settings.hpp"
 #include "../src/system.hpp"
-#include "ui_preferencesdialog.h"
+#include "ui_preferences_dialog.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QtCore>

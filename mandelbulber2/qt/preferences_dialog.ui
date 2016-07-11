@@ -800,12 +800,12 @@ and will only be present after enabling and re-render.</string>
   <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>mylineedit.h</header>
+   <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
-   <header>myspinbox.h</header>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources>

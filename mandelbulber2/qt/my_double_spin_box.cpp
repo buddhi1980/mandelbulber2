@@ -29,87 +29,77 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * MyGroupBox class - promoted MyGroupBox widget with context menu
+ * MyDoubleSpinBox class - promoted QDoubleSpinBox widget with context menu
  */
 
-#include "mygroupbox.h"
+#include "my_double_spin_box.h"
 #include "../src/animation_flight.hpp"
 #include "../src/animation_keyframes.hpp"
 #include <QLineEdit>
 
-MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapper(this)
+void MyDoubleSpinBox::paintEvent(QPaintEvent *event)
 {
-	defaultValue = 0;
-	firstDisplay = true;
-	connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
+	QFont f = font();
+	f.setBold(value() != GetDefault());
+	setFont(f);
+	QDoubleSpinBox::paintEvent(event);
 }
 
-void MyGroupBox::resetToDefault()
-{
-	setChecked(defaultValue);
-	emit toggled(defaultValue);
-}
-
-QString MyGroupBox::getDefaultAsString()
-{
-	return defaultValue ? "true" : "false";
-}
-
-QString MyGroupBox::getFullParameterName()
-{
-	return parameterName;
-}
-
-void MyGroupBox::paintEvent(QPaintEvent *event)
-{
-	if (firstDisplay)
-	{
-		originalText = title();
-		firstDisplay = false;
-	}
-	QString displayTitle = originalText;
-	if (!isChecked())
-	{
-		displayTitle += " ... ";
-	}
-
-	if (isChecked() != GetDefault())
-	{
-		displayTitle += " *";
-	}
-	setTitle(displayTitle);
-	QGroupBox::paintEvent(event);
-}
-
-bool MyGroupBox::GetDefault()
+double MyDoubleSpinBox::GetDefault()
 {
 	if (parameterContainer && !gotDefault)
 	{
-		int val = parameterContainer->GetDefault<int>(parameterName);
-		defaultValue = val;
-		gotDefault = true;
-		setToolTipText();
+		QString type = GetType(objectName());
+		if (type == QString("spinbox3") || type == QString("spinboxd3"))
+		{
+			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
+			QString nameVect = parameterName.left(parameterName.length() - 2);
+			CVector3 val = parameterContainer->GetDefault<CVector3>(nameVect);
+			defaultValue = val.itemByName(lastChar);
+			gotDefault = true;
+			setToolTipText();
+		}
+		else if (type == QString("spinbox4") || type == QString("spinboxd4"))
+		{
+			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
+			QString nameVect = parameterName.left(parameterName.length() - 2);
+			CVector4 val = parameterContainer->GetDefault<CVector4>(nameVect);
+			defaultValue = val.itemByName(lastChar);
+			gotDefault = true;
+			setToolTipText();
+		}
+		else
+		{
+			defaultValue = parameterContainer->GetDefault<double>(parameterName);
+			gotDefault = true;
+			setToolTipText();
+		}
 	}
 	return defaultValue;
 }
 
-void MyGroupBox::slotToggled(bool on)
+void MyDoubleSpinBox::resetToDefault()
 {
-	QList<QWidget *> list = this->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
-	for (int i = 0; i < list.size(); ++i)
-	{
-		if (on)
-		{
-			list[i]->show();
-		}
-		else
-		{
-			list[i]->hide();
-		}
-	}
+	setValue(defaultValue);
+	emit valueChanged(defaultValue);
 }
 
-void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
+QString MyDoubleSpinBox::getDefaultAsString()
 {
-	CommonMyWidgetWrapper::contextMenuEvent(event);
+	return QString("%L1").arg(defaultValue, 0, 'g', 16);
+}
+
+QString MyDoubleSpinBox::getFullParameterName()
+{
+	QString parName = parameterName;
+	QString type = GetType(objectName());
+	if (type == QString("spinbox3") || type == QString("spinboxd3") || type == QString("spinbox4")
+			|| type == QString("spinboxd4"))
+		parName = parameterName.left(parameterName.length() - 2);
+	return parName;
+}
+
+void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
+{
+	CommonMyWidgetWrapper::contextMenuEvent(event, lineEdit()->createStandardContextMenu());
 }

@@ -35,7 +35,7 @@
  * The lines get parsed with regex and displayed auto-highlighted.
  */
 
-#include "mylogwidget.h"
+#include "my_log_widget.h"
 
 MyLogWidget::MyLogWidget(QWidget *parent) : QPlainTextEdit(parent)
 {

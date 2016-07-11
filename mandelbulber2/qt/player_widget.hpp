@@ -37,7 +37,7 @@
 #ifndef PLAYERWIDGET_H
 #define PLAYERWIDGET_H
 
-#include "mydoublespinbox.h"
+#include "my_double_spin_box.h"
 #include <QTimer>
 #include <QWidget>
 #include <QtWidgets>

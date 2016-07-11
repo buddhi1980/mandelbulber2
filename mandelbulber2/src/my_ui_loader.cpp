@@ -21,12 +21,12 @@
  */
 
 #include "my_ui_loader.h"
-#include "../qt/mylineedit.h"
-#include "../qt/myspinbox.h"
-#include "../qt/mydoublespinbox.h"
-#include "../qt/mycheckbox.h"
-#include "../qt/mygroupbox.h"
-#include "../qt/mycolorbutton.h"
+#include "../qt/my_line_edit.h"
+#include "../qt/my_spin_box.h"
+#include "../qt/my_double_spin_box.h"
+#include "../qt/my_check_box.h"
+#include "../qt/my_group_box.h"
+#include "../qt/my_color_button.h"
 #include "../qt/file_select_widget.h"
 #include "../qt/material_selector.h"
 

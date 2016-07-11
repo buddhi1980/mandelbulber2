@@ -3555,18 +3555,18 @@
   <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>mydoublespinbox.h</header>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>mygroupbox.h</header>
+   <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
-   <header>myspinbox.h</header>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -32,7 +32,7 @@
  * MyColorButton class - promoted QPushButton widget with context menu
  */
 
-#include "mycolorbutton.h"
+#include "my_color_button.h"
 #include "../src/animation_flight.hpp"
 
 MyColorButton::MyColorButton(QWidget *parent) : QPushButton(parent), CommonMyWidgetWrapper(this)

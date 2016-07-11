@@ -32,7 +32,7 @@
  * MyLineEdit class - promoted MyLineEdit widget with context menu
  */
 
-#include "mylineedit.h"
+#include "my_line_edit.h"
 #include "../src/animation_flight.hpp"
 #include "../src/animation_keyframes.hpp"
 #include <QMenu>

@@ -32,8 +32,8 @@
  * MyTabWidget - promoted QTabWidget with swap tabs functionality
  */
 
-#include "mytabwidget.h"
-#include "mytabbar.h"
+#include "my_tab_widget.h"
+#include "my_tab_bar.h"
 #include <QPushButton>
 
 MyTabWidget::MyTabWidget(QWidget *parent) : QTabWidget(parent)
