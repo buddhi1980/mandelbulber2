@@ -1,34 +1,44 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * PreviewFileDialog class - extension of QFileDialog class. Added preview display
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * PreviewFileDialog - promoted QFileDialog for selection of fractal settings with a preview
  */
 
 #include "preview_file_dialog.h"
-#include <QGridLayout>
-#include "interface.hpp"
-#include "queue.hpp"
-#include "settings.hpp"
-#include "initparameters.hpp"
+#include "../src/initparameters.hpp"
+#include "../src/interface.hpp"
+#include "../src/queue.hpp"
+#include "../src/settings.hpp"
 
-PreviewFileDialog::PreviewFileDialog(QWidget *parent) :
-		QFileDialog(parent)
+PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {
 	setOption(QFileDialog::DontUseNativeDialog);
 
@@ -68,21 +78,17 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) :
 	thumbWidget->show();
 	vboxlayout->addStretch();
 
-	//add to existing layout
-	QGridLayout *gridlayout = (QGridLayout*) this->layout();
-	gridlayout->addLayout(vboxlayout, 1, 3, 3, 1);
+	// add to existing layout
+	QGridLayout *gridLayout = (QGridLayout *)this->layout();
+	gridLayout->addLayout(vboxlayout, 1, 3, 3, 1);
 
-	connect(this,
-					SIGNAL(currentChanged(const QString&)),
-					this,
-					SLOT(OnCurrentChanged(const QString&)));
+	connect(
+		this, SIGNAL(currentChanged(const QString &)), this, SLOT(OnCurrentChanged(const QString &)));
 	connect(presetAddButton, SIGNAL(clicked()), this, SLOT(OnPresetAdd()));
 	connect(queueAddButton, SIGNAL(clicked()), this, SLOT(OnQueueAdd()));
 	connect(thumbWidget, SIGNAL(thumbnailRendered()), this, SLOT(slotHideProgressBar()));
-	connect(thumbWidget,
-					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-					this,
-					SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	connect(thumbWidget, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+		this, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 }
 
 PreviewFileDialog::~PreviewFileDialog()
@@ -106,7 +112,7 @@ void PreviewFileDialog::OnQueueAdd()
 	gQueue->Append(filename, cQueue::queue_STILL);
 }
 
-void PreviewFileDialog::OnCurrentChanged(const QString & _filename)
+void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 {
 	filename = _filename;
 	QPixmap pixmap;
@@ -158,15 +164,15 @@ void PreviewFileDialog::OnCurrentChanged(const QString & _filename)
 		else
 		{
 			preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-			QString text = QString::number(pixmap.width()) + QString(" x ")
-					+ QString::number(pixmap.height());
+			QString text =
+				QString::number(pixmap.width()) + QString(" x ") + QString::number(pixmap.height());
 			info->setText(text);
 		}
 	}
 }
 
-void PreviewFileDialog::slotUpdateProgressAndStatus(const QString &text,
-		const QString &progressText, double progress)
+void PreviewFileDialog::slotUpdateProgressAndStatus(
+	const QString &text, const QString &progressText, double progress)
 {
 	info->setText(text);
 	if (!progressBar->isVisible()) progressBar->setVisible(true);

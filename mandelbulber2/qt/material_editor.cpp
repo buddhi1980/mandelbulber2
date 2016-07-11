@@ -39,7 +39,7 @@
 #include "../src/common_math.h"
 #include "../src/fractal_coloring.hpp"
 #include "../src/material.h"
-#include "../src/preview_file_dialog.h"
+#include "preview_file_dialog.h"
 #include "../src/synchronize_interface.hpp"
 #include "../src/system.hpp"
 

@@ -1,32 +1,43 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * widget to display video of animation render
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
+ *
+ * PlayerWidget - promoted QWidget to display video of image sequence from folder
+ * The folder can be assigned with SetFilePath(). The widget will play the image
+ * sequence inside the folder with simple player functionality.
  */
 
 #include "player_widget.hpp"
-#include "system.hpp"
-#include "global_data.hpp"
-#include "initparameters.hpp"
+#include "../src/initparameters.hpp"
 
-PlayerWidget::PlayerWidget(QWidget *parent) :
-		QWidget(parent)
+PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 {
 	infoLabel = new QLabel;
 	imageLabel = new QLabel;
@@ -67,21 +78,19 @@ PlayerWidget::PlayerWidget(QWidget *parent) :
 	layout->setStretch(0, 1);
 	setLayout(layout);
 
-//	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
-//	QStringList imageFileExtensions;
-//	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
-//	imageDir.setNameFilters(imageFileExtensions);
-//	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+	//	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
+	//	QStringList imageFileExtensions;
+	//	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
+	//	imageDir.setNameFilters(imageFileExtensions);
+	//	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
 	connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
 	connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
 	connect(stopButton, SIGNAL(clicked()), this, SLOT(stop()));
 	connect(playTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
 	connect(fpsSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setFPS(double)));
-	QApplication::connect(&imageFolderWatcher,
-												SIGNAL(directoryChanged(const QString&)),
-												this,
-												SLOT(updateFromFolder()));
+	QApplication::connect(
+		&imageFolderWatcher, SIGNAL(directoryChanged(const QString &)), this, SLOT(updateFromFolder()));
 }
 
 PlayerWidget::~PlayerWidget()
@@ -99,7 +108,7 @@ void PlayerWidget::SetFilePath(QString filePath)
 		dirPath.truncate(dirPath.length() - 1);
 	}
 	QStringList oldWatchedDirs = imageFolderWatcher.directories();
-	if(oldWatchedDirs.size() > 0) imageFolderWatcher.removePaths(oldWatchedDirs);
+	if (oldWatchedDirs.size() > 0) imageFolderWatcher.removePaths(oldWatchedDirs);
 	imageFolderWatcher.addPath(dirPath);
 	updateFromFolder();
 }
@@ -108,7 +117,10 @@ void PlayerWidget::updateFromFolder()
 {
 	QDir imageDir = QDir(dirPath);
 	QStringList imageFileExtensions;
-	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png" << "*.tiff";
+	imageFileExtensions << "*.jpg"
+											<< "*.jpeg"
+											<< "*.png"
+											<< "*.tiff";
 	imageDir.setNameFilters(imageFileExtensions);
 	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
@@ -164,7 +176,7 @@ void PlayerWidget::setPosition(int position)
 
 void PlayerWidget::updateFrame()
 {
-	if (!gPar) //FIXME it works, but it's ugly solution
+	if (!gPar) // FIXME it works, but it's ugly solution
 	{
 		close();
 		return;
@@ -181,13 +193,13 @@ void PlayerWidget::updateFrame()
 	if ((1.0 * imageLabel->width() / imageLabel->height()) > (1.0 * pix.width() / pix.height()))
 	{
 		// imageLabel is relative wider than pix
-		imageLabel->setPixmap(pix.scaled((imageLabel->height() * pix.width() / pix.height()),
-																		 imageLabel->height()));
+		imageLabel->setPixmap(
+			pix.scaled((imageLabel->height() * pix.width() / pix.height()), imageLabel->height()));
 	}
 	else
 	{
-		imageLabel->setPixmap(pix.scaled(imageLabel->width(),
-																		 (imageLabel->width() * pix.height() / pix.width())));
+		imageLabel->setPixmap(
+			pix.scaled(imageLabel->width(), (imageLabel->width() * pix.height() / pix.width())));
 	}
 }
 
@@ -196,14 +208,14 @@ void PlayerWidget::setFPS(double fps)
 	playTimer->setInterval(1000.0 / fps);
 }
 
-void PlayerWidget::closeEvent(QCloseEvent * event)
+void PlayerWidget::closeEvent(QCloseEvent *event)
 {
 	event->accept();
 	stop();
 	close();
 }
 
-void PlayerWidget::resizeEvent(QResizeEvent * event)
+void PlayerWidget::resizeEvent(QResizeEvent *event)
 {
 	QWidget::resizeEvent(event);
 	updateFrame();
