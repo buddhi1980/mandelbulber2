@@ -33,8 +33,8 @@
  * showing the selected file in a MyLineEdit and opening the QFileDialog by pressing the QPushButton
  */
 
-#ifndef MANDELBULBER2_QT_FILE_SELECT_WIDGET_WIDGET_H_
-#define MANDELBULBER2_QT_FILE_SELECT_WIDGET_WIDGET_H_
+#ifndef MANDELBULBER2_QT_FILE_SELECT_WIDGET_H_
+#define MANDELBULBER2_QT_FILE_SELECT_WIDGET_H_
 
 #include "../qt/common_my_widget_wrapper.h"
 #include "../src/parameters.hpp"
@@ -77,4 +77,4 @@ protected:
 	void paintEvent(QPaintEvent *event);
 };
 
-#endif /* MANDELBULBER2_QT_FILE_SELECT_WIDGET_WIDGET_H_ */
+#endif /* MANDELBULBER2_QT_FILE_SELECT_WIDGET_H_ */

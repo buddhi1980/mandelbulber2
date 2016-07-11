@@ -34,8 +34,8 @@
  * sequence inside the folder with simple player functionality.
  */
 
-#ifndef PLAYERWIDGET_H
-#define PLAYERWIDGET_H
+#ifndef MANDELBULBER2_QT_PLAYER_WIDGET_HPP_
+#define MANDELBULBER2_QT_PLAYER_WIDGET_HPP_
 
 #include "my_double_spin_box.h"
 #include <QTimer>
@@ -81,4 +81,4 @@ protected:
 	void resizeEvent(QResizeEvent *event);
 };
 
-#endif
+#endif /* MANDELBULBER2_QT_PLAYER_WIDGET_HPP_ */

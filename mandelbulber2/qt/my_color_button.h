@@ -32,8 +32,8 @@
  * MyColorButton class - promoted QPushButton widget with context menu
  */
 
-#ifndef MYCOLORBUTTON_HPP_
-#define MYCOLORBUTTON_HPP_
+#ifndef MANDELBULBER2_QT_MY_COLOR_BUTTON_H_
+#define MANDELBULBER2_QT_MY_COLOR_BUTTON_H_
 
 #include "../qt/common_my_widget_wrapper.h"
 #include "../src/parameters.hpp"
@@ -79,4 +79,4 @@ signals:
 	void valueChanged();
 };
 
-#endif /* MYCOLORBUTTON_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_COLOR_BUTTON_H_ */

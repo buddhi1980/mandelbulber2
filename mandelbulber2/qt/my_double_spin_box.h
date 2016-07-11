@@ -32,8 +32,8 @@
  * MyDoubleSpinBox class - promoted QDoubleSpinBox widget with context menu
  */
 
-#ifndef MYDOUBLESPINBOX_HPP_
-#define MYDOUBLESPINBOX_HPP_
+#ifndef MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_
+#define MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_
 
 #include "../qt/common_my_widget_wrapper.h"
 #include "../src/parameters.hpp"
@@ -65,4 +65,4 @@ protected:
 	void paintEvent(QPaintEvent *event);
 };
 
-#endif /* MYDOUBLESPINBOX_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_ */

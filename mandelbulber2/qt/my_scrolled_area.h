@@ -32,8 +32,8 @@
  * MyScrolledArea class - promoted QScrollArea widget with custom resize event
  */
 
-#ifndef MYSCROLLEDAREA_HPP_
-#define MYSCROLLEDAREA_HPP_
+#ifndef MANDELBULBER2_QT_MY_SCROLLED_AREA_H_
+#define MANDELBULBER2_QT_MY_SCROLLED_AREA_H_
 
 #include <QScrollArea>
 #include <QScrollBar>
@@ -70,4 +70,4 @@ signals:
 	void resized(const int &newWidth, const int &newHeight);
 };
 
-#endif /* MYSCROLLEDAREA_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_SCROLLED_AREA_H_ */

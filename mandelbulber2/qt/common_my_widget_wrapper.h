@@ -39,8 +39,8 @@
  * See also example mycheckbox.*
  */
 
-#ifndef COMMON_MY_WIDGET_WRAPPER_HPP_
-#define COMMON_MY_WIDGET_WRAPPER_HPP_
+#ifndef MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_
+#define MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_
 
 #include "../src/parameters.hpp"
 #include <QMenu>
@@ -91,4 +91,4 @@ protected:
 	virtual QString getFullParameterName() = 0;
 };
 
-#endif /* COMMON_MY_WIDGET_WRAPPER_HPP_ */
+#endif /* MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_ */

@@ -32,8 +32,8 @@
  * MyGroupBox class - promoted MyGroupBox widget with context menu
  */
 
-#ifndef MYGROUPBOX_HPP_
-#define MYGROUPBOX_HPP_
+#ifndef MANDELBULBER2_QT_MY_GROUP_BOX_H_
+#define MANDELBULBER2_QT_MY_GROUP_BOX_H_
 
 #include "../qt/common_my_widget_wrapper.h"
 #include "../src/parameters.hpp"
@@ -67,4 +67,4 @@ protected:
 	void paintEvent(QPaintEvent *event);
 };
 
-#endif /* MYGROUPBOX_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_GROUP_BOX_H_ */

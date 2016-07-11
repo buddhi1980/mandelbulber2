@@ -32,8 +32,8 @@
  * ColorPaletteWidget class - promoted QWidget for displaying color palette
  */
 
-#ifndef COLOR_PALETTE_WIDGET_H_
-#define COLOR_PALETTE_WIDGET_H_
+#ifndef MANDELBULBER2_QT_COLOR_PALETTE_WIDGET_H_
+#define MANDELBULBER2_QT_COLOR_PALETTE_WIDGET_H_
 
 #include "../qt/common_my_widget_wrapper.h"
 #include "../src/color_palette.hpp"
@@ -73,4 +73,4 @@ protected:
 	void contextMenuEvent(QContextMenuEvent *event);
 };
 
-#endif /* COLOR_PALETTE_H_ */
+#endif /* MANDELBULBER2_QT_COLOR_PALETTE_WIDGET_H_ */

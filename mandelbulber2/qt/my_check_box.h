@@ -32,8 +32,8 @@
  * MyCheckBox class - promoted QCheckBox widget with context menu
  */
 
-#ifndef MYCHECKBOX_HPP_
-#define MYCHECKBOX_HPP_
+#ifndef MANDELBULBER2_QT_MY_CHECK_BOX_H_
+#define MANDELBULBER2_QT_MY_CHECK_BOX_H_
 
 #include "../qt/common_my_widget_wrapper.h"
 #include "../src/parameters.hpp"
@@ -66,4 +66,4 @@ private:
 	bool defaultValue;
 };
 
-#endif /* MYCHECKBOX_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_CHECK_BOX_H_ */

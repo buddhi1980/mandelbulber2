@@ -32,8 +32,8 @@
  * MyTabBar - promoted QTabBar widget with swap tabs functionality
  */
 
-#ifndef MYTABBAR_HPP_
-#define MYTABBAR_HPP_
+#ifndef MANDELBULBER2_QT_MY_TAB_BAR_H_
+#define MANDELBULBER2_QT_MY_TAB_BAR_H_
 
 #include <QTabBar>
 #include <QtCore>
@@ -61,4 +61,4 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *event);
 };
 
-#endif /* MYTABBAR_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_TAB_BAR_H_ */

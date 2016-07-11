@@ -37,8 +37,8 @@
  * Signals for progress and render finish can be connected, see also usage in PreviewFileDialog.
  */
 
-#ifndef QT_THUMBNAIL_WIDGET_H_
-#define QT_THUMBNAIL_WIDGET_H_
+#ifndef MANDELBULBER2_QT_THUMBNAIL_WIDGET_H_
+#define MANDELBULBER2_QT_THUMBNAIL_WIDGET_H_
 
 #include "../src/thumbnail.hpp"
 #include <QWidget>
@@ -100,4 +100,4 @@ signals:
 	void settingsChanged();
 };
 
-#endif /* QT_THUMBNAIL_WIDGET_H_ */
+#endif /* MANDELBULBER2_QT_THUMBNAIL_WIDGET_H_ */

@@ -32,8 +32,8 @@
  * MyHistogramLabel class - promoted QLabel widget for displaying histogram data
  */
 
-#ifndef MYHISTOGRAMLABEL_HPP_
-#define MYHISTOGRAMLABEL_HPP_
+#ifndef MANDELBULBER2_QT_MY_HISTOGRAM_LABEL_H_
+#define MANDELBULBER2_QT_MY_HISTOGRAM_LABEL_H_
 
 #include "../src/histogram.hpp"
 #include <QLabel>
@@ -82,4 +82,4 @@ private:
 	cHistogram histData;
 };
 
-#endif /* MYHISTOGRAMLABEL_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_HISTOGRAM_LABEL_H_ */

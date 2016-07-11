@@ -32,8 +32,8 @@
  * MyLineEdit class - promoted MyLineEdit widget with context menu
  */
 
-#ifndef MYLINEEDIT_HPP_
-#define MYLINEEDIT_HPP_
+#ifndef MANDELBULBER2_QT_MY_LINE_EDIT_H_
+#define MANDELBULBER2_QT_MY_LINE_EDIT_H_
 
 #include "../qt/common_my_widget_wrapper.h"
 #include "../src/parameters.hpp"
@@ -73,4 +73,4 @@ private slots:
 	void slotResetVector();
 };
 
-#endif /* MYLINEEDIT_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_LINE_EDIT_H_ */

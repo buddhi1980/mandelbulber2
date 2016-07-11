@@ -32,8 +32,8 @@
  * MyTabWidget - promoted QTabWidget with swap tabs functionality
  */
 
-#ifndef MYTABWIDGET_HPP_
-#define MYTABWIDGET_HPP_
+#ifndef MANDELBULBER2_QT_MY_TAB_WIDGET_H_
+#define MANDELBULBER2_QT_MY_TAB_WIDGET_H_
 
 #include <QTabWidget>
 #include <QtCore>
@@ -53,4 +53,4 @@ private slots:
 	// void slotDragDropChange();
 };
 
-#endif /* MYTABWIDGET_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_TAB_WIDGET_H_ */

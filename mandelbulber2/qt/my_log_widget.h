@@ -35,8 +35,8 @@
  * The lines get parsed with regex and displayed auto-highlighted.
  */
 
-#ifndef MYLOGWIDGET_HPP_
-#define MYLOGWIDGET_HPP_
+#ifndef MANDELBULBER2_QT_MY_LOG_WIDGET_H_
+#define MANDELBULBER2_QT_MY_LOG_WIDGET_H_
 
 #include "../src/system.hpp"
 #include <QPlainTextEdit>
@@ -62,4 +62,4 @@ private:
 	QRegularExpression *reInnerType;
 };
 
-#endif /* MYLOGWIDGET_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_LOG_WIDGET_H_ */

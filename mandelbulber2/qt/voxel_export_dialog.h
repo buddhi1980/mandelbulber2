@@ -32,8 +32,8 @@
  * cVoxelExportDialog class - class for handling the voxelexport dialog
  */
 
-#ifndef VOXEL_EXPORT_DIALOG_H
-#define VOXEL_EXPORT_DIALOG_H
+#ifndef MANDELBULBER2_QT_VOXEL_EXPORT_DIALOG_H_
+#define MANDELBULBER2_QT_VOXEL_EXPORT_DIALOG_H_
 
 #include "../src/automated_widgets.hpp"
 #include "../src/global_data.hpp"
@@ -74,4 +74,4 @@ private:
 	cVoxelExport *voxelExport;
 };
 
-#endif // VOXEL_EXPORT_DIALOG_H
+#endif /* MANDELBULBER2_QT_VOXEL_EXPORT_DIALOG_H_ */

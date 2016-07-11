@@ -32,8 +32,8 @@
  * MyTableWidgetAnim class -  to display flight animation frames
  */
 
-#ifndef QT_MY_TABLE_WIDGET_ANIM_HPP_
-#define QT_MY_TABLE_WIDGET_ANIM_HPP_
+#ifndef MANDELBULBER2_QT_MY_TABLE_WIDGET_ANIM_HPP_
+#define MANDELBULBER2_QT_MY_TABLE_WIDGET_ANIM_HPP_
 
 #include <QTableWidget>
 
@@ -52,4 +52,4 @@ public slots:
 	void rowContextMenuRequest(QPoint point);
 };
 
-#endif /* QT_MY_TABLE_WIDGET_ANIM_HPP_ */
+#endif /* MANDELBULBER2_QT_MY_TABLE_WIDGET_ANIM_HPP_ */

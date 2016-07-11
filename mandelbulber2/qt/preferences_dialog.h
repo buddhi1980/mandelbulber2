@@ -32,8 +32,8 @@
  * cPreferencesDialog - dialog to configure program wide settings and program maintaining
  */
 
-#ifndef PREFERENCESDIALOG_H
-#define PREFERENCESDIALOG_H
+#ifndef MANDELBULBER2_QT_PREFERENCES_DIALOG_H_
+#define MANDELBULBER2_QT_PREFERENCES_DIALOG_H_
 
 #include "../src/automated_widgets.hpp"
 #include <QDialog>
@@ -70,4 +70,4 @@ private:
 	bool initFinished;
 };
 
-#endif // PREFERENCESDIALOG_H
+#endif /* MANDELBULBER2_QT_PREFERENCES_DIALOG_H_ */

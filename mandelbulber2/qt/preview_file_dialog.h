@@ -32,8 +32,8 @@
  * PreviewFileDialog - promoted QFileDialog for selection of fractal settings with a preview
  */
 
-#ifndef PREVIEWFILEDIALOG_H_
-#define PREVIEWFILEDIALOG_H_
+#ifndef MANDELBULBER2_QT_PREVIEW_FILE_DIALOG_H_
+#define MANDELBULBER2_QT_PREVIEW_FILE_DIALOG_H_
 
 #include "thumbnail_widget.h"
 #include <QCheckBox>
@@ -71,4 +71,4 @@ protected:
 	cThumbnailWidget *thumbWidget;
 };
 
-#endif /* PREVIEWFILEDIALOG_H_ */
+#endif /* MANDELBULBER2_QT_PREVIEW_FILE_DIALOG_H_ */
