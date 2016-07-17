@@ -203,16 +203,37 @@ void cCommandLineInterface::ReadCLI()
 	// show input help only
 	if (cliData.showExampleHelp)
 	{
-		out << "Some useful example commands:\n\n";
-		out << cHeadless::colorize("mandelbulber2 -n filename.fract", cHeadless::ansiYellow, cHeadless::noExplicitColor, true) << "\n";
-		out << "Renders the file on the cli (no window required).\n\n";
-		out << cHeadless::colorize("mandelbulber2 -n -K -s 200 -e 300 keyframe_fractal.fract", cHeadless::ansiYellow, cHeadless::noExplicitColor, true) << "\n";
-		out << "Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.\n\n";
-		out << cHeadless::colorize("nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow, cHeadless::noExplicitColor, true) << "\n";
-		out << "Runs the mandelbulber instance in queue mode and daemonizes it.\n"
-					 "Mandelbulber runs in background and waits for jobs.\n"
-					 "The output will be written to /tmp/queue.log\n"
-					 "(This will only work properly on a unix system)\n\n";
+		out << cHeadless::colorize(QObject::tr("Some useful example commands:"), cHeadless::ansiRed) << "\n\n";
+
+		out << cHeadless::colorize(QObject::tr("Simple render"), cHeadless::ansiBlue) << "\n";
+		out << cHeadless::colorize("mandelbulber2 -n path/to/fractal.fract", cHeadless::ansiYellow) << "\n";
+		out << QObject::tr("Renders the file on the cli (no window required).") << "\n\n";
+
+		out << cHeadless::colorize(QObject::tr("Animation render"), cHeadless::ansiBlue) << "\n";
+		out << cHeadless::colorize("mandelbulber2 -n -K -s 200 -e 300 path/to/keyframe_fractal.fract", cHeadless::ansiYellow) << "\n";
+		out << QObject::tr("Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.\n\n");
+
+		out << cHeadless::colorize(QObject::tr("Network render"), cHeadless::ansiBlue) << "\n";
+		out << cHeadless::colorize("mandelbulber2 -n --host 192.168.100.1", cHeadless::ansiYellow) << cHeadless::colorize(" # (1) client", cHeadless::ansiGreen) << "\n";
+		out << cHeadless::colorize("mandelbulber2 -n --server path/to/fractal.fract", cHeadless::ansiYellow) << cHeadless::colorize(" # (2) server", cHeadless::ansiGreen) << "\n";
+		out << QObject::tr("In a network you can render on multiple machines. One is a server (2) and multiple clients (1) can connect to help rendering.\n"
+			"On each client run (1), 192.168.100.1 should be substituted with the IP address of the server.\n"
+			"On the server run (2) with the settings required for the render and additionally '--server'.\n"
+			"The server will start and wait a short time for the clients to connect. Then the whole system will start rendering.") << "\n\n";
+
+		out << cHeadless::colorize(QObject::tr("Voxel volume render"), cHeadless::ansiBlue) << "\n";
+		out << cHeadless::colorize("mandelbulber2 --voxel -n path/to/voxel_fractal.fract"
+			" -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 1#voxel_samples_x=10#voxel_samples_y=10#voxel_samples_z=10'",
+		cHeadless::ansiYellow) << "\n";
+		out << QObject::tr("Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1);] with a resolution of 10x10x10.\n"
+			"This will produce 10 slices (z) with a resolution of 10(x) times 10(y) and save as black and white images to working folder/slices") << "\n\n";
+
+		out << cHeadless::colorize(QObject::tr("Queue render"), cHeadless::ansiBlue) << "\n";
+		out << cHeadless::colorize("nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow) << "\n";
+		out << QObject::tr("Runs the mandelbulber instance in queue mode and daemonizes it.\n"
+			"Mandelbulber runs in background and waits for jobs.\n"
+			"The output will be written to /tmp/queue.log\n"
+			"(This may only work properly on a unix system)") << "\n\n";
 
 		out.flush();
 		exit(0);
