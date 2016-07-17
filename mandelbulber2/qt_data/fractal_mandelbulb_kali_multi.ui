@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>943</width>
-    <height>4681</height>
+    <width>1096</width>
+    <height>4687</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -759,6 +759,13 @@
           </layout>
          </widget>
         </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_297">
+          <property name="text">
+           <string>Phi  Scale:</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -1489,12 +1496,12 @@
   <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <header>mydoublespinbox.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
+   <header>mygroupbox.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
