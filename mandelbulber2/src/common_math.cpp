@@ -1,23 +1,35 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * auxiliary math functions
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * auxiliary math functions
  */
 
 #include "common_math.h"
@@ -30,7 +42,7 @@
 int Random(int max)
 {
 #ifdef WIN32
-	return (rand()+rand()*32768) % (max + 1);
+	return (rand() + rand() * 32768) % (max + 1);
 #else
 	return rand() % (max + 1);
 #endif
@@ -59,11 +71,11 @@ double dMin(double a, double b, double c)
 }
 
 //----------------------------------------
-//reference:
-//http://graphics.stanford.edu/courses/cs148-10-summer/docs/2006--degreve--reflection_refraction.pdf
-//Reflections and Refractions in Ray Tracing
-//Bram de Greve (bram.degreve@gmail.com)
-//November 13, 2006
+// reference:
+// http://graphics.stanford.edu/courses/cs148-10-summer/docs/2006--degreve--reflection_refraction.pdf
+// Reflections and Refractions in Ray Tracing
+// Bram de Greve (bram.degreve@gmail.com)
+// November 13, 2006
 
 CVector3 ReflectionVector(const CVector3 &normal, const CVector3 &incident)
 {
@@ -75,7 +87,7 @@ CVector3 RefractVector(const CVector3 &normal, const CVector3 &incident, double 
 	const double n = n1 / n2;
 	const double cosI = -normal.Dot(incident);
 	const double sinT2 = n * n * (1.0 - cosI * cosI);
-	if (sinT2 > 1.0) return CVector3(0.0, 0.0, 0.0); //total internal reflection
+	if (sinT2 > 1.0) return CVector3(0.0, 0.0, 0.0); // total internal reflection
 	const double cosT = sqrt(1.0 - sinT2);
 	return incident * n + normal * (n * cosI - cosT);
 }
@@ -85,7 +97,7 @@ double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, 
 	const double n = n1 / n2;
 	const double cosI = -normal.Dot(incident);
 	const double sinT2 = n * n * (1.0 - cosI * cosI);
-	if (sinT2 > 1.0) return 1.0; //total internal reflection
+	if (sinT2 > 1.0) return 1.0; // total internal reflection
 	const double cosT = sqrt(1.0 - sinT2);
 	const double r0rth = (n1 * cosI - n2 * cosT) / (n1 * cosI + n2 * cosT);
 	const double rPar = (n2 * cosI - n1 * cosT) / (n2 * cosI + n1 * cosT);
@@ -94,8 +106,8 @@ double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, 
 
 //----------------------------------------
 
-//Smooth transition between two vectors with vector length control
-template<typename T>
+// Smooth transition between two vectors with vector length control
+template <typename T>
 T SmoothCVector(const T &v1, const T &v2, double k)
 {
 	T result;
@@ -127,15 +139,17 @@ T SmoothCVector(const T &v1, const T &v2, double k)
 	}
 	return result;
 }
-template CVector2<double> SmoothCVector(const CVector2<double> &v1, const CVector2<double> &v2,
-		double k);
+template CVector2<double> SmoothCVector(
+	const CVector2<double> &v1, const CVector2<double> &v2, double k);
 template CVector3 SmoothCVector(const CVector3 &v1, const CVector3 &v2, double k);
 template CVector4 SmoothCVector(const CVector4 &v1, const CVector4 &v2, double k);
 
-
 double cubicInterpolate(double p[4], double x)
 {
-	return p[1] + 0.5 * x*(p[2] - p[0] + x*(2.0*p[0] - 5.0*p[1] + 4.0*p[2] - p[3] + x*(3.0*(p[1] - p[2]) + p[3] - p[0])));
+	return p[1]
+				 + 0.5 * x * (p[2] - p[0]
+											 + x * (2.0 * p[0] - 5.0 * p[1] + 4.0 * p[2] - p[3]
+															 + x * (3.0 * (p[1] - p[2]) + p[3] - p[0])));
 }
 
 double bicubicInterpolate(double p[4][4], double x, double y)

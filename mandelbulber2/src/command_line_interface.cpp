@@ -1,45 +1,58 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2015-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cCommandLineInterface - CLI Input handler
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License clias published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
+ *
+ * cCommandLineInterface - CLI Input handler
  */
 
 #include "command_line_interface.hpp"
-#include "system.hpp"
-#include "initparameters.hpp"
-#include "fractal_container.hpp"
-#include "headless.h"
-#include "error_message.hpp"
-#include "global_data.hpp"
-#include "queue.hpp"
-#include "netrender.hpp"
 #include "animation_frames.hpp"
+#include "error_message.hpp"
+#include "fractal_container.hpp"
+#include "global_data.hpp"
+#include "headless.h"
+#include "initparameters.hpp"
 #include "keyframes.hpp"
+#include "netrender.hpp"
+#include "queue.hpp"
 #include "settings.hpp"
+#include "system.hpp"
 #include "test.hpp"
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 {
 	// text from http://sourceforge.net/projects/mandelbulber/
-    parser.setApplicationDescription(QCoreApplication::translate("main", "Mandelbulber is an easy to use, "
+	parser.setApplicationDescription(QCoreApplication::translate("main",
+		"Mandelbulber is an easy to use, "
 		"handy application designed to help you render 3D Mandelbrot fractals called Mandelbulb "
-        "and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge"));
+		"and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge"));
 
 	parser.addHelpOption();
 	parser.addVersionOption();
@@ -50,85 +63,114 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption keyframeOption(QStringList() << "K" << "keyframe",
 		QCoreApplication::translate("main", "Renders keyframe animation."));
 
-	QCommandLineOption flightOption(QStringList() << "F" << "flight",
+	QCommandLineOption flightOption(QStringList() << "F"
+																								<< "flight",
 		QCoreApplication::translate("main", "Renders flight animation."));
 
-	QCommandLineOption startOption(QStringList() << "s" << "start",
+	QCommandLineOption startOption(QStringList() << "s"
+																							 << "start",
 		QCoreApplication::translate("main", "Starts rendering from frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption endOption(QStringList() << "e" << "end",
+	QCommandLineOption endOption(QStringList() << "e"
+																						 << "end",
 		QCoreApplication::translate("main", "Stops rendering on frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption overrideOption(QStringList() << "O" << "override",
-		QCoreApplication::translate("main", "<KEY=VALUE> overrides item '<KEY>' from settings file with new value '<VALUE>'.\n"
-			"Specify multiple KEY=VALUE pairs by separating with a '#': <KEY1=VALUE1#KEY2=VALUE2>. Quote whole expression to avoid whitespace parsing issues\n"
-			"Override fractal parameter in the form 'fractal<N>_KEY=VALUE' with <N> being index of fractal"),
+	QCommandLineOption overrideOption(
+		QStringList() << "O"
+									<< "override",
+		QCoreApplication::translate("main",
+			"<KEY=VALUE> overrides item '<KEY>' from settings file with new value '<VALUE>'.\n"
+			"Specify multiple KEY=VALUE pairs by separating with a '#': <KEY1=VALUE1#KEY2=VALUE2>. Quote "
+			"whole expression to avoid whitespace parsing issues\n"
+			"Override fractal parameter in the form 'fractal<N>_KEY=VALUE' with <N> being index of "
+			"fractal"),
 		QCoreApplication::translate("main", "..."));
 
-	QCommandLineOption listOption(QStringList() << "L" << "list",
-				QCoreApplication::translate("main", "Lists all possible parameters '<KEY>' with corresponding default value '<VALUE>'."));
+	QCommandLineOption listOption(
+		QStringList() << "L"
+									<< "list",
+		QCoreApplication::translate(
+			"main", "Lists all possible parameters '<KEY>' with corresponding default value '<VALUE>'."));
 
-	QCommandLineOption formatOption(QStringList() << "f" << "format",
-		QCoreApplication::translate("main", "Image output format:\n"
-			"  jpg - JPEG format (default)\n"
-			"  png - PNG format\n"
-			"  png16 - 16-bit PNG format\n"
-			"  png16alpha - 16-bit PNG with alpha channel format\n"
-			"  exr - EXR format\n"
-			"  tiff - TIFF format"),
+	QCommandLineOption formatOption(QStringList() << "f"
+																								<< "format",
+		QCoreApplication::translate("main",
+																		"Image output format:\n"
+																		"  jpg - JPEG format (default)\n"
+																		"  png - PNG format\n"
+																		"  png16 - 16-bit PNG format\n"
+																		"  png16alpha - 16-bit PNG with alpha channel format\n"
+																		"  exr - EXR format\n"
+																		"  tiff - TIFF format"),
 		QCoreApplication::translate("main", "FORMAT"));
 
-	QCommandLineOption resOption(QStringList() << "r" << "res",
-		QCoreApplication::translate("main", "Overrides image resolution. Specify as width and height separated by 'x'"),
+	QCommandLineOption resOption(
+		QStringList() << "r"
+									<< "res",
+		QCoreApplication::translate(
+			"main", "Overrides image resolution. Specify as width and height separated by 'x'"),
 		QCoreApplication::translate("main", "WxH"));
 
 	QCommandLineOption fpkOption("fpk",
 		QCoreApplication::translate("main", "Overrides frames per key parameter."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption serverOption(QStringList() << "S" << "server",
+	QCommandLineOption serverOption(QStringList() << "S"
+																								<< "server",
 		QCoreApplication::translate("main", "Sets application as a server listening for clients."));
 
-	QCommandLineOption hostOption(QStringList() << "H" << "host",
-		QCoreApplication::translate("main", "Sets application as a client connected to server of given host address"
+	QCommandLineOption hostOption(
+		QStringList() << "H"
+									<< "host",
+		QCoreApplication::translate("main",
+			"Sets application as a client connected to server of given host address"
 			" (Host can be of type IPv4, IPv6 and Domain name address)."),
 		QCoreApplication::translate("main", "N.N.N.N"));
 
-	QCommandLineOption portOption(QStringList() << "p" << "port",
+	QCommandLineOption portOption(QStringList() << "p"
+																							<< "port",
 		QCoreApplication::translate("main", "Sets network port number for netrender (default 5555)."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption noColorOption(QStringList() << "C" << "no-cli-color",
-		QCoreApplication::translate("main", "Starts program without ANSI colors, when execution on CLI."));
+	QCommandLineOption noColorOption(QStringList() << "C"
+																								 << "no-cli-color",
+		QCoreApplication::translate("main",
+																		 "Starts program without ANSI colors, when execution on CLI."));
 
-	QCommandLineOption outputOption(QStringList() << "o" << "output",
+	QCommandLineOption outputOption(QStringList() << "o"
+																								<< "output",
 		QCoreApplication::translate("main", "Saves rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption queueOption(QStringList() << "q" << "queue",
-								   QCoreApplication::translate("main", "Renders all images from common queue."));
+	QCommandLineOption queueOption(QStringList() << "q"
+																							 << "queue",
+		QCoreApplication::translate("main", "Renders all images from common queue."));
 
-	QCommandLineOption testOption(QStringList() << "t" << "test",
-								   QCoreApplication::translate("main", "This will run testcases on the mandelbulber instance"));
+	QCommandLineOption testOption(QStringList() << "t"
+																							<< "test",
+		QCoreApplication::translate("main", "This will run testcases on the mandelbulber instance"));
 
-	QCommandLineOption voxelOption(QStringList() << "V" << "voxel",
-									 QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));
+	QCommandLineOption voxelOption(QStringList() << "V"
+																							 << "voxel",
+		QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));
 
 	QCommandLineOption statsOption(QStringList() << "stats",
 		QCoreApplication::translate("main", "Shows statistics while rendering in CLI mode."));
 
-	QCommandLineOption helpInputOption(QStringList() << "help-input",
-		QCoreApplication::translate("main", "Shows help about input."));
+	QCommandLineOption helpInputOption(
+		QStringList() << "help-input", QCoreApplication::translate("main", "Shows help about input."));
 	QCommandLineOption helpExamplesOption(QStringList() << "help-examples",
 		QCoreApplication::translate("main", "Shows example commands."));
 
-	parser.addPositionalArgument("settings_file", QCoreApplication::translate("main",
-		"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings directory)\n"
-		"When settings_file is put as a command line argument then program will start in noGUI mode"
-		"<settings_file> can also be specified as a list, see all options with --help-input"
-	));
+	parser.addPositionalArgument(
+		"settings_file",
+		QCoreApplication::translate("main",
+			"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings "
+			"directory)\n"
+			"When settings_file is put as a command line argument then program will start in noGUI mode"
+			"<settings_file> can also be specified as a list, see all options with --help-input"));
 
 	parser.addOption(noguiOption);
 	parser.addOption(outputOption);
@@ -181,7 +223,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	systemData.useColor = false;
 #else
 	systemData.useColor = !parser.isSet(noColorOption);
-#endif  /* WINDOWS */
+#endif /* WINDOWS */
 
 	if (cliData.listParameters) cliData.nogui = true;
 	if (cliData.queue) cliData.nogui = true;
@@ -191,7 +233,6 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 
 cCommandLineInterface::~cCommandLineInterface()
 {
-
 }
 
 void cCommandLineInterface::ReadCLI()
@@ -203,37 +244,61 @@ void cCommandLineInterface::ReadCLI()
 	// show input help only
 	if (cliData.showExampleHelp)
 	{
-		out << cHeadless::colorize(QObject::tr("Some useful example commands:"), cHeadless::ansiRed) << "\n\n";
+		out << cHeadless::colorize(QObject::tr("Some useful example commands:"), cHeadless::ansiRed)
+				<< "\n\n";
 
 		out << cHeadless::colorize(QObject::tr("Simple render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize("mandelbulber2 -n path/to/fractal.fract", cHeadless::ansiYellow) << "\n";
+		out << cHeadless::colorize("mandelbulber2 -n path/to/fractal.fract", cHeadless::ansiYellow)
+				<< "\n";
 		out << QObject::tr("Renders the file on the cli (no window required).") << "\n\n";
 
 		out << cHeadless::colorize(QObject::tr("Animation render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize("mandelbulber2 -n -K -s 200 -e 300 path/to/keyframe_fractal.fract", cHeadless::ansiYellow) << "\n";
-		out << QObject::tr("Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.\n\n");
+		out << cHeadless::colorize("mandelbulber2 -n -K -s 200 -e 300 path/to/keyframe_fractal.fract",
+						 cHeadless::ansiYellow)
+				<< "\n";
+		out << QObject::tr(
+						 "Renders the keyframe animation of the file keyframe_fractal.fract"
+						 "within frames 200 till 300")
+				<< "\n\n";
 
 		out << cHeadless::colorize(QObject::tr("Network render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize("mandelbulber2 -n --host 192.168.100.1", cHeadless::ansiYellow) << cHeadless::colorize(" # (1) client", cHeadless::ansiGreen) << "\n";
-		out << cHeadless::colorize("mandelbulber2 -n --server path/to/fractal.fract", cHeadless::ansiYellow) << cHeadless::colorize(" # (2) server", cHeadless::ansiGreen) << "\n";
-		out << QObject::tr("In a network you can render on multiple machines. One is a server (2) and multiple clients (1) can connect to help rendering.\n"
-			"On each client run (1), 192.168.100.1 should be substituted with the IP address of the server.\n"
-			"On the server run (2) with the settings required for the render and additionally '--server'.\n"
-			"The server will start and wait a short time for the clients to connect. Then the whole system will start rendering.") << "\n\n";
+		out << cHeadless::colorize("mandelbulber2 -n --host 192.168.100.1", cHeadless::ansiYellow)
+				<< cHeadless::colorize(" # (1) client", cHeadless::ansiGreen) << "\n";
+		out << cHeadless::colorize(
+						 "mandelbulber2 -n --server path/to/fractal.fract", cHeadless::ansiYellow)
+				<< cHeadless::colorize(" # (2) server", cHeadless::ansiGreen) << "\n";
+		out << QObject::tr(
+						 "In a network you can render on multiple machines. One is a server (2) and multiple "
+						 "clients (1) can connect to help rendering.\n"
+						 "On each client run (1), 192.168.100.1 should be substituted with the IP address of "
+						 "the server.\n On the server run (2) with the settings required for the render and "
+						 "additionally '--server'.\n The server will start and wait a short time for the "
+						 "clients to connect. Then the whole system will start rendering.")
+				<< "\n\n";
 
 		out << cHeadless::colorize(QObject::tr("Voxel volume render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize("mandelbulber2 --voxel -n path/to/voxel_fractal.fract"
-			" -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 1#voxel_samples_x=10#voxel_samples_y=10#voxel_samples_z=10'",
-		cHeadless::ansiYellow) << "\n";
-		out << QObject::tr("Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1);] with a resolution of 10x10x10.\n"
-			"This will produce 10 slices (z) with a resolution of 10(x) times 10(y) and save as black and white images to working folder/slices") << "\n\n";
+		out << cHeadless::colorize(
+						 "mandelbulber2 --voxel -n path/to/voxel_fractal.fract"
+						 " -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 "
+						 "1#voxel_samples_x=10#voxel_samples_y=10#voxel_samples_z=10'",
+						 cHeadless::ansiYellow)
+				<< "\n";
+		out << QObject::tr(
+						 "Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] "
+						 "with a resolution of 10x10x10.\n This will produce 10 slices (z) with a resolution "
+						 "of 10(x) times 10(y) and save as black and white images to working folder/slices")
+				<< "\n\n";
 
 		out << cHeadless::colorize(QObject::tr("Queue render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize("nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow) << "\n";
-		out << QObject::tr("Runs the mandelbulber instance in queue mode and daemonizes it.\n"
-			"Mandelbulber runs in background and waits for jobs.\n"
-			"The output will be written to /tmp/queue.log\n"
-			"(This may only work properly on a unix system)") << "\n\n";
+		out << cHeadless::colorize(
+						 "nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow)
+				<< "\n";
+		out << QObject::tr(
+						 "Runs the mandelbulber instance in queue mode and daemonizes it.\n"
+						 "Mandelbulber runs in background and waits for jobs.\n"
+						 "The output will be written to /tmp/queue.log\n"
+						 "(This may only work properly on a unix system)")
+				<< "\n\n";
 
 		out.flush();
 		exit(0);
@@ -241,12 +306,14 @@ void cCommandLineInterface::ReadCLI()
 	// show example help only
 	if (cliData.showInputHelp)
 	{
-		out
-				<< QObject::tr("Mandelbulber also accepts an arbitrary number of input files\n"
-											 "These files can be of type:\n"
-											 ".fract File - An ordinary fractal file\n"
-											 ".fractlist File - A queue file, all entries inside the queue file will be added to the current queue\n"
-											 "Folder - if the specified argument is a folder all .fract files inside the folder will be added to the queue\n");
+		out << QObject::tr(
+			"Mandelbulber also accepts an arbitrary number of input files\n"
+			"These files can be of type:\n"
+			".fract File - An ordinary fractal file\n"
+			".fractlist File - A queue file, all entries inside the queue file will be added to the "
+			"current queue\n"
+			"Folder - if the specified argument is a folder all .fract files inside the folder will be "
+			"added to the queue\n");
 		out.flush();
 		exit(0);
 	}
@@ -256,11 +323,8 @@ void cCommandLineInterface::ReadCLI()
 	{
 		InitMaterialParams(1, gPar);
 		QList<QString> listOfParameters = gPar->GetListOfParameters();
-		out
-				<< cHeadless::colorize("\nList of main parameters:\n",
-															 cHeadless::ansiYellow,
-															 cHeadless::noExplicitColor,
-															 true);
+		out << cHeadless::colorize(
+			"\nList of main parameters:\n", cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
 		out << "KEY=VALUE\n";
 		for (int i = 0; i < listOfParameters.size(); i++)
 		{
@@ -270,11 +334,8 @@ void cCommandLineInterface::ReadCLI()
 		}
 
 		QList<QString> listOfFractalParameters = gParFractal->at(0).GetListOfParameters();
-		out
-				<< cHeadless::colorize(QObject::tr("\nList of fractal parameters:\n"),
-															 cHeadless::ansiYellow,
-															 cHeadless::noExplicitColor,
-															 true);
+		out << cHeadless::colorize(QObject::tr("\nList of fractal parameters:\n"),
+			cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
 
 		for (int i = 0; i < listOfFractalParameters.size(); i++)
 		{
@@ -288,7 +349,8 @@ void cCommandLineInterface::ReadCLI()
 	}
 
 	// run test cases
-	if (cliData.test) {
+	if (cliData.test)
+	{
 		QStringList arguments = gApplication->arguments();
 		arguments.removeOne(QString("--test"));
 		arguments.removeOne(QString("t"));
@@ -309,8 +371,8 @@ void cCommandLineInterface::ReadCLI()
 			port = cliData.portText.toInt(&checkParse);
 			if (!checkParse || port <= 0)
 			{
-				cErrorMessage::showMessage(QObject::tr("Specified server port is invalid\n"),
-																	 cErrorMessage::errorMessage);
+				cErrorMessage::showMessage(
+					QObject::tr("Specified server port is invalid\n"), cErrorMessage::errorMessage);
 				parser.showHelp(cliErrorServerInvalidPort);
 			}
 			gPar->Set("netrender_server_local_port", port);
@@ -341,8 +403,8 @@ void cCommandLineInterface::ReadCLI()
 			port = cliData.portText.toInt(&checkParse);
 			if (!checkParse || port <= 0)
 			{
-				cErrorMessage::showMessage(QObject::tr("Specified client port is invalid\n"),
-																	 cErrorMessage::errorMessage);
+				cErrorMessage::showMessage(
+					QObject::tr("Specified client port is invalid\n"), cErrorMessage::errorMessage);
 				parser.showHelp(cliErrorClientInvalidPort);
 			}
 			gPar->Set("netrender_client_remote_port", port);
@@ -361,14 +423,13 @@ void cCommandLineInterface::ReadCLI()
 		systemData.noGui = true;
 		try
 		{
-			gQueue = new cQueue(gMainInterface,
-													systemData.dataDirectory + "queue.fractlist",
-													systemData.dataDirectory + "queue",
-													NULL);
-		} catch (QString &ex)
+			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
+				systemData.dataDirectory + "queue", NULL);
+		}
+		catch (QString &ex)
 		{
-			cErrorMessage::showMessage(QObject::tr("Cannot init queue: ") + ex,
-																 cErrorMessage::errorMessage);
+			cErrorMessage::showMessage(
+				QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
 			parser.showHelp(cliErrorQueueInit);
 		}
 	}
@@ -397,8 +458,8 @@ void cCommandLineInterface::ReadCLI()
 				}
 				else
 				{
-					cErrorMessage::showMessage(QObject::tr("Cannot load file!\n"),
-																		 cErrorMessage::errorMessage);
+					cErrorMessage::showMessage(
+						QObject::tr("Cannot load file!\n"), cErrorMessage::errorMessage);
 					qCritical() << "\nSetting file " << filename << " not found\n";
 					parser.showHelp(cliErrorLoadSettingsFile);
 				}
@@ -411,14 +472,13 @@ void cCommandLineInterface::ReadCLI()
 				systemData.noGui = true;
 				try
 				{
-					gQueue = new cQueue(gMainInterface,
-															systemData.dataDirectory + "queue.fractlist",
-															systemData.dataDirectory + "queue",
-															NULL);
-				} catch (QString &ex)
+					gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
+						systemData.dataDirectory + "queue", NULL);
+				}
+				catch (QString &ex)
 				{
-					cErrorMessage::showMessage(QObject::tr("Cannot init queue: ") + ex,
-																		 cErrorMessage::errorMessage);
+					cErrorMessage::showMessage(
+						QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
 					parser.showHelp(cliErrorQueueInit);
 				}
 				for (int i = 0; i < args.size(); i++)
@@ -450,8 +510,8 @@ void cCommandLineInterface::ReadCLI()
 	// overwriting parameters
 	if (cliData.overrideParametersText != "")
 	{
-		QStringList overrideParameters = cliData.overrideParametersText.split("#",
-																																					QString::SkipEmptyParts);
+		QStringList overrideParameters =
+			cliData.overrideParametersText.split("#", QString::SkipEmptyParts);
 		for (int i = 0; i < overrideParameters.size(); i++)
 		{
 			int fractalIndex = -1;
@@ -467,8 +527,8 @@ void cCommandLineInterface::ReadCLI()
 			{
 				if (fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS)
 				{
-					gParFractal->at(fractalIndex).Set(overrideParameter[0].trimmed(),
-																						overrideParameter[1].trimmed());
+					gParFractal->at(fractalIndex)
+						.Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
 				}
 				else
 				{
@@ -490,7 +550,7 @@ void cCommandLineInterface::ReadCLI()
 			{
 				cErrorMessage::showMessage(QObject::tr("Specified resolution not valid\n"
 																							 "both dimensions need to be > 0"),
-																	 cErrorMessage::errorMessage);
+					cErrorMessage::errorMessage);
 				parser.showHelp(cliErrorResolutionInvalid);
 			}
 			gPar->Set("image_width", xRes);
@@ -500,7 +560,7 @@ void cCommandLineInterface::ReadCLI()
 		{
 			cErrorMessage::showMessage(QObject::tr("Specified resolution not valid\n"
 																						 "resolution has to be in the form WIDTHxHEIGHT"),
-																 cErrorMessage::errorMessage);
+				cErrorMessage::errorMessage);
 			parser.showHelp(cliErrorResolutionInvalid);
 		}
 	}
@@ -513,7 +573,7 @@ void cCommandLineInterface::ReadCLI()
 		{
 			cErrorMessage::showMessage(QObject::tr("Specified frames per key not valid\n"
 																						 "need to be > 0"),
-																 cErrorMessage::errorMessage);
+				cErrorMessage::errorMessage);
 			parser.showHelp(cliErrorFPKInvalid);
 		}
 		gPar->Set("frames_per_keyframe", fpk);
@@ -523,13 +583,18 @@ void cCommandLineInterface::ReadCLI()
 	if (cliData.imageFileFormat != "")
 	{
 		QStringList allowedImageFileFormat;
-		allowedImageFileFormat << "jpg" << "png" << "png16" << "png16alpha" << "exr" << "tiff";
+		allowedImageFileFormat << "jpg"
+													 << "png"
+													 << "png16"
+													 << "png16alpha"
+													 << "exr"
+													 << "tiff";
 		if (!allowedImageFileFormat.contains(cliData.imageFileFormat))
 		{
 			cErrorMessage::showMessage(QObject::tr("Specified imageFileFormat is not valid\n"
 																						 "allowed formats are: ")
-																		 + allowedImageFileFormat.join(", "),
-																 cErrorMessage::errorMessage);
+																	 + allowedImageFileFormat.join(", "),
+				cErrorMessage::errorMessage);
 			parser.showHelp(cliErrorImageFileFormatInvalid);
 		}
 	}
@@ -538,7 +603,7 @@ void cCommandLineInterface::ReadCLI()
 		cliData.imageFileFormat = "jpg";
 	}
 
-	//flight animation
+	// flight animation
 	if (cliData.flight)
 	{
 		if (gAnimFrames->GetNumberOfFrames() > 0)
@@ -549,19 +614,21 @@ void cCommandLineInterface::ReadCLI()
 		}
 		else
 		{
-			cErrorMessage::showMessage(QObject::tr("There are no flight animation frames in specified settings file"),
-																 cErrorMessage::errorMessage);
+			cErrorMessage::showMessage(
+				QObject::tr("There are no flight animation frames in specified settings file"),
+				cErrorMessage::errorMessage);
 			parser.showHelp(cliErrorFlightNoFrames);
 		}
 	}
 
-	//keyframe animation
+	// keyframe animation
 	if (cliData.keyframe)
 	{
 		if (cliTODO == modeFlight)
 		{
-			cErrorMessage::showMessage(QObject::tr("You cannot render keyframe animation at the same time as flight animation"),
-																 cErrorMessage::errorMessage);
+			cErrorMessage::showMessage(
+				QObject::tr("You cannot render keyframe animation at the same time as flight animation"),
+				cErrorMessage::errorMessage);
 		}
 		else
 		{
@@ -574,7 +641,7 @@ void cCommandLineInterface::ReadCLI()
 			else
 			{
 				cErrorMessage::showMessage(QObject::tr("There are no keyframes in specified settings file"),
-																	 cErrorMessage::errorMessage);
+					cErrorMessage::errorMessage);
 				parser.showHelp(cliErrorKeyframeNoFrames);
 			}
 		}
@@ -592,16 +659,17 @@ void cCommandLineInterface::ReadCLI()
 			}
 			else
 			{
-				cErrorMessage::showMessage(QObject::tr("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()),
-																	 cErrorMessage::errorMessage);
+				cErrorMessage::showMessage(
+					QObject::tr("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()),
+					cErrorMessage::errorMessage);
 				parser.showHelp(cliErrorFlightStartFrameOutOfRange);
 			}
 		}
 
 		if (cliTODO == modeKeyframe)
 		{
-			int numberOfFrames = (gKeyframes->GetNumberOfFrames() - 1)
-					* gPar->Get<int>("frames_per_keyframe");
+			int numberOfFrames =
+				(gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
 			if (numberOfFrames < 0) numberOfFrames = 0;
 
 			if (startFrame <= numberOfFrames)
@@ -611,7 +679,7 @@ void cCommandLineInterface::ReadCLI()
 			else
 			{
 				cErrorMessage::showMessage(QObject::tr("Animation has only %1 frames").arg(numberOfFrames),
-																	 cErrorMessage::errorMessage);
+					cErrorMessage::errorMessage);
 				parser.showHelp(cliErrorKeyframeStartFrameOutOfRange);
 			}
 		}
@@ -631,24 +699,26 @@ void cCommandLineInterface::ReadCLI()
 				}
 				else
 				{
-					cErrorMessage::showMessage(QObject::tr("End frame has to be greater than start frame which is %1").arg(gPar->Get<
-																				 int>("flight_first_to_render")),
-																		 cErrorMessage::errorMessage);
+					cErrorMessage::showMessage(
+						QObject::tr("End frame has to be greater than start frame which is %1")
+							.arg(gPar->Get<int>("flight_first_to_render")),
+						cErrorMessage::errorMessage);
 					parser.showHelp(cliErrorFlightEndFrameSmallerStartFrame);
 				}
 			}
 			else
 			{
-				cErrorMessage::showMessage(QObject::tr("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()),
-																	 cErrorMessage::errorMessage);
+				cErrorMessage::showMessage(
+					QObject::tr("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()),
+					cErrorMessage::errorMessage);
 				parser.showHelp(cliErrorFlightEndFrameOutOfRange);
 			}
 		}
 
 		if (cliTODO == modeKeyframe)
 		{
-			int numberOfFrames = (gKeyframes->GetNumberOfFrames() - 1)
-					* gPar->Get<int>("frames_per_keyframe");
+			int numberOfFrames =
+				(gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
 			if (numberOfFrames < 0) numberOfFrames = 0;
 
 			if (endFrame <= numberOfFrames)
@@ -659,22 +729,23 @@ void cCommandLineInterface::ReadCLI()
 				}
 				else
 				{
-					cErrorMessage::showMessage(QObject::tr("End frame has to be greater than start frame which is %1").arg(gPar->Get<
-																				 int>("keyframe_first_to_render")),
-																		 cErrorMessage::errorMessage);
+					cErrorMessage::showMessage(
+						QObject::tr("End frame has to be greater than start frame which is %1")
+							.arg(gPar->Get<int>("keyframe_first_to_render")),
+						cErrorMessage::errorMessage);
 					parser.showHelp(cliErrorKeyframeEndFrameSmallerStartFrame);
 				}
 			}
 			else
 			{
 				cErrorMessage::showMessage(QObject::tr("Animation has only %1 frames").arg(numberOfFrames),
-																	 cErrorMessage::errorMessage);
+					cErrorMessage::errorMessage);
 				parser.showHelp(cliErrorKeyframeEndFrameOutOfRange);
 			}
 		}
 	}
 
-	//voxel export
+	// voxel export
 	if (cliData.voxel)
 	{
 		cliTODO = modeVoxel;
@@ -682,7 +753,7 @@ void cCommandLineInterface::ReadCLI()
 		systemData.noGui = true;
 	}
 
-	//folder for animation frames
+	// folder for animation frames
 	if (cliData.outputText != "" && cliTODO == modeFlight)
 	{
 		gPar->Set("anim_flight_dir", cliData.outputText);
@@ -694,14 +765,16 @@ void cCommandLineInterface::ReadCLI()
 
 	if (!settingsSpecified && cliData.nogui && cliTODO != modeNetrender)
 	{
-		cErrorMessage::showMessage(QObject::tr("You have to specify a settings file, for this configuration!"),
-															 cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(
+			QObject::tr("You have to specify a settings file, for this configuration!"),
+			cErrorMessage::errorMessage);
 		parser.showHelp(cliErrorSettingsFileNotSpecified);
 	}
 
-	if (cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight && cliTODO != modeQueue && cliTODO != modeVoxel)
+	if (cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight && cliTODO != modeQueue
+			&& cliTODO != modeVoxel)
 	{
-		//creating output filename if it's not specified
+		// creating output filename if it's not specified
 		if (cliData.outputText == "")
 		{
 			cliData.outputText = gPar->Get<QString>("default_image_path") + QDir::separator();
@@ -719,7 +792,7 @@ void cCommandLineInterface::ProcessCLI(void)
 		case modeNetrender:
 		{
 			gNetRender->SetClient(gPar->Get<QString>("netrender_client_remote_address"),
-														gPar->Get<int>("netrender_client_remote_port"));
+				gPar->Get<int>("netrender_client_remote_port"));
 			gApplication->exec();
 			break;
 		}

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -14,7 +14,7 @@
  * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
  * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
  * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
- *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
  * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
  * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
  * but WITHOUT ANY WARRANTY;                            .'''
@@ -175,8 +175,8 @@ int cAnimationFrames::IndexOnList(QString parameterName, QString containerName)
 	int index = -1;
 	for (int i = 0; i < listOfParameters.size(); ++i)
 	{
-		if (listOfParameters[i].parameterName == parameterName &&
-				listOfParameters[i].containerName == containerName)
+		if (listOfParameters[i].parameterName == parameterName
+				&& listOfParameters[i].containerName == containerName)
 		{
 			index = i;
 			break;
@@ -297,8 +297,8 @@ void cAnimationFrames::RemoveAnimatedParameter(const QString &fullParameterName)
 
 	for (int i = 0; i < listOfParameters.size(); ++i)
 	{
-		if (listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName ==
-				fullParameterName)
+		if (listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName
+				== fullParameterName)
 		{
 			listOfParameters.removeAt(i);
 			break;

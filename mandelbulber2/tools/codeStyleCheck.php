@@ -12,16 +12,16 @@
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
 
 $filesToCheckSource = array();
-// $filesToCheckSource[] = PROJECT_PATH . "src/*.cpp";
-// $filesToCheckSource[] = PROJECT_PATH . "src/*.c";
-$filesToCheckSource[] = PROJECT_PATH . "qt/*.cpp";
-$filesToCheckSource[] = PROJECT_PATH . "qt/*.c";
+$filesToCheckSource[] = PROJECT_PATH . "src/c*.cpp";
+$filesToCheckSource[] = PROJECT_PATH . "src/c*.c";
+// $filesToCheckSource[] = PROJECT_PATH . "qt/*.cpp";
+// $filesToCheckSource[] = PROJECT_PATH . "qt/*.c";
 
 $filesToCheckHeader = array();
-// $filesToCheckHeader[] = PROJECT_PATH . "src/*.hpp";
-// $filesToCheckHeader[] = PROJECT_PATH . "src/*.h";
-$filesToCheckHeader[] = PROJECT_PATH . "qt/*.hpp";
-$filesToCheckHeader[] = PROJECT_PATH . "qt/*.h";
+$filesToCheckHeader[] = PROJECT_PATH . "src/c*.hpp";
+$filesToCheckHeader[] = PROJECT_PATH . "src/c*.h";
+// $filesToCheckHeader[] = PROJECT_PATH . "qt/*.hpp";
+// $filesToCheckHeader[] = PROJECT_PATH . "qt/*.h";
 
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
@@ -31,10 +31,10 @@ foreach($sourceFiles as $sourceFilePath) {
 	echo 'handling file: ' . $sourceFileName;
 	$sourceContent = file_get_contents($sourceFilePath);
 	if(!checkFileHeader($sourceFilePath, $sourceContent)) continue;
-	if(!checkClang($headerContent)) continue;
 
 	if(!isDryRun()){
 		file_put_contents($sourceFilePath, $sourceContent);
+		updateClang($sourceFilePath);
 	}
 	echo successString(' -> All well') . PHP_EOL;
 }
@@ -47,9 +47,9 @@ foreach($headerFiles as $headerFilePath) {
 	$headerContent = file_get_contents($headerFilePath);
 	if(!checkFileHeader($headerFilePath, $headerContent)) continue;
 	if(!checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName)) continue;
-	if(!checkClang($headerContent)) continue;
 	if(!isDryRun()){
 		file_put_contents($headerFilePath, $headerContent);
+		updateClang($headerFilePath);
 	}
 	echo successString(' -> All well') . PHP_EOL;
 }
@@ -91,9 +91,11 @@ function checkFileHeader($filePath, &$fileContent){
 		else{
 			$regexParseHeader = '/^[\s\S]+#{50}?[\S\s]+Authors:\s(.*)([\s\S]*?)\*\/([\s\S]*)$/';
 			if(preg_match($regexParseHeader, $fileContent, $matchHeaderNew)){
-				echo noticeString('header is new, will rewrite to new!') . PHP_EOL;
 				$newFileContent = getFileHeader($matchHeaderNew[1], $matchHeaderNew[2], $modificationString) . $matchHeaderNew[3];
-				$fileContent = $newFileContent;
+				if($newFileContent != $fileContent){
+					echo noticeString('header is new, will rewrite to new!') . PHP_EOL;
+					$fileContent = $newFileContent;
+				}
 				return true;
 			}
 			else{
@@ -126,18 +128,13 @@ function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderNa
 	return false;
 }
 
-function checkClang(&$fileContent){
-	$cmd = "echo " . escapeshellarg($fileContent);
-	$cmd .= " | clang-format --style=file";
-	$clangFormattedFileContent =  shell_exec($cmd);
-	if($clangFormattedFileContent == ''){
-		errorString('clang-format returned empty string, not installed?');
-		return false;
-	}
-	if($fileContent != $clangFormattedFileContent){
+function updateClang($filePath){
+	$contentsBefore = file_get_contents($filePath);
+	$cmd = "clang-format --style=file -i " . escapeshellarg($filePath);
+	shell_exec($cmd);
+	if($contentsBefore != file_get_contents($filePath)){
 		echo noticeString('checkClang changed') . PHP_EOL;
 	}
-	$fileContent = $clangFormattedFileContent;
 	return true;
 }
 
@@ -221,7 +218,9 @@ EOT;
 		$nonEmptyLines[] = rtrim(($firstFound ? ' * ' : '') . $l);
 		$firstFound = true;
 	}
-	unset($nonEmptyLines[count($nonEmptyLines)-1]);
+	if($nonEmptyLines[count($nonEmptyLines)-1] == ' *'){
+		unset($nonEmptyLines[count($nonEmptyLines)-1]);
+	}
 
 	$description = implode(PHP_EOL, $nonEmptyLines);
 	$spacing = str_repeat(' ', 10 - strlen($modificationString));
