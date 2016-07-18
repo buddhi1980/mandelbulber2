@@ -1,49 +1,58 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2015-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cHeadless - class to handle CLI instructions without GUI manipulation
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
+ *
+ * cHeadless - class to handle CLI instructions without GUI manipulation
  */
 
 #include "headless.h"
-#include "initparameters.hpp"
-#include "fractal_container.hpp"
-#include "queue.hpp"
-#include "cimage.hpp"
-#include "files.h"
-#include "file_image.hpp"
-#include "render_job.hpp"
-#include "global_data.hpp"
-#include "interface.hpp"
-#include "error_message.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
+#include "cimage.hpp"
+#include "error_message.hpp"
+#include "file_image.hpp"
+#include "files.h"
+#include "fractal_container.hpp"
+#include "global_data.hpp"
+#include "initparameters.hpp"
+#include "interface.hpp"
+#include "queue.hpp"
+#include "render_job.hpp"
 #include "voxel_export.hpp"
 
-cHeadless::cHeadless() :
-		QObject()
+cHeadless::cHeadless() : QObject()
 {
-
 }
 
 cHeadless::~cHeadless()
 {
-
 }
 
 void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
@@ -52,13 +61,10 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
 
 	QObject::connect(renderJob,
-									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-									 this,
-									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-	QObject::connect(renderJob,
-									 SIGNAL(updateStatistics(cStatistics)),
-									 this,
-									 SLOT(slotUpdateStatistics(cStatistics)));
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this,
+		SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -107,8 +113,8 @@ void cHeadless::RenderQueue()
 			Wait(100); // TODO substitute with proper handling
 		} while (gQueue->GetQueueSize() > 0);
 
-		cErrorMessage::showMessage("Queue is empty. Waiting for something to do.",
-															 cErrorMessage::infoMessage);
+		cErrorMessage::showMessage(
+			"Queue is empty. Waiting for something to do.", cErrorMessage::infoMessage);
 		do
 		{
 			gApplication->processEvents();
@@ -123,7 +129,7 @@ void cHeadless::RenderVoxel()
 {
 	CVector3 limitMin;
 	CVector3 limitMax;
-	if(gPar->Get<bool>("voxel_custom_limit_enabled"))
+	if (gPar->Get<bool>("voxel_custom_limit_enabled"))
 	{
 		limitMin = gPar->Get<CVector3>("voxel_limit_min");
 		limitMax = gPar->Get<CVector3>("voxel_limit_max");
@@ -138,11 +144,11 @@ void cHeadless::RenderVoxel()
 	int samplesX = gPar->Get<int>("voxel_samples_x");
 	int samplesY = gPar->Get<int>("voxel_samples_y");
 	int samplesZ = gPar->Get<int>("voxel_samples_z");
-	cVoxelExport* voxelExport = new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
+	cVoxelExport *voxelExport =
+		new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
 	QObject::connect(voxelExport,
-		SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-		this,
-		SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 	voxelExport->ProcessVolume();
 	delete voxelExport;
 	emit finished();
@@ -151,23 +157,17 @@ void cHeadless::RenderVoxel()
 void cHeadless::RenderFlightAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	gFlightAnimation = new cFlightAnimation(gMainInterface,
-																					gAnimFrames,
-																					image,
-																					NULL,
-																					gPar,
-																					gParFractal,
-																					NULL);
-	QObject::connect(gFlightAnimation,
-									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
-									 this,
-									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
-	// QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
+	gFlightAnimation =
+		new cFlightAnimation(gMainInterface, gAnimFrames, image, NULL, gPar, gParFractal, NULL);
+	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																			 const QString &, double, cProgressText::enumProgressType)),
+		this, SLOT(slotUpdateProgressAndStatus(
+						const QString &, const QString &, double, cProgressText::enumProgressType)));
+	// QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+	// unused
 	//								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-	QObject::connect(gFlightAnimation,
-									 SIGNAL(updateStatistics(cStatistics)),
-									 this,
-									 SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)), this,
+		SLOT(slotUpdateStatistics(cStatistics)));
 	gFlightAnimation->slotRenderFlight();
 	delete image;
 	delete gFlightAnimation;
@@ -178,23 +178,17 @@ void cHeadless::RenderFlightAnimation()
 void cHeadless::RenderKeyframeAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface,
-																							gKeyframes,
-																							image,
-																							NULL,
-																							gPar,
-																							gParFractal,
-																							NULL);
-	QObject::connect(gKeyframeAnimation,
-									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
-									 this,
-									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
-	// QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
+	gKeyframeAnimation =
+		new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL, gPar, gParFractal, NULL);
+	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																				 const QString &, double, cProgressText::enumProgressType)),
+		this, SLOT(slotUpdateProgressAndStatus(
+						const QString &, const QString &, double, cProgressText::enumProgressType)));
+	// QObject::connect(gKeyframeAnimation,
+	// SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
 	// 								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-	QObject::connect(gKeyframeAnimation,
-									 SIGNAL(updateStatistics(cStatistics)),
-									 this,
-									 SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)), this,
+		SLOT(slotUpdateStatistics(cStatistics)));
 	gKeyframeAnimation->slotRenderKeyframes();
 	delete image;
 	delete gKeyframeAnimation;
@@ -208,13 +202,10 @@ void cHeadless::slotNetRender()
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
 	QObject::connect(renderJob,
-									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-									 this,
-									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-	QObject::connect(renderJob,
-									 SIGNAL(updateStatistics(cStatistics)),
-									 this,
-									 SLOT(slotUpdateStatistics(cStatistics)));
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this,
+		SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -230,7 +221,7 @@ void cHeadless::slotNetRender()
 }
 
 void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
-		double progress, cProgressText::enumProgressType progressType)
+	double progress, cProgressText::enumProgressType progressType)
 {
 	static bool firstCallProgressUpdate = true;
 	if (firstCallProgressUpdate)
@@ -246,15 +237,9 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 	{
 		switch (progressType)
 		{
-			case cProgressText::progress_IMAGE:
-				MoveCursor(0, -1);
-				break;
-			case cProgressText::progress_ANIMATION:
-				MoveCursor(0, -2);
-				break;
-			case cProgressText::progress_QUEUE:
-				MoveCursor(0, -3);
-				break;
+			case cProgressText::progress_IMAGE: MoveCursor(0, -1); break;
+			case cProgressText::progress_ANIMATION: MoveCursor(0, -2); break;
+			case cProgressText::progress_QUEUE: MoveCursor(0, -3); break;
 		}
 
 		// not enough space to display info in animation bar
@@ -264,14 +249,9 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 
 		switch (progressType)
 		{
-			case cProgressText::progress_QUEUE:
-				MoveCursor(0, 1);
-				EraseLine();
-			case cProgressText::progress_ANIMATION:
-				MoveCursor(0, 1);
-				EraseLine();
-			case cProgressText::progress_IMAGE:
-				MoveCursor(0, 1);
+			case cProgressText::progress_QUEUE: MoveCursor(0, 1); EraseLine();
+			case cProgressText::progress_ANIMATION: MoveCursor(0, 1); EraseLine();
+			case cProgressText::progress_IMAGE: MoveCursor(0, 1);
 		}
 		if (systemData.statsOnCLI) MoveCursor(0, 2);
 	}
@@ -289,32 +269,28 @@ void cHeadless::slotUpdateStatistics(cStatistics stat)
 	QString statsText = "";
 	statsText += tr("Total number of iters").leftJustified(25, ' ') + ": ";
 	statsText += colorize(QString::number(stat.GetTotalNumberOfIterations()).rightJustified(12, ' '),
-												ansiBlue,
-												noExplicitColor,
-												true) + ", ";
+								 ansiBlue, noExplicitColor, true)
+							 + ", ";
 	statsText += tr("Number of iters / pixel").leftJustified(25, ' ') + ": ";
-	statsText += colorize(QString::number(stat.GetNumberOfIterationsPerPixel()).rightJustified(12,
-																																														 ' '),
-												ansiBlue,
-												noExplicitColor,
-												true) + "\n";
+	statsText +=
+		colorize(QString::number(stat.GetNumberOfIterationsPerPixel()).rightJustified(12, ' '),
+			ansiBlue, noExplicitColor, true)
+		+ "\n";
 	statsText += tr("Number of iters / second").leftJustified(25, ' ') + ": ";
-	statsText += colorize(QString::number(stat.GetNumberOfIterationsPerSecond()).rightJustified(12,
-																																															' '),
-												ansiBlue,
-												noExplicitColor,
-												true) + ", ";
+	statsText +=
+		colorize(QString::number(stat.GetNumberOfIterationsPerSecond()).rightJustified(12, ' '),
+			ansiBlue, noExplicitColor, true)
+		+ ", ";
 	statsText += tr("Percentage of wrong DE").leftJustified(25, ' ') + ": ";
 	statsText += colorize(QString::number(stat.GetMissedDEPercentage()).rightJustified(12, ' '),
-												ansiBlue,
-												noExplicitColor,
-												true) + "\n";
+								 ansiBlue, noExplicitColor, true)
+							 + "\n";
 	out << statsText;
 	out.flush();
 }
 
-void cHeadless::RenderingProgressOutput(const QString &header, const QString &progressTxt,
-		double percentDone)
+void cHeadless::RenderingProgressOutput(
+	const QString &header, const QString &progressTxt, double percentDone)
 {
 	QTextStream out(stdout);
 	QString formatedText = formatLine(progressTxt) + " ";
@@ -342,10 +318,10 @@ void cHeadless::RenderingProgressOutput(const QString &header, const QString &pr
 	out.flush();
 }
 
-QString cHeadless::colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor,
-		bool bold)
+QString cHeadless::colorize(
+	QString text, ansiColor foregroundcolor, ansiColor backgroundColor, bool bold)
 {
-	// more info on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
+// more info on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
 #ifdef WIN32 /* WINDOWS */
 	return text;
 #else
@@ -367,25 +343,31 @@ QString cHeadless::colorize(QString text, ansiColor foregroundcolor, ansiColor b
 #endif
 }
 
-QString cHeadless::formatLine(const QString& text)
+QString cHeadless::formatLine(const QString &text)
 {
 #ifdef WIN32 /* WINDOWS */
 	return text;
 #else
 	if (!systemData.useColor) return text;
 	QList<QRegularExpression> reType;
-	reType.append(QRegularExpression("^(Done )(.*?)(, )(elapsed: )(.*?)(, )(estimated to end: )(.*)"));
+	reType.append(
+		QRegularExpression("^(Done )(.*?)(, )(elapsed: )(.*?)(, )(estimated to end: )(.*)"));
 	reType.append(QRegularExpression("^(Gotowe )(.*?)(, )(upłynęło: )(.*?)(, )(do końca: )(.*)"));
-	reType.append(QRegularExpression("^(Fortschritt )(.*?)(, )(vergangen: )(.*?)(, )(voraussichtlich noch: )(.*)"));
+	reType.append(QRegularExpression(
+		"^(Fortschritt )(.*?)(, )(vergangen: )(.*?)(, )(voraussichtlich noch: )(.*)"));
 
 	reType.append(QRegularExpression("^(.*?)( Done)(, )(total time: )(.*)"));
 	reType.append(QRegularExpression("^(.*?)( gotowe)(, )(całkowity czas: )(.*)"));
 	reType.append(QRegularExpression("^(.*?)( Fertig)(, )(Gesamtzeit: )(.*)"));
 
 	// animation
-	reType.append(QRegularExpression("^(Frame .*? of .*? Done )(.*?)(, )(elapsed: )(.*?)(, )(estimated to end: )(.*)"));
-	reType.append(QRegularExpression("^(Klatka .*? z .*? Gotowe )(.*?)(, )(upłynęło: )(.*?)(, )(do końca: )(.*)"));
-	reType.append(QRegularExpression("^(Frame .*? von .*? Fortschritt )(.*?)(, )(vergangen: )(.*?)(, )(voraussichtlich noch: )(.*)"));
+	reType.append(QRegularExpression(
+		"^(Frame .*? of .*? Done )(.*?)(, )(elapsed: )(.*?)(, )(estimated to end: )(.*)"));
+	reType.append(QRegularExpression(
+		"^(Klatka .*? z .*? Gotowe )(.*?)(, )(upłynęło: )(.*?)(, )(do końca: )(.*)"));
+	reType.append(
+		QRegularExpression("^(Frame .*? von .*? Fortschritt )(.*?)(, )(vergangen: )(.*?)(, "
+											 ")(voraussichtlich noch: )(.*)"));
 
 	QRegularExpressionMatch matchType;
 	for (int i = 0; i < reType.size(); i++)
