@@ -1,31 +1,43 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cLights class - container for light source definitions
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cLights class - container for light source definitions
  */
 
 #include "lights.hpp"
 #include "calculate_distance.hpp"
-#include "system.hpp"
 #include "common_math.h"
-#include "random.hpp"
 #include "global_data.hpp"
+#include "random.hpp"
+#include "system.hpp"
 
 cLights::cLights() : QObject()
 {
@@ -55,7 +67,7 @@ cLights::~cLights()
 void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_fractal)
 {
 	WriteLog("Preparation of lights started", 2);
-	//move parameters from containers to structures
+	// move parameters from containers to structures
 	const cParamRender *params = new cParamRender(_params);
 	const cNineFractals *fractals = new cNineFractals(_fractal, _params);
 
@@ -65,7 +77,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	lights = new sLight[numberOfLights];
 
 	// custom user defined lights
-	if(params->auxLightNumber > 0)
+	if (params->auxLightNumber > 0)
 	{
 		for (int i = 0; i < params->auxLightNumber; i++)
 		{
@@ -78,9 +90,9 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 			}
 			else
 			{
-				lights[i].position = CVector3(0.0,0.0,0.0);
+				lights[i].position = CVector3(0.0, 0.0, 0.0);
 				lights[i].intensity = 0.0;
-				lights[i].colour = sRGB(0,0,0);
+				lights[i].colour = sRGB(0, 0, 0);
 				lights[i].enabled = false;
 			}
 		}
@@ -102,23 +114,26 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 
 			gApplication->processEvents();
 			// try random positioning of light, until distance to surface suffies
-			while(distance <= 0 || distance >= params->auxLightRandomMaxDistanceFromFractal * radiusMultiplier)
+			while (distance <= 0
+						 || distance >= params->auxLightRandomMaxDistanceFromFractal * radiusMultiplier)
 			{
 				CVector3 rv;
 				rv.x = random.DoubleRandom(-1.0, 1.0);
 				rv.y = random.DoubleRandom(-1.0, 1.0);
 				rv.z = random.DoubleRandom(-1.0, 1.0);
-				position = params->auxLightRandomCenter + rv * params->auxLightRandomRadius * radiusMultiplier;
+				position =
+					params->auxLightRandomCenter + rv * params->auxLightRandomRadius * radiusMultiplier;
 
 				sDistanceIn distanceIn(position, 0.0, false);
 				distance = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
 
 				trialNumber++;
 				if (trialNumber % 100 == 0) radiusMultiplier *= 1.01;
-				if(trialNumber > 100000) break;
+				if (trialNumber > 100000) break;
 			}
 
-			sRGB colour(random.Random(20000, 100000, 1), random.Random(20000, 100000, 1), random.Random(20000, 100000, 1));
+			sRGB colour(random.Random(20000, 100000, 1), random.Random(20000, 100000, 1),
+				random.Random(20000, 100000, 1));
 			double convertColorRatio = 65536.0 / dMax(colour.R, colour.G, colour.B);
 			colour.R *= convertColorRatio;
 			colour.G *= convertColorRatio;
@@ -132,11 +147,12 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 			lights[i + params->auxLightNumber].intensity = intensity;
 			lights[i + params->auxLightNumber].enabled = true;
 
-			emit updateProgressAndStatus(
-						QObject::tr("Positioning random lights"),
-						QObject::tr("Positioned light %1 of %2").arg(QString::number(i + 1), QString::number(params->auxLightRandomNumber)),
-						((i + 1.0) / params->auxLightRandomNumber));
-			// qDebug() << QString("Light no. %1: pos: %2, distance=%3").arg(QString::number(i), position.Debug(), QString::number(distance));
+			emit updateProgressAndStatus(QObject::tr("Positioning random lights"),
+				QObject::tr("Positioned light %1 of %2")
+					.arg(QString::number(i + 1), QString::number(params->auxLightRandomNumber)),
+				((i + 1.0) / params->auxLightRandomNumber));
+			// qDebug() << QString("Light no. %1: pos: %2, distance=%3").arg(QString::number(i),
+			// position.Debug(), QString::number(distance));
 		}
 	}
 
@@ -148,7 +164,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	WriteLog("Preparation of lights finished", 2);
 }
 
-cLights::sLight* cLights::GetLight(const int index) const
+cLights::sLight *cLights::GetLight(const int index) const
 {
 	if (lightsReady)
 	{
@@ -165,10 +181,10 @@ cLights::sLight* cLights::GetLight(const int index) const
 	{
 		qCritical() << "Lights not initialized";
 	}
-	return (cLights::sLight*) &dummyLight;
+	return (cLights::sLight *)&dummyLight;
 }
 
-void cLights::Copy(const cLights& _lights)
+void cLights::Copy(const cLights &_lights)
 {
 	numberOfLights = _lights.numberOfLights;
 	lightsReady = _lights.lightsReady;

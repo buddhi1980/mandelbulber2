@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_COLORING_HPP_
 #define MANDELBULBER2_SRC_FRACTAL_COLORING_HPP_
 
+#include "algebra.hpp"
+
 struct sFractalColoring
 {
 	enum enumFractalColoringAlgorithm

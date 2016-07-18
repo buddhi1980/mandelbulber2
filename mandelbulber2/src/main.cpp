@@ -1,51 +1,63 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * main function - 'main' function for application
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * main function - 'main' function for application
  */
 
 #include "main.hpp"
-#include "system.hpp"
-#include "interface.hpp"
-#include "initparameters.hpp"
-#include "fractal_list.hpp"
-#include "global_data.hpp"
-#include "settings.hpp"
-#include "command_line_interface.hpp"
-#include "headless.h"
-#include "error_message.hpp"
-#include "netrender.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
+#include "command_line_interface.hpp"
+#include "error_message.hpp"
+#include "fractal_list.hpp"
+#include "global_data.hpp"
+#include "headless.h"
+#include "initparameters.hpp"
+#include "interface.hpp"
+#include "netrender.hpp"
 #include "queue.hpp"
+#include "settings.hpp"
+#include "system.hpp"
 
 #include <qapplication.h>
 
 int main(int argc, char *argv[])
 {
-	//Initialization of system functions
+	// Initialization of system functions
 	InitSystem();
 
-	//configure debug output
+	// configure debug output
 	qInstallMessageHandler(myMessageOutput);
 
-	//class for interface windows
+	// class for interface windows
 	gMainInterface = new cInterface;
 
 	WriteLog("Prepare QApplication", 2);
@@ -71,23 +83,25 @@ int main(int argc, char *argv[])
 		gApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
 	}
 
-	//registering types for queued connections
+	// registering types for queued connections
+	// notice: /* */ prevent formatters from collapsing nested templates,
+	// since this may cause compiler errors on falsely interpreted operator>>()
 	qRegisterMetaType<cStatistics>("cStatistics");
-	qRegisterMetaType<QList<QByteArray> >("QList<QByteArray>");
-	qRegisterMetaType<QList<int> >("QList<int>");
+	qRegisterMetaType<QList<QByteArray> /* */>("QList<QByteArray>");
+	qRegisterMetaType<QList<int> /* */>("QList<int>");
 	qRegisterMetaType<cParameterContainer>("cParameterContainer");
 	qRegisterMetaType<cFractalContainer>("cFractalContainer");
 	qRegisterMetaType<sTextures>("sTextures");
 	qRegisterMetaType<cProgressText::enumProgressType>("cProgressText::enumProgressType");
-	qRegisterMetaType<QVector<int> >("QVector<int>");
-	qRegisterMetaType<CVector2<double> >("CVector2<double>");
+	qRegisterMetaType<QVector<int> /* */>("QVector<int>");
+	qRegisterMetaType<CVector2<double> /* */>("CVector2<double>");
 	qRegisterMetaType<QMessageBox::StandardButtons>("QMessageBox::StandardButtons");
-	qRegisterMetaType<QMessageBox::StandardButtons*>("QMessageBox::StandardButtons*");
+	qRegisterMetaType<QMessageBox::StandardButtons *>("QMessageBox::StandardButtons*");
 	qRegisterMetaType<cErrorMessage::enumMessageType>("cErrorMessage::enumMessageType");
 
 	gErrorMessage = new cErrorMessage;
 
-	//create default directories and copy all needed files
+	// create default directories and copy all needed files
 	WriteLog("CreateDefaultFolders()", 2);
 	if (!CreateDefaultFolders())
 	{
@@ -95,14 +109,14 @@ int main(int argc, char *argv[])
 		return 73;
 	}
 
-	//create internal database with parameters
+	// create internal database with parameters
 	gPar = new cParameterContainer;
 	gParFractal = new cFractalContainer;
 
-	//Allocate container for animation frames
+	// Allocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
 
-	//Allocate container for key frames
+	// Allocate container for key frames
 	gKeyframes = new cKeyframes;
 
 	gPar->SetContainerName("main");
@@ -115,19 +129,19 @@ int main(int argc, char *argv[])
 
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
-	//InitMaterialParams(1, gPar);
-	//InitMaterialParams(2, gPar);
-	//InitMaterialParams(3, gPar);
+	// InitMaterialParams(1, gPar);
+	// InitMaterialParams(2, gPar);
+	// InitMaterialParams(3, gPar);
 
 	/*******************************************************************/
 
-	//Define list of fractal formulas
+	// Define list of fractal formulas
 	DefineFractalList(&fractalList);
 
-	//Netrender
+	// Netrender
 	gNetRender = new CNetRender(systemData.numberOfThreads);
 
-	//loading AppSettings
+	// loading AppSettings
 	if (QFile(systemData.dataDirectory + "mandelbulber.ini").exists())
 	{
 		cSettings parSettings(cSettings::formatAppSettings);
@@ -150,69 +164,51 @@ int main(int argc, char *argv[])
 	if (!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->ShowUi();
-		gFlightAnimation = new cFlightAnimation(gMainInterface,
-																						gAnimFrames,
-																						gMainInterface->mainImage,
-																						gMainInterface->renderedImage,
-																						gPar,
-																						gParFractal,
-																						gMainInterface->mainWindow);
-		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface,
-																								gKeyframes,
-																								gMainInterface->mainImage,
-																								gMainInterface->renderedImage,
-																								gPar,
-																								gParFractal,
-																								gMainInterface->mainWindow);
+		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainImage,
+			gMainInterface->renderedImage, gPar, gParFractal, gMainInterface->mainWindow);
+		gKeyframeAnimation =
+			new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainImage,
+				gMainInterface->renderedImage, gPar, gParFractal, gMainInterface->mainWindow);
 
-		QObject::connect(gFlightAnimation,
-										 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
-										 gMainInterface->mainWindow,
-										 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
-		QObject::connect(gFlightAnimation,
-										 SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
-										 gMainInterface->mainWindow,
-										 SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-		QObject::connect(gFlightAnimation,
-										 SIGNAL(updateStatistics(cStatistics)),
-										 gMainInterface->mainWindow,
-										 SLOT(slotUpdateStatistics(cStatistics)));
+		QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																				 const QString &, double, cProgressText::enumProgressType)),
+			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &,
+																		double, cProgressText::enumProgressType)));
+		QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+			gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
+			gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 		QObject::connect(gKeyframeAnimation,
-										 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
-										 gMainInterface->mainWindow,
-										 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+			SIGNAL(updateProgressAndStatus(
+				const QString &, const QString &, double, cProgressText::enumProgressType)),
+			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &,
+																		double, cProgressText::enumProgressType)));
 		QObject::connect(gKeyframeAnimation,
-										 SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
-										 gMainInterface->mainWindow,
-										 SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-		QObject::connect(gKeyframeAnimation,
-										 SIGNAL(updateStatistics(cStatistics)),
-										 gMainInterface->mainWindow,
-										 SLOT(slotUpdateStatistics(cStatistics)));
+			SIGNAL(updateProgressHide(cProgressText::enumProgressType)), gMainInterface->mainWindow,
+			SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
+			gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 
 		try
 		{
-			gQueue = new cQueue(gMainInterface,
-													systemData.dataDirectory + "queue.fractlist",
-													systemData.dataDirectory + "queue",
-													gMainInterface->mainWindow);
-		} catch (QString &ex)
+			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
+				systemData.dataDirectory + "queue", gMainInterface->mainWindow);
+		}
+		catch (QString &ex)
 		{
-			cErrorMessage::showMessage(QObject::tr("Cannot init queue: ") + ex,
-																 cErrorMessage::errorMessage);
+			cErrorMessage::showMessage(
+				QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
 			return -1;
 		}
 	}
 
-	//write parameters to ui
+	// write parameters to ui
 	if (!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->ComboMouseClickUpdate();
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
-
 		gMainInterface->AutoRecovery();
-
 		gMainInterface->InitPeriodicRefresh();
 	}
 
@@ -220,12 +216,12 @@ int main(int argc, char *argv[])
 
 	commandLineInterface.ProcessCLI();
 
-	//start main Qt loop
+	// start main Qt loop
 	WriteLog("application->exec()", 2);
 	int result = 0;
 	if (!commandLineInterface.isNoGUI()) result = gApplication->exec();
 
-	//clean objects when exit
+	// clean objects when exit
 	delete gPar;
 	gPar = NULL;
 	delete gParFractal;
@@ -240,4 +236,3 @@ int main(int argc, char *argv[])
 	delete gApplication;
 	return result;
 }
-

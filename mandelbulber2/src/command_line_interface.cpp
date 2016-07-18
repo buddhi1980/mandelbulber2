@@ -57,29 +57,25 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addHelpOption();
 	parser.addVersionOption();
 
-	QCommandLineOption noguiOption(QStringList() << "n" << "nogui",
+	QCommandLineOption noguiOption(QStringList({"n", "nogui"}),
 		QCoreApplication::translate("main", "Starts the program without a GUI."));
 
-	QCommandLineOption keyframeOption(QStringList() << "K" << "keyframe",
+	QCommandLineOption keyframeOption(QStringList({"K", "keyframe"}),
 		QCoreApplication::translate("main", "Renders keyframe animation."));
 
-	QCommandLineOption flightOption(QStringList() << "F"
-																								<< "flight",
-		QCoreApplication::translate("main", "Renders flight animation."));
+	QCommandLineOption flightOption(
+		QStringList({"F", "flight"}), QCoreApplication::translate("main", "Renders flight animation."));
 
-	QCommandLineOption startOption(QStringList() << "s"
-																							 << "start",
+	QCommandLineOption startOption(QStringList({"s", "start"}),
 		QCoreApplication::translate("main", "Starts rendering from frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption endOption(QStringList() << "e"
-																						 << "end",
+	QCommandLineOption endOption(QStringList({"e", "end"}),
 		QCoreApplication::translate("main", "Stops rendering on frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 
 	QCommandLineOption overrideOption(
-		QStringList() << "O"
-									<< "override",
+		QStringList({"O", "override"}),
 		QCoreApplication::translate("main",
 			"<KEY=VALUE> overrides item '<KEY>' from settings file with new value '<VALUE>'.\n"
 			"Specify multiple KEY=VALUE pairs by separating with a '#': <KEY1=VALUE1#KEY2=VALUE2>. Quote "
@@ -89,13 +85,11 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "..."));
 
 	QCommandLineOption listOption(
-		QStringList() << "L"
-									<< "list",
+		QStringList({"L", "list"}),
 		QCoreApplication::translate(
 			"main", "Lists all possible parameters '<KEY>' with corresponding default value '<VALUE>'."));
 
-	QCommandLineOption formatOption(QStringList() << "f"
-																								<< "format",
+	QCommandLineOption formatOption(QStringList({"f", "format"}),
 		QCoreApplication::translate("main",
 																		"Image output format:\n"
 																		"  jpg - JPEG format (default)\n"
@@ -107,8 +101,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "FORMAT"));
 
 	QCommandLineOption resOption(
-		QStringList() << "r"
-									<< "res",
+		QStringList({"r", "res"}),
 		QCoreApplication::translate(
 			"main", "Overrides image resolution. Specify as width and height separated by 'x'"),
 		QCoreApplication::translate("main", "WxH"));
@@ -117,52 +110,44 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "Overrides frames per key parameter."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption serverOption(QStringList() << "S"
-																								<< "server",
+	QCommandLineOption serverOption(QStringList({"S", "server"}),
 		QCoreApplication::translate("main", "Sets application as a server listening for clients."));
 
 	QCommandLineOption hostOption(
-		QStringList() << "H"
-									<< "host",
+		QStringList({"H", "host"}),
 		QCoreApplication::translate("main",
 			"Sets application as a client connected to server of given host address"
 			" (Host can be of type IPv4, IPv6 and Domain name address)."),
 		QCoreApplication::translate("main", "N.N.N.N"));
 
-	QCommandLineOption portOption(QStringList() << "p"
-																							<< "port",
+	QCommandLineOption portOption(QStringList({"p", "port"}),
 		QCoreApplication::translate("main", "Sets network port number for netrender (default 5555)."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption noColorOption(QStringList() << "C"
-																								 << "no-cli-color",
+	QCommandLineOption noColorOption(QStringList({"C", "no-cli-color"}),
 		QCoreApplication::translate("main",
 																		 "Starts program without ANSI colors, when execution on CLI."));
 
-	QCommandLineOption outputOption(QStringList() << "o"
-																								<< "output",
+	QCommandLineOption outputOption(QStringList({"o", "output"}),
 		QCoreApplication::translate("main", "Saves rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption queueOption(QStringList() << "q"
-																							 << "queue",
+	QCommandLineOption queueOption(QStringList({"q", "queue"}),
 		QCoreApplication::translate("main", "Renders all images from common queue."));
 
-	QCommandLineOption testOption(QStringList() << "t"
-																							<< "test",
+	QCommandLineOption testOption(QStringList({"t", "test"}),
 		QCoreApplication::translate("main", "This will run testcases on the mandelbulber instance"));
 
-	QCommandLineOption voxelOption(QStringList() << "V"
-																							 << "voxel",
+	QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
 		QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));
 
-	QCommandLineOption statsOption(QStringList() << "stats",
+	QCommandLineOption statsOption(QStringList({"stats"}),
 		QCoreApplication::translate("main", "Shows statistics while rendering in CLI mode."));
 
 	QCommandLineOption helpInputOption(
-		QStringList() << "help-input", QCoreApplication::translate("main", "Shows help about input."));
-	QCommandLineOption helpExamplesOption(QStringList() << "help-examples",
-		QCoreApplication::translate("main", "Shows example commands."));
+		QStringList({"help-input"}), QCoreApplication::translate("main", "Shows help about input."));
+	QCommandLineOption helpExamplesOption(
+		QStringList({"help-examples"}), QCoreApplication::translate("main", "Shows example commands."));
 
 	parser.addPositionalArgument(
 		"settings_file",

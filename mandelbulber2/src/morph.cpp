@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -14,7 +14,7 @@
  * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
  * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
  * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
- *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
  * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
  * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
  * but WITHOUT ANY WARRANTY;                            .'''
@@ -101,8 +101,8 @@ cOneParameter cMorph::Interpolate(const int keyframe, double factor)
 {
 	int key = findInMorph(keyframe);
 	if (key == -1) return dataSets[0].parameter;
-	if (dataSets[key].parameter.GetValueType() == typeString ||
-			dataSets[key].parameter.GetValueType() == typeBool)
+	if (dataSets[key].parameter.GetValueType() == typeString
+			|| dataSets[key].parameter.GetValueType() == typeBool)
 	{
 		return None(key);
 	}
@@ -487,8 +487,8 @@ double cMorph::CatmullRomInterpolate(
 			}
 		}
 	}
-	double value = 0.5 * ((2 * v2) + (-v1 + v3) * factor + (2 * v1 - 5 * v2 + 4 * v3 - v4) * factor2 +
-												 (-v1 + 3 * v2 - 3 * v3 + v4) * factor3);
+	double value = 0.5 * ((2 * v2) + (-v1 + v3) * factor + (2 * v1 - 5 * v2 + 4 * v3 - v4) * factor2
+												 + (-v1 + 3 * v2 - 3 * v3 + v4) * factor3);
 	if (logarithmic)
 	{
 		if (negative)
