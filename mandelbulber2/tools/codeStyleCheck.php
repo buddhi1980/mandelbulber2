@@ -218,7 +218,7 @@ EOT;
 		if(preg_match($regexCommentStart, $l, $match)){
 			$l = $match[1];
 		}
-		$nonEmptyLines[] = ($firstFound ? ' * ' : '') . $l;
+		$nonEmptyLines[] = rtrim(($firstFound ? ' * ' : '') . $l);
 		$firstFound = true;
 	}
 	unset($nonEmptyLines[count($nonEmptyLines)-1]);
