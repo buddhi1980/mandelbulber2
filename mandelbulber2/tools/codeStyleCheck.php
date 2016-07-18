@@ -1,8 +1,8 @@
 #!/usr/bin/env php
 #
 # this file checks the source and header files
-# 
-# on default this script runs dry, 
+#
+# on default this script runs dry,
 # it will try to parse all files and prints problems inside the files
 # this should always be run first, to see if any issues occur
 # if you invoke this script with "nondry" as cli argument it will write changes to the project files
@@ -12,16 +12,16 @@
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
 
 $filesToCheckSource = array();
-$filesToCheckSource[] = PROJECT_PATH . "src/*.cpp";
-$filesToCheckSource[] = PROJECT_PATH . "src/*.c";
-// $filesToCheckSource[] = PROJECT_PATH . "qt/*.cpp";
-// $filesToCheckSource[] = PROJECT_PATH . "qt/*.c";
+// $filesToCheckSource[] = PROJECT_PATH . "src/*.cpp";
+// $filesToCheckSource[] = PROJECT_PATH . "src/*.c";
+$filesToCheckSource[] = PROJECT_PATH . "qt/*.cpp";
+$filesToCheckSource[] = PROJECT_PATH . "qt/*.c";
 
 $filesToCheckHeader = array();
-$filesToCheckHeader[] = PROJECT_PATH . "src/*.hpp";
-$filesToCheckHeader[] = PROJECT_PATH . "src/*.h";
-// $filesToCheckHeader[] = PROJECT_PATH . "qt/*.hpp";
-// $filesToCheckHeader[] = PROJECT_PATH . "qt/*.h";
+// $filesToCheckHeader[] = PROJECT_PATH . "src/*.hpp";
+// $filesToCheckHeader[] = PROJECT_PATH . "src/*.h";
+$filesToCheckHeader[] = PROJECT_PATH . "qt/*.hpp";
+$filesToCheckHeader[] = PROJECT_PATH . "qt/*.h";
 
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
@@ -30,9 +30,11 @@ foreach($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
 	echo 'handling file: ' . $sourceFileName;
 	$sourceContent = file_get_contents($sourceFilePath);
-	if(!checkFileHeader($sourceContent)) continue;
+	if(!checkFileHeader($sourceFilePath, $sourceContent)) continue;
+	if(!checkClang($headerContent)) continue;
+
 	if(!isDryRun()){
-		file_put_contents($sourceFilePath, $sourceContent);	
+		file_put_contents($sourceFilePath, $sourceContent);
 	}
 	echo successString(' -> All well') . PHP_EOL;
 }
@@ -43,10 +45,11 @@ foreach($headerFiles as $headerFilePath) {
 	$folderName = basename(str_replace($headerFileName, '', $headerFilePath));
 	echo 'handling file: ' . $headerFileName;
 	$headerContent = file_get_contents($headerFilePath);
-	if(!checkFileHeader($headerContent)) continue;
+	if(!checkFileHeader($headerFilePath, $headerContent)) continue;
 	if(!checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName)) continue;
+	if(!checkClang($headerContent)) continue;
 	if(!isDryRun()){
-		file_put_contents($headerFilePath, $headerContent);	
+		file_put_contents($headerFilePath, $headerContent);
 	}
 	echo successString(' -> All well') . PHP_EOL;
 }
@@ -63,17 +66,21 @@ exit;
 
 
 
-function checkFileHeader(&$fileContent){
+function checkFileHeader($filePath, &$fileContent){
 	$headerRegex = '/^(\/\*\*[\s\S]*?\*\/)([\s\S]*)$/';
 	if(preg_match($headerRegex, $fileContent, $matchHeader)){
 		$functionContentFound = true;
 		$fileHeader = $matchHeader[1];
 		// $fileSourceCode = $matchHeader[2];
+		$modificationString = getModificationInterval($filePath);
+
 		if(strpos($fileHeader, 'MKNmMMKmm') === false){
-			$regexOldHeader = '/^[\s\S]+Mandelbulber\sv2.*[\s\S]*?(\w.*)[\S\s]+General\sPublic[\S\s]+Authors:\s(.*)[\s\S]*?\*\/([\s\S]*)$/';
-			if(preg_match($regexOldHeader, $fileContent, $matchHeaderOld)){
+			$regexParseHeader = '/^[\s\S]+Mandelbulber\sv2.*[\s\S]*?(\w.*)[\S\s]+';
+			$regexParseHeader .= 'General\sPublic[\S\s]+';
+			$regexParseHeader .= 'Authors:\s(.*)[\s\S]*?\*\/([\s\S]*)$/';
+			if(preg_match($regexParseHeader, $fileContent, $matchHeaderOld)){
 				echo noticeString('header is old, will rewrite to new!') . PHP_EOL;
-				$newFileContent = getFileHeader($matchHeaderOld[2], $matchHeaderOld[1]) . $matchHeaderOld[3];		
+				$newFileContent = getFileHeader($matchHeaderOld[2], $matchHeaderOld[1], $modificationString) . $matchHeaderOld[3];
 				$fileContent = $newFileContent;
 				return true;
 			}
@@ -82,8 +89,18 @@ function checkFileHeader(&$fileContent){
 			}
 		}
 		else{
-			return true;	
+			$regexParseHeader = '/^[\s\S]+#{50}?[\S\s]+Authors:\s(.*)([\s\S]*?)\*\/([\s\S]*)$/';
+			if(preg_match($regexParseHeader, $fileContent, $matchHeaderNew)){
+				echo noticeString('header is new, will rewrite to new!') . PHP_EOL;
+				$newFileContent = getFileHeader($matchHeaderNew[1], $matchHeaderNew[2], $modificationString) . $matchHeaderNew[3];
+				$fileContent = $newFileContent;
+				return true;
+			}
+			else{
+				echo errorString('header unknown!') . PHP_EOL;
+			}
 		}
+
 	}
 	else{
 		echo errorString('No header found!') . PHP_EOL;
@@ -109,6 +126,32 @@ function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderNa
 	return false;
 }
 
+function checkClang(&$fileContent){
+	$cmd = "echo " . escapeshellarg($fileContent);
+	$cmd .= " | clang-format --style=file";
+	$clangFormattedFileContent =  shell_exec($cmd);
+	if($clangFormattedFileContent == ''){
+		errorString('clang-format returned empty string, not installed?');
+		return false;
+	}
+	if($fileContent != $clangFormattedFileContent){
+		echo noticeString('checkClang changed') . PHP_EOL;
+	}
+	$fileContent = $clangFormattedFileContent;
+	return true;
+}
+
+function getModificationInterval($filePath){
+	$cmd = "git log --format=%ad " . $filePath . " | tail -1 | egrep -o '\s([0-9]{4})\s'";
+	$yearStart = trim(shell_exec($cmd));
+	$cmd = "git log --format=%ad " . $filePath . " | head -1 | egrep -o '\s([0-9]{4})\s'";
+	$yearEnd =  trim(shell_exec($cmd));
+	if($yearStart == $yearEnd){
+		return $yearStart;
+	}
+	return $yearStart . '-' . substr($yearEnd, 2, 2);
+}
+
 function errorString($s){
 	return "\033[0;31m\033[47m" . $s . "\033[0m";
 }
@@ -129,12 +172,12 @@ function isDryRun(){
 	return true;
 }
 
-function getFileHeader($author, $description){
+function getFileHeader($author, $description, $modificationString){
 	$out = <<<EOT
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) __date__ Krzysztof Marczak __spacing__ §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -147,7 +190,7 @@ function getFileHeader($author, $description){
  * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
  * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
  * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
- *                                          §= "=C=4 §"eM "=B:m\\4"]#F,§~
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
  * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
  * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
  * but WITHOUT ANY WARRANTY;                            .'''
@@ -165,7 +208,25 @@ function getFileHeader($author, $description){
  * __description__
  */
 EOT;
-	return str_replace(array('__author__', '__description__'), array($author, $description), $out);
+	$lines = explode(PHP_EOL, $description);
+	$nonEmptyLines = array();
+	$firstFound = false;
+	foreach($lines as $line){
+		$l = trim($line);
+		if(!$firstFound && ($l == '*' || empty($l))) continue;
+		$regexCommentStart = '/^\*\s*(.*)$/';
+		if(preg_match($regexCommentStart, $l, $match)){
+			$l = $match[1];
+		}
+		$nonEmptyLines[] = ($firstFound ? ' * ' : '') . $l;
+		$firstFound = true;
+	}
+	unset($nonEmptyLines[count($nonEmptyLines)-1]);
+
+	$description = implode(PHP_EOL, $nonEmptyLines);
+	$spacing = str_repeat(' ', 10 - strlen($modificationString));
+	return str_replace(array('__author__', '__description__', '__date__', '__spacing__'),
+		array($author, $description, $modificationString, $spacing), $out);
 }
 
 ?>
