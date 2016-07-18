@@ -1,41 +1,54 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cParamRender class - container for scene parameters
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cParamRender class - container for scene parameters
  */
 
 #include "fractparams.hpp"
 
-cParamRender::cParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData) :
-		primitives(container, objectData)
+cParamRender::cParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData)
+		: primitives(container, objectData)
 {
 	ambientOcclusion = container->Get<double>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
-	ambientOcclusionMode = (params::enumAOMode) container->Get<int>("ambient_occlusion_mode");
+	ambientOcclusionMode = (params::enumAOMode)container->Get<int>("ambient_occlusion_mode");
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
 	auxLightNumber = 4;
 	auxLightRandomNumber = container->Get<int>("random_lights_number");
 	auxLightRandomSeed = container->Get<int>("random_lights_random_seed");
 	auxLightRandomCenter = container->Get<CVector3>("random_lights_distribution_center");
 	auxLightRandomRadius = container->Get<double>("random_lights_distribution_radius");
-	auxLightRandomMaxDistanceFromFractal = container->Get<double>("random_lights_max_distance_from_fractal");
+	auxLightRandomMaxDistanceFromFractal =
+		container->Get<double>("random_lights_max_distance_from_fractal");
 	auxLightRandomIntensity = container->Get<double>("random_lights_intensity");
 	auxLightRandomEnabled = container->Get<bool>("random_lights_group");
 	auxLightVisibility = container->Get<double>("aux_light_visibility");
@@ -59,7 +72,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	DOFRadius = container->Get<double>("DOF_radius");
 	DOFHDRmode = container->Get<bool>("DOF_HDR");
 	DOFNumberOfPasses = container->Get<int>("DOF_number_of_passes");
-  DOFBlurOpacity = container->Get<double>("DOF_blur_opacity");
+	DOFBlurOpacity = container->Get<double>("DOF_blur_opacity");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
 	fakeLightsEnabled = container->Get<double>("fake_lights_enabled");
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
@@ -106,7 +119,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	minN = container->Get<int>("minN");
 	N = container->Get<int>("N");
 	penetratingLights = container->Get<bool>("penetrating_lights");
-	perspectiveType = (params::enumPerspectiveType) container->Get<int>("perspective_type");
+	perspectiveType = (params::enumPerspectiveType)container->Get<int>("perspective_type");
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");
 	repeatFrom = container->Get<int>("repeat_from");
@@ -122,7 +135,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	target = container->Get<CVector3>("target");
 	texturedBackground = container->Get<bool>("textured_background");
 	texturedBackgroundMapType =
-			(params::enumTextureMapType) container->Get<int>("textured_background_map_type");
+		(params::enumTextureMapType)container->Get<int>("textured_background_map_type");
 	topVector = container->Get<CVector3>("camera_top");
 	useDefaultBailout = container->Get<bool>("use_default_bailout");
 	viewAngle = container->Get<CVector3>("camera_rotation");
@@ -161,8 +174,8 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{
-		booleanOperator[i] = (params::enumBooleanOperator) container->Get<int>("boolean_operator",
-																																					 i + 1);
+		booleanOperator[i] =
+			(params::enumBooleanOperator)container->Get<int>("boolean_operator", i + 1);
 	}
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
@@ -174,7 +187,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
 		formulaMaterialId[i] = container->Get<int>("formula_material_id", i + 1);
 
-		if(objectData)
+		if (objectData)
 		{
 			cObjectData oneObjectData;
 			oneObjectData.position = formulaPosition[i];
@@ -186,7 +199,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 		}
 	}
 
-	if(!booleanOperatorsEnabled && objectData)
+	if (!booleanOperatorsEnabled && objectData)
 	{
 		formulaMaterialId[0] = container->Get<int>("formula_material_id");
 		(*objectData)[0].materialId = formulaMaterialId[0];
@@ -206,6 +219,5 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	common.mRotFractalRotation.SetRotation2(common.fractalRotation / 180.0 * M_PI);
 	common.repeat = container->Get<CVector3>("repeat");
 
-	//formula = Get<int>("tile_number");
+	// formula = Get<int>("tile_number");
 }
-

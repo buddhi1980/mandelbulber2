@@ -1,72 +1,88 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cParamRender class - container for scene parameters
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cParamRender class - container for scene parameters
  */
 
-#ifndef FRACTPARAMS_HPP_
-#define FRACTPARAMS_HPP_
+#ifndef MANDELBULBER2_SRC_FRACTPARAMS_HPP_
+#define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 
-#include "parameters.hpp"
+#include "commonparams.hpp"
 #include "fractal.h"
 #include "fractal_container.hpp"
-#include "object_data.hpp"
 #include "image_adjustments.h"
+#include "object_data.hpp"
+#include "parameters.hpp"
 #include "primitives.h"
-#include "commonparams.hpp"
 #include "projection_3d.hpp"
 
 namespace params
 {
 enum enumAOMode
 {
-	AOmodeFast = 0, AOmodeMultipeRays = 1, AOmodeScreenSpace = 2
+	AOmodeFast = 0,
+	AOmodeMultipeRays = 1,
+	AOmodeScreenSpace = 2
 };
 
 enum enumTextureMapType
 {
-	mapEquirectangular = 0, mapDoubleHemisphere = 1, mapFlat = 2
+	mapEquirectangular = 0,
+	mapDoubleHemisphere = 1,
+	mapFlat = 2
 };
 
 enum enumBooleanOperator
 {
-	booleanOperatorAND = 0, booleanOperatorOR = 1, booleanOperatorSUB = 2
+	booleanOperatorAND = 0,
+	booleanOperatorOR = 1,
+	booleanOperatorSUB = 2
 };
-
 }
 
 class cParamRender
 {
 public:
-
-	//constructor with init
+	// constructor with init
 	cParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = NULL);
 
-	int ambientOcclusionQuality; //ambient occlusion quality
+	int ambientOcclusionQuality; // ambient occlusion quality
 	int auxLightNumber;
 	int auxLightRandomNumber;
 	int auxLightRandomSeed;
 	int frameNo;
-	int imageHeight; //image height
-	int imageWidth; //image width
+	int imageHeight; // image height
+	int imageWidth;	// image width
 	int formulaMaterialId[NUMBER_OF_FRACTALS];
-	int minN;	  // minimum number of iterations
+	int minN; // minimum number of iterations
 	int N;
 	int reflectionsMax;
 	int repeatFrom;
@@ -85,7 +101,7 @@ public:
 	fractal::enumDEMethod delta_DE_method;
 	fractal::enumDEFunctionType delta_DE_function;
 
-	bool ambientOcclusionEnabled; //enable global illumination
+	bool ambientOcclusionEnabled; // enable global illumination
 	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;
 	bool booleanOperatorsEnabled;
@@ -99,17 +115,17 @@ public:
 	bool hybridFractalEnable;
 	bool interiorMode;
 	bool iterFogEnabled;
-	bool iterThreshMode;	 //maxiter threshold mode
+	bool iterThreshMode; // maxiter threshold mode
 	bool legacyCoordinateSystem;
 	bool limitsEnabled; // enable limits (intersections)
 	bool mainLightEnable;
 	bool mainLightPositionAsRelative;
 	bool penetratingLights;
 	bool raytracedReflections;
-	bool shadow; //enable shadows
-	bool slowShading; //enable fake gradient calculation for shading
+	bool shadow;			// enable shadows
+	bool slowShading; // enable fake gradient calculation for shading
 	bool SSAO_random_mode;
-	bool texturedBackground; //enable testured background
+	bool texturedBackground; // enable testured background
 	bool useDefaultBailout;
 	bool volumetricLightEnabled[5];
 	bool volumetricLightAnyEnabled;
@@ -120,7 +136,7 @@ public:
 #endif
 
 	sRGB auxLightPreColour[4];
-	sRGB background_color1; //background colour
+	sRGB background_color1; // background colour
 	sRGB background_color2;
 	sRGB background_color3;
 	sRGB fogColor;
@@ -143,10 +159,10 @@ public:
 	double auxLightRandomMaxDistanceFromFractal;
 	double auxLightRandomIntensity;
 	double background_brightness;
-	double cameraDistanceToTarget; //zoom
+	double cameraDistanceToTarget; // zoom
 	double constantFactor;
-	double DEFactor; //factor for distance estimation steps
-	double detailLevel; //DE threshold factor
+	double DEFactor;		// factor for distance estimation steps
+	double detailLevel; // DE threshold factor
 	double DEThresh;
 	double DOFFocus;
 	double DOFRadius;
@@ -156,7 +172,7 @@ public:
 	double fakeLightsVisibilitySize;
 	double fogVisibility;
 	double formulaScale[NUMBER_OF_FRACTALS];
-	double fov; //perspective factor
+	double fov; // perspective factor
 	double glowIntensity;
 	double iterFogColor1Maxiter;
 	double iterFogColor2Maxiter;
@@ -167,7 +183,7 @@ public:
 	double mainLightIntensity;
 	double mainLightVisibility;
 	double mainLightVisibilitySize;
-	double resolution; //resolution of image in fractal coordinates
+	double resolution; // resolution of image in fractal coordinates
 	double shadowConeAngle;
 	double smoothness;
 	double sweetSpotHAngle;
@@ -191,7 +207,7 @@ public:
 	CVector3 limitMax;
 	CVector3 repeat;
 	CVector3 target;
-	CVector3 camera; //view point
+	CVector3 camera; // view point
 	CVector3 viewAngle;
 	CVector3 topVector;
 
@@ -202,6 +218,4 @@ public:
 	sCommonParams common;
 };
 
-
-
-#endif /* FRACTPARAMS_HPP_ */
+#endif /* MANDELBULBER2_SRC_FRACTPARAMS_HPP_ */

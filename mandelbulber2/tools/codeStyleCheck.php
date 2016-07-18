@@ -12,14 +12,14 @@
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
 
 $filesToCheckSource = array();
-$filesToCheckSource[] = PROJECT_PATH . "src/c*.cpp";
-$filesToCheckSource[] = PROJECT_PATH . "src/c*.c";
+$filesToCheckSource[] = PROJECT_PATH . "src/f*.cpp";
+$filesToCheckSource[] = PROJECT_PATH . "src/f*.c";
 // $filesToCheckSource[] = PROJECT_PATH . "qt/*.cpp";
 // $filesToCheckSource[] = PROJECT_PATH . "qt/*.c";
 
 $filesToCheckHeader = array();
-$filesToCheckHeader[] = PROJECT_PATH . "src/c*.hpp";
-$filesToCheckHeader[] = PROJECT_PATH . "src/c*.h";
+$filesToCheckHeader[] = PROJECT_PATH . "src/f*.hpp";
+$filesToCheckHeader[] = PROJECT_PATH . "src/f*.h";
 // $filesToCheckHeader[] = PROJECT_PATH . "qt/*.hpp";
 // $filesToCheckHeader[] = PROJECT_PATH . "qt/*.h";
 
@@ -28,6 +28,7 @@ $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 
 foreach($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
+	if(strpos($sourceFilePath, 'fractal_formulas') !== false) continue;
 	echo 'handling file: ' . $sourceFileName;
 	$sourceContent = file_get_contents($sourceFilePath);
 	if(!checkFileHeader($sourceFilePath, $sourceContent)) continue;
@@ -40,6 +41,7 @@ foreach($sourceFiles as $sourceFilePath) {
 }
 
 foreach($headerFiles as $headerFilePath) {
+	if(strpos($headerFilePath, 'fractal_formulas') !== false) continue;
 	$headerFileName = basename($headerFilePath);
 	if(substr($headerFileName, 0, strlen('ui_')) == 'ui_') continue;
 	$folderName = basename(str_replace($headerFileName, '', $headerFilePath));

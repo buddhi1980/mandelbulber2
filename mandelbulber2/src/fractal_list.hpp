@@ -1,30 +1,42 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * list of fractal formulas
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * list of fractal formulas
  */
 
-#ifndef FRACTAL_LIST_HPP_
-#define FRACTAL_LIST_HPP_
+#ifndef MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
+#define MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
 
-#include <QtCore>
 #include "system.hpp"
+#include <QtCore>
 
 namespace fractal
 {
@@ -75,32 +87,32 @@ enum enumFractalFormula
 	lkmitch = 49,
 	makin3d2 = 50,
 	msltoesym2Mod = 51,
-	//mandelbulb5 = 52,
-	//mandelbox103 = 53,
-	//quaternion104 = 54,
-	//mengerSponge105 = 55,
+	// mandelbulb5 = 52,
+	// mandelbox103 = 53,
+	// quaternion104 = 54,
+	// mengerSponge105 = 55,
 	platonicSolid = 56,
-	//mandelbulb6Beta = 57,
-	//benesiTransforms = 58,
+	// mandelbulb6Beta = 57,
+	// benesiTransforms = 58,
 	foldBoxMod1 = 59,
 	aboxModKali = 60,
 	mengerMod1 = 61,
 	quaternion3D = 62,
 	aexionOctopusMod = 63,
 	aboxMod1 = 64,
-  mandelbulbMulti = 65, // updated V2.08
+	mandelbulbMulti = 65, // updated V2.08
 	benesiPineTree = 66,
 	benesiT1PineTree = 67,
 	msltoesym3Mod = 68,
 	msltoesym4Mod = 69,
-  eiffieMsltoe = 70, // updated V2.08
+	eiffieMsltoe = 70, // updated V2.08
 	riemannSphereMsltoeV1 = 71,
 	riemannSphereMsltoe = 72,
 	amazingSurf = 73,
 	kalisets1 = 74,
 	aboxMod2 = 75,
 	aboxVSIcen1 = 76,
-  amazingSurfMod1 = 77, // updated V2.08
+	amazingSurfMod1 = 77, // updated V2.08
 	mandelbulbVaryPowerV1 = 78,
 	quaternion4D = 79,
 	msltoesym3Mod2 = 80,
@@ -108,30 +120,26 @@ enum enumFractalFormula
 	msltoeDonut = 82,
 	iqBulb = 83,
 	quickDudleyMod = 84,
-  //V2.08
+	// V2.08
 	riemannBulbMsltoeMod2 = 85,
 	msltoeToroidal = 86,
 	aboxModKaliEiffie = 87,
 	collatz = 88,
-  collatzMod = 89,
-  mengerPwr2Poly = 90,
-  mandelboxMenger = 91,
-  mandelbulbKali = 92,
-  mandelbulbKaliMulti = 93,
-  mandelbulbBermarte = 94,
-  mengerMiddleMod = 95,
-  msltoeToroidalMulti = 96,
-  amazingSurfMulti = 97,
-  //V2.09
-  crossMenger = 98,
-  mengerPrismShape = 99,
-
-
-
+	collatzMod = 89,
+	mengerPwr2Poly = 90,
+	mandelboxMenger = 91,
+	mandelbulbKali = 92,
+	mandelbulbKaliMulti = 93,
+	mandelbulbBermarte = 94,
+	mengerMiddleMod = 95,
+	msltoeToroidalMulti = 96,
+	amazingSurfMulti = 97,
+	// V2.09
+	crossMenger = 98,
+	mengerPrismShape = 99,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
-
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,
@@ -178,22 +186,23 @@ enum enumFractalFormula
 	transfScale4D = 1043,
 	transfFabsAddConstant4D = 1044,
 	transfFabsAddConstantV24D = 1045,
-  // v2.08
-  transfSurfFoldMulti = 1046,
+	// v2.08
+	transfSurfFoldMulti = 1046,
 	transfPwr2Polynomial = 1047,
-  transfRotationFoldingPlane = 1048,
-  transfSphericalFoldAbox = 1049,
-  transfSphericalFoldVaryV1 = 1050,
-  transfQuaternionFold = 1051,
-  transfMengerFold = 1052,
-  //V2.09
-  transfInvCylindrical = 1053,
+	transfRotationFoldingPlane = 1048,
+	transfSphericalFoldAbox = 1049,
+	transfSphericalFoldVaryV1 = 1050,
+	transfQuaternionFold = 1051,
+	transfMengerFold = 1052,
+	// V2.09
+	transfInvCylindrical = 1053,
 
 };
 
 enum enumDEType
 {
-	analyticDEType, deltaDEType
+	analyticDEType,
+	deltaDEType
 };
 
 enum enumDEFunctionType
@@ -210,7 +219,6 @@ enum enumCPixelAddition
 	cpixelDisabledByDefault = 1,
 	cpixelAlreadyHas = 2
 };
-
 }
 
 struct sFractalDescription
@@ -224,25 +232,26 @@ struct sFractalDescription
 	double defaultBailout;
 
 	sFractalDescription(QString _nameInComboBox, QString _internalName,
-			fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType,
-			fractal::enumDEFunctionType _DEFunctionType, fractal::enumCPixelAddition _cpixelAddition,
-			double _defaultBailout) :
-					nameInComboBox(_nameInComboBox),
-					internalName(_internalName),
-					internalID(_internalID),
-					DEType(_DEType),
-					DEFunctionType(_DEFunctionType),
-					cpixelAddition(_cpixelAddition),
-					defaultBailout(_defaultBailout)
+		fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType,
+		fractal::enumDEFunctionType _DEFunctionType, fractal::enumCPixelAddition _cpixelAddition,
+		double _defaultBailout)
+			: nameInComboBox(_nameInComboBox),
+				internalName(_internalName),
+				internalID(_internalID),
+				DEType(_DEType),
+				DEFunctionType(_DEFunctionType),
+				cpixelAddition(_cpixelAddition),
+				defaultBailout(_defaultBailout)
 	{
 	}
-	QString getIconName(){
-		if(internalID == fractal::none)
+	QString getIconName()
+	{
+		if (internalID == fractal::none)
 		{
 			return QString(":system/icons/list-remove.svg");
 		}
-		return systemData.sharedDir + "qt_data" + QDir::separator()
-				+ "formula_and_transform_images" + QDir::separator() + internalName + ".png";
+		return systemData.sharedDir + "qt_data" + QDir::separator() + "formula_and_transform_images"
+					 + QDir::separator() + internalName + ".png";
 	}
 };
 
@@ -250,4 +259,4 @@ extern QList<sFractalDescription> fractalList;
 
 void DefineFractalList(QList<sFractalDescription> *fractalList);
 
-#endif /* FRACTAL_LIST_HPP_ */
+#endif /* MANDELBULBER2_SRC_FRACTAL_LIST_HPP_ */

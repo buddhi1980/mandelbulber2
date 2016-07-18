@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -14,17 +14,18 @@
  * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
  * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
  * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
- *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
  * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
  * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
  * but WITHOUT ANY WARRANTY;                            .'''
  * without even the implied warranty
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * See the GNU General Public License for more details. You should have received
- * a copy of the GNU
- * General Public License along with Mandelbulber. If not, see
- * <http://www.gnu.org/licenses/>.
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
  *
  * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
  *
@@ -32,7 +33,6 @@
  *
  * Each imagefiletype derives ImageFileSave and implements the SaveImage
  * method to store the image data with the corresponding file format
- *
  */
 
 #include "file_image.hpp"
@@ -126,9 +126,9 @@ void ImageFileSavePNG::SaveImage()
 {
 	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
 
-	bool appendAlpha = gPar->Get<bool>("append_alpha_png") &&
-										 imageConfig.contains(IMAGE_CONTENT_COLOR) &&
-										 imageConfig.contains(IMAGE_CONTENT_ALPHA);
+	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
+										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
+										 && imageConfig.contains(IMAGE_CONTENT_ALPHA);
 
 	currentChannel = 0;
 	totalChannel = imageConfig.size();
@@ -173,28 +173,19 @@ void ImageFileSaveJPG::SaveImage()
 		switch (currentChannelKey)
 		{
 			case IMAGE_CONTENT_COLOR:
-				SaveJPEGQt(fullFilename,
-					image->ConvertTo8bit(),
-					image->GetWidth(),
-					image->GetHeight(),
+				SaveJPEGQt(fullFilename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(),
 					gPar->Get<int>("jpeg_quality"));
 				break;
 			case IMAGE_CONTENT_ALPHA:
-				SaveJPEGQtGreyscale(fullFilename,
-					image->ConvertAlphaTo8bit(),
-					image->GetWidth(),
-					image->GetHeight(),
-					gPar->Get<int>("jpeg_quality"));
+				SaveJPEGQtGreyscale(fullFilename, image->ConvertAlphaTo8bit(), image->GetWidth(),
+					image->GetHeight(), gPar->Get<int>("jpeg_quality"));
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
 				qWarning() << "JPG cannot save zbuffer (loss of precision to strong)";
 				break;
 			case IMAGE_CONTENT_NORMAL:
-				SaveJPEGQt(fullFilename,
-					image->ConvertNormalto8Bit(),
-					image->GetWidth(),
-					image->GetHeight(),
-					gPar->Get<int>("jpeg_quality"));
+				SaveJPEGQt(fullFilename, image->ConvertNormalto8Bit(), image->GetWidth(),
+					image->GetHeight(), gPar->Get<int>("jpeg_quality"));
 				break;
 			default: qWarning() << "Unknown channel for JPG"; break;
 		}
@@ -207,9 +198,9 @@ void ImageFileSaveTIFF::SaveImage()
 {
 	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
 
-	bool appendAlpha = gPar->Get<bool>("append_alpha_png") &&
-										 imageConfig.contains(IMAGE_CONTENT_COLOR) &&
-										 imageConfig.contains(IMAGE_CONTENT_ALPHA);
+	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
+										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
+										 && imageConfig.contains(IMAGE_CONTENT_ALPHA);
 
 	int currentChannel = 0;
 	totalChannel = imageConfig.size();
@@ -276,8 +267,8 @@ void ImageFileSavePNG::SavePNG(
 		/* write header */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during writing header");
 
-		if (imageChannel.channelQuality != IMAGE_CHANNEL_QUALITY_8 &&
-				imageChannel.channelQuality != IMAGE_CHANNEL_QUALITY_16)
+		if (imageChannel.channelQuality != IMAGE_CHANNEL_QUALITY_8
+				&& imageChannel.channelQuality != IMAGE_CHANNEL_QUALITY_16)
 		{
 			// for PNG no more than 16 bit per channel possible
 			imageChannel.channelQuality = IMAGE_CHANNEL_QUALITY_16;
@@ -304,15 +295,8 @@ void ImageFileSavePNG::SavePNG(
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
 
-		png_set_IHDR(png_ptr,
-			info_ptr,
-			width,
-			height,
-			qualitySize,
-			colorType,
-			PNG_INTERLACE_NONE,
-			PNG_COMPRESSION_TYPE_BASE,
-			PNG_FILTER_TYPE_BASE);
+		png_set_IHDR(png_ptr, info_ptr, width, height, qualitySize, colorType, PNG_INTERLACE_NONE,
+			PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
 		png_write_info(png_ptr, info_ptr);
 		png_set_swap(png_ptr);
@@ -536,15 +520,8 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 		/* write header */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during writing header");
 
-		png_set_IHDR(png_ptr,
-			info_ptr,
-			width,
-			height,
-			16,
-			PNG_COLOR_TYPE_RGB,
-			PNG_INTERLACE_NONE,
-			PNG_COMPRESSION_TYPE_BASE,
-			PNG_FILTER_TYPE_BASE);
+		png_set_IHDR(png_ptr, info_ptr, width, height, 16, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
+			PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
 		png_write_info(png_ptr, info_ptr);
 		png_set_swap(png_ptr);
@@ -626,15 +603,8 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 		return;
 	}
 
-	png_set_IHDR(png_ptr,
-		info_ptr,
-		width * tiles,
-		height * tiles,
-		16,
-		PNG_COLOR_TYPE_RGB,
-		PNG_INTERLACE_NONE,
-		PNG_COMPRESSION_TYPE_BASE,
-		PNG_FILTER_TYPE_BASE);
+	png_set_IHDR(png_ptr, info_ptr, width * tiles, height * tiles, 16, PNG_COLOR_TYPE_RGB,
+		PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
 	png_write_info(png_ptr, info_ptr);
 	png_set_swap(png_ptr);

@@ -1,30 +1,42 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * file operation functions
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * file operation functions
  */
 
 #include <cstdio>
 #include <string.h>
 
-#include "files.h"
 #include "error_message.hpp"
+#include "files.h"
 #include "initparameters.hpp"
 
 using namespace std;
@@ -32,14 +44,14 @@ using namespace std;
 string logfileName;
 
 //***************************** Index filename *************************
-//funkcja numerująca pliki
-//we:	filename - nazwa pliku bez rozszerzenia
+// funkcja numerująca pliki
+// we:	filename - nazwa pliku bez rozszerzenia
 //		extension - rozszerzenie
 //		number - numer do dodania
-//wy:	fullname - nazwa pliku z numerem i rozszerzeniem
+// wy:	fullname - nazwa pliku z numerem i rozszerzeniem
 //		return - ilość znaków
 
-std::string IndexFilename(const char* filename, const char* extension, int number)
+std::string IndexFilename(const char *filename, const char *extension, int number)
 {
 	char tmp[10];
 	sprintf(tmp, "%.5i", number);
@@ -55,14 +67,15 @@ bool FileIfExists(const char *filename)
 		fclose(file);
 		return true;
 	}
-	else return false;
+	else
+		return false;
 }
 
 int fcopy(const char *source, const char *dest)
 {
 	// ------ file reading
 
-	FILE * pFile;
+	FILE *pFile;
 	long int lSize;
 	char *buffer;
 	size_t result;
@@ -86,7 +99,7 @@ int fcopy(const char *source, const char *dest)
 
 		// copy the file into the buffer:
 		result = fread(buffer, 1, lSize, pFile);
-		if (result != (size_t) lSize)
+		if (result != (size_t)lSize)
 		{
 			printf("Can't read source file for copying: %s\n", source);
 			delete[] buffer;
@@ -178,47 +191,58 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
  sComplexImage *ci = image->GetComplexImagePtr();
  string file(filename);
  file = removeFileExtension(file);
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B = ci[i].fogDensity16;
+ for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
+ ci[i].fogDensity16;
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_fog.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B = ci[i].glowBuf16;
+ for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
+ ci[i].glowBuf16;
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_glow.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B = ci[i].shadingBuf16;
+ for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
+ ci[i].shadingBuf16;
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_shading.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B = ci[i].shadowsBuf16;
+ for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
+ ci[i].shadowsBuf16;
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_shadow.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B = ci[i].specularBuf16;
+ for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
+ ci[i].specularBuf16;
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_specular.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].ambientBuf16.R; buffer16[i].G = ci[i].ambientBuf16.G; buffer16[i].B = ci[i].ambientBuf16.B;}
+ for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].ambientBuf16.R; buffer16[i].G =
+ ci[i].ambientBuf16.G; buffer16[i].B = ci[i].ambientBuf16.B;}
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_ambient.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].auxLight.R; buffer16[i].G = ci[i].auxLight.G; buffer16[i].B = ci[i].auxLight.B;}
+ for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].auxLight.R; buffer16[i].G =
+ ci[i].auxLight.G; buffer16[i].B = ci[i].auxLight.B;}
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_auxLights.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].auxSpecular.R; buffer16[i].G = ci[i].auxSpecular.G; buffer16[i].B = ci[i].auxSpecular.B;}
+ for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].auxSpecular.R; buffer16[i].G =
+ ci[i].auxSpecular.G; buffer16[i].B = ci[i].auxSpecular.B;}
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_auxlightsSpec.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].backgroundBuf16.R; buffer16[i].G = ci[i].backgroundBuf16.G; buffer16[i].B = ci[i].backgroundBuf16.B;}
+ for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].backgroundBuf16.R; buffer16[i].G =
+ ci[i].backgroundBuf16.G; buffer16[i].B = ci[i].backgroundBuf16.B;}
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_bkg.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].reflectBuf16.R; buffer16[i].G = ci[i].reflectBuf16.G; buffer16[i].B = ci[i].reflectBuf16.B;}
+ for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].reflectBuf16.R; buffer16[i].G =
+ ci[i].reflectBuf16.G; buffer16[i].B = ci[i].reflectBuf16.B;}
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_refl.png").c_str(), 100, width, height, buffer16);
 
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].volumetricLight.R; buffer16[i].G = ci[i].volumetricLight.G; buffer16[i].B = ci[i].volumetricLight.B;}
+ for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].volumetricLight.R; buffer16[i].G =
+ ci[i].volumetricLight.G; buffer16[i].B = ci[i].volumetricLight.B;}
  BufferNormalize16(buffer16, size);
  SavePNG16((file+"_fogCol.png").c_str(), 100, width, height, buffer16);
 
@@ -234,7 +258,8 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
  }
  else
  {
- color_number = (int) (colorIndex * imageAdjustments->coloring_speed + 256 * imageAdjustments->paletteOffset) % 65536;
+ color_number = (int) (colorIndex * imageAdjustments->coloring_speed + 256 *
+ imageAdjustments->paletteOffset) % 65536;
  }
  sRGB color = image->IndexToColour(color_number);
  buffer16[i].R = color.R; buffer16[i].G = color.G; buffer16[i].B = color.B;
@@ -243,7 +268,8 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
  SavePNG16((file+"_col.png").c_str(), 100, width, height, buffer16);
 
  unsigned short *alpha = image->GetAlphaBufPtr();
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = alpha[i]; buffer16[i].G = alpha[i]; buffer16[i].B = alpha[i];}
+ for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = alpha[i]; buffer16[i].G = alpha[i];
+ buffer16[i].B = alpha[i];}
  SavePNG16((file+"_alpha.png").c_str(), 100, width, height, buffer16);
 
  //normalize zBuffer
@@ -272,33 +298,38 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
  }
  */
 
-void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cImage *image, QObject *updateReceiver)
+void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cImage *image,
+	QObject *updateReceiver)
 {
 	ImageFileSave::ImageConfig imageConfig;
 	QStringList imageChannelNames;
-	imageChannelNames << "color" << "alpha" << "zbuffer" << "normal";
+	imageChannelNames << "color"
+										<< "alpha"
+										<< "zbuffer"
+										<< "normal";
 	// read image config from preferences
 	for (int i = 0; i < imageChannelNames.size(); i++)
 	{
 		QString imageChannelName = imageChannelNames.at(i);
 		if (gPar->Get<bool>(imageChannelName + "_enabled"))
 		{
-			ImageFileSave::enumImageContentType contentType = (ImageFileSave::enumImageContentType) i;
+			ImageFileSave::enumImageContentType contentType = (ImageFileSave::enumImageContentType)i;
 			ImageFileSave::enumImageChannelQualityType channelQuality =
-					(ImageFileSave::enumImageChannelQualityType) gPar->Get<int>(imageChannelName + "_quality");
+				(ImageFileSave::enumImageChannelQualityType)gPar->Get<int>(imageChannelName + "_quality");
 			QString postfix = gPar->Get<QString>(imageChannelName + "_postfix");
-			imageConfig.insert(contentType, ImageFileSave::structSaveImageChannel(contentType, channelQuality, postfix));
+			imageConfig.insert(
+				contentType, ImageFileSave::structSaveImageChannel(contentType, channelQuality, postfix));
 		}
 	}
 	QFileInfo fi(filename);
 	QString fileWithoutExtension = fi.path() + QDir::separator() + fi.baseName();
-	ImageFileSave *imageFileSave = ImageFileSave::create(fileWithoutExtension, filetype, image, imageConfig);
-	if(updateReceiver != 0)
+	ImageFileSave *imageFileSave =
+		ImageFileSave::create(fileWithoutExtension, filetype, image, imageConfig);
+	if (updateReceiver != 0)
 	{
 		QObject::connect(imageFileSave,
-			SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-			updateReceiver,
-			SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
+			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 	}
 	imageFileSave->SaveImage();
 	// return SaveImage(fileWithoutExtension, filetype, image, imageConfig);
