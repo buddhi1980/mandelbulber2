@@ -1,30 +1,42 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-15 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cOldSettings class - importing settings from old Mandelbulber (v1.21)
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Rayan Hitchman
+ *
+ * cOldSettings class - importing settings from old Mandelbulber (v1.21)
  */
 
-#ifndef OLD_SETTINGS_HPP_
-#define OLD_SETTINGS_HPP_
+#ifndef MANDELBULBER2_SRC_OLD_SETTINGS_HPP_
+#define MANDELBULBER2_SRC_OLD_SETTINGS_HPP_
 
-#include "parameters.hpp"
 #include "fractal_container.hpp"
+#include "parameters.hpp"
 
 namespace oldSettings
 {
@@ -35,7 +47,10 @@ const int MANDELBOX_FOLDS = 2;
 
 enum enumPerspectiveType
 {
-	threePoint = 0, fishEye = 1, equirectangular = 2, fishEyeCut = 3
+	threePoint = 0,
+	fishEye = 1,
+	equirectangular = 2,
+	fishEyeCut = 3
 };
 
 enum enumFractalFormula
@@ -82,7 +97,12 @@ enum enumFractalFormula
 
 enum enumCalculationMode
 {
-	normal = 0, colouring = 1, fake_AO = 2, deltaDE1 = 3, deltaDE2 = 4, orbitTrap = 5
+	normal = 0,
+	colouring = 1,
+	fake_AO = 2,
+	deltaDE1 = 3,
+	deltaDE2 = 4,
+	orbitTrap = 5
 };
 
 enum enumGeneralizedFoldBoxType
@@ -110,7 +130,9 @@ enum enumObjectType
 
 enum enumOCLDEMode
 {
-	calculated = 0, deltaDE = 1, noDE = 2
+	calculated = 0,
+	deltaDE = 1,
+	noDE = 2
 };
 
 struct sFractalIFSD
@@ -236,7 +258,7 @@ struct sFractalPrimitives
 struct sFractalD
 {
 	double N;
-	double amin;  //fractal limits
+	double amin; // fractal limits
 	double amax;
 	double bmin;
 	double bmax;
@@ -245,12 +267,12 @@ struct sFractalD
 	double constantFactor;
 	double FoldingIntPowZfactor;
 	double FoldingIntPowFoldFactor;
-	double foldingLimit; //parameters of TGlad's folding
+	double foldingLimit; // parameters of TGlad's folding
 	double foldingValue;
 	double foldingSphericalMin;
 	double foldingSphericalFixed;
 	double detailSize;
-	double power;		 //power of fractal formula
+	double power; // power of fractal formula
 	double cadd;
 	double hybridPower[HYBRID_COUNT];
 	CVector3 julia; // Julia constant
@@ -263,14 +285,14 @@ struct sFractal
 	sFractalD doubles;
 
 	// maximum number of iterations
-	int minN;	  // minimum number of iterations
+	int minN; // minimum number of iterations
 
-	bool limits_enabled; // enable limits (intersections)
-	bool iterThresh;	 //maxiter threshold mode
-	bool analyticDE;	 //analytic DE mode
-	bool juliaMode;				// Julia mode
-	bool tgladFoldingMode;		// Tglad's folding mode
-	bool sphericalFoldingMode;  // spherical folding mode
+	bool limits_enabled;			 // enable limits (intersections)
+	bool iterThresh;					 // maxiter threshold mode
+	bool analyticDE;					 // analytic DE mode
+	bool juliaMode;						 // Julia mode
+	bool tgladFoldingMode;		 // Tglad's folding mode
+	bool sphericalFoldingMode; // spherical folding mode
 	bool interiorMode;
 	bool hybridCyclic;
 	bool linearDEmode;
@@ -322,14 +344,14 @@ struct sImageAdjustments
 
 struct sParamRenderD
 {
-	double zoom; //zoom
-	double DE_factor; //factor for distance estimation steps
-	double resolution; //resolution of image in fractal coordinates
-	double persp; //perspective factor
-	double quality; //DE threshold factor
+	double zoom;			 // zoom
+	double DE_factor;	// factor for distance estimation steps
+	double resolution; // resolution of image in fractal coordinates
+	double persp;			 // perspective factor
+	double quality;		 // DE threshold factor
 	double smoothness;
-	double alpha; //rotation of fractal
-	double beta; //
+	double alpha; // rotation of fractal
+	double beta;	//
 	double gamma;
 	double DOFFocus;
 	double DOFRadius;
@@ -365,7 +387,7 @@ struct sParamRenderD
 
 	oldSettings::sImageAdjustments imageAdjustments;
 
-	CVector3 vp; //view point
+	CVector3 vp; // view point
 	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
 };
@@ -393,11 +415,11 @@ struct sParamRender
 	sParamRenderD doubles;
 
 	sFractal fractal;
-	int image_width; //image width
-	int image_height; //image height
-	int globalIlumQuality; //ambient occlusion quality
+	int image_width;			 // image width
+	int image_height;			 // image height
+	int globalIlumQuality; // ambient occlusion quality
 	int reflectionsMax;
-	int coloring_seed; //colouring random seed
+	int coloring_seed; // colouring random seed
 	int auxLightRandomSeed;
 	int auxLightNumber;
 	int SSAOQuality;
@@ -414,16 +436,16 @@ struct sParamRender
 
 	enumPerspectiveType perspectiveType;
 
-	bool shadow; //enable shadows
-	bool global_ilumination; //enable global illumination
-	bool fastGlobalIllumination; //enable fake global illumination
-	bool slowShading; //enable fake gradient calculation for shading
-	bool texturedBackground; //enable textured background
+	bool shadow;								 // enable shadows
+	bool global_ilumination;		 // enable global illumination
+	bool fastGlobalIllumination; // enable fake global illumination
+	bool slowShading;						 // enable fake gradient calculation for shading
+	bool texturedBackground;		 // enable textured background
 	bool background_as_fulldome;
-	bool recordMode; //path recording mode
-	bool continueRecord; //continue recording mode
-	bool playMode; //play mode
-	bool animMode; //animation mode
+	bool recordMode;		 // path recording mode
+	bool continueRecord; // continue recording mode
+	bool playMode;			 // play mode
+	bool animMode;			 // animation mode
 	bool SSAOEnabled;
 	bool DOFEnabled;
 	bool auxLightPreEnabled[4];
@@ -435,7 +457,7 @@ struct sParamRender
 	bool fakeLightsEnabled;
 	sImageSwitches imageSwitches;
 
-	sRGB background_color1; //background colour
+	sRGB background_color1; // background colour
 	sRGB background_color2;
 	sRGB background_color3;
 	sRGB auxLightPreColour[4];
@@ -475,7 +497,7 @@ public:
 
 private:
 	bool LoadSettings2(const QString &filename);
-	bool LoadOneSetting(const char* str1, const char *str2, sParamRender *params);
+	bool LoadOneSetting(const char *str1, const char *str2, sParamRender *params);
 	double atof2(const char *str);
 	void GetPaletteFromString(sRGB *palette, const char *paletteString);
 	sParamRender *oldData;
@@ -484,4 +506,4 @@ private:
 
 } /* namespace oldSettings */
 
-#endif /* OLD_SETTINGS_HPP_ */
+#endif /* MANDELBULBER2_SRC_OLD_SETTINGS_HPP_ */

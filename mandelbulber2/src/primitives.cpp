@@ -1,23 +1,35 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * definitions of primitive objects
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * definitions of primitive objects
  */
 
 #include "primitives.h"
@@ -33,43 +45,42 @@ QString PrimitiveNames(enumObjectType primitiveType)
 {
 	switch (primitiveType)
 	{
-		case objPlane:
-			return "plane";
-		case objWater:
-			return "water";
-		case objSphere:
-			return "sphere";
-		case objBox:
-			return "box";
-		case objRectangle:
-			return "rectangle";
-		case objCircle:
-			return "circle";
-		case objCone:
-			return "cone";
-		case objCylinder:
-			return "cylinder";
-		case objTorus:
-			return "torus";
-		default:
-			return "";
+		case objPlane: return "plane";
+		case objWater: return "water";
+		case objSphere: return "sphere";
+		case objBox: return "box";
+		case objRectangle: return "rectangle";
+		case objCircle: return "circle";
+		case objCone: return "cone";
+		case objCylinder: return "cylinder";
+		case objTorus: return "torus";
+		default: return "";
 	}
 }
 
 enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 {
 	enumObjectType type = objNone;
-	if (primitiveType == QString("plane")) type = objPlane;
-	else if (primitiveType == QString("water")) type = objWater;
-	else if (primitiveType == QString("sphere")) type = objSphere;
-	else if (primitiveType == QString("box")) type = objBox;
-	else if (primitiveType == QString("rectangle")) type = objRectangle;
-	else if (primitiveType == QString("circle")) type = objCircle;
-	else if (primitiveType == QString("cone")) type = objCone;
-	else if (primitiveType == QString("cylinder")) type = objCylinder;
-	else if (primitiveType == QString("torus")) type = objTorus;
+	if (primitiveType == QString("plane"))
+		type = objPlane;
+	else if (primitiveType == QString("water"))
+		type = objWater;
+	else if (primitiveType == QString("sphere"))
+		type = objSphere;
+	else if (primitiveType == QString("box"))
+		type = objBox;
+	else if (primitiveType == QString("rectangle"))
+		type = objRectangle;
+	else if (primitiveType == QString("circle"))
+		type = objCircle;
+	else if (primitiveType == QString("cone"))
+		type = objCone;
+	else if (primitiveType == QString("cylinder"))
+		type = objCylinder;
+	else if (primitiveType == QString("torus"))
+		type = objTorus;
 	else
-	qCritical() << "Wrong primitive name: " << primitiveType;
+		qCritical() << "Wrong primitive name: " << primitiveType;
 
 	return type;
 }
@@ -82,7 +93,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 	QList<QString> listOfParameters = par->GetListOfParameters();
 	QList<sPrimitiveItem> listOfPrimitives;
 
-	//generating fresh list of primitives based of parameter list
+	// generating fresh list of primitives based of parameter list
 	for (int i = 0; i < listOfParameters.size(); i++)
 	{
 		QString parameterName = listOfParameters.at(i);
@@ -96,7 +107,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			fractal::enumObjectType type = PrimitiveNameToEnum(typeName);
 			int index = split.at(2).toInt();
 
-			//check if item is already on the list
+			// check if item is already on the list
 			bool found = false;
 			for (int l = 0; l < listOfPrimitives.size(); l++)
 			{
@@ -118,14 +129,14 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 		sPrimitiveItem item = listOfPrimitives.at(i);
 
 		using namespace fractal;
-		sPrimitiveBasic* primitive;
+		sPrimitiveBasic *primitive;
 
 		switch (item.type)
 		{
 			case objPlane:
 			{
 				primitive = new sPrimitivePlane;
-				sPrimitivePlane *obj = (sPrimitivePlane *) primitive;
+				sPrimitivePlane *obj = (sPrimitivePlane *)primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->size = CVector3(1.0, 1.0, 1.0);
 				break;
@@ -133,7 +144,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objBox:
 			{
 				primitive = new sPrimitiveBox;
-				sPrimitiveBox *obj = (sPrimitiveBox *) primitive;
+				sPrimitiveBox *obj = (sPrimitiveBox *)primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->rounding = par->Get<double>(item.name + "_rounding");
 				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
@@ -143,7 +154,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objSphere:
 			{
 				primitive = new sPrimitiveSphere;
-				sPrimitiveSphere *obj = (sPrimitiveSphere *) primitive;
+				sPrimitiveSphere *obj = (sPrimitiveSphere *)primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
 				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
@@ -153,7 +164,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objWater:
 			{
 				primitive = new sPrimitiveWater;
-				sPrimitiveWater *obj = (sPrimitiveWater *) primitive;
+				sPrimitiveWater *obj = (sPrimitiveWater *)primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->amplitude = par->Get<double>(item.name + "_amplitude");
 				obj->length = par->Get<double>(item.name + "_length");
@@ -166,7 +177,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objCone:
 			{
 				primitive = new sPrimitiveCone;
-				sPrimitiveCone *obj = (sPrimitiveCone *) primitive;
+				sPrimitiveCone *obj = (sPrimitiveCone *)primitive;
 				obj->caps = par->Get<bool>(item.name + "_caps");
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
@@ -180,7 +191,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objCylinder:
 			{
 				primitive = new sPrimitiveCylinder;
-				sPrimitiveCylinder *obj = (sPrimitiveCylinder *) primitive;
+				sPrimitiveCylinder *obj = (sPrimitiveCylinder *)primitive;
 				obj->caps = par->Get<bool>(item.name + "_caps");
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
@@ -192,20 +203,19 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objTorus:
 			{
 				primitive = new sPrimitiveTorus;
-				sPrimitiveTorus *obj = (sPrimitiveTorus *) primitive;
+				sPrimitiveTorus *obj = (sPrimitiveTorus *)primitive;
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
 				obj->tube_radius = par->Get<double>(item.name + "_tube_radius");
 				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
-				obj->size = CVector3(	(obj->radius + obj->tube_radius) * 2.0,
-																(obj->radius + obj->tube_radius) * 2.0,
-																obj->tube_radius);
+				obj->size = CVector3((obj->radius + obj->tube_radius) * 2.0,
+					(obj->radius + obj->tube_radius) * 2.0, obj->tube_radius);
 				break;
 			}
 			case objCircle:
 			{
 				primitive = new sPrimitiveCircle;
-				sPrimitiveCircle *obj = (sPrimitiveCircle *) primitive;
+				sPrimitiveCircle *obj = (sPrimitiveCircle *)primitive;
 				obj->radius = par->Get<double>(item.name + "_radius");
 				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, 1.0);
 				break;
@@ -213,7 +223,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objRectangle:
 			{
 				primitive = new sPrimitiveRectangle;
-				sPrimitiveRectangle *obj = (sPrimitiveRectangle *) primitive;
+				sPrimitiveRectangle *obj = (sPrimitiveRectangle *)primitive;
 				obj->height = par->Get<double>(item.name + "_height");
 				obj->width = par->Get<double>(item.name + "_width");
 				obj->size = CVector3(obj->width, obj->height, 1.0);
@@ -221,7 +231,8 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			}
 			default:
 			{
-				qCritical() << "cannot handle " << PrimitiveNames(item.type) << " in cPrimitives::cPrimitives()";
+				qCritical() << "cannot handle " << PrimitiveNames(item.type)
+										<< " in cPrimitives::cPrimitives()";
 				return;
 			}
 		}
@@ -232,10 +243,10 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 		primitive->objectType = item.type;
 		primitive->SetRotation(par->Get<CVector3>(item.name + "_rotation"));
 		primitive->enable = par->Get<bool>(item.name + "_enabled");
-		//primitive->reflect = par->Get<double>(item.name + "_reflection");
-		//primitive->color = par->Get<sRGB>(item.name + "_color");
+		// primitive->reflect = par->Get<double>(item.name + "_reflection");
+		// primitive->color = par->Get<sRGB>(item.name + "_color");
 
-		if(objectData)
+		if (objectData)
 		{
 			objectData->append(*primitive);
 			primitive->objectId = objectData->size() - 1;
@@ -341,7 +352,7 @@ double sPrimitiveCone::PrimitiveDistance(CVector3 _point) const
 
 double sPrimitiveWater::PrimitiveDistance(CVector3 _point) const
 {
-	//TODO to use rendering technique from here: //https://www.shadertoy.com/view/Ms2SD1
+	// TODO to use rendering technique from here: //https://www.shadertoy.com/view/Ms2SD1
 
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
@@ -361,10 +372,12 @@ double sPrimitiveWater::PrimitiveDistance(CVector3 _point) const
 		{
 			float p3 = p * p2;
 			double shift = phase / (i / 3.0 + 1.0);
-			waveXtemp = sin(i + 0.4 * (waveX) * p3 + sin(k * point.y / length * p3)
-					+ point.x / length * p3 + shift) / p;
-			waveYtemp = cos(i + 0.4 * (waveY) * p3 + sin(point.x / length * p3)
-					+ k * point.y / length * p3 + shift * 0.23) / p;
+			waveXtemp =
+				sin(i + 0.4 * (waveX)*p3 + sin(k * point.y / length * p3) + point.x / length * p3 + shift)
+				/ p;
+			waveYtemp = cos(i + 0.4 * (waveY)*p3 + sin(point.x / length * p3) + k * point.y / length * p3
+											+ shift * 0.23)
+									/ p;
 			waveX += waveXtemp;
 			waveY += waveYtemp;
 			p2 = p2 + (1.0 - p2) * 0.7;
@@ -387,8 +400,8 @@ double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
 	return empty ? fabs(dist) : dist;
 }
 
-double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
-		int *closestObjectId, sRenderData *data) const
+double cPrimitives::TotalDistance(
+	CVector3 point, double fractalDistance, int *closestObjectId, sRenderData *data) const
 {
 	using namespace fractal;
 	int closestObject = *closestObjectId;
@@ -399,57 +412,48 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
 		CVector3 point2 = point - allPrimitivesPosition;
 		point2 = mRotAllPrimitivesRotation.RotateVector(point2);
 
-		for(int i = 0; i < allPrimitives.size(); i++)
+		for (int i = 0; i < allPrimitives.size(); i++)
 		{
-			const sPrimitiveBasic* primitive = allPrimitives.at(i);
+			const sPrimitiveBasic *primitive = allPrimitives.at(i);
 			if (primitive->enable)
 			{
 				double distTemp = 0;
 				switch (primitive->objectType)
 				{
-					case objPlane:
-						distTemp = ((sPrimitivePlane*) primitive)->PrimitiveDistance(point);
-						break;
-					case objBox:
-						distTemp = ((sPrimitiveBox*) primitive)->PrimitiveDistance(point);
-						break;
+					case objPlane: distTemp = ((sPrimitivePlane *)primitive)->PrimitiveDistance(point); break;
+					case objBox: distTemp = ((sPrimitiveBox *)primitive)->PrimitiveDistance(point); break;
 					case objSphere:
-						distTemp = ((sPrimitiveSphere*) primitive)->PrimitiveDistance(point);
+						distTemp = ((sPrimitiveSphere *)primitive)->PrimitiveDistance(point);
 						break;
-					case objWater:
-						distTemp = ((sPrimitiveWater*) primitive)->PrimitiveDistance(point);
-						break;
-					case objCone:
-						distTemp = ((sPrimitiveCone*) primitive)->PrimitiveDistance(point);
-						break;
+					case objWater: distTemp = ((sPrimitiveWater *)primitive)->PrimitiveDistance(point); break;
+					case objCone: distTemp = ((sPrimitiveCone *)primitive)->PrimitiveDistance(point); break;
 					case objCylinder:
-						distTemp = ((sPrimitiveCylinder*) primitive)->PrimitiveDistance(point);
+						distTemp = ((sPrimitiveCylinder *)primitive)->PrimitiveDistance(point);
 						break;
-					case objTorus:
-						distTemp = ((sPrimitiveTorus*) primitive)->PrimitiveDistance(point);
-						break;
+					case objTorus: distTemp = ((sPrimitiveTorus *)primitive)->PrimitiveDistance(point); break;
 					case objCircle:
-						distTemp = ((sPrimitiveCircle*) primitive)->PrimitiveDistance(point);
+						distTemp = ((sPrimitiveCircle *)primitive)->PrimitiveDistance(point);
 						break;
 					case objRectangle:
-						distTemp = ((sPrimitiveRectangle*) primitive)->PrimitiveDistance(point);
+						distTemp = ((sPrimitiveRectangle *)primitive)->PrimitiveDistance(point);
 						break;
 					default:
-						qCritical() << "cannot handle " << PrimitiveNames(primitive->objectType) << " in cPrimitives::TotalDistance()";
+						qCritical() << "cannot handle " << PrimitiveNames(primitive->objectType)
+												<< " in cPrimitives::TotalDistance()";
 						break;
 				}
 				distTemp = DisplacementMap(distTemp, point, primitive->objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = primitive->objectId;
-					//color = plane.color;
-					//reflect = plane.reflect;
+					// color = plane.color;
+					// reflect = plane.reflect;
 				}
 				distance = min(distance, distTemp);
 			}
 		}
 
-	} //if is any primitive
+	} // if is any primitive
 
 	*closestObjectId = closestObject;
 

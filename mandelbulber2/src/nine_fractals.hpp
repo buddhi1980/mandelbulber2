@@ -1,32 +1,44 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2015-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cFourFractals - container for 4 elements of hybrid fractal
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cNineFractals - container for 9 elements of hybrid fractal
  */
 
-#ifndef NINE_FRACTALS_HPP_
-#define NINE_FRACTALS_HPP_
+#ifndef MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
+#define MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 
 #include "fractal.h"
-#include "parameters.hpp"
 #include "fractal_container.hpp"
 #include "fractal_list.hpp"
+#include "parameters.hpp"
 #include <QtCore>
 
 class cNineFractals
@@ -34,22 +46,25 @@ class cNineFractals
 public:
 	cNineFractals(const cFractalContainer *fractalPar, const cParameterContainer *generalPar);
 	~cNineFractals();
-	cFractal* GetFractal(int index) const {return fractals[index];}
+	cFractal *GetFractal(int index) const { return fractals[index]; }
 	cFractal **fractals;
 	int GetSequence(const int i) const;
-	bool IsHybrid() const {return isHybrid;}
+	bool IsHybrid() const { return isHybrid; }
 	fractal::enumDEType GetDEType(int formulaIndex) const;
 	fractal::enumDEFunctionType GetDEFunctionType(int formulaIndex) const;
-	inline double GetWeight(int formulaIndex) const {return formulaWeight[formulaIndex];}
-	inline int GetMaxFractalIndex() const {return maxFractalIndex;}
-	inline bool IsAddCConstant(int formulaIndex) const {return addCConstant[formulaIndex];}
-	inline bool IsCheckForBailout(int formulaIndex) const {return checkForBailout[formulaIndex];}
-	inline bool UseOptimizedDE() const {return useOptimizedDE;}
+	inline double GetWeight(int formulaIndex) const { return formulaWeight[formulaIndex]; }
+	inline int GetMaxFractalIndex() const { return maxFractalIndex; }
+	inline bool IsAddCConstant(int formulaIndex) const { return addCConstant[formulaIndex]; }
+	inline bool IsCheckForBailout(int formulaIndex) const { return checkForBailout[formulaIndex]; }
+	inline bool UseOptimizedDE() const { return useOptimizedDE; }
 	QString GetDETypeString() const;
-	inline double GetBailout(int formulaIndex) const {return bailout[formulaIndex];};
-	inline bool IsJuliaEnabled(int formulaIndex) const {return juliaEnabled[formulaIndex];}
-	inline CVector3 GetJuliaConstant(int formulaIndex) const {return juliaConstant[formulaIndex];}
-	inline CVector3 GetConstantMultiplier(int formulaIndex) const {return constantMultiplier[formulaIndex];}
+	inline double GetBailout(int formulaIndex) const { return bailout[formulaIndex]; };
+	inline bool IsJuliaEnabled(int formulaIndex) const { return juliaEnabled[formulaIndex]; }
+	inline CVector3 GetJuliaConstant(int formulaIndex) const { return juliaConstant[formulaIndex]; }
+	inline CVector3 GetConstantMultiplier(int formulaIndex) const
+	{
+		return constantMultiplier[formulaIndex];
+	}
 
 private:
 	bool forceDeltaDE;
@@ -58,7 +73,7 @@ private:
 	bool useOptimizedDE;
 	int maxFractalIndex;
 	int maxN;
-	int* hybridSequence;
+	int *hybridSequence;
 	int hybridSequenceLength;
 
 	double formulaWeight[NUMBER_OF_FRACTALS];
@@ -78,5 +93,4 @@ private:
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 };
 
-
-#endif /* NINE_FRACTALS_HPP_ */
+#endif /* MANDELBULBER2_SRC_NINE_FRACTALS_HPP_ */

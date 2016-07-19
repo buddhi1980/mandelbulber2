@@ -1,50 +1,65 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2015-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cQueue - class to manage rendering queue
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
+ *
+ * cQueue - class to manage rendering queue
  */
-
 
 #ifndef MANDELBULBER2_SRC_QUEUE_HPP_
 #define MANDELBULBER2_SRC_QUEUE_HPP_
 
-#include "parameters.hpp"
-#include "fractal_container.hpp"
-#include "keyframes.hpp"
 #include "animation_frames.hpp"
+#include "fractal_container.hpp"
 #include "interface.hpp"
+#include "keyframes.hpp"
+#include "parameters.hpp"
 #include <QtCore>
 
 class cQueue : public QObject
 {
 	Q_OBJECT
 public:
-	enum enumRenderType {
-		queue_STILL, queue_FLIGHT, queue_KEYFRAME
+	enum enumRenderType
+	{
+		queue_STILL,
+		queue_FLIGHT,
+		queue_KEYFRAME
 	};
 
-	struct structQueueItem {
-		structQueueItem(
-			QString _filename,
-			enumRenderType _renderType):
-			filename(_filename), renderType(_renderType) {}
-		bool operator==(const structQueueItem& other) const
+	struct structQueueItem
+	{
+		structQueueItem(QString _filename, enumRenderType _renderType)
+				: filename(_filename), renderType(_renderType)
+		{
+		}
+		bool operator==(const structQueueItem &other) const
 		{
 			return (filename == other.filename && renderType == other.renderType);
 		}
@@ -52,52 +67,62 @@ public:
 		enumRenderType renderType;
 	};
 
-	//initializes queue and create necessary files and folders
-	cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, QObject *parent = 0);
+	// initializes queue and create necessary files and folders
+	cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder,
+		QObject *parent = 0);
 	~cQueue();
 
-	//add settings to queue
+	// add settings to queue
 	void Append(const QString &filename, enumRenderType renderType = queue_STILL);
 	void Append(enumRenderType renderType = queue_STILL);
 	void Append(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames,
-			cKeyframes *keyframes, enumRenderType renderType = queue_STILL);
+		cKeyframes *keyframes, enumRenderType renderType = queue_STILL);
 	void AppendList(const QString &filename);
 	void AppendFolder(const QString &filename);
 
-	//get next queue element into given containers
+	// get next queue element into given containers
 	bool Get();
-	bool Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes);
-
+	bool Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames,
+		cKeyframes *keyframes);
 
 	// syncing methods
-	QStringList RemoveOrphanedFiles(); //find and delete files which are not on the list
-	QStringList AddOrphanedFilesToList(); //add orphaned files from queue folder to the end of the list
+	// find and delete files which are not on the list
+	QStringList RemoveOrphanedFiles();
+	// add orphaned files from queue folder to the end of the list
+	QStringList AddOrphanedFilesToList();
 
-	QList<structQueueItem> GetListFromQueueFile(){ return queueListFromFile; } //returns list of fractals to render from queue file
-	QStringList GetListFromFileSystem(){ return queueListFileSystem; } //returns list of fractals to render from file system
-	QString GetQueueFolder(){ return queueFolder; }
+	// returns list of fractals to render from queue file
+	QList<structQueueItem> GetListFromQueueFile() { return queueListFromFile; }
+	// returns list of fractals to render from file system
+	QStringList GetListFromFileSystem() { return queueListFileSystem; }
+	QString GetQueueFolder() { return queueFolder; }
 
-	//get the queue type enum from qstring value
+	// get the queue type enum from qstring value
 	static enumRenderType GetTypeEnum(const QString &queueText);
-	//get the queue type QString from enum value
+	// get the queue type QString from enum value
 	static QString GetTypeText(enumRenderType queueType);
 	static QString GetTypeName(enumRenderType queueType);
-	//get a color for enum value
+	// get a color for enum value
 	static QString GetTypeColor(enumRenderType queueType);
 
-	void SwapQueueItem(int i, int j);//swap queueItem at i with queueItem at j
-	void RemoveQueueItem(int i);//remove queue item which is i'th element of list
-	void RemoveQueueItem(const structQueueItem queueItem); //remove queue item from list and filesystem
+	// list manipulation methods
+	// swap queueItem at i with queueItem at j
+	void SwapQueueItem(int i, int j);
+	// remove queue item which is i'th element of list
+	void RemoveQueueItem(int i);
+	// remove queue item from list and filesystem
+	void RemoveQueueItem(const structQueueItem queueItem);
 	void UpdateQueueItemType(int i, enumRenderType renderType);
-
-	structQueueItem GetNextFromList(); //gives next filename
-	void RemoveFromList(const structQueueItem &queueItem); //remove queue item if it is on the list
+	// gives next filename
+	structQueueItem GetNextFromList();
+	// remove queue item if it is on the list
+	void RemoveFromList(const structQueueItem &queueItem);
 	int GetQueueSize();
 
 	bool stopRequest;
 
 signals:
-	//request to update table of queue items
+	// request to update table of queue items
 	void queueChanged();
 	void queueChanged(int i);
 	void queueChanged(int i, int j);
@@ -110,7 +135,7 @@ private slots:
 	void queueFolderChanged(const QString &path);
 	void RenderQueue();
 
-	//UI
+	// UI
 	void slotQueueAddCurrentSettings();
 	void slotQueueAddFromFile();
 	void slotQueueAddOrphaned();
@@ -126,14 +151,18 @@ private slots:
 	void slotShowQueueThumbsChanges(int state);
 
 private:
-	void AddToList(const structQueueItem &queueItem); //add filename to the end of list
-	void RemoveFromFileSystem(const QString &filename); //remove queue file from filesystem
+	// add filename to the end of list
+	void AddToList(const structQueueItem &queueItem);
+	// remove queue file from filesystem
+	void RemoveFromFileSystem(const QString &filename);
+	// store queueListFromFile to filesystem
 	void StoreList();
-
+	// checks if file exists and it is a proper fractal file
 	bool ValidateEntry(const QString &filename);
-
-	void UpdateListFromQueueFile(); //updates the list of fractals to render from queue file
-	void UpdateListFromFileSystem(); //updates the list of fractals to render from file system
+	// updates the list of fractals to render from queue file
+	void UpdateListFromQueueFile();
+	// updates the list of fractals to render from file system
+	void UpdateListFromFileSystem();
 
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;

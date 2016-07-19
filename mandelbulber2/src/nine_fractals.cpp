@@ -1,23 +1,35 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2015-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cFourFractals - container for 4 elements of hybrid fractal
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cNineFractals - container for 9 elements of hybrid fractal
  */
 
 #include "nine_fractals.hpp"
@@ -42,19 +54,19 @@ cNineFractals::~cNineFractals()
 
 cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
 {
-	fractals = new cFractal*[NUMBER_OF_FRACTALS];
+	fractals = new cFractal *[NUMBER_OF_FRACTALS];
 	hybridSequence = NULL;
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
-	bool isBoolean =  generalPar->Get<bool>("boolean_operators");
+	bool isBoolean = generalPar->Get<bool>("boolean_operators");
 	double maxBailout = 0.0;
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		fractals[i] = new cFractal(&par->at(i));
-		fractals[i]->formula = (fractal::enumFractalFormula) generalPar->Get<int>("formula", i + 1);
-		if(!generalPar->Get<bool>("fractal_enable", i + 1))
+		fractals[i]->formula = (fractal::enumFractalFormula)generalPar->Get<int>("formula", i + 1);
+		if (!generalPar->Get<bool>("fractal_enable", i + 1))
 		{
 			fractals[i]->formula = fractal::none;
 		}
@@ -65,26 +77,29 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
 		checkForBailout[i] = generalPar->Get<bool>("check_for_bailout", i + 1);
 
-		//decide if use addition of C constant
+		// decide if use addition of C constant
 		bool addc = false;
-		if(fractalList[GetIndexOnFractalList(fractals[i]->formula)].cpixelAddition == fractal::cpixelAlreadyHas)
+		if (fractalList[GetIndexOnFractalList(fractals[i]->formula)].cpixelAddition
+				== fractal::cpixelAlreadyHas)
 		{
 			addc = false;
 		}
 		else
 		{
 			addc = !generalPar->Get<bool>("dont_add_c_constant", i + 1);
-			if(fractalList[GetIndexOnFractalList(fractals[i]->formula)].cpixelAddition == fractal::cpixelDisabledByDefault)
+			if (fractalList[GetIndexOnFractalList(fractals[i]->formula)].cpixelAddition
+					== fractal::cpixelDisabledByDefault)
 				addc = !addc;
 		}
 		addCConstant[i] = addc;
 
-		//defualt bailout or global one
+		// defualt bailout or global one
 
-		if(useDefaultBailout)
+		if (useDefaultBailout)
 		{
-			if(isHybrid)
-				maxBailout = qMax(maxBailout, fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout);
+			if (isHybrid)
+				maxBailout =
+					qMax(maxBailout, fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout);
 			else
 				bailout[i] = fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout;
 		}
@@ -93,7 +108,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			bailout[i] = commonBailout;
 		}
 
-		//Julia parameters - local or global
+		// Julia parameters - local or global
 		if (isBoolean)
 		{
 			juliaEnabled[i] = generalPar->Get<bool>("julia_mode", i + 1);
@@ -108,8 +123,8 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 	}
 
-	//common bailout for all hybrid components
-	if(isHybrid && useDefaultBailout)
+	// common bailout for all hybrid components
+	if (isHybrid && useDefaultBailout)
 	{
 		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		{
@@ -117,7 +132,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 	}
 
-	if((fractal::enumDEMethod)generalPar->Get<int>("delta_DE_method") == fractal::forceDeltaDEMethod)
+	if ((fractal::enumDEMethod)generalPar->Get<int>("delta_DE_method") == fractal::forceDeltaDEMethod)
 		forceDeltaDE = true;
 	else
 		forceDeltaDE = false;
@@ -132,9 +147,10 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	if (isHybrid || forceDeltaDE)
 	{
 		DEType[0] = fractal::deltaDEType;
-		if((fractal::enumDEFunctionType)generalPar->Get<int>("delta_DE_function") == fractal::preferedDEfunction)
+		if ((fractal::enumDEFunctionType)generalPar->Get<int>("delta_DE_function")
+				== fractal::preferedDEfunction)
 		{
-			//finding preferred delta DE function
+			// finding preferred delta DE function
 			int linearDECount = 0;
 			int logarythmicDECount = 0;
 			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
@@ -142,16 +158,14 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 				fractal::enumFractalFormula formula = fractals[f]->formula;
 				int index = GetIndexOnFractalList(formula);
 
-				//looking for the best DE function for DeltaDE mode
+				// looking for the best DE function for DeltaDE mode
 
 				fractal::enumDEFunctionType DEFunction = fractalList[index].DEFunctionType;
-				if (DEFunction == fractal::logarithmicDEFunction)
-				logarythmicDECount += counts[f];
+				if (DEFunction == fractal::logarithmicDEFunction) logarythmicDECount += counts[f];
 
-				if (DEFunction == fractal::linearDEFunction)
-				linearDECount += counts[f];
+				if (DEFunction == fractal::linearDEFunction) linearDECount += counts[f];
 
-				//looking if it's possible to use analyticDEType
+				// looking if it's possible to use analyticDEType
 				if (!forceDeltaDE && fractalList[index].internalID != fractal::none)
 				{
 					if (optimizedDEType == fractal::withoutDEFunction)
@@ -164,21 +178,21 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 					{
 						optimizedDEType = fractal::preferedDEfunction;
 					}
-
 				}
 			}
 			if (linearDECount > logarythmicDECount)
-			DEFunctionType[0] = fractal::linearDEFunction;
+				DEFunctionType[0] = fractal::linearDEFunction;
 			else
-			DEFunctionType[0] = fractal::logarithmicDEFunction;
+				DEFunctionType[0] = fractal::logarithmicDEFunction;
 		}
 		else
 		{
 			DEFunctionType[0] = (fractal::enumDEFunctionType)generalPar->Get<int>("delta_DE_function");
 		}
 
-		//if it's possible to use analyticDEType then use optimized settings
-		if(optimizedDEType == fractal::logarithmicDEFunction || optimizedDEType == fractal::linearDEFunction)
+		// if it's possible to use analyticDEType then use optimized settings
+		if (optimizedDEType == fractal::logarithmicDEFunction
+				|| optimizedDEType == fractal::linearDEFunction)
 		{
 			DEType[0] = fractal::analyticDEType;
 			DEFunctionType[0] = optimizedDEType;
@@ -209,7 +223,6 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 	int fractalNo = 0;
 	int counter = 0;
 
-
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		counts[i] = generalPar->Get<int>("formula_iterations", i + 1);
@@ -223,20 +236,22 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 
 			int repeatCount = 0;
 			while ((fractals[fractalNo]->formula == fractal::none || i < formulaStartIteriation[fractalNo]
-					|| i > formulaStopIteration[fractalNo]) && repeatCount < NUMBER_OF_FRACTALS)
+							 || i > formulaStopIteration[fractalNo])
+						 && repeatCount < NUMBER_OF_FRACTALS)
 			{
 				fractalNo++;
 				if (fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
 				repeatCount++;
 			}
 			hybridSequence[i] = fractalNo;
-			if(fractals[fractalNo]->formula != fractal::none && fractalNo > maxFractalIndex) maxFractalIndex = fractalNo;
+			if (fractals[fractalNo]->formula != fractal::none && fractalNo > maxFractalIndex)
+				maxFractalIndex = fractalNo;
 
 			if (counter >= counts[fractalNo])
 			{
 				counter = 0;
 				fractalNo++;
-				if(fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
+				if (fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
 			}
 		}
 		else
@@ -289,7 +304,7 @@ fractal::enumDEFunctionType cNineFractals::GetDEFunctionType(int formulaIndex) c
 QString cNineFractals::GetDETypeString() const
 {
 	QString text;
-	if(DEType[0] == fractal::analyticDEType)
+	if (DEType[0] == fractal::analyticDEType)
 	{
 		text += "analytic";
 	}
@@ -298,7 +313,7 @@ QString cNineFractals::GetDETypeString() const
 		text += "deltaDE";
 	}
 
-	if(DEFunctionType[0] == fractal::logarithmicDEFunction)
+	if (DEFunctionType[0] == fractal::logarithmicDEFunction)
 	{
 		text += " logarithmic";
 	}

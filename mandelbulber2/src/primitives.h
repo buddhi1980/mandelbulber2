@@ -1,40 +1,52 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * definitions of primitive objects
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * definitions of primitive objects
  */
 
-#ifndef PRIMITIVES_H_
-#define PRIMITIVES_H_
+#ifndef MANDELBULBER2_SRC_PRIMITIVES_H_
+#define MANDELBULBER2_SRC_PRIMITIVES_H_
 
+#include "QtCore"
 #include "algebra.hpp"
 #include "color_structures.hpp"
-#include "QtCore"
-#include "parameters.hpp"
 #include "object_data.hpp"
 #include "object_types.hpp"
+#include "parameters.hpp"
 #include "render_data.hpp"
 
 struct sPrimitiveItem
 {
-	sPrimitiveItem(fractal::enumObjectType _type, int _id, QString _name) :
-			type(_type), id(_id), name(_name)
+	sPrimitiveItem(fractal::enumObjectType _type, int _id, QString _name)
+			: type(_type), id(_id), name(_name)
 	{
 	}
 
@@ -50,13 +62,13 @@ struct sPrimitiveBasic : cObjectData
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitivePlane: sPrimitiveBasic
+struct sPrimitivePlane : sPrimitiveBasic
 {
 	bool empty;
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitiveBox: sPrimitiveBasic
+struct sPrimitiveBox : sPrimitiveBasic
 {
 	bool empty;
 	double rounding;
@@ -64,7 +76,7 @@ struct sPrimitiveBox: sPrimitiveBasic
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitiveSphere: sPrimitiveBasic
+struct sPrimitiveSphere : sPrimitiveBasic
 {
 	bool empty;
 	double radius;
@@ -72,7 +84,7 @@ struct sPrimitiveSphere: sPrimitiveBasic
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitiveWater: sPrimitiveBasic
+struct sPrimitiveWater : sPrimitiveBasic
 {
 	bool empty;
 	double amplitude;
@@ -83,7 +95,7 @@ struct sPrimitiveWater: sPrimitiveBasic
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitiveCone: sPrimitiveBasic
+struct sPrimitiveCone : sPrimitiveBasic
 {
 	bool empty;
 	bool caps;
@@ -94,7 +106,7 @@ struct sPrimitiveCone: sPrimitiveBasic
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitiveCylinder: sPrimitiveBasic
+struct sPrimitiveCylinder : sPrimitiveBasic
 {
 	bool empty;
 	bool caps;
@@ -104,7 +116,7 @@ struct sPrimitiveCylinder: sPrimitiveBasic
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitiveTorus: sPrimitiveBasic
+struct sPrimitiveTorus : sPrimitiveBasic
 {
 	bool empty;
 	double radius;
@@ -113,13 +125,13 @@ struct sPrimitiveTorus: sPrimitiveBasic
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitiveCircle: sPrimitiveBasic
+struct sPrimitiveCircle : sPrimitiveBasic
 {
 	double radius;
 	double PrimitiveDistance(CVector3 _point) const;
 };
 
-struct sPrimitiveRectangle: sPrimitiveBasic
+struct sPrimitiveRectangle : sPrimitiveBasic
 {
 	double height;
 	double width;
@@ -132,15 +144,16 @@ fractal::enumObjectType PrimitiveNameToEnum(const QString &primitiveType);
 
 class cPrimitives
 {
-	//some of functions for primitives were taken from http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+	// some of functions for primitives were taken from
+	// http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
 
 public:
 	cPrimitives(const cParameterContainer *par, QVector<cObjectData> *obejctData = NULL);
-	double TotalDistance(CVector3 point, double fractalDistance,
-			int *closestObjectId, sRenderData *data) const;
+	double TotalDistance(
+		CVector3 point, double fractalDistance, int *closestObjectId, sRenderData *data) const;
 
 private:
-	QList<sPrimitiveBasic*> allPrimitives;
+	QList<sPrimitiveBasic *> allPrimitives;
 	inline double Plane(CVector3 point, CVector3 position, CVector3 normal) const
 	{
 		return (normal.Dot(point - position));
@@ -152,4 +165,4 @@ private:
 	bool isAnyPrimitive;
 };
 
-#endif /* PRIMITIVES_HPP_ */
+#endif /* MANDELBULBER2_SRC_PRIMITIVES_H_ */

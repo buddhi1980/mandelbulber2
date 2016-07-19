@@ -1,23 +1,35 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cParameterContainer class - multipurpose parameter container
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cParameterContainer class - multipurpose parameter container
  */
 
 #include "parameters.hpp"
@@ -38,10 +50,10 @@ cParameterContainer::~cParameterContainer()
 	myMap.clear();
 }
 
-//defining of params without limits
-template<class T>
-void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType morphType,
-		enumParameterType parType)
+// defining of params without limits
+template <class T>
+void cParameterContainer::addParam(
+	QString name, T defaultVal, enumMorphType morphType, enumParameterType parType)
 {
 	cOneParameter newRecord;
 	newRecord.Set(defaultVal, valueDefault);
@@ -59,27 +71,27 @@ void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType mor
 		myMap.insert(name, newRecord);
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, double defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(QString name, int defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<QString>(QString name, QString defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<bool>(QString name, bool defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<cColorPalette>(QString name, cColorPalette defaultVal,
-		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<double>(
+	QString name, double defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(
+	QString name, int defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<QString>(
+	QString name, QString defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(
+	QString name, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector4>(
+	QString name, CVector4 defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(
+	QString name, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<bool>(
+	QString name, bool defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<cColorPalette>(
+	QString name, cColorPalette defaultVal, enumMorphType morphType, enumParameterType parType);
 
-//defining of params with limits
-template<class T>
+// defining of params with limits
+template <class T>
 void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVal,
-		enumMorphType morphType, enumParameterType parType)
+	enumMorphType morphType, enumParameterType parType)
 {
 	cOneParameter newRecord;
 	newRecord.Set(defaultVal, valueDefault);
@@ -100,20 +112,20 @@ void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVa
 	}
 }
 template void cParameterContainer::addParam<double>(QString name, double defaultVal, double minVal,
-		double maxVal, enumMorphType morphType, enumParameterType parType);
+	double maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<int>(QString name, int defaultVal, int minVal,
-		int maxVal, enumMorphType morphType, enumParameterType parType);
+	int maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
-		CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+	CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
-		CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
+	CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal,
-		sRGB maxVal, enumMorphType morphType, enumParameterType parType);
+	sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
-//defining of params without limits and with index
-template<class T>
-void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMorphType morphType,
-		enumParameterType parType)
+// defining of params without limits and with index
+template <class T>
+void cParameterContainer::addParam(
+	QString name, int index, T defaultVal, enumMorphType morphType, enumParameterType parType)
 {
 	if (index >= 0)
 	{
@@ -137,28 +149,28 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMo
 	else
 	{
 		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")"
-				<< endl;
+							 << endl;
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<QString>(QString name, int index, QString defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector4>(QString name, int index, CVector4 defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
-		enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<bool>(QString name, int index, bool defaultVal,
-		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<double>(
+	QString name, int index, double defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(
+	QString name, int index, int defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<QString>(
+	QString name, int index, QString defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(
+	QString name, int index, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector4>(
+	QString name, int index, CVector4 defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(
+	QString name, int index, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<bool>(
+	QString name, int index, bool defaultVal, enumMorphType morphType, enumParameterType parType);
 
-//defining of params with limits and index
-template<class T>
+// defining of params with limits and index
+template <class T>
 void cParameterContainer::addParam(QString name, int index, T defaultVal, T minVal, T maxVal,
-		enumMorphType morphType, enumParameterType parType)
+	enumMorphType morphType, enumParameterType parType)
 {
 	if (index >= 0)
 	{
@@ -184,22 +196,22 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 	else
 	{
 		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")"
-				<< endl;
+							 << endl;
 	}
 }
 template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
-		double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
+	double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
-		int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
+	int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
-		CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+	CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<CVector4>(QString name, int index, CVector4 defaultVal,
-		CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
+	CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
-		sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
+	sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
-//set parameter value by name
-template<class T>
+// set parameter value by name
+template <class T>
 void cParameterContainer::Set(QString name, T val)
 {
 	QMap<QString, cOneParameter>::iterator it;
@@ -222,8 +234,8 @@ template void cParameterContainer::Set<sRGB>(QString name, sRGB val);
 template void cParameterContainer::Set<bool>(QString name, bool val);
 template void cParameterContainer::Set<cColorPalette>(QString name, cColorPalette val);
 
-//set parameter value by name and index
-template<class T>
+// set parameter value by name and index
+template <class T>
 void cParameterContainer::Set(QString name, int index, T val)
 {
 	if (index >= 0)
@@ -253,8 +265,8 @@ template void cParameterContainer::Set<CVector4>(QString name, int index, CVecto
 template void cParameterContainer::Set<sRGB>(QString name, int index, sRGB val);
 template void cParameterContainer::Set<bool>(QString name, int index, bool val);
 
-//get parameter value by name
-template<class T>
+// get parameter value by name
+template <class T>
 T cParameterContainer::Get(QString name) const
 {
 	QMap<QString, cOneParameter>::const_iterator it;
@@ -279,8 +291,8 @@ template sRGB cParameterContainer::Get<sRGB>(QString name) const;
 template bool cParameterContainer::Get<bool>(QString name) const;
 template cColorPalette cParameterContainer::Get<cColorPalette>(QString name) const;
 
-//get parameter value by name and index
-template<class T>
+// get parameter value by name and index
+template <class T>
 T cParameterContainer::Get(QString name, int index) const
 {
 	T val = T();
@@ -312,8 +324,8 @@ template CVector4 cParameterContainer::Get<CVector4>(QString name, int index) co
 template sRGB cParameterContainer::Get<sRGB>(QString name, int index) const;
 template bool cParameterContainer::Get<bool>(QString name, int index) const;
 
-//get parameter default value by name
-template<class T>
+// get parameter default value by name
+template <class T>
 T cParameterContainer::GetDefault(QString name) const
 {
 	QMap<QString, cOneParameter>::const_iterator it;
@@ -338,8 +350,8 @@ template sRGB cParameterContainer::GetDefault<sRGB>(QString name) const;
 template bool cParameterContainer::GetDefault<bool>(QString name) const;
 template cColorPalette cParameterContainer::GetDefault<cColorPalette>(QString name) const;
 
-//get parameter value by name and index
-template<class T>
+// get parameter value by name and index
+template <class T>
 T cParameterContainer::GetDefault(QString name, int index) const
 {
 	T val = T();
@@ -360,7 +372,7 @@ T cParameterContainer::GetDefault(QString name, int index) const
 	else
 	{
 		qWarning() << "GetDefault(): element '" << name << "' has negative index (" << index << ")"
-				<< endl;
+							 << endl;
 	}
 	return val;
 }
@@ -455,7 +467,7 @@ bool cParameterContainer::isDefaultValue(QString name) const
 	else
 	{
 		qWarning() << "cParameterContainer::isDefaultValue(QString name): element '" << name
-				<< "' doesn't exists" << endl;
+							 << "' doesn't exists" << endl;
 	}
 	return isDefault;
 }
@@ -466,8 +478,8 @@ void cParameterContainer::ResetAllToDefault(void)
 	while (it != myMap.end())
 	{
 		cOneParameter record = it.value();
-		if (record.GetParameterType() != paramApp) it.value().SetMultival(record.GetMultival(valueDefault),
-																																			valueActual);
+		if (record.GetParameterType() != paramApp)
+			it.value().SetMultival(record.GetMultival(valueDefault), valueActual);
 		++it;
 	}
 }
@@ -512,7 +524,7 @@ cOneParameter cParameterContainer::GetAsOneParameter(QString name) const
 	else
 	{
 		qWarning() << "cParameterContainer::GetAsOneParameter(QString name): element '" << name
-				<< "' doesn't exists" << endl;
+							 << "' doesn't exists" << endl;
 	}
 	return val;
 }
@@ -527,9 +539,9 @@ void cParameterContainer::SetFromOneParameter(QString name, const cOneParameter 
 	}
 	else
 	{
-		qWarning()
-				<< "cParameterContainer::SetFromOneParameter(QString name, const cOneParameter &parameter): element '"
-				<< name << "' doesn't exists" << endl;
+		qWarning() << "cParameterContainer::SetFromOneParameter(QString name, const cOneParameter "
+									"&parameter): element '"
+							 << name << "' doesn't exists" << endl;
 	}
 }
 
@@ -537,9 +549,9 @@ void cParameterContainer::AddParamFromOneParameter(QString name, const cOneParam
 {
 	if (myMap.find(name) != myMap.end())
 	{
-		qWarning()
-				<< "cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter &parameter): element '"
-				<< name << "' already existed" << endl;
+		qWarning() << "cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter "
+									"&parameter): element '"
+							 << name << "' already existed" << endl;
 	}
 	else
 	{
