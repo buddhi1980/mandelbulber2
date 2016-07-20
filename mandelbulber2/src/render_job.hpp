@@ -1,60 +1,76 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cRenderJob class - prepare and coordinate rendering of single or multiple images (animation)
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cRenderJob class - prepare and coordinate rendering of single or multiple images (animation)
  */
 
-#ifndef RENDER_JOB_HPP_
-#define RENDER_JOB_HPP_
+#ifndef MANDELBULBER2_SRC_RENDER_JOB_HPP_
+#define MANDELBULBER2_SRC_RENDER_JOB_HPP_
 
-#include "parameters.hpp"
-#include "fractal_container.hpp"
-#include "cimage.hpp"
-#include "rendering_configuration.hpp"
-#include "render_data.hpp"
 #include "camera_target.hpp"
+#include "cimage.hpp"
+#include "fractal_container.hpp"
+#include "parameters.hpp"
+#include "render_data.hpp"
+#include "rendering_configuration.hpp"
 
 class cRenderJob : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget = NULL);
+	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image,
+		bool *_stopRequest, QWidget *_qwidget = NULL);
 	~cRenderJob();
-	//QWidtet *parent is needed to connect signals for refreshing progress and status bar.
-	//If _parent is not NULL then parent has to have slot slotUpdateProgressAndStatus()
+	// QWidtet *parent is needed to connect signals for refreshing progress and status bar.
+	// If _parent is not NULL then parent has to have slot slotUpdateProgressAndStatus()
 
 	enum enumMode
 	{
-		still, keyframeAnim, flightAnim, flightAnimRecord
+		still,
+		keyframeAnim,
+		flightAnim,
+		flightAnimRecord
 	};
 
 	bool Init(enumMode _mode, const cRenderingConfiguration &config);
 	bool Execute();
-	cImage* GetImagePtr() {return image;}
-	int GetNumberOfCPUs() {return totalNumberOfCPUs;}
-	void UseSizeFromImage(bool mode) {useSizeFromImage = mode;}
+	cImage *GetImagePtr() { return image; }
+	int GetNumberOfCPUs() { return totalNumberOfCPUs; }
+	void UseSizeFromImage(bool mode) { useSizeFromImage = mode; }
 	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget);
 
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
-	void UpdateConfig(const cRenderingConfiguration &config) {renderData->configuration = config;}
-	static int GetRunningJobCount() {return runningJobs;}
-  cStatistics GetStatistics(void) {return renderData->statistics;}
+	void UpdateConfig(const cRenderingConfiguration &config) { renderData->configuration = config; }
+	static int GetRunningJobCount() { return runningJobs; }
+	cStatistics GetStatistics(void) { return renderData->statistics; }
 
 public slots:
 	void slotExecute();
@@ -82,21 +98,19 @@ private:
 	bool *stopRequest;
 	bool canUseNetRender;
 
-	static int id; //global identifier of actual rendering job
+	static int id; // global identifier of actual rendering job
 	static int runningJobs;
 
-	signals:
+signals:
 	void finished();
 	void fullyRendered();
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateStatistics(cStatistics statistics);
 	void updateImage();
-	void SendNetRenderJob(cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
+	void SendNetRenderJob(
+		cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
 	void SendNetRenderSetup(int clientIndex, int id, QList<int> startingPositions);
 	void SetMinimumWidgetSize(int width, int height);
-
 };
 
-
-
-#endif /* RENDER_JOB_HPP_ */
+#endif /* MANDELBULBER2_SRC_RENDER_JOB_HPP_ */

@@ -1,42 +1,53 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cRenderWorker class - worker for rendering image on single CPU core
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cRenderWorker class - worker for rendering image on single CPU core
  */
 
-#ifndef RENDER_WORKER_HPP_
-#define RENDER_WORKER_HPP_
+#ifndef MANDELBULBER2_SRC_RENDER_WORKER_HPP_
+#define MANDELBULBER2_SRC_RENDER_WORKER_HPP_
 
 #include <QThread>
 
+#include "camera_target.hpp"
 #include "cimage.hpp"
 #include "fractparams.hpp"
 #include "nine_fractals.hpp"
 #include "scheduler.hpp"
-#include "camera_target.hpp"
 
-class cRenderWorker: public QObject
+class cRenderWorker : public QObject
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
-
 	struct sThreadData
 	{
 		int id;
@@ -45,14 +56,13 @@ public:
 	};
 
 	cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
-			sThreadData *_threadData, sRenderData *_data, cImage *_image);
+		sThreadData *_threadData, sRenderData *_data, cImage *_image);
 	~cRenderWorker();
 
 	QThread workerThread;
 
 private:
-
-	//raymarching step data
+	// raymarching step data
 	struct sStep
 	{
 		double distance;
@@ -68,7 +78,7 @@ private:
 		int buffCount;
 	};
 
-	//ambient occlusion data
+	// ambient occlusion data
 	struct sVectorsAround
 	{
 		double alpha;
@@ -136,9 +146,9 @@ private:
 		CVector3 viewVector;
 		CVector3 normal;
 		CVector3 lightVect;
-		double distThresh; //distance threshold depend on 'detailLevel'
+		double distThresh; // distance threshold depend on 'detailLevel'
 		double lastDist;
-		double delta; //initial step distance for shaders based on distance form camera
+		double delta; // initial step distance for shaders based on distance form camera
 		double depth;
 		sStep *stepBuff;
 		int stepCount;
@@ -150,7 +160,7 @@ private:
 		sRGBfloat texLuminosity;
 	};
 
-	//functions
+	// functions
 	void PrepareMainVectors(void);
 	void PrepareReflectionBuffer(void);
 	void PrepareAOVectors(void);
@@ -160,9 +170,9 @@ private:
 	double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
 
-	//shaders
-	sRGBAfloat ObjectShader(const sShaderInputData &input, sRGBAfloat *surfaceColour,
-			sRGBAfloat *specularOut);
+	// shaders
+	sRGBAfloat ObjectShader(
+		const sShaderInputData &input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut);
 	CVector3 CalculateNormals(const sShaderInputData &input);
 	sRGBAfloat MainShading(const sShaderInputData &input);
 	sRGBAfloat MainShadow(const sShaderInputData &input);
@@ -173,25 +183,25 @@ private:
 	sRGBAfloat EnvMapping(const sShaderInputData &input);
 	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut);
 	double AuxShadow(const sShaderInputData &input, double distance, CVector3 lightVector);
-	sRGBAfloat LightShading(const sShaderInputData &input, const cLights::sLight* light, int number,
-			sRGBAfloat *outSpecular);
+	sRGBAfloat LightShading(const sShaderInputData &input, const cLights::sLight *light, int number,
+		sRGBAfloat *outSpecular);
 	sRGBAfloat BackgroundShader(const sShaderInputData &input);
 	sRGBAfloat FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec);
-	sRGBAfloat VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel,
-			sRGBAfloat *opacityOut);
+	sRGBAfloat VolumetricShader(
+		const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut);
 
-	sRGBfloat TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect,
-			cMaterial *mat) const;
+	sRGBfloat TextureShader(
+		const sShaderInputData &input, cMaterial::enumTextureSelection texSelect, cMaterial *mat) const;
 	CVector3 NormalMapShader(const sShaderInputData &input);
 
-	//data got from main thread
+	// data got from main thread
 	const cParamRender *params;
 	const cNineFractals *fractal;
 	sRenderData *data;
 	sThreadData *threadData;
 	cImage *image;
 
-	//internal variables
+	// internal variables
 	int maxraymarchingSteps;
 	CRotationMatrix mRot;
 	CRotationMatrix mRotInv;
@@ -204,7 +214,7 @@ private:
 	int reflectionsMax;
 	bool stopRequest;
 
-	//allocated objects
+	// allocated objects
 	cCameraTarget *cameraTarget;
 	sRayBuffer *rayBuffer;
 	sVectorsAround *AOvectorsAround;
@@ -215,7 +225,6 @@ public slots:
 signals:
 	void finished();
 	void error(const QString &result);
-
 };
 
-#endif /* RENDER_WORKER_HPP_ */
+#endif /* MANDELBULBER2_SRC_RENDER_WORKER_HPP_ */

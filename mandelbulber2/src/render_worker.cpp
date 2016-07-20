@@ -1,33 +1,45 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cRenderWorker class - worker for rendering image on single CPU core
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cRenderWorker class - worker for rendering image on single CPU core
  */
 
 #include "render_worker.hpp"
-#include <QtCore>
 #include "calculate_distance.hpp"
-#include "region.hpp"
 #include "common_math.h"
+#include "region.hpp"
+#include <QtCore>
 
 cRenderWorker::cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
-		sThreadData *_threadData, sRenderData *_data, cImage *_image)
+	sThreadData *_threadData, sRenderData *_data, cImage *_image)
 {
 	params = _params;
 	fractal = _fractal;
@@ -70,41 +82,42 @@ cRenderWorker::~cRenderWorker()
 	}
 }
 
-//main render engine function called as multiple threads
+// main render engine function called as multiple threads
 void cRenderWorker::doWork(void)
 {
 	// here will be rendering thread
 	int width = image->GetWidth();
 	int height = image->GetHeight();
-	double aspectRatio = (double) width / height;
+	double aspectRatio = (double)width / height;
 
 	PrepareMainVectors();
 	PrepareReflectionBuffer();
-	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeMultipeRays) PrepareAOVectors();
+	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeMultipeRays)
+		PrepareAOVectors();
 
-	//init of scheduler
+	// init of scheduler
 	cScheduler *scheduler = threadData->scheduler;
 
-	//start point for ray-marching
+	// start point for ray-marching
 	CVector3 start = params->camera;
 
 	scheduler->InitFirstLine(threadData->id, threadData->startLine);
 
 	bool lastLineWasBroken = false;
 
-	//main loop for y
-	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys =
-			scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
+	// main loop for y
+	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id);
+			 ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
 	{
-		//skip if line is out of region
+		// skip if line is out of region
 		if (ys < 0) break;
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
 
-		//main loop for x
+		// main loop for x
 		for (int xs = 0; xs < width; xs += scheduler->GetProgressiveStep())
 		{
-			if(systemData.globalStopRequest) break;
-			//break if by coincidence this thread started rendering the same line as some other
+			if (systemData.globalStopRequest) break;
+			// break if by coincidence this thread started rendering the same line as some other
 			lastLineWasBroken = false;
 			if (scheduler->ShouldIBreak(threadData->id, ys))
 			{
@@ -113,30 +126,30 @@ void cRenderWorker::doWork(void)
 			}
 
 			if (scheduler->GetProgressivePass() > 1 && xs % (scheduler->GetProgressiveStep() * 2) == 0
-					&& ys % (scheduler->GetProgressiveStep() * 2) == 0) continue;
+					&& ys % (scheduler->GetProgressiveStep() * 2) == 0)
+				continue;
 
-			//skip if pixel is out of region;
+			// skip if pixel is out of region;
 			if (xs < data->screenRegion.x1 || xs > data->screenRegion.x2) continue;
 
-			//calculate point in image coordinate system
+			// calculate point in image coordinate system
 			CVector2<int> screenPoint(xs, ys);
 			CVector2<double> imagePoint = data->screenRegion.transpose(data->imageRegion, screenPoint);
 			imagePoint.x *= aspectRatio;
 
-			//full dome shemisphere cut
+			// full dome shemisphere cut
 			bool hemisphereCut = false;
 			if (params->perspectiveType == params::perspFishEyeCut
-					&& imagePoint.Length() > 0.5 / params->fov) hemisphereCut = true;
+					&& imagePoint.Length() > 0.5 / params->fov)
+				hemisphereCut = true;
 
-			//calculate direction of ray-marching
-			CVector3 viewVector = CalculateViewVector(imagePoint,
-																								params->fov,
-																								params->perspectiveType,
-																								mRot);
+			// calculate direction of ray-marching
+			CVector3 viewVector =
+				CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
 
 			//---------------- 1us -------------
 
-			//Ray marching
+			// Ray marching
 			CVector3 startRay = start;
 			sRGBAfloat resultShader;
 			sRGBAfloat objectColour;
@@ -144,9 +157,9 @@ void cRenderWorker::doWork(void)
 			double depth = 1e20;
 			double opacity = 1.0;
 
-			//raymarching loop (reflections)
+			// raymarching loop (reflections)
 
-			if (!hemisphereCut) //in fulldome mode, will not render pixels out of the fulldome
+			if (!hemisphereCut) // in fulldome mode, will not render pixels out of the fulldome
 			{
 				sRayRecursionIn recursionIn;
 
@@ -194,7 +207,7 @@ void cRenderWorker::doWork(void)
 			colour.B = objectColour.B * 255;
 
 			sRGBfloat normalFloat;
-			if(image->GetImageOptional()->optionalNormal)
+			if (image->GetImageOptional()->optionalNormal)
 			{
 				CVector3 normalRotated = mRotInv.RotateVector(normal);
 				normalFloat.R = (1.0 + normalRotated.x) / 2.0;
@@ -209,9 +222,9 @@ void cRenderWorker::doWork(void)
 					image->PutPixelImage(screenPoint.x + xx, screenPoint.y + yy, pixel2);
 					image->PutPixelColour(screenPoint.x + xx, screenPoint.y + yy, colour);
 					image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, alpha);
-					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float) depth);
+					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float)depth);
 					image->PutPixelOpacity(screenPoint.x + xx, screenPoint.y + yy, opacity16);
-					if(image->GetImageOptional()->optionalNormal)
+					if (image->GetImageOptional()->optionalNormal)
 						image->PutPixelNormal(screenPoint.x + xx, screenPoint.y + yy, normalFloat);
 				}
 			}
@@ -220,30 +233,30 @@ void cRenderWorker::doWork(void)
 		}
 	}
 
-	//emit signal to main thread when finished
+	// emit signal to main thread when finished
 	emit finished();
 	return;
 }
 
-//calculation of base vectors
+// calculation of base vectors
 void cRenderWorker::PrepareMainVectors(void)
 {
 	cameraTarget = new cCameraTarget(params->camera, params->target, params->topVector);
-	//cameraTarget->SetCameraTargetRotation(params->camera, params->target, params->viewAngle);
+	// cameraTarget->SetCameraTargetRotation(params->camera, params->target, params->viewAngle);
 	viewAngle = cameraTarget->GetRotation();
 
-	//preparing rotation matrix
-	mRot.RotateZ(viewAngle.x); //yaw
-	mRot.RotateX(viewAngle.y); //pitch
-	mRot.RotateY(viewAngle.z); //roll
+	// preparing rotation matrix
+	mRot.RotateZ(viewAngle.x); // yaw
+	mRot.RotateX(viewAngle.y); // pitch
+	mRot.RotateY(viewAngle.z); // roll
 
-	//preparing base vectors
+	// preparing base vectors
 	CVector3 vector;
 	baseX = mRot.RotateVector(baseX);
 	baseY = mRot.RotateVector(baseY);
 	baseZ = mRot.RotateVector(baseZ);
 
-	//main shadow direction vector
+	// main shadow direction vector
 	double alpha = params->mainLightAlpha / 180.0 * M_PI;
 	double beta = params->mainLightBeta / 180.0 * M_PI;
 	vector.x = cos(alpha - 0.5 * M_PI) * cos(beta);
@@ -265,7 +278,7 @@ void cRenderWorker::PrepareMainVectors(void)
 	mRotInv = mRot.Transpose();
 }
 
-//reflection data
+// reflection data
 void cRenderWorker::PrepareReflectionBuffer(void)
 {
 
@@ -275,13 +288,13 @@ void cRenderWorker::PrepareReflectionBuffer(void)
 
 	for (int i = 0; i < reflectionsMax + 3; i++)
 	{
-		//rayMarching buffers
+		// rayMarching buffers
 		rayBuffer[i].stepBuff = new sStep[maxraymarchingSteps + 2];
 		rayBuffer[i].buffCount = 0;
 	}
 }
 
-//calculating vectors for AmbientOcclusion
+// calculating vectors for AmbientOcclusion
 void cRenderWorker::PrepareAOVectors(void)
 {
 	AOvectorsAround = new sVectorsAround[10000];
@@ -300,8 +313,8 @@ void cRenderWorker::PrepareAOVectors(void)
 			AOvectorsAround[counter].alpha = a;
 			AOvectorsAround[counter].beta = b;
 			AOvectorsAround[counter].v = d;
-			int X = (int) ((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
-			int Y = (int) (b / (M_PI) * lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
+			int X = (int)((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
+			int Y = (int)(b / (M_PI)*lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
 			AOvectorsAround[counter].R = data->textures.lightmapTexture.FastPixel(X, Y).R;
 			AOvectorsAround[counter].G = data->textures.lightmapTexture.FastPixel(X, Y).G;
 			AOvectorsAround[counter].B = data->textures.lightmapTexture.FastPixel(X, Y).B;
@@ -329,34 +342,38 @@ void cRenderWorker::PrepareAOVectors(void)
 	AOvectorsCount = counter;
 }
 
-//calculation of distance where ray-marching stops
+// calculation of distance where ray-marching stops
 double cRenderWorker::CalcDistThresh(CVector3 point) const
 {
 	double distThresh;
-	if (params->constantDEThreshold) distThresh = params->DEThresh;
-	else distThresh = (params->camera - point).Length() * params->resolution * params->fov
-			/ params->detailLevel;
+	if (params->constantDEThreshold)
+		distThresh = params->DEThresh;
+	else
+		distThresh =
+			(params->camera - point).Length() * params->resolution * params->fov / params->detailLevel;
 	if (params->perspectiveType == params::perspEquirectangular
 			|| params->perspectiveType == params::perspFishEye
-			|| params->perspectiveType == params::perspFishEyeCut) distThresh *= M_PI;
+			|| params->perspectiveType == params::perspFishEyeCut)
+		distThresh *= M_PI;
 	distThresh /= data->reduceDetail;
 	return distThresh;
 }
 
-//calculation of "voxel" size
+// calculation of "voxel" size
 double cRenderWorker::CalcDelta(CVector3 point) const
 {
 	double delta;
 	delta = (params->camera - point).Length() * params->resolution * params->fov;
 	if (params->perspectiveType == params::perspEquirectangular
 			|| params->perspectiveType == params::perspFishEye
-			|| params->perspectiveType == params::perspFishEyeCut) delta *= M_PI;
+			|| params->perspectiveType == params::perspFishEyeCut)
+		delta *= M_PI;
 	return delta;
 }
 
-//Ray-Marching
-CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut,
-		sRayMarchingOut *out)
+// Ray-Marching
+CVector3 cRenderWorker::RayMarching(
+	sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out)
 {
 	CVector3 point;
 	bool found = false;
@@ -370,7 +387,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	double distThresh = 0;
 	out->objectId = 0;
 
-	//qDebug() << "Start ************************";
+	// qDebug() << "Start ************************";
 
 	CVector3 lastPoint, lastGoodPoint;
 	bool deadComputationFound = false;
@@ -384,9 +401,9 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 
 		point = in.start + in.direction * scan;
 
-		if (point == lastPoint || point == point/0.0) //detection of dead calculation
+		if (point == lastPoint || point == point / 0.0) // detection of dead calculation
 		{
-			//qWarning() << "Dead computation\n"
+			// qWarning() << "Dead computation\n"
 			//		<< "Point:" << point.Debug()
 			//		<< "\nPrevious point:" << lastPoint.Debug();
 			point = lastPoint;
@@ -400,7 +417,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		sDistanceIn distanceIn(point, distThresh, false);
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
-		//qDebug() <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan;
+		// qDebug() <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan;
 		if (in.invertMode)
 		{
 			dist = distThresh * 1.99 - dist;
@@ -410,7 +427,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 
 		//-------------------- 4.18us for Calculate distance --------------
 
-		//printf("Distance = %g\n", dist/distThresh);
+		// printf("Distance = %g\n", dist/distThresh);
 		inOut->stepBuff[i].distance = dist;
 		inOut->stepBuff[i].iters = distanceOut.iters;
 		inOut->stepBuff[i].distThresh = distThresh;
@@ -438,18 +455,20 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			;
 		}
 		inOut->stepBuff[i].point = point;
-		//qDebug() << "i" << i << "dist" << inOut->stepBuff[i].distance << "iters" << inOut->stepBuff[i].iters << "distThresh" << inOut->stepBuff[i].distThresh << "step" << inOut->stepBuff[i].step << "point" << inOut->stepBuff[i].point.Debug();
+		// qDebug() << "i" << i << "dist" << inOut->stepBuff[i].distance << "iters" <<
+		// inOut->stepBuff[i].iters << "distThresh" << inOut->stepBuff[i].distThresh << "step" <<
+		// inOut->stepBuff[i].step << "point" << inOut->stepBuff[i].point.Debug();
 		(*inOut->buffCount) = i + 1;
-		scan += step / in.direction.Length(); //divided by length of view Vector to eliminate overstepping when fov is big
+		// divided by length of view Vector to eliminate overstepping when fov is big
+		scan += step / in.direction.Length();
 		if (scan > in.maxScan)
 		{
 			break;
 		}
-
 	}
 	//------------- 83.2473 us for RayMarching loop -------------------------
 
-	//qDebug() << "------------ binary search";
+	// qDebug() << "------------ binary search";
 	if (found && in.binaryEnable && !deadComputationFound)
 	{
 		step *= 0.5;
@@ -480,7 +499,8 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 
-			//qDebug() << "i" << i <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan << "step" << step;
+			// qDebug() << "i" << i <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan <<
+			// "step" << step;
 
 			if (in.invertMode)
 			{
@@ -498,7 +518,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	}
 	if (params->iterThreshMode)
 	{
-		//this fixes problem with noise when there is used "stop at maxIter" mode
+		// this fixes problem with noise when there is used "stop at maxIter" mode
 		scan -= distThresh;
 		point = in.start + in.direction * scan;
 	}
@@ -515,20 +535,20 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	return point;
 }
 
-cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
-		sRayRecursionInOut &inOut)
+cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
+	sRayRecursionIn in, sRayRecursionInOut &inOut)
 {
 	sRayMarchingOut rayMarchingOut;
 
 	*inOut.rayMarchingInOut.buffCount = 0;
 
-	//trace the light in given direction
+	// trace the light in given direction
 	CVector3 point = RayMarching(in.rayMarchingIn, &inOut.rayMarchingInOut, &rayMarchingOut);
 
 	sRGBAfloat resultShader = in.resultShader;
 	sRGBAfloat objectColour = in.objectColour;
 
-	//here will be called branch for RayRecursion();
+	// here will be called branch for RayRecursion();
 
 	sRGBAfloat objectShader;
 	objectShader.A = 0.0;
@@ -536,7 +556,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 	sRGBAfloat volumetricShader;
 	sRGBAfloat specular;
 
-	//prepare data for shaders
+	// prepare data for shaders
 	CVector3 lightVector = shadowVector;
 	sShaderInputData shaderInputData;
 	shaderInputData.distThresh = rayMarchingOut.distThresh;
@@ -559,74 +579,78 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 
 	sRGBAfloat transparentShader = in.resultShader;
 	double transparent = shaderInputData.material->transparencyOfSurface;
-	sRGBfloat transparentColor = sRGBfloat(shaderInputData.material->transparencyInteriorColor.R / 65536.0,
-																				 shaderInputData.material->transparencyInteriorColor.G / 65536.0,
-																				 shaderInputData.material->transparencyInteriorColor.B / 65536.0);
+	sRGBfloat transparentColor =
+		sRGBfloat(shaderInputData.material->transparencyInteriorColor.R / 65536.0,
+			shaderInputData.material->transparencyInteriorColor.G / 65536.0,
+			shaderInputData.material->transparencyInteriorColor.B / 65536.0);
 	resultShader.R = transparentColor.R;
 	resultShader.G = transparentColor.G;
 	resultShader.B = transparentColor.B;
 
 	CVector3 vn;
 
-	//if found any object
+	// if found any object
 	if (rayMarchingOut.found)
 	{
-		//calculate normal vector
+		// calculate normal vector
 		vn = CalculateNormals(shaderInputData);
 		shaderInputData.normal = vn;
 
-		//letting colors from textures (before normal map shader)
-		if(shaderInputData.material->colorTexture.IsLoaded())
-			shaderInputData.texColor = TextureShader(shaderInputData, cMaterial::texColor, shaderInputData.material);
+		// letting colors from textures (before normal map shader)
+		if (shaderInputData.material->colorTexture.IsLoaded())
+			shaderInputData.texColor =
+				TextureShader(shaderInputData, cMaterial::texColor, shaderInputData.material);
 		else
 			shaderInputData.texColor = sRGBfloat(1.0, 1.0, 1.0);
 
-		if(shaderInputData.material->luminosityTexture.IsLoaded())
-			shaderInputData.texLuminosity = TextureShader(shaderInputData, cMaterial::texLuminosity, shaderInputData.material);
+		if (shaderInputData.material->luminosityTexture.IsLoaded())
+			shaderInputData.texLuminosity =
+				TextureShader(shaderInputData, cMaterial::texLuminosity, shaderInputData.material);
 		else
 			shaderInputData.texLuminosity = sRGBfloat(0.0, 0.0, 0.0);
 
-		if(shaderInputData.material->diffusionTexture.IsLoaded())
-			shaderInputData.texDiffuse = TextureShader(shaderInputData, cMaterial::texDiffuse, shaderInputData.material);
+		if (shaderInputData.material->diffusionTexture.IsLoaded())
+			shaderInputData.texDiffuse =
+				TextureShader(shaderInputData, cMaterial::texDiffuse, shaderInputData.material);
 		else
 			shaderInputData.texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
 
-		if(shaderInputData.material->normalMapTexture.IsLoaded())
+		if (shaderInputData.material->normalMapTexture.IsLoaded())
 		{
 			vn = NormalMapShader(shaderInputData);
 		}
 
-		//prepare refraction values
+		// prepare refraction values
 		double n1, n2;
-		if (in.calcInside) //if trace is inside the object
+		if (in.calcInside) // if trace is inside the object
 		{
-			n1 = shaderInputData.material ->transparencyIndexOfRefraction; //reverse refractive indices
+			n1 = shaderInputData.material->transparencyIndexOfRefraction; // reverse refractive indices
 			n2 = 1.0;
 		}
 		else
 		{
 			n1 = 1.0;
-			n2 = shaderInputData.material ->transparencyIndexOfRefraction;
+			n2 = shaderInputData.material->transparencyIndexOfRefraction;
 			;
 		}
 
 		if (inOut.rayIndex < reflectionsMax)
 		{
 
-			//calculate refraction (transparency)
+			// calculate refraction (transparency)
 			if (transparent > 0.0)
 			{
 				sRayRecursionIn recursionIn;
 				sRayMarchingIn rayMarchingIn;
 				sRayMarchingInOut rayMarchingInOut;
 
-				//calculate direction of refracted light
+				// calculate direction of refracted light
 				CVector3 newDirection = RefractVector(vn, in.rayMarchingIn.direction, n1, n2);
 
-				//move starting point a little
+				// move starting point a little
 				CVector3 newPoint = point + in.rayMarchingIn.direction * shaderInputData.distThresh * 1.0;
 
-				//if is total internal reflection the use reflection instead of refraction
+				// if is total internal reflection the use reflection instead of refraction
 				bool internalReflection = false;
 				if (newDirection.Length() == 0.0)
 				{
@@ -635,7 +659,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 					internalReflection = true;
 				}
 
-				//preparation for new recursion
+				// preparation for new recursion
 				rayMarchingIn.binaryEnable = true;
 				rayMarchingIn.direction = newDirection;
 				rayMarchingIn.maxScan = params->viewDistanceMax;
@@ -647,29 +671,29 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 				recursionIn.resultShader = resultShader;
 				recursionIn.objectColour = objectColour;
 
-				//setup buffers for ray data
-				inOut.rayIndex++; //increase recursion index
+				// setup buffers for ray data
+				inOut.rayIndex++; // increase recursion index
 				rayMarchingInOut.buffCount = &rayBuffer[inOut.rayIndex].buffCount;
 				rayMarchingInOut.stepBuff = rayBuffer[inOut.rayIndex].stepBuff;
 				inOut.rayMarchingInOut = rayMarchingInOut;
 
-				//recursion for refraction
+				// recursion for refraction
 				sRayRecursionOut recursionOutTransparent = RayRecursion(recursionIn, inOut);
 				transparentShader = recursionOutTransparent.resultShader;
 			}
 
-			//calculate reflection
+			// calculate reflection
 			if (reflect > 0.0)
 			{
 				sRayRecursionIn recursionIn;
 				sRayMarchingIn rayMarchingIn;
 				sRayMarchingInOut rayMarchingInOut;
 
-				//calculate new direction of reflection
+				// calculate new direction of reflection
 				CVector3 newDirection = ReflectionVector(vn, in.rayMarchingIn.direction);
 				CVector3 newPoint = point + newDirection * shaderInputData.distThresh;
 
-				//prepare for new recursion
+				// prepare for new recursion
 				rayMarchingIn.binaryEnable = true;
 				rayMarchingIn.direction = newDirection;
 				rayMarchingIn.maxScan = params->viewDistanceMax;
@@ -681,27 +705,26 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 				recursionIn.resultShader = resultShader;
 				recursionIn.objectColour = objectColour;
 
-				//setup buffers for ray data
-				inOut.rayIndex++; //increase recursion index
+				// setup buffers for ray data
+				inOut.rayIndex++; // increase recursion index
 				rayMarchingInOut.buffCount = &rayBuffer[inOut.rayIndex].buffCount;
 				rayMarchingInOut.stepBuff = rayBuffer[inOut.rayIndex].stepBuff;
 				inOut.rayMarchingInOut = rayMarchingInOut;
 
-				//recursion for reflection
+				// recursion for reflection
 				sRayRecursionOut recursionOutReflect = RayRecursion(recursionIn, inOut);
 				reflectShader = recursionOutReflect.resultShader;
-
 			}
-			if (transparent > 0.0) inOut.rayIndex--; //decrease recursion index
-			if (reflect > 0.0) inOut.rayIndex--; //decrease recursion index
+			if (transparent > 0.0) inOut.rayIndex--; // decrease recursion index
+			if (reflect > 0.0) inOut.rayIndex--;		 // decrease recursion index
 		}
 
 		shaderInputData.normal = vn;
 
-		//calculate effects for object surface
+		// calculate effects for object surface
 		objectShader = ObjectShader(shaderInputData, &objectColour, &specular);
 
-		//calculate reflectance according to Fresnel equations
+		// calculate reflectance according to Fresnel equations
 		double reflectance = 1.0;
 		double reflectanceN = 1.0;
 
@@ -713,7 +736,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 			reflectanceN = 1.0 - reflectance;
 		}
 
-		//combine all results
+		// combine all results
 		resultShader.R = (objectShader.R + specular.R);
 		resultShader.G = (objectShader.G + specular.G);
 		resultShader.B = (objectShader.B + specular.B);
@@ -728,47 +751,48 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 			reflectDiffused.B = reflect * shaderInputData.texDiffuse.B * diffIntes + reflect * diffIntesN;
 
 			resultShader.R = transparentShader.R * transparent * reflectanceN
-					+ (1.0 - transparent * reflectanceN) * resultShader.R;
+											 + (1.0 - transparent * reflectanceN) * resultShader.R;
 			resultShader.G = transparentShader.G * transparent * reflectanceN
-					+ (1.0 - transparent * reflectanceN) * resultShader.G;
+											 + (1.0 - transparent * reflectanceN) * resultShader.G;
 			resultShader.B = transparentShader.B * transparent * reflectanceN
-					+ (1.0 - transparent * reflectanceN) * resultShader.B;
+											 + (1.0 - transparent * reflectanceN) * resultShader.B;
 
 			resultShader.R = reflectShader.R * reflectDiffused.R * reflectance
-					+ (1.0 - reflectDiffused.R * reflectance) * resultShader.R;
+											 + (1.0 - reflectDiffused.R * reflectance) * resultShader.R;
 			resultShader.G = reflectShader.G * reflectDiffused.G * reflectance
-					+ (1.0 - reflectDiffused.G * reflectance) * resultShader.G;
+											 + (1.0 - reflectDiffused.G * reflectance) * resultShader.G;
 			resultShader.B = reflectShader.B * reflectDiffused.B * reflectance
-					+ (1.0 - reflectDiffused.B * reflectance) * resultShader.B;
+											 + (1.0 - reflectDiffused.B * reflectance) * resultShader.B;
 		}
-		if(resultShader.R < 0.0) resultShader.R = 0.0;
-		if(resultShader.G < 0.0) resultShader.G = 0.0;
-		if(resultShader.B < 0.0) resultShader.B = 0.0;
+		if (resultShader.R < 0.0) resultShader.R = 0.0;
+		if (resultShader.G < 0.0) resultShader.G = 0.0;
+		if (resultShader.B < 0.0) resultShader.B = 0.0;
 	}
-	else //if object not found then calculate background
+	else // if object not found then calculate background
 	{
 		backgroundShader = BackgroundShader(shaderInputData);
 		resultShader = backgroundShader;
 		shaderInputData.depth = 1e20;
-		vn =  mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
+		vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 	}
 
 	sRGBAfloat opacityOut;
 
-	if (in.calcInside) //if the object interior is traced, then the absorption of light has to be calculated
+	if (in.calcInside) // if the object interior is traced, then the absorption of light has to be
+										 // calculated
 	{
 		for (int index = shaderInputData.stepCount - 1; index > 0; index--)
 		{
 			double step = shaderInputData.stepBuff[index].step;
 
-			//CVector3 point = shaderInputData.stepBuff[index].point;
-			//shaderInputData.point = point;
-			//sRGBAfloat color = SurfaceColour(shaderInputData);
-			//transparentColor.R = color.R;
-			//transparentColor.G = color.G;
-			//transparentColor.B = color.B;
+			// CVector3 point = shaderInputData.stepBuff[index].point;
+			// shaderInputData.point = point;
+			// sRGBAfloat color = SurfaceColour(shaderInputData);
+			// transparentColor.R = color.R;
+			// transparentColor.G = color.G;
+			// transparentColor.B = color.B;
 
-			double opacity = (-1.0 + 1.0/shaderInputData.material ->transparencyOfInterior) * step;
+			double opacity = (-1.0 + 1.0 / shaderInputData.material->transparencyOfInterior) * step;
 			if (opacity > 1.0) opacity = 1.0;
 
 			resultShader.R = opacity * transparentColor.R + (1.0 - opacity) * resultShader.R;
@@ -776,13 +800,13 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 			resultShader.B = opacity * transparentColor.B + (1.0 - opacity) * resultShader.B;
 		}
 	}
-	else //if now is outside the object, then calculate all volumetric effects like fog, glow...
+	else // if now is outside the object, then calculate all volumetric effects like fog, glow...
 	{
 		volumetricShader = VolumetricShader(shaderInputData, resultShader, &opacityOut);
 		resultShader = volumetricShader;
 	}
 
-	//prepare final result
+	// prepare final result
 	sRayRecursionOut out;
 	out.point = point;
 	out.rayMarchingOut = rayMarchingOut;
@@ -794,4 +818,3 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 
 	return out;
 }
-
