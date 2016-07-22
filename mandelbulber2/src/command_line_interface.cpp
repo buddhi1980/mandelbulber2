@@ -567,13 +567,7 @@ void cCommandLineInterface::ReadCLI()
 	// specified image file format
 	if (cliData.imageFileFormat != "")
 	{
-		QStringList allowedImageFileFormat;
-		allowedImageFileFormat << "jpg"
-													 << "png"
-													 << "png16"
-													 << "png16alpha"
-													 << "exr"
-													 << "tiff";
+		QStringList allowedImageFileFormat({"jpg", "png", "png16", "png16alpha", "exr", "tiff"});
 		if (!allowedImageFileFormat.contains(cliData.imageFileFormat))
 		{
 			cErrorMessage::showMessage(QObject::tr("Specified imageFileFormat is not valid\n"

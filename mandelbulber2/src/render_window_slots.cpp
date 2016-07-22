@@ -826,21 +826,10 @@ void RenderWindow::slotFractalSwap(int swapA, int swapB)
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
 	// swap formula specific fields in gPar
-	QStringList gParFormulaSpecificFields;
-	gParFormulaSpecificFields << "formula"
-														<< "formula_iterations"
-														<< "formula_weight"
-														<< "formula_start_iteration"
-														<< "formula_stop_iteration"
-														<< "julia_mode"
-														<< "julia_c"
-														<< "fractal_constant_factor"
-														<< "formula_position"
-														<< "formula_rotation"
-														<< "formula_repeat"
-														<< "formula_scale"
-														<< "dont_add_c_constant"
-														<< "check_for_bailout";
+	QStringList gParFormulaSpecificFields({"formula", "formula_iterations", "formula_weight",
+		"formula_start_iteration", "formula_stop_iteration", "julia_mode", "julia_c",
+		"fractal_constant_factor", "formula_position", "formula_rotation", "formula_repeat",
+		"formula_scale", "dont_add_c_constant", "check_for_bailout"});
 
 	for (int i = 0; i < gParFormulaSpecificFields.size(); i++)
 	{
