@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 #
 # this file checks the source and header files
+# requires clang-format, git and php (apt-get install clang-format php5-cli)
 #
 # on default this script runs dry,
 # it will try to parse all files and prints problems inside the files
@@ -10,18 +11,18 @@
 
 <?php
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
-
+define('WILDCARD', 'z*');
 $filesToCheckSource = array();
-$filesToCheckSource[] = PROJECT_PATH . "src/f*.cpp";
-$filesToCheckSource[] = PROJECT_PATH . "src/f*.c";
-// $filesToCheckSource[] = PROJECT_PATH . "qt/*.cpp";
-// $filesToCheckSource[] = PROJECT_PATH . "qt/*.c";
+$filesToCheckSource[] = PROJECT_PATH . "src/" . WILDCARD . ".cpp";
+$filesToCheckSource[] = PROJECT_PATH . "src/" . WILDCARD . ".c";
+// $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".cpp";
+// $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".c";
 
 $filesToCheckHeader = array();
-$filesToCheckHeader[] = PROJECT_PATH . "src/f*.hpp";
-$filesToCheckHeader[] = PROJECT_PATH . "src/f*.h";
-// $filesToCheckHeader[] = PROJECT_PATH . "qt/*.hpp";
-// $filesToCheckHeader[] = PROJECT_PATH . "qt/*.h";
+$filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . "*.hpp";
+$filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . "*.h";
+// $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".hpp";
+// $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".h";
 
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
@@ -141,9 +142,13 @@ function updateClang($filePath){
 }
 
 function getModificationInterval($filePath){
-	$cmd = "git log --format=%ad " . $filePath . " | tail -1 | egrep -o '\s([0-9]{4})\s'";
+	// these commits contain only auto formatting code changes
+	// and should not be counted for the modification invertal
+	$ignoreString = 'source code';
+
+	$cmd = "git log --format=%ad%s " . $filePath . " | grep -v '" . $ignoreString . "' | tail -1 | egrep -o '\s([0-9]{4})\s'";
 	$yearStart = trim(shell_exec($cmd));
-	$cmd = "git log --format=%ad " . $filePath . " | head -1 | egrep -o '\s([0-9]{4})\s'";
+	$cmd = "git log --format=%ad%s " . $filePath . " | grep -v '" . $ignoreString . "' | head -1 | egrep -o '\s([0-9]{4})\s'";
 	$yearEnd =  trim(shell_exec($cmd));
 	if($yearStart == $yearEnd){
 		return $yearStart;

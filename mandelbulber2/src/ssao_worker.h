@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -14,7 +14,7 @@
  * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
  * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
  * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
- *                                          §= "=C=4 §"eM "=B:m\4"]#F,§~
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
  * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
  * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
  * but WITHOUT ANY WARRANTY;                            .'''
@@ -36,8 +36,8 @@
  * each pixel will be shaded. This class gets used in render_ssao.cpp as multiple threads.
  */
 
-#ifndef SSAO_WORKER_H_
-#define SSAO_WORKER_H_
+#ifndef MANDELBULBER2_SRC_SSAO_WORKER_H_
+#define MANDELBULBER2_SRC_SSAO_WORKER_H_
 
 #include "cimage.hpp"
 #include "fractparams.hpp"
@@ -79,4 +79,4 @@ signals:
 	void finished();
 };
 
-#endif /* SSAO_WORKER_H_ */
+#endif /* MANDELBULBER2_SRC_SSAO_WORKER_H_ */

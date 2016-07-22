@@ -1,49 +1,61 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * cRenderWorker::ObjectShader method - calculates surface and volumetric shaders
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright (C) 2014 Krzysztof Marczak
- *
- * This file is part of Mandelbulber.
- *
- * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ * ###########################################################################
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * cRenderWorker::ObjectShader method - calculates surface and volumetric shaders
  */
 
-#include "render_worker.hpp"
 #include "calculate_distance.hpp"
-#include "compute_fractal.hpp"
 #include "common_math.h"
+#include "compute_fractal.hpp"
+#include "render_worker.hpp"
 #include "texture_mapping.hpp"
 
-sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour,
-		sRGBAfloat *specularOut)
+sRGBAfloat cRenderWorker::ObjectShader(
+	const sShaderInputData &_input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut)
 {
 	sRGBAfloat output;
 
-	//normal vector
+	// normal vector
 	CVector3 vn = _input.normal;
 	sShaderInputData input = _input;
 	cMaterial *mat = input.material;
 	input.normal = vn;
 
-	//main light
+	// main light
 	sRGBAfloat mainLight;
 	mainLight.R = params->mainLightIntensity * params->mainLightColour.R / 65536.0;
 	mainLight.G = params->mainLightIntensity * params->mainLightColour.G / 65536.0;
 	mainLight.B = params->mainLightIntensity * params->mainLightColour.B / 65536.0;
 
-	//calculate shading based on angle of incidence
+	// calculate shading based on angle of incidence
 	sRGBAfloat shade;
 	if (params->mainLightEnable)
 	{
@@ -53,11 +65,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 		shade.B = params->mainLightIntensity * ((1.0 - mat->shading) + mat->shading * shade.B);
 	}
 
-	//calculate shadow
+	// calculate shadow
 	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
 	if (params->shadow && params->mainLightEnable) shadow = MainShadow(input);
 
-	//calculate specular highlight
+	// calculate specular highlight
 	sRGBAfloat specular;
 	if (params->mainLightEnable)
 	{
@@ -67,7 +79,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 		specular.B *= mat->specular;
 	}
 
-	//calculate surface colour
+	// calculate surface colour
 	sRGBAfloat colour = SurfaceColour(input);
 	double texColInt = mat->colorTextureIntensity;
 	double texColIntN = 1.0 - mat->colorTextureIntensity;
@@ -76,11 +88,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	colour.B *= input.texColor.B * texColInt + texColIntN;
 	*surfaceColour = colour;
 
-	//ambient occlusion
+	// ambient occlusion
 	sRGBAfloat ambient(0.0, 0.0, 0.0, 0.0);
 	if (params->ambientOcclusionEnabled)
 	{
-		//fast mode
+		// fast mode
 		if (params->ambientOcclusionMode == params::AOmodeFast)
 		{
 			ambient = FastAmbientOcclusion(input);
@@ -95,7 +107,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	ambient2.G = ambient.G * params->ambientOcclusion;
 	ambient2.B = ambient.B * params->ambientOcclusion;
 
-	//environment mapping
+	// environment mapping
 	sRGBAfloat envMapping(0.0, 0.0, 0.0, 0.0);
 	if (params->envMappingEnable)
 	{
@@ -105,12 +117,12 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	envMapping.G *= mat->reflectance * input.texDiffuse.G;
 	envMapping.B *= mat->reflectance * input.texDiffuse.B;
 
-	//additional lights
+	// additional lights
 	sRGBAfloat auxLights;
 	sRGBAfloat auxLightsSpecular;
 	auxLights = AuxLightsShader(input, &auxLightsSpecular);
 
-	//fake orbit trap lights
+	// fake orbit trap lights
 	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);
 	sRGBAfloat fakeLightsSpecular(0.0, 0.0, 0.0, 0.0);
 	if (params->fakeLightsEnabled)
@@ -118,13 +130,16 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 		fakeLights = FakeLights(input, &fakeLightsSpecular);
 	}
 
-	//luminosity
+	// luminosity
 	sRGBAfloat luminosity;
-	luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.R / 65536.0;
-	luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.G / 65536.0;
-	luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity + mat->luminosity * mat->luminosityColor.B / 65536.0;
+	luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
+								 + mat->luminosity * mat->luminosityColor.R / 65536.0;
+	luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity
+								 + mat->luminosity * mat->luminosityColor.G / 65536.0;
+	luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
+								 + mat->luminosity * mat->luminosityColor.B / 65536.0;
 
-	//total shader
+	// total shader
 	output.R = envMapping.R + (ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
 	output.G = envMapping.G + (ambient2.G + mainLight.G * shade.G * shadow.G) * colour.G;
 	output.B = envMapping.B + (ambient2.B + mainLight.B * shade.B * shadow.B) * colour.B;
@@ -139,13 +154,10 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	output.A = 1.0;
 
-	(*specularOut).R = auxLightsSpecular.R + fakeLightsSpecular.R
-			+ mainLight.R * specular.R * shadow.R;
-	(*specularOut).G = auxLightsSpecular.G + fakeLightsSpecular.G
-			+ mainLight.G * specular.G * shadow.G;
-	(*specularOut).B = auxLightsSpecular.B + fakeLightsSpecular.B
-			+ mainLight.B * specular.B * shadow.B;
-	(*specularOut).A = output.A;
+	specularOut->R = auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R;
+	specularOut->G = auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G;
+	specularOut->B = auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B;
+	specularOut->A = output.A;
 
 	return output;
 }
@@ -156,7 +168,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 
 	if (params->texturedBackground)
 	{
-		switch(params->texturedBackgroundMapType)
+		switch (params->texturedBackgroundMapType)
 		{
 			case params::mapDoubleHemisphere:
 			{
@@ -173,9 +185,10 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 					offset = texWidth;
 				}
 				double texX = 0.5 * texWidth
-						+ cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
+											+ cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5
+											+ offset;
 				double texY = 0.5 * texHeight
-						+ sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
+											+ sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
 				sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
 				pixel2.R = pixel.R;
 				pixel2.G = pixel.G;
@@ -202,8 +215,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 
 				double texX = vect.x / vect.y / params->fov * params->imageHeight / params->imageWidth;
 				double texY = -vect.z / vect.y / params->fov;
-				texX  = (texX + 0.5);
-				texY  = (texY + 0.5);
+				texX = (texX + 0.5);
+				texY = (texY + 0.5);
 
 				sRGBfloat pixel = data->textures.backgroundTexture.Pixel(CVector2<double>(texX, texY));
 				pixel2.R = pixel.R;
@@ -248,8 +261,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 
 	CVector3 viewVectorNorm = input.viewVector;
 	viewVectorNorm.Normalize();
-	double light = (viewVectorNorm.Dot(input.lightVect) - 1.0) * 360.0
-			/ params->mainLightVisibilitySize;
+	double light =
+		(viewVectorNorm.Dot(input.lightVect) - 1.0) * 360.0 / params->mainLightVisibilitySize;
 	light = 1.0 / (1.0 + pow(light, 6.0)) * params->mainLightVisibility * params->mainLightIntensity;
 	pixel2.R += light * params->mainLightColour.R / 65536.0;
 	pixel2.G += light * params->mainLightColour.G / 65536.0;
@@ -258,8 +271,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 	return pixel2;
 }
 
-sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel,
-		sRGBAfloat *opacityOut)
+sRGBAfloat cRenderWorker::VolumetricShader(
+	const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut)
 {
 	sRGBAfloat output;
 	float totalOpacity = 0.0;
@@ -269,17 +282,17 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 	output.B = oldPixel.B;
 	output.A = oldPixel.A;
 
-	//volumetric fog init
+	// volumetric fog init
 	double colourThresh = params->volFogColour1Distance;
 	double colourThresh2 = params->volFogColour2Distance;
 	double fogReduce = params->volFogDistanceFactor;
 	double fogIntensity = params->volFogDensity;
 
-	//visible lights init
+	// visible lights init
 	int numberOfLights = data->lights.GetNumberOfLights();
 	if (numberOfLights < 4) numberOfLights = 4;
 
-	//glow init
+	// glow init
 	double glow = input.stepCount * params->glowIntensity / 512.0 * params->DEFactor;
 	double glowN = 1.0 - glow;
 	if (glowN < 0.0) glowN = 0.0;
@@ -289,7 +302,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 	double totalStep = 0.0;
 
-	//qDebug() << "Start volumetric shader &&&&&&&&&&&&&&&&&&&&";
+	// qDebug() << "Start volumetric shader &&&&&&&&&&&&&&&&&&&&";
 
 	sShaderInputData input2 = input;
 	for (int index = input.stepCount - 1; index > 0; index--)
@@ -302,7 +315,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		input2.point = point;
 		input2.distThresh = input.stepBuff[index].distThresh;
 
-		//qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters << "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
+		// qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters <<
+		// "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
 
 		if (totalStep < CalcDelta(point))
 		{
@@ -321,7 +335,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			output.B = glowOpacity * glowB + (1.0 - glowOpacity) * output.B;
 			output.A += glowOpacity;
 		}
-		//qDebug() << "step" << step;
+		// qDebug() << "step" << step;
 		//------------------ visible light
 		if (params->auxLightVisibility > 0)
 		{
@@ -334,7 +348,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				double lowestLightDist = 1e10;
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					const cLights::sLight* light = data->lights.GetLight(i);
+					const cLights::sLight *light = data->lights.GetLight(i);
 					if (light->enabled)
 					{
 						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light->position;
@@ -355,11 +369,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 				miniStep = 0.1 * (lowestLightDist + 0.1 * lowestLightSize);
 				if (miniStep > step - miniSteps) miniStep = step - miniSteps;
-				//qDebug() << "lowDist:" << lowestLightDist << "lowSize" << lowestLightSize << "miniStep" << miniStep;
+				// qDebug() << "lowDist:" << lowestLightDist << "lowSize" << lowestLightSize << "miniStep"
+				// << miniStep;
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					const cLights::sLight* light = data->lights.GetLight(i);
+					const cLights::sLight *light = data->lights.GetLight(i);
 					if (light->enabled)
 					{
 						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light->position;
@@ -375,9 +390,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 						output.A += lightDensity;
 					}
 				}
-				if(miniSteps == lastMiniSteps)
+				if (miniSteps == lastMiniSteps)
 				{
-					//qWarning() << "Dead computation\n"
+					// qWarning() << "Dead computation\n"
 					//		<< "\npoint:" << (point - input.viewVector * miniSteps).Debug();
 					break;
 				}
@@ -385,7 +400,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			}
 		}
 
-		//fake lights (orbit trap)
+		// fake lights (orbit trap)
 		if (params->fakeLightsEnabled)
 		{
 			sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
@@ -393,14 +408,13 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
 			r = sqrt(1.0f / (r + 1.0e-30f));
-			double fakeLight = 1.0
-					/ (pow(r, 10.0 / params->fakeLightsVisibilitySize)
-							* pow(10.0, 10.0 / params->fakeLightsVisibilitySize) + 1e-100);
+			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
+																	 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
+																 + 1e-100);
 			output.R += fakeLight * step * params->fakeLightsVisibility;
 			output.G += fakeLight * step * params->fakeLightsVisibility;
 			output.B += fakeLight * step * params->fakeLightsVisibility;
 			output.A += fakeLight * step * params->fakeLightsVisibility;
-
 		}
 
 		//---------------------- volumetric lights with shadows in fog
@@ -411,17 +425,17 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			{
 				sRGBAfloat shadowOutputTemp = MainShadow(input2);
 				output.R += shadowOutputTemp.R * step * params->volumetricLightIntensity[0]
-						* params->mainLightColour.R / 65536.0;
+										* params->mainLightColour.R / 65536.0;
 				output.G += shadowOutputTemp.G * step * params->volumetricLightIntensity[0]
-						* params->mainLightColour.G / 65536.0;
+										* params->mainLightColour.G / 65536.0;
 				output.B += shadowOutputTemp.B * step * params->volumetricLightIntensity[0]
-						* params->mainLightColour.B / 65536.0;
+										* params->mainLightColour.B / 65536.0;
 				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0 * step
-						* params->volumetricLightIntensity[0];
+										* params->volumetricLightIntensity[0];
 			}
 			if (i > 0)
 			{
-				const cLights::sLight* light = data->lights.GetLight(i - 1);
+				const cLights::sLight *light = data->lights.GetLight(i - 1);
 				if (light->enabled && params->volumetricLightEnabled[i])
 				{
 					CVector3 lightVectorTemp = light->position - point;
@@ -430,11 +444,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 					lightVectorTemp.Normalize();
 					double lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp);
 					output.R += lightShadow * light->colour.R / 65536.0 * params->volumetricLightIntensity[i]
-							* step / distanceLight2;
+											* step / distanceLight2;
 					output.G += lightShadow * light->colour.G / 65536.0 * params->volumetricLightIntensity[i]
-							* step / distanceLight2;
+											* step / distanceLight2;
 					output.B += lightShadow * light->colour.B / 65536.0 * params->volumetricLightIntensity[i]
-							* step / distanceLight2;
+											* step / distanceLight2;
 					output.A += lightShadow * params->volumetricLightIntensity[i] * step / distanceLight2;
 				}
 			}
@@ -477,28 +491,26 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			output.R = fogDensity * fogRtemp / 65536.0 + (1.0 - fogDensity) * output.R;
 			output.G = fogDensity * fogGtemp / 65536.0 + (1.0 - fogDensity) * output.G;
 			output.B = fogDensity * fogBtemp / 65536.0 + (1.0 - fogDensity) * output.B;
-			//qDebug() << "densityTemp " << densityTemp << "k" << k << "k2" << k2 << "fogTempR" << fogRtemp << "fogDensity" << fogDensity << "output.R" << output.R;
+			// qDebug() << "densityTemp " << densityTemp << "k" << k << "k2" << k2 << "fogTempR" <<
+			// fogRtemp << "fogDensity" << fogDensity << "output.R" << output.R;
 
 			totalOpacity = fogDensity + (1.0 - fogDensity) * totalOpacity;
 			output.A = fogDensity + (1.0 - fogDensity) * output.A;
 		}
 
-		//iter fog
+		// iter fog
 		if (params->iterFogEnabled)
 		{
 			int L = input.stepBuff[index].iters;
-			double opacity = IterOpacity(step,
-																	 L,
-																	 params->N,
-																	 params->iterFogOpacityTrim,
-																	 params->iterFogOpacity);
+			double opacity =
+				IterOpacity(step, L, params->N, params->iterFogOpacityTrim, params->iterFogOpacity);
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			if (opacity > 0)
 			{
-				//fog colour
+				// fog colour
 				double iterFactor1 = (L - params->iterFogOpacityTrim)
-						/ (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
+														 / (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
 				double k = iterFactor1;
 				if (k > 1.0) k = 1.0;
 				if (k < 0.0) k = 0.0;
@@ -508,7 +520,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				double fogColB = (params->iterFogColour1.B * kn + params->iterFogColour2.B * k);
 
 				double iterFactor2 = (L - params->iterFogColor1Maxiter)
-						/ (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
+														 / (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
 				double k2 = iterFactor2;
 				if (k2 < 0.0) k2 = 0.0;
 				if (k2 > 1.0) k2 = 1.0;
@@ -526,17 +538,17 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 						{
 							sRGBAfloat shadowOutputTemp = MainShadow(input2);
 							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0
-									* params->mainLightIntensity;
+														 * params->mainLightIntensity;
 							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0
-									* params->mainLightIntensity;
+														 * params->mainLightIntensity;
 							newColour.B += shadowOutputTemp.B * params->mainLightColour.B / 65536.0
-									* params->mainLightIntensity;
+														 * params->mainLightIntensity;
 						}
 					}
 
 					if (i > 0)
 					{
-						const cLights::sLight* light = data->lights.GetLight(i - 1);
+						const cLights::sLight *light = data->lights.GetLight(i - 1);
 						if (light->enabled)
 						{
 							CVector3 lightVectorTemp = light->position - point;
@@ -550,7 +562,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 							newColour.B += lightShadow * light->colour.B / 65536.0 / distanceLight2 * intensity;
 						}
 					}
-
 				}
 
 				if (params->ambientOcclusionEnabled
@@ -578,7 +589,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		(*opacityOut).G = totalOpacity;
 		(*opacityOut).B = totalOpacity;
 
-	} //next stepCount
+	} // next stepCount
 
 	return output;
 }
@@ -587,7 +598,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 {
 	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
 
-	//starting point
+	// starting point
 	CVector3 point2;
 
 	double factor = input.delta / params->resolution;
@@ -597,7 +608,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 	double DEFactor = params->DEFactor;
 	if (params->iterFogEnabled || params->volumetricLightEnabled[0]) DEFactor = 1.0;
 
-	//double start = input.delta;
+	// double start = input.delta;
 	double start = input.distThresh;
 	if (params->interiorMode) start = input.distThresh * DEFactor;
 
@@ -608,7 +619,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 	double maxSoft = 0.0;
 
 	const bool bSoft = (!params->iterFogEnabled && !params->limitsEnabled && !params->iterThreshMode)
-			&& softRange > 0.0;
+										 && softRange > 0.0;
 
 	for (double i = start; i < factor; i += dist * DEFactor)
 	{
@@ -619,7 +630,8 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}
-		else dist_thresh = input.distThresh;
+		else
+			dist_thresh = input.distThresh;
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, dist_thresh, false);
@@ -639,11 +651,8 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 
 		if (params->iterFogEnabled)
 		{
-			opacity = IterOpacity(dist * DEFactor,
-														distanceOut.iters,
-														params->N,
-														params->iterFogOpacityTrim,
-														params->iterFogOpacity);
+			opacity = IterOpacity(dist * DEFactor, distanceOut.iters, params->N,
+				params->iterFogOpacityTrim, params->iterFogOpacity);
 		}
 		else
 		{
@@ -676,8 +685,8 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 
 sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 {
-	//reference: http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf (Iñigo Quilez – iq/rgba)
-
+	// reference Iñigo Quilez –iq/rgba:
+	// http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf
 	double delta = input.distThresh;
 	double aoTemp = 0;
 	double quality = params->ambientOcclusionQuality;
@@ -690,11 +699,11 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(pointTemp, input.distThresh, false);
 		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
-		if(dist > lastDist * 2) dist = lastDist * 2.0;
+		if (dist > lastDist * 2) dist = lastDist * 2.0;
 		lastDist = dist;
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
-		aoTemp += 1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist)
-				/ input.distThresh;
+		aoTemp +=
+			1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist) / input.distThresh;
 	}
 	double ao = 1.0 - 0.2 * aoTemp;
 	if (ao < 0) ao = 0;
@@ -730,11 +739,8 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 
 			if (params->iterFogEnabled)
 			{
-				opacity = IterOpacity(dist * 2.0,
-															distanceOut.iters,
-															params->N,
-															params->iterFogOpacityTrim,
-															params->iterFogOpacity);
+				opacity = IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
+					params->iterFogOpacity);
 			}
 			else
 			{
@@ -747,7 +753,8 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 			{
 				dist_thresh = CalcDistThresh(point2);
 			}
-			else dist_thresh = input.distThresh;
+			else
+				dist_thresh = input.distThresh;
 
 			if (dist < dist_thresh || distanceOut.maxiter || shadowTemp < 0.0)
 			{
@@ -762,7 +769,6 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 		AO.R += intense * v.R;
 		AO.G += intense * v.G;
 		AO.B += intense * v.B;
-
 	}
 	AO.R /= (AOvectorsCount * 256.0);
 	AO.G /= (AOvectorsCount * 256.0);
@@ -774,7 +780,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 {
 	CVector3 normal(0.0, 0.0, 0.0);
-	//calculating normal vector based on distance estimation (gradient of distance function)
+	// calculating normal vector based on distance estimation (gradient of distance function)
 	if (!params->slowShading)
 	{
 		double delta = input.delta * params->smoothness;
@@ -807,13 +813,12 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 		sz2 = CalculateDistance(*params, *fractal, distanceIn6, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
-
 		normal.x = sx1 - sx2;
 		normal.y = sy1 - sy2;
 		normal.z = sz1 - sz2;
 	}
 
-	//calculating normal vector based on average value of binary central difference
+	// calculating normal vector based on average value of binary central difference
 	else
 	{
 		CVector3 point2;
@@ -842,21 +847,20 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 	if ((normal.x == 0 && normal.y == 0 && normal.z == 0))
 	{
 		normal = CVector3(1.0, 0.0, 0.0);
-
 	}
 	else
 	{
 		normal.Normalize();
 	}
 
-	if(normal.IsNotANumber())
+	if (normal.IsNotANumber())
 	{
 		normal = CVector3(1.0, 0.0, 0.0);
 	}
 
 	if (input.invertMode) normal *= (-1.0);
 
-	//qDebug() << input.point.Debug() << normal.Debug();
+	// qDebug() << input.point.Debug() << normal.Debug();
 
 	return normal;
 }
@@ -879,12 +883,18 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input)
 	half.Normalize();
 	double shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0) shade2 = 0.0;
-	double diffuse = 10.0	* (1.1 - input.material->diffussionTextureIntensity	* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
-	shade2 = pow(shade2, 30.0/input.material->specularWidth / diffuse) / diffuse;
+	double diffuse =
+		10.0 * (1.1
+						 - input.material->diffussionTextureIntensity
+								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
+	shade2 = pow(shade2, 30.0 / input.material->specularWidth / diffuse) / diffuse;
 	if (shade2 > 15.0) shade2 = 15.0;
-	specular.R = shade2 * input.material->specularColor.R / 65536.0 * (input.texDiffuse.R * 0.5 + 0.5);
-	specular.G = shade2 * input.material->specularColor.G / 65536.0 * (input.texDiffuse.G * 0.5 + 0.5);
-	specular.B = shade2 * input.material->specularColor.B / 65536.0 * (input.texDiffuse.B * 0.5 + 0.5);
+	specular.R =
+		shade2 * input.material->specularColor.R / 65536.0 * (input.texDiffuse.R * 0.5 + 0.5);
+	specular.G =
+		shade2 * input.material->specularColor.G / 65536.0 * (input.texDiffuse.G * 0.5 + 0.5);
+	specular.B =
+		shade2 * input.material->specularColor.B / 65536.0 * (input.texDiffuse.B * 0.5 + 0.5);
 	return specular;
 }
 
@@ -915,7 +925,7 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input)
 	if (input.material->fresnelReflectance)
 	{
 		double n1 = 1.0;
-		double n2 = input.material ->transparencyIndexOfRefraction;
+		double n2 = input.material->transparencyIndexOfRefraction;
 		reflectance = Reflectance(input.normal, input.viewVector, n1, n2);
 		if (reflectance < 0.0) reflectance = 0.0;
 		if (reflectance > 1.0) reflectance = 1.0;
@@ -938,13 +948,13 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 	int L = 0;
 	double r = 0.0;
 	int nrKol = 253 * 256;
-	for(L=0; L<N; L++)
+	for (L = 0; L < N; L++)
 	{
 		double temp = zx * zx - zy * zy + point.x;
 		zy = 2.0 * zx * zy + point.y;
 		zx = temp;
 		r = zx * zx + zy * zy;
-		if(r > 1e20)
+		if (r > 1e20)
 		{
 			smooth = (L - log(log(sqrt(r)) / log(N)) / log(p));
 			nrKol = smooth * 50.0;
@@ -956,10 +966,10 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 	N_counter += L + 1;
 	Loop_counter++;
 
-	if (L/10 < 64)
-	histogram[L/10]++;
+	if (L / 10 < 64)
+		histogram[L / 10]++;
 	else
-	histogram[63]++;
+		histogram[63]++;
 	return nrKol;
 
 #else
@@ -976,15 +986,18 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 
 				CVector3 tempPoint = input.point;
 
-				if (!params->booleanOperatorsEnabled) formulaIndex = -1;
+				if (!params->booleanOperatorsEnabled)
+					formulaIndex = -1;
 				else
 				{
-					tempPoint = tempPoint.mod(params->formulaRepeat[formulaIndex]) - params->formulaPosition[formulaIndex];
+					tempPoint = tempPoint.mod(params->formulaRepeat[formulaIndex])
+											- params->formulaPosition[formulaIndex];
 					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
 					tempPoint *= params->formulaScale[formulaIndex];
 				}
 
-				sFractalIn fractIn(tempPoint, 0, params->N * 10, params->common, formulaIndex, input.material->fractalColoring);
+				sFractalIn fractIn(tempPoint, 0, params->N * 10, params->common, formulaIndex,
+					input.material->fractalColoring);
 				sFractalOut fractOut;
 				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
@@ -997,8 +1010,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 				}
 				else
 				{
-					color_number = (int) (nrCol * input.material->coloring_speed + 256 * input.material->paletteOffset)
-							% 65536;
+					color_number =
+						(int)(nrCol * input.material->coloring_speed + 256 * input.material->paletteOffset)
+						% 65536;
 				}
 				colour = input.material->palette.IndexToColour(color_number);
 			}
@@ -1041,8 +1055,8 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 #endif
 }
 
-sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLights::sLight* light,
-		int number, sRGBAfloat *outSpecular)
+sRGBAfloat cRenderWorker::LightShading(
+	const sShaderInputData &input, const cLights::sLight *light, int number, sRGBAfloat *outSpecular)
 {
 	sRGBAfloat shading;
 
@@ -1050,7 +1064,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLig
 
 	double distance = d.Length();
 
-	//angle of incidence
+	// angle of incidence
 	CVector3 lightVector = d;
 	lightVector.Normalize();
 
@@ -1062,19 +1076,22 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLig
 	shade = shade * intensity;
 	if (shade > 500.0) shade = 500.0;
 
-	//specular
+	// specular
 	CVector3 half = lightVector - input.viewVector;
 	half.Normalize();
 	double shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0) shade2 = 0.0;
 
-	double diffuse = 10.0	* (1.1 - input.material->diffussionTextureIntensity	* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
+	double diffuse =
+		10.0 * (1.1
+						 - input.material->diffussionTextureIntensity
+								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
 
 	shade2 = pow(shade2, 30.0 / input.material->specularWidth / diffuse) / diffuse;
 	shade2 *= intensity * input.material->specular;
 	if (shade2 > 15.0) shade2 = 15.0;
 
-	//calculate shadow
+	// calculate shadow
 	if ((shade > 0.01 || shade2 > 0.01) && params->shadow)
 	{
 		double auxShadow = AuxShadow(input, distance, lightVector);
@@ -1101,7 +1118,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLig
 	return shading;
 }
 
-//needed rework!!!
+// TODO needed rework!!!
 sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut)
 {
 
@@ -1111,7 +1128,7 @@ sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfl
 	sRGBAfloat specularAuxSum;
 	for (int i = 0; i < numberOfLights; i++)
 	{
-		const cLights::sLight* light = data->lights.GetLight(i);
+		const cLights::sLight *light = data->lights.GetLight(i);
 		if (i < params->auxLightNumber || light->enabled)
 		{
 			sRGBAfloat specularAuxOutTemp;
@@ -1128,8 +1145,8 @@ sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfl
 	return shadeAuxSum;
 }
 
-double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance,
-		CVector3 lightVector)
+double cRenderWorker::AuxShadow(
+	const sShaderInputData &input, double distance, CVector3 lightVector)
 {
 	double step = input.delta;
 	double dist = step;
@@ -1152,11 +1169,8 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance,
 
 		if (params->iterFogEnabled)
 		{
-			opacity = IterOpacity(dist * DE_factor,
-														distanceOut.iters,
-														params->N,
-														params->iterFogOpacityTrim,
-														params->iterFogOpacity);
+			opacity = IterOpacity(dist * DE_factor, distanceOut.iters, params->N,
+				params->iterFogOpacityTrim, params->iterFogOpacity);
 		}
 		else
 		{
@@ -1169,7 +1183,8 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance,
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}
-		else dist_thresh = input.distThresh;
+		else
+			dist_thresh = input.distThresh;
 
 		if (dist < dist_thresh || shadowTemp < 0.0)
 		{
@@ -1189,8 +1204,8 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance,
 	return light;
 }
 
-double cRenderWorker::IterOpacity(const double step, double iters, double maxN, double trim,
-		double opacitySp)
+double cRenderWorker::IterOpacity(
+	const double step, double iters, double maxN, double trim, double opacitySp)
 {
 	double opacity = (iters - trim) / maxN;
 	if (opacity < 0.0) opacity = 0.0;
@@ -1200,7 +1215,7 @@ double cRenderWorker::IterOpacity(const double step, double iters, double maxN, 
 	return opacity;
 }
 
-//will be done later
+// will be done later
 sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec)
 {
 	sRGBAfloat fakeLights;
@@ -1255,8 +1270,11 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	half.Normalize();
 	double fakeSpecular = input.normal.Dot(half);
 	if (fakeSpecular < 0.0) fakeSpecular = 0.0;
-	double diffuse = 10.0	* (1.1 - input.material->diffussionTextureIntensity	* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
-	fakeSpecular = pow(fakeSpecular, 30.0/input.material->specularWidth / diffuse) / diffuse;
+	double diffuse =
+		10.0 * (1.1
+						 - input.material->diffussionTextureIntensity
+								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
+	fakeSpecular = pow(fakeSpecular, 30.0 / input.material->specularWidth / diffuse) / diffuse;
 	if (fakeSpecular > 15.0) fakeSpecular = 15.0;
 	fakeSpec->R = fakeSpecular;
 	fakeSpec->G = fakeSpecular;
@@ -1266,31 +1284,31 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	return fakeLights;
 }
 
-sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial::enumTextureSelection texSelect, cMaterial *mat) const
+sRGBfloat cRenderWorker::TextureShader(
+	const sShaderInputData &input, cMaterial::enumTextureSelection texSelect, cMaterial *mat) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
 	double texturePixelSize = 1.0;
 	CVector3 textureVectorX, textureVectorY;
-	CVector2<double> texPoint = TextureMapping(	input.point,
-																							input.normal,
-																							objectData,
-																							mat,
-																							&textureVectorX,
-																							&textureVectorY) + CVector2<double>(0.5, 0.5);
+	CVector2<double> texPoint =
+		TextureMapping(input.point, input.normal, objectData, mat, &textureVectorX, &textureVectorY)
+		+ CVector2<double>(0.5, 0.5);
 
-	//mipmapping - calculation of texture pixel size
+	// mipmapping - calculation of texture pixel size
 	double delta = CalcDelta(input.point);
-	double deltaTexX = ((TextureMapping(input.point + textureVectorX * delta,
-																			input.normal,
-																			objectData,
-																			mat) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
-	double deltaTexY = ((TextureMapping(input.point + textureVectorY * delta,
-																			input.normal,
-																			objectData,
-																			mat) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
+	double deltaTexX =
+		((TextureMapping(input.point + textureVectorX * delta, input.normal, objectData, mat)
+			 + CVector2<double>(0.5, 0.5))
+			- texPoint)
+			.Length();
+	double deltaTexY =
+		((TextureMapping(input.point + textureVectorY * delta, input.normal, objectData, mat)
+			 + CVector2<double>(0.5, 0.5))
+			- texPoint)
+			.Length();
 
-	if(deltaTexX > 0.5) deltaTexX = 1.0 - deltaTexX;
-	if(deltaTexY > 0.5) deltaTexY = 1.0 - deltaTexY;
+	if (deltaTexX > 0.5) deltaTexX = 1.0 - deltaTexX;
+	if (deltaTexY > 0.5) deltaTexY = 1.0 - deltaTexY;
 
 	deltaTexX = deltaTexX / fabs(input.viewVector.Dot(input.normal));
 	deltaTexY = deltaTexY / fabs(input.viewVector.Dot(input.normal));
@@ -1298,7 +1316,7 @@ sRGBfloat cRenderWorker::TextureShader(const sShaderInputData &input, cMaterial:
 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
 	sRGBfloat tex;
-	switch(texSelect)
+	switch (texSelect)
 	{
 		case cMaterial::texColor:
 		{
@@ -1330,29 +1348,28 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input)
 	cObjectData objectData = data->objectData[input.objectId];
 	CVector3 texX, texY;
 	double texturePixelSize = 1.0;
-	CVector2<double> texPoint = TextureMapping(	input.point,
-																							input.normal,
-																							objectData,
-																							input.material,
-																							&texX,
-																							&texY) + CVector2<double>(0.5, 0.5);
+	CVector2<double> texPoint =
+		TextureMapping(input.point, input.normal, objectData, input.material, &texX, &texY)
+		+ CVector2<double>(0.5, 0.5);
 
-	//mipmapping - calculation of texture pixel size
+	// mipmapping - calculation of texture pixel size
 	double delta = CalcDelta(input.point);
-	double deltaTexX = ((TextureMapping(input.point + texX * delta,
-																			input.normal,
-																			objectData,
-																			input.material) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
-	double deltaTexY = ((TextureMapping(input.point + texY * delta,
-																			input.normal,
-																			objectData,
-																			input.material) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
+	double deltaTexX =
+		((TextureMapping(input.point + texX * delta, input.normal, objectData, input.material)
+			 + CVector2<double>(0.5, 0.5))
+			- texPoint)
+			.Length();
+	double deltaTexY =
+		((TextureMapping(input.point + texY * delta, input.normal, objectData, input.material)
+			 + CVector2<double>(0.5, 0.5))
+			- texPoint)
+			.Length();
 	deltaTexX = deltaTexX / fabs(input.viewVector.Dot(input.normal));
 	deltaTexY = deltaTexY / fabs(input.viewVector.Dot(input.normal));
 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
 	CVector3 n = input.normal;
-	//tangent vectors:
+	// tangent vectors:
 	CVector3 t = n.Cross(texX);
 	t.Normalize();
 	CVector3 b = n.Cross(texY);
@@ -1363,16 +1380,13 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input)
 
 	if (input.material->normalMapTextureFromBumpmap)
 	{
-		tex = input.material->normalMapTexture.NormalMapFromBumpMap(texPoint,
-																																input.material
-																																		->normalMapTextureHeight,
-																																texturePixelSize);
+		tex = input.material->normalMapTexture.NormalMapFromBumpMap(
+			texPoint, input.material->normalMapTextureHeight, texturePixelSize);
 	}
 	else
 	{
-		tex = input.material->normalMapTexture.NormalMap(	texPoint,
-																											input.material->normalMapTextureHeight,
-																											texturePixelSize);
+		tex = input.material->normalMapTexture.NormalMap(
+			texPoint, input.material->normalMapTextureHeight, texturePixelSize);
 	}
 
 	CVector3 result = tbn * tex;
