@@ -157,78 +157,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 
 	char str3[100];
 
-	// IFS parameter
-	bool IFSresult = false;
-	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
-	{
-		sprintf(str3, "IFS_%d_x", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.doubles.direction[i].x = atof2(str2);
-			IFSresult = true;
-			break;
-		}
-		sprintf(str3, "IFS_%d_y", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.doubles.direction[i].y = atof2(str2);
-			IFSresult = true;
-			break;
-		}
-		sprintf(str3, "IFS_%d_z", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.doubles.direction[i].z = atof2(str2);
-			IFSresult = true;
-			break;
-		}
-		sprintf(str3, "IFS_%d_alfa", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.doubles.alfa[i] = atof2(str2);
-			IFSresult = true;
-			break;
-		}
-		sprintf(str3, "IFS_%d_beta", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.doubles.beta[i] = atof2(str2);
-			IFSresult = true;
-			break;
-		}
-		sprintf(str3, "IFS_%d_gamma", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.doubles.gamma[i] = atof2(str2);
-			IFSresult = true;
-			break;
-		}
-		sprintf(str3, "IFS_%d_distance", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.doubles.distance[i] = atof2(str2);
-			IFSresult = true;
-			break;
-		}
-		sprintf(str3, "IFS_%d_intensity", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.doubles.intensity[i] = atof2(str2);
-			IFSresult = true;
-			break;
-		}
-		sprintf(str3, "IFS_%d_enabled", i);
-		if (!strcmp(str1, str3))
-		{
-			params->fractal.IFS.enabled[i] = atoi(str2);
-			IFSresult = true;
-			break;
-		}
-	}
-
-	if (IFSresult)
-		IFSresult = false;
-	else if (!strcmp(str1, "Mandelbulber"))
+	if (!strcmp(str1, "Mandelbulber"))
 		params->settingsVersion = atof2(str2);
 	else if (!strcmp(str1, "image_width"))
 		params->image_width = atoi(str2);
@@ -298,8 +227,6 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 		params->fractal.doubles.foldingSphericalFixed = atof2(str2);
 	else if (!strcmp(str1, "spherical_folding_min"))
 		params->fractal.doubles.foldingSphericalMin = atof2(str2);
-	else if (!strcmp(str1, "IFS_folding_mode"))
-		params->fractal.IFS.foldingMode = atoi(str2);
 	else if (!strcmp(str1, "iteration_threshold_mode"))
 		params->fractal.iterThresh = atoi(str2);
 	else if (!strcmp(str1, "analityc_DE_mode"))
@@ -568,6 +495,68 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 			params->fractal.IFS.absZ = atof(str2);
 		else if (!strcmp(str1, "IFS_menger_sponge_mode"))
 			params->fractal.IFS.mengerSpongeMode = atof(str2);
+		else if (!strcmp(str1, "IFS_folding_mode"))
+			params->fractal.IFS.foldingMode = atoi(str2);
+		else
+		{
+			for (int i = 0; i < IFS_VECTOR_COUNT; i++)
+			{
+				sprintf(str3, "IFS_%d_x", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.doubles.direction[i].x = atof2(str2);
+					break;
+				}
+				sprintf(str3, "IFS_%d_y", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.doubles.direction[i].y = atof2(str2);
+					break;
+				}
+				sprintf(str3, "IFS_%d_z", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.doubles.direction[i].z = atof2(str2);
+					break;
+				}
+				sprintf(str3, "IFS_%d_alfa", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.doubles.alfa[i] = atof2(str2);
+					break;
+				}
+				sprintf(str3, "IFS_%d_beta", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.doubles.beta[i] = atof2(str2);
+					break;
+				}
+				sprintf(str3, "IFS_%d_gamma", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.doubles.gamma[i] = atof2(str2);
+					break;
+				}
+				sprintf(str3, "IFS_%d_distance", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.doubles.distance[i] = atof2(str2);
+					break;
+				}
+				sprintf(str3, "IFS_%d_intensity", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.doubles.intensity[i] = atof2(str2);
+					break;
+				}
+				sprintf(str3, "IFS_%d_enabled", i);
+				if (!strcmp(str1, str3))
+				{
+					params->fractal.IFS.enabled[i] = atoi(str2);
+					break;
+				}
+			}
+		}
 	}
 	else if (!strcmp(str1, "start_frame"))
 		params->startFrame = atoi(str2);
@@ -575,15 +564,12 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 		params->endFrame = atoi(str2);
 	else if (!strcmp(str1, "frames_per_keyframe"))
 		params->framesPerKeyframe = atoi(str2);
-
 	else if (!strcmp(str1, "hybrid_cyclic"))
 		params->fractal.hybridCyclic = atoi(str2);
-
 	else if (!strcmp(str1, "fish_eye"))
 		params->perspectiveType = (enumPerspectiveType)atoi(str2);
 	else if (!strcmp(str1, "fish_eye_180cut"))
 		params->fishEyeCut = atoi(str2);
-
 	else if (!strcmp(str1, "stereo_enabled"))
 		params->stereoEnabled = atoi(str2);
 	else if (!strcmp(str1, "stereo_eye_distance"))
@@ -628,7 +614,6 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 			params->fractal.mandelbox.doubles.solid = atof2(str2);
 		else if (!strcmp(str1, "mandelbox_melt"))
 			params->fractal.mandelbox.doubles.melt = atof2(str2);
-
 		else if (!strcmp(str1, "mandelbox_vary_scale_vary"))
 			params->fractal.mandelbox.doubles.vary4D.scaleVary = atof2(str2);
 		else if (!strcmp(str1, "mandelbox_vary_fold"))
@@ -639,6 +624,42 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 			params->fractal.mandelbox.doubles.vary4D.rPower = atof2(str2);
 		else if (!strcmp(str1, "mandelbox_vary_wadd"))
 			params->fractal.mandelbox.doubles.vary4D.wadd = atof2(str2);
+		else
+		{
+			int matched = false;
+			char buf[100];
+			for (int component = 0; component < 3; ++component)
+			{
+				sprintf(buf, "mandelbox_rotation_main_%s", component_names[component]);
+				if (!strcmp(str1, buf))
+				{
+					params->fractal.mandelbox.doubles.rotationMain[component] = atof2(str2) / 180.0 * M_PI;
+					matched = true;
+					break;
+				}
+			}
+
+			for (int fold = 0; fold < MANDELBOX_FOLDS; ++fold)
+			{
+				for (int axis = 0; axis < 3; ++axis)
+				{
+					for (int component = 0; component < 3; ++component)
+					{
+						sprintf(buf, "mandelbox_rotation_%s%d_%s", axis_names[axis], fold + 1,
+							component_names[component]);
+						if (!strcmp(str1, buf))
+						{
+							params->fractal.mandelbox.doubles.rotation[fold][axis][component] =
+								atof2(str2) / 180.0 * M_PI;
+							matched = true;
+							break;
+						}
+					}
+					if (matched) break;
+				}
+				if (matched) break;
+			}
+		}
 	}
 	else if (!strcmp(str1, "view_distance_max"))
 		params->doubles.viewDistanceMax = atof2(str2);
@@ -650,22 +671,18 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 		params->fractal.linearDEmode = atoi(str2);
 	else if (!strcmp(str1, "constant_DE_threshold"))
 		params->fractal.constantDEThreshold = atoi(str2);
-
 	else if (!strcmp(str1, "FoldingIntPow_folding_factor"))
 		params->fractal.doubles.FoldingIntPowFoldFactor = atof2(str2);
 	else if (!strcmp(str1, "FoldingIntPow_z_factor"))
 		params->fractal.doubles.FoldingIntPowZfactor = atof2(str2);
 	else if (!strcmp(str1, "penetrating_lights"))
 		params->penetratingLights = atoi(str2);
-
 	else if (!strcmp(str1, "raytraced_reflections"))
 		params->imageSwitches.raytracedReflections = atoi(str2);
 	else if (!strcmp(str1, "reflections_max"))
 		params->reflectionsMax = atoi(str2);
-
 	else if (!strcmp(str1, "c_add"))
 		params->fractal.doubles.cadd = atof2(str2);
-
 	else if (!strcmp(str1, "volumetric_fog_density"))
 		params->doubles.fogDensity = atof2(str2);
 	else if (!strcmp(str1, "volumetric_fog_colour_1_distance"))
@@ -674,14 +691,12 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 		params->doubles.fogColour2Distance = atof2(str2);
 	else if (!strcmp(str1, "volumetric_fog_distance_factor"))
 		params->doubles.fogDistanceFactor = atof2(str2);
-
 	else if (!strcmp(str1, "iteration_fog_enable"))
 		params->imageSwitches.iterFogEnabled = atoi(str2);
 	else if (!strcmp(str1, "iteration_fog_opacity"))
 		params->doubles.iterFogOpacity = atof2(str2);
 	else if (!strcmp(str1, "iteration_fog_opacity_trim"))
 		params->doubles.iterFogOpacityTrim = atof2(str2);
-
 	else if (!strcmp(str1, "primitive_only_plane"))
 		params->fractal.primitives.onlyPlane = atoi(str2);
 	else if (QString(str1).startsWith("primitive_plane_"))
@@ -847,12 +862,10 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 		else if (!strcmp(str1, "fake_lights_orbit_trap_Z"))
 			params->fractal.doubles.fakeLightsOrbitTrap.z = atof2(str2);
 	}
-
 	else if (!strcmp(str1, "frame_no"))
 		params->fractal.frameNo = atoi(str2);
 	else if (!strcmp(str1, "tile_no"))
 		params->tileCount = atoi(str2);
-
 	else if (!strcmp(str1, "file_destination"))
 		strcpy(params->file_destination, str2);
 	else if (!strcmp(str1, "file_background"))
@@ -912,38 +925,6 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 				matched = true;
 				break;
 			}
-		}
-
-		for (int component = 0; component < 3; ++component)
-		{
-			sprintf(buf, "mandelbox_rotation_main_%s", component_names[component]);
-			if (!strcmp(str1, buf))
-			{
-				params->fractal.mandelbox.doubles.rotationMain[component] = atof2(str2) / 180.0 * M_PI;
-				matched = true;
-				break;
-			}
-		}
-
-		for (int fold = 0; fold < MANDELBOX_FOLDS; ++fold)
-		{
-			for (int axis = 0; axis < 3; ++axis)
-			{
-				for (int component = 0; component < 3; ++component)
-				{
-					sprintf(buf, "mandelbox_rotation_%s%d_%s", axis_names[axis], fold + 1,
-						component_names[component]);
-					if (!strcmp(str1, buf))
-					{
-						params->fractal.mandelbox.doubles.rotation[fold][axis][component] =
-							atof2(str2) / 180.0 * M_PI;
-						matched = true;
-						break;
-					}
-				}
-				if (matched) break;
-			}
-			if (matched) break;
 		}
 
 		if (!matched)
@@ -1250,8 +1231,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(0).Set("IFS_scale", oldData->fractal.IFS.doubles.scale);
 	fractal->at(0).Set("IFS_rotation",
 		CVector3(oldData->fractal.IFS.doubles.rotationAlfa, oldData->fractal.IFS.doubles.rotationBeta,
-			oldData->fractal.IFS.doubles.rotationGamma)
-			* 180.0 / M_PI);
+			oldData->fractal.IFS.doubles.rotationGamma) * 180.0 / M_PI);
 	fractal->at(0).Set("IFS_offset", oldData->fractal.IFS.doubles.offset);
 	fractal->at(0).Set("IFS_edge", oldData->fractal.IFS.doubles.edge);
 	fractal->at(0).Set(
@@ -1266,8 +1246,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		fractal->at(0).Set("IFS_direction", i, oldData->fractal.IFS.doubles.direction[i]);
 		fractal->at(0).Set("IFS_rotations", i,
 			CVector3(oldData->fractal.IFS.doubles.alfa[i], oldData->fractal.IFS.doubles.beta[i],
-				oldData->fractal.IFS.doubles.gamma[i])
-				* 180.0 / M_PI);
+				oldData->fractal.IFS.doubles.gamma[i]) * 180.0 / M_PI);
 		fractal->at(0).Set("IFS_distance", i, oldData->fractal.IFS.doubles.distance[i]);
 		fractal->at(0).Set("IFS_intensity", i, oldData->fractal.IFS.doubles.intensity[i]);
 		fractal->at(0).Set("IFS_enabled", i, oldData->fractal.IFS.enabled[i]);
