@@ -183,10 +183,13 @@ function parseComment($c){
 	foreach($lines as $l){
 		$line = trim($l);
 		if(in_array($line, array('/**', '*', '*/'))) continue;
-		if (preg_match("/\*[\s]+@([\S]+)[\s](.*)/", $line, $match)) {
+		if (preg_match("/\*[\s]+@([\S]+)[\s]*(.*)/", $line, $match)) {
 			$tag = $match[1];
 			if(!array_key_exists($tag, $out)) $out[$tag] = array();
-			$out[$tag][] = $match[2];
+			$text = trim($match[2]);
+			if($text != '' || count($out[$tag]) > 0){
+				$out[$tag][] = $match[2];
+			}
 		}else if (preg_match("/\*[\s]+(.*)/", $line, $match)) {
 			$out[$tag][] = $match[1];
 		}

@@ -1231,7 +1231,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(0).Set("IFS_scale", oldData->fractal.IFS.doubles.scale);
 	fractal->at(0).Set("IFS_rotation",
 		CVector3(oldData->fractal.IFS.doubles.rotationAlfa, oldData->fractal.IFS.doubles.rotationBeta,
-			oldData->fractal.IFS.doubles.rotationGamma) * 180.0 / M_PI);
+			oldData->fractal.IFS.doubles.rotationGamma)
+			* 180.0 / M_PI);
 	fractal->at(0).Set("IFS_offset", oldData->fractal.IFS.doubles.offset);
 	fractal->at(0).Set("IFS_edge", oldData->fractal.IFS.doubles.edge);
 	fractal->at(0).Set(
@@ -1246,7 +1247,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		fractal->at(0).Set("IFS_direction", i, oldData->fractal.IFS.doubles.direction[i]);
 		fractal->at(0).Set("IFS_rotations", i,
 			CVector3(oldData->fractal.IFS.doubles.alfa[i], oldData->fractal.IFS.doubles.beta[i],
-				oldData->fractal.IFS.doubles.gamma[i]) * 180.0 / M_PI);
+				oldData->fractal.IFS.doubles.gamma[i])
+				* 180.0 / M_PI);
 		fractal->at(0).Set("IFS_distance", i, oldData->fractal.IFS.doubles.distance[i]);
 		fractal->at(0).Set("IFS_intensity", i, oldData->fractal.IFS.doubles.intensity[i]);
 		fractal->at(0).Set("IFS_enabled", i, oldData->fractal.IFS.enabled[i]);

@@ -11,25 +11,24 @@
 
 <?php
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
-define('WILDCARD', 'z*');
+define('WILDCARD', '*');
 $filesToCheckSource = array();
 $filesToCheckSource[] = PROJECT_PATH . "src/" . WILDCARD . ".cpp";
 $filesToCheckSource[] = PROJECT_PATH . "src/" . WILDCARD . ".c";
-// $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".cpp";
-// $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".c";
+$filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".cpp";
+$filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".c";
 
 $filesToCheckHeader = array();
 $filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . "*.hpp";
 $filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . "*.h";
-// $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".hpp";
-// $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".h";
+$filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".hpp";
+$filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".h";
 
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 
 foreach($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
-	if(strpos($sourceFilePath, 'fractal_formulas') !== false) continue;
 	echo 'handling file: ' . $sourceFileName;
 	$sourceContent = file_get_contents($sourceFilePath);
 	if(!checkFileHeader($sourceFilePath, $sourceContent)) continue;
@@ -42,7 +41,6 @@ foreach($sourceFiles as $sourceFilePath) {
 }
 
 foreach($headerFiles as $headerFilePath) {
-	if(strpos($headerFilePath, 'fractal_formulas') !== false) continue;
 	$headerFileName = basename($headerFilePath);
 	if(substr($headerFileName, 0, strlen('ui_')) == 'ui_') continue;
 	$folderName = basename(str_replace($headerFileName, '', $headerFilePath));

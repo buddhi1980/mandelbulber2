@@ -230,7 +230,8 @@
   z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; zTemp&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;foldingIntPow&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;zFactor&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
 
-  &lt;span style=&quot;color:#d0d0a0&quot;&gt;//INFO remark: changed sequence of operation. adding of C constant was before multiplying by z-factor&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// INFO remark: changed sequence of operation.&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// adding of C constant was before multiplying by z-factor&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>

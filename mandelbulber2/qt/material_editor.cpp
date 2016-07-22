@@ -39,9 +39,9 @@
 #include "../src/common_math.h"
 #include "../src/fractal_coloring.hpp"
 #include "../src/material.h"
-#include "preview_file_dialog.h"
 #include "../src/synchronize_interface.hpp"
 #include "../src/system.hpp"
+#include "preview_file_dialog.h"
 
 cMaterialEditor::cMaterialEditor(QWidget *parent) : QWidget(parent), ui(new Ui::cMaterialEditor)
 {
