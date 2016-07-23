@@ -146,7 +146,7 @@ function getModificationInterval($filePath){
 
 	$cmd = "git log --format=%ad%s " . $filePath . " | grep -v '" . $ignoreString . "' | tail -1 | egrep -o '\s([0-9]{4})\s'";
 	$yearStart = trim(shell_exec($cmd));
-	$cmd = "git log --format=%ad%s " . $filePath . " | grep -v '" . $ignoreString . "' | head -1 | egrep -o '\s([0-9]{4})\s'";
+	$cmd = "git log --format=%ad%s " . $filePath . " | grep -m 1 -v '" . $ignoreString . "' | head -1 | egrep -o '\s([0-9]{4})\s'";
 	$yearEnd =  trim(shell_exec($cmd));
 	if($yearStart == $yearEnd){
 		return $yearStart;
