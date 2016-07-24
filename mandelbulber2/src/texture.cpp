@@ -160,6 +160,11 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 	{
 		cErrorMessage::showMessage(
 			QObject::tr("Can't load texture from QByteArray!\n"), cErrorMessage::errorMessage);
+		width = 100;
+		height = 100;
+		loaded = false;
+		bitmap = new sRGB8[100 * 100];
+		memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
 	}
 }
 
