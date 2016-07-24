@@ -241,7 +241,7 @@ QString cSettings::CreateOneLine(const cParameterContainer *par, QString name)
 	{
 		QString value;
 		enumVarType type = par->GetVarType(name);
-		if (!par->isDefaultValue(name) || format == formatFullText)
+		if (!par->isDefaultValue(name) || format == formatFullText || format == formatNetRender)
 		{
 			if (type == typeBool)
 			{
