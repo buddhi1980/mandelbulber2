@@ -8,6 +8,7 @@ contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
 download site: http://sourceforge.net/projects/mandelbulber/
 GIT: https://github.com/buddhi1980/mandelbulber2
+Community: http://www.fractalforums.com/mandelbulber
 
 LICENCE: GNU GPL v3.0
 
@@ -47,7 +48,7 @@ A lot of useful information you can find in tooltips.
 6. COMMAND LINE INTERFACE
 -------------------------
 
-Usage: ./mandelbulber2 [options] settings_file  
+Usage: ./mandelbulber2 [options] settings_file
 
 Options:
 	-h, --help             Displays this help.
@@ -89,6 +90,7 @@ Options:
 												 'fractal<N>_KEY=VALUE' with <N> being index of fractal
 	--stats                Shows statistics while rendering in CLI mode.
 	--help-input           Shows help about input.
+	--help-examples        Shows example commands.
 
 Arguments:
 	settings_file          file with fractal settings (program also tries
