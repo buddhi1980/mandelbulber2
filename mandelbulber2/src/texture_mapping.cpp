@@ -45,7 +45,6 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	CVector3 point = inPoint - objectData.position;
 	point = objectData.rotationMatrix.RotateVector(point);
 	point /= objectData.size;
-	point -= material->textureCenter;
 	point = material->rotMatrix.RotateVector(point);
 
 	switch (material->textureMappingType)
@@ -55,6 +54,8 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			textureCoordinates = CVector2<double>(point.x, point.y);
 			textureCoordinates.x /= -material->textureScale.x;
 			textureCoordinates.y /= material->textureScale.y;
+			textureCoordinates.x -= material->textureCenter.x;
+			textureCoordinates.y -= material->textureCenter.y;
 
 			if (textureVectorX && textureVectorY)
 			{
@@ -77,6 +78,8 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			textureCoordinates.y = -point.z;
 			textureCoordinates.x /= material->textureScale.x;
 			textureCoordinates.y /= material->textureScale.y;
+			textureCoordinates.x -= material->textureCenter.x;
+			textureCoordinates.y -= material->textureCenter.y;
 
 			if (textureVectorX && textureVectorY)
 			{
@@ -100,6 +103,8 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			textureCoordinates.y = (betaTexture / M_PI);
 			textureCoordinates.x /= material->textureScale.x;
 			textureCoordinates.y /= material->textureScale.y;
+			textureCoordinates.x -= material->textureCenter.x;
+			textureCoordinates.y -= material->textureCenter.y;
 
 			CVector3 texY(0.0, 0.0, -1.0);
 			CVector3 texX = texY.Cross(point);
@@ -121,6 +126,8 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 		case cMaterial::mappingCubic:
 		{
 			point /= material->textureScale;
+			point -= material->textureCenter;
+
 			CVector3 texX, texY;
 			if (fabs(normalVector.x) > fabs(normalVector.y))
 			{
