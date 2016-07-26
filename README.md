@@ -37,6 +37,10 @@ The possibilities are literally **infinite**!
 ![image](https://cloud.githubusercontent.com/assets/11696990/13788910/173cf11a-eae2-11e5-884e-f1d03924a5f3.png)
 ![image](https://cloud.githubusercontent.com/assets/11696990/16526853/a708e7e2-3fb3-11e6-8136-323bda493604.png)
 
+## Building and deploying 
+
+Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
+
 ## Resources
 
 [image gallery] (http://krzysztofmarczak.deviantart.com/gallery/)
