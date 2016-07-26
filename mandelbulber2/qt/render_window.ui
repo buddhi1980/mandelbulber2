@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>936</width>
-           <height>1415</height>
+           <width>879</width>
+           <height>1395</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -249,7 +249,7 @@
      <x>0</x>
      <y>0</y>
      <width>1581</width>
-     <height>19</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -375,9 +375,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-253</y>
-          <width>423</width>
-          <height>559</height>
+          <y>0</y>
+          <width>414</width>
+          <height>628</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -1317,8 +1317,8 @@ no ambient occlusion)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>156</width>
-          <height>471</height>
+          <width>229</width>
+          <height>447</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -1743,8 +1743,8 @@ no ambient occlusion)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>177</width>
-          <height>838</height>
+          <width>221</width>
+          <height>888</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_coordinates">
@@ -3122,8 +3122,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>423</width>
-          <height>129</height>
+          <width>430</width>
+          <height>298</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3192,8 +3192,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>373</width>
-                  <height>471</height>
+                  <width>376</width>
+                  <height>536</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3322,7 +3322,7 @@ to target:</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,2,1">
+                     <layout class="QGridLayout" name="gridLayout_35">
                       <property name="spacing">
                        <number>2</number>
                       </property>
@@ -3367,6 +3367,12 @@ to target:</string>
                       </item>
                       <item row="0" column="2">
                        <widget class="MyLineEdit" name="logedit_DOF_focus">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It's the distance where objects appear in focus.&lt;/p&gt;&lt;p&gt;Distance can be set bu using button &lt;span style=&quot; font-style:italic;&quot;&gt;Set focus distance by mouse&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;low focus distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;high focus distance&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -4003,9 +4009,9 @@ Disables 'Update image' options)</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-234</y>
-                  <width>373</width>
-                  <height>527</height>
+                  <y>0</y>
+                  <width>253</width>
+                  <height>594</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -4052,7 +4058,7 @@ Disables 'Update image' options)</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,2,1">
+                     <layout class="QGridLayout" name="gridLayout_10">
                       <property name="spacing">
                        <number>2</number>
                       </property>
@@ -4077,6 +4083,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="0" column="2">
                        <widget class="MyLineEdit" name="logedit_basic_fog_visibility">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visibility distance of fog. Visibility can be set by using '&lt;span style=&quot; font-style:italic;&quot;&gt;Set visibility distance by mouse'&lt;/span&gt; button&lt;/p&gt;&lt;p&gt;Lower value gives denser fog,&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -4158,7 +4170,7 @@ Disables 'Update image' options)</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,2,1">
+                     <layout class="QGridLayout" name="gridLayout_14">
                       <property name="spacing">
                        <number>2</number>
                       </property>
@@ -4224,6 +4236,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="0" column="2">
                        <widget class="MyLineEdit" name="logedit_glow_intensity">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -4262,12 +4280,18 @@ Disables 'Update image' options)</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,2,1">
+                     <layout class="QGridLayout" name="gridLayout_13">
                       <property name="spacing">
                        <number>2</number>
                       </property>
                       <item row="1" column="2">
                        <widget class="MyLineEdit" name="logedit_volumetric_fog_density">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Density of fog. Higher value gives denser fog. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -4315,6 +4339,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="3" column="2">
                        <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_2_distance">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #2 is used and minimum where color #3  is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -4351,6 +4381,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="2" column="2">
                        <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_1_distance">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #1 is used&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -4418,6 +4454,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="4" column="2">
                        <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts density of fog to distance from fractal surface. Higher value givers fog which reaches further from fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -4498,7 +4540,7 @@ Disables 'Update image' options)</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,2,1">
+                     <layout class="QGridLayout" name="gridLayout_8">
                       <property name="spacing">
                        <number>2</number>
                       </property>
@@ -4577,6 +4619,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="0" column="2">
                        <widget class="MyLineEdit" name="logedit_iteration_fog_opacity">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of fog. Higher value gives denser fog.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;opacity = 1000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;opacity = 4000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;opacity = 16000&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 1000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 4000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -4802,7 +4850,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>387</width>
+                  <width>283</width>
                   <height>165</height>
                  </rect>
                 </property>
@@ -5098,9 +5146,9 @@ Disables 'Update image' options)</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-1214</y>
-                  <width>373</width>
-                  <height>1507</height>
+                  <y>0</y>
+                  <width>318</width>
+                  <height>1705</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -6369,7 +6417,7 @@ Disables 'Update image' options)</string>
                         <number>2</number>
                        </property>
                        <item>
-                        <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,2,1">
+                        <layout class="QGridLayout" name="gridLayout_5">
                          <property name="spacing">
                           <number>2</number>
                          </property>
@@ -6420,6 +6468,12 @@ Disables 'Update image' options)</string>
                          </item>
                          <item row="1" column="2">
                           <widget class="MyLineEdit" name="logedit_aux_light_visibility">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
                            <property name="toolTip">
                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines visibility of additional light sources. Higher value gives brighter appearance of light sources. It doesn't control luminosity of light sources.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                            </property>
@@ -6427,6 +6481,12 @@ Disables 'Update image' options)</string>
                          </item>
                          <item row="2" column="2">
                           <widget class="MyLineEdit" name="logedit_aux_light_visibility_size">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
                            <property name="toolTip">
                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines size of visible light sources. When it's higher then lights appear bigger.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                            </property>
@@ -6468,6 +6528,12 @@ Disables 'Update image' options)</string>
                          </item>
                          <item row="3" column="2">
                           <widget class="MyLineEdit" name="logedit_aux_light_manual_placement_dist">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
                            <property name="toolTip">
                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance from fractal surface where light will be placed with mouse pointer. When it's zero, the light will be set on fractal surface. Higher value moves the light towards the camera.&lt;/p&gt;&lt;p&gt;This parameter can be controlled with mouse scroll.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                            </property>
@@ -6506,7 +6572,7 @@ Disables 'Update image' options)</string>
                         <number>2</number>
                        </property>
                        <item>
-                        <layout class="QGridLayout" name="gridLayout_random_lights" columnstretch="0,2,1">
+                        <layout class="QGridLayout" name="gridLayout_random_lights">
                          <property name="spacing">
                           <number>2</number>
                          </property>
@@ -6577,7 +6643,14 @@ Disables 'Update image' options)</string>
                           </widget>
                          </item>
                          <item row="2" column="2">
-                          <widget class="MyLineEdit" name="logedit_random_lights_max_distance_from_fractal"/>
+                          <widget class="MyLineEdit" name="logedit_random_lights_max_distance_from_fractal">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                          </widget>
                          </item>
                          <item row="3" column="0">
                           <widget class="QLabel" name="label_random_lights_distribution_radius">
@@ -6606,7 +6679,14 @@ Disables 'Update image' options)</string>
                           </widget>
                          </item>
                          <item row="3" column="2">
-                          <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius"/>
+                          <widget class="MyLineEdit" name="logedit_random_lights_distribution_radius">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                          </widget>
                          </item>
                          <item row="4" column="0">
                           <widget class="QLabel" name="label_random_lights_center_of_distribution">
@@ -6706,7 +6786,14 @@ Disables 'Update image' options)</string>
                           </widget>
                          </item>
                          <item row="8" column="2">
-                          <widget class="MyLineEdit" name="logedit_random_lights_intensity"/>
+                          <widget class="MyLineEdit" name="logedit_random_lights_intensity">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                          </widget>
                          </item>
                         </layout>
                        </item>
@@ -6741,7 +6828,7 @@ Disables 'Update image' options)</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,2,1">
+                     <layout class="QGridLayout" name="gridLayout_6">
                       <property name="spacing">
                        <number>2</number>
                       </property>
@@ -6787,6 +6874,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="7" column="2">
                        <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_3">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -6794,6 +6887,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="5" column="2">
                        <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_2">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -6820,6 +6919,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="1" column="2">
                        <widget class="MyLineEdit" name="logedit_main_light_volumetric_intensity">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -6827,6 +6932,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="3" column="2">
                        <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_1">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -6886,6 +6997,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="9" column="2">
                        <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_4">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -7011,7 +7128,7 @@ Disables 'Update image' options)</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,2,1">
+                     <layout class="QGridLayout" name="gridLayout_17">
                       <property name="spacing">
                        <number>2</number>
                       </property>
@@ -7056,6 +7173,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="2" column="2">
                        <widget class="MyLineEdit" name="logedit_fake_lights_intensity">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of ilumination of fractal surface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -7168,6 +7291,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="3" column="2">
                        <widget class="MyLineEdit" name="logedit_fake_lights_visibility">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of visible lights&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -7285,6 +7414,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="5" column="2">
                        <widget class="MyLineEdit" name="vect3_fake_lights_orbit_trap_x">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position of orbit trap point&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -7292,6 +7427,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="6" column="2">
                        <widget class="MyLineEdit" name="vect3_fake_lights_orbit_trap_y">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position of orbit trap point&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -7299,6 +7440,12 @@ Disables 'Update image' options)</string>
                       </item>
                       <item row="7" column="2">
                        <widget class="MyLineEdit" name="vect3_fake_lights_orbit_trap_z">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="toolTip">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position of orbit trap point&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -7374,8 +7521,8 @@ Disables 'Update image' options)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>437</width>
-          <height>683</height>
+          <width>414</width>
+          <height>472</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -7475,9 +7622,9 @@ Disables 'Update image' options)</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
-                      <width>379</width>
-                      <height>755</height>
+                      <y>-63</y>
+                      <width>352</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8635,8 +8782,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>365</width>
-                      <height>755</height>
+                      <width>290</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -9740,8 +9887,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>365</width>
-                      <height>755</height>
+                      <width>290</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -10839,8 +10986,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>365</width>
-                      <height>755</height>
+                      <width>290</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -11938,8 +12085,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>365</width>
-                      <height>755</height>
+                      <width>290</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -13037,8 +13184,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>365</width>
-                      <height>755</height>
+                      <width>290</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -14136,8 +14283,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>365</width>
-                      <height>755</height>
+                      <width>290</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -15235,8 +15382,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>365</width>
-                      <height>755</height>
+                      <width>290</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -16331,8 +16478,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>365</width>
-                      <height>755</height>
+                      <width>290</width>
+                      <height>810</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -17444,8 +17591,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>373</width>
-                  <height>521</height>
+                  <width>220</width>
+                  <height>560</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -19163,8 +19310,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>387</width>
-                  <height>416</height>
+                  <width>216</width>
+                  <height>372</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -19708,8 +19855,8 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>423</width>
-          <height>1083</height>
+          <width>414</width>
+          <height>1161</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -19750,7 +19897,7 @@ and water):</string>
              <number>2</number>
             </property>
             <item>
-             <layout class="QGridLayout" name="gridLayout_69" columnstretch="0,2,1">
+             <layout class="QGridLayout" name="gridLayout_69">
               <property name="topMargin">
                <number>0</number>
               </property>
@@ -19843,6 +19990,12 @@ of fractal iterations:</string>
               </item>
               <item row="1" column="2">
                <widget class="MyLineEdit" name="logedit_bailout">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -19907,7 +20060,7 @@ of fractal iterations:</string>
              <number>2</number>
             </property>
             <item>
-             <layout class="QGridLayout" name="gridLayout_70" columnstretch="0,2,1">
+             <layout class="QGridLayout" name="gridLayout_70">
               <property name="topMargin">
                <number>0</number>
               </property>
@@ -19943,6 +20096,12 @@ of fractal iterations:</string>
               </item>
               <item row="0" column="2">
                <widget class="MyLineEdit" name="logedit_DE_factor">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter has the biggest influence on overall quality of image and rendering speed.&lt;/p&gt;&lt;p&gt;Higher value gives faster rendering but more noise on image.&lt;/p&gt;&lt;p&gt;When rays are traced, for each step there are estimated distances to the fractal surface. Optimally , the jump distance for every ray-marching step would be equal to the estimated distance. This would produce a small number of steps and good quality. However the distance can be only estimated, so it's not always accurate. It can produce oversteppings which will be visible on the image as random noise.&lt;/p&gt;&lt;p&gt;In some cases you need to adjust  this parameter to find a balance between acceptable image quality and a reasonable rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;step multiplier = 1.0 (optimal - good quality and fast)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;step multiplier = 5 (visible strong noise on image)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;As a quality indicator, the&lt;span style=&quot; font-style:italic;&quot;&gt;Percentage of wrong distance estimations&lt;/span&gt; ( visible in &lt;span style=&quot; font-style:italic;&quot;&gt;Statistics&lt;/span&gt; dock ) can be used . &lt;/p&gt;&lt;p&gt;To optimize this parameter the histograms of iteration count and ray-marching step count,  can be used .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -20061,6 +20220,12 @@ of fractal iterations:</string>
               </item>
               <item row="8" column="2">
                <widget class="MyLineEdit" name="logedit_detail_level">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how much detail will be visible on fractal surface. When it is set to 1.0, then minimum visible detail has size of 2 pixels.&lt;/p&gt;&lt;p&gt;Higher value gives more detailed image, but slows down rendering.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;detail level 0.2&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;detail level 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;detail level 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.2.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -20139,7 +20304,7 @@ of fractal iterations:</string>
                   <number>2</number>
                  </property>
                  <item>
-                  <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,2,1">
+                  <layout class="QGridLayout" name="gridLayout_20">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -20177,6 +20342,12 @@ of fractal iterations:</string>
                    </item>
                    <item row="0" column="2">
                     <widget class="MyLineEdit" name="logedit_DE_thresh">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="toolTip">
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance threshold which defines detail size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
@@ -20221,12 +20392,18 @@ of fractal iterations:</string>
              <number>2</number>
             </property>
             <item>
-             <layout class="QGridLayout" name="gridLayout_71" columnstretch="0,2,1">
+             <layout class="QGridLayout" name="gridLayout_71">
               <property name="topMargin">
                <number>0</number>
               </property>
               <item row="0" column="2">
                <widget class="MyLineEdit" name="logedit_smoothness">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Smoothness parameter defines averaging area for normal vector calculation.&lt;/p&gt;&lt;p&gt;Higher value gives smoother fractal surface.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;smoothness = 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -20307,7 +20484,7 @@ of fractal iterations:</string>
              <number>2</number>
             </property>
             <item>
-             <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,2,1">
+             <layout class="QGridLayout" name="gridLayout_19">
               <property name="spacing">
                <number>2</number>
               </property>
@@ -20336,6 +20513,12 @@ of fractal iterations:</string>
               </item>
               <item row="1" column="2">
                <widget class="MyLineEdit" name="logedit_view_distance_min">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;All objects closer than this distance won't be visible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -20350,6 +20533,12 @@ of fractal iterations:</string>
               </item>
               <item row="0" column="2">
                <widget class="MyLineEdit" name="logedit_view_distance_max">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines visibility distance. All objects farther  than this distance won't be visible. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -21272,8 +21461,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
-                  <height>318</height>
+                  <width>408</width>
+                  <height>363</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -22107,8 +22296,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>247</width>
+                  <height>298</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -22805,8 +22994,8 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>279</width>
-          <height>428</height>
+          <width>294</width>
+          <height>441</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -23249,8 +23438,8 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>423</width>
-          <height>75</height>
+          <width>416</width>
+          <height>81</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -23600,23 +23789,23 @@ keyframes</string>
   <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <header>mydoublespinbox.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
+   <header>mygroupbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <header>myspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
+   <header>mylineedit.h</header>
   </customwidget>
   <customwidget>
    <class>cMaterialSelector</class>
@@ -23627,17 +23816,17 @@ keyframes</string>
   <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
+   <header>mycheckbox.h</header>
   </customwidget>
   <customwidget>
    <class>MyColorButton</class>
    <extends>QWidget</extends>
-   <header>my_color_button.h</header>
+   <header>mycolorbutton.h</header>
   </customwidget>
   <customwidget>
    <class>MyScrolledArea</class>
    <extends>QScrollArea</extends>
-   <header>my_scrolled_area.h</header>
+   <header>myscrolledarea.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -23653,12 +23842,12 @@ keyframes</string>
   <customwidget>
    <class>MyLogWidget</class>
    <extends>QWidget</extends>
-   <header>my_log_widget.h</header>
+   <header>mylogwidget.h</header>
   </customwidget>
   <customwidget>
    <class>MyHistogramLabel</class>
    <extends>QLabel</extends>
-   <header>my_histogram_label.h</header>
+   <header>myhistogramlabel.h</header>
   </customwidget>
   <customwidget>
    <class>MyTableWidgetKeyframes</class>
@@ -23668,7 +23857,7 @@ keyframes</string>
   <customwidget>
    <class>MyTabWidget</class>
    <extends>QTabWidget</extends>
-   <header>my_tab_widget.h</header>
+   <header>mytabwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
