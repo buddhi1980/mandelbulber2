@@ -559,6 +559,13 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("surfFolds_order_of_folds_4", 0, morphNone, paramStandard);
 	par->addParam("surfFolds_order_of_folds_5", 0, morphNone, paramStandard);
 
+  // Benesi Mag Transforms
+  par->addParam("magTransf_order_of_transf_1", 0, morphNone, paramStandard);
+  par->addParam("magTransf_order_of_transf_2", 0, morphNone, paramStandard);
+  par->addParam("magTransf_order_of_transf_3", 0, morphNone, paramStandard);
+  par->addParam("magTransf_order_of_transf_4", 0, morphNone, paramStandard);
+  par->addParam("magTransf_order_of_transf_5", 0, morphNone, paramStandard);
+
 	// donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
 	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
@@ -616,6 +623,10 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_int_A", 0, morphLinear, paramStandard);
 	par->addParam("transf_int_B", 0, morphLinear, paramStandard);
 	par->addParam("transf_int_1", 1, morphLinear, paramStandard);
+  par->addParam("transf_int8_X", 8, morphLinear, paramStandard);
+  par->addParam("transf_int8_Y", 8, morphLinear, paramStandard);
+  par->addParam("transf_int8_Z", 8, morphLinear, paramStandard);
+
 	par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_250", 250, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
@@ -682,15 +693,27 @@ void InitFractalParams(cParameterContainer *par)
 		"transf_constant_multiplier_222", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
 	par->addParam(
 		"transf_constant_multiplier_441", CVector3(4.0, 4.0, 1.0), morphAkimaAngle, paramStandard);
+
 	par->addParam("transf_offset_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetF_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam("transf_offset_200", CVector3(2.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_offset_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_offsetA_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_offsetB_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_offsetC_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_offset_200", CVector3(2.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_offsetA_200", CVector3(2.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_offset_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+
 	par->addParam("transf_power_025", CVector3(0.25, 0.25, 0.25), morphAkimaAngle, paramStandard);
 	par->addParam("transf_power_8", CVector3(8.0, 8.0, 8.0), morphAkimaAngle, paramStandard);
 	par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("transf_scale3D_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3Da_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3Db_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3Dc_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3Dd_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_333", CVector3(3.0, 3.0, 3.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_444", CVector3(4.0, 4.0, 4.0), morphAkima, paramStandard);
 

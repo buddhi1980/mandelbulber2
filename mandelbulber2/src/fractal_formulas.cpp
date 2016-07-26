@@ -1464,6 +1464,216 @@ void BenesiT1PineTreeIteration(
 	aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
+
+
+
+/**
+ * benesiMagTransforms
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
+void BenesiMagTransformsIteration(
+  CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (fractal->transformCommon.benesiT1Enabled && i >= fractal->transformCommon.startIterations
+      && i < fractal->transformCommon.stopIterations)
+  {
+    double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+    z = CVector3(
+      (tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+    CVector3 temp = z;
+    double tempL = temp.Length();
+    z = fabs(z) * fractal->transformCommon.scale3D222;
+    // if (tempL < 1e-21) tempL =  1e-21;
+    double avgScale = z.Length() / tempL;
+
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * avgScale + 1.0;
+
+    tempXZ = (z.y + z.x) * SQRT_1_2;
+
+    z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
+      z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+    z = z - fractal->transformCommon.offset200;
+  }
+
+  if (fractal->transformCommon.rotationEnabled)
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+  if (fractal->transformCommon.addCpixelEnabled && i >= fractal->transformCommon.startIterationsT
+      && i < fractal->transformCommon.stopIterationsT)
+  {
+    CVector3 temp = z;
+    aux.r = z.Length();
+    z *= z;
+    double t = 2 * temp.x;
+    if (z.y + z.z > 0.0)
+     t = t / sqrt(z.y + z.z);
+    else
+      t = 1.0;
+
+    z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
+    z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y; // Cy Cx swap
+    z.y = (2 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z;
+    aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
+  }
+  if (fractal->transformCommon.juliaMode)
+  {
+    z.x += fractal->transformCommon.juliaC.x * fractal->transformCommon.constantMultiplier100.x;
+    z.z += fractal->transformCommon.juliaC.y * fractal->transformCommon.constantMultiplier100.y;
+    z.y += fractal->transformCommon.juliaC.z * fractal->transformCommon.constantMultiplier100.z;
+  }
+  // additional transform slot controls
+  bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAxFalse,
+    fractal->transformCommon.functionEnabledAyFalse,
+    fractal->transformCommon.functionEnabledAzFalse,
+    fractal->transformCommon.functionEnabledBxFalse,
+    fractal->transformCommon.functionEnabledByFalse};
+  int startIterationN[5] = {fractal->transformCommon.startIterationsA,
+    fractal->transformCommon.startIterationsB, fractal->transformCommon.startIterationsC,
+    fractal->transformCommon.startIterationsD, fractal->transformCommon.startIterationsE};
+  int stopIterationN[5] = {fractal->transformCommon.stopIterationsA,
+    fractal->transformCommon.stopIterationsB, fractal->transformCommon.stopIterationsC,
+    fractal->transformCommon.stopIterationsD, fractal->transformCommon.stopIterationsE};
+
+  sFractalMagTransforms::multi_orderOfTransf transfN[5] = {fractal->magTransf.orderOfTransf1,
+    fractal->magTransf.orderOfTransf2, fractal->magTransf.orderOfTransf3,
+    fractal->magTransf.orderOfTransf4, fractal->magTransf.orderOfTransf5};
+
+  for (int f = 0; f < 5; f++)
+  {
+    if (functionEnabledN[f] && i >= startIterationN[f] && i < stopIterationN[f])
+    {
+      double tempXZ;
+      double tempL;
+      CVector3 temp;
+      double avgScale;
+      CVector3 tempV2;
+
+      switch (transfN[f])
+      {
+        case sFractalMagTransforms::typeT1:
+        default:
+          tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+          z =
+          CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
+          z = fabs(z) * fractal->transformCommon.scale3Da222;
+          // if (tempL < 1e-21) tempL = 1e-21;
+          avgScale = z.Length() / tempL;
+          aux.r_dz *= avgScale;
+          aux.DE = aux.DE * avgScale + 1.0;
+          tempXZ = (z.y + z.x) * SQRT_1_2;
+          z = CVector3(
+            z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+          z = z - fractal->transformCommon.offsetA200;
+          break;
+
+        case sFractalMagTransforms::typeT1Mod:
+          tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+          z =
+          CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
+          z = fabs(z) * fractal->transformCommon.scale3D333;
+          // if (tempL < 1e-21) tempL = 1e-21;
+          avgScale = z.Length() / tempL;
+          aux.r_dz *= avgScale;
+          aux.DE = aux.DE * avgScale + 1.0;
+          z = (fabs(z + fractal->transformCommon.offset111)
+               - fabs(z - fractal->transformCommon.offset111) - z);
+          tempXZ = (z.y + z.x) * SQRT_1_2;
+          z = CVector3(
+            z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+          break;
+
+        case sFractalMagTransforms::typeT2:
+          tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+         z =
+          CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
+          tempV2 = z;
+          tempV2.x = sqrt(z.y * z.y + z.z * z.z);
+          tempV2.y = sqrt(z.x * z.x + z.z * z.z); // switching, squared, sqrt
+          tempV2.z = sqrt(z.x * z.x + z.y * z.y);
+          z = fabs(tempV2 - fractal->transformCommon.offsetA111);
+          temp = z;
+          tempL = temp.Length();
+          z = fabs(z) * fractal->transformCommon.scale3D444;
+          // if (tempL < 1e-21) tempL = 1e-21;
+          avgScale = z.Length() / tempL;
+          aux.r_dz *= avgScale;
+          aux.DE = aux.DE * avgScale + 1.0;
+          tempXZ = (z.y + z.x) * SQRT_1_2;
+          z = CVector3(
+            z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+          break;
+
+        case sFractalMagTransforms::typeT3:
+          tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+          z =
+            CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+          tempV2 = z;
+          tempV2.x = (z.y + z.z);
+          tempV2.y = (z.x + z.z); // switching
+          tempV2.z = (z.x + z.y);
+          z = (fabs(tempV2 - fractal->transformCommon.offset222))
+              * fractal->transformCommon.scale3Db222;
+
+          tempXZ = (z.y + z.x) * SQRT_1_2;
+          z = CVector3(
+            z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+          break;
+
+        case sFractalMagTransforms::typeT4:
+          tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+          z =
+            CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+          tempV2 = z;
+          tempV2.x = (z.y * z.y + z.z * z.z);
+          tempV2.y = (z.x * z.x + z.z * z.z); // switching, squared,
+          tempV2.z = (z.x * z.x + z.y * z.y);
+          z = (fabs(tempV2 - fractal->transformCommon.offsetB111))
+              * fractal->transformCommon.scale3Dc222;
+
+          tempXZ = (z.y + z.x) * SQRT_1_2;
+          z = CVector3(
+            z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+          break;
+
+        case sFractalMagTransforms::typeT5b:
+          tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+          z =
+            CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
+          // if (z.x > -1e-21 && z.x < 1e-21)
+          //	z.x = (z.x > 0) ? 1e-21 : -1e-21;
+          // if (z.y > -1e-21 && z.y < 1e-21)
+          //	z.y = (z.y > 0) ? 1e-21 : -1e-21;
+          // if (z.z > -1e-21 && z.z < 1e-21)
+          //	z.z = (z.z > 0) ? 1e-21 : -1e-21;
+          tempV2 = z;
+          tempV2.x = fabs(
+            pow(pow(z.y, fractal->transformCommon.int8X) + pow(z.z, fractal->transformCommon.int8X),
+              fractal->transformCommon.power025.x));
+          tempV2.y = fabs(
+            pow(pow(z.x, fractal->transformCommon.int8Y) + pow(z.z, fractal->transformCommon.int8Y),
+              fractal->transformCommon.power025.y));
+          tempV2.z = fabs(
+            pow(pow(z.x, fractal->transformCommon.int8Z) + pow(z.y, fractal->transformCommon.int8Z),
+              fractal->transformCommon.power025.z));
+          z = (fabs(tempV2 - fractal->transformCommon.offsetC111))
+              * fractal->transformCommon.scale3Dd222;
+
+          tempXZ = (z.y + z.x) * SQRT_1_2;
+          z = CVector3(
+            z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+          break;
+
+      }
+    }
+  }
+}
+
+
 /**
  * CollatzIteration formula
  * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
@@ -2943,7 +3153,7 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 }
 
 /**
- * MsltoeSym2Mod based on the formula from Mandelbulb3D
+ * MsltoeSym3Mod based on the formula from Mandelbulb3D
  * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
  */
 void MsltoeSym3ModIteration(
@@ -4189,7 +4399,6 @@ void TransformBenesiT2Iteration(CVector3 &z, const cFractal *fractal, sExtendedA
 	}
 
 	tempXZ = (z.y + z.x) * SQRT_1_2;
-
 	z = CVector3(
 		z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
@@ -4218,7 +4427,6 @@ void TransformBenesiT3Iteration(CVector3 &z, const cFractal *fractal)
 	}
 
 	tempXZ = (z.y + z.x) * SQRT_1_2;
-
 	z = CVector3(
 		z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
@@ -4238,11 +4446,15 @@ void TransformBenesiT4Iteration(CVector3 &z, const cFractal *fractal)
 	tempV2.x = (z.y * z.y + z.z * z.z);
 	tempV2.y = (z.x * z.x + z.z * z.z); // switching, squared,
 	tempV2.z = (z.x * z.x + z.y * z.y);
-	z = (fabs(tempV2 - fractal->transformCommon.additionConstant111))
-			* fractal->transformCommon.scale3D222;
+  z = (fabs(tempV2 - fractal->transformCommon.additionConstant111))
+      * fractal->transformCommon.scale3D222;
 
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+  tempXZ = (z.y + z.x) * SQRT_1_2;
+  z = CVector3(
+    z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
 
 /**
@@ -4256,12 +4468,12 @@ void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal)
 	z =
 		CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
 
-	// if (z.x > -1e-21 && z.x < 1e-21)
-	//	z.x = (z.x > 0) ? 1e-21 : -1e-21;
-	// if (z.y > -1e-21 && z.y < 1e-21)
-	//	z.y = (z.y > 0) ? 1e-21 : -1e-21;
-	// if (z.z > -1e-21 && z.z < 1e-21)
-	//	z.z = (z.z > 0) ? 1e-21 : -1e-21;
+   //if (z.x > -1e-21 && z.x < 1e-21)
+   // z.x = (z.x > 0) ? 1e-21 : -1e-21;
+   //if (z.y > -1e-21 && z.y < 1e-21)
+   // z.y = (z.y > 0) ? 1e-21 : -1e-21;
+   //if (z.z > -1e-21 && z.z < 1e-21)
+   // z.z = (z.z > 0) ? 1e-21 : -1e-21;
 	CVector3 tempV2 = z;
 	tempV2.x = fabs(
 		pow(pow(z.y, fractal->transformCommon.power8.x) + pow(z.z, fractal->transformCommon.power8.x),
@@ -4279,7 +4491,6 @@ void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 	tempXZ = (z.y + z.x) * SQRT_1_2;
-
 	z = CVector3(
 		z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2, z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }

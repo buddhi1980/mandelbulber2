@@ -164,6 +164,26 @@ cFractal::cFractal(const cParameterContainer *container)
 	surfFolds.orderOfFolds5 =
 		(sFractalSurfFolds::multi_orderOfFolds)container->Get<int>("surfFolds_order_of_folds_5");
 
+  // benseis mag transforms
+  magTransf.orderOfTransf1 =
+    (sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_1");
+  magTransf.orderOfTransf2 =
+    (sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_2");
+  magTransf.orderOfTransf3 =
+    (sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_3");
+  magTransf.orderOfTransf4 =
+    (sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_4");
+  magTransf.orderOfTransf5=
+    (sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_5");
+
+
+
+
+
+
+
+
+
 	analyticDE.scale1 = container->Get<double>("analyticDE_scale_1");
 	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
@@ -214,6 +234,9 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.intA = container->Get<int>("transf_int_A");
 	transformCommon.intB = container->Get<int>("transf_int_B");
 	transformCommon.int1 = container->Get<int>("transf_int_1");
+  transformCommon.int8X = container->Get<int>("transf_int8_X");
+  transformCommon.int8Y = container->Get<int>("transf_int8_Y");
+  transformCommon.int8Z = container->Get<int>("transf_int8_Z");
 	transformCommon.startIterations = container->Get<int>("transf_start_iterations");
 	transformCommon.startIterations250 = container->Get<int>("transf_start_iterations_250");
 	transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");
@@ -279,12 +302,24 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.offset000 = container->Get<CVector3>("transf_offset_000");
 	transformCommon.offsetA000 = container->Get<CVector3>("transf_offsetA_000");
 	transformCommon.offsetF000 = container->Get<CVector3>("transf_offsetF_000");
-	transformCommon.offset200 = container->Get<CVector3>("transf_offset_200");
+
+  transformCommon.offset111 = container->Get<CVector3>("transf_offset_111");
+  transformCommon.offsetA111 = container->Get<CVector3>("transf_offsetA_111");
+  transformCommon.offsetB111 = container->Get<CVector3>("transf_offsetB_111");
+  transformCommon.offsetC111 = container->Get<CVector3>("transf_offsetC_111");
+  transformCommon.offset200 = container->Get<CVector3>("transf_offset_200");
+  transformCommon.offsetA200 = container->Get<CVector3>("transf_offsetA_200");
+  transformCommon.offset222 = container->Get<CVector3>("transf_offset_222");
+
 	transformCommon.power025 = container->Get<CVector3>("transf_power_025");
 	transformCommon.power8 = container->Get<CVector3>("transf_power_8");
 	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
 	transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
-	transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
+  transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
+  transformCommon.scale3Da222 = container->Get<CVector3>("transf_scale3Da_222");
+  transformCommon.scale3Db222 = container->Get<CVector3>("transf_scale3Db_222");
+  transformCommon.scale3Dc222 = container->Get<CVector3>("transf_scale3Dc_222");
+  transformCommon.scale3Dd222 = container->Get<CVector3>("transf_scale3Dd_222");
 	transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
 	transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
 

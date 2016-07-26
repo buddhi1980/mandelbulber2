@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>674</width>
+    <width>916</width>
     <height>763</height>
    </rect>
   </property>
@@ -35,7 +35,7 @@
       <number>2</number>
      </property>
      <item row="4" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_222_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -63,7 +63,7 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QSlider" name="slider3_transf_scale3D_111_y">
+      <widget class="QSlider" name="slider3_transf_scale3D_222_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -92,7 +92,7 @@
       </widget>
      </item>
      <item row="4" column="3">
-      <widget class="QSlider" name="slider3_transf_addition_constant_222_x">
+      <widget class="QSlider" name="slider3_transf_addition_constant_111_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -114,7 +114,7 @@
       </widget>
      </item>
      <item row="2" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_222_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -142,7 +142,7 @@
       </widget>
      </item>
      <item row="5" column="3">
-      <widget class="QSlider" name="slider3_transf_addition_constant_222_y">
+      <widget class="QSlider" name="slider3_transf_addition_constant_111_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -171,7 +171,7 @@
       </widget>
      </item>
      <item row="2" column="3">
-      <widget class="QSlider" name="slider3_transf_scale3D_111_z">
+      <widget class="QSlider" name="slider3_transf_scale3D_222_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -207,7 +207,7 @@
       </widget>
      </item>
      <item row="1" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_222_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -235,7 +235,7 @@
       </widget>
      </item>
      <item row="0" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_222_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -263,7 +263,7 @@
       </widget>
      </item>
      <item row="5" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_222_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -305,7 +305,7 @@
       </widget>
      </item>
      <item row="6" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_222_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -347,7 +347,7 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="QSlider" name="slider3_transf_scale3D_111_x">
+      <widget class="QSlider" name="slider3_transf_scale3D_222_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -376,7 +376,7 @@
       </widget>
      </item>
      <item row="6" column="3">
-      <widget class="QSlider" name="slider3_transf_addition_constant_222_z">
+      <widget class="QSlider" name="slider3_transf_addition_constant_111_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
