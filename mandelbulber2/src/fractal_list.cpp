@@ -90,6 +90,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Benesi_T1_Pine_Tree", "benesi_T1_pine_tree",
 		benesiT1PineTree, analyticDEType, logarithmicDEFunction, cpixelAlreadyHas, 10));
 
+  fractalList->append(sFractalDescription("Benesi Mag Transforms", "benesi_mag_transforms",
+    benesiMagTransforms, deltaDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "boxfold_bulbpow2",
 		boxFoldBulbPow2, deltaDEType, linearDEFunction, cpixelEnabledByDefault, 10000));
 

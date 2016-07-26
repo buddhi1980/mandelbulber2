@@ -61,7 +61,6 @@ void cVoxelExportDialog::on_pushButton_start_render_layers_clicked()
 	if (!slicerBusy)
 	{
 		SynchronizeInterfaceWindow(this, gPar, qInterface::read);
-		slicerBusy = true;
 		CVector3 limitMin;
 		CVector3 limitMax;
 		if (gPar->Get<bool>("voxel_custom_limit_enabled"))
@@ -75,28 +74,41 @@ void cVoxelExportDialog::on_pushButton_start_render_layers_clicked()
 			limitMax = gPar->Get<CVector3>("limit_max");
 		}
 		int maxIter = gPar->Get<int>("voxel_max_iter");
-		QString folder = gPar->Get<QString>("voxel_image_path");
+		QString folderString = gPar->Get<QString>("voxel_image_path");
 		int samplesX = gPar->Get<int>("voxel_samples_x");
 		int samplesY = gPar->Get<int>("voxel_samples_y");
 		int samplesZ = gPar->Get<int>("voxel_samples_z");
-		voxelExport =
-			new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
-		QObject::connect(voxelExport,
-			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
-		QThread *thread = new QThread; // deleted by deleteLater()
-		voxelExport->moveToThread(thread);
-		QObject::connect(thread, SIGNAL(started()), voxelExport, SLOT(ProcessVolume()));
-		thread->setObjectName("Slicer");
-		thread->start();
-		QObject::connect(voxelExport, SIGNAL(finished()), this, SLOT(slotSlicerFinished()));
-		QObject::connect(voxelExport, SIGNAL(finished()), voxelExport, SLOT(deleteLater()));
-		QObject::connect(voxelExport, SIGNAL(finished()), thread, SLOT(quit()));
-		QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+		QDir folder(folderString);
+		if(folder.exists())
+		{
+			slicerBusy = true;
+			voxelExport =
+				new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
+			QObject::connect(voxelExport,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
-		ui->pushButton_start_render_layers->setEnabled(false);
-		ui->pushButton_stop_render_layers->setEnabled(true);
+			QThread *thread = new QThread; // deleted by deleteLater()
+			voxelExport->moveToThread(thread);
+			QObject::connect(thread, SIGNAL(started()), voxelExport, SLOT(ProcessVolume()));
+			thread->setObjectName("Slicer");
+			thread->start();
+			QObject::connect(voxelExport, SIGNAL(finished()), this, SLOT(slotSlicerFinished()));
+			QObject::connect(voxelExport, SIGNAL(finished()), voxelExport, SLOT(deleteLater()));
+			QObject::connect(voxelExport, SIGNAL(finished()), thread, SLOT(quit()));
+			QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+			ui->pushButton_start_render_layers->setEnabled(false);
+			ui->pushButton_stop_render_layers->setEnabled(true);
+		}
+		else
+		{
+			cErrorMessage::showMessage(
+				QObject::tr(
+					"Cannot start voxel export. Specified folder (%1) does not exist.").arg(folderString),
+				cErrorMessage::errorMessage);
+		}
 	}
 	else
 	{

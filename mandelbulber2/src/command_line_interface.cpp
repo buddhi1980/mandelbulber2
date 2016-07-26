@@ -727,6 +727,21 @@ void cCommandLineInterface::ReadCLI()
 	// voxel export
 	if (cliData.voxel)
 	{
+		QString folderString = gPar->Get<QString>("voxel_image_path");
+		QDir folder(folderString);
+		if(!folder.exists())
+		{
+			cErrorMessage::showMessage(
+				QObject::tr(
+					"Cannot start voxel export. Specified folder (%1) does not exist.").arg(folderString),
+				cErrorMessage::errorMessage);
+
+			cErrorMessage::showMessage(
+				QObject::tr("End frame has to be greater than start frame which is %1")
+					.arg(gPar->Get<int>("flight_first_to_render")),
+				cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorFlightEndFrameSmallerStartFrame);
+		}
 		cliTODO = modeVoxel;
 		cliData.nogui = true;
 		systemData.noGui = true;

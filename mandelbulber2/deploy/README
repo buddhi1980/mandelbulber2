@@ -10,6 +10,7 @@ contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
 download site: http://sourceforge.net/projects/mandelbulber/
 GIT: https://github.com/buddhi1980/mandelbulber2
+Community: http://www.fractalforums.com/mandelbulber
 
 LICENCE: GNU GPL v3.0
 
@@ -37,16 +38,7 @@ qmake mandelbulber.pro
 make all
 cd ..
 
-for gamepad support (which is optional and actually works only under Linux) there are needed additional packages:
-qt5base-private-dev, libsdl2-dev
-
-additionally you need to compile qtgamepad module (needed at least Qt5 5)
-git clone https://github.com/qtproject/qtgamepad
-cd qtgamepad
-qmake
-make
-make docs
-sudo make install
+for gamepad support qt is required in version 5.7 and above
 
 2.1. Alternative compilation with cmake
 
@@ -71,6 +63,7 @@ please type:
 - Ubuntu 16.04
 - Chakra 2016.02 "Ian"
 - Raspbian
+- Centos 7 Intel MIC K1OM Development (more info: https://github.com/buddhi1980/mandelbulber2/issues/106)
 
 - gcc 5.4.0
 - clang 3.7.0
@@ -90,7 +83,7 @@ A lot of useful information you can find in tooltips.
 6. COMMAND LINE INTERFACE
 -------------------------
 
-Usage: ./mandelbulber2 [options] settings_file  
+Usage: ./mandelbulber2 [options] settings_file
 
 Options:
 	-h, --help             Displays this help.
@@ -132,6 +125,7 @@ Options:
 												 'fractal<N>_KEY=VALUE' with <N> being index of fractal
 	--stats                Shows statistics while rendering in CLI mode.
 	--help-input           Shows help about input.
+	--help-examples        Shows example commands.
 
 Arguments:
 	settings_file          file with fractal settings (program also tries

@@ -340,6 +340,26 @@ struct sFractalSurfFolds
 	multi_orderOfFolds orderOfFolds5;
 };
 
+// benesi mag transfroms
+struct sFractalMagTransforms
+{
+  enum multi_orderOfTransf
+  {
+    typeT1,
+    typeT1Mod,
+    typeT2,
+    typeT3,
+    typeT4,
+    typeT5b,
+  };
+  multi_orderOfTransf orderOfTransf1;
+  multi_orderOfTransf orderOfTransf2;
+  multi_orderOfTransf orderOfTransf3;
+  multi_orderOfTransf orderOfTransf4;
+  multi_orderOfTransf orderOfTransf5;
+};
+
+
 struct sFractalAnalyticDE
 {
 	bool enabledFalse;
@@ -414,6 +434,9 @@ struct sFractalTransformCommon
 	int intA;
 	int intB;
 	int int1;
+  int int8X;
+  int int8Y;
+  int int8Z;
 
 	CVector3 additionConstant0555;
 	CVector3 additionConstant000;
@@ -439,12 +462,23 @@ struct sFractalTransformCommon
 	CVector3 offset000;
 	CVector3 offsetA000;
 	CVector3 offsetF000;
-	CVector3 offset200;
+  CVector3 offset111;
+  CVector3 offsetA111;
+  CVector3 offsetB111;
+  CVector3 offsetC111;
+  CVector3 offset200;
+  CVector3 offsetA200;
+  CVector3 offset222;
+
 	CVector3 power025;
 	CVector3 power8;
 	CVector3 rotation;
 	CVector3 scale3D111;
 	CVector3 scale3D222;
+  CVector3 scale3Da222;
+  CVector3 scale3Db222;
+  CVector3 scale3Dc222;
+  CVector3 scale3Dd222;
 	CVector3 scale3D333;
 	CVector3 scale3D444;
 
@@ -504,6 +538,7 @@ public:
 	sFractalSurfFolds surfFolds;
 	sFractalDonut donut;
 	sFoldColor foldColor;
+  sFractalMagTransforms magTransf;
 
 #ifdef CLSUPPORT
 	double customParameters[15];
