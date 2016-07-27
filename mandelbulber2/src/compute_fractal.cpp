@@ -1084,6 +1084,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       //out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
       out->colorIndex =
         extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
+        + r2 * 5000.0 // for backwards compatability
         + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
         + extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
         + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
