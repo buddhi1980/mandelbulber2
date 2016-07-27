@@ -1036,7 +1036,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kalisets1:
 				case aboxVSIcen1:
 				{
-					if (extendedAux.r_dz > 0) // or should this be DE
+          if (extendedAux.DE > 0)
 						out->distance = r / fabs(extendedAux.DE);
 					else
 						out->distance = r;
@@ -1053,7 +1053,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case transfMengerFold: // hmmm, this issue again
 				case mengerPwr2Poly:
 				{
-					if (extendedAux.r_dz > 0)
+          if (extendedAux.DE > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);
 					else
 						out->distance = r;
@@ -1081,25 +1081,23 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 			if (mboxColor > 1000) mboxColor = 1000;
 
-			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
-			/* out->colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor  // folds part
-					 + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-					 + extendedAux.scaleFactor * r * i / 1e15  // scale part conditional on i & r
-					 + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard) ?
-				 minimumR
-							 * extendedAux.minRFactor * 1000.0 :
-							 0.0);*/
+      //out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+      out->colorIndex =
+        extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
+        + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+        + extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
+        + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+              ? minimumR * extendedAux.minRFactor * 1000.0
+              : 0.0);
 		}
 		else
 		{
 			switch (formula)
 			{
 				case mandelbox:
-				// case mandelboxMenger:
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
-				// case amazingSurfMulti:
 				case amazingSurfMod1:
 				case foldBoxMod1:
 					out->colorIndex =
