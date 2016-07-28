@@ -87,6 +87,8 @@ private:
 
 	QString everyLocaleDouble(QString txt);
 
+	bool CheckIfMaterialsAreDefined(cParameterContainer *par);
+
 	enumFormat format;
 	QString settingsText;
 
