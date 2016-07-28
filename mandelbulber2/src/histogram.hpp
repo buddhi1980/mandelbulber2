@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_HISTOGRAM_HPP_
 #define MANDELBULBER2_SRC_HISTOGRAM_HPP_
 
+#include <algorithm>
 #include <QtCore>
 
 class cHistogram
@@ -60,7 +61,7 @@ public:
 		{
 			data[histSize]++;
 			count++;
-			sum += index;
+			sum += histSize;
 		}
 	}
 

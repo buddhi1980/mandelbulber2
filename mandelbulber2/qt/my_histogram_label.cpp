@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (jenzebas@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * MyHistogramLabel class - promoted QLabel widget for displaying histogram data
  */
@@ -69,6 +69,7 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 
 	int size = histData.GetSize();
 
+	//calculate statistics
 	long long sum = 0;
 	for (int i = 0; i <= size; i++)
 	{
@@ -80,8 +81,9 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 		sum += histData.GetHist(i);
 		double prob = (double)sum / histData.GetCount();
 		if (prob < 0.0062) minIndex = i + 1;
-		if (prob < 0.9938) maxIndex = i;
+		if (prob < 0.9938) maxIndex = i + 1;
 	}
+	double average = (double)histData.GetSum() / histData.GetCount();
 
 	if (histData.GetCount() > 0)
 	{
@@ -113,9 +115,9 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 		painter.setBrush(QBrush(maxColor));
 
 		painter.drawText(fmin(legendWidthP1 + (extrIndex * drawWidth / size) + 20, width() - 100), 20,
-			QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", extr: ")
+			QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
 				+ GetShortNumberDisplay(extrIndex) + QString(", max: ") + GetShortNumberDisplay(maxIndex)
-				+ QString(", avg: ") + QString::number((double)histData.GetSum() / histData.GetCount()));
+				+ QString(", avg: ") + QString::number(average));
 	}
 }
 
