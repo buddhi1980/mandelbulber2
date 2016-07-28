@@ -50,27 +50,30 @@ void MyHistogramLabel::UpdateHistogram(const cHistogram &_histData)
 void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 {
 	// get max Element
-	long maxH = 1; //1 to prevent division by zero
+	long maxH = 1; // 1 to prevent division by zero
 	int extrIndex = 0;
 	int minIndex = 0;
 	int maxIndex = 0;
 
-  int size = histData.GetSize();
+	int size = histData.GetSize();
 
-  long long sum = 0;
+	//calculate statistics
+	long long sum = 0;
 	for (int i = 0; i <= size; i++)
 	{
-		if (histData.GetHist(i) > maxH) {
+		if (histData.GetHist(i) > maxH)
+		{
 			maxH = histData.GetHist(i);
 			extrIndex = i;
 		}
 		sum += histData.GetHist(i);
 		double prob = (double)sum / histData.GetCount();
 		if (prob < 0.0062) minIndex = i + 1;
-		if (prob < 0.9938) maxIndex = i;
+		if (prob < 0.9938) maxIndex = i + 1;
 	}
+	double average = (double)histData.GetSum() / histData.GetCount();
 
-	if(histData.GetCount() > 0)
+	if (histData.GetCount() > 0)
 	{
 		int legendWidthP1 = legendWidth + 1;
 		int legendHeightP1 = legendHeight + 1;
@@ -91,25 +94,18 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 		{
 			int height = (double)drawHeight * max(0L, histData.GetHist(i)) / maxH;
 
-			painter.drawRect(
-				QRect(legendWidthP1 + i * drawWidth / size,
-					drawHeight - height,
-					floor(1.0 * drawWidth / size),
-					height)
-			);
+			painter.drawRect(QRect(legendWidthP1 + i * drawWidth / size, drawHeight - height,
+				floor(1.0 * drawWidth / size), height));
 		}
 
 		// draw max description
 		painter.setPen(QPen(maxColor));
 		painter.setBrush(QBrush(maxColor));
 
-		painter.drawText(
-					fmin(legendWidthP1 + (extrIndex * drawWidth / size) + 20, width() - 100), 20,
-					QString("min: ")	+ GetShortNumberDisplay(minIndex)
-					+ QString(", extr: ")	+ GetShortNumberDisplay(extrIndex)
-					+ QString(", max: ")	+ GetShortNumberDisplay(maxIndex)
-					+ QString(", avg: ")	+ QString::number((double)histData.GetSum() / histData.GetCount()));
-
+		painter.drawText(fmin(legendWidthP1 + (extrIndex * drawWidth / size) + 20, width() - 100), 20,
+			QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
+				+ GetShortNumberDisplay(extrIndex) + QString(", max: ") + GetShortNumberDisplay(maxIndex)
+				+ QString(", avg: ") + QString::number(average));
 	}
 }
 

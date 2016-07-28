@@ -78,7 +78,7 @@ void cHistogram::Alloc(int size)
 
 long cHistogram::GetHist(int index) const
 {
-	if (index >= 0 && index < histSize)
+	if (index >= 0 && index <= histSize)
 	{
 		return data[index];
 	}
@@ -95,7 +95,7 @@ void cHistogram::Copy(const cHistogram &source)
 	count = source.count;
 	sum = source.sum;
 
-	for (int i = 0; i < histSize; i++)
+	for (int i = 0; i <= histSize; i++)
 	{
 		data[i] = source.data[i];
 	}
@@ -107,4 +107,6 @@ void cHistogram::Clear()
 	{
 		data[i] = 0;
 	}
+	count = 0;
+	sum = 0;
 }

@@ -48,7 +48,7 @@ public:
 		{
 			data[histSize]++;
 			count++;
-			sum += index;
+			sum += histSize;
 		}
 	}
 
