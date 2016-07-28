@@ -86,6 +86,7 @@ private:
 		QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
 
 	QString everyLocaleDouble(QString txt);
+	bool CheckIfMaterialsAreDefined(cParameterContainer *par);
 
 	enumFormat format;
 	QString settingsText;

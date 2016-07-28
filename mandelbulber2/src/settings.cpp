@@ -435,12 +435,8 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			keyframes->ClearMorphCache();
 		}
 		// temporary containers to decode frames
-		cParameterContainer parTemp = *par;
+		cParameterContainer parTemp;
 		cFractalContainer fractTemp;
-		if (fractPar)
-		{
-			fractTemp = *fractPar;
-		}
 
 		for (int l = 3; l < separatedText.size(); l++)
 		{
@@ -467,6 +463,10 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 					{
 						if (csvLine == 0)
 						{
+							CheckIfMaterialsAreDefined(par);
+							parTemp = *par;
+							if (fractPar)	fractTemp = *fractPar;
+
 							result = DecodeFramesHeader(line, par, fractPar, frames);
 							csvLine++;
 						}
@@ -487,6 +487,10 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 					{
 						if (csvLine == 0)
 						{
+							CheckIfMaterialsAreDefined(par);
+							parTemp = *par;
+							if (fractPar)	fractTemp = *fractPar;
+
 							result = DecodeFramesHeader(line, par, fractPar, keyframes);
 							csvLine++;
 						}
@@ -532,21 +536,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		// check if there is at least one material defined
 		if (format != formatAppSettings)
 		{
-			bool matParameterFound = false;
-			QList<QString> list = par->GetListOfParameters();
-			for (int i = 0; i < list.size(); i++)
-			{
-				QString parameterName = list.at(i);
-				if (parameterName.left(3) == "mat")
-				{
-					matParameterFound = true;
-					break;
-				}
-			}
-			if (!matParameterFound)
-			{
-				InitMaterialParams(1, par);
-			}
+			CheckIfMaterialsAreDefined(par);
 		}
 
 		Compatibility2(par, fractPar);
@@ -557,6 +547,26 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 	{
 		return false;
 	}
+}
+
+bool cSettings::CheckIfMaterialsAreDefined(cParameterContainer *par)
+{
+	bool matParameterFound = false;
+	QList<QString> list = par->GetListOfParameters();
+	for (int i = 0; i < list.size(); i++)
+	{
+		QString parameterName = list.at(i);
+		if (parameterName.left(3) == "mat")
+		{
+			matParameterFound = true;
+			break;
+		}
+	}
+	if (!matParameterFound)
+	{
+		InitMaterialParams(1, par);
+	}
+	return matParameterFound;
 }
 
 bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
@@ -811,6 +821,15 @@ bool cSettings::DecodeFramesHeader(
 						i += 2;
 					}
 				}
+
+				//compatibility with older settings
+				int firstUnderscore = fullParameterName.indexOf('_');
+				QString containerName = fullParameterName.left(firstUnderscore);
+				QString parameterName = fullParameterName.mid(firstUnderscore + 1);
+				QString value = "";
+				Compatibility(parameterName, value);
+				fullParameterName = containerName + "_" + parameterName;
+
 				bool result = frames->AddAnimatedParameter(fullParameterName, par, fractPar);
 				if (!result)
 				{
@@ -946,6 +965,7 @@ bool cSettings::DecodeFramesLine(
 		return false;
 	}
 
+	Compatibility2(par, fractPar);
 	frames->AddFrame(*par, *fractPar);
 
 	return true;
