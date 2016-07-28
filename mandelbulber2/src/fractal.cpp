@@ -194,16 +194,14 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	foldColor.colorMin = container->Get<double>("fold_color_color_min");
 	foldColor.compFold = container->Get<double>("fold_color_comp_fold");
+
+  foldColor.compFold0 = container->Get<double>("fold_color_comp_fold_0");
 	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
 	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
 
 	// common parameters for transforming formulas
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
-	// transformCommon.colorMin = container->Get<double>("transf_color_min");
-	// transformCommon.compFold = container->Get<double>("transf_comp_fold");
-	// transformCommon.compMinR = container->Get<double>("transf_comp_minR");
-	// transformCommon.compScale = container->Get<double>("transf_comp_scale");
 	transformCommon.offset = container->Get<double>("transf_offset");
 	transformCommon.offset0 = container->Get<double>("transf_offset_0");
 	transformCommon.offset05 = container->Get<double>("transf_offset_05");

@@ -4617,6 +4617,7 @@ void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 		z.z = -zValue - z.z;
 		aux.color += fractal->mandelbox.color.factor.z;
 	}
+    aux.foldFactor = fractal->foldColor.compFold0;
 }
 
 /**
@@ -5173,6 +5174,7 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->mandelbox.offset;
+  aux.foldFactor = fractal->foldColor.compFold0;
 }
 
 /**

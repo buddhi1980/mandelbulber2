@@ -133,6 +133,7 @@ struct sFoldColor
 	double factorSp2;
 	double colorMin;
 	double compFold;
+  double compFold0;
 	double compMinR;
 	double compScale;
 };
