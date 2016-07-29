@@ -152,8 +152,8 @@ void InitParams(cParameterContainer *par)
 	// general fractal and engine
 	par->addParam("julia_mode", false, morphLinear, paramStandard);
 	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam("N", 250, 1, 65536, morphLinear, paramStandard);
-	par->addParam("minN", 1, 0, 65536, morphLinear, paramStandard);
+	par->addParam("N", 250, 1, 99999, morphLinear, paramStandard);
+	par->addParam("minN", 1, 0, 99999, morphLinear, paramStandard);
 	par->addParam("fractal_constant_factor", CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
 	par->addParam("detail_level", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
 	// DE_thresh: old name was 'quality'
