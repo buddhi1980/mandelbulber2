@@ -756,9 +756,12 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 				!= fractal::linearDEFunction)
 			par->Set("delta_DE_function", (int)fractal::logarithmicDEFunction);
 
-		for (int i = 0; i < 4; i++)
+		if(fract)
 		{
-			fract->at(i).Set("IFS_rotation_enabled", true);
+			for (int i = 0; i < 4; i++)
+			{
+				fract->at(i).Set("IFS_rotation_enabled", true);
+			}
 		}
 	}
 
