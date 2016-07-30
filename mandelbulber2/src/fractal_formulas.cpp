@@ -1380,7 +1380,8 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 		}
 	}
 	aux.foldFactor = fractal->foldColor.compFold; // TODO fix?
-	aux.minRFactor = fractal->foldColor.compMinR;
+  aux.minRFactor = fractal->foldColor.compMinR; //orbit trap weight
+
 	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
@@ -4617,7 +4618,6 @@ void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 		z.z = -zValue - z.z;
 		aux.color += fractal->mandelbox.color.factor.z;
 	}
-    aux.foldFactor = fractal->foldColor.compFold0;
 }
 
 /**
@@ -5174,7 +5174,6 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->mandelbox.offset;
-  aux.foldFactor = fractal->foldColor.compFold0;
 }
 
 /**

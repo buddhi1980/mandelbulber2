@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>853</width>
-    <height>2678</height>
+    <width>916</width>
+    <height>4618</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2295,7 +2295,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Scale  component</string>
+        <string>Scale component  </string>
        </property>
       </widget>
      </item>
@@ -2486,7 +2486,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>MinimumR component</string>
+        <string>Orbit trap component</string>
        </property>
       </widget>
      </item>
@@ -2527,7 +2527,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Radius 'r'  component</string>
+        <string>Absolute value of z  component  </string>
        </property>
       </widget>
      </item>
@@ -2637,6 +2637,13 @@ offset:</string>
        </property>
       </widget>
      </item>
+     <item row="11" column="0" colspan="3">
+      <widget class="Line" name="line_11">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
      <item row="9" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_scale">
        <property name="sizePolicy">
@@ -2662,13 +2669,6 @@ offset:</string>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0" colspan="3">
-      <widget class="Line" name="line_11">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>

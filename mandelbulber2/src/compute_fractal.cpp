@@ -1065,24 +1065,25 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 	}
 	// color calculation
-	else if (Mode == calcModeColouring)
-	{
-    if (minimumR > 100) minimumR = 100;
-
-    double mboxColor = 0.0;
+  else if (Mode == calcModeColouring)
+  {
     double mboxDE = 1.0;
-    mboxColor = extendedAux.color;
     mboxDE = extendedAux.DE;
-
     double r2 = r / fabs(mboxDE);
     if (r2 > 20) r2 = 20;
 
-    if (mboxColor > 1000) mboxColor = 1000;
-
     if (fractals.IsHybrid())
-		{
-      //out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
-      out->colorIndex =
+    {
+      if (minimumR > 100) minimumR = 100;
+
+      double mboxColor = 0.0;
+
+      mboxColor = extendedAux.color;
+
+      if (mboxColor > 1000) mboxColor = 1000;
+
+      out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+      /*out->colorIndex =
 
         extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 
@@ -1093,7 +1094,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         + extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
         + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
               ? minimumR * extendedAux.minRFactor * 1000.0
-              : 0.0);
+              : 0.0);*/
 		}
 		else
 		{
@@ -1132,8 +1133,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-            + 1.0 * r2 * 5000.0 // for backwards compatability
-            + extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
+            +  extendedAux.scaleFactor * r2 * 5000.0 // for backwards compatability
+            //+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
 						+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
 									: 0.0);
