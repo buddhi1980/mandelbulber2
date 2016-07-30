@@ -222,7 +222,7 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
 	// gApplication->processEvents();
 
-	if (gNetRender->IsClient())
+  if (gNetRender->IsClient() && renderData->configuration.UseNetRender())
 	{
 		// get received textures from NetRender buffer
 		if (paramsContainer->Get<bool>("textured_background"))
