@@ -1,4 +1,4 @@
-MANDELBULBER 2.08-1
+MANDELBULBER 2.08-2
 
 project leader: Krzysztof Marczak
 project members: Sebastian Jennen, Graeme McLaren, Bernardo Martelli
