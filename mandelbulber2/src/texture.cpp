@@ -211,12 +211,16 @@ sRGBfloat cTexture::Pixel(double x, double y, double pixelSize)
 
 sRGBfloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
 {
-	int intX = (int)point.x;
-	int intY = (int)point.y;
-	point.x = point.x - intX;
-	point.y = point.y - intY;
-	if (point.x < 0.0) point.x += 1.0;
-	if (point.y < 0.0) point.y += 1.0;
+  if(point.x > 0)
+    point.x = fmod(point.x, 1.0);
+  else
+    point.x = 1.0 + fmod(point.x, 1.0);
+
+  if(point.y > 0)
+    point.y = fmod(point.y, 1.0);
+  else
+    point.y = 1.0 + fmod(point.y, 1.0);
+
 	point.x *= (double)width;
 	point.y *= (double)height;
 	return MipMap(point.x, point.y, pixelSize);

@@ -1310,8 +1310,8 @@ sRGBfloat cRenderWorker::TextureShader(
 	if (deltaTexX > 0.5) deltaTexX = 1.0 - deltaTexX;
 	if (deltaTexY > 0.5) deltaTexY = 1.0 - deltaTexY;
 
-	deltaTexX = deltaTexX / fabs(input.viewVector.Dot(input.normal));
-	deltaTexY = deltaTexY / fabs(input.viewVector.Dot(input.normal));
+  deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
+  deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));
 
 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
