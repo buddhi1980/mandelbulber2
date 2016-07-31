@@ -5060,6 +5060,22 @@ void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtend
 }
 
 /**
+ * Rpow3 from M3D.
+ * Does a power of 3 on the current length of the  vector.
+ */
+void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal)
+{
+  double sqrRout = z.Dot(z);
+
+  z *= sqrRout * fractal->transformCommon.scale;
+
+
+
+}
+
+
+
+/**
  * rotation variation v1. Rotation angles vary based on iteration parameters.
  */
 void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
@@ -5135,8 +5151,42 @@ void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 	aux.DE = aux.DE * z.Length() / aux.r + 1.0;
 }
 
+
 /**
- * inverted sphere - A transform from Mandelbulb3D.
+ * spherical invert
+ * from M3D
+ */
+void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  double r2 = z.Dot(z);
+
+  z += fractal->mandelbox.offset;
+  z *=fractal->transformCommon.scale; // beta
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;// beta
+  // if (r2 < 1e-21) r2 = 1e-21;
+
+  double mode = r2;
+  if (fractal->transformCommon.functionEnabledFalse)
+  {
+    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->mandelbox.mR2)
+      mode = fractal->mandelbox.mR2;
+  }
+  if (fractal->transformCommon.functionEnabledxFalse)
+  {
+    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->mandelbox.mR2)
+      mode =  2.0 * fractal->mandelbox.mR2 - r2;
+  }
+  mode = 1 / mode;
+  z *=  mode;
+  aux.DE *= mode;
+
+  z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
+
+}
+
+
+/**
+ * inverted sphere z & c- A transform from Mandelbulb3D.
  */
 void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
@@ -5158,7 +5208,10 @@ void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *frac
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	double r2 = z.Dot(z);
+
 	z += fractal->mandelbox.offset;
+  z *=fractal->transformCommon.scale; // beta
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;// beta
 	// if (r2 < 1e-21) r2 = 1e-21;
 	if (r2 < fractal->mandelbox.mR2)
 	{

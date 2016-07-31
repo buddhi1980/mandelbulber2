@@ -384,6 +384,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Transform - R^Power", "transf_rpower", transfRPower,
 		analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100));
 
+  fractalList->append(sFractalDescription("Transform - Rpow3", "transf_rPow3", transfRpow3,
+    analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
 	fractalList->append(sFractalDescription("Transform - Scale", "transf_scale", transfScale,
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
@@ -393,8 +396,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Transform - Scale 3D", "transf_scale_3D", transfScale3D,
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Transform - Sphere_InvertC", "transf_sphere_invC",
-		transfSphereInvC, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
+  fractalList->append(sFractalDescription("Transform - Sphere_Invert", "transf_sphere_inv",
+    transfSphereInv, analyticDEType, linearDEFunction, cpixelAlreadyHas, 100));
+
+  fractalList->append(sFractalDescription("Transform - Sphere_InvertC", "transf_sphere_invC",
+    transfSphereInvC, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
+
 
 	fractalList->append(sFractalDescription("Transform - Spherical_Fold", "transf_spherical_fold",
 		transfSphericalFold, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
