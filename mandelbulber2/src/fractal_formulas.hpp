@@ -161,6 +161,7 @@ void TransformInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExt
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal);
 
 void TransformQuaternionFoldIteration(
 	CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
@@ -172,6 +173,7 @@ void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtended
 void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFoldAboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFoldVaryV1Iteration(

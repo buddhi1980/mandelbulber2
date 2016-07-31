@@ -633,6 +633,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformRotationVaryV1Iteration(z, i, fractal);
 					break;
 				}
+        case transfRpow3:
+        {
+          TransformRpow3Iteration(z, fractal);
+          break;
+        }
 				case transfScale:
 				{
 					TransformScaleIteration(z, fractal, extendedAux);
@@ -663,6 +668,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformSphereInvCIteration(z, c, fractal);
 					break;
 				}
+        case transfSphereInv:
+        {
+          TransformSphereInvIteration(z, fractal, extendedAux);
+          break;
+        }
+
 				case transfSphericalOffset:
 				{
 					TransformSphericalOffsetIteration(z, fractal, extendedAux);

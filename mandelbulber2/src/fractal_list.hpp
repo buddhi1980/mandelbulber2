@@ -197,7 +197,8 @@ enum enumFractalFormula
 	transfMengerFold = 1052,
 	// V2.09
 	transfInvCylindrical = 1053,
-
+  transfRpow3 = 1054,
+  transfSphereInv = 1055,
 };
 
 enum enumDEType
