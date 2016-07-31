@@ -6,6 +6,7 @@ v2.08-2
 - UI: Fixed bug: Some sliders are jumping under Win 10. There is changed size policy for edit fields.
 - UI: Corrected calculation of statistics
 - Shaders: Corrected positioning of textures. Now position is calculated based on texture coordinates (before it was based on object coordinates)
+- Shaders: Program crashed when texture scale was 0 
 - Fractals: corrected number of decimal places in spinboxes for IFS
 - Fractals: Increased limit for maximum number of iterations to 99999
 - NetRender: Fixed bug with loading textures from QByteArray when NetRender was used on different systems. 

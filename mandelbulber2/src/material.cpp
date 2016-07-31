@@ -118,9 +118,12 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 
   palette = materialParam->Get<cColorPalette>(Name("surface_color_palette", id));
 
-  textureCenter = materialParam->Get<CVector3>(Name("texture_center", id));
-  textureRotation = materialParam->Get<CVector3>(Name("texture_rotation", id));
-  textureScale = materialParam->Get<CVector3>(Name("texture_scale", id));
+	textureCenter = materialParam->Get<CVector3>(Name("texture_center", id));
+	textureRotation = materialParam->Get<CVector3>(Name("texture_rotation", id));
+	textureScale = materialParam->Get<CVector3>(Name("texture_scale", id));
+	if(textureScale.x < 1e-20) textureScale.x = 1e-20;
+	if(textureScale.y < 1e-20) textureScale.y = 1e-20;
+	if(textureScale.z < 1e-20) textureScale.z = 1e-20;
 
   textureMappingType = (enumTextureMapping)materialParam->Get<int>(Name("texture_mapping_type", id));
 
