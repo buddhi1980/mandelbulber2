@@ -39,12 +39,38 @@
 #endif
 
 //********** Random ******************************
+// reference:
+// http://csg.sph.umich.edu/abecasis/class/2006/615.14.pdf
+// Park-Miller Generator Without any Divisions
+// by D. Carta (1990)
+static unsigned int seed = 1;
+int RandomInt()
+{
+	// After calculation below, (hi << 16) + lo = seed * 16807
+	unsigned int lo = 16807 * (seed & 0xFFFF); // Multiply lower 16 bits by 16807
+	unsigned int hi = 16807 * (seed >> 16); // Multiply higher 16 bits by 16807
+
+	// After these lines, lo has the bottom 31 bits of result, hi has bits 32 and up
+	lo += (hi & 0x7FFF) << 16; // Combine lower 15 bits of hi with lo's upper bits
+	hi >>= 15; // Discard the lower 15 bits of hi
+
+	// value % (231 - 1)) 	= ((231) * hi + lo) % (231 - 1)
+	// 			= ((231 - 1) * hi + hi + lo) % (231-1)
+	// 			= (hi + lo) % (231 - 1)
+	lo += hi;
+
+	// No division required, since hi + lo is always < 232 - 2
+	if (lo > 2147483647) lo -= 2147483647;
+
+	return (seed = lo);
+}
+
 int Random(int max)
 {
 #ifdef WIN32
-	return (rand() + rand() * 32768) % (max + 1);
+	return (RandomInt() + RandomInt() * 32768) % (max + 1);
 #else
-	return rand() % (max + 1);
+	return RandomInt() % (max + 1);
 #endif
 }
 
