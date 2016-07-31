@@ -134,11 +134,14 @@ void cHeadless::RenderVoxel()
 		limitMax = gPar->Get<CVector3>("limit_max");
 	}
 	int maxIter = gPar->Get<int>("voxel_max_iter");
-	QString folder = gPar->Get<QString>("voxel_image_path");
+	QString folderString = gPar->Get<QString>("voxel_image_path");
 	int samplesX = gPar->Get<int>("voxel_samples_x");
 	int samplesY = gPar->Get<int>("voxel_samples_y");
 	int samplesZ = gPar->Get<int>("voxel_samples_z");
-	cVoxelExport* voxelExport = new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
+	QDir folder(folderString);
+
+	cVoxelExport *voxelExport =
+		new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
 	QObject::connect(voxelExport,
 		SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
 		this,
