@@ -65,6 +65,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 
 	QCommandLineOption flightOption(
 		QStringList({"F", "flight"}), QCoreApplication::translate("main", "Renders flight animation."));
+		
+	QCommandLineOption silentOption(
+		QStringList({"X", "exit-silent"}), QCoreApplication::translate("main", "Exit CLI application instead of question."));
 
 	QCommandLineOption startOption(QStringList({"s", "start"}),
 		QCoreApplication::translate("main", "Starts rendering from frame number <N>."),
@@ -161,6 +164,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(outputOption);
 	parser.addOption(keyframeOption);
 	parser.addOption(flightOption);
+	parser.addOption(silentOption);
 	parser.addOption(startOption);
 	parser.addOption(endOption);
 	parser.addOption(listOption);
@@ -186,6 +190,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.nogui = parser.isSet(noguiOption);
 	cliData.keyframe = parser.isSet(keyframeOption);
 	cliData.flight = parser.isSet(flightOption);
+	cliData.silent = parser.isSet(silentOption);
 	cliData.startFrameText = parser.value(startOption);
 	cliData.endFrameText = parser.value(endOption);
 	cliData.overrideParametersText = parser.value(overrideOption);
@@ -580,6 +585,12 @@ void cCommandLineInterface::ReadCLI()
 	else
 	{
 		cliData.imageFileFormat = "jpg";
+	}
+
+	// silent mode
+	if (cliData.silent)
+	{
+		systemData.silent = true;
 	}
 
 	// flight animation

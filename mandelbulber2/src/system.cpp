@@ -118,6 +118,7 @@ bool InitSystem(void)
 
 	//*********** temporary set to false ************
 	systemData.noGui = false;
+	systemData.silent = false;
 
 	systemData.lastSettingsFile = QDir::toNativeSeparators(
 		systemData.dataDirectory + "settings" + QDir::separator() + QString("settings.fract"));

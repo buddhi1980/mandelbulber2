@@ -74,6 +74,7 @@ struct sSystem
 	QHash<QString, QString> supportedLanguages;
 	int numberOfThreads;
 	bool noGui;
+	bool silent;
 	QChar decimalPoint;
 	QLocale locale;
 	int terminalWidth;
