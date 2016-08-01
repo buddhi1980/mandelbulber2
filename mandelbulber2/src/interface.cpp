@@ -173,13 +173,13 @@ void cInterface::ShowUi(void)
 	progressBarQueueAnimation->setAlignment(Qt::AlignCenter);
 	progressBarQueueAnimation->hide();
 
-	progressBarAnimation = new QProgressBar(progressBarFrame);
+	progressBarAnimation = new MyProgressBar(progressBarFrame);
 	progressBarAnimation->setMaximum(1000);
 	progressBarAnimation->setAlignment(Qt::AlignCenter);
 	progressBarAnimation->hide();
 	progressBarLayout->addWidget(progressBarAnimation);
 
-	progressBar = new QProgressBar(progressBarFrame);
+	progressBar = new MyProgressBar(progressBarFrame);
 	progressBar->setMaximum(1000);
 	progressBar->setAlignment(Qt::AlignCenter);
 	progressBarLayout->addWidget(progressBar);

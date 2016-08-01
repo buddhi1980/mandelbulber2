@@ -35,6 +35,7 @@
 #define MANDELBULBER2_SRC_INTERFACE_HPP_
 
 #include "../qt/material_editor.h"
+#include "../qt/my_progress_bar.h"
 #include "fractal_container.hpp"
 #include "headless.h"
 #include "material_item_model.h"
@@ -44,7 +45,6 @@
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
 #include "synchronize_interface.hpp"
-#include <QProgressBar>
 
 class cInterface
 {
@@ -117,10 +117,10 @@ public:
 	QImage *qimage;
 	RenderedImage *renderedImage;
 	PlayerWidget *imageSequencePlayer;
-	QProgressBar *progressBar;
-	QProgressBar *progressBarAnimation;
-	QProgressBar *progressBarQueueImage;
-	QProgressBar *progressBarQueueAnimation;
+	MyProgressBar *progressBar;
+	MyProgressBar *progressBarAnimation;
+	MyProgressBar *progressBarQueueImage;
+	MyProgressBar *progressBarQueueAnimation;
 	QFrame *progressBarFrame;
 	QVBoxLayout *progressBarLayout;
 	cImage *mainImage;

@@ -715,7 +715,7 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 	double progress, cProgressText::enumProgressType progressType)
 {
 	ui->statusbar->showMessage(text, 0);
-	QProgressBar *progressBar = NULL;
+	MyProgressBar *progressBar = NULL;
 	bool isQueue = this->sender() && this->sender()->objectName() == "Queue";
 	switch (progressType)
 	{
@@ -750,7 +750,7 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 
 void RenderWindow::slotUpdateProgressHide(cProgressText::enumProgressType progressType)
 {
-	QProgressBar *progressBar = NULL;
+	MyProgressBar *progressBar = NULL;
 	switch (progressType)
 	{
 		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;

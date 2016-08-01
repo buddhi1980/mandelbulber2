@@ -527,7 +527,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar">
+        <widget class="MyProgressBar" name="progressBar">
          <property name="maximum">
           <number>1000</number>
          </property>
@@ -612,6 +612,11 @@
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyProgressBar</class>
+   <extends>QProgressBar</extends>
+   <header>my_progress_bar.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

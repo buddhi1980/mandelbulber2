@@ -1,4 +1,4 @@
-/**
+ /*
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
@@ -27,48 +27,43 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Sebastian Jennen
  *
- * PreviewFileDialog - promoted QFileDialog for selection of fractal settings with a preview
+ * MyProgressBar class - promoted QProgressBar widget for OSX compatibility
+ *
+ * The text inside the progress bars does not get shown by default on OSX.
+ * This class is a workaround for OSX to force a QLabel into the QProgressBar.
  */
 
-#ifndef MANDELBULBER2_QT_PREVIEW_FILE_DIALOG_H_
-#define MANDELBULBER2_QT_PREVIEW_FILE_DIALOG_H_
-
-#include "thumbnail_widget.h"
 #include "my_progress_bar.h"
-#include <QCheckBox>
-#include <QFileDialog>
 #include <QLabel>
-#include <QPushButton>
-#include <QVBoxLayout>
+#include <QHBoxLayout>
 
-class PreviewFileDialog : public QFileDialog
+MyProgressBar::MyProgressBar(QWidget *parent) : QProgressBar(parent)
 {
-	Q_OBJECT
-public:
-	PreviewFileDialog(QWidget *parent = 0);
-	~PreviewFileDialog();
-protected slots:
-	void OnCurrentChanged(const QString &filename);
-	void OnPresetAdd();
-	void OnQueueAdd();
-	void slotUpdateProgressAndStatus(
-		const QString &text, const QString &progressText, double progress);
-	void slotHideProgressBar();
+#ifdef __APPLE__
+	QHBoxLayout *layout = new QHBoxLayout(this);
+	textLabel = new QLabel();
+	textLabel->setAlignment(Qt::AlignCenter);
+	textLabel->setText("");
+	// textLabel->setStyleSheet("QLabel { color: green; }");
+	layout->addWidget(textLabel);
+	layout->setContentsMargins(0, 0, 0, 0);
+#endif /* __APPLE__ */
+}
 
-private:
-	QVBoxLayout *vboxlayout;
-	QCheckBox *checkbox;
-	MyProgressBar *progressBar;
-	QPushButton *presetAddButton;
-	QPushButton *queueAddButton;
-	QString filename;
+void MyProgressBar::setFormat(const QString &format)
+{
+	QProgressBar::setFormat(format);
+#ifdef __APPLE__
+	progressLabelUpdate();
+#endif /* __APPLE__ */
+}
 
-protected:
-	QLabel *preview;
-	QLabel *info;
-	cThumbnailWidget *thumbWidget;
-};
+void MyProgressBar::progressLabelUpdate()
+{
+	setTextVisible(false); // prevent default text
+	QString text = this->format();
+	if (textLabel) textLabel->setText(text);
+}
 
-#endif /* MANDELBULBER2_QT_PREVIEW_FILE_DIALOG_H_ */
