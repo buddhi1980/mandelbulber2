@@ -337,7 +337,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		}
 		// qDebug() << "step" << step;
 		//------------------ visible light
-		if (params->auxLightVisibility > 0)
+		if (data->lights.IsAnyLightEnabled() && params->auxLightVisibility > 0)
 		{
 			double miniStep = 0.0;
 			double lastMiniSteps = -1.0;
@@ -433,7 +433,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0 * step
 										* params->volumetricLightIntensity[0];
 			}
-			if (i > 0)
+			if (data->lights.IsAnyLightEnabled() && i > 0)
 			{
 				const cLights::sLight *light = data->lights.GetLight(i - 1);
 				if (light->enabled && params->volumetricLightEnabled[i])
@@ -1364,8 +1364,8 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input)
 			 + CVector2<double>(0.5, 0.5))
 			- texPoint)
 			.Length();
-	deltaTexX = deltaTexX / fabs(input.viewVector.Dot(input.normal));
-	deltaTexY = deltaTexY / fabs(input.viewVector.Dot(input.normal));
+	deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
+	deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));
 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
 	CVector3 n = input.normal;
