@@ -67,7 +67,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QStringList({"F", "flight"}), QCoreApplication::translate("main", "Renders flight animation."));
 		
 	QCommandLineOption silentOption(
-		QStringList({"X", "exit-silent"}), QCoreApplication::translate("main", "Exit CLI application instead of question."));
+		QStringList({"X", "never-delete"}), QCoreApplication::translate("main", "Never delete data, instead Exit CLI application."));
 
 	QCommandLineOption startOption(QStringList({"s", "start"}),
 		QCoreApplication::translate("main", "Starts rendering from frame number <N>."),
