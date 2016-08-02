@@ -33,6 +33,7 @@
 #include "synchronize_interface.hpp"
 #include "material_item_model.h"
 #include "../qt/material_editor.h"
+#include "../qt/my_progress_bar.h"
 
 class cInterface
 {
@@ -98,10 +99,10 @@ public:
 	QImage *qimage;
 	RenderedImage *renderedImage;
 	PlayerWidget *imageSequencePlayer;
-	QProgressBar *progressBar;
-	QProgressBar *progressBarAnimation;
-	QProgressBar *progressBarQueueImage;
-	QProgressBar *progressBarQueueAnimation;
+	MyProgressBar *progressBar;
+	MyProgressBar *progressBarAnimation;
+	MyProgressBar *progressBarQueueImage;
+	MyProgressBar *progressBarQueueAnimation;
 	QFrame *progressBarFrame;
 	QVBoxLayout *progressBarLayout;
 	cImage *mainImage;

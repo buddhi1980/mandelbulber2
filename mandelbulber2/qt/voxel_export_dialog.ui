@@ -276,7 +276,7 @@
        <item>
         <widget class="MyGroupBox" name="groupCheck_voxel_custom_limit_enabled">
          <property name="title">
-          <string>Custom Limits (leave untoggled to use global limits)</string>
+          <string>Custom &amp;Limits (leave untoggled to use global limits)</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -527,7 +527,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QProgressBar" name="progressBar">
+        <widget class="MyProgressBar" name="progressBar">
          <property name="maximum">
           <number>1000</number>
          </property>
@@ -546,7 +546,7 @@
        <item>
         <widget class="MyGroupBox" name="groupCheck_voxel_show_information">
          <property name="title">
-          <string>Show Voxel Information</string>
+          <string>Show &amp;Voxel Information</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -612,6 +612,11 @@
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>mylineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyProgressBar</class>
+   <extends>QProgressBar</extends>
+   <header>my_progress_bar.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -22974,7 +22974,7 @@ keyframes</string>
           </layout>
          </item>
          <item>
-          <widget class="QProgressBar" name="queueProgressBarImage">
+          <widget class="MyProgressBar" name="queueProgressBarImage">
            <property name="minimum">
             <number>0</number>
            </property>
@@ -22987,7 +22987,7 @@ keyframes</string>
           </widget>
          </item>
          <item>
-          <widget class="QProgressBar" name="queueProgressBarAnimation">
+          <widget class="MyProgressBar" name="queueProgressBarAnimation">
            <property name="minimum">
             <number>0</number>
            </property>
@@ -23690,6 +23690,11 @@ keyframes</string>
    <extends>QWidget</extends>
    <header>material_manager_view.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyProgressBar</class>
+   <extends>QProgressBar</extends>
+   <header>my_progress_bar.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

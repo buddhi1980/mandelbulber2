@@ -46,7 +46,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) :
 
 	info = new QLabel("");
 
-	progressBar = new QProgressBar;
+	progressBar = new MyProgressBar;
 	progressBar->setMaximum(1000);
 	progressBar->setAlignment(Qt::AlignCenter);
 	progressBar->hide();

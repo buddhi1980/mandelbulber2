@@ -30,6 +30,7 @@
 #include <QProgressBar>
 #include <QPushButton>
 #include "../qt/thumbnail_widget.h"
+#include "../qt/my_progress_bar.h"
 
 class PreviewFileDialog: public QFileDialog
 {
@@ -48,7 +49,7 @@ protected slots:
 private:
 	QVBoxLayout* vboxlayout;
 	QCheckBox *checkbox;
-	QProgressBar *progressBar;
+	MyProgressBar *progressBar;
 	QPushButton *presetAddButton;
 	QPushButton *queueAddButton;
 	QString filename;
