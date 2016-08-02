@@ -32,6 +32,7 @@ cLights::cLights() : QObject()
 	lights = NULL;
 	numberOfLights = 0;
 	lightsReady = false;
+	isAnyLight = false;
 }
 
 cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_fractal) : QObject()
@@ -39,6 +40,7 @@ cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_f
 	lights = NULL;
 	numberOfLights = 0;
 	lightsReady = false;
+	isAnyLight = false;
 	dummyLight = sLight();
 	Set(_params, _fractal);
 }
@@ -75,6 +77,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 				lights[i].intensity = params->auxLightPreIntensity[i];
 				lights[i].colour = params->auxLightPreColour[i];
 				lights[i].enabled = true;
+				isAnyLight = true;
 			}
 			else
 			{
@@ -131,6 +134,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 			lights[i + params->auxLightNumber].colour = colour;
 			lights[i + params->auxLightNumber].intensity = intensity;
 			lights[i + params->auxLightNumber].enabled = true;
+			isAnyLight = true;
 
 			emit updateProgressAndStatus(
 						QObject::tr("Positioning random lights"),
@@ -174,7 +178,8 @@ void cLights::Copy(const cLights& _lights)
 	lightsReady = _lights.lightsReady;
 	if (lights) delete[] lights;
 	lights = new sLight[numberOfLights];
-
+	isAnyLight = _lights.isAnyLight;
+	
 	for (int i = 0; i < numberOfLights; i++)
 	{
 		lights[i] = _lights.lights[i];

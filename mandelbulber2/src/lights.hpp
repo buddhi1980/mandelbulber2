@@ -50,11 +50,9 @@ public:
 	cLights(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	void Set(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	~cLights();
-	sLight* GetLight(const int index) const;
-	int GetNumberOfLights(void) const
-	{
-		return numberOfLights;
-	}
+	sLight *GetLight(const int index) const;
+	int GetNumberOfLights(void) const { return numberOfLights; }
+	int IsAnyLightEnabled() {return isAnyLight;};
 
 private:
 	void Copy(const cLights&);
@@ -63,6 +61,7 @@ private:
 	sLight dummyLight;
 	int numberOfLights;
 	bool lightsReady;
+	bool isAnyLight;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

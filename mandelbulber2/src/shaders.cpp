@@ -323,7 +323,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		}
 		//qDebug() << "step" << step;
 		//------------------ visible light
-		if (params->auxLightVisibility > 0)
+		if (data->lights.IsAnyLightEnabled() && params->auxLightVisibility > 0)
 		{
 			double miniStep = 0.0;
 			double lastMiniSteps = -1.0;
@@ -419,7 +419,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0 * step
 						* params->volumetricLightIntensity[0];
 			}
-			if (i > 0)
+			if (data->lights.IsAnyLightEnabled() && i > 0)
 			{
 				const cLights::sLight* light = data->lights.GetLight(i - 1);
 				if (light->enabled && params->volumetricLightEnabled[i])
