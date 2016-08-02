@@ -5163,10 +5163,9 @@ void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtended
   z += fractal->mandelbox.offset;
   z *=fractal->transformCommon.scale; // beta
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;// beta
-  // if (r2 < 1e-21) r2 = 1e-21;
 
   double mode = r2;
-  if (fractal->transformCommon.functionEnabledFalse)
+  if (fractal->transformCommon.functionEnabledFalse)// Mode 1
   {
     if (r2 > fractal->mandelbox.mR2) mode = 1.0f;
     if (r2 < fractal->mandelbox.fR2 && r2 > fractal->mandelbox.mR2)
@@ -5174,7 +5173,7 @@ void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtended
     if (r2 < fractal->mandelbox.fR2 && r2 < fractal->mandelbox.mR2)
       mode = fractal->mandelbox.mR2;
   }
-  if (fractal->transformCommon.functionEnabledxFalse)
+  if (fractal->transformCommon.functionEnabledxFalse)//Mode 2
   {
     if (r2 > fractal->mandelbox.mR2) mode = 1.0f;
     if (r2 < fractal->mandelbox.fR2 && r2 > fractal->mandelbox.mR2)

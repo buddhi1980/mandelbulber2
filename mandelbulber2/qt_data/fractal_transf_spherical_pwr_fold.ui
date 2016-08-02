@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>711</width>
+    <width>907</width>
     <height>723</height>
    </rect>
   </property>
@@ -73,13 +73,13 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
           </property>
           <property name="minimum">
-           <double>-360000.000000000000000</double>
+           <double>-99.989999999999995</double>
           </property>
           <property name="maximum">
-           <double>360000.000000000000000</double>
+           <double>99.989999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -101,13 +101,13 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>-99.989999999999995</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.989999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -130,10 +130,10 @@
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-18000</number>
+           <number>-5000000</number>
           </property>
           <property name="maximum">
-           <number>18000</number>
+           <number>5000000</number>
           </property>
           <property name="value">
            <number>0</number>
@@ -162,10 +162,10 @@
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-18000</number>
+           <number>-5000000</number>
           </property>
           <property name="maximum">
-           <number>18000</number>
+           <number>5000000</number>
           </property>
           <property name="value">
            <number>0</number>
