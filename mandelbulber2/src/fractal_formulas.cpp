@@ -4476,17 +4476,17 @@ void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal)
    //if (z.z > -1e-21 && z.z < 1e-21)
    // z.z = (z.z > 0) ? 1e-21 : -1e-21;
 	CVector3 tempV2 = z;
-	tempV2.x = fabs(
-		pow(pow(z.y, fractal->transformCommon.power8.x) + pow(z.z, fractal->transformCommon.power8.x),
-			fractal->transformCommon.power025.x));
-	tempV2.y = fabs(
-		pow(pow(z.x, fractal->transformCommon.power8.y) + pow(z.z, fractal->transformCommon.power8.y),
-			fractal->transformCommon.power025.y));
-	tempV2.z = fabs(
-		pow(pow(z.x, fractal->transformCommon.power8.z) + pow(z.y, fractal->transformCommon.power8.z),
-			fractal->transformCommon.power025.z));
-	z = (fabs(tempV2 - fractal->transformCommon.additionConstant111))
-			* fractal->transformCommon.scale3D222;
+  tempV2.x = fabs(
+    pow(pow(z.y, fractal->transformCommon.int8X) + pow(z.z, fractal->transformCommon.int8X),
+      fractal->transformCommon.power025.x));
+  tempV2.y = fabs(
+    pow(pow(z.x, fractal->transformCommon.int8Y) + pow(z.z, fractal->transformCommon.int8Y),
+      fractal->transformCommon.power025.y));
+  tempV2.z = fabs(
+    pow(pow(z.x, fractal->transformCommon.int8Z) + pow(z.y, fractal->transformCommon.int8Z),
+      fractal->transformCommon.power025.z));
+  z = (fabs(tempV2 - fractal->transformCommon.offsetC111))
+      * fractal->transformCommon.scale3Dd222;
 
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
