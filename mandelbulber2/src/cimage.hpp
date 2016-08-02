@@ -54,7 +54,7 @@ struct sAllImageData
 class cImage
 {
 public:
-	cImage(int w, int h, bool low_mem = false);
+	cImage(int w, int h, bool _allocLater = false);
 	void construct(void);
 
 	~cImage();
@@ -264,8 +264,9 @@ private:
 	double previewScale;
 	int previewVisibleWidth;
 	int previewVisibleHeight;
-	bool lowMem;
 	bool isMainImage;
+	bool gammaTablePrepared;
+	bool allocLater;
 	volatile bool isUsed;
 };
 

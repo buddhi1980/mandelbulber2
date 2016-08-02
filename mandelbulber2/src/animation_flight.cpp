@@ -614,11 +614,20 @@ int cFlightAnimation::AddVariableToTable(
 	return row;
 }
 
-int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
+int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame, int indexOfExistingColumn)
 {
 	table->blockSignals(true);
-	int newColumn = table->columnCount();
-	table->insertColumn(newColumn);
+
+	int newColumn;
+	if(indexOfExistingColumn >= 0)
+	{
+		newColumn = indexOfExistingColumn;
+	}
+	else
+	{
+		newColumn = table->columnCount();
+		table->insertColumn(newColumn);
+	}
 
 	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
 
@@ -855,9 +864,11 @@ void cFlightAnimation::RefreshTable()
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
 
+	table->setColumnCount(noOfFrames);
+
 	for (int i = 0; i < noOfFrames; i++)
 	{
-		int newColumn = AddColumn(frames->GetFrame(i));
+		int newColumn = AddColumn(frames->GetFrame(i), i);
 
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
