@@ -36,12 +36,12 @@
 #include <QtCore>
 #include <qpainter.h>
 
-cImage::cImage(int w, int h, bool low_mem)
+cImage::cImage(int w, int h, bool _allocLater)
 {
 	isAllocated = false;
 	width = w;
 	height = h;
-	lowMem = low_mem;
+	allocLater = _allocLater;
 	construct();
 }
 
@@ -73,6 +73,8 @@ void cImage::construct()
 	previewWidth = 0;
 	previewHeight = 0;
 
+	gammaTablePrepared = false;
+
 	isMainImage = false;
 }
 
@@ -97,33 +99,35 @@ bool cImage::AllocMem(void)
 	// qDebug() << "bool cImage::AllocMem(void)";
 	if (width > 0 && height > 0)
 	{
-		try
+		if (!allocLater)
 		{
-			gammaTable = new int[65536];
-			imageFloat = new sRGBfloat[width * height];
-			image16 = new sRGB16[width * height];
-			image8 = new sRGB8[width * height];
-			zBuffer = new float[width * height];
-			alphaBuffer8 = new unsigned char[width * height];
-			alphaBuffer16 = new unsigned short[width * height];
-			opacityBuffer = new unsigned short[width * height];
-			colourBuffer = new sRGB8[width * height];
-			if (opt.optionalNormal)
+			try
 			{
-				normalFloat = new sRGBfloat[width * height];
-				normal16 = new sRGB16[width * height];
-				normal8 = new sRGB8[width * height];
+				imageFloat = new sRGBfloat[width * height];
+				image16 = new sRGB16[width * height];
+				image8 = new sRGB8[width * height];
+				zBuffer = new float[width * height];
+				alphaBuffer8 = new unsigned char[width * height];
+				alphaBuffer16 = new unsigned short[width * height];
+				opacityBuffer = new unsigned short[width * height];
+				colourBuffer = new sRGB8[width * height];
+				if (opt.optionalNormal)
+				{
+					normalFloat = new sRGBfloat[width * height];
+					normal16 = new sRGB16[width * height];
+					normal8 = new sRGB8[width * height];
+				}
+				ClearImage();
 			}
-			ClearImage();
-		}
-		catch (std::bad_alloc &ba)
-		{
-			width = 0;
-			height = 0;
-			FreeImage();
-			qCritical() << "bad_alloc caught in cimage: " << ba.what()
-									<< ", maybe required image dimension to big?";
-			return false;
+			catch (std::bad_alloc &ba)
+			{
+				width = 0;
+				height = 0;
+				FreeImage();
+				qCritical() << "bad_alloc caught in cimage: " << ba.what()
+										<< ", maybe required image dimension to big?";
+				return false;
+			}
 		}
 	}
 	else
@@ -146,12 +150,13 @@ bool cImage::AllocMem(void)
 
 bool cImage::ChangeSize(int w, int h, sImageOptional optional)
 {
-	if (w != width || h != height || !(optional == *GetImageOptional()))
+	if (w != width || h != height || !(optional == *GetImageOptional()) || allocLater)
 	{
 		width = w;
 		height = h;
 		SetImageOptional(optional);
 		FreeImage();
+		allocLater = false;
 		return AllocMem();
 	}
 	return true;
@@ -204,11 +209,12 @@ void cImage::FreeImage(void)
 	normal8 = NULL;
 	if (gammaTable) delete[] gammaTable;
 	gammaTable = NULL;
+	gammaTablePrepared = false;
 }
 
 sRGB16 cImage::CalculatePixel(sRGBfloat pixel)
 {
-
+	CalculateGammaTable();
 	float R = pixel.R * adj.brightness;
 	float G = pixel.G * adj.brightness;
 	float B = pixel.B * adj.brightness;
@@ -249,9 +255,15 @@ sRGB16 cImage::CalculatePixel(sRGBfloat pixel)
 
 void cImage::CalculateGammaTable(void)
 {
-	for (int i = 0; i < 65536; i++)
+	if (!gammaTablePrepared)
 	{
-		gammaTable[i] = pow(i / 65536.0, 1.0 / adj.imageGamma) * 65535;
+		if (!gammaTable) gammaTable = new int[65536];
+
+		for (int i = 0; i < 65536; i++)
+		{
+			gammaTable[i] = pow(i / 65536.0, 1.0 / adj.imageGamma) * 65535;
+		}
+		gammaTablePrepared = true;
 	}
 }
 
@@ -305,6 +317,7 @@ int cImage::GetUsedMB(void)
 void cImage::SetImageParameters(sImageAdjustments adjustments)
 {
 	adj = adjustments;
+	gammaTablePrepared = false;
 	CalculateGammaTable();
 }
 
@@ -408,7 +421,7 @@ unsigned char *cImage::CreatePreview(
 
 void cImage::UpdatePreview(QList<int> *list)
 {
-	if (previewAllocated)
+	if (previewAllocated && !allocLater)
 	{
 		int w = previewWidth;
 		int h = previewHeight;

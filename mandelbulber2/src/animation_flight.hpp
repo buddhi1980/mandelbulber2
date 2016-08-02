@@ -99,7 +99,7 @@ private:
 	void CreateRowsInTable();
 	int AddVariableToTable(
 		const cAnimationFrames::sParameterDescription &parameterDescription, int index);
-	int AddColumn(const cAnimationFrames::sAnimationFrame &frame);
+	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int indexOfExistingColumn = -1);
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
 	cAnimationFrames *frames;

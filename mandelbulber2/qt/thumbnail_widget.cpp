@@ -53,7 +53,7 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 	tWidth = _width;
 	tHeight = _height;
 	oversample = _oversample;
-	image = new cImage(tWidth * oversample, tHeight * oversample);
+	image = new cImage(tWidth * oversample, tHeight * oversample, true);
 	image->CreatePreview(1.0 / oversample, tWidth, tWidth, this);
 	progressBar = NULL;
 	setFixedWidth(tWidth);
@@ -116,6 +116,8 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 void cThumbnailWidget::AssignParameters(
 	const cParameterContainer &_params, const cFractalContainer &_fractal)
 {
+	if(!params) params = new cParameterContainer;
+	if(!fractal) fractal = new cFractalContainer;
 	*params = _params;
 	*fractal = _fractal;
 	params->Set("image_width", tWidth * oversample);
@@ -161,6 +163,10 @@ void cThumbnailWidget::AssignParameters(
 			sRGB8 *preview2Pointer = (sRGB8 *)image->GetPreviewPtr();
 			memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
 			memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
+			delete params;
+			params = NULL;
+			delete fractal;
+			fractal = NULL;
 			emit thumbnailRendered();
 		}
 		else
@@ -234,6 +240,10 @@ void cThumbnailWidget::slotFullyRendered()
 		pixmap.save(thumbnailFileName, "PNG");
 	}
 	lastRenderTime = renderingTimeTimer.nsecsElapsed() / 1e9;
+	delete params;
+	params = NULL;
+	delete fractal;
+	fractal = NULL;
 	emit thumbnailRendered();
 }
 
