@@ -194,6 +194,7 @@ void cLights::Copy(const cLights &_lights)
 	lightsReady = _lights.lightsReady;
 	if (lights) delete[] lights;
 	lights = new sLight[numberOfLights];
+	isAnyLight = _lights.isAnyLight;
 
 	for (int i = 0; i < numberOfLights; i++)
 	{
