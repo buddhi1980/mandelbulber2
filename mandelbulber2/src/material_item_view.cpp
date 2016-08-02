@@ -181,18 +181,18 @@ void cMaterialItemView::paintEvent(QPaintEvent *event)
 	rectCurrent.adjust(-3, -3, 3, 3);
 	painter.fillRect(rectCurrent, QApplication::palette().highlight());
 
-	//paint labels
-	for (int r = 0; r < model()->rowCount(); r++)
+	if(model())
 	{
-		QString name = model()->headerData(r, Qt::Horizontal).toString();
-		int x = r * (cMaterialWidget::previewWidth + iconMargin) + iconMargin - horizontalOffset();
+		// paint labels
+		for (int r = 0; r < model()->rowCount(); r++)
+		{
+			QString name = model()->headerData(r, Qt::Horizontal).toString();
+			int x = r * (cMaterialWidget::previewWidth + iconMargin) + iconMargin - horizontalOffset();
 
-		painter.drawText(	QRect(x,
-														cMaterialWidget::previewHeight + iconMargin,
-														cMaterialWidget::previewWidth,
-														maxNameHeight),
-											Qt::AlignHCenter | Qt::TextWordWrap,
-											name);
+			painter.drawText(QRect(x, cMaterialWidget::previewHeight + iconMargin,
+												 cMaterialWidget::previewWidth, maxNameHeight),
+				Qt::AlignHCenter | Qt::TextWordWrap, name);
+		}
 	}
 }
 

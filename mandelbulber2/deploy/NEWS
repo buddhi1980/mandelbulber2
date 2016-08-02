@@ -9,7 +9,10 @@ v2.08-2
 - Shaders: Program crashed when texture scale was 0 
 - Fractals: corrected number of decimal places in spinboxes for IFS
 - Fractals: Increased limit for maximum number of iterations to 99999
-- NetRender: Fixed bug with loading textures from QByteArray when NetRender was used on different systems. 
+- NetRender: Fixed bug with loading textures from QByteArray when NetRender was used on different systems.
+- Performance: optimized Random() function and usage of cLights::GetLight(). Speed increase about 10-40%
+- OSX: fixed problem with missing text on progress bar
+- Voxel export: fixed bug: slices was saved in parent folder of indicated folder.
 
 v2.08-1
 - CLI: fixed bug: program crashed when rendering of animation was started from command line
