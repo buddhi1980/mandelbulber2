@@ -38,8 +38,6 @@
 #undef	MIN
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
 
-
-
 struct sVectorsAround
 {
 	double alpha;
@@ -79,6 +77,7 @@ inline double dsmin(double a, double b, double k = 1)
 }
 
 //int abs(int v);
+int RandomInt();
 int Random(int max);
 double dMax(double a, double b, double c);
 double dMin(double a, double b, double c);
