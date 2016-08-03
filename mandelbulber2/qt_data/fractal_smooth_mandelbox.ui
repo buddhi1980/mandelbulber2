@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
-    <height>1090</height>
+    <width>790</width>
+    <height>1381</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -79,10 +79,10 @@ fixed radius:</string>
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-5000</number>
+           <number>-5000000</number>
           </property>
           <property name="maximum">
-           <number>5000</number>
+           <number>5000000</number>
           </property>
           <property name="singleStep">
            <number>1</number>
@@ -104,7 +104,7 @@ fixed radius:</string>
            <number>0</number>
           </property>
           <property name="maximum">
-           <number>5000</number>
+           <number>5000000</number>
           </property>
           <property name="singleStep">
            <number>1</number>
@@ -126,7 +126,7 @@ fixed radius:</string>
            <number>0</number>
           </property>
           <property name="maximum">
-           <number>5000</number>
+           <number>5000000</number>
           </property>
           <property name="singleStep">
            <number>1</number>
@@ -145,10 +145,10 @@ fixed radius:</string>
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-50000</number>
+           <number>-5000000</number>
           </property>
           <property name="maximum">
-           <number>50000</number>
+           <number>5000000</number>
           </property>
           <property name="singleStep">
            <number>1</number>
@@ -167,10 +167,10 @@ fixed radius:</string>
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-50000</number>
+           <number>-5000000</number>
           </property>
           <property name="maximum">
-           <number>50000</number>
+           <number>5000000</number>
           </property>
           <property name="singleStep">
            <number>1</number>
@@ -209,10 +209,13 @@ fixed radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
           </property>
           <property name="maximum">
-           <double>100.000000000000000</double>
+           <double>99.998999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -234,7 +237,7 @@ fixed radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -262,7 +265,7 @@ fixed radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -290,10 +293,13 @@ fixed radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.998999999999995</double>
           </property>
           <property name="maximum">
-           <double>100.000000000000000</double>
+           <double>99.998999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -323,7 +329,7 @@ min radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -355,7 +361,7 @@ min radius:</string>
            <number>1</number>
           </property>
           <property name="maximum">
-           <number>50000</number>
+           <number>5000000</number>
           </property>
           <property name="singleStep">
            <number>1</number>
@@ -380,7 +386,7 @@ min radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>0.010000000000000</double>
@@ -478,7 +484,7 @@ min radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>8</number>
           </property>
           <property name="minimum">
            <double>-180.000000000000000</double>
@@ -539,7 +545,7 @@ min radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>8</number>
           </property>
           <property name="minimum">
            <double>-180.000000000000000</double>
@@ -567,7 +573,7 @@ min radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>8</number>
           </property>
           <property name="minimum">
            <double>-180.000000000000000</double>

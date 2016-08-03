@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
+    <width>619</width>
     <height>1443</height>
    </rect>
   </property>
@@ -46,7 +46,7 @@
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>50000</number>
+        <number>50000000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -81,13 +81,13 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>3</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>100.000000000000000</double>
+        <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -109,7 +109,7 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>3</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>0.000000000000000</double>
@@ -131,7 +131,7 @@
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>20000</number>
+        <number>20000000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
