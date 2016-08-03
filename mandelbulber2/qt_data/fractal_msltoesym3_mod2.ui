@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>889</width>
+    <width>898</width>
     <height>2264</height>
    </rect>
   </property>
@@ -89,7 +89,7 @@
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>15000</number>
+        <number>15000000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -202,13 +202,13 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>3</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>115.000000000000000</double>
+        <double>99.999899999999997</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -307,10 +307,10 @@
           </sizepolicy>
          </property>
          <property name="minimum">
-          <number>-2000</number>
+          <number>-2000000</number>
          </property>
          <property name="maximum">
-          <number>2000</number>
+          <number>2000000</number>
          </property>
          <property name="value">
           <number>0</number>
@@ -338,13 +338,13 @@
           <string/>
          </property>
          <property name="decimals">
-          <number>3</number>
+          <number>6</number>
          </property>
          <property name="minimum">
-          <double>-2000.000000000000000</double>
+          <double>-99.998999999999995</double>
          </property>
          <property name="maximum">
-          <double>2000.000000000000000</double>
+          <double>99.998999999999995</double>
          </property>
          <property name="singleStep">
           <double>0.100000000000000</double>
@@ -366,13 +366,13 @@
           <string/>
          </property>
          <property name="decimals">
-          <number>3</number>
+          <number>6</number>
          </property>
          <property name="minimum">
-          <double>-2000.000000000000000</double>
+          <double>-99.998999999999995</double>
          </property>
          <property name="maximum">
-          <double>2000.000000000000000</double>
+          <double>99.998999999999995</double>
          </property>
          <property name="singleStep">
           <double>0.100000000000000</double>
@@ -395,10 +395,10 @@
           </sizepolicy>
          </property>
          <property name="minimum">
-          <number>-2000</number>
+          <number>-2000000</number>
          </property>
          <property name="maximum">
-          <number>2000</number>
+          <number>2000000</number>
          </property>
          <property name="value">
           <number>0</number>
