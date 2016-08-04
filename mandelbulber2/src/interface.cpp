@@ -135,8 +135,14 @@ void cInterface::ShowUi(void)
 	QFont font = mainWindow->font();
 	font.setPixelSize(gPar->Get<int>("ui_font_size"));
 	mainWindow->setFont(font);
-	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(
-		gPar->Get<int>("ui_font_size") + 6);
+	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size")
+			+ 6);
+
+#ifdef __APPLE__
+	mainWindow->ui->tabWidget_fractals->setUsesScrollButtons(true);
+	mainWindow->ui->tabWidget_fractals->setDocumentMode(true);
+	mainWindow->ui->tabWidget_fractals->setElideMode(Qt::ElideNone);
+#endif
 
 	WriteLog("mainWindow->show()", 2);
 	mainWindow->show();
