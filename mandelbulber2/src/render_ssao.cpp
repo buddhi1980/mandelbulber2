@@ -47,7 +47,10 @@ cRenderSSAO::cRenderSSAO(
 	image = _image;
 	qualityFactor = 1.0;
 	progressive = 0;
-	numberOfThreads = data->configuration.GetNumberOfThreads();
+	startLine = data->screenRegion.y1;
+	endLine = data->screenRegion.y2;
+	height = data->screenRegion.height;
+	numberOfThreads = min(data->configuration.GetNumberOfThreads(), height);
 }
 
 cRenderSSAO::~cRenderSSAO()
@@ -74,7 +77,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		for (int i = 0; i < list->size(); i++)
 		{
 			int y = list->at(i);
-			int mod = y % numberOfThreads;
+			int mod = (y - startLine) % numberOfThreads;
 			lists[mod].append(y);
 		}
 	}
@@ -93,7 +96,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 	for (int i = 0; i < numberOfThreads; i++)
 	{
-		threadData[i].startLine = i;
+		threadData[i].startLine = startLine + i;
 		threadData[i].noOfThreads = numberOfThreads;
 		threadData[i].quality = quality;
 		threadData[i].done = 0;
@@ -134,7 +137,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	}
 	else
 	{
-		toDo = image->GetHeight();
+		toDo = height;
 	}
 
 	while (totalDone < toDo)

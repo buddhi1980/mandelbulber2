@@ -56,9 +56,13 @@ cSSAOWorker::~cSSAOWorker()
 void cSSAOWorker::doWork()
 {
 	int quality = threadData->quality;
-	int startLine = threadData->startLine;
-	int width = image->GetWidth();
-	int height = image->GetHeight();
+	int startLineInit = threadData->startLine;
+	int startLine = data->screenRegion.y1;
+	int endLine = data->screenRegion.y2;
+	int width = data->screenRegion.width;
+	int height = data->screenRegion.height;
+	int startX = data->screenRegion.x1;
+	int endX = data->screenRegion.x2;
 
 	double *cosine = new double[quality];
 	double *sine = new double[quality];
@@ -81,7 +85,7 @@ void cSSAOWorker::doWork()
 	int step = threadData->progressive;
 	if (step == 0) step = 1;
 
-	for (int y = startLine; y < height; y += threadData->noOfThreads)
+	for (int y = startLineInit; y < endLine; y += threadData->noOfThreads)
 	{
 		if (threadData->list)
 		{
@@ -98,7 +102,7 @@ void cSSAOWorker::doWork()
 				listIndex++;
 			}
 		}
-		for (int x = 0; x < width; x += step)
+		for (int x = startX; x < endX; x += step)
 		{
 			double z = image->GetPixelZBuffer(x, y);
 			unsigned short opacity16 = image->GetPixelOpacity(x, y);
@@ -108,6 +112,8 @@ void cSSAOWorker::doWork()
 			if (z < 1e19)
 			{
 				// printf("SSAO point on object\n");
+
+				//FIXME to correct pespective according to region data
 				double x2, y2;
 				if (perspectiveType == params::perspFishEye)
 				{
@@ -166,7 +172,7 @@ void cSSAOWorker::doWork()
 						double yy = y + rr * sa;
 
 						if ((int)xx == x && (int)yy == y) continue;
-						if (xx < 0 || xx > width - 1 || yy < 0 || yy > height - 1) continue;
+						if (xx < startX || xx > endX - 1 || yy < startLine || yy > endLine - 1) continue;
 						double z2 = image->GetPixelZBuffer((int)xx, (int)yy);
 
 						double xx2, yy2;
@@ -215,7 +221,7 @@ void cSSAOWorker::doWork()
 
 			for (int xx = 0; xx < step; xx++)
 			{
-				if (xx >= width - 1) break;
+				if (xx >= endX - 1) break;
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGB16 pixel = image->GetPixelImage16(x + xx, y);
 				double shadeFactor = (65535.0 / 256.0) * total_ambient * intensity * (1.0 - opacity);

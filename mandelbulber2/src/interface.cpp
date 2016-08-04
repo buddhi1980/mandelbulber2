@@ -1258,7 +1258,8 @@ void cInterface::RefreshMainImage()
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			gMainInterface->mainWindow,
 			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
+		cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+		dof.Render(screenRegion, params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
 			params.DOFFocus, !ssaoUsed && gPar->Get<bool>("DOF_HDR"), params.DOFNumberOfPasses,
 			params.DOFBlurOpacity, &stopRequest);
 	}

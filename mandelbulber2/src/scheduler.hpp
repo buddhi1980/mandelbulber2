@@ -41,11 +41,12 @@
 
 #include <QMutex>
 #include <qvector.h>
+#include "region.hpp"
 
 class cScheduler
 {
 public:
-	cScheduler(int _numberOfLines, int progressive);
+	cScheduler(cRegion<int> screenRegion, int progressive);
 	~cScheduler();
 	int NextLine(int threadId, int actualLine, bool lastLineWasBroken);
 	bool ShouldIBreak(int threadId, int actualLine);
@@ -72,6 +73,8 @@ private:
 	bool *lineDone;
 	bool *lastLinesDone;
 	int numberOfLines;
+	int startLine;
+	int endLine;
 	volatile bool stopRequest;
 	int progressiveStep;
 	int progressivePass;

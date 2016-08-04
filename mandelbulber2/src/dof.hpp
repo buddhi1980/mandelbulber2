@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_DOF_HPP_
 
 #include "cimage.hpp"
+#include "region.hpp"
 
 class cPostRenderingDOF : public QObject
 {
@@ -53,8 +54,8 @@ private:
 public:
 	cPostRenderingDOF(cImage *_image);
 
-	void Render(double deep, double neutral, bool floatVersion, int numberOfPasses,
-		double blurOpacity, bool *stopRequest);
+	void Render(cRegion<int> screenRegion, double deep, double neutral, bool floatVersion,
+		int numberOfPasses, double blurOpacity, bool *stopRequest);
 	template <class T>
 	void QuickSortZBuffer(sSortZ<T> *buffer, int l, int p);
 

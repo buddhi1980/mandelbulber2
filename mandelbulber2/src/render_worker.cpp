@@ -215,17 +215,25 @@ void cRenderWorker::doWork(void)
 				normalFloat.B = 1.0 - normalRotated.y;
 			}
 
-			for (int xx = 0; xx < scheduler->GetProgressiveStep(); ++xx)
+			for (int yy = 0; yy < scheduler->GetProgressiveStep(); ++yy)
 			{
-				for (int yy = 0; yy < scheduler->GetProgressiveStep(); ++yy)
+				int yyy = screenPoint.y + yy;
+				if (yyy < data->screenRegion.y2)
 				{
-					image->PutPixelImage(screenPoint.x + xx, screenPoint.y + yy, pixel2);
-					image->PutPixelColour(screenPoint.x + xx, screenPoint.y + yy, colour);
-					image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, alpha);
-					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float)depth);
-					image->PutPixelOpacity(screenPoint.x + xx, screenPoint.y + yy, opacity16);
-					if (image->GetImageOptional()->optionalNormal)
-						image->PutPixelNormal(screenPoint.x + xx, screenPoint.y + yy, normalFloat);
+					for (int xx = 0; xx < scheduler->GetProgressiveStep(); ++xx)
+					{
+						int xxx = screenPoint.x + xx;
+            if (xxx < data->screenRegion.x2)
+						{
+							image->PutPixelImage(xxx, yyy, pixel2);
+							image->PutPixelColour(xxx, yyy, colour);
+							image->PutPixelAlpha(xxx, yyy, alpha);
+							image->PutPixelZBuffer(xxx, yyy, (float)depth);
+							image->PutPixelOpacity(xxx, yyy, opacity16);
+							if (image->GetImageOptional()->optionalNormal)
+								image->PutPixelNormal(xxx, yyy, normalFloat);
+					}
+				}
 				}
 			}
 

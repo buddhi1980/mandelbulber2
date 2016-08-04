@@ -42,12 +42,14 @@
 #include "system.hpp"
 #define LINE_DONE_BY_SERVER 9999
 
-cScheduler::cScheduler(int _numberOfLines, int progressive)
+cScheduler::cScheduler(cRegion<int> screenRegion, int progressive)
 {
-	numberOfLines = _numberOfLines;
-	linePendingThreadId = new int[numberOfLines];
-	lineDone = new bool[numberOfLines];
-	lastLinesDone = new bool[numberOfLines];
+	startLine = screenRegion.y1;
+	endLine = screenRegion.y2;
+	numberOfLines = screenRegion.height;
+	linePendingThreadId = new int[endLine];
+	lineDone = new bool[endLine];
+	lastLinesDone = new bool[endLine];
 	stopRequest = false;
 	progressiveStep = progressive;
 	progressivePass = 1;
@@ -64,15 +66,15 @@ cScheduler::~cScheduler()
 
 void cScheduler::Reset()
 {
-	memset(linePendingThreadId, 0, sizeof(int) * numberOfLines);
-	memset(lineDone, 0, sizeof(bool) * numberOfLines);
-	memset(lastLinesDone, 0, sizeof(bool) * numberOfLines);
+	memset(linePendingThreadId, 0, sizeof(int) * endLine);
+	memset(lineDone, 0, sizeof(bool) * endLine);
+	memset(lastLinesDone, 0, sizeof(bool) * endLine);
 }
 
 bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 {
 	bool result = false;
-	for (int i = 0; i < numberOfLines; i++)
+	for (int i = startLine; i < endLine; i++)
 	{
 		// qDebug() << "ThereIsStillSomethingToDo:" << i << lineDone[i];
 		if (!lineDone[i] && (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
@@ -91,7 +93,7 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 bool cScheduler::AllLinesDone(void)
 {
 	bool result = true;
-	for (int i = 0; i < numberOfLines; i++)
+	for (int i = startLine; i < endLine; i++)
 	{
 		// qDebug() << "AllLinesDone:" << i << lineDone[i];
 		if (!lineDone[i])
@@ -131,7 +133,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	{
 		for (int i = 0; i < progressiveStep; i++)
 		{
-			if (actualLine + i < numberOfLines)
+			if (actualLine + i < endLine)
 			{
 				lineDone[actualLine + i] = true;
 				lastLinesDone[actualLine + i] = true;
@@ -144,7 +146,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	}
 
 	// next line is not occupied by any thread
-	if (actualLine < numberOfLines - progressiveStep
+	if (actualLine < endLine - progressiveStep
 			&& linePendingThreadId[actualLine + progressiveStep] == 0 && !lastLineWasBroken)
 	{
 		nextLine = actualLine + progressiveStep;
@@ -163,7 +165,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 		{
 			for (int i = 0; i < progressiveStep; i++)
 			{
-				if (nextLine + i < numberOfLines)
+				if (nextLine + i < endLine)
 				{
 					linePendingThreadId[nextLine + i] = threadId;
 				}
@@ -191,13 +193,13 @@ int cScheduler::FindBiggestGap()
 	int maxHole = 0;
 	int theBest = -1;
 
-	for (int i = 0; i < numberOfLines; i++)
+	for (int i = startLine; i < endLine; i++)
 	{
 		if (!firstFreeFound && linePendingThreadId[i] == 0)
 		{
 			firstFreeFound = true;
 			firstFree = i;
-			if (i == numberOfLines - 1)
+			if (i == endLine - 1)
 			{
 				theBest = i;
 				theBest /= progressiveStep;
@@ -207,7 +209,7 @@ int cScheduler::FindBiggestGap()
 			continue;
 		}
 
-		if (firstFreeFound && (linePendingThreadId[i] > 0 || i == numberOfLines - 1))
+		if (firstFreeFound && (linePendingThreadId[i] > 0 || i == endLine - 1))
 		{
 			lastFree = i;
 			int holeSize = lastFree - firstFree;
@@ -236,7 +238,7 @@ void cScheduler::InitFirstLine(int threadId, int firstLine)
 QList<int> cScheduler::GetLastRenderedLines(void)
 {
 	QList<int> list;
-	for (int i = 0; i < numberOfLines; i++)
+	for (int i = startLine; i < endLine; i++)
 	{
 		if (lastLinesDone[i])
 		{
@@ -250,7 +252,7 @@ QList<int> cScheduler::GetLastRenderedLines(void)
 double cScheduler::PercentDone()
 {
 	int count = 0;
-	for (int i = 0; i < numberOfLines; i++)
+	for (int i = startLine; i < endLine; i++)
 	{
 		if (lineDone[i]) count++;
 	}
@@ -285,8 +287,8 @@ bool cScheduler::ProgressiveNextStep()
 	}
 	else
 	{
-		memset(linePendingThreadId, 0, sizeof(int) * numberOfLines);
-		memset(lineDone, 0, sizeof(bool) * numberOfLines);
+		memset(linePendingThreadId, 0, sizeof(int) * endLine);
+		memset(lineDone, 0, sizeof(bool) * endLine);
 		return true;
 	}
 }
@@ -305,7 +307,7 @@ void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 QList<int> cScheduler::CreateDoneList()
 {
 	QList<int> list;
-	for (int i = 0; i < numberOfLines; i++)
+	for (int i = startLine; i < endLine; i++)
 	{
 		if (lineDone[i])
 		{
@@ -331,7 +333,7 @@ void cScheduler::UpdateDoneLines(const QList<int> &done)
 
 bool cScheduler::IsLineDoneByServer(int line)
 {
-	if (line >= 0 && line < numberOfLines)
+	if (line >= startLine && line < endLine)
 	{
 		return linePendingThreadId[line] == LINE_DONE_BY_SERVER;
 	}

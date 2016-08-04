@@ -48,26 +48,29 @@ cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image)
 {
 }
 
-void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, int numberOfPasses,
-	double blurOpacity, bool *stopRequest)
+void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double neutral,
+	bool floatVersion, int numberOfPasses, double blurOpacity, bool *stopRequest)
 {
-	int width = image->GetWidth();
-	int height = image->GetHeight();
+	int imageWidth = image->GetWidth();
+	int imageHeight = image->GetHeight();
 
 	if (floatVersion)
 	{
-		sRGBfloat *temp_image = new sRGBfloat[width * height];
-		unsigned short *temp_alpha = new unsigned short[width * height];
-		sSortZ<float> *temp_sort = new sSortZ<float>[width * height];
-		for (int y = 0; y < height; y++)
+		sRGBfloat *temp_image = new sRGBfloat[imageWidth * imageHeight];
+		unsigned short *temp_alpha = new unsigned short[imageWidth * imageHeight];
+		long int sortBufferSize = screenRegion.height * screenRegion.width;
+		sSortZ<float> *temp_sort = new sSortZ<float>[sortBufferSize];
+		long int index = 0;
+		for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 			{
-				int ptr = x + y * width;
+				int ptr = x + y * imageWidth;
 				temp_image[ptr] = image->GetPixelImage(x, y);
 				temp_alpha[ptr] = image->GetPixelAlpha(x, y);
-				temp_sort[ptr].z = image->GetPixelZBuffer(x, y);
-				temp_sort[ptr].i = ptr;
+				temp_sort[index].z = image->GetPixelZBuffer(x, y);
+				temp_sort[index].i = ptr;
+				index++;
 			}
 		}
 
@@ -91,13 +94,13 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 		try
 		{
 			// preprocessing (1-st phase)
-			for (int y = 0; y < height; y++)
+			for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 			{
 				if (*stopRequest) throw tr("DOF terminated");
 
 #pragma omp parallel for
 
-				for (int x = 0; x < width; x++)
+				for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 				{
 					double z = image->GetPixelZBuffer(x, y);
 					double blur1 = (z - neutral) / z * deep;
@@ -105,9 +108,9 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 					if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
 					int size = blur;
 					int xStart = max(x - size, 0);
-					int xStop = min(x + size, width - 1);
+					int xStop = min(x + size, screenRegion.x2 - 1);
 					int yStart = max(y - size, 0);
-					int yStop = min(y + size, height - 1);
+					int yStop = min(y + size, screenRegion.y2 - 1);
 
 					double totalWeight = 0;
 					sRGBfloat tempPixel;
@@ -163,7 +166,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 					{
 						newPixel = image->GetPixelImage(x, y);
 					}
-					int ptr = x + y * width;
+					int ptr = x + y * imageWidth;
 					temp_image[ptr] = newPixel;
 				}
 
@@ -171,7 +174,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 				{
 					timerRefreshProgressBar.restart();
 
-					percentDone = (double)y / height;
+					percentDone = (double)(y - screenRegion.y1) / screenRegion.height;
 					progressTxt = progressText.getText(percentDone / (numberOfPasses + 1));
 
 					emit updateProgressAndStatus(statusText, progressTxt, percentDone / (numberOfPasses + 1));
@@ -179,11 +182,11 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 				}
 			}
 
-			for (int y = 0; y < height; y++)
+			for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 			{
-				for (int x = 0; x < width; x++)
+				for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 				{
-					int ptr = x + y * width;
+					int ptr = x + y * imageWidth;
 					image->PutPixelImage(x, y, temp_image[ptr]);
 				}
 			}
@@ -204,7 +207,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 				statusText, QObject::tr("Sorting zBuffer"), 1.0 / (numberOfPasses + 1.0));
 			gApplication->processEvents();
 
-			QuickSortZBuffer(temp_sort, 1, height * width - 1);
+			QuickSortZBuffer(temp_sort, 1, sortBufferSize - 1);
 
 			for (int pass = 0; pass < numberOfPasses; pass++)
 			{
@@ -218,8 +221,8 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 				lastRefreshTime = 0;
 
 				// Randomize Z-buffer
-				int imgSize = height * width;
-				for (int i = imgSize - 1; i >= 0; i--)
+
+				for (int i = sortBufferSize - 1; i >= 0; i--)
 				{
 					if (*stopRequest) throw tr("DOF terminated");
 					sSortZ<float> temp;
@@ -276,22 +279,22 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 					temp_sort[ii] = temp;
 				}
 
-				for (int i = 0; i < width; i++)
+				for (int i = 0; i < screenRegion.width; i++)
 				{
 					if (*stopRequest) throw tr("DOF terminated");
 #pragma omp parallel for
-					for (int j = 0; j < height; j++)
+					for (int j = 0; j < screenRegion.height; j++)
 					{
-						int index = i * height + j;
-						int ii = temp_sort[height * width - index - 1].i;
-						int x = ii % width;
-						int y = ii / width;
+						int index = i * screenRegion.height + j;
+						int ii = temp_sort[sortBufferSize - index - 1].i;
+						int x = ii % imageWidth;
+						int y = ii / imageWidth;
 						double z = image->GetPixelZBuffer(x, y);
 						double blur = fabs(z - neutral) / z * deep + 1.0;
 						if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
 						int size = blur;
-						sRGBfloat center = temp_image[x + y * width];
-						unsigned short center_alpha = temp_alpha[x + y * width];
+						sRGBfloat center = temp_image[x + y * imageWidth];
+						unsigned short center_alpha = temp_alpha[x + y * imageWidth];
 						double blur_2 = blur * blur;
 						double factor = (M_PI * (blur_2 - blur) + 1.0) / blurOpacity;
 
@@ -299,7 +302,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 						{
 							for (int xx = x - size; xx <= x + size; xx++)
 							{
-								if (xx >= 0 && xx < width && yy >= 0 && yy < height)
+								if (xx >= screenRegion.x1 && xx < screenRegion.x2 && yy >= screenRegion.y1 && yy < screenRegion.y2)
 								{
 									int dx = xx - x;
 									int dy = yy - y;
@@ -324,7 +327,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 					{
 						timerRefreshProgressBar.restart();
 
-						percentDone = ((double)pass + 1.0 + (double)i / width) / (numberOfPasses + 1.0);
+						percentDone = ((double)pass + 1.0 + (double)i / sortBufferSize) / (numberOfPasses + 1.0);
 						progressTxt = progressText.getText(percentDone);
 
 						emit updateProgressAndStatus(statusText, progressTxt, percentDone);
@@ -359,18 +362,21 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 	}
 	else //**************** integer version compatible with SSAO *******************
 	{
-		sRGB16 *temp_image = new sRGB16[width * height];
-		unsigned short *temp_alpha = new unsigned short[width * height];
-		sSortZ<float> *temp_sort = new sSortZ<float>[width * height];
-		for (int y = 0; y < height; y++)
+		sRGB16 *temp_image = new sRGB16[imageWidth * imageHeight];
+		unsigned short *temp_alpha = new unsigned short[imageWidth * imageHeight];
+		long int sortBufferSize = screenRegion.height * screenRegion.width;
+		sSortZ<float> *temp_sort = new sSortZ<float>[sortBufferSize];
+		long int index = 0;
+		for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 			{
-				int ptr = x + y * width;
+				int ptr = x + y * imageWidth;
 				temp_image[ptr] = image->GetPixelImage16(x, y);
 				temp_alpha[ptr] = image->GetPixelAlpha(x, y);
-				temp_sort[ptr].z = image->GetPixelZBuffer(x, y);
-				temp_sort[ptr].i = ptr;
+				temp_sort[index].z = image->GetPixelZBuffer(x, y);
+				temp_sort[index].i = ptr;
+				index++;
 			}
 		}
 
@@ -395,11 +401,11 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 		{
 			// preprocessing (1-st phase)
 
-			for (int y = 0; y < height; y++)
+			for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 			{
 				if (*stopRequest) throw tr("DOF terminated");
 #pragma omp parallel for
-				for (int x = 0; x < width; x++)
+				for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 				{
 					double z = image->GetPixelZBuffer(x, y);
 					double blur1 = (z - neutral) / z * deep;
@@ -407,9 +413,9 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 					if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
 					int size = blur;
 					int xStart = max(x - size, 0);
-					int xStop = min(x + size, width - 1);
+					int xStop = min(x + size, screenRegion.x2 - 1);
 					int yStart = max(y - size, 0);
-					int yStop = min(y + size, height - 1);
+					int yStop = min(y + size, screenRegion.y2 - 1);
 
 					double totalWeight = 0;
 					sRGBfloat tempPixel;
@@ -465,7 +471,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 					{
 						newPixel = image->GetPixelImage16(x, y);
 					}
-					int ptr = x + y * width;
+					int ptr = x + y * imageWidth;
 					temp_image[ptr] = newPixel;
 				}
 
@@ -473,7 +479,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 				{
 					timerRefreshProgressBar.restart();
 
-					percentDone = (double)y / height;
+					percentDone = (double)(y - screenRegion.y1) / screenRegion.height;
 					progressTxt = progressText.getText(percentDone / (numberOfPasses + 1));
 
 					emit updateProgressAndStatus(statusText, progressTxt, percentDone / (numberOfPasses + 1));
@@ -481,11 +487,11 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 				}
 			}
 
-			for (int y = 0; y < height; y++)
+			for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 			{
-				for (int x = 0; x < width; x++)
+				for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 				{
-					int ptr = x + y * width;
+					int ptr = x + y * imageWidth;
 					image->PutPixelImage16(x, y, temp_image[ptr]);
 				}
 			}
@@ -505,7 +511,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 				statusText, QObject::tr("Sorting zBuffer"), 1.0 / (numberOfPasses + 1.0));
 			gApplication->processEvents();
 
-			QuickSortZBuffer(temp_sort, 1, height * width - 1);
+			QuickSortZBuffer(temp_sort, 1, sortBufferSize - 1);
 
 			for (int pass = 0; pass < numberOfPasses; pass++)
 			{
@@ -519,8 +525,8 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 				lastRefreshTime = 0;
 
 				// Randomize Z-buffer
-				int imgSize = height * width;
-				for (int i = imgSize - 1; i >= 0; i--)
+
+				for (int i = sortBufferSize - 1; i >= 0; i--)
 				{
 					if (*stopRequest) throw tr("DOF terminated");
 					sSortZ<float> temp;
@@ -577,22 +583,22 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 					temp_sort[ii] = temp;
 				}
 
-				for (int i = 0; i < width; i++)
+				for (int i = 0; i < screenRegion.width; i++)
 				{
 					if (*stopRequest) throw tr("DOF terminated");
 #pragma omp parallel for
-					for (int j = 0; j < height; j++)
+					for (int j = 0; j < screenRegion.height; j++)
 					{
-						int index = i * height + j;
-						int ii = temp_sort[height * width - index - 1].i;
-						int x = ii % width;
-						int y = ii / width;
+						int index = i * screenRegion.height + j;
+						int ii = temp_sort[sortBufferSize - index - 1].i;
+						int x = ii % imageWidth;
+						int y = ii / imageWidth;
 						double z = image->GetPixelZBuffer(x, y);
 						double blur = fabs(z - neutral) / z * deep + 1.0;
 						if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
 						int size = blur;
-						sRGB16 center = temp_image[x + y * width];
-						unsigned short center_alpha = temp_alpha[x + y * width];
+						sRGB16 center = temp_image[x + y * imageWidth];
+						unsigned short center_alpha = temp_alpha[x + y * imageWidth];
 						double blur_2 = blur * blur;
 						double factor = (M_PI * (blur_2 - blur) + 1.0) / blurOpacity;
 
@@ -600,7 +606,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 						{
 							for (int xx = x - size; xx <= x + size; xx++)
 							{
-								if (xx >= 0 && xx < width && yy >= 0 && yy < height)
+								if (xx >= screenRegion.x1 && xx < screenRegion.x2 && yy >= screenRegion.y1 && yy < screenRegion.y2)
 								{
 									int dx = xx - x;
 									int dy = yy - y;
@@ -625,7 +631,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, i
 					{
 						timerRefreshProgressBar.restart();
 
-						percentDone = ((double)pass + 1.0 + (double)i / width) / (numberOfPasses + 1.0);
+						percentDone = ((double)pass + 1.0 + (double)i / sortBufferSize) / (numberOfPasses + 1.0);
 						progressTxt = progressText.getText(percentDone);
 
 						emit updateProgressAndStatus(statusText, progressTxt, percentDone);

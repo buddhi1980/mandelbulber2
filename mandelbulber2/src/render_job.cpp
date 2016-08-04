@@ -154,8 +154,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	}
 
 	totalNumberOfCPUs = systemData.numberOfThreads;
-	// totalNumberOfCPUs = 1;
-	// systemData.numberOfThreads = 1;
+	//totalNumberOfCPUs = 1;
+	//systemData.numberOfThreads = 1;
 
 	// aux renderer data
 	if (renderData) delete renderData;
@@ -215,7 +215,10 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 	{
 		renderData->imageRegion.Set(-0.5, 0.5, 0.5, -0.5);
 	}
+
+	//renderData->screenRegion.Set(width*0.15, height*0.15, width*0.85, height*0.85);
 	renderData->screenRegion.Set(0, 0, width, height);
+	//TODO to correct resolution and aspect ratio according to region data
 
 	// textures are deleted with destruction of renderData
 
@@ -311,6 +314,7 @@ bool cRenderJob::Execute(void)
 
 			for (int i = 0; i < workersCount; i++)
 			{
+				//FIXME to correct starting positions considering region data
 				if (i < renderData->configuration.GetNumberOfThreads())
 				{
 					renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);

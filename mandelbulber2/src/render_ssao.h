@@ -56,6 +56,9 @@ private:
 	double qualityFactor;
 	int progressive;
 	int numberOfThreads;
+	int startLine;
+	int endLine;
+	int height;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

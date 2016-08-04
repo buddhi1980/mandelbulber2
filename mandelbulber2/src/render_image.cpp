@@ -88,7 +88,7 @@ bool cRenderer::RenderImage()
 		cRenderWorker **worker = new cRenderWorker *[data->configuration.GetNumberOfThreads()];
 
 		if (scheduler) delete scheduler;
-		scheduler = new cScheduler(image->GetHeight(), progressive);
+		scheduler = new cScheduler(data->screenRegion, progressive);
 
 		cProgressText progressText;
 		progressText.ResetTimer();
@@ -104,15 +104,16 @@ bool cRenderer::RenderImage()
 				}
 				else
 				{
-					threadData[i].startLine = 0;
+					threadData[i].startLine = data->screenRegion.y1;
 					qCritical() << "NetRender - Mising starting positions data";
 				}
 			}
 			else
 			{
-				threadData[i].startLine = (image->GetHeight() / data->configuration.GetNumberOfThreads())
-																	* i / scheduler->GetProgressiveStep()
-																	* scheduler->GetProgressiveStep();
+				threadData[i].startLine =
+					(data->screenRegion.height / data->configuration.GetNumberOfThreads() * i
+						+ data->screenRegion.y1) / scheduler->GetProgressiveStep()
+					* scheduler->GetProgressiveStep();
 			}
 			threadData[i].scheduler = scheduler;
 		}
@@ -359,7 +360,7 @@ bool cRenderer::RenderImage()
 				cPostRenderingDOF dof(image);
 				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 					this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-				dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
+				dof.Render(data->screenRegion, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
 					params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
 					params->DOFBlurOpacity, data->stopRequest);
 			}
