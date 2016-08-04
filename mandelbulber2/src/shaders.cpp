@@ -369,13 +369,14 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 				miniStep = 0.1 * (lowestLightDist + 0.1 * lowestLightSize);
 				if (miniStep > step - miniSteps) miniStep = step - miniSteps;
+				if (miniStep < step * 0.001) miniStep = step * 0.001;
 				// qDebug() << "lowDist:" << lowestLightDist << "lowSize" << lowestLightSize << "miniStep"
 				// << miniStep;
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{
 					const cLights::sLight *light = data->lights.GetLight(i);
-					if (light->enabled)
+					if (light->enabled && light->intensity > 0)
 					{
 						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light->position;
 						double lightDist = lightDistVect.Length();
