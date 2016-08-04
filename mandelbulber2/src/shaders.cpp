@@ -359,8 +359,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					const cLights::sLight* light = data->lights.GetLight(i);
-					if (light->enabled)
+					const cLights::sLight *light = data->lights.GetLight(i);
+					if (light->enabled && light->intensity > 0)
 					{
 						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light->position;
 						double lightDist = lightDistVect.Length();

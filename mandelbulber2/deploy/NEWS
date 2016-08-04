@@ -1,5 +1,8 @@
 Version history
 
+v2.08-3
+- Shaders; Fixed bug: image was black when intensity of any light source was zero.
+
 v2.08-2
 - Settings: fixed bug: importing of old settings didn't worked properly when rotations in IFS fractals were used.
 - Settings: fixed bug: loading old animations (lack of material conversion)

@@ -61,10 +61,17 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	const cParamRender *params = new cParamRender(_params);
 	const cNineFractals *fractals = new cNineFractals(_fractal, _params);
 
-	numberOfLights = params->auxLightNumber + params->auxLightRandomNumber;
+	numberOfLights = params->auxLightNumber;
 
 	if (lights) delete[] lights;
-	lights = new sLight[numberOfLights];
+	if (params->auxLightRandomEnabled)
+	{
+		lights = new sLight[numberOfLights + params->auxLightRandomNumber];
+	}
+	else
+	{
+		lights = new sLight[numberOfLights];
+	}
 
 	// custom user defined lights
 	if(params->auxLightNumber > 0)
@@ -92,6 +99,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	// auto generated random lights
 	if (params->auxLightRandomEnabled && params->auxLightRandomNumber > 0)
 	{
+		numberOfLights += params->auxLightRandomNumber;
 		sDistanceOut distanceOut;
 		cRandom random;
 		random.Initialize(params->auxLightRandomSeed);
