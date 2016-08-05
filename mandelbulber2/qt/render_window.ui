@@ -375,9 +375,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-350</y>
           <width>370</width>
-          <height>559</height>
+          <height>656</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -1216,6 +1216,114 @@ no ambient occlusion)</string>
                <string>Coordinate system like in Mandelbulber v1.21</string>
               </property>
              </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="MyGroupBox" name="groupCheck_stereo_enabled">
+           <property name="title">
+            <string>Stereoscopic rendering</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_147">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
+            <item>
+             <layout class="QGridLayout" name="gridLayout_11" columnstretch="0,2,1">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <item row="1" column="1">
+               <widget class="QSlider" name="logslider_stereo_eye_distance">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-1500</number>
+                </property>
+                <property name="maximum">
+                 <number>400</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_69">
+                <property name="text">
+                 <string>Distance between eyes</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" colspan="2">
+               <widget class="QComboBox" name="comboBox_stereo_mode">
+                <item>
+                 <property name="text">
+                  <string>Left - right</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Top - bottom</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Anaglyph - red/cyan</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="MyLineEdit" name="logedit_stereo_eye_distance"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_70">
+                <property name="text">
+                 <string>Mode:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="3">
+               <widget class="MyCheckBox" name="checkBox_stereo_swap_eyes">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Don't add C constant</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -4004,7 +4112,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>334</width>
                   <height>527</height>
                  </rect>
                 </property>
@@ -4802,8 +4910,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>262</width>
-                  <height>165</height>
+                  <width>348</width>
+                  <height>293</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5099,7 +5207,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
+                  <width>334</width>
                   <height>1507</height>
                  </rect>
                 </property>
@@ -8635,7 +8743,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -9740,7 +9848,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -10839,7 +10947,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -11938,7 +12046,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -13037,7 +13145,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -14136,7 +14244,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -15235,7 +15343,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -16331,7 +16439,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>755</height>
                      </rect>
                     </property>
@@ -17444,7 +17552,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
+                  <width>320</width>
                   <height>521</height>
                  </rect>
                 </property>
@@ -19163,8 +19271,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>334</width>
+                  <height>416</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -22107,8 +22215,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
-                  <height>242</height>
+                  <width>317</width>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -23714,7 +23822,6 @@ keyframes</string>
   <tabstop>comboBox_perspective_type</tabstop>
   <tabstop>checkBox_legacy_coordinate_system</tabstop>
   <tabstop>scrollArea_2</tabstop>
-  <tabstop>scrollArea</tabstop>
   <tabstop>tableWidget_statistics</tabstop>
   <tabstop>scrollArea_7</tabstop>
   <tabstop>groupCheck_raytraced_reflections</tabstop>

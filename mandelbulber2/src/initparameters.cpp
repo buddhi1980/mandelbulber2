@@ -42,6 +42,7 @@
 #include "parameters.hpp"
 #include "system.hpp"
 #include <QtCore>
+#include "stereo.h"
 
 cParameterContainer *gPar = NULL;
 
@@ -100,8 +101,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("camera_distance_to_target", 7.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam("fov", 1.0, 0.0, 100.0, morphAkima, paramStandard);
 	par->addParam("perspective_type", 0, morphLinear, paramStandard);
-	par->addParam("stereo_eye_distance", 1.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
 	par->addParam("legacy_coordinate_system", false, morphNone, paramStandard);
 	par->addParam("sweet_spot_horizontal_angle", 0.0, -180.0, 180.0, morphAkima, paramStandard);
 	par->addParam("sweet_spot_vertical_angle", 0.0, -90.0, 90.0, morphAkima, paramStandard);
@@ -177,6 +176,12 @@ void InitParams(cParameterContainer *par)
 		"delta_DE_function", (int)fractal::preferedDEfunction, 0, 2, morphNone, paramStandard);
 	par->addParam("delta_DE_method", (int)fractal::preferedDEMethod, 0, 1, morphNone, paramStandard);
 	par->addParam("use_default_bailout", true, morphNone, paramStandard);
+
+	//stereoscopic
+	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
+	par->addParam("stereo_eye_distance", 1.0, 1e-15, 1e15, morphAkima, paramStandard);
+	par->addParam("stereo_mode", (int)cStereo::stereoDisabled, morphLinear, paramStandard);
+	par->addParam("stereo_swap_eyes", false, morphLinear, paramStandard);
 
 	// volume slicing
 	par->addParam("voxel_limit_min", CVector3(-1.0, -1.0, -1.0), morphLinear, paramStandard);
