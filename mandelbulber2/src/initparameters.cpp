@@ -179,8 +179,8 @@ void InitParams(cParameterContainer *par)
 
 	//stereoscopic
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
-	par->addParam("stereo_eye_distance", 1.0, 1e-15, 1e15, morphAkima, paramStandard);
-	par->addParam("stereo_mode", (int)cStereo::stereoDisabled, morphLinear, paramStandard);
+	par->addParam("stereo_eye_distance", 0.1, 1e-15, 1e15, morphAkima, paramStandard);
+	par->addParam("stereo_mode", (int)cStereo::stereoLeftRight, morphLinear, paramStandard);
 	par->addParam("stereo_swap_eyes", false, morphLinear, paramStandard);
 
 	// volume slicing

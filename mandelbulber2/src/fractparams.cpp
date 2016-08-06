@@ -129,6 +129,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	slowShading = container->Get<bool>("slow_shading");
 	smoothness = container->Get<double>("smoothness");
 	SSAO_random_mode = container->Get<bool>("SSAO_random_mode");
+	stereoEyeDistance = container->Get<double>("stereo_eye_distance");
 	sweetSpotHAngle = container->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
 	sweetSpotVAngle = container->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
 	target = container->Get<CVector3>("target");

@@ -186,6 +186,7 @@ public:
 	double resolution; // resolution of image in fractal coordinates
 	double shadowConeAngle;
 	double smoothness;
+	double stereoEyeDistance;
 	double sweetSpotHAngle;
 	double sweetSpotVAngle;
 	double viewDistanceMax;

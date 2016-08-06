@@ -42,6 +42,7 @@
 #include "rendering_configuration.hpp"
 #include "statistics.h"
 #include "texture.hpp"
+#include "stereo.h"
 
 struct sTextures
 {
@@ -76,6 +77,7 @@ struct sRenderData
 
 	QMap<int, cMaterial> materials; // 'int' is an ID
 	QVector<cObjectData> objectData;
+	cStereo stereo;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_DATA_HPP_ */

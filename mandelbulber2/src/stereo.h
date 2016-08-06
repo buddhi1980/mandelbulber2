@@ -51,21 +51,25 @@ public:
 
 	enum enumEye
 	{
-		eyeRight = 0,
-		eyeLeft = 1
+		eyeLeft = 0,
+		eyeRight = 1
 	};
 
 	cStereo();
 	~cStereo();
 	void SetMode(enumStereoMode mode);
-	CVector3 CalcEyePosition(CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye);
+	bool isEnabled();
+	CVector3 CalcEyePosition(
+		CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye);
 	sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
-
+	CVector2<int> ModifyImageResolution(CVector2<int> resolution);
+	enumEye WhichEye(CVector2<double> imagePoint);
+	CVector2<double> ModifyImagePoint(CVector2<double> imagePoint);
+	double ModifyAspectRatio(double aspectRatio);
 
 private:
 	bool swapped;
 	enumStereoMode stereoMode;
-
 };
 
 #endif /* MANDELBULBER2_SRC_STEREO_H_ */

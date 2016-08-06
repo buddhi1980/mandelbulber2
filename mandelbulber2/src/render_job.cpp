@@ -108,6 +108,10 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	if (config.UseNetRender()) canUseNetRender = gNetRender->Block();
 
+	cStereo stereo;
+	stereo.SetMode((cStereo::enumStereoMode)paramsContainer->Get<int>("stereo_mode"));
+	if(!paramsContainer->Get<bool>("stereo_enabled")) stereo.SetMode(cStereo::stereoDisabled);
+
 	// needed when image has to fit in widget
 	if (useSizeFromImage)
 	{
@@ -116,6 +120,15 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	}
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
+
+	if(stereo.isEnabled())
+	{
+		CVector2<int> modifiedResolution = stereo.ModifyImageResolution(CVector2<int>(width, height));
+		width = modifiedResolution.x;
+		height = modifiedResolution.y;
+		paramsContainer->Set("image_width", width);
+		paramsContainer->Set("image_height", height);
+	}
 
 	sImageOptional imageOptional;
 	imageOptional.optionalNormal = paramsContainer->Get<bool>("normal_enabled");
@@ -160,6 +173,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	// aux renderer data
 	if (renderData) delete renderData;
 	renderData = new sRenderData;
+
+	renderData->stereo = stereo;
 
 	PrepareData(config);
 

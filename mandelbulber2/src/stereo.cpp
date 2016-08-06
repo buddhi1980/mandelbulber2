@@ -47,15 +47,100 @@ cStereo::~cStereo()
 
 void cStereo::SetMode(enumStereoMode mode)
 {
+	stereoMode = mode;
 }
 
 CVector3 cStereo::CalcEyePosition(
 	CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye)
 {
-	return CVector3();
+	CVector3 eyePosition;
+	CVector3 sideVector = direction.Cross(top);
+	sideVector.Normalize();
+	if(eye == eyeLeft)
+	{
+		eyePosition = camera + sideVector * distance;
+	}
+	else
+	{
+		eyePosition = camera - sideVector * distance;
+	}
+	return eyePosition;
 }
 
 sRGBfloat cStereo::MixColorsRedCyan(sRGBfloat left, sRGBfloat right)
 {
 	return sRGBfloat();
+}
+
+bool cStereo::isEnabled()
+{
+	if (stereoMode == stereoDisabled)
+		return false;
+	else
+		return true;
+}
+
+CVector2<int> cStereo::ModifyImageResolution(CVector2<int> resolution)
+{
+	CVector2<int> newResolution;
+	switch (stereoMode)
+	{
+		case stereoDisabled: newResolution = resolution; break;
+		case stereoLeftRight:
+			newResolution.x = resolution.x * 2;
+			newResolution.y = resolution.y;
+			break;
+		case stereoTopBottom:
+			newResolution.x = resolution.x;
+			newResolution.y = resolution.y * 2;
+			break;
+		case stereoRedCyan: newResolution = resolution; break;
+	}
+	return newResolution;
+}
+
+CVector2<double> cStereo::ModifyImagePoint(CVector2<double> imagePoint)
+{
+	CVector2<double> newImagePoint;
+	switch (stereoMode)
+	{
+		case stereoDisabled: newImagePoint = imagePoint; break;
+		case stereoLeftRight:
+			newImagePoint.x = fmod((imagePoint.x + 0.5) * 2.0, 1.0) - 0.5;
+			newImagePoint.y = imagePoint.y;
+			break;
+		case stereoTopBottom:
+			newImagePoint.y = fmod((imagePoint.y + 0.5) * 2.0, 1.0) - 0.5;
+			newImagePoint.x = imagePoint.x;
+			break;
+		case stereoRedCyan: newImagePoint = imagePoint; break;
+	}
+	return newImagePoint;
+}
+
+cStereo::enumEye cStereo::WhichEye(CVector2<double> imagePoint)
+{
+	enumEye eye;
+	switch (stereoMode)
+	{
+		case stereoDisabled: eye = eyeLeft; break;
+		case stereoLeftRight: eye = (imagePoint.x >= 0.0) ? eyeRight : eyeLeft; break;
+		case stereoTopBottom: eye = (imagePoint.y >= 0.0) ? eyeRight : eyeLeft; break;
+		case stereoRedCyan:  eye = eyeLeft; break;
+	}
+	return eye;
+}
+
+double cStereo::ModifyAspectRatio(double aspectRatio)
+{
+	double newAspectRatio = 1.0;
+
+	switch (stereoMode)
+	{
+		case stereoDisabled: newAspectRatio = aspectRatio; break;
+		case stereoLeftRight: newAspectRatio = aspectRatio * 0.5; break;
+		case stereoTopBottom: newAspectRatio = aspectRatio * 2.0; break;
+		case stereoRedCyan: newAspectRatio = aspectRatio; break;
+	}
+	return newAspectRatio;
 }

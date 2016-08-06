@@ -90,6 +90,9 @@ void cRenderWorker::doWork(void)
 	int height = image->GetHeight();
 	double aspectRatio = (double)width / height;
 
+	if(data->stereo.isEnabled())
+		aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);
+
 	PrepareMainVectors();
 	PrepareReflectionBuffer();
 	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeMultipeRays)
@@ -135,6 +138,11 @@ void cRenderWorker::doWork(void)
 			// calculate point in image coordinate system
 			CVector2<int> screenPoint(xs, ys);
 			CVector2<double> imagePoint = data->screenRegion.transpose(data->imageRegion, screenPoint);
+			cStereo::enumEye stereoEye = data->stereo.WhichEye(imagePoint);
+			if(data->stereo.isEnabled())
+			{
+				imagePoint = data->stereo.ModifyImagePoint(imagePoint);
+			}
 			imagePoint.x *= aspectRatio;
 
 			// full dome shemisphere cut
@@ -151,6 +159,12 @@ void cRenderWorker::doWork(void)
 
 			// Ray marching
 			CVector3 startRay = start;
+
+			if(data->stereo.isEnabled())
+			{
+				startRay = data->stereo.CalcEyePosition(params->camera, viewVector, params->topVector, params->stereoEyeDistance, stereoEye);
+			}
+
 			sRGBAfloat resultShader;
 			sRGBAfloat objectColour;
 			CVector3 normal;
@@ -223,7 +237,7 @@ void cRenderWorker::doWork(void)
 					for (int xx = 0; xx < scheduler->GetProgressiveStep(); ++xx)
 					{
 						int xxx = screenPoint.x + xx;
-            if (xxx < data->screenRegion.x2)
+						if (xxx < data->screenRegion.x2)
 						{
 							image->PutPixelImage(xxx, yyy, pixel2);
 							image->PutPixelColour(xxx, yyy, colour);
@@ -232,8 +246,8 @@ void cRenderWorker::doWork(void)
 							image->PutPixelOpacity(xxx, yyy, opacity16);
 							if (image->GetImageOptional()->optionalNormal)
 								image->PutPixelNormal(xxx, yyy, normalFloat);
+						}
 					}
-				}
 				}
 			}
 
