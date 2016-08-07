@@ -2922,15 +2922,11 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 			z.z = z.x;
 			z.x = temp;
 		}
-		if (z.x < 0.0)
-		{
-			z.x = z.x;
-		}
-		else
-		{
+    if (z.x > 0.0)
+    {
 			z.y = max(0.0, z.y);
 			z.z = max(0.0, z.z);
-		}
+    }
 	}
 
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -5095,7 +5091,7 @@ void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
   double sqrRout = z.Dot(z)* fractal->transformCommon.scale;
 
   z *= sqrRout;
-  aux.DE *= sqrRout;
+  aux.DE = aux.DE * fabs(sqrRout) + fractal->transformCommon.offset1;
 }
 
 
