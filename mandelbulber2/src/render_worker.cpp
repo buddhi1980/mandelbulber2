@@ -90,8 +90,7 @@ void cRenderWorker::doWork(void)
 	int height = image->GetHeight();
 	double aspectRatio = (double)width / height;
 
-	if(data->stereo.isEnabled())
-		aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);
+	if (data->stereo.isEnabled()) aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);
 
 	PrepareMainVectors();
 	PrepareReflectionBuffer();
@@ -139,7 +138,7 @@ void cRenderWorker::doWork(void)
 			CVector2<int> screenPoint(xs, ys);
 			CVector2<double> imagePoint = data->screenRegion.transpose(data->imageRegion, screenPoint);
 			cStereo::enumEye stereoEye = data->stereo.WhichEye(imagePoint);
-			if(data->stereo.isEnabled())
+			if (data->stereo.isEnabled())
 			{
 				imagePoint = data->stereo.ModifyImagePoint(imagePoint);
 			}
@@ -158,75 +157,104 @@ void cRenderWorker::doWork(void)
 			//---------------- 1us -------------
 
 			// Ray marching
-			CVector3 startRay = start;
+			int repeats = data->stereo.GetNumberOfRepeats();
 
-			if(data->stereo.isEnabled())
-			{
-				startRay = data->stereo.CalcEyePosition(params->camera, viewVector, params->topVector, params->stereoEyeDistance, stereoEye);
-			}
-
-			sRGBAfloat resultShader;
-			sRGBAfloat objectColour;
-			CVector3 normal;
-			double depth = 1e20;
-			double opacity = 1.0;
-
-			// raymarching loop (reflections)
-
-			if (!hemisphereCut) // in fulldome mode, will not render pixels out of the fulldome
-			{
-				sRayRecursionIn recursionIn;
-
-				sRayMarchingIn rayMarchingIn;
-				CVector3 direction = viewVector;
-				direction.Normalize();
-				rayMarchingIn.binaryEnable = true;
-				rayMarchingIn.direction = direction;
-				rayMarchingIn.maxScan = params->viewDistanceMax;
-				rayMarchingIn.minScan = params->viewDistanceMin;
-				rayMarchingIn.start = startRay;
-				rayMarchingIn.invertMode = false;
-				recursionIn.rayMarchingIn = rayMarchingIn;
-				recursionIn.calcInside = false;
-				recursionIn.resultShader = resultShader;
-				recursionIn.objectColour = objectColour;
-
-				sRayRecursionInOut recursionInOut;
-				sRayMarchingInOut rayMarchingInOut;
-				rayMarchingInOut.buffCount = &rayBuffer[0].buffCount;
-				rayMarchingInOut.stepBuff = rayBuffer[0].stepBuff;
-				recursionInOut.rayMarchingInOut = rayMarchingInOut;
-				recursionInOut.rayIndex = 0;
-
-				sRayRecursionOut recursionOut = RayRecursion(recursionIn, recursionInOut);
-
-				resultShader = recursionOut.resultShader;
-				objectColour = recursionOut.objectColour;
-				depth = recursionOut.rayMarchingOut.depth;
-				if (!recursionOut.found) depth = 1e20;
-				opacity = recursionOut.fogOpacity;
-				normal = recursionOut.normal;
-			}
-
-			sRGBfloat pixel2;
-			pixel2.R = resultShader.R;
-			pixel2.G = resultShader.G;
-			pixel2.B = resultShader.B;
-			unsigned short alpha = resultShader.A * 65535;
-			unsigned short opacity16 = opacity * 65535;
-
+			sRGBfloat finallPixel;
+			sRGBfloat pixelLeftEye;
+			sRGBfloat pixelRightEye;
 			sRGB8 colour;
-			colour.R = objectColour.R * 255;
-			colour.G = objectColour.G * 255;
-			colour.B = objectColour.B * 255;
-
+			unsigned short alpha = 65535;
+			unsigned short opacity16 = 65536;
 			sRGBfloat normalFloat;
-			if (image->GetImageOptional()->optionalNormal)
+			double depth = 1e20;
+
+			for (int repeat = 0; repeat < repeats; repeat++)
 			{
-				CVector3 normalRotated = mRotInv.RotateVector(normal);
-				normalFloat.R = (1.0 + normalRotated.x) / 2.0;
-				normalFloat.G = (1.0 + normalRotated.z) / 2.0;
-				normalFloat.B = 1.0 - normalRotated.y;
+				CVector3 startRay = start;
+
+				if (data->stereo.isEnabled())
+				{
+					data->stereo.WhichEyeForAnaglyph(&stereoEye, repeat);
+					startRay = data->stereo.CalcEyePosition(
+						params->camera, viewVector, params->topVector, params->stereoEyeDistance, stereoEye);
+				}
+
+				sRGBAfloat resultShader;
+				sRGBAfloat objectColour;
+				CVector3 normal;
+
+				double opacity = 1.0;
+				depth = 1e20;
+
+				// raymarching loop (reflections)
+
+				if (!hemisphereCut) // in fulldome mode, will not render pixels out of the fulldome
+				{
+					sRayRecursionIn recursionIn;
+
+					sRayMarchingIn rayMarchingIn;
+					CVector3 direction = viewVector;
+					direction.Normalize();
+					rayMarchingIn.binaryEnable = true;
+					rayMarchingIn.direction = direction;
+					rayMarchingIn.maxScan = params->viewDistanceMax;
+					rayMarchingIn.minScan = params->viewDistanceMin;
+					rayMarchingIn.start = startRay;
+					rayMarchingIn.invertMode = false;
+					recursionIn.rayMarchingIn = rayMarchingIn;
+					recursionIn.calcInside = false;
+					recursionIn.resultShader = resultShader;
+					recursionIn.objectColour = objectColour;
+
+					sRayRecursionInOut recursionInOut;
+					sRayMarchingInOut rayMarchingInOut;
+					rayMarchingInOut.buffCount = &rayBuffer[0].buffCount;
+					rayMarchingInOut.stepBuff = rayBuffer[0].stepBuff;
+					recursionInOut.rayMarchingInOut = rayMarchingInOut;
+					recursionInOut.rayIndex = 0;
+
+					sRayRecursionOut recursionOut = RayRecursion(recursionIn, recursionInOut);
+
+					resultShader = recursionOut.resultShader;
+					objectColour = recursionOut.objectColour;
+					depth = recursionOut.rayMarchingOut.depth;
+					if (!recursionOut.found) depth = 1e20;
+					opacity = recursionOut.fogOpacity;
+					normal = recursionOut.normal;
+				}
+
+				finallPixel.R = resultShader.R;
+				finallPixel.G = resultShader.G;
+				finallPixel.B = resultShader.B;
+
+				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
+				{
+					if (stereoEye == cStereo::eyeLeft)
+						pixelLeftEye = finallPixel;
+					else if (stereoEye == cStereo::eyeRight)
+						pixelRightEye = finallPixel;
+				}
+
+				alpha = resultShader.A * 65535;
+				opacity16 = opacity * 65535;
+
+				colour.R = objectColour.R * 255;
+				colour.G = objectColour.G * 255;
+				colour.B = objectColour.B * 255;
+
+				if (image->GetImageOptional()->optionalNormal)
+				{
+					CVector3 normalRotated = mRotInv.RotateVector(normal);
+					normalFloat.R = (1.0 + normalRotated.x) / 2.0;
+					normalFloat.G = (1.0 + normalRotated.z) / 2.0;
+					normalFloat.B = 1.0 - normalRotated.y;
+				}
+
+			} // next repeat
+
+			if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
+			{
+				finallPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
 			}
 
 			for (int yy = 0; yy < scheduler->GetProgressiveStep(); ++yy)
@@ -239,7 +267,7 @@ void cRenderWorker::doWork(void)
 						int xxx = screenPoint.x + xx;
 						if (xxx < data->screenRegion.x2)
 						{
-							image->PutPixelImage(xxx, yyy, pixel2);
+							image->PutPixelImage(xxx, yyy, finallPixel);
 							image->PutPixelColour(xxx, yyy, colour);
 							image->PutPixelAlpha(xxx, yyy, alpha);
 							image->PutPixelZBuffer(xxx, yyy, (float)depth);
@@ -252,8 +280,9 @@ void cRenderWorker::doWork(void)
 			}
 
 			data->statistics.numberOfRenderedPixels++;
-		}
-	}
+
+		} // next xs
+	} // next ys
 
 	// emit signal to main thread when finished
 	emit finished();

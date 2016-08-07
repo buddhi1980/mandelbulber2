@@ -69,15 +69,8 @@ CVector3 cStereo::CalcEyePosition(
 
 sRGBfloat cStereo::MixColorsRedCyan(sRGBfloat left, sRGBfloat right)
 {
-	return sRGBfloat();
-}
-
-bool cStereo::isEnabled()
-{
-	if (stereoMode == stereoDisabled)
-		return false;
-	else
-		return true;
+	sRGBfloat color(left.R, right.G, right.B);
+	return color;
 }
 
 CVector2<int> cStereo::ModifyImageResolution(CVector2<int> resolution)
@@ -143,4 +136,25 @@ double cStereo::ModifyAspectRatio(double aspectRatio)
 		case stereoRedCyan: newAspectRatio = aspectRatio; break;
 	}
 	return newAspectRatio;
+}
+
+int cStereo::GetNumberOfRepeats()
+{
+	if(stereoMode == stereoRedCyan)
+	{
+		return 2;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat)
+{
+	if (stereoMode == stereoRedCyan)
+	{
+		*eye = (enumEye)repeat;
+	}
+	//else do not modify eye selection
 }

@@ -58,7 +58,8 @@ public:
 	cStereo();
 	~cStereo();
 	void SetMode(enumStereoMode mode);
-	bool isEnabled();
+	enumStereoMode GetMode() {return stereoMode;}
+	bool isEnabled() {return stereoMode != stereoDisabled;}
 	CVector3 CalcEyePosition(
 		CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye);
 	sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
@@ -66,6 +67,8 @@ public:
 	enumEye WhichEye(CVector2<double> imagePoint);
 	CVector2<double> ModifyImagePoint(CVector2<double> imagePoint);
 	double ModifyAspectRatio(double aspectRatio);
+	int GetNumberOfRepeats();
+	void WhichEyeForAnaglyph(enumEye *eye, int repeat);
 
 private:
 	bool swapped;
