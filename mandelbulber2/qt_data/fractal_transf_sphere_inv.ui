@@ -312,7 +312,7 @@ offset:</string>
    <item>
     <widget class="QLabel" name="label_19">
      <property name="text">
-      <string>No mode =  unconditional spherical inversion </string>
+      <string>No mode =  unconditional spherical inversion  z = z / r2;</string>
      </property>
     </widget>
    </item>
@@ -349,7 +349,7 @@ offset:</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_47">
        <property name="text">
-        <string> Radius2:</string>
+        <string>Radius2:</string>
        </property>
       </widget>
      </item>
@@ -448,7 +448,7 @@ offset:</string>
      <item row="0" column="1">
       <widget class="QLabel" name="label_20">
        <property name="text">
-        <string>let r2 = Minimum Radius  (conformal - undo the inversion inside a sphere) </string>
+        <string>let r2 = Radius2  (conformal - undo the inversion inside a sphere) </string>
        </property>
       </widget>
      </item>
@@ -462,7 +462,7 @@ offset:</string>
      <item row="1" column="1">
       <widget class="QLabel" name="label_48">
        <property name="text">
-        <string>let r2 = 2 * Min.Radius - r2 (non conformal &quot;reversal&quot; inversion) </string>
+        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion) </string>
        </property>
       </widget>
      </item>

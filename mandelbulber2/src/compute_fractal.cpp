@@ -640,7 +640,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
         case transfRpow3:
         {
-          TransformRpow3Iteration(z, fractal);
+          TransformRpow3Iteration(z, fractal, extendedAux);
           break;
         }
 				case transfScale:

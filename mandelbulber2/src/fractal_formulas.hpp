@@ -162,7 +162,7 @@ void TransformInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExt
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal);
+void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 void TransformQuaternionFoldIteration(
 	CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);

@@ -90,7 +90,7 @@
      <item row="0" column="0" rowspan="2">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Power:</string>
+        <string>Scale: </string>
        </property>
       </widget>
      </item>

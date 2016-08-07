@@ -4761,7 +4761,10 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
- * folding tetra3D from M3D:
+ * folding tetra3D from M3D (Luca GN 2011):
+ * Code taken from the forums, KIFS original thread
+ * side note - if you disable the 1st half, 2nd half will be
+ * done even if you disable it... (to avoid a NOP transform)
  */
 void TransformFoldingTetra3DIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -4840,6 +4843,9 @@ void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal)
 
 /**
  * Transform Menger Fold
+ * Menger Sponge formula created by Knighty
+ * @reference
+ * http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
  */
 void TransformMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -5084,11 +5090,12 @@ void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtend
  * Rpow3 from M3D.
  * Does a power of 3 on the current length of the  vector.
  */
-void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal)
+void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  double sqrRout = z.Dot(z);
+  double sqrRout = z.Dot(z)* fractal->transformCommon.scale;
 
-  z *= sqrRout * fractal->transformCommon.scale;
+  z *= sqrRout;
+  aux.DE *= sqrRout;
 }
 
 
@@ -5172,7 +5179,7 @@ void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 
 /**
  * spherical invert
- * from M3D
+ * from M3D. Formula by Luca GN 2011, updated May 2012.
  */
 void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -5208,7 +5215,8 @@ void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtended
 
 
 /**
- * inverted sphere z & c- A transform from Mandelbulb3D.
+ * inverted sphere z & c- A transform from M3D
+ *
  */
 void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
