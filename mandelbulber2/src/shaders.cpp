@@ -1054,7 +1054,9 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, const cLig
 	CVector3 lightVector = d;
 	lightVector.Normalize();
 
-	double intensity = 100.0 * light->intensity / (distance * distance) / number;
+	// intensity of lights is divided by 6 because of backward compatibility. There was an error
+	// where number of light was always 24
+	double intensity = 100.0 * light->intensity / (distance * distance) / number / 6;
 	double shade = input.normal.Dot(lightVector);
 	if (shade < 0) shade = 0;
 	shade = (1.0 - input.material->shading) + shade * input.material->shading;
