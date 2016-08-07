@@ -207,6 +207,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.offset105 = container->Get<double>("transf_offset_105");
 	transformCommon.offset2 = container->Get<double>("transf_offset_2");
 	transformCommon.multiplication = container->Get<double>("transf_multiplication");
+  transformCommon.minRneg1 = container->Get<double>("transf_minimum_radius_neg1");
 	transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
 	transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
 	transformCommon.minR06 = container->Get<double>("transf_minimum_radius_06");

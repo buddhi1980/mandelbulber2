@@ -4761,6 +4761,30 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
+ * folding tetra3D from M3D (Luca GN 2011):
+ * Code taken from the forums, KIFS original thread
+ * side note - if you disable the 1st half, 2nd half will be
+ * done even if you disable it... (to avoid a NOP transform)
+ */
+void TransformFoldingTetra3DIteration(CVector3 &z, const cFractal *fractal)
+{
+  double x1;
+  double y1;
+  if (fractal->transformCommon.functionEnabledx)
+  {
+    if (z.x + z.y < 0.0) { x1 = -z.y; z.y = -z.x; z.x = x1;}
+    if (z.x + z.z < 0.0) { x1 = -z.z; z.z = -z.x; z.x = x1;}
+    if (z.y + z.z < 0.0) { y1 = -z.z; z.z = -z.y; z.y = y1;}
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+    if (z.x - z.y < 0.0) {x1 = z.y; z.y = z.x; z.x = x1;}
+    if (z.x - z.z < 0.0) {x1 = z.z; z.z = z.x; z.x = x1;}
+    if (z.y - z.z < 0.0) {y1 = z.z; z.z = z.y; z.y = y1;}
+  }
+}
+
+/**
  * iteration weight. Influence fractal based on the weight of
  * Z values after different iterations
  */
@@ -4819,6 +4843,9 @@ void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal)
 
 /**
  * Transform Menger Fold
+ * Menger Sponge formula created by Knighty
+ * @reference
+ * http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
  */
 void TransformMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -5063,14 +5090,12 @@ void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtend
  * Rpow3 from M3D.
  * Does a power of 3 on the current length of the  vector.
  */
-void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal)
+void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  double sqrRout = z.Dot(z);
+  double sqrRout = z.Dot(z)* fractal->transformCommon.scale;
 
-  z *= sqrRout * fractal->transformCommon.scale;
-
-
-
+  z *= sqrRout;
+  aux.DE *= sqrRout;
 }
 
 
@@ -5154,7 +5179,7 @@ void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 
 /**
  * spherical invert
- * from M3D
+ * from M3D. Formula by Luca GN 2011, updated May 2012.
  */
 void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -5167,19 +5192,19 @@ void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtended
   double mode = r2;
   if (fractal->transformCommon.functionEnabledFalse)// Mode 1
   {
-    if (r2 > fractal->mandelbox.mR2) mode = 1.0f;
-    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->mandelbox.mR2)
-      mode = fractal->mandelbox.mR2;
-    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->mandelbox.mR2)
-      mode = fractal->mandelbox.mR2;
+    if (r2 > fractal->transformCommon.minRneg1) mode = 1.0f;
+    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRneg1)
+      mode = fractal->transformCommon.minRneg1;
+    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRneg1)
+      mode = fractal->transformCommon.minRneg1;
   }
   if (fractal->transformCommon.functionEnabledxFalse)//Mode 2
   {
-    if (r2 > fractal->mandelbox.mR2) mode = 1.0f;
-    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->mandelbox.mR2)
-      mode = fractal->mandelbox.mR2;
-    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->mandelbox.mR2)
-      mode =  2.0 * fractal->mandelbox.mR2 - r2;
+    if (r2 > fractal->transformCommon.minRneg1) mode = 1.0f;
+    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRneg1)
+      mode = fractal->transformCommon.minRneg1;
+    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRneg1)
+      mode =  2.0 * fractal->transformCommon.minRneg1 - r2;
   }
   mode = 1 / mode;
   z *=  mode;
@@ -5190,7 +5215,8 @@ void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtended
 
 
 /**
- * inverted sphere z & c- A transform from Mandelbulb3D.
+ * inverted sphere z & c- A transform from M3D
+ *
  */
 void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {

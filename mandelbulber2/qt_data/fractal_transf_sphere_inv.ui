@@ -312,14 +312,14 @@ offset:</string>
    <item>
     <widget class="QLabel" name="label_19">
      <property name="text">
-      <string>No mode =  unconditional spherical inversion </string>
+      <string>No mode =  unconditional spherical inversion  z = z / r2;</string>
      </property>
     </widget>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="3" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_min_radius">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_neg1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -349,7 +349,7 @@ offset:</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_47">
        <property name="text">
-        <string>Minimum Radius:</string>
+        <string>Radius2:</string>
        </property>
       </widget>
      </item>
@@ -407,7 +407,7 @@ offset:</string>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QSlider" name="slider_mandelbox_folding_min_radius">
+      <widget class="QSlider" name="slider_transf_minimum_radius_neg1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -434,7 +434,7 @@ offset:</string>
      <item row="2" column="0">
       <widget class="QLabel" name="label_16">
        <property name="text">
-        <string>Fixed Radius:</string>
+        <string>Radius1:</string>
        </property>
       </widget>
      </item>
@@ -448,7 +448,7 @@ offset:</string>
      <item row="0" column="1">
       <widget class="QLabel" name="label_20">
        <property name="text">
-        <string>let r2 = Minimum Radius  (conformal - undo the inversion inside a sphere) </string>
+        <string>let r2 = Radius2  (conformal - undo the inversion inside a sphere) </string>
        </property>
       </widget>
      </item>
@@ -462,7 +462,7 @@ offset:</string>
      <item row="1" column="1">
       <widget class="QLabel" name="label_48">
        <property name="text">
-        <string>let r2 = 2 * Min.Radius - r2 (non conformal &quot;reversal&quot; inversion) </string>
+        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion) </string>
        </property>
       </widget>
      </item>
