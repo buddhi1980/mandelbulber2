@@ -592,6 +592,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformFabsAddMultiIteration(z, fractal);
 					break;
 				}
+        case transfFoldingTetra3D:
+        {
+          TransformFoldingTetra3DIteration(z, fractal);
+          break;
+        }
 				case transfIterationWeight:
 				{
 					TransformIterationWeightIteration(z, i, fractal);

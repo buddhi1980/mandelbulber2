@@ -383,6 +383,7 @@ struct sFractalTransformCommon
 	double offset105;
 	double offset2;
 	double multiplication;
+  double minRneg1;
 	double minR0;
 	double minR05;
 	double minR06;

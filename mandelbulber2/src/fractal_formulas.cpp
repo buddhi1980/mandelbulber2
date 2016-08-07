@@ -4761,6 +4761,27 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
+ * folding tetra3D from M3D:
+ */
+void TransformFoldingTetra3DIteration(CVector3 &z, const cFractal *fractal)
+{
+  double x1;
+  double y1;
+  if (fractal->transformCommon.functionEnabledx)
+  {
+    if (z.x + z.y < 0.0) { x1 = -z.y; z.y = -z.x; z.x = x1;}
+    if (z.x + z.z < 0.0) { x1 = -z.z; z.z = -z.x; z.x = x1;}
+    if (z.y + z.z < 0.0) { y1 = -z.z; z.z = -z.y; z.y = y1;}
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+    if (z.x - z.y < 0.0) {x1 = z.y; z.y = z.x; z.x = x1;}
+    if (z.x - z.z < 0.0) {x1 = z.z; z.z = z.x; z.x = x1;}
+    if (z.y - z.z < 0.0) {y1 = z.z; z.z = z.y; z.y = y1;}
+  }
+}
+
+/**
  * iteration weight. Influence fractal based on the weight of
  * Z values after different iterations
  */
@@ -5068,9 +5089,6 @@ void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal)
   double sqrRout = z.Dot(z);
 
   z *= sqrRout * fractal->transformCommon.scale;
-
-
-
 }
 
 
@@ -5167,19 +5185,19 @@ void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtended
   double mode = r2;
   if (fractal->transformCommon.functionEnabledFalse)// Mode 1
   {
-    if (r2 > fractal->mandelbox.mR2) mode = 1.0f;
-    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->mandelbox.mR2)
-      mode = fractal->mandelbox.mR2;
-    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->mandelbox.mR2)
-      mode = fractal->mandelbox.mR2;
+    if (r2 > fractal->transformCommon.minRneg1) mode = 1.0f;
+    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRneg1)
+      mode = fractal->transformCommon.minRneg1;
+    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRneg1)
+      mode = fractal->transformCommon.minRneg1;
   }
   if (fractal->transformCommon.functionEnabledxFalse)//Mode 2
   {
-    if (r2 > fractal->mandelbox.mR2) mode = 1.0f;
-    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->mandelbox.mR2)
-      mode = fractal->mandelbox.mR2;
-    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->mandelbox.mR2)
-      mode =  2.0 * fractal->mandelbox.mR2 - r2;
+    if (r2 > fractal->transformCommon.minRneg1) mode = 1.0f;
+    if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRneg1)
+      mode = fractal->transformCommon.minRneg1;
+    if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRneg1)
+      mode =  2.0 * fractal->transformCommon.minRneg1 - r2;
   }
   mode = 1 / mode;
   z *=  mode;

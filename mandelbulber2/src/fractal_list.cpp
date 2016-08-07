@@ -345,6 +345,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Transform - Fabs_Add_Neg", "transf_neg_fabs_add_constant",
 			transfNegFabsAddConstant, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
+  fractalList->append(
+    sFractalDescription("Transform - Folding Tetra3D", "transf_folding_tetra3D",
+      transfFoldingTetra3D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
 	fractalList->append(sFractalDescription("Transform - Iteration Weight", "transf_iteration_weight",
 		transfIterationWeight, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 

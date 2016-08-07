@@ -154,6 +154,7 @@ void TransformFabsAddConstant4DIteration(CVector4 &z4D, const cFractal *fractal)
 void TransformFabsAddConstantV24DIteration(CVector4 &z4D, const cFractal *fractal);
 void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal);
+void TransformFoldingTetra3DIteration(CVector3 &z, const cFractal *fractal);
 void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal);
 void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal);
 void TransformInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
