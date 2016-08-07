@@ -173,37 +173,26 @@ void cRenderWorker::doWork(void)
 			for (int repeat = 0; repeat < repeats; repeat++)
 			{
 
-				// Monte Carlo DOF
-				CVector2<double> imagePoint2;
-				CVector3 randVectorRot;
+				CVector3 viewVector;
+				CVector3 startRay;
+
 				if (monteCarloDOF)
 				{
-					double randR =
-						0.002 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
-					float randAngle = Random(65536);
-					CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
-					randVectorRot = mRot.RotateVector(randVector);
-
-					imagePoint2.x = imagePoint.x - randVector.x / params->DOFFocus;
-					imagePoint2.y = imagePoint.y - randVector.z / params->DOFFocus;
+					MonteCarloDOF(imagePoint, &startRay, &viewVector);
 				}
 				else
 				{
-					imagePoint2 = imagePoint;
+					// calculate direction of ray-marching
+					viewVector =
+										CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+					startRay = start;
 				}
-
-				CVector3 viewVector =
-					CalculateViewVector(imagePoint2, params->fov, params->perspectiveType, mRot);
-
-				CVector3 startRay = start + randVectorRot;
-
-				// calculate direction of ray-marching
 
 				if (data->stereo.isEnabled())
 				{
 					data->stereo.WhichEyeForAnaglyph(&stereoEye, repeat);
-					startRay = data->stereo.CalcEyePosition(params->camera, viewVector, params->topVector,
-											 params->stereoEyeDistance, stereoEye) + randVectorRot;
+					startRay = data->stereo.CalcEyePosition(startRay, viewVector, params->topVector,
+											 params->stereoEyeDistance, stereoEye);
 				}
 
 				sRGBAfloat resultShader;
@@ -923,4 +912,35 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	out.normal = vn;
 
 	return out;
+}
+
+void cRenderWorker::MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRay,
+	CVector3 *viewVector)
+{
+	if (params->perspectiveType == params::perspThreePoint)
+	{
+		double randR = 0.002 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
+		float randAngle = Random(65536);
+		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
+		CVector3 randVectorRot = mRot.RotateVector(randVector);
+		CVector2<double> imagePoint2;
+		imagePoint2.x = imagePoint.x - randVector.x / params->DOFFocus / params->fov;
+		imagePoint2.y = imagePoint.y - randVector.z / params->DOFFocus / params->fov;
+
+		*viewVector = CalculateViewVector(imagePoint2, params->fov, params->perspectiveType, mRot);
+		*startRay = params->camera + randVectorRot;
+	}
+	else
+	{
+		double randR = 0.002 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
+		float randAngle = Random(65536);
+		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
+		CVector3 randVectorRot = mRot.RotateVector(randVector);
+		CVector2<double> imagePoint2;
+		imagePoint2.x = imagePoint.x - randVector.x / params->DOFFocus / params->fov / M_PI;
+		imagePoint2.y = imagePoint.y - randVector.z / params->DOFFocus / params->fov / M_PI;
+
+		*viewVector = CalculateViewVector(imagePoint2, params->fov, params->perspectiveType, mRot);
+		*startRay = params->camera + randVectorRot;
+	}
 }

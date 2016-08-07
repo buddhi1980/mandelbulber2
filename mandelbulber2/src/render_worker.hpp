@@ -169,6 +169,7 @@ private:
 	double CalcDelta(CVector3 point) const;
 	double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
+	void MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRay, CVector3 *viewVector);
 
 	// shaders
 	sRGBAfloat ObjectShader(
