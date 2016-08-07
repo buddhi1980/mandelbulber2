@@ -87,6 +87,7 @@ public:
 	int reflectionsMax;
 	int repeatFrom;
 	int DOFNumberOfPasses;
+	int DOFSamples;
 
 #ifdef CLSUPPORT
 	int OpenCLDOFMethod;
@@ -108,6 +109,7 @@ public:
 	bool constantDEThreshold;
 	bool DOFEnabled;
 	bool DOFHDRmode;
+	bool DOFMonteCarlo;
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
 	bool fogEnabled;

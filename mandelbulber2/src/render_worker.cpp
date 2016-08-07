@@ -90,6 +90,8 @@ void cRenderWorker::doWork(void)
 	int height = image->GetHeight();
 	double aspectRatio = (double)width / height;
 
+	bool monteCarloDOF = params->DOFMonteCarlo && params->DOFEnabled;
+
 	if (data->stereo.isEnabled()) aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);
 
 	PrepareMainVectors();
@@ -150,10 +152,6 @@ void cRenderWorker::doWork(void)
 					&& imagePoint.Length() > 0.5 / params->fov)
 				hemisphereCut = true;
 
-			// calculate direction of ray-marching
-			CVector3 viewVector =
-				CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
-
 			//---------------- 1us -------------
 
 			// Ray marching
@@ -164,19 +162,48 @@ void cRenderWorker::doWork(void)
 			sRGBfloat pixelRightEye;
 			sRGB8 colour;
 			unsigned short alpha = 65535;
-			unsigned short opacity16 = 65536;
+			unsigned short opacity16 = 65535;
 			sRGBfloat normalFloat;
 			double depth = 1e20;
 
+			if (monteCarloDOF) repeats = params->DOFSamples;
+
+			sRGBfloat finalPixelDOF;
+
 			for (int repeat = 0; repeat < repeats; repeat++)
 			{
-				CVector3 startRay = start;
+
+				// Monte Carlo DOF
+				CVector2<double> imagePoint2;
+				CVector3 randVectorRot;
+				if (monteCarloDOF)
+				{
+					double randR =
+						0.002 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
+					float randAngle = Random(65536);
+					CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
+					randVectorRot = mRot.RotateVector(randVector);
+
+					imagePoint2.x = imagePoint.x - randVector.x / params->DOFFocus;
+					imagePoint2.y = imagePoint.y - randVector.z / params->DOFFocus;
+				}
+				else
+				{
+					imagePoint2 = imagePoint;
+				}
+
+				CVector3 viewVector =
+					CalculateViewVector(imagePoint2, params->fov, params->perspectiveType, mRot);
+
+				CVector3 startRay = start + randVectorRot;
+
+				// calculate direction of ray-marching
 
 				if (data->stereo.isEnabled())
 				{
 					data->stereo.WhichEyeForAnaglyph(&stereoEye, repeat);
-					startRay = data->stereo.CalcEyePosition(
-						params->camera, viewVector, params->topVector, params->stereoEyeDistance, stereoEye);
+					startRay = data->stereo.CalcEyePosition(params->camera, viewVector, params->topVector,
+											 params->stereoEyeDistance, stereoEye) + randVectorRot;
 				}
 
 				sRGBAfloat resultShader;
@@ -230,9 +257,17 @@ void cRenderWorker::doWork(void)
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 				{
 					if (stereoEye == cStereo::eyeLeft)
-						pixelLeftEye = finallPixel;
+					{
+						pixelLeftEye.R += finallPixel.R;
+						pixelLeftEye.G += finallPixel.G;
+						pixelLeftEye.B += finallPixel.B;
+					}
 					else if (stereoEye == cStereo::eyeRight)
-						pixelRightEye = finallPixel;
+					{
+						pixelRightEye.R += finallPixel.R;
+						pixelRightEye.G += finallPixel.G;
+						pixelRightEye.B += finallPixel.B;
+					}
 				}
 
 				alpha = resultShader.A * 65535;
@@ -250,9 +285,29 @@ void cRenderWorker::doWork(void)
 					normalFloat.B = 1.0 - normalRotated.y;
 				}
 
+				finalPixelDOF.R += finallPixel.R;
+				finalPixelDOF.G += finallPixel.G;
+				finalPixelDOF.B += finallPixel.B;
+
 			} // next repeat
 
-			if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
+			if (monteCarloDOF)
+			{
+				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
+				{
+					finallPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
+					finallPixel.R = finallPixel.R / repeats * 2.0;
+					finallPixel.G = finallPixel.G / repeats * 2.0;
+					finallPixel.B = finallPixel.B / repeats * 2.0;
+				}
+				else
+				{
+					finallPixel.R = finalPixelDOF.R / repeats;
+					finallPixel.G = finalPixelDOF.G / repeats;
+					finallPixel.B = finalPixelDOF.B / repeats;
+				}
+			}
+			else if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 			{
 				finallPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
 			}
@@ -282,7 +337,7 @@ void cRenderWorker::doWork(void)
 			data->statistics.numberOfRenderedPixels++;
 
 		} // next xs
-	} // next ys
+	}		// next ys
 
 	// emit signal to main thread when finished
 	emit finished();

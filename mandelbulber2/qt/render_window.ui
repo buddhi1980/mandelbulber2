@@ -375,7 +375,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-350</y>
+          <y>0</y>
           <width>370</width>
           <height>656</height>
          </rect>
@@ -3299,9 +3299,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-151</y>
                   <width>334</width>
-                  <height>471</height>
+                  <height>523</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3430,7 +3430,7 @@ to target:</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,2,1">
+                     <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,0,0">
                       <property name="spacing">
                        <number>2</number>
                       </property>
@@ -3666,6 +3666,85 @@ Disables 'Update image' options)</string>
                        </widget>
                       </item>
                      </layout>
+                    </item>
+                    <item>
+                     <widget class="MyGroupBox" name="groupCheck_DOF_monte_carlo">
+                      <property name="title">
+                       <string>Monte carlo algorithm</string>
+                      </property>
+                      <property name="checkable">
+                       <bool>true</bool>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_152">
+                       <property name="spacing">
+                        <number>2</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>2</number>
+                       </property>
+                       <item>
+                        <layout class="QGridLayout" name="gridLayout_97">
+                         <property name="spacing">
+                          <number>2</number>
+                         </property>
+                         <item row="0" column="2">
+                          <widget class="MySpinBox" name="spinboxInt_DOF_samples">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="toolTip">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quality of ambient occlusion effect. Higher quality increases rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                           <property name="maximum">
+                            <number>10000</number>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="label_358">
+                           <property name="text">
+                            <string>Number of samples per pixel:</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QSlider" name="sliderInt_DOF_samples">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="minimum">
+                            <number>1</number>
+                           </property>
+                           <property name="maximum">
+                            <number>500</number>
+                           </property>
+                           <property name="singleStep">
+                            <number>1</number>
+                           </property>
+                           <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
                     </item>
                     <item>
                      <widget class="QPushButton" name="pushButton_DOF_update">

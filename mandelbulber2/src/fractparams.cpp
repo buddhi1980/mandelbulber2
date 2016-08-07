@@ -71,7 +71,9 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	DOFFocus = container->Get<double>("DOF_focus");
 	DOFRadius = container->Get<double>("DOF_radius");
 	DOFHDRmode = container->Get<bool>("DOF_HDR");
+	DOFMonteCarlo = container->Get<bool>("DOF_monte_carlo");
 	DOFNumberOfPasses = container->Get<int>("DOF_number_of_passes");
+	DOFSamples = container->Get<int>("DOF_samples");
 	DOFBlurOpacity = container->Get<double>("DOF_blur_opacity");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
 	fakeLightsEnabled = container->Get<double>("fake_lights_enabled");

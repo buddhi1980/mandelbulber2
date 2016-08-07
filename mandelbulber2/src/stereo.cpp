@@ -154,7 +154,7 @@ void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat)
 {
 	if (stereoMode == stereoRedCyan)
 	{
-		*eye = (enumEye)repeat;
+		*eye = (enumEye)(repeat % 2);
 	}
 	//else do not modify eye selection
 }

@@ -355,7 +355,7 @@ bool cRenderer::RenderImage()
 				rendererSSAO.RenderSSAO();
 				ssaoUsed = true;
 			}
-			if (params->DOFEnabled && !*data->stopRequest)
+			if (params->DOFEnabled && !*data->stopRequest && !params->DOFMonteCarlo)
 			{
 				cPostRenderingDOF dof(image);
 				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
