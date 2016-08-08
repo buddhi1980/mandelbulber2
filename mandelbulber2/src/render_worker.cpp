@@ -919,28 +919,32 @@ void cRenderWorker::MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRa
 {
 	if (params->perspectiveType == params::perspThreePoint)
 	{
-		double randR = 0.001 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
+		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
 		float randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 		CVector3 randVectorRot = mRot.RotateVector(randVector);
 		CVector2<double> imagePoint2;
-		imagePoint2.x = imagePoint.x - randVector.x / params->DOFFocus / params->fov;
-		imagePoint2.y = imagePoint.y - randVector.z / params->DOFFocus / params->fov;
-
-		*viewVector = CalculateViewVector(imagePoint2, params->fov, params->perspectiveType, mRot);
+		CVector3 viewVectorTemp = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+		viewVectorTemp -= randVectorRot / params->DOFFocus;
+		*viewVector = viewVectorTemp;
 		*startRay = params->camera + randVectorRot;
 	}
 	else
 	{
-		double randR = 0.001 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
+		CVector3 viewVectorTemp = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
 		float randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
-		CVector3 randVectorRot = mRot.RotateVector(randVector);
-		CVector2<double> imagePoint2;
-		imagePoint2.x = imagePoint.x - randVector.x / params->DOFFocus / params->fov / M_PI;
-		imagePoint2.y = imagePoint.y - randVector.z / params->DOFFocus / params->fov / M_PI;
 
-		*viewVector = CalculateViewVector(imagePoint2, params->fov, params->perspectiveType, mRot);
+		CVector3 side = viewVectorTemp.Cross(params->topVector);
+		side.Normalize();
+		CVector3 topTemp = side.Cross(viewVectorTemp);
+		topTemp.Normalize();
+		CVector3 randVectorRot = side * randVector.x + topTemp * randVector.z;
+
+		CVector2<double> imagePoint2;
+		viewVectorTemp -= randVectorRot / params->DOFFocus;
+		*viewVector = viewVectorTemp;
 		*startRay = params->camera + randVectorRot;
 	}
 }
