@@ -62,9 +62,9 @@ cRenderSSAO::~cRenderSSAO()
 void cRenderSSAO::SetRegion(const cRegion<int> &_region)
 {
 	region = _region;
-	startLine = data->screenRegion.y1;
-	endLine = data->screenRegion.y2;
-	height = data->screenRegion.height;
+	startLine = region.y1;
+	endLine = region.y2;
+	height = region.height;
 	numberOfThreads = min(data->configuration.GetNumberOfThreads(), height);
 }
 
