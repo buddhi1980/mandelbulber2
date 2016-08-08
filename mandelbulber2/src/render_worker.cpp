@@ -919,7 +919,7 @@ void cRenderWorker::MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRa
 {
 	if (params->perspectiveType == params::perspThreePoint)
 	{
-		double randR = 0.002 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
+		double randR = 0.001 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
 		float randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 		CVector3 randVectorRot = mRot.RotateVector(randVector);
@@ -932,7 +932,7 @@ void cRenderWorker::MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRa
 	}
 	else
 	{
-		double randR = 0.002 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
+		double randR = 0.001 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
 		float randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 		CVector3 randVectorRot = mRot.RotateVector(randVector);

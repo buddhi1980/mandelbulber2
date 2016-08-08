@@ -1135,7 +1135,7 @@ sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfl
 		if (i < params->auxLightNumber || light->enabled)
 		{
 			sRGBAfloat specularAuxOutTemp;
-			sRGBAfloat shadeAux = LightShading(input, light, numberOfLights * 6, &specularAuxOutTemp);
+			sRGBAfloat shadeAux = LightShading(input, light, numberOfLights, &specularAuxOutTemp);
 			shadeAuxSum.R += shadeAux.R;
 			shadeAuxSum.G += shadeAux.G;
 			shadeAuxSum.B += shadeAux.B;

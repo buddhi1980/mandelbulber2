@@ -46,6 +46,7 @@ public:
 	cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image);
 	~cRenderSSAO();
 
+	void SetRegion(const cRegion<int> &_region);
 	void RenderSSAO(QList<int> *list = NULL);
 	void setProgressive(double step) { progressive = step; }
 
@@ -53,6 +54,7 @@ private:
 	const cParamRender *params;
 	const sRenderData *data;
 	cImage *image;
+	cRegion<int> region;
 	double qualityFactor;
 	int progressive;
 	int numberOfThreads;

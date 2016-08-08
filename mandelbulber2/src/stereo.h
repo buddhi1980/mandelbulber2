@@ -37,6 +37,7 @@
 
 #include "algebra.hpp"
 #include "color_structures.hpp"
+#include "region.hpp"
 
 class cStereo
 {
@@ -69,6 +70,7 @@ public:
 	double ModifyAspectRatio(double aspectRatio);
 	int GetNumberOfRepeats();
 	void WhichEyeForAnaglyph(enumEye *eye, int repeat);
+	cRegion<int> GetRegion(CVector2<int> imageResolution, enumEye eye);
 
 private:
 	bool swapped;

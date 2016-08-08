@@ -58,6 +58,7 @@ public:
 		unsigned int done;
 		bool stopRequest;
 		QList<int> *list;
+		cRegion<int> region;
 	};
 
 	cSSAOWorker(const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data,

@@ -352,7 +352,21 @@ bool cRenderer::RenderImage()
 				connect(&rendererSSAO,
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-				rendererSSAO.RenderSSAO();
+
+				if(data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight || data->stereo.GetMode() == cStereo::stereoTopBottom))
+				{
+					cRegion<int> region;
+					region = data->stereo.GetRegion(CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+					rendererSSAO.SetRegion(region);
+					rendererSSAO.RenderSSAO();
+					region = data->stereo.GetRegion(CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+					rendererSSAO.SetRegion(region);
+					rendererSSAO.RenderSSAO();
+				}
+				else
+				{
+					rendererSSAO.RenderSSAO();
+				}
 				ssaoUsed = true;
 			}
 			if (params->DOFEnabled && !*data->stopRequest && !params->DOFMonteCarlo)
@@ -360,9 +374,25 @@ bool cRenderer::RenderImage()
 				cPostRenderingDOF dof(image);
 				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 					this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-				dof.Render(data->screenRegion, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-					params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
-					params->DOFBlurOpacity, data->stopRequest);
+
+				if(data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight || data->stereo.GetMode() == cStereo::stereoTopBottom))
+				{
+					cRegion<int> region;
+					region = data->stereo.GetRegion(CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
+						params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
+						params->DOFBlurOpacity, data->stopRequest);
+					region = data->stereo.GetRegion(CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
+						params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
+						params->DOFBlurOpacity, data->stopRequest);
+				}
+				else
+				{
+					dof.Render(data->screenRegion, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
+						params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
+						params->DOFBlurOpacity, data->stopRequest);
+				}
 			}
 		}
 

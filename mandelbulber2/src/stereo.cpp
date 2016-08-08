@@ -156,5 +156,30 @@ void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat)
 	{
 		*eye = (enumEye)(repeat % 2);
 	}
-	//else do not modify eye selection
+	// else do not modify eye selection
+}
+
+cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye)
+{
+	cRegion<int> region;
+
+	switch (stereoMode)
+	{
+		case stereoDisabled: region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y); break;
+		case stereoLeftRight:
+			if(eye == eyeLeft)
+				region = cRegion<int>(0, 0, imageResolution.x/2, imageResolution.y);
+			else
+				region = cRegion<int>(imageResolution.x/2, 0, imageResolution.x, imageResolution.y);
+			break;
+
+		case stereoTopBottom:
+			if(eye == eyeLeft)
+			region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y/2);
+		else
+			region = cRegion<int>(0, imageResolution.y/2, imageResolution.x, imageResolution.y);
+		break;
+		case stereoRedCyan: region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y); break;
+	}
+	return region;
 }

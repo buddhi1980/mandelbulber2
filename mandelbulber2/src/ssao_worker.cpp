@@ -57,12 +57,12 @@ void cSSAOWorker::doWork()
 {
 	int quality = threadData->quality;
 	int startLineInit = threadData->startLine;
-	int startLine = data->screenRegion.y1;
-	int endLine = data->screenRegion.y2;
-	int width = data->screenRegion.width;
-	int height = data->screenRegion.height;
-	int startX = data->screenRegion.x1;
-	int endX = data->screenRegion.x2;
+	int startLine = threadData->region.y1;
+	int endLine = threadData->region.y2;
+	int width = threadData->region.width;
+	int height = threadData->region.height;
+	int startX = threadData->region.x1;
+	int endX = threadData->region.x2;
 
 	double *cosine = new double[quality];
 	double *sine = new double[quality];

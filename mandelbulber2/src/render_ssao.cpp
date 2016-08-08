@@ -51,11 +51,21 @@ cRenderSSAO::cRenderSSAO(
 	endLine = data->screenRegion.y2;
 	height = data->screenRegion.height;
 	numberOfThreads = min(data->configuration.GetNumberOfThreads(), height);
+	region = data->screenRegion;
 }
 
 cRenderSSAO::~cRenderSSAO()
 {
 	// nothing to destroy
+}
+
+void cRenderSSAO::SetRegion(const cRegion<int> &_region)
+{
+	region = _region;
+	startLine = data->screenRegion.y1;
+	endLine = data->screenRegion.y2;
+	height = data->screenRegion.height;
+	numberOfThreads = min(data->configuration.GetNumberOfThreads(), height);
 }
 
 void cRenderSSAO::RenderSSAO(QList<int> *list)
@@ -102,6 +112,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		threadData[i].done = 0;
 		threadData[i].progressive = progressive;
 		threadData[i].stopRequest = false;
+		threadData[i].region = region;
 
 		if (list)
 			threadData[i].list = &lists[i];
