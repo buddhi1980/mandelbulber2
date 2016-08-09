@@ -193,6 +193,13 @@ void cRenderWorker::doWork(void)
 					data->stereo.WhichEyeForAnaglyph(&stereoEye, repeat);
 					startRay = data->stereo.CalcEyePosition(startRay, viewVector, params->topVector,
 											 params->stereoEyeDistance, stereoEye);
+
+					CVector3 viewVectorCorrection(params->stereoInfiniteCorrection / 10.0, 0.0, 0.0);
+					viewVectorCorrection = mRot.RotateVector(viewVectorCorrection);
+					if(stereoEye == cStereo::eyeLeft)
+						viewVector += viewVectorCorrection;
+					else
+						viewVector -= viewVectorCorrection;
 				}
 
 				sRGBAfloat resultShader;

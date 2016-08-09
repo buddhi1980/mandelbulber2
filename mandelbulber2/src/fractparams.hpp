@@ -189,6 +189,7 @@ public:
 	double shadowConeAngle;
 	double smoothness;
 	double stereoEyeDistance;
+	double stereoInfiniteCorrection;
 	double sweetSpotHAngle;
 	double sweetSpotVAngle;
 	double viewDistanceMax;
