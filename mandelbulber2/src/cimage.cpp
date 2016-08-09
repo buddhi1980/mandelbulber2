@@ -586,22 +586,27 @@ void cImage::Squares(int y, int pFactor)
 	}
 }
 
-void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, double opacity, int layer)
+void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity, int layer)
 {
 	if (x >= 0 && x < previewWidth && y >= 0 && y < previewHeight)
 	{
 		size_t address = x + y * previewWidth;
 		float zImage = GetPixelZBuffer(x / previewScale, y / previewScale);
-		if (z > zImage) opacity *= 0.03;
+		if (z > zImage)
+		{
+			opacity.R *= 0.03;
+			opacity.G *= 0.03;
+			opacity.B *= 0.03;
+		}
 		sRGB8 oldPixel;
 		if (layer == 0)
 			oldPixel = preview[address];
 		else if (layer == 1)
 			oldPixel = preview2[address];
 		sRGB8 newPixel;
-		newPixel.R = (oldPixel.R * (1.0 - opacity) + color.R * opacity);
-		newPixel.G = (oldPixel.G * (1.0 - opacity) + color.G * opacity);
-		newPixel.B = (oldPixel.B * (1.0 - opacity) + color.B * opacity);
+		newPixel.R = (oldPixel.R * (1.0 - opacity.R) + color.R * opacity.R);
+		newPixel.G = (oldPixel.G * (1.0 - opacity.G) + color.G * opacity.G);
+		newPixel.B = (oldPixel.B * (1.0 - opacity.B) + color.B * opacity.B);
 		if (layer == 0)
 		{
 			preview[address] = newPixel;
@@ -612,7 +617,7 @@ void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, double opacity, in
 	}
 }
 
-void cImage::AntiAliasedPoint(double x, double y, float z, sRGB8 color, double opacity, int layer)
+void cImage::AntiAliasedPoint(double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer)
 {
 	double deltaX = x - (int)x;
 	double deltaY = y - (int)y;
@@ -623,23 +628,31 @@ void cImage::AntiAliasedPoint(double x, double y, float z, sRGB8 color, double o
 	double intensity4 = (deltaX) * (deltaY);
 	double sum = intensity1 + intensity2 + intensity3 + intensity4;
 
-	double opacity2;
+	sRGBfloat opacity2;
 
-	opacity2 = opacity * intensity1 / sum;
+	opacity2.R = opacity.R * intensity1 / sum;
+	opacity2.G = opacity.G * intensity1 / sum;
+	opacity2.B = opacity.B * intensity1 / sum;
 	PutPixelAlfa(x, y, z, color, opacity2, layer);
 
-	opacity2 = opacity * intensity2 / sum;
+	opacity2.R = opacity.R * intensity2 / sum;
+	opacity2.G = opacity.G * intensity2 / sum;
+	opacity2.B = opacity.B * intensity2 / sum;
 	PutPixelAlfa(x + 1, y, z, color, opacity2, layer);
 
-	opacity2 = opacity * intensity3 / sum;
+	opacity2.R = opacity.R * intensity3 / sum;
+	opacity2.G = opacity.G * intensity3 / sum;
+	opacity2.B = opacity.B * intensity3 / sum;
 	PutPixelAlfa(x, y + 1, z, color, opacity2, layer);
 
-	opacity2 = opacity * intensity4 / sum;
+	opacity2.R = opacity.R * intensity4 / sum;
+	opacity2.G = opacity.G * intensity4 / sum;
+	opacity2.B = opacity.B * intensity4 / sum;
 	PutPixelAlfa(x + 1, y + 1, z, color, opacity2, layer);
 }
 
 void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2,
-	sRGB8 color, double opacity, int layer)
+	sRGB8 color, sRGBfloat opacity, int layer)
 {
 	if ((x1 >= 0 && x1 < previewWidth && y1 >= 0 && y1 < previewHeight)
 			|| (x2 >= 0 && x2 < previewWidth && y2 >= 0 && y2 < previewHeight))
@@ -701,16 +714,20 @@ void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z
 						double distance = 1.0 * fabs(A * x + B * yy + C) * denominator;
 						if (distance >= 1.0) distance = 1.0;
 						double opacity2;
-						opacity2 = opacity * (1.0 - distance);
+						opacity2 = (1.0 - distance);
 						if (intX == start)
 						{
-							opacity2 = opacity * (1.0 - (xx1 - x)) * (1.0 - distance);
+							opacity2 = (1.0 - (xx1 - x)) * (1.0 - distance);
 						}
 						if (intX == end)
 						{
-							opacity2 = opacity * ((xx2 - x)) * (1.0 - distance);
+							opacity2 = ((xx2 - x)) * (1.0 - distance);
 						}
-						PutPixelAlfa(xx, yy, z, color, opacity2, layer);
+						sRGBfloat opacity3;
+						opacity3.R = opacity2 * opacity.R;
+						opacity3.G = opacity2 * opacity.G;
+						opacity3.B = opacity2 * opacity.B;
+						PutPixelAlfa(xx, yy, z, color, opacity3, layer);
 					}
 				}
 			}
@@ -747,16 +764,20 @@ void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z
 						double distance = fabs(A * xx + B * y + C) * denominator;
 						if (distance >= 1.0) distance = 1.0;
 						double opacity2;
-						opacity2 = opacity * (1.0 - distance);
+						opacity2 = (1.0 - distance);
 						if (intY == start)
 						{
-							opacity2 = opacity * (1.0 - (yy1 - (y))) * (1.0 - distance);
+							opacity2 = (1.0 - (yy1 - (y))) * (1.0 - distance);
 						}
 						if (intY == end)
 						{
-							opacity2 = opacity * ((yy2 - (y))) * (1.0 - distance);
+							opacity2 = ((yy2 - (y))) * (1.0 - distance);
 						}
-						PutPixelAlfa(xx, yy, z, color, opacity2, layer);
+						sRGBfloat opacity3;
+						opacity3.R = opacity2 * opacity.R;
+						opacity3.G = opacity2 * opacity.G;
+						opacity3.B = opacity2 * opacity.B;
+						PutPixelAlfa(xx, yy, z, color, opacity3, layer);
 					}
 				}
 			}
@@ -765,7 +786,7 @@ void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z
 }
 
 void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
-	double opacity, int layer)
+	sRGBfloat opacity, int layer)
 {
 	if (borderWidth > 0 && r > 0)
 	{
@@ -775,7 +796,7 @@ void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, d
 		int y1 = y - r2;
 		int y2 = y + r2;
 
-		double wspJ = 1.0 / borderWidth * opacity;
+		double wspJ = 1.0 / borderWidth;
 
 		for (int yy = y1; yy <= y2; yy++)
 		{
@@ -802,7 +823,11 @@ void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, d
 					double deltaR = fabs(rr - r);
 					if (deltaR > borderWidth) deltaR = borderWidth;
 					double opacity2 = wspJ * (borderWidth - deltaR);
-					PutPixelAlfa(xx, yy, z, border, opacity2, layer);
+					sRGBfloat opacity3;
+					opacity3.R = opacity2 * opacity.R;
+					opacity3.G = opacity2 * opacity.G;
+					opacity3.B = opacity2 * opacity.B;
+					PutPixelAlfa(xx, yy, z, border, opacity3, layer);
 				}
 			}
 		}

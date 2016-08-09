@@ -183,3 +183,13 @@ cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye)
 	}
 	return region;
 }
+
+void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRot, enumEye eye, CVector3 *viewVector)
+{
+	CVector3 viewVectorCorrection(correction / 10.0, 0.0, 0.0);
+	viewVectorCorrection = mRot.RotateVector(viewVectorCorrection);
+	if(eye == cStereo::eyeLeft)
+		*viewVector += viewVectorCorrection;
+	else
+		*viewVector -= viewVectorCorrection;
+}

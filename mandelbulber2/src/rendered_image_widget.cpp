@@ -60,6 +60,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	lastDepth = 0.0;
 	frontDist = 0.0;
 	flightRotationDirection = 0;
+	clickMode = clickDoNothing;
 
 	QList<QVariant> mode;
 	mode.append((int)RenderedImage::clickDoNothing);
@@ -203,7 +204,11 @@ void RenderedImage::DisplayCoordinates()
 
 void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 {
-	enumClickMode clickMode = (enumClickMode)clickModeData.at(0).toInt();
+	//TODO: move cursor to correct position
+	//TODO: disable displaing of coordinates and crossheair
+	//TODO: add infinite distance correction
+
+	clickMode = (enumClickMode)clickModeData.at(0).toInt();
 	if (clickMode == clickPlaceLight)
 	{
 		z -= frontDist;
@@ -231,6 +236,17 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		CVector3 rotation = params->Get<CVector3>("camera_rotation") / 180.0 * M_PI;
 		double sweetSpotHAngle = params->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
 		double sweetSpotVAngle = params->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
+
+		bool stereoEnabled = params->Get<bool>("stereo_enabled");
+		cStereo::enumStereoMode stereoMode = (cStereo::enumStereoMode)params->Get<int>("stereo_mode");
+		bool anaglyphMode = stereoMode == cStereo::stereoRedCyan && stereoEnabled;
+		double stereoEyeDistance = params->Get<double>("stereo_eye_distance");
+		double stereoInfiniteCorrection = params->Get<double>("stereo_infinite_correction");
+
+		params::enumPerspectiveType perspType =
+			(params::enumPerspectiveType)params->Get<int>("perspective_type");
+		CVector3 camera = params->Get<CVector3>("camera");
+
 		CRotationMatrix mRot;
 		mRot.RotateZ(rotation.x);
 		mRot.RotateX(rotation.y);
@@ -242,7 +258,6 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		double sw = image->GetPreviewWidth();
 		double sh = image->GetPreviewHeight();
-
 		double aspectRatio = sw / sh;
 
 		CVector2<double> p;
@@ -251,107 +266,27 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		double scale = smoothLastZMouse / z;
 
-		double boxWidth = 10.0 / sw * scale;
-		double boxHeight = 10.0 / sw * scale;
-		double boxDepth = 10.0 / sw * scale;
-
-		double boxDepth2 = boxHeight * z * fov;
-
-		double n = 3.0;
-
-		for (int iz = -n; iz <= n; iz++)
-		{
-			double yy1 = ((p.y + n * boxHeight) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
-			double yy2 = ((p.y - n * boxHeight) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
-			for (int ix = -n; ix <= n; ix++)
-			{
-				double xx1 = ((p.x + boxWidth * ix) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
-				unsigned char R = 128 + iz * 40;
-				unsigned char G = 128 - iz * 40;
-				unsigned char B = 0;
-				double opacity = 0.8;
-				if (iz == 0 && ix == 0)
-				{
-					R = G = B = 255;
-					opacity = 1.0;
-				}
-				image->AntiAliasedLine(
-					xx1, yy1, xx1, yy2, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
-			}
-
-			double xx1 = ((p.x + n * boxWidth) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
-			double xx2 = ((p.x - n * boxWidth) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
-			for (int iy = -n; iy <= n; iy++)
-			{
-				double yy1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
-				unsigned char R = 128 + iz * 40;
-				unsigned char G = 128 - iz * 40;
-				unsigned char B = 0;
-				double opacity = 0.8;
-
-				if (iz == 0 && iy == 0)
-				{
-					R = G = B = 255;
-					opacity = 1.0;
-				}
-
-				image->AntiAliasedLine(
-					xx1, yy1, xx2, yy1, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
-			}
-
-			if (iz < n)
-			{
-				for (int ix = -n; ix <= n; ix++)
-				{
-					for (int iy = -n; iy <= n; iy++)
-					{
-						double xx1 =
-							((p.x + boxWidth * ix) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
-						double yy1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
-						double xx2 =
-							((p.x + boxWidth * ix) / (1.0 - boxDepth * (iz + 1) * fov) / aspectRatio + 0.5) * sw;
-						double yy2 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * (iz + 1) * fov) + 0.5) * sh;
-
-						double opacity = 0.8;
-						unsigned char R = 128 + iz * 40;
-						unsigned char G = 128 - iz * 40;
-						unsigned char B = 0;
-
-						if (ix == 0 && iy == 0)
-						{
-							R = G = B = 255;
-							opacity = 1.0;
-						}
-
-						image->AntiAliasedLine(xx1, yy1, xx2, yy2, z - iz * boxDepth2, z - (iz + 1) * boxDepth2,
-							sRGB8(R, G, B), opacity, 1);
-					}
-				}
-			}
-			if (iz == 0)
-			{
-				image->AntiAliasedLine(screenPoint.x - sw * 0.3, screenPoint.y, screenPoint.x + sw * 0.3,
-					screenPoint.y, z, z, sRGB8(255, 255, 255), 1.0, 1);
-				image->AntiAliasedLine(screenPoint.x, screenPoint.y - sh * 0.3, screenPoint.x,
-					screenPoint.y + sh * 0.3, z, z, sRGB8(255, 255, 255), 1.0, 1);
-
-				if (clickMode == clickPlaceLight)
-				{
-					double r = 1.5 * (boxWidth * n / aspectRatio);
-					if (r > 1.0) r = 1.0;
-					image->CircleBorder(
-						screenPoint.x, screenPoint.y, z, r * sw, sRGB8(0, 100, 255), r * 0.1 * sw, 1.0, 1);
-				}
-			}
-		}
-
-		p.y *= -1.0 * reverse;
-		params::enumPerspectiveType perspType =
-			(params::enumPerspectiveType)params->Get<int>("perspective_type");
-		CVector3 camera = params->Get<CVector3>("camera");
-		CVector3 viewVector = CalculateViewVector(p, fov, perspType, mRot);
+		// calculate 3D point coordinates
+		CVector2<double> pTemp = p;
+		pTemp.y *= -1.0 * reverse;
+		CVector3 viewVector = CalculateViewVector(pTemp, fov, perspType, mRot);
 		CVector3 point = camera + viewVector * z;
 		lastCoordinates = point;
+
+		if (anaglyphMode)
+		{
+			CVector2<double> p1, p2;
+			p1.x = p.x + stereoEyeDistance / z;
+			p1.y = p.y;
+			Draw3DBox(scale, fov, p1, z, cStereo::eyeLeft);
+			p2.x = p.x - stereoEyeDistance / z;
+			p2.y = p.y;
+			Draw3DBox(scale, fov, p2, z, cStereo::eyeRight);
+		}
+		else
+		{
+			Draw3DBox(scale, fov, p, z, cStereo::eyeNone);
+		}
 	}
 	else if (clickMode == clickFlightSpeedControl)
 	{
@@ -359,11 +294,149 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		// draw small cross
 		image->AntiAliasedLine(screenPoint.x - 20, screenPoint.y - 20, screenPoint.x + 20,
-			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), 0.3, 1);
+			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBfloat(0.3, 0.3, 0.3), 1);
 		image->AntiAliasedLine(screenPoint.x + 20, screenPoint.y - 20, screenPoint.x - 20,
-			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), 0.3, 1);
+			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBfloat(0.3, 0.3, 0.3), 1);
 	}
 	lastDepth = z;
+}
+
+void RenderedImage::Draw3DBox(
+	double scale, double fov, CVector2<double> p, double z, cStereo::enumEye eye)
+{
+	double sw = image->GetPreviewWidth();
+	double sh = image->GetPreviewHeight();
+
+	double aspectRatio = sw / sh;
+
+	double boxWidth = 10.0 / sw * scale;
+	double boxHeight = 10.0 / sw * scale;
+	double boxDepth = 10.0 / sw * scale;
+
+	double boxDepth2 = boxHeight * z * fov;
+
+	double n = 3.0;
+
+	sRGBfloat opacity;
+	switch (eye)
+	{
+		case cStereo::eyeNone: opacity = sRGBfloat(0.8, 0.8, 0.8); break;
+		case cStereo::eyeLeft: opacity = sRGBfloat(0.8, 0.0, 0.0); break;
+		case cStereo::eyeRight: opacity = sRGBfloat(0.0, 0.8, 0.8); break;
+	}
+
+	unsigned char R, G, B;
+	for (int iz = -n; iz <= n; iz++)
+	{
+		double yy1 = ((p.y + n * boxHeight) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
+		double yy2 = ((p.y - n * boxHeight) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
+		for (int ix = -n; ix <= n; ix++)
+		{
+			double xx1 = ((p.x + boxWidth * ix) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
+			if (eye == cStereo::eyeNone)
+			{
+				R = 128 + iz * 40;
+				G = 128 - iz * 40;
+				B = 0;
+			}
+			else
+			{
+				R = 128 + iz * 40;
+				G = 128 + iz * 40;
+				B = 128 + iz * 40;
+			}
+			if (iz == 0 && ix == 0)
+			{
+				R = G = B = 255;
+				// opacity = 1.0;
+			}
+			image->AntiAliasedLine(
+				xx1, yy1, xx1, yy2, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
+		}
+
+		double xx1 = ((p.x + n * boxWidth) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
+		double xx2 = ((p.x - n * boxWidth) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
+		for (int iy = -n; iy <= n; iy++)
+		{
+			double yy1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
+
+			if (eye == cStereo::eyeNone)
+			{
+				R = 128 + iz * 40;
+				G = 128 - iz * 40;
+				B = 0;
+			}
+			else
+			{
+				R = 128 + iz * 40;
+				G = 128 + iz * 40;
+				B = 128 + iz * 40;
+			}
+
+			if (iz == 0 && iy == 0)
+			{
+				R = G = B = 255;
+				// opacity = 1.0;
+			}
+
+			image->AntiAliasedLine(
+				xx1, yy1, xx2, yy1, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
+		}
+
+		if (iz < n)
+		{
+			for (int ix = -n; ix <= n; ix++)
+			{
+				for (int iy = -n; iy <= n; iy++)
+				{
+					double xx1 =
+						((p.x + boxWidth * ix) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
+					double yy1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
+					double xx2 =
+						((p.x + boxWidth * ix) / (1.0 - boxDepth * (iz + 1) * fov) / aspectRatio + 0.5) * sw;
+					double yy2 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * (iz + 1) * fov) + 0.5) * sh;
+
+					if (eye == cStereo::eyeNone)
+					{
+						R = 128 + iz * 40;
+						G = 128 - iz * 40;
+						B = 0;
+					}
+					else
+					{
+						R = 128 + iz * 40;
+						G = 128 + iz * 40;
+						B = 128 + iz * 40;
+					}
+
+					if (ix == 0 && iy == 0)
+					{
+						R = G = B = 255;
+						// opacity = 1.0;
+					}
+
+					image->AntiAliasedLine(xx1, yy1, xx2, yy2, z - iz * boxDepth2, z - (iz + 1) * boxDepth2,
+						sRGB8(R, G, B), opacity, 1);
+				}
+			}
+		}
+		if (iz == 0)
+		{
+			CVector2<double> spoint((p.x / aspectRatio + 0.5) * sw, (p.y + 0.5) * sh);
+			image->AntiAliasedLine(spoint.x - sw * 0.3, spoint.y, spoint.x + sw * 0.3, spoint.y, z, z,
+				sRGB8(255, 255, 255), opacity, 1);
+			image->AntiAliasedLine(spoint.x, spoint.y - sh * 0.3, spoint.x, spoint.y + sh * 0.3, z, z,
+				sRGB8(255, 255, 255), opacity, 1);
+
+			if (clickMode == clickPlaceLight)
+			{
+				double r = 1.5 * (boxWidth * n / aspectRatio);
+				if (r > 1.0) r = 1.0;
+				image->CircleBorder(
+					spoint.x, spoint.y, z, r * sw, sRGB8(0, 100, 255), r * 0.1 * sw, opacity, 1);
+			}
+		}
+	}
 }
 
 void RenderedImage::mouseMoveEvent(QMouseEvent *event)
@@ -624,8 +697,10 @@ void RenderedImage::DisplayCrosshair()
 	crossCenter.x = (sw * 0.5) * (1.0 + 2.0 * crossShift.x);
 	crossCenter.y = (sh * 0.5) * (1.0 + 2.0 * crossShift.y);
 
-	image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255), 0.3, 1);
-	image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255), 0.3, 1);
+	image->AntiAliasedLine(
+		crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255), sRGBfloat(0.3, 0.3, 0.3), 1);
+	image->AntiAliasedLine(
+		0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255), sRGBfloat(0.3, 0.3, 0.3), 1);
 }
 
 void RenderedImage::DrawHud(CVector3 rotation)
@@ -658,6 +733,9 @@ void RenderedImage::DrawHud(CVector3 rotation)
 		circlePoint3[i].y = 0.0;
 		circlePoint3[i].z = sin(angle);
 	}
+
+	sRGBfloat opacity(0.5, 0.5, 0.5);
+
 	for (int i = 0; i < steps; i++)
 	{
 		CVector3 point1, point2;
@@ -666,94 +744,94 @@ void RenderedImage::DrawHud(CVector3 rotation)
 		point1 = CalcPointPersp(circlePoint1[index1], mRotInv, persp) * (height * 0.2) + center;
 		point2 = CalcPointPersp(circlePoint1[index2], mRotInv, persp) * (height * 0.2) + center;
 		image->AntiAliasedLine(
-			point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), 0.5, 1);
+			point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), opacity, 1);
 
 		point1 = CalcPointPersp(circlePoint2[index1], mRotInv, persp) * (height * 0.2) + center;
 		point2 = CalcPointPersp(circlePoint2[index2], mRotInv, persp) * (height * 0.2) + center;
 		image->AntiAliasedLine(
-			point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), 0.5, 1);
+			point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), opacity, 1);
 
 		point1 = CalcPointPersp(circlePoint3[index1], mRotInv, persp) * (height * 0.2) + center;
 		point2 = CalcPointPersp(circlePoint3[index2], mRotInv, persp) * (height * 0.2) + center;
 		image->AntiAliasedLine(
-			point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 100, 255), 0.5, 1);
+			point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 100, 255), opacity, 1);
 	}
 
 	CVector3 point1, point2;
 	point1 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, -1.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.9, -0.05, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.9, 0.05, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.9, 0.0, 0.05), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.9, 0.0, -0.05), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(255, 0, 0), opacity, 1);
 
 	point1 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, -1.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, -1.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.05, 0.9, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(-0.05, 0.9, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.0, 0.9, 0.05), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.0, 0.9, -0.05), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 255, 0), opacity, 1);
 
 	point1 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.05, 0.0, 0.9), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), opacity, 1);
 	point1 = CalcPointPersp(CVector3(-0.05, 0.0, 0.9), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.0, 0.05, 0.9), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), opacity, 1);
 	point1 = CalcPointPersp(CVector3(0.0, -0.05, 0.9), mRotInv, persp) * (height * 0.2) + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * (height * 0.2) + center;
 	image->AntiAliasedLine(
-		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), 0.5, 1);
+		point1.x, point1.y, point2.x, point2.y, -1.0, -1.0, sRGB8(0, 150, 255), opacity, 1);
 }
 
 CVector3 RenderedImage::CalcPointPersp(

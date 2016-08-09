@@ -52,6 +52,7 @@ public:
 
 	enum enumEye
 	{
+		eyeNone = -1,
 		eyeLeft = 0,
 		eyeRight = 1
 	};
@@ -63,6 +64,7 @@ public:
 	bool isEnabled() {return stereoMode != stereoDisabled;}
 	CVector3 CalcEyePosition(
 		CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye);
+	void ViewVectorCorrection(double correction, const CRotationMatrix &mRot, enumEye eye, CVector3 *viewVector);
 	sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
 	CVector2<int> ModifyImageResolution(CVector2<int> resolution);
 	enumEye WhichEye(CVector2<double> imagePoint);
