@@ -142,6 +142,9 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->tabWidget_fractals->setUsesScrollButtons(true);
 	mainWindow->ui->tabWidget_fractals->setDocumentMode(true);
 	mainWindow->ui->tabWidget_fractals->setElideMode(Qt::ElideNone);
+	mainWindow->ui->actionAbout_Qt->setText(QApplication::translate("RenderWindow", "Info &Qt", 0));
+    mainWindow->ui->actionAbout_Mandelbulber->setText(QApplication::translate("RenderWindow", "&Info Mandelbulber", 0));
+    mainWindow->ui->actionAbout_ThirdParty->setText(QApplication::translate("RenderWindow", "Info &Third Party", 0));
 #endif
 
 	WriteLog("mainWindow->show()", 2);
