@@ -50,6 +50,7 @@
 
 void RenderWindow::slotImportOldSettings()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
@@ -123,6 +124,7 @@ void RenderWindow::slotMenuAboutThirdParty()
 
 void RenderWindow::slotMenuLoadExample()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	cSettings parSettings(cSettings::formatFullText);
 
 	PreviewFileDialog dialog(this);
@@ -155,6 +157,7 @@ void RenderWindow::slotMenuLoadExample()
 
 void RenderWindow::slotMenuLoadSettings()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	gMainInterface->SynchronizeInterface(
 		gPar, gParFractal, qInterface::read); // update appParam before loading new settings
 
@@ -246,6 +249,7 @@ void RenderWindow::slotMenuSaveDocksPositions()
 // TODO generalize image save functions and add image channel logic to save dialog
 void RenderWindow::slotMenuSaveImageJPEG()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("JPEG images (*.jpg *.jpeg)"));
@@ -274,6 +278,7 @@ void RenderWindow::slotMenuSaveImageJPEG()
 
 void RenderWindow::slotMenuSaveImagePNG()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
@@ -299,6 +304,7 @@ void RenderWindow::slotMenuSaveImagePNG()
 #ifdef USE_EXR
 void RenderWindow::slotMenuSaveImageEXR()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("EXR images (*.exr)"));
@@ -325,6 +331,7 @@ void RenderWindow::slotMenuSaveImageEXR()
 #ifdef USE_TIFF
 void RenderWindow::slotMenuSaveImageTIFF()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("TIFF images (*.tiff)"));
@@ -350,6 +357,7 @@ void RenderWindow::slotMenuSaveImageTIFF()
 
 void RenderWindow::slotMenuSaveImagePNG16()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
@@ -379,6 +387,7 @@ void RenderWindow::slotMenuSaveImagePNG16()
 
 void RenderWindow::slotMenuSaveImagePNG16Alpha()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
@@ -408,6 +417,7 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 
 void RenderWindow::slotMenuSaveSettings()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	cSettings parSettings(cSettings::formatCondensedText);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);

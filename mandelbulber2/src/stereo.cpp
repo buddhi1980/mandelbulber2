@@ -184,12 +184,26 @@ cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye)
 	return region;
 }
 
-void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRot, enumEye eye, CVector3 *viewVector)
+void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
+		const CRotationMatrix &mRotInv, enumEye eye, CVector3 *viewVector)
 {
-	CVector3 viewVectorCorrection(correction / 10.0, 0.0, 0.0);
-	viewVectorCorrection = mRot.RotateVector(viewVectorCorrection);
+	CVector3 viewVectorTemp = *viewVector;
+	viewVectorTemp = mRotInv.RotateVector(viewVectorTemp);
+	CVector3 viewVectorCorrection(correction / 10.0 * sqrt(1.0 - viewVectorTemp.x *  viewVectorTemp.x - viewVectorTemp.z *  viewVectorTemp.z), 0.0, 0.0);
+
+
 	if(eye == cStereo::eyeLeft)
-		*viewVector += viewVectorCorrection;
+	{
+		viewVectorTemp += viewVectorCorrection;
+		viewVectorTemp.Normalize();
+		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
+		*viewVector = viewVectorTemp;
+	}
 	else
-		*viewVector -= viewVectorCorrection;
+	{
+		viewVectorTemp -= viewVectorCorrection;
+		viewVectorTemp.Normalize();
+		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
+		*viewVector = viewVectorTemp;
+	}
 }

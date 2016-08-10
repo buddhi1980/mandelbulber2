@@ -61,6 +61,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	frontDist = 0.0;
 	flightRotationDirection = 0;
 	clickMode = clickDoNothing;
+	anaglyphMode = false;
 
 	QList<QVariant> mode;
 	mode.append((int)RenderedImage::clickDoNothing);
@@ -83,7 +84,8 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 			CVector2<int> point = lastMousePosition / image->GetPreviewScale();
 			double z = image->GetPixelZBuffer(point.x, point.y);
 
-			DisplayCrosshair();
+			if(!anaglyphMode)
+				DisplayCrosshair();
 
 			if (z < 1e10 || (enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
 			{
@@ -91,16 +93,18 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 				isOnObject = true;
 
 				Display3DCursor(lastMousePosition, z);
+				QApplication::setOverrideCursor(Qt::BlankCursor);
 			}
 			else
 			{
 				isOnObject = false;
+				QApplication::setOverrideCursor(Qt::CrossCursor);
 			}
 		}
 
 		image->RedrawInWidget();
 
-		if (cursorVisible && isFocus
+		if (cursorVisible && isFocus && !anaglyphMode
 				&& (isOnObject || (enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl))
 		{
 			DisplayCoordinates();
@@ -239,7 +243,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		bool stereoEnabled = params->Get<bool>("stereo_enabled");
 		cStereo::enumStereoMode stereoMode = (cStereo::enumStereoMode)params->Get<int>("stereo_mode");
-		bool anaglyphMode = stereoMode == cStereo::stereoRedCyan && stereoEnabled;
+		anaglyphMode = stereoMode == cStereo::stereoRedCyan && stereoEnabled;
 		double stereoEyeDistance = params->Get<double>("stereo_eye_distance");
 		double stereoInfiniteCorrection = params->Get<double>("stereo_infinite_correction");
 
@@ -275,11 +279,19 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		if (anaglyphMode)
 		{
+			//TODO use fov information
 			CVector2<double> p1, p2;
-			p1.x = p.x + stereoEyeDistance / z;
+			p1.x = p.x;
 			p1.y = p.y;
 			Draw3DBox(scale, fov, p1, z, cStereo::eyeLeft);
-			p2.x = p.x - stereoEyeDistance / z;
+			if(perspType == params::perspThreePoint)
+			{
+				p2.x = p.x - 2.0 * (stereoEyeDistance / z + stereoInfiniteCorrection / 10.0) / fov;
+			}
+			else
+			{
+				p2.x = p.x - 2.0 * (stereoEyeDistance / z + stereoInfiniteCorrection / 10.0) / fov / M_PI;
+			}
 			p2.y = p.y;
 			Draw3DBox(scale, fov, p2, z, cStereo::eyeRight);
 		}
@@ -427,6 +439,17 @@ void RenderedImage::Draw3DBox(
 				sRGB8(255, 255, 255), opacity, 1);
 			image->AntiAliasedLine(spoint.x, spoint.y - sh * 0.3, spoint.x, spoint.y + sh * 0.3, z, z,
 				sRGB8(255, 255, 255), opacity, 1);
+			if(anaglyphMode)
+			{
+				image->AntiAliasedLine(spoint.x - sw * 0.05, spoint.y - sh * 0.05, spoint.x + sw * 0.05, spoint.y - sh * 0.05, z, z,
+					sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(spoint.x + sw * 0.05, spoint.y - sh * 0.05, spoint.x + sw * 0.05, spoint.y + sh * 0.05, z, z,
+					sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(spoint.x + sw * 0.05, spoint.y + sh * 0.05, spoint.x - sw * 0.05, spoint.y + sh * 0.05, z, z,
+					sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(spoint.x - sw * 0.05, spoint.y + sh * 0.05, spoint.x - sw * 0.05, spoint.y - sh * 0.05, z, z,
+					sRGB8(0, 0, 0), opacity, 1);
+			}
 
 			if (clickMode == clickPlaceLight)
 			{
@@ -497,6 +520,7 @@ void RenderedImage::enterEvent(QEvent *event)
 	setFocus();
 	isFocus = true;
 	timerRefreshImage->start();
+	QApplication::setOverrideCursor(Qt::BlankCursor);
 }
 
 void RenderedImage::leaveEvent(QEvent *event)
@@ -505,6 +529,7 @@ void RenderedImage::leaveEvent(QEvent *event)
 	isFocus = false;
 	update();
 	timerRefreshImage->stop();
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 }
 
 void RenderedImage::keyPressEvent(QKeyEvent *event)

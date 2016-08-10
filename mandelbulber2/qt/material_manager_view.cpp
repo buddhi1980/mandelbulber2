@@ -108,6 +108,7 @@ void cMaterialManagerView::slotLoadMaterial()
 {
 	cSettings parSettings(cSettings::formatFullText);
 
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFiles);
@@ -162,6 +163,7 @@ void cMaterialManagerView::slotSaveMaterial()
 
 	QString suggestedFilename = params1.Get<QString>("mat1_name");
 
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::AnyFile);

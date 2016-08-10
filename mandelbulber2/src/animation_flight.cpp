@@ -967,6 +967,7 @@ void cFlightAnimation::slotOrthogonalStrafe(bool _orthogonalStrafe)
 
 void cFlightAnimation::slotSelectAnimFlightImageDir()
 {
+	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog *dialog = new QFileDialog();
 	dialog->setFileMode(QFileDialog::DirectoryOnly);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));

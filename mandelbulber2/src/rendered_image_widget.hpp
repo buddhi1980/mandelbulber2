@@ -134,6 +134,7 @@ private:
 	CVector2<double> keyArrows;
 	double flightRotationDirection;
 	QTimer *timerRefreshImage;
+	bool anaglyphMode;
 
 signals:
 	void mouseMoved(int x, int y);

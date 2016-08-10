@@ -194,7 +194,7 @@ void cRenderWorker::doWork(void)
 					startRay = data->stereo.CalcEyePosition(startRay, viewVector, params->topVector,
 											 params->stereoEyeDistance, stereoEye);
 
-					data->stereo.ViewVectorCorrection(params->stereoInfiniteCorrection, mRot, stereoEye, &viewVector);
+					data->stereo.ViewVectorCorrection(params->stereoInfiniteCorrection, mRot, mRotInv, stereoEye, &viewVector);
 				}
 
 				sRGBAfloat resultShader;
