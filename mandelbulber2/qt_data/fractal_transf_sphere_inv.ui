@@ -307,6 +307,13 @@ offset:</string>
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
+       <property name="text">
+        <string>Pre_dot(z,z)</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

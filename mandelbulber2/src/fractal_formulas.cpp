@@ -762,6 +762,7 @@ void Makin3D2Iteration(CVector3 &z)
 /**
  * ABoxMod1, a formula from Mandelbulb3D.
  * Inspired from a 2D formula proposed by Kali at Fractal Forums
+ * This formula has a c.x c.y SWAP
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
@@ -1049,53 +1050,49 @@ void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal
 /**
  * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
  * @reference ????
+ * This formula has a c.x c.y SWAP
  */
 void AmazingSurfIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	aux.actualScale =
-		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+  aux.actualScale =
+    aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
-	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+        - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+  z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+        - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	// no z fold
 
 	double r2;
-	if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
-	{
-		r2 = (z.x * z.x + z.y * z.y); // cylinder fold  ;
-	}
-	else
-	{
-		r2 = z.Dot(z);
-	}
-	// if (rr < 1e-21)
-	//	rr = 1e-21;
+  r2 = z.Dot(z);
+  if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
+    r2 -= z.z * z.z;
+  // if (r2 < 1e-21)
+  //	r2 = 1e-21;
 
 	double m;
-	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
+  double sqrtMinR = sqrt(fractal->transformCommon.minR05);
 	// if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21)
 	//	sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
 	if (r2 < sqrtMinR)
 		m = aux.actualScale / sqrtMinR;
 	else
 	{
-		if (r2 < 1)
+    if (r2 < 1.0)
 			m = aux.actualScale / r2;
 		else
 			m = aux.actualScale;
 	}
-	z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 
-	aux.DE = aux.DE * fabs(m) + 1.0;
-
-	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  z *= m * fractal->transformCommon.scale1
+       + 1.0 * (1.0 - fractal->transformCommon.scale1);
+  aux.DE = aux.DE * fabs(m) + 1.0;
+  z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
 
 /**
- * Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali, with features added
- * by Darkbeam
+ * Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali,
+ * with features added by Darkbeam
  * @reference ????
  */
 void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1203,6 +1200,16 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+  aux.foldFactor = fractal->foldColor.compFold; // TODO fix?
+  aux.minRFactor = fractal->foldColor.compMinR; //orbit trap weight
+
+  double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
+  // scaleColor += fabs(fractal->mandelbox.scale);
+  aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
+
+
+
 }
 
 /**
@@ -4222,10 +4229,13 @@ void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fract
 
 /**
  * Adds Cpixel constant to z vector, swapping the Cpixel vector x and y axes
+ * disable swap for normal mode
  */
 void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
-	z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111;
+  if (fractal->transformCommon.functionEnabled)
+      c = CVector3(c.y, c.x, c.z);
+  z += c * fractal->transformCommon.constantMultiplier111;
 }
 
 /**
@@ -5091,7 +5101,7 @@ void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
   double sqrRout = z.Dot(z)* fractal->transformCommon.scale;
 
   z *= sqrRout;
-  aux.DE = aux.DE * fabs(sqrRout) + fractal->transformCommon.offset1;
+  aux.DE = aux.DE * fabs(sqrRout) + fractal->analyticDE.offset1;
 }
 
 
@@ -5132,7 +5142,7 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale); // + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
@@ -5179,12 +5189,16 @@ void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
  */
 void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  double r2 = z.Dot(z);
 
+  double r2Temp = z.Dot(z);
   z += fractal->mandelbox.offset;
   z *=fractal->transformCommon.scale; // beta
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;// beta
 
+
+  double r2 = z.Dot(z);
+  if (fractal->transformCommon.functionEnabledyFalse)
+    r2 = r2Temp;
   double mode = r2;
   if (fractal->transformCommon.functionEnabledFalse)// Mode 1
   {

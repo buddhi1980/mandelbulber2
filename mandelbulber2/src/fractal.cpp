@@ -164,7 +164,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	surfFolds.orderOfFolds5 =
 		(sFractalSurfFolds::multi_orderOfFolds)container->Get<int>("surfFolds_order_of_folds_5");
 
-  // benseis mag transforms
+  // bensei mag transforms
   magTransf.orderOfTransf1 =
     (sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_1");
   magTransf.orderOfTransf2 =
