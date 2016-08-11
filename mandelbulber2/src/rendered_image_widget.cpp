@@ -90,15 +90,21 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 			if (z < 1e10 || (enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
 			{
 				redrawed = false;
+				if(!isOnObject)
+				{
+					QApplication::setOverrideCursor(Qt::BlankCursor);
+				}
 				isOnObject = true;
 
 				Display3DCursor(lastMousePosition, z);
-				QApplication::setOverrideCursor(Qt::BlankCursor);
 			}
 			else
 			{
+				if(isOnObject)
+				{
+					QApplication::restoreOverrideCursor();
+				}
 				isOnObject = false;
-				QApplication::setOverrideCursor(Qt::CrossCursor);
 			}
 		}
 
@@ -517,19 +523,26 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
 void RenderedImage::enterEvent(QEvent *event)
 {
 	(void)event;
-	setFocus();
+
+	if(!isFocus)
+	{
+		setFocus();
+		QApplication::setOverrideCursor(Qt::CrossCursor);
+	}
 	isFocus = true;
 	timerRefreshImage->start();
-	QApplication::setOverrideCursor(Qt::BlankCursor);
+
 }
 
 void RenderedImage::leaveEvent(QEvent *event)
 {
 	(void)event;
 	isFocus = false;
+	isOnObject = false;
 	update();
 	timerRefreshImage->stop();
-	QApplication::setOverrideCursor(Qt::ArrowCursor);
+	QApplication::restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 }
 
 void RenderedImage::keyPressEvent(QKeyEvent *event)

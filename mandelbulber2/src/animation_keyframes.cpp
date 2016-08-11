@@ -796,7 +796,6 @@ void cKeyframeAnimation::DeleteFramesTo(int index)
 
 void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 {
-	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QFileDialog *dialog = new QFileDialog();
 	dialog->setFileMode(QFileDialog::DirectoryOnly);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));

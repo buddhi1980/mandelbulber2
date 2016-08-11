@@ -186,7 +186,6 @@ void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index)
 
 void cMaterialEditor::slotPressedButtonGetPaletteFromImage()
 {
-	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));

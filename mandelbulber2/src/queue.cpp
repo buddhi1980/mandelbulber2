@@ -574,7 +574,6 @@ void cQueue::slotQueueAddCurrentSettings()
 
 void cQueue::slotQueueAddFromFile()
 {
-	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	PreviewFileDialog dialog;
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);

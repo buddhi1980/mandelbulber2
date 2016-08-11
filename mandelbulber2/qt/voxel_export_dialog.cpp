@@ -129,7 +129,6 @@ void cVoxelExportDialog::on_pushButton_stop_render_layers_clicked()
 
 void cVoxelExportDialog::on_pushButton_select_image_path_clicked()
 {
-	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	QString dir = QDir::toNativeSeparators(
 		QFileDialog::getExistingDirectory(this, tr("Select path for slice images"),
 			QDir::toNativeSeparators(ui->text_voxel_image_path->text())));

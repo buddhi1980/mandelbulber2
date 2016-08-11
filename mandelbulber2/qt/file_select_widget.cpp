@@ -116,7 +116,6 @@ QString FileSelectWidget::GetDefault()
 
 void FileSelectWidget::slotSelectFile()
 {
-	QApplication::setOverrideCursor(Qt::ArrowCursor);
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
