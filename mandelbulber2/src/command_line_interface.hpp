@@ -88,6 +88,7 @@ private:
 		bool showExampleHelp;
 		bool keyframe;
 		bool flight;
+		bool silent;
 		bool queue;
 		bool voxel;
 		bool test;

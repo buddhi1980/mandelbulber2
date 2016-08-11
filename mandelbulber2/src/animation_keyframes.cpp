@@ -576,6 +576,12 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			}
 			else
 			{
+				// Exit if silent mode
+				if(systemData.silent)
+				{
+					exit(0);
+				}
+				
 				deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
 			}
 
