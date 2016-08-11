@@ -193,7 +193,6 @@ void WriteLog(QString text, int verbosityLevel)
 		// write to log in window
 		if (gMainInterface && gMainInterface->mainWindow != NULL)
 		{
-			// FIXME: AppendToLog consumes too much memory! may be fixed, please test
 			gMainInterface->mainWindow->AppendToLog(logtext);
 		}
 	}

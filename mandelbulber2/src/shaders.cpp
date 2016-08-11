@@ -1121,7 +1121,6 @@ sRGBAfloat cRenderWorker::LightShading(
 	return shading;
 }
 
-// TODO needed rework!!!
 sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut)
 {
 

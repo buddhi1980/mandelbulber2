@@ -117,7 +117,7 @@ cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename)
 	QImage imagePalette(filename);
 
 	SynchronizeInterfaceWindow(ui->groupCheck_use_color_texture, parameterContainer,
-		qInterface::read); // TODO get palette from image will work for actual material
+		qInterface::read);
 	int paletteSize =
 		parameterContainer->Get<int>(cMaterial::Name("coloring_palette_size", materialIndex));
 
@@ -142,7 +142,7 @@ cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename)
 void cMaterialEditor::slotPressedButtonNewRandomPalette()
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_use_colors_from_palette, parameterContainer,
-		qInterface::read); // TODO new palette will work for actual material
+		qInterface::read);
 	cColorPalette palette(
 		parameterContainer->Get<int>(cMaterial::Name("coloring_palette_size", materialIndex)),
 		parameterContainer->Get<int>(cMaterial::Name("coloring_random_seed", materialIndex)),

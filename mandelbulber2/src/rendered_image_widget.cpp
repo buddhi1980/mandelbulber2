@@ -214,10 +214,6 @@ void RenderedImage::DisplayCoordinates()
 
 void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 {
-	//TODO: move cursor to correct position
-	//TODO: disable displaing of coordinates and crossheair
-	//TODO: add infinite distance correction
-
 	clickMode = (enumClickMode)clickModeData.at(0).toInt();
 	if (clickMode == clickPlaceLight)
 	{
@@ -285,7 +281,6 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		if (anaglyphMode)
 		{
-			//TODO use fov information
 			CVector2<double> p1, p2;
 			p1.x = p.x;
 			p1.y = p.y;

@@ -42,7 +42,6 @@ cStereo::cStereo()
 
 cStereo::~cStereo()
 {
-	// TODO Auto-generated destructor stub
 }
 
 void cStereo::SetMode(enumStereoMode mode)

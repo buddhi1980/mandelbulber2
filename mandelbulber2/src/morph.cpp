@@ -522,7 +522,7 @@ double cMorph::AkimaInterpolate(const double factor, double v1, double v2, doubl
 
 	double x[] = {-2, -1, 0, 1, 2, 3};
 	double y[] = {v1, v2, v3, v4, v5, v6};
-	// more info: http://www.alglib.net/interpolation/spline3.php
+	// more information: http://www.alglib.net/interpolation/spline3.php
 	gsl_spline_init(splineAkimaPeriodic, x, y, (size_t)listSize);
 	double value = gsl_spline_eval(splineAkimaPeriodic, factor, interpolationAccelerator);
 

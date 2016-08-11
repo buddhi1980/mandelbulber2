@@ -289,9 +289,6 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	CVector3 cameraAngularSpeed;
 	CVector3 cameraAngularAcceleration;
 
-	// CVector3 cameraAccelerationRotation; TODO: remove or use
-	// CVector3 cameraRotation;
-
 	int index = 0;
 	if (continueRecording)
 	{
@@ -482,24 +479,6 @@ void cFlightAnimation::UpdateThumbnailFromImage(int index)
 
 void cFlightAnimation::PrepareTable()
 {
-	// manual delete of all cellWidgets
-	// FIXME deleting of cell widgets doesn't work properly. QTableWidgets don't free memory
-	// when clear() or removeCellWidget is used
-	// It calls destructors for cell widgets only when QTable widget is destroyed.
-	// even if cThumbnailWidget destructors are called, there is still some copy of widget inside the
-	// table.
-
-	//	for(int i = 1; i < table->columnCount(); i++)
-	//	{
-	//		table->removeCellWidget(0, i);
-	//	}
-	//	for(int i=0; i<thumbnailWidgets.size(); i++)
-	//	{
-	//		qDebug() << thumbnailWidgets[i];
-	//		delete thumbnailWidgets[i];
-	//	}
-	// thumbnailWidgets.clear();
-
 	table->setRowCount(0);
 	table->setColumnCount(0);
 	table->clear();

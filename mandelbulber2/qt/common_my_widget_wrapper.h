@@ -34,7 +34,7 @@
  * this class contains all common functionality needed for custom widgets, including:
  * contextMenu:   creation and result handling
  * assignment:    assignment of parameterContainer / parameterName
- * toolTipText:   puts additional info to tooltip
+ * toolTipText:   puts additional information to tooltip
  * In order to use this class inherit it and override the pure virtual methods
  * See also example mycheckbox.*
  */

@@ -244,7 +244,7 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 			case cProgressText::progress_QUEUE: MoveCursor(0, -3); break;
 		}
 
-		// not enough space to display info in animation bar
+		// not enough space to display information in animation bar
 		QString displayText = (progressType == cProgressText::progress_ANIMATION ? "" : text);
 
 		RenderingProgressOutput(displayText, progressText, progress);
@@ -323,7 +323,7 @@ void cHeadless::RenderingProgressOutput(
 QString cHeadless::colorize(
 	QString text, ansiColor foregroundcolor, ansiColor backgroundColor, bool bold)
 {
-// more info on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
+// more information on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
 #ifdef WIN32 /* WINDOWS */
 	return text;
 #else
