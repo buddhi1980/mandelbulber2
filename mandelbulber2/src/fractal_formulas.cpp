@@ -4231,7 +4231,7 @@ void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fract
  * Adds Cpixel constant to z vector, swapping the Cpixel vector x and y axes
  * disable swap for normal mode
  */
-void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 {
   if (fractal->transformCommon.functionEnabled)
       c = CVector3(c.y, c.x, c.z);
