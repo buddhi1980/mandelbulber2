@@ -206,7 +206,7 @@
         <string>function order of c.x, c.y and c.z: </string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -262,6 +262,13 @@
       <widget class="QLabel" name="label_111">
        <property name="text">
         <string>c.z:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+       <property name="text">
+        <string>alternate swap</string>
        </property>
       </widget>
      </item>

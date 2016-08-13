@@ -491,6 +491,7 @@ struct sFractalTransformCommon
 
 	bool addCpixelEnabled;
 	bool addCpixelEnabledFalse;
+  bool alternateEnabledFalse;
 	bool benesiT1Enabled;
 	bool benesiT1EnabledFalse;
 	bool functionEnabled;

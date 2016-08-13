@@ -731,6 +731,7 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
 	par->addParam("transf_addCpixel_enabled_false", false, morphLinear, paramStandard);
+  par->addParam("transf_alternate_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
 	par->addParam("transf_benesi_T1_enabled_false", false, morphLinear, paramStandard);
 

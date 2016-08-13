@@ -884,7 +884,7 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
  * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
  */
 void AboxModKaliEiffieIteration(
-	CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
+  CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				 - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -946,18 +946,37 @@ void AboxModKaliEiffieIteration(
 
 	if (fractal->transformCommon.addCpixelEnabled)
 	{
-		switch (fractal->mandelbulbMulti.orderOfxyz)
-		{
-			case sFractalMandelbulbMulti::xyz:
-			default: c = CVector3(c.x, c.y, c.z); break;
-			case sFractalMandelbulbMulti::xzy: c = CVector3(c.x, c.z, c.y); break;
-			case sFractalMandelbulbMulti::yxz: c = CVector3(c.y, c.x, c.z); break;
-			case sFractalMandelbulbMulti::yzx: c = CVector3(c.y, c.z, c.x); break;
-			case sFractalMandelbulbMulti::zxy: c = CVector3(c.z, c.x, c.y); break;
-			case sFractalMandelbulbMulti::zyx: c = CVector3(c.z, c.y, c.x); break;
-		}
-		z += c * fractal->transformCommon.constantMultiplier111;
-	}
+    CVector3 tempC = c;
+    if (fractal->transformCommon.alternateEnabledFalse) //alternate
+    {
+      tempC = aux.c;
+      switch (fractal->mandelbulbMulti.orderOfxyz)
+      {
+      case sFractalMandelbulbMulti::xyz:
+      default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
+      case sFractalMandelbulbMulti::xzy: tempC = CVector3(tempC.x, tempC.z, tempC.y); break;
+      case sFractalMandelbulbMulti::yxz: tempC = CVector3(tempC.y, tempC.x, tempC.z); break;
+      case sFractalMandelbulbMulti::yzx: tempC = CVector3(tempC.y, tempC.z, tempC.x); break;
+      case sFractalMandelbulbMulti::zxy: tempC = CVector3(tempC.z, tempC.x, tempC.y); break;
+      case sFractalMandelbulbMulti::zyx: tempC = CVector3(tempC.z, tempC.y, tempC.x); break;
+      }
+      aux.c = tempC;
+    }
+    else
+    {
+      switch (fractal->mandelbulbMulti.orderOfxyz)
+      {
+        case sFractalMandelbulbMulti::xyz:
+        default: tempC = CVector3(c.x, c.y, c.z); break;
+        case sFractalMandelbulbMulti::xzy: tempC = CVector3(c.x, c.z, c.y); break;
+        case sFractalMandelbulbMulti::yxz: tempC = CVector3(c.y, c.x, c.z); break;
+        case sFractalMandelbulbMulti::yzx: tempC = CVector3(c.y, c.z, c.x); break;
+        case sFractalMandelbulbMulti::zxy: tempC = CVector3(c.z, c.x, c.y); break;
+        case sFractalMandelbulbMulti::zyx: tempC = CVector3(c.z, c.y, c.x); break;
+      }
+    }
+    z += tempC * fractal->transformCommon.constantMultiplier111;
+  }
 	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations)
 	{
@@ -4261,7 +4280,7 @@ void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 c, const cFra
   CVector3 tempC = c;
   if (fractal->transformCommon.functionEnabled)
   {
-    if (fractal->transformCommon.functionEnabledFalse)
+    if (fractal->transformCommon.alternateEnabledFalse)// alternate
     {
       tempC = aux.c;
       tempC = CVector3(tempC.y, tempC.x, tempC.z);
@@ -4278,19 +4297,38 @@ void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 c, const cFra
 /**
  * Adds Cpixel constant to z vector. Possible to swap Cpixel vector axes.
  */
-void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
-	switch (fractal->mandelbulbMulti.orderOfxyz)
-	{
-		case sFractalMandelbulbMulti::xyz:
-		default: c = CVector3(c.x, c.y, c.z); break;
-		case sFractalMandelbulbMulti::xzy: c = CVector3(c.x, c.z, c.y); break;
-		case sFractalMandelbulbMulti::yxz: c = CVector3(c.y, c.x, c.z); break;
-		case sFractalMandelbulbMulti::yzx: c = CVector3(c.y, c.z, c.x); break;
-		case sFractalMandelbulbMulti::zxy: c = CVector3(c.z, c.x, c.y); break;
-		case sFractalMandelbulbMulti::zyx: c = CVector3(c.z, c.y, c.x); break;
-	}
-	z += c * fractal->transformCommon.constantMultiplier111;
+  CVector3 tempC = c;
+  if (fractal->transformCommon.alternateEnabledFalse) //alternate
+  {
+    tempC = aux.c;
+    switch (fractal->mandelbulbMulti.orderOfxyz)
+    {
+    case sFractalMandelbulbMulti::xyz:
+    default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
+    case sFractalMandelbulbMulti::xzy: tempC = CVector3(tempC.x, tempC.z, tempC.y); break;
+    case sFractalMandelbulbMulti::yxz: tempC = CVector3(tempC.y, tempC.x, tempC.z); break;
+    case sFractalMandelbulbMulti::yzx: tempC = CVector3(tempC.y, tempC.z, tempC.x); break;
+    case sFractalMandelbulbMulti::zxy: tempC = CVector3(tempC.z, tempC.x, tempC.y); break;
+    case sFractalMandelbulbMulti::zyx: tempC = CVector3(tempC.z, tempC.y, tempC.x); break;
+    }
+    aux.c = tempC;
+  }
+  else
+  {
+    switch (fractal->mandelbulbMulti.orderOfxyz)
+    {
+      case sFractalMandelbulbMulti::xyz:
+      default: tempC = CVector3(c.x, c.y, c.z); break;
+      case sFractalMandelbulbMulti::xzy: tempC = CVector3(c.x, c.z, c.y); break;
+      case sFractalMandelbulbMulti::yxz: tempC = CVector3(c.y, c.x, c.z); break;
+      case sFractalMandelbulbMulti::yzx: tempC = CVector3(c.y, c.z, c.x); break;
+      case sFractalMandelbulbMulti::zxy: tempC = CVector3(c.z, c.x, c.y); break;
+      case sFractalMandelbulbMulti::zyx: tempC = CVector3(c.z, c.y, c.x); break;
+    }
+  }
+  z += tempC * fractal->transformCommon.constantMultiplier111;
 }
 
 /**

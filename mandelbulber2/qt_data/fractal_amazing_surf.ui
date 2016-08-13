@@ -266,7 +266,7 @@
         </sizepolicy>
        </property>
        <property name="minimum">
-        <number>-10000000</number>
+        <number>0</number>
        </property>
        <property name="maximum">
         <number>10000000</number>

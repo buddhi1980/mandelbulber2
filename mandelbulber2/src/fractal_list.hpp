@@ -149,7 +149,7 @@ enum enumFractalFormula
 	transfBoxOffset = 1005,
 	transfSphericalOffset = 1006,
 	transfAddCpixel = 1007,
-	transfAddCpixelAxisSwap = 1008,
+  transfAddCpixelAxisSwap = 1008,//fixed V2.09
 	transfBenesiT1 = 1009,
 	transfBenesiT1Mod = 1010,
 	transfBenesiT2 = 1011,
