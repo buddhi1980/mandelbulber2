@@ -324,7 +324,21 @@ offset:</string>
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line_23">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_2">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_48">
+       <property name="text">
+        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion) </string>
+       </property>
+      </widget>
+     </item>
      <item row="3" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_neg1">
        <property name="sizePolicy">
@@ -356,7 +370,7 @@ offset:</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_47">
        <property name="text">
-        <string>Radius2:</string>
+        <string>Mode Radius2:</string>
        </property>
       </widget>
      </item>
@@ -441,7 +455,7 @@ offset:</string>
      <item row="2" column="0">
       <widget class="QLabel" name="label_16">
        <property name="text">
-        <string>Radius1:</string>
+        <string>Mode Radius1:</string>
        </property>
       </widget>
      </item>
@@ -466,10 +480,10 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_48">
-       <property name="text">
-        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion) </string>
+     <item row="4" column="0" colspan="3">
+      <widget class="Line" name="line_24">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>

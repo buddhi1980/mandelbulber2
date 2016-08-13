@@ -886,15 +886,40 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 void AboxModKaliEiffieIteration(
 	CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	CVector3 z1 = z;
-	z1.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+  z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				 - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-	z1.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-				 - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	z1.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-				 - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-	z = z1;
-	z.z *= fractal->transformCommon.scale1;
+
+  z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+         - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+
+ /* z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+         - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+
+  z.z *= fractal->transformCommon.scale1;*/
+
+  if(fractal->transformCommon.functionEnabledxFalse)
+  {
+
+    double zLimit =  fractal->transformCommon.additionConstant111.z * fractal->transformCommon.scale1;
+    double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
+    if (z.z > zLimit)
+    {
+      z.z = zValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+    else if (z.z < -zLimit)
+    {
+      z.z = -zValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+  }
+  else
+  {
+    z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+           - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+    z.z *= fractal->transformCommon.scale1;
+  }
+
 	if (fractal->transformCommon.functionEnabled)
 	{
 		z = CVector3(z.z, z.y, z.x); // swap
@@ -4231,11 +4256,23 @@ void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fract
  * Adds Cpixel constant to z vector, swapping the Cpixel vector x and y axes
  * disable swap for normal mode
  */
-void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
+void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
+  CVector3 tempC = c;
   if (fractal->transformCommon.functionEnabled)
-      c = CVector3(c.y, c.x, c.z);
-  z += c * fractal->transformCommon.constantMultiplier111;
+  {
+    if (fractal->transformCommon.functionEnabledFalse)
+    {
+      tempC = aux.c;
+      tempC = CVector3(tempC.y, tempC.x, tempC.z);
+      aux.c = tempC;
+    }
+    else
+    {
+      tempC = CVector3(c.y, c.x, c.z);
+    }
+  }
+  z += tempC * fractal->transformCommon.constantMultiplier111;
 }
 
 /**

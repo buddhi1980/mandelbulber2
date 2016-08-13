@@ -124,7 +124,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
 
 // transforming formulas
 void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
-void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal *fractal);
+void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal);

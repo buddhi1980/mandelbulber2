@@ -498,7 +498,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case transfAddCpixelCxCyAxisSwap:
 				{
-					TransformAddCpixelCxCyAxisSwapIteration(z, c, fractal);
+          TransformAddCpixelCxCyAxisSwapIteration(z, c, fractal, extendedAux);
 					break;
 				}
 				case transfAddCpixelPosNeg:

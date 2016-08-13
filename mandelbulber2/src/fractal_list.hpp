@@ -123,7 +123,7 @@ enum enumFractalFormula
 	// V2.08
 	riemannBulbMsltoeMod2 = 85,
 	msltoeToroidal = 86,
-	aboxModKaliEiffie = 87,
+  aboxModKaliEiffie = 87, //updated z.z scale V2.09
 	collatz = 88,
 	collatzMod = 89,
 	mengerPwr2Poly = 90,
@@ -176,7 +176,7 @@ enum enumFractalFormula
 	transfScaleVaryV1 = 1032,
 	transfAdditionConstantVaryV1 = 1033,
 	transfBoxFoldXYZ = 1034,
-	transfAddCpixelCxCyAxisSwap = 1035,
+  transfAddCpixelCxCyAxisSwap = 1035, //fixed V2.09
 	transfRotationVaryV1 = 1036,
 	transfLinCombineCxyz = 1037,
 	transfSphereInvC = 1038,
