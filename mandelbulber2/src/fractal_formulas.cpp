@@ -928,7 +928,7 @@ void AboxModKaliEiffieIteration(
 	if (z.y > z.x) z = CVector3(z.y, z.x, z.z); // conditional
 
 	double rr = z.Dot(z);
-	// if(rr < 1e-21) rr = 1e-21;
+  // if(rr < 1e-21) rr = 1e-21;
 	double MinR = fractal->transformCommon.minR05;
 	// if (MinR < -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
 	double m;
@@ -1516,7 +1516,7 @@ void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
  * http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
  */
 void BenesiT1PineTreeIteration(
-	CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
+  CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.benesiT1Enabled && i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations)
@@ -1553,10 +1553,22 @@ void BenesiT1PineTreeIteration(
 		t = 1.0;
 	if (fractal->transformCommon.addCpixelEnabled)
 	{
-		z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
-		z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y; // Cy Cx swap
-		z.y = (2 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z;
+    CVector3 tempC = c;
+    if (fractal->transformCommon.alternateEnabledFalse)// alternate
+    {
+      tempC = aux.c;
+      tempC = CVector3(tempC.x, tempC.z, tempC.y);
+      aux.c = tempC;
+    }
+    else
+    {
+      tempC = CVector3(c.x, c.z, c.y);
+    }
+    z.x = (z.x - z.y - z.z) + tempC.x * fractal->transformCommon.constantMultiplier100.x;
+    z.z = (t * (z.y - z.z)) + tempC.z * fractal->transformCommon.constantMultiplier100.y;
+    z.y = (2 * t * temp.y * temp.z) + tempC.y * fractal->transformCommon.constantMultiplier100.z;
 	}
+
 	if (fractal->transformCommon.juliaMode)
 	{
 		z.x += fractal->transformCommon.juliaC.x * fractal->transformCommon.constantMultiplier100.x;
@@ -1980,7 +1992,7 @@ void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExte
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
 void MandelboxMengerIteration(
-	CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
+  CVector3 &z, CVector3 c, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->mandelbox.rotationsEnabled)
 	{
@@ -2110,20 +2122,39 @@ void MandelboxMengerIteration(
 		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 	}
 
-	if (fractal->transformCommon.addCpixelEnabledFalse) // addCpixel options
-	{
-		switch (fractal->mandelbulbMulti.orderOfxyz)
-		{
-			case sFractalMandelbulbMulti::xyz:
-			default: c = CVector3(c.x, c.y, c.z); break;
-			case sFractalMandelbulbMulti::xzy: c = CVector3(c.x, c.z, c.y); break;
-			case sFractalMandelbulbMulti::yxz: c = CVector3(c.y, c.x, c.z); break;
-			case sFractalMandelbulbMulti::yzx: c = CVector3(c.y, c.z, c.x); break;
-			case sFractalMandelbulbMulti::zxy: c = CVector3(c.z, c.x, c.y); break;
-			case sFractalMandelbulbMulti::zyx: c = CVector3(c.z, c.y, c.x); break;
-		}
-		z += c * fractal->transformCommon.constantMultiplierC111;
-	}
+  if (fractal->transformCommon.addCpixelEnabled)
+  {
+    CVector3 tempC = c;
+    if (fractal->transformCommon.alternateEnabledFalse) //alternate
+    {
+      tempC = aux.c;
+      switch (fractal->mandelbulbMulti.orderOfxyz)
+      {
+      case sFractalMandelbulbMulti::xyz:
+      default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
+      case sFractalMandelbulbMulti::xzy: tempC = CVector3(tempC.x, tempC.z, tempC.y); break;
+      case sFractalMandelbulbMulti::yxz: tempC = CVector3(tempC.y, tempC.x, tempC.z); break;
+      case sFractalMandelbulbMulti::yzx: tempC = CVector3(tempC.y, tempC.z, tempC.x); break;
+      case sFractalMandelbulbMulti::zxy: tempC = CVector3(tempC.z, tempC.x, tempC.y); break;
+      case sFractalMandelbulbMulti::zyx: tempC = CVector3(tempC.z, tempC.y, tempC.x); break;
+      }
+      aux.c = tempC;
+    }
+    else
+    {
+      switch (fractal->mandelbulbMulti.orderOfxyz)
+      {
+        case sFractalMandelbulbMulti::xyz:
+        default: tempC = CVector3(c.x, c.y, c.z); break;
+        case sFractalMandelbulbMulti::xzy: tempC = CVector3(c.x, c.z, c.y); break;
+        case sFractalMandelbulbMulti::yxz: tempC = CVector3(c.y, c.x, c.z); break;
+        case sFractalMandelbulbMulti::yzx: tempC = CVector3(c.y, c.z, c.x); break;
+        case sFractalMandelbulbMulti::zxy: tempC = CVector3(c.z, c.x, c.y); break;
+        case sFractalMandelbulbMulti::zyx: tempC = CVector3(c.z, c.y, c.x); break;
+      }
+    }
+    z += tempC * fractal->transformCommon.constantMultiplierC111;
+  }
 	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
@@ -4384,7 +4415,7 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal
 /**
  * Adds Cpixel constant to z vector, with symmetry
  */
-void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 {
 	CVector3 tempFAB = c;
 	if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
