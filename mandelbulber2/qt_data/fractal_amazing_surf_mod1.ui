@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>835</width>
-    <height>2836</height>
+    <height>2973</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1359,7 +1359,7 @@
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>10000</number>
+        <number>500</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -1389,6 +1389,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hint: change coloring algorithm from Standard in the Material Editor&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="prefix">
         <string/>
@@ -1424,7 +1427,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_fold">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_fold0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1617,7 +1620,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Coloring components (beta version only)</string>
+        <string>Coloring components (beta version only, does not work in hybrid mode)</string>
        </property>
       </widget>
      </item>

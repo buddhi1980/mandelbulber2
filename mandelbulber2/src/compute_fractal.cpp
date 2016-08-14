@@ -345,7 +345,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case amazingSurfMulti:
 				{
-					AmazingSurfMultiIteration(z, i, fractal, extendedAux);
+          AmazingSurfMultiIteration(z, c, i, fractal, extendedAux);
 					break;
 				}
 				case benesiPineTree:
@@ -1145,7 +1145,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case amazingSurfMulti:
 				case mandelboxMenger:
         case amazingSurfMod1:
-
+        case aboxModKaliEiffie:
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part

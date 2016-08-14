@@ -834,7 +834,7 @@ void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	}
 	// if (rr < 1e-21) rr = 1e-21;
 	double m;
-	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
+  double sqrtMinR = sqrt(fractal->transformCommon.minR05);
 	// if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
 	if (rr < sqrtMinR)
 	{
@@ -888,16 +888,17 @@ void AboxModKaliEiffieIteration(
 {
   z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				 - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-
   z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
          - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-
- /* z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+  z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
          - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+  aux.color += fractal->mandelbox.color.factor.x;
+  aux.color += fractal->mandelbox.color.factor.y;
+  aux.color += fractal->mandelbox.color.factor.z;
 
-  z.z *= fractal->transformCommon.scale1;*/
-
-  if(fractal->transformCommon.functionEnabledxFalse)
+  if (fractal->transformCommon.functionEnabledxFalse
+      && i >= fractal->transformCommon.startIterationsA
+      && i < fractal->transformCommon.stopIterationsA) // box fold z.z
   {
 
     double zLimit =  fractal->transformCommon.additionConstant111.z * fractal->transformCommon.scale1;
@@ -913,12 +914,12 @@ void AboxModKaliEiffieIteration(
       aux.color += fractal->mandelbox.color.factor.z;
     }
   }
-  else
+  /*else
   {
     z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
            - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
     z.z *= fractal->transformCommon.scale1;
-  }
+  }*/
 
 	if (fractal->transformCommon.functionEnabled)
 	{
@@ -932,11 +933,17 @@ void AboxModKaliEiffieIteration(
 	// if (MinR < -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
 	double m;
 	if (rr < MinR)
+  {
 		m = fractal->transformCommon.scale015 / MinR;
+    aux.color += fractal->mandelbox.color.factorSp1;
+  }
 	else
 	{
 		if (rr < 1.0)
+    {
 			m = fractal->transformCommon.scale015 / rr;
+      aux.color += fractal->mandelbox.color.factorSp2;
+    }
 		else
 			m = fractal->transformCommon.scale015;
 	}
@@ -983,6 +990,14 @@ void AboxModKaliEiffieIteration(
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 	aux.DE = aux.DE * fabs(m) + 1.0;
+
+  aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
+  aux.minRFactor = fractal->foldColor.compMinR; //orbit trap weight
+
+  double scaleColor = fractal->foldColor.colorMin + fabs(m);
+  // scaleColor += fabs(fractal->mandelbox.scale);
+  aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
+
 }
 /**
  * ABoxVS_icen1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at
@@ -1245,7 +1260,7 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-  aux.foldFactor = fractal->foldColor.compFold; // TODO fix?
+  aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
   aux.minRFactor = fractal->foldColor.compMinR; //orbit trap weight
 
   double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
@@ -1261,7 +1276,7 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
  * Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali, with features added
  * by Darkbeam
  */
-void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void AmazingSurfMultiIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
@@ -1418,9 +1433,7 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 			z -= fractal->mandelbox.offset;
 		}
 
-		if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsR
-				&& i < fractal->transformCommon.stopIterationsR)
-			z = fractal->mandelbox.mainRot.RotateVector(z);
+
 
 		if (i >= fractal->transformCommon.startIterationsS
 				&& i < fractal->transformCommon.stopIterationsS)
@@ -1430,7 +1443,44 @@ void AmazingSurfMultiIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 			aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 		}
 	}
-	aux.foldFactor = fractal->foldColor.compFold; // TODO fix?
+  if (fractal->transformCommon.addCpixelEnabled)
+  {
+    CVector3 tempC = c;
+    if (fractal->transformCommon.alternateEnabledFalse) //alternate
+    {
+      tempC = aux.c;
+      switch (fractal->mandelbulbMulti.orderOfxyz)
+      {
+      case sFractalMandelbulbMulti::xyz:
+      default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
+      case sFractalMandelbulbMulti::xzy: tempC = CVector3(tempC.x, tempC.z, tempC.y); break;
+      case sFractalMandelbulbMulti::yxz: tempC = CVector3(tempC.y, tempC.x, tempC.z); break;
+      case sFractalMandelbulbMulti::yzx: tempC = CVector3(tempC.y, tempC.z, tempC.x); break;
+      case sFractalMandelbulbMulti::zxy: tempC = CVector3(tempC.z, tempC.x, tempC.y); break;
+      case sFractalMandelbulbMulti::zyx: tempC = CVector3(tempC.z, tempC.y, tempC.x); break;
+      }
+      aux.c = tempC;
+    }
+    else
+    {
+      switch (fractal->mandelbulbMulti.orderOfxyz)
+      {
+        case sFractalMandelbulbMulti::xyz:
+        default: tempC = CVector3(c.x, c.y, c.z); break;
+        case sFractalMandelbulbMulti::xzy: tempC = CVector3(c.x, c.z, c.y); break;
+        case sFractalMandelbulbMulti::yxz: tempC = CVector3(c.y, c.x, c.z); break;
+        case sFractalMandelbulbMulti::yzx: tempC = CVector3(c.y, c.z, c.x); break;
+        case sFractalMandelbulbMulti::zxy: tempC = CVector3(c.z, c.x, c.y); break;
+        case sFractalMandelbulbMulti::zyx: tempC = CVector3(c.z, c.y, c.x); break;
+      }
+    }
+    z += tempC * fractal->transformCommon.constantMultiplier111;
+  }
+  if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsR
+      && i < fractal->transformCommon.stopIterationsR)
+    z = fractal->mandelbox.mainRot.RotateVector(z);
+
+  aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
   aux.minRFactor = fractal->foldColor.compMinR; //orbit trap weight
 
 	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
