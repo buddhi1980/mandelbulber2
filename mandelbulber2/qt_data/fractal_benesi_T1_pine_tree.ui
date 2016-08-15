@@ -783,6 +783,13 @@
        <number>2</number>
       </property>
       <item>
+       <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+        <property name="text">
+         <string>alternate c.y c.z swap</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QGridLayout" name="gridLayout_23">
         <property name="spacing">
          <number>2</number>
@@ -1193,14 +1200,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
