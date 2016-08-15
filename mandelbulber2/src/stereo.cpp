@@ -33,15 +33,25 @@
  */
 
 #include "stereo.h"
+#include <QtCore>
 
 cStereo::cStereo()
 {
 	swapped = false;
 	stereoMode = stereoDisabled;
+	imageBuffer = NULL;
+	imageBufferWidth = 0;
+	imageBufferHeight = 0;
+	forceEye = eyeNone;
 }
 
 cStereo::~cStereo()
 {
+	if(imageBuffer)
+	{
+		delete[] imageBuffer;
+		imageBuffer = NULL;
+	}
 }
 
 void cStereo::SetMode(enumStereoMode mode)
@@ -69,6 +79,12 @@ CVector3 cStereo::CalcEyePosition(
 sRGBfloat cStereo::MixColorsRedCyan(sRGBfloat left, sRGBfloat right)
 {
 	sRGBfloat color(right.R, left.G, left.B);
+	return color;
+}
+
+sRGB16 cStereo::MixColorsRedCyan16(sRGB16 left, sRGB16 right)
+{
+	sRGB16 color(right.R, left.G, left.B);
 	return color;
 }
 
@@ -139,7 +155,7 @@ double cStereo::ModifyAspectRatio(double aspectRatio)
 
 int cStereo::GetNumberOfRepeats()
 {
-	if(stereoMode == stereoRedCyan)
+	if(stereoMode == stereoRedCyan && forceEye == eyeNone)
 	{
 		return 2;
 	}
@@ -153,7 +169,12 @@ void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat)
 {
 	if (stereoMode == stereoRedCyan)
 	{
-		*eye = (enumEye)(repeat % 2);
+		if(forceEye == eyeLeft)
+			*eye = eyeLeft;
+		else if(forceEye == eyeRight)
+			*eye = eyeRight;
+		else
+			*eye = (enumEye)(repeat % 2);
 	}
 	// else do not modify eye selection
 }
@@ -205,4 +226,45 @@ void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRo
 		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
 		*viewVector = viewVectorTemp;
 	}
+}
+
+void cStereo::StoreImageInBuffer(cImage *image)
+{
+	int width = image->GetWidth();
+	int height = image->GetHeight();
+	unsigned int size = width * height;
+	if(imageBuffer) delete[] imageBuffer;
+	imageBuffer = new sRGB16[size];
+	sRGB16 *image16Ptr = image->GetImage16Ptr();
+	memcpy(imageBuffer, image16Ptr, size * sizeof(sRGB16));
+	imageBufferWidth = width;
+	imageBufferHeight = height;
+}
+
+void cStereo::MixImages(cImage *image)
+{
+	int width = image->GetWidth();
+	int height = image->GetHeight();
+	if(width == imageBufferWidth && height == imageBufferHeight)
+	{
+		for(int y = 0; y < height; y++)
+		{
+			for(int x = 0; x < width; x++)
+			{
+				sRGB16 pixel = image->GetPixelImage16(x, y);
+				sRGB16 pixel2 = imageBuffer[x + y * width];
+				sRGB16 newPixel = MixColorsRedCyan16(pixel2, pixel);
+				image->PutPixelImage16(x, y, newPixel);
+			}
+		}
+	}
+	else
+	{
+		qCritical() << "cStereo::MixImages(cImage *image): image buffer size is different than cImage";
+	}
+}
+
+void cStereo::ForceEye(enumEye eye)
+{
+	forceEye = eye;
 }

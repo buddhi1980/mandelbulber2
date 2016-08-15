@@ -305,123 +305,170 @@ bool cRenderJob::Execute(void)
 
 	image->BlockImage();
 
-	emit updateProgressAndStatus(
-		QObject::tr("Rendering image"), QObject::tr("Starting rendering of image"), 0.0);
+	runningJobs++;
 
-	// send settings to all NetRender clients
-	if (renderData->configuration.UseNetRender())
+	bool result = false;
+	bool twoPassStereo = false;
+
+	int noOfRepeats = 1;
+	if (!gNetRender->IsClient() && paramsContainer->Get<bool>("stereo_enabled")
+			&& paramsContainer->Get<int>("stereo_mode") == cStereo::stereoRedCyan
+			&& ((paramsContainer->Get<bool>("ambient_occlusion_enabled")
+						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
+					 || (paramsContainer->Get<bool>("DOF_enabled")
+								&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
 	{
-		if (gNetRender->IsServer())
+		noOfRepeats = 2;
+		twoPassStereo = true;
+	}
+
+	for (int repeat = 0; repeat < noOfRepeats; repeat++)
+	{
+		emit updateProgressAndStatus(
+			QObject::tr("Rendering image"), QObject::tr("Starting rendering of image"), 0.0);
+
+		if (twoPassStereo)
 		{
-			// new id
-			qint32 id = rand();
+			cStereo::enumEye eye;
+			if (repeat == 0)
+				eye = cStereo::eyeLeft;
+			else  eye = cStereo::eyeRight;
 
-			// calculation of starting positions list and sending id to clients
-			renderData->netRenderStartingPositions.clear();
+			renderData->stereo.ForceEye(eye);
+		}
 
-			int clientIndex = 0;
-			int clientWorkerIndex = 0;
-
-			int workersCount =
-				gNetRender->getTotalWorkerCount() + renderData->configuration.GetNumberOfThreads();
-
-			QList<int> startingPositionsToSend;
-
-			for (int i = 0; i < workersCount; i++)
+		// send settings to all NetRender clients
+		if (renderData->configuration.UseNetRender())
+		{
+			if (gNetRender->IsServer())
 			{
-				//FIXME to correct starting positions considering region data
-				if (i < renderData->configuration.GetNumberOfThreads())
-				{
-					renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
-				}
-				else
-				{
-					startingPositionsToSend.append(i * image->GetHeight() / workersCount);
-					clientWorkerIndex++;
+				// new id
+				qint32 id = rand();
 
-					if (clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
+				// calculation of starting positions list and sending id to clients
+				renderData->netRenderStartingPositions.clear();
+
+				int clientIndex = 0;
+				int clientWorkerIndex = 0;
+
+				int workersCount =
+					gNetRender->getTotalWorkerCount() + renderData->configuration.GetNumberOfThreads();
+
+				QList<int> startingPositionsToSend;
+
+				for (int i = 0; i < workersCount; i++)
+				{
+					// FIXME to correct starting positions considering region data
+					if (i < renderData->configuration.GetNumberOfThreads())
 					{
-						emit SendNetRenderSetup(clientIndex, id, startingPositionsToSend);
-						clientIndex++;
-						clientWorkerIndex = 0;
-						startingPositionsToSend.clear();
+						renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
+					}
+					else
+					{
+						startingPositionsToSend.append(i * image->GetHeight() / workersCount);
+						clientWorkerIndex++;
+
+						if (clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
+						{
+							emit SendNetRenderSetup(clientIndex, id, startingPositionsToSend);
+							clientIndex++;
+							clientWorkerIndex = 0;
+							startingPositionsToSend.clear();
+						}
 					}
 				}
+
+				QStringList listOfUsedTextures = CreateListOfUsedTextures();
+
+				// send settings to all clients
+				emit SendNetRenderJob(*paramsContainer, *fractalContainer, listOfUsedTextures);
 			}
 
-			QStringList listOfUsedTextures = CreateListOfUsedTextures();
-
-			// send settings to all clients
-			emit SendNetRenderJob(*paramsContainer, *fractalContainer, listOfUsedTextures);
+			// get starting positions received from server
+			if (gNetRender->IsClient())
+			{
+				renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
+			}
 		}
 
-		// get starting positions received from server
-		if (gNetRender->IsClient())
+		// qDebug() << "runningJobs" << runningJobs;
+
+		inProgress = true;
+		*renderData->stopRequest = false;
+
+		WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
+
+		// move parameters from containers to structures
+		cParamRender *params = new cParamRender(paramsContainer, &renderData->objectData);
+		cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
+
+		// recalculation of some parameters;
+		params->resolution = 1.0 / image->GetHeight();
+		ReduceDetail();
+
+		// initialize histograms
+		renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
+		renderData->statistics.histogramStepCount.Resize(1000);
+		renderData->statistics.Reset();
+		renderData->statistics.usedDEType = fractals->GetDETypeString();
+
+		// create and execute renderer
+		cRenderer *renderer = new cRenderer(params, fractals, renderData, image);
+
+		// connect signal for progress bar update
+		connect(renderer, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+		connect(
+			renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
+
+		if (renderData->configuration.UseNetRender())
 		{
-			renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
+			if (gNetRender->IsClient())
+			{
+				QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)),
+					gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
+				QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer,
+					SLOT(ToDoListArrived(QList<int>)));
+				QObject::connect(renderer, SIGNAL(NotifyClientStatus()), gNetRender, SLOT(NotifyStatus()));
+				QObject::connect(gNetRender, SIGNAL(AckReceived()), renderer, SLOT(AckReceived()));
+			}
+
+			if (gNetRender->IsServer())
+			{
+				QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)),
+					renderer, SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
+				QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender,
+					SLOT(SendToDoList(int, QList<int>)));
+				QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
+			}
 		}
+
+		result = renderer->RenderImage();
+
+		if(twoPassStereo && repeat == 0)
+			renderData->stereo.StoreImageInBuffer(image);
+
+		delete params;
+		delete fractals;
+		delete renderer;
 	}
 
-	runningJobs++;
-	// qDebug() << "runningJobs" << runningJobs;
-
-	inProgress = true;
-	*renderData->stopRequest = false;
-
-	WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
-
-	// move parameters from containers to structures
-	cParamRender *params = new cParamRender(paramsContainer, &renderData->objectData);
-	cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
-
-	// recalculation of some parameters;
-	params->resolution = 1.0 / image->GetHeight();
-	ReduceDetail();
-
-	// initialize histograms
-	renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
-	renderData->statistics.histogramStepCount.Resize(1000);
-	renderData->statistics.Reset();
-	renderData->statistics.usedDEType = fractals->GetDETypeString();
-
-	// create and execute renderer
-	cRenderer *renderer = new cRenderer(params, fractals, renderData, image);
-
-	// connect signal for progress bar update
-	connect(renderer, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(
-		renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
-
-	if (renderData->configuration.UseNetRender())
+	if(twoPassStereo)
 	{
-		if (gNetRender->IsClient())
+		renderData->stereo.MixImages(image);
+		if (image->IsPreview())
 		{
-			QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)),
-				gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
-			QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer,
-				SLOT(ToDoListArrived(QList<int>)));
-			QObject::connect(renderer, SIGNAL(NotifyClientStatus()), gNetRender, SLOT(NotifyStatus()));
-			QObject::connect(gNetRender, SIGNAL(AckReceived()), renderer, SLOT(AckReceived()));
-		}
-
-		if (gNetRender->IsServer())
-		{
-			QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer,
-				SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
-			QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender,
-				SLOT(SendToDoList(int, QList<int>)));
-			QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
+			WriteLog("image->ConvertTo8bit()", 2);
+			image->ConvertTo8bit();
+			WriteLog("image->UpdatePreview()", 2);
+			image->UpdatePreview();
+			WriteLog("image->GetImageWidget()->update()", 2);
+			image->GetImageWidget()->update();
 		}
 	}
-
-	bool result = renderer->RenderImage();
 
 	if (result) emit fullyRendered();
 
-	delete params;
-	delete fractals;
-	delete renderer;
 	inProgress = false;
 
 	WriteLog("cRenderJob::Execute(void): finished", 2);

@@ -38,6 +38,7 @@
 #include "algebra.hpp"
 #include "color_structures.hpp"
 #include "region.hpp"
+#include "cimage.hpp"
 
 class cStereo
 {
@@ -67,6 +68,7 @@ public:
 	void ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
 		const CRotationMatrix &mRotInv, enumEye eye, CVector3 *viewVector);
 	sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
+	sRGB16 MixColorsRedCyan16(sRGB16 left, sRGB16 right);
 	CVector2<int> ModifyImageResolution(CVector2<int> resolution);
 	enumEye WhichEye(CVector2<double> imagePoint);
 	CVector2<double> ModifyImagePoint(CVector2<double> imagePoint);
@@ -74,10 +76,17 @@ public:
 	int GetNumberOfRepeats();
 	void WhichEyeForAnaglyph(enumEye *eye, int repeat);
 	cRegion<int> GetRegion(CVector2<int> imageResolution, enumEye eye);
+	void StoreImageInBuffer(cImage *image);
+	void MixImages(cImage *image);
+	void ForceEye(enumEye eye);
 
 private:
 	bool swapped;
 	enumStereoMode stereoMode;
+	sRGB16 *imageBuffer;
+	int imageBufferWidth;
+	int imageBufferHeight;
+	enumEye forceEye;
 };
 
 #endif /* MANDELBULBER2_SRC_STEREO_H_ */
