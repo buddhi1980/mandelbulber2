@@ -335,7 +335,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case amazingSurf:
 				{
-					AmazingSurfIteration(z, fractal, extendedAux);
+          AmazingSurfIteration(z, c, fractal, extendedAux);
 					break;
 				}
 				case amazingSurfMod1:

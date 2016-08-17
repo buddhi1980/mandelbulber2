@@ -219,6 +219,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 			analyticDEType, // TODO fix??
 			logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
+  fractalList->append(sFractalDescription("Pseudo Kleinian1", "pseudo_kleinian1", pseudoKleinian1,
+    analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
+
 	fractalList->append(sFractalDescription("Quaternion", "quaternion", quaternion, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
@@ -307,11 +310,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(
 		sFractalDescription("Transform - Benesi_Mag_Forward", "transf_benesi_mag_forward",
-			transfBenesiMagForward, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+      transfBenesiMagForward, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
 		sFractalDescription("Transform - Benesi_Mag_Backward", "transf_benesi_mag_backward",
-			transfBenesiMagBackward, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+      transfBenesiMagBackward, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
 		sFractalDescription("Transform - Benesi_Cube_Sphere", "transf_benesi_cube_sphere",

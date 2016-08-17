@@ -1111,7 +1111,7 @@ void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal
  * @reference ????
  * This formula has a c.x c.y SWAP
  */
-void AmazingSurfIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void AmazingSurfIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale =
     aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
@@ -1146,6 +1146,10 @@ void AmazingSurfIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
   z *= m * fractal->transformCommon.scale1
        + 1.0 * (1.0 - fractal->transformCommon.scale1);
   aux.DE = aux.DE * fabs(m) + 1.0;
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+    z += CVector3(c.y, c.x, c.z)  * fractal->transformCommon.constantMultiplier111;
+
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
 
@@ -1587,7 +1591,7 @@ void BenesiT1PineTreeIteration(
  * http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
  */
 void BenesiMagTransformsIteration(
-  CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
+  CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   if (fractal->transformCommon.benesiT1Enabled && i >= fractal->transformCommon.startIterations
       && i < fractal->transformCommon.stopIterations)
@@ -1626,10 +1630,23 @@ void BenesiMagTransformsIteration(
      t = t / sqrt(z.y + z.z);
     else
       t = 1.0;
-
-    z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
-    z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y; // Cy Cx swap
-    z.y = (2 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z;
+    if (fractal->transformCommon.addCpixelEnabled)
+    {
+      CVector3 tempC = c;
+      if (fractal->transformCommon.alternateEnabledFalse)// alternate
+      {
+        tempC = aux.c;
+        tempC = CVector3(tempC.x, tempC.z, tempC.y);
+        aux.c = tempC;
+      }
+      else
+      {
+        tempC = CVector3(c.x, c.z, c.y);
+      }
+      z.x = (z.x - z.y - z.z) + tempC.x * fractal->transformCommon.constantMultiplier100.x;
+      z.z = (t * (z.y - z.z)) + tempC.z * fractal->transformCommon.constantMultiplier100.y;
+      z.y = (2 * t * temp.y * temp.z) + tempC.y * fractal->transformCommon.constantMultiplier100.z;
+    }
     aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
   }
   if (fractal->transformCommon.juliaMode)

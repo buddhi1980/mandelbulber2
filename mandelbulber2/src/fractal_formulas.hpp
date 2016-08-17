@@ -45,14 +45,13 @@ void AboxModKaliEiffieIteration(CVector3 &z, CVector3 c, int i, const cFractal *
 void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux);
 void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
-void AmazingSurfIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void AmazingSurfIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AmazingSurfMultiIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux);
 void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void BenesiT1PineTreeIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
-void BenesiMagTransformsIteration(
-  CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
+void BenesiMagTransformsIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux);
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

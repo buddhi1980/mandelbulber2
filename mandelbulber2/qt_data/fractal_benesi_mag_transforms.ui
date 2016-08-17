@@ -592,6 +592,26 @@
         <property name="spacing">
          <number>2</number>
         </property>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_T">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_249">
+          <property name="text">
+           <string>Start PT at iteration :</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="5">
          <spacer name="horizontalSpacer_36">
           <property name="orientation">
@@ -625,23 +645,10 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_T">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_249">
+        <item row="1" column="6">
+         <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
           <property name="text">
-           <string>Start PT at iteration :</string>
+           <string>alternate swap</string>
           </property>
          </widget>
         </item>

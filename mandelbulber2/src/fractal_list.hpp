@@ -138,6 +138,7 @@ enum enumFractalFormula
 	crossMenger = 98,
 	mengerPrismShape = 99,
   benesiMagTransforms = 100,
+  pseudoKleinian1 = 101,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
