@@ -622,6 +622,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_scaleA_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_scaleB_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_scaleC_1", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_scaleA_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_015", 1.5, morphAkima, paramStandard);
 	par->addParam("transf_scale_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
@@ -667,6 +668,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(
 		"transf_addition_constantA_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam(
+    "transf_addition_constantP_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_addition_constant_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam(
 		"transf_addition_constantA_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
@@ -754,8 +757,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledBx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBz_false", false, morphLinear, paramStandard);
-	par->addParam("transf_function_enabledR_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledF_false", false, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledR_false", false, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledP_false", false, morphLinear, paramStandard);
 
 	par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
 

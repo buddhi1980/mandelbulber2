@@ -395,6 +395,7 @@ struct sFractalTransformCommon
 	double scaleA1;
 	double scaleB1;
 	double scaleC1;
+  double scaleA2;
 	double scale015;
 	double scale2;
 	double scale3;
@@ -443,6 +444,7 @@ struct sFractalTransformCommon
 	CVector3 additionConstant0555;
 	CVector3 additionConstant000;
 	CVector3 additionConstantA000;
+  CVector3 additionConstantP000;
 	CVector3 additionConstant111;
 	CVector3 additionConstantA111;
 	CVector3 additionConstant222;
@@ -513,6 +515,7 @@ struct sFractalTransformCommon
 	bool functionEnabledByFalse;
 	bool functionEnabledBzFalse;
 	bool functionEnabledFFalse;
+  bool functionEnabledPFalse;
 	bool functionEnabledRFalse;
 	bool juliaMode;
 	bool rotationEnabled;

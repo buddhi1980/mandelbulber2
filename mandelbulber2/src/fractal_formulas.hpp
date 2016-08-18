@@ -100,6 +100,7 @@ void MsltoeSym3Mod3Iteration(
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion4DIteration(CVector4 &z, int i, const cFractal *fractal);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);

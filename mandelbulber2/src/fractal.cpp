@@ -223,6 +223,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.scaleA1 = container->Get<double>("transf_scaleA_1");
 	transformCommon.scaleB1 = container->Get<double>("transf_scaleB_1");
 	transformCommon.scaleC1 = container->Get<double>("transf_scaleC_1");
+  transformCommon.scaleA2 = container->Get<double>("transf_scaleA_2");
 	transformCommon.scale015 = container->Get<double>("transf_scale_015");
 	transformCommon.scale2 = container->Get<double>("transf_scale_2");
 	transformCommon.scale3 = container->Get<double>("transf_scale_3");
@@ -265,6 +266,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
 	transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
 	transformCommon.additionConstantA000 = container->Get<CVector3>("transf_addition_constantA_000");
+  transformCommon.additionConstantP000 = container->Get<CVector3>("transf_addition_constantP_000");
 	transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
 	transformCommon.additionConstantA111 = container->Get<CVector3>("transf_addition_constantA_111");
 	transformCommon.additionConstant222 = container->Get<CVector3>("transf_addition_constant_222");
@@ -348,6 +350,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledByFalse = container->Get<bool>("transf_function_enabledBy_false");
 	transformCommon.functionEnabledBzFalse = container->Get<bool>("transf_function_enabledBz_false");
 	transformCommon.functionEnabledFFalse = container->Get<bool>("transf_function_enabledF_false");
+  transformCommon.functionEnabledPFalse = container->Get<bool>("transf_function_enabledP_false");
 	transformCommon.functionEnabledRFalse = container->Get<bool>("transf_function_enabledR_false");
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");

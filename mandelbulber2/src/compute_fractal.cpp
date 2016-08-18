@@ -443,6 +443,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MengerPwr2PolyIteration(z, c, i, fractal, extendedAux);
 					break;
 				}
+
+        case pseudoKleinian1:
+        {
+          PseudoKleinian1Iteration(z, i, fractal, extendedAux);
+          break;
+        }
+
+        case quaternion3D:
+        {
+          Quaternion3DIteration(z, fractal, extendedAux);
+          break;
+        }
 				case riemannSphereMsltoe:
 				{
 					RiemannSphereMsltoeIteration(z, fractal);
@@ -458,11 +470,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					RiemannBulbMsltoeMod2Iteration(z, fractal);
 					break;
 				}
-				case quaternion3D:
-				{
-					Quaternion3DIteration(z, fractal, extendedAux);
-					break;
-				}
+
 				case fastImagscaPower2:
 				{
 					FastImagscaPower2Iteration(z);
@@ -865,6 +873,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			// scator magnitudes
 			// magnitude in imaginary scator algebra
+    case pseudoKleinian1:
+    {
+      r = sqrt( z.x * z.x + z.y * z.y );
+
+      break;
+    }
+    // scator magnitudes
+    // magnitude in imaginary scator algebra
 
 			default:
 			{
@@ -1051,6 +1067,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case amazingSurfMulti:
 				case kalisets1:
 				case aboxVSIcen1:
+        //case pseudoKleinian1:// temporary for initial check
 				{
           if (extendedAux.DE > 0)
 						out->distance = r / fabs(extendedAux.DE);
@@ -1075,6 +1092,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
+        case pseudoKleinian1:// temporary for initial check
+        {
+          if (extendedAux.DE > 0)
+            out->distance = max(r - 0.92784, fabs(r * z.z) / z.Length())/ (extendedAux.DE);
+          else
+            out->distance = r;
+          break;
+        }
+
 
 				default: out->distance = -1.0; break;
 			}
