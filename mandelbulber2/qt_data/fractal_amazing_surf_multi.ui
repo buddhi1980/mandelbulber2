@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4618</height>
+    <height>4764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1853,7 +1853,7 @@ offset:</string>
        </widget>
       </item>
       <item>
-       <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled">
+       <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
