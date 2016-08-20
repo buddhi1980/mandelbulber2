@@ -256,7 +256,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
 	// ------------------ 4D -----------------------
-	fractalList->append(sFractalDescription("Quaternion_4D", "quaternion_4D", quaternion4D,
+
+  fractalList->append(sFractalDescription("Bristorbrot4D", "bristorbrot4D", bristorbrot4D, analyticDEType,
+    logarithmicDEFunction, cpixelEnabledByDefault, 10));
+
+  fractalList->append(sFractalDescription("Quaternion_4D", "quaternion_4D", quaternion4D,
 		deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
 	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale_4d",

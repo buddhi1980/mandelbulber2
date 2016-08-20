@@ -1805,6 +1805,7 @@ void BenesiMagTransformsIteration(
 }
 
 
+
 /**
  * CollatzIteration formula
  * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
@@ -5937,6 +5938,29 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 }
 
 //-------------------------------- 4D ----------------------------------------------
+/**
+ * Bristorbrot formula 4D
+ * @reference https://code.google.com/archive/p/fractaldimension/
+ * by Doug Bristor
+ */
+void Bristorbrot4DIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  double w0 = 0.0;
+  if (i < 1.0) w0 = fractal->transformCommon.offset0;
+  w += w0;
+
+
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  double newx = z.x * z.x - z.y * z.y - z.z * z.z - w * w;
+  double newy = z.y * (2.0 * z.x - z.z - w);
+  double newz = z.z * (2.0 * z.x + z.y - w);
+  w = w * ( 2.0 * z.x + z.y + z.z);
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
+}
+
+
 
 /**
  * Quaternion4D

@@ -65,7 +65,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	double r = z.Length();
 	CVector3 c = z;
 	double minimumR = 100.0;
-	double w = 0.0;
+  double w = 0.0;
+  //double w = fractals.GetFractal(fractalIndex)->transformCommon.offset0;
 	double orbitTrapTotal = 0.0;
 
 	enumFractalFormula formula = fractal::none;
@@ -223,6 +224,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					BristorbrotIteration(z, extendedAux);
 					break;
 				}
+        case bristorbrot4D:
+        {
+          Bristorbrot4DIteration(z, w, i, fractal, extendedAux);
+          break;
+        }
 				case ides:
 				{
 					IdesIteration(z, fractal);
@@ -873,14 +879,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			// scator magnitudes
 			// magnitude in imaginary scator algebra
-    case pseudoKleinian1:
-    {
-      r = sqrt( z.x * z.x + z.y * z.y );
-
-      break;
-    }
-    // scator magnitudes
-    // magnitude in imaginary scator algebra
+      case pseudoKleinian1:
+      {
+        r = sqrt( z.x * z.x + z.y * z.y );
+        break;
+      }
 
 			default:
 			{
@@ -1020,6 +1023,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case benesiPineTree:
 				case benesiT1PineTree:
 				case bristorbrot:
+        case bristorbrot4D:
 				case buffalo:
 				case eiffieMsltoe:
 				case fast_mandelbulb_power2:

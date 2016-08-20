@@ -139,6 +139,7 @@ enum enumFractalFormula
 	mengerPrismShape = 99,
   benesiMagTransforms = 100,
   pseudoKleinian1 = 101,
+  bristorbrot4D = 102,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

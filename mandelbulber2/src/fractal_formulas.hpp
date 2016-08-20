@@ -54,6 +54,7 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 c, int i, const cFractal *f
 void BenesiMagTransformsIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux);
+void Bristorbrot4DIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux);
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void EiffieMsltoeIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux);
