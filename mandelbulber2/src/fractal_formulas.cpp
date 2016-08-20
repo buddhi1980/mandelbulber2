@@ -599,6 +599,8 @@ void BenesiIteration(CVector3 &z, CVector3 c, sExtendedAux &aux)
 
 /**
  * Bristorbrot formula
+ * @reference http://www.fractalforums.com/theory/bristorbrot-3d/
+ * by Doug Bristor
  */
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
 {
