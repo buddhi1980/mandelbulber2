@@ -121,7 +121,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	if(stereo.isEnabled())
+	if(stereo.isEnabled() && !gNetRender->IsClient())
 	{
 		CVector2<int> modifiedResolution = stereo.ModifyImageResolution(CVector2<int>(width, height));
 		width = modifiedResolution.x;

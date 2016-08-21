@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>924</width>
+           <width>935</width>
            <height>1415</height>
           </rect>
          </property>
@@ -376,7 +376,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>381</width>
+          <width>370</width>
           <height>679</height>
          </rect>
         </property>
@@ -3293,8 +3293,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>395</width>
-          <height>252</height>
+          <width>384</width>
+          <height>307</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3363,7 +3363,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>345</width>
+                  <width>334</width>
                   <height>523</height>
                  </rect>
                 </property>
@@ -4254,7 +4254,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>345</width>
+                  <width>196</width>
                   <height>527</height>
                  </rect>
                 </property>
@@ -5052,8 +5052,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>359</width>
-                  <height>238</height>
+                  <width>262</width>
+                  <height>165</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5349,7 +5349,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>345</width>
+                  <width>277</width>
                   <height>1507</height>
                  </rect>
                 </property>
@@ -7624,8 +7624,8 @@ Disables 'Update image' options)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>395</width>
-          <height>780</height>
+          <width>370</width>
+          <height>430</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -7650,7 +7650,7 @@ Disables 'Update image' options)</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -7726,7 +7726,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -8943,7 +8943,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -10106,7 +10106,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -11263,7 +11263,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -12420,7 +12420,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -13577,7 +13577,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -14734,7 +14734,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -15891,7 +15891,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -17045,7 +17045,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>337</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -18216,8 +18216,8 @@ for 4D fractals</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>359</width>
-                  <height>766</height>
+                  <width>221</width>
+                  <height>546</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -19996,8 +19996,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>359</width>
-                  <height>766</height>
+                  <width>207</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -20541,7 +20541,7 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>381</width>
+          <width>370</width>
           <height>1083</height>
          </rect>
         </property>
@@ -22940,8 +22940,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>198</width>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -24082,7 +24082,7 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>381</width>
+          <width>370</width>
           <height>75</height>
          </rect>
         </property>
