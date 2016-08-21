@@ -377,6 +377,8 @@ struct sFractalTransformCommon
 {
 	double alphaAngleOffset;
 	double betaAngleOffset;
+  double foldingValue;
+  double foldingLimit;
 	double offset;
 	double offset0;
 	double offset05;

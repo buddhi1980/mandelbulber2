@@ -600,17 +600,19 @@ void InitFractalParams(cParameterContainer *par)
 	// common parameters for transforming formulas
 	par->addParam("transf_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("transf_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
-	par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
-	par->addParam("transf_offset_0", 0.0, morphAkima, paramStandard);
-	par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
-	par->addParam("transf_offset_1", 1.0, morphAkima, paramStandard);
-	par->addParam("transf_offset_105", 1.5, morphAkima, paramStandard);
-	par->addParam("transf_offset_2", 2.0, morphAkima, paramStandard);
+  par->addParam("transf_folding_value", 2.0, morphAkima, paramStandard);
+  par->addParam("transf_folding_limit", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_multiplication", 2.0, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_neg1", -1.0, morphAkima, paramStandard);
 	par->addParam("transf_minimum_radius_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_minimum_radius_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_minimum_radius_06", 0.6, morphAkima, paramStandard);
+  par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
+  par->addParam("transf_offset_0", 0.0, morphAkima, paramStandard);
+  par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
+  par->addParam("transf_offset_1", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_offset_105", 1.5, morphAkima, paramStandard);
+  par->addParam("transf_offset_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_pwr_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_pwr_4", 4.0, morphAkima, paramStandard);
 	par->addParam("transf_pwr_8", 8.0, morphAkima, paramStandard);

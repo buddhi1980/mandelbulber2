@@ -201,17 +201,19 @@ cFractal::cFractal(const cParameterContainer *container)
 	// common parameters for transforming formulas
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
+  transformCommon.foldingValue = container->Get<double>("transf_folding_value");
+  transformCommon.foldingLimit = container->Get<double>("transf_folding_limit");
+  transformCommon.multiplication = container->Get<double>("transf_multiplication");
+  transformCommon.minRneg1 = container->Get<double>("transf_minimum_radius_neg1");
+  transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
+  transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
+  transformCommon.minR06 = container->Get<double>("transf_minimum_radius_06");
 	transformCommon.offset = container->Get<double>("transf_offset");
 	transformCommon.offset0 = container->Get<double>("transf_offset_0");
 	transformCommon.offset05 = container->Get<double>("transf_offset_05");
 	transformCommon.offset1 = container->Get<double>("transf_offset_1");
 	transformCommon.offset105 = container->Get<double>("transf_offset_105");
 	transformCommon.offset2 = container->Get<double>("transf_offset_2");
-	transformCommon.multiplication = container->Get<double>("transf_multiplication");
-  transformCommon.minRneg1 = container->Get<double>("transf_minimum_radius_neg1");
-	transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
-	transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
-	transformCommon.minR06 = container->Get<double>("transf_minimum_radius_06");
 	transformCommon.pwr05 = container->Get<double>("transf_pwr_05");
 	transformCommon.pwr4 = container->Get<double>("transf_pwr_4");
 	transformCommon.pwr8 = container->Get<double>("transf_pwr_8");

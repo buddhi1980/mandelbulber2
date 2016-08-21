@@ -1370,8 +1370,8 @@ void AmazingSurfMultiIteration(CVector3 &z, CVector3 c, int i, const cFractal *f
 
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{ // enable z scale
-		double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale0;
-		double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale0;
+    double zLimit = fractal->transformCommon.foldingLimit * fractal->transformCommon.scale0;
+    double zValue = fractal->transformCommon.foldingValue * fractal->transformCommon.scale0;
 		if (z.z > zLimit)
 		{
 			z.z = zValue - z.z;
