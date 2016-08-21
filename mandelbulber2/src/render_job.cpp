@@ -513,6 +513,12 @@ void cRenderJob::UpdateParameters(
 	*paramsContainer = *_params;
 	*fractalContainer = *_fractal;
 
+	if(renderData->stereo.isEnabled() && !gNetRender->IsClient())
+	{
+		paramsContainer->Set("image_width", width);
+		paramsContainer->Set("image_height", height);
+	}
+
 	PrepareData(renderData->configuration);
 }
 
