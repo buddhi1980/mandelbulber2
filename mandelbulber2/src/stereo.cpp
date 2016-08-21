@@ -132,8 +132,8 @@ cStereo::enumEye cStereo::WhichEye(CVector2<double> imagePoint)
 	switch (stereoMode)
 	{
 		case stereoDisabled: eye = eyeLeft; break;
-		case stereoLeftRight: eye = (imagePoint.x >= 0.0) ? eyeRight : eyeLeft; break;
-		case stereoTopBottom: eye = (imagePoint.y >= 0.0) ? eyeRight : eyeLeft; break;
+		case stereoLeftRight: eye = (imagePoint.x >= 0.0) ? eyeLeft : eyeRight; break;
+		case stereoTopBottom: eye = (imagePoint.y >= 0.0) ? eyeLeft : eyeRight; break;
 		case stereoRedCyan:  eye = eyeLeft; break;
 	}
 	return eye;
