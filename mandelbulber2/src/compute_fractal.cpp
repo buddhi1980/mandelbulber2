@@ -65,8 +65,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	double r = z.Length();
 	CVector3 c = z;
 	double minimumR = 100.0;
-  double w = 0.0;
-  //double w  = fractals.GetFractal(fractalIndex)->transformCommon.offset0;
+
+  double w;
+  if (in.forcedFormulaIndex >= 0)
+  {
+  	w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
+  }
+  else
+  {
+  	w = fractals.GetInitialWAxis(0);
+  }
+
 	double orbitTrapTotal = 0.0;
 
 	enumFractalFormula formula = fractal::none;
@@ -224,11 +233,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					BristorbrotIteration(z, extendedAux);
 					break;
 				}
-        case bristorbrot4D:
-        {
-          Bristorbrot4DIteration(z, w, i, fractal, extendedAux);
-          break;
-        }
 				case ides:
 				{
 					IdesIteration(z, fractal);
@@ -748,7 +752,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case quaternion4D:
 				{
 					CVector4 z4D(z, w);
-					Quaternion4DIteration(z4D, i, fractal);
+					Quaternion4DIteration(z4D, fractal);
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;
@@ -756,11 +760,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelboxVaryScale4D:
 				{
 					CVector4 z4D(z, w);
-					MandelboxVaryScale4DIteration(z4D, i, fractal, extendedAux);
+					MandelboxVaryScale4DIteration(z4D, fractal, extendedAux);
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;
 				}
+        case bristorbrot4D:
+        {
+        	CVector4 z4D(z, w);
+        	Bristorbrot4DIteration(z4D, extendedAux);
+					z = z4D.GetXYZ();
+					w = z4D.w;
+          break;
+        }
 				case transfAdditionConstant4D:
 				{
 					CVector4 z4D(z, w);

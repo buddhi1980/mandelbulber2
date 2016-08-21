@@ -54,7 +54,7 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 c, int i, const cFractal *f
 void BenesiMagTransformsIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux);
-void Bristorbrot4DIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux);
+void Bristorbrot4DIteration(CVector4 &z4D, sExtendedAux &aux);
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void EiffieMsltoeIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux);
@@ -71,7 +71,7 @@ void Makin3D2Iteration(CVector3 &z);
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelboxMengerIteration(CVector3 &z, CVector3 c, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MandelboxVaryScale4DIteration(
-	CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
+	CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
@@ -99,7 +99,7 @@ void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void Quaternion4DIteration(CVector4 &z, int i, const cFractal *fractal);
+void Quaternion4DIteration(CVector4 &z, const cFractal *fractal);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void QuickDudleyIteration(CVector3 &z);
 void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal);

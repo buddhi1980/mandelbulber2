@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>935</width>
+           <width>924</width>
            <height>1415</height>
           </rect>
          </property>
@@ -375,8 +375,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-373</y>
-          <width>370</width>
+          <y>0</y>
+          <width>381</width>
           <height>679</height>
          </rect>
         </property>
@@ -3293,8 +3293,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>384</width>
-          <height>307</height>
+          <width>395</width>
+          <height>252</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3363,7 +3363,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>345</width>
                   <height>523</height>
                  </rect>
                 </property>
@@ -4254,7 +4254,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>345</width>
                   <height>527</height>
                  </rect>
                 </property>
@@ -5052,8 +5052,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>348</width>
-                  <height>293</height>
+                  <width>359</width>
+                  <height>238</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5349,7 +5349,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>345</width>
                   <height>1507</height>
                  </rect>
                 </property>
@@ -7624,8 +7624,8 @@ Disables 'Update image' options)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>430</height>
+          <width>395</width>
+          <height>780</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -7650,7 +7650,7 @@ Disables 'Update image' options)</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -7726,8 +7726,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8193,7 +8193,45 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="2">
+                          <item row="2" column="2">
+                           <widget class="QSlider" name="slider3_fractal_constant_factor_1_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-500</number>
+                            </property>
+                            <property name="maximum">
+                             <number>500</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QLabel" name="label_352">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_1_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -8215,7 +8253,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="3">
+                          <item row="1" column="3">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_1_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -8243,7 +8281,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="3" column="2">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_1_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -8265,7 +8303,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="3">
+                          <item row="2" column="3">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_1_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -8293,7 +8331,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="3">
+                          <item row="3" column="3">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_1_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -8321,14 +8359,14 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_304">
                             <property name="text">
                              <string>Constant multiplier:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="1">
+                          <item row="1" column="1">
                            <widget class="QLabel" name="label_351">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -8344,45 +8382,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
-                           <widget class="QSlider" name="slider3_fractal_constant_factor_1_y">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="minimum">
-                             <number>-500</number>
-                            </property>
-                            <property name="maximum">
-                             <number>500</number>
-                            </property>
-                            <property name="singleStep">
-                             <number>1</number>
-                            </property>
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="1" column="1">
-                           <widget class="QLabel" name="label_352">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="text">
-                             <string>y:</string>
-                            </property>
-                            <property name="alignment">
-                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="2" column="1">
+                          <item row="3" column="1">
                            <widget class="QLabel" name="label_353">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -8395,6 +8395,64 @@ Disables 'Update image' options)</string>
                             </property>
                             <property name="alignment">
                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_295">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QSlider" name="slider_initial_waxis_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="3">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -8885,8 +8943,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -9352,7 +9410,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
+                          <item row="1" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_2_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -9374,7 +9432,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
+                          <item row="1" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_2_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -9402,7 +9460,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="1">
+                          <item row="3" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_2_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -9424,7 +9482,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
+                          <item row="2" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_2_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -9452,7 +9510,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="3" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_2_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -9480,7 +9538,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="2" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_2_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -9502,10 +9560,68 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_309">
                             <property name="text">
                              <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_354">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QSlider" name="slider_initial_waxis_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -9990,8 +10106,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -10451,7 +10567,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
+                          <item row="1" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_3_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -10473,7 +10589,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
+                          <item row="1" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_3_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -10501,7 +10617,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="1">
+                          <item row="3" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_3_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -10523,7 +10639,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
+                          <item row="2" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_3_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -10551,7 +10667,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="3" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_3_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -10579,7 +10695,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="2" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_3_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -10601,10 +10717,68 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_314">
                             <property name="text">
                              <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_355">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QSlider" name="slider_initial_waxis_3">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_3">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -11089,8 +11263,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -11550,7 +11724,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
+                          <item row="1" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_4_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -11572,7 +11746,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
+                          <item row="1" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_4_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -11600,7 +11774,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="1">
+                          <item row="3" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_4_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -11622,7 +11796,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
+                          <item row="2" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_4_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -11650,7 +11824,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="3" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_4_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -11678,7 +11852,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="2" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_4_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -11700,10 +11874,68 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_319">
                             <property name="text">
                              <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_356">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QSlider" name="slider_initial_waxis_4">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_4">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -12188,8 +12420,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -12649,7 +12881,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
+                          <item row="1" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_5_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -12671,7 +12903,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
+                          <item row="1" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_5_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -12699,7 +12931,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="1">
+                          <item row="3" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_5_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -12721,7 +12953,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
+                          <item row="2" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_5_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -12749,7 +12981,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="3" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_5_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -12777,7 +13009,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="2" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_5_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -12799,10 +13031,68 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_324">
                             <property name="text">
                              <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_357">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QSlider" name="slider_initial_waxis_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -13287,8 +13577,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -13748,7 +14038,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
+                          <item row="1" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_6_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -13770,7 +14060,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
+                          <item row="1" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_6_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -13798,7 +14088,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="1">
+                          <item row="3" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_6_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -13820,7 +14110,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
+                          <item row="2" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_6_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -13848,7 +14138,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="3" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_6_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -13876,7 +14166,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="2" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_6_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -13898,10 +14188,68 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_329">
                             <property name="text">
                              <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_359">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QSlider" name="slider_initial_waxis_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -14386,8 +14734,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -14847,7 +15195,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
+                          <item row="1" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_7_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -14869,7 +15217,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
+                          <item row="1" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_7_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -14897,7 +15245,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="1">
+                          <item row="3" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_7_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -14919,7 +15267,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
+                          <item row="2" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_7_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -14947,7 +15295,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="3" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_7_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -14975,7 +15323,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="2" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_7_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -14997,10 +15345,68 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_334">
                             <property name="text">
                              <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_360">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QSlider" name="slider_initial_waxis_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -15485,8 +15891,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -15943,7 +16349,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
+                          <item row="1" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_8_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -15965,7 +16371,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
+                          <item row="1" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_8_x">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -15993,7 +16399,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="1">
+                          <item row="3" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_8_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -16015,7 +16421,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
+                          <item row="2" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_8_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -16043,7 +16449,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="3" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_8_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -16071,7 +16477,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="2" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_8_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -16093,10 +16499,68 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_339">
                             <property name="text">
                              <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_361">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QSlider" name="slider_initial_waxis_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -16581,8 +17045,8 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>755</height>
+                      <width>337</width>
+                      <height>780</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -17042,79 +17506,7 @@ Disables 'Update image' options)</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
-                          <item row="0" column="1">
-                           <widget class="QSlider" name="slider3_fractal_constant_factor_9_x">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="minimum">
-                             <number>-500</number>
-                            </property>
-                            <property name="maximum">
-                             <number>500</number>
-                            </property>
-                            <property name="singleStep">
-                             <number>1</number>
-                            </property>
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="0" column="2">
-                           <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_9_x">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="prefix">
-                             <string/>
-                            </property>
-                            <property name="suffix">
-                             <string/>
-                            </property>
-                            <property name="decimals">
-                             <number>2</number>
-                            </property>
-                            <property name="minimum">
-                             <double>-1000.000000000000000</double>
-                            </property>
-                            <property name="maximum">
-                             <double>1000.000000000000000</double>
-                            </property>
-                            <property name="singleStep">
-                             <double>0.100000000000000</double>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="2" column="1">
-                           <widget class="QSlider" name="slider3_fractal_constant_factor_9_z">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="minimum">
-                             <number>-500</number>
-                            </property>
-                            <property name="maximum">
-                             <number>500</number>
-                            </property>
-                            <property name="singleStep">
-                             <number>1</number>
-                            </property>
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="1" column="2">
+                          <item row="2" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_9_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -17142,7 +17534,79 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
+                          <item row="1" column="1">
+                           <widget class="QSlider" name="slider3_fractal_constant_factor_9_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-500</number>
+                            </property>
+                            <property name="maximum">
+                             <number>500</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_9_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="slider3_fractal_constant_factor_9_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-500</number>
+                            </property>
+                            <property name="maximum">
+                             <number>500</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
                            <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_9_z">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -17170,7 +17634,7 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
+                          <item row="2" column="1">
                            <widget class="QSlider" name="slider3_fractal_constant_factor_9_y">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -17192,10 +17656,68 @@ Disables 'Update image' options)</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="0" rowspan="3">
+                          <item row="1" column="0" rowspan="3">
                            <widget class="QLabel" name="label_344">
                             <property name="text">
                              <string>Constant multiplier:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_362">
+                            <property name="text">
+                             <string>Initial w-axis value
+for 4D fractals</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QSlider" name="slider_initial_waxis_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>-5000000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>5000000</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>6</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-1000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>1000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
                             </property>
                            </widget>
                           </item>
@@ -17694,8 +18216,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
-                  <height>521</height>
+                  <width>359</width>
+                  <height>766</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -17903,7 +18425,15 @@ Disables 'Update image' options)</string>
                    <property name="spacing">
                     <number>2</number>
                    </property>
-                   <item row="0" column="2">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_172">
+                     <property name="text">
+                      <string>Initial w-axis value
+for 4D fractals</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="2">
                     <widget class="QSlider" name="slider3_fractal_constant_factor_x">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -17925,7 +18455,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
+                   <item row="1" column="3">
                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_x">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -17956,7 +18486,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="2">
+                   <item row="3" column="2">
                     <widget class="QSlider" name="slider3_fractal_constant_factor_z">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -17978,7 +18508,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="3">
+                   <item row="2" column="3">
                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_y">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -18009,7 +18539,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="3">
+                   <item row="3" column="3">
                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_z">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -18040,7 +18570,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="2">
+                   <item row="2" column="2">
                     <widget class="QSlider" name="slider3_fractal_constant_factor_y">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -18062,14 +18592,14 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="0" rowspan="3">
+                   <item row="1" column="0" rowspan="3">
                     <widget class="QLabel" name="label_135">
                      <property name="text">
                       <string>Constant multiplier:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="1">
+                   <item row="1" column="1">
                     <widget class="QLabel" name="label_346">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -18085,7 +18615,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
+                   <item row="2" column="1">
                     <widget class="QLabel" name="label_347">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -18101,7 +18631,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
+                   <item row="3" column="1">
                     <widget class="QLabel" name="label_348">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -18114,6 +18644,59 @@ Disables 'Update image' options)</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QSlider" name="slider_initial_waxis">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimum">
+                      <number>-5000000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>5000000</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="3">
+                    <widget class="MyDoubleSpinBox" name="spinbox_initial_waxis">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiplies fractal c constant by this value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>6</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-1000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>1000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -19413,8 +19996,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>416</height>
+                  <width>359</width>
+                  <height>766</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -19958,7 +20541,7 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>381</width>
           <height>1083</height>
          </rect>
         </property>
@@ -23499,7 +24082,7 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>381</width>
           <height>75</height>
          </rect>
         </property>

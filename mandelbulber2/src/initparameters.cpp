@@ -125,6 +125,7 @@ void InitParams(cParameterContainer *par)
 		par->addParam("julia_c", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 		par->addParam(
 			"fractal_constant_factor", i, CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
+		par->addParam("initial_waxis", i, 0.0, morphAkima, paramStandard);
 	}
 
 	// boolean operators
@@ -176,6 +177,7 @@ void InitParams(cParameterContainer *par)
 		"delta_DE_function", (int)fractal::preferedDEfunction, 0, 2, morphNone, paramStandard);
 	par->addParam("delta_DE_method", (int)fractal::preferedDEMethod, 0, 1, morphNone, paramStandard);
 	par->addParam("use_default_bailout", true, morphNone, paramStandard);
+	par->addParam("initial_waxis", 0.0, morphAkima, paramStandard);
 
 	//stereoscopic
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);

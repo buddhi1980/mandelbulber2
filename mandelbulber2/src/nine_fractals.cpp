@@ -114,12 +114,14 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			juliaEnabled[i] = generalPar->Get<bool>("julia_mode", i + 1);
 			juliaConstant[i] = generalPar->Get<CVector3>("julia_c", i + 1);
 			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor", i + 1);
+			initialWAxis[i] = generalPar->Get<double>("initial_waxis", i + 1);
 		}
 		else
 		{
 			juliaEnabled[i] = generalPar->Get<bool>("julia_mode");
 			juliaConstant[i] = generalPar->Get<CVector3>("julia_c");
 			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor");
+			initialWAxis[i] = generalPar->Get<double>("initial_waxis");
 		}
 	}
 

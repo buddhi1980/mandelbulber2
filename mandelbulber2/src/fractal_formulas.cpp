@@ -5962,35 +5962,24 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
  * @reference https://code.google.com/archive/p/fractaldimension/
  * by Doug Bristor
  */
-void Bristorbrot4DIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux)
+void Bristorbrot4DIteration(CVector4 &z4D, sExtendedAux &aux)
 {
-  double w0 = 0.0;
-  if (i < 1.0) w0 = fractal->transformCommon.offset0;
-    w += w0;
-
-
-
-  aux.r_dz = aux.r_dz * 2.0 * aux.r;
-  double newx = z.x * z.x - z.y * z.y - z.z * z.z - w * w;
-  double newy = z.y * (2.0 * z.x - z.z - w);
-  double newz = z.z * (2.0 * z.x + z.y - w);
-  w = w * ( 2.0 * z.x + z.y + z.z);
-  z.x = newx;
-  z.y = newy;
-  z.z = newz;
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+	double newx = z4D.x * z4D.x - z4D.y * z4D.y - z4D.z * z4D.z - z4D.w * z4D.w;
+	double newy = z4D.y * (2.0 * z4D.x - z4D.z - z4D.w);
+	double newz = z4D.z * (2.0 * z4D.x + z4D.y - z4D.w);
+	double neww = z4D.w * (2.0 * z4D.x + z4D.y + z4D.z);
+	z4D.x = newx;
+	z4D.y = newy;
+	z4D.z = newz;
+	z4D.w = neww;
 }
-
-
 
 /**
  * Quaternion4D
  */
-void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
+void Quaternion4DIteration(CVector4 &z4D, const cFractal *fractal)
 {
-	double w0 = 0.0;
-	if (i < 1) w0 = fractal->transformCommon.offset0;
-	z4D.w += w0;
-
 	z4D = CVector4(z4D.x * z4D.x - z4D.y * z4D.y - z4D.z * z4D.z - z4D.w * z4D.w, z4D.x * z4D.y,
 		z4D.x * z4D.z, z4D.w);
 	z4D *= fractal->transformCommon.constantMultiplier1220;
@@ -6000,12 +5989,8 @@ void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 /**
  * Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
  */
-void MandelboxVaryScale4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+void MandelboxVaryScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
-	double w0 = 0.0;
-	if (i < 1.0) w0 = fractal->transformCommon.offset0;
-	z4D.w += w0;
-
 	aux.actualScale =
 		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector4 oldz = z4D;
@@ -6292,7 +6277,7 @@ void CrossMengerIteration(
 		}
 		if (z.x < 0.0)
 		{
-			z.x = z.x;
+			//FIXME: z.x = z.x;
 		}
 		else
 		{
