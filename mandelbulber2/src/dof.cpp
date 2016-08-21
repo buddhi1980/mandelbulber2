@@ -327,7 +327,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 					{
 						timerRefreshProgressBar.restart();
 
-						percentDone = ((double)pass + 1.0 + (double)i / sortBufferSize) / (numberOfPasses + 1.0);
+						percentDone = ((double)pass + 1.0 + (double)i / screenRegion.width) / (numberOfPasses + 1.0);
 						progressTxt = progressText.getText(percentDone);
 
 						emit updateProgressAndStatus(statusText, progressTxt, percentDone);
@@ -631,7 +631,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 					{
 						timerRefreshProgressBar.restart();
 
-						percentDone = ((double)pass + 1.0 + (double)i / sortBufferSize) / (numberOfPasses + 1.0);
+						percentDone = ((double)pass + 1.0 + (double)i / screenRegion.width) / (numberOfPasses + 1.0);
 						progressTxt = progressText.getText(percentDone);
 
 						emit updateProgressAndStatus(statusText, progressTxt, percentDone);
