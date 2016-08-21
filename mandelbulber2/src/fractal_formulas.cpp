@@ -5012,7 +5012,7 @@ void TransformBenesiSphereCubeIteration(CVector3 &z)
 	// if (z.x == 0.0) z.x = 1e-21;
 	double rCxyz = (z.y * z.y + z.z * z.z) / z.x;
 
-	if (rCxyz < 1.0)
+  if (rCxyz < 1.0)
 		rCxyz = 1.0 / sqrt(rCxyz + 1.0);
 	else
 		rCxyz = 1.0 / sqrt(1.0 / rCxyz + 1.0);
@@ -5269,7 +5269,7 @@ void TransformInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExt
  * Linear Combine transform from Mandelbulb3D.
  * Can create multiple combination for the addition of Cpixel
  */
-void TransformLinCombineCxyz(CVector3 c, const cFractal *fractal)
+void TransformLinCombineCxyz(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 temp = c;
 	CVector3 mulX = fractal->transformCommon.constantMultiplier100;
@@ -5278,8 +5278,41 @@ void TransformLinCombineCxyz(CVector3 c, const cFractal *fractal)
 	c.x = mulX.x * temp.x + mulX.y * temp.y + mulX.z * temp.z;
 	c.y = mulY.x * temp.x + mulY.y * temp.y + mulY.z * temp.z;
 	c.z = mulZ.x * temp.x + mulZ.y * temp.y + mulZ.z * temp.z;
-}
 
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    CVector3 tempC = c;
+    if (fractal->transformCommon.alternateEnabledFalse) //alternate
+    {
+      tempC = aux.c;
+      switch (fractal->mandelbulbMulti.orderOfxyzC)
+      {
+      case sFractalMandelbulbMulti::xyz:
+      default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
+      case sFractalMandelbulbMulti::xzy: tempC = CVector3(tempC.x, tempC.z, tempC.y); break;
+      case sFractalMandelbulbMulti::yxz: tempC = CVector3(tempC.y, tempC.x, tempC.z); break;
+      case sFractalMandelbulbMulti::yzx: tempC = CVector3(tempC.y, tempC.z, tempC.x); break;
+      case sFractalMandelbulbMulti::zxy: tempC = CVector3(tempC.z, tempC.x, tempC.y); break;
+      case sFractalMandelbulbMulti::zyx: tempC = CVector3(tempC.z, tempC.y, tempC.x); break;
+      }
+      aux.c = tempC;
+    }
+    else
+    {
+      switch (fractal->mandelbulbMulti.orderOfxyzC)
+      {
+        case sFractalMandelbulbMulti::xyz:
+        default: tempC = CVector3(c.x, c.y, c.z); break;
+        case sFractalMandelbulbMulti::xzy: tempC = CVector3(c.x, c.z, c.y); break;
+        case sFractalMandelbulbMulti::yxz: tempC = CVector3(c.y, c.x, c.z); break;
+        case sFractalMandelbulbMulti::yzx: tempC = CVector3(c.y, c.z, c.x); break;
+        case sFractalMandelbulbMulti::zxy: tempC = CVector3(c.z, c.x, c.y); break;
+        case sFractalMandelbulbMulti::zyx: tempC = CVector3(c.z, c.y, c.x); break;
+      }
+    }
+    z += tempC * fractal->transformCommon.constantMultiplier111;
+  }
+}
 /**
  * Transform Menger Fold
  * Menger Sponge formula created by Knighty
@@ -5472,20 +5505,6 @@ void TransformQuaternionFoldIteration(
     }
     z += tempC * fractal->transformCommon.constantMultiplierC111;
   }
-/*  if (fractal->transformCommon.addCpixelEnabledFalse) // addCpixel options
-  {
-    switch (fractal->mandelbulbMulti.orderOfxyzC)
-    {
-      case sFractalMandelbulbMulti::xyz:
-      default: c = CVector3(c.x, c.y, c.z); break;
-      case sFractalMandelbulbMulti::xzy: c = CVector3(c.x, c.z, c.y); break;
-      case sFractalMandelbulbMulti::yxz: c = CVector3(c.y, c.x, c.z); break;
-      case sFractalMandelbulbMulti::yzx: c = CVector3(c.y, c.z, c.x); break;
-      case sFractalMandelbulbMulti::zxy: c = CVector3(c.z, c.x, c.y); break;
-      case sFractalMandelbulbMulti::zyx: c = CVector3(c.z, c.y, c.x); break;
-    }
-    z += c * fractal->transformCommon.constantMultiplierC111;
-  }*/
 }
 
 /**
@@ -5519,7 +5538,7 @@ void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtend
 			z = fractal->mandelbox.rotinv[1][0].RotateVector(zRot);
 			aux.color += fractal->mandelbox.color.factor.x;
 		}
-	}
+  };
 
 	zRot = fractal->mandelbox.rot[0][1].RotateVector(z);
 	if (zRot.y > fractal->mandelbox.foldingLimit)
@@ -5602,9 +5621,7 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
 	z = z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
 }
 
-/**
- * scale
- */
+
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale;
@@ -5694,7 +5711,7 @@ void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtended
  * inverted sphere z & c- A transform from M3D
  *
  */
-void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+void TransformSphereInvCIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 {
 	c *= fractal->transformCommon.constantMultiplier111;
 	double rSqrL = c.x * c.x + c.y * c.y + c.z * c.z;
@@ -5949,7 +5966,8 @@ void Bristorbrot4DIteration(CVector3 &z, double &w, int i, const cFractal *fract
 {
   double w0 = 0.0;
   if (i < 1.0) w0 = fractal->transformCommon.offset0;
-  w += w0;
+    w += w0;
+
 
 
   aux.r_dz = aux.r_dz * 2.0 * aux.r;

@@ -66,7 +66,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	CVector3 c = z;
 	double minimumR = 100.0;
   double w = 0.0;
-  //double w = fractals.GetFractal(fractalIndex)->transformCommon.offset0;
+  //double w  = fractals.GetFractal(fractalIndex)->transformCommon.offset0;
 	double orbitTrapTotal = 0.0;
 
 	enumFractalFormula formula = fractal::none;
@@ -624,7 +624,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				case transfLinCombineCxyz:
 				{
-					TransformLinCombineCxyz(c, fractal);
+          TransformLinCombineCxyz(z, c, fractal, extendedAux);
 					break;
 				}
 				case transfMultipleAngle:
