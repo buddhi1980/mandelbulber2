@@ -185,7 +185,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("stereo_mode", (int)cStereo::stereoLeftRight, morphLinear, paramStandard);
 	par->addParam("stereo_swap_eyes", false, morphLinear, paramStandard);
 	par->addParam("stereo_infinite_correction", 0.0, 0.0, 10.0, morphAkima, paramStandard);
-
+	par->addParam("stereo_actual_eye", (int)cStereo::eyeNone, morphAkima, paramOnlyForNet);
 
 	// volume slicing
 	par->addParam("voxel_limit_min", CVector3(-1.0, -1.0, -1.0), morphLinear, paramStandard);

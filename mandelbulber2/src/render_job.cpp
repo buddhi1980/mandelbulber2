@@ -327,6 +327,7 @@ bool cRenderJob::Execute(void)
 		emit updateProgressAndStatus(
 			QObject::tr("Rendering image"), QObject::tr("Starting rendering of image"), 0.0);
 
+		//stereo rendering with SSAO or DOF (2 passes)
 		if (twoPassStereo)
 		{
 			cStereo::enumEye eye;
@@ -335,6 +336,22 @@ bool cRenderJob::Execute(void)
 			else  eye = cStereo::eyeRight;
 
 			renderData->stereo.ForceEye(eye);
+			paramsContainer->Set("stereo_actual_eye", (int)eye);
+		}
+		else if(!gNetRender->IsClient())
+		{
+			paramsContainer->Set("stereo_actual_eye", (int)cStereo::eyeNone);
+		}
+
+		if(gNetRender->IsClient())
+		{
+			cStereo::enumEye eye = (cStereo::enumEye)paramsContainer->Get<int>("stereo_actual_eye");
+			qDebug() << "eye:" << eye;
+			if(eye != cStereo::eyeNone)
+			{
+				renderData->stereo.ForceEye(eye);
+				qDebug() << "used stereo_actual_eye";
+			}
 		}
 
 		// send settings to all NetRender clients
