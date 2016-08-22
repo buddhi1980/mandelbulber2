@@ -98,7 +98,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 			{
 				if (*stopRequest) throw tr("DOF terminated");
 
-#pragma omp parallel for
+#pragma omp parallel for schedule(dynamic, 1)
 
 				for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 				{
@@ -282,7 +282,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 				for (int i = 0; i < screenRegion.width; i++)
 				{
 					if (*stopRequest) throw tr("DOF terminated");
-#pragma omp parallel for
+#pragma omp parallel for schedule(dynamic, 1)
 					for (int j = 0; j < screenRegion.height; j++)
 					{
 						int index = i * screenRegion.height + j;
@@ -404,7 +404,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 			for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 			{
 				if (*stopRequest) throw tr("DOF terminated");
-#pragma omp parallel for
+#pragma omp parallel for schedule(dynamic, 1)
 				for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 				{
 					double z = image->GetPixelZBuffer(x, y);
@@ -586,7 +586,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 				for (int i = 0; i < screenRegion.width; i++)
 				{
 					if (*stopRequest) throw tr("DOF terminated");
-#pragma omp parallel for
+#pragma omp parallel for schedule(dynamic, 1)
 					for (int j = 0; j < screenRegion.height; j++)
 					{
 						int index = i * screenRegion.height + j;
