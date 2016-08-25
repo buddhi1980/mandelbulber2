@@ -140,6 +140,7 @@ enum enumFractalFormula
   benesiMagTransforms = 100,
   pseudoKleinian1 = 101,
   bristorbrot4D = 102,
+  pseudoKleinian2 = 103,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

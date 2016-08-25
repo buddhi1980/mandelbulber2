@@ -460,6 +460,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           break;
         }
 
+        case pseudoKleinian2:
+        {
+          PseudoKleinian2Iteration(z, i, fractal, extendedAux);
+          break;
+        }
+
         case quaternion3D:
         {
           Quaternion3DIteration(z, fractal, extendedAux);
@@ -891,7 +897,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			// scator magnitudes
 			// magnitude in imaginary scator algebra
-      case pseudoKleinian1:
+
+
+      //case pseudoKleinian1:
+      case pseudoKleinian2:
       {
         r = sqrt( z.x * z.x + z.y * z.y );
         break;
@@ -1083,7 +1092,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case amazingSurfMulti:
 				case kalisets1:
 				case aboxVSIcen1:
-        //case pseudoKleinian1:// temporary for initial check
+        case pseudoKleinian1:// temporary for initial check
 				{
           if (extendedAux.DE > 0)
 						out->distance = r / fabs(extendedAux.DE);
@@ -1108,7 +1117,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
-        case pseudoKleinian1:// temporary for initial check
+        //case pseudoKleinian1:
+        case pseudoKleinian2:
         {
           if (extendedAux.DE > 0)
             out->distance = max(r - 0.92784, fabs(r * z.z) / z.Length())/ (extendedAux.DE);

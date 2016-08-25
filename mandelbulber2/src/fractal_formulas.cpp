@@ -1385,6 +1385,9 @@ void AmazingSurfMultiIteration(CVector3 &z, CVector3 c, int i, const cFractal *f
 	}
 	z += fractal->transformCommon.additionConstant000;
 
+
+
+
 	// standard functions
 	if (fractal->transformCommon.functionEnabledAy)
 	{
@@ -1396,20 +1399,19 @@ void AmazingSurfMultiIteration(CVector3 &z, CVector3 c, int i, const cFractal *f
 		if (fractal->transformCommon.functionEnabledAz && i >= fractal->transformCommon.startIterationsT
 				&& i < fractal->transformCommon.stopIterationsT)
 		{
-			// Abox Spherical fold
+      // Abox Spherical fold
 			z += fractal->mandelbox.offset;
-			// r2 = z.Dot(z);
 			double sqrtMinR = fractal->transformCommon.sqtR;
 
 			if (r2 < sqrtMinR)
 			{
-				z *= fractal->transformCommon.mboxFactor1;
+        z *= fractal->transformCommon.mboxFactor1;
 				aux.DE *= fractal->transformCommon.mboxFactor1;
 				aux.color += fractal->mandelbox.color.factorSp1;
 			}
 			else if (r2 < 1.0)
 			{
-				z *= 1.0 / r2;
+        z *= 1.0 / r2;
 				aux.DE *= 1.0 / r2;
 				aux.color += fractal->mandelbox.color.factorSp2;
 			}
@@ -1444,9 +1446,9 @@ void AmazingSurfMultiIteration(CVector3 &z, CVector3 c, int i, const cFractal *f
 		if (i >= fractal->transformCommon.startIterationsS
 				&& i < fractal->transformCommon.stopIterationsS)
 		{ // scale
-			z *= fractal->mandelbox.scale * fractal->transformCommon.scale1
+      z *= fractal->mandelbox.scale * fractal->transformCommon.scale1
 					 + 1.0 * (1.0 - fractal->transformCommon.scale1);
-			aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+      aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 		}
 	}
   if (fractal->transformCommon.addCpixelEnabledFalse)
@@ -4103,40 +4105,107 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
 // Pseudo kleinian
   CVector3 Csize = fractal->transformCommon.additionConstant0555;
+  if (fractal->transformCommon.functionEnabledAy
+      && i >= fractal->transformCommon.startIterationsC
+      && i < fractal->transformCommon.stopIterationsC)
+  {
+    CVector3 tempZ = z;//  correct c++ version.
 
-  if ( z.x  >  Csize.x)
-    z.x = Csize.x * 2.0 - z.x;
-  if (z.x < -Csize.x)
-    z.x = -Csize.x * 2.0 - z.x;
-  if ( z.y  >  Csize.y)
-     z.y = Csize.y * 2.0 - z.y;
-  if (z.y < -Csize.y)
-     z.y = -Csize.y * 2.0 - z.y;
-  if ( z.z  >  Csize.z)
-     z.z = Csize.z * 2.0 - z.z;
-  if (z.z < -Csize.z)
-     z.z = -Csize.z * 2.0 - z.z;
+    if ( z.x  >  Csize.x)
+      tempZ.x = Csize.x;
+    if (z.x < -Csize.x)
+      tempZ.x = -Csize.x;
+    if ( z.y  >  Csize.y)
+      tempZ.y = Csize.y;
+    if (z.y < -Csize.y)
+      tempZ.y = -Csize.y;
+    if ( z.z  >  Csize.z)
+       tempZ.z = Csize.z;
+    if (z.z < -Csize.z)
+      tempZ.z = -Csize.z;
+     z = tempZ * 2.0 - z;
+   }
+
+
+  if (fractal->transformCommon.functionEnabledAyFalse
+      && i >= fractal->transformCommon.startIterationsB
+      && i < fractal->transformCommon.stopIterationsB)
+  {
+    if ( z.x  >  Csize.x) //  variation from openCL
+      z.x = Csize.x * 2.0 - z.x;
+    if (z.x < -Csize.x)
+      z.x = -Csize.x * 2.0 - z.x;
+    if ( z.y  >  Csize.y)
+      z.y = Csize.y * 2.0 - z.y;
+    if (z.y < -Csize.y)
+      z.y = -Csize.y * 2.0 - z.y;
+    if ( z.z  >  Csize.z)
+      z.z = Csize.z * 2.0 - z.z;
+    if (z.z < -Csize.z)
+      z.z = -Csize.z * 2.0 - z.z;
+  }
+
 
   double k = max(fractal->transformCommon.minR05/ z.Dot(z),1.0);
   z *= k;
   aux.DE *= k + fractal->transformCommon.offset0;
-
-
-
  // z += fractal->transformCommon.additionConstant000; // addition of constant (0,0,0)
-
-
-
-
-
-
 
 // no bailout
 
+}
+
+/**
+ * Pseudo Kleinian2 Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something
+ * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
+ * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
+ */
+void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  if ( i >= fractal->transformCommon.startIterations
+    && i < fractal->transformCommon.stopIterations)
+  {
+     CVector3 Csize = fractal->transformCommon.additionConstant0555;
+   /*   if (z.x < -Csize.x  && z.x > Csize.x) z.x = (z.x > 0) ? Csize.x : -Csize.x;
+        z.x = 2.0 * Csize.x - z.x;
+      if (z.y < -Csize.y  && z.y > Csize.y) z.y = (z.y > 0) ? Csize.y : -Csize.y;
+        z.y = 2.0 * Csize.y - z.y;
+       if (z.z < -Csize.z  && z.z > Csize.z) z.z = (z.z > 0) ? Csize.z : -Csize.z;
+        z.z = 2.0 * Csize.z - z.z;*/
+
+   // opencl  z = 2.0 * clamp(z, -Csize, Csize)-z;
+
+     CVector3 tempZ = z; //  correct c++ version.
+    if ( z.x  >  Csize.x)
+     tempZ.x = Csize.x;
+    if (z.x < -Csize.x)
+     tempZ.x = -Csize.x;
+    if ( z.y  >  Csize.y)
+     tempZ.y = Csize.y;
+    if (z.y < -Csize.y)
+     tempZ.y = -Csize.y;
+    if ( z.z  >  Csize.z)
+      tempZ.z = Csize.z;
+    if (z.z < -Csize.z)
+     tempZ.z = -Csize.z;
+    z = tempZ * 2.0 - z;
 
 
 
+      double k = max(fractal->transformCommon.minR05/ z.Dot(z) , 1.0);
+      z *= k;
+      aux.DE *= k + fractal->transformCommon.offset0;
 
+
+    if (fractal->transformCommon.functionEnabledRFalse
+        && i >= fractal->transformCommon.startIterationsR
+        && i < fractal->transformCommon.stopIterationsR)
+      z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+     z += fractal->transformCommon.additionConstant000; // addition of constant (0,0,0)
+
+  // no bailout
+  }
 }
 /**
  * Quaternion3DE - Quaternion fractal with extended controls
