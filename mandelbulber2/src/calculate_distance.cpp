@@ -243,7 +243,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 				}
 			}
 
-			if (params.iterThreshMode && !in.normalCalculationMode && !fractOut.maxiter)
+			if (params.common.iterThreshMode && !in.normalCalculationMode && !fractOut.maxiter)
 			{
 				if (distance < in.detailSize)
 				{
@@ -322,7 +322,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 				}
 			}
 
-			if (params.iterThreshMode && !in.normalCalculationMode && !maxiter)
+			if (params.common.iterThreshMode && !in.normalCalculationMode && !maxiter)
 			{
 				if (distance < in.detailSize)
 				{

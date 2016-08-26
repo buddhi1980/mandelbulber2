@@ -613,7 +613,7 @@ CVector3 cRenderWorker::RayMarching(
 			step *= 0.5;
 		}
 	}
-	if (params->iterThreshMode)
+	if (params->common.iterThreshMode)
 	{
 		// this fixes problem with noise when there is used "stop at maxIter" mode
 		scan -= distThresh;

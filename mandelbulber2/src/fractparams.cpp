@@ -105,7 +105,6 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	iterFogEnabled = container->Get<bool>("iteration_fog_enable");
 	iterFogOpacity = container->Get<double>("iteration_fog_opacity");
 	iterFogOpacityTrim = container->Get<double>("iteration_fog_opacity_trim");
-	iterThreshMode = container->Get<bool>("iteration_threshold_mode");
 	legacyCoordinateSystem = container->Get<bool>("legacy_coordinate_system");
 	limitMax = container->Get<CVector3>("limit_max");
 	limitMin = container->Get<CVector3>("limit_min");
@@ -222,6 +221,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	common.fractalRotation = container->Get<CVector3>("fractal_rotation");
 	common.mRotFractalRotation.SetRotation2(common.fractalRotation / 180.0 * M_PI);
 	common.repeat = container->Get<CVector3>("repeat");
+	common.iterThreshMode = container->Get<bool>("iteration_threshold_mode");
 
 	// formula = Get<int>("tile_number");
 }

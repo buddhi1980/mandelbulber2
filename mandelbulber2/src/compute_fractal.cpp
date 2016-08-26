@@ -80,7 +80,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	enumFractalFormula formula = fractal::none;
 
-  out->maxiter = false;
+	if (in.common.iterThreshMode)
+		out->maxiter = true;
+	else out->maxiter = false;
 
 	int fractalIndex = 0;
 	if (in.forcedFormulaIndex >= 0) fractalIndex = in.forcedFormulaIndex;

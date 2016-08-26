@@ -49,6 +49,8 @@ struct sFractalFoldings
 
 struct sCommonParams
 {
+	bool iterThreshMode;
+
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
 
