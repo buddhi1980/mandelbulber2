@@ -584,6 +584,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("donut_number", 9.0, morphAkima, paramStandard);
 
 	// analyticDE controls
+  par->addParam("analyticDE_tweak_005", 0.05, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_2", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_scale_1", 1.0, morphAkima, paramStandard);
@@ -655,6 +656,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_E", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_F", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_F", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_P", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_P1", 1, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_R", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_R", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_S", 0, morphLinear, paramStandard);
@@ -669,7 +672,8 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam(
 		"transf_addition_constant_0555", CVector3(0.5, 0.5, 0.5), morphAkima, paramStandard);
-
+  par->addParam(
+    "transf_addition_constant_0777", CVector3(0.7, 0.7, 0.7), morphAkima, paramStandard);
 	par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(
 		"transf_addition_constantA_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);

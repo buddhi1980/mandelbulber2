@@ -366,6 +366,7 @@ struct sFractalAnalyticDE
 	bool enabledFalse;
 	bool enabledAuxR2False;
 	double scale1;
+  double tweak005;
 	double offset1;
 	double offset2;
 	double scaleLin;
@@ -381,7 +382,7 @@ struct sFractalTransformCommon
   double foldingLimit;
 	double offset;
 	double offset0;
-	double offset05;
+  double offset05;
 	double offset1;
 	double offset105;
 	double offset2;
@@ -425,6 +426,8 @@ struct sFractalTransformCommon
 	int stopIterationsE;
 	int startIterationsF;
 	int stopIterationsF;
+  int startIterationsP;
+  int stopIterationsP1;
 	int startIterationsR;
 	int stopIterationsR;
 	int startIterationsS;
@@ -443,7 +446,8 @@ struct sFractalTransformCommon
   int int8Y;
   int int8Z;
 
-	CVector3 additionConstant0555;
+  CVector3 additionConstant0555;
+  CVector3 additionConstant0777;
 	CVector3 additionConstant000;
 	CVector3 additionConstantA000;
   CVector3 additionConstantP000;

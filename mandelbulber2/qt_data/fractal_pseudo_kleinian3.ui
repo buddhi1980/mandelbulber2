@@ -32,14 +32,21 @@
    <item>
     <widget class="QLabel" name="label_267">
      <property name="text">
-      <string>Note 1) : this is an iteration based fractal,  set termination by  Maxiter,  Each additional iteration adds more detail.</string>
+      <string>Note 1) : termination condition is when iteration reaches  Maxiter,  </string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_268">
+     <property name="text">
+      <string>Note 2) : each additional iteration adds more detail.  </string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_263">
      <property name="text">
-      <string>Note 2): this type of DE calculation will not work with other types.</string>
+      <string>Note 3) : this type of DE calculation will not work with other types.</string>
      </property>
     </widget>
    </item>
@@ -54,7 +61,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -71,19 +78,12 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_75">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-       </layout>
-      </item>
-      <item>
        <layout class="QGridLayout" name="gridLayout_76">
         <property name="spacing">
          <number>2</number>
         </property>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_1">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_P1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -103,7 +103,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_P">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3469,7 +3469,7 @@
       <number>2</number>
      </property>
      <item row="5" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0555_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0777_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -3503,7 +3503,7 @@
       </widget>
      </item>
      <item row="6" column="2">
-      <widget class="QSlider" name="slider3_transf_addition_constant_0555_y">
+      <widget class="QSlider" name="slider3_transf_addition_constant_0777_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -3532,7 +3532,7 @@
       </widget>
      </item>
      <item row="6" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0555_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0777_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -3592,7 +3592,7 @@
       </widget>
      </item>
      <item row="7" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0555_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0777_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -3626,7 +3626,7 @@
       </widget>
      </item>
      <item row="5" column="2">
-      <widget class="QSlider" name="slider3_transf_addition_constant_0555_x">
+      <widget class="QSlider" name="slider3_transf_addition_constant_0777_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -3648,7 +3648,7 @@
       </widget>
      </item>
      <item row="7" column="2">
-      <widget class="QSlider" name="slider3_transf_addition_constant_0555_z">
+      <widget class="QSlider" name="slider3_transf_addition_constant_0777_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -3744,7 +3744,7 @@
       </widget>
      </item>
      <item row="3" column="2">
-      <widget class="QSlider" name="slider_transf_offset_0">
+      <widget class="QSlider" name="slider_analyticDE_tweak_005">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -3803,7 +3803,7 @@
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_tweak_005">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>

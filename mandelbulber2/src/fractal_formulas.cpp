@@ -3109,8 +3109,8 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 	double temp;
 	double dot1;
 
-	if (i >= fractal->transformCommon.startIterationsA	 // default 0.0
-			&& i < fractal->transformCommon.stopIterations1) // default 1.0
+  if (i >= fractal->transformCommon.startIterationsP	 // default 0.0
+      && i < fractal->transformCommon.stopIterationsP1) // default 1.0
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
@@ -3955,8 +3955,8 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
   double dot1;
 
   if (fractal->transformCommon.functionEnabledPFalse
-      && i >= fractal->transformCommon.startIterationsA	 // default 0.0
-      && i < fractal->transformCommon.stopIterations1) // default 1.0
+      && i >= fractal->transformCommon.startIterationsP	 // default 0.0
+      && i < fractal->transformCommon.stopIterationsP1) // default 1.0
   {
     z.y = fabs(z.y);
     z.z = fabs(z.z);
@@ -4104,7 +4104,7 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
   aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
 
 // Pseudo kleinian
-  CVector3 Csize = fractal->transformCommon.additionConstant0555;
+  CVector3 Csize = fractal->transformCommon.additionConstant0777;
   if (fractal->transformCommon.functionEnabledAy
       && i >= fractal->transformCommon.startIterationsC
       && i < fractal->transformCommon.stopIterationsC)
@@ -4148,7 +4148,7 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
   double k = max(fractal->transformCommon.minR05/ z.Dot(z),1.0);
   z *= k;
-  aux.DE *= k + fractal->transformCommon.offset0;
+  aux.DE *= k + fractal->analyticDE.tweak005;
  // z += fractal->transformCommon.additionConstant000; // addition of constant (0,0,0)
 
 // no bailout
@@ -4162,80 +4162,107 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
  */
 void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-  if ( i >= fractal->transformCommon.startIterations
-    && i < fractal->transformCommon.stopIterations)
+  CVector3 gap = fractal->transformCommon.constantMultiplier000; // default 0,0,0
+  double t;
+  double temp;
+  double dot1;
+
+  if (fractal->transformCommon.functionEnabledPFalse
+      && i >= fractal->transformCommon.startIterationsP	 // default 0.0
+      && i < fractal->transformCommon.stopIterationsP1) // default 1.0
   {
-    if (i >= fractal->transformCommon.startIterationsA
-          && i < fractal->transformCommon.stopIterationsA)
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale; // default 1
+    t = max(0.0, dot1);
+    z.x -= t * -SQRT_3;
+    z.y = fabs(z.y - t);
+
+    if (z.y > z.z)
     {
-      if (z.x > fractal->mandelbox.foldingLimit)
-      {
-        z.x = fractal->mandelbox.foldingValue - z.x;
-         aux.color += fractal->mandelbox.color.factor.x;
-      }
-      else if (z.x < -fractal->mandelbox.foldingLimit)
-      {
-        z.x = -fractal->mandelbox.foldingValue - z.x;
-        aux.color += fractal->mandelbox.color.factor.x;
-      }
-      if (z.y > fractal->mandelbox.foldingLimit)
-      {
-        z.y = fractal->mandelbox.foldingValue - z.y;
-        aux.color += fractal->mandelbox.color.factor.y;
-      }
-      else if (z.y < -fractal->mandelbox.foldingLimit)
-      {
-        z.y = -fractal->mandelbox.foldingValue - z.y;
-        aux.color += fractal->mandelbox.color.factor.y;
-      }
-      double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
-      double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
-      if (z.z > zLimit)
-      {
-        z.z = zValue - z.z;
-        aux.color += fractal->mandelbox.color.factor.z;
-      }
-      else if (z.z < -zLimit)
-      {
-        z.z = -zValue - z.z;
-        aux.color += fractal->mandelbox.color.factor.z;
-      }
+      temp = z.y;
+      z.y = z.z;
+      z.z = temp;
     }
-
-
-
-     CVector3 Csize = fractal->transformCommon.additionConstant0555;
-     CVector3 tempZ = z; //  correct c++ version.
-    if ( z.x  >  Csize.x)
-     tempZ.x = Csize.x;
-    if (z.x < -Csize.x)
-     tempZ.x = -Csize.x;
-    if ( z.y  >  Csize.y)
-     tempZ.y = Csize.y;
-    if (z.y < -Csize.y)
-     tempZ.y = -Csize.y;
-    if ( z.z  >  Csize.z)
-      tempZ.z = Csize.z;
-    if (z.z < -Csize.z)
-     tempZ.z = -Csize.z;
-    z = tempZ * 2.0 - z;
-
-
-
-    double k = max(fractal->transformCommon.minR05/ z.Dot(z) , 1.0);
-      z *= k;
-      aux.DE *= k + fractal->transformCommon.offset0;
-
-
-    if (fractal->transformCommon.functionEnabledRFalse
-        && i >= fractal->transformCommon.startIterationsR
-        && i < fractal->transformCommon.stopIterationsR)
-      z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-
-     z += fractal->transformCommon.additionConstant000; // addition of constant (0,0,0)
-
-  // no bailout
+    z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
+    // z was pos, now some points neg (ie neg shift)
+    if (z.z > z.x)
+    {
+      temp = z.z;
+      z.z = z.x;
+      z.x = temp;
+    }
+    if (z.x > 0.0)
+    {
+      z.y = max(0.0, z.y);
+      z.z = max(0.0, z.z);
+    }
   }
+
+  if (fractal->transformCommon.functionEnabledBxFalse
+        && i >= fractal->transformCommon.startIterationsA
+        && i < fractal->transformCommon.stopIterationsA)
+  {
+    if (z.x > fractal->mandelbox.foldingLimit)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+       aux.color += fractal->mandelbox.color.factor.x;
+    }
+    else if (z.x < -fractal->mandelbox.foldingLimit)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    if (z.y > fractal->mandelbox.foldingLimit)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    else if (z.y < -fractal->mandelbox.foldingLimit)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
+    double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
+    if (z.z > zLimit)
+    {
+      z.z = zValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+    else if (z.z < -zLimit)
+    {
+      z.z = -zValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+  }
+
+   CVector3 Csize = fractal->transformCommon.additionConstant0777;
+   CVector3 tempZ = z; //  correct c++ version.
+  if ( z.x  >  Csize.x)
+   tempZ.x = Csize.x;
+  if (z.x < -Csize.x)
+   tempZ.x = -Csize.x;
+  if ( z.y  >  Csize.y)
+   tempZ.y = Csize.y;
+  if (z.y < -Csize.y)
+   tempZ.y = -Csize.y;
+  if ( z.z  >  Csize.z)
+    tempZ.z = Csize.z;
+  if (z.z < -Csize.z)
+   tempZ.z = -Csize.z;
+  z = tempZ * 2.0 - z;
+  double k = max(fractal->transformCommon.minR05/ z.Dot(z) , 1.0);
+  z *= k;
+  aux.DE *= k + fractal->analyticDE.tweak005;
+
+  if (fractal->transformCommon.functionEnabledRFalse
+      && i >= fractal->transformCommon.startIterationsR
+      && i < fractal->transformCommon.stopIterationsR)
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+  z += fractal->transformCommon.additionConstant000;
+  // no bailout
 }
 
 /**
@@ -4251,8 +4278,8 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
   double dot1;
 
   if (fractal->transformCommon.functionEnabledPFalse
-      && i >= fractal->transformCommon.startIterationsA	 // default 0.0
-      && i < fractal->transformCommon.stopIterations1) // default 1.0
+      && i >= fractal->transformCommon.startIterationsP	 // default 0.0
+      && i < fractal->transformCommon.stopIterationsP1) // default 1.0
   {
     z.y = fabs(z.y);
     z.z = fabs(z.z);
@@ -4400,7 +4427,7 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
   aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
 
 // Pseudo kleinian
-  CVector3 Csize = fractal->transformCommon.additionConstant0555;
+  CVector3 Csize = fractal->transformCommon.additionConstant0777;
   if (fractal->transformCommon.functionEnabledAy
       && i >= fractal->transformCommon.startIterationsC
       && i < fractal->transformCommon.stopIterationsC)
@@ -4444,7 +4471,7 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
   double k = max(fractal->transformCommon.minR05/ z.Dot(z),1.0);
   z *= k;
-  aux.DE *= k + fractal->transformCommon.offset0;
+  aux.DE *= k + fractal->analyticDE.tweak005;
  // z += fractal->transformCommon.additionConstant000; // addition of constant (0,0,0)
 
 // no bailout

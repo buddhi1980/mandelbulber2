@@ -185,6 +185,7 @@ cFractal::cFractal(const cParameterContainer *container)
 
 
 	analyticDE.scale1 = container->Get<double>("analyticDE_scale_1");
+  analyticDE.tweak005 = container->Get<double>("analyticDE_tweak_005");
 	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
 	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
@@ -252,7 +253,9 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.startIterationsE = container->Get<int>("transf_start_iterations_E");
 	transformCommon.stopIterationsE = container->Get<int>("transf_stop_iterations_E");
 	transformCommon.startIterationsF = container->Get<int>("transf_start_iterations_F");
-	transformCommon.stopIterationsF = container->Get<int>("transf_stop_iterations_F");
+  transformCommon.stopIterationsF = container->Get<int>("transf_stop_iterations_F");
+  transformCommon.startIterationsP = container->Get<int>("transf_start_iterations_P");
+  transformCommon.stopIterationsP1 = container->Get<int>("transf_stop_iterations_P1");
 	transformCommon.startIterationsR = container->Get<int>("transf_start_iterations_R");
 	transformCommon.stopIterationsR = container->Get<int>("transf_stop_iterations_R");
 	transformCommon.startIterationsS = container->Get<int>("transf_start_iterations_S");
@@ -266,6 +269,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.stopIterationsTM1 = container->Get<int>("transf_stop_iterationsTM_1");
 
 	transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
+  transformCommon.additionConstant0777 = container->Get<CVector3>("transf_addition_constant_0777");
 	transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
 	transformCommon.additionConstantA000 = container->Get<CVector3>("transf_addition_constantA_000");
   transformCommon.additionConstantP000 = container->Get<CVector3>("transf_addition_constantP_000");
