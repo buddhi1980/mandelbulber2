@@ -80,7 +80,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	enumFractalFormula formula = fractal::none;
 
-	out->maxiter = true;
+  out->maxiter = false;
 
 	int fractalIndex = 0;
 	if (in.forcedFormulaIndex >= 0) fractalIndex = in.forcedFormulaIndex;
@@ -899,7 +899,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			// magnitude in imaginary scator algebra
 
 
-      //case pseudoKleinian1:
+      case pseudoKleinian1:
       case pseudoKleinian2:
       {
         r = sqrt( z.x * z.x + z.y * z.y );
@@ -1092,7 +1092,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case amazingSurfMulti:
 				case kalisets1:
 				case aboxVSIcen1:
-        case pseudoKleinian1:// temporary for initial check
+        //case pseudoKleinian1:// temporary for initial check
 				{
           if (extendedAux.DE > 0)
 						out->distance = r / fabs(extendedAux.DE);
@@ -1117,7 +1117,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
-        //case pseudoKleinian1:
+        case pseudoKleinian1:
         case pseudoKleinian2:
         {
           if (extendedAux.DE > 0)

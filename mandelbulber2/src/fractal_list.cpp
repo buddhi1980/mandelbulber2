@@ -220,7 +220,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 			logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
   fractalList->append(sFractalDescription("Pseudo Kleinian1", "pseudo_kleinian1", pseudoKleinian1,
-    analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
+    analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 
   fractalList->append(sFractalDescription("Pseudo Kleinian2", "pseudo_kleinian2", pseudoKleinian2,
     analyticDEType, linearDEFunction,  cpixelDisabledByDefault, 100));
