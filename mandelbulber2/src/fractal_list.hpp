@@ -141,6 +141,7 @@ enum enumFractalFormula
   pseudoKleinian1 = 101,
   bristorbrot4D = 102,
   pseudoKleinian2 = 103,
+  pseudoKleinian3 = 104,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

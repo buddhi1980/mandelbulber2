@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4703</height>
+    <height>4579</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,14 @@
    <item>
     <widget class="QLabel" name="label_267">
      <property name="text">
-      <string>Note 1) : the pseudo kleinian fractal on this UI, works with the standard linear analytic DE caclulation.</string>
+      <string>Note 1) : this is an iteration based fractal,  set termination by  Maxiter,  Each additional iteration adds more detail.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_263">
+     <property name="text">
+      <string>Note 2): this type of DE calculation will not work with other types.</string>
      </property>
     </widget>
    </item>
