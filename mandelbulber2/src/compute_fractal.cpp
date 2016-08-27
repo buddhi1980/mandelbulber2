@@ -906,8 +906,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 
       case pseudoKleinian1:
-      case pseudoKleinian2:
-      case pseudoKleinian3:
       {
         r = sqrt( z.x * z.x + z.y * z.y );
         break;
@@ -1049,6 +1047,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					out->distance = 0.5 * r * log(r) / extendedAux.r_dz;
 				}
+				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
+				{
+        	double rxy = sqrt( z.x * z.x + z.y * z.y );
+          out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (extendedAux.DE);
+				}
 			}
 			else
 			{
@@ -1140,12 +1143,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case pseudoKleinian3:
         {
           if (extendedAux.DE > 0)
-            out->distance = max(r - 0.92784, fabs(r * z.z) / z.Length())/ (extendedAux.DE);
+          {
+          	double rxy = sqrt( z.x * z.x + z.y * z.y );
+            out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (extendedAux.DE);
+          }
           else
             out->distance = r;
           break;
         }
-
 
 				default: out->distance = -1.0; break;
 			}

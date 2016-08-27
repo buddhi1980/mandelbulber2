@@ -288,8 +288,14 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 			{
 				if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::linearDEFunction)
 					distance = 0.5 * r / dr;
-				else
+				else if(fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::logarithmicDEFunction)
 					distance = 0.5 * r * log(r) / dr;
+				else if(fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::pseudoKleinianDEFunction)
+				{
+					CVector3 z = fractOut.z;
+					double rxy = sqrt(z.x * z.x + z.y * z.y);
+					distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (dr);
+				}
 			}
 			else
 			{

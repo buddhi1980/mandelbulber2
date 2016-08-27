@@ -217,7 +217,9 @@ enum enumDEFunctionType
 	logarithmicDEFunction = 0,
 	linearDEFunction = 1,
 	preferedDEfunction = 2,
-	withoutDEFunction = 3,
+	pseudoKleinianDEFunction = 3,
+	withoutDEFunction = 99,
+
 };
 
 enum enumCPixelAddition
