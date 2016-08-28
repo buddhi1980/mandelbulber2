@@ -153,8 +153,12 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 				== fractal::preferedDEfunction)
 		{
 			// finding preferred delta DE function
-			int linearDECount = 0;
-			int logarythmicDECount = 0;
+
+			//table to check the which DE type is the most popular
+			int DEFunctionCount[fractal::numberOfDEFunctions + 1];
+			for(int i = 1; i <= fractal::numberOfDEFunctions; i++)
+				 DEFunctionCount[i] = 0;
+
 			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 			{
 				fractal::enumFractalFormula formula = fractals[f]->formula;
@@ -162,10 +166,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 				// looking for the best DE function for DeltaDE mode
 
+				//count usage of DE functions
 				fractal::enumDEFunctionType DEFunction = fractalList[index].DEFunctionType;
-				if (DEFunction == fractal::logarithmicDEFunction) logarythmicDECount += counts[f];
-
-				if (DEFunction == fractal::linearDEFunction) linearDECount += counts[f];
+				DEFunctionCount[DEFunction] += counts[f];
 
 				// looking if it's possible to use analyticDEType
 				if (!forceDeltaDE && fractalList[index].internalID != fractal::none)
@@ -182,10 +185,16 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 					}
 				}
 			}
-			if (linearDECount > logarythmicDECount)
-				DEFunctionType[0] = fractal::linearDEFunction;
-			else
-				DEFunctionType[0] = fractal::logarithmicDEFunction;
+
+			int maxCount = -1;
+			for(int i = 1; i <= fractal::numberOfDEFunctions; i++)
+			{
+				if(DEFunctionCount[i] > maxCount)
+				{
+					maxCount = DEFunctionCount[i];
+					DEFunctionType[0] = (fractal::enumDEFunctionType)i;
+				}
+			}
 		}
 		else
 		{
@@ -193,8 +202,8 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 
 		// if it's possible to use analyticDEType then use optimized settings
-		if (optimizedDEType == fractal::logarithmicDEFunction
-				|| optimizedDEType == fractal::linearDEFunction)
+		if (optimizedDEType > fractal::preferedDEfunction &&
+				optimizedDEType <= fractal::numberOfDEFunctions)
 		{
 			DEType[0] = fractal::analyticDEType;
 			DEFunctionType[0] = optimizedDEType;
@@ -315,14 +324,22 @@ QString cNineFractals::GetDETypeString() const
 		text += "deltaDE";
 	}
 
-	if (DEFunctionType[0] == fractal::logarithmicDEFunction)
+	switch(DEFunctionType[0])
 	{
-		text += " logarithmic";
+		case fractal::logarithmicDEFunction:
+			text += " logarithmic";
+			break;
+		case fractal::linearDEFunction:
+			text += " linear";
+			break;
+		case fractal::pseudoKleinianDEFunction:
+			text += " pseudo kleinian";
+					break;
+		default:
+			text += "unknown";
+			break;
 	}
-	else
-	{
-		text += " linear";
-	}
+
 	return text;
 }
 

@@ -746,6 +746,19 @@ void cSettings::Compatibility(QString &name, QString &value)
 		if (name == QString("fractal_coloring_line_direction"))
 			name.replace("fractal_coloring_line_direction", "mat1_fractal_coloring_line_direction");
 	}
+	if (fileVersion < 2.09)
+	{
+		if (name == QString("delta_DE_function")){
+			if(value == QString("0"))
+			{
+				value = "2";
+			}
+			else if(value == QString("2"))
+			{
+				value = "0";
+			}
+		}
+	}
 }
 
 void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *fract)

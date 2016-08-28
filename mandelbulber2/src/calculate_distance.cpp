@@ -200,7 +200,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
 {
-	double distance;
+	double distance = 0;
 
 	int N = in.normalCalculationMode ? params.N * 5 : params.N;
 
@@ -286,6 +286,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 
 			if (dr > 0)
 			{
+				//DE functions for deltaDE
 				if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::linearDEFunction)
 					distance = 0.5 * r / dr;
 				else if(fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::logarithmicDEFunction)

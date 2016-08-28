@@ -214,12 +214,12 @@ enum enumDEType
 
 enum enumDEFunctionType
 {
-	logarithmicDEFunction = 0,
+	preferedDEfunction = 0,
 	linearDEFunction = 1,
-	preferedDEfunction = 2,
+	logarithmicDEFunction = 2,
 	pseudoKleinianDEFunction = 3,
-	withoutDEFunction = 99,
-
+	numberOfDEFunctions = 3, //used to prepare array
+	withoutDEFunction = 99
 };
 
 enum enumCPixelAddition
