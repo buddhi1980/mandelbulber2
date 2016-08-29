@@ -219,13 +219,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 			analyticDEType, // TODO fix??
 			logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-  fractalList->append(sFractalDescription("Pseudo Kleinian1", "pseudo_kleinian1", pseudoKleinian1,
-    analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
+  fractalList->append(sFractalDescription("Pseudo Kleinian stdDE", "pseudo_kleinian1", pseudoKleinian1,
+    analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 
-  fractalList->append(sFractalDescription("Pseudo Kleinian2", "pseudo_kleinian2", pseudoKleinian2,
+  fractalList->append(sFractalDescription("Pseudo Kleinian", "pseudo_kleinian2", pseudoKleinian2,
     analyticDEType, pseudoKleinianDEFunction,  cpixelDisabledByDefault, 100));
 
-  fractalList->append(sFractalDescription("Pseudo Kleinian3", "pseudo_kleinian3", pseudoKleinian3,
+  fractalList->append(sFractalDescription("Pseudo Kleinian Mod1", "pseudo_kleinian3", pseudoKleinian3,
     analyticDEType, pseudoKleinianDEFunction,  cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Quaternion", "quaternion", quaternion, analyticDEType,
