@@ -29,10 +29,10 @@ packages needed to compile: build-essential, qt5-default, libpng-dev, qttools5-d
 
 
 On Ubuntu, Debian stable (jessie) or Mint: 
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgomp1
+sudo apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev
 
 On Debian testing (stretch)
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools libgomp1
+sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev
 
 
 Then:
