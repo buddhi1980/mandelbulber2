@@ -191,10 +191,31 @@ void cRenderWorker::doWork(void)
 				if (data->stereo.isEnabled())
 				{
 					data->stereo.WhichEyeForAnaglyph(&stereoEye, repeat);
-					startRay = data->stereo.CalcEyePosition(startRay, viewVector, params->topVector,
-											 params->stereoEyeDistance, stereoEye);
+					if (params->perspectiveType == params::perspFishEyeCut)
+					{
+						CVector3 eyePosition;
+						CVector3 sideVector = viewVector.Cross(params->topVector);
+						sideVector.Normalize();
+						if (stereoEye == cStereo::eyeLeft)
+						{
+							eyePosition = startRay + 0.5 * (cameraTarget->GetRightVector() * params->stereoEyeDistance
+														+ sideVector * params->stereoEyeDistance);
+						}
+						else
+						{
+							eyePosition = startRay - 0.5 * (cameraTarget->GetRightVector() * params->stereoEyeDistance
+														+ sideVector * params->stereoEyeDistance);
+						}
+						startRay = eyePosition;
+					}
+					else
+					{
+						startRay = data->stereo.CalcEyePosition(startRay, viewVector, params->topVector,
+																	 params->stereoEyeDistance, stereoEye);
+						data->stereo.ViewVectorCorrection(params->stereoInfiniteCorrection, mRot, mRotInv, stereoEye, &viewVector);
+					}
 
-					data->stereo.ViewVectorCorrection(params->stereoInfiniteCorrection, mRot, mRotInv, stereoEye, &viewVector);
+
 				}
 
 				sRGBAfloat resultShader;

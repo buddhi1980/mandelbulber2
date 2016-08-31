@@ -375,7 +375,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-373</y>
           <width>370</width>
           <height>679</height>
          </rect>
@@ -1319,7 +1319,7 @@ no ambient occlusion)</string>
                  </sizepolicy>
                 </property>
                 <property name="text">
-                 <string>Don't add C constant</string>
+                 <string>Swap eyes</string>
                 </property>
                </widget>
               </item>
@@ -20540,7 +20540,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-117</y>
+          <y>0</y>
           <width>370</width>
           <height>1083</height>
          </rect>

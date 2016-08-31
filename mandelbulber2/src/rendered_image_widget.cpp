@@ -287,11 +287,11 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 			Draw3DBox(scale, fov, p1, z, cStereo::eyeLeft);
 			if(perspType == params::perspThreePoint)
 			{
-				p2.x = p.x - 2.0 * (stereoEyeDistance / z + stereoInfiniteCorrection / 10.0) / fov;
+				p2.x = p.x - 2.0 * (stereoEyeDistance / z - stereoInfiniteCorrection / 10.0) / fov;
 			}
 			else
 			{
-				p2.x = p.x - 2.0 * (stereoEyeDistance / z + stereoInfiniteCorrection / 10.0) / fov / M_PI;
+				p2.x = p.x - 2.0 * (stereoEyeDistance / z - stereoInfiniteCorrection / 10.0) / fov / M_PI;
 			}
 			p2.y = p.y;
 			Draw3DBox(scale, fov, p2, z, cStereo::eyeRight);

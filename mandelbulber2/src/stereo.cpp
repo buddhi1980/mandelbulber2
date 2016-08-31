@@ -209,23 +209,28 @@ void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRo
 {
 	CVector3 viewVectorTemp = *viewVector;
 	viewVectorTemp = mRotInv.RotateVector(viewVectorTemp);
-	CVector3 viewVectorCorrection(correction / 10.0 * sqrt(1.0 - viewVectorTemp.x *  viewVectorTemp.x - viewVectorTemp.z *  viewVectorTemp.z), 0.0, 0.0);
-
+	double rxz2 = viewVectorTemp.x *  viewVectorTemp.x + viewVectorTemp.z *  viewVectorTemp.z;
+	CVector3 viewVectorCorrection;
+	if(rxz2 < 1)
+	{
+		viewVectorCorrection.x = correction / 10.0 * sqrt(1.0 - rxz2);
+	}
 
 	if(eye == cStereo::eyeLeft)
-	{
-		viewVectorTemp += viewVectorCorrection;
-		viewVectorTemp.Normalize();
-		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
-		*viewVector = viewVectorTemp;
-	}
-	else
 	{
 		viewVectorTemp -= viewVectorCorrection;
 		viewVectorTemp.Normalize();
 		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
 		*viewVector = viewVectorTemp;
 	}
+	else
+	{
+		viewVectorTemp += viewVectorCorrection;
+		viewVectorTemp.Normalize();
+		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
+		*viewVector = viewVectorTemp;
+	}
+
 }
 
 void cStereo::StoreImageInBuffer(cImage *image)
