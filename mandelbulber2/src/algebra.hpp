@@ -46,6 +46,7 @@
 
 #include <QString>
 #include <math.h>
+#include <gsl/gsl_sys.h>
 
 /************************* vector 3D **********************/
 class CVector3
@@ -197,7 +198,20 @@ public:
 	inline double GetBeta() const { return atan2(z, sqrt(x * x + y * y)); }
 	bool IsNotANumber()
 	{
-		return x == (x + 1e60) / 0.0 || y == (y + 1e60) / 0.0 || z == (z + 1e60) / 0.0;
+		// Check x for NaN
+		if (!gsl_finite(x))
+			return true;
+
+		// Check y for NaN
+		if (!gsl_finite(y))
+			return true;
+
+		// Check z for NaN
+		if (!gsl_finite(z))
+			return true;
+
+		// Defined or representable value identified
+		return false;
 	}
 	CVector3 RotateAroundVectorByAngle(CVector3 axis, double angle);
 	QString Debug() const
