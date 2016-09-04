@@ -199,15 +199,15 @@ public:
 	bool IsNotANumber()
 	{
 		// Check x for NaN
-		if (gsl_isnan(x))
+		if (!gsl_finite(x))
 			return true;
 
 		// Check y for NaN
-		if (gsl_isnan(y))
+		if (!gsl_finite(y))
 			return true;
 
 		// Check z for NaN
-		if (gsl_isnan(z))
+		if (!gsl_finite(z))
 			return true;
 
 		// Defined or representable value identified
