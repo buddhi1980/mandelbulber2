@@ -76,6 +76,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 		hasQWidget = false;
 	}
 
+	systemData.numberOfThreads = paramsContainer->Get<int>("limit_CPU_cores");
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	renderData = NULL;
 	useSizeFromImage = false;

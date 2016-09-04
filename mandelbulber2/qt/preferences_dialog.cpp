@@ -50,8 +50,13 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	initFinished = false;
 	ui->setupUi(this);
 
+	int maximumCores = get_cpu_count();
+	ui->sliderInt_limit_CPU_cores->setMaximum(maximumCores);
+	ui->spinboxInt_limit_CPU_cores->setMaximum(maximumCores);
+
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
+
 	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
 	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
 	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));

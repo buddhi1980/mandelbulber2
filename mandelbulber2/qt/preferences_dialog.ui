@@ -311,6 +311,52 @@
                <number>2</number>
               </property>
               <item>
+               <layout class="QGridLayout" name="gridLayout">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_14">
+                  <property name="text">
+                   <string>Max. number of CPU cores to use</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSlider" name="sliderInt_limit_CPU_cores">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>1000</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>8</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>64</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="MySpinBox" name="spinboxInt_limit_CPU_cores">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>1000</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QGridLayout" name="gridLayout_system_look_and_feel_2">
                 <property name="spacing">
                  <number>2</number>
@@ -725,38 +771,38 @@ and will only be present after enabling and re-render.</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                 <item row="0" column="0">
-                  <widget class="QPushButton" name="pushButton_clear_thumbnail_cache">
-                   <property name="text">
-                    <string>Clear</string>
-                   </property>
-                   <property name="icon">
-                    <iconset theme="process-stop" resource="icons.qrc">
-                     <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QPushButton" name="pushButton_load_thumbnail_cache">
-                   <property name="text">
-                    <string>Load</string>
-                   </property>
-                   <property name="icon">
-                    <iconset theme="document-save" resource="icons.qrc">
-                     <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="2">
-                  <widget class="QPushButton" name="pushButton_generate_thumbnail_cache">
-                   <property name="text">
-                    <string>Generate</string>
-                   </property>
-                   <property name="icon">
-                    <iconset theme="applications-graphics" resource="icons.qrc">
-                     <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
-                   </property>
-                  </widget>
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="pushButton_clear_thumbnail_cache">
+                  <property name="text">
+                   <string>Clear</string>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="process-stop" resource="icons.qrc">
+                    <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="pushButton_load_thumbnail_cache">
+                  <property name="text">
+                   <string>Load</string>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="document-save" resource="icons.qrc">
+                    <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QPushButton" name="pushButton_generate_thumbnail_cache">
+                  <property name="text">
+                   <string>Generate</string>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="applications-graphics" resource="icons.qrc">
+                    <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>
