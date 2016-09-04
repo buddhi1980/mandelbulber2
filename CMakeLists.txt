@@ -83,6 +83,12 @@ IF(OpenEXR_FOUND)
     add_definitions(-DUSE_EXR)
 ENDIF()
 
+IF(USE_GAMEPAD)
+    find_package(Qt5Gamepad)
+    target_link_libraries(mandelbulber2 Qt5::Gamepad)
+    add_definitions(-DUSE_GAMEPAD=1)
+ENDIF()
+
 IF(ZLIB_FOUND)
     include_directories(${ZLIB_INCLUDE_DIRS})
     target_link_libraries(mandelbulber2 ${ZLIB_LIBRARIES})
