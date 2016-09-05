@@ -803,7 +803,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 			if (gNetRender->IsServer())
 			{
-				gNetRender->WaitForAllClientsReady(2.0);
+				gNetRender->WaitForAllClientsReady(10.0);
 			}
 
 			params->Set("frame_no", index);

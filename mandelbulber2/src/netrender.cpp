@@ -914,7 +914,7 @@ bool CNetRender::WaitForAllClientsReady(double timeout)
 			if (GetClientStatus(i) != netRender_READY)
 			{
 				allReady = false;
-				WriteLog(QString("Client # %1 is not ready yet").arg(i), 2);
+				WriteLog(QString("Client # %1 is not ready yet").arg(i), 1);
 				break;
 			}
 		}

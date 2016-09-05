@@ -327,12 +327,6 @@ bool cRenderer::RenderImage()
 
 		if (data->configuration.UseNetRender())
 		{
-			if (gNetRender->IsClient())
-			{
-				gNetRender->SetStatus(CNetRender::netRender_READY);
-				emit NotifyClientStatus();
-			}
-
 			if (gNetRender->IsServer())
 			{
 				emit StopAllClients();
@@ -417,6 +411,15 @@ bool cRenderer::RenderImage()
 		data->statistics.time = progressText.getTime();
 		emit updateStatistics(data->statistics);
 		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+
+		if (data->configuration.UseNetRender())
+		{
+			if (gNetRender->IsClient())
+			{
+				gNetRender->SetStatus(CNetRender::netRender_READY);
+				emit NotifyClientStatus();
+			}
+		}
 
 		delete[] thread;
 		delete[] threadData;
