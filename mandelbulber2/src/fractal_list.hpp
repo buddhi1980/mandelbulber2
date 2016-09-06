@@ -102,7 +102,7 @@ enum enumFractalFormula
 	aboxMod1 = 64,
 	mandelbulbMulti = 65, // updated V2.08
 	benesiPineTree = 66,
-	benesiT1PineTree = 67,
+  benesiT1PineTree = 67, // updated V2.09
 	msltoesym3Mod = 68,
 	msltoesym4Mod = 69,
 	eiffieMsltoe = 70, // updated V2.08

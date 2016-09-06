@@ -1598,21 +1598,23 @@ void BenesiT1PineTreeIteration(
 
 	if (fractal->transformCommon.juliaMode)
 	{
-		z.x += fractal->transformCommon.juliaC.x * fractal->transformCommon.constantMultiplier100.x;
-		z.z += fractal->transformCommon.juliaC.y * fractal->transformCommon.constantMultiplier100.y;
-		z.y += fractal->transformCommon.juliaC.z * fractal->transformCommon.constantMultiplier100.z;
+    z.x += fractal->transformCommon.offset000.x;
+    z.y += fractal->transformCommon.offset000.y;
+    z.z += fractal->transformCommon.offset000.z;
 	}
 }
 
 /**
  * benesiMagTransforms
  * @reference
- * http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ * http://www.fractalforums.com/new-theories-and-research/
+ * do-m3d-formula-have-to-be-distance-estimation-formulas/
  */
 void BenesiMagTransformsIteration(
   CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-  if (fractal->transformCommon.benesiT1Enabled && i >= fractal->transformCommon.startIterations
+  if (fractal->transformCommon.benesiT1Enabled
+      && i >= fractal->transformCommon.startIterations
       && i < fractal->transformCommon.stopIterations)
   {
     double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
