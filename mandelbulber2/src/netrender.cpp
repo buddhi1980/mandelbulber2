@@ -216,6 +216,7 @@ void CNetRender::ReceiveFromClient()
 	int index = GetClientIndexFromSocket(socket);
 	if (index != -1)
 	{
+		WriteLog("NetRender - ReceiveFromClient()", 3);
 		ReceiveData(socket, &clients[index].msg);
 	}
 }
@@ -261,6 +262,8 @@ void CNetRender::ServerDisconnected()
 
 	reconnectTimer->start();
 
+	WriteLog("NetRender - server disconnected", 2);
+
 	if (systemData.noGui)
 	{
 		QTextStream out(stdout);
@@ -277,6 +280,7 @@ void CNetRender::TryServerConnect()
 {
 	if (clientSocket)
 	{
+		WriteLog("NetRender - TryServerConnect", 3);
 		if (clientSocket->state() == QAbstractSocket::ConnectedState)
 		{
 			reconnectTimer->stop();
@@ -297,6 +301,7 @@ void CNetRender::TryServerConnect()
 
 void CNetRender::ReceiveFromServer()
 {
+	WriteLog("NetRender - ReceiveFromServer()", 3);
 	ReceiveData(clientSocket, &msgFromServer);
 }
 
@@ -314,6 +319,8 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 
 	msg.size = msg.payload.size();
 	msg.id = actualId;
+
+	WriteLog(QString("NetRender - send data, command %1, bytes %2, id %3").arg(msg.command).arg(msg.size).arg(msg.id), 3);
 
 	// append header
 	socketWriteStream << msg.command << msg.id << msg.size;
@@ -367,6 +374,7 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 			socketReadStream >> msg->command;
 			socketReadStream >> msg->id;
 			socketReadStream >> msg->size;
+			WriteLog(QString("NetRender - ReceiveData(), command %1, bytes %2, id %3").arg(msg->command).arg(msg->size).arg(msg->id), 3);
 		}
 
 		bytesAvailable = socket->bytesAvailable();
@@ -392,6 +400,8 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 				// ResetMessage(msg);
 				// socketReadStream.atEnd();
 				// socketReadStream.skipRawData(socket->bytesAvailable());
+				WriteLog("NetRender - ReceiveData() : crc error", 2);
+
 				return;
 			}
 			msg->size = msg->payload.size();
@@ -439,6 +449,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					stream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
 					status = netRender_READY;
 					emit NewStatusClient();
+					WriteLog(QString("NetRender - ProcessData(), command VERSION, version %1").arg(serverVersion), 2);
 				}
 				else
 				{
@@ -457,11 +468,12 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				status = netRender_READY;
 				gMainInterface->stopRequest = true;
 				emit NotifyStatus();
-				WriteLog("CNetRender - STOP", 2);
+				WriteLog("NetRender - ProcessData(), command STOP", 2);
 				break;
 			}
 			case netRender_STATUS:
 			{
+				WriteLog("NetRender - ProcessData(), command STATUS", 3);
 				emit NotifyStatus();
 				break;
 			}
@@ -469,7 +481,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			{
 				if (inMsg->id == actualId)
 				{
-					WriteLog("NetRender - received new job", 2);
+					WriteLog("NetRender - ProcessData(), command JOB", 2);
 					QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 					QByteArray buffer;
 					qint32 size;
@@ -481,9 +493,13 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					buffer.resize(size);
 					stream.readRawData(buffer.data(), size);
 					settingsText = QString::fromUtf8(buffer.data(), buffer.size());
+					WriteLog(QString("NetRender - ProcessData(), command JOB, settings size: %1").arg(size), 2);
+					WriteLog(QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 3);
 
 					qint32 numberOfTextures;
 					stream >> numberOfTextures;
+
+					WriteLog(QString("NetRender - ProcessData(), command JOB, number of textures: %1").arg(numberOfTextures), 2);
 
 					// read textures
 					for (int i = 0; i < numberOfTextures; i++)
@@ -498,10 +514,12 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 							bufferForName.resize(sizeOfName);
 							stream.readRawData(bufferForName.data(), sizeOfName);
 							textureName = QString::fromUtf8(bufferForName);
+							WriteLog(QString("NetRender - ProcessData(), command JOB, texture name: %1").arg(textureName), 2);
 						}
 
 						cTexture texture;
 						stream >> size;
+						WriteLog(QString("NetRender - ProcessData(), command JOB, texture size: %1").arg(size), 2);
 						if (size > 0)
 						{
 							buffer.resize(size);
@@ -514,6 +532,8 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					parSettings.BeQuiet(true);
 					parSettings.LoadFromString(settingsText);
 					parSettings.Decode(gPar, gParFractal);
+
+					WriteLog("NetRender - ProcessData(), command JOB, starting rendering", 2);
 
 					if (!systemData.noGui)
 					{
@@ -546,6 +566,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			case netRender_RENDER:
 			{
+				WriteLog("NetRender - ProcessData(), command RENDER", 3);
 				if (inMsg->id == actualId)
 				{
 					QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
@@ -558,7 +579,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 						stream >> line;
 						done.append(line);
 					}
-
+					WriteLog(QString("NetRender - ProcessData(), command RENDER, done list size: %1").arg(done.size()), 3);
 					emit ToDoListArrived(done);
 				}
 				else
@@ -570,6 +591,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 			case netRender_SETUP:
 			{
+				WriteLog("NetRender - ProcessData(), command SETUP", 2);
 				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 
 				stream >> actualId;
@@ -582,12 +604,14 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					qint32 line;
 					stream >> line;
 					startingPositions.append(line);
+					WriteLog(QString("NetRender - ProcessData(), command SETUP, start line %1 = %2").arg(i).arg(line), 3);
 				}
 				break;
 			}
 
 			case netRender_ACK:
 			{
+				WriteLog("NetRender - ProcessData(), command ACK", 3);
 				if (inMsg->id == actualId)
 				{
 					emit AckReceived();
@@ -656,6 +680,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				}
 				case netRender_DATA:
 				{
+					WriteLog("NetRender - ProcessData(), command DATA", 3);
 					if (inMsg->id == actualId)
 					{
 						QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
@@ -674,6 +699,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 							stream.readRawData(lineData.data(), lineData.size());
 							receivedLineNumbers.append(line);
 							receivedRenderedLines.append(lineData);
+							WriteLog(QString("NetRender - ProcessData(), command DATA, line %1, lineDataLength %2").arg(line).arg(lineLength), 3);
 						}
 						clients[index].linesRendered += receivedLineNumbers.size();
 						emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
@@ -692,6 +718,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				}
 				case netRender_STATUS:
 				{
+					WriteLog("NetRender - ProcessData(), command STATUS", 3);
 					clients[index].status = (netRenderStatus) * (qint32 *)inMsg->payload.data();
 					emit ClientsChanged(index);
 					break;
