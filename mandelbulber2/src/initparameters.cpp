@@ -51,7 +51,7 @@ void InitParams(cParameterContainer *par)
 {
 	using namespace parameterContainer;
 
-	WriteLog("Parameters initialization started: " + par->GetContainerName(), 2);
+	WriteLog("Parameters initialization started: " + par->GetContainerName(), 3);
 
 	// image
 	par->addParam("image_width", 800, 5, 65535, morphNone, paramStandard);
@@ -463,13 +463,13 @@ void InitParams(cParameterContainer *par)
 #endif
 #endif
 
-	WriteLog("Parameters initialization finished", 2);
+	WriteLog("Parameters initialization finished", 3);
 }
 
 // definition of all parameters
 void InitFractalParams(cParameterContainer *par)
 {
-	WriteLog("Fractal parameters initialization started: " + par->GetContainerName(), 2);
+	WriteLog("Fractal parameters initialization started: " + par->GetContainerName(), 3);
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -782,7 +782,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("info", false, morphNone, paramStandard); // dummy parameter for information
 																													// groupbox
 
-	WriteLog("Fractal parameters initialization finished", 2);
+	WriteLog("Fractal parameters initialization finished", 3);
 }
 
 void InitPrimitiveParams(

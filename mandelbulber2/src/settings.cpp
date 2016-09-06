@@ -56,7 +56,7 @@ cSettings::cSettings(enumFormat _format)
 size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
 	cAnimationFrames *frames, cKeyframes *keyframes)
 {
-	WriteLog("Create settings text", 2);
+	WriteLog("Create settings text", 3);
 	settingsText.clear();
 	settingsText += CreateHeader();
 	settingsText += "[main_parameters]\n";

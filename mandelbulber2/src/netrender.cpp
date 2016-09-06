@@ -82,8 +82,9 @@ void CNetRender::SetServer(qint32 portNo)
 		if (server->serverError() == QAbstractSocket::AddressInUseError)
 		{
 			cErrorMessage::showMessage(
-				QObject::tr("NetRender - address already in use.\n\nIs there already a mandelbulber server "
-										"instance running on this port?"),
+				QObject::tr(
+					"NetRender - address already in use.\n\nIs there already a mandelbulber server "
+					"instance running on this port?"),
 				cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 		else
@@ -320,7 +321,11 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 	msg.size = msg.payload.size();
 	msg.id = actualId;
 
-	WriteLog(QString("NetRender - send data, command %1, bytes %2, id %3").arg(msg.command).arg(msg.size).arg(msg.id), 3);
+	WriteLog(QString("NetRender - send data, command %1, bytes %2, id %3")
+						 .arg(msg.command)
+						 .arg(msg.size)
+						 .arg(msg.id),
+		3);
 
 	// append header
 	socketWriteStream << msg.command << msg.id << msg.size;
@@ -374,7 +379,11 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 			socketReadStream >> msg->command;
 			socketReadStream >> msg->id;
 			socketReadStream >> msg->size;
-			WriteLog(QString("NetRender - ReceiveData(), command %1, bytes %2, id %3").arg(msg->command).arg(msg->size).arg(msg->id), 3);
+			WriteLog(QString("NetRender - ReceiveData(), command %1, bytes %2, id %3")
+								 .arg(msg->command)
+								 .arg(msg->size)
+								 .arg(msg->id),
+				3);
 		}
 
 		bytesAvailable = socket->bytesAvailable();
@@ -449,7 +458,9 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					stream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
 					status = netRender_READY;
 					emit NewStatusClient();
-					WriteLog(QString("NetRender - ProcessData(), command VERSION, version %1").arg(serverVersion), 2);
+					WriteLog(
+						QString("NetRender - ProcessData(), command VERSION, version %1").arg(serverVersion),
+						2);
 				}
 				else
 				{
@@ -493,13 +504,17 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					buffer.resize(size);
 					stream.readRawData(buffer.data(), size);
 					settingsText = QString::fromUtf8(buffer.data(), buffer.size());
-					WriteLog(QString("NetRender - ProcessData(), command JOB, settings size: %1").arg(size), 2);
-					WriteLog(QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 3);
+					WriteLog(
+						QString("NetRender - ProcessData(), command JOB, settings size: %1").arg(size), 2);
+					WriteLog(
+						QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 3);
 
 					qint32 numberOfTextures;
 					stream >> numberOfTextures;
 
-					WriteLog(QString("NetRender - ProcessData(), command JOB, number of textures: %1").arg(numberOfTextures), 2);
+					WriteLog(QString("NetRender - ProcessData(), command JOB, number of textures: %1")
+										 .arg(numberOfTextures),
+						2);
 
 					// read textures
 					for (int i = 0; i < numberOfTextures; i++)
@@ -514,12 +529,15 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 							bufferForName.resize(sizeOfName);
 							stream.readRawData(bufferForName.data(), sizeOfName);
 							textureName = QString::fromUtf8(bufferForName);
-							WriteLog(QString("NetRender - ProcessData(), command JOB, texture name: %1").arg(textureName), 2);
+							WriteLog(QString("NetRender - ProcessData(), command JOB, texture name: %1")
+												 .arg(textureName),
+								2);
 						}
 
 						cTexture texture;
 						stream >> size;
-						WriteLog(QString("NetRender - ProcessData(), command JOB, texture size: %1").arg(size), 2);
+						WriteLog(
+							QString("NetRender - ProcessData(), command JOB, texture size: %1").arg(size), 2);
 						if (size > 0)
 						{
 							buffer.resize(size);
@@ -579,7 +597,9 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 						stream >> line;
 						done.append(line);
 					}
-					WriteLog(QString("NetRender - ProcessData(), command RENDER, done list size: %1").arg(done.size()), 3);
+					WriteLog(QString("NetRender - ProcessData(), command RENDER, done list size: %1")
+										 .arg(done.size()),
+						3);
 					emit ToDoListArrived(done);
 				}
 				else
@@ -604,7 +624,10 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					qint32 line;
 					stream >> line;
 					startingPositions.append(line);
-					WriteLog(QString("NetRender - ProcessData(), command SETUP, start line %1 = %2").arg(i).arg(line), 3);
+					WriteLog(QString("NetRender - ProcessData(), command SETUP, start line %1 = %2")
+										 .arg(i)
+										 .arg(line),
+						3);
 				}
 				break;
 			}
@@ -699,7 +722,11 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 							stream.readRawData(lineData.data(), lineData.size());
 							receivedLineNumbers.append(line);
 							receivedRenderedLines.append(lineData);
-							WriteLog(QString("NetRender - ProcessData(), command DATA, line %1, lineDataLength %2").arg(line).arg(lineLength), 3);
+							WriteLog(
+								QString("NetRender - ProcessData(), command DATA, line %1, lineDataLength %2")
+									.arg(line)
+									.arg(lineLength),
+								3);
 						}
 						clients[index].linesRendered += receivedLineNumbers.size();
 						emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
@@ -840,8 +867,7 @@ void CNetRender::SendToDoList(int clientIndex, QList<int> done)
 	else
 	{
 		qCritical() << "CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> "
-									 "startPositions): Client index out of range:"
-								<< clientIndex;
+									 "startPositions): Client index out of range:" << clientIndex;
 	}
 }
 
@@ -870,8 +896,7 @@ void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions
 	else
 	{
 		qCritical() << "CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions): "
-									 "Client index out of range:"
-								<< clientIndex;
+									 "Client index out of range:" << clientIndex;
 	}
 }
 
