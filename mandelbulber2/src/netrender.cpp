@@ -476,9 +476,9 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			case netRender_STOP:
 			{
-				status = netRender_READY;
+				//status = netRender_READY;
 				gMainInterface->stopRequest = true;
-				emit NotifyStatus();
+				//emit NotifyStatus();
 				WriteLog("NetRender - ProcessData(), command STOP", 2);
 				break;
 			}
