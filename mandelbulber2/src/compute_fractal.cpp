@@ -375,6 +375,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           BenesiMagTransformsIteration(z, c, i, fractal, extendedAux);
            break;
         }
+        case benesiPwr2s:
+        {
+          BenesiPwr2sIteration(z, c, i, fractal, extendedAux);
+          break;
+        }
 				case collatz:
 				{
 					CollatzIteration(z, extendedAux);
@@ -1065,6 +1070,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case benesi:
 				case benesiPineTree:
 				case benesiT1PineTree:
+        case benesiPwr2s:
 				case bristorbrot:
         case bristorbrot4D:
 				case buffalo:

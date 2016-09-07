@@ -696,6 +696,8 @@ void InitFractalParams(cParameterContainer *par)
 		"transf_constant_multiplier_010", CVector3(0.0, 1.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam(
 		"transf_constant_multiplier_100", CVector3(1.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam(
+    "transf_constant_multiplierA_100", CVector3(1.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam(
 		"transf_constant_multiplier_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
 	par->addParam(
