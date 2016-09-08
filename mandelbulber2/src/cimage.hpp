@@ -39,6 +39,7 @@
 #include "color_structures.hpp"
 #include "image_adjustments.h"
 #include <QWidget>
+#include <QMutex>
 
 struct sImageOptional
 {
@@ -290,6 +291,9 @@ private:
 	bool isMainImage;
 	bool gammaTablePrepared;
 	bool allocLater;
+
+	QMutex previewMutex;
+
 	volatile bool isUsed;
 };
 

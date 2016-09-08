@@ -152,12 +152,15 @@ bool cImage::ChangeSize(int w, int h, sImageOptional optional)
 {
 	if (w != width || h != height || !(optional == *GetImageOptional()) || allocLater)
 	{
+		previewMutex.lock();
 		width = w;
 		height = h;
 		SetImageOptional(optional);
 		FreeImage();
 		allocLater = false;
-		return AllocMem();
+		bool result = AllocMem();
+		previewMutex.unlock();
+		return result;
 	}
 	return true;
 }
@@ -394,6 +397,7 @@ sRGB8 cImage::Interpolation(float x, float y)
 unsigned char *cImage::CreatePreview(
 	double scale, int visibleWidth, int visibleHeight, QWidget *widget = NULL)
 {
+	previewMutex.lock();
 	int w = width * scale;
 	int h = height * scale;
 	previewVisibleWidth = visibleWidth;
@@ -416,6 +420,8 @@ unsigned char *cImage::CreatePreview(
 
 	if (widget) imageWidget = widget;
 
+	previewMutex.unlock();
+
 	return ptr;
 }
 
@@ -423,6 +429,7 @@ void cImage::UpdatePreview(QList<int> *list)
 {
 	if (previewAllocated && !allocLater)
 	{
+		previewMutex.lock();
 		int w = previewWidth;
 		int h = previewHeight;
 
@@ -494,6 +501,7 @@ void cImage::UpdatePreview(QList<int> *list)
 			}		// next y
 		}
 		memcpy(preview2, preview, w * h * sizeof(sRGB8));
+		previewMutex.unlock();
 	}
 	else
 	{
@@ -542,6 +550,7 @@ void cImage::RedrawInWidget(QWidget *qwidget)
 	if (IsPreview())
 	{
 		// qDebug() << "Redraw" << endl;
+		previewMutex.lock();
 
 		QWidget *widget;
 		if (qwidget)
@@ -557,6 +566,7 @@ void cImage::RedrawInWidget(QWidget *qwidget)
 		painter.drawImage(
 			QRect(0, 0, previewWidth, previewHeight), qimage, QRect(0, 0, previewWidth, previewHeight));
 		memcpy(preview2, preview, previewWidth * previewHeight * sizeof(sRGB8));
+		previewMutex.unlock();
 	}
 }
 
