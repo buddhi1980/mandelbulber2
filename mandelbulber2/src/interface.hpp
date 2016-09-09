@@ -36,6 +36,7 @@
 
 #include "../qt/material_editor.h"
 #include "../qt/my_progress_bar.h"
+#include "../qt/system_tray.hpp"
 #include "fractal_container.hpp"
 #include "headless.h"
 #include "material_item_model.h"
@@ -131,6 +132,7 @@ public:
 	cMaterialItemModel *materialListModel;
 	cMaterialEditor *materialEditor;
 	QWidget *scrollAreaMaterialEditor;
+	cSystemTray *systemTray;
 
 	bool interfaceReady;
 	bool stopRequest;

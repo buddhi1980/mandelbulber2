@@ -402,6 +402,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("queue_image_format", 0, morphNone, paramApp);
 
 	par->addParam("quit_do_not_ask_again", false, morphNone, paramApp);
+	par->addParam("system_tray_notify", false, morphNone, paramApp);
 
 	par->addParam("auto_refresh", false, morphNone, paramApp);
 

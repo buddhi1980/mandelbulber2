@@ -35,6 +35,7 @@
 #include "interface.hpp"
 #include "../qt/color_palette_widget.h"
 #include "../qt/my_tab_bar.h"
+#include "../qt/system_tray.hpp"
 #include "animation_flight.hpp"
 #include "animation_frames.hpp"
 #include "animation_keyframes.hpp"
@@ -81,6 +82,7 @@ cInterface::cInterface()
 	materialListModel = NULL;
 	materialEditor = NULL;
 	scrollAreaMaterialEditor = NULL;
+	systemTray = NULL;
 	stopRequest = false;
 	repeatRequest = false;
 	interfaceReady = false;
@@ -260,6 +262,8 @@ void cInterface::ShowUi(void)
 	ComboMouseClickUpdate();
 
 	mainWindow->slotPopulateToolbar();
+
+	systemTray = new cSystemTray(mainWindow);
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();
@@ -600,6 +604,10 @@ void cInterface::ConnectSignals(void)
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksandToolbarbyView();
+
+	// system tray
+	QApplication::connect(systemTray, SIGNAL(notifyRenderFlight()), gFlightAnimation, SLOT(slotRenderFlight()));
+	QApplication::connect(systemTray, SIGNAL(notifyRenderKeyframes()), gKeyframeAnimation, SLOT(slotRenderKeyframes()));
 }
 
 // Reading ad writing parameters from/to ui to/from parameters container
