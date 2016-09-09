@@ -266,6 +266,9 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		double sh = image->GetPreviewHeight();
 		double aspectRatio = sw / sh;
 
+		if(perspType == params::perspEquirectangular)
+			aspectRatio = 2.0;
+
 		CVector2<double> p;
 		p.x = (screenPoint.x / sw - 0.5) * aspectRatio;
 		p.y = (screenPoint.y / sh - 0.5);

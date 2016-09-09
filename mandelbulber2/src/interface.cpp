@@ -1355,6 +1355,9 @@ void cInterface::SetByMouse(
 			CVector3 viewVector;
 			double aspectRatio = (double)width / height;
 
+			if(perspType == params::perspEquirectangular)
+				aspectRatio = 2.0;
+
 			CVector3 angles = cameraTarget.GetRotation();
 			CRotationMatrix mRot;
 			mRot.SetRotation(angles);

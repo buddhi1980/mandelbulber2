@@ -90,6 +90,9 @@ void cRenderWorker::doWork(void)
 	int height = image->GetHeight();
 	double aspectRatio = (double)width / height;
 
+	if(params->perspectiveType == params::perspEquirectangular)
+		aspectRatio = 2.0;
+
 	bool monteCarloDOF = params->DOFMonteCarlo && params->DOFEnabled;
 
 	if (data->stereo.isEnabled()) aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);

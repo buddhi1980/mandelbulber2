@@ -72,10 +72,14 @@ void cSSAOWorker::doWork()
 		cosine[i] = cos((double)i / quality * 2.0 * M_PI);
 	}
 
+	params::enumPerspectiveType perspectiveType = params->perspectiveType;
+
 	double scale_factor = (double)width / (quality * quality) / 2.0;
 	double aspectRatio = (double)width / height;
 
-	params::enumPerspectiveType perspectiveType = params->perspectiveType;
+	if(perspectiveType == params::perspEquirectangular)
+		aspectRatio = 2.0;
+
 	double fov = params->fov;
 
 	double intensity = params->ambientOcclusion;
