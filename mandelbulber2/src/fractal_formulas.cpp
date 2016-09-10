@@ -6112,6 +6112,9 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
 	z = z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
 }
 
+/**
+ * scale - simple scale
+ */
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale;
