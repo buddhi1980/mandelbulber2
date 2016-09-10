@@ -375,7 +375,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-373</y>
+          <y>0</y>
           <width>370</width>
           <height>679</height>
          </rect>
@@ -758,6 +758,177 @@
                </item>
               </layout>
              </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="MyGroupBox" name="groupCheck_stereo_enabled">
+           <property name="title">
+            <string>Stereoscopic rendering</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_147">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
+            <item>
+             <layout class="QGridLayout" name="gridLayout_11" columnstretch="0,2,1">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <item row="1" column="1">
+               <widget class="QSlider" name="logslider_stereo_eye_distance">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-1500</number>
+                </property>
+                <property name="maximum">
+                 <number>400</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_69">
+                <property name="text">
+                 <string>Distance between eyes</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" colspan="2">
+               <widget class="QComboBox" name="comboBox_stereo_mode">
+                <item>
+                 <property name="text">
+                  <string>Left - right</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Top - bottom</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Anaglyph - red/cyan</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="MyLineEdit" name="logedit_stereo_eye_distance"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_70">
+                <property name="text">
+                 <string>Mode:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0" colspan="3">
+               <widget class="MyCheckBox" name="checkBox_stereo_swap_eyes">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Swap eyes</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_71">
+                <property name="text">
+                 <string>Infinite distance correction</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QSlider" name="slider_stereo_infinite_correction">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>10000</number>
+                </property>
+                <property name="singleStep">
+                 <number>1</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="MyDoubleSpinBox" name="spinbox_stereo_infinite_correction">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of DOF effect (average radius of blur)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="prefix">
+                 <string/>
+                </property>
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="decimals">
+                 <number>4</number>
+                </property>
+                <property name="minimum">
+                 <double>0.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>10.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="value">
+                 <double>0.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -1216,177 +1387,6 @@ no ambient occlusion)</string>
                <string>Coordinate system like in Mandelbulber v1.21</string>
               </property>
              </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="MyGroupBox" name="groupCheck_stereo_enabled">
-           <property name="title">
-            <string>Stereoscopic rendering</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_147">
-            <property name="spacing">
-             <number>2</number>
-            </property>
-            <property name="leftMargin">
-             <number>2</number>
-            </property>
-            <property name="topMargin">
-             <number>2</number>
-            </property>
-            <property name="rightMargin">
-             <number>2</number>
-            </property>
-            <property name="bottomMargin">
-             <number>2</number>
-            </property>
-            <item>
-             <layout class="QGridLayout" name="gridLayout_11" columnstretch="0,2,1">
-              <property name="spacing">
-               <number>2</number>
-              </property>
-              <item row="1" column="1">
-               <widget class="QSlider" name="logslider_stereo_eye_distance">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="sizeIncrement">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-1500</number>
-                </property>
-                <property name="maximum">
-                 <number>400</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_69">
-                <property name="text">
-                 <string>Distance between eyes</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" colspan="2">
-               <widget class="QComboBox" name="comboBox_stereo_mode">
-                <item>
-                 <property name="text">
-                  <string>Left - right</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Top - bottom</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Anaglyph - red/cyan</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="MyLineEdit" name="logedit_stereo_eye_distance"/>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_70">
-                <property name="text">
-                 <string>Mode:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0" colspan="3">
-               <widget class="MyCheckBox" name="checkBox_stereo_swap_eyes">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>Swap eyes</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_71">
-                <property name="text">
-                 <string>Infinite distance correction</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QSlider" name="slider_stereo_infinite_correction">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="maximum">
-                 <number>10000</number>
-                </property>
-                <property name="singleStep">
-                 <number>1</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="MyDoubleSpinBox" name="spinbox_stereo_infinite_correction">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of DOF effect (average radius of blur)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>4</number>
-                </property>
-                <property name="minimum">
-                 <double>0.000000000000000</double>
-                </property>
-                <property name="maximum">
-                 <double>10.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>1.000000000000000</double>
-                </property>
-                <property name="value">
-                 <double>0.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </item>
            </layout>
           </widget>
@@ -3293,8 +3293,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>384</width>
-          <height>307</height>
+          <width>370</width>
+          <height>129</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3363,7 +3363,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>320</width>
                   <height>523</height>
                  </rect>
                 </property>
@@ -4254,7 +4254,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>320</width>
                   <height>527</height>
                  </rect>
                 </property>
@@ -5052,7 +5052,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>262</width>
+                  <width>320</width>
                   <height>165</height>
                  </rect>
                 </property>
@@ -5349,7 +5349,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
+                  <width>320</width>
                   <height>1507</height>
                  </rect>
                 </property>
@@ -8943,7 +8943,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -10106,7 +10106,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -11263,7 +11263,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -12420,7 +12420,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -13577,7 +13577,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -14734,7 +14734,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -15891,7 +15891,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -17045,7 +17045,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -18216,7 +18216,7 @@ for 4D fractals</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>221</width>
+                  <width>320</width>
                   <height>546</height>
                  </rect>
                 </property>
@@ -19996,8 +19996,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>334</width>
+                  <height>416</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -20542,7 +20542,7 @@ and water):</string>
           <x>0</x>
           <y>0</y>
           <width>370</width>
-          <height>1083</height>
+          <height>1094</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -20594,7 +20594,8 @@ and water):</string>
                <widget class="QLabel" name="label_284">
                 <property name="text">
                  <string>Maximum number
-of fractal iterations:</string>
+of fractal iterations
+(maxiter):</string>
                 </property>
                </widget>
               </item>
@@ -20681,22 +20682,6 @@ of fractal iterations:</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="0" colspan="3">
-               <widget class="MyCheckBox" name="checkBox_iteration_threshold_mode">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches off stopping of ray-marching at distance threshold. When it's checked detail level is controlled with &lt;span style=&quot; font-style:italic;&quot;&gt;Max. fractal iterations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string>Stop at maximum iteration</string>
-                </property>
-               </widget>
-              </item>
               <item row="2" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_use_default_bailout">
                 <property name="sizePolicy">
@@ -20721,7 +20706,7 @@ of fractal iterations:</string>
          <item>
           <widget class="QGroupBox" name="groupBox_2">
            <property name="title">
-            <string>Distance estimation:</string>
+            <string>Distance estimation and ray-marching:</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_115">
             <property name="spacing">
@@ -20774,6 +20759,13 @@ of fractal iterations:</string>
                 </property>
                </widget>
               </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_291">
+                <property name="text">
+                 <string>Distance estimation method:</string>
+                </property>
+               </widget>
+              </item>
               <item row="0" column="2">
                <widget class="MyLineEdit" name="logedit_DE_factor">
                 <property name="toolTip">
@@ -20788,13 +20780,6 @@ of fractal iterations:</string>
                 </property>
                 <property name="text">
                  <string>Low quality</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_291">
-                <property name="text">
-                 <string>Distance estimation method:</string>
                 </property>
                </widget>
               </item>
@@ -21032,6 +21017,38 @@ of fractal iterations:</string>
                 </property>
                </widget>
               </item>
+              <item row="10" column="0" colspan="3">
+               <widget class="MyCheckBox" name="checkBox_iteration_threshold_mode">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches off stopping of ray-marching at distance threshold. When it's checked detail level is controlled with &lt;span style=&quot; font-style:italic;&quot;&gt;Max. fractal iterations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Stop at maximum iteration (at maxiter)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="0" colspan="3">
+               <widget class="MyCheckBox" name="checkBox_interior_mode">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes fractals hollow inside. It gives interesting results when a  cross section of the fractal is rendered using &lt;span style=&quot; font-style:italic;&quot;&gt;Limits (box)&lt;/span&gt; feature. &lt;/p&gt;&lt;p&gt;This effect is very slow to render because of the high number of iterations required to render the inside of the fractal. To speed up rendering try  reducing Max. fractal iterations .&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;interior mode enabled&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;interior mode disabled&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Interior mode</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
            </layout>
@@ -21126,7 +21143,7 @@ of fractal iterations:</string>
          <item>
           <widget class="QGroupBox" name="groupBox_4">
            <property name="title">
-            <string>Common rendering settings</string>
+            <string>View distance limits</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_43">
             <property name="spacing">
@@ -21153,22 +21170,6 @@ of fractal iterations:</string>
                <widget class="QLabel" name="label_108">
                 <property name="text">
                  <string>minimum view distance:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0" colspan="3">
-               <widget class="MyCheckBox" name="checkBox_interior_mode">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes fractals hollow inside. It gives interesting results when a  cross section of the fractal is rendered using &lt;span style=&quot; font-style:italic;&quot;&gt;Limits (box)&lt;/span&gt; feature. &lt;/p&gt;&lt;p&gt;This effect is very slow to render because of the high number of iterations required to render the inside of the fractal. To speed up rendering try  reducing Max. fractal iterations .&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;interior mode enabled&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;interior mode disabled&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string>Interior mode</string>
                 </property>
                </widget>
               </item>
@@ -22945,8 +22946,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
-                  <height>242</height>
+                  <width>317</width>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -24821,7 +24822,6 @@ keyframes</string>
   <tabstop>logedit_view_distance_max</tabstop>
   <tabstop>logslider_view_distance_min</tabstop>
   <tabstop>logedit_view_distance_min</tabstop>
-  <tabstop>checkBox_interior_mode</tabstop>
   <tabstop>logslider_DE_thresh</tabstop>
   <tabstop>logedit_DE_thresh</tabstop>
   <tabstop>groupCheck_limits_enabled</tabstop>
