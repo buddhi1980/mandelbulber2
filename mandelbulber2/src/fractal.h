@@ -132,8 +132,8 @@ struct sFoldColor
 	double factorSp1;
 	double factorSp2;
 	double colorMin;
-  double compFold0;
-  double compFold;
+	double compFold0;
+	double compFold;
 	double compMinR;
 	double compScale;
 };
@@ -344,29 +344,28 @@ struct sFractalSurfFolds
 // benesi mag transfroms
 struct sFractalMagTransforms
 {
-  enum multi_orderOfTransf
-  {
-    typeT1,
-    typeT1Mod,
-    typeT2,
-    typeT3,
-    typeT4,
-    typeT5b,
-  };
-  multi_orderOfTransf orderOfTransf1;
-  multi_orderOfTransf orderOfTransf2;
-  multi_orderOfTransf orderOfTransf3;
-  multi_orderOfTransf orderOfTransf4;
-  multi_orderOfTransf orderOfTransf5;
+	enum multi_orderOfTransf
+	{
+		typeT1,
+		typeT1Mod,
+		typeT2,
+		typeT3,
+		typeT4,
+		typeT5b,
+	};
+	multi_orderOfTransf orderOfTransf1;
+	multi_orderOfTransf orderOfTransf2;
+	multi_orderOfTransf orderOfTransf3;
+	multi_orderOfTransf orderOfTransf4;
+	multi_orderOfTransf orderOfTransf5;
 };
-
 
 struct sFractalAnalyticDE
 {
 	bool enabledFalse;
 	bool enabledAuxR2False;
 	double scale1;
-  double tweak005;
+	double tweak005;
 	double offset1;
 	double offset2;
 	double scaleLin;
@@ -378,16 +377,16 @@ struct sFractalTransformCommon
 {
 	double alphaAngleOffset;
 	double betaAngleOffset;
-  double foldingValue;
-  double foldingLimit;
+	double foldingValue;
+	double foldingLimit;
 	double offset;
 	double offset0;
-  double offset05;
+	double offset05;
 	double offset1;
 	double offset105;
 	double offset2;
 	double multiplication;
-  double minRneg1;
+	double minRneg1;
 	double minR0;
 	double minR05;
 	double minR06;
@@ -398,7 +397,7 @@ struct sFractalTransformCommon
 	double scaleA1;
 	double scaleB1;
 	double scaleC1;
-  double scaleA2;
+	double scaleA2;
 	double scale015;
 	double scale2;
 	double scale3;
@@ -426,8 +425,8 @@ struct sFractalTransformCommon
 	int stopIterationsE;
 	int startIterationsF;
 	int stopIterationsF;
-  int startIterationsP;
-  int stopIterationsP1;
+	int startIterationsP;
+	int stopIterationsP1;
 	int startIterationsR;
 	int stopIterationsR;
 	int startIterationsS;
@@ -442,15 +441,15 @@ struct sFractalTransformCommon
 	int intA;
 	int intB;
 	int int1;
-  int int8X;
-  int int8Y;
-  int int8Z;
+	int int8X;
+	int int8Y;
+	int int8Z;
 
-  CVector3 additionConstant0555;
-  CVector3 additionConstant0777;
+	CVector3 additionConstant0555;
+	CVector3 additionConstant0777;
 	CVector3 additionConstant000;
 	CVector3 additionConstantA000;
-  CVector3 additionConstantP000;
+	CVector3 additionConstantP000;
 	CVector3 additionConstant111;
 	CVector3 additionConstantA111;
 	CVector3 additionConstant222;
@@ -459,7 +458,7 @@ struct sFractalTransformCommon
 	CVector3 constantMultiplier001;
 	CVector3 constantMultiplier010;
 	CVector3 constantMultiplier100;
-  CVector3 constantMultiplierA100;
+	CVector3 constantMultiplierA100;
 	CVector3 constantMultiplier111;
 	CVector3 constantMultiplierA111;
 	CVector3 constantMultiplierB111;
@@ -473,23 +472,23 @@ struct sFractalTransformCommon
 	CVector3 offset000;
 	CVector3 offsetA000;
 	CVector3 offsetF000;
-  CVector3 offset111;
-  CVector3 offsetA111;
-  CVector3 offsetB111;
-  CVector3 offsetC111;
-  CVector3 offset200;
-  CVector3 offsetA200;
-  CVector3 offset222;
+	CVector3 offset111;
+	CVector3 offsetA111;
+	CVector3 offsetB111;
+	CVector3 offsetC111;
+	CVector3 offset200;
+	CVector3 offsetA200;
+	CVector3 offset222;
 
 	CVector3 power025;
 	CVector3 power8;
 	CVector3 rotation;
 	CVector3 scale3D111;
 	CVector3 scale3D222;
-  CVector3 scale3Da222;
-  CVector3 scale3Db222;
-  CVector3 scale3Dc222;
-  CVector3 scale3Dd222;
+	CVector3 scale3Da222;
+	CVector3 scale3Db222;
+	CVector3 scale3Dc222;
+	CVector3 scale3Dd222;
 	CVector3 scale3D333;
 	CVector3 scale3D444;
 
@@ -501,7 +500,7 @@ struct sFractalTransformCommon
 
 	bool addCpixelEnabled;
 	bool addCpixelEnabledFalse;
-  bool alternateEnabledFalse;
+	bool alternateEnabledFalse;
 	bool benesiT1Enabled;
 	bool benesiT1EnabledFalse;
 	bool functionEnabled;
@@ -522,7 +521,7 @@ struct sFractalTransformCommon
 	bool functionEnabledByFalse;
 	bool functionEnabledBzFalse;
 	bool functionEnabledFFalse;
-  bool functionEnabledPFalse;
+	bool functionEnabledPFalse;
 	bool functionEnabledRFalse;
 	bool juliaMode;
 	bool rotationEnabled;
@@ -551,7 +550,7 @@ public:
 	sFractalSurfFolds surfFolds;
 	sFractalDonut donut;
 	sFoldColor foldColor;
-  sFractalMagTransforms magTransf;
+	sFractalMagTransforms magTransf;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

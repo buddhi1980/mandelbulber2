@@ -111,7 +111,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	cStereo stereo;
 	stereo.SetMode((cStereo::enumStereoMode)paramsContainer->Get<int>("stereo_mode"));
-	if(!paramsContainer->Get<bool>("stereo_enabled")) stereo.SetMode(cStereo::stereoDisabled);
+	if (!paramsContainer->Get<bool>("stereo_enabled")) stereo.SetMode(cStereo::stereoDisabled);
 
 	// needed when image has to fit in widget
 	if (useSizeFromImage)
@@ -122,7 +122,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	if(stereo.isEnabled() && !gNetRender->IsClient())
+	if (stereo.isEnabled() && !gNetRender->IsClient())
 	{
 		CVector2<int> modifiedResolution = stereo.ModifyImageResolution(CVector2<int>(width, height));
 		width = modifiedResolution.x;
@@ -168,8 +168,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	}
 
 	totalNumberOfCPUs = systemData.numberOfThreads;
-	//totalNumberOfCPUs = 1;
-	//systemData.numberOfThreads = 1;
+	// totalNumberOfCPUs = 1;
+	// systemData.numberOfThreads = 1;
 
 	// aux renderer data
 	if (renderData) delete renderData;
@@ -232,16 +232,16 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 		renderData->imageRegion.Set(-0.5, 0.5, 0.5, -0.5);
 	}
 
-	//renderData->screenRegion.Set(width*0.15, height*0.15, width*0.85, height*0.85);
+	// renderData->screenRegion.Set(width*0.15, height*0.15, width*0.85, height*0.85);
 	renderData->screenRegion.Set(0, 0, width, height);
-	//TODO to correct resolution and aspect ratio according to region data
+	// TODO to correct resolution and aspect ratio according to region data
 
 	// textures are deleted with destruction of renderData
 
 	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
 	// gApplication->processEvents();
 
-  if (gNetRender->IsClient() && renderData->configuration.UseNetRender())
+	if (gNetRender->IsClient() && renderData->configuration.UseNetRender())
 	{
 		// get received textures from NetRender buffer
 		if (paramsContainer->Get<bool>("textured_background"))
@@ -328,27 +328,28 @@ bool cRenderJob::Execute(void)
 		emit updateProgressAndStatus(
 			QObject::tr("Rendering image"), QObject::tr("Starting rendering of image"), 0.0);
 
-		//stereo rendering with SSAO or DOF (2 passes)
+		// stereo rendering with SSAO or DOF (2 passes)
 		if (twoPassStereo)
 		{
 			cStereo::enumEye eye;
 			if (repeat == 0)
 				eye = cStereo::eyeLeft;
-			else  eye = cStereo::eyeRight;
+			else
+				eye = cStereo::eyeRight;
 
 			renderData->stereo.ForceEye(eye);
 			paramsContainer->Set("stereo_actual_eye", (int)eye);
 		}
-		else if(!gNetRender->IsClient())
+		else if (!gNetRender->IsClient())
 		{
 			paramsContainer->Set("stereo_actual_eye", (int)cStereo::eyeNone);
 		}
 
-		if(gNetRender->IsClient())
+		if (gNetRender->IsClient())
 		{
 			cStereo::enumEye eye = (cStereo::enumEye)paramsContainer->Get<int>("stereo_actual_eye");
 			qDebug() << "eye:" << eye;
-			if(eye != cStereo::eyeNone)
+			if (eye != cStereo::eyeNone)
 			{
 				renderData->stereo.ForceEye(eye);
 				qDebug() << "used stereo_actual_eye";
@@ -463,15 +464,14 @@ bool cRenderJob::Execute(void)
 
 		result = renderer->RenderImage();
 
-		if(twoPassStereo && repeat == 0)
-			renderData->stereo.StoreImageInBuffer(image);
+		if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
 
 		delete params;
 		delete fractals;
 		delete renderer;
 	}
 
-	if(twoPassStereo)
+	if (twoPassStereo)
 	{
 		renderData->stereo.MixImages(image);
 		if (image->IsPreview())
@@ -514,7 +514,7 @@ void cRenderJob::UpdateParameters(
 	*paramsContainer = *_params;
 	*fractalContainer = *_fractal;
 
-	if(renderData->stereo.isEnabled() && !gNetRender->IsClient())
+	if (renderData->stereo.isEnabled() && !gNetRender->IsClient())
 	{
 		paramsContainer->Set("image_width", width);
 		paramsContainer->Set("image_height", height);

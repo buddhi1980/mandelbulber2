@@ -39,8 +39,8 @@
 #include "algebra.hpp"
 #include "cimage.hpp"
 #include "parameters.hpp"
-#include <QWidget>
 #include "stereo.h"
+#include <QWidget>
 
 class RenderedImage : public QWidget
 {

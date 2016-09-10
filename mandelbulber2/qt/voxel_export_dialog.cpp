@@ -80,7 +80,7 @@ void cVoxelExportDialog::on_pushButton_start_render_layers_clicked()
 		int samplesZ = gPar->Get<int>("voxel_samples_z");
 
 		QDir folder(folderString);
-		if(folder.exists())
+		if (folder.exists())
 		{
 			slicerBusy = true;
 			voxelExport =
@@ -105,8 +105,8 @@ void cVoxelExportDialog::on_pushButton_start_render_layers_clicked()
 		else
 		{
 			cErrorMessage::showMessage(
-				QObject::tr(
-					"Cannot start voxel export. Specified folder (%1) does not exist.").arg(folderString),
+				QObject::tr("Cannot start voxel export. Specified folder (%1) does not exist.")
+					.arg(folderString),
 				cErrorMessage::errorMessage);
 		}
 	}

@@ -94,8 +94,7 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv,
 	CVector3 baseZ(0.0, 1.0, 0.0);
 
 	double aspectRatio = imgWidth / imgHeight;
-	if(perspectiveType == params::perspEquirectangular)
-		aspectRatio = 2.0;
+	if (perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
 
 	CVector3 start;
 	if (perspectiveType == params::perspFishEye || perspectiveType == params::perspEquirectangular)

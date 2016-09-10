@@ -137,16 +137,18 @@ void cInterface::ShowUi(void)
 	QFont font = mainWindow->font();
 	font.setPixelSize(gPar->Get<int>("ui_font_size"));
 	mainWindow->setFont(font);
-	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size")
-			+ 6);
+	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(
+		gPar->Get<int>("ui_font_size") + 6);
 
 #ifdef __APPLE__
 	mainWindow->ui->tabWidget_fractals->setUsesScrollButtons(true);
 	mainWindow->ui->tabWidget_fractals->setDocumentMode(true);
 	mainWindow->ui->tabWidget_fractals->setElideMode(Qt::ElideNone);
 	mainWindow->ui->actionAbout_Qt->setText(QApplication::translate("RenderWindow", "Info &Qt", 0));
-    mainWindow->ui->actionAbout_Mandelbulber->setText(QApplication::translate("RenderWindow", "&Info Mandelbulber", 0));
-    mainWindow->ui->actionAbout_ThirdParty->setText(QApplication::translate("RenderWindow", "Info &Third Party", 0));
+	mainWindow->ui->actionAbout_Mandelbulber->setText(
+		QApplication::translate("RenderWindow", "&Info Mandelbulber", 0));
+	mainWindow->ui->actionAbout_ThirdParty->setText(
+		QApplication::translate("RenderWindow", "Info &Third Party", 0));
 #endif
 
 	WriteLog("mainWindow->show()", 2);
@@ -1266,7 +1268,8 @@ void cInterface::RefreshMainImage()
 			gMainInterface->mainWindow,
 			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 		cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-		dof.Render(screenRegion, params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
+		dof.Render(screenRegion,
+			params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
 			params.DOFFocus, !ssaoUsed && gPar->Get<bool>("DOF_HDR"), params.DOFNumberOfPasses,
 			params.DOFBlurOpacity, &stopRequest);
 	}
@@ -1359,8 +1362,7 @@ void cInterface::SetByMouse(
 			CVector3 viewVector;
 			double aspectRatio = (double)width / height;
 
-			if(perspType == params::perspEquirectangular)
-				aspectRatio = 2.0;
+			if (perspType == params::perspEquirectangular) aspectRatio = 2.0;
 
 			CVector3 angles = cameraTarget.GetRotation();
 			CRotationMatrix mRot;

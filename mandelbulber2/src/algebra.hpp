@@ -45,8 +45,8 @@
 #endif
 
 #include <QString>
-#include <math.h>
 #include <gsl/gsl_sys.h>
+#include <math.h>
 
 /************************* vector 3D **********************/
 class CVector3
@@ -199,16 +199,13 @@ public:
 	bool IsNotANumber()
 	{
 		// Check x for NaN
-		if (!gsl_finite(x))
-			return true;
+		if (!gsl_finite(x)) return true;
 
 		// Check y for NaN
-		if (!gsl_finite(y))
-			return true;
+		if (!gsl_finite(y)) return true;
 
 		// Check z for NaN
-		if (!gsl_finite(z))
-			return true;
+		if (!gsl_finite(z)) return true;
 
 		// Defined or representable value identified
 		return false;

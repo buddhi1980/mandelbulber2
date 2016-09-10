@@ -619,8 +619,9 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
 
-	const bool bSoft = (!params->iterFogEnabled && !params->limitsEnabled && !params->common.iterThreshMode)
-										 && softRange > 0.0;
+	const bool bSoft =
+		(!params->iterFogEnabled && !params->limitsEnabled && !params->common.iterThreshMode)
+		&& softRange > 0.0;
 
 	for (double i = start; i < factor; i += dist * DEFactor)
 	{
@@ -1312,8 +1313,8 @@ sRGBfloat cRenderWorker::TextureShader(
 	if (deltaTexX > 0.5) deltaTexX = 1.0 - deltaTexX;
 	if (deltaTexY > 0.5) deltaTexY = 1.0 - deltaTexY;
 
-  deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
-  deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));
+	deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
+	deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));
 
 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 

@@ -98,7 +98,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			this, SLOT(slotCellDoubleClicked(int, int)));
 
 		// connect system tray
-		connect(mainInterface->systemTray, SIGNAL(notifyRenderKeyframes()), this, SLOT(slotRenderKeyframes()));
+		connect(mainInterface->systemTray, SIGNAL(notifyRenderKeyframes()), this,
+			SLOT(slotRenderKeyframes()));
 
 		QApplication::connect(this, SIGNAL(QuestionMessage(const QString, const QString,
 																	QMessageBox::StandardButtons, QMessageBox::StandardButton *)),
@@ -580,11 +581,11 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			else
 			{
 				// Exit if silent mode
-				if(systemData.silent)
+				if (systemData.silent)
 				{
 					exit(0);
 				}
-				
+
 				deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
 			}
 

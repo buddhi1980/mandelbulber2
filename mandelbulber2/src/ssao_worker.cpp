@@ -77,8 +77,7 @@ void cSSAOWorker::doWork()
 	double scale_factor = (double)width / (quality * quality) / 2.0;
 	double aspectRatio = (double)width / height;
 
-	if(perspectiveType == params::perspEquirectangular)
-		aspectRatio = 2.0;
+	if (perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
 
 	double fov = params->fov;
 
@@ -117,7 +116,7 @@ void cSSAOWorker::doWork()
 			{
 				// printf("SSAO point on object\n");
 
-				//FIXME to correct pespective according to region data
+				// FIXME to correct pespective according to region data
 				double x2, y2;
 				if (perspectiveType == params::perspFishEye)
 				{

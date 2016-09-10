@@ -65,9 +65,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 
 	QCommandLineOption flightOption(
 		QStringList({"F", "flight"}), QCoreApplication::translate("main", "Renders flight animation."));
-		
-	QCommandLineOption silentOption(
-		QStringList({"X", "never-delete"}), QCoreApplication::translate("main", "Never delete data, instead Exit CLI application."));
+
+	QCommandLineOption silentOption(QStringList({"X", "never-delete"}),
+		QCoreApplication::translate("main", "Never delete data, instead Exit CLI application."));
 
 	QCommandLineOption startOption(QStringList({"s", "start"}),
 		QCoreApplication::translate("main", "Starts rendering from frame number <N>."),
@@ -740,11 +740,11 @@ void cCommandLineInterface::ReadCLI()
 	{
 		QString folderString = gPar->Get<QString>("voxel_image_path");
 		QDir folder(folderString);
-		if(!folder.exists())
+		if (!folder.exists())
 		{
 			cErrorMessage::showMessage(
-				QObject::tr(
-					"Cannot start voxel export. Specified folder (%1) does not exist.").arg(folderString),
+				QObject::tr("Cannot start voxel export. Specified folder (%1) does not exist.")
+					.arg(folderString),
 				cErrorMessage::errorMessage);
 
 			cErrorMessage::showMessage(

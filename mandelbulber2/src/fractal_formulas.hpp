@@ -41,18 +41,23 @@
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void AboxModKaliEiffieIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void AboxModKaliEiffieIteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void AboxVSIcen1Iteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux);
 void AexionOctopusModIteration(CVector3 &z, CVector3 c, const cFractal *fractal);
 void AmazingSurfIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void AmazingSurfMultiIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void AmazingSurfMultiIteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void BenesiIteration(CVector3 &z, CVector3 c, sExtendedAux &aux);
 void BenesiPineTreeIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
-void BenesiT1PineTreeIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
-void BenesiMagTransformsIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
-void BenesiPwr2sIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void BenesiT1PineTreeIteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void BenesiMagTransformsIteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void BenesiPwr2sIteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux);
 void Bristorbrot4DIteration(CVector4 &z4D, sExtendedAux &aux);
@@ -70,16 +75,17 @@ void Kalisets1Iteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExten
 void LkmitchIteration(CVector3 &z);
 void Makin3D2Iteration(CVector3 &z);
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void MandelboxMengerIteration(CVector3 &z, CVector3 c, int &i, const cFractal *fractal, sExtendedAux &aux);
-void MandelboxVaryScale4DIteration(
-	CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
+void MandelboxMengerIteration(
+	CVector3 &z, CVector3 c, int &i, const cFractal *fractal, sExtendedAux &aux);
+void MandelboxVaryScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbBermarteIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void MandelbulbKaliMultiIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
+void MandelbulbKaliMultiIteration(
+	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux);
 void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
@@ -89,12 +95,15 @@ void MengerMiddleModIteration(
 
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
 void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
-void MengerPwr2PolyIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void MengerPwr2PolyIteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym2ModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
-void MsltoeSym3ModIteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void MsltoeSym3ModIteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3Mod2Iteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
-void MsltoeSym3Mod3Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void MsltoeSym3Mod3Iteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
@@ -120,8 +129,10 @@ void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
 
 // transforming formulas
-void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux );
-void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
+void TransformAddCpixelAxisSwapIteration(
+	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
+void TransformAddCpixelCxCyAxisSwapIteration(
+	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void TransformAddCpixelIteration(CVector3 &z, CVector3 c, const cFractal *fractal);
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 c, const cFractal *fractal);
 void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal);
@@ -161,7 +172,8 @@ void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
-void TransformQuaternionFoldIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
+void TransformQuaternionFoldIteration(
+	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal);

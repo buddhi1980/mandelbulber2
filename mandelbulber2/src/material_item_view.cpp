@@ -211,7 +211,7 @@ void cMaterialItemView::paintEvent(QPaintEvent *event)
 	rectCurrent.adjust(-3, -3, 3, 3);
 	painter.fillRect(rectCurrent, QApplication::palette().highlight());
 
-	if(model())
+	if (model())
 	{
 		// paint labels
 		for (int r = 0; r < model()->rowCount(); r++)

@@ -69,7 +69,7 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 
 	int size = histData.GetSize();
 
-	//calculate statistics
+	// calculate statistics
 	long long sum = 0;
 	for (int i = 0; i <= size; i++)
 	{

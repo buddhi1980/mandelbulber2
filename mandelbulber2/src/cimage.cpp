@@ -468,9 +468,9 @@ void cImage::UpdatePreview(QList<int> *list)
 					}
 				}
 
-//#ifndef WIN32
-//#pragma omp parallel for
-//#endif
+				//#ifndef WIN32
+				//#pragma omp parallel for
+				//#endif
 				for (int x = 0; x < w; x++)
 				{
 					int R = 0;
@@ -627,7 +627,8 @@ void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity,
 	}
 }
 
-void cImage::AntiAliasedPoint(double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer)
+void cImage::AntiAliasedPoint(
+	double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer)
 {
 	double deltaX = x - (int)x;
 	double deltaY = y - (int)y;

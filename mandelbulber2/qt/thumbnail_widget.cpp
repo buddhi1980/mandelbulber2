@@ -116,8 +116,8 @@ void cThumbnailWidget::paintEvent(QPaintEvent *event)
 void cThumbnailWidget::AssignParameters(
 	const cParameterContainer &_params, const cFractalContainer &_fractal)
 {
-	if(!params) params = new cParameterContainer;
-	if(!fractal) fractal = new cFractalContainer;
+	if (!params) params = new cParameterContainer;
+	if (!fractal) fractal = new cFractalContainer;
 	*params = _params;
 	*fractal = _fractal;
 	params->Set("image_width", tWidth * oversample);
@@ -206,7 +206,7 @@ void cThumbnailWidget::slotRender()
 	cRenderingConfiguration config;
 	if (useOneCPUCore) config.DisableMultiThread();
 	config.EnableIgnoreErros();
-  config.DisableNetRender();
+	config.DisableNetRender();
 
 	renderJob->Init(cRenderJob::still, config);
 

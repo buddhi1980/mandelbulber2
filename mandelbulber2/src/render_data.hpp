@@ -41,8 +41,8 @@
 #include "region.hpp"
 #include "rendering_configuration.hpp"
 #include "statistics.h"
-#include "texture.hpp"
 #include "stereo.h"
+#include "texture.hpp"
 
 struct sTextures
 {

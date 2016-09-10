@@ -154,10 +154,10 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		{
 			// finding preferred delta DE function
 
-			//table to check the which DE type is the most popular
+			// table to check the which DE type is the most popular
 			int DEFunctionCount[fractal::numberOfDEFunctions + 1];
-			for(int i = 1; i <= fractal::numberOfDEFunctions; i++)
-				 DEFunctionCount[i] = 0;
+			for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
+				DEFunctionCount[i] = 0;
 
 			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 			{
@@ -166,7 +166,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 				// looking for the best DE function for DeltaDE mode
 
-				//count usage of DE functions
+				// count usage of DE functions
 				fractal::enumDEFunctionType DEFunction = fractalList[index].DEFunctionType;
 				DEFunctionCount[DEFunction] += counts[f];
 
@@ -187,9 +187,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			}
 
 			int maxCount = -1;
-			for(int i = 1; i <= fractal::numberOfDEFunctions; i++)
+			for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
 			{
-				if(DEFunctionCount[i] > maxCount)
+				if (DEFunctionCount[i] > maxCount)
 				{
 					maxCount = DEFunctionCount[i];
 					DEFunctionType[0] = (fractal::enumDEFunctionType)i;
@@ -202,8 +202,8 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 
 		// if it's possible to use analyticDEType then use optimized settings
-		if (optimizedDEType > fractal::preferedDEfunction &&
-				optimizedDEType <= fractal::numberOfDEFunctions)
+		if (optimizedDEType > fractal::preferedDEfunction
+				&& optimizedDEType <= fractal::numberOfDEFunctions)
 		{
 			DEType[0] = fractal::analyticDEType;
 			DEFunctionType[0] = optimizedDEType;
@@ -324,20 +324,12 @@ QString cNineFractals::GetDETypeString() const
 		text += "deltaDE";
 	}
 
-	switch(DEFunctionType[0])
+	switch (DEFunctionType[0])
 	{
-		case fractal::logarithmicDEFunction:
-			text += " logarithmic";
-			break;
-		case fractal::linearDEFunction:
-			text += " linear";
-			break;
-		case fractal::pseudoKleinianDEFunction:
-			text += " pseudo kleinian";
-					break;
-		default:
-			text += "unknown";
-			break;
+		case fractal::logarithmicDEFunction: text += " logarithmic"; break;
+		case fractal::linearDEFunction: text += " linear"; break;
+		case fractal::pseudoKleinianDEFunction: text += " pseudo kleinian"; break;
+		default: text += "unknown"; break;
 	}
 
 	return text;

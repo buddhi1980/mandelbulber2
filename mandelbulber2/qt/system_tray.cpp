@@ -39,7 +39,7 @@
 #include "../src/interface.hpp"
 #include <QMenu>
 
-cSystemTray::cSystemTray(cImage* image, QObject *parent)
+cSystemTray::cSystemTray(cImage *image, QObject *parent)
 {
 	setParent(parent);
 	this->image = image;
@@ -48,7 +48,8 @@ cSystemTray::cSystemTray(cImage* image, QObject *parent)
 	systemTrayIcon->setIcon(QIcon(":system/icons/mandelbulber.png"));
 	QMenu *menu = new QMenu;
 
-	QIcon renderIcon = QIcon::fromTheme("applications-graphics", QIcon(":system/icons/applications-graphics.svg"));
+	QIcon renderIcon =
+		QIcon::fromTheme("applications-graphics", QIcon(":system/icons/applications-graphics.svg"));
 	QIcon stopIcon = QIcon::fromTheme("process-stop", QIcon(":system/icons/process-stop.svg"));
 	QIcon quitIcon = QIcon::fromTheme("application-exit", QIcon(":system/icons/system-shutdown.svg"));
 
@@ -76,7 +77,8 @@ cSystemTray::cSystemTray(cImage* image, QObject *parent)
 	connect(stActionRender, SIGNAL(triggered()), parent, SLOT(slotStartRender()));
 	connect(stActionStop, SIGNAL(triggered()), parent, SLOT(slotStopRender()));
 	connect(stActionQuit, SIGNAL(triggered()), parent, SLOT(slotQuit()));
-	connect(stActionToggleNotification, SIGNAL(toggled(bool)), this, SLOT(slotToggleNotification(bool)));
+	connect(
+		stActionToggleNotification, SIGNAL(toggled(bool)), this, SLOT(slotToggleNotification(bool)));
 	connect(stActionRenderAnimation, SIGNAL(triggered()), this, SIGNAL(notifyRenderKeyframes()));
 	connect(stActionRenderFlight, SIGNAL(triggered()), this, SIGNAL(notifyRenderFlight()));
 
@@ -101,11 +103,11 @@ void cSystemTray::checkBusy()
 {
 	bool isBusyNew = image->IsUsed();
 	qDebug() << (isBusyNew ? "y" : "n");
-	if(isBusy != isBusyNew)
+	if (isBusy != isBusyNew)
 	{
 		qDebug() << "check changed";
 		isBusy = isBusyNew;
-		if(isBusy)
+		if (isBusy)
 		{
 			slotStarted();
 		}
@@ -118,7 +120,7 @@ void cSystemTray::checkBusy()
 
 void cSystemTray::showMessage(QString text, QString progressText)
 {
-	if(gPar->Get<bool>("system_tray_notify"))
+	if (gPar->Get<bool>("system_tray_notify"))
 	{
 		systemTrayIcon->showMessage("Mandelbulber - " + text, progressText);
 	}

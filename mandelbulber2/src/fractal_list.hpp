@@ -102,7 +102,7 @@ enum enumFractalFormula
 	aboxMod1 = 64,
 	mandelbulbMulti = 65, // updated V2.08
 	benesiPineTree = 66,
-  benesiT1PineTree = 67, // updated V2.09
+	benesiT1PineTree = 67, // updated V2.09
 	msltoesym3Mod = 68,
 	msltoesym4Mod = 69,
 	eiffieMsltoe = 70, // updated V2.08
@@ -123,7 +123,7 @@ enum enumFractalFormula
 	// V2.08
 	riemannBulbMsltoeMod2 = 85,
 	msltoeToroidal = 86,
-  aboxModKaliEiffie = 87, //updated z.z scale V2.09
+	aboxModKaliEiffie = 87, // updated z.z scale V2.09
 	collatz = 88,
 	collatzMod = 89,
 	mengerPwr2Poly = 90,
@@ -137,12 +137,12 @@ enum enumFractalFormula
 	// V2.09
 	crossMenger = 98,
 	mengerPrismShape = 99,
-  benesiMagTransforms = 100,
-  pseudoKleinian1 = 101,
-  bristorbrot4D = 102,
-  pseudoKleinian2 = 103,
-  pseudoKleinian3 = 104,
-  benesiPwr2s = 105,
+	benesiMagTransforms = 100,
+	pseudoKleinian1 = 101,
+	bristorbrot4D = 102,
+	pseudoKleinian2 = 103,
+	pseudoKleinian3 = 104,
+	benesiPwr2s = 105,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
@@ -154,7 +154,7 @@ enum enumFractalFormula
 	transfBoxOffset = 1005,
 	transfSphericalOffset = 1006,
 	transfAddCpixel = 1007,
-  transfAddCpixelAxisSwap = 1008,//fixed V2.09
+	transfAddCpixelAxisSwap = 1008, // fixed V2.09
 	transfBenesiT1 = 1009,
 	transfBenesiT1Mod = 1010,
 	transfBenesiT2 = 1011,
@@ -181,7 +181,7 @@ enum enumFractalFormula
 	transfScaleVaryV1 = 1032,
 	transfAdditionConstantVaryV1 = 1033,
 	transfBoxFoldXYZ = 1034,
-  transfAddCpixelCxCyAxisSwap = 1035, //fixed V2.09
+	transfAddCpixelCxCyAxisSwap = 1035, // fixed V2.09
 	transfRotationVaryV1 = 1036,
 	transfLinCombineCxyz = 1037,
 	transfSphereInvC = 1038,
@@ -202,9 +202,9 @@ enum enumFractalFormula
 	transfMengerFold = 1052,
 	// V2.09
 	transfInvCylindrical = 1053,
-  transfRpow3 = 1054,
-  transfSphereInv = 1055,
-  transfFoldingTetra3D = 1056,
+	transfRpow3 = 1054,
+	transfSphereInv = 1055,
+	transfFoldingTetra3D = 1056,
 };
 
 enum enumDEType
@@ -219,7 +219,7 @@ enum enumDEFunctionType
 	linearDEFunction = 1,
 	logarithmicDEFunction = 2,
 	pseudoKleinianDEFunction = 3,
-	numberOfDEFunctions = 3, //used to prepare array
+	numberOfDEFunctions = 3, // used to prepare array
 	withoutDEFunction = 99
 };
 

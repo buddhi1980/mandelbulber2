@@ -93,7 +93,8 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 			SLOT(slotOrthogonalStrafe(bool)));
 
 		// connect system tray
-		connect(mainInterface->systemTray, SIGNAL(notifyRenderFlight()), this, SLOT(slotRenderFlight()));
+		connect(
+			mainInterface->systemTray, SIGNAL(notifyRenderFlight()), this, SLOT(slotRenderFlight()));
 
 		// connect QuestionMessage signal
 		connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
@@ -596,12 +597,13 @@ int cFlightAnimation::AddVariableToTable(
 	return row;
 }
 
-int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame, int indexOfExistingColumn)
+int cFlightAnimation::AddColumn(
+	const cAnimationFrames::sAnimationFrame &frame, int indexOfExistingColumn)
 {
 	table->blockSignals(true);
 
 	int newColumn;
-	if(indexOfExistingColumn >= 0)
+	if (indexOfExistingColumn >= 0)
 	{
 		newColumn = indexOfExistingColumn;
 	}
@@ -741,11 +743,11 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			else
 			{
 				// Exit if silent mode
-				if(systemData.silent)
+				if (systemData.silent)
 				{
 					exit(0);
 				}
-				
+
 				deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
 			}
 

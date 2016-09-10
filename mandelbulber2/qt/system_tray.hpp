@@ -34,18 +34,18 @@
  * This class notifies the user about events and listenes for simple actions.
  */
 
-#ifndef MANDELBULBER2_SRC_SYSTEM_TRAY_HPP_
-#define MANDELBULBER2_SRC_SYSTEM_TRAY_HPP_
+#ifndef MANDELBULBER2_QT_SYSTEM_TRAY_HPP_
+#define MANDELBULBER2_QT_SYSTEM_TRAY_HPP_
 
+#include "../src/cimage.hpp"
 #include <QAction>
 #include <QSystemTrayIcon>
-#include "../src/cimage.hpp"
 
 class cSystemTray : public QObject
 {
 	Q_OBJECT
 public:
-	cSystemTray(cImage* image, QObject *parent = 0);
+	cSystemTray(cImage *image, QObject *parent = 0);
 	~cSystemTray();
 
 private:
@@ -56,9 +56,9 @@ private:
 	QAction *stActionQuit;
 	QAction *stActionToggleNotification;
 	QSystemTrayIcon *systemTrayIcon;
-	cImage* image;
+	cImage *image;
 	bool isBusy;
-	QTimer* checkBusyTimer;
+	QTimer *checkBusyTimer;
 
 private slots:
 	void showMessage(QString text, QString progressText);
@@ -72,4 +72,4 @@ signals:
 	void notifyRenderKeyframes();
 };
 
-#endif /* MANDELBULBER2_SRC_SYSTEM_TRAY_HPP_ */
+#endif /* MANDELBULBER2_QT_SYSTEM_TRAY_HPP_ */

@@ -38,8 +38,8 @@
 //#include <QtGui/QWidget>
 #include "color_structures.hpp"
 #include "image_adjustments.h"
-#include <QWidget>
 #include <QMutex>
+#include <QWidget>
 
 struct sImageOptional
 {

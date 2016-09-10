@@ -65,7 +65,7 @@ public:
 	{
 		return constantMultiplier[formulaIndex];
 	}
-	inline double GetInitialWAxis(int formulaIndex) const {return initialWAxis[formulaIndex];}
+	inline double GetInitialWAxis(int formulaIndex) const { return initialWAxis[formulaIndex]; }
 
 private:
 	bool forceDeltaDE;

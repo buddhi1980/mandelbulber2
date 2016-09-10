@@ -112,8 +112,8 @@ bool cRenderer::RenderImage()
 			{
 				threadData[i].startLine =
 					(data->screenRegion.height / data->configuration.GetNumberOfThreads() * i
-						+ data->screenRegion.y1) / scheduler->GetProgressiveStep()
-					* scheduler->GetProgressiveStep();
+						+ data->screenRegion.y1)
+					/ scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
 			}
 			threadData[i].scheduler = scheduler;
 		}
@@ -347,13 +347,16 @@ bool cRenderer::RenderImage()
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
-				if(data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight || data->stereo.GetMode() == cStereo::stereoTopBottom))
+				if (data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight
+																					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
 				{
 					cRegion<int> region;
-					region = data->stereo.GetRegion(CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+					region = data->stereo.GetRegion(
+						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 					rendererSSAO.SetRegion(region);
 					rendererSSAO.RenderSSAO();
-					region = data->stereo.GetRegion(CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+					region = data->stereo.GetRegion(
+						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 					rendererSSAO.SetRegion(region);
 					rendererSSAO.RenderSSAO();
 				}
@@ -369,23 +372,27 @@ bool cRenderer::RenderImage()
 				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 					this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
-				if(data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight || data->stereo.GetMode() == cStereo::stereoTopBottom))
+				if (data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight
+																					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
 				{
 					cRegion<int> region;
-					region = data->stereo.GetRegion(CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+					region = data->stereo.GetRegion(
+						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
 						params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
 						params->DOFBlurOpacity, data->stopRequest);
-					region = data->stereo.GetRegion(CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+					region = data->stereo.GetRegion(
+						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
 						params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
 						params->DOFBlurOpacity, data->stopRequest);
 				}
 				else
 				{
-					dof.Render(data->screenRegion, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-						params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
-						params->DOFBlurOpacity, data->stopRequest);
+					dof.Render(data->screenRegion,
+						params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus,
+						!ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses, params->DOFBlurOpacity,
+						data->stopRequest);
 				}
 			}
 		}

@@ -48,11 +48,11 @@ int RandomInt()
 {
 	// After calculation below, (hi << 16) + lo = seed * 16807
 	unsigned int lo = 16807 * (gRandomSeed & 0xFFFF); // Multiply lower 16 bits by 16807
-	unsigned int hi = 16807 * (gRandomSeed >> 16); // Multiply higher 16 bits by 16807
+	unsigned int hi = 16807 * (gRandomSeed >> 16);		// Multiply higher 16 bits by 16807
 
 	// After these lines, lo has the bottom 31 bits of result, hi has bits 32 and up
 	lo += (hi & 0x7FFF) << 16; // Combine lower 15 bits of hi with lo's upper bits
-	hi >>= 15; // Discard the lower 15 bits of hi
+	hi >>= 15;								 // Discard the lower 15 bits of hi
 
 	// value % (231 - 1)) 	= ((231) * hi + lo) % (231 - 1)
 	// 			= ((231 - 1) * hi + hi + lo) % (231-1)

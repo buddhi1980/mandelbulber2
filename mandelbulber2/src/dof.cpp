@@ -302,7 +302,8 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 						{
 							for (int xx = x - size; xx <= x + size; xx++)
 							{
-								if (xx >= screenRegion.x1 && xx < screenRegion.x2 && yy >= screenRegion.y1 && yy < screenRegion.y2)
+								if (xx >= screenRegion.x1 && xx < screenRegion.x2 && yy >= screenRegion.y1
+										&& yy < screenRegion.y2)
 								{
 									int dx = xx - x;
 									int dy = yy - y;
@@ -327,7 +328,8 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 					{
 						timerRefreshProgressBar.restart();
 
-						percentDone = ((double)pass + 1.0 + (double)i / screenRegion.width) / (numberOfPasses + 1.0);
+						percentDone =
+							((double)pass + 1.0 + (double)i / screenRegion.width) / (numberOfPasses + 1.0);
 						progressTxt = progressText.getText(percentDone);
 
 						emit updateProgressAndStatus(statusText, progressTxt, percentDone);
@@ -606,7 +608,8 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 						{
 							for (int xx = x - size; xx <= x + size; xx++)
 							{
-								if (xx >= screenRegion.x1 && xx < screenRegion.x2 && yy >= screenRegion.y1 && yy < screenRegion.y2)
+								if (xx >= screenRegion.x1 && xx < screenRegion.x2 && yy >= screenRegion.y1
+										&& yy < screenRegion.y2)
 								{
 									int dx = xx - x;
 									int dy = yy - y;
@@ -631,7 +634,8 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 					{
 						timerRefreshProgressBar.restart();
 
-						percentDone = ((double)pass + 1.0 + (double)i / screenRegion.width) / (numberOfPasses + 1.0);
+						percentDone =
+							((double)pass + 1.0 + (double)i / screenRegion.width) / (numberOfPasses + 1.0);
 						progressTxt = progressText.getText(percentDone);
 
 						emit updateProgressAndStatus(statusText, progressTxt, percentDone);

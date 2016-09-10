@@ -84,13 +84,12 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 			CVector2<int> point = lastMousePosition / image->GetPreviewScale();
 			double z = image->GetPixelZBuffer(point.x, point.y);
 
-			if(!anaglyphMode)
-				DisplayCrosshair();
+			if (!anaglyphMode) DisplayCrosshair();
 
 			if (z < 1e10 || (enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
 			{
 				redrawed = false;
-				if(!isOnObject)
+				if (!isOnObject)
 				{
 					QApplication::setOverrideCursor(Qt::BlankCursor);
 				}
@@ -100,7 +99,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 			}
 			else
 			{
-				if(isOnObject)
+				if (isOnObject)
 				{
 					QApplication::restoreOverrideCursor();
 				}
@@ -266,8 +265,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		double sh = image->GetPreviewHeight();
 		double aspectRatio = sw / sh;
 
-		if(perspType == params::perspEquirectangular)
-			aspectRatio = 2.0;
+		if (perspType == params::perspEquirectangular) aspectRatio = 2.0;
 
 		CVector2<double> p;
 		p.x = (screenPoint.x / sw - 0.5) * aspectRatio;
@@ -288,7 +286,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 			p1.x = p.x;
 			p1.y = p.y;
 			Draw3DBox(scale, fov, p1, z, cStereo::eyeLeft);
-			if(perspType == params::perspThreePoint)
+			if (perspType == params::perspThreePoint)
 			{
 				p2.x = p.x - 2.0 * (stereoEyeDistance / z - stereoInfiniteCorrection / 10.0) / fov;
 			}
@@ -443,16 +441,16 @@ void RenderedImage::Draw3DBox(
 				sRGB8(255, 255, 255), opacity, 1);
 			image->AntiAliasedLine(spoint.x, spoint.y - sh * 0.3, spoint.x, spoint.y + sh * 0.3, z, z,
 				sRGB8(255, 255, 255), opacity, 1);
-			if(anaglyphMode)
+			if (anaglyphMode)
 			{
-				image->AntiAliasedLine(spoint.x - sw * 0.05, spoint.y - sh * 0.05, spoint.x + sw * 0.05, spoint.y - sh * 0.05, z, z,
-					sRGB8(0, 0, 0), opacity, 1);
-				image->AntiAliasedLine(spoint.x + sw * 0.05, spoint.y - sh * 0.05, spoint.x + sw * 0.05, spoint.y + sh * 0.05, z, z,
-					sRGB8(0, 0, 0), opacity, 1);
-				image->AntiAliasedLine(spoint.x + sw * 0.05, spoint.y + sh * 0.05, spoint.x - sw * 0.05, spoint.y + sh * 0.05, z, z,
-					sRGB8(0, 0, 0), opacity, 1);
-				image->AntiAliasedLine(spoint.x - sw * 0.05, spoint.y + sh * 0.05, spoint.x - sw * 0.05, spoint.y - sh * 0.05, z, z,
-					sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(spoint.x - sw * 0.05, spoint.y - sh * 0.05, spoint.x + sw * 0.05,
+					spoint.y - sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(spoint.x + sw * 0.05, spoint.y - sh * 0.05, spoint.x + sw * 0.05,
+					spoint.y + sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(spoint.x + sw * 0.05, spoint.y + sh * 0.05, spoint.x - sw * 0.05,
+					spoint.y + sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(spoint.x - sw * 0.05, spoint.y + sh * 0.05, spoint.x - sw * 0.05,
+					spoint.y - sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
 			}
 
 			if (clickMode == clickPlaceLight)
@@ -522,14 +520,13 @@ void RenderedImage::enterEvent(QEvent *event)
 {
 	(void)event;
 
-	if(!isFocus)
+	if (!isFocus)
 	{
 		setFocus();
 		QApplication::setOverrideCursor(Qt::CrossCursor);
 	}
 	isFocus = true;
 	timerRefreshImage->start();
-
 }
 
 void RenderedImage::leaveEvent(QEvent *event)

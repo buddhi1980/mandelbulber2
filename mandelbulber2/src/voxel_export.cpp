@@ -126,7 +126,8 @@ void cVoxelExport::ProcessVolume()
 
 bool cVoxelExport::StoreLayer(int z)
 {
-	QString filename = folder.absolutePath() + QDir::separator() + QString("layer_%1.png").arg(z, 5, 10, QChar('0'));
+	QString filename =
+		folder.absolutePath() + QDir::separator() + QString("layer_%1.png").arg(z, 5, 10, QChar('0'));
 	if (!ImageFileSavePNG::SavePNGQtBlackAndWhite(filename, voxelLayer, w, h))
 	{
 		qCritical() << "Cannot write to file " << filename;

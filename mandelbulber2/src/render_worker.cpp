@@ -90,8 +90,7 @@ void cRenderWorker::doWork(void)
 	int height = image->GetHeight();
 	double aspectRatio = (double)width / height;
 
-	if(params->perspectiveType == params::perspEquirectangular)
-		aspectRatio = 2.0;
+	if (params->perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
 
 	bool monteCarloDOF = params->DOFMonteCarlo && params->DOFEnabled;
 
@@ -186,8 +185,7 @@ void cRenderWorker::doWork(void)
 				else
 				{
 					// calculate direction of ray-marching
-					viewVector =
-										CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+					viewVector = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
 					startRay = start;
 				}
 
@@ -201,24 +199,25 @@ void cRenderWorker::doWork(void)
 						sideVector.Normalize();
 						if (stereoEye == cStereo::eyeLeft)
 						{
-							eyePosition = startRay + 0.5 * (cameraTarget->GetRightVector() * params->stereoEyeDistance
-														+ sideVector * params->stereoEyeDistance);
+							eyePosition = startRay
+														+ 0.5 * (cameraTarget->GetRightVector() * params->stereoEyeDistance
+																			+ sideVector * params->stereoEyeDistance);
 						}
 						else
 						{
-							eyePosition = startRay - 0.5 * (cameraTarget->GetRightVector() * params->stereoEyeDistance
-														+ sideVector * params->stereoEyeDistance);
+							eyePosition = startRay
+														- 0.5 * (cameraTarget->GetRightVector() * params->stereoEyeDistance
+																			+ sideVector * params->stereoEyeDistance);
 						}
 						startRay = eyePosition;
 					}
 					else
 					{
-						startRay = data->stereo.CalcEyePosition(startRay, viewVector, params->topVector,
-																	 params->stereoEyeDistance, stereoEye);
-						data->stereo.ViewVectorCorrection(params->stereoInfiniteCorrection, mRot, mRotInv, stereoEye, &viewVector);
+						startRay = data->stereo.CalcEyePosition(
+							startRay, viewVector, params->topVector, params->stereoEyeDistance, stereoEye);
+						data->stereo.ViewVectorCorrection(
+							params->stereoInfiniteCorrection, mRot, mRotInv, stereoEye, &viewVector);
 					}
-
-
 				}
 
 				sRGBAfloat resultShader;
@@ -940,8 +939,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	return out;
 }
 
-void cRenderWorker::MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRay,
-	CVector3 *viewVector)
+void cRenderWorker::MonteCarloDOF(
+	CVector2<double> imagePoint, CVector3 *startRay, CVector3 *viewVector)
 {
 	if (params->perspectiveType == params::perspThreePoint)
 	{
@@ -950,14 +949,16 @@ void cRenderWorker::MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRa
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 		CVector3 randVectorRot = mRot.RotateVector(randVector);
 		CVector2<double> imagePoint2;
-		CVector3 viewVectorTemp = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+		CVector3 viewVectorTemp =
+			CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
 		viewVectorTemp -= randVectorRot / params->DOFFocus;
 		*viewVector = viewVectorTemp;
 		*startRay = params->camera + randVectorRot;
 	}
 	else
 	{
-		CVector3 viewVectorTemp = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+		CVector3 viewVectorTemp =
+			CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
 		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
 		float randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));

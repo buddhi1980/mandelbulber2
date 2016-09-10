@@ -58,7 +58,7 @@ public:
 	~cLights();
 	sLight *GetLight(const int index) const;
 	int GetNumberOfLights(void) const { return numberOfLights; }
-	int IsAnyLightEnabled() {return isAnyLight;};
+	int IsAnyLightEnabled() { return isAnyLight; };
 
 private:
 	void Copy(const cLights &);

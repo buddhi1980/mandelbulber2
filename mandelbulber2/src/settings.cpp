@@ -465,7 +465,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 						{
 							CheckIfMaterialsAreDefined(par);
 							parTemp = *par;
-							if (fractPar)	fractTemp = *fractPar;
+							if (fractPar) fractTemp = *fractPar;
 
 							result = DecodeFramesHeader(line, par, fractPar, frames);
 							csvLine++;
@@ -489,7 +489,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 						{
 							CheckIfMaterialsAreDefined(par);
 							parTemp = *par;
-							if (fractPar)	fractTemp = *fractPar;
+							if (fractPar) fractTemp = *fractPar;
 
 							result = DecodeFramesHeader(line, par, fractPar, keyframes);
 							csvLine++;
@@ -748,12 +748,13 @@ void cSettings::Compatibility(QString &name, QString &value)
 	}
 	if (fileVersion < 2.09)
 	{
-		if (name == QString("delta_DE_function")){
-			if(value == QString("0"))
+		if (name == QString("delta_DE_function"))
+		{
+			if (value == QString("0"))
 			{
 				value = "2";
 			}
-			else if(value == QString("2"))
+			else if (value == QString("2"))
 			{
 				value = "0";
 			}
@@ -769,7 +770,7 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 				!= fractal::linearDEFunction)
 			par->Set("delta_DE_function", (int)fractal::logarithmicDEFunction);
 
-		if(fract)
+		if (fract)
 		{
 			for (int i = 0; i < 4; i++)
 			{
@@ -838,7 +839,7 @@ bool cSettings::DecodeFramesHeader(
 					}
 				}
 
-				//compatibility with older settings
+				// compatibility with older settings
 				int firstUnderscore = fullParameterName.indexOf('_');
 				QString containerName = fullParameterName.left(firstUnderscore);
 				QString parameterName = fullParameterName.mid(firstUnderscore + 1);
