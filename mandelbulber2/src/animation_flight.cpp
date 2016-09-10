@@ -92,6 +92,9 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		connect(mainInterface->renderedImage, SIGNAL(ShiftModeChanged(bool)), this,
 			SLOT(slotOrthogonalStrafe(bool)));
 
+		// connect system tray
+		connect(mainInterface->systemTray, SIGNAL(notifyRenderFlight()), this, SLOT(slotRenderFlight()));
+
 		// connect QuestionMessage signal
 		connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
 										QMessageBox::StandardButton *)),

@@ -39,12 +39,13 @@
 
 #include <QAction>
 #include <QSystemTrayIcon>
+#include "../src/cimage.hpp"
 
 class cSystemTray : public QObject
 {
 	Q_OBJECT
 public:
-	cSystemTray(QObject *parent = 0);
+	cSystemTray(cImage* image, QObject *parent = 0);
 	~cSystemTray();
 
 private:
@@ -55,12 +56,16 @@ private:
 	QAction *stActionQuit;
 	QAction *stActionToggleNotification;
 	QSystemTrayIcon *systemTrayIcon;
+	cImage* image;
+	bool isBusy;
+	QTimer* checkBusyTimer;
 
 private slots:
 	void showMessage(QString text, QString progressText);
 	void slotStopped();
 	void slotStarted();
 	void slotToggleNotification(bool notify);
+	void checkBusy();
 
 signals:
 	void notifyRenderFlight();

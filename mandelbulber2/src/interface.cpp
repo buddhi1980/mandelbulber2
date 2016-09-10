@@ -263,7 +263,7 @@ void cInterface::ShowUi(void)
 
 	mainWindow->slotPopulateToolbar();
 
-	systemTray = new cSystemTray(mainWindow);
+	systemTray = new cSystemTray(mainImage, mainWindow);
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();
@@ -604,10 +604,6 @@ void cInterface::ConnectSignals(void)
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksandToolbarbyView();
-
-	// system tray
-	QApplication::connect(systemTray, SIGNAL(notifyRenderFlight()), gFlightAnimation, SLOT(slotRenderFlight()));
-	QApplication::connect(systemTray, SIGNAL(notifyRenderKeyframes()), gKeyframeAnimation, SLOT(slotRenderKeyframes()));
 }
 
 // Reading ad writing parameters from/to ui to/from parameters container

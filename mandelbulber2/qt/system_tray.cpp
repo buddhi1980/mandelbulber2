@@ -36,10 +36,14 @@
 
 #include "system_tray.hpp"
 #include "../src/initparameters.hpp"
+#include "../src/interface.hpp"
 #include <QMenu>
 
-cSystemTray::cSystemTray(QObject *parent)
+cSystemTray::cSystemTray(cImage* image, QObject *parent)
 {
+	setParent(parent);
+	this->image = image;
+	isBusy = false;
 	systemTrayIcon = new QSystemTrayIcon(parent);
 	systemTrayIcon->setIcon(QIcon(":system/icons/mandelbulber.png"));
 	QMenu *menu = new QMenu;
@@ -73,16 +77,43 @@ cSystemTray::cSystemTray(QObject *parent)
 	connect(stActionStop, SIGNAL(triggered()), parent, SLOT(slotStopRender()));
 	connect(stActionQuit, SIGNAL(triggered()), parent, SLOT(slotQuit()));
 	connect(stActionToggleNotification, SIGNAL(toggled(bool)), this, SLOT(slotToggleNotification(bool)));
-	connect(stActionRenderAnimation, SIGNAL(triggered()), this, SIGNAL(notifyRenderFlight()));
-	connect(stActionRenderFlight, SIGNAL(triggered()), this, SIGNAL(notifyRenderKeyframes()));
+	connect(stActionRenderAnimation, SIGNAL(triggered()), this, SIGNAL(notifyRenderKeyframes()));
+	connect(stActionRenderFlight, SIGNAL(triggered()), this, SIGNAL(notifyRenderFlight()));
 
-	showMessage("tray init", QString("This tray has just been inited."));
 	slotStopped();
 	systemTrayIcon->show();
+	showMessage("tray init", QString("This tray has just been inited."));
+
+	// TODO remove timer and replace with proper signal connection
+	// to slotStarted and slotStopped
+	checkBusyTimer = new QTimer;
+	checkBusyTimer->setInterval(30);
+	connect(checkBusyTimer, SIGNAL(timeout()), this, SLOT(checkBusy()));
+	checkBusyTimer->start();
 }
 
 cSystemTray::~cSystemTray()
 {
+	delete checkBusyTimer;
+}
+
+void cSystemTray::checkBusy()
+{
+	bool isBusyNew = image->IsUsed();
+	qDebug() << (isBusyNew ? "y" : "n");
+	if(isBusy != isBusyNew)
+	{
+		qDebug() << "check changed";
+		isBusy = isBusyNew;
+		if(isBusy)
+		{
+			slotStarted();
+		}
+		else
+		{
+			slotStopped();
+		}
+	}
 }
 
 void cSystemTray::showMessage(QString text, QString progressText)

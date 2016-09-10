@@ -97,6 +97,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellDoubleClicked(int, int)),
 			this, SLOT(slotCellDoubleClicked(int, int)));
 
+		// connect system tray
+		connect(mainInterface->systemTray, SIGNAL(notifyRenderKeyframes()), this, SLOT(slotRenderKeyframes()));
+
 		QApplication::connect(this, SIGNAL(QuestionMessage(const QString, const QString,
 																	QMessageBox::StandardButtons, QMessageBox::StandardButton *)),
 			mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString,
