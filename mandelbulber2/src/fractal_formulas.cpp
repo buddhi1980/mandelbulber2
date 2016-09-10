@@ -1710,9 +1710,10 @@ void BenesiMagTransformsIteration(
           tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
           z =
           CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
-          z = fabs(z) * fractal->transformCommon.scale3Da222;
-          // if (tempL < 1e-21) tempL = 1e-21;
-          avgScale = z.Length() / tempL;
+					z = fabs(z) * fractal->transformCommon.scale3Da222;
+					tempL = temp.Length();
+					// if (tempL < 1e-21) tempL = 1e-21;
+					avgScale = z.Length() / tempL;
           aux.r_dz *= avgScale;
           aux.DE = aux.DE * avgScale + 1.0;
           tempXZ = (z.y + z.x) * SQRT_1_2;
@@ -1725,8 +1726,9 @@ void BenesiMagTransformsIteration(
           tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
           z =
           CVector3((tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3);
-          z = fabs(z) * fractal->transformCommon.scale3D333;
-          // if (tempL < 1e-21) tempL = 1e-21;
+					z = fabs(z) * fractal->transformCommon.scale3D333;
+					tempL = temp.Length();
+					// if (tempL < 1e-21) tempL = 1e-21;
           avgScale = z.Length() / tempL;
           aux.r_dz *= avgScale;
           aux.DE = aux.DE * avgScale + 1.0;
