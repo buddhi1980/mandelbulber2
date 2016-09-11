@@ -79,6 +79,8 @@ public:
 	void StoreImageInBuffer(cImage *image);
 	void MixImages(cImage *image);
 	void ForceEye(enumEye eye);
+	void SwapEyes() {swapped = true;}
+	bool AreSwapped() {return swapped;}
 
 private:
 	bool swapped;

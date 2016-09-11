@@ -112,6 +112,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	cStereo stereo;
 	stereo.SetMode((cStereo::enumStereoMode)paramsContainer->Get<int>("stereo_mode"));
 	if (!paramsContainer->Get<bool>("stereo_enabled")) stereo.SetMode(cStereo::stereoDisabled);
+	if(paramsContainer->Get<bool>("stereo_swap_eyes")) stereo.SwapEyes();
 
 	// needed when image has to fit in widget
 	if (useSizeFromImage)
@@ -348,11 +349,9 @@ bool cRenderJob::Execute(void)
 		if (gNetRender->IsClient())
 		{
 			cStereo::enumEye eye = (cStereo::enumEye)paramsContainer->Get<int>("stereo_actual_eye");
-			qDebug() << "eye:" << eye;
 			if (eye != cStereo::eyeNone)
 			{
 				renderData->stereo.ForceEye(eye);
-				qDebug() << "used stereo_actual_eye";
 			}
 		}
 

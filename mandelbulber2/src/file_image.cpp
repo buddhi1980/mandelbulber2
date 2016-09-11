@@ -957,7 +957,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	TIFF *tiff = TIFFOpen(filename.toLocal8Bit().constData(), "w");
 	if (!tiff)
 	{
-		qDebug() << "SaveTiff() cannot open file";
+		qCritical() << "SaveTiff() cannot open file";
 		return false;
 	}
 

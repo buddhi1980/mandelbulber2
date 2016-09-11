@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -47,7 +47,7 @@ cStereo::cStereo()
 
 cStereo::~cStereo()
 {
-	if (imageBuffer)
+	if(imageBuffer)
 	{
 		delete[] imageBuffer;
 		imageBuffer = NULL;
@@ -59,9 +59,11 @@ void cStereo::SetMode(enumStereoMode mode)
 	stereoMode = mode;
 }
 
-CVector3 cStereo::CalcEyePosition(
-	CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye)
+CVector3 cStereo::CalcEyePosition(CVector3 camera, CVector3 direction, CVector3 top,
+		double distance, enumEye eye)
 {
+	if (swapped)
+		distance *= -1.0;
 	CVector3 eyePosition;
 	CVector3 sideVector = direction.Cross(top);
 	sideVector.Normalize();
@@ -134,7 +136,7 @@ cStereo::enumEye cStereo::WhichEye(CVector2<double> imagePoint)
 		case stereoDisabled: eye = eyeLeft; break;
 		case stereoLeftRight: eye = (imagePoint.x >= 0.0) ? eyeLeft : eyeRight; break;
 		case stereoTopBottom: eye = (imagePoint.y >= 0.0) ? eyeLeft : eyeRight; break;
-		case stereoRedCyan: eye = eyeLeft; break;
+		case stereoRedCyan:  eye = eyeLeft; break;
 	}
 	return eye;
 }
@@ -155,7 +157,7 @@ double cStereo::ModifyAspectRatio(double aspectRatio)
 
 int cStereo::GetNumberOfRepeats()
 {
-	if (stereoMode == stereoRedCyan && forceEye == eyeNone)
+	if(stereoMode == stereoRedCyan && forceEye == eyeNone)
 	{
 		return 2;
 	}
@@ -169,9 +171,9 @@ void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat)
 {
 	if (stereoMode == stereoRedCyan)
 	{
-		if (forceEye == eyeLeft)
+		if(forceEye == eyeLeft)
 			*eye = eyeLeft;
-		else if (forceEye == eyeRight)
+		else if(forceEye == eyeRight)
 			*eye = eyeRight;
 		else
 			*eye = (enumEye)(repeat % 2);
@@ -187,26 +189,29 @@ cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye)
 	{
 		case stereoDisabled: region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y); break;
 		case stereoLeftRight:
-			if (eye == eyeLeft)
-				region = cRegion<int>(0, 0, imageResolution.x / 2, imageResolution.y);
+			if(eye == eyeLeft)
+				region = cRegion<int>(0, 0, imageResolution.x/2, imageResolution.y);
 			else
-				region = cRegion<int>(imageResolution.x / 2, 0, imageResolution.x, imageResolution.y);
+				region = cRegion<int>(imageResolution.x/2, 0, imageResolution.x, imageResolution.y);
 			break;
 
 		case stereoTopBottom:
-			if (eye == eyeLeft)
-				region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y / 2);
-			else
-				region = cRegion<int>(0, imageResolution.y / 2, imageResolution.x, imageResolution.y);
-			break;
+			if(eye == eyeLeft)
+			region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y/2);
+		else
+			region = cRegion<int>(0, imageResolution.y/2, imageResolution.x, imageResolution.y);
+		break;
 		case stereoRedCyan: region = cRegion<int>(0, 0, imageResolution.x, imageResolution.y); break;
 	}
 	return region;
 }
 
 void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
-	const CRotationMatrix &mRotInv, enumEye eye, CVector3 *viewVector)
+		const CRotationMatrix &mRotInv, enumEye eye, CVector3 *viewVector)
 {
+	if (swapped)
+		correction *= -1.0;
+
 	CVector3 viewVectorTemp = *viewVector;
 	viewVectorTemp = mRotInv.RotateVector(viewVectorTemp);
 	double rxz2 = viewVectorTemp.x * viewVectorTemp.x + viewVectorTemp.z * viewVectorTemp.z;
@@ -230,6 +235,7 @@ void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRo
 		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
 		*viewVector = viewVectorTemp;
 	}
+
 }
 
 void cStereo::StoreImageInBuffer(cImage *image)
@@ -237,7 +243,7 @@ void cStereo::StoreImageInBuffer(cImage *image)
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 	unsigned int size = width * height;
-	if (imageBuffer) delete[] imageBuffer;
+	if(imageBuffer) delete[] imageBuffer;
 	imageBuffer = new sRGB16[size];
 	sRGB16 *image16Ptr = image->GetImage16Ptr();
 	memcpy(imageBuffer, image16Ptr, size * sizeof(sRGB16));
@@ -249,11 +255,11 @@ void cStereo::MixImages(cImage *image)
 {
 	int width = image->GetWidth();
 	int height = image->GetHeight();
-	if (width == imageBufferWidth && height == imageBufferHeight)
+	if(width == imageBufferWidth && height == imageBufferHeight)
 	{
-		for (int y = 0; y < height; y++)
+		for(int y = 0; y < height; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for(int x = 0; x < width; x++)
 			{
 				sRGB16 pixel = image->GetPixelImage16(x, y);
 				sRGB16 pixel2 = imageBuffer[x + y * width];

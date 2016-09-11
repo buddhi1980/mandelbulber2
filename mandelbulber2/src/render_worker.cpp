@@ -197,17 +197,21 @@ void cRenderWorker::doWork(void)
 						CVector3 eyePosition;
 						CVector3 sideVector = viewVector.Cross(params->topVector);
 						sideVector.Normalize();
+						double eyeDistance = params->stereoEyeDistance;
+						if(data->stereo.AreSwapped())
+							eyeDistance *= -1.0;
+
 						if (stereoEye == cStereo::eyeLeft)
 						{
 							eyePosition = startRay
-														+ 0.5 * (cameraTarget->GetRightVector() * params->stereoEyeDistance
-																			+ sideVector * params->stereoEyeDistance);
+														+ 0.5 * (cameraTarget->GetRightVector() * eyeDistance
+																			+ sideVector * eyeDistance);
 						}
 						else
 						{
 							eyePosition = startRay
-														- 0.5 * (cameraTarget->GetRightVector() * params->stereoEyeDistance
-																			+ sideVector * params->stereoEyeDistance);
+														- 0.5 * (cameraTarget->GetRightVector() * eyeDistance
+																			+ sideVector * eyeDistance);
 						}
 						startRay = eyePosition;
 					}

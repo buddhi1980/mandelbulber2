@@ -102,10 +102,8 @@ cSystemTray::~cSystemTray()
 void cSystemTray::checkBusy()
 {
 	bool isBusyNew = image->IsUsed();
-	qDebug() << (isBusyNew ? "y" : "n");
 	if (isBusy != isBusyNew)
 	{
-		qDebug() << "check changed";
 		isBusy = isBusyNew;
 		if (isBusy)
 		{
