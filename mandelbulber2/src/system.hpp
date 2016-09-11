@@ -58,6 +58,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+enum enumRenderingThreadPriority
+{
+	renderingPriorityLowest = 0,
+	renderingPriorityLow = 1,
+	renderingPriorityNormal = 2,
+	renderingPriorityHigh = 3
+};
+
 using namespace std;
 
 struct sSystem
@@ -84,6 +92,7 @@ struct sSystem
 	bool settingsLoadedFromCLI;
 	QElapsedTimer globalTimer;
 	bool globalStopRequest;
+	enumRenderingThreadPriority threadsPriority;
 };
 
 struct sActualFileNames
@@ -114,5 +123,6 @@ void UpdateUISkin();
 void UpdateLanguage(QCoreApplication *app);
 void RetrieveToolbarPresets(bool force);
 void RetrieveExampleMaterials(bool force);
+QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority);
 
 #endif /* MANDELBULBER2_SRC_SYSTEM_HPP_ */

@@ -54,6 +54,11 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	ui->sliderInt_limit_CPU_cores->setMaximum(maximumCores);
 	ui->spinboxInt_limit_CPU_cores->setMaximum(maximumCores);
 
+#ifndef WIN32
+	ui->label_threads_priority->hide();
+	ui->comboBox_threads_priority->hide();
+#endif
+
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 

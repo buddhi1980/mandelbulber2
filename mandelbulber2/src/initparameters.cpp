@@ -441,6 +441,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 
 	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
+	par->addParam("threads_priority", 2, 0, 3, morphNone, paramApp);
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);

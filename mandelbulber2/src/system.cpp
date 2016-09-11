@@ -585,3 +585,20 @@ void RetrieveExampleMaterials(bool force)
 		}
 	}
 }
+
+QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority)
+{
+	switch (priority)
+	{
+		case renderingPriorityLowest:
+			return QThread::LowestPriority;
+		case renderingPriorityLow:
+			return QThread::LowPriority;
+		case renderingPriorityNormal:
+			return QThread::NormalPriority;
+		case renderingPriorityHigh:
+			return QThread::HighPriority;
+		default:
+			return QThread::NormalPriority;
+	}
+}

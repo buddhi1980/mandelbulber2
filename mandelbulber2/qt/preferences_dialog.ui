@@ -361,14 +361,14 @@
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="0">
+                <item row="1" column="0">
                  <widget class="QLabel" name="label_13">
                   <property name="text">
                    <string>Logging verbosity level</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
+                <item row="1" column="1">
                  <widget class="MySpinBox" name="spinboxInt_logging_verbosity">
                   <property name="minimum">
                    <number>0</number>
@@ -378,6 +378,40 @@
                   </property>
                   <property name="value">
                    <number>1</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="comboBox_threads_priority">
+                  <property name="frame">
+                   <bool>true</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Lowest priority</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Low prioriry</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Normal priority</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>High priority</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_threads_priority">
+                  <property name="text">
+                   <string>Rendering threads priority</string>
                   </property>
                  </widget>
                 </item>

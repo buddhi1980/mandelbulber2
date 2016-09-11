@@ -77,6 +77,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	}
 
 	systemData.numberOfThreads = paramsContainer->Get<int>("limit_CPU_cores");
+	systemData.threadsPriority = (enumRenderingThreadPriority)paramsContainer->Get<int>("threads_priority");
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	renderData = NULL;
 	useSizeFromImage = false;

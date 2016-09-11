@@ -137,6 +137,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
 		thread[i]->setObjectName("SSAOWorker #" + QString::number(i));
 		thread[i]->start();
+		thread[i]->setPriority(GetQThreadPriority(systemData.threadsPriority));
 		WriteLog(QString("Thread ") + QString::number(i) + " started", 3);
 	}
 
