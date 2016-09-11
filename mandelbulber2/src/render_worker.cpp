@@ -94,7 +94,8 @@ void cRenderWorker::doWork(void)
 
 	bool monteCarloDOF = params->DOFMonteCarlo && params->DOFEnabled;
 
-	if (data->stereo.isEnabled()) aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);
+	if (data->stereo.isEnabled() && (params->perspectiveType != params::perspEquirectangular))
+		aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);
 
 	PrepareMainVectors();
 	PrepareReflectionBuffer();
