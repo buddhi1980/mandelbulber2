@@ -74,11 +74,16 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 		{
 			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 			{
-				settingsText += "[fractal_" + QString::number(f + 1) + "]\n";
 				QList<QString> parameterListFractal = fractPar->at(f).GetListOfParameters();
+				QString fractalSettingsText = "";
 				for (int i = 0; i < parameterListFractal.size(); i++)
 				{
-					settingsText += CreateOneLine(&fractPar->at(f), parameterListFractal[i]);
+					fractalSettingsText += CreateOneLine(&fractPar->at(f), parameterListFractal[i]);
+				}
+				if(fractalSettingsText.length() > 0)
+				{
+					settingsText += "[fractal_" + QString::number(f + 1) + "]\n";
+					settingsText += fractalSettingsText;
 				}
 				parameterListFractal.clear();
 			}
