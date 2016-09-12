@@ -343,7 +343,7 @@ void cCommandLineInterface::ReadCLI()
 	{
 		QStringList arguments = gApplication->arguments();
 		arguments.removeOne(QString("--test"));
-		arguments.removeOne(QString("t"));
+		arguments.removeOne(QString("-t"));
 
 		int status = 0;
 		Test test;
