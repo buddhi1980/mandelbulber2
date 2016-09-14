@@ -257,3 +257,4 @@ void RenderWindow::slotPressedImagesizeDecrease()
 	ui->spinboxInt_image_width->setValue(width);
 	ui->spinboxInt_image_height->setValue(height);
 }
+

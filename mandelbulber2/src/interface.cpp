@@ -87,6 +87,7 @@ cInterface::cInterface()
 	repeatRequest = false;
 	interfaceReady = false;
 	autoRefreshLastState = false;
+	lockedDetailLevel = 1.0;
 }
 
 cInterface::~cInterface()
@@ -385,6 +386,10 @@ void cInterface::ConnectSignals(void)
 		mainWindow, SLOT(slotPressedImagesizeDecrease()));
 	QApplication::connect(mainWindow->ui->spinboxInt_image_height, SIGNAL(valueChanged(int)),
 		mainWindow, SLOT(slotImageHeightChanged(int)));
+	QApplication::connect(mainWindow->ui->checkBox_connect_detail_level, SIGNAL(stateChanged(int)),
+		mainWindow, SLOT(slotCheckedDetailLevelLock(int)));
+	QApplication::connect(mainWindow->ui->checkBox_connect_detail_level_2, SIGNAL(stateChanged(int)),
+		mainWindow, SLOT(slotCheckedDetailLevelLock(int)));
 
 	// quality presets
 	QApplication::connect(mainWindow->ui->pushButton_quality_preset_very_low, SIGNAL(clicked()),

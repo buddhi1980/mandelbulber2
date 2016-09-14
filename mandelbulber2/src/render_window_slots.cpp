@@ -357,6 +357,17 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 	{
 		ui->spinboxInt_image_width->setValue(width);
 	}
+
+	if (ui->checkBox_connect_detail_level->isChecked())
+	{
+		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
+		bool constantDEThreshold = gPar->Get<bool>("constant_DE_threshold");
+		if (constantDEThreshold)
+			gPar->Set("DE_thresh", gMainInterface->lockedDetailLevel * sizeRatio);
+		else
+			gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
+		SynchronizeInterfaceWindow(ui->groupBox_distanceEstimation, gPar, qInterface::write);
+	}
 }
 
 void RenderWindow::slotPressedResolutionPreset()
@@ -422,6 +433,17 @@ void RenderWindow::slotPressedResolutionPreset()
 	ui->spinboxInt_image_width->setValue(width);
 	ui->spinboxInt_image_height->setValue(height);
 	ui->comboBox_image_proportion->setCurrentIndex(proportion);
+
+	if (ui->checkBox_connect_detail_level->isChecked())
+	{
+		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
+		bool constantDEThreshold = gPar->Get<bool>("constant_DE_threshold");
+		if (constantDEThreshold)
+			gPar->Set("DE_thresh", gMainInterface->lockedDetailLevel * sizeRatio);
+		else
+			gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
+		SynchronizeInterfaceWindow(ui->groupBox_distanceEstimation, gPar, qInterface::write);
+	}
 }
 
 void RenderWindow::slotImageHeightChanged(int value)
@@ -936,3 +958,30 @@ void RenderWindow::slotGroupCheckJuliaModeToggled(bool state)
 		gMainInterface->DisablePeriodicRefresh();
 	}
 }
+
+void RenderWindow::slotCheckedDetailLevelLock(int state)
+{
+	if (state)
+	{
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+		bool constantDEThreshold = gPar->Get<bool>("constant_DE_threshold");
+
+		if (constantDEThreshold)
+			gMainInterface->lockedDetailLevel = gPar->Get<double>("DE_thresh");
+		else
+			gMainInterface->lockedDetailLevel = gPar->Get<double>("detail_level");
+
+		gMainInterface->lockedImageResolution =
+			CVector2<int>(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	}
+
+	if (this->sender()->objectName() == "checkBox_connect_detail_level")
+	{
+		ui->checkBox_connect_detail_level_2->setCheckState((Qt::CheckState)state);
+	}
+	else
+	{
+		ui->checkBox_connect_detail_level->setCheckState((Qt::CheckState)state);
+	}
+}
+

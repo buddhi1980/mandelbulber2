@@ -134,6 +134,9 @@ public:
 	QWidget *scrollAreaMaterialEditor;
 	cSystemTray *systemTray;
 
+	CVector2<int> lockedImageResolution;
+	double lockedDetailLevel;
+
 	bool interfaceReady;
 	bool stopRequest;
 	bool repeatRequest; // request to repeat start loop

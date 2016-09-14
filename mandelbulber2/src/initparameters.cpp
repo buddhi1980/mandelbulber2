@@ -405,6 +405,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("system_tray_notify", false, morphNone, paramApp);
 
 	par->addParam("auto_refresh", false, morphNone, paramApp);
+	par->addParam("connect_detail_level", false, morphNone, paramNoSave);
+	par->addParam("connect_detail_level_2", false, morphNone, paramNoSave);
 
 	// measurement
 	par->addParam("meas_point", CVector3(0.0, 0.0, 0.0), morphNone, paramNoSave);
