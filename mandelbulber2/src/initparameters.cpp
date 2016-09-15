@@ -370,6 +370,8 @@ void InitParams(cParameterContainer *par)
 																													 + QDir::separator() + "keyframe"),
 		morphNone, paramStandard);
 
+	par->addParam("description", QString(""), morphNone, paramStandard);
+
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);
 	par->addParam("net_render_client_IP", QString("10.0.0.4"), morphNone, paramApp);

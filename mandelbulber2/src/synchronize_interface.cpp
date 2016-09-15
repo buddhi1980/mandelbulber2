@@ -45,6 +45,7 @@
 #include "../qt/my_spin_box.h"
 #include "fractal_list.hpp"
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QPlainTextEdit>
 
 using namespace qInterface;
 
@@ -666,6 +667,42 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 			}
 		}
 	}
+
+	WriteLog("cInterface::SynchronizeInterface: QPlainTextEdit", 3);
+	//----------- QPlainTextEdit -------------------
+	{
+		QList<QPlainTextEdit *> widgetListLineEdit = window->findChildren<QPlainTextEdit *>();
+		QList<QPlainTextEdit *>::iterator it;
+
+		for (it = widgetListLineEdit.begin(); it != widgetListLineEdit.end(); ++it)
+		{
+			QString name = (*it)->objectName();
+			QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (className == QString("QPlainTextEdit") ))
+			{
+				QPlainTextEdit *textEdit = *it;
+
+				QString type, parameterName;
+				GetNameAndType(name, &parameterName, &type);
+
+				//----------- get texts ------------
+				if (type == QString("text"))
+				{
+					if (mode == read)
+					{
+						QString value = textEdit->toPlainText();
+						par->Set(parameterName, value);
+					}
+					else if (mode == write)
+					{
+						QString value = par->Get<QString>(parameterName);
+						textEdit->setPlainText(value);
+					}
+				}
+			}
+		} // end foreach
+	}
+
 	WriteLog("cInterface::SynchronizeInterface: Done", 3);
 }
 

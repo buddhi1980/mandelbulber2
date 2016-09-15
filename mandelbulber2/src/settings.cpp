@@ -59,12 +59,19 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	WriteLog("Create settings text", 3);
 	settingsText.clear();
 	settingsText += CreateHeader();
+	if((format == formatFullText || format == formatCondensedText)
+			 && par->IfExists("description") && par->Get<QString>("description") != "")
+	{
+		settingsText += "[description]\n";
+		settingsText += par->Get<QString>("description") + "\n";
+	}
 	settingsText += "[main_parameters]\n";
 
 	// standard parameters
 	QList<QString> parameterList = par->GetListOfParameters();
 	for (int i = 0; i < parameterList.size(); i++)
 	{
+		if(parameterList[i] == "description") continue;
 		settingsText += CreateOneLine(par, parameterList[i]);
 	}
 
@@ -413,7 +420,8 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		"*frames)",
 		2);
 
-	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+	QString settingsTextTrimmed = settingsText.trimmed();
+	QStringList separatedText = settingsTextTrimmed.split(QRegExp("[\r\n]"), QString::KeepEmptyParts);
 	DecodeHeader(separatedText);
 
 	int errorCount = 0;
@@ -448,10 +456,24 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			QString line = separatedText[l];
 			bool isNewSection = CheckSection(line, section);
 
-			if (isNewSection) csvLine = 0;
-
-			if (!isNewSection)
+			if (isNewSection)
 			{
+				csvLine = 0;
+				continue;
+			}
+			else if (section == QString("description"))
+			{
+				// concat multiline description
+				QString description = "";
+				if(par->IfExists("description")) description = par->Get<QString>("description");
+				if(description != "") description += "\n";
+				description += line;
+				par->Set("description", description);
+				continue;
+			}
+			else
+			{
+				if(line == "") continue;
 				bool result = false;
 				if (section == QString("main_parameters"))
 				{
@@ -650,7 +672,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 bool cSettings::CheckSection(QString text, QString &section)
 {
-	if (text.left(1) == "[")
+	if (text.left(1) == "[" && text.right(1) == "]")
 	{
 		section = text.mid(1, text.length() - 2);
 		return true;
