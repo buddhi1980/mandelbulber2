@@ -95,6 +95,8 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		// connect system tray
 		connect(
 			mainInterface->systemTray, SIGNAL(notifyRenderFlight()), this, SLOT(slotRenderFlight()));
+		connect(this, SIGNAL(notifyRenderFlightRenderStatus(QString, QString)), mainInterface->systemTray,
+			SLOT(showMessage(QString, QString)));
 
 		// connect QuestionMessage signal
 		connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
@@ -825,6 +827,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,
 			cProgressText::progress_ANIMATION);
+		emit notifyRenderFlightRenderStatus(QObject::tr("Animation finished"), progressText.getText(1.0));
 		emit updateProgressHide();
 	}
 	catch (bool ex)

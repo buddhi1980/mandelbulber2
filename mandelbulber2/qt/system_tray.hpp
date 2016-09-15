@@ -60,8 +60,10 @@ private:
 	bool isBusy;
 	QTimer *checkBusyTimer;
 
-private slots:
+public slots:
 	void showMessage(QString text, QString progressText);
+
+private slots:
 	void slotStopped();
 	void slotStarted();
 	void slotToggleNotification(bool notify);

@@ -120,6 +120,7 @@ signals:
 		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 	void showErrorMessage(
 		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = NULL);
+	void notifyRenderKeyframeRenderStatus(QString text, QString progressText);
 };
 
 extern cKeyframeAnimation *gKeyframeAnimation;

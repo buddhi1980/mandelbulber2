@@ -129,6 +129,7 @@ signals:
 		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 	void showErrorMessage(
 		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = NULL);
+	void notifyRenderFlightRenderStatus(QString text, QString progressText);
 };
 
 extern cFlightAnimation *gFlightAnimation;

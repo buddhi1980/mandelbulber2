@@ -100,6 +100,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		// connect system tray
 		connect(mainInterface->systemTray, SIGNAL(notifyRenderKeyframes()), this,
 			SLOT(slotRenderKeyframes()));
+		connect(this, SIGNAL(notifyRenderKeyframeRenderStatus(QString, QString)), mainInterface->systemTray,
+			SLOT(showMessage(QString, QString)));
 
 		QApplication::connect(this, SIGNAL(QuestionMessage(const QString, const QString,
 																	QMessageBox::StandardButtons, QMessageBox::StandardButton *)),
@@ -674,6 +676,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,
 			cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
+		emit notifyRenderKeyframeRenderStatus(QObject::tr("Animation finished"), progressText.getText(1.0));
 	}
 	catch (bool ex)
 	{

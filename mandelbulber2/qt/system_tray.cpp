@@ -84,7 +84,6 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 
 	slotStopped();
 	systemTrayIcon->show();
-	showMessage("tray init", QString("This tray has just been inited."));
 
 	// TODO remove timer and replace with proper signal connection
 	// to slotStarted and slotStopped
