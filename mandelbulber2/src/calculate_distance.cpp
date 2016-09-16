@@ -82,15 +82,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 
 		distance = CalculateDistanceSimple(params, fractals, inTemp, out, 0) / params.formulaScale[0];
 
-		if (data && data->materials[data->objectData[0].materialId].useDisplacementTexture)
-		{
-			CVector2<double> textureCoordinates;
-			textureCoordinates = CVector2<double>(in.point.x * 1.0, in.point.y * 1.0);
-			sRGBfloat bump3 = data->materials[1].displacementTexture.Pixel(textureCoordinates);
-			double bump = bump3.R;
-			distance -= bump * 0.025;
-			if (distance < 0.0) distance = 0.0;
-		}
+		distance = DisplacementMap(distance, in.point, 0, data);
 
 		for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 		{
