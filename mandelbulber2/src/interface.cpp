@@ -390,6 +390,8 @@ void cInterface::ConnectSignals(void)
 		mainWindow, SLOT(slotCheckedDetailLevelLock(int)));
 	QApplication::connect(mainWindow->ui->checkBox_connect_detail_level_2, SIGNAL(stateChanged(int)),
 		mainWindow, SLOT(slotCheckedDetailLevelLock(int)));
+	QApplication::connect(mainWindow->ui->logedit_detail_level, SIGNAL(textChanged(const QString &)),
+		mainWindow, SLOT(slotDetailLevelChanged()));
 
 	// quality presets
 	QApplication::connect(mainWindow->ui->pushButton_quality_preset_very_low, SIGNAL(clicked()),

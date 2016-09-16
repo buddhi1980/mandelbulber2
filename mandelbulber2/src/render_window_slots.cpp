@@ -361,11 +361,7 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 	if (ui->checkBox_connect_detail_level->isChecked())
 	{
 		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
-		bool constantDEThreshold = gPar->Get<bool>("constant_DE_threshold");
-		if (constantDEThreshold)
-			gPar->Set("DE_thresh", gMainInterface->lockedDetailLevel * sizeRatio);
-		else
-			gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
+		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
 		SynchronizeInterfaceWindow(ui->groupBox_distanceEstimation, gPar, qInterface::write);
 	}
 }
@@ -437,11 +433,7 @@ void RenderWindow::slotPressedResolutionPreset()
 	if (ui->checkBox_connect_detail_level->isChecked())
 	{
 		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
-		bool constantDEThreshold = gPar->Get<bool>("constant_DE_threshold");
-		if (constantDEThreshold)
-			gPar->Set("DE_thresh", gMainInterface->lockedDetailLevel * sizeRatio);
-		else
-			gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
+		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
 		SynchronizeInterfaceWindow(ui->groupBox_distanceEstimation, gPar, qInterface::write);
 	}
 }
@@ -964,13 +956,7 @@ void RenderWindow::slotCheckedDetailLevelLock(int state)
 	if (state)
 	{
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
-		bool constantDEThreshold = gPar->Get<bool>("constant_DE_threshold");
-
-		if (constantDEThreshold)
-			gMainInterface->lockedDetailLevel = gPar->Get<double>("DE_thresh");
-		else
-			gMainInterface->lockedDetailLevel = gPar->Get<double>("detail_level");
-
+		gMainInterface->lockedDetailLevel = gPar->Get<double>("detail_level");
 		gMainInterface->lockedImageResolution =
 			CVector2<int>(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	}
@@ -985,3 +971,22 @@ void RenderWindow::slotCheckedDetailLevelLock(int state)
 	}
 }
 
+void RenderWindow::slotDetailLevelChanged()
+{
+	if (ui->checkBox_connect_detail_level->isChecked())
+	{
+		bool constantDEThreshold = gPar->Get<bool>("constant_DE_threshold");
+
+		if (!constantDEThreshold)
+		{
+			SynchronizeInterfaceWindow((QWidget *)this->sender()->parent(), gPar, qInterface::read);
+			double detailLevel = gPar->Get<double>("detail_level");
+			double sizeRatio = detailLevel / gMainInterface->lockedDetailLevel;
+			gPar->Set("image_width", gMainInterface->lockedImageResolution.x / sizeRatio);
+			gPar->Set("image_height", gMainInterface->lockedImageResolution.y / sizeRatio);
+			bool oldState = this->sender()->blockSignals(true);
+			SynchronizeInterfaceWindow(ui->groupBox_imageResolution, gPar, qInterface::write);
+			this->sender()->blockSignals(oldState);
+		}
+	}
+}

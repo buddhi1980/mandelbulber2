@@ -192,6 +192,7 @@ private slots:
 	void slotPressedImagesizeDecrease();
 	void slotImageHeightChanged(int value);
 	void slotCheckedDetailLevelLock(int state);
+	void slotDetailLevelChanged();
 
 	// rendered image widget
 	void slotMouseMovedOnImage(int x, int y);
