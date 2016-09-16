@@ -261,8 +261,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Imaginary scator Power 2", "imagsca_power_2",
 		fastImagscaPower2, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Cross Menger", "cross_menger", crossMenger,
-		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+  fractalList->append(sFractalDescription("Cross Menger", "cross_menger", crossMenger,
+    analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
+  fractalList->append(sFractalDescription("Cross Menger Mod1", "cross_menger_mod1", crossMengerMod1,
+    analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
 	// ------------------ 4D -----------------------
 
