@@ -123,7 +123,9 @@ void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &
 void CollatzIteration(CVector3 &z, sExtendedAux &aux);
 void CollatzModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void CrossMengerIteration(
-	CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
+  CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void CrossMengerMod1Iteration(
+  CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);

@@ -505,9 +505,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case crossMenger:
 				{
-					CrossMengerIteration(z, c, i, fractal, extendedAux);
+          CrossMengerIteration(z, i, fractal, extendedAux);
 					break;
 				}
+
+        case crossMengerMod1:
+        {
+          CrossMengerMod1Iteration(z, i, fractal, extendedAux);
+          break;
+        }
+
 
 				// transforms
 				// ------------------------------------------------------------------------------------------
@@ -1131,6 +1138,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kaleidoscopicIFS:
 				case menger_sponge:
 				case crossMenger:
+        case crossMengerMod1:
 				case mengerPrismShape:
 				case collatz:
 				case collatzMod:
