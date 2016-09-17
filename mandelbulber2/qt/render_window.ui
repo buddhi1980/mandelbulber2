@@ -20533,6 +20533,14 @@ and water):</string>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="font">
+                <font>
+                 <family>Monospace</family>
+                </font>
+               </property>
+               <property name="placeholderText">
+                <string>An explaining description of the settings.</string>
+               </property>
               </widget>
              </item>
             </layout>
