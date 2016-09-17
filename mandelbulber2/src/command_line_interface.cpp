@@ -141,6 +141,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption testOption(QStringList({"t", "test"}),
 		QCoreApplication::translate("main", "This will run testcases on the mandelbulber instance"));
 
+	QCommandLineOption touchOption(QStringList({"T", "touch"}),
+		QCoreApplication::translate("main", "This will resave a settings file (can be used to update a settings file)"));
+
 	QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
 		QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));
 
@@ -177,6 +180,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(noColorOption);
 	parser.addOption(queueOption);
 	parser.addOption(testOption);
+	parser.addOption(touchOption);
 	parser.addOption(voxelOption);
 	parser.addOption(overrideOption);
 	parser.addOption(statsOption);
@@ -205,6 +209,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.queue = parser.isSet(queueOption);
 	cliData.voxel = parser.isSet(voxelOption);
 	cliData.test = parser.isSet(testOption);
+	cliData.touch = parser.isSet(touchOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
 	cliData.showExampleHelp = parser.isSet(helpExamplesOption);
 	systemData.statsOnCLI = parser.isSet(statsOption);
@@ -445,6 +450,13 @@ void cCommandLineInterface::ReadCLI()
 					settingsSpecified = true;
 					systemData.lastSettingsFile = filename;
 					systemData.settingsLoadedFromCLI = true;
+					if(cliData.touch)
+					{
+						parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+						parSettings.SaveToFile(filename);
+						qDebug() << "touched file: " << filename;
+						exit(0);
+					}
 				}
 				else
 				{
