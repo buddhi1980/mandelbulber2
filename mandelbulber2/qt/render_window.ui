@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>851</width>
+           <width>897</width>
            <height>1415</height>
           </rect>
          </property>
@@ -375,8 +375,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>416</width>
+          <y>-393</y>
+          <width>370</width>
           <height>699</height>
          </rect>
         </property>
@@ -3300,7 +3300,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>430</width>
+          <width>384</width>
           <height>307</height>
          </rect>
         </property>
@@ -3370,7 +3370,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
+                  <width>334</width>
                   <height>523</height>
                  </rect>
                 </property>
@@ -4261,7 +4261,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
+                  <width>334</width>
                   <height>527</height>
                  </rect>
                 </property>
@@ -5059,7 +5059,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>394</width>
+                  <width>348</width>
                   <height>293</height>
                  </rect>
                 </property>
@@ -5356,7 +5356,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
+                  <width>334</width>
                   <height>1507</height>
                  </rect>
                 </property>
@@ -7631,7 +7631,7 @@ Disables 'Update image' options)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>416</width>
+          <width>370</width>
           <height>430</height>
          </rect>
         </property>
@@ -7733,7 +7733,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -8950,7 +8950,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -10113,7 +10113,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -11270,7 +11270,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -12427,7 +12427,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -13584,7 +13584,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -14741,7 +14741,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -15898,7 +15898,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -17052,7 +17052,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
+                      <width>264</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -18223,8 +18223,8 @@ for 4D fractals</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
-                  <height>546</height>
+                  <width>320</width>
+                  <height>831</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -18375,6 +18375,62 @@ for 4D fractals</string>
                       </property>
                       <property name="text">
                        <string>Get Julia constant by mouse pointer</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QGridLayout" name="gridLayout_7">
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="spacing">
+                       <number>2</number>
+                      </property>
+                      <item row="0" column="1">
+                       <widget class="QSlider" name="logslider_julia_preview_distance">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="sizeIncrement">
+                         <size>
+                          <width>0</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="minimum">
+                         <number>-1500</number>
+                        </property>
+                        <property name="maximum">
+                         <number>400</number>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_133">
+                        <property name="text">
+                         <string>Julia mode
+preview distance:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="2">
+                       <widget class="MyLineEdit" name="logedit_julia_preview_distance"/>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="cThumbnailWidget" name="previewwidget_julia" native="true">
+                      <property name="minimumSize">
+                       <size>
+                        <width>256</width>
+                        <height>256</height>
+                       </size>
                       </property>
                      </widget>
                     </item>
@@ -20003,7 +20059,7 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
+                  <width>334</width>
                   <height>416</height>
                  </rect>
                 </property>
@@ -20547,8 +20603,8 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-168</y>
-          <width>416</width>
+          <y>0</y>
+          <width>370</width>
           <height>1114</height>
          </rect>
         </property>
@@ -24122,7 +24178,7 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>416</width>
+          <width>370</width>
           <height>75</height>
          </rect>
         </property>
@@ -24554,6 +24610,12 @@ keyframes</string>
    <class>cMaterialManagerView</class>
    <extends>QWidget</extends>
    <header>material_manager_view.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cThumbnailWidget</class>
+   <extends>QWidget</extends>
+   <header>thumbnail_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

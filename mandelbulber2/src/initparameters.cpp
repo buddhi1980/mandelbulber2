@@ -410,6 +410,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("connect_detail_level", false, morphNone, paramNoSave);
 	par->addParam("connect_detail_level_2", false, morphNone, paramNoSave);
 
+	par->addParam("julia_preview_distance", 3.0, 1e-10, 1000.0, morphNone, paramApp);
+
 	// measurement
 	par->addParam("meas_point", CVector3(0.0, 0.0, 0.0), morphNone, paramNoSave);
 	par->addParam("meas_distance_from_last", 0.0, morphNone, paramNoSave);

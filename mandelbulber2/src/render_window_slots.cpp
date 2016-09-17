@@ -990,3 +990,31 @@ void RenderWindow::slotDetailLevelChanged()
 		}
 	}
 }
+
+void RenderWindow::slotChangedJuliaPoint()
+{
+	if(ui->groupCheck_julia_mode->isChecked() && gMainInterface->interfaceReady)
+	{
+		cParameterContainer params;
+		InitParams(&params);
+		InitMaterialParams(1, &params);
+		SynchronizeInterfaceWindow(ui->groupCheck_julia_mode, &params, qInterface::read);
+		params.SetContainerName("juliaPreview");
+
+		double cameraDistance = params.Get<double>("julia_preview_distance");
+		CVector3 target(0.0, 0.0, 0.0);
+		CVector3 direction = gPar->Get<CVector3>("camera") - gPar->Get<CVector3>("target");
+		direction.Normalize();
+		CVector3 camera = target + direction * cameraDistance;
+
+		params.Set("camera", camera);
+		params.Set("target", target);
+		params.Set("julia_mode", true);
+		params.Set("ambient_occlusion_enabled", true);
+		params.Copy("camera_top", gPar);
+		params.Copy("formula_1", gPar);
+		params.Copy("fractal_constant_factor", gPar);
+
+		ui->previewwidget_julia->AssignParameters(params, *gParFractal);
+	}
+}

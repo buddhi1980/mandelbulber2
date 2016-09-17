@@ -47,17 +47,25 @@
 #include "../src/common_math.h"
 #include "../src/system.hpp"
 
+cThumbnailWidget::cThumbnailWidget(QWidget *parent) : QWidget(parent)
+{
+	Init(parent);
+}
+
 cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent)
 		: QWidget(parent)
 {
-	tWidth = _width;
-	tHeight = _height;
-	oversample = _oversample;
-	image = new cImage(tWidth * oversample, tHeight * oversample, true);
-	image->CreatePreview(1.0 / oversample, tWidth, tWidth, this);
+	Init(parent);
+	SetSize(_width, _height, _oversample);
+}
+
+void cThumbnailWidget::Init(QWidget *parent)
+{
+	image = NULL;
+	tWidth = 0;
+	tHeight = 0;
+	oversample = 0;
 	progressBar = NULL;
-	setFixedWidth(tWidth);
-	setFixedHeight(tHeight);
 	stopRequest = false;
 	isRendered = false;
 	hasParameters = false;
@@ -77,6 +85,17 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 	instanceIndex = instanceCount;
 	instanceCount++;
 	// qDebug() << "cThumbnailWidget constructed" << instanceCount;
+}
+
+void cThumbnailWidget::SetSize(int _width, int _height, int _oversample)
+{
+	tWidth = _width;
+	tHeight = _height;
+	oversample = _oversample;
+	image = new cImage(tWidth * oversample, tHeight * oversample, true);
+	image->CreatePreview(1.0 / oversample, tWidth, tWidth, this);
+	setFixedWidth(tWidth);
+	setFixedHeight(tHeight);
 }
 
 cThumbnailWidget::~cThumbnailWidget()
@@ -100,130 +119,146 @@ cThumbnailWidget::~cThumbnailWidget()
 
 void cThumbnailWidget::paintEvent(QPaintEvent *event)
 {
-	event->accept();
-	if (hasParameters)
+	if (image)
 	{
-		if (!isRendered)
+		event->accept();
+		if (hasParameters)
 		{
-			isRendered = true;
-			timer->stop();
-			emit renderRequest();
+			if (!isRendered)
+			{
+				isRendered = true;
+				timer->stop();
+				emit renderRequest();
+			}
 		}
+		image->RedrawInWidget(this);
 	}
-	image->RedrawInWidget(this);
 }
 
 void cThumbnailWidget::AssignParameters(
 	const cParameterContainer &_params, const cFractalContainer &_fractal)
 {
-	if (!params) params = new cParameterContainer;
-	if (!fractal) fractal = new cFractalContainer;
-	*params = _params;
-	*fractal = _fractal;
-	params->Set("image_width", tWidth * oversample);
-	params->Set("image_height", tHeight * oversample);
-	cSettings tempSettings(cSettings::formatCondensedText);
-	tempSettings.CreateText(params, fractal);
-	oldHash = hash;
-	hash = tempSettings.GetHashCode();
-
-	if (hash != oldHash)
+	if (image)
 	{
-		stopRequest = true;
-		while (image->IsUsed())
-		{
-			// just wait and pray
-		}
+		if (!params) params = new cParameterContainer;
+		if (!fractal) fractal = new cFractalContainer;
+		*params = _params;
+		*fractal = _fractal;
+		params->Set("image_width", tWidth * oversample);
+		params->Set("image_height", tHeight * oversample);
+		cSettings tempSettings(cSettings::formatCondensedText);
+		tempSettings.CreateText(params, fractal);
+		oldHash = hash;
+		hash = tempSettings.GetHashCode();
 
-		emit settingsChanged();
-
-		isRendered = false;
-		hasParameters = true;
-
-		QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
-		if (QFileInfo::exists(thumbnailFileName) && !disableThumbnailCache)
+		if (hash != oldHash)
 		{
 			stopRequest = true;
-			isRendered = true;
 			while (image->IsUsed())
 			{
 				// just wait and pray
 			}
 
-			QPixmap pixmap;
-			pixmap.load(thumbnailFileName);
-			pixmap = pixmap.scaled(tWidth, tHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-			QImage qimage = pixmap.toImage();
-			qimage = qimage.convertToFormat(QImage::Format_RGB888);
-			sRGB8 *bitmap;
-			bitmap = (sRGB8 *)(qimage.bits());
-			int bwidth = qimage.width();
-			int bheight = qimage.height();
-			sRGB8 *previewPointer = (sRGB8 *)image->GetPreviewPrimaryPtr();
-			sRGB8 *preview2Pointer = (sRGB8 *)image->GetPreviewPtr();
-			memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
-			memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
-			delete params;
-			params = NULL;
-			delete fractal;
-			fractal = NULL;
-			emit thumbnailRendered();
-		}
-		else
-		{
-			if (!disableTimer)
-			{
-				// render thumbnail after random time. It forces rendering of widgets when they are not
-				// visible. It makes rendering of widgets when they are idle.
+			emit settingsChanged();
 
-				timer->start(Random(100000) * 10 + 1);
+			isRendered = false;
+			hasParameters = true;
+
+			QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
+			if (QFileInfo::exists(thumbnailFileName) && !disableThumbnailCache)
+			{
+				stopRequest = true;
+				isRendered = true;
+				while (image->IsUsed())
+				{
+					// just wait and pray
+				}
+
+				QPixmap pixmap;
+				pixmap.load(thumbnailFileName);
+				pixmap = pixmap.scaled(tWidth, tHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+				QImage qimage = pixmap.toImage();
+				qimage = qimage.convertToFormat(QImage::Format_RGB888);
+				sRGB8 *bitmap;
+				bitmap = (sRGB8 *)(qimage.bits());
+				int bwidth = qimage.width();
+				int bheight = qimage.height();
+				sRGB8 *previewPointer = (sRGB8 *)image->GetPreviewPrimaryPtr();
+				sRGB8 *preview2Pointer = (sRGB8 *)image->GetPreviewPtr();
+				memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
+				memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
+				delete params;
+				params = NULL;
+				delete fractal;
+				fractal = NULL;
+				emit thumbnailRendered();
+			}
+			else
+			{
+				if (!disableTimer)
+				{
+					// render thumbnail after random time. It forces rendering of widgets when they are not
+					// visible. It makes rendering of widgets when they are idle.
+
+					timer->start(Random(100000) * 10 + 1);
+				}
 			}
 		}
+	}
+	else
+	{
+		qCritical() << "Image not yet allocated!";
 	}
 }
 
 void cThumbnailWidget::slotRender()
 {
-
-	stopRequest = true;
-	while (image->IsUsed())
+	if (image)
 	{
-		// just wait and pray
-		Wait(100);
+		stopRequest = true;
+		while (image->IsUsed())
+		{
+			// just wait and pray
+			Wait(100);
+		}
+
+		// random wait to not generate to many events at exactly the same time
+		Wait(Random(100) + 50);
+		stopRequest = false;
+
+		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, (QWidget *)this);
+		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+
+		renderingTimeTimer.start();
+		renderJob->UseSizeFromImage(true);
+
+		cRenderingConfiguration config;
+		if (useOneCPUCore) config.DisableMultiThread();
+		config.EnableIgnoreErros();
+		config.DisableNetRender();
+
+		renderJob->Init(cRenderJob::still, config);
+
+		QThread *thread = new QThread;
+		renderJob->moveToThread(thread);
+		QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
+
+		while (renderJob->GetRunningJobCount() > systemData.numberOfThreads * 5)
+		{
+		}
+		thread->setObjectName("ThumbnailWorker");
+		thread->start();
+
+		QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
+		QObject::connect(renderJob, SIGNAL(finished()), thread, SLOT(quit()));
+		QObject::connect(renderJob, SIGNAL(fullyRendered()), this, SLOT(slotFullyRendered()));
+		QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 	}
-
-	// random wait to not generate to many events at exactly the same time
-	Wait(Random(100) + 50);
-	stopRequest = false;
-
-	cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, (QWidget *)this);
-	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-
-	renderingTimeTimer.start();
-	renderJob->UseSizeFromImage(true);
-
-	cRenderingConfiguration config;
-	if (useOneCPUCore) config.DisableMultiThread();
-	config.EnableIgnoreErros();
-	config.DisableNetRender();
-
-	renderJob->Init(cRenderJob::still, config);
-
-	QThread *thread = new QThread;
-	renderJob->moveToThread(thread);
-	QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
-
-	while (renderJob->GetRunningJobCount() > systemData.numberOfThreads * 5)
+	else
 	{
+		qCritical() << "Image not yet allocated!";
 	}
-	thread->setObjectName("ThumbnailWorker");
-	thread->start();
-
-	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
-	QObject::connect(renderJob, SIGNAL(finished()), thread, SLOT(quit()));
-	QObject::connect(renderJob, SIGNAL(fullyRendered()), this, SLOT(slotFullyRendered()));
-	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 }
 
 void cThumbnailWidget::slotFullyRendered()

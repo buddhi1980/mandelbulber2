@@ -390,14 +390,14 @@ QString cParameterContainer::nameWithIndex(QString *str, int index) const
 	return name;
 }
 
-void cParameterContainer::Copy(QString name, const cParameterContainer &sourceContainer)
+void cParameterContainer::Copy(QString name, const cParameterContainer *sourceContainer)
 {
 	QMap<QString, cOneParameter>::const_iterator itSource;
 	QMap<QString, cOneParameter>::iterator itDest;
 	itDest = myMap.find(name);
 	if (itDest != myMap.end())
 	{
-		itSource = sourceContainer.myMap.find(name);
+		itSource = sourceContainer->myMap.find(name);
 		if (itSource != myMap.end())
 		{
 			itDest.value() = itSource.value();

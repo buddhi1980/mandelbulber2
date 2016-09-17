@@ -48,8 +48,11 @@ class cThumbnailWidget : public QWidget
 {
 	Q_OBJECT
 public:
+	cThumbnailWidget(QWidget *parent);
 	cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent);
 	~cThumbnailWidget();
+	void Init(QWidget *parent);
+	void SetSize(int _width, int _height, int _oversample);
 	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
 	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
 	void DisableTimer() { disableTimer = true; }

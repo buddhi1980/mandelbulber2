@@ -266,6 +266,8 @@ void cInterface::ShowUi(void)
 
 	mainWindow->slotPopulateToolbar();
 
+	mainWindow->ui->previewwidget_julia->SetSize(256, 256, 2);
+
 	systemTray = new cSystemTray(mainImage, mainWindow);
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);
@@ -293,6 +295,12 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->logedit_aux_light_manual_placement_dist,
 		SIGNAL(textChanged(const QString &)), mainWindow,
 		SLOT(slotEditedLineEditManualLightPlacementDistance(const QString &)));
+	QApplication::connect(mainWindow->ui->vect3_julia_c_x, SIGNAL(textChanged(const QString &)),
+		mainWindow, SLOT(slotChangedJuliaPoint()));
+	QApplication::connect(mainWindow->ui->vect3_julia_c_y, SIGNAL(textChanged(const QString &)),
+		mainWindow, SLOT(slotChangedJuliaPoint()));
+	QApplication::connect(mainWindow->ui->vect3_julia_c_z, SIGNAL(textChanged(const QString &)),
+		mainWindow, SLOT(slotChangedJuliaPoint()));
 	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target,
 		SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
 	QApplication::connect(mainWindow->ui->logslider_aux_light_manual_placement_dist,
@@ -832,6 +840,8 @@ void cInterface::StartRender(bool noUndo)
 	}
 
 	if (!noUndo) gUndo.Store(gPar, gParFractal);
+
+	DisableJuliaPointMode();
 
 	cRenderJob *renderJob = new cRenderJob(
 		gPar, gParFractal, mainImage, &stopRequest, renderedImage); // deleted by deleteLater()
@@ -1484,13 +1494,7 @@ void cInterface::SetByMouse(
 					SynchronizeInterfaceWindow(
 						mainWindow->ui->groupCheck_julia_mode, gPar, qInterface::write);
 
-					QList<QVariant> item;
-					item.append((int)RenderedImage::clickMoveCamera);
-					int index = mainWindow->ui->comboBox_mouse_click_function->findData(item);
-					mainWindow->ui->comboBox_mouse_click_function->setCurrentIndex(index);
-					gMainInterface->renderedImage->setClickMode(item);
-
-					StartRender();
+					//StartRender();
 					break;
 				}
 				case RenderedImage::clickPlacePrimitive:
@@ -2251,6 +2255,23 @@ void cInterface::StartupDefaultSettings(void)
 	gPar->Set("raytraced_reflections", true);
 	gPar->Set("detail_level", 1.0);
 }
+
+void cInterface::DisableJuliaPointMode()
+{
+	QList<QVariant> itemMouseMove;
+	itemMouseMove.append((int)RenderedImage::clickMoveCamera);
+
+	QList<QVariant> itemJuliaMode;
+	itemJuliaMode.append((int)RenderedImage::clickGetJuliaConstant);
+
+	if (mainWindow->ui->comboBox_mouse_click_function->currentData() == itemJuliaMode)
+	{
+		int index = mainWindow->ui->comboBox_mouse_click_function->findData(itemMouseMove);
+		mainWindow->ui->comboBox_mouse_click_function->setCurrentIndex(index);
+		gMainInterface->renderedImage->setClickMode(itemMouseMove);
+	}
+}
+
 
 // function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

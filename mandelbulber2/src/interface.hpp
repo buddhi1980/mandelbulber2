@@ -110,6 +110,7 @@ public:
 	void InitMaterialsUi();
 	void MaterialSelected(int matIndex);
 	void StartupDefaultSettings(void);
+	void DisableJuliaPointMode();
 
 	bool QuitApplicationDialog();
 

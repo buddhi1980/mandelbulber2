@@ -141,6 +141,7 @@ private slots:
 	void slotChangedCheckBoxBooleanOperators(bool state);
 	void slotChangedCheckBoxJuliaMode(bool state);
 	void slotToggledFractalEnable(int fractalIndex, bool enabled);
+	void slotChangedJuliaPoint();
 
 	// IFS
 	void slotPressedButtonIFSDefaultsDodecahedron();

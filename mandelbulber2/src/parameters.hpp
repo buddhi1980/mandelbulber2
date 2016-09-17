@@ -78,7 +78,7 @@ public:
 	enumVarType GetVarType(QString name) const;
 	enumParameterType GetParameterType(QString name) const;
 	bool isDefaultValue(QString name) const;
-	void Copy(QString name, const cParameterContainer &sourceContainer);
+	void Copy(QString name, const cParameterContainer *sourceContainer);
 	QList<QString> GetListOfParameters(void) const;
 	void ResetAllToDefault(void);
 	void SetContainerName(QString name) { containerName = name; }
