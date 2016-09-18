@@ -39,6 +39,10 @@
 #include "files.h"
 #include "initparameters.hpp"
 
+extern "C" {
+#include <png.h>
+}
+
 using namespace std;
 
 string logfileName;
@@ -333,4 +337,147 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cIma
 	}
 	imageFileSave->SaveImage();
 	// return SaveImage(fileWithoutExtension, filetype, image, imageConfig);
+}
+
+sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
+{
+	png_structp png_ptr;
+	png_infop info_ptr;
+	unsigned int sig_read = 8;
+	int color_type, interlace_type;
+	FILE *fp;
+
+	if ((fp = fopen(filename.toLocal8Bit().constData(), "rb")) == NULL) return NULL;
+
+	png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
+	if (png_ptr == NULL)
+	{
+		fclose(fp);
+		return NULL;
+	}
+
+	uchar sig[8];
+	/* first do a quick check that the file really is a PNG image; could
+	 * have used slightly more general png_sig_cmp() function instead */
+	fread(sig, 1, 8, fp);
+	if (!png_check_sig(sig, 8)) return NULL; /* bad signature */
+
+	info_ptr = png_create_info_struct(png_ptr);
+	if (info_ptr == NULL)
+	{
+		fclose(fp);
+		png_destroy_read_struct(&png_ptr, NULL, NULL);
+		return NULL;
+	}
+
+	if (setjmp(png_jmpbuf(png_ptr)))
+	{
+		png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+		fclose(fp);
+		return NULL;
+	}
+
+	png_init_io(png_ptr, fp);
+
+	png_set_sig_bytes(png_ptr, sig_read);
+
+	png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_PACKING | PNG_TRANSFORM_EXPAND | PNG_TRANSFORM_SWAP_ENDIAN, NULL);
+
+	png_uint_32 width, height;
+	int bit_depth;
+	png_get_IHDR(
+		png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, &interlace_type, NULL, NULL);
+	outWidth = width;
+	outHeight = height;
+	unsigned int row_bytes = png_get_rowbytes(png_ptr, info_ptr);
+	//qDebug() << width << height << bit_depth << color_type << row_bytes;
+
+	sRGBA16 *image = new sRGBA16[outWidth * outHeight];
+
+	png_bytepp row_pointers = png_get_rows(png_ptr, info_ptr);
+	if (bit_depth == 8)
+	{
+		if (color_type == PNG_COLOR_TYPE_RGB)
+		{
+			for (int y = 0; y < outHeight; y++)
+			{
+				for (int x = 0; x < outWidth; x++)
+				{
+					unsigned char *pointer = (unsigned char *)row_pointers[y] + x * 3;
+					sRGBA16 pixel(pointer[0] * 256, pointer[1] * 256, pointer[2] * 256, 65535);
+					image[x + y * outWidth] = pixel;
+				}
+			}
+		}
+		else if (color_type == PNG_COLOR_TYPE_RGB_ALPHA)
+		{
+			for (int y = 0; y < outHeight; y++)
+			{
+				for (int x = 0; x < outWidth; x++)
+				{
+					unsigned char *pointer = (unsigned char *)row_pointers[y] + x * 4;
+					sRGBA16 pixel(pointer[0] * 256, pointer[1] * 256, pointer[2] * 256, pointer[2] * 256);
+					image[x + y * outWidth] = pixel;
+				}
+			}
+		}
+		if (color_type == PNG_COLOR_TYPE_GRAY)
+		{
+			for (int y = 0; y < outHeight; y++)
+			{
+				for (int x = 0; x < outWidth; x++)
+				{
+					unsigned char *pointer = (unsigned char *)row_pointers[y] + x;
+					sRGBA16 pixel(pointer[0] * 256, pointer[0] * 256, pointer[0] * 256, 65535);
+					image[x + y * outWidth] = pixel;
+				}
+			}
+		}
+	}
+	else if (bit_depth == 16)
+	{
+		if (color_type == PNG_COLOR_TYPE_RGB)
+		{
+			for (int y = 0; y < outHeight; y++)
+			{
+				for (int x = 0; x < outWidth; x++)
+				{
+					unsigned short *pointer = (unsigned short *)row_pointers[y] + x * 3;
+					sRGBA16 pixel(pointer[0], pointer[1], pointer[2], 65535);
+					image[x + y * outWidth] = pixel;
+				}
+			}
+		}
+		else if (color_type == PNG_COLOR_TYPE_RGB_ALPHA)
+		{
+			for (int y = 0; y < outHeight; y++)
+			{
+				for (int x = 0; x < outWidth; x++)
+				{
+					unsigned short *pointer = (unsigned short *)row_pointers[y] + x * 4;
+					sRGBA16 pixel(pointer[0], pointer[1], pointer[2], pointer[3]);
+					image[x + y * outWidth] = pixel;
+				}
+			}
+		}
+		if (color_type == PNG_COLOR_TYPE_GRAY)
+		{
+			for (int y = 0; y < outHeight; y++)
+			{
+				for (int x = 0; x < outWidth; x++)
+				{
+					unsigned short *pointer = (unsigned short *)row_pointers[y] + x;
+					sRGBA16 pixel(pointer[0], pointer[0], pointer[0], 65535);
+					image[x + y * outWidth] = pixel;
+				}
+			}
+		}
+	}
+
+	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+
+	 fclose(fp);
+
+   return image;
 }

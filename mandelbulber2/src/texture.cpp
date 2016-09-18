@@ -47,20 +47,43 @@
 cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 {
 	bitmap = NULL;
-	QImage qimage;
-	qimage.load(filename);
-	qimage = qimage.convertToFormat(QImage::Format_RGB888);
 
-	if (!qimage.isNull())
+	//try to load image if it's PNG format (this one supports 16-bit depth images)
+	bitmap = LoadPNG(filename, width, height);
+
+	//if not try to use Qt image loader
+	if(!bitmap)
 	{
-		width = qimage.width();
-		height = qimage.height();
-		bitmap = new sRGB8[width * height];
-
-		for (int y = 0; y < height; y++)
+		QImage qimage;
+		qimage.load(filename);
+		qimage = qimage.convertToFormat(QImage::Format_RGB888);
+		if (!qimage.isNull())
 		{
-			memcpy(&bitmap[y * width], qimage.scanLine(y), sizeof(sRGB8) * width);
+			width = qimage.width();
+			height = qimage.height();
+			bitmap = new sRGBA16[width * height];
+			for (int y = 0; y < height; y++)
+			{
+				sRGB8 *line = (sRGB8*)qimage.scanLine(y);
+				for (int x = 0; x < width; x++)
+				{
+					sRGBA16 pixel((unsigned short)line[x].R * 256, (unsigned short)line[x].G * 256, (unsigned short)line[x].B * 256, 65535);
+					bitmap[x + y * width] = pixel;
+				}
+			}
 		}
+	}
+
+	if (bitmap)
+	{
+		//width = qimage.width();
+		//height = qimage.height();
+		//bitmap = new sRGB8[width * height];
+
+		//for (int y = 0; y < height; y++)
+		//{
+		//	memcpy(&bitmap[y * width], qimage.scanLine(y), sizeof(sRGB8) * width);
+		//}
 
 		// qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): "
 		// 				 << "(sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
@@ -79,8 +102,8 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 		width = 100;
 		height = 100;
 		loaded = false;
-		bitmap = new sRGB8[100 * 100];
-		memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
+		bitmap = new sRGBA16[100 * 100];
+		memset(bitmap, 65535, sizeof(sRGBA16) * 100 * 100);
 		// qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): "
 		// 				 << "new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
 	}
@@ -94,10 +117,10 @@ cTexture::cTexture(const cTexture &tex)
 	height = tex.height;
 	loaded = tex.loaded;
 	originalFileName = tex.originalFileName;
-	bitmap = new sRGB8[width * height];
+	bitmap = new sRGBA16[width * height];
 	// qDebug() << "cTexture::cTexture(const cTexture &tex): "
 	// 				 << "new sRGB8[width * height]:" << width * height * sizeof(sRGB8);
-	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
+	memcpy(bitmap, tex.bitmap, sizeof(sRGBA16) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
 	invertGreen = tex.invertGreen;
@@ -116,10 +139,10 @@ cTexture &cTexture::operator=(const cTexture &tex)
 	height = tex.height;
 	loaded = tex.loaded;
 	originalFileName = tex.originalFileName;
-	bitmap = new sRGB8[width * height];
+	bitmap = new sRGBA16[width * height];
 	// qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): "
 	// 				 << "new sRGB8[width * height];:" << width * height * sizeof(sRGB8);
-	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
+	memcpy(bitmap, tex.bitmap, sizeof(sRGBA16) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
 	invertGreen = tex.invertGreen;
@@ -140,15 +163,22 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 	QImage qimage(*buffer);
 	qimage.loadFromData(*buffer);
 	qimage = qimage.convertToFormat(QImage::Format_RGB888);
+
 	if (!qimage.isNull())
 	{
 		width = qimage.width();
 		height = qimage.height();
-		bitmap = new sRGB8[width * height];
-		memcpy(bitmap, qimage.constBits(), sizeof(sRGB8) * width * height);
-		// qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): "
-		// 				 << "(sRGB8*)(qimage.bits()):" << width * height * sizeof(sRGB8);
-		CreateMipMaps();
+		bitmap = new sRGBA16[width * height];
+		for (int y = 0; y < height; y++)
+		{
+			sRGB8 *line = (sRGB8*)qimage.scanLine(y);
+			for (int x = 0; x < width; x++)
+			{
+				sRGBA16 pixel((unsigned short)line[x].R * 256, (unsigned short)line[x].G * 256, (unsigned short)line[x].B * 256, 65535);
+				bitmap[x + y * width] = pixel;
+			}
+		}
+
 		loaded = true;
 
 		if (mode == useMipmaps)
@@ -163,8 +193,8 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 		width = 100;
 		height = 100;
 		loaded = false;
-		bitmap = new sRGB8[100 * 100];
-		memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
+		bitmap = new sRGBA16[100 * 100];
+		memset(bitmap, 65535, sizeof(sRGBA16) * 100 * 100);
 	}
 }
 
@@ -173,8 +203,8 @@ cTexture::cTexture(void)
 	width = 100;
 	height = 100;
 	loaded = false;
-	bitmap = new sRGB8[100 * 100];
-	memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
+	bitmap = new sRGBA16[100 * 100];
+	memset(bitmap, 65535, sizeof(sRGBA16) * 100 * 100);
 	// qDebug() << "cTexture::cTexture(void):"
 	// 				 << "new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
 	invertGreen = false;
@@ -226,28 +256,28 @@ sRGBfloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
 	return MipMap(point.x, point.y, pixelSize);
 }
 
-sRGB8 cTexture::LinearInterpolation(double x, double y)
+sRGBA16 cTexture::LinearInterpolation(double x, double y)
 {
-	sRGB8 color;
+	sRGBA16 color;
 	int ix = (int)x;
 	int iy = (int)y;
 	double rx = (x - (int)x);
 	double ry = (y - (int)y);
-	sRGB8 k1 = bitmap[iy * width + ix];
-	sRGB8 k2 = bitmap[iy * width + ix + 1];
-	sRGB8 k3 = bitmap[(iy + 1) * width + ix];
-	sRGB8 k4 = bitmap[(iy + 1) * width + ix + 1];
-	color.R = (unsigned char)(k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry)
+	sRGBA16 k1 = bitmap[iy * width + ix];
+	sRGBA16 k2 = bitmap[iy * width + ix + 1];
+	sRGBA16 k3 = bitmap[(iy + 1) * width + ix];
+	sRGBA16 k4 = bitmap[(iy + 1) * width + ix + 1];
+	color.R = (unsigned short)(k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry)
 														+ k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
-	color.G = (unsigned char)(k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry)
+	color.G = (unsigned short)(k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry)
 														+ k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
-	color.B = (unsigned char)(k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry)
+	color.B = (unsigned short)(k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry)
 														+ k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
 	return color;
 }
 
 sRGBfloat cTexture::BicubicInterpolation(
-	double x, double y, const sRGB8 *bitmap, int w, int h) const
+	double x, double y, const sRGBA16 *bitmap, int w, int h) const
 {
 	int ix = (int)x;
 	int iy = (int)y;
@@ -265,7 +295,7 @@ sRGBfloat cTexture::BicubicInterpolation(
 			ixx = (ixx + w) % w;
 			iyy = (iyy + h) % h;
 			int address2 = ixx + iyy * w;
-			sRGB8 pixel = bitmap[address2];
+			sRGBA16 pixel = bitmap[address2];
 			R[xx][yy] = pixel.R;
 			G[xx][yy] = pixel.G;
 			B[xx][yy] = pixel.B;
@@ -276,16 +306,16 @@ sRGBfloat cTexture::BicubicInterpolation(
 	double dG = bicubicInterpolate(G, rx, ry);
 	double dB = bicubicInterpolate(B, rx, ry);
 	if (dR < 0) dR = 0;
-	if (dR > 255) dR = 255;
+	if (dR > 65535) dR = 65535;
 	if (dG < 0) dG = 0;
-	if (dG > 255) dG = 255;
+	if (dG > 65535) dG = 65535;
 	if (dB < 0) dB = 0;
-	if (dB > 255) dB = 255;
+	if (dB > 65535) dB = 65535;
 
-	return sRGBfloat((float)(dR / 256.0), (float)(dG / 256.0), (float)(dB / 256.0));
+	return sRGBfloat((float)(dR / 65536.0), (float)(dG / 65536.0), (float)(dB / 65536.0));
 }
 
-sRGB8 cTexture::FastPixel(int x, int y)
+sRGBA16 cTexture::FastPixel(int x, int y)
 {
 	return bitmap[x + y * width];
 }
@@ -350,7 +380,7 @@ sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 		double trans = dMipLayer - layerBig;
 		double transN = 1.0 - trans;
 
-		const sRGB8 *bigBitmap, *smallBitmap;
+		const sRGBA16 *bigBitmap, *smallBitmap;
 		CVector2<int> bigBitmapSize, smallBitmapSize;
 		if (layerBig >= 0 && layerBig <= mipmaps.length() && layerSmall >= 0
 				&& layerSmall <= mipmaps.length())
@@ -398,24 +428,24 @@ void cTexture::CreateMipMaps()
 	int prevH = height;
 	int w = width / 2;
 	int h = height / 2;
-	sRGB8 *prevBitmap = bitmap;
+	sRGBA16 *prevBitmap = bitmap;
 	while (w > 0 && h > 0)
 	{
-		QVector<sRGB8> newMipmapV(w * h);
-		sRGB8 *newMipmap = newMipmapV.data();
+		QVector<sRGBA16> newMipmapV(w * h);
+		sRGBA16 *newMipmap = newMipmapV.data();
 
 		for (int y = 0; y < h; y++)
 		{
 			for (int x = 0; x < w; x++)
 			{
-				sRGB8 newPixel;
-				sRGB8 p1 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2, prevH) * prevW];
-				sRGB8 p2 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2, prevH) * prevW];
-				sRGB8 p3 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
-				sRGB8 p4 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
-				newPixel.R = (unsigned char)(((int)p1.R + p2.R + p3.R + p4.R) / 4);
-				newPixel.G = (unsigned char)(((int)p1.G + p2.G + p3.G + p4.G) / 4);
-				newPixel.B = (unsigned char)(((int)p1.B + p2.B + p3.B + p4.B) / 4);
+				sRGBA16 newPixel;
+				sRGBA16 p1 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2, prevH) * prevW];
+				sRGBA16 p2 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2, prevH) * prevW];
+				sRGBA16 p3 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
+				sRGBA16 p4 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
+				newPixel.R = (unsigned short)(((int)p1.R + p2.R + p3.R + p4.R) / 4);
+				newPixel.G = (unsigned short)(((int)p1.G + p2.G + p3.G + p4.G) / 4);
+				newPixel.B = (unsigned short)(((int)p1.B + p2.B + p3.B + p4.B) / 4);
 				newMipmap[x + y * w] = newPixel;
 			}
 		}

@@ -51,5 +51,6 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 // void SaveAllImageLayers(const char *filename, cImage *image);
 void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cImage *image,
 	QObject *updateReceiver = 0);
+sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight);
 
 #endif /* MANDELBULBER2_SRC_FILES_H_ */

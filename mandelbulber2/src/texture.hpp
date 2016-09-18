@@ -67,7 +67,7 @@ public:
 	int Width(void) { return width; }
 	sRGBfloat Pixel(double x, double y, double pixelSize = 0.0);
 	sRGBfloat Pixel(CVector2<double> point, double pixelSize = 0.0) const;
-	sRGB8 FastPixel(int x, int y);
+	sRGBA16 FastPixel(int x, int y);
 	bool IsLoaded(void) const { return loaded; }
 	QString GetFileName() { return originalFileName; }
 	void FromQByteArray(QByteArray *buffer, enumUseMipmaps mode);
@@ -76,17 +76,17 @@ public:
 	void SetInvertGreen(bool invert) { invertGreen = invert; }
 
 private:
-	sRGB8 LinearInterpolation(double x, double y);
-	sRGBfloat BicubicInterpolation(double x, double y, const sRGB8 *bitmap, int w, int h) const;
+	sRGBA16 LinearInterpolation(double x, double y);
+	sRGBfloat BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h) const;
 	sRGBfloat MipMap(double x, double y, double pixelSize) const;
 	void CreateMipMaps();
 	inline int WrapInt(int a, int size) { return (a + size) % size; }
-	sRGB8 *bitmap;
+	sRGBA16 *bitmap;
 	int width;
 	int height;
 	bool loaded;
 	QString originalFileName;
-	QList<QVector<sRGB8>> mipmaps;
+	QList<QVector<sRGBA16>> mipmaps;
 	QList<CVector2<int>> mipmapSizes;
 	bool invertGreen;
 };
