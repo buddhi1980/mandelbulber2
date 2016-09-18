@@ -139,7 +139,10 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "Renders all images from common queue."));
 
 	QCommandLineOption testOption(QStringList({"t", "test"}),
-		QCoreApplication::translate("main", "This will run testcases on the mandelbulber instance"));
+		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
+
+	QCommandLineOption touchOption(QStringList({"T", "touch"}),
+		QCoreApplication::translate("main", "Resaves a settings file (can be used to update a settings file)"));
 
 	QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
 		QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));
@@ -177,6 +180,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(noColorOption);
 	parser.addOption(queueOption);
 	parser.addOption(testOption);
+	parser.addOption(touchOption);
 	parser.addOption(voxelOption);
 	parser.addOption(overrideOption);
 	parser.addOption(statsOption);
@@ -205,6 +209,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.queue = parser.isSet(queueOption);
 	cliData.voxel = parser.isSet(voxelOption);
 	cliData.test = parser.isSet(testOption);
+	cliData.touch = parser.isSet(touchOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
 	cliData.showExampleHelp = parser.isSet(helpExamplesOption);
 	systemData.statsOnCLI = parser.isSet(statsOption);
@@ -247,8 +252,8 @@ void cCommandLineInterface::ReadCLI()
 						 cHeadless::ansiYellow)
 				<< "\n";
 		out << QObject::tr(
-						 "Renders the keyframe animation of the file keyframe_fractal.fract"
-						 "within frames 200 till 300")
+						 "Renders the keyframe animation of the file keyframe_fractal.fract "
+						 "within frames 200 till 300.")
 				<< "\n\n";
 
 		out << cHeadless::colorize(QObject::tr("Network render"), cHeadless::ansiBlue) << "\n";
@@ -261,8 +266,8 @@ void cCommandLineInterface::ReadCLI()
 						 "In a network you can render on multiple machines. One is a server (2) and multiple "
 						 "clients (1) can connect to help rendering.\n"
 						 "On each client run (1), 192.168.100.1 should be substituted with the IP address of "
-						 "the server.\n On the server run (2) with the settings required for the render and "
-						 "additionally '--server'.\n The server will start and wait a short time for the "
+						 "the server.\nOn the server run (2) with the settings required for the render and "
+						 "additionally '--server'.\nThe server will start and wait a short time for the "
 						 "clients to connect. Then the whole system will start rendering.")
 				<< "\n\n";
 
@@ -275,8 +280,8 @@ void cCommandLineInterface::ReadCLI()
 				<< "\n";
 		out << QObject::tr(
 						 "Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] "
-						 "with a resolution of 10x10x10.\n This will produce 10 slices (z) with a resolution "
-						 "of 10(x) times 10(y) and save as black and white images to working folder/slices")
+						 "with a resolution of 10x10x10.\nThis will produce 10 slices (z) with a resolution "
+						 "of 10(x) times 10(y) and save as black and white images to working folder/slices.")
 				<< "\n\n";
 
 		out << cHeadless::colorize(QObject::tr("Queue render"), cHeadless::ansiBlue) << "\n";
@@ -286,7 +291,7 @@ void cCommandLineInterface::ReadCLI()
 		out << QObject::tr(
 						 "Runs the mandelbulber instance in queue mode and daemonizes it.\n"
 						 "Mandelbulber runs in background and waits for jobs.\n"
-						 "The output will be written to /tmp/queue.log\n"
+						 "The output will be written to /tmp/queue.log.\n"
 						 "(This may only work properly on a unix system)")
 				<< "\n\n";
 
@@ -445,6 +450,13 @@ void cCommandLineInterface::ReadCLI()
 					settingsSpecified = true;
 					systemData.lastSettingsFile = filename;
 					systemData.settingsLoadedFromCLI = true;
+					if(cliData.touch)
+					{
+						parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+						parSettings.SaveToFile(filename);
+						qDebug() << "touched file: " << filename;
+						exit(0);
+					}
 				}
 				else
 				{

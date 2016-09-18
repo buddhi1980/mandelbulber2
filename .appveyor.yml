@@ -12,7 +12,7 @@ environment:
   
 install:
   - ps: if($env:tbs_arch -eq 'x64') { $env:vcvar_arg = 'x86_amd64'; } else { $env:vcvar_arg = 'x86'; }
-  - ps: if($env:tbs_arch -eq 'x64') { $env:qt_version = '5.6\msvc2015_64'; } else { $env:qt_version = '5.6\msvc2015'; }
+  - ps: if($env:tbs_arch -eq 'x64') { $env:qt_version = '5.7\msvc2015_64'; } else { $env:qt_version = '5.7\msvc2015'; }
   - ps: if($env:tbs_arch -eq 'x64') { $env:ms_build_suffix = 'Bin\amd64'; } else { $env:ms_build_suffix = 'Bin'; }
   - ps: if($env:tbs_arch -eq 'x64') { $env:cmake_platform = 'Visual Studio 14 2015 Win64'; } else { $env:cmake_platform = 'Visual Studio 14 2015'; }
   - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall" %vcvar_arg%'

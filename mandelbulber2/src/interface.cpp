@@ -650,6 +650,8 @@ void cInterface::SynchronizeInterface(
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: tab_primitives", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode);
+	WriteLog("cInterface::SynchronizeInterface: tab_description", 3);
+	SynchronizeInterfaceWindow(mainWindow->ui->tab_description, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: centralwidget", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: dockWidgetContents_animation", 3);

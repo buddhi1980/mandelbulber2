@@ -92,6 +92,7 @@ private:
 		bool queue;
 		bool voxel;
 		bool test;
+		bool touch;
 		QString startFrameText;
 		QString endFrameText;
 		QString overrideParametersText;
