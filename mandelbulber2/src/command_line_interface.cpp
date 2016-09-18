@@ -139,10 +139,10 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "Renders all images from common queue."));
 
 	QCommandLineOption testOption(QStringList({"t", "test"}),
-		QCoreApplication::translate("main", "This will run testcases on the mandelbulber instance"));
+		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
 
 	QCommandLineOption touchOption(QStringList({"T", "touch"}),
-		QCoreApplication::translate("main", "This will resave a settings file (can be used to update a settings file)"));
+		QCoreApplication::translate("main", "Resaves a settings file (can be used to update a settings file)"));
 
 	QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
 		QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));

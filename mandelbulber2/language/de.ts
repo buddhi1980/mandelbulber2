@@ -1200,7 +1200,7 @@ Jetzt löschen?</translation>
     </message>
     <message>
         <source>Renders the keyframe animation of the file keyframe_fractal.fractwithin frames 200 till 300</source>
-        <translation type="vanished">Render die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300</translation>
+        <translation type="vanished">Rendert die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="259"/>
@@ -1246,7 +1246,7 @@ Der Output wird in /tmp/queue.log geschrieben.
     <message>
         <location filename="../src/command_line_interface.cpp" line="254"/>
         <source>Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.</source>
-        <translation>Render die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300</translation>
+        <translation>Rendert die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="265"/>
@@ -3232,49 +3232,49 @@ Keine &apos;Bild updaten&apos; Option)</translation>
         <location filename="../qt/ui_render_window.h" line="14621"/>
         <location filename="../qt/ui_render_window.h" line="16295"/>
         <source>Connect fractal detail level with image resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinde fraktales Detaillevel mit Bild Auflösung</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="775"/>
         <location filename="../qt/ui_render_window.h" line="14635"/>
         <source>Stereoscopic rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Stereoskopes Rendern</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="829"/>
         <location filename="../qt/ui_render_window.h" line="14636"/>
         <source>Distance between eyes</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand der Augen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="837"/>
         <location filename="../qt/ui_render_window.h" line="14639"/>
         <source>Left - right</source>
-        <translation type="unfinished"></translation>
+        <translation>Links - Rechts</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="842"/>
         <location filename="../qt/ui_render_window.h" line="14640"/>
         <source>Top - bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Oben - Unten</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="847"/>
         <location filename="../qt/ui_render_window.h" line="14641"/>
         <source>Anaglyph - red/cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Anaglyph - Rot/Cyan</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="871"/>
         <location filename="../qt/ui_render_window.h" line="14644"/>
         <source>Swap eyes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tausche Augen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="878"/>
         <location filename="../qt/ui_render_window.h" line="14645"/>
         <source>Infinite distance correction</source>
-        <translation type="unfinished"></translation>
+        <translation>Unendliche Distanzkorrektur</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="946"/>
@@ -3350,13 +3350,13 @@ keine Umgebungsverdunklung)</translation>
         <location filename="../qt/render_window.ui" line="3743"/>
         <location filename="../qt/ui_render_window.h" line="14937"/>
         <source>Monte carlo algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Monte Carlo Algorithmus</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3788"/>
         <location filename="../qt/ui_render_window.h" line="14941"/>
         <source>Number of samples per pixel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl Samples pro Pixel:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4164"/>
@@ -4416,19 +4416,19 @@ von Fraktal Iterationen:</translation>
         <location filename="../qt/render_window.ui" line="20563"/>
         <location filename="../qt/ui_render_window.h" line="16277"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschreibung</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20584"/>
         <location filename="../qt/ui_render_window.h" line="16274"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;An explaining description of the settings.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;Eine erklärende Beschreibung der Einstellungen.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20598"/>
         <location filename="../qt/ui_render_window.h" line="16276"/>
         <source>An explaining description of the settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine erklärende Beschreibung der Einstellungen.</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20702"/>
@@ -4436,43 +4436,44 @@ von Fraktal Iterationen:</translation>
         <source>Maximum number
 of fractal iterations
 (maxiter):</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale Anzahl
+von Fraktal Iterationen:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20815"/>
         <location filename="../qt/ui_render_window.h" line="16294"/>
         <source>Distance estimation and ray-marching:</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanzermittlung und Ray Marching:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20960"/>
         <location filename="../qt/ui_render_window.h" line="16320"/>
         <source>Delta DE Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta DE Linear</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20965"/>
         <location filename="../qt/ui_render_window.h" line="16321"/>
         <source>Delta DE Logarithmic</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta DE Logarithmisch</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20970"/>
         <location filename="../qt/ui_render_window.h" line="16322"/>
         <source>Delta DE Pseudo Kleinian</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta DE Pseudo Kleinian</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21145"/>
         <location filename="../qt/ui_render_window.h" line="16355"/>
         <source>Stop at maximum iteration (at maxiter)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bei maximaler Iteration stoppen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21259"/>
         <location filename="../qt/ui_render_window.h" line="16369"/>
         <source>View distance limits</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Distanzgrenzen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21581"/>
@@ -4860,7 +4861,8 @@ of fractal iterations
         <location filename="../qt/ui_render_window.h" line="16062"/>
         <source>Initial w-axis value
 for 4D fractals</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialer w-Achsen Wert
+für 4D Fraktale</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8480"/>
@@ -5033,7 +5035,8 @@ for 4D fractals</source>
         <location filename="../qt/ui_render_window.h" line="16059"/>
         <source>Julia mode
 preview distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Julia Modus
+Vorschau Distanz:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="18845"/>
@@ -7119,17 +7122,17 @@ und Wasser):</translation>
     <message>
         <location filename="../src/interface.cpp" line="148"/>
         <source>Info &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Info Qt</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="150"/>
         <source>&amp;Info Mandelbulber</source>
-        <translation type="unfinished"></translation>
+        <translation>Info Mandelbulber</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="152"/>
         <source>Info &amp;Third Party</source>
-        <translation type="unfinished"></translation>
+        <translation>Info Drittanbieter</translation>
     </message>
 </context>
 <context>
@@ -7551,7 +7554,7 @@ brightness:</source>
         <location filename="../qt/material_editor.ui" line="522"/>
         <location filename="../qt/ui_material_editor.h" line="1563"/>
         <source>&amp;Use colors from a palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende Farben aus Palette</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="551"/>
@@ -7812,7 +7815,7 @@ Richtungsvektor:</translation>
         <location filename="../qt/material_editor.ui" line="1530"/>
         <location filename="../qt/ui_material_editor.h" line="1700"/>
         <source>Use normal map &amp;texture</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende Normal Map Textur</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Geometry of texture mapping&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Planar - texture is mapped as a 2D plane&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Spherical - texture is mapped as a sphere around object center&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - spherical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Cylindrical - texture is mapped as a cyllinder around object axis&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Cubic - texture is mapped according with the surface direction of a cube.&lt;br/&gt;Note: this mapping cannot be used with displacement map &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cyllindrical mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -7898,7 +7901,7 @@ Objektgröße)</translation>
         <location filename="../qt/material_editor.ui" line="1961"/>
         <location filename="../qt/ui_material_editor.h" line="1752"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position of center of the texture. Position is relative to texture size.&lt;/p&gt;&lt;p&gt;Note: size of texture is always 1 x 1 x 1.&lt;/p&gt;&lt;p&gt;Example of changed texture center [0.3, 0.3, 0.0] &lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping - center 0.3 0.3 0.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position des Zentrums der Textur. Die Position ist relativ zur Objektgröße.&lt;/p&gt;&lt;p&gt;Hinweis: Objektgröße des fraktalen Objekts ist immer 1 x 1 x 1.&lt;/p&gt;&lt;p&gt;Beispiel eines geänderten Texturzentrums [0.3, 0.3, 0.0] &lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - cubic mapping - center 0.3 0.3 0.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="2055"/>
@@ -8445,7 +8448,7 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferences_dialog.ui" line="324"/>
         <location filename="../qt/ui_preferences_dialog.h" line="672"/>
         <source>Max. number of CPU cores to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Max. Anzahl zu nutzender CPU Kerne</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="367"/>
@@ -8457,37 +8460,37 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferences_dialog.ui" line="391"/>
         <location filename="../qt/ui_preferences_dialog.h" line="676"/>
         <source>Lowest priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Geringste Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="396"/>
         <location filename="../qt/ui_preferences_dialog.h" line="677"/>
         <source>Low prioriry</source>
-        <translation type="unfinished"></translation>
+        <translation>Geringe Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="401"/>
         <location filename="../qt/ui_preferences_dialog.h" line="678"/>
         <source>Normal priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Normale Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="406"/>
         <location filename="../qt/ui_preferences_dialog.h" line="679"/>
         <source>High priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Hohe Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="414"/>
         <location filename="../qt/ui_preferences_dialog.h" line="681"/>
         <source>Rendering threads priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderthreads Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="433"/>
         <location filename="../qt/ui_preferences_dialog.h" line="683"/>
         <source>Do not show description on settings load</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschreibung beim Laden nicht zeigen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="440"/>
@@ -8708,32 +8711,32 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     <message>
         <location filename="../qt/system_tray.cpp" line="56"/>
         <source>Render Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendere Bild</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="57"/>
         <source>Render Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendere Animation</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="58"/>
         <source>Render Flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendere Flug</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="59"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="60"/>
         <source>Show Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Benachrichtigungen</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="61"/>
         <source>Quit</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -9033,7 +9036,7 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; an
     <message>
         <location filename="../src/command_line_interface.cpp" line="70"/>
         <source>Never delete data, instead Exit CLI application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niemals Daten löschen, stattdessen CLI Applikation beenden.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="73"/>
@@ -9175,13 +9178,26 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="142"/>
-        <source>This will run testcases on the mandelbulber instance</source>
-        <translation>Diese Einstellung lässt Testfälle mit der Mandelbulber Instanz laufen</translation>
+        <source>Runs testcases on the mandelbulber instance</source>
+        <translation>Führt Testfälle mit der Mandelbulber Instanz durch.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="145"/>
+        <source>Resaves a settings file (can be used to update a settings file)</source>
+        <translation>Überschreibt die Einstellungsdatei (kann genutzt werden, um Einstellungsdatei upzudaten).</translation>
+    </message>
+    <message>
+        <source>Run testcases on the mandelbulber instance</source>
+        <translation type="obsolete">Führt Testfälle mit der Mandelbulber Instanz laufen</translation>
+    </message>
+    <message>
+        <source>This will run testcases on the mandelbulber instance</source>
+        <translation type="vanished">Diese Einstellung lässt Testfälle mit der Mandelbulber Instanz laufen</translation>
+    </message>
+    <message>
         <source>This will resave a settings file (can be used to update a settings file)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Das wird versuchen fehlende allgemeine Thumbnails vom Server zu laden.
+Fortsetzen?</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="148"/>
@@ -9201,7 +9217,7 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
     <message>
         <location filename="../src/command_line_interface.cpp" line="156"/>
         <source>Shows example commands.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeigt Beispielbefehle.</translation>
     </message>
     <message>
         <source>Override image resolution.</source>
