@@ -60,7 +60,7 @@ build_script:
   # move the auto-generated ui files to qt folder
   #- move ui_* mandelbulber2\qt
   - msbuild mandelbulber2.sln /p:Configuration=Release /m
-  - tree
+  - tree /f
 
 #test:
 # todo, see here for instructions: https://www.appveyor.com/docs/running-tests
