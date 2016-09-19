@@ -1937,6 +1937,7 @@ bool cInterface::QuitApplicationDialog()
 	int closeResult = 0;
 	bool quitDoNotAskAgain = gPar->Get<bool>("quit_do_not_ask_again");
 	QMessageBox *messageBox = NULL;
+	QAbstractButton *btnYesAndDoNotAskAgain = NULL;
 	if (quitDoNotAskAgain)
 	{
 		closeResult = QMessageBox::Ok;
@@ -1950,13 +1951,24 @@ bool cInterface::QuitApplicationDialog()
 		messageBox->setIcon(QMessageBox::Question);
 		messageBox->addButton(QMessageBox::Ok);
 		messageBox->addButton(QMessageBox::Cancel);
+		btnYesAndDoNotAskAgain =
+			messageBox->addButton(QObject::tr("Yes, don't ask again"), QMessageBox::YesRole);
+		messageBox->setDefaultButton(QMessageBox::Ok);
 		closeResult = messageBox->exec();
 	}
 
 	switch (closeResult)
 	{
-		case QMessageBox::Ok:
+		case QMessageBox::Cancel:
 		{
+			// nothing
+			break;
+		}
+		case QMessageBox::Yes:
+		default:
+		{
+			if (messageBox && messageBox->clickedButton() == btnYesAndDoNotAskAgain)
+				gPar->Set("quit_do_not_ask_again", true);
 			DisablePeriodicRefresh();
 			stopRequest = true;
 			systemData.globalStopRequest = true;
@@ -1979,14 +1991,6 @@ bool cInterface::QuitApplicationDialog()
 			quit = true;
 			break;
 		}
-		case QMessageBox::Cancel:
-		{
-			// nothing
-			break;
-		}
-		default:
-			// nothing
-			break;
 	}
 	if (messageBox) delete messageBox;
 	return quit;
