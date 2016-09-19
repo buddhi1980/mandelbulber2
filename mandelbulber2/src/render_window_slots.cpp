@@ -993,7 +993,7 @@ void RenderWindow::slotDetailLevelChanged()
 
 void RenderWindow::slotChangedJuliaPoint()
 {
-	if(ui->groupCheck_julia_mode->isChecked() && gMainInterface->interfaceReady)
+	if (ui->groupCheck_julia_mode->isChecked() && gMainInterface->interfaceReady)
 	{
 		cParameterContainer params;
 		InitParams(&params);

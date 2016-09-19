@@ -141,8 +141,10 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption testOption(QStringList({"t", "test"}),
 		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
 
-	QCommandLineOption touchOption(QStringList({"T", "touch"}),
-		QCoreApplication::translate("main", "Resaves a settings file (can be used to update a settings file)"));
+	QCommandLineOption touchOption(
+		QStringList({"T", "touch"}),
+		QCoreApplication::translate(
+			"main", "Resaves a settings file (can be used to update a settings file)"));
 
 	QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
 		QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));
@@ -450,7 +452,7 @@ void cCommandLineInterface::ReadCLI()
 					settingsSpecified = true;
 					systemData.lastSettingsFile = filename;
 					systemData.settingsLoadedFromCLI = true;
-					if(cliData.touch)
+					if (cliData.touch)
 					{
 						parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 						parSettings.SaveToFile(filename);

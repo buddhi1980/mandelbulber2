@@ -48,11 +48,11 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 {
 	bitmap = NULL;
 
-	//try to load image if it's PNG format (this one supports 16-bit depth images)
+	// try to load image if it's PNG format (this one supports 16-bit depth images)
 	bitmap = LoadPNG(filename, width, height);
 
-	//if not try to use Qt image loader
-	if(!bitmap)
+	// if not try to use Qt image loader
+	if (!bitmap)
 	{
 		QImage qimage;
 		qimage.load(filename);
@@ -64,10 +64,11 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 			bitmap = new sRGBA16[width * height];
 			for (int y = 0; y < height; y++)
 			{
-				sRGB8 *line = (sRGB8*)qimage.scanLine(y);
+				sRGB8 *line = (sRGB8 *)qimage.scanLine(y);
 				for (int x = 0; x < width; x++)
 				{
-					sRGBA16 pixel((unsigned short)line[x].R * 256, (unsigned short)line[x].G * 256, (unsigned short)line[x].B * 256, 65535);
+					sRGBA16 pixel((unsigned short)line[x].R * 256, (unsigned short)line[x].G * 256,
+						(unsigned short)line[x].B * 256, 65535);
 					bitmap[x + y * width] = pixel;
 				}
 			}
@@ -76,11 +77,11 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 
 	if (bitmap)
 	{
-		//width = qimage.width();
-		//height = qimage.height();
-		//bitmap = new sRGB8[width * height];
+		// width = qimage.width();
+		// height = qimage.height();
+		// bitmap = new sRGB8[width * height];
 
-		//for (int y = 0; y < height; y++)
+		// for (int y = 0; y < height; y++)
 		//{
 		//	memcpy(&bitmap[y * width], qimage.scanLine(y), sizeof(sRGB8) * width);
 		//}
@@ -171,10 +172,11 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 		bitmap = new sRGBA16[width * height];
 		for (int y = 0; y < height; y++)
 		{
-			sRGB8 *line = (sRGB8*)qimage.scanLine(y);
+			sRGB8 *line = (sRGB8 *)qimage.scanLine(y);
 			for (int x = 0; x < width; x++)
 			{
-				sRGBA16 pixel((unsigned short)line[x].R * 256, (unsigned short)line[x].G * 256, (unsigned short)line[x].B * 256, 65535);
+				sRGBA16 pixel((unsigned short)line[x].R * 256, (unsigned short)line[x].G * 256,
+					(unsigned short)line[x].B * 256, 65535);
 				bitmap[x + y * width] = pixel;
 			}
 		}
@@ -268,11 +270,11 @@ sRGBA16 cTexture::LinearInterpolation(double x, double y)
 	sRGBA16 k3 = bitmap[(iy + 1) * width + ix];
 	sRGBA16 k4 = bitmap[(iy + 1) * width + ix + 1];
 	color.R = (unsigned short)(k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry)
-														+ k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
+														 + k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
 	color.G = (unsigned short)(k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry)
-														+ k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
+														 + k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
 	color.B = (unsigned short)(k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry)
-														+ k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
+														 + k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
 	return color;
 }
 

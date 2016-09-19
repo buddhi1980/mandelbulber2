@@ -59,8 +59,8 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	WriteLog("Create settings text", 3);
 	settingsText.clear();
 	settingsText += CreateHeader();
-	if((format == formatFullText || format == formatCondensedText)
-			 && par->IfExists("description") && par->Get<QString>("description") != "")
+	if ((format == formatFullText || format == formatCondensedText) && par->IfExists("description")
+			&& par->Get<QString>("description") != "")
 	{
 		settingsText += "[description]\n";
 		settingsText += par->Get<QString>("description") + "\n";
@@ -71,7 +71,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	QList<QString> parameterList = par->GetListOfParameters();
 	for (int i = 0; i < parameterList.size(); i++)
 	{
-		if(parameterList[i] == "description") continue;
+		if (parameterList[i] == "description") continue;
 		settingsText += CreateOneLine(par, parameterList[i]);
 	}
 
@@ -87,7 +87,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 				{
 					fractalSettingsText += CreateOneLine(&fractPar->at(f), parameterListFractal[i]);
 				}
-				if(fractalSettingsText.length() > 0)
+				if (fractalSettingsText.length() > 0)
 				{
 					settingsText += "[fractal_" + QString::number(f + 1) + "]\n";
 					settingsText += fractalSettingsText;
@@ -465,15 +465,15 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			{
 				// concat multiline description
 				QString description = "";
-				if(par->IfExists("description")) description = par->Get<QString>("description");
-				if(description != "") description += "\n";
+				if (par->IfExists("description")) description = par->Get<QString>("description");
+				if (description != "") description += "\n";
 				description += line;
 				par->Set("description", description);
 				continue;
 			}
 			else
 			{
-				if(line == "") continue;
+				if (line == "") continue;
 				bool result = false;
 				if (section == QString("main_parameters"))
 				{

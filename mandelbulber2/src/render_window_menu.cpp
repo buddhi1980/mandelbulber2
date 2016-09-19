@@ -150,7 +150,8 @@ void RenderWindow::slotMenuLoadExample()
 		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
-		if(!gPar->Get<bool>("description_popup_do_not_show_again") && gPar->Get<QString>("description") != "")
+		if (!gPar->Get<bool>("description_popup_do_not_show_again")
+				&& gPar->Get<QString>("description") != "")
 			QMessageBox::about(this, "Description", gPar->Get<QString>("description"));
 	}
 }
@@ -186,7 +187,8 @@ void RenderWindow::slotMenuLoadSettings()
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
-		if(!gPar->Get<bool>("description_popup_do_not_show_again") && gPar->Get<QString>("description") != "")
+		if (!gPar->Get<bool>("description_popup_do_not_show_again")
+				&& gPar->Get<QString>("description") != "")
 			QMessageBox::about(this, "Description", gPar->Get<QString>("description"));
 	}
 }
@@ -209,7 +211,8 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
-		if(!gPar->Get<bool>("description_popup_do_not_show_again") && gPar->Get<QString>("description") != "")
+		if (!gPar->Get<bool>("description_popup_do_not_show_again")
+				&& gPar->Get<QString>("description") != "")
 			QMessageBox::about(this, "Description", gPar->Get<QString>("description"));
 	}
 	else

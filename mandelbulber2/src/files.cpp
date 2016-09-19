@@ -382,7 +382,8 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 
 	png_set_sig_bytes(png_ptr, sig_read);
 
-	png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_PACKING | PNG_TRANSFORM_EXPAND | PNG_TRANSFORM_SWAP_ENDIAN, NULL);
+	png_read_png(png_ptr, info_ptr,
+		PNG_TRANSFORM_PACKING | PNG_TRANSFORM_EXPAND | PNG_TRANSFORM_SWAP_ENDIAN, NULL);
 
 	png_uint_32 width, height;
 	int bit_depth;
@@ -391,7 +392,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 	outWidth = width;
 	outHeight = height;
 	unsigned int row_bytes = png_get_rowbytes(png_ptr, info_ptr);
-	//qDebug() << width << height << bit_depth << color_type << row_bytes;
+	// qDebug() << width << height << bit_depth << color_type << row_bytes;
 
 	sRGBA16 *image = new sRGBA16[outWidth * outHeight];
 
@@ -477,7 +478,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 
 	png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
 
-	 fclose(fp);
+	fclose(fp);
 
-   return image;
+	return image;
 }

@@ -678,7 +678,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 		{
 			QString name = (*it)->objectName();
 			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (className == QString("QPlainTextEdit") ))
+			if (name.length() > 1 && (className == QString("QPlainTextEdit")))
 			{
 				QPlainTextEdit *textEdit = *it;
 

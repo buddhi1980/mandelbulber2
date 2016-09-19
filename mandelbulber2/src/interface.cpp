@@ -853,6 +853,8 @@ void cInterface::StartRender(bool noUndo)
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow,
 		SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(renderJob, SIGNAL(fullyRendered(const QString &, const QString &)), systemTray,
+		SLOT(showMessage(const QString &, const QString &)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -1496,7 +1498,7 @@ void cInterface::SetByMouse(
 					SynchronizeInterfaceWindow(
 						mainWindow->ui->groupCheck_julia_mode, gPar, qInterface::write);
 
-					//StartRender();
+					// StartRender();
 					break;
 				}
 				case RenderedImage::clickPlacePrimitive:
@@ -2273,7 +2275,6 @@ void cInterface::DisableJuliaPointMode()
 		gMainInterface->renderedImage->setClickMode(itemMouseMove);
 	}
 }
-
 
 // function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

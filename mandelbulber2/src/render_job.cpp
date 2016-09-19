@@ -77,7 +77,8 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	}
 
 	systemData.numberOfThreads = paramsContainer->Get<int>("limit_CPU_cores");
-	systemData.threadsPriority = (enumRenderingThreadPriority)paramsContainer->Get<int>("threads_priority");
+	systemData.threadsPriority =
+		(enumRenderingThreadPriority)paramsContainer->Get<int>("threads_priority");
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	renderData = NULL;
 	useSizeFromImage = false;
@@ -113,7 +114,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	cStereo stereo;
 	stereo.SetMode((cStereo::enumStereoMode)paramsContainer->Get<int>("stereo_mode"));
 	if (!paramsContainer->Get<bool>("stereo_enabled")) stereo.SetMode(cStereo::stereoDisabled);
-	if(paramsContainer->Get<bool>("stereo_swap_eyes")) stereo.SwapEyes();
+	if (paramsContainer->Get<bool>("stereo_swap_eyes")) stereo.SwapEyes();
 
 	// needed when image has to fit in widget
 	if (useSizeFromImage)
@@ -485,7 +486,8 @@ bool cRenderJob::Execute(void)
 		}
 	}
 
-	if (result) emit fullyRendered();
+	if (result)
+		emit fullyRendered(tr("Finished Render"), tr("The image has been rendered completely."));
 
 	inProgress = false;
 
