@@ -121,6 +121,26 @@ void RenderWindow::slotMenuAboutThirdParty()
 	QMessageBox::about(this, "About Third Party", text);
 }
 
+void RenderWindow::showDescriptionPopup()
+{
+	if (gPar->Get<bool>("description_popup_do_not_show_again")) return;
+	if(gPar->Get<QString>("description") == "") return;
+
+	QMessageBox *messageBox = new QMessageBox(this);
+	messageBox->setText(gPar->Get<QString>("description"));
+	messageBox->setWindowTitle(QObject::tr("Description"));
+	messageBox->setIcon(QMessageBox::Information);
+	messageBox->addButton(QMessageBox::Ok);
+	QAbstractButton* btnOkDoNotShowAgain =
+		messageBox->addButton(QObject::tr("Ok, don't show again"), QMessageBox::YesRole);
+	messageBox->setDefaultButton(QMessageBox::Ok);
+	messageBox->exec();
+	if(messageBox->clickedButton() == btnOkDoNotShowAgain)
+	{
+		gPar->Set("description_popup_do_not_show_again", true);
+	}
+}
+
 void RenderWindow::slotMenuLoadExample()
 {
 	cSettings parSettings(cSettings::formatFullText);
@@ -150,9 +170,7 @@ void RenderWindow::slotMenuLoadExample()
 		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
-		if (!gPar->Get<bool>("description_popup_do_not_show_again")
-				&& gPar->Get<QString>("description") != "")
-			QMessageBox::about(this, "Description", gPar->Get<QString>("description"));
+		showDescriptionPopup();
 	}
 }
 
@@ -187,9 +205,7 @@ void RenderWindow::slotMenuLoadSettings()
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
-		if (!gPar->Get<bool>("description_popup_do_not_show_again")
-				&& gPar->Get<QString>("description") != "")
-			QMessageBox::about(this, "Description", gPar->Get<QString>("description"));
+		showDescriptionPopup();
 	}
 }
 
@@ -211,9 +227,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
-		if (!gPar->Get<bool>("description_popup_do_not_show_again")
-				&& gPar->Get<QString>("description") != "")
-			QMessageBox::about(this, "Description", gPar->Get<QString>("description"));
+		showDescriptionPopup();
 	}
 	else
 	{

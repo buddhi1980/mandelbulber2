@@ -155,6 +155,7 @@ private slots:
 	void slotMenuAboutMandelbulber();
 	void slotMenuAboutQt();
 	void slotMenuAboutThirdParty();
+	void showDescriptionPopup();
 	void slotMenuLoadExample();
 	void slotMenuLoadSettings();
 	void slotMenuLoadSettingsFromClipboard();
