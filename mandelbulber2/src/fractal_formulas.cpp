@@ -6568,7 +6568,7 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
  * @reference https://code.google.com/archive/p/fractaldimension/
  * by Doug Bristor
  */
-void Bristorbrot4DIteration(CVector4 &z4D, sExtendedAux &aux)
+void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	double newx = z4D.x * z4D.x - z4D.y * z4D.y - z4D.z * z4D.z - z4D.w * z4D.w;
@@ -6579,6 +6579,8 @@ void Bristorbrot4DIteration(CVector4 &z4D, sExtendedAux &aux)
 	z4D.y = newy;
 	z4D.z = newz;
 	z4D.w = neww;
+
+  z4D += fractal->transformCommon.additionConstant0000;
 }
 
 /**

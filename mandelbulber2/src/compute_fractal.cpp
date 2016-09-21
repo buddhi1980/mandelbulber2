@@ -793,7 +793,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case bristorbrot4D:
         {
         	CVector4 z4D(z, w);
-        	Bristorbrot4DIteration(z4D, extendedAux);
+          Bristorbrot4DIteration(z4D, fractal, extendedAux);
 					z = z4D.GetXYZ();
 					w = z4D.w;
           break;
