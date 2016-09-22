@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>897</width>
+           <width>935</width>
            <height>1415</height>
           </rect>
          </property>
@@ -375,7 +375,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-393</y>
+          <y>0</y>
           <width>370</width>
           <height>699</height>
          </rect>
@@ -607,6 +607,9 @@
             </item>
             <item>
              <widget class="QCheckBox" name="checkBox_connect_detail_level">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, then change of image resolution will cause automatic adjustment of fractal detail level. For instance if resolution will be increased twice then detail level will be reduced by half. In this way apperance of the fractal will not change after change of resolution. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="text">
                <string>Connect fractal detail level with image resolution</string>
               </property>
@@ -771,6 +774,9 @@
          </item>
          <item>
           <widget class="MyGroupBox" name="groupCheck_stereo_enabled">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of stereoscopic images and animations dedicated to watch with 3D glasses.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="title">
             <string>Stereoscopic rendering</string>
            </property>
@@ -832,6 +838,9 @@
               </item>
               <item row="0" column="1" colspan="2">
                <widget class="QComboBox" name="comboBox_stereo_mode">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines how stereoscopic image will be rendered.&lt;/p&gt;&lt;p&gt;Left-right - View for left eye will be rendered on the left side of the image. View for right eye will be on the right side.&lt;/p&gt;&lt;p&gt;Top-bottom - View for left eye will be rendered on the top half of the image. View for right eye will be on the bottom half of the image.&lt;/p&gt;&lt;p&gt;Anaglyph red/cyan - Image will be rendered as a anaglyph dedicated for red/cyan 3D glasses. Using this option there is possible to edit the fractal with 3D view directly in application window using regular display. There are only needed cheap 3D glasses. For fractal exploration there is recomended to not use SSAO ambient occlusion, because it's rendered in 2 passes (try to use &amp;quot;Fast&amp;quot; ambient occlusion).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Left - right</string>
@@ -850,7 +859,11 @@
                </widget>
               </item>
               <item row="1" column="2">
-               <widget class="MyLineEdit" name="logedit_stereo_eye_distance"/>
+               <widget class="MyLineEdit" name="logedit_stereo_eye_distance">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It's a distance between two virtual eyes. Higher value makes 3D effect more intense. Optimal distance between eyes is about 1%-5% of distance to watched object. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item row="0" column="0">
                <widget class="QLabel" name="label_70">
@@ -866,6 +879,9 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Swaps left and right eye on rendered image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Swap eyes</string>
@@ -910,7 +926,7 @@
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of DOF effect (average radius of blur)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Correction of apperance of 3D effect for the furthest objects (or background). If value of this parameter is higher then background objects appears as further. As an example optimal value of this parameter for 24 inch display could be about 0.4. For bigger display this value should be lower. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="prefix">
                  <string/>
@@ -1495,8 +1511,8 @@ no ambient occlusion)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>248</width>
-          <height>372</height>
+          <width>210</width>
+          <height>471</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -1921,7 +1937,7 @@ no ambient occlusion)</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>240</width>
+          <width>202</width>
           <height>838</height>
          </rect>
         </property>
@@ -3301,7 +3317,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>384</width>
-          <height>307</height>
+          <height>143</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3739,6 +3755,9 @@ Disables 'Update image' options)</string>
                     </item>
                     <item>
                      <widget class="MyGroupBox" name="groupCheck_DOF_monte_carlo">
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte carlo algorithm for rendering of depth of field effect. This effect is extremely slow for rendering, but gives very realistic apperance of the effect.&lt;/p&gt;&lt;p&gt;Remark: This effect canot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
                       <property name="title">
                        <string>Monte carlo algorithm</string>
                       </property>
@@ -3775,7 +3794,7 @@ Disables 'Update image' options)</string>
                             </sizepolicy>
                            </property>
                            <property name="toolTip">
-                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quality of ambient occlusion effect. Higher quality increases rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of rays calculated for each image pixel. Higher value gives less noise on image, but increases rendering time. For instance if number of samples is 100 then rendering will take 100 times more than when effect is disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                            </property>
                            <property name="maximum">
                             <number>10000</number>
@@ -4260,7 +4279,7 @@ Disables 'Update image' options)</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-234</y>
                   <width>334</width>
                   <height>527</height>
                  </rect>
@@ -5059,8 +5078,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>348</width>
-                  <height>293</height>
+                  <width>334</width>
+                  <height>165</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -8950,7 +8969,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -10113,7 +10132,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -11270,7 +11289,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -12427,7 +12446,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -13584,7 +13603,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -14741,7 +14760,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -15898,7 +15917,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -17052,7 +17071,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
+                      <width>312</width>
                       <height>780</height>
                      </rect>
                     </property>
@@ -20580,9 +20599,6 @@ and water):</string>
              </property>
              <item>
               <widget class="QPlainTextEdit" name="text_description">
-               <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;An explaining description of the settings.&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -20593,6 +20609,9 @@ and water):</string>
                 <font>
                  <family>Monospace</family>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;An explaining description of the settings.&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="placeholderText">
                 <string>An explaining description of the settings.</string>
@@ -20840,6 +20859,9 @@ of fractal iterations
               </property>
               <item row="9" column="0" colspan="3">
                <widget class="QCheckBox" name="checkBox_connect_detail_level_2">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, then change of image resolution will cause automatic adjustment of fractal detail level. For instance if resolution will be increased twice then detail level will be reduced by half. In this way apperance of the fractal will not change after change of resolution. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Connect fractal detail level with image resolution</string>
                 </property>
@@ -20948,7 +20970,7 @@ of fractal iterations
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some  fractal functions the length of the iteration vector increases  exponentially  and some in a  linear manner.&lt;/p&gt;&lt;p&gt;- Preferred mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some fractal functions the length of the iteration vector increases exponentially and some in a linear manner.&lt;/p&gt;&lt;p&gt;- Preferred mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Delta DE Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Delta DE Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - distance estimation mode dedicated for hybrids with Pseudo Kleinian formulas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <item>
                  <property name="text">
