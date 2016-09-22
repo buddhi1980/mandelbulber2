@@ -624,7 +624,8 @@
        <widget class="QLabel" name="label_code_content">
         <property name="text">
          <string>&lt;p&gt;benesi T3&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/&lt;br&gt;
+&lt;a href=&quot;do-m3d-formula-have-to-be-distance-estimation-formulas/&quot;&gt;do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;

@@ -522,7 +522,8 @@
        <widget class="QLabel" name="label_code_content">
         <property name="text">
          <string>&lt;p&gt;RiemannSphereMsltoe&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500&quot;&gt;http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/the-3d-mandelbulb/&quot;&gt;http://www.fractalforums.com/the-3d-mandelbulb/&lt;br&gt;
+&lt;a href=&quot;riemann-fractals/msg33500/#msg33500&quot;&gt;riemann-fractals/msg33500/#msg33500&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;

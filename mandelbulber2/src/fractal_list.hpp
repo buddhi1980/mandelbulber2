@@ -135,7 +135,7 @@ enum enumFractalFormula
 	msltoeToroidalMulti = 96,
 	amazingSurfMulti = 97,
 	// V2.09
-  //crossMenger = 98,
+	// crossMenger = 98,
 	mengerPrismShape = 99,
 	benesiMagTransforms = 100,
 	pseudoKleinian1 = 101,

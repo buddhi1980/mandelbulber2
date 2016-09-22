@@ -64,8 +64,7 @@ void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector3 &z, sExtendedAux &aux);
 void CollatzModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
-void CrossMengerMod1Iteration(
-  CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void CrossMengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void EiffieMsltoeIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux);
 void FastImagscaPower2Iteration(CVector3 &z);
@@ -126,9 +125,8 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector3 &z, sExtendedAux &aux);
 void CollatzModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
-//void CrossMengerIteration(
+// void CrossMengerIteration(
 //  CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
-
 
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);

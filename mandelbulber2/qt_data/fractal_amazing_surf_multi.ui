@@ -3135,7 +3135,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;Amazing Surface Multi&lt;br&gt;Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali, with features added&lt;br&gt;by Darkbeam&lt;/p&gt;&lt;table&gt;
+         <string>&lt;p&gt;Amazing Surface Multi&lt;br&gt;Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali,&lt;br&gt;with features added by Darkbeam&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;

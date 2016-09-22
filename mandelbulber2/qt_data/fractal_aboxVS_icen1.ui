@@ -900,7 +900,8 @@
        <widget class="QLabel" name="label_code_content">
         <property name="text">
          <string>&lt;p&gt;ABoxVS_icen1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at&lt;br&gt;Fractal Forums&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new&quot;&gt;http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/&lt;br&gt;
+&lt;a href=&quot;kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new&quot;&gt;kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;

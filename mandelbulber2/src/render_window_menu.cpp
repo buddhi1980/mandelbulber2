@@ -124,18 +124,18 @@ void RenderWindow::slotMenuAboutThirdParty()
 void RenderWindow::showDescriptionPopup()
 {
 	if (gPar->Get<bool>("description_popup_do_not_show_again")) return;
-	if(gPar->Get<QString>("description") == "") return;
+	if (gPar->Get<QString>("description") == "") return;
 
 	QMessageBox *messageBox = new QMessageBox(this);
 	messageBox->setText(gPar->Get<QString>("description"));
 	messageBox->setWindowTitle(QObject::tr("Description"));
 	messageBox->setIcon(QMessageBox::Information);
 	messageBox->addButton(QMessageBox::Ok);
-	QAbstractButton* btnOkDoNotShowAgain =
+	QAbstractButton *btnOkDoNotShowAgain =
 		messageBox->addButton(QObject::tr("Ok, don't show again"), QMessageBox::YesRole);
 	messageBox->setDefaultButton(QMessageBox::Ok);
 	messageBox->exec();
-	if(messageBox->clickedButton() == btnOkDoNotShowAgain)
+	if (messageBox->clickedButton() == btnOkDoNotShowAgain)
 	{
 		gPar->Set("description_popup_do_not_show_again", true);
 	}

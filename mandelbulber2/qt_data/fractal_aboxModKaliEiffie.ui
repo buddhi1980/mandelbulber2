@@ -2075,12 +2075,6 @@
       aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;color &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;color&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;factor&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0a0&quot;&gt;/*else&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;  {&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;    z.z = fabs(z.z + fractal-&amp;gt;transformCommon.additionConstant111.z)&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;           - fabs(z.z - fractal-&amp;gt;transformCommon.additionConstant111.z) - z.z;&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;    z.z *= fractal-&amp;gt;transformCommon.scale1;&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;  }*/&lt;/span&gt;
 
   &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabled&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
