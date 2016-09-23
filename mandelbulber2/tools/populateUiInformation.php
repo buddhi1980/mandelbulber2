@@ -36,7 +36,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 	$name = trim($matches[1]);
 
 	// find associated functions
-	$functionNameMatchString = '/case ' . $index . '[\s\S]+?{[\s\S]*?\n[\s]+([a-zA-Z0-9]+)\(/';
+        $functionNameMatchString = '/case ' . $index . '\s*:[\s\S]+?{[\s\S]*?\n[\s]+([a-zA-Z0-9]+)\(/';
 	preg_match($functionNameMatchString, $fractalFunctionLookup, $matchFunctionName);
 	if(count($matchFunctionName) < 2){
 		echo errorString('Warning, could not read function name for index: ' . $index) . PHP_EOL;		
