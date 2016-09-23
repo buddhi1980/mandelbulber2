@@ -357,7 +357,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case amazingSurfMulti:
 				{
-          AmazingSurfMultiIteration(z, c, i, fractal, extendedAux);
+					AmazingSurfMultiIteration(z, c, i, fractal, extendedAux);
 					break;
 				}
 				case benesiPineTree:
@@ -369,17 +369,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					BenesiT1PineTreeIteration(z, c, i, fractal, extendedAux);
 					break;
-        }
-        case benesiMagTransforms:
-        {
-          BenesiMagTransformsIteration(z, c, i, fractal, extendedAux);
-           break;
-        }
-        case benesiPwr2s:
-        {
-          BenesiPwr2sIteration(z, c, i, fractal, extendedAux);
-          break;
-        }
+				}
+				case benesiMagTransforms:
+				{
+					BenesiMagTransformsIteration(z, c, i, fractal, extendedAux);
+					break;
+				}
+				case benesiPwr2s:
+				{
+					BenesiPwr2sIteration(z, c, i, fractal, extendedAux);
+					break;
+				}
 				case collatz:
 				{
 					CollatzIteration(z, extendedAux);
@@ -390,11 +390,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					CollatzModIteration(z, c, fractal, extendedAux);
 					break;
 				}
-        case crossMengerMod1:
-        {
-          CrossMengerMod1Iteration(z, i, fractal, extendedAux);
-          break;
-        }
+				case crossMengerMod1:
+				{
+					CrossMengerMod1Iteration(z, i, fractal, extendedAux);
+					break;
+				}
 				case eiffieMsltoe:
 				{
 					EiffieMsltoeIteration(z, c, fractal, extendedAux);
@@ -466,27 +466,27 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-        case pseudoKleinian1:
-        {
-          PseudoKleinian1Iteration(z, i, fractal, extendedAux);
-          break;
-        }
+				case pseudoKleinian1:
+				{
+					PseudoKleinian1Iteration(z, i, fractal, extendedAux);
+					break;
+				}
 
-        case pseudoKleinian2:
-        {
-          PseudoKleinian2Iteration(z, i, fractal, extendedAux);
-          break;
-        }
-        case pseudoKleinian3:
-        {
-          PseudoKleinian3Iteration(z, i, fractal, extendedAux);
-          break;
-        }
-        case quaternion3D:
-        {
-          Quaternion3DIteration(z, fractal, extendedAux);
-          break;
-        }
+				case pseudoKleinian2:
+				{
+					PseudoKleinian2Iteration(z, i, fractal, extendedAux);
+					break;
+				}
+				case pseudoKleinian3:
+				{
+					PseudoKleinian3Iteration(z, i, fractal, extendedAux);
+					break;
+				}
+				case quaternion3D:
+				{
+					Quaternion3DIteration(z, fractal, extendedAux);
+					break;
+				}
 				case riemannSphereMsltoe:
 				{
 					RiemannSphereMsltoeIteration(z, fractal);
@@ -508,11 +508,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					FastImagscaPower2Iteration(z);
 					break;
 				}
-        /*case crossMenger:
+				/*case crossMenger:
 				{
-          CrossMengerIteration(z, i, fractal, extendedAux);
+					CrossMengerIteration(z, i, fractal, extendedAux);
 					break;
-        }*/
+				}*/
 
 
 
@@ -536,12 +536,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case transfAddCpixelAxisSwap:
 				{
-          TransformAddCpixelAxisSwapIteration(z, c, fractal, extendedAux);
+					TransformAddCpixelAxisSwapIteration(z, c, fractal, extendedAux);
 					break;
 				}
 				case transfAddCpixelCxCyAxisSwap:
 				{
-          TransformAddCpixelCxCyAxisSwapIteration(z, c, fractal, extendedAux);
+					TransformAddCpixelCxCyAxisSwapIteration(z, c, fractal, extendedAux);
 					break;
 				}
 				case transfAddCpixelPosNeg:
@@ -635,11 +635,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformFabsAddMultiIteration(z, fractal);
 					break;
 				}
-        case transfFoldingTetra3D:
-        {
-          TransformFoldingTetra3DIteration(z, fractal);
-          break;
-        }
+				case transfFoldingTetra3D:
+				{
+					TransformFoldingTetra3DIteration(z, fractal);
+					break;
+				}
 				case transfIterationWeight:
 				{
 					TransformIterationWeightIteration(z, i, fractal);
@@ -653,7 +653,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				case transfLinCombineCxyz:
 				{
-          TransformLinCombineCxyz(z, c, fractal, extendedAux);
+					TransformLinCombineCxyz(z, c, fractal, extendedAux);
 					break;
 				}
 				case transfMultipleAngle:
@@ -681,11 +681,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformRotationVaryV1Iteration(z, i, fractal);
 					break;
 				}
-        case transfRpow3:
-        {
-          TransformRpow3Iteration(z, fractal, extendedAux);
-          break;
-        }
+				case transfRpow3:
+				{
+					TransformRpow3Iteration(z, fractal, extendedAux);
+					break;
+				}
 				case transfScale:
 				{
 					TransformScaleIteration(z, fractal, extendedAux);
@@ -716,11 +716,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformSphereInvCIteration(z, c, fractal);
 					break;
 				}
-        case transfSphereInv:
-        {
-          TransformSphereInvIteration(z, fractal, extendedAux);
-          break;
-        }
+				case transfSphereInv:
+				{
+					TransformSphereInvIteration(z, fractal, extendedAux);
+					break;
+				}
 
 				case transfSphericalOffset:
 				{
@@ -790,14 +790,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					w = z4D.w;
 					break;
 				}
-        case bristorbrot4D:
-        {
-        	CVector4 z4D(z, w);
-          Bristorbrot4DIteration(z4D, fractal, extendedAux);
+				case bristorbrot4D:
+				{
+					CVector4 z4D(z, w);
+					Bristorbrot4DIteration(z4D, fractal, extendedAux);
 					z = z4D.GetXYZ();
 					w = z4D.w;
-          break;
-        }
+					break;
+				}
 				case transfAdditionConstant4D:
 				{
 					CVector4 z4D(z, w);
@@ -918,11 +918,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			// magnitude in imaginary scator algebra
 
 
-      case pseudoKleinian1:
-      {
-        r = sqrt( z.x * z.x + z.y * z.y );
-        break;
-      }
+			case pseudoKleinian1:
+			{
+				r = sqrt( z.x * z.x + z.y * z.y );
+				 break;
+			}
 
 			default:
 			{
@@ -1062,8 +1062,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
 				{
-        	double rxy = sqrt( z.x * z.x + z.y * z.y );
-          out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (extendedAux.DE);
+					double rxy = sqrt( z.x * z.x + z.y * z.y );
+					out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (extendedAux.DE);
 				}
 			}
 			else
@@ -1078,9 +1078,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case benesi:
 				case benesiPineTree:
 				case benesiT1PineTree:
-        case benesiPwr2s:
+				case benesiPwr2s:
 				case bristorbrot:
-        case bristorbrot4D:
+				case bristorbrot4D:
 				case buffalo:
 				case eiffieMsltoe:
 				case fast_mandelbulb_power2:
@@ -1128,9 +1128,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case amazingSurfMulti:
 				case kalisets1:
 				case aboxVSIcen1:
-        case pseudoKleinian1:
+				case pseudoKleinian1:
 				{
-          if (extendedAux.DE > 0)
+					if (extendedAux.DE > 0)
 						out->distance = r / fabs(extendedAux.DE);
 					else
 						out->distance = r;
@@ -1138,8 +1138,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case kaleidoscopicIFS:
 				case menger_sponge:
-        //case crossMenger:
-        case crossMengerMod1:
+				//case crossMenger:
+				case crossMengerMod1:
 				case mengerPrismShape:
 				case collatz:
 				case collatzMod:
@@ -1148,60 +1148,60 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case transfMengerFold: // hmmm, this issue again
 				case mengerPwr2Poly:
 				{
-          if (extendedAux.DE > 0)
+					if (extendedAux.DE > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);
 					else
 						out->distance = r;
 					break;
 				}
-        case pseudoKleinian2:
-        case pseudoKleinian3:
-        {
-          if (extendedAux.DE > 0)
-          {
-          	double rxy = sqrt( z.x * z.x + z.y * z.y );
-            out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (extendedAux.DE);
-          }
-          else
-            out->distance = r;
-          break;
-        }
+				case pseudoKleinian2:
+				case pseudoKleinian3:
+				{
+					if (extendedAux.DE > 0)
+					{
+						double rxy = sqrt( z.x * z.x + z.y * z.y );
+						out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (extendedAux.DE);
+					}
+					else
+						out->distance = r;
+					break;
+				}
 
 				default: out->distance = -1.0; break;
 			}
 		}
 	}
 	// color calculation
-  else if (Mode == calcModeColouring)
-  {
-    double mboxDE = 1.0;
-    mboxDE = extendedAux.DE;
-    double r2 = r / fabs(mboxDE);
-    if (r2 > 20) r2 = 20;
+	else if (Mode == calcModeColouring)
+	{
+		double mboxDE = 1.0;
+		mboxDE = extendedAux.DE;
+		double r2 = r / fabs(mboxDE);
+		if (r2 > 20) r2 = 20;
 
-    if (fractals.IsHybrid())
-    {
-      if (minimumR > 100) minimumR = 100;
+		if (fractals.IsHybrid())
+		{
+			if (minimumR > 100) minimumR = 100;
 
-      double mboxColor = 0.0;
+			double mboxColor = 0.0;
 
-      mboxColor = extendedAux.color;
+			mboxColor = extendedAux.color;
 
-      if (mboxColor > 1000) mboxColor = 1000;
+			if (mboxColor > 1000) mboxColor = 1000;
 
-      out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
-      /*out->colorIndex =
+			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+		/*out->colorIndex =
 
-        extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
+				extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 
-        + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+				+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 
-        + 1.0 * r2 * 5000.0 // for backwards compatability
+				+ 1.0 * r2 * 5000.0 // for backwards compatability
 
-        + extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
-        + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
-              ? minimumR * extendedAux.minRFactor * 1000.0
-              : 0.0);*/
+				+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
+				+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+							? minimumR * extendedAux.minRFactor * 1000.0
+							: 0.0);*/
 		}
 		else
 		{
@@ -1235,13 +1235,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				case amazingSurfMulti:
 				case mandelboxMenger:
-        case amazingSurfMod1:
-        case aboxModKaliEiffie:
+				case amazingSurfMod1:
+				case aboxModKaliEiffie:
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-            +  extendedAux.scaleFactor * r2 * 5000.0 // for backwards compatability
-            //+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
+						+  extendedAux.scaleFactor * r2 * 5000.0 // for backwards compatability
+						//+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
 						+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
 									: 0.0);
