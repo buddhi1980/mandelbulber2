@@ -104,7 +104,7 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 		height = 100;
 		loaded = false;
 		bitmap = new sRGBA16[100 * 100];
-		memset(bitmap, 65535, sizeof(sRGBA16) * 100 * 100);
+		memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
 		// qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): "
 		// 				 << "new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
 	}
@@ -196,7 +196,7 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 		height = 100;
 		loaded = false;
 		bitmap = new sRGBA16[100 * 100];
-		memset(bitmap, 65535, sizeof(sRGBA16) * 100 * 100);
+		memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
 	}
 }
 
@@ -206,7 +206,7 @@ cTexture::cTexture(void)
 	height = 100;
 	loaded = false;
 	bitmap = new sRGBA16[100 * 100];
-	memset(bitmap, 65535, sizeof(sRGBA16) * 100 * 100);
+	memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
 	// qDebug() << "cTexture::cTexture(void):"
 	// 				 << "new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
 	invertGreen = false;
