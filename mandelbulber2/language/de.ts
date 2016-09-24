@@ -1282,15 +1282,25 @@ This will produce 10 slices (z) with a resolution of 10(x) times 10(y) and save 
 Dies produziert 10 Scheiben (z) mit einer Auflösung von 10(x) mal 10(y) und speichert sie als schwarz-weiß Bilder in den slices Ordner.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="293"/>
         <source>Runs the mandelbulber instance in queue mode and daemonizes it.
 Mandelbulber runs in background and waits for jobs.
 The output will be written to /tmp/queue.log.
 (This may only work properly on a unix system)</source>
-        <translation>Startet die Mandelbulber Instanz in Queue Modus als Daemon.
+        <translation type="vanished">Startet die Mandelbulber Instanz in Queue Modus als Daemon.
 Mandelbulber läuft im Hintergrund und wartet auf Render Aufträge.
 Der Output wird in /tmp/queue.log geschrieben.
 (Dies funktioniert unter Umständen nur auf einem Unix System)</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="293"/>
+        <source>Runs the mandelbulber instance in queue mode and daemonizes it.
+Mandelbulber runs in background and waits for jobs.
+The output will be written to /tmp/queue.log.
+(will not work under Windows)</source>
+        <translation>Startet die Mandelbulber Instanz in Queue Modus als Daemon.
+Mandelbulber läuft im Hintergrund und wartet auf Render Aufträge.
+Der Output wird in /tmp/queue.log geschrieben.
+(Funktioniert nicht unter Windows)</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="306"/>
