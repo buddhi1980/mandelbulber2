@@ -772,9 +772,9 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 		AO.G += intense * v.G;
 		AO.B += intense * v.B;
 	}
-	AO.R /= (AOvectorsCount * 256.0);
-	AO.G /= (AOvectorsCount * 256.0);
-	AO.B /= (AOvectorsCount * 256.0);
+	AO.R /= (AOvectorsCount * 65536.0);
+	AO.G /= (AOvectorsCount * 65536.0);
+	AO.B /= (AOvectorsCount * 65536.0);
 
 	return AO;
 }
