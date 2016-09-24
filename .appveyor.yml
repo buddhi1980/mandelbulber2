@@ -7,12 +7,21 @@ build: false # use custom build_script instead
 
 environment:
   matrix:
-#    - tbs_arch: "x86"
+    - tbs_arch: "x86"
+      tbs_qt_version: "5.7"
+    
     - tbs_arch: "x64"
+      tbs_qt_version: "5.7"
+    
+    - tbs_arch: "x86"
+      tbs_qt_version: "5.6"
+    
+    - tbs_arch: "x64"
+      tbs_qt_version: "5.6"
   
 install:
   - ps: if($env:tbs_arch -eq 'x64') { $env:vcvar_arg = 'x86_amd64'; } else { $env:vcvar_arg = 'x86'; }
-  - ps: if($env:tbs_arch -eq 'x64') { $env:qt_version = '5.7\msvc2015_64'; } else { $env:qt_version = '5.7\msvc2015'; }
+  - ps: if($env:tbs_arch -eq 'x64') { $env:qt_version = '%tbs_qt_version%\msvc2015_64'; } else { $env:qt_version = '%tbs_qt_version%\msvc2015'; }
   - ps: if($env:tbs_arch -eq 'x64') { $env:ms_build_suffix = 'Bin\amd64'; } else { $env:ms_build_suffix = 'Bin'; }
   - ps: if($env:tbs_arch -eq 'x64') { $env:cmake_platform = 'Visual Studio 14 2015 Win64'; } else { $env:cmake_platform = 'Visual Studio 14 2015'; }
   - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall" %vcvar_arg%'
@@ -60,11 +69,17 @@ build_script:
   # move the auto-generated ui files to qt folder
   #- move ui_* mandelbulber2\qt
   - msbuild mandelbulber2.sln /p:Configuration=Release /m
-  - tree /f
+  # - Release\mandelbulber2.exe --test deactivated, since netrender tests failed
+  - tree C:\projects\mandelbulber2\gsl\Release /F
+  - tree %QTDIR% /F
+  - tree /F
 
-#test:
-# todo, see here for instructions: https://www.appveyor.com/docs/running-tests
- 
+#specify artifacts to upload
+artifacts:
+  - path: Release\mandelbulber2.exe
+    name: MandelbulberBinary
+# copy all necessary dlls and package stuff to one stand alone folder and zip
+
 #deploy:
 # todo, see here for instructions: https://www.appveyor.com/docs/deployment/github
 
