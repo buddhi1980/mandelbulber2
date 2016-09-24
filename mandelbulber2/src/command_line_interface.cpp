@@ -294,7 +294,7 @@ void cCommandLineInterface::ReadCLI()
 						 "Runs the mandelbulber instance in queue mode and daemonizes it.\n"
 						 "Mandelbulber runs in background and waits for jobs.\n"
 						 "The output will be written to /tmp/queue.log.\n"
-						 "(This may only work properly on a unix system)")
+						 "(will not work under Windows)")
 				<< "\n\n";
 
 		out.flush();
