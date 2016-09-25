@@ -1,7 +1,7 @@
 MANDELBULBER 2.09
 
 project leader: Krzysztof Marczak
-project members: Sebastian Jennen, Graeme McLaren, Bernardo Martelli
+project members: Sebastian Jennen, Graeme McLaren, Bernardo Martelli, Robert Mancoast
                  knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
                  
 contact: buddhi1980@gmail.com
