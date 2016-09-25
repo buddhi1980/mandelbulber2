@@ -66,15 +66,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	CVector3 c = z;
 	double minimumR = 100.0;
 
-  double w;
-  if (in.forcedFormulaIndex >= 0)
-  {
-  	w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
-  }
-  else
-  {
-  	w = fractals.GetInitialWAxis(0);
-  }
+	double w;
+	if (in.forcedFormulaIndex >= 0)
+	{
+		w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
+	}
+	else
+	{
+		w = fractals.GetInitialWAxis(0);
+	}
 
 	double orbitTrapTotal = 0.0;
 
