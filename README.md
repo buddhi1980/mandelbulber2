@@ -41,6 +41,15 @@ The possibilities are literally **infinite**!
 
 Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
 
+## Easy perepare for development
+
+Use folowing scripts for perapre your Linux for development. These scrips install all required packages, compiles the program and create symbilic links in /usr/share/mandelbulber to your work dirrectory 
+
+[prepare Debian for development] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_debian_testing.sh)
+
+[prepare Ubuntu for development] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_ubuntu.sh)
+
+
 ## Resources
 
 [image gallery] (http://krzysztofmarczak.deviantart.com/gallery/)
