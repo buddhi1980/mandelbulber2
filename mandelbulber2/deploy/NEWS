@@ -1,5 +1,45 @@
 Version history
 
+v2.09
+- Image: Added stereoscopic rendering for all perspective types including equirectangular and fulldome
+- Image: Added support for red/cyan glasses (anaglyphs), so now it's possible to explore fractals with 3D glasses.
+- Added new fractal formulas:
+  * Menger - Prism Shape
+  * Benesi Mag Transforms
+  * Transform - Folding Tetra3D
+  * Pseudo Kleinian stdDE
+  * Pseudo Kleinian
+  * Pseudo Kleinian Mod1
+
+- UI: added option to synchronize changing of image resolution with fractal detail level
+- UI: Increased number of decimal places for many edit fields in fractal formulas
+- UI: Added preview for Julia constant
+- Fractals: Enhanced controls for colors in several formulas
+- Fractals: Implemented initial w-axis value for 4D fractals
+- Fractals: Corrected logic for maxiter in ray-marching algorithm. Now distance threshold has higher priority than maxiter.
+- Fractals: Added second bailout condition which detects convergent sequence of z
+- Fractals: Added "Delta DE pseudo kleinian" distance estimation function
+- Shaders: Added Monte Carlo algorithm for DOF effect
+- Shaders: There was wrong calculation of auxiliary lights intensity
+- Shaders: Corrected calculation of displacement maps for first fractal in boolean mode
+- Shaders: Added support for 16-bit depth PNG textures
+- NetRender: Corrected sending information to server about ready state. Sometimes when animation was rendered, the served didn't wait until all clients finishes their jobs. .
+after rendering is finished
+- Settings: added description field to settings files.
+- Performance: In DOF there is changed OpenMP parallel loop to use dynamic scheduling (much better utilization of CPU cores)
+- Performance: optimized isNaN checking by usage gsl implementation
+- Performance: Added setting for limit of used CPU cores in preferences dialog
+- Performance: Added threads priority settings in preferences dialog for WIN32 version
+- Compilation: Added scripts which pulls development version of Mandelbulber from git repository, setups the system and compiles the program.
+- Tray: added icon on system tray with start/stop controls
+- Tray: added system notifications about finished rendering
+- General: Added support for any aspect ratio for equirectangular images (before was only 2:1)
+- General: Fixed bug which probably caused crashes of the program. There was possible situation where image was being updated by rendering thread and at the same time preview was resized (free and alloc) by main thread (resize of window). There is added QMutex to prevent from this kind of situation.
+- Examples: Added examples for Pseudo Kleinian fractals and stereoscopic images
+
+v2.08-3
+- Shaders: Fixed bug: image was black when intensity of any light source was zero.
+
 v2.08-2
 - Settings: fixed bug: importing of old settings didn't worked properly when rotations in IFS fractals were used.
 - Settings: fixed bug: loading old animations (lack of material conversion)
@@ -11,6 +51,7 @@ v2.08-2
 - Fractals: Increased limit for maximum number of iterations to 99999
 - NetRender: Fixed bug with loading textures from QByteArray when NetRender was used on different systems.
 - Performance: optimized Random() function and usage of cLights::GetLight(). Speed increase about 10-40%
+- Performance: Much reduced memory usage of thumbnail widgets placed in animation table (now uses about 20% of former memory usage)
 - OSX: fixed problem with missing text on progress bar
 - Voxel export: fixed bug: slices was saved in parent folder of indicated folder.
 
