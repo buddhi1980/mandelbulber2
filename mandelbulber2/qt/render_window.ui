@@ -7995,7 +7995,7 @@ Disables 'Update image' options)</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -8021,7 +8021,7 @@ Disables 'Update image' options)</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
@@ -9212,7 +9212,7 @@ for 4D fractals</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -9238,7 +9238,7 @@ for 4D fractals</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
@@ -10369,7 +10369,7 @@ for 4D fractals</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -10395,7 +10395,7 @@ for 4D fractals</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
@@ -11526,7 +11526,7 @@ for 4D fractals</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -11552,7 +11552,7 @@ for 4D fractals</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
@@ -12683,7 +12683,7 @@ for 4D fractals</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -12709,7 +12709,7 @@ for 4D fractals</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
@@ -13840,7 +13840,7 @@ for 4D fractals</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -13866,7 +13866,7 @@ for 4D fractals</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
@@ -14997,7 +14997,7 @@ for 4D fractals</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -15023,7 +15023,7 @@ for 4D fractals</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
@@ -16151,7 +16151,7 @@ for 4D fractals</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -16177,7 +16177,7 @@ for 4D fractals</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
@@ -17308,7 +17308,7 @@ for 4D fractals</string>
                              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than 'Stop at iteration'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                            </widget>
                           </item>
@@ -17334,7 +17334,7 @@ for 4D fractals</string>
                              <number>0</number>
                             </property>
                             <property name="maximum">
-                             <number>250</number>
+                             <number>99999</number>
                             </property>
                             <property name="value">
                              <number>0</number>
