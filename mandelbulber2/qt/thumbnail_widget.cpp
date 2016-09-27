@@ -164,7 +164,7 @@ void cThumbnailWidget::AssignParameters(
 			isRendered = false;
 			hasParameters = true;
 
-			QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
+			QString thumbnailFileName = GetThumbnailFileName();
 			if (QFileInfo::exists(thumbnailFileName) && !disableThumbnailCache)
 			{
 				stopRequest = true;
@@ -272,7 +272,7 @@ void cThumbnailWidget::slotFullyRendered()
 		QPixmap pixmap;
 		pixmap.convertFromImage(qImage);
 
-		QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
+		QString thumbnailFileName = GetThumbnailFileName();
 		pixmap.save(thumbnailFileName, "PNG");
 	}
 	lastRenderTime = renderingTimeTimer.nsecsElapsed() / 1e9;
@@ -300,6 +300,11 @@ void cThumbnailWidget::slotRandomRender()
 void cThumbnailWidget::slotSetMinimumSize(int width, int height)
 {
 	setMinimumSize(width, height);
+}
+
+QString cThumbnailWidget::GetThumbnailFileName()
+{
+	return systemData.thumbnailDir + hash + QString(".png");
 }
 
 int cThumbnailWidget::instanceCount = 0;

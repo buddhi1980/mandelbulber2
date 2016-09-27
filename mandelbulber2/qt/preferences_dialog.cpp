@@ -257,6 +257,16 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 						Wait(100);
 					}
 				}
+				else
+				{
+					// "touch" the file, to mark it with current time stamp
+					QFile file(thumbWidget->GetThumbnailFileName());
+					if (file.open(QIODevice::Append)) {
+						QDataStream out(&file);
+						out << "";
+						file.close();
+					}
+				}
 			}
 		}
 		delete exampleParFractal;
