@@ -132,7 +132,9 @@ foreach($formulas as $index => $formula){
 		continue;	
 	}
 	if($newUiFileContent == $uiFileContent){
-		echo noticeString('formula ' . $formula['name'] . ' has not changed.') . PHP_EOL;
+		if(isVerbose()){
+			echo noticeString('formula ' . $formula['name'] . ' has not changed.') . PHP_EOL;
+		}
 		continue;
 	}
 	if(!isDryRun()){
@@ -170,11 +172,20 @@ function noticeString($s){
 
 function isDryRun(){
 	global $argv;
-	if(count($argv) > 1 && $argv[1] == 'nondry'){
+	if(count($argv) > 1 && in_array('nondry', $argv)){
 		return false;
 	}
 	return true;
 }
+
+function isVerbose(){
+	global $argv;
+	if(count($argv) > 1 && in_array('verbose', $argv)){
+		return true;
+	}
+	return false;
+}
+
 
 function parseComment($c){
 	$lines = explode(PHP_EOL, $c);

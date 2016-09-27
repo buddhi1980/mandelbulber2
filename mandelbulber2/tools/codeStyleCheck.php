@@ -78,7 +78,7 @@ exit;
 
 function printResultLine($name, $success, $status){
 	$out = str_pad('> ' . $name, 30);
-	if($success && isVerbose() && count($status) == 0) return;
+	if($success && !isVerbose() && count($status) == 0) return;
 	if($success)
 	{
 		echo $out . successString(' -> All Well') . PHP_EOL;
@@ -201,9 +201,9 @@ function isDryRun(){
 function isVerbose(){
 	global $argv;
 	if(count($argv) > 1 && in_array('verbose', $argv)){
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 
 
