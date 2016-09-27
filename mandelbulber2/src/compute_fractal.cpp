@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
@@ -66,15 +66,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	CVector3 c = z;
 	double minimumR = 100.0;
 
-  double w;
-  if (in.forcedFormulaIndex >= 0)
-  {
-  	w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
-  }
-  else
-  {
-  	w = fractals.GetInitialWAxis(0);
-  }
+	double w;
+	if (in.forcedFormulaIndex >= 0)
+	{
+		w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
+	}
+	else
+	{
+		w = fractals.GetInitialWAxis(0);
+	}
 
 	double orbitTrapTotal = 0.0;
 
@@ -82,7 +82,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	if (in.common.iterThreshMode)
 		out->maxiter = true;
-	else out->maxiter = false;
+	else
+		out->maxiter = false;
 
 	int fractalIndex = 0;
 	if (in.forcedFormulaIndex >= 0) fractalIndex = in.forcedFormulaIndex;
@@ -514,9 +515,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}*/
 
-
-
-
 				// transforms
 				// ------------------------------------------------------------------------------------------
 				case transfAdditionConstant:
@@ -917,11 +915,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			// scator magnitudes
 			// magnitude in imaginary scator algebra
 
-
 			case pseudoKleinian1:
 			{
-				r = sqrt( z.x * z.x + z.y * z.y );
-				 break;
+				r = sqrt(z.x * z.x + z.y * z.y);
+				break;
 			}
 
 			default:
@@ -951,7 +948,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-				if ((z - lastZ).Length() / r < 0.1/fractals.GetBailout(sequence))
+				if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
 				{
 					out->maxiter = false;
 					break;
@@ -965,7 +962,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-				if ((z - lastZ).Length() / r < 0.1/fractals.GetBailout(sequence))
+				if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
 				{
 					out->maxiter = false;
 					break;
@@ -1062,8 +1059,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
 				{
-					double rxy = sqrt( z.x * z.x + z.y * z.y );
-					out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (extendedAux.DE);
+					double rxy = sqrt(z.x * z.x + z.y * z.y);
+					out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (extendedAux.DE);
 				}
 			}
 			else
@@ -1138,7 +1135,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case kaleidoscopicIFS:
 				case menger_sponge:
-				//case crossMenger:
+				// case crossMenger:
 				case crossMengerMod1:
 				case mengerPrismShape:
 				case collatz:
@@ -1159,8 +1156,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					if (extendedAux.DE > 0)
 					{
-						double rxy = sqrt( z.x * z.x + z.y * z.y );
-						out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r)/ (extendedAux.DE);
+						double rxy = sqrt(z.x * z.x + z.y * z.y);
+						out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (extendedAux.DE);
 					}
 					else
 						out->distance = r;
@@ -1190,18 +1187,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			if (mboxColor > 1000) mboxColor = 1000;
 
 			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
-		/*out->colorIndex =
+			/*out->colorIndex =
 
-				extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
+					extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 
-				+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 
-				+ 1.0 * r2 * 5000.0 // for backwards compatability
+					+ 1.0 * r2 * 5000.0 // for backwards compatability
 
-				+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
-				+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
-							? minimumR * extendedAux.minRFactor * 1000.0
-							: 0.0);*/
+					+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
+					+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+								? minimumR * extendedAux.minRFactor * 1000.0
+								: 0.0);*/
 		}
 		else
 		{
@@ -1240,8 +1237,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-						+  extendedAux.scaleFactor * r2 * 5000.0 // for backwards compatability
-						//+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
+						+ extendedAux.scaleFactor * r2 * 5000.0							 // for backwards compatability
+						//+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i &
+						// r
 						+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
 									: 0.0);

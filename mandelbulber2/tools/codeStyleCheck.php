@@ -12,6 +12,7 @@
 <?php
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
 define('WILDCARD', '*');
+
 $filesToCheckSource = array();
 $filesToCheckSource[] = PROJECT_PATH . "src/" . WILDCARD . ".cpp";
 $filesToCheckSource[] = PROJECT_PATH . "src/" . WILDCARD . ".c";
@@ -19,40 +20,50 @@ $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".cpp";
 $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".c";
 
 $filesToCheckHeader = array();
-$filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . "*.hpp";
-$filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . "*.h";
+$filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . ".hpp";
+$filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . ".h";
 $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".hpp";
 $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".h";
 
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 
+echo 'Processing...' . PHP_EOL . PHP_EOL;
+
 foreach($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
-	echo 'handling file: ' . $sourceFileName;
+	$status = array();
+	$success = false;
 	$sourceContent = file_get_contents($sourceFilePath);
-	if(!checkFileHeader($sourceFilePath, $sourceContent)) continue;
-
-	if(!isDryRun()){
-		file_put_contents($sourceFilePath, $sourceContent);
-		updateClang($sourceFilePath);
+	if(checkFileHeader($sourceFilePath, $sourceContent, $status)){
+		if(!isDryRun()){
+			file_put_contents($sourceFilePath, $sourceContent);
+			$success = updateClang($sourceFilePath, $status);
+		}else{
+			$success = true;
+		}		
 	}
-	echo successString(' -> All well') . PHP_EOL;
+	printResultLine($sourceFileName, $success, $status);
 }
 
 foreach($headerFiles as $headerFilePath) {
 	$headerFileName = basename($headerFilePath);
 	if(substr($headerFileName, 0, strlen('ui_')) == 'ui_') continue;
 	$folderName = basename(str_replace($headerFileName, '', $headerFilePath));
-	echo 'handling file: ' . $headerFileName;
+	$status = array();
+	$success = false;
 	$headerContent = file_get_contents($headerFilePath);
-	if(!checkFileHeader($headerFilePath, $headerContent)) continue;
-	if(!checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName)) continue;
-	if(!isDryRun()){
-		file_put_contents($headerFilePath, $headerContent);
-		updateClang($headerFilePath);
+	if(checkFileHeader($headerFilePath, $headerContent, $status)) {
+		if(checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)){
+			if(!isDryRun()){
+				file_put_contents($headerFilePath, $headerContent);
+				$success = updateClang($headerFilePath, $status);
+			}else{
+				$success = true;
+			}
+		}
 	}
-	echo successString(' -> All well') . PHP_EOL;
+	printResultLine($headerFileName, $success, $status);
 }
 
 if(isDryRun()){
@@ -65,9 +76,22 @@ else{
 
 exit;
 
+function printResultLine($name, $success, $status){
+	$out = str_pad('> ' . $name, 30);
+	if($success && isVerbose() && count($status) == 0) return;
+	if($success)
+	{
+		echo $out . successString(' -> All Well') . PHP_EOL;
+	}
+	else{
+		echo $out . errorString(' -> Error') . PHP_EOL;
+	}
+	if(count($status) > 0){
+		echo ' |-' . implode(PHP_EOL . ' |-', $status) . PHP_EOL;
+	}
+}
 
-
-function checkFileHeader($filePath, &$fileContent){
+function checkFileHeader($filePath, &$fileContent, &$status){
 	$headerRegex = '/^(\/\*\*[\s\S]*?\*\/)([\s\S]*)$/';
 	if(preg_match($headerRegex, $fileContent, $matchHeader)){
 		$functionContentFound = true;
@@ -80,13 +104,13 @@ function checkFileHeader($filePath, &$fileContent){
 			$regexParseHeader .= 'General\sPublic[\S\s]+';
 			$regexParseHeader .= 'Authors:\s(.*)[\s\S]*?\*\/([\s\S]*)$/';
 			if(preg_match($regexParseHeader, $fileContent, $matchHeaderOld)){
-				echo noticeString('header is old, will rewrite to new!') . PHP_EOL;
+				$status[] = noticeString('header is old, will rewrite to new!');
 				$newFileContent = getFileHeader($matchHeaderOld[2], $matchHeaderOld[1], $modificationString) . $matchHeaderOld[3];
 				$fileContent = $newFileContent;
 				return true;
 			}
 			else{
-				echo errorString('header unknown!') . PHP_EOL;
+				$status[] = errorString('header unknown!');
 			}
 		}
 		else{
@@ -94,24 +118,24 @@ function checkFileHeader($filePath, &$fileContent){
 			if(preg_match($regexParseHeader, $fileContent, $matchHeaderNew)){
 				$newFileContent = getFileHeader($matchHeaderNew[1], $matchHeaderNew[2], $modificationString) . $matchHeaderNew[3];
 				if($newFileContent != $fileContent){
-					echo noticeString('header is new, will rewrite to new!') . PHP_EOL;
+					$status[] = noticeString('header is new, will rewrite to new!');
 					$fileContent = $newFileContent;
 				}
 				return true;
 			}
 			else{
-				echo errorString('header unknown!') . PHP_EOL;
+				$status[] = errorString('header unknown!');
 			}
 		}
 
 	}
 	else{
-		echo errorString('No header found!') . PHP_EOL;
+		$status[] = errorString('No header found!');
 	}
 	return false;
 }
 
-function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderName){
+function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderName, &$status){
 	$defineRegex = '/^([\s\S]*?#ifndef\s)([\s\S]+?)(\n#define\s)(\S+)([\S\s]+)(#endif\s)[\s\S]+$/';
 	if(preg_match($defineRegex, $fileContent, $match)){
 		$defineName = 'MANDELBULBER2_' . strtoupper($folderName) . '_' . strtoupper(str_replace('.', '_', $headerFileName)) . '_';
@@ -119,22 +143,22 @@ function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderNa
 
 		if($newFileContent != $fileContent){
 			$fileContent = $newFileContent;
-			echo noticeString('define changed') . PHP_EOL;
+			$status[] = noticeString('define changed');
 		}
 		return true;
 	}
 	else{
-		echo errorString('define not found!') . PHP_EOL;
+		$status[] = errorString('define not found!');
 	}
 	return false;
 }
 
-function updateClang($filePath){
+function updateClang($filePath, &$status){
 	$contentsBefore = file_get_contents($filePath);
 	$cmd = "clang-format --style=file -i " . escapeshellarg($filePath);
 	shell_exec($cmd);
 	if($contentsBefore != file_get_contents($filePath)){
-		echo noticeString('checkClang changed') . PHP_EOL;
+		$status[] = noticeString('checkClang changed');
 	}
 	return true;
 }
@@ -168,11 +192,20 @@ function noticeString($s){
 
 function isDryRun(){
 	global $argv;
-	if(count($argv) > 1 && $argv[1] == 'nondry'){
+	if(count($argv) > 1 && in_array('nondry', $argv)){
 		return false;
 	}
 	return true;
 }
+
+function isVerbose(){
+	global $argv;
+	if(count($argv) > 1 && in_array('verbose', $argv)){
+		return false;
+	}
+	return true;
+}
+
 
 function getFileHeader($author, $description, $modificationString){
 	$out = <<<EOT

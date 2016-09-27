@@ -1,4 +1,4 @@
- /*
+/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
@@ -36,8 +36,8 @@
  */
 
 #include "my_progress_bar.h"
-#include <QLabel>
 #include <QHBoxLayout>
+#include <QLabel>
 
 MyProgressBar::MyProgressBar(QWidget *parent) : QProgressBar(parent)
 {
@@ -67,4 +67,3 @@ void MyProgressBar::progressLabelUpdate()
 	QString text = this->format();
 	if (textLabel) textLabel->setText(text);
 }
-
