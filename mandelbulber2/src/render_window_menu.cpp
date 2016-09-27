@@ -88,6 +88,7 @@ void RenderWindow::slotMenuAboutMandelbulber()
 	text += "Sebastian Jennen<br>";
 	text += "Graeme McLaren<br>";
 	text += "Bernardo Martelli<br>";
+	text += "Robert Mancoast<br>";
 	text += "<br>";
 	text +=
 		"Thanks to many friends from <a "

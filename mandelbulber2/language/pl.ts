@@ -1249,15 +1249,25 @@ Wytworzy to 10 plastrów (z) o rozdzielczości 10 (x) na 10 (y) i zapisze jako c
         <translation>Renderowanie kolejki</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="293"/>
         <source>Runs the mandelbulber instance in queue mode and daemonizes it.
 Mandelbulber runs in background and waits for jobs.
 The output will be written to /tmp/queue.log.
 (This may only work properly on a unix system)</source>
-        <translation>Uruchamia mandelbulber w trybie kolejki jako demon
+        <translation type="vanished">Uruchamia mandelbulber w trybie kolejki jako demon
 Program pracuje w tle i oczekuje na zadania w kolejce
 Komunikaty programu będą zapisywane do /tmp/queue.log.
 (zadziała to tylko na systemach Linux)</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="293"/>
+        <source>Runs the mandelbulber instance in queue mode and daemonizes it.
+Mandelbulber runs in background and waits for jobs.
+The output will be written to /tmp/queue.log.
+(will not work under Windows)</source>
+        <translation>Uruchamia mandelbulber w trybie kolejki jako demon
+Program pracuje w tle i oczekuje na zadania w kolejce
+Komunikaty programu będą zapisywane do /tmp/queue.log.
+(nie zadziała na systemach Windows)</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="306"/>
