@@ -111,9 +111,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Collatz Fractal Mod ", "collatz_mod", collatzMod,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Cross Menger Mod1", "cross_menger_mod1", crossMengerMod1,
-		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Fold_Box_Mod1", "fold_box_mod1", foldBoxMod1,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
@@ -181,6 +178,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		mandelbulbVaryPowerV1, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
 	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", menger_sponge,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
+	fractalList->append(sFractalDescription("Menger Cross KIFS", "menger_cross_kifs", mengerCrossKIFS,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
+	fractalList->append(sFractalDescription("Menger Cross Mod1", "menger_cross_mod1", mengerCrossMod1,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
 	fractalList->append(sFractalDescription("Menger Pwr2 Polynomial", "menger_pwr2_poly",
@@ -264,8 +267,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Imaginary scator Power 2", "imagsca_power_2",
 		fastImagscaPower2, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	// fractalList->append(sFractalDescription("Cross Menger", "cross_menger", crossMenger,
-	// analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
 	// ------------------ 4D -----------------------
 

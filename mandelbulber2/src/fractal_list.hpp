@@ -135,7 +135,7 @@ enum enumFractalFormula
 	msltoeToroidalMulti = 96,
 	amazingSurfMulti = 97,
 	// V2.09
-	// crossMenger = 98,
+	mengerCrossKIFS = 98,
 	mengerPrismShape = 99,
 	benesiMagTransforms = 100,
 	pseudoKleinian1 = 101,
@@ -143,7 +143,7 @@ enum enumFractalFormula
 	pseudoKleinian2 = 103,
 	pseudoKleinian3 = 104,
 	benesiPwr2s = 105,
-	crossMengerMod1 = 106,
+	mengerCrossMod1 = 106,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

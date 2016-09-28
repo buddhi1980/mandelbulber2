@@ -391,11 +391,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					CollatzModIteration(z, c, fractal, extendedAux);
 					break;
 				}
-				case crossMengerMod1:
-				{
-					CrossMengerMod1Iteration(z, i, fractal, extendedAux);
-					break;
-				}
+
 				case eiffieMsltoe:
 				{
 					EiffieMsltoeIteration(z, c, fractal, extendedAux);
@@ -444,6 +440,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulbVaryPowerV1:
 				{
 					MandelbulbVaryPowerV1Iteration(z, i, fractal, extendedAux);
+					break;
+				}
+				case mengerCrossKIFS:
+				{
+					MengerCrossKIFSIteration(z, i, fractal, extendedAux);
+					break;
+				}
+				case mengerCrossMod1:
+				{
+					MengerCrossMod1Iteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case mengerMod1:
@@ -1135,8 +1141,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case kaleidoscopicIFS:
 				case menger_sponge:
-				// case crossMenger:
-				case crossMengerMod1:
+				case mengerCrossKIFS:
+				case mengerCrossMod1:
 				case mengerPrismShape:
 				case collatz:
 				case collatzMod:

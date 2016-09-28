@@ -92,14 +92,17 @@ void MandelbulbKaliMultiIteration(
 void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux);
 void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+
+void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
+void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerMiddleModIteration(
 	CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
-
-void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
 void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerPwr2PolyIteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym2ModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3ModIteration(
