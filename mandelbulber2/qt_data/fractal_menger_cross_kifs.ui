@@ -1912,13 +1912,6 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
-       <property name="text">
-        <string>enable fabs(z.x)  Fold</string>
-       </property>
-      </widget>
-     </item>
      <item row="5" column="2">
       <widget class="QSlider" name="slider3_transf_offset_000_z">
        <property name="sizePolicy">
@@ -1945,6 +1938,13 @@
       <widget class="Line" name="line_8">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="3">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
+       <property name="text">
+        <string>enable fabs(z.x)  Fold</string>
        </property>
       </widget>
      </item>

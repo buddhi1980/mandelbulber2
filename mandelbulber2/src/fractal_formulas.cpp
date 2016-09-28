@@ -3020,17 +3020,17 @@ void MengerCrossKIFSIteration(
 		aux.DE *= fractal->transformCommon.scale3;
 
 		z += fractal->transformCommon.offset000; // post offset
-
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.x = fabs(z.x + fractal->transformCommon.offset) + fractal->transformCommon.offset0;
+		}
 		if (fractal->transformCommon.functionEnabledRFalse
 				&& i >= fractal->transformCommon.startIterationsR
 				&& i < fractal->transformCommon.stopIterationsR)
 		{
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
-		if (fractal->transformCommon.functionEnabledPFalse)
-		{
-			z.x = fabs(z.x + fractal->transformCommon.offset) + fractal->transformCommon.offset0;
-		}
+
 
 	}
 
@@ -3096,6 +3096,7 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledzFalse)
 			z.x = fabs(z.x);
+
 		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5);
 		double t = 1 * max(0.0, dot1);
 		z.x -= t * -SQRT_3;
@@ -3128,11 +3129,22 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
 		z.x += SQRT_3_4;
 
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.x = fabs(z.x + fractal->transformCommon.offset) + fractal->transformCommon.offset0;
+		}
+		if (fractal->transformCommon.functionEnabledRFalse
+				&& i >= fractal->transformCommon.startIterationsR
+				&& i < fractal->transformCommon.stopIterationsR)
+		{
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+		}
 	}
 }
 
 /**
  * Menger Sponge formula modified by Mclarekin
+ * from code by Knighty
  */
 void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
