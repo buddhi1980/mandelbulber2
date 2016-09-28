@@ -314,6 +314,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.power025 = container->Get<CVector3>("transf_power_025");
 	transformCommon.power8 = container->Get<CVector3>("transf_power_8");
 	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
+	transformCommon.rotation2 = container->Get<CVector3>("transf_rotation2");
 	transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
 	transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
 	transformCommon.scale3Da222 = container->Get<CVector3>("transf_scale3Da_222");
@@ -389,6 +390,7 @@ void cFractal::RecalculateFractalParams(void)
 	transformCommon.betaAngleOffset *= M_PI / 180.0;
 
 	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
+	transformCommon.rotationMatrix2.SetRotation2(transformCommon.rotation2 * (M_PI / 180.0));
 	transformCommon.tempRotmatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
 
 	transformCommon.sqtR = sqrt(transformCommon.minR05);

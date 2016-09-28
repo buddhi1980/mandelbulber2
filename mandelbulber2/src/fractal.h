@@ -483,6 +483,7 @@ struct sFractalTransformCommon
 	CVector3 power025;
 	CVector3 power8;
 	CVector3 rotation;
+	CVector3 rotation2;
 	CVector3 scale3D111;
 	CVector3 scale3D222;
 	CVector3 scale3Da222;
@@ -496,6 +497,7 @@ struct sFractalTransformCommon
 	CVector4 constantMultiplier1220;
 
 	CRotationMatrix rotationMatrix;
+	CRotationMatrix rotationMatrix2;
 	CRotationMatrix tempRotmatrix;
 
 	bool addCpixelEnabled;
