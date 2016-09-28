@@ -2946,7 +2946,7 @@ void MengerCrossKIFSIteration(
 		z += fractal->transformCommon.additionConstant000; // post offset
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-		aux.DE *= fractal->transformCommon.scale1; // tweak
+		aux.DE *= fractal->analyticDE.scale1; // tweak
 	}
 
 
@@ -3018,20 +3018,19 @@ void MengerCrossKIFSIteration(
 		z *= fractal->transformCommon.scale3;
 		z -= CVector3( SQRT_3_4, 1.5, 1.5) * (fractal->transformCommon.scale3 - 1.0);
 		aux.DE *= fractal->transformCommon.scale3;
+
+		z += fractal->transformCommon.offset000; // post offset
+
 		if (fractal->transformCommon.functionEnabledRFalse
 				&& i >= fractal->transformCommon.startIterationsR
 				&& i < fractal->transformCommon.stopIterationsR)
 		{
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
-		//postAddition
-	//z =  z  + postAdd;
-
-	//z.x = fabs(z.x + tempA) + tempB;
-
-	//if (fabsX == 1)
-	//{
-	//	z.x = fabs(z.x + tempA) + tempB;
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			z.x = fabs(z.x + fractal->transformCommon.offset) + fractal->transformCommon.offset0;
+		}
 
 	}
 
@@ -3049,7 +3048,8 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	double t;
 	double temp;
 	double dot1;
-	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterations
+	if (fractal->transformCommon.functionEnabledx
+			&& i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations1)
 	{
 		z.y = fabs(z.y);
@@ -3085,10 +3085,11 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			}
 		}
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-		aux.DE *= fractal->transformCommon.scale1; // tweak
+		aux.DE *= fractal->analyticDE.scale1; // tweak
 	}
 
-	if (fractal->transformCommon.functionEnabledy && i >= fractal->transformCommon.startIterationsA
+	if (fractal->transformCommon.functionEnabledy
+			&& i >= fractal->transformCommon.startIterationsA
 			&& i < fractal->transformCommon.stopIterationsA)
 	{ // CrossMengerTrick
 		z.y = fabs(z.y);
@@ -3100,9 +3101,9 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		z.x -= t * -SQRT_3;
 		z.y = fabs(z.y) - t;
 
-		z.x -= SQRT_3_4; // neg shift, could include z.x above
+		z.x -= SQRT_3_4;
 
-		// Choose nearest corner/edge --> to get translation symmetry (all y & z code)
+		// Choose nearest corner/edge to get translation symmetry (all y & z code)
 		double dy = 0.0;
 		double dz = 0.0;
 		if (z.y > 0.5 && z.z > 0.5) // if both y & z > 0.5  then =1.5
@@ -3110,7 +3111,8 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			dy = 1.5;
 			dz = 1.5;
 		}
-		else if ((z.y - 1.5) * (z.y - 1.5) + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
+		else if ((z.y - 1.5) * (z.y - 1.5)
+						 + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
 		{
 			dy = 1.5; // and dz is unchanged
 		}
