@@ -2897,45 +2897,41 @@ void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal,
  * http://www.fractalforums.com/fragmentarium/
  * cross-menger!-can-anyone-do-this/msg93972/#new
 	*/
-void MengerCrossKIFSIteration(
-	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
 	double temp;
 	double dot1;
-	if (fractal->transformCommon.functionEnabledFalse
-			&& i >= fractal->transformCommon.startIterations
-				&& i < fractal->transformCommon.stopIterations1)
+	if (fractal->transformCommon.functionEnabledFalse && i >= fractal->transformCommon.startIterations
+			&& i < fractal->transformCommon.stopIterations1)
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		if (fractal->transformCommon.functionEnabledFFalse)
-			z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
 
 		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
 		t = max(0.0, dot1);
 		z.x -= (t * -SQRT_3) - 0.5;
 		z.y = fabs(z.y - t);
 
-		if(z.y > z.z)
+		if (z.y > z.z)
 		{
-			temp =z.y;
+			temp = z.y;
 			z.y = z.z;
 			z.z = temp;
 		}
 		z.y -= 0.75;
-		z -= gap * CVector3( SQRT_3_4, 1.5, 1.5);
+		z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 
-		if(z.z > z.x)
+		if (z.z > z.x)
 		{
-			temp =z.z;
+			temp = z.z;
 			z.z = z.x;
-			z.x = temp;}
+			z.x = temp;
+		}
 
 		z *= fractal->transformCommon.constantMultiplier111; // post scale
-
-
 
 		if (fractal->transformCommon.functionEnabledyFalse)
 		{
@@ -2949,38 +2945,34 @@ void MengerCrossKIFSIteration(
 		aux.DE *= fractal->analyticDE.scale1; // tweak
 	}
 
-
-	if (fractal->transformCommon.functionEnabled
-			&& i >= fractal->transformCommon.startIterationsA
+	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterationsA
 			&& i < fractal->transformCommon.stopIterationsA)
 	{ // CrossMengerKIFS
 		float lengthL;
-		//z = ( z );//+ preAdd );
+		// z = ( z );//+ preAdd );
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		if (fractal->transformCommon.functionEnabledzFalse)
-			z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
-
-		lengthL = z.x * SQRT_3_4 - z.y * 0.5 ;
-		if (lengthL <  0.0)
+		lengthL = z.x * SQRT_3_4 - z.y * 0.5;
+		if (lengthL < 0.0)
 		{
-			z.x -=  SQRT_3_4 * (2.0 * lengthL);
-			z.y -=  -lengthL;
+			z.x -= SQRT_3_4 * (2.0 * lengthL);
+			z.y -= -lengthL;
 		}
 		lengthL = z.y;
-		if (lengthL <  0.0)
+		if (lengthL < 0.0)
 		{
-			z.y -=  2.0 * lengthL;
+			z.y -= 2.0 * lengthL;
 		}
 		lengthL = (-z.y + z.z) * SQRT_1_2;
-		if (lengthL <  0.0)
+		if (lengthL < 0.0)
 		{
-			z.y -=  -SQRT_1_2 * (2.0 * lengthL);
-			z.z -=  SQRT_1_2 * (2.0 * lengthL);
+			z.y -= -SQRT_1_2 * (2.0 * lengthL);
+			z.z -= SQRT_1_2 * (2.0 * lengthL);
 		}
 		lengthL = z.y;
-		if (lengthL <  0.5)
+		if (lengthL < 0.5)
 		{
 			z.y -= 2.0 * (lengthL - 0.5);
 		}
@@ -3016,7 +3008,7 @@ void MengerCrossKIFSIteration(
 		}
 
 		z *= fractal->transformCommon.scale3;
-		z -= CVector3( SQRT_3_4, 1.5, 1.5) * (fractal->transformCommon.scale3 - 1.0);
+		z -= CVector3(SQRT_3_4, 1.5, 1.5) * (fractal->transformCommon.scale3 - 1.0);
 		aux.DE *= fractal->transformCommon.scale3;
 
 		z += fractal->transformCommon.offset000; // post offset
@@ -3028,12 +3020,9 @@ void MengerCrossKIFSIteration(
 				&& i >= fractal->transformCommon.startIterationsR
 				&& i < fractal->transformCommon.stopIterationsR)
 		{
-		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
-
-
 	}
-
 }
 
 /**
@@ -3048,14 +3037,12 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	double t;
 	double temp;
 	double dot1;
-	if (fractal->transformCommon.functionEnabledx
-			&& i >= fractal->transformCommon.startIterations
+	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations1)
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		if (fractal->transformCommon.functionEnabledFFalse)
-			z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
 		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
 		t = max(0.0, dot1);
 		z.x -= t * -SQRT_3 - (0.5 * SQRT_3_4);
@@ -3088,14 +3075,12 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		aux.DE *= fractal->analyticDE.scale1; // tweak
 	}
 
-	if (fractal->transformCommon.functionEnabledy
-			&& i >= fractal->transformCommon.startIterationsA
+	if (fractal->transformCommon.functionEnabledy && i >= fractal->transformCommon.startIterationsA
 			&& i < fractal->transformCommon.stopIterationsA)
 	{ // CrossMengerTrick
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
-		if (fractal->transformCommon.functionEnabledzFalse)
-			z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
 		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5);
 		double t = 1 * max(0.0, dot1);
@@ -3112,8 +3097,7 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			dy = 1.5;
 			dz = 1.5;
 		}
-		else if ((z.y - 1.5) * (z.y - 1.5)
-						 + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
+		else if ((z.y - 1.5) * (z.y - 1.5) + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
 		{
 			dy = 1.5; // and dz is unchanged
 		}
@@ -3137,7 +3121,7 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 				&& i >= fractal->transformCommon.startIterationsR
 				&& i < fractal->transformCommon.stopIterationsR)
 		{
-		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
 	}
 }
@@ -6894,11 +6878,6 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 	}
 }
 
-
-
-
-
-
 /*	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
 	double temp;
@@ -6980,4 +6959,3 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 
 		z.x += SQRT_3_4;
 	}*/
-

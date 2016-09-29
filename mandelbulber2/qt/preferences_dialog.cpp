@@ -261,7 +261,8 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 				{
 					// "touch" the file, to mark it with current time stamp
 					QFile file(thumbWidget->GetThumbnailFileName());
-					if (file.open(QIODevice::Append)) {
+					if (file.open(QIODevice::Append))
+					{
 						QDataStream out(&file);
 						out << "";
 						file.close();

@@ -23,7 +23,8 @@ When a new version is prepared for release, the following steps should be taken:
 
 from here on only working on the tag:
 - 5. package binaries for different OS's and deploy to sourceforge / github
-- 6. let people know at: fractalforums / google plus / facebook / ...
+- 6. contact package maintainer / mailing list / internal publish
+- 7. let people know at: fractalforums / google plus / facebook / ...
 
 ### (3) language system
 The language system requires language tools of qt.

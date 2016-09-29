@@ -267,7 +267,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Imaginary scator Power 2", "imagsca_power_2",
 		fastImagscaPower2, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-
 	// ------------------ 4D -----------------------
 
 	fractalList->append(sFractalDescription("Bristorbrot4D", "bristorbrot4D", bristorbrot4D,
