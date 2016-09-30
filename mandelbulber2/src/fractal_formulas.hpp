@@ -157,6 +157,7 @@ void TransformBenesiT4Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
 void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
+void TransformBoxFoldVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformLinCombineCxyz(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);

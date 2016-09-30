@@ -5758,6 +5758,71 @@ void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 }
 
 /**
+ * Box Fold VaryV1. Varies folding limit based on iteration conditions
+ */
+void TransformBoxFoldVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	double limit = fractal->mandelbox.foldingLimit;
+	//double value = 2.0 *fractal->mandelbox.foldingLimit;
+	double tempVC = limit; // constant to be varied
+
+
+	if (i >= fractal->transformCommon.startIterations250
+			&& i < fractal->transformCommon.stopIterations
+			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
+					 != 0))
+	{
+		tempVC =
+			(tempVC
+				+ fractal->transformCommon.offset * (i - fractal->transformCommon.startIterations250)
+						/ (fractal->transformCommon.stopIterations
+								- fractal->transformCommon.startIterations250));
+	}
+	if (i >= fractal->transformCommon.stopIterations)
+	{
+		tempVC = (tempVC + fractal->transformCommon.offset);
+	}
+
+	limit = tempVC;
+	double value = fractal->transformCommon.scale2 * limit;
+
+
+	if (z.x > limit)
+	{
+		z.x = value - z.x;
+		aux.color += fractal->mandelbox.color.factor.x;
+	}
+	else if (z.x < -limit)
+	{
+		z.x = -value - z.x;
+		aux.color += fractal->mandelbox.color.factor.x;
+	}
+	if (z.y > limit)
+	{
+		z.y = value - z.y;
+		aux.color += fractal->mandelbox.color.factor.y;
+	}
+	else if (z.y < -limit)
+	{
+		z.y = -value - z.y;
+		aux.color += fractal->mandelbox.color.factor.y;
+	}
+	double zLimit = limit * fractal->transformCommon.scale1;
+	double zValue = value * fractal->transformCommon.scale1;
+	if (z.z > zLimit)
+	{
+		z.z = zValue - z.z;
+		aux.color += fractal->mandelbox.color.factor.z;
+	}
+	else if (z.z < -zLimit)
+	{
+		z.z = -zValue - z.z;
+		aux.color += fractal->mandelbox.color.factor.z;
+	}
+	aux.DE *= fractal->analyticDE.scale1;
+}
+
+/**
  * Box Fold XYZ, set different folding parameters for each axis
  */
 void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)

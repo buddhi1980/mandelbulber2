@@ -206,6 +206,7 @@ enum enumFractalFormula
 	transfRpow3 = 1054,
 	transfSphereInv = 1055,
 	transfFoldingTetra3D = 1056,
+	transfBoxFoldVaryV1 = 1057,
 };
 
 enum enumDEType
