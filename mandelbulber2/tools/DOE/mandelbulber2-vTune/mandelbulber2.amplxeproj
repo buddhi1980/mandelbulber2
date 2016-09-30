@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+ <connectionOption type="string">mic-native:0</connectionOption>
+ <rdmgr>
+  <timestamp type="u64_t">1469302284</timestamp>
+  <hostname type="string">coast77.mancoast.int</hostname>
+  <os type="string">linux</os>
+  <product type="string">Intel® VTune™ Amplifier XE 2016 Update 3</product>
+  <buildNumber type="s32_t">463186</buildNumber>
+  <logicalCPUCount type="s32_t">12</logicalCPUCount>
+  <CPUFrequency type="s64_t">1600000000</CPUFrequency>
+  <isa type="string">avx2</isa>
+ </rdmgr>
+ <All_Configurations-All_Platforms>
+  <searchDirs>
+   <searchCategory>
+    <category type="u8_t">1</category>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/home/KNC-Lib</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/opt/mpss</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/opt/intel</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+   </searchCategory>
+   <searchCategory>
+    <category type="u8_t">2</category>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/home/KNC-Lib</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/opt/mpss</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/opt/intel</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+   </searchCategory>
+   <searchCategory>
+    <category type="u8_t">3</category>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/home/KNC-Lib</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/</name>
+     <recursive type="bool">false</recursive>
+     <priority type="bool">false</priority>
+    </searchDirectory>
+   </searchCategory>
+   <searchCategory>
+    <category type="u8_t">4</category>
+   </searchCategory>
+  </searchDirs>
+  <target_settings>
+   <selected_workload>
+    <mic type="string">launch</mic>
+    <mic-offload type="string">launch</mic-offload>
+   </selected_workload>
+   <result_dir>
+    <mic-offload type="string">/home/mandelbulber2/mandelbulber2-vTune</mic-offload>
+    <mic type="string">/home/mandelbulber2/mandelbulber2-vTune</mic>
+   </result_dir>
+   <workloads>
+    <localhost>
+     <attach type="pointer" type_id="dasID_cctrl2::AttachWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">attach</targetName>
+       <use_app_dir_as_work_dir type="bool">false</use_app_dir_as_work_dir>
+       <attach.pid type="null"></attach.pid>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-vTune/r@@@{at}</result_directory.path>
+       <search_directories type="bag"/>
+       <context>
+        <contextValue>
+         <id type="string">allowMultipleRuns</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">analyzeSystemWide</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">cpuMask</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">customCollector</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">500</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">enableRing</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChild</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChildStrategy</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetDurationType</id>
+         <value type="string">short</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetRingBuffer</id>
+         <value type="s32_t">0</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">attach</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">tracingMode</id>
+         <value type="null"></value>
+        </contextValue>
+       </context>
+      </workload>
+     </attach>
+     <launch type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">launch</targetName>
+       <use_app_dir_as_work_dir type="bool">true</use_app_dir_as_work_dir>
+       <launch_app.inherit_sys_environment type="bool">true</launch_app.inherit_sys_environment>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-vTune/r@@@{at}</result_directory.path>
+       <search_directories type="bag"/>
+       <context>
+        <contextValue>
+         <id type="string">allowMultipleRuns</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">analyzeSystemWide</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">cpuMask</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">customCollector</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">500</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">enableRing</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChild</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChildStrategy</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetDurationType</id>
+         <value type="string">short</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetRingBuffer</id>
+         <value type="s32_t">0</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">launch</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">traceMpi</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">tracingMode</id>
+         <value type="null"></value>
+        </contextValue>
+       </context>
+      </workload>
+     </launch>
+     <system type="pointer" type_id="dasID_cctrl2::SystemWideWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">system</targetName>
+       <use_app_dir_as_work_dir type="bool">false</use_app_dir_as_work_dir>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-vTune/r@@@{at}</result_directory.path>
+       <search_directories type="bag"/>
+       <context>
+        <contextValue>
+         <id type="string">allowMultipleRuns</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">cpuMask</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">customCollector</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">500</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">enableRing</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChild</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">native</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetDurationType</id>
+         <value type="string">short</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetRingBuffer</id>
+         <value type="s32_t">0</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">system</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">tracingMode</id>
+         <value type="null"></value>
+        </contextValue>
+       </context>
+      </workload>
+     </system>
+    </localhost>
+    <mic>
+     <launch type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">launch</targetName>
+       <use_app_dir_as_work_dir type="bool">true</use_app_dir_as_work_dir>
+       <launch.userapppath type="string">/home/mandelbulber2/build-mic/mandelbulber2</launch.userapppath>
+       <launch_app.app_to_launch type="string">/home/mandelbulber2/build-mic/mandelbulber2</launch_app.app_to_launch>
+       <launch_app.app_parameters type="string">--nogui /home/mandelbulber2/continuum.fract --format png16alpha --no-cli-color --never-delete --output /home/mandelbulber2/mandelbulber2-vTune/ --res 3840x2160 --keyframe --start 2750 --end 2760</launch_app.app_parameters>
+       <system.duration type="string">200</system.duration>
+       <launch_app.resume_after type="s32_t">120000</launch_app.resume_after>
+       <launch_app.start_paused type="bool">true</launch_app.start_paused>
+       <launch_app.working_folder type="string">/home/mandelbulber2/build-mic</launch_app.working_folder>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-vTune/r@@@{at}</result_directory.path>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/KNC-Lib</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/opt/mpss</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/opt/intel</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/KNC-Lib</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/opt/mpss</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/opt/intel</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">allowMultipleRuns</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">analyzeSystemWide</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">cpuMask</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">customCollector</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">500</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">enableRing</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChild</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChildStrategy</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetDurationType</id>
+         <value type="string">short</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetRingBuffer</id>
+         <value type="s32_t">20</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">launch</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">traceMpi</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">tracingMode</id>
+         <value type="null"></value>
+        </contextValue>
+       </context>
+      </workload>
+     </launch>
+     <system type="pointer" type_id="dasID_cctrl2::SystemWideWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">system</targetName>
+       <use_app_dir_as_work_dir type="bool">false</use_app_dir_as_work_dir>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-vTune/r@@@{at}</result_directory.path>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/KNC-Lib</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/opt/mpss</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/opt/intel</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/KNC-Lib</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/opt/mpss</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/opt/intel</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">allowMultipleRuns</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">cpuMask</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">customCollector</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">500</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">enableRing</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChild</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">native</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetDurationType</id>
+         <value type="string">short</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetRingBuffer</id>
+         <value type="s32_t">0</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">system</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">tracingMode</id>
+         <value type="null"></value>
+        </contextValue>
+       </context>
+      </workload>
+     </system>
+    </mic>
+    <micemulator>
+     <launch type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">launch</targetName>
+       <use_app_dir_as_work_dir type="bool">true</use_app_dir_as_work_dir>
+       <launch_app.mpi_run type="bool">false</launch_app.mpi_run>
+       <launch_app.mpi_max_rank type="null"></launch_app.mpi_max_rank>
+       <launch_app.mpi_result_path type="string"></launch_app.mpi_result_path>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-vTune/r@@@{at}</result_directory.path>
+       <search_directories type="bag"/>
+       <context>
+        <contextValue>
+         <id type="string">allowMultipleRuns</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">analyzeSystemWide</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">cpuMask</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">customCollector</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">500</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">enableRing</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChild</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChildStrategy</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetDurationType</id>
+         <value type="string">short</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetRingBuffer</id>
+         <value type="s32_t">0</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">launch</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">tracingMode</id>
+         <value type="null"></value>
+        </contextValue>
+       </context>
+      </workload>
+     </launch>
+     <system type="pointer" type_id="dasID_cctrl2::SystemWideWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">system</targetName>
+       <use_app_dir_as_work_dir type="bool">false</use_app_dir_as_work_dir>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-vTune/r@@@{at}</result_directory.path>
+       <search_directories type="bag"/>
+       <context>
+        <contextValue>
+         <id type="string">allowMultipleRuns</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">cpuMask</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">customCollector</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">500</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">enableRing</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">followChild</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">native</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetDurationType</id>
+         <value type="string">short</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetRingBuffer</id>
+         <value type="s32_t">0</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">system</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">tracingMode</id>
+         <value type="null"></value>
+        </contextValue>
+       </context>
+      </workload>
+     </system>
+    </micemulator>
+   </workloads>
+   <result_pattern>
+    <mic type="string">r@@@{at}</mic>
+   </result_pattern>
+  </target_settings>
+  <analysis_type_settings>
+   <selected_analysis_type_path type="string">/opt/intel/vtune_amplifier_xe_2016.3.0.463186/config/analysis_type/advanced_hotspots.cfg</selected_analysis_type_path>
+  </analysis_type_settings>
+ </All_Configurations-All_Platforms>
+ <engine>
+  <knobs>
+   <calleeAttributionMode type="string">none</calleeAttributionMode>
+   <loopAttributionMode type="string">loopAndFunction</loopAttributionMode>
+  </knobs>
+ </engine>
+ <contextValues>
+  <contextValue>
+   <id type="string">card</id>
+   <value type="string">0</value>
+  </contextValue>
+ </contextValues>
+</root>

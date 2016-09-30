@@ -1,0 +1,5 @@
+*.advidb2
+
+/results
+r*/
+e*/

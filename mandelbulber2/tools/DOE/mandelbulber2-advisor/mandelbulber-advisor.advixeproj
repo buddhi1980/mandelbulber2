@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+ <connectionOption type="string">localhost</connectionOption>
+ <rdmgr>
+  <timestamp type="u64_t">1473982590</timestamp>
+  <hostname type="string">coast77.mancoast.int</hostname>
+  <os type="string">linux</os>
+  <product type="string">Intel® Advisor XE 2016 Update 4</product>
+  <buildNumber type="s32_t">463413</buildNumber>
+  <logicalCPUCount type="s32_t">12</logicalCPUCount>
+  <CPUFrequency type="s64_t">1600000000</CPUFrequency>
+  <CPUFamily type="s32_t">6</CPUFamily>
+  <CPUModel type="s32_t">63</CPUModel>
+  <CPUStepping type="s32_t">2</CPUStepping>
+  <CPUBrandName type="string">Intel(R) Xeon(R) CPU E5-2603 v3 @ 1.60GHz</CPUBrandName>
+  <isa type="string">avx2</isa>
+ </rdmgr>
+ <contextValues type="bag"/>
+ <All_Configurations-All_Platforms>
+  <per_group_workloads>
+   <tripcounts type="string">tripcounts</tripcounts>
+   <release type="string">release</release>
+  </per_group_workloads>
+  <searchDirs>
+   <searchCategory>
+    <category type="u8_t">1</category>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2/build</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/lib64</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/opt</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+   </searchCategory>
+   <searchCategory>
+    <category type="u8_t">2</category>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2/build</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/lib64</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/opt</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+   </searchCategory>
+   <searchCategory>
+    <category type="u8_t">3</category>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+    <searchDirectory>
+     <name type="string">/home/mandelbulber2/mandelbulber2/src</name>
+     <recursive type="bool">true</recursive>
+     <priority type="bool">true</priority>
+    </searchDirectory>
+   </searchCategory>
+   <searchCategory>
+    <category type="u8_t">4</category>
+   </searchCategory>
+  </searchDirs>
+  <excludeFiles type="bag"/>
+  <target_settings>
+   <selected_workload>
+    <localhost type="string">release</localhost>
+   </selected_workload>
+   <result_dir>
+    <localhost type="string">/home/mandelbulber2/mandelbulber2-advisor</localhost>
+   </result_dir>
+   <result_pattern>
+    <localhost type="string">r@@@{at}</localhost>
+   </result_pattern>
+   <workloads>
+    <localhost>
+     <attach-survey type="pointer" type_id="dasID_cctrl2::AttachWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">attach-survey</targetName>
+       <use_app_dir_as_work_dir type="bool">false</use_app_dir_as_work_dir>
+       <attach.pid type="null"></attach.pid>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-advisor/r@@@{at}</result_directory.path>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2/build</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2/build</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">100</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">interval</id>
+         <value type="s32_t">10</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">process_for_analysis</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">resumeAfter</id>
+         <value type="s32_t">0</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">support_multi_isa_binaries</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">attach-survey</value>
+        </contextValue>
+       </context>
+      </workload>
+     </attach-survey>
+     <attach-tripcounts type="pointer" type_id="dasID_cctrl2::AttachWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">attach-tripcounts</targetName>
+       <use_app_dir_as_work_dir type="bool">false</use_app_dir_as_work_dir>
+       <attach.pid type="null"></attach.pid>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-advisor/r@@@{at}</result_directory.path>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2/build</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2/build</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">process_for_analysis</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">support_multi_isa_binaries</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">attach-tripcounts</value>
+        </contextValue>
+       </context>
+      </workload>
+     </attach-tripcounts>
+     <debug type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">debug</targetName>
+       <launch.userapppath type="string">/home/mandelbulber2/build/mandelbulber2</launch.userapppath>
+       <launch.userappworkdir type="string">/home/mandelbulber2/build</launch.userappworkdir>
+       <launch_app.app_to_launch type="string">/home/mandelbulber2/build/mandelbulber2</launch_app.app_to_launch>
+       <launch_app.app_parameters type="string">--nogui /home/mandelbulber2/continuum.fract --format png16alpha --no-cli-color --never-delete --output /home/mandelbulber2/mandelbulber2-vTune/ --res 3840x2160 --keyframe --start 2750 --end 2760</launch_app.app_parameters>
+       <use_app_dir_as_work_dir type="bool">true</use_app_dir_as_work_dir>
+       <launch_app.working_folder type="string">/home/mandelbulber2/build</launch_app.working_folder>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-advisor/r@@@{at}</result_directory.path>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2/build</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2/build</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">analysis_mode</id>
+         <value type="string">default</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mark-up-list</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">process_for_analysis</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">stackOffset</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">suppressions</id>
+         <value type="string">none</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">debug</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">vsdbg_support</id>
+         <value type="string">off</value>
+        </contextValue>
+       </context>
+      </workload>
+     </debug>
+     <map type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">map</targetName>
+       <launch.userapppath type="string">/home/mandelbulber2/build/mandelbulber2</launch.userapppath>
+       <launch.userappworkdir type="string">/home/mandelbulber2/build</launch.userappworkdir>
+       <launch_app.app_to_launch type="string">/home/mandelbulber2/build/mandelbulber2</launch_app.app_to_launch>
+       <launch_app.app_parameters type="string">--nogui /home/mandelbulber2/continuum.fract --format png16alpha --no-cli-color --never-delete --output /home/mandelbulber2/mandelbulber2-vTune/ --res 3840x2160 --keyframe --start 2750 --end 2760</launch_app.app_parameters>
+       <use_app_dir_as_work_dir type="bool">true</use_app_dir_as_work_dir>
+       <launch_app.working_folder type="string">/home/mandelbulber2/build</launch_app.working_folder>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-advisor/r@@@{at}</result_directory.path>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2/build</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2/build</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">mark-up-list</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">process_for_analysis</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">recordHeapMemory</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">recordStackFrame</id>
+         <value type="bool">true</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">suppressions</id>
+         <value type="string">none</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">map</value>
+        </contextValue>
+       </context>
+      </workload>
+     </map>
+     <release type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">release</targetName>
+       <use_app_dir_as_work_dir type="bool">true</use_app_dir_as_work_dir>
+       <launch_app.inherit_sys_environment type="bool">true</launch_app.inherit_sys_environment>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-advisor/r@@@{at}</result_directory.path>
+       <launch.userapppath type="string">/home/mandelbulber2/build/mandelbulber2</launch.userapppath>
+       <launch_app.app_to_launch type="string">/home/mandelbulber2/build/mandelbulber2</launch_app.app_to_launch>
+       <launch_app.app_parameters type="string">--nogui /home/mandelbulber2/continuum.fract --format png16alpha --no-cli-color --never-delete --output /home/mandelbulber2/mandelbulber2-vTune/ --res 3840x2160 --keyframe --start 2750 --end 2760</launch_app.app_parameters>
+       <launch.userappworkdir type="string">/home/mandelbulber2/build</launch.userappworkdir>
+       <launch_app.working_folder type="string">/home/mandelbulber2/build</launch_app.working_folder>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2/build</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2/build</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">60</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">interval</id>
+         <value type="s32_t">5</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">process_for_analysis</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">resumeAfter</id>
+         <value type="s32_t">60000</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">support_multi_isa_binaries</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">release</value>
+        </contextValue>
+       </context>
+      </workload>
+     </release>
+     <suitability type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">suitability</targetName>
+       <launch.userapppath type="string">/home/mandelbulber2/build/mandelbulber2</launch.userapppath>
+       <launch.userappworkdir type="string">/home/mandelbulber2/build</launch.userappworkdir>
+       <launch_app.app_to_launch type="string">/home/mandelbulber2/build/mandelbulber2</launch_app.app_to_launch>
+       <launch_app.app_parameters type="string">--nogui /home/mandelbulber2/continuum.fract --format png16alpha --no-cli-color --never-delete --output /home/mandelbulber2/mandelbulber2-vTune/ --res 3840x2160 --keyframe --start 2750 --end 2760</launch_app.app_parameters>
+       <use_app_dir_as_work_dir type="bool">true</use_app_dir_as_work_dir>
+       <launch_app.working_folder type="string">/home/mandelbulber2/build</launch_app.working_folder>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-advisor/r@@@{at}</result_directory.path>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2/build</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2/build</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">dataLimit</id>
+         <value type="s32_t">100</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">interval</id>
+         <value type="s32_t">10</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">mrteMode</id>
+         <value type="string">auto</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">process_for_analysis</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">resumeAfter</id>
+         <value type="s32_t">0</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">suitability</value>
+        </contextValue>
+       </context>
+      </workload>
+     </suitability>
+     <tripcounts type="pointer" type_id="dasID_cctrl2::ApplicationWorkload" ptr_type="dasID_cctrl2::IWorkload">
+      <workload>
+       <targetName type="string">tripcounts</targetName>
+       <launch_app.inherit_sys_environment type="bool">true</launch_app.inherit_sys_environment>
+       <launch.userapppath type="string">/home/mandelbulber2/build/mandelbulber2</launch.userapppath>
+       <launch.userappworkdir type="string">/home/mandelbulber2/build</launch.userappworkdir>
+       <launch_app.app_to_launch type="string">/home/mandelbulber2/build/mandelbulber2</launch_app.app_to_launch>
+       <launch_app.app_parameters type="string">--nogui /home/mandelbulber2/continuum.fract --format png16alpha --no-cli-color --never-delete --output /home/mandelbulber2/mandelbulber2-vTune/ --res 3840x2160 --keyframe --start 2750 --end 2760</launch_app.app_parameters>
+       <use_app_dir_as_work_dir type="bool">true</use_app_dir_as_work_dir>
+       <launch_app.working_folder type="string">/home/mandelbulber2/build</launch_app.working_folder>
+       <result_directory.path type="string">/home/mandelbulber2/mandelbulber2-advisor/r@@@{at}</result_directory.path>
+       <search_directories>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">sym:rp=/home/mandelbulber2/build</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2</value>
+        </item>
+        <item>
+         <value type="string">bin:rp=/home/mandelbulber2/build</value>
+        </item>
+       </search_directories>
+       <context>
+        <contextValue>
+         <id type="string">process_for_analysis</id>
+         <value type="string"></value>
+        </contextValue>
+        <contextValue>
+         <id type="string">support_multi_isa_binaries</id>
+         <value type="bool">false</value>
+        </contextValue>
+        <contextValue>
+         <id type="string">targetType</id>
+         <value type="string">tripcounts</value>
+        </contextValue>
+       </context>
+      </workload>
+     </tripcounts>
+    </localhost>
+   </workloads>
+  </target_settings>
+ </All_Configurations-All_Platforms>
+</root>
