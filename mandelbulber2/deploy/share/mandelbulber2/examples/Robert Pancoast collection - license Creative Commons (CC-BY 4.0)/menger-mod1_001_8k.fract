@@ -1,0 +1,40 @@
+# Mandelbulber settings file
+# version 2.07
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+basic_fog_color e800 ef00 ff00;
+basic_fog_visibility 0.00389045;
+camera -0.4392328388406563 -0.6796192770542963 -0.1788712242913931;
+camera_distance_to_target 0.0005463332636281924;
+camera_rotation 81.50355237074369 -34.44936181242291 6.106664988409952e-13;
+camera_top -0.5594693528660705 0.08357779315783359 0.8246264582794361;
+coloring_palette_size 4;
+coloring_random_seed 539934;
+coloring_speed 3.4599;
+DE_factor 0.90625;
+DOF_focus 0.001140967360697687;
+DOF_radius 5.82;
+flight_last_to_render 0;
+formula_1 61;
+fractal_coloring_algorithm 4;
+fractal_coloring_line_direction 1 1 1;
+image_height 4320;
+image_width 7680;
+julia_mode true;
+keyframe_last_to_render 0;
+perspective_type 2;
+surface_color_palette 000000 666666 bb0000 ffffff;
+target -0.4396784152499884 -0.6795527134565149 -0.1791802728083669;
+view_distance_max 13.81473177672692;
+[fractal_1]
+mandelbox_scale -2;
+transf_addition_constant 0.13369 -0.2 0;
+[fractal_2]
+[fractal_3]
+[fractal_4]
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]
