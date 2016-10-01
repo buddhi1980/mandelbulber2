@@ -1106,22 +1106,22 @@ Czy usunąć istniejące klatki?</translation>
         <translation>Kolizji nie znaleziono</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="131"/>
+        <location filename="../src/render_window_menu.cpp" line="132"/>
         <source>Description</source>
         <translation>Opis</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="135"/>
+        <location filename="../src/render_window_menu.cpp" line="136"/>
         <source>Ok, don&apos;t show again</source>
         <translation>OK, ale już więcej nie pytaj</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="472"/>
+        <location filename="../src/render_window_menu.cpp" line="473"/>
         <source>Settings saved to clipboard</source>
         <translation>Ustawienia zapisane w schowku</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="234"/>
+        <location filename="../src/render_window_menu.cpp" line="235"/>
         <source>Cannot load settings from clipboard!</source>
         <translation>Nie można wczytać ustawień ze schowka!</translation>
     </message>
@@ -1157,12 +1157,12 @@ Czy wykonać?</translation>
         <translation>Czy chcesz wygenerować miniatury do wszystkich przykładów?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="289"/>
+        <location filename="../qt/preferences_dialog.cpp" line="300"/>
         <source>Retrieve toolbar</source>
         <translation>Przywracanie paska narzędzi</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="290"/>
+        <location filename="../qt/preferences_dialog.cpp" line="301"/>
         <source>Are you sure to retrieve default presets into toolbar?
 It could overwrite some of existing presets.
 Proceed?</source>
@@ -1171,12 +1171,12 @@ To może spowodować nadpisanie niektórych istniejących ikon.
 Czy kontynuować?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="303"/>
+        <location filename="../qt/preferences_dialog.cpp" line="314"/>
         <source>Retrieve materials</source>
         <translation>Przywrócenie materiałów</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="304"/>
+        <location filename="../qt/preferences_dialog.cpp" line="315"/>
         <source>Are you sure to retrieve default materials into materials folder?
 It could overwrite some of existing materials.
 Proceed?</source>
@@ -1944,6 +1944,18 @@ allowed formats are: </source>
         <location filename="../qt/ui_render_window.h" line="14595"/>
         <source>&amp;Image adjustments</source>
         <translation>Ustawienia obrazu</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="778"/>
+        <location filename="../qt/ui_render_window.h" line="14639"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of stereoscopic images and animations for viewing with 3D glasses.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Włącza renderowanie stereoskopowych obrazów i animacji dedykowanych do oglądania przez okulary 3D.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="842"/>
+        <location filename="../qt/ui_render_window.h" line="14650"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines how stereoscopic image will be rendered.&lt;/p&gt;&lt;p&gt;Left-right - View for left eye will be rendered on the left side of the image. View for right eye will be on the right side.&lt;/p&gt;&lt;p&gt;Top-bottom - View for left eye will be rendered on the top half of the image. View for right eye will be on the bottom half of the image.&lt;/p&gt;&lt;p&gt;Anaglyph red/cyan - Image will be rendered as an anaglyph dedicated for red/cyan 3D glasses. Using this option it is possible to edit the fractal with 3D view directly in the application window using regular display.  Cheap 3D glasses are all that is required. For fractal exploration it is recomended to not use SSAO ambient occlusion, because it is rendered in 2 passes (try to use &amp;quot;Fast&amp;quot; ambient occlusion).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje jak stereoskopowy obraz ma zostać zrederowany.&lt;/p&gt;&lt;p&gt;Lewa-prawa - Widok dla lewego oka będzie zrederowany po lewej stronie obrazu. Widok dla prawego oka będzie po prawej stronie.&lt;/p&gt;&lt;p&gt;Góra-dół - Widok dla lewego oka będzie zrederowany na górnej połowie obrazu. Widok dla prawego oka będzie na dolnej połowie.&lt;/p&gt;&lt;p&gt;Anaglif czerwono-turkusowy - Obraz będzie zrenderowany jako anaglif dedykowany dla czerwono-turkusowych okularów 3D. Używając ten tryb jest możliwa edycja fraktala z widokiem 3D w oknie aplikacji wykorzystując zwykły monitor. Są tylko potrzebne okulary 3D. Podczas eksplorowania fraktala nie jest rekomendowane używanie światła rozproszonego SSAO, gdyz jest renderowane dwuprzebiegowo (spróbuj używać &amp;quot;Szybkie&amp;quot; światło rozproszone).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1439"/>
@@ -3132,10 +3144,8 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation>Połącz &apos;ilość detali&apos; fraktala z rozdzielczością obrazu</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="778"/>
-        <location filename="../qt/ui_render_window.h" line="14639"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of stereoscopic images and animations dedicated to watch with 3D glasses.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Włącza renderowanie stereoskopowych obrazów i animacji dedykowanych do oglądania przez okulary 3D.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Włącza renderowanie stereoskopowych obrazów i animacji dedykowanych do oglądania przez okulary 3D.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="781"/>
@@ -3150,10 +3160,8 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation>Odległość między oczami</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="842"/>
-        <location filename="../qt/ui_render_window.h" line="14650"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines how stereoscopic image will be rendered.&lt;/p&gt;&lt;p&gt;Left-right - View for left eye will be rendered on the left side of the image. View for right eye will be on the right side.&lt;/p&gt;&lt;p&gt;Top-bottom - View for left eye will be rendered on the top half of the image. View for right eye will be on the bottom half of the image.&lt;/p&gt;&lt;p&gt;Anaglyph red/cyan - Image will be rendered as a anaglyph dedicated for red/cyan 3D glasses. Using this option there is possible to edit the fractal with 3D view directly in application window using regular display. There are only needed cheap 3D glasses. For fractal exploration there is recomended to not use SSAO ambient occlusion, because it&apos;s rendered in 2 passes (try to use &amp;quot;Fast&amp;quot; ambient occlusion).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje jak stereoskopowy obraz ma zostać zrederowany.&lt;/p&gt;&lt;p&gt;Lewa-prawa - Widok dla lewego oka będzie zrederowany po lewej stronie obrazu. Widok dla prawego oka będzie po prawej stronie.&lt;/p&gt;&lt;p&gt;Góra-dół - Widok dla lewego oka będzie zrederowany na górnej połowie obrazu. Widok dla prawego oka będzie na dolnej połowie.&lt;/p&gt;&lt;p&gt;Anaglif czerwono-turkusowy - Obraz będzie zrenderowany jako anaglif dedykowany dla czerwono-turkusowych okularów 3D. Używając ten tryb jest możliwa edycja fraktala z widokiem 3D w oknie aplikacji wykorzystując zwykły monitor. Są tylko potrzebne okulary 3D. Podczas eksplorowania fraktala nie jest rekomendowane używanie światła rozproszonego SSAO, gdyz jest renderowane dwuprzebiegowo (spróbuj używać &amp;quot;Szybkie&amp;quot; światło rozproszone).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje jak stereoskopowy obraz ma zostać zrederowany.&lt;/p&gt;&lt;p&gt;Lewa-prawa - Widok dla lewego oka będzie zrederowany po lewej stronie obrazu. Widok dla prawego oka będzie po prawej stronie.&lt;/p&gt;&lt;p&gt;Góra-dół - Widok dla lewego oka będzie zrederowany na górnej połowie obrazu. Widok dla prawego oka będzie na dolnej połowie.&lt;/p&gt;&lt;p&gt;Anaglif czerwono-turkusowy - Obraz będzie zrenderowany jako anaglif dedykowany dla czerwono-turkusowych okularów 3D. Używając ten tryb jest możliwa edycja fraktala z widokiem 3D w oknie aplikacji wykorzystując zwykły monitor. Są tylko potrzebne okulary 3D. Podczas eksplorowania fraktala nie jest rekomendowane używanie światła rozproszonego SSAO, gdyz jest renderowane dwuprzebiegowo (spróbuj używać &amp;quot;Szybkie&amp;quot; światło rozproszone).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="846"/>
@@ -6881,7 +6889,7 @@ iteracji fraktala:</translation>
         <translation type="vanished">Zapisz jako PNG 16-bit z kanałem alfa</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="192"/>
+        <location filename="../src/render_window_menu.cpp" line="193"/>
         <source>Load settings...</source>
         <translation>Wczytaj ustawienia...</translation>
     </message>
@@ -6972,14 +6980,14 @@ iteracji fraktala:</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="56"/>
-        <location filename="../src/render_window_menu.cpp" line="151"/>
-        <location filename="../src/render_window_menu.cpp" line="187"/>
-        <location filename="../src/render_window_menu.cpp" line="441"/>
+        <location filename="../src/render_window_menu.cpp" line="152"/>
+        <location filename="../src/render_window_menu.cpp" line="188"/>
+        <location filename="../src/render_window_menu.cpp" line="442"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="353"/>
+        <location filename="../src/render_window_menu.cpp" line="354"/>
         <source>TIFF images (*.tiff)</source>
         <translation>Obrazy TIFF (*.tiff)</translation>
     </message>
@@ -6992,58 +7000,58 @@ iteracji fraktala:</translation>
         <translation type="vanished">Zapis obrazu TIFF zakończony</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="447"/>
+        <location filename="../src/render_window_menu.cpp" line="448"/>
         <source>Save settings...</source>
         <translation>Zapisz ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="156"/>
+        <location filename="../src/render_window_menu.cpp" line="157"/>
         <source>Load example settings...</source>
         <translation>Wczytaj przykładowe ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="274"/>
+        <location filename="../src/render_window_menu.cpp" line="275"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>Obrazy JPEG(*.jpg *.jpeg) </translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="279"/>
-        <location filename="../src/render_window_menu.cpp" line="307"/>
-        <location filename="../src/render_window_menu.cpp" line="332"/>
-        <location filename="../src/render_window_menu.cpp" line="358"/>
-        <location filename="../src/render_window_menu.cpp" line="383"/>
-        <location filename="../src/render_window_menu.cpp" line="412"/>
+        <location filename="../src/render_window_menu.cpp" line="280"/>
+        <location filename="../src/render_window_menu.cpp" line="308"/>
+        <location filename="../src/render_window_menu.cpp" line="333"/>
+        <location filename="../src/render_window_menu.cpp" line="359"/>
+        <location filename="../src/render_window_menu.cpp" line="384"/>
+        <location filename="../src/render_window_menu.cpp" line="413"/>
         <source>Save image to %1 file...</source>
         <translation>Zapisz obraz do pliku %1...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="286"/>
-        <location filename="../src/render_window_menu.cpp" line="291"/>
-        <location filename="../src/render_window_menu.cpp" line="390"/>
-        <location filename="../src/render_window_menu.cpp" line="396"/>
-        <location filename="../src/render_window_menu.cpp" line="419"/>
-        <location filename="../src/render_window_menu.cpp" line="425"/>
+        <location filename="../src/render_window_menu.cpp" line="287"/>
+        <location filename="../src/render_window_menu.cpp" line="292"/>
+        <location filename="../src/render_window_menu.cpp" line="391"/>
+        <location filename="../src/render_window_menu.cpp" line="397"/>
+        <location filename="../src/render_window_menu.cpp" line="420"/>
+        <location filename="../src/render_window_menu.cpp" line="426"/>
         <source>Saving %1 image</source>
         <translation>Zapis obrazu %1</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="286"/>
-        <location filename="../src/render_window_menu.cpp" line="391"/>
-        <location filename="../src/render_window_menu.cpp" line="420"/>
+        <location filename="../src/render_window_menu.cpp" line="287"/>
+        <location filename="../src/render_window_menu.cpp" line="392"/>
+        <location filename="../src/render_window_menu.cpp" line="421"/>
         <source>Saving image started</source>
         <translation>Rozpoczęte zapisywanie obrazu</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="291"/>
-        <location filename="../src/render_window_menu.cpp" line="397"/>
-        <location filename="../src/render_window_menu.cpp" line="426"/>
+        <location filename="../src/render_window_menu.cpp" line="292"/>
+        <location filename="../src/render_window_menu.cpp" line="398"/>
+        <location filename="../src/render_window_menu.cpp" line="427"/>
         <source>Saving image finished</source>
         <translation>Zapisywanie obrazu zakończone</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="302"/>
-        <location filename="../src/render_window_menu.cpp" line="378"/>
-        <location filename="../src/render_window_menu.cpp" line="407"/>
+        <location filename="../src/render_window_menu.cpp" line="303"/>
+        <location filename="../src/render_window_menu.cpp" line="379"/>
+        <location filename="../src/render_window_menu.cpp" line="408"/>
         <source>PNG images (*.png)</source>
         <translation>Obrazy PNG (*.png)</translation>
     </message>
@@ -7056,7 +7064,7 @@ iteracji fraktala:</translation>
         <translation type="vanished">Zapis obrazu PNG zakończony</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="327"/>
+        <location filename="../src/render_window_menu.cpp" line="328"/>
         <source>EXR images (*.exr)</source>
         <translation>Obrazy EXR (*.exr)</translation>
     </message>
