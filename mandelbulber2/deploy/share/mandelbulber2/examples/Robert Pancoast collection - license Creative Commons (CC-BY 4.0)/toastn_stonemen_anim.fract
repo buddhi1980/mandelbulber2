@@ -3,7 +3,6 @@
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-anim_flight_dir C:\Users\Administrator\Desktop\toastn_stonemen_anim.fract\;
 background_color_1 0000 0000 0000;
 background_color_2 ff00 0000 0000;
 background_color_3 0000 0000 0000;
