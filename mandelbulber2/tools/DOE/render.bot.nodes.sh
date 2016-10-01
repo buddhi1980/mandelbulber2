@@ -1,21 +1,26 @@
 #!/bin/bash
 
-SRC=$PWD
+SRC=$PWD/../../../
+DOE=$PWD
+BUILDTREE=$SRC/../build-mic/mandelbulber2
+BUILDTREE64=$SRC/../build/mandelbulber2
+HOSTIP=192.168.1.70
+SETTINGS=$SRC/mandelbulber2/deploy/share/mandelbulber2/examples/aexion001.fract
 
 # Systems #
-gnome-terminal --command="ssh mic0 /home/mandelbulber2/build-mic/mandelbulber2 --nogui -n --host 192.168.1.70 --no-cli-color"
-gnome-terminal --command="ssh mic1 /home/mandelbulber2/build-mic/mandelbulber2 --nogui -n --host 192.168.1.70 --no-cli-color"
-gnome-terminal --command="ssh mic2 /home/mandelbulber2/build-mic/mandelbulber2 --nogui -n --host 192.168.1.70 --no-cli-color"
-gnome-terminal --command="ssh mic3 /home/mandelbulber2/build-mic/mandelbulber2 --nogui -n --host 192.168.1.70 --no-cli-color"
-gnome-terminal --command="ssh mic4 /home/mandelbulber2/build-mic/mandelbulber2 --nogui -n --host 192.168.1.70 --no-cli-color"
-gnome-terminal --command="ssh mic5 /home/mandelbulber2/build-mic/mandelbulber2 --nogui -n --host 192.168.1.70 --no-cli-color"
-gnome-terminal --command="ssh mic6 /home/mandelbulber2/build-mic/mandelbulber2 --nogui -n --host 192.168.1.70 --no-cli-color"
-gnome-terminal --command="ssh mic7 /home/mandelbulber2/build-mic/mandelbulber2 --nogui -n --host 192.168.1.70 --no-cli-color"
+gnome-terminal --command="ssh mic0 $BUILDTREE/mandelbulber2 --nogui -n --host $HOSTIP --no-cli-color"
+gnome-terminal --command="ssh mic1 $BUILDTREE/mandelbulber2 --nogui -n --host $HOSTIP --no-cli-color"
+gnome-terminal --command="ssh mic2 $BUILDTREE/mandelbulber2 --nogui -n --host $HOSTIP --no-cli-color"
+gnome-terminal --command="ssh mic3 $BUILDTREE/mandelbulber2 --nogui -n --host $HOSTIP --no-cli-color"
+gnome-terminal --command="ssh mic4 $BUILDTREE/mandelbulber2 --nogui -n --host $HOSTIP --no-cli-color"
+gnome-terminal --command="ssh mic5 $BUILDTREE/mandelbulber2 --nogui -n --host $HOSTIP --no-cli-color"
+gnome-terminal --command="ssh mic6 $BUILDTREE/mandelbulber2 --nogui -n --host $HOSTIP --no-cli-color"
+gnome-terminal --command="ssh mic7 $BUILDTREE/mandelbulber2 --nogui -n --host $HOSTIP --no-cli-color"
 
 sleep 15
 
 
-gnome-terminal --command="/home/mandelbulber2/build/mandelbulber2 --server /home/mandelbulber2/sponged.fract" 
+gnome-terminal --command="$BUILDTREE64/mandelbulber2 --server $SETTINGS" 
 
 
 

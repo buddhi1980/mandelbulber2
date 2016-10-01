@@ -1,6 +1,8 @@
 #!/bin/bash
 
-SRC=$PWD
+# Build Systems #
+DOE=$PWD
+SRC=$PWD/../../../
 KNC_LIB=$SRC/../KNC-Lib
 
 # build libs #
@@ -17,5 +19,5 @@ cd $KNC_LIB/qt5/ && \
 sh $KNC_LIB/qt5/build.bot.log.sh
 
 # build #
-cd $SRC/ && \
-sh $SRC/build.bot.log.sh
+cd $DOE/ && \
+sh $DOE/build.bot.log.sh

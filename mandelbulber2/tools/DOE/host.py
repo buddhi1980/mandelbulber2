@@ -1,56 +1,152 @@
 #!/usr/bin/env python
-import subprocess
-import Queue
+from __future__ import print_function
 import multiprocessing
+import os
+import platform
+import Queue
+import random
+import subprocess
+import time
+
+# Settings to Render #
+RP = "Robert Pancoast collection - license Creative Commons (CC-BY 4.0)"
+settings_file = \
+RP + os.sep \
++ "toastn_stonemen_anim.fract"
+
+# Options for Render #
+start = 0
+total_frames = 100
+RenderSets = 10
+totalIterations = total_frames/RenderSets
+
+# Tested on CentOS7 #
+WorkersCount = 8
+spacer = "\'"
+src_dir = os.sep + "home" \
++ os.sep + "mandelbulber2" \
++ os.sep
+binPath_k1om = \
+src_dir + os.sep \
++ ".." + os.sep \
++ "build-mic" + os.sep \
++ "mandelbulber2" + os.sep \
++ "mandelbulber2"
+binPath_x64 = \
+src_dir + os.sep \
++ ".." + os.sep \
++ "build" + os.sep \
++ "mandelbulber2" + os.sep \
++ "mandelbulber2"
+
+# Common Directories #
+example_dir = src_dir + "mandelbulber2" \
++ os.sep + "deploy" \
++ os.sep + "share" \
++ os.sep + "mandelbulber2" \
++ os.sep + "examples" \
++ os.sep
+output_dir = src_dir + os.sep \
++ "render" \
++ os.sep
 
 class Worker(multiprocessing.Process):
-	def __init__(self, queue, prefix, binPath):
+	def __init__(self, queue, prefix, binPath, results, resolution):
 		super(Worker, self).__init__()
 		self.queue= queue
 		self.prefix= prefix
 		self.binPath= binPath
+		self.results= results
+		self.resolution= resolution
 
 	def run(self):
-		print "Worker started " + str(self.prefix)
-		for iteration in iter( self.queue.get, None ):
-			print str(iteration) + " of " + str(totalIterations)
-			# Use data
-			cmd = str(self.prefix) + " " + self.binPath + " --never-delete --nogui " + settings_file + " --format png16alpha --no-cli-color --output /home/mandelbulber2/render/ --flight --start " + str(iteration*RenderSets) + " --end " + str((iteration+1)*RenderSets) + resoution
-			cmd = "xterm -e '" + cmd + "'"
-			print cmd
+		print("Worker started " + str(self.prefix))
+		while True:
+			iteration = self.queue.get()
+			# finalize iterations #
+			if iteration == 'exit':
+				print("Cleaning up worker " + str(self.prefix))
+				break
+			# Use data #
+			start = str(iteration*RenderSets)
+			end = str((iteration+1)*RenderSets)
+			print(str(iteration) + " of " + str(totalIterations - 1))
+			cmd = str(self.prefix) \
+			+ spacer \
+			+ self.binPath \
+			+ " --never-delete" \
+			+ " --nogui" \
+			+ " --format png16alpha" \
+			+ " --no-cli-color " \
+			+ "\"" \
+			+ example_dir + settings_file \
+			+ "\"" \
+			+ " --output " \
+			+ output_dir \
+			+ " --flight" \
+			+ " --start " \
+			+ start \
+			+ " --end " \
+			+ end \
+			+ self.resolution \
+			+ spacer
+			cmd = "xterm -e " + cmd
+			print(cmd)
+			start_time = time.time()
 			process = subprocess.Popen(cmd, shell=True)
 			process.wait()
-			print str(self.prefix) + " completed"
+			end_time = time.time()
+			result = str(self.prefix) \
+			+ " \t " \
+			+ str(iteration) \
+			+ " \t " \
+			+ str(end_time - start_time) \
+			+ " \t " \
+			+ self.resolution
+			self.results.append(result)
+			print(result)
 
-#globals
-start = 0
-#start = 257
-#total_frames = 4500
-total_frames = 6000
-micCount = 8
-RenderSets = 10
-totalIterations = total_frames/RenderSets
-#resoution = " --res 3840x2160"
-resoution = " --res 4096x2048"
-binPath_k1om = "/home/mandelbulber2/build-mic/mandelbulber2"
-binPath_x64 = "/home/mandelbulber2/build/mandelbulber2"
-#settings_file = "/home/mandelbulber2/_menger-coastn_anim.fract"
-#settings_file = "/home/mandelbulber2/sponged.fract"
-#settings_file = "/home/mandelbulber2/continuum.fract"
-settings_file = "/home/mandelbulber2/menger-4D.fract"
+def render(resolution):
+	request_queue = multiprocessing.Queue()
+	workers = []
+	for i in range(WorkersCount):
+		w = Worker( request_queue, "ssh mic" + str(i) + " ", binPath_k1om, results, resolution )
+		w.start()
+		workers.insert(0, w)
+	# render iterations #
+	for data in range(start, totalIterations, 1):
+		request_queue.put( data )
+	# finalize iterations #
+	for data in range(0, WorkersCount, 1):
+		request_queue.put('exit')
+	for work in workers:
+		work.join()
+
+def print_results():
+# Display Results #
+	print("###############################")
+	print("###########_RESULTS_###########")
+	print("###############################")
+	for i in range(0, len(results), 1):
+		print(results[i])
+	print("###############################")
+	print("###############################")
+	print("###############################")
 
 if __name__ == "__main__":
-	request_queue =  multiprocessing.Queue()
-	# co-procs
-	for i in range(micCount):
-		Worker( request_queue, "ssh mic" + str(i), binPath_k1om ).start()
-	# host
-	Worker( request_queue, "", binPath_x64 ).start()
-	
-	for data in range(start, total_frames/RenderSets, 1):
-		request_queue.put( data )
-
-	# Sentinel objects to allow clean shutdown: 1 per worker.
-	for i in range(micCount):
-		request_queue.put( None )
+	# multiprocessing safe list #
+	results = multiprocessing.Manager().list()
+	# output dir #
+	if not os.path.exists(output_dir):
+		os.makedirs(output_dir)
+	# Execute test resolution #
+	try:
+		render(" --res 50x50")
+		#render(" --res 1920x1080")
+		#render(" --res 3840x2160")
+		#render(" --res 7680x4320")
+	except KeyboardInterrupt:
+		print("KeyboardInterrupt Detected")
+	finally:
+		print_results()
 

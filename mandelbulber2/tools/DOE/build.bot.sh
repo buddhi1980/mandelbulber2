@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Build Systems #
-SRC=$PWD
+SRC=$PWD/../../../
+
 cd $SRC && git rev-parse HEAD
 
 KNC_LIB=$SRC/../KNC-Lib
@@ -22,7 +23,7 @@ echo "Incremental Build enabled"
 fi
 mkdir -p $BUILDTREE
 
-SYSROOT=/home/mpss-3.7/k1om
+SYSROOT=$SRC/../mpss-3.7/k1om
 MPSSDIR=$SYSROOT
 
 # Build k1om #
@@ -79,7 +80,7 @@ cd $BUILDTREE && make -j12 VERBOSE=1
 cd $BUILDTREE && make -j12 VERBOSE=1
 
 # Deploy support 
-ln -s /home/mandelbulber2/mandelbulber2/deploy/share/mandelbulber2 /usr/share/mandelbulber2
+ln -s $SRC/mandelbulber2/deploy/share/mandelbulber2 /usr/share/mandelbulber2
 
 exit
 

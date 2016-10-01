@@ -1,9 +1,18 @@
+#!/bin/bash
+
+# Build Systems #
+SRC=$PWD/../../../
+BUILDTREE=$SRC/../NaNtest
+SYSROOT=$SRC/../mpss-3.7/k1om
+MPSSDIR=$SYSROOT
+KNC_LIB=$SRC/../KNC-Lib
+
 # Clean build dir
-rm -rf /home/NaNtest/
-mkdir -p /home/NaNtest/
+rm -rf $BUILDTREE/
+mkdir -p $BUILDTREE/
 
 # Generate Source
-cat > /home/NaNtest/NaNtest-src.cpp <<EOF
+cat > $BUILDTREE/NaNtest-src.cpp <<EOF
 #include <iostream>
 #include <math.h>
 #include <cmath>
@@ -151,114 +160,52 @@ int main()
 }
 
 EOF
-cat /home/NaNtest/NaNtest-src.cpp
+cat $BUILDTREE/NaNtest-src.cpp
 
 # Compile KNC
-/opt/intel/compilers_and_libraries_2017.0.064/linux/bin/intel64/icpc \
--DQT_CORE_LIB \
--DQT_GUI_LIB \
--DQT_NETWORK_LIB \
--DQT_NO_DEBUG \
--DQT_TESTLIB_LIB \
--DQT_UITOOLS_LIB \
--DQT_WIDGETS_LIB \
--I/home/mandelbulber2/build-mic \
--I/home/mandelbulber2 \
--I/home/mandelbulber2/mandelbulber2/qt \
--I/home/mandelbulber2/mandelbulber2/src \
--I/home/KNC-Lib/libpng/install-mic/include \
--I/home/mpss-3.7/k1om/usr/include \
--I/home/KNC-Lib/gsl/install-mic/include \
--I/home/KNC-Lib/libjpeg \
--isystem /home/KNC-Lib/qt5/build-mic/qtbase/include \
--isystem /home/KNC-Lib/qt5/build-mic/qtbase/include/QtWidgets \
--isystem /home/KNC-Lib/qt5/build-mic/qtbase/include/QtGui \
--isystem /home/KNC-Lib/qt5/build-mic/qtbase/include/QtCore \
--isystem /home/KNC-Lib/qt5/qtbase/mkspecs/linux-icc-64 \
--isystem /home/KNC-Lib/qt5/build-mic/qtbase/include/QtNetwork \
--isystem /home/KNC-Lib/qt5/build-mic/qttools/include \
--isystem /home/KNC-Lib/qt5/build-mic/qttools/include/QtUiTools \
--isystem /home/KNC-Lib/qt5/build-mic/qtbase/include/QtTest \
+icpc \
+-I$MPSSDIR/usr/include \
+-I$KNC_LIB/gsl/install-mic/include \
 -02 -g -fPIC -mmic \
 -wd39,10006 \
 -ffast-math -fopenmp -std=c++11 \
--o /home/NaNtest/NaNtest-src.cpp.o \
--c /home/NaNtest/NaNtest-src.cpp
+-o $BUILDTREE/NaNtest-src.cpp.o \
+-c $BUILDTREE/NaNtest-src.cpp
 
 # Link KNC
-/opt/intel/compilers_and_libraries_2017.0.064/linux/bin/intel64/icpc \
+icpc \
 -02 -g -fPIC -mmic -wd39,10006  -ffast-math -fopenmp -std=c++11 \
-/home/NaNtest/NaNtest-src.cpp.o \
--o /home/NaNtest/NaNtest.mic \
-/home/KNC-Lib/qt5/build-mic/qtbase/lib/libQt5Widgets.so.5.4.3 \
-/home/KNC-Lib/qt5/build-mic/qtbase/lib/libQt5Network.so.5.4.3 \
-/home/KNC-Lib/qt5/build-mic/qtbase/lib/libQt5Gui.so.5.4.3 \
-/home/KNC-Lib/qt5/build-mic/qttools/lib/libQt5UiTools.a \
-/home/KNC-Lib/qt5/build-mic/qtbase/lib/libQt5Test.so.5.4.3 \
-/home/KNC-Lib/libpng/install-mic/lib/libpng15.so.15.27.0 \
-/home/KNC-Lib/gsl/install-mic/lib/libgsl.a \
-/home/KNC-Lib/gsl/install-mic/lib/libgslcblas.a \
-/home/mpss-3.7/k1om/usr/lib64/libz.so \
-/home/KNC-Lib/libjpeg/build-mic/libjpeg.a \
-/home/KNC-Lib/qt5/build-mic/qtbase/lib/libQt5Core.so.5.4.3 \
--Wl,-rpath,/home/KNC-Lib/qt5/build-mic/qtbase/lib:/home/mpss-3.7/k1om/usr/lib64
+$BUILDTREE/NaNtest-src.cpp.o \
+-o $BUILDTREE/NaNtest.mic \
+$KNC_LIB/gsl/install-mic/lib/libgsl.a \
+$KNC_LIB/gsl/install-mic/lib/libgslcblas.a \
+-Wl,-rpath,$MPSSDIR/usr/lib64
 
 # Execute NaN tests
-chmod +x /home/NaNtest/NaNtest.mic
-ssh mic0 /home/NaNtest/NaNtest.mic
+chmod +x $BUILDTREE/NaNtest.mic
+ssh mic0 $BUILDTREE/NaNtest.mic
 
 # Cleanup
-rm -rf /home/NaNtest/NaNtest-src.cpp.o
+rm -rf $BUILDTREE/NaNtest-src.cpp.o
 
 # Compile x64
-/bin/c++ \
--DQT_CORE_LIB \
--DQT_GAMEPAD_LIB \
--DQT_GUI_LIB \
--DQT_NETWORK_LIB \
--DQT_NO_DEBUG \
--DQT_TESTLIB_LIB \
--DQT_UITOOLS_LIB \
--DQT_WIDGETS_LIB \
--DUSE_GAMEPAD=1 \
--I/home/mandelbulber2/build \
--I/home/mandelbulber2 \
--I/home/mandelbulber2/mandelbulber2/qt \
--I/home/mandelbulber2/mandelbulber2/src \
--isystem /opt/Qt5.7.0/5.7/gcc_64/include \
--isystem /opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets \
--isystem /opt/Qt5.7.0/5.7/gcc_64/include/QtGui \
--isystem /opt/Qt5.7.0/5.7/gcc_64/include/QtCore \
--isystem /opt/Qt5.7.0/5.7/gcc_64/./mkspecs/linux-g++ \
--isystem /opt/Qt5.7.0/5.7/gcc_64/include/QtNetwork \
--isystem /opt/Qt5.7.0/5.7/gcc_64/include/QtUiTools \
--isystem /opt/Qt5.7.0/5.7/gcc_64/include/QtTest \
--isystem /opt/Qt5.7.0/5.7/gcc_64/include/QtGamepad \
+c++ \
 -ffast-math -fopenmp -std=c++11 \
 -fPIC -std=gnu++11 \
--o /home/NaNtest/NaNtest-src.cpp.o \
--c /home/NaNtest/NaNtest-src.cpp
+-o $BUILDTREE/NaNtest-src.cpp.o \
+-c $BUILDTREE/NaNtest-src.cpp
 
 # Link x64
-/bin/c++ \
+c++ \
 -ffast-math -fopenmp -std=c++11 \
-/home/NaNtest/NaNtest-src.cpp.o \
--o /home/NaNtest/NaNtest \
-/opt/Qt5.7.0/5.7/gcc_64/lib/libQt5Network.so.5.7.0 \
-/opt/Qt5.7.0/5.7/gcc_64/lib/libQt5UiTools.a \
-/opt/Qt5.7.0/5.7/gcc_64/lib/libQt5Test.so.5.7.0 \
-/lib64/libpng.so /usr/lib64/libgsl.so \
-/usr/lib64/libgslcblas.so \
-/opt/Qt5.7.0/5.7/gcc_64/lib/libQt5Gamepad.so.5.7.0 \
-/lib64/libz.so \
-/opt/Qt5.7.0/5.7/gcc_64/lib/libQt5Widgets.so.5.7.0 \
-/opt/Qt5.7.0/5.7/gcc_64/lib/libQt5Gui.so.5.7.0 \
-/opt/Qt5.7.0/5.7/gcc_64/lib/libQt5Core.so.5.7.0 \
--Wl,-rpath,/opt/Qt5.7.0/5.7/gcc_64/lib
+$BUILDTREE/NaNtest-src.cpp.o \
+-o $BUILDTREE/NaNtest \
+/usr/lib64/libgsl.so \
+/usr/lib64/libgslcblas.so
 
 # Execute NaN tests
-chmod +x /home/NaNtest/NaNtest
-/home/NaNtest/NaNtest
+chmod +x $BUILDTREE/NaNtest
+$BUILDTREE/NaNtest
 
 
 
