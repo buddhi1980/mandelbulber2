@@ -344,7 +344,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform - Box_Fold VaryV1", "transf_box_fold_varyV1",
-		transfBoxFoldVaryV1,	analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+		transfBoxFoldVaryV1, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform - Box_Fold XYZ", "transf_box_fold_XYZ",
 		transfBoxFoldXYZ, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
@@ -452,10 +452,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Transform - Zvector_Axis_Swap", "transf_zVector_axis_swap",
 			transfZvectorAxisSwap, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
-
-
-
-		// 4D
+	// 4D
 	fractalList->append(
 		sFractalDescription("Transform - Addition Constant_4D", "transf_addition_constant_4D",
 			transfAdditionConstant4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

@@ -5763,20 +5763,18 @@ void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 void TransformBoxFoldVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	double limit = fractal->mandelbox.foldingLimit;
-	//double value = 2.0 *fractal->mandelbox.foldingLimit;
+	// double value = 2.0 *fractal->mandelbox.foldingLimit;
 	double tempVC = limit; // constant to be varied
-
 
 	if (i >= fractal->transformCommon.startIterations250
 			&& i < fractal->transformCommon.stopIterations
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		tempVC =
-			(tempVC
-				+ fractal->transformCommon.offset * (i - fractal->transformCommon.startIterations250)
-						/ (fractal->transformCommon.stopIterations
-								- fractal->transformCommon.startIterations250));
+		tempVC = (tempVC
+							+ fractal->transformCommon.offset * (i - fractal->transformCommon.startIterations250)
+									/ (fractal->transformCommon.stopIterations
+											- fractal->transformCommon.startIterations250));
 	}
 	if (i >= fractal->transformCommon.stopIterations)
 	{
@@ -5785,7 +5783,6 @@ void TransformBoxFoldVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal
 
 	limit = tempVC;
 	double value = fractal->transformCommon.scale2 * limit;
-
 
 	if (z.x > limit)
 	{
