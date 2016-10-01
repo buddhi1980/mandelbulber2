@@ -3,6 +3,7 @@
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
+ambient_occlusion_mode 0;
 basic_fog_color e800 ef00 ff00;
 basic_fog_visibility 0.00389045;
 camera -0.4392328388406563 -0.6796192770542963 -0.1788712242913931;
