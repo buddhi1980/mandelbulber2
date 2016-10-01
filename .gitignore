@@ -46,6 +46,10 @@ build-win/
 *.out
 *.app
 
+# Qt related files
+moc_*.cpp
+ui_*.h
+
 # =========================
 # Operating System Files
 # =========================
@@ -93,3 +97,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Linux KDE
+*.directory
