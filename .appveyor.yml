@@ -77,12 +77,12 @@ build_script:
 after_build:
   # gather dependencies
   - xcopy /B /S mandelbulber2\deploy\share\mandelbulber2 Release\
-  - ps: if($env:tbs_qt_version -eq '5.7') { xcopy /I %QTDIR%\plugins\gamepads Release\gamepads; }
+  - IF %tbs_qt_version% EQU '5.7' xcopy /I %QTDIR%\plugins\gamepads Release\gamepads;
   - xcopy /I %QTDIR%\plugins\iconengines Release\iconengines
   - xcopy /I %QTDIR%\plugins\imageformats Release\imageformats
   - xcopy /I %QTDIR%\plugins\platforms Release\platforms
   - xcopy %QTDIR%\bin\Qt5Core.dll Release\
-  - xcopy %QTDIR%\bin\Qt5Gamepad.dll Release\
+  - IF %tbs_qt_version% EQU '5.7' xcopy %QTDIR%\bin\Qt5Gamepad.dll Release\
   - xcopy %QTDIR%\bin\Qt5Gui.dll Release\
   - xcopy %QTDIR%\bin\Qt5Network.dll Release\
   - xcopy %QTDIR%\bin\Qt5Svg.dll Release\
