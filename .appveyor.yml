@@ -77,7 +77,7 @@ build_script:
 after_build:
   # gather dependencies
   - xcopy /B /S mandelbulber2\deploy\share\mandelbulber2 Release\
-  - xcopy /I %QTDIR%\plugins\gamepads Release\gamepads
+  - ps: if($env:tbs_qt_version -eq '5.7') { xcopy /I %QTDIR%\plugins\gamepads Release\gamepads; }
   - xcopy /I %QTDIR%\plugins\iconengines Release\iconengines
   - xcopy /I %QTDIR%\plugins\imageformats Release\imageformats
   - xcopy /I %QTDIR%\plugins\platforms Release\platforms
