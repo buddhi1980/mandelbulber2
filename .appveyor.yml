@@ -74,11 +74,50 @@ build_script:
   - tree %QTDIR% /F
   - tree /F
 
+after_build:
+  # gather dependencies
+  - xcopy /B /S mandelbulber2\deploy\share\mandelbulber2 Release\
+  - xcopy /I %QTDIR%\plugins\gamepads Release\gamepads
+  - xcopy /I %QTDIR%\plugins\iconengines Release\iconengines
+  - xcopy /I %QTDIR%\plugins\imageformats Release\imageformats
+  - xcopy /I %QTDIR%\plugins\platforms Release\platforms
+  - xcopy %QTDIR%\bin\Qt5Core.dll Release\
+  - xcopy %QTDIR%\bin\Qt5Gamepad.dll Release\
+  - xcopy %QTDIR%\bin\Qt5Gui.dll Release\
+  - xcopy %QTDIR%\bin\Qt5Network.dll Release\
+  - xcopy %QTDIR%\bin\Qt5Svg.dll Release\
+  - xcopy %QTDIR%\bin\Qt5Test.dll Release\
+  - xcopy %QTDIR%\bin\Qt5Widgets.dll Release\
+  - xcopy deps\zlib*.dll Release\
+  - xcopy deps\libpng*.dll Release\
+  - xcopy deps\tiff*.dll Release\
+  
+  # fix broken symlinks
+  - del Release\language
+  - del Release\qt_data
+  - del Release\data
+  - xcopy /I mandelbulber2\language Release\language
+  - xcopy /I mandelbulber2\qt_data Release\qt_data
+  - xcopy /I mandelbulber2\data Release\data
+  
+  # gather other meta files
+  - copy mandelbulber2\deploy\README-win32.txt Release\README.txt
+  - copy mandelbulber2\deploy\NEWS Release\NEWS.txt
+  - copy mandelbulber2\deploy\COPYING Release\COPYING.txt
+  - copy mandelbulber2\deploy\win32\mandelbulber2.ico Release\mandelbulber2.ico
+  - mkdir Release\source
+  - xcopy /I  mandelbulber2\src Release\source\src
+  - xcopy /I  mandelbulber2\qt Release\source\qt
+  - mkdir Release\makefiles
+  - copy mandelbulber2\Release\mandelbulber.pro Release\makefiles\mandelbulber.pro
+  
+  # zip the archive
+  - 7z a mandelbulber-%tbs_arch%.zip Release
+  
 #specify artifacts to upload
 artifacts:
-  - path: Release\mandelbulber2.exe
-    name: MandelbulberBinary
-# copy all necessary dlls and package stuff to one stand alone folder and zip
+  - path: mandelbulber-%tbs_arch%.zip
+    name: Mandelbulber-%tbs_arch%
 
 #deploy:
 # todo, see here for instructions: https://www.appveyor.com/docs/deployment/github
