@@ -88,6 +88,7 @@ after_build:
   - xcopy %QTDIR%\bin\Qt5Svg.dll Release\
   - xcopy %QTDIR%\bin\Qt5Test.dll Release\
   - xcopy %QTDIR%\bin\Qt5Widgets.dll Release\
+  - xcopy %QTDIR%\bin\Qt5Core.dll Release\
   - xcopy deps\zlib*.dll Release\
   - xcopy deps\libpng*.dll Release\
   - xcopy deps\tiff*.dll Release\
