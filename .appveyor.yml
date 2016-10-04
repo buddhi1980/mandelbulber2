@@ -81,7 +81,6 @@ after_build:
   - xcopy /I %QTDIR%\plugins\iconengines Release\iconengines
   - xcopy /I %QTDIR%\plugins\imageformats Release\imageformats
   - xcopy /I %QTDIR%\plugins\platforms Release\platforms
-  - xcopy %QTDIR%\bin\Qt5Core.dll Release\
   - IF %tbs_qt_version% EQU '5.7' xcopy %QTDIR%\bin\Qt5Gamepad.dll Release\
   - xcopy %QTDIR%\bin\Qt5Gui.dll Release\
   - xcopy %QTDIR%\bin\Qt5Network.dll Release\
