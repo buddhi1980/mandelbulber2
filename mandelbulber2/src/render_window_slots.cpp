@@ -121,14 +121,12 @@ void RenderWindow::slotChangedComboFractal(int indexInComboBox)
 			fractal::enumCPixelAddition cPixelAddition = fractalList[index].cpixelAddition;
 			bool boleanState = ui->groupCheck_boolean_operators->isChecked();
 			if (cPixelAddition == fractal::cpixelAlreadyHas)
-				ui->tabWidget_fractals
-					->findChild<QGroupBox *>(
-						"groupBox_c_constant_addition_" + QString::number(fractalNumber + 1))
+				ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
+																											 + QString::number(fractalNumber + 1))
 					->setVisible(false);
 			else
-				ui->tabWidget_fractals
-					->findChild<QGroupBox *>(
-						"groupBox_c_constant_addition_" + QString::number(fractalNumber + 1))
+				ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
+																											 + QString::number(fractalNumber + 1))
 					->setVisible(boleanState);
 
 			if (fractalList[index].internalID == fractal::kaleidoscopicIFS)
@@ -236,12 +234,10 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 			->setVisible(state);
 		frame->findChild<QLabel *>(QString("label_formula_stop_iteration_") + QString::number(i))
 			->setVisible(state);
-		frame
-			->findChild<MySpinBox *>(QString("spinboxInt_formula_start_iteration_") + QString::number(i))
-			->setVisible(state);
-		frame
-			->findChild<MySpinBox *>(QString("spinboxInt_formula_stop_iteration_") + QString::number(i))
-			->setVisible(state);
+		frame->findChild<MySpinBox *>(QString("spinboxInt_formula_start_iteration_")
+																	+ QString::number(i))->setVisible(state);
+		frame->findChild<MySpinBox *>(
+						 QString("spinboxInt_formula_stop_iteration_") + QString::number(i))->setVisible(state);
 
 		frame->findChild<MyCheckBox *>(QString("checkBox_check_for_bailout_") + QString::number(i))
 			->setVisible(state);
@@ -282,9 +278,8 @@ void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 			ui->tabWidget_fractals->findChild<QScrollArea *>("scrollArea_fractal_" + QString::number(i))
 				->setEnabled(state);
 		}
-		ui->tabWidget_fractals
-			->findChild<QGroupBox *>("groupBox_formula_transform_" + QString::number(i))
-			->setVisible(state);
+		ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_formula_transform_"
+																									 + QString::number(i))->setVisible(state);
 
 		QComboBox *comboBox =
 			ui->tabWidget_fractals->findChild<QComboBox *>("comboBox_formula_" + QString::number(i));
@@ -292,17 +287,14 @@ void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 			fractalList[comboBox->itemData(comboBox->currentIndex()).toInt()].cpixelAddition;
 
 		if (cPixelAddition == fractal::cpixelAlreadyHas)
-			ui->tabWidget_fractals
-				->findChild<QGroupBox *>("groupBox_c_constant_addition_" + QString::number(i))
-				->setVisible(false);
+			ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
+																										 + QString::number(i))->setVisible(false);
 		else
-			ui->tabWidget_fractals
-				->findChild<QGroupBox *>("groupBox_c_constant_addition_" + QString::number(i))
-				->setVisible(state);
+			ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
+																										 + QString::number(i))->setVisible(state);
 
-		ui->tabWidget_fractals
-			->findChild<QGroupBox *>("groupBox_material_fractal_" + QString::number(i))
-			->setVisible(state);
+		ui->tabWidget_fractals->findChild<QGroupBox *>(
+															"groupBox_material_fractal_" + QString::number(i))->setVisible(state);
 	}
 
 	ui->comboBox_delta_DE_function->setEnabled(!state);
@@ -327,137 +319,6 @@ void RenderWindow::slotChangedComboAmbientOcclusionMode(int index)
 	enabled = index == params::AOmodeFast ? true : false;
 	ui->slider_ambient_occlusion_fast_tune->setEnabled(enabled);
 	ui->spinbox_ambient_occlusion_fast_tune->setEnabled(enabled);
-}
-
-void RenderWindow::slotChangedComboImageProportion(int index)
-{
-	bool enableSlider = false;
-	double ratio = 1.0;
-	enumImageProportion proportionSelection = (enumImageProportion)index;
-
-	switch (proportionSelection)
-	{
-		case proportionFree: enableSlider = true; break;
-		case proportion1_1: ratio = 1.0; break;
-		case proportion4_3: ratio = 4.0 / 3.0; break;
-		case proportion3_2: ratio = 3.0 / 2.0; break;
-		case proportion16_9: ratio = 16.0 / 9.0; break;
-		case proportion16_10: ratio = 16.0 / 10.0; break;
-		case proportion2_1: ratio = 2.0 / 1.0; break;
-		default: ratio = 1.0; break;
-	}
-
-	ui->sliderInt_image_width->setEnabled(enableSlider);
-	ui->spinboxInt_image_width->setEnabled(enableSlider);
-
-	int height = ui->spinboxInt_image_height->value();
-	int width = height * ratio;
-
-	if (!enableSlider)
-	{
-		ui->spinboxInt_image_width->setValue(width);
-	}
-
-	if (ui->checkBox_connect_detail_level->isChecked())
-	{
-		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
-		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		SynchronizeInterfaceWindow(ui->groupBox_distanceEstimation, gPar, qInterface::write);
-	}
-}
-
-void RenderWindow::slotPressedResolutionPreset()
-{
-	int width = 0, height = 0;
-	enumImageProportion proportion = proportionFree;
-	QString buttonName = this->sender()->objectName();
-	if (buttonName == QString("pushButton_resolution_preset_480"))
-	{
-		width = 720;
-		height = 480;
-		proportion = proportion3_2;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_720"))
-	{
-		width = 1280;
-		height = 720;
-		proportion = proportion16_9;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_1080"))
-	{
-		width = 1920;
-		height = 1080;
-		proportion = proportion16_9;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_1440"))
-	{
-		width = 2560;
-		height = 1440;
-		proportion = proportion16_9;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_2160"))
-	{
-		width = 4096;
-		height = 2160;
-		proportion = proportionFree;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_4320"))
-	{
-		width = 7680;
-		height = 4320;
-		proportion = proportion16_9;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_240"))
-	{
-		width = 320;
-		height = 240;
-		proportion = proportion4_3;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_600"))
-	{
-		width = 800;
-		height = 600;
-		proportion = proportion4_3;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_1200"))
-	{
-		width = 1600;
-		height = 1200;
-		proportion = proportion4_3;
-	}
-
-	ui->spinboxInt_image_width->setValue(width);
-	ui->spinboxInt_image_height->setValue(height);
-	ui->comboBox_image_proportion->setCurrentIndex(proportion);
-
-	if (ui->checkBox_connect_detail_level->isChecked())
-	{
-		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
-		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		SynchronizeInterfaceWindow(ui->groupBox_distanceEstimation, gPar, qInterface::write);
-	}
-}
-
-void RenderWindow::slotImageHeightChanged(int value)
-{
-	(void)value;
-	int index = ui->comboBox_image_proportion->currentIndex();
-	slotChangedComboImageProportion(index);
-}
-
-void RenderWindow::slotChangedComboPerspectiveType(int index)
-{
-	params::enumPerspectiveType perspType = (params::enumPerspectiveType)index;
-	if (perspType == params::perspFishEyeCut)
-	{
-		ui->comboBox_image_proportion->setCurrentIndex(proportion1_1);
-		ui->spinbox_fov->setValue(1.0);
-	}
-	else if (perspType == params::perspEquirectangular)
-	{
-		ui->comboBox_image_proportion->setCurrentIndex(proportion2_1);
-		ui->spinbox_fov->setValue(1.0);
-	}
 }
 
 void RenderWindow::slotMouseMovedOnImage(int x, int y)
@@ -874,7 +735,7 @@ void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
 void RenderWindow::slotChangedCheckBoxDOFHDR(int state)
 {
 	ui->pushButton_DOF_update->setEnabled(!state);
-	ui->pushButton_apply_image_changes->setEnabled(!state);
+	ui->widgetImageAjustments->ApplyImageChangesSetEnabled(!state);
 	if (ui->comboBox_ambient_occlusion_mode->currentIndex() == 2 && !state)
 	{
 		ui->comboBox_ambient_occlusion_mode->setCurrentIndex(0);
@@ -902,47 +763,6 @@ void RenderWindow::slotToggledFractalEnable(int fractalIndex, bool enabled)
 	ui->tabWidget_fractals->widget(fractalIndex - 1)->setEnabled(enabled);
 }
 
-void RenderWindow::slotQualityPresetVeryLow()
-{
-	gPar->Set("DE_factor", 1.0);
-	gPar->Set("ambient_occlusion_enabled", false);
-	gPar->Set("shadows_enabled", false);
-	gPar->Set("raytraced_reflections", false);
-	gPar->Set("detail_level", 0.5);
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-}
-void RenderWindow::slotQualityPresetLow()
-{
-	gPar->Set("DE_factor", 1.0);
-	gPar->Set("ambient_occlusion_enabled", false);
-	gPar->Set("shadows_enabled", true);
-	gPar->Set("raytraced_reflections", true);
-	gPar->Set("detail_level", 1.0);
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-}
-void RenderWindow::slotQualityPresetNormal()
-{
-	gPar->Set("DE_factor", 1.0);
-	gPar->Set("ambient_occlusion_enabled", true);
-	gPar->Set("ambient_occlusion_mode", (int)params::AOmodeScreenSpace);
-	gPar->Set("ambient_occlusion_quality", 4);
-	gPar->Set("shadows_enabled", true);
-	gPar->Set("raytraced_reflections", true);
-	gPar->Set("detail_level", 1.0);
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-}
-void RenderWindow::slotQualityPresetHigh()
-{
-	gPar->Set("DE_factor", 0.2);
-	gPar->Set("ambient_occlusion_enabled", true);
-	gPar->Set("ambient_occlusion_mode", (int)params::AOmodeMultipeRays);
-	gPar->Set("ambient_occlusion_quality", 4);
-	gPar->Set("shadows_enabled", true);
-	gPar->Set("raytraced_reflections", true);
-	gPar->Set("detail_level", 1.0);
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-}
-
 void RenderWindow::slotGroupCheckJuliaModeToggled(bool state)
 {
 	if (state)
@@ -951,43 +771,14 @@ void RenderWindow::slotGroupCheckJuliaModeToggled(bool state)
 	}
 }
 
-void RenderWindow::slotCheckedDetailLevelLock(int state)
+void RenderWindow::slotDetailLevelChanged()
 {
-	if (state)
+	if (ui->widgetImageAjustments->IsConnectDetailLevelEnabled())
 	{
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 		gMainInterface->lockedDetailLevel = gPar->Get<double>("detail_level");
 		gMainInterface->lockedImageResolution =
 			CVector2<int>(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	}
-
-	if (this->sender()->objectName() == "checkBox_connect_detail_level")
-	{
-		ui->checkBox_connect_detail_level_2->setCheckState((Qt::CheckState)state);
-	}
-	else
-	{
-		ui->checkBox_connect_detail_level->setCheckState((Qt::CheckState)state);
-	}
-}
-
-void RenderWindow::slotDetailLevelChanged()
-{
-	if (ui->checkBox_connect_detail_level->isChecked())
-	{
-		bool constantDEThreshold = gPar->Get<bool>("constant_DE_threshold");
-
-		if (!constantDEThreshold)
-		{
-			SynchronizeInterfaceWindow((QWidget *)this->sender()->parent(), gPar, qInterface::read);
-			double detailLevel = gPar->Get<double>("detail_level");
-			double sizeRatio = detailLevel / gMainInterface->lockedDetailLevel;
-			gPar->Set("image_width", gMainInterface->lockedImageResolution.x / sizeRatio);
-			gPar->Set("image_height", gMainInterface->lockedImageResolution.y / sizeRatio);
-			bool oldState = this->sender()->blockSignals(true);
-			SynchronizeInterfaceWindow(ui->groupBox_imageResolution, gPar, qInterface::write);
-			this->sender()->blockSignals(oldState);
-		}
 	}
 }
 

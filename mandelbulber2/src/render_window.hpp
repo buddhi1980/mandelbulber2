@@ -81,14 +81,13 @@ private slots:
 	void slotChangedComboFractal(int index);
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);
-	void slotChangedComboPerspectiveType(int index);
 	void slotEditedLineEditManualLightPlacementDistance(const QString &text);
 	void slotPressedButtonAutoFog();
 	void slotPressedButtonDeletePrimitive();
 	void slotPressedButtonDOFUpdate();
 	void slotPressedButtonGetJuliaConstant();
 	void slotPressedButtonGetPoint();
-	void slotPressedButtonImageApply();
+
 	void slotPressedButtonNewPrimitive();
 	void slotPressedButtonOptimizeForLQ();
 	void slotPressedButtonOptimizeForMQ();
@@ -121,11 +120,7 @@ private slots:
 	void slotMaterialEdited();
 	void slotGroupCheckJuliaModeToggled(bool state);
 
-	// Quality presets
-	void slotQualityPresetVeryLow();
-	void slotQualityPresetLow();
-	void slotQualityPresetNormal();
-	void slotQualityPresetHigh();
+
 
 	// camera
 	void slotCameraMove();
@@ -187,13 +182,8 @@ private slots:
 	// textures
 	void slotChangedComboAmbientOcclusionMode(int index);
 
-	// resolution
-	void slotChangedComboImageProportion(int index);
-	void slotPressedResolutionPreset();
-	void slotPressedImagesizeIncrease();
-	void slotPressedImagesizeDecrease();
-	void slotImageHeightChanged(int value);
-	void slotCheckedDetailLevelLock(int state);
+
+
 	void slotDetailLevelChanged();
 
 	// rendered image widget
@@ -247,17 +237,6 @@ private:
 	QGamepad gamepad;
 #endif
 
-	enum enumImageProportion
-	{
-		proportionFree = 0,
-		proportion1_1 = 1,
-		proportion4_3 = 2,
-		proportion3_2 = 3,
-		proportion16_9 = 4,
-		proportion16_10 = 5,
-		proportion2_1 = 6
-	};
-
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void AppendToLog(const QString &text);
@@ -269,6 +248,7 @@ signals:
 	friend class cQueue;
 	friend class cProgressText;
 	friend class cPreferencesDialog;
+	friend class cImageAdjustmentsDock;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */

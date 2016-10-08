@@ -76,11 +76,6 @@ void RenderWindow::slotPressedButtonGetPoint()
 	gMainInterface->renderedImage->setClickMode(item);
 }
 
-void RenderWindow::slotPressedButtonImageApply()
-{
-	gMainInterface->RefreshMainImage();
-}
-
 void RenderWindow::slotPressedButtonNewPrimitive()
 {
 	QString buttonName = this->sender()->objectName();
@@ -238,22 +233,3 @@ void RenderWindow::slotPressedButtonIFSDefaultsReset()
 	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::write);
 }
 
-void RenderWindow::slotPressedImagesizeIncrease()
-{
-	int width = ui->spinboxInt_image_width->value();
-	int height = ui->spinboxInt_image_height->value();
-	width *= 2;
-	height *= 2;
-	ui->spinboxInt_image_width->setValue(width);
-	ui->spinboxInt_image_height->setValue(height);
-}
-
-void RenderWindow::slotPressedImagesizeDecrease()
-{
-	int width = ui->spinboxInt_image_width->value();
-	int height = ui->spinboxInt_image_height->value();
-	width /= 2;
-	height /= 2;
-	ui->spinboxInt_image_width->setValue(width);
-	ui->spinboxInt_image_height->setValue(height);
-}
