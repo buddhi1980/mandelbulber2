@@ -41,21 +41,12 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 
-void RenderWindow::slotPressedButtonAutoFog()
-{
-	gMainInterface->AutoFog();
-}
 
 void RenderWindow::slotPressedButtonDeletePrimitive()
 {
 	QString buttonName = this->sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
 	gMainInterface->DeletePrimitive(primitiveName);
-}
-
-void RenderWindow::slotPressedButtonDOFUpdate()
-{
-	gMainInterface->RefreshMainImage();
 }
 
 void RenderWindow::slotPressedButtonGetJuliaConstant()
@@ -107,75 +98,6 @@ void RenderWindow::slotPressedButtonResetFormula()
 void RenderWindow::slotPressedButtonResetView()
 {
 	gMainInterface->ResetView();
-}
-
-void RenderWindow::slotPressedButtonSetDOFByMouse()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickDOFFocus);
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-}
-
-void RenderWindow::slotPressedButtonSetFogByMouse()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickFogVisibility);
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-}
-
-void RenderWindow::slotPressedButtonSetLight1ByMouse()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
-	item.append(1); // light number
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-	double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
-	ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
-}
-
-void RenderWindow::slotPressedButtonSetLight2ByMouse()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
-	item.append(2); // light number
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-}
-
-void RenderWindow::slotPressedButtonSetLight3ByMouse()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
-	item.append(3); // light number
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-}
-
-void RenderWindow::slotPressedButtonSetLight4ByMouse()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
-	item.append(4); // light number
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-}
-
-void RenderWindow::slotPressedButtonPlaceRandomLightsByMouse()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceRandomLightCenter);
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotPressedButtonSetPositionPrimitive()

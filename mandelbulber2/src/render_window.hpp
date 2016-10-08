@@ -76,15 +76,11 @@ private slots:
 	// other
 	void slotChangedCheckBoxCursorVisibility(int state);
 	void slotChangedCheckBoxUseDefaultBailout(int state);
-	void slotChangedCheckBoxDOFHDR(int state);
 	void slotChangedComboDistanceEstimationMethod(int index);
 	void slotChangedComboFractal(int index);
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);
-	void slotEditedLineEditManualLightPlacementDistance(const QString &text);
-	void slotPressedButtonAutoFog();
 	void slotPressedButtonDeletePrimitive();
-	void slotPressedButtonDOFUpdate();
 	void slotPressedButtonGetJuliaConstant();
 	void slotPressedButtonGetPoint();
 
@@ -94,16 +90,8 @@ private slots:
 	void slotPressedButtonOptimizeForHQ();
 	void slotPressedButtonResetFormula();
 	void slotPressedButtonResetView();
-	void slotPressedButtonSetDOFByMouse();
-	void slotPressedButtonSetFogByMouse();
-	void slotPressedButtonSetLight1ByMouse();
-	void slotPressedButtonSetLight2ByMouse();
-	void slotPressedButtonSetLight3ByMouse();
-	void slotPressedButtonSetLight4ByMouse();
-	void slotPressedButtonPlaceRandomLightsByMouse();
 	void slotPressedButtonSetPositionPrimitive();
 	void slotResizedScrolledAreaImage(int width, int height);
-	void slotSliderMovedEditManualLightPlacementDistance(int value);
 	void slotMenuLoadPreset(QString filename);
 	void slotMenuRemovePreset(QString filename);
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
@@ -180,7 +168,6 @@ private slots:
 	void slotPresetAddToToolbar();
 
 	// textures
-	void slotChangedComboAmbientOcclusionMode(int index);
 
 
 
@@ -249,6 +236,7 @@ signals:
 	friend class cProgressText;
 	friend class cPreferencesDialog;
 	friend class cDockImageAdjustments;
+	friend class cDockEffects;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */

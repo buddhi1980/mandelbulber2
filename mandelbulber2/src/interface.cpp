@@ -278,21 +278,15 @@ void cInterface::ShowUi(void)
 void cInterface::ConnectSignals(void)
 {
 	// other
-	QApplication::connect(mainWindow->ui->button_calculateFog, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonAutoFog()));
+
 	QApplication::connect(mainWindow->ui->checkBox_show_cursor, SIGNAL(stateChanged(int)), mainWindow,
 		SLOT(slotChangedCheckBoxCursorVisibility(int)));
 	QApplication::connect(mainWindow->ui->checkBox_use_default_bailout, SIGNAL(stateChanged(int)),
 		mainWindow, SLOT(slotChangedCheckBoxUseDefaultBailout(int)));
-	QApplication::connect(mainWindow->ui->checkBox_DOF_HDR, SIGNAL(stateChanged(int)), mainWindow,
-		SLOT(slotChangedCheckBoxDOFHDR(int)));
-	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode,
-		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclusionMode(int)));
+
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
 		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
-	QApplication::connect(mainWindow->ui->logedit_aux_light_manual_placement_dist,
-		SIGNAL(textChanged(const QString &)), mainWindow,
-		SLOT(slotEditedLineEditManualLightPlacementDistance(const QString &)));
+
 	QApplication::connect(mainWindow->ui->vect3_julia_c_x, SIGNAL(textChanged(const QString &)),
 		mainWindow, SLOT(slotChangedJuliaPoint()));
 	QApplication::connect(mainWindow->ui->vect3_julia_c_y, SIGNAL(textChanged(const QString &)),
@@ -301,25 +295,12 @@ void cInterface::ConnectSignals(void)
 		mainWindow, SLOT(slotChangedJuliaPoint()));
 	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target,
 		SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
-	QApplication::connect(mainWindow->ui->logslider_aux_light_manual_placement_dist,
-		SIGNAL(sliderMoved(int)), mainWindow,
-		SLOT(slotSliderMovedEditManualLightPlacementDistance(int)));
-	QApplication::connect(mainWindow->ui->pushButton_DOF_set_focus, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonSetDOFByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_DOF_update, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonDOFUpdate()));
+
 	QApplication::connect(mainWindow->ui->pushButton_get_julia_constant, SIGNAL(clicked()),
 		mainWindow, SLOT(slotPressedButtonGetJuliaConstant()));
 	QApplication::connect(mainWindow->ui->pushButton_meas_get_point, SIGNAL(clicked()), mainWindow,
 		SLOT(slotPressedButtonGetPoint()));
-	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonSetLight1ByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonSetLight2ByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_3, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonSetLight3ByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_4, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonSetLight4ByMouse()));
+
 	QApplication::connect(mainWindow->ui->pushButton_add_primitive_box, SIGNAL(clicked()), mainWindow,
 		SLOT(slotPressedButtonNewPrimitive()));
 	QApplication::connect(mainWindow->ui->pushButton_add_primitive_circle, SIGNAL(clicked()),
@@ -344,10 +325,7 @@ void cInterface::ConnectSignals(void)
 		mainWindow->ui->pushButton_redo, SIGNAL(clicked()), mainWindow, SLOT(slotMenuRedo()));
 	QApplication::connect(
 		mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
-	QApplication::connect(mainWindow->ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonSetFogByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_place_random_lights_by_mouse, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonPlaceRandomLightsByMouse()));
+
 	QApplication::connect(
 		mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
 	QApplication::connect(mainWindow->ui->pushButton_reset_view, SIGNAL(clicked()), mainWindow,
@@ -1420,8 +1398,7 @@ void cInterface::SetByMouse(
 				{
 					double fogDepth = depth;
 					gPar->Set("basic_fog_visibility", fogDepth);
-					SynchronizeInterfaceWindow(
-						mainWindow->ui->groupCheck_basic_fog_enabled, gPar, qInterface::write);
+					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceBasicFogEnabled(gPar);
 					StartRender();
 					break;
 				}
@@ -1430,8 +1407,7 @@ void cInterface::SetByMouse(
 					DisablePeriodicRefresh();
 					double DOF = depth;
 					gPar->Set("DOF_focus", DOF);
-					SynchronizeInterfaceWindow(
-						mainWindow->ui->groupCheck_DOF_enabled, gPar, qInterface::write);
+					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceDOFEnabled(gPar);
 					gUndo.Store(gPar, gParFractal);
 					RefreshMainImage();
 					ReEnablePeriodicRefresh();
@@ -1446,7 +1422,7 @@ void cInterface::SetByMouse(
 					int lightNumber = mode.at(1).toInt();
 					gPar->Set("aux_light_position", lightNumber, pointCorrected);
 					gPar->Set("aux_light_intensity", lightNumber, intensity);
-					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, qInterface::write);
+					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceLights(gPar);
 					StartRender();
 					break;
 				}
@@ -1480,8 +1456,7 @@ void cInterface::SetByMouse(
 					gPar->Set("random_lights_distribution_center", point);
 					gPar->Set("random_lights_distribution_radius", 0.5 * distanceCameraToCenter);
 					gPar->Set("random_lights_max_distance_from_fractal", 0.1 * distanceCameraToCenter);
-					SynchronizeInterfaceWindow(
-						mainWindow->ui->groupCheck_random_lights_group, gPar, qInterface::write);
+					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfacerandomLights(gPar);
 					StartRender();
 					break;
 				}
@@ -2175,7 +2150,7 @@ void cInterface::InitMaterialsUi()
 	materialEditor = new cMaterialEditor(mainWindow->ui->scrollArea_material);
 	mainWindow->ui->verticalLayout_materials->addWidget(materialEditor);
 
-	materialListModel = new cMaterialItemModel(mainWindow->ui->tabWidget_material);
+	materialListModel = new cMaterialItemModel(mainWindow->ui->scrollArea_material);
 	materialListModel->AssignContainer(gPar);
 	mainWindow->ui->widget_material_list_view->SetModel(materialListModel);
 

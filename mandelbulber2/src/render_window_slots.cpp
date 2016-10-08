@@ -312,15 +312,6 @@ void RenderWindow::slotChangedComboDistanceEstimationMethod(int index)
 		ui->checkBox_hybrid_fractal_enable->isChecked() || index == (int)fractal::forceDeltaDEMethod);
 }
 
-void RenderWindow::slotChangedComboAmbientOcclusionMode(int index)
-{
-	bool enabled = index == params::AOmodeMultipeRays ? true : false;
-	ui->frame_lightmap_texture->setEnabled(enabled);
-	enabled = index == params::AOmodeFast ? true : false;
-	ui->slider_ambient_occlusion_fast_tune->setEnabled(enabled);
-	ui->spinbox_ambient_occlusion_fast_tune->setEnabled(enabled);
-}
-
 void RenderWindow::slotMouseMovedOnImage(int x, int y)
 {
 	(void)x;
@@ -396,23 +387,13 @@ void RenderWindow::slotMouseWheelRotatedOnImage(int delta)
 		case RenderedImage::clickPlaceLight:
 		{
 			double deltaLog = exp(delta * 0.001);
-			double dist = systemData.locale.toDouble(ui->logedit_aux_light_manual_placement_dist->text());
+			double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
 			dist *= deltaLog;
-			ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(dist));
+			ui->widgetEffects->SetAuxLightManualPlacementDistance(dist);
 			break;
 		}
 		default: break;
 	}
-}
-
-void RenderWindow::slotEditedLineEditManualLightPlacementDistance(const QString &text)
-{
-	gMainInterface->renderedImage->SetFrontDist(systemData.locale.toDouble(text));
-}
-
-void RenderWindow::slotSliderMovedEditManualLightPlacementDistance(int value)
-{
-	gMainInterface->renderedImage->SetFrontDist(pow(10.0, value / 100.0));
 }
 
 void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
@@ -730,16 +711,6 @@ void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
 {
 	ui->logslider_bailout->setEnabled(!state);
 	ui->logedit_bailout->setEnabled(!state);
-}
-
-void RenderWindow::slotChangedCheckBoxDOFHDR(int state)
-{
-	ui->pushButton_DOF_update->setEnabled(!state);
-	ui->widgetImageAjustments->ApplyImageChangesSetEnabled(!state);
-	if (ui->comboBox_ambient_occlusion_mode->currentIndex() == 2 && !state)
-	{
-		ui->comboBox_ambient_occlusion_mode->setCurrentIndex(0);
-	}
 }
 
 void RenderWindow::slotAutoRefresh(void)
