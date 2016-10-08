@@ -54,6 +54,9 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 
 	thumbWidget = new cThumbnailWidget(200, 200, 1, this);
 
+	description = new QLabel("", this);
+	description->setAlignment(Qt::AlignCenter);
+	description->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 	info = new QLabel("");
 
 	progressBar = new MyProgressBar;
@@ -70,6 +73,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	vboxlayout->addWidget(checkbox);
 	vboxlayout->addWidget(preview);
 	vboxlayout->addWidget(thumbWidget);
+	vboxlayout->addWidget(description);
 	vboxlayout->addWidget(progressBar);
 	vboxlayout->addWidget(info);
 	vboxlayout->addWidget(presetAddButton);
@@ -119,6 +123,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 	if (QFileInfo(filename).suffix() == QString("fract") && checkbox->isChecked())
 	{
 		thumbWidget->show();
+		description->show();
 		preview->hide();
 		cSettings parSettings(cSettings::formatFullText);
 		parSettings.BeQuiet(true);
@@ -139,11 +144,13 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 
 			if (parSettings.Decode(par, parFractal))
 			{
+				description->setText(par->Get<QString>("description"));
 				thumbWidget->AssignParameters(*par, *parFractal);
 				thumbWidget->update();
 			}
 			else
 			{
+				description->setText(" ");
 				preview->setText(" ");
 				info->setText(" ");
 			}
@@ -154,6 +161,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 	else
 	{
 		thumbWidget->hide();
+		description->hide();
 		preview->show();
 		pixmap.load(filename);
 		if (pixmap.isNull() || !checkbox->isChecked())

@@ -67,6 +67,7 @@ private:
 
 protected:
 	QLabel *preview;
+	QLabel *description;
 	QLabel *info;
 	cThumbnailWidget *thumbWidget;
 };
