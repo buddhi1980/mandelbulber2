@@ -377,7 +377,7 @@
           <x>0</x>
           <y>0</y>
           <width>381</width>
-          <height>295</height>
+          <height>109</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -397,7 +397,7 @@
           <number>2</number>
          </property>
          <item>
-          <widget class="cImageAdjustmentsDock" name="widgetImageAjustments" native="true"/>
+          <widget class="cDockImageAdjustments" name="widgetImageAjustments" native="true"/>
          </item>
         </layout>
        </widget>
@@ -2289,7 +2289,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>381</width>
-          <height>296</height>
+          <height>350</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3252,7 +3252,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>328</width>
+                  <width>200</width>
                   <height>514</height>
                  </rect>
                 </property>
@@ -4050,8 +4050,8 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>346</width>
-                  <height>280</height>
+                  <width>267</width>
+                  <height>154</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4347,7 +4347,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>328</width>
+                  <width>283</width>
                   <height>1447</height>
                  </rect>
                 </property>
@@ -7941,7 +7941,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>302</width>
+                      <width>286</width>
                       <height>740</height>
                      </rect>
                     </property>
@@ -9104,7 +9104,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>302</width>
+                      <width>286</width>
                       <height>740</height>
                      </rect>
                     </property>
@@ -10261,7 +10261,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>302</width>
+                      <width>286</width>
                       <height>740</height>
                      </rect>
                     </property>
@@ -11418,7 +11418,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>302</width>
+                      <width>286</width>
                       <height>740</height>
                      </rect>
                     </property>
@@ -12575,7 +12575,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>302</width>
+                      <width>286</width>
                       <height>740</height>
                      </rect>
                     </property>
@@ -13732,7 +13732,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>302</width>
+                      <width>286</width>
                       <height>740</height>
                      </rect>
                     </property>
@@ -14889,7 +14889,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>302</width>
+                      <width>286</width>
                       <height>740</height>
                      </rect>
                     </property>
@@ -16043,7 +16043,7 @@ for 4D fractals</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>302</width>
+                      <width>286</width>
                       <height>740</height>
                      </rect>
                     </property>
@@ -17214,7 +17214,7 @@ for 4D fractals</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>310</width>
+                  <width>268</width>
                   <height>806</height>
                  </rect>
                 </property>
@@ -19050,8 +19050,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>328</width>
-                  <height>408</height>
+                  <width>205</width>
+                  <height>357</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -22053,8 +22053,8 @@ of fractal iterations
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
-                  <height>286</height>
+                  <width>206</width>
+                  <height>251</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -23196,7 +23196,7 @@ keyframes</string>
           <x>0</x>
           <y>0</y>
           <width>373</width>
-          <height>89</height>
+          <height>110</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -23636,9 +23636,9 @@ keyframes</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>cImageAdjustmentsDock</class>
+   <class>cDockImageAdjustments</class>
    <extends>QWidget</extends>
-   <header>image_adjustmnets_dock.h</header>
+   <header>dock_image_adjustmnets.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

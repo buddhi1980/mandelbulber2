@@ -248,7 +248,7 @@ signals:
 	friend class cQueue;
 	friend class cProgressText;
 	friend class cPreferencesDialog;
-	friend class cImageAdjustmentsDock;
+	friend class cDockImageAdjustments;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */

@@ -5,8 +5,8 @@
  *      Author: krzysztof
  */
 
-#ifndef MANDELBULBER2_QT_IMAGE_ADJUSTMNETS_DOCK_H_
-#define MANDELBULBER2_QT_IMAGE_ADJUSTMNETS_DOCK_H_
+#ifndef MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMNETS_H_
+#define MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMNETS_H_
 
 #include <QWidget>
 
@@ -14,15 +14,15 @@
 
 namespace Ui
 {
-class cImageAdjustmentsDock;
+class cDockImageAdjustments;
 }
 
-class cImageAdjustmentsDock : public QWidget
+class cDockImageAdjustments : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cImageAdjustmentsDock(QWidget *parent = NULL);
-	~cImageAdjustmentsDock();
+	explicit cDockImageAdjustments(QWidget *parent = NULL);
+	~cDockImageAdjustments();
 	void ConnectSignals();
 
 	enum enumImageProportion
@@ -60,9 +60,9 @@ private slots:
 	void slotQualityPresetHigh();
 
 private:
-	Ui::cImageAdjustmentsDock *ui;
+	Ui::cDockImageAdjustments *ui;
 
 	cAutomatedWidgets *automatedWidgets;
 };
 
-#endif /* MANDELBULBER2_QT_IMAGE_ADJUSTMNETS_DOCK_H_ */
+#endif /* MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMNETS_H_ */

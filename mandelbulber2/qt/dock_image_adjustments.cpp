@@ -5,15 +5,15 @@
  *      Author: krzysztof
  */
 
-#include "image_adjustmnets_dock.h"
-#include "ui_image_adjustments.h"
+#include "ui_dock_image_adjustments.h"
 #include "../src/interface.hpp"
 #include "../src/projection_3d.hpp"
 #include "../src/fractparams.hpp"
 #include "../src/initparameters.hpp"
+#include "dock_image_adjustmnets.h"
 
-cImageAdjustmentsDock::cImageAdjustmentsDock(QWidget *parent)
-		: QWidget(parent), ui(new Ui::cImageAdjustmentsDock)
+cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
+		: QWidget(parent), ui(new Ui::cDockImageAdjustments)
 {
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
@@ -21,12 +21,12 @@ cImageAdjustmentsDock::cImageAdjustmentsDock(QWidget *parent)
 	ConnectSignals();
 }
 
-cImageAdjustmentsDock::~cImageAdjustmentsDock()
+cDockImageAdjustments::~cDockImageAdjustments()
 {
 	delete ui;
 }
 
-void cImageAdjustmentsDock::ConnectSignals()
+void cDockImageAdjustments::ConnectSignals()
 {
 	QApplication::connect(ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboPerspectiveType(int)));
@@ -73,7 +73,7 @@ void cImageAdjustmentsDock::ConnectSignals()
 		ui->pushButton_quality_preset_high, SIGNAL(clicked()), this, SLOT(slotQualityPresetHigh()));
 }
 
-void cImageAdjustmentsDock::slotChangedComboImageProportion(int index)
+void cDockImageAdjustments::slotChangedComboImageProportion(int index)
 {
 	bool enableSlider = false;
 	double ratio = 1.0;
@@ -111,7 +111,7 @@ void cImageAdjustmentsDock::slotChangedComboImageProportion(int index)
 	}
 }
 
-void cImageAdjustmentsDock::slotPressedResolutionPreset()
+void cDockImageAdjustments::slotPressedResolutionPreset()
 {
 	int width = 0, height = 0;
 	enumImageProportion proportion = proportionFree;
@@ -184,7 +184,7 @@ void cImageAdjustmentsDock::slotPressedResolutionPreset()
 	}
 }
 
-void cImageAdjustmentsDock::slotChangedComboPerspectiveType(int index)
+void cDockImageAdjustments::slotChangedComboPerspectiveType(int index)
 {
 	params::enumPerspectiveType perspType = (params::enumPerspectiveType)index;
 	if (perspType == params::perspFishEyeCut)
@@ -199,14 +199,14 @@ void cImageAdjustmentsDock::slotChangedComboPerspectiveType(int index)
 	}
 }
 
-void cImageAdjustmentsDock::slotImageHeightChanged(int value)
+void cDockImageAdjustments::slotImageHeightChanged(int value)
 {
 	(void)value;
 	int index = ui->comboBox_image_proportion->currentIndex();
 	slotChangedComboImageProportion(index);
 }
 
-void cImageAdjustmentsDock::slotCheckedDetailLevelLock(int state)
+void cDockImageAdjustments::slotCheckedDetailLevelLock(int state)
 {
 	if (state)
 	{
@@ -227,7 +227,7 @@ void cImageAdjustmentsDock::slotCheckedDetailLevelLock(int state)
 	}
 }
 
-void cImageAdjustmentsDock::slotQualityPresetVeryLow()
+void cDockImageAdjustments::slotQualityPresetVeryLow()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", false);
@@ -236,7 +236,7 @@ void cImageAdjustmentsDock::slotQualityPresetVeryLow()
 	gPar->Set("detail_level", 0.5);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
-void cImageAdjustmentsDock::slotQualityPresetLow()
+void cDockImageAdjustments::slotQualityPresetLow()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", false);
@@ -245,7 +245,7 @@ void cImageAdjustmentsDock::slotQualityPresetLow()
 	gPar->Set("detail_level", 1.0);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
-void cImageAdjustmentsDock::slotQualityPresetNormal()
+void cDockImageAdjustments::slotQualityPresetNormal()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", true);
@@ -257,12 +257,12 @@ void cImageAdjustmentsDock::slotQualityPresetNormal()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-bool cImageAdjustmentsDock::IsConnectDetailLevelEnabled()
+bool cDockImageAdjustments::IsConnectDetailLevelEnabled()
 {
 	return ui->checkBox_connect_detail_level->isChecked();
 }
 
-void cImageAdjustmentsDock::slotQualityPresetHigh()
+void cDockImageAdjustments::slotQualityPresetHigh()
 {
 	gPar->Set("DE_factor", 0.2);
 	gPar->Set("ambient_occlusion_enabled", true);
@@ -274,17 +274,17 @@ void cImageAdjustmentsDock::slotQualityPresetHigh()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-void cImageAdjustmentsDock::ApplyImageChangesSetEnabled(bool enable)
+void cDockImageAdjustments::ApplyImageChangesSetEnabled(bool enable)
 {
 	ui->pushButton_apply_image_changes->setEnabled(enable);
 }
 
-void cImageAdjustmentsDock::slotPressedButtonImageApply()
+void cDockImageAdjustments::slotPressedButtonImageApply()
 {
 	gMainInterface->RefreshMainImage();
 }
 
-void cImageAdjustmentsDock::slotPressedImagesizeIncrease()
+void cDockImageAdjustments::slotPressedImagesizeIncrease()
 {
 	int width = ui->spinboxInt_image_width->value();
 	int height = ui->spinboxInt_image_height->value();
@@ -294,7 +294,7 @@ void cImageAdjustmentsDock::slotPressedImagesizeIncrease()
 	ui->spinboxInt_image_height->setValue(height);
 }
 
-void cImageAdjustmentsDock::slotPressedImagesizeDecrease()
+void cDockImageAdjustments::slotPressedImagesizeDecrease()
 {
 	int width = ui->spinboxInt_image_width->value();
 	int height = ui->spinboxInt_image_height->value();

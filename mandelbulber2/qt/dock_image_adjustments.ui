@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>cImageAdjustmentsDock</class>
- <widget class="QWidget" name="cImageAdjustmentsDock">
+ <class>cDockImageAdjustments</class>
+ <widget class="QWidget" name="cDockImageAdjustments">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -408,7 +408,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of stereoscopic images and animations for viewing with 3D glasses.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Stereoscopic rendering</string>
+      <string>Stereoscopic &amp;rendering</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
