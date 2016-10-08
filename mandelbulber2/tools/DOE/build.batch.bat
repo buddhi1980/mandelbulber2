@@ -72,8 +72,6 @@ move %BUILDTREE%\deps\jpeg-static.lib %BUILDTREE%\deps\jpeg.lib
 
 REM # build_script #
 cd %BUILDTREE%
-SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\gsl
-SET LIB=%LIB%;C:\projects\mandelbulber2\gsl\Release
 cmake -G %cmake_platform% ^
 -DPNG_LIBRARY=%BUILDTREE%\deps\png.lib -DPNG_PNG_INCLUDE_DIR=%BUILDTREE%\deps ^
 -DZLIB_LIBRARY=%BUILDTREE%\deps\zlib.lib -DZLIB_INCLUDE_DIR=%BUILDTREE%\deps ^

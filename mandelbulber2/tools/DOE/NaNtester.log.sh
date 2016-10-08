@@ -4,10 +4,11 @@ timestamp() {
 	date +"%Y%m%d%H%M%S"
 }
 
-SRC=$PWD
-build_logs=/mnt/nfs/System/build_logs
+# Build Systems #
+source $PWD/local.sh
+
 filename=$build_logs/mandelbulber2-NaNtester-$(timestamp).txt
 
-cd $SRC && sh -x $SRC/NaNtester.sh \
+cd $DOE && sh -x $DOE/NaNtester.sh \
 2>&1 \
 | tee -a $filename

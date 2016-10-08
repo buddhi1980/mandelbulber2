@@ -34,5 +34,5 @@ set SRC=%CD%
 set build_logs=C:\System\build_logs\
 set filename=%build_logs%mandelbulber2-wind-trials-%SAVESTAMP%.txt
 
-ECHO Building
+ECHO Testing
 cd %SRC% && %SRC%\trial.bat 2>&1 > %filename%

@@ -6,6 +6,7 @@ import platform
 import Queue
 import random
 import subprocess
+import sys
 import time
 
 # Settings to Render #
@@ -23,19 +24,21 @@ totalIterations = total_frames/RenderSets
 # Tested on CentOS7 #
 WorkersCount = 8
 spacer = "\'"
-src_dir = os.sep + "home" \
-+ os.sep + "mandelbulber2" \
-+ os.sep
-binPath_k1om = \
+
+# Options for Benchmark #
+start = 0
+totalIterations = len(settings)
+
+# Script Directory #
+DOE=os.path.dirname(os.path.realpath(sys.argv[0]))
+SRC=DOE + "//..//..//..//"
+
+# Paths #
+src_dir = SRC
+bin_path_k1om = \
 src_dir + os.sep \
 + ".." + os.sep \
 + "build-mic" + os.sep \
-+ "mandelbulber2" + os.sep \
-+ "mandelbulber2"
-binPath_x64 = \
-src_dir + os.sep \
-+ ".." + os.sep \
-+ "build" + os.sep \
 + "mandelbulber2" + os.sep \
 + "mandelbulber2"
 
@@ -51,11 +54,11 @@ output_dir = src_dir + os.sep \
 + os.sep
 
 class Worker(multiprocessing.Process):
-	def __init__(self, queue, prefix, binPath, results, resolution):
+	def __init__(self, queue, prefix, bin_path, results, resolution):
 		super(Worker, self).__init__()
 		self.queue= queue
 		self.prefix= prefix
-		self.binPath= binPath
+		self.bin_path= bin_path
 		self.results= results
 		self.resolution= resolution
 
@@ -73,7 +76,7 @@ class Worker(multiprocessing.Process):
 			print(str(iteration) + " of " + str(totalIterations - 1))
 			cmd = str(self.prefix) \
 			+ spacer \
-			+ self.binPath \
+			+ self.bin_path \
 			+ " --never-delete" \
 			+ " --nogui" \
 			+ " --format png16alpha" \
@@ -110,7 +113,7 @@ def render(resolution):
 	request_queue = multiprocessing.Queue()
 	workers = []
 	for i in range(WorkersCount):
-		w = Worker( request_queue, "ssh mic" + str(i) + " ", binPath_k1om, results, resolution )
+		w = Worker( request_queue, "ssh mic" + str(i) + " ", bin_path_k1om, results, resolution )
 		w.start()
 		workers.insert(0, w)
 	# render iterations #

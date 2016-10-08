@@ -1,18 +1,16 @@
 #!/bin/bash
 
 # Build Systems #
-SRC=$PWD/../../../
+source $PWD/local.sh
 
 cd $SRC && git rev-parse HEAD
-
-KNC_LIB=$SRC/../KNC-Lib
 
 # Incremental Build #
 INCREMENTDISABLE=TRUE
 
 # XEON PHI Build #
 echo "XEON PHI Build"
-BUILDTREE=$SRC/../build-mic/mandelbulber2
+BUILDTREE=$BUILDMIC/mandelbulber2
 
 # Clean Build Tree #
 if test ${INCREMENTDISABLE+defined}; then
@@ -22,9 +20,6 @@ else
 echo "Incremental Build enabled"
 fi
 mkdir -p $BUILDTREE
-
-SYSROOT=$SRC/../mpss-3.7/k1om
-MPSSDIR=$SYSROOT
 
 # Build k1om #
 cd $BUILDTREE \
@@ -53,7 +48,7 @@ $SRC/
 cd $BUILDTREE && make -j12 VERBOSE=1
 
 # XEON x64 Build #
-BUILDTREE=$SRC/../build/mandelbulber2
+BUILDTREE=$BUILD/mandelbulber2
 
 # Clean Build Tree #
 if test ${INCREMENTDISABLE+defined}; then

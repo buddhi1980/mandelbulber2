@@ -6,6 +6,7 @@ import platform
 import Queue
 import random
 import subprocess
+import sys
 import time
 
 # Settings to Render #
@@ -25,7 +26,6 @@ settings = [ \
 "IFS_002.fract", \
 "iq_bulb_001.fract", \
 "keyframe_anim_mandelbox_boxes.fract", \
-"keyframe_anim_mandelbulb.fract", \
 "Makin3D-Julia_001.fract", \
 "mandelbox001.fract", \
 "mandelbox002.fract", \
@@ -97,92 +97,50 @@ KM + os.sep + "xenodreambuie2.fract", \
 KM + os.sep + "xenodreambuie3.fract", \
 ]
 
-# Determine Host OS #
-if(platform.system() == 'Windows'):
-	windows = True
-else:
-	windows = False
-
-# Options for Benchmark #
-start = 0
-totalIterations = len(settings)
-
-# Tested on WindowsServer2012R2 #
-if windows == True:
-	WorkersCount = 1
-	spacer = "\""
-	src_dir = "D:" + os.sep \
-	+ "GIT" + os.sep \
-	+ "mandelbulber2-VSO" + os.sep
-	binPath_x64 = "\"" \
-	+ "C:" + os.sep \
-	+ "Program Files" + os.sep \
-	+ "Mandelbulber v2 win64" + os.sep \
-	+ "mandelbulber2.exe" \
-	+ "\""
-
-# Tested on CentOS7 #
-else:
-	WorkersCount = 8
-	spacer = "\'"
-	src_dir = os.sep + "home" \
-	+ os.sep + "mandelbulber2" \
-	+ os.sep
-	binPath_k1om = \
-	src_dir + os.sep \
-	+ ".." + os.sep \
-	+ "build-mic" + os.sep \
-	+ "mandelbulber2" + os.sep \
-	+ "mandelbulber2"
-	binPath_x64 = \
-	src_dir + os.sep \
-	+ ".." + os.sep \
-	+ "build" + os.sep \
-	+ "mandelbulber2" + os.sep \
-	+ "mandelbulber2"
-
-# Common Directories #
-example_dir = src_dir + "mandelbulber2" \
-+ os.sep + "deploy" \
-+ os.sep + "share" \
-+ os.sep + "mandelbulber2" \
-+ os.sep + "examples" \
-+ os.sep
-output_dir = src_dir + os.sep \
-+ "render2" \
-+ os.sep
-
 class Worker(multiprocessing.Process):
-	def __init__(self, queue, prefix, binPath, results, resolution):
+	def __init__(self, \
+	queue, \
+	prefix, \
+	bin_path, \
+	results, \
+	resolution, \
+	output_dir, \
+	example_dir\
+	):
 		super(Worker, self).__init__()
 		self.queue= queue
 		self.prefix= prefix
-		self.binPath= binPath
+		self.bin_path= bin_path
+		self.output_dir= output_dir
+		self.example_dir= example_dir
 		self.results= results
 		self.resolution= resolution
 
 	def run(self):
 		print("Worker started " + str(self.prefix))
 		while True:
-			iteration = self.queue.get()
+			requested = self.queue.get()
 			# finalize iterations #
-			if iteration == 'exit':
+			if requested == 'exit':
 				print("Cleaning up worker " + str(self.prefix))
 				break
 			# Use data #
-			print(str(iteration) + " of " + str(totalIterations - 1))
+			run_number = requested[0]
+			iteration = requested[1]
+			print(str(run_number) + " of " + str(totalIterations - 1) \
+			+ " :: " + str(iteration))
 			cmd = str(self.prefix) \
 			+ spacer \
-			+ self.binPath \
+			+ self.bin_path \
 			+ " --nogui" \
 			+ " --format png16alpha" \
 			+ " --no-cli-color " \
 			+ "\"" \
-			+ example_dir + settings[iteration] \
+			+ self.example_dir + settings[iteration] \
 			+ "\"" \
 			+ " --output " \
-			+ output_dir + os.sep \
-			+ GetOutputName(iteration) \
+			+ self.output_dir + os.sep \
+			+ get_output_name(iteration) \
 			+ self.resolution \
 			+ spacer
 			if windows == True:
@@ -196,71 +154,172 @@ class Worker(multiprocessing.Process):
 			end = time.time()
 			result = str(self.prefix) \
 			+ " \t " \
-			+ settings[iteration] \
-			+ " \t " \
 			+ str(iteration) \
 			+ " \t " \
+			+ str(run_number) \
+			+ " \t " \
+			+ settings[iteration] \
+			+ " \t " \
 			+ str(end - start) \
+			+ " \t " \
+			+ self.bin_path \
 			+ " \t " \
 			+ self.resolution
 			self.results.append(result)
 			print(result)
 
+def get_random_order():
+	# Randomize Trial iterations #
+	data_list = []
+	for data in range(start, totalIterations, 1):
+		data_list.append( data )
+	random.shuffle(data_list)
+	return data_list
 
-def GetTimeStamp():
+def get_time_stamp():
 	return str(time.strftime('%Y%m%d%H%M%S'))
 
-def GetOutputName(iteration):
+def get_output_name(iteration):
 	setting = settings[iteration]
 	return str(iteration) \
 	+ "__" \
 	+ setting.translate(None, '()\\/ -_.!@#$') \
 	+ "__" \
-	+ GetTimeStamp() \
+	+ get_time_stamp() \
 	+ ".png"
 
-def trial_run(resolution):
-	# Randomize Trial Order #
-	random.shuffle(settings)
+def trial_run(resolution, bin_path, output_dir, example_dir):
 	request_queue = multiprocessing.Queue()
 	workers = []
 	for i in range(WorkersCount):
 		if windows == True:
-			w = Worker( request_queue, "", binPath_x64, results, resolution )
+			w = Worker( \
+			request_queue, \
+			"", \
+			bin_path, \
+			results, \
+			resolution, \
+			output_dir, \
+			example_dir \
+			)
 		else:
-			w = Worker( request_queue, "ssh mic" + str(i) + " ", binPath_k1om, results, resolution )
+			w = Worker( \
+			request_queue, \
+			"ssh mic" + str(i) + " ", \
+			bin_path, \
+			results, \
+			resolution, \
+			output_dir, \
+			example_dir \
+			)
 		w.start()
 		workers.insert(0, w)
-	# trial iterations #
-	for data in range(start, totalIterations, 1):
-		request_queue.put( data )
+	# Trial Order #
+	random_list = get_random_order()
+	for run_number in range(start, totalIterations, 1):
+		request_queue.put([run_number, random_list.pop()])
 	# finalize iterations #
 	for data in range(0, WorkersCount, 1):
 		request_queue.put('exit')
 	for work in workers:
 		work.join()
+	print_results()
 
-def print_results():
 # Display Results #
+def print_results():
 	print("###############################")
 	print("###########_RESULTS_###########")
 	print("###############################")
+	# Headers #
+	header = "prefix" \
+	+ " \t " \
+	+ "settings index" \
+	+ " \t " \
+	+ "run number" \
+	+ " \t " \
+	+ "settings name" \
+	+ " \t " \
+	+ "end - start" \
+	+ " \t " \
+	+ "bin_path" \
+	+ " \t " \
+	+ "resolution"
+	# Data #
+	print(header)
 	for i in range(0, len(results), 1):
 		print(results[i])
 	print("###############################")
 	print("###############################")
 	print("###############################")
 
+# get script directory #
+def get_script_dir():
+	return os.path.dirname(os.path.realpath(sys.argv[0]))
+
+# binary representation of trial configs #
+def bin_trials(run_count):
+	trials = []
+	for idx in range(0, run_count):
+		word = "{0:b}".format(idx).zfill(3)
+		trials.append(word)
+	return trials
+
+# Experimental #
+def execute_experiment(test_output_dir, test_example_dir):
+	trials = bin_trials(9)
+	test_resolution = " --res 1920x1080"
+	for idx, trial in enumerate(trials):
+		print("executing Experimental run: " + str(idx))
+		test_bin_path = SRC + "..//FACTOR_" + trial \
+		+ "//BIN//build-mic//mandelbulber2//mandelbulber2"
+		print("Testing " + test_bin_path)
+		trial_run(test_resolution, \
+		test_bin_path, \
+		test_output_dir, \
+		test_example_dir\
+		)
+
+# Options for Benchmark #
+start = 0
+totalIterations = len(settings)
+DOE=get_script_dir()
+SRC=DOE + "//..//..//..//"
+
+# Determine Host Settings #
+if(platform.system() == 'Windows'):
+	windows = True
+	WorkersCount = 1
+	spacer = "\""
+	test_bin_path = spacer \
+	+ "C:\\Program Files\\Mandelbulber v2 win64\\mandelbulber2.exe" \
+	+ spacer
+	test_output_dir = "C:\\temp\\render2\\"
+	test_example_dir = "C:\\Program Files\\Mandelbulber v2 win64\\examples\\"
+else:
+	windows = False
+	WorkersCount = 8
+	spacer = "\'"
+	test_bin_path = SRC + "//..//build-mic//mandelbulber2//mandelbulber2"
+	test_output_dir = SRC + "//render2//"
+	test_example_dir = SRC + "//mandelbulber2//deploy//share//mandelbulber2//examples//"
+
+# Entry #
 if __name__ == "__main__":
 	# multiprocessing safe list #
 	results = multiprocessing.Manager().list()
-	# output dir #
-	if not os.path.exists(output_dir):
-		os.makedirs(output_dir)
-	# Execute test resolution #
-	trial_run(" --res 50x50")
-	#trial_run(" --res 1920x1080")
-	#trial_run(" --res 3840x2160")
-	#trial_run(" --res 7680x4320")
-	print_results()
-
+	# Select Resolution #
+	# 50x50 1920x1080 3840x2160 7680x4320 #
+	test_resolution = " --res 50x50"
+	# output directory #
+	if not os.path.exists(test_output_dir):
+		os.makedirs(test_output_dir)
+	# Execute test #
+	trial_run(test_resolution, \
+	test_bin_path, \
+	test_output_dir, \
+	test_example_dir\
+	)
+	# experimental multi run #
+	if(windows == False):
+		print("executing multiple experimental runs")
+		execute_experiment(test_output_dir, test_example_dir)

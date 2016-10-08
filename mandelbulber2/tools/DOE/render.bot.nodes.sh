@@ -1,9 +1,10 @@
 #!/bin/bash
 
-SRC=$PWD/../../../
-DOE=$PWD
-BUILDTREE=$SRC/../build-mic/mandelbulber2
-BUILDTREE64=$SRC/../build/mandelbulber2
+# Build Systems #
+source $PWD/local.sh
+
+BUILDTREE=$BUILDMIC/mandelbulber2
+BUILDTREE64=$BUILD/mandelbulber2
 HOSTIP=192.168.1.70
 SETTINGS=$SRC/mandelbulber2/deploy/share/mandelbulber2/examples/aexion001.fract
 

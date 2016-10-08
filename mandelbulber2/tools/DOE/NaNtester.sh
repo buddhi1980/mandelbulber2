@@ -1,11 +1,8 @@
 #!/bin/bash
 
 # Build Systems #
-SRC=$PWD/../../../
-BUILDTREE=$SRC/../NaNtest
-SYSROOT=$SRC/../mpss-3.7/k1om
-MPSSDIR=$SYSROOT
-KNC_LIB=$SRC/../KNC-Lib
+source $PWD/local.sh
+BUILDTREE=$BUILDNAN
 
 # Clean build dir
 rm -rf $BUILDTREE/

@@ -7,8 +7,9 @@ timestamp() {
 # Build Systems #
 source $PWD/local.sh
 
-filename=$build_logs/mandelbulber2-build_bot-$(timestamp).txt
+filename=$build_logs/mandelbulber2-build-patches-$(timestamp).txt
 
-cd $DOE && sh -x $DOE/build.bot.sh \
+cd $DOE && \
+sh -x $DOE/build_patches.sh \
 2>&1 \
 | tee -a $filename

@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # Build Systems #
-DOE=$PWD
-SRC=$PWD/../../../
-KNC_LIB=$SRC/../KNC-Lib
+source $PWD/local.sh
 
 # build libs #
 echo $KNC_LIB

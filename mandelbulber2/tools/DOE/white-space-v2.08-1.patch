@@ -1,0 +1,91 @@
+diff --git a/mandelbulber2/src/common_math.cpp b/mandelbulber2/src/common_math.cpp
+index 76412f6..c601feb 100644
+--- a/mandelbulber2/src/common_math.cpp
++++ b/mandelbulber2/src/common_math.cpp
+@@ -30,7 +30,7 @@
+ int Random(int max)
+ {
+ #ifdef WIN32
+-	return (rand()+rand()*32768) % (max + 1);
++	return (rand() + rand() * 32768) % (max + 1);
+ #else
+ 	return rand() % (max + 1);
+ #endif
+diff --git a/mandelbulber2/src/lights.cpp b/mandelbulber2/src/lights.cpp
+index 8e951ff..69cc9d3 100644
+--- a/mandelbulber2/src/lights.cpp
++++ b/mandelbulber2/src/lights.cpp
+@@ -132,9 +132,9 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
+ 			lights[i + params->auxLightNumber].intensity = intensity;
+ 			lights[i + params->auxLightNumber].enabled = true;
+ 
+-			emit updateProgressAndStatus(
+-						QObject::tr("Positioning random lights"),
+-						QObject::tr("Positioned light %1 of %2").arg(QString::number(i + 1), QString::number(params->auxLightRandomNumber)),
++			emit updateProgressAndStatus(QObject::tr("Positioning random lights"),
++				QObject::tr("Positioned light %1 of %2")
++				.arg(QString::number(i + 1), QString::number(params->auxLightRandomNumber)),
+ 						((i + 1.0) / params->auxLightRandomNumber));
+ 			// qDebug() << QString("Light no. %1: pos: %2, distance=%3").arg(QString::number(i), position.Debug(), QString::number(distance));
+ 		}
+diff --git a/mandelbulber2/src/lights.hpp b/mandelbulber2/src/lights.hpp
+index 44417f5..1f96e89 100644
+--- a/mandelbulber2/src/lights.hpp
++++ b/mandelbulber2/src/lights.hpp
+@@ -50,14 +50,11 @@ public:
+ 	cLights(const cParameterContainer *_params, const cFractalContainer *_fractal);
+ 	void Set(const cParameterContainer *_params, const cFractalContainer *_fractal);
+ 	~cLights();
+-	sLight* GetLight(const int index) const;
+-	int GetNumberOfLights(void) const
+-	{
+-		return numberOfLights;
+-	}
++	sLight *GetLight(const int index) const;
++	int GetNumberOfLights(void) const { return numberOfLights; }
+ 
+ private:
+-	void Copy(const cLights&);
++	void Copy(const cLights &);
+ 
+ 	sLight *lights;
+ 	sLight dummyLight;
+diff --git a/mandelbulber2/src/shaders.cpp b/mandelbulber2/src/shaders.cpp
+index e747aca..ffc6faf 100644
+--- a/mandelbulber2/src/shaders.cpp
++++ b/mandelbulber2/src/shaders.cpp
+@@ -321,7 +321,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
+ 			output.B = glowOpacity * glowB + (1.0 - glowOpacity) * output.B;
+ 			output.A += glowOpacity;
+ 		}
+-		//qDebug() << "step" << step;
++		// qDebug() << "step" << step;
+ 		//------------------ visible light
+ 		if (params->auxLightVisibility > 0)
+ 		{
+@@ -417,11 +417,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
+ 				output.B += shadowOutputTemp.B * step * params->volumetricLightIntensity[0]
+ 						* params->mainLightColour.B / 65536.0;
+ 				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0 * step
+-						* params->volumetricLightIntensity[0];
++										* params->volumetricLightIntensity[0];
+ 			}
+ 			if (i > 0)
+ 			{
+-				const cLights::sLight* light = data->lights.GetLight(i - 1);
++				const cLights::sLight *light = data->lights.GetLight(i - 1);
+ 				if (light->enabled && params->volumetricLightEnabled[i])
+ 				{
+ 					CVector3 lightVectorTemp = light->position - point;
+@@ -1346,7 +1346,10 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input)
+ 	double deltaTexY = ((TextureMapping(input.point + texY * delta,
+ 																			input.normal,
+ 																			objectData,
+-																			input.material) + CVector2<double>(0.5, 0.5)) - texPoint).Length();
++																			input.material)
++			 + CVector2<double>(0.5, 0.5))
++			- texPoint)
++			.Length();
+ 	deltaTexX = deltaTexX / fabs(input.viewVector.Dot(input.normal));
+ 	deltaTexY = deltaTexY / fabs(input.viewVector.Dot(input.normal));
+ 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
