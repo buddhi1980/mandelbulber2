@@ -1,5 +1,11 @@
 Version history
 
+v2.09-1
+- Image: fixed bug: in stereoscopic top-bottom mode there were swapped left and right eye
+- Image: fixed bug: in stereoscopic top-bottom mode first line of image was incorrect
+- Shaders: fixed bug: corrected calculation of flat background. There was possibility of division by zero.
+- UI: fixed bug: when stereoscopic mode was enabled, then thumbnails size was incorrect. 
+
 v2.09
 - Image: Added stereoscopic rendering for all perspective types including equirectangular and fulldome
 - Image: Added support for red/cyan glasses (anaglyphs), so now it's possible to explore fractals with 3D glasses.

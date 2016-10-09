@@ -146,6 +146,7 @@ void cThumbnailWidget::AssignParameters(
 		*fractal = _fractal;
 		params->Set("image_width", tWidth * oversample);
 		params->Set("image_height", tHeight * oversample);
+		params->Set("stereo_mode", (int)cStereo::stereoRedCyan);
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.CreateText(params, fractal);
 		oldHash = hash;
