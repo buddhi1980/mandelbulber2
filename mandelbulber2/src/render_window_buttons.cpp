@@ -74,20 +74,6 @@ void RenderWindow::slotPressedButtonNewPrimitive()
 	gMainInterface->NewPrimitive(primitiveName);
 }
 
-void RenderWindow::slotPressedButtonOptimizeForLQ()
-{
-	gMainInterface->OptimizeStepFactor(1.0);
-}
-
-void RenderWindow::slotPressedButtonOptimizeForMQ()
-{
-	gMainInterface->OptimizeStepFactor(0.1);
-}
-void RenderWindow::slotPressedButtonOptimizeForHQ()
-{
-	gMainInterface->OptimizeStepFactor(0.01);
-}
-
 void RenderWindow::slotPressedButtonResetFormula()
 {
 	QString comboName = this->sender()->objectName();

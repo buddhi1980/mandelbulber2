@@ -202,7 +202,6 @@ void cInterface::ShowUi(void)
 	progressBarFrame->setLayout(progressBarLayout);
 	mainWindow->ui->statusbar->addPermanentWidget(progressBarFrame);
 
-	mainWindow->ui->groupBox_netrender_client_config->setVisible(false);
 	mainWindow->ui->label_repeat_from->setEnabled(false);
 	mainWindow->ui->sliderInt_repeat_from->setEnabled(false);
 	mainWindow->ui->spinboxInt_repeat_from->setEnabled(false);
@@ -281,8 +280,6 @@ void cInterface::ConnectSignals(void)
 
 	QApplication::connect(mainWindow->ui->checkBox_show_cursor, SIGNAL(stateChanged(int)), mainWindow,
 		SLOT(slotChangedCheckBoxCursorVisibility(int)));
-	QApplication::connect(mainWindow->ui->checkBox_use_default_bailout, SIGNAL(stateChanged(int)),
-		mainWindow, SLOT(slotChangedCheckBoxUseDefaultBailout(int)));
 
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
 		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
@@ -330,23 +327,11 @@ void cInterface::ConnectSignals(void)
 		mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
 	QApplication::connect(mainWindow->ui->pushButton_reset_view, SIGNAL(clicked()), mainWindow,
 		SLOT(slotPressedButtonResetView()));
-	QApplication::connect(mainWindow->ui->pushButton_optimization_LQ, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonOptimizeForLQ()));
-	QApplication::connect(mainWindow->ui->pushButton_optimization_MQ, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonOptimizeForMQ()));
-	QApplication::connect(mainWindow->ui->pushButton_optimization_HQ, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonOptimizeForHQ()));
+
 	QApplication::connect(mainWindow, SIGNAL(AppendToLog(const QString &)), mainWindow->ui->log_text,
 		SLOT(appendMessage(const QString &)));
 	QApplication::connect(mainWindow->ui->groupCheck_julia_mode, SIGNAL(toggled(bool)), mainWindow,
 		SLOT(slotGroupCheckJuliaModeToggled(bool)));
-
-	QApplication::connect(mainWindow->ui->checkBox_connect_detail_level_2, SIGNAL(stateChanged(int)),
-			mainWindow->ui->widgetImageAjustments, SLOT(slotCheckedDetailLevelLock(int)));
-	QApplication::connect(mainWindow->ui->logedit_detail_level, SIGNAL(returnPressed()),
-			mainWindow, SLOT(slotDetailLevelChanged()));
-
-
 
 	// menu actions
 	QApplication::connect(
@@ -425,9 +410,6 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->tabWidget_fractals->tabBar(),
 		SIGNAL(toggledEnable(int, bool)), mainWindow, SLOT(slotToggledFractalEnable(int, bool)));
 
-	QApplication::connect(mainWindow->ui->comboBox_delta_DE_method, SIGNAL(currentIndexChanged(int)),
-		mainWindow, SLOT(slotChangedComboDistanceEstimationMethod(int)));
-
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));
 	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale,
@@ -445,30 +427,9 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow,
 		SLOT(slotMouseWheelRotatedOnImage(int)));
 
-	// NetRender
-	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow,
-		SLOT(slotNetRenderClientConnect()));
-	QApplication::connect(mainWindow->ui->bu_netrender_disconnect, SIGNAL(clicked()), mainWindow,
-		SLOT(slotNetRenderClientDisconnect()));
-	QApplication::connect(mainWindow->ui->bu_netrender_start_server, SIGNAL(clicked()), mainWindow,
-		SLOT(slotNetRenderServerStart()));
-	QApplication::connect(mainWindow->ui->bu_netrender_stop_server, SIGNAL(clicked()), mainWindow,
-		SLOT(slotNetRenderServerStop()));
-	QApplication::connect(mainWindow->ui->comboBox_netrender_mode, SIGNAL(currentIndexChanged(int)),
-		mainWindow, SLOT(slotNetRenderClientServerChange(int)));
-	QApplication::connect(mainWindow->ui->group_netrender, SIGNAL(toggled(bool)), mainWindow,
-		SLOT(slotCheckBoxDisableNetRender(bool)));
+	QApplication::connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
+		gMainInterface->mainWindow->ui->widgetImageAjustments, SLOT(slotCheckedDetailLevelLock(int)));
 
-	QApplication::connect(
-		gNetRender, SIGNAL(NewStatusClient()), mainWindow, SLOT(slotNetRenderStatusClientUpdate()));
-	QApplication::connect(
-		gNetRender, SIGNAL(NewStatusServer()), mainWindow, SLOT(slotNetRenderStatusServerUpdate()));
-	QApplication::connect(
-		gNetRender, SIGNAL(ClientsChanged()), mainWindow, SLOT(slotNetRenderClientListUpdate()));
-	QApplication::connect(
-		gNetRender, SIGNAL(ClientsChanged(int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int)));
-	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int, int)), mainWindow,
-		SLOT(slotNetRenderClientListUpdate(int, int)));
 
 	// ------------ camera manipulation -----------
 	QApplication::connect(
@@ -523,8 +484,7 @@ void cInterface::ConnectSignals(void)
 		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotMovementStepModeChanged(int)));
 
 	// DockWidgets and Toolbar
-	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow,
-		SLOT(slotNetRenderClientConnect()));
+
 	QApplication::connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow,
 		SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)),
@@ -705,13 +665,10 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 				->setVisible(false);
 			frame->findChild<QLabel *>(QString("label_formula_stop_iteration_") + QString::number(i))
 				->setVisible(false);
-			frame
-				->findChild<MySpinBox *>(
-					QString("spinboxInt_formula_start_iteration_") + QString::number(i))
-				->setVisible(false);
-			frame
-				->findChild<MySpinBox *>(QString("spinboxInt_formula_stop_iteration_") + QString::number(i))
-				->setVisible(false);
+			frame->findChild<MySpinBox *>(QString("spinboxInt_formula_start_iteration_")
+																		+ QString::number(i))->setVisible(false);
+			frame->findChild<MySpinBox *>(QString("spinboxInt_formula_stop_iteration_")
+																		+ QString::number(i))->setVisible(false);
 
 			frame->findChild<MyCheckBox *>(QString("checkBox_check_for_bailout_") + QString::number(i))
 				->setVisible(false);
@@ -721,19 +678,19 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			if (i > 1)
 			{
 				frame->setEnabled(false);
-				mainWindow->ui->tabWidget_fractals
-					->findChild<QScrollArea *>("scrollArea_fractal_" + QString::number(i))
+				mainWindow->ui->tabWidget_fractals->findChild<QScrollArea *>(
+																							"scrollArea_fractal_" + QString::number(i))
 					->setEnabled(false);
 			}
 
-			mainWindow->ui->tabWidget_fractals
-				->findChild<QGroupBox *>("groupBox_formula_transform_" + QString::number(i))
+			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
+																						"groupBox_formula_transform_" + QString::number(i))
 				->setVisible(false);
-			mainWindow->ui->tabWidget_fractals
-				->findChild<QGroupBox *>("groupBox_c_constant_addition_" + QString::number(i))
+			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
+																						"groupBox_c_constant_addition_" + QString::number(i))
 				->setVisible(false);
-			mainWindow->ui->tabWidget_fractals
-				->findChild<QGroupBox *>("groupBox_material_fractal_" + QString::number(i))
+			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
+																						"groupBox_material_fractal_" + QString::number(i))
 				->setVisible(false);
 		}
 		static_cast<MyTabBar *>(mainWindow->ui->tabWidget_fractals->tabBar())->setupMoveButtons();

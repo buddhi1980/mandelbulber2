@@ -75,8 +75,6 @@ private slots:
 
 	// other
 	void slotChangedCheckBoxCursorVisibility(int state);
-	void slotChangedCheckBoxUseDefaultBailout(int state);
-	void slotChangedComboDistanceEstimationMethod(int index);
 	void slotChangedComboFractal(int index);
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);
@@ -85,9 +83,6 @@ private slots:
 	void slotPressedButtonGetPoint();
 
 	void slotPressedButtonNewPrimitive();
-	void slotPressedButtonOptimizeForLQ();
-	void slotPressedButtonOptimizeForMQ();
-	void slotPressedButtonOptimizeForHQ();
 	void slotPressedButtonResetFormula();
 	void slotPressedButtonResetView();
 	void slotPressedButtonSetPositionPrimitive();
@@ -171,7 +166,7 @@ private slots:
 
 
 
-	void slotDetailLevelChanged();
+
 
 	// rendered image widget
 	void slotMouseMovedOnImage(int x, int y);
@@ -180,18 +175,6 @@ private slots:
 	void slotKeyReleaseOnImage(Qt::Key key);
 	void slotMouseWheelRotatedOnImage(int delta);
 
-	// NetRender
-	void slotNetRenderServerStart();
-	void slotNetRenderServerStop();
-	void slotNetRenderClientConnect();
-	void slotNetRenderClientDisconnect();
-	void slotNetRenderClientServerChange(int index);
-	void slotNetRenderClientListUpdate();
-	void slotNetRenderClientListUpdate(int i);
-	void slotNetRenderClientListUpdate(int i, int j);
-	void slotNetRenderStatusServerUpdate();
-	void slotNetRenderStatusClientUpdate();
-	void slotCheckBoxDisableNetRender(bool on);
 
 #ifdef USE_GAMEPAD
 	// Gamepad
@@ -237,6 +220,7 @@ signals:
 	friend class cPreferencesDialog;
 	friend class cDockImageAdjustments;
 	friend class cDockEffects;
+	friend class cDockRenderingEngine;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */

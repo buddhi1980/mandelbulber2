@@ -23,7 +23,6 @@ class cDockImageAdjustments : public QWidget
 public:
 	explicit cDockImageAdjustments(QWidget *parent = NULL);
 	~cDockImageAdjustments();
-	void ConnectSignals();
 
 	enum enumImageProportion
 	{
@@ -60,6 +59,8 @@ private slots:
 	void slotQualityPresetHigh();
 
 private:
+	void ConnectSignals();
+
 	Ui::cDockImageAdjustments *ui;
 
 	cAutomatedWidgets *automatedWidgets;

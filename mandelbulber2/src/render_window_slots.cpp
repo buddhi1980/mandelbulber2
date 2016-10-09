@@ -252,8 +252,8 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 		}
 	}
 
-	ui->comboBox_delta_DE_function->setEnabled(
-		state || ui->comboBox_delta_DE_method->currentIndex() == (int)fractal::forceDeltaDEMethod);
+	ui->widgetDockRenderingEngine->ComboDeltaDEFunctionSetEnabled(
+		state || ui->widgetDockRenderingEngine->ComboDeltaDEMethodCurrentIndex() == (int)fractal::forceDeltaDEMethod);
 
 	ui->label_fractals_remark_hybrid->setVisible(!state);
 	ui->label_repeat_from->setEnabled(state);
@@ -297,7 +297,7 @@ void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 															"groupBox_material_fractal_" + QString::number(i))->setVisible(state);
 	}
 
-	ui->comboBox_delta_DE_function->setEnabled(!state);
+	ui->widgetDockRenderingEngine->ComboDeltaDEFunctionSetEnabled(!state);
 	ui->groupBox_material_fractal->setVisible(!state);
 }
 
@@ -306,11 +306,7 @@ void RenderWindow::slotChangedCheckBoxJuliaMode(bool state)
 	ui->label_fractals_remark_julia->setVisible(state);
 }
 
-void RenderWindow::slotChangedComboDistanceEstimationMethod(int index)
-{
-	ui->comboBox_delta_DE_function->setEnabled(
-		ui->checkBox_hybrid_fractal_enable->isChecked() || index == (int)fractal::forceDeltaDEMethod);
-}
+
 
 void RenderWindow::slotMouseMovedOnImage(int x, int y)
 {
@@ -662,9 +658,9 @@ void RenderWindow::slotUpdateStatistics(cStatistics stat)
 		QString::number(stat.GetNumberOfIterationsPerSecond()));
 	ui->tableWidget_statistics->item(3, 0)->setText(stat.GetDETypeString());
 	ui->tableWidget_statistics->item(4, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
-	ui->label_wrong_DE_percentage->setText(
+	ui->widgetDockRenderingEngine->UpdateLabelWrongDEPercentage(
 		tr("Percentage of wrong distance estimations: %1").arg(stat.GetMissedDEPercentage()));
-	ui->label_used_distance_estimation->setText(
+	ui->widgetDockRenderingEngine->UpdateLabelUsedDistanceEstimation(
 		tr("Used distance estimation algorithm: %1").arg(stat.GetDETypeString()));
 }
 
@@ -707,11 +703,7 @@ void RenderWindow::slotFractalSwap(int swapA, int swapB)
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
-{
-	ui->logslider_bailout->setEnabled(!state);
-	ui->logedit_bailout->setEnabled(!state);
-}
+
 
 void RenderWindow::slotAutoRefresh(void)
 {
@@ -742,16 +734,7 @@ void RenderWindow::slotGroupCheckJuliaModeToggled(bool state)
 	}
 }
 
-void RenderWindow::slotDetailLevelChanged()
-{
-	if (ui->widgetImageAjustments->IsConnectDetailLevelEnabled())
-	{
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
-		gMainInterface->lockedDetailLevel = gPar->Get<double>("detail_level");
-		gMainInterface->lockedImageResolution =
-			CVector2<int>(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	}
-}
+
 
 void RenderWindow::slotChangedJuliaPoint()
 {

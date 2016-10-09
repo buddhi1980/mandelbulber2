@@ -28,48 +28,47 @@ cDockImageAdjustments::~cDockImageAdjustments()
 
 void cDockImageAdjustments::ConnectSignals()
 {
-	QApplication::connect(ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), this,
+	connect(ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboPerspectiveType(int)));
-	QApplication::connect(ui->pushButton_apply_image_changes, SIGNAL(clicked()), this,
+	connect(ui->pushButton_apply_image_changes, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonImageApply()));
 	// image resolution
-	QApplication::connect(ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), this,
+	connect(ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboImageProportion(int)));
-	QApplication::connect(ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_resolution_preset_1200, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_1200, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_resolution_preset_1440, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_1440, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_resolution_preset_2160, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_2160, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_resolution_preset_240, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_240, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_resolution_preset_4320, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_4320, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_resolution_preset_480, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_480, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_resolution_preset_600, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_600, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_resolution_preset_720, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_720, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(ui->pushButton_imagesize_increase, SIGNAL(clicked()), this,
+	connect(ui->pushButton_imagesize_increase, SIGNAL(clicked()), this,
 		SLOT(slotPressedImagesizeIncrease()));
-	QApplication::connect(ui->pushButton_imagesize_decrease, SIGNAL(clicked()), this,
+	connect(ui->pushButton_imagesize_decrease, SIGNAL(clicked()), this,
 		SLOT(slotPressedImagesizeDecrease()));
-	QApplication::connect(ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), this,
+	connect(ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), this,
 		SLOT(slotImageHeightChanged(int)));
-	QApplication::connect(ui->checkBox_connect_detail_level, SIGNAL(stateChanged(int)), this,
+	connect(ui->checkBox_connect_detail_level, SIGNAL(stateChanged(int)), this,
 		SLOT(slotCheckedDetailLevelLock(int)));
 
 	// quality presets
-	QApplication::connect(ui->pushButton_quality_preset_very_low, SIGNAL(clicked()), this,
+	connect(ui->pushButton_quality_preset_very_low, SIGNAL(clicked()), this,
 		SLOT(slotQualityPresetVeryLow()));
-	QApplication::connect(
-		ui->pushButton_quality_preset_low, SIGNAL(clicked()), this, SLOT(slotQualityPresetLow()));
-	QApplication::connect(
+	connect(ui->pushButton_quality_preset_low, SIGNAL(clicked()), this, SLOT(slotQualityPresetLow()));
+	connect(
 		ui->pushButton_quality_preset_normal, SIGNAL(clicked()), this, SLOT(slotQualityPresetNormal()));
-	QApplication::connect(
+	connect(
 		ui->pushButton_quality_preset_high, SIGNAL(clicked()), this, SLOT(slotQualityPresetHigh()));
 }
 
@@ -106,8 +105,7 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index)
 	{
 		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		SynchronizeInterfaceWindow(
-			gMainInterface->mainWindow->ui->groupBox_distanceEstimation, gPar, qInterface::write);
+		gMainInterface->mainWindow->ui->widgetDockRenderingEngine->SynchronizeInterfaceDistanceEstimation(gPar);
 	}
 }
 
@@ -179,8 +177,7 @@ void cDockImageAdjustments::slotPressedResolutionPreset()
 	{
 		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		SynchronizeInterfaceWindow(
-			gMainInterface->mainWindow->ui->groupBox_distanceEstimation, gPar, qInterface::write);
+		gMainInterface->mainWindow->ui->widgetDockRenderingEngine->SynchronizeInterfaceDistanceEstimation(gPar);
 	}
 }
 
@@ -218,8 +215,8 @@ void cDockImageAdjustments::slotCheckedDetailLevelLock(int state)
 
 	if (this->sender()->objectName() == "checkBox_connect_detail_level")
 	{
-		gMainInterface->mainWindow->ui->checkBox_connect_detail_level_2->setCheckState(
-			(Qt::CheckState)state);
+		gMainInterface->mainWindow->ui->widgetDockRenderingEngine
+			->CheckboxConnectDetailLevelSetCheckState((Qt::CheckState)state);
 	}
 	else
 	{

@@ -28,37 +28,34 @@ cDockEffects::~cDockEffects()
 
 void cDockEffects::ConnectSignals()
 {
-	QApplication::connect(
-		ui->button_calculateFog, SIGNAL(clicked()), this, SLOT(slotPressedButtonAutoFog()));
+	connect(ui->button_calculateFog, SIGNAL(clicked()), this, SLOT(slotPressedButtonAutoFog()));
 
-	QApplication::connect(
+	connect(
 		ui->checkBox_DOF_HDR, SIGNAL(stateChanged(int)), this, SLOT(slotChangedCheckBoxDOFHDR(int)));
-	QApplication::connect(ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), this,
+	connect(ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboAmbientOcclusionMode(int)));
 
-	QApplication::connect(ui->logedit_aux_light_manual_placement_dist,
-		SIGNAL(textChanged(const QString &)), this,
+	connect(ui->logedit_aux_light_manual_placement_dist, SIGNAL(textChanged(const QString &)), this,
 		SLOT(slotEditedLineEditManualLightPlacementDistance(const QString &)));
 
-	QApplication::connect(ui->logslider_aux_light_manual_placement_dist, SIGNAL(sliderMoved(int)),
-		this, SLOT(slotSliderMovedEditManualLightPlacementDistance(int)));
-	QApplication::connect(
+	connect(ui->logslider_aux_light_manual_placement_dist, SIGNAL(sliderMoved(int)), this,
+		SLOT(slotSliderMovedEditManualLightPlacementDistance(int)));
+	connect(
 		ui->pushButton_DOF_set_focus, SIGNAL(clicked()), this, SLOT(slotPressedButtonSetDOFByMouse()));
-	QApplication::connect(
-		ui->pushButton_DOF_update, SIGNAL(clicked()), this, SLOT(slotPressedButtonDOFUpdate()));
+	connect(ui->pushButton_DOF_update, SIGNAL(clicked()), this, SLOT(slotPressedButtonDOFUpdate()));
 
-	QApplication::connect(ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()), this,
+	connect(ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetLight1ByMouse()));
-	QApplication::connect(ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()), this,
+	connect(ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetLight2ByMouse()));
-	QApplication::connect(ui->pushButton_place_light_by_mouse_3, SIGNAL(clicked()), this,
+	connect(ui->pushButton_place_light_by_mouse_3, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetLight3ByMouse()));
-	QApplication::connect(ui->pushButton_place_light_by_mouse_4, SIGNAL(clicked()), this,
+	connect(ui->pushButton_place_light_by_mouse_4, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetLight4ByMouse()));
 
-	QApplication::connect(ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), this,
+	connect(ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetFogByMouse()));
-	QApplication::connect(ui->pushButton_place_random_lights_by_mouse, SIGNAL(clicked()), this,
+	connect(ui->pushButton_place_random_lights_by_mouse, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonPlaceRandomLightsByMouse()));
 }
 
@@ -190,8 +187,6 @@ void cDockEffects::slotPressedButtonSetFogByMouse()
 	gMainInterface->mainWindow->ui->comboBox_mouse_click_function->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
 }
-
-
 
 void cDockEffects::slotPressedButtonPlaceRandomLightsByMouse()
 {

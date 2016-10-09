@@ -24,7 +24,7 @@ class cDockEffects : public QWidget
 public:
 	explicit cDockEffects(QWidget *parent = NULL);
 	~cDockEffects();
-	void ConnectSignals();
+
 
 	void SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par);
 	void SynchronizeInterfaceDOFEnabled(cParameterContainer *par);
@@ -49,8 +49,9 @@ private slots:
 	void slotPressedButtonDOFUpdate();
 	void slotPressedButtonPlaceRandomLightsByMouse();
 
-
 private:
+	void ConnectSignals();
+
 	Ui::cDockEffects *ui;
 
 	cAutomatedWidgets *automatedWidgets;
