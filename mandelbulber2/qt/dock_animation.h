@@ -24,6 +24,9 @@ public:
 	explicit cDockAnimation(QWidget *parent = NULL);
 	~cDockAnimation();
 
+	void DisableEXR();
+	void DisableTIFF();
+
 private:
 	Ui::cDockAnimation *ui;
 
