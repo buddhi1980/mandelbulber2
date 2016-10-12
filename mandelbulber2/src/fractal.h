@@ -360,6 +360,54 @@ struct sFractalMagTransforms
 	multi_orderOfTransf orderOfTransf5;
 };
 
+// for surfbox types
+struct sFractalSurfBox
+{
+	bool enabledX1;
+	bool enabledY1;
+	bool enabledZ1;
+	bool enabledX2False;
+	bool enabledY2False;
+	bool enabledZ2False;
+	bool enabledX3False;
+	bool enabledY3False;
+	bool enabledZ3False;
+	bool enabledX4False;
+	bool enabledY4False;
+	bool enabledZ4False;
+	bool enabledX5False;
+	bool enabledY5False;
+	bool enabledZ5False;
+	CVector3 offset1A111;
+	CVector3 offset1B111;
+	CVector3 offset2A111;
+	CVector3 offset2B111;
+	CVector3 offset3A111;
+	CVector3 offset3B111;
+	CVector3 offset1A222;
+	CVector3 offset1B222;
+	double scale1Z1;
+};
+
+// for curvilinear
+struct sFractalCpara
+{
+	bool enabledLinear;
+	bool enabledCurves;
+	bool enabledParabFalse;
+	bool enabledParaAddP0;
+	double para0;
+	double paraA;
+	double paraB;
+	double paraC;
+	double parabOffset;
+	double parabSlope;
+	double parabScale;
+	int iterA;
+	int iterB;
+	int iterC;
+};
+
 struct sFractalAnalyticDE
 {
 	bool enabledFalse;
@@ -472,6 +520,7 @@ struct sFractalTransformCommon
 	CVector3 offset000;
 	CVector3 offsetA000;
 	CVector3 offsetF000;
+	CVector3 offset100;
 	CVector3 offset111;
 	CVector3 offsetA111;
 	CVector3 offsetB111;
@@ -549,10 +598,12 @@ public:
 	sFractalAnalyticDE analyticDE;
 	sFractalMandelbulbMulti mandelbulbMulti;
 	sFractalSinTan2Trig sinTan2Trig;
+	sFractalSurfBox surfBox;
 	sFractalSurfFolds surfFolds;
 	sFractalDonut donut;
 	sFoldColor foldColor;
 	sFractalMagTransforms magTransf;
+	sFractalCpara Cpara;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

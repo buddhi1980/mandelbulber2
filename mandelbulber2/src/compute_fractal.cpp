@@ -674,6 +674,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformNegFabsAddConstantIteration(z, fractal);
 					break;
 				}
+				case transfOctoFold:
+				{
+					TransformOctoFoldIteration(z, fractal, extendedAux);
+					break;
+				}
 				case transfPwr2Polynomial:
 				{
 					TransformPwr2PolynomialIteration(z, fractal, extendedAux);
@@ -697,6 +702,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case transfScale:
 				{
 					TransformScaleIteration(z, fractal, extendedAux);
+					break;
+				}
+				case transfScaleVaryVCL:
+				{
+					TransformScaleVaryVCLIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfScaleVaryV1:
@@ -753,6 +763,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case transfSphericalPwrFold:
 				{
 					TransformSphericalPwrFoldIteration(z, fractal, extendedAux);
+					break;
+				}
+				case transfSurfBoxFold:
+				{
+					TransformSurfBoxFoldIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfSurfFoldMulti:

@@ -174,7 +174,7 @@ void TransformFoldingTetra3DIteration(CVector3 &z, const cFractal *fractal);
 void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal);
 void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal);
 void TransformInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-
+void TransformOctoFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
@@ -188,6 +188,7 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void TransformScaleVaryVCLIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphereInvCIteration(CVector3 &z, CVector3 c, const cFractal *fractal);
 void TransformSphereInvIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
@@ -198,6 +199,7 @@ void TransformSphericalFoldVaryV1Iteration(
 void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformSurfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);
 

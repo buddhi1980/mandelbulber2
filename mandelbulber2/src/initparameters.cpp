@@ -573,6 +573,33 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("sinTan2Trig_atan2_or_atan", 0, morphNone, paramStandard);
 	par->addParam("sinTan2Trig_order_of_zyx", 0, morphNone, paramStandard);
 
+	// surfBox
+	par->addParam("surfBox_enabledX1", true, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledY1", true, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledZ1", true, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledX2_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledY2_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledZ2_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledX3_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledY3_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledZ3_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledX4_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledY4_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledZ4_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledX5_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledY5_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_enabledZ5_false", false, morphLinear, paramStandard);
+	par->addParam("surfBox_offset1A_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+	par->addParam("surfBox_offset1B_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+	par->addParam("surfBox_offset2A_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+	par->addParam("surfBox_offset2B_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+	par->addParam("surfBox_offset3A_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+	par->addParam("surfBox_offset3B_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+	par->addParam("surfBox_offset1A_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+	par->addParam("surfBox_offset1B_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+	par->addParam("surfBox_scale1Z1", 1.0, morphAkima, paramStandard);
+
+
 	// SurfFold
 	par->addParam("surfFolds_order_of_folds_1", 0, morphNone, paramStandard);
 	par->addParam("surfFolds_order_of_folds_2", 0, morphNone, paramStandard);
@@ -592,6 +619,23 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
 	par->addParam("donut_factor", 3.0, morphAkima, paramStandard);
 	par->addParam("donut_number", 9.0, morphAkima, paramStandard);
+
+	// curvilinear
+	par->addParam("Cpara_enabledLinear", true, morphLinear, paramStandard);
+	par->addParam("Cpara_enabledCurves", true, morphLinear, paramStandard);
+	par->addParam("Cpara_enabledParab_false", false, morphLinear, paramStandard);
+	par->addParam("Cpara_enabledParaAddP0", true, morphLinear, paramStandard);
+	par->addParam("Cpara_para0", 1.0, morphAkima, paramStandard);
+	par->addParam("Cpara_paraA", 1.0, morphAkima, paramStandard);
+	par->addParam("Cpara_paraB", 1.0, morphAkima, paramStandard);
+	par->addParam("Cpara_paraC", 1.0, morphAkima, paramStandard);
+	par->addParam("Cpara_parab_offset", 1.0, morphAkima, paramStandard);
+	par->addParam("Cpara_parab_slope", 0.0, morphAkima, paramStandard);
+	par->addParam("Cpara_parab_scale", 0.0, morphAkima, paramStandard);
+
+	par->addParam("Cpara_iterA", 250, morphLinear, paramStandard);
+	par->addParam("Cpara_iterB", 250, morphLinear, paramStandard);
+	par->addParam("Cpara_iterC", 250, morphLinear, paramStandard);
 
 	// analyticDE controls
 	par->addParam("analyticDE_tweak_005", 0.05, morphAkima, paramStandard);
@@ -729,6 +773,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offset_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetF_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("transf_offset_100", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetB_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);

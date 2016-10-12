@@ -152,6 +152,32 @@ cFractal::cFractal(const cParameterContainer *container)
 	sinTan2Trig.orderOfzyx =
 		(sFractalSinTan2Trig::multi_OrderOfzyx)container->Get<int>("sinTan2Trig_order_of_zyx");
 
+	// surfBox
+	surfBox.enabledX1 = container->Get<bool>("surfBox_enabledX1");
+	surfBox.enabledY1 = container->Get<bool>("surfBox_enabledY1");
+	surfBox.enabledZ1 = container->Get<bool>("surfBox_enabledZ1");
+	surfBox.enabledX2False = container->Get<bool>("surfBox_enabledX2_false");
+	surfBox.enabledY2False = container->Get<bool>("surfBox_enabledY2_false");
+	surfBox.enabledZ2False = container->Get<bool>("surfBox_enabledZ2_false");
+	surfBox.enabledX3False = container->Get<bool>("surfBox_enabledX3_false");
+	surfBox.enabledY3False = container->Get<bool>("surfBox_enabledY3_false");
+	surfBox.enabledZ3False = container->Get<bool>("surfBox_enabledZ3_false");
+	surfBox.enabledX4False = container->Get<bool>("surfBox_enabledX4_false");
+	surfBox.enabledY4False = container->Get<bool>("surfBox_enabledY4_false");
+	surfBox.enabledZ4False = container->Get<bool>("surfBox_enabledZ4_false");
+	surfBox.enabledX5False = container->Get<bool>("surfBox_enabledX5_false");
+	surfBox.enabledY5False = container->Get<bool>("surfBox_enabledY5_false");
+	surfBox.enabledZ5False = container->Get<bool>("surfBox_enabledZ5_false");
+	surfBox.offset1A111 = container->Get<CVector3>("surfBox_offset1A_111");
+	surfBox.offset1B111 = container->Get<CVector3>("surfBox_offset1B_111");
+	surfBox.offset2A111 = container->Get<CVector3>("surfBox_offset2A_111");
+	surfBox.offset2B111 = container->Get<CVector3>("surfBox_offset2B_111");
+	surfBox.offset3A111 = container->Get<CVector3>("surfBox_offset3A_111");
+	surfBox.offset3B111 = container->Get<CVector3>("surfBox_offset3B_111");
+	surfBox.offset1A222 = container->Get<CVector3>("surfBox_offset1A_222");
+	surfBox.offset1B222 = container->Get<CVector3>("surfBox_offset1B_222");
+	surfBox.scale1Z1 = container->Get<double>("surfBox_scale1Z1");
+
 	// surfFolds
 	surfFolds.orderOfFolds1 =
 		(sFractalSurfFolds::multi_orderOfFolds)container->Get<int>("surfFolds_order_of_folds_1");
@@ -175,6 +201,22 @@ cFractal::cFractal(const cParameterContainer *container)
 		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_4");
 	magTransf.orderOfTransf5 =
 		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_5");
+
+	// for curvilinear parameter
+	Cpara.enabledLinear = container->Get<bool>("Cpara_enabledLinear");
+	Cpara.enabledCurves = container->Get<bool>("Cpara_enabledCurves");
+	Cpara.enabledParabFalse = container->Get<bool>("Cpara_enabledParab_false");
+	Cpara.enabledParaAddP0 = container->Get<bool>("Cpara_enabledParaAddP0");
+	Cpara.para0 = container->Get<double>("Cpara_para0");
+	Cpara.paraA = container->Get<double>("Cpara_paraA");
+	Cpara.paraB = container->Get<double>("Cpara_paraB");
+	Cpara.paraC = container->Get<double>("Cpara_paraC");
+	Cpara.parabOffset = container->Get<double>("Cpara_parab_offset");
+	Cpara.parabSlope = container->Get<double>("Cpara_parab_slope");
+	Cpara.parabScale = container->Get<double>("Cpara_parab_scale");
+	Cpara.iterA = container->Get<int>("Cpara_iterA");
+	Cpara.iterB = container->Get<int>("Cpara_iterB");
+	Cpara.iterC = container->Get<int>("Cpara_iterC");
 
 	analyticDE.scale1 = container->Get<double>("analyticDE_scale_1");
 	analyticDE.tweak005 = container->Get<double>("analyticDE_tweak_005");
@@ -302,7 +344,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.offset000 = container->Get<CVector3>("transf_offset_000");
 	transformCommon.offsetA000 = container->Get<CVector3>("transf_offsetA_000");
 	transformCommon.offsetF000 = container->Get<CVector3>("transf_offsetF_000");
-
+	transformCommon.offset100 = container->Get<CVector3>("transf_offset_100");
 	transformCommon.offset111 = container->Get<CVector3>("transf_offset_111");
 	transformCommon.offsetA111 = container->Get<CVector3>("transf_offsetA_111");
 	transformCommon.offsetB111 = container->Get<CVector3>("transf_offsetB_111");

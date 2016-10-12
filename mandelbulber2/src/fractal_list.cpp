@@ -387,6 +387,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Transform - Multiple angle", "transf_multiple_angle",
 		transfMultipleAngle, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
+	fractalList->append(sFractalDescription("Transform - Octo Fold", "transf_octo_fold",
+		transfOctoFold, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
 	fractalList->append(sFractalDescription("Transform - Platonic Solid", "platonic_solid",
 		platonicSolid, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
@@ -418,6 +421,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Transform - Scale VaryV1", "transf_scale_varyV1",
 		transfScaleVaryV1, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
+	fractalList->append(sFractalDescription("Transform - Scale VaryVCL", "transf_scale_varyVCL",
+		transfScaleVaryVCL, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
 	fractalList->append(sFractalDescription("Transform - Scale 3D", "transf_scale_3D", transfScale3D,
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
@@ -444,6 +450,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Transform - Spherical_Offset", "transf_spherical_offset",
 		transfSphericalOffset, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
+	fractalList->append(sFractalDescription("Transform -Surf Box_Fold", "transf_surf_box_fold", transfSurfBoxFold,
+		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform - Surf Fold Multi", "transf_surf_fold_multi",
 		transfSurfFoldMulti, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

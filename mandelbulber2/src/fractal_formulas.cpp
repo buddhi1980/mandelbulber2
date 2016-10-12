@@ -6165,6 +6165,34 @@ void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &
 }
 
 /**
+ * Octo
+ */
+void TransformOctoFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{//	z = (float3){ -z.y, -z.x, z.z};
+	if (z.x + z.y < 0.0)
+		z = CVector3 ( -z.y, -z.x, z.z);
+
+
+	if (z.x + z.z < 0.0)// z.xz = -z.zx;
+		z = CVector3 ( -z.z, z.y, -z.x);
+
+
+	if (z.x - z.y < 0.0) //z.xy = z.yx;
+		z = CVector3 ( z.y, z.x, z.z);
+
+	if (z.x - z.z < 0.0) //z.xz = z.zx;
+		z = CVector3 ( z.z, z.y, z.x);
+
+
+	z.x = fabs(z.x);
+	z = z * fractal->transformCommon.scale2
+			- fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0);
+
+	aux.DE *= fractal->transformCommon.scale2;
+
+}
+
+/**
  * platonic solid
  * @reference
  * http://www.fractalforums.com/3d-fractal-generation/platonic-dimensions/msg36528/#msg36528
@@ -6414,7 +6442,7 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale); // + 1.0;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
@@ -6658,6 +6686,126 @@ void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sE
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 }
+/**
+ * Surf Box Fold
+ * allows different fold types for each axis.
+ * amazing surface if one axis has no folds enabled.
+ * made from various folds found in the posts at fractalforums.com
+ */
+void TransformSurfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->surfBox.enabledX1)
+	{
+		z.x = fabs(z.x + fractal->surfBox.offset1A111.x)
+					- fabs(z.x - fractal->surfBox.offset1A111.x) - z.x;
+	}
+	if (fractal->surfBox.enabledX2False)
+	{ // z = fold - fabs( fabs(z) - fold)
+		z.x = fractal->surfBox.offset1B111.x
+					- fabs(fabs(z.x) - fractal->surfBox.offset1B111.x);
+	}
+	if (fractal->surfBox.enabledX3False)
+	{
+		z.x = fabs(z.x + fractal->surfBox.offset2A111.x);
+	}
+	if (fractal->surfBox.enabledX4False)
+	{ // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
+		if (z.x > fractal->surfBox.offset2B111.x)
+		{
+			z.x = fractal->surfBox.offset1A222.x - z.x;
+			aux.color += fractal->mandelbox.color.factor.x;
+		}
+		else if (z.x < -fractal->surfBox.offset2B111.x)
+		{
+			z.x = -fractal->surfBox.offset1A222.x - z.x;
+			aux.color += fractal->mandelbox.color.factor.x;
+		}
+	}
+	if (fractal->surfBox.enabledX5False)
+	{ // z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
+		z.x = fractal->surfBox.offset1B222.x
+					- fabs(fabs(z.x + fractal->surfBox.offset3A111.x)
+								 - fractal->surfBox.offset1B222.x)
+					- fractal->surfBox.offset3A111.x;
+	}
+
+	if (fractal->surfBox.enabledY1)
+	{
+		z.y = fabs(z.y + fractal->surfBox.offset1A111.y)
+					- fabs(z.y - fractal->surfBox.offset1A111.y) - z.y;
+	}
+	if (fractal->surfBox.enabledY2False)
+	{ // z = fold - fabs( fabs(z) - fold)
+		z.y = fractal->surfBox.offset1B111.y
+					- fabs(fabs(z.y) - fractal->surfBox.offset1B111.y);
+	}
+	if (fractal->surfBox.enabledY3False)
+	{
+		z.y = fabs(z.y + fractal->surfBox.offset2A111.y);
+	}
+	if (fractal->surfBox.enabledY4False)
+	{ // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
+		if (z.y > fractal->surfBox.offset2B111.y)
+		{
+			z.y = fractal->surfBox.offset1A222.y - z.y;
+			aux.color += fractal->mandelbox.color.factor.y;
+		}
+		else if (z.y < -fractal->surfBox.offset2B111.y)
+		{
+			z.y = -fractal->surfBox.offset1A222.y - z.y;
+			aux.color += fractal->mandelbox.color.factor.y;
+		}
+	}
+	if (fractal->surfBox.enabledY5False)
+	{ // z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
+		z.y = fractal->surfBox.offset1B222.y
+					- fabs(fabs(z.y + fractal->surfBox.offset3A111.y)
+								 - fractal->surfBox.offset1B222.y)
+					- fractal->surfBox.offset3A111.y;
+	}
+
+	if (fractal->surfBox.enabledZ1)
+	{
+		z.z = fabs(z.z + fractal->surfBox.offset1A111.z)
+					- fabs(z.z - fractal->surfBox.offset1A111.z) - z.z;
+	}
+	if (fractal->surfBox.enabledZ2False)
+	{ // z = fold - fabs( fabs(z) - fold)
+		z.z = fractal->surfBox.offset1B111.z
+					- fabs(fabs(z.z) - fractal->surfBox.offset1B111.z);
+	}
+	if (fractal->surfBox.enabledZ3False)
+	{
+		z.z = fabs(z.z + fractal->surfBox.offset2A111.z);
+	}
+
+	if (fractal->surfBox.enabledZ4False)
+	{ // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
+		double limit = fractal->surfBox.offset2B111.z;
+		double value = fractal->surfBox.offset1A222.z;
+		double zLimit = limit * fractal->surfBox.scale1Z1;
+		double zValue = value * fractal->surfBox.scale1Z1;
+		if (z.z > zLimit)
+		{
+			z.z = zValue - z.z;
+			aux.color += fractal->mandelbox.color.factor.z;
+		}
+		else if (z.z < -zLimit)
+		{
+			z.z = -zValue - z.z;
+			aux.color += fractal->mandelbox.color.factor.z;
+		}
+	}
+
+	if (fractal->surfBox.enabledZ5False)
+	{ // z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
+		z.z = fractal->surfBox.offset1B222.z
+					- fabs(fabs(z.z + fractal->surfBox.offset3A111.z)
+								 - fractal->surfBox.offset1B222.z)
+					- fractal->surfBox.offset3A111.z;
+	}
+	aux.DE *= fractal->analyticDE.scale1; //tweak
+}
 
 /**
  * TransformSurfFoldMultiIteration
@@ -6721,6 +6869,7 @@ void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExte
 								 - fractal->transformCommon.offset2)
 					- fractal->transformCommon.additionConstant111.y;
 	}
+
 }
 
 /**
@@ -7021,3 +7170,85 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 
 		z.x += SQRT_3_4;
 	}*/
+
+/**
+ *  Scale varies smoothly based on iteration parameters.
+ */
+void TransformScaleVaryVCLIteration(CVector3 &z, int i,
+			const cFractal *fractal, sExtendedAux &aux)
+{
+	double para;
+
+	//double paraAddP0;
+	//if (fractal->Cpara.enabledParaAddP0)
+	//	paraAddP0 = 0.0;
+
+
+	if (fractal->Cpara.enabledLinear)
+	{
+		para = fractal->Cpara.para0; // parameter value at iter 0
+		double temp0 = para;
+		double tempA = fractal->Cpara.paraA;
+		double tempB = fractal->Cpara.paraB;
+		double tempC = fractal->Cpara.paraC;
+		double lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
+		double lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
+		double grade1 = (tempA - temp0) / fractal->Cpara.iterA;
+		double grade2 = (tempB - tempA) / lengthAB;
+		double grade3 = (tempC - tempB) / lengthBC;
+
+		// slopes
+		if (i < fractal->Cpara.iterA)
+		{
+			para = temp0 + ( i * grade1);
+		}
+		if( i < fractal->Cpara.iterB
+				&& i >= fractal->Cpara.iterA)
+		{
+			para = tempA + ( i - fractal->Cpara.iterA) * grade2;
+		}
+		if( i >= fractal->Cpara.iterB)
+		{
+			para = tempB + ( i - fractal->Cpara.iterB) * grade3;
+		}
+
+		// Curvi part on "true"
+		if (fractal->Cpara.enabledCurves)
+		{
+			double paraAdd = 0.0;
+			double paraIt;
+			if( lengthAB > 2.0 * fractal->Cpara.iterA)// stop  error, todo fix.
+			{
+				double curve1 = (grade2 - grade1) / (4.0 * fractal->Cpara.iterA);
+				double tempL = lengthAB - fractal->Cpara.iterA;
+				double curve2 = (grade3 - grade2) / (4.0 * tempL);
+				if (i < 2 * fractal->Cpara.iterA)
+				{
+					paraIt = tempA - fabs(tempA - i);
+					paraAdd = paraIt * paraIt * curve1;
+				}
+				if (i >= 2 * fractal->Cpara.iterA
+						&& i < fractal->Cpara.iterB + tempL)
+				{
+					paraIt = tempB - fabs(tempB * i);
+					paraAdd = paraIt * paraIt * curve2;
+				}
+				para += paraAdd;
+			}
+		}
+	}
+	//double paraAddP0;
+	//if (fractal->Cpara.enabledParaAddP0)
+	//	paraAddP0 = 0.0;
+	double paraAddP0 = 0.0;
+	if (fractal->Cpara.enabledParabFalse)
+	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+		paraAddP0 = fractal->Cpara.parabOffset + (i * fractal->Cpara.parabSlope)
+				+ ( i * i * 0.001 *  fractal->Cpara.parabScale);
+	}
+	para += paraAddP0;
+	z *= para;
+	aux.DE = aux.DE * fabs(para) + 1.0;
+	aux.r_dz *= fabs(para);
+}
+
