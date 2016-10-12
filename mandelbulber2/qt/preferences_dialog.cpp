@@ -44,6 +44,7 @@
 #include <QMessageBox>
 #include <QtCore>
 
+#include "../qt/thumbnail_widget.h"
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cPreferencesDialog)
 {

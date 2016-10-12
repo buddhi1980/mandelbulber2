@@ -223,7 +223,7 @@ int cDockRenderingEngine::ComboDeltaDEMethodCurrentIndex(void)
 void cDockRenderingEngine::slotChangedComboDistanceEstimationMethod(int index)
 {
 	ui->comboBox_delta_DE_function->setEnabled(
-		gMainInterface->mainWindow->ui->checkBox_hybrid_fractal_enable->isChecked()
+		gMainInterface->mainWindow->ui->widgetDockFractal->AreHybridFractalsEnabled()
 		|| index == (int)fractal::forceDeltaDEMethod);
 }
 

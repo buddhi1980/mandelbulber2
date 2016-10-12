@@ -75,15 +75,11 @@ private slots:
 
 	// other
 	void slotChangedCheckBoxCursorVisibility(int state);
-	void slotChangedComboFractal(int index);
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);
 	void slotPressedButtonDeletePrimitive();
-	void slotPressedButtonGetJuliaConstant();
 	void slotPressedButtonGetPoint();
 
-	void slotPressedButtonNewPrimitive();
-	void slotPressedButtonResetFormula();
 	void slotPressedButtonResetView();
 	void slotPressedButtonSetPositionPrimitive();
 	void slotResizedScrolledAreaImage(int width, int height);
@@ -97,13 +93,9 @@ private slots:
 	void slotExportVoxelLayers();
 	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
 		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
-	void slotFractalSwap(int swapA, int swapB);
 	void slotAutoRefresh();
 	void slotMaterialSelected(int matIndex);
 	void slotMaterialEdited();
-	void slotGroupCheckJuliaModeToggled(bool state);
-
-
 
 	// camera
 	void slotCameraMove();
@@ -113,20 +105,6 @@ private slots:
 	void slotCameraDistanceEdited();
 	void slotCameraDistanceSlider(int value);
 	void slotMovementStepModeChanged(int index);
-
-	// fractal
-	void slotChangedCheckBoxHybridFractal(int state);
-	void slotChangedCheckBoxBooleanOperators(bool state);
-	void slotChangedCheckBoxJuliaMode(bool state);
-	void slotToggledFractalEnable(int fractalIndex, bool enabled);
-	void slotChangedJuliaPoint();
-
-	// IFS
-	void slotPressedButtonIFSDefaultsDodecahedron();
-	void slotPressedButtonIFSDefaultsIcosahedron();
-	void slotPressedButtonIFSDefaultsOctahedron();
-	void slotPressedButtonIFSDefaultsMengerSponge();
-	void slotPressedButtonIFSDefaultsReset();
 
 	// pull down menu
 	void slotImportOldSettings();
@@ -162,19 +140,12 @@ private slots:
 	void slotPopulateToolbar(bool completeRefresh = false);
 	void slotPresetAddToToolbar();
 
-	// textures
-
-
-
-
-
 	// rendered image widget
 	void slotMouseMovedOnImage(int x, int y);
 	void slotMouseClickOnImage(int x, int y, Qt::MouseButton button);
 	void slotKeyPressOnImage(Qt::Key key);
 	void slotKeyReleaseOnImage(Qt::Key key);
 	void slotMouseWheelRotatedOnImage(int delta);
-
 
 #ifdef USE_GAMEPAD
 	// Gamepad
@@ -194,7 +165,6 @@ private slots:
 
 private:
 	Ui::RenderWindow *ui;
-	QWidget **fractalWidgets;
 	QDialog *preferencesDialog;
 	QDialog *voxelExportDialog;
 	cAutomatedWidgets *automatedWidgets;
@@ -221,6 +191,7 @@ signals:
 	friend class cDockImageAdjustments;
 	friend class cDockEffects;
 	friend class cDockRenderingEngine;
+	friend class cDockFractal;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */

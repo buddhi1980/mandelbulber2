@@ -43,7 +43,6 @@
 RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::RenderWindow)
 {
 	ui->setupUi(this);
-	fractalWidgets = new QWidget *[NUMBER_OF_FRACTALS];
 	preferencesDialog = NULL;
 	voxelExportDialog = NULL;
 	automatedWidgets = new cAutomatedWidgets(this);
@@ -80,7 +79,4 @@ RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::Re
 RenderWindow::~RenderWindow()
 {
 	delete ui;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-		delete fractalWidgets[i];
-	delete[] fractalWidgets;
 }

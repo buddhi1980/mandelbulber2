@@ -202,11 +202,6 @@ void cInterface::ShowUi(void)
 	progressBarFrame->setLayout(progressBarLayout);
 	mainWindow->ui->statusbar->addPermanentWidget(progressBarFrame);
 
-	mainWindow->ui->label_repeat_from->setEnabled(false);
-	mainWindow->ui->sliderInt_repeat_from->setEnabled(false);
-	mainWindow->ui->spinboxInt_repeat_from->setEnabled(false);
-	mainWindow->ui->label_fractals_remark_julia->setVisible(false);
-
 	mainWindow->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 
 #ifndef USE_EXR
@@ -241,7 +236,7 @@ void cInterface::ShowUi(void)
 	// loading default ui for all fractal components
 	QString uiFilename =
 		systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_mandelbulb.ui";
-	InitializeFractalUi(uiFilename);
+	mainWindow->ui->widgetDockFractal->InitializeFractalUi(uiFilename);
 	InitMaterialsUi();
 	scrollAreaMaterialEditor = mainWindow->ui->scrollArea_material;
 
@@ -251,8 +246,6 @@ void cInterface::ShowUi(void)
 	ComboMouseClickUpdate();
 
 	mainWindow->slotPopulateToolbar();
-
-	mainWindow->ui->previewwidget_julia->SetSize(256, 256, 2);
 
 	systemTray = new cSystemTray(mainImage, mainWindow);
 
@@ -271,38 +264,15 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
 		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
 
-	QApplication::connect(mainWindow->ui->vect3_julia_c_x, SIGNAL(textChanged(const QString &)),
-		mainWindow, SLOT(slotChangedJuliaPoint()));
-	QApplication::connect(mainWindow->ui->vect3_julia_c_y, SIGNAL(textChanged(const QString &)),
-		mainWindow, SLOT(slotChangedJuliaPoint()));
-	QApplication::connect(mainWindow->ui->vect3_julia_c_z, SIGNAL(textChanged(const QString &)),
-		mainWindow, SLOT(slotChangedJuliaPoint()));
+
 	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target,
 		SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
 
-	QApplication::connect(mainWindow->ui->pushButton_get_julia_constant, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonGetJuliaConstant()));
+
 	QApplication::connect(mainWindow->ui->pushButton_meas_get_point, SIGNAL(clicked()), mainWindow,
 		SLOT(slotPressedButtonGetPoint()));
 
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_box, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_circle, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_cone, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_cylinder, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_plane, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_rectangle, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_sphere, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_water, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_torus, SIGNAL(clicked()),
-		mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+
 	QApplication::connect(
 		mainWindow->ui->pushButton_undo, SIGNAL(clicked()), mainWindow, SLOT(slotMenuUndo()));
 	QApplication::connect(
@@ -317,8 +287,7 @@ void cInterface::ConnectSignals(void)
 
 	QApplication::connect(mainWindow, SIGNAL(AppendToLog(const QString &)), mainWindow->ui->log_text,
 		SLOT(appendMessage(const QString &)));
-	QApplication::connect(mainWindow->ui->groupCheck_julia_mode, SIGNAL(toggled(bool)), mainWindow,
-		SLOT(slotGroupCheckJuliaModeToggled(bool)));
+
 
 	// menu actions
 	QApplication::connect(
@@ -388,14 +357,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionProgramSettings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuProgramSettings()));
 
-	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable, SIGNAL(stateChanged(int)),
-		mainWindow, SLOT(slotChangedCheckBoxHybridFractal(int)));
-	QApplication::connect(mainWindow->ui->groupCheck_boolean_operators, SIGNAL(toggled(bool)),
-		mainWindow, SLOT(slotChangedCheckBoxBooleanOperators(bool)));
-	QApplication::connect(mainWindow->ui->groupCheck_julia_mode, SIGNAL(toggled(bool)), mainWindow,
-		SLOT(slotChangedCheckBoxJuliaMode(bool)));
-	QApplication::connect(mainWindow->ui->tabWidget_fractals->tabBar(),
-		SIGNAL(toggledEnable(int, bool)), mainWindow, SLOT(slotToggledFractalEnable(int, bool)));
+
 
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));
@@ -491,8 +453,7 @@ void cInterface::ConnectSignals(void)
 
 	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()),
 		mainWindow, SLOT(slotPresetAddToToolbar()));
-	QApplication::connect(mainWindow->ui->tabWidget_fractals, SIGNAL(swapTabs(int, int)), mainWindow,
-		SLOT(slotFractalSwap(int, int)));
+
 #ifdef USE_GAMEPAD
 	// ------------ gamepad -----------
 	QApplication::connect(mainWindow->ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)),
@@ -528,14 +489,6 @@ void cInterface::SynchronizeInterface(
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: dockWidget_queue_dock", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_queue_dock, par, mode);
-	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_common", 3);
-	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode);
-	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_hybrid", 3);
-	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode);
-	WriteLog("cInterface::SynchronizeInterface: tab_primitives", 3);
-	SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode);
-	WriteLog("cInterface::SynchronizeInterface: tab_description", 3);
-	SynchronizeInterfaceWindow(mainWindow->ui->tab_description, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: centralwidget", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: dockWidgetContents_animation", 3);
@@ -544,152 +497,11 @@ void cInterface::SynchronizeInterface(
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: materialEditor", 3);
 	SynchronizeInterfaceWindow(materialEditor, par, mode);
-	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractals", 3);
-	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->tabBar(), par, mode);
 
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		WriteLog("cInterface::SynchronizeInterface: fractalWidgets[i]", 3);
-		SynchronizeInterfaceWindow(mainWindow->fractalWidgets[i], &parFractal->at(i), mode);
-		WriteLog("cInterface::SynchronizeInterface: frame_iterations_formula", 3);
-		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QFrame *>(
-																 QString("frame_iterations_formula_%1").arg(i + 1)),
-			par, mode);
-		WriteLog("cInterface::SynchronizeInterface: groupBox_formula_transform", 3);
-		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
-																 QString("groupBox_formula_transform_%1").arg(i + 1)),
-			par, mode);
-		WriteLog("cInterface::SynchronizeInterface: groupBox_c_constant_addition", 3);
-		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
-																 QString("groupBox_c_constant_addition_%1").arg(i + 1)),
-			par, mode);
-		WriteLog("cInterface::SynchronizeInterface: groupBox_material_fractal", 3);
-		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
-																 QString("groupBox_material_fractal_%1").arg(i + 1)),
-			par, mode);
-	}
+	mainWindow->ui->widgetDockFractal->SynchronizeInterfaceFractals(par, parFractal, mode);
 }
 
-// initialize ui for hybrid fractal components
-void cInterface::InitializeFractalUi(QString &uiFileName)
-{
-	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started", 2);
-	MyUiLoader loader;
 
-	QFile uiFile(uiFileName);
-
-	if (uiFile.exists())
-	{
-		uiFile.open(QFile::ReadOnly);
-		mainWindow->fractalWidgets[0] = loader.load(&uiFile);
-		mainWindow->ui->verticalLayout_fractal_1->addWidget(mainWindow->fractalWidgets[0]);
-		mainWindow->fractalWidgets[0]->show();
-		for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
-		{
-			mainWindow->fractalWidgets[i] = NULL;
-		}
-
-		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
-		{
-			if (i == 1)
-				mainWindow->ui->tabWidget_fractals->setTabText(i - 1, QString("#1: Mandelbulb"));
-			else
-				mainWindow->ui->tabWidget_fractals->setTabText(i - 1, QString("#%1: None").arg(i));
-
-			QFrame *frame = mainWindow->ui->tabWidget_fractals->findChild<QFrame *>(
-				"frame_iterations_formula_" + QString::number(i));
-
-			QComboBox *combo =
-				frame->findChild<QComboBox *>(QString("comboBox_formula_") + QString::number(i));
-			combo->clear();
-
-			combo->setIconSize(QSize(32, 32));
-			combo->setFixedHeight(32);
-			for (int f = 0; f < fractalList.size(); f++)
-			{
-				combo->addItem(QIcon(fractalList[f].getIconName()), fractalList[f].nameInComboBox, f);
-			}
-
-			// set headings and separator of formulas and transforms
-			QFont fontHeading;
-			fontHeading.setBold(true);
-			combo->insertItem(0, QObject::tr("Formulas"));
-			combo->setItemData(0, fontHeading, Qt::FontRole);
-			combo->setItemData(0, Qt::AlignCenter, Qt::TextAlignmentRole);
-			qobject_cast<QStandardItemModel *>(combo->model())->item(0)->setEnabled(false);
-			int indexBeforeTransforms = combo->findText("Transform - Addition Constant");
-			combo->insertItem(indexBeforeTransforms, QObject::tr("Transforms"));
-			combo->setItemData(indexBeforeTransforms, fontHeading, Qt::FontRole);
-			combo->setItemData(indexBeforeTransforms, Qt::AlignCenter, Qt::TextAlignmentRole);
-			qobject_cast<QStandardItemModel *>(combo->model())
-				->item(indexBeforeTransforms)
-				->setEnabled(false);
-			combo->insertSeparator(indexBeforeTransforms);
-
-			QApplication::connect(
-				combo, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
-
-			QPushButton *resetButton =
-				frame->findChild<QPushButton *>(QString("pushButton_reset_formula_") + QString::number(i));
-			QApplication::connect(
-				resetButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonResetFormula()));
-
-			frame->findChild<QLabel *>(QString("label_formula_iterations_") + QString::number(i))
-				->setVisible(false);
-			frame->findChild<MySpinBox *>(QString("spinboxInt_formula_iterations_") + QString::number(i))
-				->setVisible(false);
-			frame->findChild<QSlider *>(QString("sliderInt_formula_iterations_") + QString::number(i))
-				->setVisible(false);
-
-			frame->findChild<QLabel *>(QString("label_formula_weight_") + QString::number(i))
-				->setVisible(false);
-			frame->findChild<MyDoubleSpinBox *>(QString("spinbox_formula_weight_") + QString::number(i))
-				->setVisible(false);
-			frame->findChild<QSlider *>(QString("slider_formula_weight_") + QString::number(i))
-				->setVisible(false);
-
-			frame->findChild<QLabel *>(QString("label_formula_start_iteration_") + QString::number(i))
-				->setVisible(false);
-			frame->findChild<QLabel *>(QString("label_formula_stop_iteration_") + QString::number(i))
-				->setVisible(false);
-			frame->findChild<MySpinBox *>(QString("spinboxInt_formula_start_iteration_")
-																		+ QString::number(i))->setVisible(false);
-			frame->findChild<MySpinBox *>(QString("spinboxInt_formula_stop_iteration_")
-																		+ QString::number(i))->setVisible(false);
-
-			frame->findChild<MyCheckBox *>(QString("checkBox_check_for_bailout_") + QString::number(i))
-				->setVisible(false);
-			frame->findChild<MyCheckBox *>(QString("checkBox_dont_add_c_constant_") + QString::number(i))
-				->setText(QObject::tr("Don't add global C constant"));
-
-			if (i > 1)
-			{
-				frame->setEnabled(false);
-				mainWindow->ui->tabWidget_fractals->findChild<QScrollArea *>(
-																							"scrollArea_fractal_" + QString::number(i))
-					->setEnabled(false);
-			}
-
-			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
-																						"groupBox_formula_transform_" + QString::number(i))
-				->setVisible(false);
-			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
-																						"groupBox_c_constant_addition_" + QString::number(i))
-				->setVisible(false);
-			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox *>(
-																						"groupBox_material_fractal_" + QString::number(i))
-				->setVisible(false);
-		}
-		static_cast<MyTabBar *>(mainWindow->ui->tabWidget_fractals->tabBar())->setupMoveButtons();
-	}
-	else
-	{
-		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName
-																 + QObject::tr(" Fractal ui files can't be loaded"),
-			cErrorMessage::errorMessage, mainWindow);
-	}
-	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished", 2);
-}
 
 void cInterface::StartRender(bool noUndo)
 {
@@ -1373,9 +1185,8 @@ void cInterface::SetByMouse(
 				case RenderedImage::clickGetJuliaConstant:
 				{
 					gPar->Set("julia_c", point);
-					mainWindow->ui->groupCheck_julia_mode->setChecked(true);
-					SynchronizeInterfaceWindow(
-						mainWindow->ui->groupCheck_julia_mode, gPar, qInterface::write);
+					mainWindow->ui->widgetDockFractal->EnableJuliaMode();
+					mainWindow->ui->widgetDockFractal->SynchronizeInterfaceJulia();
 
 					// StartRender();
 					break;
@@ -1384,8 +1195,7 @@ void cInterface::SetByMouse(
 				{
 					QString parameterName = mode.at(3).toString() + "_position";
 					gPar->Set(parameterName, point);
-					SynchronizeInterfaceWindow(
-						mainWindow->ui->scrollArea_primitives, gPar, qInterface::write);
+					mainWindow->ui->widgetDockFractal->SynchronizeInterfacePrimitives();
 					break;
 				}
 				case RenderedImage::clickDoNothing:
@@ -1586,7 +1396,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	listOfPrimitives.append(newItem);
 
 	// main widget for primitive
-	QWidget *mainWidget = new QWidget(mainWindow->ui->scrollAreaWidgetContents_primitives);
+	QWidget *mainWidget = new QWidget(mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives());
 	mainWidget->setObjectName(QString("widgetmain_") + primitiveFullName);
 	QVBoxLayout *layout = new QVBoxLayout();
 	mainWidget->setLayout(layout);
@@ -1626,7 +1436,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		layoutGroupBox->addWidget(primitiveWidget);
 
 		// put widget into layout
-		QVBoxLayout *primitivesLayout = mainWindow->ui->verticalLayout_primitives;
+		QVBoxLayout *primitivesLayout = mainWindow->ui->widgetDockFractal->GetLayoutWithPrimitives();
 		primitivesLayout->addWidget(mainWidget);
 
 		// rename widgets
@@ -1672,7 +1482,7 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 
 	// delete widget
 	QWidget *primitiveWidget =
-		mainWindow->ui->scrollAreaWidgetContents_primitives->findChild<QWidget *>(primitiveWidgetName);
+			mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(primitiveWidgetName);
 	delete primitiveWidget;
 
 	// remove item from list
@@ -1696,7 +1506,7 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 	{
 		QString widgetName = QString("widgetmain_") + listOfPrimitives.at(i).name;
 		QWidget *widget =
-			mainWindow->ui->scrollAreaWidgetContents_primitives->findChild<QWidget *>(widgetName);
+				mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(widgetName);
 		delete widget;
 	}
 	listOfPrimitives.clear();

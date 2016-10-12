@@ -73,7 +73,6 @@ public:
 	void ConnectSignals(void);
 	void SynchronizeInterface(
 		cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode);
-	void InitializeFractalUi(QString &uiFileName);
 	void StartRender(bool noUndo = false);
 	void MoveCamera(QString buttonName);
 	void RotateCamera(QString buttonName);

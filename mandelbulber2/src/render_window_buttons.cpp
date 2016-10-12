@@ -41,21 +41,11 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 
-
 void RenderWindow::slotPressedButtonDeletePrimitive()
 {
 	QString buttonName = this->sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
 	gMainInterface->DeletePrimitive(primitiveName);
-}
-
-void RenderWindow::slotPressedButtonGetJuliaConstant()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickGetJuliaConstant);
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotPressedButtonGetPoint()
@@ -65,20 +55,6 @@ void RenderWindow::slotPressedButtonGetPoint()
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
-}
-
-void RenderWindow::slotPressedButtonNewPrimitive()
-{
-	QString buttonName = this->sender()->objectName();
-	QString primitiveName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
-	gMainInterface->NewPrimitive(primitiveName);
-}
-
-void RenderWindow::slotPressedButtonResetFormula()
-{
-	QString comboName = this->sender()->objectName();
-	int fractalNumber = comboName.right(1).toInt() - 1;
-	gMainInterface->ResetFormula(fractalNumber);
 }
 
 void RenderWindow::slotPressedButtonResetView()
@@ -101,43 +77,4 @@ void RenderWindow::slotPressedButtonSetPositionPrimitive()
 	gMainInterface->renderedImage->setClickMode(item);
 }
 
-void RenderWindow::slotPressedButtonIFSDefaultsDodecahedron()
-{
-	int index = ui->tabWidget_fractals->currentIndex();
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::read);
-	gMainInterface->IFSDefaultsDodecahedron(&gParFractal->at(index));
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::write);
-}
-
-void RenderWindow::slotPressedButtonIFSDefaultsIcosahedron()
-{
-	int index = ui->tabWidget_fractals->currentIndex();
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::read);
-	gMainInterface->IFSDefaultsIcosahedron(&gParFractal->at(index));
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::write);
-}
-
-void RenderWindow::slotPressedButtonIFSDefaultsOctahedron()
-{
-	int index = ui->tabWidget_fractals->currentIndex();
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::read);
-	gMainInterface->IFSDefaultsOctahedron(&gParFractal->at(index));
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::write);
-}
-
-void RenderWindow::slotPressedButtonIFSDefaultsMengerSponge()
-{
-	int index = ui->tabWidget_fractals->currentIndex();
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::read);
-	gMainInterface->IFSDefaultsMengerSponge(&gParFractal->at(index));
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::write);
-}
-
-void RenderWindow::slotPressedButtonIFSDefaultsReset()
-{
-	int index = ui->tabWidget_fractals->currentIndex();
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::read);
-	gMainInterface->IFSDefaultsReset(&gParFractal->at(index));
-	SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), qInterface::write);
-}
 
