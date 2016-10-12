@@ -46,6 +46,7 @@
 #include "netrender.hpp"
 #include "render_job.hpp"
 #include "undo.h"
+#include "../qt/ui_dock_animation.h"
 
 cFlightAnimation *gFlightAnimation = NULL;
 
@@ -56,7 +57,7 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 {
 	if (mainInterface->mainWindow)
 	{
-		ui = mainInterface->mainWindow->ui;
+		ui = mainInterface->mainWindow->ui->widgetDockAnimation->ui;
 
 		// connect flight control buttons
 		connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
@@ -161,15 +162,15 @@ bool cFlightAnimation::slotRenderFlight()
 	{
 		if (frames->GetNumberOfFrames() == 0)
 		{
-			emit showErrorMessage(
-				QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
+			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage,
+				mainInterface->mainWindow->ui->centralwidget);
 		}
 		else if (!QDir(params->Get<QString>("anim_flight_dir")).exists())
 		{
 			emit showErrorMessage(
 				QObject::tr("The folder %1 does not exist. Please specify a valid location.")
 					.arg(params->Get<QString>("anim_flight_dir")),
-				cErrorMessage::errorMessage, ui->centralwidget);
+				cErrorMessage::errorMessage, mainInterface->mainWindow->ui->centralwidget);
 		}
 		else
 		{
@@ -195,7 +196,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	{
 		// confirmation dialog before start
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(ui->centralwidget,
+		reply = QMessageBox::question(mainInterface->mainWindow->ui->centralwidget,
 			QObject::tr("Are you sure to start recording of new animation?"),
 			QObject::tr("This will delete all images in the image folder.\nProceed?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -418,7 +419,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		params->Set("flight_rotation_speed_vector", cameraAngularSpeed);
 		params->Set("frame_no", index);
 
-		SynchronizeInterfaceWindow(ui->dockWidget_navigation, params, qInterface::write);
+		SynchronizeInterfaceWindow(
+			mainInterface->mainWindow->ui->dockWidget_navigation, params, qInterface::write);
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
 		// add new frame to container
@@ -460,7 +462,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	// retrieve original click mode
 	QList<QVariant> item =
-		ui->comboBox_mouse_click_function->itemData(ui->comboBox_mouse_click_function->currentIndex())
+		mainInterface->mainWindow->ui->comboBox_mouse_click_function
+			->itemData(mainInterface->mainWindow->ui->comboBox_mouse_click_function->currentIndex())
 			.toList();
 	gMainInterface->renderedImage->setClickMode(item);
 
@@ -728,8 +731,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 				QObject::tr(
 					"The animation has already been rendered completely.\n Do you want to purge "
 					"the output "
-					"folder?\n")
-				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+					"folder?\n") + QObject::tr("This will delete all images in the image folder.\nProceed?");
 
 			if (!systemData.noGui)
 			{
@@ -805,7 +807,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 				// show distance in statistics table
 				double distance = mainInterface->GetDistanceForPoint(
 					params->Get<CVector3>("camera"), params, fractalParams);
-				ui->tableWidget_statistics->item(5, 0)->setText(QString("%L1").arg(distance));
+				mainInterface->mainWindow->ui->tableWidget_statistics->item(5, 0)->setText(
+					QString("%L1").arg(distance));
 			}
 
 			if (gNetRender->IsServer())
@@ -1059,7 +1062,8 @@ void cFlightAnimation::slotDeleteAllImages()
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
 
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(ui->centralwidget, QObject::tr("Truncate Image Folder"),
+	reply = QMessageBox::question(mainInterface->mainWindow->ui->centralwidget,
+		QObject::tr("Truncate Image Folder"),
 		QObject::tr("This will delete all images in the image folder.\nProceed?"),
 		QMessageBox::Yes | QMessageBox::No);
 
@@ -1216,7 +1220,8 @@ void cFlightAnimation::slotExportFlightToKeyframes()
 	if (gKeyframes->GetFrames().size() > 0)
 	{
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(ui->centralwidget, QObject::tr("Export flight to keyframes"),
+		reply = QMessageBox::question(mainInterface->mainWindow->ui->centralwidget,
+			QObject::tr("Export flight to keyframes"),
 			QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
 			QMessageBox::Yes | QMessageBox::No);
 

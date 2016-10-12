@@ -45,6 +45,7 @@
 #include "netrender.hpp"
 #include "render_job.hpp"
 #include "undo.h"
+#include "../qt/ui_dock_animation.h"
 
 cKeyframeAnimation *gKeyframeAnimation = NULL;
 
@@ -59,7 +60,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 	if (mainInterface->mainWindow)
 	{
-		ui = mainInterface->mainWindow->ui;
+		ui = mainInterface->mainWindow->ui->widgetDockAnimation->ui;
 
 		// connect keyframe control buttons
 		QApplication::connect(
@@ -183,8 +184,8 @@ void cKeyframeAnimation::DeleteKeyframe(int index)
 {
 	if (index < 0)
 	{
-		cErrorMessage::showMessage(
-			QObject::tr("No keyframe selected"), cErrorMessage::errorMessage, ui->centralwidget);
+		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage,
+			mainInterface->mainWindow->ui->centralwidget);
 	}
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 	keyframes->DeleteFrames(index, index);
@@ -243,15 +244,15 @@ bool cKeyframeAnimation::slotRenderKeyframes()
 	{
 		if (keyframes->GetNumberOfFrames() == 0)
 		{
-			emit showErrorMessage(
-				QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
+			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage,
+				mainInterface->mainWindow->ui->centralwidget);
 		}
 		else if (!QDir(params->Get<QString>("anim_keyframe_dir")).exists())
 		{
 			emit showErrorMessage(
 				QObject::tr("The folder %1 does not exist. Please specify a valid location.")
 					.arg(params->Get<QString>("anim_keyframe_dir")),
-				cErrorMessage::errorMessage, ui->centralwidget);
+				cErrorMessage::errorMessage, mainInterface->mainWindow->ui->centralwidget);
 		}
 		else
 		{
@@ -566,8 +567,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			QString questionText =
 				QObject::tr(
 					"The animation has already been rendered completely.\n Do you want to purge the output "
-					"folder?\n")
-				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+					"folder?\n") + QObject::tr("This will delete all images in the image folder.\nProceed?");
 
 			if (!systemData.noGui)
 			{
@@ -653,7 +653,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					// show distance in statistics table
 					double distance = mainInterface->GetDistanceForPoint(
 						params->Get<CVector3>("camera"), params, fractalParams);
-					ui->tableWidget_statistics->item(5, 0)->setText(QString::number(distance));
+					mainInterface->mainWindow->ui->tableWidget_statistics->item(5, 0)->setText(
+						QString::number(distance));
 				}
 
 				if (gNetRender->IsServer())
@@ -890,7 +891,8 @@ void cKeyframeAnimation::slotDeleteAllImages()
 		ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, qInterface::read);
 
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(ui->centralwidget, QObject::tr("Truncate Image Folder"),
+	reply = QMessageBox::question(mainInterface->mainWindow->ui->centralwidget,
+		QObject::tr("Truncate Image Folder"),
 		QObject::tr("This will delete all images in the image folder.\nProceed?"),
 		QMessageBox::Yes | QMessageBox::No);
 
@@ -1059,7 +1061,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	{
 		QMessageBox::StandardButton reply;
 		reply = QMessageBox::question(
-			ui->centralwidget, QObject::tr("Export keyframes to flight"),
+			mainInterface->mainWindow->ui->centralwidget, QObject::tr("Export keyframes to flight"),
 			QObject::tr(
 				"There are already captured flight frames present.\nDiscard current flight frames ?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -1226,7 +1228,7 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 		{
 			cErrorMessage::showMessage(
 				QObject::tr("Cannot change target distance. Missing camera parameters in keyframes"),
-				cErrorMessage::errorMessage, ui->centralwidget);
+				cErrorMessage::errorMessage, mainInterface->mainWindow->ui->centralwidget);
 			return;
 		}
 	}

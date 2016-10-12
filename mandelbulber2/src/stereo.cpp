@@ -119,7 +119,7 @@ CVector2<double> cStereo::ModifyImagePoint(CVector2<double> imagePoint)
 			newImagePoint.y = imagePoint.y;
 			break;
 		case stereoTopBottom:
-			newImagePoint.y = fmod((imagePoint.y + 0.5) * 2.0, 1.0) - 0.5;
+			newImagePoint.y = -(fmod((-imagePoint.y + 0.5) * 2.0, 1.0) - 0.5);
 			newImagePoint.x = imagePoint.x;
 			break;
 		case stereoRedCyan: newImagePoint = imagePoint; break;

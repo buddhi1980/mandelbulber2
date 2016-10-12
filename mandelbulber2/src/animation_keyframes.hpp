@@ -41,6 +41,8 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 
+#include "../qt/my_table_widget_keyframes.hpp"
+#include "../qt/dock_animation.h"
 #include "cimage.hpp"
 #include "error_message.hpp"
 #include "interface.hpp"
@@ -99,7 +101,7 @@ private:
 	QColor MorphType2Color(parameterContainer::enumMorphType morphType);
 
 	cInterface *mainInterface;
-	Ui::RenderWindow *ui;
+	Ui::cDockAnimation *ui;
 	cKeyframes *keyframes;
 	cImage *image;
 	QWidget *imageWidget;

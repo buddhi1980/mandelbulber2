@@ -41,6 +41,7 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_FLIGHT_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_FLIGHT_HPP_
 
+#include "../qt/my_table_widget_anim.hpp"
 #include "animation_frames.hpp"
 #include "cimage.hpp"
 #include "error_message.hpp"
@@ -101,7 +102,7 @@ private:
 		const cAnimationFrames::sParameterDescription &parameterDescription, int index);
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int indexOfExistingColumn = -1);
 	cInterface *mainInterface;
-	Ui::RenderWindow *ui;
+	Ui::cDockAnimation *ui;
 	cAnimationFrames *frames;
 	cImage *image;
 	QWidget *imageWidget;
