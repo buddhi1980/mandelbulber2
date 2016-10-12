@@ -11621,36 +11621,6 @@ from fractal #:</string>
                 <string>Complement (1st minus 2nd)</string>
                </property>
               </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
              </widget>
             </item>
             <item row="1" column="0">
@@ -11683,36 +11653,6 @@ from fractal #:</string>
                 <string>Complement (2nd minus 3rd)</string>
                </property>
               </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
              </widget>
             </item>
             <item row="3" column="1">
@@ -11736,36 +11676,6 @@ from fractal #:</string>
               <item>
                <property name="text">
                 <string>Complement (3rd minus 4th)</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
                </property>
               </item>
              </widget>
@@ -11842,36 +11752,6 @@ from fractal #:</string>
                 <string>Complement (4th minus 5th)</string>
                </property>
               </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
              </widget>
             </item>
             <item row="5" column="1">
@@ -11895,36 +11775,6 @@ from fractal #:</string>
               <item>
                <property name="text">
                 <string>Complement (5th minus 6th)</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
                </property>
               </item>
              </widget>
@@ -11952,36 +11802,6 @@ from fractal #:</string>
                 <string>Complement (6th minus 7th)</string>
                </property>
               </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
              </widget>
             </item>
             <item row="7" column="1">
@@ -12007,36 +11827,6 @@ from fractal #:</string>
                 <string>Complement (7th minus 8th)</string>
                </property>
               </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
              </widget>
             </item>
             <item row="8" column="1">
@@ -12060,36 +11850,6 @@ from fractal #:</string>
               <item>
                <property name="text">
                 <string>Complement (8th minus 9th)</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string/>
                </property>
               </item>
              </widget>
