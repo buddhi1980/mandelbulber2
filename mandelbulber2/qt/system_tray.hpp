@@ -68,6 +68,9 @@ private slots:
 	void slotStarted();
 	void slotToggleNotification(bool notify);
 	void checkBusy();
+	void slotStartRender();
+	void slotStopRender();
+	void slotQuit();
 
 signals:
 	void notifyRenderFlight();

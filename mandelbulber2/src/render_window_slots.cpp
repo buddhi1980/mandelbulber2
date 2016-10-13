@@ -49,16 +49,6 @@
 #include "settings.hpp"
 #include "synchronize_interface.hpp"
 
-void RenderWindow::slotStartRender(void)
-{
-	gMainInterface->StartRender();
-}
-
-void RenderWindow::slotStopRender(void)
-{
-	gMainInterface->stopRequest = true;
-}
-
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
 {
 	if (gMainInterface->mainImage)

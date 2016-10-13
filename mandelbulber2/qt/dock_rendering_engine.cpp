@@ -193,7 +193,7 @@ void cDockRenderingEngine::slotNetRenderStatusClientUpdate()
 
 	ui->bu_netrender_connect->setEnabled(!gNetRender->IsClient());
 	ui->bu_netrender_disconnect->setEnabled(gNetRender->IsClient());
-	gMainInterface->mainWindow->ui->pushButton_render->setEnabled(!gNetRender->IsClient());
+	gMainInterface->mainWindow->ui->widgetDockNavigation->setEnabled(!gNetRender->IsClient());
 }
 
 void cDockRenderingEngine::slotCheckBoxDisableNetRender(bool on)

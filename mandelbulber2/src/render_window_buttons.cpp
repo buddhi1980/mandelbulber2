@@ -57,11 +57,6 @@ void RenderWindow::slotPressedButtonGetPoint()
 	gMainInterface->renderedImage->setClickMode(item);
 }
 
-void RenderWindow::slotPressedButtonResetView()
-{
-	gMainInterface->ResetView();
-}
-
 void RenderWindow::slotPressedButtonSetPositionPrimitive()
 {
 	QString buttonName = this->sender()->objectName();

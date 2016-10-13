@@ -69,8 +69,7 @@ private:
 	void changeEvent(QEvent *event);
 
 private slots:
-	void slotStartRender();
-	void slotStopRender();
+
 	void slotQuit();
 
 	// other
@@ -80,7 +79,6 @@ private slots:
 	void slotPressedButtonDeletePrimitive();
 	void slotPressedButtonGetPoint();
 
-	void slotPressedButtonResetView();
 	void slotPressedButtonSetPositionPrimitive();
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotMenuLoadPreset(QString filename);
@@ -96,15 +94,6 @@ private slots:
 	void slotAutoRefresh();
 	void slotMaterialSelected(int matIndex);
 	void slotMaterialEdited();
-
-	// camera
-	void slotCameraMove();
-	void slotCameraRotation();
-	void slotCameraOrTargetEdited();
-	void slotRotationEdited();
-	void slotCameraDistanceEdited();
-	void slotCameraDistanceSlider(int value);
-	void slotMovementStepModeChanged(int index);
 
 	// pull down menu
 	void slotImportOldSettings();

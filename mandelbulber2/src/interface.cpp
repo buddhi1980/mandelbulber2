@@ -261,30 +261,11 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
 		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
 
-
-	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target,
-		SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
-
-
 	QApplication::connect(mainWindow->ui->pushButton_meas_get_point, SIGNAL(clicked()), mainWindow,
 		SLOT(slotPressedButtonGetPoint()));
 
-
-	QApplication::connect(
-		mainWindow->ui->pushButton_undo, SIGNAL(clicked()), mainWindow, SLOT(slotMenuUndo()));
-	QApplication::connect(
-		mainWindow->ui->pushButton_redo, SIGNAL(clicked()), mainWindow, SLOT(slotMenuRedo()));
-	QApplication::connect(
-		mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
-
-	QApplication::connect(
-		mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
-	QApplication::connect(mainWindow->ui->pushButton_reset_view, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonResetView()));
-
 	QApplication::connect(mainWindow, SIGNAL(AppendToLog(const QString &)), mainWindow->ui->log_text,
 		SLOT(appendMessage(const QString &)));
-
 
 	// menu actions
 	QApplication::connect(
@@ -376,58 +357,6 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
 		gMainInterface->mainWindow->ui->widgetImageAjustments, SLOT(slotCheckedDetailLevelLock(int)));
 
-
-	// ------------ camera manipulation -----------
-	QApplication::connect(
-		mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(
-		mainWindow->ui->bu_move_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(
-		mainWindow->ui->bu_move_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(
-		mainWindow->ui->bu_move_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(
-		mainWindow->ui->bu_move_forward, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(
-		mainWindow->ui->bu_move_backward, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-
-	QApplication::connect(
-		mainWindow->ui->bu_rotate_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(
-		mainWindow->ui->bu_rotate_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(
-		mainWindow->ui->bu_rotate_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(
-		mainWindow->ui->bu_rotate_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(
-		mainWindow->ui->bu_rotate_roll_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(mainWindow->ui->bu_rotate_roll_right, SIGNAL(clicked()), mainWindow,
-		SLOT(slotCameraRotation()));
-
-	QApplication::connect(mainWindow->ui->vect3_camera_x, SIGNAL(editingFinished()), mainWindow,
-		SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_y, SIGNAL(editingFinished()), mainWindow,
-		SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_z, SIGNAL(editingFinished()), mainWindow,
-		SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_target_x, SIGNAL(editingFinished()), mainWindow,
-		SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_target_y, SIGNAL(editingFinished()), mainWindow,
-		SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_target_z, SIGNAL(editingFinished()), mainWindow,
-		SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_rotation_x, SIGNAL(editingFinished()),
-		mainWindow, SLOT(slotRotationEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_rotation_y, SIGNAL(editingFinished()),
-		mainWindow, SLOT(slotRotationEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_rotation_z, SIGNAL(editingFinished()),
-		mainWindow, SLOT(slotRotationEdited()));
-	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target,
-		SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
-	QApplication::connect(mainWindow->ui->logslider_camera_distance_to_target,
-		SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotCameraDistanceSlider(int)));
-	QApplication::connect(mainWindow->ui->comboBox_camera_absolute_distance_mode,
-		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotMovementStepModeChanged(int)));
 
 	// DockWidgets and Toolbar
 
@@ -523,7 +452,7 @@ void cInterface::StartRender(bool noUndo)
 	progressBarAnimation->hide();
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
-	if (mainWindow->ui->checkBox_auto_refresh->isChecked())
+	if (mainWindow->ui->widgetDockNavigation->AutoRefreshIsChecked())
 	{
 		// check if something was changed in settings
 		cSettings tempSettings(cSettings::formatCondensedText);
@@ -1849,7 +1778,7 @@ void cInterface::ResetFormula(int fractalNumber)
 
 void cInterface::PeriodicRefresh()
 {
-	if (mainWindow->ui->checkBox_auto_refresh->isChecked())
+	if (mainWindow->ui->widgetDockNavigation->AutoRefreshIsChecked())
 	{
 		// check if something was changed in settings
 		SynchronizeInterface(gPar, gParFractal, qInterface::read);
@@ -1871,8 +1800,8 @@ void cInterface::DisablePeriodicRefresh()
 {
 	if (mainWindow)
 	{
-		autoRefreshLastState = mainWindow->ui->checkBox_auto_refresh->isChecked();
-		mainWindow->ui->checkBox_auto_refresh->setChecked(false);
+		autoRefreshLastState = mainWindow->ui->widgetDockNavigation->AutoRefreshIsChecked();
+		mainWindow->ui->widgetDockNavigation->AutoRefreshSetChecked(false);
 	}
 }
 
@@ -1884,7 +1813,7 @@ void cInterface::ReEnablePeriodicRefresh()
 	autoRefreshLastHash = tempSettings.GetHashCode();
 	if (autoRefreshLastState)
 	{
-		mainWindow->ui->checkBox_auto_refresh->setChecked(true);
+		mainWindow->ui->widgetDockNavigation->AutoRefreshSetChecked(true);
 	}
 }
 

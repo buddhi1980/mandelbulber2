@@ -74,9 +74,9 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 
 	systemTrayIcon->setContextMenu(menu);
 
-	connect(stActionRender, SIGNAL(triggered()), parent, SLOT(slotStartRender()));
-	connect(stActionStop, SIGNAL(triggered()), parent, SLOT(slotStopRender()));
-	connect(stActionQuit, SIGNAL(triggered()), parent, SLOT(slotQuit()));
+	connect(stActionRender, SIGNAL(triggered()), this, SLOT(slotStartRender()));
+	connect(stActionStop, SIGNAL(triggered()), this, SLOT(slotStopRender()));
+	connect(stActionQuit, SIGNAL(triggered()), this, SLOT(slotQuit()));
 	connect(
 		stActionToggleNotification, SIGNAL(toggled(bool)), this, SLOT(slotToggleNotification(bool)));
 	connect(stActionRenderAnimation, SIGNAL(triggered()), this, SIGNAL(notifyRenderKeyframes()));
@@ -142,4 +142,19 @@ void cSystemTray::slotStarted()
 void cSystemTray::slotToggleNotification(bool notify)
 {
 	gPar->Set("system_tray_notify", notify);
+}
+
+void cSystemTray::slotStartRender(void)
+{
+	gMainInterface->StartRender();
+}
+
+void cSystemTray::slotStopRender(void)
+{
+	gMainInterface->stopRequest = true;
+}
+
+void cSystemTray::slotQuit()
+{
+	gMainInterface->QuitApplicationDialog();
 }
