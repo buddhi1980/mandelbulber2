@@ -243,12 +243,14 @@ void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRo
 		{
 			viewVectorTemp = viewVectorTemp.RotateAroundVectorByAngle(
 				CVector3(0.0, 0.0, 1.0), correction / 10.0 / M_PI);
+			viewVectorTemp = mRot.RotateVector(viewVectorTemp);
 			*viewVector = viewVectorTemp;
 		}
 		else
 		{
 			viewVectorTemp = viewVectorTemp.RotateAroundVectorByAngle(
 				CVector3(0.0, 0.0, 1.0), -correction / 10.0 / M_PI);
+			viewVectorTemp = mRot.RotateVector(viewVectorTemp);
 			*viewVector = viewVectorTemp;
 		}
 	}
