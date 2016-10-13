@@ -1,5 +1,8 @@
 Version history
 
+v2.09-2
+Corrected calculation of stereoscopic effect for equirectangular projection. There was wrong perception of depth for farthest objects located on the rear of the camera.
+
 v2.09-1
 - Image: fixed bug: in stereoscopic top-bottom mode there were swapped left and right eye
 - Image: fixed bug: in stereoscopic top-bottom mode first line of image was incorrect
