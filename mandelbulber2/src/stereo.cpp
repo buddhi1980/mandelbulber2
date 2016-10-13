@@ -206,32 +206,51 @@ cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye)
 }
 
 void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
-	const CRotationMatrix &mRotInv, enumEye eye, CVector3 *viewVector)
+	const CRotationMatrix &mRotInv, enumEye eye, params::enumPerspectiveType perspType,
+	CVector3 *viewVector)
 {
 	if (swapped) correction *= -1.0;
-
 	CVector3 viewVectorTemp = *viewVector;
-	viewVectorTemp = mRotInv.RotateVector(viewVectorTemp);
-	double rxz2 = viewVectorTemp.x * viewVectorTemp.x + viewVectorTemp.z * viewVectorTemp.z;
-	CVector3 viewVectorCorrection;
-	if (rxz2 < 1)
-	{
-		viewVectorCorrection.x = correction / 10.0 * sqrt(1.0 - rxz2);
-	}
 
-	if (eye == cStereo::eyeLeft)
+	if (perspType == params::perspThreePoint)
 	{
-		viewVectorTemp -= viewVectorCorrection;
-		viewVectorTemp.Normalize();
-		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
-		*viewVector = viewVectorTemp;
+		viewVectorTemp = mRotInv.RotateVector(viewVectorTemp);
+		double rxz2 = viewVectorTemp.x * viewVectorTemp.x + viewVectorTemp.z * viewVectorTemp.z;
+		CVector3 viewVectorCorrection;
+		if (rxz2 < 1)
+		{
+			viewVectorCorrection.x = correction / 10.0 * sqrt(1.0 - rxz2);
+		}
+
+		if (eye == cStereo::eyeLeft)
+		{
+			viewVectorTemp -= viewVectorCorrection;
+			viewVectorTemp.Normalize();
+			viewVectorTemp = mRot.RotateVector(viewVectorTemp);
+			*viewVector = viewVectorTemp;
+		}
+		else
+		{
+			viewVectorTemp += viewVectorCorrection;
+			viewVectorTemp.Normalize();
+			viewVectorTemp = mRot.RotateVector(viewVectorTemp);
+			*viewVector = viewVectorTemp;
+		}
 	}
 	else
 	{
-		viewVectorTemp += viewVectorCorrection;
-		viewVectorTemp.Normalize();
-		viewVectorTemp = mRot.RotateVector(viewVectorTemp);
-		*viewVector = viewVectorTemp;
+		if (eye == cStereo::eyeLeft)
+		{
+			viewVectorTemp = viewVectorTemp.RotateAroundVectorByAngle(
+				CVector3(0.0, 0.0, 1.0), correction / 10.0 / M_PI);
+			*viewVector = viewVectorTemp;
+		}
+		else
+		{
+			viewVectorTemp = viewVectorTemp.RotateAroundVectorByAngle(
+				CVector3(0.0, 0.0, 1.0), -correction / 10.0 / M_PI);
+			*viewVector = viewVectorTemp;
+		}
 	}
 }
 
