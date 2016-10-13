@@ -142,9 +142,6 @@ void cInterface::ShowUi(void)
 		gPar->Get<int>("ui_font_size") + 6);
 
 #ifdef __APPLE__
-	mainWindow->ui->tabWidget_fractals->setUsesScrollButtons(true);
-	mainWindow->ui->tabWidget_fractals->setDocumentMode(true);
-	mainWindow->ui->tabWidget_fractals->setElideMode(Qt::ElideNone);
 	mainWindow->ui->actionAbout_Qt->setText(QApplication::translate("RenderWindow", "Info &Qt", 0));
 	mainWindow->ui->actionAbout_Mandelbulber->setText(
 		QApplication::translate("RenderWindow", "&Info Mandelbulber", 0));

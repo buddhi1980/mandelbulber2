@@ -32,6 +32,10 @@ cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockF
 
 	ui->previewwidget_julia->SetSize(256, 256, 2);
 
+	ui->tabWidget_fractals->setUsesScrollButtons(true);
+	ui->tabWidget_fractals->setDocumentMode(true);
+	ui->tabWidget_fractals->setElideMode(Qt::ElideNone);
+
 	ConnectSignals();
 }
 
