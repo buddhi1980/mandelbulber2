@@ -39,6 +39,7 @@
 #include "preview_file_dialog.h"
 #include "render_queue.hpp"
 #include "settings.hpp"
+#include "../qt/ui_dock_queue.h"
 
 cQueue *gQueue = NULL;
 
@@ -83,7 +84,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 
 	if (mainInterface->mainWindow)
 	{
-		ui = mainInterface->mainWindow->ui;
+		ui = mainInterface->mainWindow->ui->widgetDockQueue->ui;
 		// Queue
 		QApplication::connect(ui->pushButton_queue_add_current_settings, SIGNAL(clicked()), this,
 			SLOT(slotQueueAddCurrentSettings()));
@@ -105,18 +106,12 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 		QApplication::connect(
 			this, SIGNAL(queueChanged(int, int)), this, SLOT(slotQueueListUpdate(int, int)));
 
-		renderedImageWidget = new RenderedImage;
-		renderedImageWidget->SetCursorVisibility(false);
-		mainInterface->mainWindow->ui->verticalLayout_queue_preview->addWidget(renderedImageWidget);
+		RenderedImage* renderedImageWidget = mainInterface->mainWindow->ui->widgetDockQueue->renderedImageWidget;
 		image->CreatePreview(1.0, 400, 300, renderedImageWidget);
 		renderedImageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		renderedImageWidget->AssignImage(image);
 
 		emit queueChanged();
-	}
-	else
-	{
-		renderedImageWidget = NULL;
 	}
 
 	stopRequest = false;
@@ -125,7 +120,6 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 cQueue::~cQueue()
 {
 	delete image;
-	if (renderedImageWidget) delete renderedImageWidget;
 }
 
 void cQueue::Append(const QString &filename, enumRenderType renderType)
@@ -515,7 +509,7 @@ void cQueue::UpdateListFromFileSystem()
 void cQueue::RenderQueue()
 {
 	QThread *thread = new QThread; // deleted by deleteLater()
-	cRenderQueue *renderQueue = new cRenderQueue(image, renderedImageWidget);
+	cRenderQueue *renderQueue = new cRenderQueue(image, mainInterface->mainWindow->ui->widgetDockQueue->renderedImageWidget);
 	renderQueue->moveToThread(thread);
 	renderQueue->setObjectName("Queue");
 	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));

@@ -165,7 +165,7 @@ private:
 	void UpdateListFromFileSystem();
 
 	cInterface *mainInterface;
-	Ui::RenderWindow *ui;
+	Ui::cDockQueue *ui;
 	cImage *image;
 
 	QFileSystemWatcher queueFileWatcher;
@@ -176,8 +176,6 @@ private:
 
 	QString queueListFileName;
 	QString queueFolder;
-
-	RenderedImage *renderedImageWidget;
 
 	QMutex mutex;
 };

@@ -174,13 +174,8 @@ void cInterface::ShowUi(void)
 	progressBarLayout->setContentsMargins(0, 0, 0, 0);
 	progressBarFrame = new QFrame(mainWindow->ui->statusbar);
 
-	progressBarQueueImage = mainWindow->ui->queueProgressBarImage;
-	progressBarQueueImage->setAlignment(Qt::AlignCenter);
-	progressBarQueueImage->hide();
-
-	progressBarQueueAnimation = mainWindow->ui->queueProgressBarAnimation;
-	progressBarQueueAnimation->setAlignment(Qt::AlignCenter);
-	progressBarQueueAnimation->hide();
+	progressBarQueueImage = mainWindow->ui->widgetDockQueue->GetProgressBarImage();
+	progressBarQueueAnimation = mainWindow->ui->widgetDockQueue->GetProgressBarAnimation();
 
 	progressBarAnimation = new MyProgressBar(progressBarFrame);
 	progressBarAnimation->setMaximum(1000);
