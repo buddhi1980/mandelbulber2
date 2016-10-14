@@ -26,8 +26,8 @@ class cDockQueue : public QWidget
 public:
 	explicit cDockQueue(QWidget *parent = NULL);
 	~cDockQueue();
-	MyProgressBar* GetProgressBarImage();
-	MyProgressBar* GetProgressBarAnimation();
+	MyProgressBar *GetProgressBarImage();
+	MyProgressBar *GetProgressBarAnimation();
 
 private:
 	Ui::cDockQueue *ui;

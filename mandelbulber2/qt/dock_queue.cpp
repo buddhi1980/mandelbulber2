@@ -32,13 +32,12 @@ cDockQueue::~cDockQueue()
 	if (renderedImageWidget) delete renderedImageWidget;
 }
 
-MyProgressBar* cDockQueue::GetProgressBarImage()
+MyProgressBar *cDockQueue::GetProgressBarImage()
 {
 	return ui->queueProgressBarImage;
 }
 
-MyProgressBar* cDockQueue::GetProgressBarAnimation()
+MyProgressBar *cDockQueue::GetProgressBarAnimation()
 {
 	return ui->queueProgressBarAnimation;
 }
-
