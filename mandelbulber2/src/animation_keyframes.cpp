@@ -653,8 +653,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					// show distance in statistics table
 					double distance = mainInterface->GetDistanceForPoint(
 						params->Get<CVector3>("camera"), params, fractalParams);
-					mainInterface->mainWindow->ui->tableWidget_statistics->item(5, 0)->setText(
-						QString::number(distance));
+					mainInterface->mainWindow->ui->widgetDockStatistics->UpdateDistanceToFractal(distance);
 				}
 
 				if (gNetRender->IsServer())

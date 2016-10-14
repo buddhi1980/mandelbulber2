@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1147</width>
-           <height>1552</height>
+           <width>1233</width>
+           <height>1494</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -376,8 +376,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>178</width>
-          <height>279</height>
+          <width>92</width>
+          <height>268</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -484,7 +484,7 @@
           <x>0</x>
           <y>0</y>
           <width>197</width>
-          <height>523</height>
+          <height>842</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -875,8 +875,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>178</width>
-          <height>281</height>
+          <width>92</width>
+          <height>269</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -942,8 +942,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>178</width>
-          <height>279</height>
+          <width>92</width>
+          <height>268</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -1009,8 +1009,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>178</width>
-          <height>281</height>
+          <width>92</width>
+          <height>269</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -1113,7 +1113,7 @@
     <number>8</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_4">
-    <layout class="QVBoxLayout" name="verticalLayout_61" stretch="3,0">
+    <layout class="QVBoxLayout" name="verticalLayout_61" stretch="0">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -1133,191 +1133,7 @@
       <number>2</number>
      </property>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_17">
-       <property name="spacing">
-        <number>2</number>
-       </property>
-       <property name="leftMargin">
-        <number>2</number>
-       </property>
-       <property name="topMargin">
-        <number>2</number>
-       </property>
-       <property name="rightMargin">
-        <number>2</number>
-       </property>
-       <property name="bottomMargin">
-        <number>2</number>
-       </property>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_histogram_iter">
-         <item>
-          <widget class="QLabel" name="label_hist_iter">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Histogram of fractal iteration count</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="MyHistogramLabel" name="label_histogram_iter">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>40</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_histogram_de">
-         <item>
-          <widget class="QLabel" name="label_hist_de">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Histogram of ray-marching step count</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="MyHistogramLabel" name="label_histogram_de">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>40</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QTableWidget" name="tableWidget_statistics">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="sizeAdjustPolicy">
-        <enum>QAbstractScrollArea::AdjustToContents</enum>
-       </property>
-       <property name="showGrid">
-        <bool>true</bool>
-       </property>
-       <attribute name="horizontalHeaderDefaultSectionSize">
-        <number>150</number>
-       </attribute>
-       <attribute name="horizontalHeaderMinimumSectionSize">
-        <number>14</number>
-       </attribute>
-       <attribute name="verticalHeaderCascadingSectionResizes">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="verticalHeaderDefaultSectionSize">
-        <number>20</number>
-       </attribute>
-       <attribute name="verticalHeaderMinimumSectionSize">
-        <number>14</number>
-       </attribute>
-       <row>
-        <property name="text">
-         <string>Total number of iterations</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>Number of iterations per pixel</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>Number of iterations per second</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>Distance estimation algorithm</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>Percentage of wrong distance estimations</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>Distance of camera to fractal surface</string>
-        </property>
-       </row>
-       <column>
-        <property name="text">
-         <string>Value</string>
-        </property>
-       </column>
-       <item row="0" column="0">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </item>
-       <item row="1" column="0">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </item>
-       <item row="2" column="0">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </item>
-       <item row="3" column="0">
-        <property name="text">
-         <string/>
-        </property>
-       </item>
-       <item row="4" column="0">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </item>
-       <item row="5" column="0">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="cDockStatistics" name="widgetDockStatistics" native="true"/>
      </item>
     </layout>
    </widget>
@@ -1806,8 +1622,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>170</width>
-          <height>293</height>
+          <width>84</width>
+          <height>281</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -2182,11 +1998,6 @@
    <header>my_log_widget.h</header>
   </customwidget>
   <customwidget>
-   <class>MyHistogramLabel</class>
-   <extends>QLabel</extends>
-   <header>my_histogram_label.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyProgressBar</class>
    <extends>QProgressBar</extends>
    <header>my_progress_bar.h</header>
@@ -2234,10 +2045,15 @@
    <header>dock_navigation.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>cDockStatistics</class>
+   <extends>QWidget</extends>
+   <header>dock_statistics.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>scrollArea_2</tabstop>
-  <tabstop>tableWidget_statistics</tabstop>
   <tabstop>scrollAreaForImage</tabstop>
   <tabstop>scrollArea_5</tabstop>
   <tabstop>scrollArea_3</tabstop>

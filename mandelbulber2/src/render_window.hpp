@@ -86,7 +86,6 @@ private slots:
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
 		double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
 	void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
-	void slotUpdateStatistics(cStatistics);
 	void slotMenuProgramSettings();
 	void slotExportVoxelLayers();
 	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
@@ -181,6 +180,7 @@ signals:
 	friend class cDockEffects;
 	friend class cDockRenderingEngine;
 	friend class cDockFractal;
+	friend class cDockStatistics;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */

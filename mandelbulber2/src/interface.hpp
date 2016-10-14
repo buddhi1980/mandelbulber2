@@ -71,6 +71,7 @@ public:
 	~cInterface();
 	void ShowUi(void);
 	void ConnectSignals(void);
+	void ConnectProgressAndStatisticsSignals();
 	void SynchronizeInterface(
 		cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode);
 	void StartRender(bool noUndo = false);

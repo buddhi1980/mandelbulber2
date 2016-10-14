@@ -138,8 +138,6 @@ void cInterface::ShowUi(void)
 	QFont font = mainWindow->font();
 	font.setPixelSize(gPar->Get<int>("ui_font_size"));
 	mainWindow->setFont(font);
-	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(
-		gPar->Get<int>("ui_font_size") + 6);
 
 #ifdef __APPLE__
 	mainWindow->ui->actionAbout_Qt->setText(QApplication::translate("RenderWindow", "Info &Qt", 0));
@@ -470,7 +468,7 @@ void cInterface::StartRender(bool noUndo)
 	QObject::connect(renderJob,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow,
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow->ui->widgetDockStatistics,
 		SLOT(slotUpdateStatistics(cStatistics)));
 	QObject::connect(renderJob, SIGNAL(fullyRendered(const QString &, const QString &)), systemTray,
 		SLOT(showMessage(const QString &, const QString &)));
@@ -489,7 +487,7 @@ void cInterface::StartRender(bool noUndo)
 
 	// show distance in statistics table
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
-	mainWindow->ui->tableWidget_statistics->item(5, 0)->setText(QString::number(distance));
+	mainWindow->ui->widgetDockStatistics->UpdateDistanceToFractal(distance);
 
 	QThread *thread = new QThread; // deleted by deleteLater()
 	renderJob->moveToThread(thread);
@@ -1689,7 +1687,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 
 	cRenderJob *renderJob =
 		new cRenderJob(&tempParam, &tempFractal, mainImage, &stopRequest, renderedImage);
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow,
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow->ui->widgetDockStatistics,
 		SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
@@ -1893,8 +1891,28 @@ void cInterface::DisableJuliaPointMode()
 		gMainInterface->renderedImage->setClickMode(itemMouseMove);
 	}
 }
-
 // function to create icons with actual color in ColorButtons
+
+void cInterface::ConnectProgressAndStatisticsSignals()
+{
+	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																			 const QString &, double, cProgressText::enumProgressType)),
+		mainWindow, SLOT(slotUpdateProgressAndStatus(
+									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
+		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																				 const QString &, double, cProgressText::enumProgressType)),
+		mainWindow, SLOT(slotUpdateProgressAndStatus(
+									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+		gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
+		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
+}
+
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 {
 	const int w = 40;
@@ -1907,3 +1925,4 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 	pushbutton->setIcon(icon);
 	pushbutton->setIconSize(QSize(w, h));
 }
+

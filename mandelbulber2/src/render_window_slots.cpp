@@ -421,26 +421,6 @@ void RenderWindow::slotExportVoxelLayers()
 	voxelExportDialog->activateWindow();
 }
 
-void RenderWindow::slotUpdateStatistics(cStatistics stat)
-{
-	ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
-	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
-	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
-
-	ui->tableWidget_statistics->item(0, 0)->setText(
-		QString::number(stat.GetTotalNumberOfIterations()));
-	ui->tableWidget_statistics->item(1, 0)->setText(
-		QString::number(stat.GetNumberOfIterationsPerPixel()));
-	ui->tableWidget_statistics->item(2, 0)->setText(
-		QString::number(stat.GetNumberOfIterationsPerSecond()));
-	ui->tableWidget_statistics->item(3, 0)->setText(stat.GetDETypeString());
-	ui->tableWidget_statistics->item(4, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
-	ui->widgetDockRenderingEngine->UpdateLabelWrongDEPercentage(
-		tr("Percentage of wrong distance estimations: %1").arg(stat.GetMissedDEPercentage()));
-	ui->widgetDockRenderingEngine->UpdateLabelUsedDistanceEstimation(
-		tr("Used distance estimation algorithm: %1").arg(stat.GetDETypeString()));
-}
-
 void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QString &questionText,
 	QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply)
 {
