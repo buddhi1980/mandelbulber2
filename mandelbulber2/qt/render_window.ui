@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1214</width>
-    <height>1357</height>
+    <width>1077</width>
+    <height>799</height>
    </rect>
   </property>
   <property name="font">
@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>866</width>
-           <height>909</height>
+           <width>782</width>
+           <height>551</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -248,7 +248,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1214</width>
+     <width>1077</width>
      <height>21</height>
     </rect>
    </property>
@@ -376,8 +376,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>92</width>
-          <height>158</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -483,8 +483,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>197</width>
-          <height>486</height>
+          <width>152</width>
+          <height>267</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -875,8 +875,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>92</width>
-          <height>148</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -942,8 +942,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>92</width>
-          <height>151</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -1009,8 +1009,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>92</width>
-          <height>152</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -1178,8 +1178,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>535</width>
-          <height>284</height>
+          <width>242</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -1236,141 +1236,7 @@
       <number>2</number>
      </property>
      <item>
-      <widget class="QPushButton" name="pushButton_meas_get_point">
-       <property name="text">
-        <string>Get point by mouse pointer</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QFormLayout" name="formLayout_coordinates_10">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::ExpandingFieldsGrow</enum>
-       </property>
-       <property name="horizontalSpacing">
-        <number>2</number>
-       </property>
-       <property name="verticalSpacing">
-        <number>1</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_296">
-         <property name="text">
-          <string>x:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="MyLineEdit" name="vect3_meas_point_x">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_297">
-         <property name="text">
-          <string>y:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="MyLineEdit" name="vect3_meas_point_y">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_298">
-         <property name="text">
-          <string>z:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="MyLineEdit" name="vect3_meas_point_z">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QFormLayout" name="formLayout">
-       <property name="horizontalSpacing">
-        <number>2</number>
-       </property>
-       <property name="verticalSpacing">
-        <number>2</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_299">
-         <property name="text">
-          <string>Distance from last point:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="edit_meas_distance_from_last">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_345">
-         <property name="text">
-          <string>Distance from camera:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="edit_meas_distance_from_camera">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <spacer name="verticalSpacer_23">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+      <widget class="cDockMeasurements" name="widgetDockMeasurements" native="true"/>
      </item>
     </layout>
    </widget>
@@ -1387,6 +1253,18 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_7">
     <layout class="QVBoxLayout" name="verticalLayout_31">
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
      <item>
       <widget class="QScrollArea" name="scrollArea_material">
        <property name="widgetResizable">
@@ -1398,7 +1276,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>161</height>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1757,11 +1635,6 @@
    <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyScrolledArea</class>
    <extends>QScrollArea</extends>
    <header>my_scrolled_area.h</header>
@@ -1824,6 +1697,12 @@
    <class>cDockQueue</class>
    <extends>QWidget</extends>
    <header>dock_queue.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cDockMeasurements</class>
+   <extends>QWidget</extends>
+   <header>dock_measurements.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

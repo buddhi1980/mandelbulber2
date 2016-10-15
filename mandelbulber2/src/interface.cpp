@@ -254,9 +254,6 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
 		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
 
-	QApplication::connect(mainWindow->ui->pushButton_meas_get_point, SIGNAL(clicked()), mainWindow,
-		SLOT(slotPressedButtonGetPoint()));
-
 	QApplication::connect(mainWindow, SIGNAL(AppendToLog(const QString &)), mainWindow->ui->log_text,
 		SLOT(appendMessage(const QString &)));
 

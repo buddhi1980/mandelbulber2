@@ -48,15 +48,6 @@ void RenderWindow::slotPressedButtonDeletePrimitive()
 	gMainInterface->DeletePrimitive(primitiveName);
 }
 
-void RenderWindow::slotPressedButtonGetPoint()
-{
-	QList<QVariant> item;
-	item.append((int)RenderedImage::clickGetPoint);
-	int index = ui->comboBox_mouse_click_function->findData(item);
-	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	gMainInterface->renderedImage->setClickMode(item);
-}
-
 void RenderWindow::slotPressedButtonSetPositionPrimitive()
 {
 	QString buttonName = this->sender()->objectName();

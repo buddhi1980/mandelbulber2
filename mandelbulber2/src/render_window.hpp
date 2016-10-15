@@ -77,7 +77,6 @@ private slots:
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);
 	void slotPressedButtonDeletePrimitive();
-	void slotPressedButtonGetPoint();
 
 	void slotPressedButtonSetPositionPrimitive();
 	void slotResizedScrolledAreaImage(int width, int height);
@@ -181,6 +180,7 @@ signals:
 	friend class cDockRenderingEngine;
 	friend class cDockFractal;
 	friend class cDockStatistics;
+	friend class cDockMeasurements;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */
