@@ -33,30 +33,23 @@
  */
 
 #include "interface.hpp"
-#include "../qt/color_palette_widget.h"
+
 #include "../qt/my_group_box.h"
-#include "../qt/my_tab_bar.h"
-#include "../qt/system_tray.hpp"
 #include "animation_flight.hpp"
-#include "animation_frames.hpp"
 #include "animation_keyframes.hpp"
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "dof.hpp"
 #include "error_message.hpp"
-#include "file_image.hpp"
-#include "fractal_container.hpp"
 #include "global_data.hpp"
 #include "initparameters.hpp"
-#include "keyframes.hpp"
 #include "my_ui_loader.h"
-#include "netrender.hpp"
-#include "projection_3d.hpp"
 #include "queue.hpp"
 #include "render_job.hpp"
 #include "render_ssao.h"
 #include "settings.hpp"
 #include "undo.h"
+#include "camera_target.hpp"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
@@ -326,8 +319,6 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionProgramSettings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuProgramSettings()));
 
-
-
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));
 	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale,
@@ -345,9 +336,9 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow,
 		SLOT(slotMouseWheelRotatedOnImage(int)));
 
-	QApplication::connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
+	QApplication::connect(mainWindow->ui->widgetDockRenderingEngine,
+		SIGNAL(stateChangedConnectDetailLevel(int)),
 		gMainInterface->mainWindow->ui->widgetImageAjustments, SLOT(slotCheckedDetailLevelLock(int)));
-
 
 	// DockWidgets and Toolbar
 

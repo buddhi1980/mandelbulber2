@@ -41,13 +41,11 @@
 
 #include "automated_widgets.hpp"
 #include "progress_text.hpp"
-#include "statistics.h"
-#include "ui_render_window.h"
 #include <QSettings>
 #include <QtCore>
 #include <QtGui>
 #include <qmessagebox.h>
-
+#include "ui_render_window.h"
 
 namespace Ui
 {
@@ -131,8 +129,6 @@ private slots:
 	void slotKeyPressOnImage(Qt::Key key);
 	void slotKeyReleaseOnImage(Qt::Key key);
 	void slotMouseWheelRotatedOnImage(int delta);
-
-
 
 private:
 	Ui::RenderWindow *ui;

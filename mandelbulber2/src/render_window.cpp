@@ -38,7 +38,6 @@
  */
 
 #include "render_window.hpp"
-#include "fractal_container.hpp"
 
 RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::RenderWindow)
 {

@@ -40,14 +40,10 @@
 #include "../qt/preferences_dialog.h"
 #include "../qt/thumbnail_widget.h"
 #include "../qt/voxel_export_dialog.h"
-#include "error_message.hpp"
-#include "global_data.hpp"
 #include "image_scale.hpp"
 #include "initparameters.hpp"
 #include "interface.hpp"
-#include "my_ui_loader.h"
 #include "settings.hpp"
-#include "synchronize_interface.hpp"
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
 {
