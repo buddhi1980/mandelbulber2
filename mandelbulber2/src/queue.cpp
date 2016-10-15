@@ -39,7 +39,7 @@
 #include "preview_file_dialog.h"
 #include "render_queue.hpp"
 #include "settings.hpp"
-#include "../qt/ui_dock_queue.h"
+#include "ui_dock_queue.h"
 
 cQueue *gQueue = NULL;
 
