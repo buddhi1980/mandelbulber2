@@ -83,10 +83,34 @@ cmake -G %cmake_platform% ^
 -DUSE_GAMEPAD=1 ^
 -DCMAKE_BUILD_TYPE=Release %SRC%
 
+msbuild mandelbulber2.sln /p:Configuration=Release /m
+
+:copy_files
+set BINDIR=%BUILDTREE%\Release\
+echo %BINDIR%	
+xcopy /B /S %SRC%\mandelbulber2\deploy\share\mandelbulber2 %BINDIR%
+xcopy /I %QTDIR%\plugins\gamepads %BINDIR%gamepads
+xcopy /I %QTDIR%\plugins\iconengines %BINDIR%iconengines
+xcopy /I %QTDIR%\plugins\imageformats %BINDIR%imageformats
+xcopy /I %QTDIR%\plugins\platforms %BINDIR%platforms
+xcopy %QTDIR%\bin\Qt5Gamepad*.dll %BINDIR%
+xcopy %QTDIR%\bin\Qt5Gui*.dll %BINDIR%
+xcopy %QTDIR%\bin\Qt5Network*.dll %BINDIR%
+xcopy %QTDIR%\bin\Qt5Svg*.dll %BINDIR%
+xcopy %QTDIR%\bin\Qt5Test*.dll %BINDIR%
+xcopy %QTDIR%\bin\Qt5Widgets*.dll %BINDIR%
+xcopy %QTDIR%\bin\Qt5Core*.dll %BINDIR%
+xcopy deps\zlib*.dll %BINDIR%
+xcopy deps\libpng*.dll %BINDIR%
+xcopy deps\tiff*.dll %BINDIR%
+del %BINDIR%language
+del %BINDIR%qt_data
+del %BINDIR%data
+xcopy /I %SRC%\mandelbulber2\language %BINDIR%language
+xcopy /I %SRC%\mandelbulber2\qt_data %BINDIR%qt_data
+xcopy /I %SRC%\mandelbulber2\data %BINDIR%data
 
 GOTO:eof
-
-msbuild mandelbulber2.sln /p:Configuration=Release /m
 
 REM --- exit ----
 GOTO:eof
