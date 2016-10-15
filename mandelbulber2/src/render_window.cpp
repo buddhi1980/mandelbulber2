@@ -52,25 +52,7 @@ RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::Re
 	defaultGeometry = saveGeometry();
 	defaultState = saveState();
 
-#ifdef USE_GAMEPAD
-	QApplication::connect(
-		&gamepad, SIGNAL(axisLeftXChanged(double)), this, SLOT(slotGamepadPitch(double)));
-	QApplication::connect(
-		&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadYaw(double)));
-	QApplication::connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
-	QApplication::connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadRoll()));
-	QApplication::connect(
-		&gamepad, SIGNAL(buttonL1Changed(bool)), this, SLOT(slotShiftModeChange(bool)));
-
-	QApplication::connect(
-		&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadX(double)));
-	QApplication::connect(
-		&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadY(double)));
-	QApplication::connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadZ()));
-	QApplication::connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadZ()));
-	QApplication::connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), &gamepad,
-		SLOT(setConnected(bool)));
-#else
+#ifndef USE_GAMEPAD
 	ui->menuView->removeAction(ui->actionShow_gamepad_dock);
 	removeDockWidget(ui->dockWidget_gamepad_dock);
 #endif

@@ -34,6 +34,7 @@
 
 #include "interface.hpp"
 #include "../qt/color_palette_widget.h"
+#include "../qt/my_group_box.h"
 #include "../qt/my_tab_bar.h"
 #include "../qt/system_tray.hpp"
 #include "animation_flight.hpp"
@@ -369,16 +370,6 @@ void cInterface::ConnectSignals(void)
 
 	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()),
 		mainWindow, SLOT(slotPresetAddToToolbar()));
-
-#ifdef USE_GAMEPAD
-	// ------------ gamepad -----------
-	QApplication::connect(mainWindow->ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)),
-		mainWindow, SLOT(slotChangeGamepadIndex(int)));
-	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), mainWindow,
-		SLOT(slotGamePadDeviceConnected(int)));
-	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), mainWindow,
-		SLOT(slotGamePadDeviceDisconnected(int)));
-#endif // USE_GAMEPAD
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksandToolbarbyView();

@@ -47,9 +47,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <qmessagebox.h>
-#ifdef USE_GAMEPAD
-#include <QtGamepad/qgamepad.h>
-#endif // USE_GAMEPAD
+
 
 namespace Ui
 {
@@ -134,21 +132,7 @@ private slots:
 	void slotKeyReleaseOnImage(Qt::Key key);
 	void slotMouseWheelRotatedOnImage(int delta);
 
-#ifdef USE_GAMEPAD
-	// Gamepad
-	void slotChangeGamepadIndex(int index);
-	void slotGamePadDeviceConnected(int index);
-	void slotGamePadDeviceDisconnected(int index);
-	void slotShiftModeChange(bool isShifting);
 
-	void slotGamepadPitch(double value);
-	void slotGamepadYaw(double value);
-	void slotGamepadRoll();
-
-	void slotGamepadX(double value);
-	void slotGamepadY(double value);
-	void slotGamepadZ();
-#endif // USE_GAMEPAD
 
 private:
 	Ui::RenderWindow *ui;
@@ -159,10 +143,6 @@ private:
 	QSettings settings;
 	QByteArray defaultGeometry;
 	QByteArray defaultState;
-
-#ifdef USE_GAMEPAD
-	QGamepad gamepad;
-#endif
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
