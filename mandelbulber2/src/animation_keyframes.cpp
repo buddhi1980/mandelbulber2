@@ -45,7 +45,7 @@
 #include "netrender.hpp"
 #include "render_job.hpp"
 #include "undo.h"
-#include "../qt/ui_dock_animation.h"
+#include "ui_dock_animation.h"
 
 cKeyframeAnimation *gKeyframeAnimation = NULL;
 

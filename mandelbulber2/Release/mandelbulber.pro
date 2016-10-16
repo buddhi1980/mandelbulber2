@@ -54,6 +54,8 @@ RESOURCES = ../qt/icons.qrc
 
 UI_DIR = ../qt
 
+INCLUDEPATH += ../qt/
+
 TRANSLATIONS = ../language/en.ts\
                ../language/de.ts\
                ../language/pl.ts\
