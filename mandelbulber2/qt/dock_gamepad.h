@@ -33,15 +33,11 @@ private slots:
 	void slotChangeGamepadIndex(int index);
 	void slotGamePadDeviceConnected(int index);
 	void slotGamePadDeviceDisconnected(int index);
-	void slotShiftModeChange(bool isShifting);
 
-	void slotGamepadPitch(double value);
-	void slotGamepadYaw(double value);
+	void slotGamepadLook();
+	void slotGamepadMove();
 	void slotGamepadRoll();
-
-	void slotGamepadX(double value);
-	void slotGamepadY(double value);
-	void slotGamepadZ();
+	void slotGamepadSpeed();
 #endif // USE_GAMEPAD
 
 private:

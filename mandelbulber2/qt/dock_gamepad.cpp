@@ -29,16 +29,23 @@ void cDockGamepad::ConnectSignals()
 #ifdef USE_GAMEPAD
 	connect(ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangeGamepadIndex(int)));
-	connect(&gamepad, SIGNAL(axisLeftXChanged(double)), this, SLOT(slotGamepadPitch(double)));
-	connect(&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadYaw(double)));
+
+	// Left Joystick controls Look Angle
+	connect(&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadLook()));
+	connect(&gamepad, SIGNAL(axisLeftXChanged(double)), this, SLOT(slotGamepadLook()));
+
+	// Right Joystick controls Movement Direction
+	connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadMove()));
+	connect(&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadMove()));
+
+	// Left and Right Triggers control Roll Rotation
 	connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
 	connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadRoll()));
-	connect(&gamepad, SIGNAL(buttonL1Changed(bool)), this, SLOT(slotShiftModeChange(bool)));
 
-	connect(&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadX(double)));
-	connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadY(double)));
-	connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadZ()));
-	connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadZ()));
+	// A and B buttons control the Movement Speed
+	connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadSpeed()));
+	connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadSpeed()));
+
 	connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), &gamepad,
 		SLOT(setConnected(bool)));
 
@@ -58,7 +65,7 @@ void cDockGamepad::slotChangeGamepadIndex(int index)
 
 void cDockGamepad::slotGamePadDeviceConnected(int index)
 {
-	QString deviceName = ""; // TODO gamepad devicename
+	QString deviceName = gamepad.name();
 	if (deviceName == "") deviceName = "Device #" + QString::number(index);
 	WriteLog(
 		"Gamepad - device connected | index: " + QString::number(index) + ", name: " + deviceName, 2);
@@ -84,60 +91,48 @@ void cDockGamepad::slotGamePadDeviceDisconnected(int index)
 	}
 }
 
-void cDockGamepad::slotGamepadPitch(double value)
+void cDockGamepad::slotGamepadLook()
 {
-	WriteLog("Gamepad - slotGamepadPitch | value: " + QString::number(value), 3);
-	ui->sl_gamepad_angle_pitch->setValue(-100 + 200 * value);
-	CVector2<double> yawPitch(value, gamepad.axisLeftY());
-	yawPitch = (yawPitch * 2) - CVector2<double>(1, 1);
+	// Joystick Axis values vary from -1 to 0 to 1
+	double pitch = gamepad.axisLeftX();
+	double yaw = gamepad.axisLeftY();
+	WriteLog("Gamepad - slotGamepadLook-Yaw | value: " + QString::number(yaw), 3);
+	WriteLog("Gamepad - slotGamepadLook-Pitch | value: " + QString::number(pitch), 3);
+	ui->sl_gamepad_angle_yaw->setValue(100 * yaw);
+	ui->sl_gamepad_angle_pitch->setValue(100 * pitch);
+	CVector2<double> yawPitch(pitch, yaw);
 	emit gMainInterface->renderedImage->YawAndPitchChanged(yawPitch);
 }
 
-void cDockGamepad::slotGamepadYaw(double value)
+void cDockGamepad::slotGamepadMove()
 {
-	WriteLog("Gamepad - slotGamepadYaw | value: " + QString::number(value), 3);
-	ui->sl_gamepad_angle_yaw->setValue(-100 + 200 * value);
-	CVector2<double> yawPitch(gamepad.axisLeftX(), value);
-	yawPitch = (yawPitch * 2) - CVector2<double>(1, 1);
-	emit gMainInterface->renderedImage->YawAndPitchChanged(yawPitch);
+	// Joystick Axis values vary from -1 to 0 to 1
+	double x = gamepad.axisRightX();
+	double y = gamepad.axisRightY() * -1.0;
+	WriteLog("Gamepad - slotGamepadMove-X | value: " + QString::number(x), 3);
+	WriteLog("Gamepad - slotGamepadMove-Y | value: " + QString::number(y), 3);
+	ui->sl_gamepad_movement_x->setValue(100 * x);
+	ui->sl_gamepad_movement_y->setValue(100 * y);
+	CVector2<double> strafe(x, y);
+	emit gMainInterface->renderedImage->ShiftModeChanged(true);
+	emit gMainInterface->renderedImage->StrafeChanged(strafe);
 }
 
 void cDockGamepad::slotGamepadRoll()
 {
-	double value = 0.5 + (gamepad.buttonR2() - gamepad.buttonL2()) / 2.0;
+	// Trigger values vary from -1 to 0 to 1
+	// TODO: verify rotation value calculation
+	double value = 0.5 + (gamepad.buttonL2() - gamepad.buttonR2()) / 2.0;
 	WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value), 3);
 	ui->sl_gamepad_angle_roll->setValue(-100 + 200 * value);
 	emit gMainInterface->renderedImage->RotationChanged(value * 2.0 - 1.0);
 }
 
-void cDockGamepad::slotShiftModeChange(bool isShifting)
+void cDockGamepad::slotGamepadSpeed()
 {
-	WriteLog("Gamepad - slotShiftModeChange | value: " + QString::number(isShifting), 3);
-	emit gMainInterface->renderedImage->ShiftModeChanged(isShifting);
-}
-
-void cDockGamepad::slotGamepadX(double value)
-{
-	WriteLog("Gamepad - slotGamepadX | value: " + QString::number(value), 3);
-	ui->sl_gamepad_movement_x->setValue(-100 + 200 * value);
-	CVector2<double> strafe(value, gamepad.axisRightY());
-	strafe = (strafe * 2) - CVector2<double>(1, 1);
-	emit gMainInterface->renderedImage->StrafeChanged(strafe);
-}
-
-void cDockGamepad::slotGamepadY(double value)
-{
-	WriteLog("Gamepad - slotGamepadY | value: " + QString::number(value), 3);
-	ui->sl_gamepad_movement_y->setValue(-100 + 200 * value);
-	CVector2<double> strafe(gamepad.axisRightX(), value);
-	strafe = (strafe * 2) - CVector2<double>(1, 1);
-	emit gMainInterface->renderedImage->StrafeChanged(strafe);
-}
-
-void cDockGamepad::slotGamepadZ()
-{
+	// Joystick button values vary from false to true
 	double value = 0.5 + ((gamepad.buttonA() ? 1 : 0) - (gamepad.buttonB() ? 1 : 0)) / 2.0;
-	WriteLog("Gamepad - slotGamepadZ | value: " + QString::number(value), 3);
+	WriteLog("Gamepad - slotGamepadSpeed | value: " + QString::number(value), 3);
 	ui->sl_gamepad_movement_z->setValue(-100 + 200 * value);
 	if (gamepad.buttonA() != gamepad.buttonB())
 	{
