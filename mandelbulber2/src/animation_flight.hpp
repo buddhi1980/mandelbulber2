@@ -80,6 +80,7 @@ private slots:
 	void slotRecordFlight();
 	void slotContinueRecording();
 	void slotFlightChangeSpeed(double amount);
+	void slotFlightSetSpeed(double amount);
 	void slotFlightStrafe(CVector2<double> _strafe);
 	void slotFlightYawAndPitch(CVector2<double> _yawAndPitch);
 	void slotFlightRotation(double direction);

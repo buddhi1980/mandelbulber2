@@ -92,6 +92,7 @@ public slots:
 
 signals:
 	void SpeedChanged(double amount);
+	void SpeedSet(double amount);
 	void StrafeChanged(CVector2<double> arrows);
 	void YawAndPitchChanged(CVector2<double> yawAndPitch);
 	void RotationChanged(double direction);

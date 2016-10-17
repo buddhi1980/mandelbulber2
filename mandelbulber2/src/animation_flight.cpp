@@ -87,6 +87,8 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 			SLOT(slotFlightYawAndPitch(CVector2<double>)));
 		connect(mainInterface->renderedImage, SIGNAL(SpeedChanged(double)), this,
 			SLOT(slotFlightChangeSpeed(double)));
+		connect(mainInterface->renderedImage, SIGNAL(SpeedSet(double)), this,
+			SLOT(slotFlightSetSpeed(double)));
 		connect(mainInterface->renderedImage, SIGNAL(RotationChanged(double)), this,
 			SLOT(slotFlightRotation(double)));
 		connect(mainInterface->renderedImage, SIGNAL(Pause()), this, SLOT(slotRecordPause()));
@@ -947,6 +949,16 @@ void cFlightAnimation::slotFlightChangeSpeed(double amount)
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
 	linearSpeedSp = params->Get<double>("flight_speed") * amount;
+	params->Set("flight_speed", linearSpeedSp);
+	SynchronizeInterfaceWindow(
+		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::write);
+}
+
+void cFlightAnimation::slotFlightSetSpeed(double amount)
+{
+	SynchronizeInterfaceWindow(
+		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
+	linearSpeedSp = amount;
 	params->Set("flight_speed", linearSpeedSp);
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::write);

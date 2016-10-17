@@ -458,6 +458,17 @@ public:
 		return *this;
 	}
 	inline double Length() const { return sqrt(x * x + y * y); }
+	inline CVector2 Deadband() const
+	{
+		CVector2 c;
+		c.x = x;
+		c.y = y;
+		if (fabs(x) < 0.1)
+			c.x = 0;
+		if (fabs(y) < 0.1)
+			c.y = 0;
+		return c;
+	}
 	inline double Dot(const CVector2 &vector) const { return x * vector.x + y * vector.y; }
 	inline CVector2 Abs()
 	{

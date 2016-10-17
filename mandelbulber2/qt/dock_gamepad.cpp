@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * These objects enable control of flight animation using a gamepad controller.
  */
 
 #include "dock_gamepad.h"
@@ -51,7 +51,7 @@ cDockGamepad::~cDockGamepad()
 	delete ui;
 }
 
-void cDockGamepad::ConnectSignals()
+void cDockGamepad::ConnectSignals() const
 {
 #ifdef USE_GAMEPAD
 	connect(ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)), this,
@@ -65,9 +65,16 @@ void cDockGamepad::ConnectSignals()
 	connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadMove()));
 	connect(&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadMove()));
 
-	// Left and Right Triggers control Roll Rotation
-	connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
-	connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadRoll()));
+	// Left and Right Triggers control Reverse and Accelerator
+	connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadMove()));
+	connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadMove()));
+
+	// Start Button will pause the flight
+	connect(&gamepad, SIGNAL(buttonStartChanged(bool)), this, SLOT(slotGamepadPause(bool)));
+
+	// Left and Right Shoulder Buttons control Roll Rotation
+	connect(&gamepad, SIGNAL(buttonL1Changed(bool)), this, SLOT(slotGamepadRoll()));
+	connect(&gamepad, SIGNAL(buttonR1Changed(bool)), this, SLOT(slotGamepadRoll()));
 
 	// A and B buttons control the Movement Speed
 	connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadSpeed()));
@@ -90,7 +97,7 @@ void cDockGamepad::slotChangeGamepadIndex(int index)
 	WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index), 2);
 }
 
-void cDockGamepad::slotGamePadDeviceConnected(int index)
+void cDockGamepad::slotGamePadDeviceConnected(int index) const
 {
 	QString deviceName = gamepad.name();
 	if (deviceName == "") deviceName = "Device #" + QString::number(index);
@@ -105,7 +112,7 @@ void cDockGamepad::slotGamePadDeviceConnected(int index)
 	ui->comboBox_gamepad_device->addItem(deviceName, index);
 }
 
-void cDockGamepad::slotGamePadDeviceDisconnected(int index)
+void cDockGamepad::slotGamePadDeviceDisconnected(int index) const
 {
 	WriteLog("Gamepad - device disconnected | index: " + QString::number(index) + ", name: "
 						 + ui->comboBox_gamepad_device->itemText(index),
@@ -118,7 +125,7 @@ void cDockGamepad::slotGamePadDeviceDisconnected(int index)
 	}
 }
 
-void cDockGamepad::slotGamepadLook()
+void cDockGamepad::slotGamepadLook() const
 {
 	// Joystick Axis values vary from -1 to 0 to 1
 	double pitch = gamepad.axisLeftX();
@@ -127,40 +134,82 @@ void cDockGamepad::slotGamepadLook()
 	WriteLog("Gamepad - slotGamepadLook-Pitch | value: " + QString::number(pitch), 3);
 	ui->sl_gamepad_angle_yaw->setValue(100 * yaw);
 	ui->sl_gamepad_angle_pitch->setValue(100 * pitch);
+	double sensitivity = 0.5;
 	CVector2<double> yawPitch(pitch, yaw);
+	yawPitch = yawPitch.Deadband() * sensitivity;
 	emit gMainInterface->renderedImage->YawAndPitchChanged(yawPitch);
 }
 
-void cDockGamepad::slotGamepadMove()
+void cDockGamepad::slotGamepadMove() const
 {
 	// Joystick Axis values vary from -1 to 0 to 1
+	// -1 for down, and 1 for up, 0 for neutral
+	// Invert the Y Axis for right Joystick
 	double x = gamepad.axisRightX();
 	double y = gamepad.axisRightY() * -1.0;
+	CVector2<double> strafe(x, y);
+	double sensitivity = 5.0;
+	strafe = strafe.Deadband() * sensitivity;
+	bool joystick = fabs(strafe.x) > 0 || fabs(strafe.y) > 0;
+	// Trigger values vary from 0 to 1
+	double reverse = gamepad.buttonL2();
+	double forward = gamepad.buttonR2();
+	double z = forward - reverse;
+	bool trigger = fabs(z) > 0;
 	WriteLog("Gamepad - slotGamepadMove-X | value: " + QString::number(x), 3);
 	WriteLog("Gamepad - slotGamepadMove-Y | value: " + QString::number(y), 3);
+	WriteLog("Gamepad - slotGamepadMove-Z | value: " + QString::number(z), 3);
 	ui->sl_gamepad_movement_x->setValue(100 * x);
 	ui->sl_gamepad_movement_y->setValue(100 * y);
-	CVector2<double> strafe(x, y);
-	emit gMainInterface->renderedImage->ShiftModeChanged(true);
-	emit gMainInterface->renderedImage->StrafeChanged(strafe);
+	ui->sl_gamepad_movement_z->setValue(100 * z);
+	// Maintain z-axis speed
+	sensitivity = 1 / 10.0;
+	double threshold = .01;
+	z = z * sensitivity;
+	// Forward Accelerate [threshold to 1 / sensitivity]
+	if (fabs(z) < threshold && z >= 0.0)
+		z = threshold;
+	// Reverse Backwards [-threshold to -1 / sensitivity]
+	if (fabs(z) < threshold && z <= 0.0)
+		z = -threshold;
+	if (joystick)
+		emit gMainInterface->renderedImage->StrafeChanged(strafe);
+	if (trigger)
+		emit gMainInterface->renderedImage->SpeedSet(z / 2.0);
 }
 
-void cDockGamepad::slotGamepadRoll()
+void cDockGamepad::slotGamepadPause(bool value)
 {
-	// Trigger values vary from -1 to 0 to 1
-	// TODO: verify rotation value calculation
-	double value = 0.5 + (gamepad.buttonL2() - gamepad.buttonR2()) / 2.0;
+	if (!value)
+	{
+		WriteLog("Gamepad - slotGamepadPause | activated", 3);
+		emit gMainInterface->renderedImage->Pause();
+	}
+}
+
+void cDockGamepad::slotGamepadRoll() const
+{
+	// Button values are either false to true
+	double value = 0;
+	if (gamepad.buttonL1())
+		value += 1;
+	if (gamepad.buttonR1())
+		value -= 1;
 	WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value), 3);
-	ui->sl_gamepad_angle_roll->setValue(-100 + 200 * value);
-	emit gMainInterface->renderedImage->RotationChanged(value * 2.0 - 1.0);
+	ui->sl_gamepad_angle_roll->setValue(100 * value);
+	emit gMainInterface->renderedImage->RotationChanged(value);
 }
 
-void cDockGamepad::slotGamepadSpeed()
+void cDockGamepad::slotGamepadSpeed() const
 {
-	// Joystick button values vary from false to true
-	double value = 0.5 + ((gamepad.buttonA() ? 1 : 0) - (gamepad.buttonB() ? 1 : 0)) / 2.0;
+	// Button values are either false to true
+	double value = 0;
+	if (gamepad.buttonA())
+		value += 1;
+	if (gamepad.buttonB())
+		value -= 1;
 	WriteLog("Gamepad - slotGamepadSpeed | value: " + QString::number(value), 3);
-	ui->sl_gamepad_movement_z->setValue(-100 + 200 * value);
+	ui->sl_gamepad_movement_z->setValue(100 * value);
 	if (gamepad.buttonA() != gamepad.buttonB())
 	{
 		if (gamepad.buttonA())

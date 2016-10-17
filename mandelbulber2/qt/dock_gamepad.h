@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * These objects enable control of flight animation using a gamepad controller.
  */
 
 #ifndef MANDELBULBER2_QT_DOCK_GAMEPAD_H_
@@ -58,17 +58,18 @@ public:
 private slots:
 #ifdef USE_GAMEPAD
 	void slotChangeGamepadIndex(int index);
-	void slotGamePadDeviceConnected(int index);
-	void slotGamePadDeviceDisconnected(int index);
+	void slotGamePadDeviceConnected(int index) const;
+	void slotGamePadDeviceDisconnected(int index) const;
 
-	void slotGamepadLook();
-	void slotGamepadMove();
-	void slotGamepadRoll();
-	void slotGamepadSpeed();
+	void slotGamepadLook() const;
+	void slotGamepadMove() const;
+	static void slotGamepadPause(bool value);
+	void slotGamepadRoll() const;
+	void slotGamepadSpeed() const;
 #endif // USE_GAMEPAD
 
 private:
-	void ConnectSignals();
+	void ConnectSignals() const;
 
 	Ui::cDockGamepad *ui;
 
