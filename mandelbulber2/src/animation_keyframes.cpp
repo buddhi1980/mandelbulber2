@@ -44,8 +44,8 @@
 #include "global_data.hpp"
 #include "netrender.hpp"
 #include "render_job.hpp"
-#include "undo.h"
 #include "ui_dock_animation.h"
+#include "undo.h"
 
 cKeyframeAnimation *gKeyframeAnimation = NULL;
 
@@ -567,7 +567,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			QString questionText =
 				QObject::tr(
 					"The animation has already been rendered completely.\n Do you want to purge the output "
-					"folder?\n") + QObject::tr("This will delete all images in the image folder.\nProceed?");
+					"folder?\n")
+				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
 
 			if (!systemData.noGui)
 			{

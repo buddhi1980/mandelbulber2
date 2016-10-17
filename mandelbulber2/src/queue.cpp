@@ -106,7 +106,8 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 		QApplication::connect(
 			this, SIGNAL(queueChanged(int, int)), this, SLOT(slotQueueListUpdate(int, int)));
 
-		RenderedImage* renderedImageWidget = mainInterface->mainWindow->ui->widgetDockQueue->renderedImageWidget;
+		RenderedImage *renderedImageWidget =
+			mainInterface->mainWindow->ui->widgetDockQueue->renderedImageWidget;
 		image->CreatePreview(1.0, 400, 300, renderedImageWidget);
 		renderedImageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		renderedImageWidget->AssignImage(image);
@@ -509,7 +510,8 @@ void cQueue::UpdateListFromFileSystem()
 void cQueue::RenderQueue()
 {
 	QThread *thread = new QThread; // deleted by deleteLater()
-	cRenderQueue *renderQueue = new cRenderQueue(image, mainInterface->mainWindow->ui->widgetDockQueue->renderedImageWidget);
+	cRenderQueue *renderQueue =
+		new cRenderQueue(image, mainInterface->mainWindow->ui->widgetDockQueue->renderedImageWidget);
 	renderQueue->moveToThread(thread);
 	renderQueue->setObjectName("Queue");
 	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));

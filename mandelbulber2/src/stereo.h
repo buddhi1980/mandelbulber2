@@ -67,7 +67,8 @@ public:
 	CVector3 CalcEyePosition(
 		CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye);
 	void ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
-			const CRotationMatrix &mRotInv, enumEye eye, params::enumPerspectiveType perspType, CVector3 *viewVector);
+		const CRotationMatrix &mRotInv, enumEye eye, params::enumPerspectiveType perspType,
+		CVector3 *viewVector);
 	sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
 	sRGB16 MixColorsRedCyan16(sRGB16 left, sRGB16 right);
 	CVector2<int> ModifyImageResolution(CVector2<int> resolution);

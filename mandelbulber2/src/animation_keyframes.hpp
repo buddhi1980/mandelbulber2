@@ -41,8 +41,8 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 
-#include "../qt/my_table_widget_keyframes.hpp"
 #include "../qt/dock_animation.h"
+#include "../qt/my_table_widget_keyframes.hpp"
 #include "cimage.hpp"
 #include "error_message.hpp"
 #include "interface.hpp"

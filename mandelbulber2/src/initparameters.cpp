@@ -599,7 +599,6 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("surfBox_offset1B_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
 	par->addParam("surfBox_scale1Z1", 1.0, morphAkima, paramStandard);
 
-
 	// SurfFold
 	par->addParam("surfFolds_order_of_folds_1", 0, morphNone, paramStandard);
 	par->addParam("surfFolds_order_of_folds_2", 0, morphNone, paramStandard);

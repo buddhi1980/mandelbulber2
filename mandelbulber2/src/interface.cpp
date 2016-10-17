@@ -38,6 +38,7 @@
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "calculate_distance.hpp"
+#include "camera_target.hpp"
 #include "common_math.h"
 #include "dof.hpp"
 #include "error_message.hpp"
@@ -49,7 +50,6 @@
 #include "render_ssao.h"
 #include "settings.hpp"
 #include "undo.h"
-#include "camera_target.hpp"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
@@ -192,7 +192,6 @@ void cInterface::ShowUi(void)
 	{
 		mainWindow->ui->actionSave_as_EXR->setVisible(false);
 		mainWindow->ui->widgetDockAnimation->DisableEXR();
-
 	}
 #endif
 
@@ -399,8 +398,6 @@ void cInterface::SynchronizeInterface(
 	mainWindow->ui->widgetDockFractal->SynchronizeInterfaceFractals(par, parFractal, mode);
 }
 
-
-
 void cInterface::StartRender(bool noUndo)
 {
 	if (!mainImage->IsUsed())
@@ -442,8 +439,8 @@ void cInterface::StartRender(bool noUndo)
 	QObject::connect(renderJob,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow->ui->widgetDockStatistics,
-		SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)),
+		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
 	QObject::connect(renderJob, SIGNAL(fullyRendered(const QString &, const QString &)), systemTray,
 		SLOT(showMessage(const QString &, const QString &)));
 
@@ -1294,7 +1291,8 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	listOfPrimitives.append(newItem);
 
 	// main widget for primitive
-	QWidget *mainWidget = new QWidget(mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives());
+	QWidget *mainWidget =
+		new QWidget(mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives());
 	mainWidget->setObjectName(QString("widgetmain_") + primitiveFullName);
 	QVBoxLayout *layout = new QVBoxLayout();
 	mainWidget->setLayout(layout);
@@ -1380,7 +1378,8 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 
 	// delete widget
 	QWidget *primitiveWidget =
-			mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(primitiveWidgetName);
+		mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(
+			primitiveWidgetName);
 	delete primitiveWidget;
 
 	// remove item from list
@@ -1404,7 +1403,8 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 	{
 		QString widgetName = QString("widgetmain_") + listOfPrimitives.at(i).name;
 		QWidget *widget =
-				mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(widgetName);
+			mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(
+				widgetName);
 		delete widget;
 	}
 	listOfPrimitives.clear();
@@ -1661,8 +1661,8 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 
 	cRenderJob *renderJob =
 		new cRenderJob(&tempParam, &tempFractal, mainImage, &stopRequest, renderedImage);
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow->ui->widgetDockStatistics,
-		SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)),
+		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -1899,4 +1899,3 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 	pushbutton->setIcon(icon);
 	pushbutton->setIconSize(QSize(w, h));
 }
-

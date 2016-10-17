@@ -213,7 +213,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			{
 				CVector3 vect = mRotInv.RotateVector(input.viewVector);
 				double texX, texY;
-				if(fabs(vect.y) > 1e-20)
+				if (fabs(vect.y) > 1e-20)
 				{
 					texX = vect.x / vect.y / params->fov * params->imageHeight / params->imageWidth;
 					texY = -vect.z / vect.y / params->fov;

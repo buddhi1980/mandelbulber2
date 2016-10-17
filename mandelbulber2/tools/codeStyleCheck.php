@@ -92,7 +92,7 @@ function printResultLine($name, $success, $status){
 }
 
 function checkFileHeader($filePath, &$fileContent, &$status){
-	$headerRegex = '/^(\/\*\*[\s\S]*?\*\/)([\s\S]*)$/';
+        $headerRegex = '/^(\/\*\*?[\s\S]*?\*\/)([\s\S]*)$/';
 	if(preg_match($headerRegex, $fileContent, $matchHeader)){
 		$functionContentFound = true;
 		$fileHeader = $matchHeader[1];
@@ -110,7 +110,16 @@ function checkFileHeader($filePath, &$fileContent, &$status){
 				return true;
 			}
 			else{
-				$status[] = errorString('header unknown!');
+                            $regexParseHeader = '/^[\s\S]+Author:[\s\S]*?\*\/([\s\S]*)$/';
+                            if(preg_match($regexParseHeader, $fileContent, $matchHeaderOld)){
+                                    $status[] = noticeString('header is in eclipse format, will rewrite to new!');
+                                    $newFileContent = getFileHeader('Krzysztof Marczak (buddhi1980@gmail.com)', 'TODO: description', date('Y')) . $matchHeaderOld[1];
+                                    $fileContent = $newFileContent;
+                                    return true;
+                            }
+                            else{
+                                    $status[] = errorString('header unknown!');
+                            }
 			}
 		}
 		else{
@@ -124,7 +133,7 @@ function checkFileHeader($filePath, &$fileContent, &$status){
 				return true;
 			}
 			else{
-				$status[] = errorString('header unknown!');
+                                $status[] = errorString('header unknown!');
 			}
 		}
 

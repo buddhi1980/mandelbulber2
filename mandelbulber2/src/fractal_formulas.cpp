@@ -6168,28 +6168,23 @@ void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &
  * Octo
  */
 void TransformOctoFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{//	z = (float3){ -z.y, -z.x, z.z};
-	if (z.x + z.y < 0.0)
-		z = CVector3 ( -z.y, -z.x, z.z);
+{ //	z = (float3){ -z.y, -z.x, z.z};
+	if (z.x + z.y < 0.0) z = CVector3(-z.y, -z.x, z.z);
 
+	if (z.x + z.z < 0.0) // z.xz = -z.zx;
+		z = CVector3(-z.z, z.y, -z.x);
 
-	if (z.x + z.z < 0.0)// z.xz = -z.zx;
-		z = CVector3 ( -z.z, z.y, -z.x);
+	if (z.x - z.y < 0.0) // z.xy = z.yx;
+		z = CVector3(z.y, z.x, z.z);
 
-
-	if (z.x - z.y < 0.0) //z.xy = z.yx;
-		z = CVector3 ( z.y, z.x, z.z);
-
-	if (z.x - z.z < 0.0) //z.xz = z.zx;
-		z = CVector3 ( z.z, z.y, z.x);
-
+	if (z.x - z.z < 0.0) // z.xz = z.zx;
+		z = CVector3(z.z, z.y, z.x);
 
 	z.x = fabs(z.x);
 	z = z * fractal->transformCommon.scale2
 			- fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0);
 
 	aux.DE *= fractal->transformCommon.scale2;
-
 }
 
 /**
@@ -6696,13 +6691,12 @@ void TransformSurfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtend
 {
 	if (fractal->surfBox.enabledX1)
 	{
-		z.x = fabs(z.x + fractal->surfBox.offset1A111.x)
-					- fabs(z.x - fractal->surfBox.offset1A111.x) - z.x;
+		z.x =
+			fabs(z.x + fractal->surfBox.offset1A111.x) - fabs(z.x - fractal->surfBox.offset1A111.x) - z.x;
 	}
 	if (fractal->surfBox.enabledX2False)
 	{ // z = fold - fabs( fabs(z) - fold)
-		z.x = fractal->surfBox.offset1B111.x
-					- fabs(fabs(z.x) - fractal->surfBox.offset1B111.x);
+		z.x = fractal->surfBox.offset1B111.x - fabs(fabs(z.x) - fractal->surfBox.offset1B111.x);
 	}
 	if (fractal->surfBox.enabledX3False)
 	{
@@ -6724,20 +6718,18 @@ void TransformSurfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtend
 	if (fractal->surfBox.enabledX5False)
 	{ // z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
 		z.x = fractal->surfBox.offset1B222.x
-					- fabs(fabs(z.x + fractal->surfBox.offset3A111.x)
-								 - fractal->surfBox.offset1B222.x)
+					- fabs(fabs(z.x + fractal->surfBox.offset3A111.x) - fractal->surfBox.offset1B222.x)
 					- fractal->surfBox.offset3A111.x;
 	}
 
 	if (fractal->surfBox.enabledY1)
 	{
-		z.y = fabs(z.y + fractal->surfBox.offset1A111.y)
-					- fabs(z.y - fractal->surfBox.offset1A111.y) - z.y;
+		z.y =
+			fabs(z.y + fractal->surfBox.offset1A111.y) - fabs(z.y - fractal->surfBox.offset1A111.y) - z.y;
 	}
 	if (fractal->surfBox.enabledY2False)
 	{ // z = fold - fabs( fabs(z) - fold)
-		z.y = fractal->surfBox.offset1B111.y
-					- fabs(fabs(z.y) - fractal->surfBox.offset1B111.y);
+		z.y = fractal->surfBox.offset1B111.y - fabs(fabs(z.y) - fractal->surfBox.offset1B111.y);
 	}
 	if (fractal->surfBox.enabledY3False)
 	{
@@ -6759,20 +6751,18 @@ void TransformSurfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtend
 	if (fractal->surfBox.enabledY5False)
 	{ // z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
 		z.y = fractal->surfBox.offset1B222.y
-					- fabs(fabs(z.y + fractal->surfBox.offset3A111.y)
-								 - fractal->surfBox.offset1B222.y)
+					- fabs(fabs(z.y + fractal->surfBox.offset3A111.y) - fractal->surfBox.offset1B222.y)
 					- fractal->surfBox.offset3A111.y;
 	}
 
 	if (fractal->surfBox.enabledZ1)
 	{
-		z.z = fabs(z.z + fractal->surfBox.offset1A111.z)
-					- fabs(z.z - fractal->surfBox.offset1A111.z) - z.z;
+		z.z =
+			fabs(z.z + fractal->surfBox.offset1A111.z) - fabs(z.z - fractal->surfBox.offset1A111.z) - z.z;
 	}
 	if (fractal->surfBox.enabledZ2False)
 	{ // z = fold - fabs( fabs(z) - fold)
-		z.z = fractal->surfBox.offset1B111.z
-					- fabs(fabs(z.z) - fractal->surfBox.offset1B111.z);
+		z.z = fractal->surfBox.offset1B111.z - fabs(fabs(z.z) - fractal->surfBox.offset1B111.z);
 	}
 	if (fractal->surfBox.enabledZ3False)
 	{
@@ -6800,11 +6790,10 @@ void TransformSurfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtend
 	if (fractal->surfBox.enabledZ5False)
 	{ // z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
 		z.z = fractal->surfBox.offset1B222.z
-					- fabs(fabs(z.z + fractal->surfBox.offset3A111.z)
-								 - fractal->surfBox.offset1B222.z)
+					- fabs(fabs(z.z + fractal->surfBox.offset3A111.z) - fractal->surfBox.offset1B222.z)
 					- fractal->surfBox.offset3A111.z;
 	}
-	aux.DE *= fractal->analyticDE.scale1; //tweak
+	aux.DE *= fractal->analyticDE.scale1; // tweak
 }
 
 /**
@@ -6869,7 +6858,6 @@ void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExte
 								 - fractal->transformCommon.offset2)
 					- fractal->transformCommon.additionConstant111.y;
 	}
-
 }
 
 /**
@@ -7174,15 +7162,13 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 /**
  *  Scale varies smoothly based on iteration parameters.
  */
-void TransformScaleVaryVCLIteration(CVector3 &z, int i,
-			const cFractal *fractal, sExtendedAux &aux)
+void TransformScaleVaryVCLIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	double para;
 
-	//double paraAddP0;
-	//if (fractal->Cpara.enabledParaAddP0)
+	// double paraAddP0;
+	// if (fractal->Cpara.enabledParaAddP0)
 	//	paraAddP0 = 0.0;
-
 
 	if (fractal->Cpara.enabledLinear)
 	{
@@ -7200,16 +7186,15 @@ void TransformScaleVaryVCLIteration(CVector3 &z, int i,
 		// slopes
 		if (i < fractal->Cpara.iterA)
 		{
-			para = temp0 + ( i * grade1);
+			para = temp0 + (i * grade1);
 		}
-		if( i < fractal->Cpara.iterB
-				&& i >= fractal->Cpara.iterA)
+		if (i < fractal->Cpara.iterB && i >= fractal->Cpara.iterA)
 		{
-			para = tempA + ( i - fractal->Cpara.iterA) * grade2;
+			para = tempA + (i - fractal->Cpara.iterA) * grade2;
 		}
-		if( i >= fractal->Cpara.iterB)
+		if (i >= fractal->Cpara.iterB)
 		{
-			para = tempB + ( i - fractal->Cpara.iterB) * grade3;
+			para = tempB + (i - fractal->Cpara.iterB) * grade3;
 		}
 
 		// Curvi part on "true"
@@ -7217,7 +7202,7 @@ void TransformScaleVaryVCLIteration(CVector3 &z, int i,
 		{
 			double paraAdd = 0.0;
 			double paraIt;
-			if( lengthAB > 2.0 * fractal->Cpara.iterA)// stop  error, todo fix.
+			if (lengthAB > 2.0 * fractal->Cpara.iterA) // stop  error, todo fix.
 			{
 				double curve1 = (grade2 - grade1) / (4.0 * fractal->Cpara.iterA);
 				double tempL = lengthAB - fractal->Cpara.iterA;
@@ -7227,8 +7212,7 @@ void TransformScaleVaryVCLIteration(CVector3 &z, int i,
 					paraIt = tempA - fabs(tempA - i);
 					paraAdd = paraIt * paraIt * curve1;
 				}
-				if (i >= 2 * fractal->Cpara.iterA
-						&& i < fractal->Cpara.iterB + tempL)
+				if (i >= 2 * fractal->Cpara.iterA && i < fractal->Cpara.iterB + tempL)
 				{
 					paraIt = tempB - fabs(tempB * i);
 					paraAdd = paraIt * paraIt * curve2;
@@ -7237,18 +7221,17 @@ void TransformScaleVaryVCLIteration(CVector3 &z, int i,
 			}
 		}
 	}
-	//double paraAddP0;
-	//if (fractal->Cpara.enabledParaAddP0)
+	// double paraAddP0;
+	// if (fractal->Cpara.enabledParaAddP0)
 	//	paraAddP0 = 0.0;
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
 	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
 		paraAddP0 = fractal->Cpara.parabOffset + (i * fractal->Cpara.parabSlope)
-				+ ( i * i * 0.001 *  fractal->Cpara.parabScale);
+								+ (i * i * 0.001 * fractal->Cpara.parabScale);
 	}
 	para += paraAddP0;
 	z *= para;
 	aux.DE = aux.DE * fabs(para) + 1.0;
 	aux.r_dz *= fabs(para);
 }
-

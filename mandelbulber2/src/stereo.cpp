@@ -242,8 +242,8 @@ void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRo
 		viewVectorTemp = mRotInv.RotateVector(viewVectorTemp);
 		if (eye == cStereo::eyeLeft)
 		{
-			viewVectorTemp = viewVectorTemp.RotateAroundVectorByAngle(
-				CVector3(0.0, 0.0, 1.0), correction / 10.0 / M_PI);
+			viewVectorTemp =
+				viewVectorTemp.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), correction / 10.0 / M_PI);
 			viewVectorTemp = mRot.RotateVector(viewVectorTemp);
 			*viewVector = viewVectorTemp;
 		}

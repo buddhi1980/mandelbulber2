@@ -1,19 +1,46 @@
-/*
- * dock_fractal.cpp
+/**
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- *  Created on: 12 paź 2016
- *      Author: krzysztof
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * TODO: description
  */
 
 #include "dock_fractal.h"
 
 #include "../qt/my_tab_bar.h"
 #include "../src/error_message.hpp"
+#include "../src/global_data.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/my_ui_loader.h"
 #include "../src/system.hpp"
-#include "../src/global_data.hpp"
 #include "ui_dock_fractal.h"
 
 cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockFractal)
@@ -243,10 +270,13 @@ void cDockFractal::InitializeFractalUi(QString &uiFileName)
 				->setVisible(false);
 			frame->findChild<QLabel *>(QString("label_formula_stop_iteration_") + QString::number(i))
 				->setVisible(false);
-			frame->findChild<MySpinBox *>(QString("spinboxInt_formula_start_iteration_")
-																		+ QString::number(i))->setVisible(false);
-			frame->findChild<MySpinBox *>(QString("spinboxInt_formula_stop_iteration_")
-																		+ QString::number(i))->setVisible(false);
+			frame
+				->findChild<MySpinBox *>(
+					QString("spinboxInt_formula_start_iteration_") + QString::number(i))
+				->setVisible(false);
+			frame
+				->findChild<MySpinBox *>(QString("spinboxInt_formula_stop_iteration_") + QString::number(i))
+				->setVisible(false);
 
 			frame->findChild<MyCheckBox *>(QString("checkBox_check_for_bailout_") + QString::number(i))
 				->setVisible(false);
@@ -260,12 +290,15 @@ void cDockFractal::InitializeFractalUi(QString &uiFileName)
 					->setEnabled(false);
 			}
 
-			ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_formula_transform_"
-																										 + QString::number(i))->setVisible(false);
-			ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
-																										 + QString::number(i))->setVisible(false);
-			ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_material_fractal_"
-																										 + QString::number(i))->setVisible(false);
+			ui->tabWidget_fractals
+				->findChild<QGroupBox *>("groupBox_formula_transform_" + QString::number(i))
+				->setVisible(false);
+			ui->tabWidget_fractals
+				->findChild<QGroupBox *>("groupBox_c_constant_addition_" + QString::number(i))
+				->setVisible(false);
+			ui->tabWidget_fractals
+				->findChild<QGroupBox *>("groupBox_material_fractal_" + QString::number(i))
+				->setVisible(false);
 		}
 		static_cast<MyTabBar *>(ui->tabWidget_fractals->tabBar())->setupMoveButtons();
 	}
@@ -340,12 +373,14 @@ void cDockFractal::slotChangedComboFractal(int indexInComboBox)
 			fractal::enumCPixelAddition cPixelAddition = fractalList[index].cpixelAddition;
 			bool boleanState = ui->groupCheck_boolean_operators->isChecked();
 			if (cPixelAddition == fractal::cpixelAlreadyHas)
-				ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
-																											 + QString::number(fractalNumber + 1))
+				ui->tabWidget_fractals
+					->findChild<QGroupBox *>(
+						"groupBox_c_constant_addition_" + QString::number(fractalNumber + 1))
 					->setVisible(false);
 			else
-				ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
-																											 + QString::number(fractalNumber + 1))
+				ui->tabWidget_fractals
+					->findChild<QGroupBox *>(
+						"groupBox_c_constant_addition_" + QString::number(fractalNumber + 1))
 					->setVisible(boleanState);
 
 			if (fractalList[index].internalID == fractal::kaleidoscopicIFS)
@@ -477,8 +512,9 @@ void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state)
 			ui->tabWidget_fractals->findChild<QScrollArea *>("scrollArea_fractal_" + QString::number(i))
 				->setEnabled(state);
 		}
-		ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_formula_transform_"
-																									 + QString::number(i))->setVisible(state);
+		ui->tabWidget_fractals
+			->findChild<QGroupBox *>("groupBox_formula_transform_" + QString::number(i))
+			->setVisible(state);
 
 		QComboBox *comboBox =
 			ui->tabWidget_fractals->findChild<QComboBox *>("comboBox_formula_" + QString::number(i));
@@ -486,14 +522,17 @@ void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state)
 			fractalList[comboBox->itemData(comboBox->currentIndex()).toInt()].cpixelAddition;
 
 		if (cPixelAddition == fractal::cpixelAlreadyHas)
-			ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
-																										 + QString::number(i))->setVisible(false);
+			ui->tabWidget_fractals
+				->findChild<QGroupBox *>("groupBox_c_constant_addition_" + QString::number(i))
+				->setVisible(false);
 		else
-			ui->tabWidget_fractals->findChild<QGroupBox *>("groupBox_c_constant_addition_"
-																										 + QString::number(i))->setVisible(state);
+			ui->tabWidget_fractals
+				->findChild<QGroupBox *>("groupBox_c_constant_addition_" + QString::number(i))
+				->setVisible(state);
 
-		ui->tabWidget_fractals->findChild<QGroupBox *>(
-															"groupBox_material_fractal_" + QString::number(i))->setVisible(state);
+		ui->tabWidget_fractals
+			->findChild<QGroupBox *>("groupBox_material_fractal_" + QString::number(i))
+			->setVisible(state);
 	}
 
 	gMainInterface->mainWindow->ui->widgetDockRenderingEngine->ComboDeltaDEFunctionSetEnabled(!state);
@@ -528,10 +567,12 @@ void cDockFractal::slotChangedCheckBoxHybridFractal(int state)
 			->setVisible(state);
 		frame->findChild<QLabel *>(QString("label_formula_stop_iteration_") + QString::number(i))
 			->setVisible(state);
-		frame->findChild<MySpinBox *>(QString("spinboxInt_formula_start_iteration_")
-																	+ QString::number(i))->setVisible(state);
-		frame->findChild<MySpinBox *>(
-						 QString("spinboxInt_formula_stop_iteration_") + QString::number(i))->setVisible(state);
+		frame
+			->findChild<MySpinBox *>(QString("spinboxInt_formula_start_iteration_") + QString::number(i))
+			->setVisible(state);
+		frame
+			->findChild<MySpinBox *>(QString("spinboxInt_formula_stop_iteration_") + QString::number(i))
+			->setVisible(state);
 
 		frame->findChild<MyCheckBox *>(QString("checkBox_check_for_bailout_") + QString::number(i))
 			->setVisible(state);

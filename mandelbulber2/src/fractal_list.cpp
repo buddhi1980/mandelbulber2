@@ -451,8 +451,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Transform - Spherical_Offset", "transf_spherical_offset",
 		transfSphericalOffset, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Transform -Surf Box_Fold", "transf_surf_box_fold", transfSurfBoxFold,
-		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(sFractalDescription("Transform -Surf Box_Fold", "transf_surf_box_fold",
+		transfSurfBoxFold, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform - Surf Fold Multi", "transf_surf_fold_multi",
 		transfSurfFoldMulti, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

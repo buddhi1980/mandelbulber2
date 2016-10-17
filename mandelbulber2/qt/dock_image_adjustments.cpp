@@ -1,16 +1,43 @@
-/*
- * image_adjustments_dock.cpp
+/**
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
+ *                                             ,B" ]L,,p%%%,,,§;, "K
+ * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
+ * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
+ * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
+ * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
+ * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
+ * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
+ * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
+ * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
+ *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
+ * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * but WITHOUT ANY WARRANTY;                            .'''
+ * without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- *  Created on: 8 paź 2016
- *      Author: krzysztof
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * ###########################################################################
+ *
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ *
+ * TODO: description
  */
 
-#include "ui_dock_image_adjustments.h"
-#include "../src/interface.hpp"
-#include "../src/projection_3d.hpp"
 #include "../src/fractparams.hpp"
 #include "../src/initparameters.hpp"
+#include "../src/interface.hpp"
+#include "../src/projection_3d.hpp"
 #include "dock_image_adjustmnets.h"
+#include "ui_dock_image_adjustments.h"
 
 cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)
@@ -105,7 +132,8 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index)
 	{
 		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		gMainInterface->mainWindow->ui->widgetDockRenderingEngine->SynchronizeInterfaceDistanceEstimation(gPar);
+		gMainInterface->mainWindow->ui->widgetDockRenderingEngine
+			->SynchronizeInterfaceDistanceEstimation(gPar);
 	}
 }
 
@@ -177,7 +205,8 @@ void cDockImageAdjustments::slotPressedResolutionPreset()
 	{
 		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		gMainInterface->mainWindow->ui->widgetDockRenderingEngine->SynchronizeInterfaceDistanceEstimation(gPar);
+		gMainInterface->mainWindow->ui->widgetDockRenderingEngine
+			->SynchronizeInterfaceDistanceEstimation(gPar);
 	}
 }
 

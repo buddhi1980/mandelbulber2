@@ -438,5 +438,3 @@ void RenderWindow::slotMaterialEdited()
 {
 	SynchronizeInterfaceWindow(gMainInterface->materialEditor, gPar, qInterface::write);
 }
-
-

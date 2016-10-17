@@ -62,5 +62,3 @@ void RenderWindow::slotPressedButtonSetPositionPrimitive()
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
 }
-
-
