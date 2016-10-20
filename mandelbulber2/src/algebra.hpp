@@ -463,10 +463,8 @@ public:
 		CVector2 c;
 		c.x = x;
 		c.y = y;
-		if (fabs(x) < 0.1)
-			c.x = 0;
-		if (fabs(y) < 0.1)
-			c.y = 0;
+		if (fabs(x) < 0.1) c.x = 0;
+		if (fabs(y) < 0.1) c.y = 0;
 		return c;
 	}
 	inline double Dot(const CVector2 &vector) const { return x * vector.x + y * vector.y; }

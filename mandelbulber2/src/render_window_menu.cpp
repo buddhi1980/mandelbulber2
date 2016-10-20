@@ -42,6 +42,7 @@
 #include "file_image.hpp"
 #include "files.h"
 #include "global_data.hpp"
+#include "image_save_dialog.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "old_settings.hpp"
@@ -270,7 +271,7 @@ void RenderWindow::slotMenuSaveDocksPositions()
 // TODO generalize image save functions and add image channel logic to save dialog
 void RenderWindow::slotMenuSaveImageJPEG()
 {
-	QFileDialog dialog(this);
+	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("JPEG images (*.jpg *.jpeg)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
@@ -298,7 +299,7 @@ void RenderWindow::slotMenuSaveImageJPEG()
 
 void RenderWindow::slotMenuSaveImagePNG()
 {
-	QFileDialog dialog(this);
+	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
@@ -323,7 +324,7 @@ void RenderWindow::slotMenuSaveImagePNG()
 #ifdef USE_EXR
 void RenderWindow::slotMenuSaveImageEXR()
 {
-	QFileDialog dialog(this);
+	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("EXR images (*.exr)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
@@ -349,7 +350,7 @@ void RenderWindow::slotMenuSaveImageEXR()
 #ifdef USE_TIFF
 void RenderWindow::slotMenuSaveImageTIFF()
 {
-	QFileDialog dialog(this);
+	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("TIFF images (*.tiff)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));

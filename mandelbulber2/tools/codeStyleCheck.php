@@ -181,6 +181,7 @@ function getModificationInterval($filePath){
 	$yearStart = trim(shell_exec($cmd));
 	$cmd = "git log --format=%ad%s " . $filePath . " | grep -m 1 -v '" . $ignoreString . "' | head -1 | egrep -o '\s([0-9]{4})\s'";
 	$yearEnd =  trim(shell_exec($cmd));
+	if(empty($yearStart)) return date('Y');	
 	if($yearStart == $yearEnd){
 		return $yearStart;
 	}

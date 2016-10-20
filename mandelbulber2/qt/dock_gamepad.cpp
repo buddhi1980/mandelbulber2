@@ -167,15 +167,11 @@ void cDockGamepad::slotGamepadMove() const
 	double threshold = .01;
 	z = z * sensitivity;
 	// Forward Accelerate [threshold to 1 / sensitivity]
-	if (fabs(z) < threshold && z >= 0.0)
-		z = threshold;
+	if (fabs(z) < threshold && z >= 0.0) z = threshold;
 	// Reverse Backwards [-threshold to -1 / sensitivity]
-	if (fabs(z) < threshold && z <= 0.0)
-		z = -threshold;
-	if (joystick)
-		emit gMainInterface->renderedImage->StrafeChanged(strafe);
-	if (trigger)
-		emit gMainInterface->renderedImage->SpeedSet(z / 2.0);
+	if (fabs(z) < threshold && z <= 0.0) z = -threshold;
+	if (joystick) emit gMainInterface->renderedImage->StrafeChanged(strafe);
+	if (trigger) emit gMainInterface->renderedImage->SpeedSet(z / 2.0);
 }
 
 void cDockGamepad::slotGamepadPause(bool value)
@@ -191,10 +187,8 @@ void cDockGamepad::slotGamepadRoll() const
 {
 	// Button values are either false to true
 	double value = 0;
-	if (gamepad.buttonL1())
-		value += 1;
-	if (gamepad.buttonR1())
-		value -= 1;
+	if (gamepad.buttonL1()) value += 1;
+	if (gamepad.buttonR1()) value -= 1;
 	WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value), 3);
 	ui->sl_gamepad_angle_roll->setValue(100 * value);
 	emit gMainInterface->renderedImage->RotationChanged(value);
@@ -204,10 +198,8 @@ void cDockGamepad::slotGamepadSpeed() const
 {
 	// Button values are either false to true
 	double value = 0;
-	if (gamepad.buttonA())
-		value += 1;
-	if (gamepad.buttonB())
-		value -= 1;
+	if (gamepad.buttonA()) value += 1;
+	if (gamepad.buttonB()) value -= 1;
 	WriteLog("Gamepad - slotGamepadSpeed | value: " + QString::number(value), 3);
 	ui->sl_gamepad_movement_z->setValue(100 * value);
 	if (gamepad.buttonA() != gamepad.buttonB())

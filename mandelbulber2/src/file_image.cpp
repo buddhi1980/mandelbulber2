@@ -679,6 +679,13 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 bool ImageFileSaveJPG::SaveJPEGQt(
 	QString filename, unsigned char *image, int width, int height, int quality)
 {
+	if (!image)
+	{
+		qDebug() << "the image is a null pointer, this might be the case for optional channel(s). "
+								"If this is the case, just rerender the image with enabled channel(s).";
+		return false;
+	}
+
 	QImage *qimage = new QImage(width, height, QImage::Format_RGB888);
 
 	for (int line = 0; line < height; line++)
@@ -705,6 +712,13 @@ bool ImageFileSaveJPG::SaveJPEGQt(
 bool ImageFileSaveJPG::SaveJPEGQtGreyscale(
 	QString filename, unsigned char *image, int width, int height, int quality)
 {
+
+	if (!image)
+	{
+		qDebug() << "the image is a null pointer, this might be the case for optional channel(s). "
+								"If this is the case, just rerender the image with enabled channel(s).";
+		return false;
+	}
 	QImage *qimage = new QImage(width, height, QImage::Format_Indexed8);
 	QVector<QRgb> my_table;
 	for (int i = 0; i < 256; i++)
