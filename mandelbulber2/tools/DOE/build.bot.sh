@@ -24,8 +24,8 @@ mkdir -p $BUILDTREE
 # Build k1om #
 cd $BUILDTREE \
 && CC=icc CXX=icpc \
-CXXFLAGS="-02 -g -fPIC -mmic -wd39,10006" \
-CFLAGS="-02 -g -fPIC -mmic -wd39,10006" \
+CXXFLAGS="-03 -g -fPIC -mmic -wd39,10006" \
+CFLAGS="-03 -g -fPIC -mmic -wd39,10006" \
 cmake3 \
 -DCMAKE_PREFIX_PATH=$KNC_LIB/qt5/build-mic/qtbase/lib/cmake \
 -DQt5UiTools_DIR=$KNC_LIB/qt5/build-mic/qttools/lib/cmake/Qt5UiTools \
@@ -62,8 +62,8 @@ mkdir -p $BUILDTREE
 # Build x64 #
 cd $BUILDTREE \
 && CC=icc CXX=icpc \
-CXXFLAGS="-02 -g -fPIC -wd39,10006" \
-CFLAGS="-02 -g -fPIC -wd39,10006" \
+CXXFLAGS="-03 -g -fPIC -wd39,10006" \
+CFLAGS="-03 -g -fPIC -wd39,10006" \
 cmake3 \
 -DCMAKE_PREFIX_PATH=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake \
 -DQt5UiTools_DIR=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake/Qt5UiTools \

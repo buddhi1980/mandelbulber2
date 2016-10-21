@@ -13,21 +13,17 @@ import time
 RP = "Robert Pancoast collection - license Creative Commons (CC-BY 4.0)"
 settings_file = \
 RP + os.sep \
-+ "toastn_stonemen_anim.fract"
++ "IFS31_anim.fract"
 
 # Options for Render #
 start = 0
-total_frames = 100
+total_frames = 25020
 RenderSets = 10
 totalIterations = total_frames/RenderSets
 
 # Tested on CentOS7 #
 WorkersCount = 8
 spacer = "\'"
-
-# Options for Benchmark #
-start = 0
-totalIterations = len(settings)
 
 # Script Directory #
 DOE=os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -86,7 +82,7 @@ class Worker(multiprocessing.Process):
 			+ "\"" \
 			+ " --output " \
 			+ output_dir \
-			+ " --flight" \
+			+ " --keyframe" \
 			+ " --start " \
 			+ start \
 			+ " --end " \
@@ -144,9 +140,11 @@ if __name__ == "__main__":
 		os.makedirs(output_dir)
 	# Execute test resolution #
 	try:
-		render(" --res 50x50")
+		#render(" --res 50x50")
+		#render(" --res 85x64")
+		#render(" --res 320x240")
 		#render(" --res 1920x1080")
-		#render(" --res 3840x2160")
+		render(" --res 3840x2160")
 		#render(" --res 7680x4320")
 	except KeyboardInterrupt:
 		print("KeyboardInterrupt Detected")

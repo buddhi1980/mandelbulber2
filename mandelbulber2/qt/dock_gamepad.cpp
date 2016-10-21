@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
@@ -156,7 +156,7 @@ void cDockGamepad::slotGamepadMove() const
 	// Trigger values vary from 0 to 1
 	double reverse = gamepad.buttonL2();
 	double forward = gamepad.buttonR2();
-	double z = forward - reverse;
+	double z = forward - reverse / 2.0;
 	bool trigger = fabs(z) > 0;
 	WriteLog("Gamepad - slotGamepadMove-X | value: " + QString::number(x), 3);
 	WriteLog("Gamepad - slotGamepadMove-Y | value: " + QString::number(y), 3);
@@ -166,14 +166,17 @@ void cDockGamepad::slotGamepadMove() const
 	ui->sl_gamepad_movement_z->setValue(100 * z);
 	// Maintain z-axis speed
 	sensitivity = 1 / 10.0;
-	double threshold = .01;
+	double threshold = .001;
 	z = z * sensitivity;
 	// Forward Accelerate [threshold to 1 / sensitivity]
 	if (fabs(z) < threshold && z >= 0.0) z = threshold;
 	// Reverse Backwards [-threshold to -1 / sensitivity]
-	if (fabs(z) < threshold && z <= 0.0) z = -threshold;
-	if (joystick) emit gMainInterface->renderedImage->StrafeChanged(strafe);
-	if (trigger) emit gMainInterface->renderedImage->SpeedSet(z / 2.0);
+	if (fabs(z) < threshold && z <= 0.0)
+		z = -threshold;
+	if (joystick)
+		emit gMainInterface->renderedImage->StrafeChanged(strafe / 2.0);
+	if (trigger)
+		emit gMainInterface->renderedImage->SpeedSet(z / 2.0);
 }
 
 void cDockGamepad::slotGamepadPause(bool value)
