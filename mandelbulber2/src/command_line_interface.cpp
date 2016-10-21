@@ -192,6 +192,13 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	// Process the actual command line arguments given by the user
 	parser.process(*qapplication);
 	args = parser.positionalArguments();
+	if (args[0] == "-")
+	{
+		// "-" marks stdin to be used as the input for the program (filename or content)
+		// use the input as first argument
+		QTextStream qin(stdin);
+		args[0] = qin.readAll();
+	}
 
 	cliData.nogui = parser.isSet(noguiOption);
 	cliData.keyframe = parser.isSet(keyframeOption);
@@ -306,11 +313,13 @@ void cCommandLineInterface::ReadCLI()
 		out << QObject::tr(
 			"Mandelbulber also accepts an arbitrary number of input files\n"
 			"These files can be of type:\n"
-			".fract File - An ordinary fractal file\n"
-			".fractlist File - A queue file, all entries inside the queue file will be added to the "
+			"  .fract File - An ordinary fractal file\n"
+			"  .fractlist File - A queue file, all entries inside the queue file will be added to the "
 			"current queue\n"
-			"Folder - if the specified argument is a folder all .fract files inside the folder will be "
-			"added to the queue\n");
+			"  Folder - if the specified argument is a folder all .fract files inside the folder will be "
+			"added to the queue\n"
+			"You can also use \"-\" as a special argument to indicate that the filename, or the whole "
+			"file contents are specified in stdin, example: cat example.fract | mandelbulber2 -\n");
 		out.flush();
 		exit(0);
 	}
@@ -439,6 +448,7 @@ void cCommandLineInterface::ReadCLI()
 					&& !QDir(args[0]).exists())
 			{
 				QString filename = args[0];
+				cSettings parSettings(cSettings::formatFullText);
 				if (!QFile::exists(filename))
 				{
 					// try to find settings in default settings path
@@ -446,7 +456,6 @@ void cCommandLineInterface::ReadCLI()
 				}
 				if (QFile::exists(filename))
 				{
-					cSettings parSettings(cSettings::formatFullText);
 					parSettings.LoadFromFile(filename);
 					parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 					settingsSpecified = true;
@@ -459,6 +468,14 @@ void cCommandLineInterface::ReadCLI()
 						qDebug() << "touched file: " << filename;
 						exit(0);
 					}
+				}
+				else if (parSettings.LoadFromString(args[0]))
+				{
+					// the whole settings file is specified as an argument from stdin
+					parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+					settingsSpecified = true;
+					systemData.lastSettingsFile = "from stdin";
+					systemData.settingsLoadedFromCLI = true;
 				}
 				else
 				{
