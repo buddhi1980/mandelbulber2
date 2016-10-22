@@ -192,7 +192,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	// Process the actual command line arguments given by the user
 	parser.process(*qapplication);
 	args = parser.positionalArguments();
-	if (args[0] == "-")
+	if (!args.empty() && args[0] == "-")
 	{
 		// "-" marks stdin to be used as the input for the program (filename or content)
 		// use the input as first argument
