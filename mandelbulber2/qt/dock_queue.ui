@@ -269,6 +269,17 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>pushButton_queue_add_current_settings</tabstop>
+  <tabstop>pushButton_queue_add_from_file</tabstop>
+  <tabstop>pushButton_queue_add_orphaned</tabstop>
+  <tabstop>pushButton_queue_remove_orphaned</tabstop>
+  <tabstop>pushButton_queue_render_queue</tabstop>
+  <tabstop>pushButton_queue_stop_rendering</tabstop>
+  <tabstop>comboBox_queue_image_format</tabstop>
+  <tabstop>checkBox_show_queue_thumbnails</tabstop>
+  <tabstop>tableWidget_queue_list</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>

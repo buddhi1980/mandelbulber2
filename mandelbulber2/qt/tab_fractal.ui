@@ -1184,12 +1184,6 @@ for 4D fractals</string>
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
@@ -1205,12 +1199,56 @@ for 4D fractals</string>
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>cMaterialSelector</class>
    <extends>QWidget</extends>
    <header>material_selector.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>comboBox_formula</tabstop>
+  <tabstop>sliderInt_formula_iterations</tabstop>
+  <tabstop>spinboxInt_formula_iterations</tabstop>
+  <tabstop>slider_formula_weight</tabstop>
+  <tabstop>spinbox_formula_weight</tabstop>
+  <tabstop>checkBox_dont_add_c_constant</tabstop>
+  <tabstop>checkBox_check_for_bailout</tabstop>
+  <tabstop>pushButton_reset_formula</tabstop>
+  <tabstop>spinboxInt_formula_start_iteration</tabstop>
+  <tabstop>spinboxInt_formula_stop_iteration</tabstop>
+  <tabstop>groupCheck_julia_mode</tabstop>
+  <tabstop>vect3_julia_c_x</tabstop>
+  <tabstop>vect3_julia_c_y</tabstop>
+  <tabstop>vect3_julia_c_z</tabstop>
+  <tabstop>slider_initial_waxis</tabstop>
+  <tabstop>spinbox_initial_waxis</tabstop>
+  <tabstop>slider3_fractal_constant_factor_x</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_x</tabstop>
+  <tabstop>slider3_fractal_constant_factor_y</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_y</tabstop>
+  <tabstop>slider3_fractal_constant_factor_z</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_z</tabstop>
+  <tabstop>vect3_formula_position_x</tabstop>
+  <tabstop>vect3_formula_position_y</tabstop>
+  <tabstop>vect3_formula_position_z</tabstop>
+  <tabstop>logslider_formula_scale</tabstop>
+  <tabstop>logedit_formula_scale</tabstop>
+  <tabstop>dial3_formula_rotation_x</tabstop>
+  <tabstop>spinboxd3_formula_rotation_x</tabstop>
+  <tabstop>dial3_formula_rotation_y</tabstop>
+  <tabstop>spinboxd3_formula_rotation_y</tabstop>
+  <tabstop>dial3_formula_rotation_z</tabstop>
+  <tabstop>spinboxd3_formula_rotation_z</tabstop>
+  <tabstop>vect3_formula_repeat_x</tabstop>
+  <tabstop>vect3_formula_repeat_y</tabstop>
+  <tabstop>vect3_formula_repeat_z</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

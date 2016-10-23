@@ -17,7 +17,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_gamepad_enabled">
      <property name="title">
-      <string>Gamepad activate</string>
+      <string>Ga&amp;mepad activate</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -345,6 +345,16 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>groupCheck_gamepad_enabled</tabstop>
+  <tabstop>comboBox_gamepad_device</tabstop>
+  <tabstop>sl_gamepad_movement_x</tabstop>
+  <tabstop>sl_gamepad_movement_y</tabstop>
+  <tabstop>sl_gamepad_movement_z</tabstop>
+  <tabstop>sl_gamepad_angle_yaw</tabstop>
+  <tabstop>sl_gamepad_angle_pitch</tabstop>
+  <tabstop>sl_gamepad_angle_roll</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

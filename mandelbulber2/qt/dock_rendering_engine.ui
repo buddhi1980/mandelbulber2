@@ -412,7 +412,7 @@ of fractal iterations
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When not enabled, the program automatically reduces the level of detail for the farthest regions of the fractal. If you go closer to the fractal surface, the program increases the level of detail.&lt;/p&gt;&lt;p&gt;If enabled, then in every region of the fractal,  the detail level (size) will be the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="title">
-           <string>Constant detail size</string>
+           <string>Cons&amp;tant detail size</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -1320,12 +1320,6 @@ of fractal iterations
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
@@ -1340,7 +1334,58 @@ of fractal iterations
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
   </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>sliderInt_N</tabstop>
+  <tabstop>spinboxInt_N</tabstop>
+  <tabstop>logslider_bailout</tabstop>
+  <tabstop>logedit_bailout</tabstop>
+  <tabstop>checkBox_use_default_bailout</tabstop>
+  <tabstop>logslider_DE_factor</tabstop>
+  <tabstop>logedit_DE_factor</tabstop>
+  <tabstop>pushButton_optimization_LQ</tabstop>
+  <tabstop>pushButton_optimization_MQ</tabstop>
+  <tabstop>pushButton_optimization_HQ</tabstop>
+  <tabstop>comboBox_delta_DE_method</tabstop>
+  <tabstop>comboBox_delta_DE_function</tabstop>
+  <tabstop>logslider_detail_level</tabstop>
+  <tabstop>logedit_detail_level</tabstop>
+  <tabstop>groupCheck_constant_DE_threshold</tabstop>
+  <tabstop>checkBox_connect_detail_level_2</tabstop>
+  <tabstop>logslider_DE_thresh</tabstop>
+  <tabstop>logedit_DE_thresh</tabstop>
+  <tabstop>checkBox_iteration_threshold_mode</tabstop>
+  <tabstop>checkBox_interior_mode</tabstop>
+  <tabstop>logslider_smoothness</tabstop>
+  <tabstop>logedit_smoothness</tabstop>
+  <tabstop>checkBox_slow_shading</tabstop>
+  <tabstop>logslider_view_distance_max</tabstop>
+  <tabstop>logedit_view_distance_max</tabstop>
+  <tabstop>logslider_view_distance_min</tabstop>
+  <tabstop>logedit_view_distance_min</tabstop>
+  <tabstop>groupCheck_limits_enabled</tabstop>
+  <tabstop>vect3_limit_min_x</tabstop>
+  <tabstop>vect3_limit_min_y</tabstop>
+  <tabstop>vect3_limit_min_z</tabstop>
+  <tabstop>vect3_limit_max_x</tabstop>
+  <tabstop>vect3_limit_max_y</tabstop>
+  <tabstop>vect3_limit_max_z</tabstop>
+  <tabstop>comboBox_netrender_mode</tabstop>
+  <tabstop>text_netrender_client_remote_address</tabstop>
+  <tabstop>spinboxInt_netrender_client_remote_port</tabstop>
+  <tabstop>bu_netrender_connect</tabstop>
+  <tabstop>bu_netrender_disconnect</tabstop>
+  <tabstop>spinboxInt_netrender_server_local_port</tabstop>
+  <tabstop>bu_netrender_start_server</tabstop>
+  <tabstop>bu_netrender_stop_server</tabstop>
+  <tabstop>tableWidget_netrender_connected_clients</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>

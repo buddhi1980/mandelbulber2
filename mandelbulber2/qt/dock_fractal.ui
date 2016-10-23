@@ -177,8 +177,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>355</width>
-                <height>912</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -236,8 +236,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>355</width>
-                <height>912</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -295,8 +295,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>355</width>
-                <height>912</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -354,8 +354,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>355</width>
-                <height>912</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -413,8 +413,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>355</width>
-                <height>912</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -472,8 +472,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>355</width>
-                <height>912</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -531,8 +531,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>355</width>
-                <height>912</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -590,8 +590,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>355</width>
-                <height>912</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -679,7 +679,7 @@
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of fractal in the same way as Julia Set.&lt;/p&gt;&lt;p&gt;When it's enabled then:&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;0&lt;/span&gt; = p&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = f(z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;) + c&lt;/p&gt;&lt;p&gt;where:&lt;br/&gt;p - coordinates of point&lt;br/&gt;c - Julia constant&lt;/p&gt;&lt;p&gt;to compare, regular fractals are calculated in following way:&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;0&lt;/span&gt; = p&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = f(z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;) + p&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
-              <string>Ju&amp;lia mode</string>
+              <string>J&amp;ulia mode</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -2802,12 +2802,6 @@ and water):</string>
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
@@ -2821,6 +2815,12 @@ and water):</string>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>cMaterialSelector</class>
@@ -2847,6 +2847,89 @@ and water):</string>
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget_fractal</tabstop>
+  <tabstop>tabWidget_fractals</tabstop>
+  <tabstop>scrollArea_fractal_1</tabstop>
+  <tabstop>scrollArea_11</tabstop>
+  <tabstop>groupCheck_julia_mode</tabstop>
+  <tabstop>vect3_julia_c_x</tabstop>
+  <tabstop>vect3_julia_c_y</tabstop>
+  <tabstop>vect3_julia_c_z</tabstop>
+  <tabstop>pushButton_get_julia_constant</tabstop>
+  <tabstop>logslider_julia_preview_distance</tabstop>
+  <tabstop>logedit_julia_preview_distance</tabstop>
+  <tabstop>slider_initial_waxis</tabstop>
+  <tabstop>spinbox_initial_waxis</tabstop>
+  <tabstop>slider3_fractal_constant_factor_x</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_x</tabstop>
+  <tabstop>slider3_fractal_constant_factor_y</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_y</tabstop>
+  <tabstop>slider3_fractal_constant_factor_z</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_z</tabstop>
+  <tabstop>vect3_fractal_position_x</tabstop>
+  <tabstop>vect3_fractal_position_y</tabstop>
+  <tabstop>vect3_fractal_position_z</tabstop>
+  <tabstop>dial3_fractal_rotation_x</tabstop>
+  <tabstop>spinboxd3_fractal_rotation_x</tabstop>
+  <tabstop>dial3_fractal_rotation_y</tabstop>
+  <tabstop>spinboxd3_fractal_rotation_y</tabstop>
+  <tabstop>dial3_fractal_rotation_z</tabstop>
+  <tabstop>spinboxd3_fractal_rotation_z</tabstop>
+  <tabstop>vect3_repeat_x</tabstop>
+  <tabstop>vect3_repeat_y</tabstop>
+  <tabstop>vect3_repeat_z</tabstop>
+  <tabstop>checkBox_hybrid_fractal_enable</tabstop>
+  <tabstop>sliderInt_repeat_from</tabstop>
+  <tabstop>spinboxInt_repeat_from</tabstop>
+  <tabstop>groupCheck_boolean_operators</tabstop>
+  <tabstop>comboBox_boolean_operator_1</tabstop>
+  <tabstop>comboBox_boolean_operator_2</tabstop>
+  <tabstop>comboBox_boolean_operator_3</tabstop>
+  <tabstop>comboBox_boolean_operator_4</tabstop>
+  <tabstop>comboBox_boolean_operator_5</tabstop>
+  <tabstop>comboBox_boolean_operator_6</tabstop>
+  <tabstop>comboBox_boolean_operator_7</tabstop>
+  <tabstop>comboBox_boolean_operator_8</tabstop>
+  <tabstop>groupCheck_box_folding</tabstop>
+  <tabstop>slider_box_folding_limit</tabstop>
+  <tabstop>spinbox_box_folding_limit</tabstop>
+  <tabstop>slider_box_folding_value</tabstop>
+  <tabstop>spinbox_box_folding_value</tabstop>
+  <tabstop>groupCheck_spherical_folding</tabstop>
+  <tabstop>slider_spherical_folding_outer</tabstop>
+  <tabstop>spinbox_spherical_folding_outer</tabstop>
+  <tabstop>slider_spherical_folding_inner</tabstop>
+  <tabstop>spinbox_spherical_folding_inner</tabstop>
+  <tabstop>scrollArea_primitives</tabstop>
+  <tabstop>pushButton_add_primitive_rectangle</tabstop>
+  <tabstop>pushButton_add_primitive_circle</tabstop>
+  <tabstop>pushButton_add_primitive_box</tabstop>
+  <tabstop>pushButton_add_primitive_cylinder</tabstop>
+  <tabstop>pushButton_add_primitive_cone</tabstop>
+  <tabstop>pushButton_add_primitive_sphere</tabstop>
+  <tabstop>pushButton_add_primitive_torus</tabstop>
+  <tabstop>pushButton_add_primitive_plane</tabstop>
+  <tabstop>pushButton_add_primitive_water</tabstop>
+  <tabstop>vect3_all_primitives_position_x</tabstop>
+  <tabstop>vect3_all_primitives_position_y</tabstop>
+  <tabstop>vect3_all_primitives_position_z</tabstop>
+  <tabstop>dial3_all_primitives_rotation_x</tabstop>
+  <tabstop>spinboxd3_all_primitives_rotation_x</tabstop>
+  <tabstop>dial3_all_primitives_rotation_y</tabstop>
+  <tabstop>spinboxd3_all_primitives_rotation_y</tabstop>
+  <tabstop>dial3_all_primitives_rotation_z</tabstop>
+  <tabstop>spinboxd3_all_primitives_rotation_z</tabstop>
+  <tabstop>text_description</tabstop>
+  <tabstop>scrollArea_fractal_8</tabstop>
+  <tabstop>scrollArea_fractal_3</tabstop>
+  <tabstop>scrollArea_fractal_6</tabstop>
+  <tabstop>scrollArea_fractal_5</tabstop>
+  <tabstop>scrollArea_fractal_2</tabstop>
+  <tabstop>scrollArea_fractal_4</tabstop>
+  <tabstop>scrollArea_fractal_9</tabstop>
+  <tabstop>scrollArea_fractal_7</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>

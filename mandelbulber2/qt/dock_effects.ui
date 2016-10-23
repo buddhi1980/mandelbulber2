@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>532</width>
-    <height>879</height>
+    <height>1532</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -77,7 +77,7 @@
             <x>0</x>
             <y>0</y>
             <width>495</width>
-            <height>863</height>
+            <height>1516</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -102,7 +102,7 @@
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate calculation of ray-traced reflections and transparency. Reflectance can be set by &lt;span style=&quot; font-style:italic;&quot;&gt;Material/Reflection. &lt;/span&gt;Transparency settings are in the same tab as reflection.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
-              <string>Ray-traced reflections and transparency</string>
+              <string>Ray-&amp;traced reflections and transparency</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -449,7 +449,7 @@ Disables 'Update image' options)</string>
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithm for rendering the depth of field (DOF) effect. This effect is extremely slow for rendering, but gives a very realistic DOF appearance. &lt;/p&gt;&lt;p&gt;Remark: This effect canot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="title">
-                 <string>Monte carlo algorithm</string>
+                 <string>&amp;Monte carlo algorithm</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>
@@ -566,7 +566,7 @@ Disables 'Update image' options)</string>
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings for scattered light effect&lt;/p&gt;&lt;p&gt;Types of ambient occlusion effect:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Multiple rays&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fast&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relatively fast post-effect based on z-Buffer&lt;/p&gt;&lt;p&gt;Multiple rays - based on calculation of rays in different directions. It uses texture to create colored light map. This effect slows down rendering.&lt;/p&gt;&lt;p&gt;Fast - simple and fast method to calculate scattered light effect. This the least accurate effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
-              <string>Ambient occlusion</string>
+              <string>Ambient occl&amp;usion</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -971,7 +971,7 @@ Disables 'Update image' options)</string>
             <x>0</x>
             <y>0</y>
             <width>495</width>
-            <height>863</height>
+            <height>1311</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1442,7 +1442,7 @@ Disables 'Update image' options)</string>
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fog effect, where density of fog is dependent on iteration count of fractal formula. Fog is denser in areas of higher iteration count.&lt;/p&gt;&lt;p&gt;Fog receives shadows and casts shadows on fractal surface and on itself.&lt;/p&gt;&lt;p&gt;Example of fog with additional light sources:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - lights.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
-              <string>Fog based on iteration count</string>
+              <string>Fog based on iteration co&amp;unt</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -1769,7 +1769,7 @@ Disables 'Update image' options)</string>
             <x>0</x>
             <y>0</y>
             <width>495</width>
-            <height>863</height>
+            <height>1311</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -1876,7 +1876,7 @@ Disables 'Update image' options)</string>
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables covering of background sphere with selected image.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - backhround texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
-              <string>Textured background</string>
+              <string>Te&amp;xtured background</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -2065,8 +2065,8 @@ Disables 'Update image' options)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>477</width>
-            <height>1515</height>
+            <width>495</width>
+            <height>1516</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -2144,7 +2144,7 @@ Disables 'Update image' options)</string>
            <item>
             <widget class="MyGroupBox" name="groupCheck_main_light_enable">
              <property name="title">
-              <string>Main light source</string>
+              <string>&amp;Main light source</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -4305,12 +4305,6 @@ Disables 'Update image' options)</string>
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
@@ -4326,6 +4320,12 @@ Disables 'Update image' options)</string>
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>MyColorButton</class>
    <extends>QWidget</extends>
    <header>my_color_button.h</header>
@@ -4336,6 +4336,163 @@ Disables 'Update image' options)</string>
    <header>file_select_widget.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget_effects</tabstop>
+  <tabstop>scrollArea_7</tabstop>
+  <tabstop>groupCheck_raytraced_reflections</tabstop>
+  <tabstop>sliderInt_reflections_max</tabstop>
+  <tabstop>spinboxInt_reflections_max</tabstop>
+  <tabstop>groupCheck_DOF_enabled</tabstop>
+  <tabstop>logslider_DOF_focus</tabstop>
+  <tabstop>logedit_DOF_focus</tabstop>
+  <tabstop>slider_DOF_radius</tabstop>
+  <tabstop>spinbox_DOF_radius</tabstop>
+  <tabstop>sliderInt_DOF_number_of_passes</tabstop>
+  <tabstop>spinboxInt_DOF_number_of_passes</tabstop>
+  <tabstop>slider_DOF_blur_opacity</tabstop>
+  <tabstop>spinbox_DOF_blur_opacity</tabstop>
+  <tabstop>checkBox_DOF_HDR</tabstop>
+  <tabstop>groupCheck_DOF_monte_carlo</tabstop>
+  <tabstop>sliderInt_DOF_samples</tabstop>
+  <tabstop>spinboxInt_DOF_samples</tabstop>
+  <tabstop>pushButton_DOF_update</tabstop>
+  <tabstop>pushButton_DOF_set_focus</tabstop>
+  <tabstop>groupCheck_ambient_occlusion_enabled</tabstop>
+  <tabstop>slider_ambient_occlusion</tabstop>
+  <tabstop>spinbox_ambient_occlusion</tabstop>
+  <tabstop>sliderInt_ambient_occlusion_quality</tabstop>
+  <tabstop>spinboxInt_ambient_occlusion_quality</tabstop>
+  <tabstop>slider_ambient_occlusion_fast_tune</tabstop>
+  <tabstop>spinbox_ambient_occlusion_fast_tune</tabstop>
+  <tabstop>comboBox_ambient_occlusion_mode</tabstop>
+  <tabstop>checkBox_SSAO_random_mode</tabstop>
+  <tabstop>groupCheck_env_mapping_enable</tabstop>
+  <tabstop>groupCheck_basic_fog_enabled</tabstop>
+  <tabstop>logslider_basic_fog_visibility</tabstop>
+  <tabstop>logedit_basic_fog_visibility</tabstop>
+  <tabstop>pushButton_set_fog_by_mouse</tabstop>
+  <tabstop>groupCheck_glow_enabled</tabstop>
+  <tabstop>logslider_glow_intensity</tabstop>
+  <tabstop>logedit_glow_intensity</tabstop>
+  <tabstop>groupCheck_volumetric_fog_enabled</tabstop>
+  <tabstop>button_calculateFog</tabstop>
+  <tabstop>logslider_volumetric_fog_density</tabstop>
+  <tabstop>logedit_volumetric_fog_density</tabstop>
+  <tabstop>logslider_volumetric_fog_colour_1_distance</tabstop>
+  <tabstop>logedit_volumetric_fog_colour_1_distance</tabstop>
+  <tabstop>logslider_volumetric_fog_colour_2_distance</tabstop>
+  <tabstop>logedit_volumetric_fog_colour_2_distance</tabstop>
+  <tabstop>logslider_volumetric_fog_distance_factor</tabstop>
+  <tabstop>logedit_volumetric_fog_distance_factor</tabstop>
+  <tabstop>groupCheck_iteration_fog_enable</tabstop>
+  <tabstop>logslider_iteration_fog_opacity</tabstop>
+  <tabstop>logedit_iteration_fog_opacity</tabstop>
+  <tabstop>slider_iteration_fog_opacity_trim</tabstop>
+  <tabstop>spinbox_iteration_fog_opacity_trim</tabstop>
+  <tabstop>slider_iteration_fog_color_1_maxiter</tabstop>
+  <tabstop>spinbox_iteration_fog_color_1_maxiter</tabstop>
+  <tabstop>slider_iteration_fog_color_2_maxiter</tabstop>
+  <tabstop>spinbox_iteration_fog_color_2_maxiter</tabstop>
+  <tabstop>scrollArea_9</tabstop>
+  <tabstop>groupCheck_textured_background</tabstop>
+  <tabstop>comboBox_textured_background_map_type</tabstop>
+  <tabstop>slider_background_brightness</tabstop>
+  <tabstop>spinbox_background_brightness</tabstop>
+  <tabstop>scrollArea_10</tabstop>
+  <tabstop>checkBox_shadows_enabled</tabstop>
+  <tabstop>checkBox_penetrating_lights</tabstop>
+  <tabstop>groupCheck_main_light_enable</tabstop>
+  <tabstop>slider_main_light_intensity</tabstop>
+  <tabstop>spinbox_main_light_intensity</tabstop>
+  <tabstop>slider_main_light_visibility</tabstop>
+  <tabstop>spinbox_main_light_visibility</tabstop>
+  <tabstop>slider_main_light_visibility_size</tabstop>
+  <tabstop>spinbox_main_light_visibility_size</tabstop>
+  <tabstop>dial_main_light_alpha</tabstop>
+  <tabstop>spinboxd_main_light_alpha</tabstop>
+  <tabstop>dial_main_light_beta</tabstop>
+  <tabstop>spinboxd_main_light_beta</tabstop>
+  <tabstop>slider_shadows_cone_angle</tabstop>
+  <tabstop>spinbox_shadows_cone_angle</tabstop>
+  <tabstop>checkBox_main_light_position_relative</tabstop>
+  <tabstop>groupCheck_aux_light_enabled_1</tabstop>
+  <tabstop>vect3_aux_light_position_1_x</tabstop>
+  <tabstop>vect3_aux_light_position_1_y</tabstop>
+  <tabstop>vect3_aux_light_position_1_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_1</tabstop>
+  <tabstop>logslider_aux_light_intensity_1</tabstop>
+  <tabstop>groupCheck_aux_light_enabled_2</tabstop>
+  <tabstop>vect3_aux_light_position_2_x</tabstop>
+  <tabstop>vect3_aux_light_position_2_y</tabstop>
+  <tabstop>vect3_aux_light_position_2_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_2</tabstop>
+  <tabstop>logslider_aux_light_intensity_2</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_1</tabstop>
+  <tabstop>groupCheck_aux_light_enabled_3</tabstop>
+  <tabstop>vect3_aux_light_position_3_x</tabstop>
+  <tabstop>vect3_aux_light_position_3_y</tabstop>
+  <tabstop>vect3_aux_light_position_3_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_3</tabstop>
+  <tabstop>logslider_aux_light_intensity_3</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_2</tabstop>
+  <tabstop>groupCheck_aux_light_enabled_4</tabstop>
+  <tabstop>vect3_aux_light_position_4_x</tabstop>
+  <tabstop>vect3_aux_light_position_4_y</tabstop>
+  <tabstop>vect3_aux_light_position_4_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_4</tabstop>
+  <tabstop>logslider_aux_light_intensity_4</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_3</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_4</tabstop>
+  <tabstop>logslider_aux_light_visibility</tabstop>
+  <tabstop>logedit_aux_light_visibility</tabstop>
+  <tabstop>logslider_aux_light_visibility_size</tabstop>
+  <tabstop>logedit_aux_light_visibility_size</tabstop>
+  <tabstop>logslider_aux_light_manual_placement_dist</tabstop>
+  <tabstop>logedit_aux_light_manual_placement_dist</tabstop>
+  <tabstop>groupCheck_random_lights_group</tabstop>
+  <tabstop>spinboxInt_random_lights_number</tabstop>
+  <tabstop>spinboxInt_random_lights_random_seed</tabstop>
+  <tabstop>logslider_random_lights_max_distance_from_fractal</tabstop>
+  <tabstop>logedit_random_lights_max_distance_from_fractal</tabstop>
+  <tabstop>logslider_random_lights_distribution_radius</tabstop>
+  <tabstop>logedit_random_lights_distribution_radius</tabstop>
+  <tabstop>vect3_random_lights_distribution_center_x</tabstop>
+  <tabstop>vect3_random_lights_distribution_center_y</tabstop>
+  <tabstop>vect3_random_lights_distribution_center_z</tabstop>
+  <tabstop>pushButton_place_random_lights_by_mouse</tabstop>
+  <tabstop>logslider_random_lights_intensity</tabstop>
+  <tabstop>logedit_random_lights_intensity</tabstop>
+  <tabstop>checkBox_main_light_volumetric_enabled</tabstop>
+  <tabstop>logslider_main_light_volumetric_intensity</tabstop>
+  <tabstop>logedit_main_light_volumetric_intensity</tabstop>
+  <tabstop>checkBox_aux_light_volumetric_enabled_1</tabstop>
+  <tabstop>logslider_aux_light_volumetric_intensity_1</tabstop>
+  <tabstop>logedit_aux_light_volumetric_intensity_1</tabstop>
+  <tabstop>checkBox_aux_light_volumetric_enabled_2</tabstop>
+  <tabstop>logslider_aux_light_volumetric_intensity_2</tabstop>
+  <tabstop>logedit_aux_light_volumetric_intensity_2</tabstop>
+  <tabstop>checkBox_aux_light_volumetric_enabled_3</tabstop>
+  <tabstop>logslider_aux_light_volumetric_intensity_3</tabstop>
+  <tabstop>logedit_aux_light_volumetric_intensity_3</tabstop>
+  <tabstop>checkBox_aux_light_volumetric_enabled_4</tabstop>
+  <tabstop>logslider_aux_light_volumetric_intensity_4</tabstop>
+  <tabstop>logedit_aux_light_volumetric_intensity_4</tabstop>
+  <tabstop>groupCheck_fake_lights_enabled</tabstop>
+  <tabstop>sliderInt_fake_lights_min_iter</tabstop>
+  <tabstop>spinboxInt_fake_lights_min_iter</tabstop>
+  <tabstop>sliderInt_fake_lights_max_iter</tabstop>
+  <tabstop>spinboxInt_fake_lights_max_iter</tabstop>
+  <tabstop>logslider_fake_lights_intensity</tabstop>
+  <tabstop>logedit_fake_lights_intensity</tabstop>
+  <tabstop>logslider_fake_lights_visibility</tabstop>
+  <tabstop>logedit_fake_lights_visibility</tabstop>
+  <tabstop>slider_fake_lights_visibility_size</tabstop>
+  <tabstop>spinbox_fake_lights_visibility_size</tabstop>
+  <tabstop>vect3_fake_lights_orbit_trap_x</tabstop>
+  <tabstop>vect3_fake_lights_orbit_trap_y</tabstop>
+  <tabstop>vect3_fake_lights_orbit_trap_z</tabstop>
+  <tabstop>scrollArea_8</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

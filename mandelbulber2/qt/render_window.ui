@@ -794,7 +794,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>244</width>
+          <width>234</width>
           <height>84</height>
          </rect>
         </property>
@@ -971,7 +971,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>201</height>
+          <height>321</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1372,13 +1372,17 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>scrollArea_2</tabstop>
   <tabstop>scrollAreaForImage</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>scrollArea_2</tabstop>
   <tabstop>scrollArea_5</tabstop>
   <tabstop>scrollArea_3</tabstop>
+  <tabstop>scrollArea_material</tabstop>
   <tabstop>comboBox_image_preview_scale</tabstop>
   <tabstop>checkBox_show_cursor</tabstop>
   <tabstop>comboBox_mouse_click_function</tabstop>
+  <tabstop>scrollArea_12</tabstop>
+  <tabstop>scrollArea_13</tabstop>
  </tabstops>
  <resources>
   <include location="icons.qrc"/>

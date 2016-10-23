@@ -1461,6 +1461,49 @@ to target:</string>
    <header>my_line_edit.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>pushButton_render</tabstop>
+  <tabstop>pushButton_stop</tabstop>
+  <tabstop>pushButton_undo</tabstop>
+  <tabstop>pushButton_redo</tabstop>
+  <tabstop>checkBox_auto_refresh</tabstop>
+  <tabstop>scrollArea_4</tabstop>
+  <tabstop>vect3_camera_x</tabstop>
+  <tabstop>vect3_camera_y</tabstop>
+  <tabstop>vect3_camera_z</tabstop>
+  <tabstop>vect3_target_x</tabstop>
+  <tabstop>vect3_target_y</tabstop>
+  <tabstop>vect3_target_z</tabstop>
+  <tabstop>pushButton_reset_view</tabstop>
+  <tabstop>comboBox_camera_movement_mode</tabstop>
+  <tabstop>logedit_camera_distance_to_target</tabstop>
+  <tabstop>logslider_camera_distance_to_target</tabstop>
+  <tabstop>bu_move_forward</tabstop>
+  <tabstop>bu_move_backward</tabstop>
+  <tabstop>bu_move_up</tabstop>
+  <tabstop>bu_move_left</tabstop>
+  <tabstop>bu_move_down</tabstop>
+  <tabstop>bu_move_right</tabstop>
+  <tabstop>logedit_camera_movement_step</tabstop>
+  <tabstop>logslider_camera_movement_step</tabstop>
+  <tabstop>comboBox_camera_absolute_distance_mode</tabstop>
+  <tabstop>bu_rotate_roll_left</tabstop>
+  <tabstop>bu_rotate_up</tabstop>
+  <tabstop>bu_rotate_roll_right</tabstop>
+  <tabstop>bu_rotate_left</tabstop>
+  <tabstop>bu_rotate_down</tabstop>
+  <tabstop>bu_rotate_right</tabstop>
+  <tabstop>spinbox_camera_rotation_step</tabstop>
+  <tabstop>comboBox_camera_rotation_mode</tabstop>
+  <tabstop>comboBox_camera_straight_rotation</tabstop>
+  <tabstop>vect3_camera_rotation_y</tabstop>
+  <tabstop>vect3_camera_rotation_x</tabstop>
+  <tabstop>vect3_camera_rotation_z</tabstop>
+  <tabstop>dial_sweet_spot_horizontal_angle</tabstop>
+  <tabstop>spinboxd_sweet_spot_horizontal_angle</tabstop>
+  <tabstop>dial_sweet_spot_vertical_angle</tabstop>
+  <tabstop>spinboxd_sweet_spot_vertical_angle</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>

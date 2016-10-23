@@ -1059,8 +1059,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>224</width>
-              <height>263</height>
+              <width>380</width>
+              <height>341</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -1522,6 +1522,66 @@ keyframes</string>
    <header>my_table_widget_keyframes.hpp</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidgetFlightKeyframe</tabstop>
+  <tabstop>pushButton_render_flight</tabstop>
+  <tabstop>pushButton_record_flight</tabstop>
+  <tabstop>pushButton_continue_recording</tabstop>
+  <tabstop>pushButton_show_animation</tabstop>
+  <tabstop>pushButton_delete_all_images</tabstop>
+  <tabstop>pushButton_flight_refresh_table</tabstop>
+  <tabstop>pushButton_flight_to_keyframe_export</tabstop>
+  <tabstop>scrollArea_flyght_animation_parameters</tabstop>
+  <tabstop>logslider_flight_speed</tabstop>
+  <tabstop>logedit_flight_speed</tabstop>
+  <tabstop>slider_flight_inertia</tabstop>
+  <tabstop>spinbox_flight_inertia</tabstop>
+  <tabstop>slider_flight_rotation_speed</tabstop>
+  <tabstop>spinbox_flight_rotation_speed</tabstop>
+  <tabstop>slider_flight_roll_speed</tabstop>
+  <tabstop>spinbox_flight_roll_speed</tabstop>
+  <tabstop>comboBox_flight_speed_control</tabstop>
+  <tabstop>slider_flight_sec_per_frame</tabstop>
+  <tabstop>spinbox_flight_sec_per_frame</tabstop>
+  <tabstop>text_anim_flight_dir</tabstop>
+  <tabstop>button_selectAnimFlightImageDir</tabstop>
+  <tabstop>comboBox_flight_animation_image_type</tabstop>
+  <tabstop>sliderInt_flight_first_to_render</tabstop>
+  <tabstop>spinboxInt_flight_first_to_render</tabstop>
+  <tabstop>sliderInt_flight_last_to_render</tabstop>
+  <tabstop>spinboxInt_flight_last_to_render</tabstop>
+  <tabstop>checkBox_flight_show_thumbnails</tabstop>
+  <tabstop>checkBox_flight_add_speeds</tabstop>
+  <tabstop>pushButton_render_keyframe_animation</tabstop>
+  <tabstop>pushButton_check_for_collisions</tabstop>
+  <tabstop>pushButton_refresh_keyframe_table</tabstop>
+  <tabstop>tableWidget_flightAnimation</tabstop>
+  <tabstop>pushButton_insert_keyframe</tabstop>
+  <tabstop>pushButton_add_keyframe</tabstop>
+  <tabstop>pushButton_delete_keyframe</tabstop>
+  <tabstop>pushButton_modify_keyframe</tabstop>
+  <tabstop>pushButton_show_keyframe_animation</tabstop>
+  <tabstop>pushButton_delete_all_keyframe_images</tabstop>
+  <tabstop>pushButton_keyframe_to_flight_export</tabstop>
+  <tabstop>scrollArea_keyframe_animation_parameters</tabstop>
+  <tabstop>sliderInt_frames_per_keyframe</tabstop>
+  <tabstop>spinboxInt_frames_per_keyframe</tabstop>
+  <tabstop>logslider_keyframe_collision_thresh</tabstop>
+  <tabstop>logedit_keyframe_collision_thresh</tabstop>
+  <tabstop>text_anim_keyframe_dir</tabstop>
+  <tabstop>button_selectAnimKeyframeImageDir</tabstop>
+  <tabstop>comboBox_keyframe_animation_image_type</tabstop>
+  <tabstop>sliderInt_keyframe_first_to_render</tabstop>
+  <tabstop>spinboxInt_keyframe_first_to_render</tabstop>
+  <tabstop>sliderInt_keyframe_last_to_render</tabstop>
+  <tabstop>spinboxInt_keyframe_last_to_render</tabstop>
+  <tabstop>checkBox_show_keyframe_thumbnails</tabstop>
+  <tabstop>checkBox_keyframe_auto_validate</tabstop>
+  <tabstop>pushButton_set_constant_target_distance</tabstop>
+  <tabstop>logslider_keyframe_constant_target_distance</tabstop>
+  <tabstop>logedit_keyframe_constant_target_distance</tabstop>
+  <tabstop>tableWidget_keyframe_animation</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>

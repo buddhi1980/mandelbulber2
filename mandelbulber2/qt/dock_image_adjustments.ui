@@ -1066,12 +1066,6 @@ no ambient occlusion)</string>
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
@@ -1086,7 +1080,55 @@ no ambient occlusion)</string>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
   </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>sliderInt_image_width</tabstop>
+  <tabstop>spinboxInt_image_width</tabstop>
+  <tabstop>sliderInt_image_height</tabstop>
+  <tabstop>spinboxInt_image_height</tabstop>
+  <tabstop>comboBox_image_proportion</tabstop>
+  <tabstop>pushButton_imagesize_increase</tabstop>
+  <tabstop>pushButton_imagesize_decrease</tabstop>
+  <tabstop>checkBox_connect_detail_level</tabstop>
+  <tabstop>pushButton_resolution_preset_480</tabstop>
+  <tabstop>pushButton_resolution_preset_720</tabstop>
+  <tabstop>pushButton_resolution_preset_1080</tabstop>
+  <tabstop>pushButton_resolution_preset_1440</tabstop>
+  <tabstop>pushButton_resolution_preset_2160</tabstop>
+  <tabstop>pushButton_resolution_preset_4320</tabstop>
+  <tabstop>pushButton_resolution_preset_240</tabstop>
+  <tabstop>pushButton_resolution_preset_600</tabstop>
+  <tabstop>pushButton_resolution_preset_1200</tabstop>
+  <tabstop>groupCheck_stereo_enabled</tabstop>
+  <tabstop>comboBox_stereo_mode</tabstop>
+  <tabstop>logslider_stereo_eye_distance</tabstop>
+  <tabstop>logedit_stereo_eye_distance</tabstop>
+  <tabstop>slider_stereo_infinite_correction</tabstop>
+  <tabstop>spinbox_stereo_infinite_correction</tabstop>
+  <tabstop>checkBox_stereo_swap_eyes</tabstop>
+  <tabstop>pushButton_quality_preset_very_low</tabstop>
+  <tabstop>pushButton_quality_preset_low</tabstop>
+  <tabstop>pushButton_quality_preset_normal</tabstop>
+  <tabstop>pushButton_quality_preset_high</tabstop>
+  <tabstop>slider_brightness</tabstop>
+  <tabstop>spinbox_brightness</tabstop>
+  <tabstop>slider_contrast</tabstop>
+  <tabstop>spinbox_contrast</tabstop>
+  <tabstop>slider_gamma</tabstop>
+  <tabstop>spinbox_gamma</tabstop>
+  <tabstop>checkBox_hdr</tabstop>
+  <tabstop>pushButton_apply_image_changes</tabstop>
+  <tabstop>slider_fov</tabstop>
+  <tabstop>spinbox_fov</tabstop>
+  <tabstop>comboBox_perspective_type</tabstop>
+  <tabstop>checkBox_legacy_coordinate_system</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
