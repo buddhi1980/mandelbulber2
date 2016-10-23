@@ -42,6 +42,7 @@
 #include "../src/fractal_container.hpp"
 #include "../src/parameters.hpp"
 #include "../src/synchronize_interface.hpp"
+#include "tab_fractal.h"
 
 namespace Ui
 {
@@ -57,7 +58,9 @@ public:
 
 	void InitializeFractalUi(QString &uiFileName);
 	bool AreHybridFractalsEnabled();
+	bool AreBooleanFractalsEnabled();
 	void EnableJuliaMode();
+	void SetTabText(int tabIndex, QString text);
 	void SynchronizeInterfaceFractals(
 		cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode);
 	void SynchronizeInterfaceJulia();
@@ -75,24 +78,14 @@ private slots:
 	void slotChangedCheckBoxBooleanOperators(bool state);
 	void slotChangedCheckBoxJuliaMode(bool state);
 	void slotToggledFractalEnable(int fractalIndex, bool enabled);
-	void slotChangedComboFractal(int index);
 	void slotFractalSwap(int swapA, int swapB);
-	void slotPressedButtonResetFormula();
-
-	// IFS
-	void slotPressedButtonIFSDefaultsDodecahedron();
-	void slotPressedButtonIFSDefaultsIcosahedron();
-	void slotPressedButtonIFSDefaultsOctahedron();
-	void slotPressedButtonIFSDefaultsMengerSponge();
-	void slotPressedButtonIFSDefaultsReset();
 
 private:
 	void ConnectSignals();
 	Ui::cDockFractal *ui;
 
 	cAutomatedWidgets *automatedWidgets;
-
-	QWidget **fractalWidgets;
+	cTabFractal **fractalTabs;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_FRACTAL_H_ */

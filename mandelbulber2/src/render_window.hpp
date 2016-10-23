@@ -157,6 +157,7 @@ signals:
 	friend class cDockFractal;
 	friend class cDockStatistics;
 	friend class cDockMeasurements;
+	friend class cTabFractal;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */
