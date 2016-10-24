@@ -166,6 +166,8 @@ private:
 
 	cInterface *mainInterface;
 	Ui::cDockQueue *ui;
+	RenderedImage *renderedImageWidget;
+
 	cImage *image;
 
 	QFileSystemWatcher queueFileWatcher;
