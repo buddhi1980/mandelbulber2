@@ -71,7 +71,9 @@ public:
 		cliErrorKeyframeNoFrames = -40,
 		cliErrorKeyframeStartFrameOutOfRange = -41,
 		cliErrorKeyframeEndFrameSmallerStartFrame = -42,
-		cliErrorKeyframeEndFrameOutOfRange = -43
+		cliErrorKeyframeEndFrameOutOfRange = -43,
+
+		cliErrorVoxelOutputFolderDoesNotExists = -50
 	};
 
 	void ReadCLI(void);
@@ -79,6 +81,28 @@ public:
 	bool isNoGUI(void) { return cliData.nogui; }
 
 private:
+	// ## helper methods for ReadCLI
+	// arguments to cause print and exit
+	void printExampleHelpAndExit();
+	void printInputHelpAndExit();
+	void printParametersAndExit();
+	void runTestCasesAndExit();
+
+	// argument handling methods
+	void handleServer();
+	void handleClient();
+	void handleQueue();
+	void handleArgs();
+	void handleOverrideParameters();
+	void handleResolution();
+	void handleFpk();
+	void handleImageFileFormat();
+	void handleFlight();
+	void handleKeyframe();
+	void handleStartFrame();
+	void handleEndFrame();
+	void handleVoxel();
+
 	struct sCliData
 	{
 		bool nogui;
@@ -107,6 +131,7 @@ private:
 	QCommandLineParser parser;
 	QStringList args;
 	cliTODOMode cliTODO;
+	bool settingsSpecified;
 };
 
 #endif /* MANDELBULBER2_SRC_COMMAND_LINE_INTERFACE_HPP_ */

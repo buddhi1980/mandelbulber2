@@ -239,555 +239,66 @@ cCommandLineInterface::~cCommandLineInterface()
 {
 }
 
-void cCommandLineInterface::ReadCLI()
+void cCommandLineInterface::ReadCLI(void)
 {
-	bool checkParse = true;
-	bool settingsSpecified = false;
-	QTextStream out(stdout);
+	settingsSpecified = false;
 
-	// show input help only
-	if (cliData.showExampleHelp)
-	{
-		out << cHeadless::colorize(QObject::tr("Some useful example commands:"), cHeadless::ansiRed)
-				<< "\n\n";
-
-		out << cHeadless::colorize(QObject::tr("Simple render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize("mandelbulber2 -n path/to/fractal.fract", cHeadless::ansiYellow)
-				<< "\n";
-		out << QObject::tr("Renders the file on the cli (no window required).") << "\n\n";
-
-		out << cHeadless::colorize(QObject::tr("Animation render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize("mandelbulber2 -n -K -s 200 -e 300 path/to/keyframe_fractal.fract",
-						 cHeadless::ansiYellow)
-				<< "\n";
-		out << QObject::tr(
-						 "Renders the keyframe animation of the file keyframe_fractal.fract "
-						 "within frames 200 till 300.")
-				<< "\n\n";
-
-		out << cHeadless::colorize(QObject::tr("Network render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize("mandelbulber2 -n --host 192.168.100.1", cHeadless::ansiYellow)
-				<< cHeadless::colorize(" # (1) client", cHeadless::ansiGreen) << "\n";
-		out << cHeadless::colorize(
-						 "mandelbulber2 -n --server path/to/fractal.fract", cHeadless::ansiYellow)
-				<< cHeadless::colorize(" # (2) server", cHeadless::ansiGreen) << "\n";
-		out << QObject::tr(
-						 "In a network you can render on multiple machines. One is a server (2) and multiple "
-						 "clients (1) can connect to help rendering.\n"
-						 "On each client run (1), 192.168.100.1 should be substituted with the IP address of "
-						 "the server.\nOn the server run (2) with the settings required for the render and "
-						 "additionally '--server'.\nThe server will start and wait a short time for the "
-						 "clients to connect. Then the whole system will start rendering.")
-				<< "\n\n";
-
-		out << cHeadless::colorize(QObject::tr("Voxel volume render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize(
-						 "mandelbulber2 --voxel -n path/to/voxel_fractal.fract"
-						 " -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 "
-						 "1#voxel_samples_x=10#voxel_samples_y=10#voxel_samples_z=10'",
-						 cHeadless::ansiYellow)
-				<< "\n";
-		out << QObject::tr(
-						 "Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] "
-						 "with a resolution of 10x10x10.\nThis will produce 10 slices (z) with a resolution "
-						 "of 10(x) times 10(y) and save as black and white images to working folder/slices.")
-				<< "\n\n";
-
-		out << cHeadless::colorize(QObject::tr("Queue render"), cHeadless::ansiBlue) << "\n";
-		out << cHeadless::colorize(
-						 "nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow)
-				<< "\n";
-		out << QObject::tr(
-						 "Runs the mandelbulber instance in queue mode and daemonizes it.\n"
-						 "Mandelbulber runs in background and waits for jobs.\n"
-						 "The output will be written to /tmp/queue.log.\n"
-						 "(will not work under Windows)")
-				<< "\n\n";
-
-		out.flush();
-		exit(0);
-	}
 	// show example help only
-	if (cliData.showInputHelp)
-	{
-		out << QObject::tr(
-			"Mandelbulber also accepts an arbitrary number of input files\n"
-			"These files can be of type:\n"
-			"  .fract File - An ordinary fractal file\n"
-			"  .fractlist File - A queue file, all entries inside the queue file will be added to the "
-			"current queue\n"
-			"  Folder - if the specified argument is a folder all .fract files inside the folder will be "
-			"added to the queue\n"
-			"You can also use \"-\" as a special argument to indicate that the filename, or the whole "
-			"file contents are specified in stdin, example: cat example.fract | mandelbulber2 -\n");
-		out.flush();
-		exit(0);
-	}
-
+	if (cliData.showExampleHelp) printExampleHelpAndExit();
+	// show input help only
+	if (cliData.showInputHelp) printInputHelpAndExit();
 	// list parameters only
-	if (cliData.listParameters)
-	{
-		InitMaterialParams(1, gPar);
-		QList<QString> listOfParameters = gPar->GetListOfParameters();
-		out << cHeadless::colorize(
-			"\nList of main parameters:\n", cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
-		out << "KEY=VALUE\n";
-		for (int i = 0; i < listOfParameters.size(); i++)
-		{
-			QString parameterName = listOfParameters.at(i);
-			QString defaultValue = gPar->GetDefault<QString>(parameterName);
-			out << parameterName + "=" + defaultValue + "\n";
-		}
-
-		QList<QString> listOfFractalParameters = gParFractal->at(0).GetListOfParameters();
-		out << cHeadless::colorize(QObject::tr("\nList of fractal parameters:\n"),
-			cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
-
-		for (int i = 0; i < listOfFractalParameters.size(); i++)
-		{
-			QString parameterName = listOfFractalParameters.at(i);
-			QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
-			out << parameterName + "=" + defaultValue + "\n";
-		}
-
-		out.flush();
-		exit(0);
-	}
+	if (cliData.listParameters) printParametersAndExit();
 
 	// run test cases
-	if (cliData.test)
-	{
-		QStringList arguments = gApplication->arguments();
-		arguments.removeOne(QString("--test"));
-		arguments.removeOne(QString("-t"));
-
-		int status = 0;
-		Test test;
-		status |= QTest::qExec(&test, arguments);
-		exit(status);
-	}
+	if (cliData.test) runTestCasesAndExit();
 
 	// check netrender server / client
 	if (cliData.server)
-	{
-		int port = gPar->Get<int>("netrender_server_local_port");
-
-		if (cliData.portText != "")
-		{
-			port = cliData.portText.toInt(&checkParse);
-			if (!checkParse || port <= 0)
-			{
-				cErrorMessage::showMessage(
-					QObject::tr("Specified server port is invalid\n"), cErrorMessage::errorMessage);
-				parser.showHelp(cliErrorServerInvalidPort);
-			}
-			gPar->Set("netrender_server_local_port", port);
-		}
-		cliData.nogui = true;
-		systemData.noGui = true;
-		gNetRender->SetServer(gPar->Get<int>("netrender_server_local_port"));
-		QElapsedTimer timer;
-		timer.start();
-
-		if (systemData.noGui)
-		{
-			out << QObject::tr("NetRender - Waiting for clients\n");
-			out.flush();
-		}
-
-		while (timer.elapsed() < 5000)
-		{
-			gApplication->processEvents();
-		}
-	}
+		handleServer();
 	else if (cliData.host != "")
 	{
-		int port = gPar->Get<int>("netrender_client_remote_port");
-		gPar->Set("netrender_client_remote_address", cliData.host);
-		if (cliData.portText != "")
-		{
-			port = cliData.portText.toInt(&checkParse);
-			if (!checkParse || port <= 0)
-			{
-				cErrorMessage::showMessage(
-					QObject::tr("Specified client port is invalid\n"), cErrorMessage::errorMessage);
-				parser.showHelp(cliErrorClientInvalidPort);
-			}
-			gPar->Set("netrender_client_remote_port", port);
-		}
-		cliData.nogui = true;
-		systemData.noGui = true;
-		cliTODO = modeNetrender;
+		handleClient();
 		return;
 	}
 
 	if (cliData.queue)
-	{
-		cliTODO = modeQueue;
-		settingsSpecified = true;
-		cliData.nogui = true;
-		systemData.noGui = true;
-		try
-		{
-			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
-				systemData.dataDirectory + "queue", NULL);
-		}
-		catch (QString &ex)
-		{
-			cErrorMessage::showMessage(
-				QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
-			parser.showHelp(cliErrorQueueInit);
-		}
-	}
+		handleQueue();
 	else
-	{
-		if (args.size() > 0)
-		{
-			// file specified -> load it
-			if (args.size() == 1 && QFileInfo(args[0]).suffix() != QString("fractlist")
-					&& !QDir(args[0]).exists())
-			{
-				QString filename = args[0];
-				cSettings parSettings(cSettings::formatFullText);
-				if (!QFile::exists(filename))
-				{
-					// try to find settings in default settings path
-					filename = systemData.dataDirectory + "settings" + QDir::separator() + filename;
-				}
-				if (QFile::exists(filename))
-				{
-					parSettings.LoadFromFile(filename);
-					parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-					settingsSpecified = true;
-					systemData.lastSettingsFile = filename;
-					systemData.settingsLoadedFromCLI = true;
-					if (cliData.touch)
-					{
-						parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
-						parSettings.SaveToFile(filename);
-						qDebug() << "touched file: " << filename;
-						exit(0);
-					}
-				}
-				else if (parSettings.LoadFromString(args[0]))
-				{
-					// the whole settings file is specified as an argument from stdin
-					parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-					settingsSpecified = true;
-					systemData.lastSettingsFile = "from stdin";
-					systemData.settingsLoadedFromCLI = true;
-				}
-				else
-				{
-					cErrorMessage::showMessage(
-						QObject::tr("Cannot load file!\n"), cErrorMessage::errorMessage);
-					qCritical() << "\nSetting file " << filename << " not found\n";
-					parser.showHelp(cliErrorLoadSettingsFile);
-				}
-			}
-			else
-			{
-				// queue render
-				cliTODO = modeQueue;
-				cliData.nogui = true;
-				systemData.noGui = true;
-				try
-				{
-					gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
-						systemData.dataDirectory + "queue", NULL);
-				}
-				catch (QString &ex)
-				{
-					cErrorMessage::showMessage(
-						QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
-					parser.showHelp(cliErrorQueueInit);
-				}
-				for (int i = 0; i < args.size(); i++)
-				{
-					QString filename = args[i];
-					if (QDir(args[i]).exists())
-					{
-						// specified input is a folder, load all fractal files contained in this folder
-						gQueue->AppendFolder(filename);
-						settingsSpecified = true;
-					}
-					else if (QFileInfo(filename).suffix() == QString("fractlist"))
-					{
-						// specified input is a queue list file, append all entries to the current queue
-						gQueue->AppendList(filename);
-						settingsSpecified = true;
-					}
-					else
-					{
-						// specified input can only be an ordinary fract file, try to append to queuelist
-						gQueue->Append(filename);
-						settingsSpecified = true;
-					}
-				}
-			}
-		}
-	}
+		handleArgs();
 
 	// overwriting parameters
-	if (cliData.overrideParametersText != "")
-	{
-		QStringList overrideParameters =
-			cliData.overrideParametersText.split("#", QString::SkipEmptyParts);
-		for (int i = 0; i < overrideParameters.size(); i++)
-		{
-			int fractalIndex = -1;
-			QRegularExpression reType("^fractal([0-9]+)_(.*)$");
-			QRegularExpressionMatch matchType = reType.match(overrideParameters[i]);
-			if (matchType.hasMatch())
-			{
-				fractalIndex = matchType.captured(1).toInt() - 1;
-				overrideParameters[i] = matchType.captured(2);
-			}
-			QStringList overrideParameter = overrideParameters[i].split(QRegExp("\\="));
-			if (overrideParameter.size() == 2)
-			{
-				if (fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS)
-				{
-					gParFractal->at(fractalIndex)
-						.Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
-				}
-				else
-				{
-					gPar->Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
-				}
-			}
-		}
-	}
+	if (cliData.overrideParametersText != "") handleOverrideParameters();
 
 	// specified resolution
-	if (cliData.resolution != "")
-	{
-		QStringList resolutionParameters = cliData.resolution.split(QRegExp("x"));
-		if (resolutionParameters.size() == 2)
-		{
-			int xRes = resolutionParameters[0].toInt(&checkParse);
-			int yRes = resolutionParameters[1].toInt(&checkParse);
-			if (!checkParse || xRes <= 0 || yRes <= 0)
-			{
-				cErrorMessage::showMessage(QObject::tr("Specified resolution not valid\n"
-																							 "both dimensions need to be > 0"),
-					cErrorMessage::errorMessage);
-				parser.showHelp(cliErrorResolutionInvalid);
-			}
-			gPar->Set("image_width", xRes);
-			gPar->Set("image_height", yRes);
-		}
-		else
-		{
-			cErrorMessage::showMessage(QObject::tr("Specified resolution not valid\n"
-																						 "resolution has to be in the form WIDTHxHEIGHT"),
-				cErrorMessage::errorMessage);
-			parser.showHelp(cliErrorResolutionInvalid);
-		}
-	}
+	if (cliData.resolution != "") handleResolution();
 
 	// specified frames per keyframe
-	if (cliData.fpkText != "")
-	{
-		int fpk = cliData.fpkText.toInt(&checkParse);
-		if (!checkParse || fpk <= 0)
-		{
-			cErrorMessage::showMessage(QObject::tr("Specified frames per key not valid\n"
-																						 "need to be > 0"),
-				cErrorMessage::errorMessage);
-			parser.showHelp(cliErrorFPKInvalid);
-		}
-		gPar->Set("frames_per_keyframe", fpk);
-	}
+	if (cliData.fpkText != "") handleFpk();
 
 	// specified image file format
 	if (cliData.imageFileFormat != "")
-	{
-		QStringList allowedImageFileFormat({"jpg", "png", "png16", "png16alpha", "exr", "tiff"});
-		if (!allowedImageFileFormat.contains(cliData.imageFileFormat))
-		{
-			cErrorMessage::showMessage(QObject::tr("Specified imageFileFormat is not valid\n"
-																						 "allowed formats are: ")
-																	 + allowedImageFileFormat.join(", "),
-				cErrorMessage::errorMessage);
-			parser.showHelp(cliErrorImageFileFormatInvalid);
-		}
-	}
+		handleImageFileFormat();
 	else
-	{
 		cliData.imageFileFormat = "jpg";
-	}
 
 	// silent mode
-	if (cliData.silent)
-	{
-		systemData.silent = true;
-	}
+	if (cliData.silent) systemData.silent = true;
 
 	// flight animation
-	if (cliData.flight)
-	{
-		if (gAnimFrames->GetNumberOfFrames() > 0)
-		{
-			cliTODO = modeFlight;
-			cliData.nogui = true;
-			systemData.noGui = true;
-		}
-		else
-		{
-			cErrorMessage::showMessage(
-				QObject::tr("There are no flight animation frames in specified settings file"),
-				cErrorMessage::errorMessage);
-			parser.showHelp(cliErrorFlightNoFrames);
-		}
-	}
+	if (cliData.flight) handleFlight();
 
 	// keyframe animation
-	if (cliData.keyframe)
-	{
-		if (cliTODO == modeFlight)
-		{
-			cErrorMessage::showMessage(
-				QObject::tr("You cannot render keyframe animation at the same time as flight animation"),
-				cErrorMessage::errorMessage);
-		}
-		else
-		{
-			if (gKeyframes->GetNumberOfFrames() > 0)
-			{
-				cliTODO = modeKeyframe;
-				cliData.nogui = true;
-				systemData.noGui = true;
-			}
-			else
-			{
-				cErrorMessage::showMessage(QObject::tr("There are no keyframes in specified settings file"),
-					cErrorMessage::errorMessage);
-				parser.showHelp(cliErrorKeyframeNoFrames);
-			}
-		}
-	}
+	if (cliData.keyframe) handleKeyframe();
 
 	// start frame of animation
-	if (cliData.startFrameText != "")
-	{
-		int startFrame = cliData.startFrameText.toInt(&checkParse);
-		if (cliTODO == modeFlight)
-		{
-			if (startFrame <= gAnimFrames->GetNumberOfFrames())
-			{
-				gPar->Set("flight_first_to_render", startFrame);
-			}
-			else
-			{
-				cErrorMessage::showMessage(
-					QObject::tr("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()),
-					cErrorMessage::errorMessage);
-				parser.showHelp(cliErrorFlightStartFrameOutOfRange);
-			}
-		}
-
-		if (cliTODO == modeKeyframe)
-		{
-			int numberOfFrames =
-				(gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
-			if (numberOfFrames < 0) numberOfFrames = 0;
-
-			if (startFrame <= numberOfFrames)
-			{
-				gPar->Set("keyframe_first_to_render", startFrame);
-			}
-			else
-			{
-				cErrorMessage::showMessage(QObject::tr("Animation has only %1 frames").arg(numberOfFrames),
-					cErrorMessage::errorMessage);
-				parser.showHelp(cliErrorKeyframeStartFrameOutOfRange);
-			}
-		}
-	}
+	if (cliData.startFrameText != "") handleStartFrame();
 
 	// end frame of animation
-	if (cliData.endFrameText != "")
-	{
-		int endFrame = cliData.endFrameText.toInt(&checkParse);
-		if (cliTODO == modeFlight)
-		{
-			if (endFrame <= gAnimFrames->GetNumberOfFrames())
-			{
-				if (endFrame > gPar->Get<int>("flight_first_to_render"))
-				{
-					gPar->Set("flight_last_to_render", endFrame);
-				}
-				else
-				{
-					cErrorMessage::showMessage(
-						QObject::tr("End frame has to be greater than start frame which is %1")
-							.arg(gPar->Get<int>("flight_first_to_render")),
-						cErrorMessage::errorMessage);
-					parser.showHelp(cliErrorFlightEndFrameSmallerStartFrame);
-				}
-			}
-			else
-			{
-				cErrorMessage::showMessage(
-					QObject::tr("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()),
-					cErrorMessage::errorMessage);
-				parser.showHelp(cliErrorFlightEndFrameOutOfRange);
-			}
-		}
-
-		if (cliTODO == modeKeyframe)
-		{
-			int numberOfFrames =
-				(gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
-			if (numberOfFrames < 0) numberOfFrames = 0;
-
-			if (endFrame <= numberOfFrames)
-			{
-				if (endFrame > gPar->Get<int>("keyframe_first_to_render"))
-				{
-					gPar->Set("keyframe_last_to_render", endFrame);
-				}
-				else
-				{
-					cErrorMessage::showMessage(
-						QObject::tr("End frame has to be greater than start frame which is %1")
-							.arg(gPar->Get<int>("keyframe_first_to_render")),
-						cErrorMessage::errorMessage);
-					parser.showHelp(cliErrorKeyframeEndFrameSmallerStartFrame);
-				}
-			}
-			else
-			{
-				cErrorMessage::showMessage(QObject::tr("Animation has only %1 frames").arg(numberOfFrames),
-					cErrorMessage::errorMessage);
-				parser.showHelp(cliErrorKeyframeEndFrameOutOfRange);
-			}
-		}
-	}
+	if (cliData.endFrameText != "") handleEndFrame();
 
 	// voxel export
-	if (cliData.voxel)
-	{
-		QString folderString = gPar->Get<QString>("voxel_image_path");
-		QDir folder(folderString);
-		if (!folder.exists())
-		{
-			cErrorMessage::showMessage(
-				QObject::tr("Cannot start voxel export. Specified folder (%1) does not exist.")
-					.arg(folderString),
-				cErrorMessage::errorMessage);
-
-			cErrorMessage::showMessage(
-				QObject::tr("End frame has to be greater than start frame which is %1")
-					.arg(gPar->Get<int>("flight_first_to_render")),
-				cErrorMessage::errorMessage);
-			parser.showHelp(cliErrorFlightEndFrameSmallerStartFrame);
-		}
-		cliTODO = modeVoxel;
-		cliData.nogui = true;
-		systemData.noGui = true;
-	}
+	if (cliData.voxel) handleVoxel();
 
 	// folder for animation frames
 	if (cliData.outputText != "" && cliTODO == modeFlight)
@@ -868,4 +379,528 @@ void cCommandLineInterface::ProcessCLI(void)
 			break;
 		}
 	}
+}
+
+void cCommandLineInterface::printExampleHelpAndExit()
+{
+	QTextStream out(stdout);
+	out << cHeadless::colorize(QObject::tr("Some useful example commands:"), cHeadless::ansiRed)
+			<< "\n\n";
+
+	out << cHeadless::colorize(QObject::tr("Simple render"), cHeadless::ansiBlue) << "\n";
+	out << cHeadless::colorize("mandelbulber2 -n path/to/fractal.fract", cHeadless::ansiYellow)
+			<< "\n";
+	out << QObject::tr("Renders the file on the cli (no window required).") << "\n\n";
+
+	out << cHeadless::colorize(QObject::tr("Animation render"), cHeadless::ansiBlue) << "\n";
+	out << cHeadless::colorize("mandelbulber2 -n -K -s 200 -e 300 path/to/keyframe_fractal.fract",
+					 cHeadless::ansiYellow)
+			<< "\n";
+	out << QObject::tr(
+					 "Renders the keyframe animation of the file keyframe_fractal.fract "
+					 "within frames 200 till 300.")
+			<< "\n\n";
+
+	out << cHeadless::colorize(QObject::tr("Network render"), cHeadless::ansiBlue) << "\n";
+	out << cHeadless::colorize("mandelbulber2 -n --host 192.168.100.1", cHeadless::ansiYellow)
+			<< cHeadless::colorize(" # (1) client", cHeadless::ansiGreen) << "\n";
+	out << cHeadless::colorize(
+					 "mandelbulber2 -n --server path/to/fractal.fract", cHeadless::ansiYellow)
+			<< cHeadless::colorize(" # (2) server", cHeadless::ansiGreen) << "\n";
+	out << QObject::tr(
+					 "In a network you can render on multiple machines. One is a server (2) and multiple "
+					 "clients (1) can connect to help rendering.\n"
+					 "On each client run (1), 192.168.100.1 should be substituted with the IP address of "
+					 "the server.\nOn the server run (2) with the settings required for the render and "
+					 "additionally '--server'.\nThe server will start and wait a short time for the "
+					 "clients to connect. Then the whole system will start rendering.")
+			<< "\n\n";
+
+	out << cHeadless::colorize(QObject::tr("Voxel volume render"), cHeadless::ansiBlue) << "\n";
+	out << cHeadless::colorize(
+					 "mandelbulber2 --voxel -n path/to/voxel_fractal.fract"
+					 " -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 "
+					 "1#voxel_samples_x=10#voxel_samples_y=10#voxel_samples_z=10'",
+					 cHeadless::ansiYellow)
+			<< "\n";
+	out << QObject::tr(
+					 "Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] "
+					 "with a resolution of 10x10x10.\nThis will produce 10 slices (z) with a resolution "
+					 "of 10(x) times 10(y) and save as black and white images to working folder/slices.")
+			<< "\n\n";
+
+	out << cHeadless::colorize(QObject::tr("Queue render"), cHeadless::ansiBlue) << "\n";
+	out << cHeadless::colorize(
+					 "nohup mandelbulber2 -q > /tmp/queue.log 2>&1 &", cHeadless::ansiYellow)
+			<< "\n";
+	out << QObject::tr(
+					 "Runs the mandelbulber instance in queue mode and daemonizes it.\n"
+					 "Mandelbulber runs in background and waits for jobs.\n"
+					 "The output will be written to /tmp/queue.log.\n"
+					 "(will not work under Windows)")
+			<< "\n\n";
+
+	out.flush();
+	exit(0);
+}
+
+void cCommandLineInterface::printInputHelpAndExit()
+{
+	QTextStream out(stdout);
+	out << QObject::tr(
+		"Mandelbulber also accepts an arbitrary number of input files\n"
+		"These files can be of type:\n"
+		"  .fract File - An ordinary fractal file\n"
+		"  .fractlist File - A queue file, all entries inside the queue file will be added to the "
+		"current queue\n"
+		"  Folder - if the specified argument is a folder all .fract files inside the folder will be "
+		"added to the queue\n"
+		"You can also use \"-\" as a special argument to indicate that the filename, or the whole "
+		"file contents are specified in stdin, example: cat example.fract | mandelbulber2 -\n");
+	out.flush();
+	exit(0);
+}
+
+void cCommandLineInterface::printParametersAndExit()
+{
+	QTextStream out(stdout);
+	InitMaterialParams(1, gPar);
+	QList<QString> listOfParameters = gPar->GetListOfParameters();
+	out << cHeadless::colorize(
+		"\nList of main parameters:\n", cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
+	out << "KEY=VALUE\n";
+	for (int i = 0; i < listOfParameters.size(); i++)
+	{
+		QString parameterName = listOfParameters.at(i);
+		QString defaultValue = gPar->GetDefault<QString>(parameterName);
+		out << parameterName + "=" + defaultValue + "\n";
+	}
+
+	QList<QString> listOfFractalParameters = gParFractal->at(0).GetListOfParameters();
+	out << cHeadless::colorize(QObject::tr("\nList of fractal parameters:\n"), cHeadless::ansiYellow,
+		cHeadless::noExplicitColor, true);
+
+	for (int i = 0; i < listOfFractalParameters.size(); i++)
+	{
+		QString parameterName = listOfFractalParameters.at(i);
+		QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
+		out << parameterName + "=" + defaultValue + "\n";
+	}
+
+	out.flush();
+	exit(0);
+}
+
+void cCommandLineInterface::runTestCasesAndExit()
+{
+	QStringList arguments = gApplication->arguments();
+	arguments.removeOne(QString("--test"));
+	arguments.removeOne(QString("-t"));
+
+	int status = 0;
+	Test test;
+	status |= QTest::qExec(&test, arguments);
+	exit(status);
+}
+
+void cCommandLineInterface::handleServer()
+{
+	QTextStream out(stdout);
+	bool checkParse = true;
+	int port = gPar->Get<int>("netrender_server_local_port");
+	if (cliData.portText != "")
+	{
+		port = cliData.portText.toInt(&checkParse);
+		if (!checkParse || port <= 0)
+		{
+			cErrorMessage::showMessage(
+				QObject::tr("Specified server port is invalid\n"), cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorServerInvalidPort);
+		}
+		gPar->Set("netrender_server_local_port", port);
+	}
+	cliData.nogui = true;
+	systemData.noGui = true;
+	gNetRender->SetServer(gPar->Get<int>("netrender_server_local_port"));
+	QElapsedTimer timer;
+	timer.start();
+
+	if (systemData.noGui)
+	{
+		out << QObject::tr("NetRender - Waiting for clients\n");
+		out.flush();
+	}
+
+	while (timer.elapsed() < 5000)
+	{
+		gApplication->processEvents();
+	}
+}
+
+void cCommandLineInterface::handleClient()
+{
+	bool checkParse = true;
+	gPar->Set("netrender_client_remote_address", cliData.host);
+	if (cliData.portText != "")
+	{
+		int port = cliData.portText.toInt(&checkParse);
+		if (!checkParse || port <= 0)
+		{
+			cErrorMessage::showMessage(
+				QObject::tr("Specified client port is invalid\n"), cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorClientInvalidPort);
+		}
+		gPar->Set("netrender_client_remote_port", port);
+	}
+	cliData.nogui = true;
+	systemData.noGui = true;
+	cliTODO = modeNetrender;
+}
+
+void cCommandLineInterface::handleQueue()
+{
+	cliTODO = modeQueue;
+	settingsSpecified = true;
+	cliData.nogui = true;
+	systemData.noGui = true;
+	try
+	{
+		gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
+			systemData.dataDirectory + "queue", NULL);
+	}
+	catch (QString &ex)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorQueueInit);
+	}
+}
+
+void cCommandLineInterface::handleArgs()
+{
+	if (args.size() > 0)
+	{
+		// file specified -> load it
+		if (args.size() == 1 && QFileInfo(args[0]).suffix() != QString("fractlist")
+				&& !QDir(args[0]).exists())
+		{
+			QString filename = args[0];
+			cSettings parSettings(cSettings::formatFullText);
+			if (!QFile::exists(filename))
+			{
+				// try to find settings in default settings path
+				filename = systemData.dataDirectory + "settings" + QDir::separator() + filename;
+			}
+			if (QFile::exists(filename))
+			{
+				parSettings.LoadFromFile(filename);
+				parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+				settingsSpecified = true;
+				systemData.lastSettingsFile = filename;
+				systemData.settingsLoadedFromCLI = true;
+				if (cliData.touch)
+				{
+					parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+					parSettings.SaveToFile(filename);
+					qDebug() << "touched file: " << filename;
+					exit(0);
+				}
+			}
+			else if (parSettings.LoadFromString(args[0]))
+			{
+				// the whole settings file is specified as an argument from stdin
+				parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+				settingsSpecified = true;
+				systemData.lastSettingsFile = "from stdin";
+				systemData.settingsLoadedFromCLI = true;
+			}
+			else
+			{
+				cErrorMessage::showMessage(QObject::tr("Cannot load file!\n"), cErrorMessage::errorMessage);
+				qCritical() << "\nSetting file " << filename << " not found\n";
+				parser.showHelp(cliErrorLoadSettingsFile);
+			}
+		}
+		else
+		{
+			// queue render
+			cliTODO = modeQueue;
+			cliData.nogui = true;
+			systemData.noGui = true;
+			try
+			{
+				gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
+					systemData.dataDirectory + "queue", NULL);
+			}
+			catch (QString &ex)
+			{
+				cErrorMessage::showMessage(
+					QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
+				parser.showHelp(cliErrorQueueInit);
+			}
+			for (int i = 0; i < args.size(); i++)
+			{
+				QString filename = args[i];
+				if (QDir(args[i]).exists())
+				{
+					// specified input is a folder, load all fractal files contained in this folder
+					gQueue->AppendFolder(filename);
+					settingsSpecified = true;
+				}
+				else if (QFileInfo(filename).suffix() == QString("fractlist"))
+				{
+					// specified input is a queue list file, append all entries to the current queue
+					gQueue->AppendList(filename);
+					settingsSpecified = true;
+				}
+				else
+				{
+					// specified input can only be an ordinary fract file, try to append to queuelist
+					gQueue->Append(filename);
+					settingsSpecified = true;
+				}
+			}
+		}
+	}
+}
+
+void cCommandLineInterface::handleOverrideParameters()
+{
+	QStringList overrideParameters =
+		cliData.overrideParametersText.split("#", QString::SkipEmptyParts);
+	for (int i = 0; i < overrideParameters.size(); i++)
+	{
+		int fractalIndex = -1;
+		QRegularExpression reType("^fractal([0-9]+)_(.*)$");
+		QRegularExpressionMatch matchType = reType.match(overrideParameters[i]);
+		if (matchType.hasMatch())
+		{
+			fractalIndex = matchType.captured(1).toInt() - 1;
+			overrideParameters[i] = matchType.captured(2);
+		}
+		QStringList overrideParameter = overrideParameters[i].split(QRegExp("\\="));
+		if (overrideParameter.size() == 2)
+		{
+			if (fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS)
+			{
+				gParFractal->at(fractalIndex)
+					.Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
+			}
+			else
+			{
+				gPar->Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
+			}
+		}
+	}
+}
+
+void cCommandLineInterface::handleResolution()
+{
+	bool checkParse = true;
+	QStringList resolutionParameters = cliData.resolution.split(QRegExp("x"));
+	if (resolutionParameters.size() == 2)
+	{
+		int xRes = resolutionParameters[0].toInt(&checkParse);
+		int yRes = resolutionParameters[1].toInt(&checkParse);
+		if (!checkParse || xRes <= 0 || yRes <= 0)
+		{
+			cErrorMessage::showMessage(QObject::tr("Specified resolution not valid\n"
+																						 "both dimensions need to be > 0"),
+				cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorResolutionInvalid);
+		}
+		gPar->Set("image_width", xRes);
+		gPar->Set("image_height", yRes);
+	}
+	else
+	{
+		cErrorMessage::showMessage(QObject::tr("Specified resolution not valid\n"
+																					 "resolution has to be in the form WIDTHxHEIGHT"),
+			cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorResolutionInvalid);
+	}
+}
+
+void cCommandLineInterface::handleFpk()
+{
+	bool checkParse = true;
+	int fpk = cliData.fpkText.toInt(&checkParse);
+	if (!checkParse || fpk <= 0)
+	{
+		cErrorMessage::showMessage(QObject::tr("Specified frames per key not valid\n"
+																					 "need to be > 0"),
+			cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorFPKInvalid);
+	}
+	gPar->Set("frames_per_keyframe", fpk);
+}
+
+void cCommandLineInterface::handleImageFileFormat()
+{
+	QStringList allowedImageFileFormat({"jpg", "png", "png16", "png16alpha", "exr", "tiff"});
+	if (!allowedImageFileFormat.contains(cliData.imageFileFormat))
+	{
+		cErrorMessage::showMessage(QObject::tr("Specified imageFileFormat is not valid\n"
+																					 "allowed formats are: ")
+																 + allowedImageFileFormat.join(", "),
+			cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorImageFileFormatInvalid);
+	}
+}
+
+void cCommandLineInterface::handleFlight()
+{
+	if (gAnimFrames->GetNumberOfFrames() > 0)
+	{
+		cliTODO = modeFlight;
+		cliData.nogui = true;
+		systemData.noGui = true;
+	}
+	else
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("There are no flight animation frames in specified settings file"),
+			cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorFlightNoFrames);
+	}
+}
+
+void cCommandLineInterface::handleKeyframe()
+{
+	if (cliTODO == modeFlight)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("You cannot render keyframe animation at the same time as flight animation"),
+			cErrorMessage::errorMessage);
+	}
+	else
+	{
+		if (gKeyframes->GetNumberOfFrames() > 0)
+		{
+			cliTODO = modeKeyframe;
+			cliData.nogui = true;
+			systemData.noGui = true;
+		}
+		else
+		{
+			cErrorMessage::showMessage(QObject::tr("There are no keyframes in specified settings file"),
+				cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorKeyframeNoFrames);
+		}
+	}
+}
+
+void cCommandLineInterface::handleStartFrame()
+{
+	bool checkParse = true;
+	int startFrame = cliData.startFrameText.toInt(&checkParse);
+	if (cliTODO == modeFlight)
+	{
+		if (startFrame <= gAnimFrames->GetNumberOfFrames())
+		{
+			gPar->Set("flight_first_to_render", startFrame);
+		}
+		else
+		{
+			cErrorMessage::showMessage(
+				QObject::tr("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()),
+				cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorFlightStartFrameOutOfRange);
+		}
+	}
+
+	if (cliTODO == modeKeyframe)
+	{
+		int numberOfFrames =
+			(gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
+		if (numberOfFrames < 0) numberOfFrames = 0;
+
+		if (startFrame <= numberOfFrames)
+		{
+			gPar->Set("keyframe_first_to_render", startFrame);
+		}
+		else
+		{
+			cErrorMessage::showMessage(QObject::tr("Animation has only %1 frames").arg(numberOfFrames),
+				cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorKeyframeStartFrameOutOfRange);
+		}
+	}
+}
+
+void cCommandLineInterface::handleEndFrame()
+{
+	bool checkParse = true;
+	int endFrame = cliData.endFrameText.toInt(&checkParse);
+	if (cliTODO == modeFlight)
+	{
+		if (endFrame <= gAnimFrames->GetNumberOfFrames())
+		{
+			if (endFrame > gPar->Get<int>("flight_first_to_render"))
+			{
+				gPar->Set("flight_last_to_render", endFrame);
+			}
+			else
+			{
+				cErrorMessage::showMessage(
+					QObject::tr("End frame has to be greater than start frame which is %1")
+						.arg(gPar->Get<int>("flight_first_to_render")),
+					cErrorMessage::errorMessage);
+				parser.showHelp(cliErrorFlightEndFrameSmallerStartFrame);
+			}
+		}
+		else
+		{
+			cErrorMessage::showMessage(
+				QObject::tr("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()),
+				cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorFlightEndFrameOutOfRange);
+		}
+	}
+
+	if (cliTODO == modeKeyframe)
+	{
+		int numberOfFrames =
+			(gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
+		if (numberOfFrames < 0) numberOfFrames = 0;
+
+		if (endFrame <= numberOfFrames)
+		{
+			if (endFrame > gPar->Get<int>("keyframe_first_to_render"))
+			{
+				gPar->Set("keyframe_last_to_render", endFrame);
+			}
+			else
+			{
+				cErrorMessage::showMessage(
+					QObject::tr("End frame has to be greater than start frame which is %1")
+						.arg(gPar->Get<int>("keyframe_first_to_render")),
+					cErrorMessage::errorMessage);
+				parser.showHelp(cliErrorKeyframeEndFrameSmallerStartFrame);
+			}
+		}
+		else
+		{
+			cErrorMessage::showMessage(QObject::tr("Animation has only %1 frames").arg(numberOfFrames),
+				cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorKeyframeEndFrameOutOfRange);
+		}
+	}
+}
+
+void cCommandLineInterface::handleVoxel()
+{
+	QString folderString = gPar->Get<QString>("voxel_image_path");
+	QDir folder(folderString);
+	if (!folder.exists())
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("Cannot start voxel export. Specified folder (%1) does not exist.")
+				.arg(folderString),
+			cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorVoxelOutputFolderDoesNotExists);
+	}
+	cliTODO = modeVoxel;
+	cliData.nogui = true;
+	systemData.noGui = true;
 }
