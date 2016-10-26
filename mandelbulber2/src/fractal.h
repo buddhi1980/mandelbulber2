@@ -449,6 +449,7 @@ struct sFractalTransformCommon
 	double scale015;
 	double scale2;
 	double scale3;
+	double scaleA3;
 	double scale4;
 	double scale8;
 	double pwr05;
@@ -554,6 +555,7 @@ struct sFractalTransformCommon
 	bool alternateEnabledFalse;
 	bool benesiT1Enabled;
 	bool benesiT1EnabledFalse;
+	bool benesiT1MEnabledFalse;
 	bool functionEnabled;
 	bool functionEnabledFalse;
 	bool functionEnabledx;
@@ -571,9 +573,16 @@ struct sFractalTransformCommon
 	bool functionEnabledBxFalse;
 	bool functionEnabledByFalse;
 	bool functionEnabledBzFalse;
+	bool functionEnabledCxFalse;
+	bool functionEnabledCyFalse;
+	bool functionEnabledCzFalse;
 	bool functionEnabledFFalse;
+	bool functionEnabledKFalse;
+	bool functionEnabledM;
+	bool functionEnabledMFalse;
 	bool functionEnabledPFalse;
 	bool functionEnabledRFalse;
+	bool functionEnabledXFalse;
 	bool juliaMode;
 	bool rotationEnabled;
 };

@@ -684,6 +684,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_scale_015", 1.5, morphAkima, paramStandard);
 	par->addParam("transf_scale_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
+	par->addParam("transf_scaleA_3", 3.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_4", 4.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_8", 8.0, morphAkima, paramStandard);
 
@@ -804,7 +805,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_alternate_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
 	par->addParam("transf_benesi_T1_enabled_false", false, morphLinear, paramStandard);
-
+	par->addParam("transf_benesi_T1M_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabled", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabled_false", false, morphLinear, paramStandard);
@@ -823,11 +824,18 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledBx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBz_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledCx_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledCy_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledCz_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledF_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledK_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledM", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledM_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledR_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledP_false", false, morphLinear, paramStandard);
-
+	par->addParam("transf_function_enabledX_false", false, morphLinear, paramStandard);
 	par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
+
 
 	// platonic_solid
 

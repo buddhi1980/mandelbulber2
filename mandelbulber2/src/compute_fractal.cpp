@@ -467,6 +467,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MengerPrismShapeIteration(z, i, fractal, extendedAux);
 					break;
 				}
+				case mengerPrismShape2:
+				{
+					MengerPrismShape2Iteration(z, i, fractal, extendedAux);
+					break;
+				}
+
 				case mengerPwr2Poly:
 				{
 					MengerPwr2PolyIteration(z, c, i, fractal, extendedAux);
@@ -758,6 +764,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case transfSphericalFoldVaryV1:
 				{
 					TransformSphericalFoldVaryV1Iteration(z, i, fractal, extendedAux);
+					break;
+				}
+				case transfSpherFoldVaryVCL:
+				{
+					TransformSpherFoldVaryVCLIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalPwrFold:
@@ -1163,6 +1174,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerCrossKIFS:
 				case mengerCrossMod1:
 				case mengerPrismShape:
+				case mengerPrismShape2:
 				case collatz:
 				case collatzMod:
 				case mengerMod1:

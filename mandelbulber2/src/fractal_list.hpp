@@ -136,14 +136,16 @@ enum enumFractalFormula
 	amazingSurfMulti = 97,
 	// V2.09
 	mengerCrossKIFS = 98,
-	mengerPrismShape = 99,
+	mengerPrismShape = 99, // fix T1 T1M V2.10
 	benesiMagTransforms = 100,
-	pseudoKleinian1 = 101,
+	pseudoKleinian1 = 101,// fix T1 T1M V2.10
 	bristorbrot4D = 102,
 	pseudoKleinian2 = 103,
-	pseudoKleinian3 = 104,
+	pseudoKleinian3 = 104,// fix T1 T1M V2.10
 	benesiPwr2s = 105,
 	mengerCrossMod1 = 106,
+	//V2.10
+	mengerPrismShape2 = 107,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
@@ -211,6 +213,7 @@ enum enumFractalFormula
 	transfSurfBoxFold = 1058,
 	transfOctoFold = 1059,
 	transfScaleVaryVCL = 1060,
+	transfSpherFoldVaryVCL = 1061,
 };
 
 enum enumDEType

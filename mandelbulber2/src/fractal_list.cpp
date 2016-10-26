@@ -198,6 +198,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Menger - Prism Shape", "menger_prism_shape",
 		mengerPrismShape, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
+	fractalList->append(sFractalDescription("Menger - Prism Shape2", "menger_prism_shape2",
+		mengerPrismShape2, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
 	fractalList->append(sFractalDescription("Msltoe Donut", "msltoe_donut", msltoeDonut, deltaDEType,
 		linearDEFunction, cpixelDisabledByDefault, 4));
 
@@ -443,6 +446,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(
 		sFractalDescription("Transform - Spherical_Fold VaryV1", "transf_spherical_fold_varyV1",
 			transfSphericalFoldVaryV1, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
+
+	fractalList->append(sFractalDescription("Transform - Spherical_Fold_VaryVCL", "transf_spherFold_varyVCL",
+		transfSpherFoldVaryVCL, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
 		sFractalDescription("Transform - Spherical_Pwr_Fold", "transf_spherical_pwr_fold",

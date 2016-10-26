@@ -233,6 +233,37 @@ cFractal::cFractal(const cParameterContainer *container)
 	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
 	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
 
+	// for curvilinear parameter
+	Cpara.enabledLinear = container->Get<bool>("Cpara_enabledLinear");
+	Cpara.enabledCurves = container->Get<bool>("Cpara_enabledCurves");
+	Cpara.enabledParabFalse = container->Get<bool>("Cpara_enabledParab_false");
+	Cpara.enabledParaAddP0 = container->Get<bool>("Cpara_enabledParaAddP0");
+	Cpara.para0 = container->Get<double>("Cpara_para0");
+	Cpara.paraA = container->Get<double>("Cpara_paraA");
+	Cpara.paraB = container->Get<double>("Cpara_paraB");
+	Cpara.paraC = container->Get<double>("Cpara_paraC");
+	Cpara.parabOffset = container->Get<double>("Cpara_parab_offset");
+	Cpara.parabSlope = container->Get<double>("Cpara_parab_slope");
+	Cpara.parabScale = container->Get<double>("Cpara_parab_scale");
+	Cpara.iterA = container->Get<int>("Cpara_iterA");
+	Cpara.iterB = container->Get<int>("Cpara_iterB");
+	Cpara.iterC = container->Get<int>("Cpara_iterC");
+
+	analyticDE.scale1 = container->Get<double>("analyticDE_scale_1");
+	analyticDE.tweak005 = container->Get<double>("analyticDE_tweak_005");
+	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
+	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
+	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
+	analyticDE.enabledAuxR2False = container->Get<bool>("analyticDE_enabled_auxR2_false");
+	analyticDE.scaleLin = container->Get<double>("analyticDE_scale_linear");
+	analyticDE.offsetLin = container->Get<double>("analyticDE_offset_linear");
+
+	foldColor.colorMin = container->Get<double>("fold_color_color_min");
+	foldColor.compFold = container->Get<double>("fold_color_comp_fold");
+	foldColor.compFold0 = container->Get<double>("fold_color_comp_fold0");
+	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
+	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
+
 	// common parameters for transforming formulas
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
@@ -264,6 +295,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.scale015 = container->Get<double>("transf_scale_015");
 	transformCommon.scale2 = container->Get<double>("transf_scale_2");
 	transformCommon.scale3 = container->Get<double>("transf_scale_3");
+	transformCommon.scaleA3 = container->Get<double>("transf_scaleA_3");
 	transformCommon.scale4 = container->Get<double>("transf_scale_4");
 	transformCommon.scale8 = container->Get<double>("transf_scale_8");
 
@@ -375,6 +407,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.alternateEnabledFalse = container->Get<bool>("transf_alternate_enabled_false");
 	transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
 	transformCommon.benesiT1EnabledFalse = container->Get<bool>("transf_benesi_T1_enabled_false");
+	transformCommon.benesiT1MEnabledFalse = container->Get<bool>("transf_benesi_T1M_enabled_false");
 	transformCommon.functionEnabled = container->Get<bool>("transf_function_enabled");
 	transformCommon.functionEnabledFalse = container->Get<bool>("transf_function_enabled_false");
 	transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
@@ -392,9 +425,16 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledBxFalse = container->Get<bool>("transf_function_enabledBx_false");
 	transformCommon.functionEnabledByFalse = container->Get<bool>("transf_function_enabledBy_false");
 	transformCommon.functionEnabledBzFalse = container->Get<bool>("transf_function_enabledBz_false");
+	transformCommon.functionEnabledCxFalse = container->Get<bool>("transf_function_enabledCx_false");
+	transformCommon.functionEnabledCyFalse = container->Get<bool>("transf_function_enabledCy_false");
+	transformCommon.functionEnabledCzFalse = container->Get<bool>("transf_function_enabledCz_false");
 	transformCommon.functionEnabledFFalse = container->Get<bool>("transf_function_enabledF_false");
+	transformCommon.functionEnabledKFalse = container->Get<bool>("transf_function_enabledK_false");
+	transformCommon.functionEnabledM = container->Get<bool>("transf_function_enabledM");
+	transformCommon.functionEnabledMFalse = container->Get<bool>("transf_function_enabledM_false");
 	transformCommon.functionEnabledPFalse = container->Get<bool>("transf_function_enabledP_false");
 	transformCommon.functionEnabledRFalse = container->Get<bool>("transf_function_enabledR_false");
+	transformCommon.functionEnabledXFalse = container->Get<bool>("transf_function_enabledX_false");
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 
