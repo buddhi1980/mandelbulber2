@@ -6476,7 +6476,7 @@ void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, 
  */
 void TransformScaleVaryVCLIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	double para;
+	double para = 0.0;
 
 	if (fractal->Cpara.enabledLinear)
 	{
@@ -6722,12 +6722,7 @@ void TransformSphericalFoldVaryV1Iteration(
 void TransformSpherFoldVaryVCLIteration(
 	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	double para;
-
-	// double paraAddP0;
-	// if (fractal->Cpara.enabledParaAddP0)
-	//	paraAddP0 = 0.0;
-
+	double para = 0.0;
 	if (fractal->Cpara.enabledLinear)
 	{
 		para = fractal->Cpara.para0; // parameter value at iter 0
@@ -6779,9 +6774,6 @@ void TransformSpherFoldVaryVCLIteration(
 			}
 		}
 	}
-	// double paraAddP0;
-	// if (fractal->Cpara.enabledParaAddP0)
-	//	paraAddP0 = 0.0;
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
 	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
@@ -6810,8 +6802,8 @@ void TransformSpherFoldVaryVCLIteration(
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->mandelbox.offset;
-	z *= fractal->transformCommon.scale;													// beta
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0; // beta
+	z *= fractal->transformCommon.scale;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 }
 
 /**
@@ -7286,7 +7278,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		if (fractal->transformCommon.functionEnabledBxFalse)
 		{
 			z.x -= t * -SQRT_3
-						 - (fractal->transformCommon.offset0); // z.x moves pos dir       (0.5 * SQRT_3_4)
+						 - (fractal->transformCommon.offset0);
 		}
 		else
 		{
@@ -7344,7 +7336,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		{
 			z.x = fabs(z.x);
 		}
-		dot1 = z.x * -SQRT_3_4 + z.y * 0.5;
+		dot1 = ( z.x * -SQRT_3_4 + z.y * 0.5 ) * fractal->transformCommon.scaleD1;
 		double t = max(0.0, dot1);
 		z.x -= t * -SQRT_3;
 		if (fractal->transformCommon.functionEnabledBzFalse)
@@ -7374,15 +7366,14 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z.z -= dz;
 		z *= fractal->transformCommon.scaleA3;
 		aux.DE *= fractal->transformCommon.scaleA3;
-		dd *= 0.33333333333333333333333333333333;
-
 		z.y += dy;
 		z.z += dz;
-
 		z.x += SQRT_3_4;
+
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
-			z = dd * z;
+			dd *=  0.33333333333333333333333333333 * fractal->transformCommon.scaleE1;
+			z *= dd;
 			aux.DE *= dd;
 		}
 		aux.DE *= fractal->transformCommon.offset1; //.DE tweak cross menger part
@@ -7429,7 +7420,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z += CVector3(0.5 * SQRT_3, 1.5, 1.5);
 		if (fractal->transformCommon.functionEnabledxFalse)
 		{
-			z = dd * z;
+			z *= dd;
 			aux.DE *= dd; // * s;
 		}
 		// gap2 = dd * gap2;
