@@ -40,6 +40,8 @@
 #include "compute_fractal.hpp"
 #include "displacement_map.hpp"
 #include "texture_mapping.hpp"
+#include "fractparams.hpp"
+#include "nine_fractals.hpp"
 
 using namespace std;
 

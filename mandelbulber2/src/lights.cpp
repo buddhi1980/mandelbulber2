@@ -38,6 +38,8 @@
 #include "global_data.hpp"
 #include "random.hpp"
 #include "system.hpp"
+#include "nine_fractals.hpp"
+#include "fractparams.hpp"
 
 cLights::cLights() : QObject()
 {

@@ -56,7 +56,7 @@ public:
 	explicit cDockFractal(QWidget *parent = NULL);
 	~cDockFractal();
 
-	void InitializeFractalUi(QString &uiFileName);
+	void InitializeFractalUi();
 	bool AreHybridFractalsEnabled();
 	bool AreBooleanFractalsEnabled();
 	void EnableJuliaMode();

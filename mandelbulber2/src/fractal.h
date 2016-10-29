@@ -37,7 +37,9 @@
 
 #include "algebra.hpp"
 #include "fractal_list.hpp"
-#include "parameters.hpp"
+
+//forward declarations
+class cParameterContainer;
 
 const int IFS_VECTOR_COUNT = 9;
 const int HYBRID_COUNT = 5;
@@ -45,16 +47,6 @@ const int MANDELBOX_FOLDS = 2;
 
 namespace fractal
 {
-enum enumCalculationMode
-{
-	calcModeNormal = 0,
-	calcModeColouring = 1,
-	calcModeFake_AO = 2,
-	calcModeDeltaDE1 = 3,
-	calcModeDeltaDE2 = 4,
-	calcModeOrbitTrap = 5
-};
-
 enum enumGeneralizedFoldBoxType
 {
 	foldTet = 0,

@@ -39,8 +39,12 @@
 #ifndef MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 #define MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 
-#include "fractparams.hpp"
-#include "nine_fractals.hpp"
+#include "algebra.hpp"
+#include "render_data.hpp"
+
+//forward declarations
+class cNineFractals;
+class cParamRender;
 
 struct sDistanceIn
 {

@@ -187,7 +187,7 @@ void cDockFractal::ConnectSignals()
 }
 
 // initialize ui for hybrid fractal components
-void cDockFractal::InitializeFractalUi(QString &uiFileName)
+void cDockFractal::InitializeFractalUi()
 {
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started", 2);
 	// MyUiLoader loader;
@@ -356,6 +356,7 @@ void cDockFractal::slotChangedJuliaPoint()
 		params.Copy("fractal_constant_factor", gPar);
 
 		ui->previewwidget_julia->AssignParameters(params, *gParFractal);
+		ui->previewwidget_julia->update();
 	}
 }
 

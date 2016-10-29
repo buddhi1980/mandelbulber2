@@ -36,6 +36,7 @@
 #include "global_data.hpp"
 #include "headless.h"
 #include <QMessageBox>
+#include "system.hpp"
 
 cErrorMessage *gErrorMessage = NULL;
 

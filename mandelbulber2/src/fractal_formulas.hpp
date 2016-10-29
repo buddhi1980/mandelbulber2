@@ -35,8 +35,12 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_
 #define MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_
 
-#include "commonparams.hpp"
-#include "fractal.h"
+#include "algebra.hpp"
+
+//forward declarations
+class cFractal;
+struct sExtendedAux;
+struct sFractalFoldings;
 
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

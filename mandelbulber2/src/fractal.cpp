@@ -35,6 +35,7 @@
 #include "fractal.h"
 #include "algebra.hpp"
 #include "system.hpp"
+#include "parameters.hpp"
 
 cFractal::cFractal(const cParameterContainer *container)
 {

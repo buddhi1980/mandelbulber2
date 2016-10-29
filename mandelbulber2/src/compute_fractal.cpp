@@ -35,6 +35,7 @@
 #include "compute_fractal.hpp"
 #include "common_math.h"
 #include "fractal_formulas.hpp"
+#include "nine_fractals.hpp"
 
 // temporary functions for performance profiling
 /*

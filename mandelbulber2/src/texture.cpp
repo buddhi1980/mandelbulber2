@@ -42,6 +42,7 @@
 #include "common_math.h"
 #include "error_message.hpp"
 #include "files.h"
+#include "qimage.h"
 
 // constructor
 cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)

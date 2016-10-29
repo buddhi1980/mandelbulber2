@@ -39,8 +39,8 @@
 #ifndef MANDELBULBER2_SRC_FILE_IMAGE_HPP_
 #define MANDELBULBER2_SRC_FILE_IMAGE_HPP_
 
-#include "cimage.hpp"
 #include <QtCore>
+#include "color_structures.hpp"
 
 extern "C" {
 #include <png.h>
@@ -50,6 +50,9 @@ extern "C" {
 // source of libraries:
 // libpng: http://www.libpng.org/pub/png/libpng.html
 /**********************************************************/
+
+//forward declarations
+class cImage;
 
 class ImageFileSave : public QObject
 {

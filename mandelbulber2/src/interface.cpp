@@ -50,6 +50,7 @@
 #include "render_ssao.h"
 #include "settings.hpp"
 #include "undo.h"
+#include "nine_fractals.hpp"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
@@ -217,9 +218,7 @@ void cInterface::ShowUi(void)
 	mainWindow->setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
 	// loading default ui for all fractal components
-	QString uiFilename =
-		systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_mandelbulb.ui";
-	mainWindow->ui->widgetDockFractal->InitializeFractalUi(uiFilename);
+	mainWindow->ui->widgetDockFractal->InitializeFractalUi();
 	InitMaterialsUi();
 	scrollAreaMaterialEditor = mainWindow->ui->scrollArea_material;
 

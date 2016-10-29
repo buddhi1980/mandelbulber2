@@ -43,6 +43,7 @@
 #include "file_image.hpp"
 #include "initparameters.hpp"
 #include "progress_text.hpp"
+#include "nine_fractals.hpp"
 
 cVoxelExport::cVoxelExport(
 	int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder, int maxIter)

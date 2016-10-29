@@ -34,6 +34,7 @@
 
 #include "fractal_formulas.hpp"
 #include "common_math.h"
+#include "commonparams.hpp"
 #include "fractal.h"
 
 #define SQRT_1_3 0.57735026918962576450914878050196

@@ -35,7 +35,6 @@
 #ifndef MANDELBULBER2_SRC_ERROR_MESSAGE_HPP_
 #define MANDELBULBER2_SRC_ERROR_MESSAGE_HPP_
 
-#include "system.hpp"
 #include <QtCore>
 
 class cErrorMessage : public QObject
