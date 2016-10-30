@@ -33,6 +33,9 @@
  */
 
 #include "progress_text.hpp"
+
+#include "../src/render_window.hpp"
+#include "headless.h"
 #include "interface.hpp"
 #include "system.hpp"
 

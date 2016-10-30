@@ -43,6 +43,8 @@
 #include "netrender.hpp"
 #include "render_job.hpp"
 #include "settings.hpp"
+#include "interface.hpp"
+#include "system.hpp"
 
 void Test::renderExamples()
 {

@@ -34,6 +34,8 @@
 
 #include "material.h"
 #include "netrender.hpp"
+#include "parameters.hpp"
+#include "texture_enums.hpp"
 
 cMaterial::cMaterial()
 {
@@ -55,7 +57,7 @@ cMaterial::cMaterial()
 	useLuminosityTexture = false;
 	useDisplacementTexture = false;
 	useNormalMapTexture = false;
-	textureMappingType = mappingPlanar;
+	textureMappingType = texture::mappingPlanar;
 	colorTextureIntensity = 0.0;
 	diffussionTextureIntensity = 0.0;
 	luminosityTextureIntensity = 0.0;
@@ -119,7 +121,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	if (textureScale.z < 1e-20) textureScale.z = 1e-20;
 
 	textureMappingType =
-		(enumTextureMapping)materialParam->Get<int>(Name("texture_mapping_type", id));
+		(texture::enumTextureMapping)materialParam->Get<int>(Name("texture_mapping_type", id));
 
 	fresnelReflectance = materialParam->Get<bool>(Name("fresnel_reflectance", id));
 	useColorsFromPalette = materialParam->Get<bool>(Name("use_colors_from_palette", id));

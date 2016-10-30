@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
 
 #include "system.hpp"
+#include "fractal_enums.h"
 #include <QtCore>
 
 namespace fractal
@@ -216,28 +217,6 @@ enum enumFractalFormula
 	transfSpherFoldVaryVCL = 1061,
 };
 
-enum enumDEType
-{
-	analyticDEType,
-	deltaDEType
-};
-
-enum enumDEFunctionType
-{
-	preferedDEfunction = 0,
-	linearDEFunction = 1,
-	logarithmicDEFunction = 2,
-	pseudoKleinianDEFunction = 3,
-	numberOfDEFunctions = 3, // used to prepare array
-	withoutDEFunction = 99
-};
-
-enum enumCPixelAddition
-{
-	cpixelEnabledByDefault = 0,
-	cpixelDisabledByDefault = 1,
-	cpixelAlreadyHas = 2
-};
 }
 
 struct sFractalDescription

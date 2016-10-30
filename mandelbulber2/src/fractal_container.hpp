@@ -35,9 +35,8 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_CONTAINER_HPP_
 #define MANDELBULBER2_SRC_FRACTAL_CONTAINER_HPP_
 
-#define NUMBER_OF_FRACTALS 9
-
 #include "parameters.hpp"
+#include "fractal_enums.h"
 
 class cFractalContainer
 {

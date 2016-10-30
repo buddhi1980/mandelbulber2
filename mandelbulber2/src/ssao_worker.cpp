@@ -228,9 +228,9 @@ void cSSAOWorker::doWork()
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGB16 pixel = image->GetPixelImage16(x + xx, y);
 				double shadeFactor = (65535.0 / 256.0) * total_ambient * intensity * (1.0 - opacity);
-				pixel.R = (unsigned short)min(pixel.R + (int)(colour.R * shadeFactor), 65535);
-				pixel.G = (unsigned short)min(pixel.G + (int)(colour.G * shadeFactor), 65535);
-				pixel.B = (unsigned short)min(pixel.B + (int)(colour.B * shadeFactor), 65535);
+				pixel.R = (unsigned short)std::min(pixel.R + (int)(colour.R * shadeFactor), 65535);
+				pixel.G = (unsigned short)std::min(pixel.G + (int)(colour.G * shadeFactor), 65535);
+				pixel.B = (unsigned short)std::min(pixel.B + (int)(colour.B * shadeFactor), 65535);
 				image->PutPixelImage16(x + xx, y, pixel);
 			}
 		}

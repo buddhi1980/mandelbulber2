@@ -39,13 +39,20 @@
  */
 
 #include "animation_keyframes.hpp"
+
 #include "../qt/thumbnail_widget.h"
+#include "../qt/my_table_widget_keyframes.hpp"
+#include "../qt/player_widget.hpp"
+#include "../qt/system_tray.hpp"
+#include "../src/render_window.hpp"
 #include "files.h"
 #include "global_data.hpp"
+#include "headless.h"
 #include "netrender.hpp"
 #include "render_job.hpp"
 #include "ui_dock_animation.h"
 #include "undo.h"
+#include "interface.hpp"
 
 cKeyframeAnimation *gKeyframeAnimation = NULL;
 

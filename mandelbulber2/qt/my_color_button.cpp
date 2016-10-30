@@ -32,6 +32,7 @@
  * MyColorButton class - promoted QPushButton widget with context menu
  */
 
+#include <QtWidgets/QtWidgets>
 #include "my_color_button.h"
 #include "../src/animation_flight.hpp"
 

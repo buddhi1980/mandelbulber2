@@ -38,6 +38,9 @@
 #include "region.hpp"
 #include <QtCore>
 
+#include "material.h"
+#include "render_data.hpp"
+#include "stereo.h"
 cRenderWorker::cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
 	sThreadData *_threadData, sRenderData *_data, cImage *_image)
 {
@@ -723,19 +726,19 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 		// letting colors from textures (before normal map shader)
 		if (shaderInputData.material->colorTexture.IsLoaded())
 			shaderInputData.texColor =
-				TextureShader(shaderInputData, cMaterial::texColor, shaderInputData.material);
+				TextureShader(shaderInputData, texture::texColor, shaderInputData.material);
 		else
 			shaderInputData.texColor = sRGBfloat(1.0, 1.0, 1.0);
 
 		if (shaderInputData.material->luminosityTexture.IsLoaded())
 			shaderInputData.texLuminosity =
-				TextureShader(shaderInputData, cMaterial::texLuminosity, shaderInputData.material);
+				TextureShader(shaderInputData, texture::texLuminosity, shaderInputData.material);
 		else
 			shaderInputData.texLuminosity = sRGBfloat(0.0, 0.0, 0.0);
 
 		if (shaderInputData.material->diffusionTexture.IsLoaded())
 			shaderInputData.texDiffuse =
-				TextureShader(shaderInputData, cMaterial::texDiffuse, shaderInputData.material);
+				TextureShader(shaderInputData, texture::texDiffuse, shaderInputData.material);
 		else
 			shaderInputData.texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
 

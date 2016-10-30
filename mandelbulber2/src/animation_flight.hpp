@@ -41,11 +41,25 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_FLIGHT_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_FLIGHT_HPP_
 
-#include "../qt/my_table_widget_anim.hpp"
-#include "animation_frames.hpp"
-#include "cimage.hpp"
+#include <qmessagebox.h>
+
 #include "error_message.hpp"
-#include "interface.hpp"
+#include "progress_text.hpp"
+#include "statistics.h"
+#include "algebra.hpp"
+#include "animation_frames.hpp"
+
+//forward declarations
+class cImage;
+class cInterface;
+class cFractalContainer;
+class cParameterContainer;
+class MyTableWidgetAnim;
+
+namespace Ui
+{
+class cDockAnimation;
+}
 
 class cFlightAnimation : public QObject
 {

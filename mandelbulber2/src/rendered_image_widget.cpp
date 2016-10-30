@@ -36,6 +36,7 @@
 #include "rendered_image_widget.hpp"
 #include "common_math.h"
 #include "initparameters.hpp"
+#include "primitives.h"
 #include <QApplication>
 #include <QKeyEvent>
 #include <QMouseEvent>

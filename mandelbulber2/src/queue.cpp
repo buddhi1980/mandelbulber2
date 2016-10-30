@@ -33,12 +33,16 @@
  */
 
 #include "queue.hpp"
+
+#include "render_window.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
+#include "headless.h"
 #include "initparameters.hpp"
 #include "preview_file_dialog.h"
 #include "render_queue.hpp"
 #include "settings.hpp"
+#include "system.hpp"
 #include "ui_dock_queue.h"
 
 cQueue *gQueue = NULL;

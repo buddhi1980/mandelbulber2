@@ -35,7 +35,8 @@
 #ifndef MANDELBULBER2_SRC_IMAGE_SCALE_HPP_
 #define MANDELBULBER2_SRC_IMAGE_SCALE_HPP_
 
-#include "cimage.hpp"
+//forward declarations
+class cImage;
 
 double ImageScaleComboSelection2Double(int index);
 double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);

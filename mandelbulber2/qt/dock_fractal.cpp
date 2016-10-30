@@ -40,6 +40,9 @@
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/system.hpp"
+#include "../src/fractal_enums.h"
+#include "../src/fractal_list.hpp"
+#include "../src/render_window.hpp"
 #include "ui_dock_fractal.h"
 
 cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockFractal)

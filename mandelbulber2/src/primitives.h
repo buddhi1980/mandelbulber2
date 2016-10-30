@@ -40,8 +40,10 @@
 #include "color_structures.hpp"
 #include "object_data.hpp"
 #include "object_types.hpp"
-#include "parameters.hpp"
-#include "render_data.hpp"
+
+//forward declarations
+class cParameterContainer;
+struct sRenderData;
 
 struct sPrimitiveItem
 {

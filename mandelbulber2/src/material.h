@@ -35,10 +35,16 @@
 #ifndef MANDELBULBER2_SRC_MATERIAL_H_
 #define MANDELBULBER2_SRC_MATERIAL_H_
 
+#include <QMap>
+
+#include "color_palette.hpp"
 #include "color_structures.hpp"
 #include "fractal_coloring.hpp"
-#include "parameters.hpp"
 #include "texture.hpp"
+#include "texture_enums.hpp"
+
+//forward declarations
+class cParameterContainer;
 
 class cMaterial
 {
@@ -54,22 +60,6 @@ public:
 	}
 
 	static QStringList paramsList;
-
-	enum enumTextureMapping
-	{
-		mappingSpherical = 0,
-		mappingCubic = 1,
-		mappingCylindrical = 2,
-		mappingPlanar = 3
-	};
-
-	enum enumTextureSelection
-	{
-		texColor = 0,
-		texDiffuse = 1,
-		texLuminosity = 2,
-		texDisplacement = 3,
-	};
 
 	int id;
 
@@ -108,7 +98,7 @@ public:
 
 	CRotationMatrix rotMatrix;
 
-	enumTextureMapping textureMappingType;
+	texture::enumTextureMapping textureMappingType;
 	bool fresnelReflectance;
 	bool useColorsFromPalette;
 

@@ -36,23 +36,18 @@
 #define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 
 #include "commonparams.hpp"
-#include "fractal.h"
-#include "fractal_container.hpp"
 #include "image_adjustments.h"
-#include "object_data.hpp"
-#include "parameters.hpp"
 #include "primitives.h"
 #include "projection_3d.hpp"
+#include "fractal_enums.h"
+#include "ao_modes.h"
+
+//forward declarations
+class cObjectData;
+class cParameterContainer;
 
 namespace params
 {
-enum enumAOMode
-{
-	AOmodeFast = 0,
-	AOmodeMultipeRays = 1,
-	AOmodeScreenSpace = 2
-};
-
 enum enumTextureMapType
 {
 	mapEquirectangular = 0,

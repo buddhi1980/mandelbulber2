@@ -35,6 +35,7 @@
 #include "dock_gamepad.h"
 
 #include "../src/interface.hpp"
+#include "../src/rendered_image_widget.hpp"
 #include "../src/system.hpp"
 #include "ui_dock_gamepad.h"
 

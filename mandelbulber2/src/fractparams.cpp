@@ -33,6 +33,8 @@
  */
 
 #include "fractparams.hpp"
+#include "object_data.hpp"
+#include "parameters.hpp"
 
 cParamRender::cParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData)
 		: primitives(container, objectData)

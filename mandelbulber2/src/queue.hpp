@@ -42,6 +42,11 @@
 #include "parameters.hpp"
 #include <QtCore>
 
+namespace Ui
+{
+	class cDockQueue;
+}
+
 class cQueue : public QObject
 {
 	Q_OBJECT

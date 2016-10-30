@@ -40,11 +40,11 @@
 #define MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 
 #include "algebra.hpp"
-#include "render_data.hpp"
 
 //forward declarations
 class cNineFractals;
 class cParamRender;
+class sRenderData;
 
 struct sDistanceIn
 {

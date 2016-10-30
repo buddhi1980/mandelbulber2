@@ -43,6 +43,7 @@
 #include "stereo.h"
 #include "system.hpp"
 #include <QtCore>
+#include "texture_enums.hpp"
 
 cParameterContainer *gPar = NULL;
 
@@ -972,7 +973,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		cMaterial::Name("coloring_palette_size", materialId), 10, 1, 255, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("coloring_palette_offset", materialId), 0.0, 0.0, 256.0,
 		morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("texture_mapping_type", materialId), (int)cMaterial::mappingPlanar,
+	par->addParam(cMaterial::Name("texture_mapping_type", materialId), (int)texture::mappingPlanar,
 		morphNone, paramStandard);
 	par->addParam(
 		cMaterial::Name("use_colors_from_palette", materialId), true, morphLinear, paramStandard);

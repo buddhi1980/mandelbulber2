@@ -35,6 +35,7 @@
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "compute_fractal.hpp"
+#include "render_data.hpp"
 #include "render_worker.hpp"
 #include "texture_mapping.hpp"
 
@@ -357,7 +358,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				double lowestLightDist = 1e10;
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					const cLights::sLight *light = data->lights.GetLight(i);
+					const sLight *light = data->lights.GetLight(i);
 					if (light->enabled)
 					{
 						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light->position;
@@ -384,7 +385,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					const cLights::sLight *light = data->lights.GetLight(i);
+					const sLight *light = data->lights.GetLight(i);
 					if (light->enabled && light->intensity > 0)
 					{
 						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light->position;
@@ -445,7 +446,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			}
 			if (data->lights.IsAnyLightEnabled() && i > 0)
 			{
-				const cLights::sLight *light = data->lights.GetLight(i - 1);
+				const sLight *light = data->lights.GetLight(i - 1);
 				if (light->enabled && params->volumetricLightEnabled[i])
 				{
 					CVector3 lightVectorTemp = light->position - point;
@@ -558,7 +559,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 					if (i > 0)
 					{
-						const cLights::sLight *light = data->lights.GetLight(i - 1);
+						const sLight *light = data->lights.GetLight(i - 1);
 						if (light->enabled)
 						{
 							CVector3 lightVectorTemp = light->position - point;
@@ -1067,7 +1068,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 }
 
 sRGBAfloat cRenderWorker::LightShading(
-	const sShaderInputData &input, const cLights::sLight *light, int number, sRGBAfloat *outSpecular)
+	const sShaderInputData &input, const sLight *light, int number, sRGBAfloat *outSpecular)
 {
 	sRGBAfloat shading;
 
@@ -1140,7 +1141,7 @@ sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfl
 	sRGBAfloat specularAuxSum;
 	for (int i = 0; i < numberOfLights; i++)
 	{
-		const cLights::sLight *light = data->lights.GetLight(i);
+		const sLight *light = data->lights.GetLight(i);
 		if (i < params->auxLightNumber || light->enabled)
 		{
 			sRGBAfloat specularAuxOutTemp;
@@ -1297,7 +1298,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 }
 
 sRGBfloat cRenderWorker::TextureShader(
-	const sShaderInputData &input, cMaterial::enumTextureSelection texSelect, cMaterial *mat) const
+	const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
 	double texturePixelSize = 1.0;
@@ -1330,22 +1331,22 @@ sRGBfloat cRenderWorker::TextureShader(
 	sRGBfloat tex;
 	switch (texSelect)
 	{
-		case cMaterial::texColor:
+		case texture::texColor:
 		{
 			tex = input.material->colorTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
-		case cMaterial::texDiffuse:
+		case texture::texDiffuse:
 		{
 			tex = input.material->diffusionTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
-		case cMaterial::texLuminosity:
+		case texture::texLuminosity:
 		{
 			tex = input.material->luminosityTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
-		case cMaterial::texDisplacement:
+		case texture::texDisplacement:
 		{
 			tex = input.material->displacementTexture.Pixel(texPoint, texturePixelSize);
 			break;

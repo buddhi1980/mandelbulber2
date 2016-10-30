@@ -37,6 +37,7 @@
 #include "../src/global_data.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
+#include "../src/progress_text.hpp"
 #include "../src/settings.hpp"
 #include "../src/system.hpp"
 #include "ui_preferences_dialog.h"
@@ -45,6 +46,7 @@
 #include <QtCore>
 
 #include "../qt/thumbnail_widget.h"
+#include "../src/render_window.hpp"
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cPreferencesDialog)
 {

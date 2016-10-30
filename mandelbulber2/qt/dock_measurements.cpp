@@ -35,6 +35,7 @@
 #include "dock_measurements.h"
 
 #include "../src/interface.hpp"
+#include "../src/render_window.hpp"
 #include "../src/rendered_image_widget.hpp"
 #include "ui_dock_measurements.h"
 

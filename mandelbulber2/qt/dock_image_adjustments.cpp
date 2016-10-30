@@ -36,6 +36,7 @@
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/projection_3d.hpp"
+#include "../src/render_window.hpp"
 #include "dock_image_adjustmnets.h"
 #include "ui_dock_image_adjustments.h"
 

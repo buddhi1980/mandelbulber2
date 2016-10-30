@@ -35,8 +35,16 @@
 #ifndef MANDELBULBER2_SRC_OLD_SETTINGS_HPP_
 #define MANDELBULBER2_SRC_OLD_SETTINGS_HPP_
 
-#include "fractal_container.hpp"
-#include "parameters.hpp"
+#include "old_settings.hpp"
+
+#include <vector>
+
+#include "algebra.hpp"
+#include "color_structures.hpp"
+
+//forward declarations
+class cFractalContainer;
+class cParameterContainer;
 
 namespace oldSettings
 {

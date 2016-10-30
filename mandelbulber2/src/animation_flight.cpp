@@ -39,10 +39,19 @@
  */
 
 #include "animation_flight.hpp"
+
 #include "../qt/thumbnail_widget.h"
+#include "../qt/my_table_widget_anim.hpp"
+#include "../qt/player_widget.hpp"
+#include "../qt/system_tray.hpp"
+#include "../src/render_window.hpp"
+#include "../src/rendered_image_widget.hpp"
+#include "animation_frames.hpp"
 #include "files.h"
 #include "global_data.hpp"
+#include "headless.h"
 #include "initparameters.hpp"
+#include "interface.hpp"
 #include "netrender.hpp"
 #include "render_job.hpp"
 #include "ui_dock_animation.h"

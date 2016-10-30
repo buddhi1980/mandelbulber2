@@ -35,6 +35,11 @@
 #include "nine_fractals.hpp"
 
 #include <algorithm>
+
+#include "fractal.h"
+#include "fractal_container.hpp"
+#include "parameters.hpp"
+
 cNineFractals::~cNineFractals()
 {
 	if (fractals)

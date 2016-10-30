@@ -34,18 +34,23 @@
 #ifndef MANDELBULBER2_SRC_INTERFACE_HPP_
 #define MANDELBULBER2_SRC_INTERFACE_HPP_
 
-#include "../qt/material_editor.h"
-#include "../qt/my_progress_bar.h"
-#include "../qt/system_tray.hpp"
-#include "fractal_container.hpp"
-#include "headless.h"
-#include "material_item_model.h"
-#include "parameters.hpp"
-#include "player_widget.hpp"
+#include <QtWidgets/QtWidgets>
 #include "primitives.h"
-#include "render_window.hpp"
-#include "rendered_image_widget.hpp"
 #include "synchronize_interface.hpp"
+#include "algebra.hpp"
+
+//forward declarations
+class cParameterContainer;
+class cFractalContainer;
+class RenderWindow;
+class RenderedImage;
+class cHeadless;
+class MyProgressBar;
+class PlayerWidget;
+class cMaterialItemModel;
+class cMaterialEditor;
+class cSystemTray;
+class cImage;
 
 class cInterface
 {

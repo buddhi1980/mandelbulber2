@@ -49,7 +49,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 
 	switch (material->textureMappingType)
 	{
-		case cMaterial::mappingPlanar:
+		case texture::mappingPlanar:
 		{
 			textureCoordinates = CVector2<double>(point.x, point.y);
 			textureCoordinates.x /= -material->textureScale.x;
@@ -71,7 +71,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			}
 			break;
 		}
-		case cMaterial::mappingCylindrical:
+		case texture::mappingCylindrical:
 		{
 			double alphaTexture = fmod(point.GetAlpha() + 2.0 * M_PI, 2.0 * M_PI);
 			textureCoordinates.x = alphaTexture / (2.0 * M_PI);
@@ -95,7 +95,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 
 			break;
 		}
-		case cMaterial::mappingSpherical:
+		case texture::mappingSpherical:
 		{
 			double alphaTexture = fmod(point.GetAlpha() + 2.0 * M_PI, 2.0 * M_PI);
 			double betaTexture = -point.GetBeta();
@@ -123,7 +123,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 
 			break;
 		}
-		case cMaterial::mappingCubic:
+		case texture::mappingCubic:
 		{
 			point /= material->textureScale;
 			point -= material->textureCenter;

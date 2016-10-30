@@ -36,7 +36,9 @@
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/queue.hpp"
+#include "../src/render_window.hpp"
 #include "../src/settings.hpp"
+#include "../src/system.hpp"
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {

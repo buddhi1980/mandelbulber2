@@ -37,8 +37,10 @@
 #ifndef MANDELBULBER2_SRC_MATERIAL_ITEM_MODEL_H_
 #define MANDELBULBER2_SRC_MATERIAL_ITEM_MODEL_H_
 
-#include "parameters.hpp"
 #include <QtCore/qabstractitemmodel.h>
+
+//forward declarations
+class cParameterContainer;
 
 class cMaterialItemModel : public QAbstractListModel
 {

@@ -34,10 +34,8 @@
 
 #include "primitives.h"
 #include "displacement_map.hpp"
+#include "parameters.hpp"
 #include "system.hpp"
-//#include "common_math.h"
-//#include "render_worker.hpp"
-//#include "calculate_distance.hpp"
 
 using namespace fractal;
 

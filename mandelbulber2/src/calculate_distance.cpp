@@ -37,11 +37,15 @@
  */
 
 #include "calculate_distance.hpp"
+
 #include "compute_fractal.hpp"
 #include "displacement_map.hpp"
-#include "texture_mapping.hpp"
+#include "fractal_enums.h"
+#include "fractal.h"
 #include "fractparams.hpp"
 #include "nine_fractals.hpp"
+#include "render_data.hpp"
+#include "texture_mapping.hpp"
 
 using namespace std;
 

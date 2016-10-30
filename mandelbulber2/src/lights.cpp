@@ -40,6 +40,8 @@
 #include "system.hpp"
 #include "nine_fractals.hpp"
 #include "fractparams.hpp"
+#include "fractal_container.hpp"
+#include "parameters.hpp"
 
 cLights::cLights() : QObject()
 {
@@ -178,7 +180,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	WriteLog("Preparation of lights finished", 2);
 }
 
-cLights::sLight *cLights::GetLight(const int index) const
+sLight *cLights::GetLight(const int index) const
 {
 	if (lightsReady)
 	{
@@ -195,7 +197,7 @@ cLights::sLight *cLights::GetLight(const int index) const
 	{
 		qCritical() << "Lights not initialized";
 	}
-	return (cLights::sLight *)&dummyLight;
+	return (sLight *)&dummyLight;
 }
 
 void cLights::Copy(const cLights &_lights)

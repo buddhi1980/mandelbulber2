@@ -33,8 +33,9 @@
  */
 
 #include "material_selector.h"
-#include "../src/animation_flight.hpp"
+#include "../src/material.h"
 #include "material_manager_view.h"
+#include "../src/interface.hpp"
 
 cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {

@@ -35,6 +35,7 @@
 #include "main.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
+#include "cimage.hpp"
 #include "command_line_interface.hpp"
 #include "error_message.hpp"
 #include "fractal_list.hpp"
@@ -44,10 +45,14 @@
 #include "interface.hpp"
 #include "netrender.hpp"
 #include "queue.hpp"
+#include "render_window.hpp"
+#include "rendered_image_widget.hpp"
 #include "settings.hpp"
 #include "system.hpp"
 
 #include <qapplication.h>
+
+#include "render_data.hpp"
 
 int main(int argc, char *argv[])
 {

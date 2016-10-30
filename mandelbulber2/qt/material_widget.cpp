@@ -38,6 +38,7 @@
 
 #include "../qt/material_widget.h"
 #include "../src/initparameters.hpp"
+#include "../src/material.h"
 #include "../src/settings.hpp"
 #include "../src/synchronize_interface.hpp"
 #include "../src/system.hpp"

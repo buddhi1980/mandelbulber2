@@ -35,22 +35,27 @@
 #ifndef MANDELBULBER2_SRC_LIGHTS_HPP_
 #define MANDELBULBER2_SRC_LIGHTS_HPP_
 
-#include "fractal_container.hpp"
-#include "parameters.hpp"
+#include "algebra.hpp"
+#include "color_structures.hpp"
+#include <QObject>
+
+//forward declarations
+class cParameterContainer;
+class cFractalContainer;
+
+struct sLight
+{
+	CVector3 position;
+	sRGB colour;
+	double intensity;
+	bool enabled;
+	sLight() : position(), colour(), intensity(), enabled() {}
+};
 
 class cLights : public QObject
 {
 	Q_OBJECT
 public:
-	struct sLight
-	{
-		CVector3 position;
-		sRGB colour;
-		double intensity;
-		bool enabled;
-		sLight() : position(), colour(), intensity(), enabled() {}
-	};
-
 	cLights();
 	cLights(const cLights &_lights) : QObject() { Copy(_lights); }
 	cLights(const cParameterContainer *_params, const cFractalContainer *_fractal);

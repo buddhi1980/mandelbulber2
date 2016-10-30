@@ -43,6 +43,8 @@
 #include "system.hpp"
 #include <QAbstractSocket>
 #include <QHostInfo>
+#include "render_window.hpp"
+#include "texture.hpp"
 
 CNetRender *gNetRender = NULL;
 

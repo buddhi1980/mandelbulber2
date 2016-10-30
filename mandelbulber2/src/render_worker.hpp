@@ -42,6 +42,11 @@
 #include "fractparams.hpp"
 #include "nine_fractals.hpp"
 #include "scheduler.hpp"
+#include "texture_enums.hpp"
+
+//forward declarations
+class cMaterial;
+struct sLight;
 
 class cRenderWorker : public QObject
 {
@@ -184,7 +189,7 @@ private:
 	sRGBAfloat EnvMapping(const sShaderInputData &input);
 	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut);
 	double AuxShadow(const sShaderInputData &input, double distance, CVector3 lightVector);
-	sRGBAfloat LightShading(const sShaderInputData &input, const cLights::sLight *light, int number,
+	sRGBAfloat LightShading(const sShaderInputData &input, const sLight *light, int number,
 		sRGBAfloat *outSpecular);
 	sRGBAfloat BackgroundShader(const sShaderInputData &input);
 	sRGBAfloat FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec);
@@ -192,7 +197,7 @@ private:
 		const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut);
 
 	sRGBfloat TextureShader(
-		const sShaderInputData &input, cMaterial::enumTextureSelection texSelect, cMaterial *mat) const;
+		const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const;
 	CVector3 NormalMapShader(const sShaderInputData &input);
 
 	// data got from main thread

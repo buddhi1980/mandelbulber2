@@ -38,9 +38,11 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 
-#include "fractal_container.hpp"
 #include "parameters.hpp"
 #include <QtGui>
+
+//forward declarations
+class cFractalContainer;
 
 class cAnimationFrames
 {

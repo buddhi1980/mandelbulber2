@@ -35,11 +35,15 @@
 #ifndef MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 #define MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 
-#include "fractal.h"
-#include "fractal_container.hpp"
+#include "fractal_enums.h"
 #include "fractal_list.hpp"
-#include "parameters.hpp"
+#include "algebra.hpp"
 #include <QtCore>
+
+//forward declarations
+class cParameterContainer;
+class cFractalContainer;
+class cFractal;
 
 class cNineFractals
 {

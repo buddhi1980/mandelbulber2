@@ -33,9 +33,8 @@
  */
 
 #include "my_spin_box.h"
-#include "../src/animation_flight.hpp"
-#include "../src/animation_keyframes.hpp"
 #include <QMenu>
+#include <QtWidgets/QtWidgets>
 
 void MySpinBox::resetToDefault()
 {

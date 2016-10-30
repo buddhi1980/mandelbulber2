@@ -36,6 +36,7 @@
  */
 
 #include "animation_frames.hpp"
+#include "fractal_container.hpp"
 
 cAnimationFrames *gAnimFrames = NULL;
 

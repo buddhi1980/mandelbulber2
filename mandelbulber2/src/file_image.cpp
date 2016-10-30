@@ -39,6 +39,8 @@
 #include "error_message.hpp"
 #include "files.h"
 #include "initparameters.hpp"
+#include "parameters.hpp"
+#include "cimage.hpp"
 
 #define PNG_DEBUG 3
 

@@ -41,6 +41,8 @@
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "file_image.hpp"
+#include "fractparams.hpp"
+#include "fractal_container.hpp"
 #include "initparameters.hpp"
 #include "progress_text.hpp"
 #include "nine_fractals.hpp"

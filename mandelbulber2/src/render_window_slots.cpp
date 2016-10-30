@@ -36,6 +36,7 @@
  * spread over render_window_*.cpp
  */
 
+#include "../qt/material_editor.h"
 #include "render_window.hpp"
 #include "../qt/preferences_dialog.h"
 #include "../qt/thumbnail_widget.h"

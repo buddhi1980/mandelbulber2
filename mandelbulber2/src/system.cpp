@@ -46,6 +46,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../src/render_window.hpp"
+
 #ifndef WIN32
 #include <signal.h>
 #include <sys/ioctl.h>

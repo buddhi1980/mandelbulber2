@@ -35,12 +35,15 @@
 #ifndef MANDELBULBER2_SRC_NETRENDER_HPP_
 #define MANDELBULBER2_SRC_NETRENDER_HPP_
 
-#include "fractal_container.hpp"
-#include "parameters.hpp"
-#include "render_data.hpp"
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QtCore>
+
+#include "parameters.hpp"
+#include "fractal_container.hpp"
+
+//forward declarations
+class sRenderData;
 
 class CNetRender : public QObject
 {

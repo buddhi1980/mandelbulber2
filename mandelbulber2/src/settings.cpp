@@ -42,6 +42,7 @@
 #include "system.hpp"
 #include <QCryptographicHash>
 
+#include "material.h"
 cSettings::cSettings(enumFormat _format)
 {
 	format = _format;

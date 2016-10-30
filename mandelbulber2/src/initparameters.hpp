@@ -35,7 +35,6 @@
 #ifndef MANDELBULBER2_SRC_INITPARAMETERS_HPP_
 #define MANDELBULBER2_SRC_INITPARAMETERS_HPP_
 
-#include "fractparams.hpp"
 #include "object_types.hpp"
 #include "parameters.hpp"
 

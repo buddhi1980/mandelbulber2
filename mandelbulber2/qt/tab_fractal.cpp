@@ -41,6 +41,7 @@
 #include "../src/fractal_list.hpp"
 #include "../src/interface.hpp"
 #include "../src/my_ui_loader.h"
+#include "../src/render_window.hpp"
 #include "ui_tab_fractal.h"
 
 cTabFractal::cTabFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cTabFractal)

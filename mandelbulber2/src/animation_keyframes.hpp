@@ -41,12 +41,24 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_
 
-#include "../qt/dock_animation.h"
-#include "../qt/my_table_widget_keyframes.hpp"
-#include "cimage.hpp"
+#include <qmessagebox.h>
+
 #include "error_message.hpp"
-#include "interface.hpp"
 #include "keyframes.hpp"
+#include "progress_text.hpp"
+#include "statistics.h"
+
+//forward declarations
+class cImage;
+class cInterface;
+class cFractalContainer;
+class cParameterContainer;
+class MyTableWidgetKeyframes;
+
+namespace Ui
+{
+class cDockAnimation;
+}
 
 class cKeyframeAnimation : public QObject
 {

@@ -33,6 +33,8 @@
  */
 
 #include "image_scale.hpp"
+
+#include "cimage.hpp"
 #include <QtCore>
 #include <algorithm>
 using std::min;

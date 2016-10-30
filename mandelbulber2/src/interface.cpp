@@ -34,7 +34,13 @@
 
 #include "interface.hpp"
 
+#include "../qt/material_editor.h"
 #include "../qt/my_group_box.h"
+#include "../qt/my_progress_bar.h"
+#include "../qt/player_widget.hpp"
+#include "../qt/system_tray.hpp"
+#include "../src/render_window.hpp"
+#include "../src/rendered_image_widget.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "calculate_distance.hpp"
@@ -43,6 +49,7 @@
 #include "dof.hpp"
 #include "error_message.hpp"
 #include "global_data.hpp"
+#include "headless.h"
 #include "initparameters.hpp"
 #include "my_ui_loader.h"
 #include "queue.hpp"

@@ -42,6 +42,7 @@
 #include "error_message.hpp"
 #include "initparameters.hpp"
 #include "settings.hpp"
+#include "system.hpp"
 
 cUndo gUndo;
 
