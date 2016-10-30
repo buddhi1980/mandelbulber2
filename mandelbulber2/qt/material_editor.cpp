@@ -36,6 +36,7 @@
 #include "ui_material_editor.h"
 #include <QtCore>
 
+#include "../src/automated_widgets.hpp"
 #include "../src/common_math.h"
 #include "../src/fractal_coloring.hpp"
 #include "../src/material.h"

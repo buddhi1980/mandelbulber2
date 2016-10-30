@@ -40,9 +40,11 @@
 
 #include <QWidget>
 
-#include "../src/automated_widgets.hpp"
-#include "../src/parameters.hpp"
 #include "../src/synchronize_interface.hpp"
+
+//forward declarations
+class cAutomatedWidgets;
+class cParameterContainer;
 
 namespace Ui
 {

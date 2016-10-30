@@ -35,11 +35,15 @@
 #ifndef MANDELBULBER2_SRC_RENDER_IMAGE_HPP_
 #define MANDELBULBER2_SRC_RENDER_IMAGE_HPP_
 
-#include "cimage.hpp"
-#include "fractparams.hpp"
-#include "nine_fractals.hpp"
-#include "render_data.hpp"
-#include "scheduler.hpp"
+#include <QObject>
+#include "statistics.h"
+
+//forward declarations
+class cNineFractals;
+class cParamRender;
+struct sRenderData;
+class cImage;
+class cScheduler;
 
 class cRenderer : public QObject
 {

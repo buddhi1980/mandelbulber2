@@ -38,7 +38,6 @@
 #ifndef MANDELBULBER2_QT_MY_LOG_WIDGET_H_
 #define MANDELBULBER2_QT_MY_LOG_WIDGET_H_
 
-#include "../src/system.hpp"
 #include <QPlainTextEdit>
 #include <QtCore>
 #include <QtGui>

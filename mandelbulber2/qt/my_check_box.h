@@ -36,9 +36,7 @@
 #define MANDELBULBER2_QT_MY_CHECK_BOX_H_
 
 #include "../qt/common_my_widget_wrapper.h"
-#include "../src/parameters.hpp"
 #include <QCheckBox>
-#include <QMenu>
 #include <QtCore>
 #include <QtGui>
 

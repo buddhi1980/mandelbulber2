@@ -39,8 +39,10 @@
 #include <QWidget>
 
 #include "../qt/my_progress_bar.h"
-#include "../src/automated_widgets.hpp"
 #include "../src/rendered_image_widget.hpp"
+
+//forward declarations
+class cAutomatedWidgets;
 
 namespace Ui
 {

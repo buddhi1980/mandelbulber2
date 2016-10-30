@@ -35,8 +35,10 @@
 #ifndef MANDELBULBER2_QT_PREFERENCES_DIALOG_H_
 #define MANDELBULBER2_QT_PREFERENCES_DIALOG_H_
 
-#include "../src/automated_widgets.hpp"
 #include <QDialog>
+
+//forward declarations
+class cAutomatedWidgets;
 
 namespace Ui
 {

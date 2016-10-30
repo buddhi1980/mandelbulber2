@@ -42,11 +42,13 @@
 #ifndef MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_
 #define MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_
 
-#include "../src/parameters.hpp"
 #include <QMenu>
 #include <QWidget>
 #include <QtCore>
 #include <QtGui>
+
+//forward declarations
+class cParameterContainer;
 
 class CommonMyWidgetWrapper
 {

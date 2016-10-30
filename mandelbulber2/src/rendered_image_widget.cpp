@@ -42,6 +42,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QtCore>
+#include <QVariant>
+#include "cimage.hpp"
 
 using namespace Qt;
 

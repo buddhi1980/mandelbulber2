@@ -37,6 +37,10 @@
 
 #include "texture_mapping.hpp"
 
+#include "material.h"
+#include "object_data.hpp"
+#include "texture_enums.hpp"
+
 CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	const cObjectData &objectData, const cMaterial *material, CVector3 *textureVectorX,
 	CVector3 *textureVectorY)

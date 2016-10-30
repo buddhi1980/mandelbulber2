@@ -39,9 +39,11 @@
 #include "../src/rendered_image_widget.hpp"
 #include "../src/synchronize_interface.hpp"
 #include "../src/ao_modes.h"
+#include "../src/automated_widgets.hpp"
 #include "../src/render_window.hpp"
 #include "../src/system.hpp"
 #include "ui_dock_effects.h"
+#include "ui_render_window.h"
 
 cDockEffects::cDockEffects(QWidget *parent) : QWidget(parent), ui(new Ui::cDockEffects)
 {

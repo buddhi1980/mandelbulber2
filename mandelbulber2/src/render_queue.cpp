@@ -36,14 +36,23 @@
 
 #include <QtCore>
 
+#include "../src/animation_flight.hpp"
+#include "../src/animation_keyframes.hpp"
+#include "../src/interface.hpp"
+#include "../src/rendered_image_widget.hpp"
+#include "animation_frames.hpp"
 #include "error_message.hpp"
 #include "file_image.hpp"
 #include "files.h"
+#include "fractal_container.hpp"
 #include "global_data.hpp"
 #include "initparameters.hpp"
+#include "keyframes.hpp"
+#include "parameters.hpp"
 #include "progress_text.hpp"
 #include "queue.hpp"
 #include "render_job.hpp"
+#include "rendering_configuration.hpp"
 #include "settings.hpp"
 
 cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()

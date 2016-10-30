@@ -35,10 +35,11 @@
 #ifndef MANDELBULBER2_QT_VOXEL_EXPORT_DIALOG_H_
 #define MANDELBULBER2_QT_VOXEL_EXPORT_DIALOG_H_
 
-#include "../src/automated_widgets.hpp"
-#include "../src/global_data.hpp"
-#include "../src/voxel_export.hpp"
 #include <QDialog>
+
+//forward declarations
+class cAutomatedWidgets;
+class cVoxelExport;
 
 namespace Ui
 {

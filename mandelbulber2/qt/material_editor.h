@@ -37,9 +37,11 @@
 
 #include <QWidget>
 
-#include "../src/automated_widgets.hpp"
 #include "../src/color_palette.hpp"
-#include "../src/parameters.hpp"
+
+//forward declarations
+class cAutomatedWidgets;
+class cParameterContainer;
 
 namespace Ui
 {

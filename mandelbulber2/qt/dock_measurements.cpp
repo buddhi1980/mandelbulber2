@@ -34,10 +34,12 @@
 
 #include "dock_measurements.h"
 
+#include "../src/automated_widgets.hpp"
 #include "../src/interface.hpp"
 #include "../src/render_window.hpp"
 #include "../src/rendered_image_widget.hpp"
 #include "ui_dock_measurements.h"
+#include "ui_render_window.h"
 
 cDockMeasurements::cDockMeasurements(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockMeasurements)

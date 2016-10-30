@@ -38,12 +38,16 @@
  */
 
 #include "thumbnail_widget.h"
-#include "../src/global_data.hpp"
-#include "../src/render_job.hpp"
-#include "../src/settings.hpp"
+
 #include <QImage>
 #include <QPaintEvent>
 
+#include "../src/cimage.hpp"
+#include "../src/global_data.hpp"
+#include "../src/render_job.hpp"
+#include "../src/settings.hpp"
+#include "../src/stereo.h"
+#include "../src/rendering_configuration.hpp"
 #include "../src/common_math.h"
 #include "../src/system.hpp"
 

@@ -35,12 +35,18 @@
 #ifndef MANDELBULBER2_SRC_RENDER_JOB_HPP_
 #define MANDELBULBER2_SRC_RENDER_JOB_HPP_
 
+#include <QObject>
+
 #include "camera_target.hpp"
-#include "cimage.hpp"
-#include "fractal_container.hpp"
+#include "statistics.h"
 #include "parameters.hpp"
-#include "render_data.hpp"
-#include "rendering_configuration.hpp"
+#include "fractal_container.hpp"
+
+//forward declarations
+class cImage;
+class sRenderData;
+class cRenderingConfiguration;
+struct sImageOptional;
 
 class cRenderJob : public QObject
 {
@@ -68,15 +74,15 @@ public:
 	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget);
 
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
-	void UpdateConfig(const cRenderingConfiguration &config) { renderData->configuration = config; }
+	void UpdateConfig(const cRenderingConfiguration &config);
 	static int GetRunningJobCount() { return runningJobs; }
-	cStatistics GetStatistics(void) { return renderData->statistics; }
+	cStatistics GetStatistics(void);
 
 public slots:
 	void slotExecute();
 
 private:
-	bool InitImage(int w, int h, sImageOptional optional);
+	bool InitImage(int w, int h, const sImageOptional &optional);
 	void PrepareData(const cRenderingConfiguration &config);
 	void ReduceDetail();
 	QStringList CreateListOfUsedTextures();

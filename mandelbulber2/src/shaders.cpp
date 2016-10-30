@@ -32,12 +32,17 @@
  * cRenderWorker::ObjectShader method - calculates surface and volumetric shaders
  */
 
+#include <algorithm>
+#include "ao_modes.h"
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "compute_fractal.hpp"
+#include "fractparams.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
 #include "texture_mapping.hpp"
+
+using std::max;
 
 sRGBAfloat cRenderWorker::ObjectShader(
 	const sShaderInputData &_input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut)

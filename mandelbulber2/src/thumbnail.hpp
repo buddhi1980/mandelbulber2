@@ -35,10 +35,12 @@
 #ifndef MANDELBULBER2_SRC_THUMBNAIL_HPP_
 #define MANDELBULBER2_SRC_THUMBNAIL_HPP_
 
-#include "cimage.hpp"
-#include "fractal_container.hpp"
-#include "parameters.hpp"
 #include <QtCore>
+
+//forward declarations
+class cParameterContainer;
+class cFractalContainer;
+class cImage;
 
 class cThumbnail
 {

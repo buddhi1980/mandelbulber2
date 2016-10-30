@@ -37,10 +37,12 @@
 #ifndef MANDELBULBER2_QT_PLAYER_WIDGET_HPP_
 #define MANDELBULBER2_QT_PLAYER_WIDGET_HPP_
 
-#include "my_double_spin_box.h"
 #include <QTimer>
 #include <QWidget>
 #include <QtWidgets>
+
+//forward declarations
+class MyDoubleSpinBox;
 
 class PlayerWidget : public QWidget
 {

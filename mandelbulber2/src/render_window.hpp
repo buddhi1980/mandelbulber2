@@ -39,13 +39,15 @@
 #ifndef MANDELBULBER2_SRC_RENDER_WINDOW_HPP_
 #define MANDELBULBER2_SRC_RENDER_WINDOW_HPP_
 
-#include "automated_widgets.hpp"
 #include "progress_text.hpp"
-#include "ui_render_window.h"
 #include <QSettings>
 #include <QtCore>
 #include <QtGui>
+#include <QMainWindow>
 #include <qmessagebox.h>
+
+//forward declarations
+class cAutomatedWidgets;
 
 namespace Ui
 {

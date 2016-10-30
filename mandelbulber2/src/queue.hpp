@@ -35,12 +35,16 @@
 #ifndef MANDELBULBER2_SRC_QUEUE_HPP_
 #define MANDELBULBER2_SRC_QUEUE_HPP_
 
-#include "animation_frames.hpp"
-#include "fractal_container.hpp"
-#include "interface.hpp"
-#include "keyframes.hpp"
-#include "parameters.hpp"
 #include <QtCore>
+
+//forward declarations
+class cImage;
+class cParameterContainer;
+class cFractalContainer;
+class cAnimationFrames;
+class cKeyframes;
+class cInterface;
+class RenderedImage;
 
 namespace Ui
 {

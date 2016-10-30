@@ -33,6 +33,8 @@
  */
 
 #include "command_line_interface.hpp"
+
+#include "../src/interface.hpp"
 #include "animation_frames.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"

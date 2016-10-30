@@ -32,16 +32,22 @@
  * cRenderQueue class - processes queue render request
  */
 
-#include "animation_flight.hpp"
-#include "animation_keyframes.hpp"
-#include "cimage.hpp"
-#include "fractal_container.hpp"
-#include "progress_text.hpp"
-#include "rendered_image_widget.hpp"
-#include <QtCore>
-
 #ifndef MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 #define MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
+
+#include <QtCore>
+#include "progress_text.hpp"
+#include "statistics.h"
+
+//forward declarations
+class RenderedImage;
+class cParameterContainer;
+class cFractalContainer;
+class cAnimationFrames;
+class cFlightAnimation;
+class cKeyframeAnimation;
+class cKeyframes;
+class cImage;
 
 class cRenderQueue : public QObject
 {

@@ -38,6 +38,7 @@
 #include "../src/interface.hpp"
 #include "../src/render_window.hpp"
 #include "ui_dock_statistics.h"
+#include "ui_render_window.h"
 
 cDockStatistics::cDockStatistics(QWidget *parent) : QWidget(parent), ui(new Ui::cDockStatistics)
 {

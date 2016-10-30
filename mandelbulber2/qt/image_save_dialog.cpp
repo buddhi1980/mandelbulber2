@@ -35,6 +35,8 @@
  */
 
 #include "image_save_dialog.h"
+
+#include "../src/automated_widgets.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/queue.hpp"

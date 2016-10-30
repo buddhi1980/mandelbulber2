@@ -37,7 +37,6 @@
 #define MANDELBULBER2_QT_FILE_SELECT_WIDGET_H_
 
 #include "../qt/common_my_widget_wrapper.h"
-#include "../src/parameters.hpp"
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>

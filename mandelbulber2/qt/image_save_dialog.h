@@ -37,14 +37,14 @@
 #ifndef MANDELBULBER2_QT_IMAGE_SAVE_DIALOG_H_
 #define MANDELBULBER2_QT_IMAGE_SAVE_DIALOG_H_
 
-#include "../src/automated_widgets.hpp"
-#include "my_progress_bar.h"
-#include "thumbnail_widget.h"
 #include <QCheckBox>
 #include <QFileDialog>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
+
+//forward declarations
+class cAutomatedWidgets;
 
 namespace Ui
 {

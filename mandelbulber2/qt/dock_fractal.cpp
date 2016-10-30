@@ -35,6 +35,7 @@
 #include "dock_fractal.h"
 
 #include "../qt/my_tab_bar.h"
+#include "../src/automated_widgets.hpp"
 #include "../src/error_message.hpp"
 #include "../src/global_data.hpp"
 #include "../src/initparameters.hpp"
@@ -44,6 +45,7 @@
 #include "../src/fractal_list.hpp"
 #include "../src/render_window.hpp"
 #include "ui_dock_fractal.h"
+#include "ui_render_window.h"
 
 cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockFractal)
 {

@@ -36,6 +36,7 @@
 
 #include "player_widget.hpp"
 #include "../src/initparameters.hpp"
+#include "my_double_spin_box.h"
 
 PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 {

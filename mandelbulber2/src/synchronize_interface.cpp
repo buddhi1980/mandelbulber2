@@ -46,6 +46,8 @@
 #include "fractal_list.hpp"
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QPlainTextEdit>
+#include "algebra.hpp"
+#include "parameters.hpp"
 
 using namespace qInterface;
 

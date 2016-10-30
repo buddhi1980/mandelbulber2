@@ -37,9 +37,11 @@
 #ifndef MANDELBULBER2_QT_SYSTEM_TRAY_HPP_
 #define MANDELBULBER2_QT_SYSTEM_TRAY_HPP_
 
-#include "../src/cimage.hpp"
 #include <QAction>
 #include <QSystemTrayIcon>
+
+//forward declarations
+class cImage;
 
 class cSystemTray : public QObject
 {

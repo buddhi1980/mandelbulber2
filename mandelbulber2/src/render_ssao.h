@@ -35,9 +35,14 @@
 #ifndef MANDELBULBER2_SRC_RENDER_SSAO_H_
 #define MANDELBULBER2_SRC_RENDER_SSAO_H_
 
-#include "cimage.hpp"
-#include "fractparams.hpp"
-#include "render_data.hpp"
+#include <QObject>
+
+#include "region.hpp"
+
+//forward declarations
+class cImage;
+class sRenderData;
+class cParamRender;
 
 class cRenderSSAO : public QObject
 {

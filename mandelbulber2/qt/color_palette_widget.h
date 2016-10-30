@@ -37,12 +37,8 @@
 
 #include "../qt/common_my_widget_wrapper.h"
 #include "../src/color_palette.hpp"
-#include "../src/parameters.hpp"
 #include <QColorDialog>
-#include <QMenu>
 #include <QMouseEvent>
-#include <QPainter>
-#include <QPoint>
 #include <QWidget>
 #include <QtCore>
 

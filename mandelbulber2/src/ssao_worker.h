@@ -39,11 +39,16 @@
 #ifndef MANDELBULBER2_SRC_SSAO_WORKER_H_
 #define MANDELBULBER2_SRC_SSAO_WORKER_H_
 
-#include "cimage.hpp"
-#include "fractparams.hpp"
-#include "render_data.hpp"
 #include <QList>
+#include <QThread>
 #include <qobject.h>
+
+#include "region.hpp"
+
+//forward declarations
+class cParamRender;
+class sRenderData;
+class cImage;
 
 class cSSAOWorker : public QObject
 {

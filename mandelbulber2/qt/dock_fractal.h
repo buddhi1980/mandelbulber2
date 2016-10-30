@@ -38,11 +38,13 @@
 #include <QWidget>
 #include <QtWidgets/QtWidgets>
 
-#include "../src/automated_widgets.hpp"
 #include "../src/fractal_container.hpp"
 #include "../src/parameters.hpp"
 #include "../src/synchronize_interface.hpp"
 #include "tab_fractal.h"
+
+//forward declarations
+class cAutomatedWidgets;
 
 namespace Ui
 {

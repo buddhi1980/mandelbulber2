@@ -36,9 +36,7 @@
 #define MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_
 
 #include "../qt/common_my_widget_wrapper.h"
-#include "../src/parameters.hpp"
 #include <QDoubleSpinBox>
-#include <QMenu>
 #include <QtCore>
 #include <QtGui>
 

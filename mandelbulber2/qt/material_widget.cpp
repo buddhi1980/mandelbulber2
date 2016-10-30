@@ -37,6 +37,11 @@
  */
 
 #include "../qt/material_widget.h"
+
+#include <QMouseEvent>
+
+#include "../src/fractal_container.hpp"
+#include "../src/fractal_enums.h"
 #include "../src/initparameters.hpp"
 #include "../src/material.h"
 #include "../src/settings.hpp"

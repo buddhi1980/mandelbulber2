@@ -36,7 +36,6 @@
 #define MANDELBULBER2_QT_MY_SPIN_BOX_H_
 
 #include "../qt/common_my_widget_wrapper.h"
-#include "../src/parameters.hpp"
 #include <QSpinBox>
 #include <QtCore>
 #include <QtGui>

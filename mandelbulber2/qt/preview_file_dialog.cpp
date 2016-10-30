@@ -33,6 +33,10 @@
  */
 
 #include "preview_file_dialog.h"
+
+#include "../qt/my_progress_bar.h"
+#include "../qt/thumbnail_widget.h"
+#include "../src/fractal_container.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/queue.hpp"

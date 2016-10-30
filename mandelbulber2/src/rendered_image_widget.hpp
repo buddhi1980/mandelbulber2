@@ -36,11 +36,15 @@
 #ifndef MANDELBULBER2_SRC_RENDERED_IMAGE_WIDGET_HPP_
 #define MANDELBULBER2_SRC_RENDERED_IMAGE_WIDGET_HPP_
 
-#include "algebra.hpp"
-#include "cimage.hpp"
-#include "parameters.hpp"
-#include "stereo.h"
 #include <QWidget>
+#include "QVariant"
+
+#include "algebra.hpp"
+#include "stereo.h"
+
+//forward declarations
+class cImage;
+class cParameterContainer;
 
 class RenderedImage : public QWidget
 {

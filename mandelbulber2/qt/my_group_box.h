@@ -36,9 +36,7 @@
 #define MANDELBULBER2_QT_MY_GROUP_BOX_H_
 
 #include "../qt/common_my_widget_wrapper.h"
-#include "../src/parameters.hpp"
 #include <QGroupBox>
-#include <QMenu>
 #include <QtCore>
 #include <QtGui>
 

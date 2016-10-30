@@ -42,8 +42,9 @@
 
 #include <QWidget>
 
-#include "../src/material_item_model.h"
-#include "../src/material_item_view.h"
+//forward declarations
+class cMaterialItemModel;
+class cMaterialItemView;
 
 namespace Ui
 {

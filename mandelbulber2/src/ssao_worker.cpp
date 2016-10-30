@@ -37,7 +37,12 @@
  */
 
 #include "ssao_worker.h"
+
+#include "cimage.hpp"
+#include "color_structures.hpp"
 #include "common_math.h"
+#include "fractparams.hpp"
+#include "render_data.hpp"
 
 cSSAOWorker::cSSAOWorker(
 	const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data, cImage *_image)

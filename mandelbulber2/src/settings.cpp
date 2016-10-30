@@ -36,13 +36,19 @@
  */
 
 #include "settings.hpp"
+
+#include <QCryptographicHash>
+
 #include "error_message.hpp"
 #include "initparameters.hpp"
 #include "primitives.h"
 #include "system.hpp"
-#include <QCryptographicHash>
-
+#include "animation_frames.hpp"
+#include "fractal_container.hpp"
+#include "fractal_enums.h"
+#include "keyframes.hpp"
 #include "material.h"
+
 cSettings::cSettings(enumFormat _format)
 {
 	format = _format;

@@ -38,11 +38,13 @@
 #ifndef MANDELBULBER2_SRC_SETTINGS_HPP_
 #define MANDELBULBER2_SRC_SETTINGS_HPP_
 
-#include "animation_frames.hpp"
-#include "fractal_container.hpp"
-#include "keyframes.hpp"
-#include "parameters.hpp"
 #include <QtCore>
+
+//forward declarations
+class cParameterContainer;
+class cFractalContainer;
+class cAnimationFrames;
+class cKeyframes;
 
 class cSettings
 {

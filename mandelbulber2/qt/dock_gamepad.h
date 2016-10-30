@@ -37,11 +37,12 @@
 
 #include <QWidget>
 
-#include "../src/automated_widgets.hpp"
-
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepad.h>
 #endif // USE_GAMEPAD
+
+//forward declarations
+class cAutomatedWidgets;
 
 namespace Ui
 {

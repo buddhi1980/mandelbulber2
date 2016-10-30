@@ -40,7 +40,9 @@
 #include <qlabel.h>
 
 #include "common_my_widget_wrapper.h"
-#include "material_widget.h"
+
+//forward declarations
+class cMaterialWidget;
 
 class cMaterialSelector : public QWidget, public CommonMyWidgetWrapper
 {

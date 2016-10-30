@@ -32,6 +32,7 @@
  * TODO: description
  */
 
+#include "../src/automated_widgets.hpp"
 #include "../src/fractparams.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
@@ -39,6 +40,7 @@
 #include "../src/render_window.hpp"
 #include "dock_image_adjustmnets.h"
 #include "ui_dock_image_adjustments.h"
+#include "ui_render_window.h"
 
 cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)

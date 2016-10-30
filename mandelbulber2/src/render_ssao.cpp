@@ -33,8 +33,12 @@
  */
 
 #include "render_ssao.h"
+
+#include "cimage.hpp"
+#include "fractparams.hpp"
 #include "global_data.hpp"
 #include "progress_text.hpp"
+#include "render_data.hpp"
 #include "ssao_worker.h"
 #include "system.hpp"
 

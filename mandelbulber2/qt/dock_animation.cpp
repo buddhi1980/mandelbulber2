@@ -33,6 +33,8 @@
  */
 
 #include "dock_animation.h"
+
+#include "../src/automated_widgets.hpp"
 #include "../src/file_image.hpp"
 #include "ui_dock_animation.h"
 

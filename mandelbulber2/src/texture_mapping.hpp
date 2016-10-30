@@ -38,8 +38,11 @@
 #ifndef MANDELBULBER2_SRC_TEXTURE_MAPPING_HPP_
 #define MANDELBULBER2_SRC_TEXTURE_MAPPING_HPP_
 
-#include "material.h"
-#include "object_data.hpp"
+#include "algebra.hpp"
+
+//forward declarations
+class cMaterial;
+class cObjectData;
 
 CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	const cObjectData &objectData, const cMaterial *material, CVector3 *textureVectorX = NULL,

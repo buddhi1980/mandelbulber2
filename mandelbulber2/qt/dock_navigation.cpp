@@ -34,6 +34,7 @@
 
 #include "dock_navigation.h"
 
+#include "../src/automated_widgets.hpp"
 #include "../src/interface.hpp"
 #include "ui_dock_navigation.h"
 

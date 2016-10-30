@@ -38,7 +38,6 @@
 #ifndef MANDELBULBER2_QT_MY_PROGRESS_BAR_H_
 #define MANDELBULBER2_QT_MY_PROGRESS_BAR_H_
 
-#include "../src/parameters.hpp"
 #include <QLabel>
 #include <QProgressBar>
 

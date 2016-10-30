@@ -41,10 +41,16 @@
 #include "../qt/preferences_dialog.h"
 #include "../qt/thumbnail_widget.h"
 #include "../qt/voxel_export_dialog.h"
+#include "../src/material_item_model.h"
+#include "animation_frames.hpp"
+#include "cimage.hpp"
 #include "image_scale.hpp"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "keyframes.hpp"
 #include "settings.hpp"
+#include "system.hpp"
+#include "ui_render_window.h"
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
 {

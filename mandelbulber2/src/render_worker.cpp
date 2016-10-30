@@ -38,9 +38,17 @@
 #include "region.hpp"
 #include <QtCore>
 
+#include "ao_modes.h"
+#include "camera_target.hpp"
+#include "cimage.hpp"
 #include "material.h"
+#include "projection_3d.hpp"
 #include "render_data.hpp"
 #include "stereo.h"
+#include "fractparams.hpp"
+#include "scheduler.hpp"
+#include "system.hpp"
+
 cRenderWorker::cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
 	sThreadData *_threadData, sRenderData *_data, cImage *_image)
 {

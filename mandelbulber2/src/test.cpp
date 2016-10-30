@@ -44,6 +44,7 @@
 #include "render_job.hpp"
 #include "settings.hpp"
 #include "interface.hpp"
+#include "rendering_configuration.hpp"
 #include "system.hpp"
 
 void Test::renderExamples()

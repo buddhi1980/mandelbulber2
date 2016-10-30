@@ -35,13 +35,15 @@
 #ifndef MANDELBULBER2_QT_PREVIEW_FILE_DIALOG_H_
 #define MANDELBULBER2_QT_PREVIEW_FILE_DIALOG_H_
 
-#include "my_progress_bar.h"
-#include "thumbnail_widget.h"
 #include <QCheckBox>
 #include <QFileDialog>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
+
+//forward declarations
+class cThumbnailWidget;
+class MyProgressBar;
 
 class PreviewFileDialog : public QFileDialog
 {

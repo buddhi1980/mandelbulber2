@@ -40,6 +40,7 @@
 
 #include "animation_flight.hpp"
 
+#include "../qt/my_progress_bar.h"
 #include "../qt/thumbnail_widget.h"
 #include "../qt/my_table_widget_anim.hpp"
 #include "../qt/player_widget.hpp"
@@ -47,6 +48,7 @@
 #include "../src/render_window.hpp"
 #include "../src/rendered_image_widget.hpp"
 #include "animation_frames.hpp"
+#include "cimage.hpp"
 #include "files.h"
 #include "global_data.hpp"
 #include "headless.h"
@@ -54,8 +56,10 @@
 #include "interface.hpp"
 #include "netrender.hpp"
 #include "render_job.hpp"
+#include "rendering_configuration.hpp"
 #include "ui_dock_animation.h"
 #include "undo.h"
+#include "ui_render_window.h"
 
 cFlightAnimation *gFlightAnimation = NULL;
 

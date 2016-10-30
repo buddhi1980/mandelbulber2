@@ -33,20 +33,25 @@
  */
 
 #include "preferences_dialog.h"
-#include "../src/file_downloader.hpp"
-#include "../src/global_data.hpp"
-#include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
-#include "../src/progress_text.hpp"
-#include "../src/settings.hpp"
-#include "../src/system.hpp"
-#include "ui_preferences_dialog.h"
+
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QtCore>
 
 #include "../qt/thumbnail_widget.h"
+#include "../src/automated_widgets.hpp"
+#include "../src/file_downloader.hpp"
+#include "../src/fractal_container.hpp"
+#include "../src/fractal_enums.h"
+#include "../src/global_data.hpp"
+#include "../src/initparameters.hpp"
+#include "../src/interface.hpp"
+#include "../src/progress_text.hpp"
 #include "../src/render_window.hpp"
+#include "../src/settings.hpp"
+#include "../src/system.hpp"
+#include "ui_preferences_dialog.h"
+
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cPreferencesDialog)
 {

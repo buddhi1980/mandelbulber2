@@ -36,6 +36,7 @@
  * spread over render_window_*.cpp
  */
 
+#include "../src/material_item_model.h"
 #include "render_window.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
@@ -48,6 +49,7 @@
 #include "old_settings.hpp"
 #include "preview_file_dialog.h"
 #include "settings.hpp"
+#include "ui_render_window.h"
 
 void RenderWindow::slotImportOldSettings()
 {

@@ -33,16 +33,19 @@
  */
 
 #include "render_job.hpp"
-//#include <QtCore>
+
+#include <QWidget>
+#include "ao_modes.h"
+#include "cimage.hpp"
+#include "fractparams.hpp"
 #include "image_scale.hpp"
 #include "netrender.hpp"
+#include "nine_fractals.hpp"
+#include "render_data.hpp"
 #include "render_image.hpp"
+#include "rendering_configuration.hpp"
+#include "stereo.h"
 #include "system.hpp"
-//#include "fractparams.hpp"
-//#include "global_data.hpp"
-//#include "progress_text.hpp"
-//#include "error_message.hpp"
-//#include "nine_fractals.hpp"
 
 cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
 	cImage *_image, bool *_stopRequest, QWidget *_qwidget)
@@ -187,7 +190,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	return true;
 }
 
-bool cRenderJob::InitImage(int w, int h, sImageOptional optional)
+bool cRenderJob::InitImage(int w, int h, const sImageOptional &optional)
 {
 	WriteLog("cRenderJob::InitImage", 2);
 
@@ -578,4 +581,14 @@ QStringList cRenderJob::CreateListOfUsedTextures()
 		return listOfTextures.toList();
 	}
 	return QStringList();
+}
+
+void cRenderJob::UpdateConfig(const cRenderingConfiguration &config)
+{
+	renderData->configuration = config;
+}
+
+cStatistics cRenderJob::GetStatistics(void)
+{
+	return renderData->statistics;
 }

@@ -46,6 +46,8 @@
 #include "../src/fractal_container.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/material.h"
+#include "../src/material_item_model.h"
+#include "../src/material_item_view.h"
 #include "../src/settings.hpp"
 #include "../src/synchronize_interface.hpp"
 #include "../src/system.hpp"

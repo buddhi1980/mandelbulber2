@@ -36,10 +36,12 @@
 #define MANDELBULBER2_SRC_STEREO_H_
 
 #include "algebra.hpp"
-#include "cimage.hpp"
 #include "color_structures.hpp"
 #include "projection_3d.hpp"
 #include "region.hpp"
+
+//forward declarations
+class cImage;
 
 class cStereo
 {

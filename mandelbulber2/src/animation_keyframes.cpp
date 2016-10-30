@@ -40,11 +40,13 @@
 
 #include "animation_keyframes.hpp"
 
+#include "../qt/my_progress_bar.h"
 #include "../qt/thumbnail_widget.h"
 #include "../qt/my_table_widget_keyframes.hpp"
 #include "../qt/player_widget.hpp"
 #include "../qt/system_tray.hpp"
 #include "../src/render_window.hpp"
+#include "cimage.hpp"
 #include "files.h"
 #include "global_data.hpp"
 #include "headless.h"
@@ -53,6 +55,8 @@
 #include "ui_dock_animation.h"
 #include "undo.h"
 #include "interface.hpp"
+#include "rendering_configuration.hpp"
+#include "ui_render_window.h"
 
 cKeyframeAnimation *gKeyframeAnimation = NULL;
 

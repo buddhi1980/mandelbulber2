@@ -34,16 +34,21 @@
 
 #include "render_image.hpp"
 
+#include <algorithm>
 #include <QtCore>
 
+#include "ao_modes.h"
 #include "dof.hpp"
-//#include "system.hpp"
+#include "fractparams.hpp"
 #include "progress_text.hpp"
 #include "render_worker.hpp"
-//#include "error_message.hpp"
 #include "global_data.hpp"
 #include "netrender.hpp"
+#include "render_data.hpp"
 #include "render_ssao.h"
+#include "scheduler.hpp"
+#include "stereo.h"
+#include "system.hpp"
 
 cRenderer::cRenderer(const cParamRender *_params, const cNineFractals *_fractal,
 	sRenderData *_renderData, cImage *_image)

@@ -36,17 +36,21 @@
 #define MANDELBULBER2_SRC_RENDER_WORKER_HPP_
 
 #include <QThread>
+#include <QObject>
 
-#include "camera_target.hpp"
-#include "cimage.hpp"
-#include "fractparams.hpp"
-#include "nine_fractals.hpp"
-#include "scheduler.hpp"
+#include "color_structures.hpp"
 #include "texture_enums.hpp"
+#include "algebra.hpp"
 
 //forward declarations
 class cMaterial;
 struct sLight;
+class cCameraTarget;
+class cImage;
+struct sRenderData;
+class cParamRender;
+class cNineFractals;
+class cScheduler;
 
 class cRenderWorker : public QObject
 {

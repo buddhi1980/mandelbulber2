@@ -35,9 +35,10 @@
 #ifndef MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_
 #define MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_
 
-#include "fractal_container.hpp"
-#include "parameters.hpp"
 #include <QWidget>
+
+//forward declarations
+class cParameterContainer;
 
 namespace qInterface
 {

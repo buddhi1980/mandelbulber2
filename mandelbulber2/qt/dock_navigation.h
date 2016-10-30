@@ -37,7 +37,8 @@
 
 #include <QWidget>
 
-#include "../src/automated_widgets.hpp"
+//forward declarations
+class cAutomatedWidgets;
 
 namespace Ui
 {

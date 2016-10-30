@@ -34,16 +34,24 @@
 
 #include "queue.hpp"
 
+#include "../qt/thumbnail_widget.h"
+#include "../src/interface.hpp"
+#include "../src/rendered_image_widget.hpp"
+#include "animation_frames.hpp"
+#include "cimage.hpp"
 #include "render_window.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "headless.h"
 #include "initparameters.hpp"
+#include "keyframes.hpp"
+#include "parameters.hpp"
 #include "preview_file_dialog.h"
 #include "render_queue.hpp"
 #include "settings.hpp"
 #include "system.hpp"
 #include "ui_dock_queue.h"
+#include "ui_render_window.h"
 
 cQueue *gQueue = NULL;
 
