@@ -566,6 +566,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformAddCpixelVaryV1Iteration(z, c, i, fractal);
 					break;
 				}
+				case transfAddExp2Z:
+				{
+					TransformAddExp2ZIteration(z, fractal, extendedAux);
+					break;
+				}
+
+
 				case transfBenesiT1:
 				{
 					TransformBenesiT1Iteration(z, fractal, extendedAux);

@@ -150,6 +150,7 @@ void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 c, int i, const cFr
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformAdditionConstant4DIteration(CVector4 &z4D, const cFractal *fractal);
 void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal);
+void TransformAddExp2ZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBenesiCubeSphereIteration(CVector3 &z);
 void TransformBenesiMagBackwardIteration(CVector3 &z);
 void TransformBenesiMagForwardIteration(CVector3 &z);

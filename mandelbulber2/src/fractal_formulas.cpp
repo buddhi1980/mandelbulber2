@@ -5443,6 +5443,72 @@ void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 c, int i, const cFr
 }
 
 /**
+ * Add exp2(z)
+ */
+void TransformAddExp2ZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+		CVector3 tempZ = z;
+
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			tempZ.x = fabs(z.x);
+			if (fractal->transformCommon.functionEnabledAxFalse)
+			{
+				tempZ.x = -tempZ.x;
+			}
+			tempZ.x = exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			if (z.x > 0)
+				z.x += tempZ.x;
+			else
+				z.x -= tempZ.x;
+		}
+		else
+			z.x += exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
+	}
+
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		if (fractal->transformCommon.functionEnabledAy)
+		{
+			tempZ.y = fabs(z.y);
+			if (fractal->transformCommon.functionEnabledAyFalse)
+			{
+				tempZ.y = -tempZ.y;
+			}
+			tempZ.y = exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			if (z.y > 0)
+				z.y += tempZ.y;
+			else
+				z.y -= tempZ.y;
+		}
+		else
+			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
+	}
+
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		if (fractal->transformCommon.functionEnabledAz)
+		{
+			tempZ.z = fabs(z.z);
+			if (fractal->transformCommon.functionEnabledAzFalse)
+			{
+				tempZ.z = -tempZ.z;
+			}
+			tempZ.z = exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			if (z.z > 0)
+				z.z += tempZ.z;
+			else
+				z.z -= tempZ.z;
+		}
+		else
+			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
+	}
+		aux.DE *= fractal->analyticDE.scale1; // DE tweak
+}
+
+/**
  * benesiT1  3D
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/
