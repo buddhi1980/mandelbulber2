@@ -1,30 +1,37 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.09
 # only modified parameters
 [main_parameters]
-background_color_1 3e8 7530 ff00;
+background_color_1 03e8 7530 ff00;
 background_color_2 4e20 fde8 bd4b;
 camera 0,5489438334791162 -1,61492946445672 0,3824879616577962;
 camera_distance_to_target 0,7800021098965746;
 camera_rotation 40,91854539556749 -24,50938057465208 3,938601345683139;
 camera_top -0,2204090177057001 0,3591524903088991 0,9069135626845249;
+delta_DE_function 2;
 flight_last_to_render 0;
 fog_color_3 5500 4300 3a00;
 image_height 720;
 image_width 1280;
-keyframe_last_to_render 1800;
+keyframe_last_to_render 1700;
 main_light_alpha -180;
 main_light_beta 70;
 main_light_colour ff00 f600 e100;
 main_light_position_relative false;
 main_light_visibility 3;
 main_light_visibility_size 0,5;
+mat2_is_defined true;
+mat2_name primitive_water_1;
+mat2_reflectance 0,72;
+mat2_surface_color 0000 0000 7f00;
+mat2_use_colors_from_palette false;
 primitive_water_1_amplitude 0,04;
 primitive_water_1_anim_speed 0,12;
 primitive_water_1_color 0 0 7f00;
 primitive_water_1_enabled true;
 primitive_water_1_iterations 10;
 primitive_water_1_length 1;
+primitive_water_1_material_id 2;
 primitive_water_1_reflection 0,72;
 primitive_water_1_rotation 0 0 60,64;
 raytraced_reflections true;
@@ -34,10 +41,14 @@ volumetric_fog_colour_2_distance 0,07662585172743187;
 volumetric_fog_distance_factor 0,07662585172743187;
 volumetric_fog_enabled true;
 [fractal_1]
+IFS_rotation_enabled true;
 power 7;
 [fractal_2]
+IFS_rotation_enabled true;
 [fractal_3]
+IFS_rotation_enabled true;
 [fractal_4]
+IFS_rotation_enabled true;
 [keyframes]
 frame;main_camera_x;main_camera_y;main_camera_z;main_target_x;main_target_y;main_target_z;main_camera_top_x;main_camera_top_y;main_camera_top_z;main_main_light_alpha;main_main_light_beta;fractal0_power;main_background_color_1_R;main_background_color_1_G;main_background_color_1_B;main_background_color_2_R;main_background_color_2_G;main_background_color_2_B
 0;1,108455416349035;-2,276934172238628;0,7662585172743188;0,3459529254650793;-0,6829507219990889;0,2760664296323326;-0,1200702746297462;0,238893436471193;0,9635938227081582;-10;80;1,01;47104;4864;65280;65280;43776;13312
