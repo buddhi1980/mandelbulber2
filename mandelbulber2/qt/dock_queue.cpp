@@ -69,3 +69,8 @@ MyProgressBar *cDockQueue::GetProgressBarAnimation()
 {
 	return ui->queueProgressBarAnimation;
 }
+
+Ui::cDockQueue *cDockQueue::GetUi()
+{
+	return ui;
+}

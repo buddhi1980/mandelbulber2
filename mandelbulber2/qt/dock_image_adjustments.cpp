@@ -33,14 +33,15 @@
  */
 
 #include "../src/automated_widgets.hpp"
+#include "../src/fractal_container.hpp"
 #include "../src/fractparams.hpp"
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/projection_3d.hpp"
 #include "../src/render_window.hpp"
 #include "dock_image_adjustmnets.h"
+#include "dock_rendering_engine.h"
 #include "ui_dock_image_adjustments.h"
-#include "ui_render_window.h"
 
 cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)
@@ -135,7 +136,7 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index)
 	{
 		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		gMainInterface->mainWindow->ui->widgetDockRenderingEngine
+		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
 			->SynchronizeInterfaceDistanceEstimation(gPar);
 	}
 }
@@ -208,7 +209,7 @@ void cDockImageAdjustments::slotPressedResolutionPreset()
 	{
 		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
-		gMainInterface->mainWindow->ui->widgetDockRenderingEngine
+		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
 			->SynchronizeInterfaceDistanceEstimation(gPar);
 	}
 }
@@ -247,7 +248,7 @@ void cDockImageAdjustments::slotCheckedDetailLevelLock(int state)
 
 	if (this->sender()->objectName() == "checkBox_connect_detail_level")
 	{
-		gMainInterface->mainWindow->ui->widgetDockRenderingEngine
+		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
 			->CheckboxConnectDetailLevelSetCheckState((Qt::CheckState)state);
 	}
 	else

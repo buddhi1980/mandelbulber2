@@ -63,3 +63,48 @@ RenderWindow::~RenderWindow()
 {
 	delete ui;
 }
+
+cDockAnimation *RenderWindow::GetWidgetDockAnimation()
+{
+	return ui->widgetDockAnimation;
+}
+
+QWidget *RenderWindow::GetCentralWidget()
+{
+	return ui->centralwidget;
+}
+
+cDockNavigation *RenderWindow::GetWidgetDockNavigation()
+{
+	return ui->widgetDockNavigation;
+}
+
+cDockStatistics *RenderWindow::GetWidgetDockStatistics()
+{
+	return ui->widgetDockStatistics;
+}
+
+cDockQueue *RenderWindow::GetWidgetDockQueue()
+{
+	return ui->widgetDockQueue;
+}
+
+cDockImageAdjustments *RenderWindow::GetWidgetDockImageAdjustments()
+{
+	return ui->widgetImageAjustments;
+}
+
+cDockRenderingEngine *RenderWindow::GetWidgetDockRenderingEngine()
+{
+	return ui->widgetDockRenderingEngine;
+}
+
+cDockFractal *RenderWindow::GetWidgetDockFractal()
+{
+	return ui->widgetDockFractal;
+}
+
+QComboBox *RenderWindow::GetComboBoxMouseClickFunction()
+{
+	return ui->comboBox_mouse_click_function;
+}

@@ -37,8 +37,8 @@
 #include "../src/initparameters.hpp"
 #include "../src/interface.hpp"
 #include "../src/render_window.hpp"
+#include "dock_rendering_engine.h"
 #include "ui_dock_statistics.h"
-#include "ui_render_window.h"
 
 cDockStatistics::cDockStatistics(QWidget *parent) : QWidget(parent), ui(new Ui::cDockStatistics)
 {
@@ -71,8 +71,8 @@ void cDockStatistics::slotUpdateStatistics(cStatistics stat)
 		QString::number(stat.GetNumberOfIterationsPerSecond()));
 	ui->tableWidget_statistics->item(3, 0)->setText(stat.GetDETypeString());
 	ui->tableWidget_statistics->item(4, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
-	gMainInterface->mainWindow->ui->widgetDockRenderingEngine->UpdateLabelWrongDEPercentage(
+	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->UpdateLabelWrongDEPercentage(
 		tr("Percentage of wrong distance estimations: %1").arg(stat.GetMissedDEPercentage()));
-	gMainInterface->mainWindow->ui->widgetDockRenderingEngine->UpdateLabelUsedDistanceEstimation(
+	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->UpdateLabelUsedDistanceEstimation(
 		tr("Used distance estimation algorithm: %1").arg(stat.GetDETypeString()));
 }

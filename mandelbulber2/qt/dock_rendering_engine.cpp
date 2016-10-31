@@ -40,8 +40,10 @@
 #include "../src/netrender.hpp"
 #include "../src/render_window.hpp"
 #include "../src/synchronize_interface.hpp"
+#include "dock_fractal.h"
+#include "dock_image_adjustmnets.h"
+#include "dock_navigation.h"
 #include "ui_dock_rendering_engine.h"
-#include "ui_render_window.h"
 
 cDockRenderingEngine::cDockRenderingEngine(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockRenderingEngine)
@@ -224,7 +226,7 @@ void cDockRenderingEngine::slotNetRenderStatusClientUpdate()
 
 	ui->bu_netrender_connect->setEnabled(!gNetRender->IsClient());
 	ui->bu_netrender_disconnect->setEnabled(gNetRender->IsClient());
-	gMainInterface->mainWindow->ui->widgetDockNavigation->setEnabled(!gNetRender->IsClient());
+	gMainInterface->mainWindow->GetWidgetDockNavigation()->setEnabled(!gNetRender->IsClient());
 }
 
 void cDockRenderingEngine::slotCheckBoxDisableNetRender(bool on)
@@ -254,7 +256,7 @@ int cDockRenderingEngine::ComboDeltaDEMethodCurrentIndex(void)
 void cDockRenderingEngine::slotChangedComboDistanceEstimationMethod(int index)
 {
 	ui->comboBox_delta_DE_function->setEnabled(
-		gMainInterface->mainWindow->ui->widgetDockFractal->AreHybridFractalsEnabled()
+		gMainInterface->mainWindow->GetWidgetDockFractal()->AreHybridFractalsEnabled()
 		|| index == (int)fractal::forceDeltaDEMethod);
 }
 
@@ -281,7 +283,7 @@ void cDockRenderingEngine::slotChangedCheckBoxUseDefaultBailout(int state)
 
 void cDockRenderingEngine::slotDetailLevelChanged()
 {
-	if (gMainInterface->mainWindow->ui->widgetImageAjustments->IsConnectDetailLevelEnabled())
+	if (gMainInterface->mainWindow->GetWidgetDockImageAdjustments()->IsConnectDetailLevelEnabled())
 	{
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 		gMainInterface->lockedDetailLevel = gPar->Get<double>("detail_level");

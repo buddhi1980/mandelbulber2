@@ -51,7 +51,7 @@
 #include "settings.hpp"
 #include "system.hpp"
 #include "ui_dock_queue.h"
-#include "ui_render_window.h"
+#include "dock_queue.h"
 
 cQueue *gQueue = NULL;
 
@@ -96,7 +96,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 
 	if (mainInterface->mainWindow)
 	{
-		ui = mainInterface->mainWindow->ui->widgetDockQueue->ui;
+		ui = mainInterface->mainWindow->GetWidgetDockQueue()->GetUi();
 		// Queue
 		QApplication::connect(ui->pushButton_queue_add_current_settings, SIGNAL(clicked()), this,
 			SLOT(slotQueueAddCurrentSettings()));
@@ -118,7 +118,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 		QApplication::connect(
 			this, SIGNAL(queueChanged(int, int)), this, SLOT(slotQueueListUpdate(int, int)));
 
-		renderedImageWidget = mainInterface->mainWindow->ui->widgetDockQueue->renderedImageWidget;
+		renderedImageWidget = mainInterface->mainWindow->GetWidgetDockQueue()->GetRenderedImageWidget();
 		image->CreatePreview(1.0, 400, 300, renderedImageWidget);
 		renderedImageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		renderedImageWidget->AssignImage(image);
@@ -562,7 +562,7 @@ void cQueue::slotQueueRender()
 	if (!systemData.noGui)
 	{
 		SynchronizeInterfaceWindow(
-			gMainInterface->mainWindow->ui->dockWidget_queue_dock, gPar, qInterface::read);
+			gMainInterface->mainWindow->GetWidgetDockQueue(), gPar, qInterface::read);
 	}
 	if (queueListFromFile.size() > 0)
 	{

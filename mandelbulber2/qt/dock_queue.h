@@ -57,6 +57,9 @@ public:
 	~cDockQueue();
 	MyProgressBar *GetProgressBarImage();
 	MyProgressBar *GetProgressBarAnimation();
+	Ui::cDockQueue *GetUi();
+
+	RenderedImage *GetRenderedImageWidget() { return renderedImageWidget; }
 
 private:
 	Ui::cDockQueue *ui;
@@ -64,8 +67,6 @@ private:
 	cAutomatedWidgets *automatedWidgets;
 
 	RenderedImage *renderedImageWidget;
-
-	friend class cQueue;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_QUEUE_H_ */

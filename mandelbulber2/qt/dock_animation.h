@@ -55,13 +55,12 @@ public:
 	void DisableEXR();
 	void DisableTIFF();
 
+	Ui::cDockAnimation *GetUi();
+
 private:
 	Ui::cDockAnimation *ui;
 
 	cAutomatedWidgets *automatedWidgets;
-
-	friend class cFlightAnimation;
-	friend class cKeyframeAnimation;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_ANIMATION_H_ */

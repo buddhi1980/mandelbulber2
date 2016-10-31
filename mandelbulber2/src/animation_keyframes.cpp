@@ -41,22 +41,23 @@
 #include "animation_keyframes.hpp"
 
 #include "../qt/my_progress_bar.h"
-#include "../qt/thumbnail_widget.h"
 #include "../qt/my_table_widget_keyframes.hpp"
 #include "../qt/player_widget.hpp"
 #include "../qt/system_tray.hpp"
+#include "../qt/thumbnail_widget.h"
 #include "../src/render_window.hpp"
 #include "cimage.hpp"
+#include "dock_animation.h"
+#include "dock_statistics.h"
 #include "files.h"
 #include "global_data.hpp"
 #include "headless.h"
+#include "interface.hpp"
 #include "netrender.hpp"
 #include "render_job.hpp"
+#include "rendering_configuration.hpp"
 #include "ui_dock_animation.h"
 #include "undo.h"
-#include "interface.hpp"
-#include "rendering_configuration.hpp"
-#include "ui_render_window.h"
 
 cKeyframeAnimation *gKeyframeAnimation = NULL;
 
@@ -71,7 +72,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 	if (mainInterface->mainWindow)
 	{
-		ui = mainInterface->mainWindow->ui->widgetDockAnimation->ui;
+		ui = mainInterface->mainWindow->GetWidgetDockAnimation()->GetUi();
 
 		// connect keyframe control buttons
 		QApplication::connect(
@@ -196,7 +197,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index)
 	if (index < 0)
 	{
 		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage,
-			mainInterface->mainWindow->ui->centralwidget);
+			mainInterface->mainWindow->GetCentralWidget());
 	}
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 	keyframes->DeleteFrames(index, index);
@@ -256,14 +257,14 @@ bool cKeyframeAnimation::slotRenderKeyframes()
 		if (keyframes->GetNumberOfFrames() == 0)
 		{
 			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage,
-				mainInterface->mainWindow->ui->centralwidget);
+				mainInterface->mainWindow->GetCentralWidget());
 		}
 		else if (!QDir(params->Get<QString>("anim_keyframe_dir")).exists())
 		{
 			emit showErrorMessage(
 				QObject::tr("The folder %1 does not exist. Please specify a valid location.")
 					.arg(params->Get<QString>("anim_keyframe_dir")),
-				cErrorMessage::errorMessage, mainInterface->mainWindow->ui->centralwidget);
+				cErrorMessage::errorMessage, mainInterface->mainWindow->GetCentralWidget());
 		}
 		else
 		{
@@ -665,7 +666,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					// show distance in statistics table
 					double distance = mainInterface->GetDistanceForPoint(
 						params->Get<CVector3>("camera"), params, fractalParams);
-					mainInterface->mainWindow->ui->widgetDockStatistics->UpdateDistanceToFractal(distance);
+					mainInterface->mainWindow->GetWidgetDockStatistics()->UpdateDistanceToFractal(distance);
 				}
 
 				if (gNetRender->IsServer())
@@ -902,7 +903,7 @@ void cKeyframeAnimation::slotDeleteAllImages()
 		ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, qInterface::read);
 
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(mainInterface->mainWindow->ui->centralwidget,
+	reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
 		QObject::tr("Truncate Image Folder"),
 		QObject::tr("This will delete all images in the image folder.\nProceed?"),
 		QMessageBox::Yes | QMessageBox::No);
@@ -1072,7 +1073,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	{
 		QMessageBox::StandardButton reply;
 		reply = QMessageBox::question(
-			mainInterface->mainWindow->ui->centralwidget, QObject::tr("Export keyframes to flight"),
+			mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export keyframes to flight"),
 			QObject::tr(
 				"There are already captured flight frames present.\nDiscard current flight frames ?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -1239,7 +1240,7 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 		{
 			cErrorMessage::showMessage(
 				QObject::tr("Cannot change target distance. Missing camera parameters in keyframes"),
-				cErrorMessage::errorMessage, mainInterface->mainWindow->ui->centralwidget);
+				cErrorMessage::errorMessage, mainInterface->mainWindow->GetCentralWidget());
 			return;
 		}
 	}

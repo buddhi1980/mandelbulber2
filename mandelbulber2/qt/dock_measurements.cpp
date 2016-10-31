@@ -39,7 +39,6 @@
 #include "../src/render_window.hpp"
 #include "../src/rendered_image_widget.hpp"
 #include "ui_dock_measurements.h"
-#include "ui_render_window.h"
 
 cDockMeasurements::cDockMeasurements(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockMeasurements)
@@ -65,7 +64,7 @@ void cDockMeasurements::slotPressedButtonGetPoint()
 {
 	QList<QVariant> item;
 	item.append((int)RenderedImage::clickGetPoint);
-	int index = gMainInterface->mainWindow->ui->comboBox_mouse_click_function->findData(item);
-	gMainInterface->mainWindow->ui->comboBox_mouse_click_function->setCurrentIndex(index);
+	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
+	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
 }

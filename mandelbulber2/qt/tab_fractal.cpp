@@ -39,12 +39,13 @@
 
 #include "../src/automated_widgets.hpp"
 #include "../src/error_message.hpp"
+#include "../src/fractal_container.hpp"
 #include "../src/fractal_list.hpp"
 #include "../src/interface.hpp"
 #include "../src/my_ui_loader.h"
 #include "../src/render_window.hpp"
+#include "dock_fractal.h"
 #include "ui_tab_fractal.h"
-#include "ui_render_window.h"
 
 cTabFractal::cTabFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cTabFractal)
 {
@@ -194,7 +195,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 
 			fractal::enumCPixelAddition cPixelAddition = fractalList[index].cpixelAddition;
 			bool booleanState =
-				gMainInterface->mainWindow->ui->widgetDockFractal->AreBooleanFractalsEnabled();
+				gMainInterface->mainWindow->GetWidgetDockFractal()->AreBooleanFractalsEnabled();
 
 			if (cPixelAddition == fractal::cpixelAlreadyHas)
 				CConstantAdditionSetVisible(false);
@@ -238,7 +239,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 		fractalWidget = NULL;
 	}
 
-	gMainInterface->mainWindow->ui->widgetDockFractal->SetTabText(
+	gMainInterface->mainWindow->GetWidgetDockFractal()->SetTabText(
 		tabIndex, QString("#%1: %2").arg(tabIndex + 1).arg(fullFormulaName));
 }
 

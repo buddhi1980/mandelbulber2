@@ -44,14 +44,23 @@
 #include <QtCore>
 #include <QtGui>
 #include <QMainWindow>
-#include <qmessagebox.h>
+#include <QMessageBox>
+#include <QComboBox>
 
 //forward declarations
 class cAutomatedWidgets;
+class cDockAnimation;
+class cDockNavigation;
+class cDockStatistics;
+class cDockQueue;
+class cDockImageAdjustments;
+class cDockRenderingEngine;
+class cDockFractal;
 
 namespace Ui
 {
 class RenderWindow;
+
 }
 
 class RenderWindow : public QMainWindow
@@ -62,12 +71,28 @@ public:
 	explicit RenderWindow(QWidget *parent = 0);
 	~RenderWindow();
 
+	//Getters for UI elements
+	cDockAnimation *GetWidgetDockAnimation();
+	cDockNavigation *GetWidgetDockNavigation();
+	cDockStatistics *GetWidgetDockStatistics();
+	cDockQueue *GetWidgetDockQueue();
+	cDockImageAdjustments *GetWidgetDockImageAdjustments();
+	cDockRenderingEngine *GetWidgetDockRenderingEngine();
+	cDockFractal *GetWidgetDockFractal();
+
+	QWidget *GetCentralWidget();
+	QComboBox *GetComboBoxMouseClickFunction();
+
 private:
 	void closeEvent(QCloseEvent *event);
 	void changeEvent(QEvent *event);
 
-private slots:
+public slots:
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
+		double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
+	void slotPopulateToolbar(bool completeRefresh = false);
 
+private slots:
 	void slotQuit();
 
 	// other
@@ -80,8 +105,7 @@ private slots:
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotMenuLoadPreset(QString filename);
 	void slotMenuRemovePreset(QString filename);
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
-		double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
+
 	void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotMenuProgramSettings();
 	void slotExportVoxelLayers();
@@ -122,7 +146,6 @@ private slots:
 	void slotStackAllDocks();
 
 	// toolbar
-	void slotPopulateToolbar(bool completeRefresh = false);
 	void slotPresetAddToToolbar();
 
 	// rendered image widget
@@ -147,19 +170,6 @@ signals:
 	void AppendToLog(const QString &text);
 
 	friend class cInterface;
-	friend class cFlightAnimation;
-	friend class cKeyframeAnimation;
-	friend class PreviewFileDialog;
-	friend class cQueue;
-	friend class cProgressText;
-	friend class cPreferencesDialog;
-	friend class cDockImageAdjustments;
-	friend class cDockEffects;
-	friend class cDockRenderingEngine;
-	friend class cDockFractal;
-	friend class cDockStatistics;
-	friend class cDockMeasurements;
-	friend class cTabFractal;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_WINDOW_HPP_ */

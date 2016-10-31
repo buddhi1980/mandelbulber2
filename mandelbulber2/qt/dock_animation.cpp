@@ -69,3 +69,8 @@ void cDockAnimation::DisableTIFF()
 		->item(ImageFileSave::IMAGE_FILE_TYPE_TIFF)
 		->setEnabled(false);
 }
+
+Ui::cDockAnimation *cDockAnimation::GetUi()
+{
+	return ui;
+}

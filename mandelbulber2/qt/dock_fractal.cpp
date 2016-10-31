@@ -44,8 +44,9 @@
 #include "../src/fractal_enums.h"
 #include "../src/fractal_list.hpp"
 #include "../src/render_window.hpp"
+#include "../src/rendered_image_widget.hpp"
+#include "dock_rendering_engine.h"
 #include "ui_dock_fractal.h"
-#include "ui_render_window.h"
 
 cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockFractal)
 {
@@ -286,7 +287,7 @@ void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state)
 		fractalTabs[i]->MaterialSetVisible(state);
 	}
 
-	gMainInterface->mainWindow->ui->widgetDockRenderingEngine->ComboDeltaDEFunctionSetEnabled(!state);
+	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEFunctionSetEnabled(!state);
 	ui->groupBox_material_fractal->setVisible(!state);
 }
 
@@ -307,9 +308,9 @@ void cDockFractal::slotChangedCheckBoxHybridFractal(int state)
 		}
 	}
 
-	gMainInterface->mainWindow->ui->widgetDockRenderingEngine->ComboDeltaDEFunctionSetEnabled(
+	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEFunctionSetEnabled(
 		state
-		|| gMainInterface->mainWindow->ui->widgetDockRenderingEngine->ComboDeltaDEMethodCurrentIndex()
+		|| gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEMethodCurrentIndex()
 				 == (int)fractal::forceDeltaDEMethod);
 
 	ui->label_fractals_remark_hybrid->setVisible(!state);
@@ -369,8 +370,8 @@ void cDockFractal::slotPressedButtonGetJuliaConstant()
 {
 	QList<QVariant> item;
 	item.append((int)RenderedImage::clickGetJuliaConstant);
-	int index = gMainInterface->mainWindow->ui->comboBox_mouse_click_function->findData(item);
-	gMainInterface->mainWindow->ui->comboBox_mouse_click_function->setCurrentIndex(index);
+	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
+	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
 }
 
