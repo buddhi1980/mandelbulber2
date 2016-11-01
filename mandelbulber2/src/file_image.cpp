@@ -243,8 +243,8 @@ void ImageFileSaveEXR::SaveImage()
 void ImageFileSavePNG::SavePNG(
 	QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
 {
-	int width = image->GetWidth();
-	int height = image->GetHeight();
+	long int width = image->GetWidth();
+	long int height = image->GetHeight();
 
 	/* create file */
 	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
@@ -310,7 +310,7 @@ void ImageFileSavePNG::SavePNG(
 
 		row_pointers = new png_bytep[height];
 
-		int pixelSize = qualitySizeByte;
+		long int pixelSize = qualitySizeByte;
 
 		switch (imageChannel.contentType)
 		{
@@ -359,7 +359,7 @@ void ImageFileSavePNG::SavePNG(
 					break;
 			}
 
-			for (int y = 0; y < height; y++)
+			for (long int y = 0; y < height; y++)
 			{
 				row_pointers[y] = (png_byte *)&directPointer[y * width * pixelSize];
 			}
@@ -374,8 +374,8 @@ void ImageFileSavePNG::SavePNG(
 			if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
 			{
 				float *zbuffer = image->GetZBufferPtr();
-				unsigned int size = width * height;
-				for (unsigned int i = 0; i < size; i++)
+				unsigned long int size = width * height;
+				for (unsigned long int i = 0; i < size; i++)
 				{
 					float z = zbuffer[i];
 					if (z > maxZ && z < 1e19) maxZ = z;
@@ -384,9 +384,9 @@ void ImageFileSavePNG::SavePNG(
 			}
 			double kZ = log(maxZ / minZ);
 
-			for (int y = 0; y < height; y++)
+			for (long int y = 0; y < height; y++)
 			{
-				for (int x = 0; x < width; x++)
+				for (long int x = 0; x < width; x++)
 				{
 					unsigned long int ptr = (x + y * width) * pixelSize;
 					switch (imageChannel.contentType)
@@ -468,10 +468,10 @@ void ImageFileSavePNG::SavePNG(
 		}
 
 		// png_write_image(png_ptr, row_pointers);
-		int chunkSize = 100;
-		for (int r = 0; r < height; r += chunkSize)
+		long int chunkSize = 100;
+		for (long int r = 0; r < height; r += chunkSize)
 		{
-			int leftToWrite = height - r;
+			long int leftToWrite = height - r;
 			png_write_rows(png_ptr, (png_bytepp)&row_pointers[r], min(leftToWrite, chunkSize));
 			/* TODO: make SavePNG private non static and rewrite direct accesses to static function
 			 emit updateProgressAndStatus(getJobName(),
@@ -967,8 +967,8 @@ void ImageFileSaveEXR::SaveEXR(
 bool ImageFileSaveTIFF::SaveTIFF(
 	QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
 {
-	int width = image->GetWidth();
-	int height = image->GetHeight();
+	long int width = image->GetWidth();
+	long int height = image->GetHeight();
 
 	TIFF *tiff = TIFFOpen(filename.toLocal8Bit().constData(), "w");
 	if (!tiff)
@@ -1026,7 +1026,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	TIFFSetField(tiff, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
 	TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleFormat);
 
-	int pixelSize = samplesPerPixel * qualitySize / 8;
+	long int pixelSize = samplesPerPixel * qualitySize / 8;
 	char *colorPtr = new char[(unsigned long int)width * height * pixelSize];
 
 	// calculate min / max values from zbuffer range
@@ -1036,8 +1036,8 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
 	{
 		float *zbuffer = image->GetZBufferPtr();
-		unsigned int size = width * height;
-		for (unsigned int i = 0; i < size; i++)
+		unsigned long int size = width * height;
+		for (unsigned long int i = 0; i < size; i++)
 		{
 			float z = zbuffer[i];
 			if (z > maxZ && z < 1e19) maxZ = z;
