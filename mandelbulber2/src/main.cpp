@@ -132,14 +132,6 @@ int main(int argc, char *argv[])
 		InitFractalParams(&gParFractal->at(i));
 	}
 
-	/****************** TEMPORARY CODE FOR MATERIALS *******************/
-
-	// InitMaterialParams(1, gPar);
-	// InitMaterialParams(2, gPar);
-	// InitMaterialParams(3, gPar);
-
-	/*******************************************************************/
-
 	// Define list of fractal formulas
 	DefineFractalList(&fractalList);
 

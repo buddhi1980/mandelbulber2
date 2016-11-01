@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui uitools widgets network testlib
+QT       += core gui uitools widgets network testlib multimedia
 
 macx:QT += svg
 
