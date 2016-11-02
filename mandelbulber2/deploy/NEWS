@@ -1,5 +1,9 @@
 Version history
 
+v2.09-3
+- Settings: Fixed bug in function which adds missing material no. 1 during loading settings. When material no. 1 was default, this material was not created on parameter list.
+- Image: fixed bug: when output image was bigger than 2GB, then saving of PNG and TIFF images was corrupted
+
 v2.09-2
 Corrected calculation of stereoscopic effect for equirectangular projection. There was wrong perception of depth for farthest objects located on the rear of the camera.
 
