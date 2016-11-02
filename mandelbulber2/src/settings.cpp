@@ -589,6 +589,16 @@ bool cSettings::CheckIfMaterialsAreDefined(cParameterContainer *par)
 			break;
 		}
 	}
+
+	if (par->IfExists("formula_material_id")) // if there is checked full set of parameters
+	{
+		if (par->Get<int>("formula_material_id") == 1
+				&& !par->IfExists("mat1_is_defined")) // if material 1 is used but still not defined
+		{
+			matParameterFound = false;
+		}
+	}
+
 	if (!matParameterFound)
 	{
 		InitMaterialParams(1, par);
