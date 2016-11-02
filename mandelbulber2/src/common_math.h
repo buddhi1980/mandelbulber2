@@ -88,6 +88,10 @@ inline double dsmin(double a, double b, double k = 1)
 	return pow((ta * tb) / (ta + tb), 1.0 / k);
 }
 
+template <typename T> inline int sign(T val) {
+    return (T(0) < val) - (val < T(0));
+}
+
 // int abs(int v);
 int RandomInt();
 int Random(int max);
