@@ -243,8 +243,8 @@ void ImageFileSaveEXR::SaveImage()
 void ImageFileSavePNG::SavePNG(
 	QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
 {
-	long int width = image->GetWidth();
-	long int height = image->GetHeight();
+	uint64_t width = image->GetWidth();
+	uint64_t height = image->GetHeight();
 
 	/* create file */
 	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
@@ -310,7 +310,7 @@ void ImageFileSavePNG::SavePNG(
 
 		row_pointers = new png_bytep[height];
 
-		long int pixelSize = qualitySizeByte;
+		uint64_t pixelSize = qualitySizeByte;
 
 		switch (imageChannel.contentType)
 		{
@@ -359,14 +359,14 @@ void ImageFileSavePNG::SavePNG(
 					break;
 			}
 
-			for (long int y = 0; y < height; y++)
+			for (uint64_t y = 0; y < height; y++)
 			{
 				row_pointers[y] = (png_byte *)&directPointer[y * width * pixelSize];
 			}
 		}
 		else
 		{
-			colorPtr = new char[(unsigned long int)width * height * pixelSize];
+			colorPtr = new char[(uint64_t)width * height * pixelSize];
 
 			// calculate min / max values from zbuffer range
 			float minZ = 1.0e50;
@@ -374,8 +374,8 @@ void ImageFileSavePNG::SavePNG(
 			if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
 			{
 				float *zbuffer = image->GetZBufferPtr();
-				unsigned long int size = width * height;
-				for (unsigned long int i = 0; i < size; i++)
+				uint64_t size = width * height;
+				for (uint64_t i = 0; i < size; i++)
 				{
 					float z = zbuffer[i];
 					if (z > maxZ && z < 1e19) maxZ = z;
@@ -384,11 +384,11 @@ void ImageFileSavePNG::SavePNG(
 			}
 			double kZ = log(maxZ / minZ);
 
-			for (long int y = 0; y < height; y++)
+			for (uint64_t y = 0; y < height; y++)
 			{
-				for (long int x = 0; x < width; x++)
+				for (uint64_t x = 0; x < width; x++)
 				{
-					unsigned long int ptr = (x + y * width) * pixelSize;
+					uint64_t ptr = (x + y * width) * pixelSize;
 					switch (imageChannel.contentType)
 					{
 						case IMAGE_CONTENT_COLOR:
@@ -468,10 +468,10 @@ void ImageFileSavePNG::SavePNG(
 		}
 
 		// png_write_image(png_ptr, row_pointers);
-		long int chunkSize = 100;
-		for (long int r = 0; r < height; r += chunkSize)
+		uint64_t chunkSize = 100;
+		for (uint64_t r = 0; r < height; r += chunkSize)
 		{
-			long int leftToWrite = height - r;
+			uint64_t leftToWrite = height - r;
 			png_write_rows(png_ptr, (png_bytepp)&row_pointers[r], min(leftToWrite, chunkSize));
 			/* TODO: make SavePNG private non static and rewrite direct accesses to static function
 			 emit updateProgressAndStatus(getJobName(),
@@ -803,7 +803,7 @@ void ImageFileSaveEXR::SaveEXR(
 
 		int pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		char *buffer = new char[(unsigned long int)width * height * pixelSize];
+		char *buffer = new char[(uint64_t)width * height * pixelSize];
 		tsRGB<half> *halfPointer = (tsRGB<half> *)buffer;
 		tsRGB<float> *floatPointer = (tsRGB<float> *)buffer;
 
@@ -811,7 +811,7 @@ void ImageFileSaveEXR::SaveEXR(
 		{
 			for (int x = 0; x < width; x++)
 			{
-				unsigned long int ptr = (x + y * width);
+				uint64_t ptr = (x + y * width);
 				if (imfQuality == Imf::FLOAT)
 				{
 					sRGB16 pixel = image->GetPixelImage16(x, y);
@@ -850,7 +850,7 @@ void ImageFileSaveEXR::SaveEXR(
 
 		int pixelSize = sizeof(half);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(float);
-		char *buffer = new char[(unsigned long int)width * height * pixelSize];
+		char *buffer = new char[(uint64_t)width * height * pixelSize];
 		half *halfPointer = (half *)buffer;
 		float *floatPointer = (float *)buffer;
 
@@ -858,7 +858,7 @@ void ImageFileSaveEXR::SaveEXR(
 		{
 			for (int x = 0; x < width; x++)
 			{
-				unsigned long int ptr = x + y * width;
+				uint64_t ptr = x + y * width;
 
 				if (imfQuality == Imf::FLOAT)
 				{
@@ -895,14 +895,14 @@ void ImageFileSaveEXR::SaveEXR(
 		else
 		{
 			int pixelSize = sizeof(half);
-			char *buffer = new char[(unsigned long int)width * height * pixelSize];
+			char *buffer = new char[(uint64_t)width * height * pixelSize];
 			half *halfPointer = (half *)buffer;
 
 			for (int y = 0; y < height; y++)
 			{
 				for (int x = 0; x < width; x++)
 				{
-					unsigned long int ptr = x + y * width;
+					uint64_t ptr = x + y * width;
 					halfPointer[ptr] = image->GetPixelZBuffer(x, y);
 				}
 			}
@@ -924,7 +924,7 @@ void ImageFileSaveEXR::SaveEXR(
 
 		int pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		char *buffer = new char[(unsigned long int)width * height * pixelSize];
+		char *buffer = new char[(uint64_t)width * height * pixelSize];
 		tsRGB<half> *halfPointer = (tsRGB<half> *)buffer;
 		tsRGB<float> *floatPointer = (tsRGB<float> *)buffer;
 
@@ -932,7 +932,7 @@ void ImageFileSaveEXR::SaveEXR(
 		{
 			for (int x = 0; x < width; x++)
 			{
-				unsigned long int ptr = (x + y * width);
+				uint64_t ptr = (x + y * width);
 				sRGBfloat pixel = image->GetPixelNormal(x, y);
 				if (imfQuality == Imf::FLOAT)
 				{
@@ -967,8 +967,8 @@ void ImageFileSaveEXR::SaveEXR(
 bool ImageFileSaveTIFF::SaveTIFF(
 	QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
 {
-	long int width = image->GetWidth();
-	long int height = image->GetHeight();
+	uint64_t width = image->GetWidth();
+	uint64_t height = image->GetHeight();
 
 	TIFF *tiff = TIFFOpen(filename.toLocal8Bit().constData(), "w");
 	if (!tiff)
@@ -1026,8 +1026,8 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	TIFFSetField(tiff, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
 	TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleFormat);
 
-	long int pixelSize = samplesPerPixel * qualitySize / 8;
-	char *colorPtr = new char[(unsigned long int)width * height * pixelSize];
+	uint64_t pixelSize = samplesPerPixel * qualitySize / 8;
+	char *colorPtr = new char[(uint64_t)width * height * pixelSize];
 
 	// calculate min / max values from zbuffer range
 	float minZ = 1.0e50;
@@ -1036,8 +1036,8 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
 	{
 		float *zbuffer = image->GetZBufferPtr();
-		unsigned long int size = width * height;
-		for (unsigned long int i = 0; i < size; i++)
+		uint64_t size = width * height;
+		for (uint64_t i = 0; i < size; i++)
 		{
 			float z = zbuffer[i];
 			if (z > maxZ && z < 1e19) maxZ = z;
@@ -1045,11 +1045,11 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		}
 		rangeZ = maxZ - minZ;
 	}
-	for (int y = 0; y < height; y++)
+	for (uint64_t y = 0; y < height; y++)
 	{
-		for (int x = 0; x < width; x++)
+		for (uint64_t x = 0; x < width; x++)
 		{
-			unsigned long int ptr = (x + y * width) * pixelSize;
+			uint64_t ptr = (x + y * width) * pixelSize;
 			switch (imageChannel.contentType)
 			{
 				case IMAGE_CONTENT_COLOR:
