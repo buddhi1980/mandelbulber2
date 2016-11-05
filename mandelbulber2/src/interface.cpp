@@ -249,9 +249,10 @@ void cInterface::ShowUi(void)
 
 	/****************** TEMPORARY CODE FOR AUDIO *******************/
 	cAudioTrack *audio = new cAudioTrack(mainWindow);
-	audio->LoadAudio("/media/dane/Muzyka/Mp3/Jazz Blues/2001 Marcus Miller - M2/2001 Marcus Miller - M2/01 - Power.mp3");
+	audio->LoadAudio(
+		"/media/dane/Muzyka/Mp3/Jazz Blues/2001 Marcus Miller - M2/2001 Marcus Miller - M2/01 - "
+		"Power.mp3");
 	/*******************************************************************/
-
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();

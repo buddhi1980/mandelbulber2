@@ -572,7 +572,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-
 				case transfBenesiT1:
 				{
 					TransformBenesiT1Iteration(z, fractal, extendedAux);

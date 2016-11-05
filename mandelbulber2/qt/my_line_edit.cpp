@@ -40,7 +40,6 @@
 #include "../src/animation_flight.hpp"
 #include "../src/animation_keyframes.hpp"
 
-
 MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapper(this)
 {
 	actionResetVectorToDefault = NULL;
