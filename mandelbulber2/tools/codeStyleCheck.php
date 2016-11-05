@@ -36,10 +36,10 @@ foreach($sourceFiles as $sourceFilePath) {
 	$success = false;
 	$sourceContent = file_get_contents($sourceFilePath);
 	if(checkFileHeader($sourceFilePath, $sourceContent, $status)){
-		if(!isDryRun()){
-			file_put_contents($sourceFilePath, $sourceContent);
-			$success = updateClang($sourceFilePath, $status);
-		}else{
+		if(checkClang($sourceFilePath, $sourceContent, $status)){
+			if(!isDryRun()){
+				file_put_contents($sourceFilePath, $sourceContent);
+			}
 			$success = true;
 		}		
 	}
@@ -55,10 +55,10 @@ foreach($headerFiles as $headerFilePath) {
 	$headerContent = file_get_contents($headerFilePath);
 	if(checkFileHeader($headerFilePath, $headerContent, $status)) {
 		if(checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)){
-			if(!isDryRun()){
-				file_put_contents($headerFilePath, $headerContent);
-				$success = updateClang($headerFilePath, $status);
-			}else{
+			if(checkClang($headerFilePath, $headerContent, $status)){
+				if(!isDryRun()){
+					file_put_contents($headerFilePath, $headerContent);
+				}
 				$success = true;
 			}
 		}
@@ -162,11 +162,20 @@ function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderNa
 	return false;
 }
 
-function updateClang($filePath, &$status){
-	$contentsBefore = file_get_contents($filePath);
-	$cmd = "clang-format --style=file -i " . escapeshellarg($filePath);
-	shell_exec($cmd);
-	if($contentsBefore != file_get_contents($filePath)){
+function checkClang($filepath, &$fileContent, &$status){
+	$contentsBefore = $fileContent;
+
+	$cmd = 'cat <<EOF | ' . PHP_EOL . ($fileContent) . PHP_EOL . 'EOF' . PHP_EOL;
+	// $cmd = 'cat <<EOF |' . PHP_EOL . escapeshellarg($fileContent) . PHP_EOL . 'EOF' . PHP_EOL;
+        // $cmd = 'echo ' . escapeshellarg($fileContent) . ' | ';
+        // $cmd .= "clang-format --style=file --assume-filename=" . escapeshellarg($filePath);
+        $cmd .= "clang-format";
+
+	$fileContent = shell_exec($cmd);
+        // $fileContent = str_replace('// forward declarations', '//forward declarations', $fileContent);
+
+	// echo $fileContent; exit;
+	if($contentsBefore != $fileContent){
 		$status[] = noticeString('checkClang changed');
 	}
 	return true;
