@@ -48,7 +48,7 @@ class RenderedImage;
 
 namespace Ui
 {
-	class cDockQueue;
+class cDockQueue;
 }
 
 class cQueue : public QObject

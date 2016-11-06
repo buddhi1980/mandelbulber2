@@ -60,7 +60,6 @@ class cDockFractal;
 namespace Ui
 {
 class RenderWindow;
-
 }
 
 class RenderWindow : public QMainWindow
@@ -71,7 +70,7 @@ public:
 	explicit RenderWindow(QWidget *parent = 0);
 	~RenderWindow();
 
-	//Getters for UI elements
+	// Getters for UI elements
 	cDockAnimation *GetWidgetDockAnimation();
 	cDockNavigation *GetWidgetDockNavigation();
 	cDockStatistics *GetWidgetDockStatistics();

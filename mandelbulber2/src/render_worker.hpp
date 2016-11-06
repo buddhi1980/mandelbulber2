@@ -193,8 +193,8 @@ private:
 	sRGBAfloat EnvMapping(const sShaderInputData &input);
 	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut);
 	double AuxShadow(const sShaderInputData &input, double distance, CVector3 lightVector);
-	sRGBAfloat LightShading(const sShaderInputData &input, const sLight *light, int number,
-		sRGBAfloat *outSpecular);
+	sRGBAfloat LightShading(
+		const sShaderInputData &input, const sLight *light, int number, sRGBAfloat *outSpecular);
 	sRGBAfloat BackgroundShader(const sShaderInputData &input);
 	sRGBAfloat FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec);
 	sRGBAfloat VolumetricShader(

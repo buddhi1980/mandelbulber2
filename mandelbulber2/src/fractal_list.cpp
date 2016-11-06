@@ -309,9 +309,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Transform - Add Cpixel_VaryV1", "transf_add_Cpixel_varyV1",
 			transfAddCpixelVaryV1, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
 
-	fractalList->append(
-		sFractalDescription("Transform - Add exp2(z)", "transf_add_exp2_Z",
-			transfAddExp2Z, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(sFractalDescription("Transform - Add exp2(z)", "transf_add_exp2_Z",
+		transfAddExp2Z, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform - Benesi_T1", "transf_benesi_T1",
 		transfBenesiT1, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

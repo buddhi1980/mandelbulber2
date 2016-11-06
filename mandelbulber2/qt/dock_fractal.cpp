@@ -287,7 +287,8 @@ void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state)
 		fractalTabs[i]->MaterialSetVisible(state);
 	}
 
-	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEFunctionSetEnabled(!state);
+	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEFunctionSetEnabled(
+		!state);
 	ui->groupBox_material_fractal->setVisible(!state);
 }
 

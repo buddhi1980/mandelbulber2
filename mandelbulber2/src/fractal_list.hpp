@@ -217,7 +217,6 @@ enum enumFractalFormula
 	transfSpherFoldVaryVCL = 1061,
 	transfAddExp2Z = 1062,
 };
-
 }
 
 struct sFractalDescription
