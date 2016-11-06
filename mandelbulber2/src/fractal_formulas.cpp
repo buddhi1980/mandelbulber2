@@ -5506,6 +5506,50 @@ void TransformAddExp2ZIteration(CVector3 &z, const cFractal *fractal, sExtendedA
 			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
 	}
 		aux.DE *= fractal->analyticDE.scale1; // DE tweak
+
+		//DE calc version
+	if (fractal->transformCommon.functionEnabledBzFalse)
+	{
+		CVector3 tempS;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			tempS = fabs(z);
+			if (fractal->transformCommon.functionEnabledFalse)
+			{
+				tempS *= -1.0;
+			}
+			CVector3 tempT = tempS * fractal->transformCommon.scale0;
+			tempS.x = exp2(tempT.x ) - 1.0;
+			tempS.y = exp2(tempT.y ) - 1.0;
+			tempS.z = exp2(tempT.z ) - 1.0;
+
+
+			if (z.x > 0.0)
+				z.x += tempS.x;
+			else
+				z.x -= tempS.x;
+
+			if (z.y > 0.0)
+				z.y += tempS.y;
+			else
+				z.y -= tempS.y;
+
+			if (z.z > 0.0)
+				z.z += tempS.z;
+			else
+				z.z -= tempS.z;
+		}
+		else
+		{
+			CVector3 tempR = z * fractal->transformCommon.scale0;
+			z.x += exp2(tempR.x ) - 1.0;
+			z.y += exp2(tempR.y ) - 1.0;
+			z.z += exp2(tempR.z ) - 1.0;
+
+		}
+		aux.DE = aux.DE + exp2(aux.DE * fractal->transformCommon.scale0) - 1.0;
+
+	}
 }
 
 /**
@@ -6390,6 +6434,126 @@ void TransformQuaternionFoldIteration(
 		z += tempC * fractal->transformCommon.constantMultiplierC111;
 	}
 }
+
+/**
+ * Reciprocal3 from M3D, Darkbeam's code
+ */
+void TransformReciprocal3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	CVector3 tempZ = z;
+	if (fractal->transformCommon.functionEnabledAyFalse) // beta fabs stuff
+	{
+
+		tempZ.x = fractal->transformCommon.offsetA111.x - 1.0 / (fabs(z.x) + fractal->transformCommon.offset111.x);
+		tempZ.y = fractal->transformCommon.offsetA111.y - 1.0 / (fabs(z.y) + fractal->transformCommon.offset111.y);
+		tempZ.z = fractal->transformCommon.offsetA111.z - 1.0 / (fabs(z.z) + fractal->transformCommon.offset111.z);
+
+		if (fractal->transformCommon.functionEnabledAzFalse)
+		{
+			//CVector3 tempV = fabs(z);
+			tempZ = fractal->transformCommon.offsetA111 - 1.0 / (fabs(z) + fractal->transformCommon.offset111);
+			//tempZ = fractal->transformCommon.offsetA111 - 1.0 / (fabs(z) + fractal->transformCommon.offset111);
+
+		}
+
+
+		tempZ += fabs(z) * fractal->transformCommon.offset000;
+
+		if (z.x > 0.0)
+		{
+			z.x = tempZ.x;
+		}
+		else
+		{
+			z.x = -tempZ.x;
+		}
+
+		if (z.y > 0.0)
+		{
+			z.y = tempZ.y;
+		}
+		else
+		{
+			z.y = -tempZ.y;
+		}
+
+		if (z.z > 0.0)
+		{
+			z.z = tempZ.z;
+		}
+		else
+		{
+			z.z = -tempZ.z;
+		}
+	}
+	else
+	{
+		if (fractal->transformCommon.functionEnabledx)
+		{
+			if (fractal->transformCommon.functionEnabledAx)
+				tempZ.x = (1.0 / fractal->transformCommon.offset111.x) - 1.0 / (fabs(z.x) + fractal->transformCommon.offset111.x);
+
+			if (fractal->transformCommon.functionEnabledAxFalse)
+				tempZ.x = (fractal->transformCommon.offsetA111.x) - 1.0 / (fabs(z.x) + fractal->transformCommon.offset111.x);
+
+			tempZ.x += fabs(z.x) * fractal->transformCommon.offset000.x; // funtion slope
+
+			if (z.x > 0.0)
+			{
+				z.x = tempZ.x;
+			}
+			else
+			{
+				z.x = -tempZ.x;
+			}
+		}
+
+		if (fractal->transformCommon.functionEnabledy)
+		{
+			if (fractal->transformCommon.functionEnabledAx)
+				tempZ.y = (1.0 / fractal->transformCommon.offset111.y) - 1.0 / (fabs(z.y) + fractal->transformCommon.offset111.y);
+
+			if (fractal->transformCommon.functionEnabledAxFalse)
+				tempZ.y = ( fractal->transformCommon.offsetA111.y) - 1.0 / (fabs(z.y) + fractal->transformCommon.offset111.y);
+
+			tempZ.y += fabs(z.y) * fractal->transformCommon.offset000.y;
+
+			if (z.y > 0.0)
+			{
+				z.y = tempZ.y;
+			}
+			else
+			{
+				z.y = -tempZ.y;
+			}
+		}
+
+		if (fractal->transformCommon.functionEnabledz)
+		{
+			if (fractal->transformCommon.functionEnabledAx)
+				tempZ.z = (1.0 / fractal->transformCommon.offset111.z) - 1.0 / (fabs(z.z) + fractal->transformCommon.offset111.z);
+
+			if (fractal->transformCommon.functionEnabledAxFalse)
+				tempZ.z = (fractal->transformCommon.offsetA111.z) - 1.0 / (fabs(z.z) + fractal->transformCommon.offset111.z);
+
+			tempZ.z += fabs(z.z) * fractal->transformCommon.offset000.z;
+
+
+			if (z.z > 0.0)
+			{
+				z.z = tempZ.z;
+			}
+			else
+			{
+				z.z = -tempZ.z;
+			}
+		}
+	}
+
+	//aux.DE = aux.DE * l/L;
+	aux.DE *= fractal->analyticDE.scale1;  // DE tweak
+}
+
 
 /**
  * rotation

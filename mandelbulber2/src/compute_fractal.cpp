@@ -814,6 +814,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformMengerFoldIteration(z, fractal, extendedAux);
 					break;
 				}
+				case transfReciprocal3:
+				{
+					TransformReciprocal3Iteration(z, fractal, extendedAux);
+					break;
+				}
+
 
 				// 4D  ---------------------------------------------------------------------------
 				case quaternion4D:

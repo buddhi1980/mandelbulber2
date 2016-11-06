@@ -184,10 +184,10 @@ void TransformOctoFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedA
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-
 void TransformQuaternionFoldIteration(
 	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
+void TransformReciprocal3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal);

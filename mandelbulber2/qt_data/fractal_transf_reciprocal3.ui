@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>754</width>
-    <height>539</height>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,25 +30,35 @@
     <number>2</number>
    </property>
    <item>
+    <widget class="QLabel" name="label">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="5" column="1" colspan="5">
+     <item row="17" column="0" colspan="5">
       <widget class="Line" name="line_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="6" column="4">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>negative fabs(z.z)</string>
+        <string>LimitA :   </string>
        </property>
       </widget>
      </item>
-     <item row="9" column="5">
+     <item row="19" column="4">
       <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -76,36 +86,78 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_109">
+     <item row="15" column="1">
+      <widget class="QLabel" name="label_117">
        <property name="text">
-        <string>scale z.x:</string>
+        <string>z.y:</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
-      <widget class="QLabel" name="label_112">
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_133">
        <property name="text">
-        <string>DE Tweak</string>
+        <string> z = SIGN(z) ((1.0/LimitA )   -    (1.0/(fabs(z) +LimitA))    +  (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="4">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
-       <property name="text">
-        <string>negative fabs(z.y)</string>
+     <item row="14" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
-       <property name="text">
-        <string>enable exp2(z.x) </string>
+     <item row="5" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="4" column="2" colspan="3">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_000_y">
+     <item row="5" column="2">
+      <widget class="QSlider" name="slider3_transf_offset_111_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -129,22 +181,54 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="1" colspan="5">
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_148">
+       <property name="text">
+        <string> z = SIGN(z) (LimitB   -   (1.0/(fabs(z) +LimitA))    +   (fabs(z) * Slope))</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="1">
+      <widget class="QLabel" name="label_116">
+       <property name="text">
+        <string>z.x:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="2">
+      <widget class="QSlider" name="slider3_transf_offset_000_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-10000000</number>
+       </property>
+       <property name="maximum">
+        <number>10000000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="5">
       <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
-       <property name="text">
-        <string>enable exp2(z.y) </string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="2" colspan="3">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_000_z">
+     <item row="10" column="2">
+      <widget class="QSlider" name="slider3_transf_offsetA_111_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -168,165 +252,162 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1" colspan="5">
+     <item row="11" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_111_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="0">
+      <widget class="QLabel" name="label_119">
+       <property name="text">
+        <string>Slope :   </string>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="1">
+      <widget class="QLabel" name="label_118">
+       <property name="text">
+        <string>z.z:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_111_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="2">
+      <widget class="QSlider" name="slider3_transf_offsetA_111_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-10000000</number>
+       </property>
+       <property name="maximum">
+        <number>10000000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="2">
+      <widget class="QSlider" name="slider3_transf_offset_000_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-10000000</number>
+       </property>
+       <property name="maximum">
+        <number>10000000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="0" colspan="5">
       <widget class="Line" name="line_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="1" column="5">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_000_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2" colspan="3">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_000_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-10000000</number>
-       </property>
-       <property name="maximum">
-        <number>10000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
-       <property name="text">
-        <string>enable exp2(z.z) </string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="label_110">
-       <property name="text">
-        <string>scale z.y:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QLabel" name="label_111">
-       <property name="text">
-        <string>scale z.z:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="5">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_000_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="5">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_000_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2" colspan="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
-       <property name="text">
-        <string>fabs (z.x) </string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2" colspan="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
-       <property name="text">
-        <string>fabs (z.y) </string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
-       <property name="text">
-        <string>negative fabs(z.x)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="2" colspan="3">
+     <item row="19" column="2">
       <widget class="QSlider" name="slider_analyticDE_scale_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -351,61 +432,47 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="2" colspan="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
-       <property name="text">
-        <string>fabs (z.z) </string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_4">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_5">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_114">
-     <property name="text">
-      <string>Version with analytic DE calculation</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="2" column="0">
+     <item row="9" column="1">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>scale z:</string>
+        <string>z.x:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="3">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+     <item row="6" column="2">
+      <widget class="QSlider" name="slider3_transf_offset_111_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-10000000</number>
+       </property>
+       <property name="maximum">
+        <number>10000000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1">
+      <widget class="QLabel" name="label_115">
        <property name="text">
-        <string>negative fabs(z)</string>
+        <string>z.z:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
-       <property name="text">
-        <string>fabs (z) </string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_0">
+     <item row="10" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_111_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -432,15 +499,8 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
-       <property name="text">
-        <string>enable exp2(z) </string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" colspan="3">
-      <widget class="QSlider" name="slider_transf_scale_0">
+     <item row="4" column="2">
+      <widget class="QSlider" name="slider3_transf_offset_111_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -464,7 +524,218 @@
        </property>
       </widget>
      </item>
+     <item row="15" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+       <property name="text">
+        <string>z.y </string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0" colspan="5">
+      <widget class="Line" name="line_7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="2">
+      <widget class="QSlider" name="slider3_transf_offset_000_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-10000000</number>
+       </property>
+       <property name="maximum">
+        <number>10000000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="4">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
+       <property name="text">
+        <string>z.z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QLabel" name="label_114">
+       <property name="text">
+        <string>z.y:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="2">
+      <widget class="QSlider" name="slider3_transf_offsetA_111_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-10000000</number>
+       </property>
+       <property name="maximum">
+        <number>10000000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
+       <property name="text">
+        <string>z.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="label_132">
+       <property name="text">
+        <string>LimitB : </string>
+       </property>
+      </widget>
+     </item>
+     <item row="19" column="0">
+      <widget class="QLabel" name="label_112">
+       <property name="text">
+        <string>DE Tweak</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
+       <property name="text">
+        <string>one limit mode</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
+       <property name="text">
+        <string>two limit mode</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
+     <property name="text">
+      <string>fabs thing</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
+     <property name="text">
+      <string>fabs thing2</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
@@ -557,322 +828,98 @@
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox_transf_function_enabled</sender>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabled_false</receiver>
+   <receiver>slider3_transf_offsetA_111_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>256</x>
-     <y>246</y>
+     <x>23</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>510</x>
-     <y>255</y>
+     <x>294</x>
+     <y>156</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledBz_false</sender>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabled</receiver>
+   <receiver>slider3_transf_offsetA_111_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>68</x>
-     <y>249</y>
+     <x>58</x>
+     <y>54</y>
     </hint>
     <hint type="destinationlabel">
-     <x>249</x>
-     <y>255</y>
+     <x>292</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledBz_false</sender>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider_transf_scale_0</receiver>
+   <receiver>slider3_transf_offsetA_111_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>85</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>309</x>
-     <y>297</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledBz_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox_transf_scale_0</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>102</x>
-     <y>250</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>690</x>
-     <y>289</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledAx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAx_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>249</x>
-     <y>11</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>499</x>
-     <y>16</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledAy</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAy_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>245</x>
-     <y>71</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>494</x>
-     <y>70</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledAz</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAz_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>242</x>
-     <y>133</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>495</x>
-     <y>138</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAx</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>69</x>
-     <y>7</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>193</x>
-     <y>18</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAy</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>47</x>
-     <y>77</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>215</x>
-     <y>74</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAz</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>55</x>
-     <y>132</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>224</x>
-     <y>140</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>slider3_transf_constant_multiplier_000_x</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>90</x>
-     <y>14</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>214</x>
+     <x>70</x>
      <y>51</y>
     </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_constant_multiplier_000_x</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>63</x>
-     <y>16</y>
-    </hint>
     <hint type="destinationlabel">
-     <x>667</x>
-     <y>46</y>
+     <x>331</x>
+     <y>205</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_transf_constant_multiplier_000_y</receiver>
+   <receiver>spinbox3_transf_offsetA_111_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
-     <y>68</y>
+     <x>54</x>
+     <y>58</y>
     </hint>
     <hint type="destinationlabel">
-     <x>247</x>
-     <y>104</y>
+     <x>695</x>
+     <y>151</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_constant_multiplier_000_y</receiver>
+   <receiver>spinbox3_transf_offsetA_111_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>68</y>
+     <x>97</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>658</x>
-     <y>97</y>
+     <x>702</x>
+     <y>178</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_constant_multiplier_000_z</receiver>
+   <receiver>spinbox3_transf_offsetA_111_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>126</y>
+     <x>38</x>
+     <y>57</y>
     </hint>
     <hint type="destinationlabel">
-     <x>697</x>
-     <y>169</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledBz_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabled_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>95</x>
-     <y>252</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>539</x>
-     <y>253</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>slider3_transf_constant_multiplier_000_z</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>40</x>
-     <y>128</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>245</x>
-     <y>160</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAx_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>101</x>
-     <y>18</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>541</x>
-     <y>23</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAy_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>40</x>
-     <y>71</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>559</x>
-     <y>72</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAz_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>45</x>
-     <y>129</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>539</x>
-     <y>137</y>
+     <x>744</x>
+     <y>211</y>
     </hint>
    </hints>
   </connection>

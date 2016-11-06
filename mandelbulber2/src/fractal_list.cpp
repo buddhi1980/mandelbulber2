@@ -405,6 +405,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Transform - Quaternion Fold", "transf_quaternion_fold",
 		transfQuaternionFold, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100));
 
+	fractalList->append(sFractalDescription("Transform - Reciprocal3", "transf_reciprocal3",
+		transfReciprocal3, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
 	fractalList->append(sFractalDescription("Transform - Rotation", "transf_rotation", transfRotation,
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 

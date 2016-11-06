@@ -216,6 +216,7 @@ enum enumFractalFormula
 	transfScaleVaryVCL = 1060,
 	transfSpherFoldVaryVCL = 1061,
 	transfAddExp2Z = 1062,
+	transfReciprocal3 = 1063,
 };
 }
 
