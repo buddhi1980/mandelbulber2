@@ -64,7 +64,7 @@ cVoxelExport::cVoxelExport(
 
 cVoxelExport::~cVoxelExport()
 {
-	delete voxelLayer;
+	delete[] voxelLayer;
 }
 
 void cVoxelExport::ProcessVolume()
