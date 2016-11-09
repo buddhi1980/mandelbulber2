@@ -68,6 +68,7 @@ private slots:
 	void slotPressedButtonOptimizeForHQ();
 	void slotDetailLevelChanged();
 	void slotChangedComboDistanceEstimationMethod(int index);
+	void slotPressedButtonSetBoundingBoxAsLimits();
 
 	// NetRender
 	void slotNetRenderClientConnect();

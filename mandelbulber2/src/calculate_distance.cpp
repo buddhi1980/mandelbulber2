@@ -345,3 +345,52 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 
 	return distance;
 }
+
+double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals &fractals,
+	const CVector3 planePoint, const CVector3 direction, const CVector3 orthDdirection)
+{
+	// the plane is defined by the 'planePoint' and the orthogogonal 'direction'
+	// the method will return the minimum distance from the plane to the fractal
+	double distStep = 0.0;
+	CVector3 point = planePoint;
+	const double detail = 0.5;
+	const int transVectorAngles = 5;
+
+	CVector3 rotationAxis = planePoint;
+	rotationAxis.Normalize();
+
+	while (distStep == 0 || distStep > 0.00001)
+	{
+		CVector3 pointNextBest(0, 0, 0);
+		double newDistStepMin = 0;
+		for(int i = 0; i <= transVectorAngles; i++)
+		{
+			double angle = (1.0 * i / transVectorAngles) * 2.0 * M_PI;
+			CVector3 transversalVect  = orthDdirection;
+			transversalVect = transversalVect.RotateAroundVectorByAngle(rotationAxis, angle);
+			transversalVect.Normalize();
+			CVector3 pointNext = point + direction * distStep;
+			if(i > 0) pointNext += transversalVect * distStep / 2.0;
+			sDistanceIn in(pointNext, 0, false);
+			sDistanceOut out;
+			double dist = CalculateDistance(params, fractals, in, &out);
+			double newDistStep = dist * detail * 0.5;
+			if(newDistStep < newDistStepMin || newDistStepMin == 0)
+			{
+				pointNextBest = pointNext;
+				newDistStepMin = newDistStep;
+			}
+		}
+		if(newDistStepMin > 1000) newDistStepMin = 1000;
+		if(distStep != 0 && newDistStepMin > distStep) break;
+		distStep = newDistStepMin;
+		point = pointNextBest;
+		// qDebug() << "pointNextBest" << pointNextBest.Debug();
+		if(point.Length() > 1000000)
+		{
+			qDebug() << "surface not found!";
+			return 0;
+		}
+	}
+	return CVector3(point - planePoint).Dot(direction);
+}

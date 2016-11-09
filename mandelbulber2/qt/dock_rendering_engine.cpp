@@ -74,6 +74,8 @@ void cDockRenderingEngine::ConnectSignals()
 	connect(ui->logedit_detail_level, SIGNAL(returnPressed()), this, SLOT(slotDetailLevelChanged()));
 	connect(ui->comboBox_delta_DE_method, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboDistanceEstimationMethod(int)));
+	connect(ui->bu_bounding_box_to_limit, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonSetBoundingBoxAsLimits()));
 
 	// NetRender
 	connect(ui->bu_netrender_connect, SIGNAL(clicked()), this, SLOT(slotNetRenderClientConnect()));
@@ -304,4 +306,8 @@ void cDockRenderingEngine::slotPressedButtonOptimizeForMQ()
 void cDockRenderingEngine::slotPressedButtonOptimizeForHQ()
 {
 	gMainInterface->OptimizeStepFactor(0.01);
+}
+void cDockRenderingEngine::slotPressedButtonSetBoundingBoxAsLimits()
+{
+	gMainInterface->SetBoundingBoxAsLimits();
 }

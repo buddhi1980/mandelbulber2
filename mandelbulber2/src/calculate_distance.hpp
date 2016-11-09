@@ -71,5 +71,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = NULL);
 double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
+double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals &fractals,
+	const CVector3 point, const CVector3 direction, const CVector3 orthDdirection);
 
 #endif /* MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_ */
