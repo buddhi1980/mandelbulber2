@@ -230,7 +230,7 @@ inline CVector3 operator*(double scalar, CVector3 vector)
 
 inline CVector3 operator/(double scalar, CVector3 vector)
 {
-	return CVector3(vector.x / scalar, vector.y / scalar, vector.z / scalar);
+	return CVector3(scalar / vector.x, scalar / vector.y, scalar / vector.z);
 }
 inline CVector3 fabs(CVector3 v)
 {
@@ -393,7 +393,7 @@ inline CVector4 operator*(double scalar, CVector4 vector)
 
 inline CVector4 operator/(double scalar, CVector4 vector)
 {
-	return CVector4(vector.x / scalar, vector.y / scalar, vector.z / scalar, vector.w / scalar);
+	return CVector4(scalar / vector.x, scalar / vector.y, scalar / vector.z, scalar / vector.w);
 }
 
 inline CVector4 fabs(CVector4 v)
@@ -507,7 +507,7 @@ inline CVector2<T> operator*(T scalar, CVector2<T> vector)
 template <typename T>
 inline CVector2<T> operator/(T scalar, CVector2<T> vector)
 {
-	return CVector2<T>(vector.x / scalar, vector.y / scalar);
+	return CVector2<T>(scalar / vector.x, scalar / vector.y);
 }
 
 template <typename T>
