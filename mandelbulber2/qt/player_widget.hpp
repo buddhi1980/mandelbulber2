@@ -41,7 +41,7 @@
 #include <QWidget>
 #include <QtWidgets>
 
-//forward declarations
+// forward declarations
 class MyDoubleSpinBox;
 
 class PlayerWidget : public QWidget

@@ -45,7 +45,7 @@
 
 #include "region.hpp"
 
-//forward declarations
+// forward declarations
 class cParamRender;
 class sRenderData;
 class cImage;

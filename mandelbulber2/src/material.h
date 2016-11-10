@@ -43,7 +43,7 @@
 #include "texture.hpp"
 #include "texture_enums.hpp"
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 
 class cMaterial

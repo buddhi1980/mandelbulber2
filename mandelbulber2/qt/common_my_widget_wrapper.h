@@ -47,7 +47,7 @@
 #include <QtCore>
 #include <QtGui>
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 
 class CommonMyWidgetWrapper

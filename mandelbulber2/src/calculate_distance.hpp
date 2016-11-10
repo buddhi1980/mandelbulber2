@@ -41,7 +41,7 @@
 
 #include "algebra.hpp"
 
-//forward declarations
+// forward declarations
 class cNineFractals;
 class cParamRender;
 class sRenderData;

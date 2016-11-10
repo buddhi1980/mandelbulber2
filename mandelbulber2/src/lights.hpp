@@ -39,7 +39,7 @@
 #include "color_structures.hpp"
 #include <QObject>
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 class cFractalContainer;
 

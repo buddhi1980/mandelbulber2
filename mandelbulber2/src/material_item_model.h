@@ -39,7 +39,7 @@
 
 #include <QtCore/qabstractitemmodel.h>
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 
 class cMaterialItemModel : public QAbstractListModel

@@ -49,7 +49,7 @@
 #include "algebra.hpp"
 #include "animation_frames.hpp"
 
-//forward declarations
+// forward declarations
 class cImage;
 class cInterface;
 class cFractalContainer;

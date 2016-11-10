@@ -39,7 +39,7 @@
 #include "synchronize_interface.hpp"
 #include "algebra.hpp"
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 class cFractalContainer;
 class RenderWindow;

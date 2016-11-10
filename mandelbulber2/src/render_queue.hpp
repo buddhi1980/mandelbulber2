@@ -39,7 +39,7 @@
 #include "progress_text.hpp"
 #include "statistics.h"
 
-//forward declarations
+// forward declarations
 class RenderedImage;
 class cParameterContainer;
 class cFractalContainer;

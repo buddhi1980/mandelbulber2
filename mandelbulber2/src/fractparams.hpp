@@ -42,7 +42,7 @@
 #include "fractal_enums.h"
 #include "ao_modes.h"
 
-//forward declarations
+// forward declarations
 class cObjectData;
 class cParameterContainer;
 

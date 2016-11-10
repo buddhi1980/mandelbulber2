@@ -41,7 +41,7 @@
 #include "../qt/my_progress_bar.h"
 #include "../src/rendered_image_widget.hpp"
 
-//forward declarations
+// forward declarations
 class cAutomatedWidgets;
 
 namespace Ui

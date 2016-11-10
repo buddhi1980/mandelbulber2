@@ -39,7 +39,7 @@
 #include "fractal_coloring.hpp"
 #include "calculation_mode.h"
 
-//forward declarations
+// forward declarations
 class cNineFractals;
 
 struct sFractalIn

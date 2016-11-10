@@ -40,7 +40,7 @@
 #include <QtCore>
 #include <string>
 
-//forward declarations
+// forward declarations
 class cImage;
 
 extern std::string logfileName;

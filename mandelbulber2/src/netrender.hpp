@@ -42,7 +42,7 @@
 #include "parameters.hpp"
 #include "fractal_container.hpp"
 
-//forward declarations
+// forward declarations
 class sRenderData;
 
 class CNetRender : public QObject

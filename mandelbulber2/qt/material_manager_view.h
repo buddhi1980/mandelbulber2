@@ -42,7 +42,7 @@
 
 #include <QWidget>
 
-//forward declarations
+// forward declarations
 class cMaterialItemModel;
 class cMaterialItemView;
 

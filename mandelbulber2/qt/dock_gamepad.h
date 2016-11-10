@@ -41,7 +41,7 @@
 #include <QtGamepad/qgamepad.h>
 #endif // USE_GAMEPAD
 
-//forward declarations
+// forward declarations
 class cAutomatedWidgets;
 
 namespace Ui

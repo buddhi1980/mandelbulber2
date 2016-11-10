@@ -41,7 +41,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-//forward declarations
+// forward declarations
 class cThumbnailWidget;
 class MyProgressBar;
 

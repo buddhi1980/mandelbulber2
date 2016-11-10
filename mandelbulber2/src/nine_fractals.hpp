@@ -40,7 +40,7 @@
 #include "algebra.hpp"
 #include <QtCore>
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 class cFractalContainer;
 class cFractal;

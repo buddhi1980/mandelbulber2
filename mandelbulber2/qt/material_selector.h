@@ -41,7 +41,7 @@
 
 #include "common_my_widget_wrapper.h"
 
-//forward declarations
+// forward declarations
 class cMaterialWidget;
 
 class cMaterialSelector : public QWidget, public CommonMyWidgetWrapper

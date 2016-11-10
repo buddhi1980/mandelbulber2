@@ -41,7 +41,7 @@
 #include "object_data.hpp"
 #include "object_types.hpp"
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 struct sRenderData;
 

@@ -363,30 +363,30 @@ double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals
 	{
 		CVector3 pointNextBest(0, 0, 0);
 		double newDistStepMin = 0;
-		for(int i = 0; i <= transVectorAngles; i++)
+		for (int i = 0; i <= transVectorAngles; i++)
 		{
 			double angle = (1.0 * i / transVectorAngles) * 2.0 * M_PI;
-			CVector3 transversalVect  = orthDdirection;
+			CVector3 transversalVect = orthDdirection;
 			transversalVect = transversalVect.RotateAroundVectorByAngle(rotationAxis, angle);
 			transversalVect.Normalize();
 			CVector3 pointNext = point + direction * distStep;
-			if(i > 0) pointNext += transversalVect * distStep / 2.0;
+			if (i > 0) pointNext += transversalVect * distStep / 2.0;
 			sDistanceIn in(pointNext, 0, false);
 			sDistanceOut out;
 			double dist = CalculateDistance(params, fractals, in, &out);
 			double newDistStep = dist * detail * 0.5;
-			if(newDistStep < newDistStepMin || newDistStepMin == 0)
+			if (newDistStep < newDistStepMin || newDistStepMin == 0)
 			{
 				pointNextBest = pointNext;
 				newDistStepMin = newDistStep;
 			}
 		}
-		if(newDistStepMin > 1000) newDistStepMin = 1000;
-		if(distStep != 0 && newDistStepMin > distStep) break;
+		if (newDistStepMin > 1000) newDistStepMin = 1000;
+		if (distStep != 0 && newDistStepMin > distStep) break;
 		distStep = newDistStepMin;
 		point = pointNextBest;
 		// qDebug() << "pointNextBest" << pointNextBest.Debug();
-		if(point.Length() > 1000000)
+		if (point.Length() > 1000000)
 		{
 			qDebug() << "surface not found!";
 			return 0;

@@ -43,7 +43,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-//forward declarations
+// forward declarations
 class cAutomatedWidgets;
 
 namespace Ui

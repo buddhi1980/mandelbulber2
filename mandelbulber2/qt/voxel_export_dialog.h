@@ -37,7 +37,7 @@
 
 #include <QDialog>
 
-//forward declarations
+// forward declarations
 class cAutomatedWidgets;
 class cVoxelExport;
 

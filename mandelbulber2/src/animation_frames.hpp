@@ -41,7 +41,7 @@
 #include "parameters.hpp"
 #include <QtGui>
 
-//forward declarations
+// forward declarations
 class cFractalContainer;
 
 class cAnimationFrames

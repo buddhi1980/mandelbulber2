@@ -39,7 +39,7 @@
 
 #include "../src/color_palette.hpp"
 
-//forward declarations
+// forward declarations
 class cAutomatedWidgets;
 class cParameterContainer;
 

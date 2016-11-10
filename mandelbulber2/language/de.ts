@@ -4,56 +4,56 @@
 <context>
     <name>CNetRender</name>
     <message>
-        <location filename="../src/netrender.cpp" line="466"/>
+        <location filename="../src/netrender.cpp" line="468"/>
         <source>NetRender - version mismatch!
 </source>
         <translation>NetRender - Versionskonflikt!
 </translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="467"/>
+        <location filename="../src/netrender.cpp" line="469"/>
         <source>Client version: %1
 </source>
         <translation>Version Klient: %1
 </translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="468"/>
+        <location filename="../src/netrender.cpp" line="470"/>
         <source>Server version: %1</source>
         <translation>Version Server: %1</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="908"/>
+        <location filename="../src/netrender.cpp" line="910"/>
         <source>DISABLED</source>
         <translation>AUS</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="909"/>
+        <location filename="../src/netrender.cpp" line="911"/>
         <source>READY</source>
         <translation>BEREIT</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="910"/>
+        <location filename="../src/netrender.cpp" line="912"/>
         <source>WORKING</source>
         <translation>ARBEITET</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="911"/>
+        <location filename="../src/netrender.cpp" line="913"/>
         <source>NEW</source>
         <translation>NEU</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="912"/>
+        <location filename="../src/netrender.cpp" line="914"/>
         <source>(RE-)CONNECTING</source>
         <translation>(WIEDER-)VERBINDEN</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="913"/>
+        <location filename="../src/netrender.cpp" line="915"/>
         <source>ERROR</source>
         <translation>FEHLER</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="915"/>
+        <location filename="../src/netrender.cpp" line="917"/>
         <source>UNKNOWN</source>
         <translation>UNBEKANNT</translation>
     </message>
@@ -143,7 +143,7 @@
         <translation type="obsolete">S</translation>
     </message>
     <message>
-        <location filename="../src/file_image.hpp" line="193"/>
+        <location filename="../src/file_image.hpp" line="196"/>
         <source>Saving %1</source>
         <translation>Speichere %1</translation>
     </message>
@@ -151,7 +151,7 @@
 <context>
     <name>ImageFileSaveJPG</name>
     <message>
-        <location filename="../src/file_image.hpp" line="160"/>
+        <location filename="../src/file_image.hpp" line="163"/>
         <source>Saving %1</source>
         <translation>Speichere %1</translation>
     </message>
@@ -159,7 +159,7 @@
 <context>
     <name>ImageFileSavePNG</name>
     <message>
-        <location filename="../src/file_image.hpp" line="143"/>
+        <location filename="../src/file_image.hpp" line="146"/>
         <source>Saving %1</source>
         <translation>Speichere %1</translation>
     </message>
@@ -167,7 +167,7 @@
 <context>
     <name>ImageFileSaveTIFF</name>
     <message>
-        <location filename="../src/file_image.hpp" line="177"/>
+        <location filename="../src/file_image.hpp" line="180"/>
         <source>Saving %1</source>
         <translation>Speichere %1</translation>
     </message>
@@ -202,7 +202,7 @@
         <translation type="vanished">Zur Keyframeanimation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/my_color_button.cpp" line="131"/>
+        <location filename="../qt/my_color_button.cpp" line="132"/>
         <source>Edit color: %1</source>
         <translation>Bearbeite Farbe: %1</translation>
     </message>
@@ -240,17 +240,17 @@
 <context>
     <name>MyLineEdit</name>
     <message>
-        <location filename="../qt/my_line_edit.cpp" line="216"/>
+        <location filename="../qt/my_line_edit.cpp" line="219"/>
         <source>Copy vector</source>
         <translation>Vektor kopieren</translation>
     </message>
     <message>
-        <location filename="../qt/my_line_edit.cpp" line="217"/>
+        <location filename="../qt/my_line_edit.cpp" line="220"/>
         <source>Paste vector</source>
         <translation>Vektor einfügen</translation>
     </message>
     <message>
-        <location filename="../qt/my_line_edit.cpp" line="218"/>
+        <location filename="../qt/my_line_edit.cpp" line="221"/>
         <source>Reset vector to default</source>
         <translation>Vektor zurücksetzen</translation>
     </message>
@@ -406,17 +406,17 @@
 <context>
     <name>PreviewFileDialog</name>
     <message>
-        <location filename="../qt/preview_file_dialog.cpp" line="48"/>
+        <location filename="../qt/preview_file_dialog.cpp" line="54"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../qt/preview_file_dialog.cpp" line="68"/>
+        <location filename="../qt/preview_file_dialog.cpp" line="74"/>
         <source>Add to presets</source>
         <translation>Zu Voreinstellungen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/preview_file_dialog.cpp" line="71"/>
+        <location filename="../qt/preview_file_dialog.cpp" line="77"/>
         <source>Add to queue</source>
         <translation>Zur Queue hinzufügen</translation>
     </message>
@@ -428,116 +428,116 @@
         <translation type="vanished">Fortschritt %1%, vergangen: %2, ausstehend: %3</translation>
     </message>
     <message>
-        <location filename="../src/progress_text.cpp" line="86"/>
+        <location filename="../src/progress_text.cpp" line="89"/>
         <source>Done %1%, elapsed: %2, estimated to end: %3</source>
         <translation>Fortschritt %1%, vergangen: %2, verbleibend: %3</translation>
     </message>
     <message>
-        <location filename="../src/progress_text.cpp" line="93"/>
+        <location filename="../src/progress_text.cpp" line="96"/>
         <source>100% Done, total time: %3</source>
         <translation>100% Fertig, Gesamtzeit: %3</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="361"/>
+        <location filename="../src/settings.cpp" line="368"/>
         <source>It&apos;s not valid Mandelbulber settings file. No header</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Kein Header</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="366"/>
+        <location filename="../src/settings.cpp" line="373"/>
         <source>It&apos;s not valid Mandelbulber settings file. Wrong header</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Falscher Header</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="372"/>
+        <location filename="../src/settings.cpp" line="379"/>
         <source>It&apos;s not valid Mandelbulber settings file. No information about version of file</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Keine Information über Version der Datei</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="381"/>
+        <location filename="../src/settings.cpp" line="388"/>
         <source>It&apos;s not valid Mandelbulber settings file. Wrong file version number</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Falsche Dateiversionsnummer</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="384"/>
+        <location filename="../src/settings.cpp" line="391"/>
         <source>File was saved in newer version of Mandelbulber
 File version: </source>
         <translation>Die Datei wurde mit einer neueren Version von Mandelbulber gespeichert\n Datei Version: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="402"/>
+        <location filename="../src/settings.cpp" line="409"/>
         <source>It&apos;s not valid Mandelbulber settings file. Format not specified in the header</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Datei Format im Header nicht angegeben</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="539"/>
+        <location filename="../src/settings.cpp" line="546"/>
         <source>Error in settings file. Line: </source>
         <translation>Fehler in Einstellungsdatei. Zeile: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="545"/>
+        <location filename="../src/settings.cpp" line="552"/>
         <source>Too many errors in settings file</source>
         <translation>Zu viele Fehler in Einstellungsdatei</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="634"/>
-        <location filename="../src/settings.cpp" line="645"/>
+        <location filename="../src/settings.cpp" line="651"/>
+        <location filename="../src/settings.cpp" line="662"/>
         <source>Unknown parameter: </source>
         <translation>Unbekannter Parameter: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="654"/>
+        <location filename="../src/settings.cpp" line="671"/>
         <source>Missing value for parameter %1</source>
         <translation>Fehlender Wert für Parameter %1</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="849"/>
+        <location filename="../src/settings.cpp" line="866"/>
         <source>Missing column &apos;frame&apos; in list of animation frames</source>
         <translation>Fehlende Spalte &apos;Frame&apos; in Liste der Animationsframes</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="880"/>
+        <location filename="../src/settings.cpp" line="897"/>
         <source>Unknown parameter in animation frames: </source>
         <translation>Unbekannter Parameter in Animationsframes: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="886"/>
+        <location filename="../src/settings.cpp" line="903"/>
         <source>No valid list of parameters for animation frames</source>
         <translation>Keine valide Parameterliste für Animationsframes</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="935"/>
+        <location filename="../src/settings.cpp" line="952"/>
         <source>Wrong number of interpolation columns</source>
         <translation>Falsche Anzahl an Interpolationsspalten</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="998"/>
+        <location filename="../src/settings.cpp" line="1015"/>
         <source>Missing frame no </source>
         <translation>Fehlender Frame Nr </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="1003"/>
+        <location filename="../src/settings.cpp" line="1020"/>
         <source>Wrong number of columns</source>
         <translation>Falsche Anzahl an Spalten</translation>
     </message>
     <message>
-        <location filename="../src/texture.cpp" line="102"/>
+        <location filename="../src/texture.cpp" line="103"/>
         <source>Can&apos;t load texture!
 </source>
         <translation>Textur konnte nicht geladen werden!</translation>
     </message>
     <message>
-        <location filename="../src/texture.cpp" line="194"/>
+        <location filename="../src/texture.cpp" line="195"/>
         <source>Can&apos;t load texture from QByteArray!
 </source>
         <translation>Textur konnte nicht von QByteArray geladen werden!</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="132"/>
+        <location filename="../src/undo.cpp" line="133"/>
         <source>No more undo</source>
         <translation>Kein Undo mehr möglich</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="161"/>
+        <location filename="../src/undo.cpp" line="162"/>
         <source>No more redo</source>
         <translation>Kein Redo mehr möglich</translation>
     </message>
@@ -570,90 +570,90 @@ File version: </source>
         <translation>Mische ZBuffer</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="52"/>
+        <location filename="../src/error_message.cpp" line="53"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="54"/>
+        <location filename="../src/error_message.cpp" line="55"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="56"/>
+        <location filename="../src/error_message.cpp" line="57"/>
         <source>Note</source>
         <translation>Notiz</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="75"/>
+        <location filename="../src/error_message.cpp" line="76"/>
         <source>Mandelbulber warning</source>
         <translation>Mandelbulber Warnung</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="80"/>
+        <location filename="../src/error_message.cpp" line="81"/>
         <source>Mandelbulber error</source>
         <translation>Mandelbulber Fehler</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="85"/>
+        <location filename="../src/error_message.cpp" line="86"/>
         <source>Mandelbulber information</source>
         <translation>Mandelbulber Information</translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="97"/>
+        <location filename="../src/error_message.cpp" line="98"/>
         <source>
 Warning: </source>
         <translation>
 Warnung: </translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="104"/>
+        <location filename="../src/error_message.cpp" line="105"/>
         <source>
 Error: </source>
         <translation>
 Fehler: </translation>
     </message>
     <message>
-        <location filename="../src/error_message.cpp" line="111"/>
+        <location filename="../src/error_message.cpp" line="112"/>
         <source>
 Note: </source>
         <translation>
 Notiz: </translation>
     </message>
     <message>
-        <location filename="../src/file_image.cpp" line="493"/>
-        <location filename="../src/file_image.cpp" line="554"/>
+        <location filename="../src/file_image.cpp" line="495"/>
+        <location filename="../src/file_image.cpp" line="556"/>
         <source>Can&apos;t save image to PNG file!
 </source>
         <translation>Konnte Bild nicht als PNG Datei speichern!</translation>
     </message>
     <message>
-        <location filename="../src/file_image.cpp" line="704"/>
-        <location filename="../src/file_image.cpp" line="741"/>
-        <location filename="../src/file_image.cpp" line="771"/>
+        <location filename="../src/file_image.cpp" line="706"/>
+        <location filename="../src/file_image.cpp" line="743"/>
+        <location filename="../src/file_image.cpp" line="773"/>
         <source>Can&apos;t save image to JPEG file!
 </source>
         <translation>Konnte Bild nicht als JPEG Datei speichern!</translation>
     </message>
     <message>
-        <location filename="../qt/tab_fractal.cpp" line="109"/>
+        <location filename="../qt/tab_fractal.cpp" line="113"/>
         <source>Formulas</source>
         <translation>Formeln</translation>
     </message>
     <message>
-        <location filename="../qt/tab_fractal.cpp" line="114"/>
+        <location filename="../qt/tab_fractal.cpp" line="118"/>
         <source>Transforms</source>
         <translation>Transformationen</translation>
     </message>
     <message>
-        <location filename="../qt/tab_fractal.cpp" line="129"/>
-        <location filename="../qt/tab_fractal.cpp" line="173"/>
-        <location filename="../qt/tab_fractal.cpp" line="186"/>
+        <location filename="../qt/tab_fractal.cpp" line="133"/>
+        <location filename="../qt/tab_fractal.cpp" line="177"/>
+        <location filename="../qt/tab_fractal.cpp" line="190"/>
         <source>Don&apos;t add global C constant</source>
         <translation>Globale C Konstante nicht hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1368"/>
+        <location filename="../src/interface.cpp" line="1476"/>
         <source>Can&apos;t open file </source>
         <translation>Kann Datei nicht öffnen </translation>
     </message>
@@ -662,23 +662,24 @@ Notiz: </translation>
         <translation type="vanished">Fraktal UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="454"/>
+        <location filename="../src/interface.cpp" line="476"/>
         <source>Cannot init renderJob, see log output for more information.</source>
         <translation>renderJob kann nicht gestartet werden, siehe Log Output für weitere Informationen.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1214"/>
-        <location filename="../src/interface.cpp" line="1239"/>
+        <location filename="../src/interface.cpp" line="1236"/>
+        <location filename="../src/interface.cpp" line="1261"/>
         <source>Reseting view</source>
         <translation>Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1215"/>
+        <location filename="../src/interface.cpp" line="1237"/>
         <source>Fractal size calculation</source>
         <translation>Fraktalgröße berechnen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1239"/>
+        <location filename="../src/interface.cpp" line="1261"/>
+        <location filename="../src/interface.cpp" line="1361"/>
         <source>Done</source>
         <translation>Fertig</translation>
     </message>
@@ -687,144 +688,185 @@ Notiz: </translation>
         <translation type="vanished">Setze Position von </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1304"/>
+        <location filename="../src/interface.cpp" line="1299"/>
+        <location filename="../src/interface.cpp" line="1308"/>
+        <location filename="../src/interface.cpp" line="1317"/>
+        <location filename="../src/interface.cpp" line="1326"/>
+        <location filename="../src/interface.cpp" line="1335"/>
+        <location filename="../src/interface.cpp" line="1344"/>
+        <location filename="../src/interface.cpp" line="1361"/>
+        <source>bounding box as limit</source>
+        <translation>Fraktalhülle als Grenze</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1299"/>
+        <source>Negative X Limit</source>
+        <translation>Negative X Grenze</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1308"/>
+        <source>Negative Y Limit</source>
+        <translation>Negative Y Grenze</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1317"/>
+        <source>Negative Z Limit</source>
+        <translation>Negative Z Grenze</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1326"/>
+        <source>Positive X Limit</source>
+        <translation>Positive X Grenze</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1335"/>
+        <source>Positive Y Limit</source>
+        <translation>Positive Y Grenze</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1344"/>
+        <source>Positive Z Limit</source>
+        <translation>Positive Z Grenze</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1412"/>
         <source>Set position of %1 # %2 by mouse pointer</source>
         <translation>Setze Position von %1 # %2 per Mausklick</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1310"/>
+        <location filename="../src/interface.cpp" line="1418"/>
         <source>Delete </source>
         <translation>Lösche </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1369"/>
+        <location filename="../src/interface.cpp" line="1477"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation>Primitive Objekte UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1451"/>
+        <location filename="../src/interface.cpp" line="1559"/>
         <source>No action</source>
         <translation>Keine Aktion</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1455"/>
+        <location filename="../src/interface.cpp" line="1563"/>
         <source>Move the camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1459"/>
+        <location filename="../src/interface.cpp" line="1567"/>
         <source>Set fog visibility</source>
         <translation>Nebelsichtbarkeit setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1463"/>
+        <location filename="../src/interface.cpp" line="1571"/>
         <source>Set DOF focus</source>
         <translation>Tiefenschärfefokus setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1467"/>
+        <location filename="../src/interface.cpp" line="1575"/>
         <source>Get Julia constant</source>
         <translation>Julia Konstante holen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1472"/>
+        <location filename="../src/interface.cpp" line="1580"/>
         <source>Place light #1</source>
         <translation>Setze Licht #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1477"/>
+        <location filename="../src/interface.cpp" line="1585"/>
         <source>Place light #2</source>
         <translation>Setze Licht #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1482"/>
+        <location filename="../src/interface.cpp" line="1590"/>
         <source>Place light #3</source>
         <translation>Setze Licht #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1487"/>
+        <location filename="../src/interface.cpp" line="1595"/>
         <source>Place light #4</source>
         <translation>Setze Licht #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1491"/>
+        <location filename="../src/interface.cpp" line="1599"/>
         <source>Place random light center</source>
         <translation>Setze Zufallslichter</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1495"/>
+        <location filename="../src/interface.cpp" line="1603"/>
         <source>Get point coordinates</source>
         <translation>Hole Punktkoordinaten</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1504"/>
+        <location filename="../src/interface.cpp" line="1612"/>
         <source>Place </source>
         <translation>Setze </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1541"/>
+        <location filename="../src/interface.cpp" line="1649"/>
         <source>Yes, don&apos;t ask again</source>
         <translation>Ja, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1675"/>
-        <location filename="../src/interface.cpp" line="1720"/>
+        <location filename="../src/interface.cpp" line="1783"/>
+        <location filename="../src/interface.cpp" line="1828"/>
         <source>Looking for optimal DE factor</source>
         <translation>Suche nach optimalem DE Faktor</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1721"/>
+        <location filename="../src/interface.cpp" line="1829"/>
         <source>Percentage of wrong distance estimations: %1</source>
         <translation>Prozentsatz falscher Distanzermittlungen: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1731"/>
+        <location filename="../src/interface.cpp" line="1839"/>
         <source>Optimal DE factor is: %1 which gives %2% of bad distance estimations</source>
         <translation>Optimaler DE Faktor ist: %1, welcher %2% an falschen Distanzermittlungen liefert</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="258"/>
+        <location filename="../src/render_window_slots.cpp" line="265"/>
         <source>Toolbar settings: </source>
         <translation>Toolbar Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1534"/>
+        <location filename="../src/interface.cpp" line="1642"/>
         <source>Are you sure to close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1536"/>
+        <location filename="../src/interface.cpp" line="1644"/>
         <source>Quit?</source>
         <translation>Beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1592"/>
+        <location filename="../src/interface.cpp" line="1700"/>
         <source>Auto recovery</source>
         <translation>Auto Recovery</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1593"/>
+        <location filename="../src/interface.cpp" line="1701"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
         <translation>Das Programm wurde beim letzten Mal nicht richtig geschlossen.
 Den letzten Stand wiederherstellen?</translation>
     </message>
     <message>
-        <location filename="../src/old_settings.cpp" line="71"/>
+        <location filename="../src/old_settings.cpp" line="72"/>
         <source>Can&apos;t import old settings
 </source>
         <translation>Kann alte Einstellungen nicht importieren
 </translation>
     </message>
     <message>
-        <location filename="../src/old_settings.cpp" line="72"/>
+        <location filename="../src/old_settings.cpp" line="73"/>
         <source>File with default values doesn&apos;t exist
 </source>
         <translation>Datei mit Standardwerten existiert nicht
 </translation>
     </message>
     <message>
-        <location filename="../src/old_settings.cpp" line="1396"/>
+        <location filename="../src/old_settings.cpp" line="1397"/>
         <source>Hybrid fractal can&apos;t be converted</source>
         <translation>Hybridfraktal kann nicht konvertiert werden</translation>
     </message>
@@ -833,107 +875,107 @@ Den letzten Stand wiederherstellen?</translation>
         <translation type="vanished">Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="176"/>
-        <location filename="../src/render_job.cpp" line="332"/>
+        <location filename="../src/render_image.cpp" line="181"/>
+        <location filename="../src/render_job.cpp" line="335"/>
         <source>Rendering image</source>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1730"/>
-        <location filename="../src/render_image.cpp" line="415"/>
-        <location filename="../src/render_ssao.cpp" line="197"/>
+        <location filename="../src/interface.cpp" line="1838"/>
+        <location filename="../src/render_image.cpp" line="420"/>
+        <location filename="../src/render_ssao.cpp" line="201"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="141"/>
-        <location filename="../src/render_job.cpp" line="244"/>
+        <location filename="../src/render_job.cpp" line="144"/>
+        <location filename="../src/render_job.cpp" line="247"/>
         <source>Initialization</source>
         <translation>Initialisierung</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="141"/>
+        <location filename="../src/render_job.cpp" line="144"/>
         <source>Setting up image buffers</source>
         <translation>Bildpuffer einrichten</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="244"/>
+        <location filename="../src/render_job.cpp" line="247"/>
         <source>Loading textures</source>
         <translation>Lade Texturen</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="332"/>
+        <location filename="../src/render_job.cpp" line="335"/>
         <source>Starting rendering of image</source>
         <translation>Starte Rendern des Bildes</translation>
     </message>
     <message>
-        <location filename="../src/render_ssao.cpp" line="179"/>
+        <location filename="../src/render_ssao.cpp" line="183"/>
         <source>Rendering SSAO effect in progress</source>
         <translation>Rendere SSAO Effekt</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="167"/>
-        <location filename="../src/animation_keyframes.cpp" line="247"/>
+        <location filename="../src/animation_flight.cpp" line="182"/>
+        <location filename="../src/animation_keyframes.cpp" line="259"/>
         <source>No frames to render</source>
         <translation>Keine Frames zu Rendern</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="173"/>
-        <location filename="../src/animation_keyframes.cpp" line="253"/>
+        <location filename="../src/animation_flight.cpp" line="188"/>
+        <location filename="../src/animation_keyframes.cpp" line="265"/>
         <source>The folder %1 does not exist. Please specify a valid location.</source>
         <translation>Der Ordner %1 existiert nicht. Bitte einen validen Ordner angeben.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="202"/>
+        <location filename="../src/animation_flight.cpp" line="217"/>
         <source>Are you sure to start recording of new animation?</source>
         <translation>Eine neue Animation aufnehmen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="203"/>
-        <location filename="../src/animation_flight.cpp" line="737"/>
-        <location filename="../src/animation_flight.cpp" line="1079"/>
-        <location filename="../src/animation_keyframes.cpp" line="571"/>
-        <location filename="../src/animation_keyframes.cpp" line="896"/>
+        <location filename="../src/animation_flight.cpp" line="218"/>
+        <location filename="../src/animation_flight.cpp" line="752"/>
+        <location filename="../src/animation_flight.cpp" line="1094"/>
+        <location filename="../src/animation_keyframes.cpp" line="583"/>
+        <location filename="../src/animation_keyframes.cpp" line="908"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Das wird alle Bilder im Bildordner löschen.
 Fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="220"/>
+        <location filename="../src/animation_flight.cpp" line="235"/>
         <source>No frames recorded before. Unable to continue.</source>
         <translation>Noch keine Frames aufgenommen. Kann nicht fortfahren.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="229"/>
-        <location filename="../src/animation_flight.cpp" line="676"/>
-        <location filename="../src/animation_keyframes.cpp" line="477"/>
-        <location filename="../src/interface.cpp" line="1623"/>
+        <location filename="../src/animation_flight.cpp" line="244"/>
+        <location filename="../src/animation_flight.cpp" line="691"/>
+        <location filename="../src/animation_keyframes.cpp" line="489"/>
+        <location filename="../src/interface.cpp" line="1731"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
         <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="242"/>
+        <location filename="../src/animation_flight.cpp" line="257"/>
         <source>Recordning flight path</source>
         <translation>Flug aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="327"/>
-        <location filename="../src/animation_flight.cpp" line="335"/>
+        <location filename="../src/animation_flight.cpp" line="342"/>
+        <location filename="../src/animation_flight.cpp" line="350"/>
         <source>Recording flight animation</source>
         <translation>Fluganimation aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="731"/>
-        <location filename="../src/animation_flight.cpp" line="1078"/>
-        <location filename="../src/animation_keyframes.cpp" line="566"/>
-        <location filename="../src/animation_keyframes.cpp" line="895"/>
+        <location filename="../src/animation_flight.cpp" line="746"/>
+        <location filename="../src/animation_flight.cpp" line="1093"/>
+        <location filename="../src/animation_keyframes.cpp" line="578"/>
+        <location filename="../src/animation_keyframes.cpp" line="907"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="733"/>
-        <location filename="../src/animation_keyframes.cpp" line="568"/>
+        <location filename="../src/animation_flight.cpp" line="748"/>
+        <location filename="../src/animation_keyframes.cpp" line="580"/>
         <source>The animation has already been rendered completely.
  Do you want to purge the output folder?
 </source>
@@ -941,68 +983,68 @@ Fortsetzen?</translation>
 Soll der Bilderordner geleert werden?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="797"/>
+        <location filename="../src/animation_flight.cpp" line="812"/>
         <source>Animation start</source>
         <translation>Animationsstart</translation>
     </message>
     <message>
-        <location filename="../qt/player_widget.cpp" line="188"/>
-        <location filename="../src/animation_flight.cpp" line="798"/>
-        <location filename="../src/animation_keyframes.cpp" line="636"/>
+        <location filename="../qt/player_widget.cpp" line="189"/>
+        <location filename="../src/animation_flight.cpp" line="813"/>
+        <location filename="../src/animation_keyframes.cpp" line="648"/>
         <source>Frame %1 of %2</source>
         <translation>Frame %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="833"/>
-        <location filename="../src/animation_flight.cpp" line="836"/>
-        <location filename="../src/animation_keyframes.cpp" line="677"/>
-        <location filename="../src/animation_keyframes.cpp" line="681"/>
+        <location filename="../src/animation_flight.cpp" line="848"/>
+        <location filename="../src/animation_flight.cpp" line="851"/>
+        <location filename="../src/animation_keyframes.cpp" line="689"/>
+        <location filename="../src/animation_keyframes.cpp" line="693"/>
         <source>Animation finished</source>
         <translation>Animation beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="841"/>
-        <location filename="../src/animation_keyframes.cpp" line="685"/>
+        <location filename="../src/animation_flight.cpp" line="856"/>
+        <location filename="../src/animation_keyframes.cpp" line="697"/>
         <source>Rendering terminated</source>
         <translation>Rendern beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="882"/>
-        <location filename="../src/animation_keyframes.cpp" line="726"/>
+        <location filename="../src/animation_flight.cpp" line="897"/>
+        <location filename="../src/animation_keyframes.cpp" line="738"/>
         <source>Refreshing animation</source>
         <translation>Animationsframes werden aktualisiert</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="981"/>
-        <location filename="../src/animation_keyframes.cpp" line="798"/>
+        <location filename="../src/animation_flight.cpp" line="996"/>
+        <location filename="../src/animation_keyframes.cpp" line="810"/>
         <source>Animation Image Folder</source>
         <translation>Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="984"/>
-        <location filename="../src/animation_keyframes.cpp" line="801"/>
+        <location filename="../src/animation_flight.cpp" line="999"/>
+        <location filename="../src/animation_keyframes.cpp" line="813"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wähle Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1236"/>
+        <location filename="../src/animation_flight.cpp" line="1251"/>
         <source>Export flight to keyframes</source>
         <translation>Flug zu Keyframe exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1237"/>
+        <location filename="../src/animation_flight.cpp" line="1252"/>
         <source>There are already captured keyframes present.
 Discard current keyframes?</source>
         <translation>Es sind bereits aufgenommene Keyframes vorhanden.
 Aktuelle Keyframes verwerfen?</translation>
     </message>
     <message>
-        <location filename="../qt/player_widget.cpp" line="125"/>
+        <location filename="../qt/player_widget.cpp" line="126"/>
         <source>No frames to play</source>
         <translation>Keine Frames zum abspielen</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="85"/>
+        <location filename="../src/netrender.cpp" line="87"/>
         <source>NetRender - address already in use.
 
 Is there already a mandelbulber server instance running on this port?</source>
@@ -1011,7 +1053,7 @@ Is there already a mandelbulber server instance running on this port?</source>
 Wurde bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="92"/>
+        <location filename="../src/netrender.cpp" line="94"/>
         <source>NetRender - SetServer Error:
 
 </source>
@@ -1020,14 +1062,14 @@ Wurde bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</trans
 </translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="660"/>
+        <location filename="../src/netrender.cpp" line="662"/>
         <source>NetRender - Client version mismatch!
  Client address:</source>
         <translation>NetRender - Versionskonflikt Klient!
 Adresse des Klienten:</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="187"/>
+        <location filename="../src/animation_keyframes.cpp" line="199"/>
         <source>No keyframe selected</source>
         <translation>Keine Keyframes selektiert</translation>
     </message>
@@ -1038,90 +1080,90 @@ Adresse des Klienten:</translation>
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="540"/>
-        <location filename="../src/animation_keyframes.cpp" line="1178"/>
+        <location filename="../src/animation_keyframes.cpp" line="552"/>
+        <location filename="../src/animation_keyframes.cpp" line="1190"/>
         <source>Camera collides with fractal at following frames:
 </source>
         <translation>Die Kamera kollidiert mit dem Fraktal an folgenden Frames:
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="635"/>
+        <location filename="../src/animation_keyframes.cpp" line="647"/>
         <source>Rendering animation</source>
         <translation>Rendere Animation</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1064"/>
+        <location filename="../src/animation_keyframes.cpp" line="1076"/>
         <source>Export keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1065"/>
+        <location filename="../src/animation_keyframes.cpp" line="1077"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
         <translation>Es sind bereits aufgenommene Flugframes vorhanden.
 Aktuelle Flugframes verwerfen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1084"/>
+        <location filename="../src/animation_keyframes.cpp" line="1096"/>
         <source>Exporting</source>
         <translation>Exportiere</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1132"/>
-        <location filename="../src/animation_keyframes.cpp" line="1152"/>
+        <location filename="../src/animation_keyframes.cpp" line="1144"/>
+        <location filename="../src/animation_keyframes.cpp" line="1164"/>
         <source>Checking for collissions</source>
         <translation>Prüfe auf Kollisionen</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1133"/>
+        <location filename="../src/animation_keyframes.cpp" line="1145"/>
         <source>Checking for collissions on keyframe # %1</source>
         <translation>Prüfe auf Kollisionen bei Keyframe # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1153"/>
+        <location filename="../src/animation_keyframes.cpp" line="1165"/>
         <source>Checking for collisions finished</source>
         <translation>Kollisionsprüfung beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1183"/>
+        <location filename="../src/animation_keyframes.cpp" line="1195"/>
         <source>No collisions detected
 </source>
         <translation>Keine Kollisionen erkannt
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1230"/>
+        <location filename="../src/animation_keyframes.cpp" line="1242"/>
         <source>Cannot change target distance. Missing camera parameters in keyframes</source>
         <translation>Zielentfernung kann nicht geändert werden. Fehlende Kameraparameter in Keyframes</translation>
     </message>
     <message>
-        <location filename="../qt/tab_fractal.cpp" line="179"/>
+        <location filename="../qt/tab_fractal.cpp" line="183"/>
         <source>Add global C constant</source>
         <translation>Globale C Konstante hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="133"/>
+        <location filename="../src/render_window_menu.cpp" line="135"/>
         <source>Description</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="137"/>
+        <location filename="../src/render_window_menu.cpp" line="139"/>
         <source>Ok, don&apos;t show again</source>
         <translation>Ok, nicht erneut zeigen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="474"/>
+        <location filename="../src/render_window_menu.cpp" line="476"/>
         <source>Settings saved to clipboard</source>
         <translation>Einstellungen in Zwischenablage gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="236"/>
+        <location filename="../src/render_window_menu.cpp" line="238"/>
         <source>Cannot load settings from clipboard!</source>
         <translation>Kann die Einstellungen nicht aus der Zwischenablage laden!</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="150"/>
+        <location filename="../qt/preferences_dialog.cpp" line="157"/>
         <source>Are you sure to clear the thumbnail cache?</source>
         <translation>Sind Sie sicher, dass Sie den Thumbnail Cache löschen wollen?</translation>
     </message>
@@ -1132,7 +1174,7 @@ Aktuelle Flugframes verwerfen?</translation>
 Jetzt löschen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="151"/>
+        <location filename="../qt/preferences_dialog.cpp" line="158"/>
         <source>Are you sure to clear the thumbnail cache?
 There are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.
  Clear now?</source>
@@ -1141,29 +1183,29 @@ Es befinden sich zur Zeit %1 Thumbnails im Cache. Diese werden gelöscht und bei
 Jetzt löschen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="171"/>
+        <location filename="../qt/preferences_dialog.cpp" line="178"/>
         <source>Are you sure to load the thumbnail cache from the server?</source>
         <translation>Sind Sie sicher, dass Sie den Thumbnail Cache vom Server herunterladen wollen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="172"/>
+        <location filename="../qt/preferences_dialog.cpp" line="179"/>
         <source>This will try to load missing common thumbnails from the server.
 Proceed?</source>
         <translation>Das wird versuchen fehlende allgemeine Thumbnails vom Server zu laden.
 Fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="203"/>
+        <location filename="../qt/preferences_dialog.cpp" line="210"/>
         <source>Are you sure to generate all example thumbnail cache files?</source>
         <translation>Sind sie sicher, dass alle Beispiel Thumbnails im Cache neu erzeugt werden sollen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="301"/>
+        <location filename="../qt/preferences_dialog.cpp" line="308"/>
         <source>Retrieve toolbar</source>
         <translation>Toolbar holen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="302"/>
+        <location filename="../qt/preferences_dialog.cpp" line="309"/>
         <source>Are you sure to retrieve default presets into toolbar?
 It could overwrite some of existing presets.
 Proceed?</source>
@@ -1172,12 +1214,12 @@ Dies kann existierende Toolbar Elemente überschreiben.
 Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="315"/>
+        <location filename="../qt/preferences_dialog.cpp" line="322"/>
         <source>Retrieve materials</source>
         <translation>Hole Materialien</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="316"/>
+        <location filename="../qt/preferences_dialog.cpp" line="323"/>
         <source>Are you sure to retrieve default materials into materials folder?
 It could overwrite some of existing materials.
 Proceed?</source>
@@ -1192,22 +1234,22 @@ Fortfahren?</translation>
 Jetzt löschen?</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="387"/>
+        <location filename="../src/command_line_interface.cpp" line="389"/>
         <source>Some useful example commands:</source>
         <translation>Einige hilfreiche Beispielbefehle:</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="390"/>
+        <location filename="../src/command_line_interface.cpp" line="392"/>
         <source>Simple render</source>
         <translation>Einfaches Rendern</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="393"/>
+        <location filename="../src/command_line_interface.cpp" line="395"/>
         <source>Renders the file on the cli (no window required).</source>
         <translation>Rendert die Datei in der Befehlszeile (Kein Fenster notwendig).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="395"/>
+        <location filename="../src/command_line_interface.cpp" line="397"/>
         <source>Animation render</source>
         <translation>Animation Rendern</translation>
     </message>
@@ -1216,7 +1258,7 @@ Jetzt löschen?</translation>
         <translation type="vanished">Rendert die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="404"/>
+        <location filename="../src/command_line_interface.cpp" line="406"/>
         <source>Network render</source>
         <translation>Netzwerk Rendern</translation>
     </message>
@@ -1231,7 +1273,7 @@ Auf dem Server führe (2) aus mit den Einstellungen für das Rendering und zusä
 Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden haben. Dann startet der Verbund gemeinsam das Rendern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="419"/>
+        <location filename="../src/command_line_interface.cpp" line="421"/>
         <source>Voxel volume render</source>
         <translation>Voxelvolumen Rendern</translation>
     </message>
@@ -1242,7 +1284,7 @@ Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden hab
 Dies produziert 10 Scheiben (z) mit einer Auflösung von 10(x) mal 10(y) und speichert sie als schwarz-weiß Bilder in den slices Ordner.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="432"/>
+        <location filename="../src/command_line_interface.cpp" line="434"/>
         <source>Queue render</source>
         <translation>Queue Rendern</translation>
     </message>
@@ -1257,12 +1299,12 @@ Der Output wird in /tmp/queue.log geschrieben.
 (Dies funktioniert unter Umständen nur auf einem Unix System)</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="399"/>
+        <location filename="../src/command_line_interface.cpp" line="401"/>
         <source>Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.</source>
         <translation>Rendert die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="410"/>
+        <location filename="../src/command_line_interface.cpp" line="412"/>
         <source>In a network you can render on multiple machines. One is a server (2) and multiple clients (1) can connect to help rendering.
 On each client run (1), 192.168.100.1 should be substituted with the IP address of the server.
 On the server run (2) with the settings required for the render and additionally &apos;--server&apos;.
@@ -1273,7 +1315,7 @@ Auf dem Server führe (2) aus mit den Einstellungen für das Rendering und zusä
 Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden haben. Dann startet der Verbund gemeinsam das Rendern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="426"/>
+        <location filename="../src/command_line_interface.cpp" line="428"/>
         <source>Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] with a resolution of 10x10x10.
 This will produce 10 slices (z) with a resolution of 10(x) times 10(y) and save as black and white images to working folder/slices.</source>
         <translation>Rendert das Voxel Volumen in dem Quader mit den Grenzen [x(-1 - 1); y(-1 - 1); z(-1 - 1)] mit einer Auflösung von 10x10x10.
@@ -1290,7 +1332,7 @@ Der Output wird in /tmp/queue.log geschrieben.
 (Dies funktioniert unter Umständen nur auf einem Unix System)</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="436"/>
+        <location filename="../src/command_line_interface.cpp" line="438"/>
         <source>Runs the mandelbulber instance in queue mode and daemonizes it.
 Mandelbulber runs in background and waits for jobs.
 The output will be written to /tmp/queue.log.
@@ -1315,7 +1357,7 @@ Ordner - Wenn das angegebene Argument ein Ordner ist, so werden alle .fract Date
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="450"/>
+        <location filename="../src/command_line_interface.cpp" line="452"/>
         <source>Mandelbulber also accepts an arbitrary number of input files
 These files can be of type:
   .fract File - An ordinary fractal file
@@ -1332,7 +1374,7 @@ Sie könne auch &quot;-&quot; angeben um zu signalisieren, dass der Dateiname, o
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="480"/>
+        <location filename="../src/command_line_interface.cpp" line="482"/>
         <source>
 List of fractal parameters:
 </source>
@@ -1341,129 +1383,129 @@ Liste der Fraktalparameter:
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="517"/>
+        <location filename="../src/command_line_interface.cpp" line="519"/>
         <source>Specified server port is invalid
 </source>
         <translation>Der angegebene Serverport ist ungültig
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="530"/>
+        <location filename="../src/command_line_interface.cpp" line="532"/>
         <source>NetRender - Waiting for clients
 </source>
         <translation>NetRender - Warte auf Clients
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="550"/>
+        <location filename="../src/command_line_interface.cpp" line="552"/>
         <source>Specified client port is invalid
 </source>
         <translation>Der angegebene Clientport ist ungültig
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="574"/>
-        <location filename="../src/command_line_interface.cpp" line="638"/>
-        <location filename="../src/main.cpp" line="184"/>
+        <location filename="../src/command_line_interface.cpp" line="576"/>
+        <location filename="../src/command_line_interface.cpp" line="640"/>
+        <location filename="../src/main.cpp" line="180"/>
         <source>Cannot init queue: </source>
         <translation>Kann Queue nicht initialisieren: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="619"/>
+        <location filename="../src/command_line_interface.cpp" line="621"/>
         <source>Cannot load file!
 </source>
         <translation>Kann Datei nicht laden!
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="707"/>
+        <location filename="../src/command_line_interface.cpp" line="709"/>
         <source>Specified resolution not valid
 both dimensions need to be &gt; 0</source>
         <translation>Die angegebene Auflösung ist ungültig
 beide Dimensionen müssen&gt; 0 sein</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="717"/>
+        <location filename="../src/command_line_interface.cpp" line="719"/>
         <source>Specified resolution not valid
 resolution has to be in the form WIDTHxHEIGHT</source>
         <translation>Die angegebene Auflösung ist ungültig
 Dimensionen müssen in der Form BREITExHOEHE angegeben werden</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="730"/>
+        <location filename="../src/command_line_interface.cpp" line="732"/>
         <source>Specified frames per key not valid
 need to be &gt; 0</source>
         <translation>Die angegebenen Auflösung ist ungültig
 beide Dimensionen müssen&gt; 0 sein</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="743"/>
+        <location filename="../src/command_line_interface.cpp" line="745"/>
         <source>Specified imageFileFormat is not valid
 allowed formats are: </source>
         <translation>Das angegebene Bilddateiformat ist ungültig
 Erlaubte Formate sind: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="762"/>
+        <location filename="../src/command_line_interface.cpp" line="764"/>
         <source>There are no flight animation frames in specified settings file</source>
         <translation>Es sind keine Fluganimationsframes in der angegebenen Einstellungsdatei</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="773"/>
+        <location filename="../src/command_line_interface.cpp" line="775"/>
         <source>You cannot render keyframe animation at the same time as flight animation</source>
         <translation>Sie können die Keyframe-Animation nicht gleichzeitig mit der Flug-Animation rendern</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="786"/>
+        <location filename="../src/command_line_interface.cpp" line="788"/>
         <source>There are no keyframes in specified settings file</source>
         <translation>Es sind keine Keyframes in der angegebenen Einstellungsdatei</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="806"/>
-        <location filename="../src/command_line_interface.cpp" line="824"/>
-        <location filename="../src/command_line_interface.cpp" line="855"/>
-        <location filename="../src/command_line_interface.cpp" line="884"/>
+        <location filename="../src/command_line_interface.cpp" line="808"/>
+        <location filename="../src/command_line_interface.cpp" line="826"/>
+        <location filename="../src/command_line_interface.cpp" line="857"/>
+        <location filename="../src/command_line_interface.cpp" line="886"/>
         <source>Animation has only %1 frames</source>
         <translation>Die Animation hat nur %1 Frames</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="846"/>
-        <location filename="../src/command_line_interface.cpp" line="876"/>
+        <location filename="../src/command_line_interface.cpp" line="848"/>
+        <location filename="../src/command_line_interface.cpp" line="878"/>
         <source>End frame has to be greater than start frame which is %1</source>
         <translation>Der Endframe muss größer als der Startframe sein, Startframe ist %1</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="316"/>
+        <location filename="../src/command_line_interface.cpp" line="318"/>
         <source>You have to specify a settings file, for this configuration!</source>
         <translation>Du musst eine Einstellungsdatei für diese Konfiguration angeben!</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="562"/>
+        <location filename="../src/queue.cpp" line="574"/>
         <source>No queue items to render</source>
         <translation>Keine Queue Elemente zu Rendern</translation>
     </message>
     <message>
-        <location filename="../src/render_queue.cpp" line="121"/>
+        <location filename="../src/render_queue.cpp" line="130"/>
         <source>Queue Item %1 of %2</source>
         <translation>Queue Element %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/render_queue.cpp" line="158"/>
+        <location filename="../src/render_queue.cpp" line="167"/>
         <source>Queue Render</source>
         <translation>Queue Render</translation>
     </message>
     <message>
-        <location filename="../src/render_queue.cpp" line="158"/>
+        <location filename="../src/render_queue.cpp" line="167"/>
         <source>Queue Done</source>
         <translation>Queue fertig</translation>
     </message>
     <message>
-        <location filename="../src/lights.cpp" line="162"/>
+        <location filename="../src/lights.cpp" line="166"/>
         <source>Positioning random lights</source>
         <translation>Positioniere Zufallslichter</translation>
     </message>
     <message>
-        <location filename="../src/lights.cpp" line="163"/>
+        <location filename="../src/lights.cpp" line="167"/>
         <source>Positioned light %1 of %2</source>
         <translation>Licht %1 von %2 positioniert</translation>
     </message>
@@ -1473,33 +1515,33 @@ Erlaubte Formate sind: </translation>
         <translation>Dateipfad ungültig</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.cpp" line="90"/>
+        <location filename="../qt/material_manager_view.cpp" line="94"/>
         <source>Delete material?</source>
         <translation>Material löschen?</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.cpp" line="91"/>
+        <location filename="../qt/material_manager_view.cpp" line="95"/>
         <source>Are you sure to delete selected material?</source>
         <translation>Sind sie sicher, dass sie das ausgewählte Material löschen wollen?</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.cpp" line="103"/>
+        <location filename="../qt/material_manager_view.cpp" line="107"/>
         <source>You cannot delete last material!</source>
         <translation>Das letzte Material kann nicht gelöscht werden!</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.cpp" line="108"/>
-        <location filename="../src/command_line_interface.cpp" line="898"/>
+        <location filename="../qt/voxel_export_dialog.cpp" line="113"/>
+        <location filename="../src/command_line_interface.cpp" line="900"/>
         <source>Cannot start voxel export. Specified folder (%1) does not exist.</source>
         <translation>Voxel Export kann nicht gestartet werden. Der angegebene Ordner (%1) existiert nicht.</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.cpp" line="116"/>
+        <location filename="../qt/voxel_export_dialog.cpp" line="121"/>
         <source>Voxel Export is busy. Stop unfinished rendering before starting new voxel export job.</source>
         <translation>Der Voxelexport ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor ein neuer Voxelexport gestartet werden kann.</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.cpp" line="183"/>
+        <location filename="../qt/voxel_export_dialog.cpp" line="188"/>
         <source>Voxel Export is busy. Stop unfinished rendering before closing the voxel export dialog.</source>
         <translation>Der Voxelexport ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor der Voxelexport Dialog geschlossen werden kann.</translation>
     </message>
@@ -4427,7 +4469,7 @@ Keyframes</translation>
         <translation>Strg+Y</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="62"/>
+        <location filename="../src/render_window_menu.cpp" line="64"/>
         <source>Import settings from old Mandelbulber (v1.21)...</source>
         <translation>Einstellungen von alten Mandelbulber Dateien (v1.21)...</translation>
     </message>
@@ -4796,7 +4838,7 @@ und Wasser):</translation>
         <translation type="vanished">PNG 16 bit mit Alpha speichern</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="194"/>
+        <location filename="../src/render_window_menu.cpp" line="196"/>
         <source>Load settings...</source>
         <translation>Einstellungen laden...</translation>
     </message>
@@ -4841,71 +4883,71 @@ und Wasser):</translation>
         <translation type="vanished">Über Mandelbulber</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="57"/>
-        <location filename="../src/render_window_menu.cpp" line="153"/>
-        <location filename="../src/render_window_menu.cpp" line="189"/>
-        <location filename="../src/render_window_menu.cpp" line="443"/>
+        <location filename="../src/render_window_menu.cpp" line="59"/>
+        <location filename="../src/render_window_menu.cpp" line="155"/>
+        <location filename="../src/render_window_menu.cpp" line="191"/>
+        <location filename="../src/render_window_menu.cpp" line="445"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="449"/>
+        <location filename="../src/render_window_menu.cpp" line="451"/>
         <source>Save settings...</source>
         <translation>Einstellungen speichern...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="158"/>
+        <location filename="../src/render_window_menu.cpp" line="160"/>
         <source>Load example settings...</source>
         <translation>Lade Beispiel Einstellungen...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="276"/>
+        <location filename="../src/render_window_menu.cpp" line="278"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>JPEG Bilder (*.jpg *.jpeg)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="281"/>
-        <location filename="../src/render_window_menu.cpp" line="309"/>
-        <location filename="../src/render_window_menu.cpp" line="334"/>
-        <location filename="../src/render_window_menu.cpp" line="360"/>
-        <location filename="../src/render_window_menu.cpp" line="385"/>
-        <location filename="../src/render_window_menu.cpp" line="414"/>
+        <location filename="../src/render_window_menu.cpp" line="283"/>
+        <location filename="../src/render_window_menu.cpp" line="311"/>
+        <location filename="../src/render_window_menu.cpp" line="336"/>
+        <location filename="../src/render_window_menu.cpp" line="362"/>
+        <location filename="../src/render_window_menu.cpp" line="387"/>
+        <location filename="../src/render_window_menu.cpp" line="416"/>
         <source>Save image to %1 file...</source>
         <translation>Speichere Bild als %1 Datei...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="288"/>
-        <location filename="../src/render_window_menu.cpp" line="293"/>
-        <location filename="../src/render_window_menu.cpp" line="392"/>
-        <location filename="../src/render_window_menu.cpp" line="398"/>
-        <location filename="../src/render_window_menu.cpp" line="421"/>
-        <location filename="../src/render_window_menu.cpp" line="427"/>
+        <location filename="../src/render_window_menu.cpp" line="290"/>
+        <location filename="../src/render_window_menu.cpp" line="295"/>
+        <location filename="../src/render_window_menu.cpp" line="394"/>
+        <location filename="../src/render_window_menu.cpp" line="400"/>
+        <location filename="../src/render_window_menu.cpp" line="423"/>
+        <location filename="../src/render_window_menu.cpp" line="429"/>
         <source>Saving %1 image</source>
         <translation>Speichere %1 Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="288"/>
-        <location filename="../src/render_window_menu.cpp" line="393"/>
-        <location filename="../src/render_window_menu.cpp" line="422"/>
+        <location filename="../src/render_window_menu.cpp" line="290"/>
+        <location filename="../src/render_window_menu.cpp" line="395"/>
+        <location filename="../src/render_window_menu.cpp" line="424"/>
         <source>Saving image started</source>
         <translation>Speichern gestartet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="293"/>
-        <location filename="../src/render_window_menu.cpp" line="399"/>
-        <location filename="../src/render_window_menu.cpp" line="428"/>
+        <location filename="../src/render_window_menu.cpp" line="295"/>
+        <location filename="../src/render_window_menu.cpp" line="401"/>
+        <location filename="../src/render_window_menu.cpp" line="430"/>
         <source>Saving image finished</source>
         <translation>Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="304"/>
-        <location filename="../src/render_window_menu.cpp" line="380"/>
-        <location filename="../src/render_window_menu.cpp" line="409"/>
+        <location filename="../src/render_window_menu.cpp" line="306"/>
+        <location filename="../src/render_window_menu.cpp" line="382"/>
+        <location filename="../src/render_window_menu.cpp" line="411"/>
         <source>PNG images (*.png)</source>
         <translation>PNG Bilder (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="355"/>
+        <location filename="../src/render_window_menu.cpp" line="357"/>
         <source>TIFF images (*.tiff)</source>
         <translation>TIFF Bilder (*.tiff)</translation>
     </message>
@@ -4926,7 +4968,7 @@ und Wasser):</translation>
         <translation type="vanished">PNG Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="329"/>
+        <location filename="../src/render_window_menu.cpp" line="331"/>
         <source>EXR images (*.exr)</source>
         <translation>EXR Bilder (*.exr)</translation>
     </message>
@@ -5003,17 +5045,17 @@ und Wasser):</translation>
         <translation type="vanished">Gerendert</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="137"/>
+        <location filename="../src/interface.cpp" line="154"/>
         <source>Info &amp;Qt</source>
         <translation>Info Qt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="139"/>
+        <location filename="../src/interface.cpp" line="156"/>
         <source>&amp;Info Mandelbulber</source>
         <translation>Info Mandelbulber</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="141"/>
+        <location filename="../src/interface.cpp" line="158"/>
         <source>Info &amp;Third Party</source>
         <translation>Info Drittanbieter</translation>
     </message>
@@ -5021,121 +5063,121 @@ und Wasser):</translation>
 <context>
     <name>RenderedImage</name>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="138"/>
+        <location filename="../src/rendered_image_widget.cpp" line="141"/>
         <source>Move camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="139"/>
+        <location filename="../src/rendered_image_widget.cpp" line="142"/>
         <source>Change fog visibility</source>
         <translation>Nebelsichtbarkeit ändern</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="140"/>
+        <location filename="../src/rendered_image_widget.cpp" line="143"/>
         <source>Change DOF focus</source>
         <translation>Tiefenschärfefokus ändern</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="142"/>
+        <location filename="../src/rendered_image_widget.cpp" line="145"/>
         <source>Place light #</source>
         <translation>Setze Licht #</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="143"/>
+        <location filename="../src/rendered_image_widget.cpp" line="146"/>
         <source>
 Mouse wheel - light fov / bkw</source>
         <translation>
 Mausrad - Licht FOV / BKW</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="146"/>
+        <location filename="../src/rendered_image_widget.cpp" line="149"/>
         <source>Place </source>
         <translation>Setze </translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="149"/>
+        <location filename="../src/rendered_image_widget.cpp" line="152"/>
         <source>Get Julia constant</source>
         <translation>Julia Konstante holen</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="151"/>
+        <location filename="../src/rendered_image_widget.cpp" line="154"/>
         <source>LMB - increase speed</source>
         <translation>LMB - Beschleunigen</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="152"/>
+        <location filename="../src/rendered_image_widget.cpp" line="155"/>
         <source>
 RMB - decrease speed</source>
         <translation>
 RMB - Verlangsamen</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="153"/>
+        <location filename="../src/rendered_image_widget.cpp" line="156"/>
         <source>
 arrow keys - strafe</source>
         <translation>
 Pfeiltasten - Bewegen</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="154"/>
+        <location filename="../src/rendered_image_widget.cpp" line="157"/>
         <source>
 z, x keys - roll</source>
         <translation>z, x Tasten - Rollen</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="155"/>
+        <location filename="../src/rendered_image_widget.cpp" line="158"/>
         <source>
 spacebar - pause</source>
         <translation>
 Leertaste - Pause</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="156"/>
+        <location filename="../src/rendered_image_widget.cpp" line="159"/>
         <source>
 hold shift key - orthogonal strafe</source>
         <translation>
 Shift Taste gedrückt - orthogonal bewegen</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="160"/>
+        <location filename="../src/rendered_image_widget.cpp" line="163"/>
         <source>Place center of random light</source>
         <translation>Setze Zufallslichter</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="161"/>
+        <location filename="../src/rendered_image_widget.cpp" line="164"/>
         <source>
 also calculates</source>
         <translation>
 berechnet auch</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="162"/>
+        <location filename="../src/rendered_image_widget.cpp" line="165"/>
         <source>
 distribution radius of lights to 50%,</source>
         <translation>
 Distributionsradius der Lichter zu 50%,</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="163"/>
+        <location filename="../src/rendered_image_widget.cpp" line="166"/>
         <source>
 max distance from fractal to 10%</source>
         <translation>
 maximale Distanz zum Fraktal zu 10%</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="164"/>
+        <location filename="../src/rendered_image_widget.cpp" line="167"/>
         <source>
 of distance [center to camera position]</source>
         <translation>
 der Distanz [Zentrum zur Kameraposition]</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="167"/>
+        <location filename="../src/rendered_image_widget.cpp" line="170"/>
         <source>Get coordinates</source>
         <translation>Hole Koordinaten</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="168"/>
+        <location filename="../src/rendered_image_widget.cpp" line="171"/>
         <source>
 and distance</source>
         <translation>
@@ -7418,67 +7460,73 @@ und Wasser):</translation>
     </message>
     <message>
         <location filename="../qt/dock_gamepad.ui" line="20"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="249"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="250"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Gamepad can be used as an input device. The keymap for the gamepad is the following:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/gamepad Keymap.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ein Gamepad kann als Eingabegerät verwendet werden. Die Zuordnung der Eingabe ist folgendermaßen:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/gamepad Keymap.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_gamepad.ui" line="23"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="252"/>
         <source>Ga&amp;mepad activate</source>
         <translation>Gamepad aktivieren</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="52"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="250"/>
+        <location filename="../qt/dock_gamepad.ui" line="55"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="253"/>
         <source>Gamepad device:</source>
         <translation>Gamepad Gerät:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="69"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="251"/>
+        <location filename="../qt/dock_gamepad.ui" line="72"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="254"/>
         <source>no device attached</source>
         <translation>keini Gerät verbunden</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="78"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="252"/>
+        <location filename="../qt/dock_gamepad.ui" line="81"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="255"/>
         <source>movement velocity</source>
         <translation>Bewegungsgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="107"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="253"/>
+        <location filename="../qt/dock_gamepad.ui" line="110"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="256"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="114"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="254"/>
+        <location filename="../qt/dock_gamepad.ui" line="117"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="257"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="121"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="255"/>
+        <location filename="../qt/dock_gamepad.ui" line="124"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="258"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="205"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="256"/>
+        <location filename="../qt/dock_gamepad.ui" line="208"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="259"/>
         <source>angle velocity</source>
         <translation>Winkelgeschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="237"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="257"/>
+        <location filename="../qt/dock_gamepad.ui" line="240"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="260"/>
         <source>yaw:</source>
         <translation>Gier:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="244"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="258"/>
+        <location filename="../qt/dock_gamepad.ui" line="247"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="261"/>
         <source>pitch:</source>
         <translation>Nick:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_gamepad.ui" line="251"/>
-        <location filename="../qt/ui_dock_gamepad.h" line="259"/>
+        <location filename="../qt/dock_gamepad.ui" line="254"/>
+        <location filename="../qt/ui_dock_gamepad.h" line="262"/>
         <source>roll:</source>
         <translation>Roll:</translation>
     </message>
@@ -8524,19 +8572,19 @@ to target:</source>
     <name>cDockRenderingEngine</name>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="14"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="893"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="901"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="32"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="894"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="902"/>
         <source>Fractal formula iterations</source>
         <translation>Fraktalformel Iterationen</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="61"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="895"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="903"/>
         <source>Maximum number
 of fractal iterations
 (maxiter):</source>
@@ -8545,115 +8593,115 @@ von Fraktal Iterationen:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="76"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="899"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="907"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The higher the maximum number of iterations (&amp;quot;maxiter&amp;quot;) is, the more detail and subtlety emerge in the final image, but also the longer time it will take to calculate the fractal image. &lt;/p&gt;&lt;p&gt;In normal operation this should be set as high as possible because &amp;quot;Distance estimation&amp;quot; algorithm limits number of iteration (almost no influence on rendering speed)&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Stop at maximum iteration&lt;/span&gt; is selected, then this parameter controls detail level.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;maxiter = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;maxiter = 15&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 15.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Je höher der Wert der maximalen Anzahl der Iterationen ist (&amp;quot;maxiter&amp;quot;), desto mehr Details und Feinheiten entstehen im endgültigen Bild, aber auch mehr Zeit braucht es, um das fraktale Bild zu berechnen. &lt;/p&gt;&lt;p&gt;In normalen Situationen sollte dieser Wert so hoch wie möglich sein, weil der &amp;quot;Distanzermittlung&amp;quot; Algorithmus die Anzahl der Iterationen limitiert (fast kein Einfluss auf Renderzeit)&lt;/p&gt;&lt;p&gt;Wenn &lt;span style=&quot; font-style:italic;&quot;&gt;Bei maximaler Iteration stoppen&lt;/span&gt; selektiert ist, dann kontrolliert dieser Wert das Detaillevel.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;maxiter = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;maxiter = 15&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 15.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="89"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="901"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="909"/>
         <source>Bailout (escape condition):</source>
         <translation>Bailout (Abbruch Bedingung):</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="146"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="903"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="911"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical &apos;escape&apos; condition or &apos;bailout&apos;. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Vektor Werte werden bei jeder Iteration der fraktalen Formel geprüft, ob sie die kritische &apos;Abbruch&apos; Bedingung oder &apos;bailout&apos; überschreiten. Wenn die Bedingung erreicht ist, wird die Berechnung gestoppt. Die Bedingung lautet: Wenn die Länge des Vektors größer ist als der bailout, dann beende die Iterationsschleife.&lt;/p&gt;&lt;p&gt;In manchen Fällen kann ein höherer Wert die Bildqualität erhöhen, erhöht aber auch die Renderzeit.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="159"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="906"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="914"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables using default (recommended) bailout value. Each fractal formula has different optimal bailout value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert den Standard (empfohlenen) &apos;Bailout&apos; Wert. Jede fraktale Formel hat einen unterschiedlichen optimalen Bailout-Wert&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="162"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="908"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="916"/>
         <source>Use default bailout for each fractal formula</source>
         <translation>Benutze Standard Bailout für jede Fraktalformel</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="174"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="909"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="917"/>
         <source>Distance estimation and ray-marching:</source>
         <translation>Distanzermittlung und Ray Marching:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="203"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="911"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="919"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wenn aktiviert, bleibt die Erscheinung des Fraktals konstant bei allen Auflösungen. Eine Änderung der Bildauflösung sorgt dafür, dass der Fraktal Detaillevel automatisch angepasst wird. Wenn zum Beispiel die Auflösung verdoppelt wird, so reduziert sich das Detaillevel auf die Hälfte.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="206"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="913"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="921"/>
         <source>Connect fractal detail level with image resolution</source>
         <translation>Verbinde fraktales Detaillevel mit Bild Auflösung</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="213"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="914"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="922"/>
         <source>Distance estimation function:</source>
         <translation>Distanz Ermittlungsfunktion:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="220"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="916"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="924"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for high image quality and slow rendering&lt;/p&gt;&lt;p&gt;It gives 0.01% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimiere den &apos;Ray Marching Schritt Multiplikator&apos; für eine hohe Bildqualität und ein langsames Rendering&lt;/p&gt;&lt;p&gt;Die Einstellung ergibt 0,01% falsche Distanz Ermittlungen (Pixel mit potentiellem Rauschen)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="223"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="918"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="926"/>
         <source>High quality</source>
         <translation>Hohe Qualität</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="230"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="920"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="928"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for medium image quality.&lt;/p&gt;&lt;p&gt;It gives 0.1% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimiere den &apos;Ray Marching Schritt Multiplikator&apos; für eine mittlere Bildqualität und ein mittleres Rendering&lt;/p&gt;&lt;p&gt;Die Einstellung ergibt 0,1% falsche Distanz Ermittlungen (Pixel mit potentiellem Rauschen)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="233"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="922"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="930"/>
         <source>Medium quality</source>
         <translation>Medium Qualität</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="240"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="923"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="931"/>
         <source>Distance estimation method:</source>
         <translation>Distanz Ermittlungsmethode:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="247"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="925"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="933"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter has the biggest influence on overall quality of image and rendering speed.&lt;/p&gt;&lt;p&gt;Higher value gives faster rendering but more noise on image.&lt;/p&gt;&lt;p&gt;When rays are traced, for each step there are estimated distances to the fractal surface. Optimally , the jump distance for every ray-marching step would be equal to the estimated distance. This would produce a small number of steps and good quality. However the distance can be only estimated, so it&apos;s not always accurate. It can produce oversteppings which will be visible on the image as random noise.&lt;/p&gt;&lt;p&gt;In some cases you need to adjust  this parameter to find a balance between acceptable image quality and a reasonable rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;step multiplier = 1.0 (optimal - good quality and fast)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;step multiplier = 5 (visible strong noise on image)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;As a quality indicator, the&lt;span style=&quot; font-style:italic;&quot;&gt;Percentage of wrong distance estimations&lt;/span&gt; ( visible in &lt;span style=&quot; font-style:italic;&quot;&gt;Statistics&lt;/span&gt; dock ) can be used . &lt;/p&gt;&lt;p&gt;To optimize this parameter the histograms of iteration count and ray-marching step count,  can be used .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dieser Parameter hat den größten Einfluss auf die Bildqualität insgesamt und die Renderzeit.&lt;/p&gt;&lt;p&gt;Ein höherer Wert gibt ein schnelleres Rendern, aber auch mehr Rauschen.&lt;/p&gt;&lt;p&gt;Wenn Raytracing aktiviert ist, dann wird für jeden Schritt die Distanz zur Fraktaloberfläche geschätzt. Optimal wäre es, wenn jeder Raymarching Schritt gleich der geschätzten Distanz wäre. Das würde eine kleine Schrittanzahl und eine hohe Qualität ergeben. Jedoch kann der Abstand nur geschätzt werden, so ist es nicht immer genau. Es kann zu Überschreitungen kommen, die auf dem Bild als zufälliges Rauschen sichtbar werden.&lt;/p&gt;&lt;p&gt;In manchen Fällen muss dieser Wert angepasst werden, um einen Kompromiss zwischen akzeptabler Bildqualität und einer angemessenen Renderzeit zu finden.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Schritt Multiplikator = 1.0 (optimal - gute Qualität und schnell)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schritt Multiplikator = 5 (sichtbar starkes Rauschen auf dem Bild)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Der Wert von &lt;span style=&quot; font-style:italic;&quot;&gt;Prozentsatz falscher Distanzermittlungen&lt;/span&gt; ( sichtbar im &lt;span style=&quot; font-style:italic;&quot;&gt;Statistik&lt;/span&gt; Dock ) kann hierfür als Qualitätsindikator herangezogen werden . &lt;/p&gt;&lt;p&gt;Die Histogramme von &lt;span style=&quot; font-style:italic;&quot;&gt;fraktalen Iterationsschritten&lt;/span&gt; und &lt;span style=&quot; font-style:italic;&quot;&gt;Raymarching Schritt Anzahl&lt;/span&gt; können weiterhin verwendet werden, um diesen Wert zu optimieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="254"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="929"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="937"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for low image quality and fast rendering&lt;/p&gt;&lt;p&gt;It gives 1% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimiere den &apos;Ray Marching Schritt Multiplikator&apos; für eine niedrige Bildqualität und ein schnelles Rendering&lt;/p&gt;&lt;p&gt;Die Einstellung ergibt 1% falsche Distanz Ermittlungen (Pixel mit potentiellem Rauschen)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="257"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="931"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="939"/>
         <source>Low quality</source>
         <translation>Geringe Qualität</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="264"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="932"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="940"/>
         <source>Optimization:</source>
         <translation>Optimierung:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="296"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="933"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="941"/>
         <source>Raymarching step mult.
 (controls quality):</source>
         <translation>Raymarching Schritt mult.
@@ -8661,398 +8709,410 @@ von Fraktal Iterationen:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="313"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="943"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="951"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some fractal functions the length of the iteration vector increases exponentially and some in a linear manner.&lt;/p&gt;&lt;p&gt;- Preferred mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Delta DE Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Delta DE Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - distance estimation mode dedicated for hybrids with Pseudo Kleinian formulas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distanzermittlung ist eine Methode, die die ungefähre Entfernung zur Fraktaloberfläche von jedem beliebigen Punkt im Raum berechnet.&lt;/p&gt;&lt;p&gt;Bei einigen Fraktalfunktionen steigt die Länge des Iterationsvektors exponentiell, bei anderen in linearer Weise.&lt;/p&gt;&lt;p&gt;- Bevorzugter Modus - findet die beste Methode für die aktuellen Einstellungen des Fraktals&lt;/p&gt;&lt;p&gt;- Logarithmisch - am besten geeignet für Fraktale mit exponentiellem Wachstum des Iterationsvektors (z.B. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - am besten geeignet für Fraktale mit linearem Wachstum des Iterationsvektors (z.B. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - Distanzermittlungsmodus zur Verwendung bei Hybriden mit Pseudo Kleinian Formeln&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="317"/>
         <location filename="../qt/dock_rendering_engine.ui" line="350"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="937"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="947"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="945"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="955"/>
         <source>Preferred</source>
         <translation>Bevorzugt</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="322"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="938"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="946"/>
         <source>Delta DE Linear</source>
         <translation>Delta DE Linear</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="327"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="939"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="947"/>
         <source>Delta DE Logarithmic</source>
         <translation>Delta DE Logarithmisch</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="332"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="940"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="948"/>
         <source>Delta DE Pseudo Kleinian</source>
         <translation>Delta DE Pseudo Kleinian</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="346"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="951"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="959"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;- Preferred mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses  Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distanzermittlung ist eine Methode, die die ungefähre Entfernung zur Fraktaloberfläche von jedem beliebigen Punkt im Raum berechnet.&lt;/p&gt;&lt;p&gt;- Bevorzugter Modus verwendet die Methode zur Distanzermittlung, die für das selektierte Fraktal angegeben ist.&lt;/p&gt;&lt;p&gt;Erzwinge &amp;quot;Delta DE&amp;quot; Methode verwendet Delta DE Algorithmus der langsamer ist, dafür aber auch mit untypischen Fraktalkonfigurationen funktioniert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="355"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="948"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="956"/>
         <source>Force &quot;Delta DE&quot; method</source>
         <translation>Erzwinge &quot;Delta DE&quot; Methode</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="363"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="954"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="962"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how much detail will be visible on fractal surface. When it is set to 1.0, then minimum visible detail has size of 2 pixels.&lt;/p&gt;&lt;p&gt;Higher value gives more detailed image, but slows down rendering.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;detail level 0.2&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;detail level 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;detail level 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.2.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Steuert wie viele Details auf der fraktalen Oberfläche sichtbar sein werden. Wenn dieser Wert auf 1,0 gesetzt ist, dann haben die mindestens sichtbaren Details eine Größe von 2 Pixeln.&lt;/p&gt;&lt;p&gt;Ein höherer Wert gibt ein detaillierteres Bild, aber verlangsamt das Rendering&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Detaillevel 0.2&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Detaillevel 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Detaillevel 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.2.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="395"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="957"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="965"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Percentage of points on image which are probably calculated wrong.&lt;/p&gt;&lt;p&gt;Higher value usually means more visible noise or artifacts on image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prozentsatz der Punkte auf dem Bild, die wahrscheinlich falsch berechnet wurden. &lt;/p&gt;&lt;p&gt;Ein höherer Wert bedeutet in der Regel mehr sichtbares Rauschen oder Artefakte auf dem Bild.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="398"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="959"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="967"/>
         <source>Percentage of wrong distance estimations:</source>
         <translation>Prozentsatz falscher Distanzermittlungen:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="405"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="960"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="968"/>
         <source>Detail level:</source>
         <translation>Detaillevel:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="412"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="962"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="970"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When not enabled, the program automatically reduces the level of detail for the farthest regions of the fractal. If you go closer to the fractal surface, the program increases the level of detail.&lt;/p&gt;&lt;p&gt;If enabled, then in every region of the fractal,  the detail level (size) will be the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wenn es nicht aktiviert ist, wird das Programm automatisch den Detailwert zu den entferntesten Regionen der Fraktale reduzieren. Wenn Sie näher an die Fraktaleoberfläche gehen, erhöht das Programm die Anzahl der Details. &lt;/p&gt;&lt;p&gt; Wenn es aber aktiviert ist, dann wird in jeder Region des Fraktals dieselbe Detailgröße verwendet werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="415"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="964"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="972"/>
         <source>Cons&amp;tant detail size</source>
         <translation>Konstante Detailgröße</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="447"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="965"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="973"/>
         <source>distance threshold:</source>
         <translation>Distanz Schwelle:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="479"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="967"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="975"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance threshold which defines detail size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distanzschwelle, die die Detailgröße definiert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="491"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="969"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="977"/>
         <source>Used distance estimation algorithm:</source>
         <translation>Verwendeter Distanz Ermittlungsalgorithmus:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="504"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="971"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="979"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches off stopping of ray-marching at distance threshold. When it&apos;s checked detail level is controlled with &lt;span style=&quot; font-style:italic;&quot;&gt;Max. fractal iterations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Deaktiviert das Stoppen des Raymarchings an der Distanzschwelle. Wenn aktiviert wird das Detaillevel durch den Wert &lt;span style=&quot; font-style:italic;&quot;&gt;Max. Fraktale Iterationen&lt;/span&gt; bestimmt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="507"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="973"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="981"/>
         <source>Stop at maximum iteration (at maxiter)</source>
         <translation>Bei maximaler Iteration stoppen</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="520"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="975"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="983"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes fractals hollow inside. It gives interesting results when a  cross section of the fractal is rendered using &lt;span style=&quot; font-style:italic;&quot;&gt;Limits (box)&lt;/span&gt; feature. &lt;/p&gt;&lt;p&gt;This effect is very slow to render because of the high number of iterations required to render the inside of the fractal. To speed up rendering try  reducing Max. fractal iterations .&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;interior mode enabled&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;interior mode disabled&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Macht das Fraktal von innen hohl. Dieser Effekt gibt interessante Ergebnisse, wenn der Querschnitt mit &lt;span style=&quot; font-style:italic;&quot;&gt;Grenzen (Box)&lt;/span&gt; Funktion erzeugt wird.&lt;/p&gt;&lt;p&gt;Dieser Effekt ist sehr langsam zu rendern, da die Iteartionen erst an einem hohen Wert innerhalb des Fraktals stoppen. Es ist hilfreich den Wert von Max. fraktale Iterationen zu vermindern, um das Rendern zu beschleunigen.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Interior Modus aktiviert&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Interior Modus deaktiviert&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="523"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="977"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="985"/>
         <source>Interior mode</source>
         <translation>Interior Modus</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="535"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="978"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="986"/>
         <source>Surface (normal vector) calculation:</source>
         <translation>Oberflächenberechnung (Normalenvektor):</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="561"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="980"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="988"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Smoothness parameter defines averaging area for normal vector calculation.&lt;/p&gt;&lt;p&gt;Higher value gives smoother fractal surface.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;smoothness = 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Der Glättung Parameter definiert das durchschnittliche Areal für die Normal Vektor Berechnung.&lt;/p&gt;&lt;p&gt;Ein höherer Wert gibt eine glattere Fraktaloberfläche.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Glättung = 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Glättung = 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Glättung = 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="568"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="982"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="990"/>
         <source>Smoothness:</source>
         <translation>Glättung:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="606"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="984"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="992"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables mode dedicated for fractals where it is difficult to calculate surface normal vectors. Rendering is much slower, but fractal surface is much smoother.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert den Modus der sich für Fraktale eignet, bei denen es schwierig ist die Normalen Vektoren der Oberfläche zu berechnen. Das Rendern ist wesentlich langsamer, dafür aber auch die Oberfläche umso glatter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="609"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="986"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="994"/>
         <source>Non-DE shading mode (slow)</source>
         <translation>Non-DE Schattierungsmodus (langsam)</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="621"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="987"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="995"/>
         <source>View distance limits</source>
         <translation>Zeige Distanzgrenzen</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="647"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="988"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="996"/>
         <source>minimum view distance:</source>
         <translation>Minimale Sichtdistanz:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="654"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="990"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="998"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;All objects closer than this distance won&apos;t be visible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Alle Objekte näher als diese Distanz sind nicht sichtbar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="661"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="992"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1000"/>
         <source>maximum view distance:</source>
         <translation>Maximale Sichtdistanz:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="668"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="994"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1002"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines visibility distance. All objects farther  than this distance won&apos;t be visible. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiert die Sichtbarkeitsgrenze. Alle Objekte die weiter entfernt sind als diese Distanz sind nicht sichtbar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="730"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="997"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1005"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of fractal cross sections.&lt;/p&gt;&lt;p&gt;Example cross sections of Buffalo fractal:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;x = {-10; 10}, y = {-10, 10}, z = {-10, 0}&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;x = {-10, 0}, y = {0, 10}, z = {-0.1; 0.1}&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - limits z.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - limits x, y, z.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert das Rendern des Querschnitts.&lt;/p&gt;&lt;p&gt;Beispiel eines Querschnitts eines Buffalo Fraktals:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;x = {-10; 10}, y = {-10, 10}, z = {-10, 0}&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;x = {-10, 0}, y = {0, 10}, z = {-0.1; 0.1}&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - limits z.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - limits x, y, z.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="733"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="999"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1007"/>
         <source>Limits (bo&amp;x)</source>
         <translation>Grenzen (Box)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="768"/>
-        <location filename="../qt/dock_rendering_engine.ui" line="890"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1000"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1005"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="763"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1009"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculates the bounding box of the fractal and sets these as the limit values. This can be helpful to automatically set the limits for the voxel export&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Berechnet die äußere Hülle des Fraktals und setzt diese als Grenzwerte. Dies kann hilfreich sein, um automatisch die Grenzen für den Voxel Export zu bestimmen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_rendering_engine.ui" line="766"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1011"/>
+        <source>Bounding Box to limit</source>
+        <translation>Fraktalhülle als Grenze</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_rendering_engine.ui" line="784"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="906"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1012"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1017"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="798"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1001"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="814"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1013"/>
         <source>bottom left front corner:</source>
         <translation>Ecke - unten links vorne:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="821"/>
-        <location filename="../qt/dock_rendering_engine.ui" line="906"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1002"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1006"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="837"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="922"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1014"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1018"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="837"/>
-        <location filename="../qt/dock_rendering_engine.ui" line="922"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1003"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1007"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="853"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="938"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1015"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1019"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="877"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1004"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="893"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1016"/>
         <source>top right back corner:</source>
         <translation>Ecke - oben recht hinten:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="943"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1009"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="959"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1021"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature allows the connection of multiple computers into a network to share rendering.&lt;/p&gt;&lt;p&gt;The same image or animation can be rendered using an unlimited number of computers. The increased computing power will reduce rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Funktion ermöglicht es, mehrere Computer in einem Netzwerk zu verbinden und Rendering-Jobs aufzuteilen.&lt;/p&gt;&lt;p&gt;Ein Bild / Animation kann mit einer unbegrenzten Anzahl an Computern gerendert werden. Auf diese Weise kann die Rechenleistung erhöht werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="946"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1011"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="962"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1023"/>
         <source>NetRender</source>
         <translation>NetRender</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="978"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1012"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="994"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1024"/>
         <source>Mode:</source>
         <translation>Modus:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="991"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1019"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1007"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1031"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches between server and client.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Server&lt;/span&gt; is the main application in the network. It controls rendering process, sends data to all clients and collects data from them. &lt;br/&gt;Server compiles parts of images received from the clients and finally displays the whole image. It also renders image.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Client&lt;/span&gt; receives jobs from server. It renders only the parts of the image which the server ask for. It displays only partial image.&lt;/p&gt;&lt;p&gt;To start rendering process on all computers you need to press Render button on Server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wechseln zwischen Server und Client.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Server&lt;/span&gt; ist die Hauptapplikation im Netzwerk. Er steuert den Rendering-Prozess, sendet Daten an alle verbundenen Clients und sammelt Daten von ihnen. &lt;br/&gt;Server kompiliert die Teilbilder, die er von den Clients empfängt und zeigt schließlich das ganze Bild an. Der Server nimmt auch am Renderprozess teil.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Client&lt;/span&gt; Der Client erhält Aufträge vom Server. Er rendert nur die Teile des Bildes, die der Server anfragt. Er zeigt auch nur das von ihm gerenderte Teilbild.&lt;/p&gt;&lt;p&gt;Zum Starten des Renderprozesses auf allen Computern, müssen Sie den Render Knopf im Server betätigen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="998"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1015"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1014"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1027"/>
         <source>Client</source>
         <translation>Client</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1003"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1016"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1019"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1028"/>
         <source>Server</source>
         <translation>Server</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1016"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1021"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1032"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1033"/>
         <source>Client configuration:</source>
         <translation>Client Konfiguration:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1048"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1023"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1064"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1035"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;IP addres or name of the computer where Mandelbulber  is launched in server mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;IP Adresse oder Name des Computers, bei dem Mandelbulber im Server Modus läuft.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1055"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1025"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1071"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1037"/>
         <source>Remote server address:</source>
         <translation>Remote Server Adresse:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1062"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1026"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1078"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1038"/>
         <source>Remote server port:</source>
         <translation>Remote Server Port:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1075"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1028"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1091"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1040"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port number which is set on Mandelbulber which runs in server mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port Nummer, die beim Computer gesetzt ist, bei dem Mandelbulber im Server Modus läuft.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1101"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1031"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1117"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1043"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Establish connection with server.&lt;/p&gt;&lt;p&gt;When connection is established, status should change to READY&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Verbindung mit dem Server aufbauen.&lt;/p&gt;&lt;p&gt;Wenn die Verbindung hergestellt wurde, dann sollte der Status auf BEREIT wechseln.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1104"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1033"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1120"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1045"/>
         <source>Connect to server</source>
         <translation>Server verbinden</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1124"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1034"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1140"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1046"/>
         <source>Disconnect</source>
         <translation>Trennen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1142"/>
-        <location filename="../qt/dock_rendering_engine.ui" line="1267"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1035"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1158"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1283"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1047"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1059"/>
         <source>Status:</source>
         <translation>Status:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1149"/>
-        <location filename="../qt/dock_rendering_engine.ui" line="1274"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1036"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1165"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1290"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1048"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1060"/>
         <source>DISABLED</source>
         <translation>AUS</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1161"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1037"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1177"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1049"/>
         <source>Server configuration:</source>
         <translation>Server Konfiguration:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1193"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1039"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1209"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1051"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet port number which will be used for server. This port has to not be blocked by a firewall or  passed through a router.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet Port Nummer, die für den Server verwendet wird. Dieser Port darf nicht durch die Firewall geblockt sein, oder sollte durch den Router einen Passthrough erhalten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1206"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1041"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1222"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1053"/>
         <source>Local server port:</source>
         <translation>Lokaler Server Port:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1226"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1043"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1242"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1055"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts Mandelbulber to work as server.&lt;/p&gt;&lt;p&gt;After pressing this button, application starts to watch clients and connect to them. &lt;/p&gt;&lt;p&gt;If connection with a client is established, then this client is displayed in the table below.&lt;/p&gt;&lt;p&gt;To establish a connection with a client, the Connect button must be pressed on the client side &lt;/p&gt;&lt;p&gt;If all needed computers are already connected, then the server is ready for operation. If you presss Render button, then the server and all the clients will start rendering of the same image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet Mandelbulber als Server Instanz.&lt;/p&gt;&lt;p&gt;Nach Drücken dieser Taste beginnt die Anwendung auf Clients zu horchen und eine Verbindung zu ihnen aufzubauen. &lt;/p&gt;&lt;p&gt;Wenn eine Verbindung zum Client hergestellt wurde, dann wird dieser Client in der unterhalb stehenden Tabelle angezeigt&lt;/p&gt;&lt;p&gt;Um die Verbindung auf Client-Seite aufzubauen, muss auf diesem der Verbinden Knopf gedrückt werden.&lt;/p&gt;&lt;p&gt;Wenn alle benötigten Clients verbunden sind, ist der Server betriebsbereit. Wenn Sie den Render Knopf drücken werden der Server und alle verbundenen Clients das Rendern desselben Bildes beginnen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1229"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1045"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1245"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1057"/>
         <source>Launch server and watch for clients</source>
         <translation>Server starten und auf Clients horchen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1249"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1046"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1265"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1058"/>
         <source>Stop Server</source>
         <translation>Server stoppen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.ui" line="1283"/>
-        <location filename="../qt/ui_dock_rendering_engine.h" line="1049"/>
+        <location filename="../qt/dock_rendering_engine.ui" line="1299"/>
+        <location filename="../qt/ui_dock_rendering_engine.h" line="1061"/>
         <source>List of connected clients</source>
         <translation>Liste der verbundenen Clients</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.cpp" line="140"/>
+        <location filename="../qt/dock_rendering_engine.cpp" line="148"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.cpp" line="140"/>
+        <location filename="../qt/dock_rendering_engine.cpp" line="148"/>
         <source>Host</source>
         <translation>Host</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.cpp" line="140"/>
+        <location filename="../qt/dock_rendering_engine.cpp" line="148"/>
         <source>CPUs</source>
         <translation>CPUs</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.cpp" line="140"/>
+        <location filename="../qt/dock_rendering_engine.cpp" line="148"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../qt/dock_rendering_engine.cpp" line="140"/>
+        <location filename="../qt/dock_rendering_engine.cpp" line="148"/>
         <source>Lines done</source>
         <translation>Zeilen fertig</translation>
     </message>
@@ -9134,12 +9194,12 @@ von Fraktal Iterationen:</translation>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../qt/dock_statistics.cpp" line="73"/>
+        <location filename="../qt/dock_statistics.cpp" line="75"/>
         <source>Percentage of wrong distance estimations: %1</source>
         <translation>Prozentsatz falscher Distanzermittlungen: %1</translation>
     </message>
     <message>
-        <location filename="../qt/dock_statistics.cpp" line="75"/>
+        <location filename="../qt/dock_statistics.cpp" line="77"/>
         <source>Used distance estimation algorithm: %1</source>
         <translation>Verwendeter Distanz Ermittlungsalgorithmus: %1</translation>
     </message>
@@ -9176,28 +9236,28 @@ von Fraktal Iterationen:</translation>
         <translation type="vanished">3 Sekunden warten</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="243"/>
+        <location filename="../src/animation_flight.cpp" line="258"/>
         <source>waiting %1 seconds</source>
         <translation>Warte %1 Sekunden</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="328"/>
+        <location filename="../src/animation_flight.cpp" line="343"/>
         <source>Recording flight animation. Frame: </source>
         <translation>Fluganimation aufzeichnen. Frame: </translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="336"/>
+        <location filename="../src/animation_flight.cpp" line="351"/>
         <source>Paused. Frame: </source>
         <translation>Pausiert. Frame: </translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="506"/>
-        <location filename="../src/animation_flight.cpp" line="508"/>
+        <location filename="../src/animation_flight.cpp" line="521"/>
+        <location filename="../src/animation_flight.cpp" line="523"/>
         <source>preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="883"/>
+        <location filename="../src/animation_flight.cpp" line="898"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
@@ -9205,22 +9265,22 @@ von Fraktal Iterationen:</translation>
 <context>
     <name>cHeadless</name>
     <message>
-        <location filename="../src/headless.cpp" line="272"/>
+        <location filename="../src/headless.cpp" line="273"/>
         <source>Total number of iters</source>
         <translation>Gesamtanzahl Iters</translation>
     </message>
     <message>
-        <location filename="../src/headless.cpp" line="276"/>
+        <location filename="../src/headless.cpp" line="277"/>
         <source>Number of iters / pixel</source>
         <translation>Iterationen pro Pixel</translation>
     </message>
     <message>
-        <location filename="../src/headless.cpp" line="281"/>
+        <location filename="../src/headless.cpp" line="282"/>
         <source>Number of iters / second</source>
         <translation>Iterationen pro Sekunde</translation>
     </message>
     <message>
-        <location filename="../src/headless.cpp" line="286"/>
+        <location filename="../src/headless.cpp" line="287"/>
         <source>Percentage of wrong DE</source>
         <translation>Prozentsatz falscher DE</translation>
     </message>
@@ -9366,20 +9426,20 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="284"/>
-        <location filename="../src/animation_keyframes.cpp" line="286"/>
+        <location filename="../src/animation_keyframes.cpp" line="296"/>
+        <location filename="../src/animation_keyframes.cpp" line="298"/>
         <source>Keyframe
 previews</source>
         <translation>Keyframe
 Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="727"/>
+        <location filename="../src/animation_keyframes.cpp" line="739"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1084"/>
+        <location filename="../src/animation_keyframes.cpp" line="1096"/>
         <source>Exporting keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
@@ -10173,12 +10233,12 @@ Objektgröße)</translation>
         <translation>Gamma:</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.cpp" line="191"/>
+        <location filename="../qt/material_editor.cpp" line="192"/>
         <source>Images (*.jpg *.jpeg *.png *.bmp)</source>
         <translation>Bilder (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
     <message>
-        <location filename="../qt/material_editor.cpp" line="196"/>
+        <location filename="../qt/material_editor.cpp" line="197"/>
         <source>Select image to grab colors...</source>
         <translation>Wähle Bild zum Farben holen...</translation>
     </message>
@@ -10254,18 +10314,18 @@ Objektgröße)</translation>
         <translation>Speichere Material als...</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.cpp" line="114"/>
-        <location filename="../qt/material_manager_view.cpp" line="168"/>
+        <location filename="../qt/material_manager_view.cpp" line="118"/>
+        <location filename="../qt/material_manager_view.cpp" line="172"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.cpp" line="119"/>
+        <location filename="../qt/material_manager_view.cpp" line="123"/>
         <source>Load material...</source>
         <translation>Lade Material...</translation>
     </message>
     <message>
-        <location filename="../qt/material_manager_view.cpp" line="173"/>
+        <location filename="../qt/material_manager_view.cpp" line="177"/>
         <source>Save material...</source>
         <translation>Speichere Material...</translation>
     </message>
@@ -10285,7 +10345,7 @@ Objektgröße)</translation>
         <translation type="vanished">Zur Keyframeanimation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/material_selector.cpp" line="127"/>
+        <location filename="../qt/material_selector.cpp" line="131"/>
         <source>Material manager</source>
         <translation>Material Manager</translation>
     </message>
@@ -10656,22 +10716,22 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">Thumbnail Cache laden</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="112"/>
+        <location filename="../qt/preferences_dialog.cpp" line="119"/>
         <source>Select default directory for images</source>
         <translation>Standardordner für Bilder wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="123"/>
+        <location filename="../qt/preferences_dialog.cpp" line="130"/>
         <source>Select default directory for settings files</source>
         <translation>Standardordner für Einstellungen wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="134"/>
+        <location filename="../qt/preferences_dialog.cpp" line="141"/>
         <source>Select default directory for textures</source>
         <translation>Standardordner für Texturen wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="241"/>
+        <location filename="../qt/preferences_dialog.cpp" line="248"/>
         <source>rendering %1, %2 of %3</source>
         <translation>Rendere %1, %2 von %3</translation>
     </message>
@@ -10679,48 +10739,48 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
 <context>
     <name>cQueue</name>
     <message>
-        <location filename="../src/queue.cpp" line="436"/>
-        <location filename="../src/queue.cpp" line="440"/>
+        <location filename="../src/queue.cpp" line="448"/>
+        <location filename="../src/queue.cpp" line="452"/>
         <source>STILL</source>
         <translation>STILL</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="437"/>
+        <location filename="../src/queue.cpp" line="449"/>
         <source>FLIGHT</source>
         <translation>FLUG</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="438"/>
+        <location filename="../src/queue.cpp" line="450"/>
         <source>KEYFRAME</source>
         <translation>KEYFRAME</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="578"/>
+        <location filename="../src/queue.cpp" line="590"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="583"/>
+        <location filename="../src/queue.cpp" line="595"/>
         <source>Add file to queue...</source>
         <translation>Datei zur Queue hinzufügen...</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="642"/>
+        <location filename="../src/queue.cpp" line="654"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="642"/>
+        <location filename="../src/queue.cpp" line="654"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="642"/>
+        <location filename="../src/queue.cpp" line="654"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="642"/>
+        <location filename="../src/queue.cpp" line="654"/>
         <source>Action</source>
         <translation>Aktion</translation>
     </message>
@@ -10728,12 +10788,12 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
 <context>
     <name>cRenderJob</name>
     <message>
-        <location filename="../src/render_job.cpp" line="490"/>
+        <location filename="../src/render_job.cpp" line="493"/>
         <source>Finished Render</source>
         <translation>Rendern abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="490"/>
+        <location filename="../src/render_job.cpp" line="493"/>
         <source>The image has been rendered completely.</source>
         <translation>Das Bild wurde komplett gerendert.</translation>
     </message>
@@ -10741,32 +10801,32 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
 <context>
     <name>cSystemTray</name>
     <message>
-        <location filename="../qt/system_tray.cpp" line="56"/>
+        <location filename="../qt/system_tray.cpp" line="57"/>
         <source>Render Image</source>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../qt/system_tray.cpp" line="57"/>
+        <location filename="../qt/system_tray.cpp" line="58"/>
         <source>Render Animation</source>
         <translation>Rendere Animation</translation>
     </message>
     <message>
-        <location filename="../qt/system_tray.cpp" line="58"/>
+        <location filename="../qt/system_tray.cpp" line="59"/>
         <source>Render Flight</source>
         <translation>Rendere Flug</translation>
     </message>
     <message>
-        <location filename="../qt/system_tray.cpp" line="59"/>
+        <location filename="../qt/system_tray.cpp" line="60"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../qt/system_tray.cpp" line="60"/>
+        <location filename="../qt/system_tray.cpp" line="61"/>
         <source>Show Notifications</source>
         <translation>Zeige Benachrichtigungen</translation>
     </message>
     <message>
-        <location filename="../qt/system_tray.cpp" line="61"/>
+        <location filename="../qt/system_tray.cpp" line="62"/>
         <source>Quit</source>
         <translation>Schließen</translation>
     </message>
@@ -10989,22 +11049,22 @@ für 4D Fraktale</translation>
 <context>
     <name>cVoxelExport</name>
     <message>
-        <location filename="../src/voxel_export.cpp" line="85"/>
+        <location filename="../src/voxel_export.cpp" line="88"/>
         <source>Processing layer %1 of %2</source>
         <translation>Bearbeite Schicht %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="88"/>
+        <location filename="../src/voxel_export.cpp" line="91"/>
         <source>Voxel Export</source>
         <translation>Voxel Export</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="120"/>
+        <location filename="../src/voxel_export.cpp" line="123"/>
         <source>Voxel Export finished - Cancelled export</source>
         <translation>Voxel Export abgeschlossen - Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../src/voxel_export.cpp" line="122"/>
+        <location filename="../src/voxel_export.cpp" line="125"/>
         <source>Voxel Export finished - Processed %1 layers</source>
         <translation>Voxel Export abgeschlossen - %1 Schichten bearbeitet</translation>
     </message>
@@ -11150,7 +11210,7 @@ für 4D Fraktale</translation>
         <translation>Zeige Schichten</translation>
     </message>
     <message>
-        <location filename="../qt/voxel_export_dialog.cpp" line="133"/>
+        <location filename="../qt/voxel_export_dialog.cpp" line="138"/>
         <source>Select path for slice images</source>
         <translation>Pfas zum Schichtordner auswählen</translation>
     </message>
@@ -11174,11 +11234,11 @@ für 4D Fraktale</translation>
         <translation type="vanished">Startet Rendern bei Frame Nummer &lt;N&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="74"/>
-        <location filename="../src/command_line_interface.cpp" line="78"/>
-        <location filename="../src/command_line_interface.cpp" line="114"/>
-        <location filename="../src/command_line_interface.cpp" line="128"/>
-        <location filename="../src/command_line_interface.cpp" line="136"/>
+        <location filename="../src/command_line_interface.cpp" line="76"/>
+        <location filename="../src/command_line_interface.cpp" line="80"/>
+        <location filename="../src/command_line_interface.cpp" line="116"/>
+        <location filename="../src/command_line_interface.cpp" line="130"/>
+        <location filename="../src/command_line_interface.cpp" line="138"/>
         <source>N</source>
         <translation>N</translation>
     </message>
@@ -11207,7 +11267,7 @@ png16 - 16-Bit PNG Format
 png16alpha - 16-Bit PNG mit Alpha-Kanal Format</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="52"/>
+        <location filename="../src/command_line_interface.cpp" line="54"/>
         <source>Mandelbulber is an easy to use, handy application designed to help you render 3D Mandelbrot fractals called Mandelbulb and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge</source>
         <translation>Mandelbulber ist ein einfach zu bedienendes, handliches Programm, das ihnen helfen wird 3D-Mandelbrot Fraktale (auch Mandelbulb genannt) zu rendern, sowie andere Arten von Fraktalen, wie Mandelbox, Bulbbox, Juliabulb, Menger Sponge</translation>
     </message>
@@ -11266,32 +11326,32 @@ Mehrere SCHLÜSSEL=WERT Paare können mit &apos;#&apos; getrennt angegeben werde
 Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; angegeben werden mit &lt;N&gt; als Index des Fraktals</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="61"/>
+        <location filename="../src/command_line_interface.cpp" line="63"/>
         <source>Starts the program without a GUI.</source>
         <translation>Startet das Programm ohne GUI.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="64"/>
+        <location filename="../src/command_line_interface.cpp" line="66"/>
         <source>Renders keyframe animation.</source>
         <translation>Rendert die Keyframeanimation.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="67"/>
+        <location filename="../src/command_line_interface.cpp" line="69"/>
         <source>Renders flight animation.</source>
         <translation>Rendert die Fluganimation.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="70"/>
+        <location filename="../src/command_line_interface.cpp" line="72"/>
         <source>Never delete data, instead Exit CLI application.</source>
         <translation>Niemals Daten löschen, stattdessen CLI Applikation beenden.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="73"/>
+        <location filename="../src/command_line_interface.cpp" line="75"/>
         <source>Starts rendering from frame number &lt;N&gt;.</source>
         <translation>Startet Rendern bei Frame Nummer &lt;N&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="77"/>
+        <location filename="../src/command_line_interface.cpp" line="79"/>
         <source>Stops rendering on frame number &lt;N&gt;.</source>
         <translation>Stoppt Rendern bei Frame Nummer &lt;N&gt;.</translation>
     </message>
@@ -11304,7 +11364,7 @@ Mehrere SCHLÜSSEL=WERT Paare können mit &apos;#&apos; getrennt angegeben werde
 Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&apos; angegeben werden mit &lt;N&gt; als Index des Fraktals</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="92"/>
+        <location filename="../src/command_line_interface.cpp" line="94"/>
         <source>Lists all possible parameters &apos;&lt;KEY&gt;&apos; with corresponding default value &apos;&lt;VALUE&gt;&apos;.</source>
         <translation>Listet alle verfügbaren Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; mit zugehörigem Standardwert &apos;&lt;WERT&gt;&apos; auf.</translation>
     </message>
@@ -11339,7 +11399,7 @@ exr - EXR Format
 tiff - TIFF Format</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="104"/>
+        <location filename="../src/command_line_interface.cpp" line="106"/>
         <source>FORMAT</source>
         <translation>FORMAT</translation>
     </message>
@@ -11348,7 +11408,7 @@ tiff - TIFF Format</translation>
         <translation type="vanished">Überschreibt die Bildauflösung.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="82"/>
+        <location filename="../src/command_line_interface.cpp" line="84"/>
         <source>&lt;KEY=VALUE&gt; overrides item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;VALUE&gt;&apos;.
 Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos;: &lt;KEY1=VALUE1#KEY2=VALUE2&gt;. Quote whole expression to avoid whitespace parsing issues
 Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; being index of fractal</source>
@@ -11357,12 +11417,12 @@ Mehrere SCHLÜSSEL=WERT Paare können mit &apos;#&apos; getrennt angegeben werde
 Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&apos; angegeben werden mit &lt;N&gt; als Index des Fraktals</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="88"/>
+        <location filename="../src/command_line_interface.cpp" line="90"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="96"/>
+        <location filename="../src/command_line_interface.cpp" line="98"/>
         <source>Image output format:
   jpg - JPEG format (default)
   png - PNG format
@@ -11379,57 +11439,57 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
   tiff - TIFF Format</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="108"/>
+        <location filename="../src/command_line_interface.cpp" line="110"/>
         <source>Overrides image resolution. Specify as width and height separated by &apos;x&apos;</source>
         <translation>Überschreibt die Bildauflösung. Wert muss mit Breite und Höhe getrennt durch &apos;x&apos; angegeben werden.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="110"/>
+        <location filename="../src/command_line_interface.cpp" line="112"/>
         <source>WxH</source>
         <translation>BxH</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="113"/>
+        <location filename="../src/command_line_interface.cpp" line="115"/>
         <source>Overrides frames per key parameter.</source>
         <translation>Überschreibt Frames pro Keyframe Parameter.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="117"/>
+        <location filename="../src/command_line_interface.cpp" line="119"/>
         <source>Sets application as a server listening for clients.</source>
         <translation>Setzt Instanz als Server und horcht auf Clients.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="121"/>
+        <location filename="../src/command_line_interface.cpp" line="123"/>
         <source>Sets application as a client connected to server of given host address (Host can be of type IPv4, IPv6 and Domain name address).</source>
         <translation>Setzt die Instanz als Client und verbindet mit dem Server an Host Adresse (Host kann als IPv4, IPv6 und Domain Namen Adresse angegeben werden).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="127"/>
+        <location filename="../src/command_line_interface.cpp" line="129"/>
         <source>Sets network port number for netrender (default 5555).</source>
         <translation>Setzt Netzwerk Port Nummer für Netrender (Standardwert: 5555).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="131"/>
+        <location filename="../src/command_line_interface.cpp" line="133"/>
         <source>Starts program without ANSI colors, when execution on CLI.</source>
         <translation>Startet Programm ohne ANSI Farben, wenn es auf der Befehlszeile ausgeführt wird.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="135"/>
+        <location filename="../src/command_line_interface.cpp" line="137"/>
         <source>Saves rendered image(s) to this file / folder.</source>
         <translation>Speichert gerenderte(s) Bild(er) in diese(n) Datei / Ordner.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="139"/>
+        <location filename="../src/command_line_interface.cpp" line="141"/>
         <source>Renders all images from common queue.</source>
         <translation>Rendert alle Bilder aus der allgemeinen Queue.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="142"/>
+        <location filename="../src/command_line_interface.cpp" line="144"/>
         <source>Runs testcases on the mandelbulber instance</source>
         <translation>Führt Testfälle mit der Mandelbulber Instanz durch.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="146"/>
+        <location filename="../src/command_line_interface.cpp" line="148"/>
         <source>Resaves a settings file (can be used to update a settings file)</source>
         <translation>Überschreibt die Einstellungsdatei (kann genutzt werden, um Einstellungsdatei upzudaten).</translation>
     </message>
@@ -11447,22 +11507,22 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
 Fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="150"/>
+        <location filename="../src/command_line_interface.cpp" line="152"/>
         <source>Renders the voxel volume in a stack of images.</source>
         <translation>Rendert das Voxel Volumen in einem Stapel aus Bildern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="153"/>
+        <location filename="../src/command_line_interface.cpp" line="155"/>
         <source>Shows statistics while rendering in CLI mode.</source>
         <translation>Zeigt Statistiken während des Renderns in Konsolenmodus an.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="156"/>
+        <location filename="../src/command_line_interface.cpp" line="158"/>
         <source>Shows help about input.</source>
         <translation>Zeigt Hilfe über Input.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="158"/>
+        <location filename="../src/command_line_interface.cpp" line="160"/>
         <source>Shows example commands.</source>
         <translation>Zeigt Beispielbefehle.</translation>
     </message>
@@ -11511,7 +11571,7 @@ Fortsetzen?</translation>
         <translation type="vanished">Zeige Hilfe über Input.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="162"/>
+        <location filename="../src/command_line_interface.cpp" line="164"/>
         <source>file with fractal settings (program also tries
 to find file in ./mandelbulber/settings directory)
 When settings_file is put as a command line argument then program will start in noGUI mode&lt;settings_file&gt; can also be specified as a list, see all options with --help-input</source>
@@ -11528,7 +11588,7 @@ die Datei in ./mandelbulber/settings zu finden)
 Wenn Einstellungsdatei als Befehlszeilenargument angegeben wird dann wird das Programm in No-GUI Modus gestartet.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="124"/>
+        <location filename="../src/command_line_interface.cpp" line="126"/>
         <source>N.N.N.N</source>
         <translation>N.N.N.N</translation>
     </message>

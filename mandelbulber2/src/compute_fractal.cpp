@@ -820,7 +820,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-
 				// 4D  ---------------------------------------------------------------------------
 				case quaternion4D:
 				{

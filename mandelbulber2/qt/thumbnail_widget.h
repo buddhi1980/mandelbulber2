@@ -44,7 +44,7 @@
 #include <qprogressbar.h>
 #include <QElapsedTimer>
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 class cFractalContainer;
 class cImage;

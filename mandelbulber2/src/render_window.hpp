@@ -47,7 +47,7 @@
 #include <QMessageBox>
 #include <QComboBox>
 
-//forward declarations
+// forward declarations
 class cAutomatedWidgets;
 class cDockAnimation;
 class cDockNavigation;

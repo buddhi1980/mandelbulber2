@@ -38,7 +38,7 @@
 #include <QObject>
 #include "statistics.h"
 
-//forward declarations
+// forward declarations
 class cNineFractals;
 class cParamRender;
 struct sRenderData;

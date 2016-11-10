@@ -35,7 +35,7 @@
 #ifndef MANDELBULBER2_SRC_IMAGE_SCALE_HPP_
 #define MANDELBULBER2_SRC_IMAGE_SCALE_HPP_
 
-//forward declarations
+// forward declarations
 class cImage;
 
 double ImageScaleComboSelection2Double(int index);

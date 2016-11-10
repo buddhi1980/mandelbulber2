@@ -51,7 +51,7 @@ extern "C" {
 // libpng: http://www.libpng.org/pub/png/libpng.html
 /**********************************************************/
 
-//forward declarations
+// forward declarations
 class cImage;
 
 class ImageFileSave : public QObject

@@ -40,7 +40,7 @@
 
 #include <QtCore>
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 class cFractalContainer;
 class cAnimationFrames;

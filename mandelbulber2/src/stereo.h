@@ -40,7 +40,7 @@
 #include "projection_3d.hpp"
 #include "region.hpp"
 
-//forward declarations
+// forward declarations
 class cImage;
 
 class cStereo

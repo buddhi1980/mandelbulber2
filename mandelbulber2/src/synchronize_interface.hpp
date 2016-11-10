@@ -37,7 +37,7 @@
 
 #include <QWidget>
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 
 namespace qInterface

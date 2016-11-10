@@ -40,7 +40,7 @@
 #include <QAction>
 #include <QSystemTrayIcon>
 
-//forward declarations
+// forward declarations
 class cImage;
 
 class cSystemTray : public QObject

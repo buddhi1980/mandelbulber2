@@ -37,7 +37,7 @@
 
 #include "algebra.hpp"
 
-//forward declarations
+// forward declarations
 struct sRenderData;
 
 double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRenderData *data);

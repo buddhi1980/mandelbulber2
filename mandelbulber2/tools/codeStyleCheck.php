@@ -164,14 +164,23 @@ function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderNa
 
 function checkClang($filepath, &$fileContent, &$status){
 	$contentsBefore = $fileContent;
-
-	$cmd = 'cat <<EOF | ' . PHP_EOL . ($fileContent) . PHP_EOL . 'EOF' . PHP_EOL;
+	// method 1
 	// $cmd = 'cat <<EOF |' . PHP_EOL . escapeshellarg($fileContent) . PHP_EOL . 'EOF' . PHP_EOL;
         // $cmd = 'echo ' . escapeshellarg($fileContent) . ' | ';
         // $cmd .= "clang-format --style=file --assume-filename=" . escapeshellarg($filePath);
-        $cmd .= "clang-format";
+        
+	// method 2
+	// $cmd = 'cat <<EOF | ' . PHP_EOL . ($fileContent) . PHP_EOL . 'EOF' . PHP_EOL;
+	// $cmd .= "clang-format";
+	// $fileContent = shell_exec($cmd);
+        
+	// method 3
+	$filepathTemp = $filepath . '.tmp.c';
+	file_put_contents($filepathTemp, $fileContent);
+	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
+	$fileContent = file_get_contents($filepathTemp);
+	unlink($filepathTemp); // nothing to see here :)
 
-	$fileContent = shell_exec($cmd);
         // $fileContent = str_replace('// forward declarations', '//forward declarations', $fileContent);
 
 	// echo $fileContent; exit;

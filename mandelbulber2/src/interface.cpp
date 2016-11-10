@@ -1280,84 +1280,89 @@ void cInterface::ResetView()
 
 void cInterface::SetBoundingBoxAsLimits()
 {
-        SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
-        cParameterContainer parTemp = *gPar;
-        parTemp.Set("limits_enabled", false);
-        parTemp.Set("interior_mode", false);
+	cParameterContainer parTemp = *gPar;
+	parTemp.Set("limits_enabled", false);
+	parTemp.Set("interior_mode", false);
 
-        cParamRender *params = new cParamRender(&parTemp);
-        cNineFractals *fractals = new cNineFractals(gParFractal, &parTemp);
+	cParamRender *params = new cParamRender(&parTemp);
+	cNineFractals *fractals = new cNineFractals(gParFractal, &parTemp);
 
-        CVector3 direction;
-        CVector3 orthDirection;
-        CVector3 point;
-        double dist;
+	CVector3 direction;
+	CVector3 orthDirection;
+	CVector3 point;
+	double dist;
 
-        // negative x limit
-        cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Negative X Limit"), 0.0 / 6.0);
-        direction = CVector3(1, 0, 0);
-        orthDirection = CVector3(0, 1, 0);
-        point = CVector3(-100000, 0, 0);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
-        double minX = point.x + dist;
+	// negative x limit
+	cProgressText::ProgressStatusText(
+		QObject::tr("bounding box as limit"), QObject::tr("Negative X Limit"), 0.0 / 6.0);
+	direction = CVector3(1, 0, 0);
+	orthDirection = CVector3(0, 1, 0);
+	point = CVector3(-100000, 0, 0);
+	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+	double minX = point.x + dist;
 
-        // negative y limit
-        cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Negative Y Limit"), 1.0 / 6.0);
-        direction = CVector3(0, 1, 0);
-        orthDirection = CVector3(0, 0, 1);
-        point = CVector3(0, -100000, 0);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
-        double minY = point.y + dist;
+	// negative y limit
+	cProgressText::ProgressStatusText(
+		QObject::tr("bounding box as limit"), QObject::tr("Negative Y Limit"), 1.0 / 6.0);
+	direction = CVector3(0, 1, 0);
+	orthDirection = CVector3(0, 0, 1);
+	point = CVector3(0, -100000, 0);
+	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+	double minY = point.y + dist;
 
-        // negative z limit
-        cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Negative Z Limit"), 2.0 / 6.0);
-        direction = CVector3(0, 0, 1);
-        orthDirection = CVector3(1, 0, 0);
-        point = CVector3(0, 0, -100000);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
-        double minZ = point.z + dist;
+	// negative z limit
+	cProgressText::ProgressStatusText(
+		QObject::tr("bounding box as limit"), QObject::tr("Negative Z Limit"), 2.0 / 6.0);
+	direction = CVector3(0, 0, 1);
+	orthDirection = CVector3(1, 0, 0);
+	point = CVector3(0, 0, -100000);
+	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+	double minZ = point.z + dist;
 
-        // positive x limit
-        cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Positive X Limit"), 3.0 / 6.0);
-        direction = CVector3(-1, 0, 0);
-        orthDirection = CVector3(0, -1, 0);
-        point = CVector3(100000, 0, 0);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
-        double maxX = point.x - dist;
+	// positive x limit
+	cProgressText::ProgressStatusText(
+		QObject::tr("bounding box as limit"), QObject::tr("Positive X Limit"), 3.0 / 6.0);
+	direction = CVector3(-1, 0, 0);
+	orthDirection = CVector3(0, -1, 0);
+	point = CVector3(100000, 0, 0);
+	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+	double maxX = point.x - dist;
 
-        // positive y limit
-        cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Positive Y Limit"), 4.0 / 6.0);
-        direction = CVector3(0, -1, 0);
-        orthDirection = CVector3(0, 0, -1);
-        point = CVector3(0, 100000, 0);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
-        double maxY = point.y - dist;
+	// positive y limit
+	cProgressText::ProgressStatusText(
+		QObject::tr("bounding box as limit"), QObject::tr("Positive Y Limit"), 4.0 / 6.0);
+	direction = CVector3(0, -1, 0);
+	orthDirection = CVector3(0, 0, -1);
+	point = CVector3(0, 100000, 0);
+	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+	double maxY = point.y - dist;
 
-        // positive z limit
-        cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Positive Z Limit"), 5.0 / 6.0);
-        direction = CVector3(0, 0, -1);
-        orthDirection = CVector3(-1, 0, 0);
-        point = CVector3(0, 0, 100000);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
-        double maxZ = point.z - dist;
+	// positive z limit
+	cProgressText::ProgressStatusText(
+		QObject::tr("bounding box as limit"), QObject::tr("Positive Z Limit"), 5.0 / 6.0);
+	direction = CVector3(0, 0, -1);
+	orthDirection = CVector3(-1, 0, 0);
+	point = CVector3(0, 0, 100000);
+	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+	double maxZ = point.z - dist;
 
-        double medX = (maxX + minX) / 2.0;
-        double medY = (maxY + minY) / 2.0;
-        double medZ = (maxZ + minZ) / 2.0;
-        double rangeX = maxX - minX;
-        double rangeY = maxY - minY;
-        double rangeZ = maxZ - minZ;
+	double medX = (maxX + minX) / 2.0;
+	double medY = (maxY + minY) / 2.0;
+	double medZ = (maxZ + minZ) / 2.0;
+	double rangeX = maxX - minX;
+	double rangeY = maxY - minY;
+	double rangeZ = maxZ - minZ;
 
-        gPar->Set("limit_min", CVector3(medX - rangeX * 0.6, medY - rangeY * 0.6, medZ - rangeZ * 0.6));
-        gPar->Set("limit_max", CVector3(medX + rangeX * 0.6, medY + rangeY * 0.6, medZ + rangeZ * 0.6));
+	gPar->Set("limit_min", CVector3(medX - rangeX * 0.6, medY - rangeY * 0.6, medZ - rangeZ * 0.6));
+	gPar->Set("limit_max", CVector3(medX + rangeX * 0.6, medY + rangeY * 0.6, medZ + rangeZ * 0.6));
 
-        cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Done"), 1.0);
-        delete params;
-        delete fractals;
-        SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	cProgressText::ProgressStatusText(QObject::tr("bounding box as limit"), QObject::tr("Done"), 1.0);
+	delete params;
+	delete fractals;
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
-
 
 void cInterface::NewPrimitive(const QString &primitiveType, int index)
 {

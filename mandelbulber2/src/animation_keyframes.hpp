@@ -48,7 +48,7 @@
 #include "progress_text.hpp"
 #include "statistics.h"
 
-//forward declarations
+// forward declarations
 class cImage;
 class cInterface;
 class cFractalContainer;

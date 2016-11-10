@@ -40,7 +40,7 @@
 
 #include "algebra.hpp"
 
-//forward declarations
+// forward declarations
 class cMaterial;
 class cObjectData;
 

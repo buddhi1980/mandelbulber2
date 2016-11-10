@@ -37,7 +37,7 @@
 
 #include <QtCore>
 
-//forward declarations
+// forward declarations
 class cImage;
 class cParameterContainer;
 class cFractalContainer;

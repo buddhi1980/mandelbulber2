@@ -38,7 +38,7 @@
 #include "algebra.hpp"
 #include "fractal_list.hpp"
 
-//forward declarations
+// forward declarations
 class cParameterContainer;
 
 const int IFS_VECTOR_COUNT = 9;

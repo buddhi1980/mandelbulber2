@@ -42,7 +42,7 @@
 #include "texture_enums.hpp"
 #include "algebra.hpp"
 
-//forward declarations
+// forward declarations
 class cMaterial;
 struct sLight;
 class cCameraTarget;

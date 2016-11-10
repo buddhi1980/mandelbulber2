@@ -42,7 +42,7 @@
 
 #include "../src/synchronize_interface.hpp"
 
-//forward declarations
+// forward declarations
 class cAutomatedWidgets;
 class cParameterContainer;
 

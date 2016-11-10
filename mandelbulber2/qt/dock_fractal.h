@@ -43,7 +43,7 @@
 #include "../src/synchronize_interface.hpp"
 #include "tab_fractal.h"
 
-//forward declarations
+// forward declarations
 class cAutomatedWidgets;
 
 namespace Ui

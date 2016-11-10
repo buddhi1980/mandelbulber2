@@ -42,7 +42,7 @@
 #include "algebra.hpp"
 #include "stereo.h"
 
-//forward declarations
+// forward declarations
 class cImage;
 class cParameterContainer;
 
