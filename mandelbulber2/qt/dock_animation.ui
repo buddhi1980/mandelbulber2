@@ -318,7 +318,7 @@
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="MyLineEdit" name="logedit_flight_speed">
+                <widget class="MyDoubleSpinBox" name="spinbox_flight_speed">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                    <horstretch>1</horstretch>
@@ -327,6 +327,18 @@
                  </property>
                  <property name="toolTip">
                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls flight speed. &lt;/p&gt;&lt;p&gt;If you click left mouse button, speed will be increased&lt;/p&gt;&lt;p&gt;If you click right mouse button, speed will be decreased&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="decimals">
+                  <number>2</number>
+                 </property>
+                 <property name="minimum">
+                  <double>-1000.000000000000000</double>
+                 </property>
+                 <property name="maximum">
+                  <double>1000.000000000000000</double>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.010000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -344,7 +356,7 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QSlider" name="logslider_flight_speed">
+                <widget class="QSlider" name="slider_flight_speed">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                    <horstretch>2</horstretch>
@@ -358,10 +370,10 @@
                   </size>
                  </property>
                  <property name="minimum">
-                  <number>-300</number>
+                  <number>-100000</number>
                  </property>
                  <property name="maximum">
-                  <number>300</number>
+                  <number>100000</number>
                  </property>
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -1532,8 +1544,8 @@ keyframes</string>
   <tabstop>pushButton_flight_refresh_table</tabstop>
   <tabstop>pushButton_flight_to_keyframe_export</tabstop>
   <tabstop>scrollArea_flyght_animation_parameters</tabstop>
-  <tabstop>logslider_flight_speed</tabstop>
-  <tabstop>logedit_flight_speed</tabstop>
+  <tabstop>slider_flight_speed</tabstop>
+  <tabstop>spinbox_flight_speed</tabstop>
   <tabstop>slider_flight_inertia</tabstop>
   <tabstop>spinbox_flight_inertia</tabstop>
   <tabstop>slider_flight_rotation_speed</tabstop>
