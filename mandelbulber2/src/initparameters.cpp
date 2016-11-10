@@ -169,6 +169,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("limit_min", CVector3(-10.0, -10.0, -10.0), morphLinear, paramStandard);
 	par->addParam("limit_max", CVector3(10.0, 10.0, 10.0), morphLinear, paramStandard);
 	par->addParam("limits_enabled", false, morphLinear, paramStandard);
+	par->addParam("limit_outer_bounding", 100.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("interior_mode", false, morphLinear, paramStandard);
 	par->addParam("constant_DE_threshold", false, morphLinear, paramStandard);
 	par->addParam("hybrid_fractal_enable", false, morphNone, paramStandard);
