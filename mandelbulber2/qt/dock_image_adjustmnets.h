@@ -85,6 +85,7 @@ private slots:
 	void slotQualityPresetLow();
 	void slotQualityPresetNormal();
 	void slotQualityPresetHigh();
+	void slotDisableAutoRefresh();
 
 private:
 	void ConnectSignals();

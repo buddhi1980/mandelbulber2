@@ -57,6 +57,11 @@ cDockImageAdjustments::~cDockImageAdjustments()
 	delete ui;
 }
 
+void cDockImageAdjustments::slotDisableAutoRefresh()
+{
+	gMainInterface->DisablePeriodicRefresh();
+}
+
 void cDockImageAdjustments::ConnectSignals()
 {
 	connect(ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), this,
@@ -101,6 +106,11 @@ void cDockImageAdjustments::ConnectSignals()
 		ui->pushButton_quality_preset_normal, SIGNAL(clicked()), this, SLOT(slotQualityPresetNormal()));
 	connect(
 		ui->pushButton_quality_preset_high, SIGNAL(clicked()), this, SLOT(slotQualityPresetHigh()));
+
+	connect(ui->spinbox_brightness, SIGNAL(valueChanged(double)), this, SLOT(slotDisableAutoRefresh()));
+	connect(ui->spinbox_contrast, SIGNAL(valueChanged(double)), this, SLOT(slotDisableAutoRefresh()));
+	connect(ui->spinbox_gamma, SIGNAL(valueChanged(double)), this, SLOT(slotDisableAutoRefresh()));
+	connect(ui->checkBox_hdr, SIGNAL(stateChanged(int)), this, SLOT(slotDisableAutoRefresh()));
 }
 
 void cDockImageAdjustments::slotChangedComboImageProportion(int index)
