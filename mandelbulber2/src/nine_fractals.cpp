@@ -80,7 +80,11 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		formulaStopIteration[i] = generalPar->Get<int>("formula_stop_iteration", i + 1);
 		DEType[i] = fractal::deltaDEType;
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
-		checkForBailout[i] = generalPar->Get<bool>("check_for_bailout", i + 1);
+
+		if (isBoolean || (!isBoolean && !isHybrid))
+			checkForBailout[i] = true;
+		else
+			checkForBailout[i] = generalPar->Get<bool>("check_for_bailout", i + 1);
 
 		// decide if use addition of C constant
 		bool addc = false;
