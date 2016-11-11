@@ -38,7 +38,7 @@
 #include "algebra.hpp"
 #include "fractal_list.hpp"
 
-// forward declarations
+//forward declarations
 class cParameterContainer;
 
 const int IFS_VECTOR_COUNT = 9;
@@ -558,6 +558,9 @@ struct sFractalTransformCommon
 	bool functionEnabledAxFalse;
 	bool functionEnabledAyFalse;
 	bool functionEnabledAzFalse;
+	bool functionEnabledBx;
+	bool functionEnabledBy;
+	bool functionEnabledBz;
 	bool functionEnabledBxFalse;
 	bool functionEnabledByFalse;
 	bool functionEnabledBzFalse;
@@ -573,6 +576,7 @@ struct sFractalTransformCommon
 	bool functionEnabledXFalse;
 	bool juliaMode;
 	bool rotationEnabled;
+
 };
 
 class cFractal

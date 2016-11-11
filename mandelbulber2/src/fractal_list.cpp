@@ -281,6 +281,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale_4d",
 		mandelboxVaryScale4D, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
+	fractalList->append(sFractalDescription("MixPinski 4D", "mixPinski_4D",
+		mixPinski4D, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
+
 	//-------------------------- transforms -----------------------------------
 	fractalList->append(
 		sFractalDescription("Transform - Addition Constant", "transf_addition_constant",
@@ -417,6 +421,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(
 		sFractalDescription("Transform - Rotation Folding Plane", "transf_rotation_folding_plane",
 			transfRotationFoldingPlane, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
+	fractalList->append(sFractalDescription("Transform - Rotated Folding", "transf_rotated_folding", transfRotatedFolding,
+		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform - R^Power", "transf_rpower", transfRPower,
 		analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100));

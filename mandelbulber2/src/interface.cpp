@@ -1293,13 +1293,14 @@ void cInterface::SetBoundingBoxAsLimits()
 	CVector3 orthDirection;
 	CVector3 point;
 	double dist;
+        double outerBounding = gPar->Get<double>("limit_outer_bounding");
 
 	// negative x limit
 	cProgressText::ProgressStatusText(
 		QObject::tr("bounding box as limit"), QObject::tr("Negative X Limit"), 0.0 / 6.0);
 	direction = CVector3(1, 0, 0);
 	orthDirection = CVector3(0, 1, 0);
-	point = CVector3(-100000, 0, 0);
+        point = CVector3(-outerBounding, 0, 0);
 	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
 	double minX = point.x + dist;
 
@@ -1308,7 +1309,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Negative Y Limit"), 1.0 / 6.0);
 	direction = CVector3(0, 1, 0);
 	orthDirection = CVector3(0, 0, 1);
-	point = CVector3(0, -100000, 0);
+        point = CVector3(0, -outerBounding, 0);
 	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
 	double minY = point.y + dist;
 
@@ -1317,7 +1318,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Negative Z Limit"), 2.0 / 6.0);
 	direction = CVector3(0, 0, 1);
 	orthDirection = CVector3(1, 0, 0);
-	point = CVector3(0, 0, -100000);
+        point = CVector3(0, 0, -outerBounding);
 	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
 	double minZ = point.z + dist;
 
@@ -1326,7 +1327,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive X Limit"), 3.0 / 6.0);
 	direction = CVector3(-1, 0, 0);
 	orthDirection = CVector3(0, -1, 0);
-	point = CVector3(100000, 0, 0);
+        point = CVector3(outerBounding, 0, 0);
 	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
 	double maxX = point.x - dist;
 
@@ -1335,7 +1336,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive Y Limit"), 4.0 / 6.0);
 	direction = CVector3(0, -1, 0);
 	orthDirection = CVector3(0, 0, -1);
-	point = CVector3(0, 100000, 0);
+        point = CVector3(0, outerBounding, 0);
 	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
 	double maxY = point.y - dist;
 
@@ -1344,7 +1345,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive Z Limit"), 5.0 / 6.0);
 	direction = CVector3(0, 0, -1);
 	orthDirection = CVector3(-1, 0, 0);
-	point = CVector3(0, 0, 100000);
+        point = CVector3(0, 0, outerBounding);
 	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
 	double maxZ = point.z - dist;
 

@@ -66,7 +66,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("flight_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
 
 	par->addParam("frame_no", 0, 0, 99999, morphNone, paramOnlyForNet);
-	par->addParam("flight_speed", 0.01, -1000.0, 1000.0, morphLinear, paramStandard);
+	par->addParam("flight_speed", 0.01, 0.0, 100.0, morphLinear, paramStandard);
 	par->addParam("flight_inertia", 5.0, 0.01, 1000.0, morphLinear, paramStandard);
 	par->addParam("flight_speed_control", 0, morphNone, paramStandard);
 	par->addParam("flight_roll_speed", 10.0, morphNone, paramStandard);
@@ -824,6 +824,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledAx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAz_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledBx", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledBy", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledBz", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBz_false", false, morphLinear, paramStandard);

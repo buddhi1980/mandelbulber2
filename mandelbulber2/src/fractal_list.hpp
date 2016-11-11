@@ -147,6 +147,7 @@ enum enumFractalFormula
 	mengerCrossMod1 = 106,
 	// V2.10
 	mengerPrismShape2 = 107,
+	mixPinski4D =108,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
@@ -217,6 +218,7 @@ enum enumFractalFormula
 	transfSpherFoldVaryVCL = 1061,
 	transfAddExp2Z = 1062,
 	transfReciprocal3 = 1063,
+	transfRotatedFolding = 1064,
 };
 }
 
