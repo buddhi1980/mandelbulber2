@@ -234,36 +234,6 @@ cFractal::cFractal(const cParameterContainer *container)
 	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
 	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
 
-	// for curvilinear parameter
-	Cpara.enabledLinear = container->Get<bool>("Cpara_enabledLinear");
-	Cpara.enabledCurves = container->Get<bool>("Cpara_enabledCurves");
-	Cpara.enabledParabFalse = container->Get<bool>("Cpara_enabledParab_false");
-	Cpara.enabledParaAddP0 = container->Get<bool>("Cpara_enabledParaAddP0");
-	Cpara.para0 = container->Get<double>("Cpara_para0");
-	Cpara.paraA = container->Get<double>("Cpara_paraA");
-	Cpara.paraB = container->Get<double>("Cpara_paraB");
-	Cpara.paraC = container->Get<double>("Cpara_paraC");
-	Cpara.parabOffset = container->Get<double>("Cpara_parab_offset");
-	Cpara.parabSlope = container->Get<double>("Cpara_parab_slope");
-	Cpara.parabScale = container->Get<double>("Cpara_parab_scale");
-	Cpara.iterA = container->Get<int>("Cpara_iterA");
-	Cpara.iterB = container->Get<int>("Cpara_iterB");
-	Cpara.iterC = container->Get<int>("Cpara_iterC");
-
-	analyticDE.scale1 = container->Get<double>("analyticDE_scale_1");
-	analyticDE.tweak005 = container->Get<double>("analyticDE_tweak_005");
-	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
-	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
-	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
-	analyticDE.enabledAuxR2False = container->Get<bool>("analyticDE_enabled_auxR2_false");
-	analyticDE.scaleLin = container->Get<double>("analyticDE_scale_linear");
-	analyticDE.offsetLin = container->Get<double>("analyticDE_offset_linear");
-
-	foldColor.colorMin = container->Get<double>("fold_color_color_min");
-	foldColor.compFold = container->Get<double>("fold_color_comp_fold");
-	foldColor.compFold0 = container->Get<double>("fold_color_comp_fold0");
-	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
-	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
 
 	// common parameters for transforming formulas
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
@@ -425,6 +395,9 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledAxFalse = container->Get<bool>("transf_function_enabledAx_false");
 	transformCommon.functionEnabledAyFalse = container->Get<bool>("transf_function_enabledAy_false");
 	transformCommon.functionEnabledAzFalse = container->Get<bool>("transf_function_enabledAz_false");
+	transformCommon.functionEnabledBx = container->Get<bool>("transf_function_enabledBx");
+	transformCommon.functionEnabledBy = container->Get<bool>("transf_function_enabledBy");
+	transformCommon.functionEnabledBz = container->Get<bool>("transf_function_enabledBz");
 	transformCommon.functionEnabledBxFalse = container->Get<bool>("transf_function_enabledBx_false");
 	transformCommon.functionEnabledByFalse = container->Get<bool>("transf_function_enabledBy_false");
 	transformCommon.functionEnabledBzFalse = container->Get<bool>("transf_function_enabledBz_false");
@@ -440,6 +413,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledXFalse = container->Get<bool>("transf_function_enabledX_false");
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
+
 
 	WriteLog("cFractal::RecalculateFractalParams(void)", 2);
 

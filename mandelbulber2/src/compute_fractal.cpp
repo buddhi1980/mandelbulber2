@@ -474,19 +474,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MengerPrismShape2Iteration(z, i, fractal, extendedAux);
 					break;
 				}
-
 				case mengerPwr2Poly:
 				{
 					MengerPwr2PolyIteration(z, c, i, fractal, extendedAux);
 					break;
 				}
-
 				case pseudoKleinian1:
 				{
 					PseudoKleinian1Iteration(z, i, fractal, extendedAux);
 					break;
 				}
-
 				case pseudoKleinian2:
 				{
 					PseudoKleinian2Iteration(z, i, fractal, extendedAux);
@@ -523,15 +520,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					FastImagscaPower2Iteration(z);
 					break;
 				}
-				/*case crossMenger:
-				{
-					CrossMengerIteration(z, i, fractal, extendedAux);
-					break;
-				}*/
 
-				// transforms
-				// ------------------------------------------------------------------------------------------
-				case transfAdditionConstant:
+
+				// transforms  ------------------------------------------------------------------
+				//				case transfAdditionConstant:
 				{
 					TransformAdditionConstantIteration(z, fractal);
 					break;
@@ -708,6 +700,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformRotationVaryV1Iteration(z, i, fractal);
 					break;
 				}
+				case transfRotatedFolding:
+				{
+					TransformRotatedFoldingIteration(z, fractal);
+					break;
+				}
 				case transfRpow3:
 				{
 					TransformRpow3Iteration(z, fractal, extendedAux);
@@ -820,6 +817,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
+
 				// 4D  ---------------------------------------------------------------------------
 				case quaternion4D:
 				{
@@ -845,6 +843,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					w = z4D.w;
 					break;
 				}
+				case mixPinski4D:
+				{
+					CVector4 z4D(z, w);
+					MixPinski4DIteration(z4D, fractal, extendedAux);
+					z = z4D.GetXYZ();
+					w = z4D.w;
+					break;
+			}
 				case transfAdditionConstant4D:
 				{
 					CVector4 z4D(z, w);
@@ -1194,6 +1200,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMiddleMod:
 				case transfMengerFold: // hmmm, this issue again
 				case mengerPwr2Poly:
+				case mixPinski4D:
 				{
 					if (extendedAux.DE > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);

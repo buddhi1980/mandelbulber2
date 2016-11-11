@@ -66,7 +66,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("flight_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
 
 	par->addParam("frame_no", 0, 0, 99999, morphNone, paramOnlyForNet);
-	par->addParam("flight_speed", 0.01, -1000.0, 1000.0, morphLinear, paramStandard);
+	par->addParam("flight_speed", 0.01, 0.0, 100.0, morphLinear, paramStandard);
 	par->addParam("flight_inertia", 5.0, 0.01, 1000.0, morphLinear, paramStandard);
 	par->addParam("flight_speed_control", 0, morphNone, paramStandard);
 	par->addParam("flight_roll_speed", 10.0, morphNone, paramStandard);
@@ -169,7 +169,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("limit_min", CVector3(-10.0, -10.0, -10.0), morphLinear, paramStandard);
 	par->addParam("limit_max", CVector3(10.0, 10.0, 10.0), morphLinear, paramStandard);
 	par->addParam("limits_enabled", false, morphLinear, paramStandard);
-	par->addParam("limit_outer_bounding", 100.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("interior_mode", false, morphLinear, paramStandard);
 	par->addParam("constant_DE_threshold", false, morphLinear, paramStandard);
 	par->addParam("hybrid_fractal_enable", false, morphNone, paramStandard);
@@ -825,6 +824,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledAx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAz_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledBx", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledBy", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledBz", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBz_false", false, morphLinear, paramStandard);
