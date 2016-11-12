@@ -240,6 +240,38 @@ inline CVector3 fabs(CVector3 v)
 	return v;
 }
 
+
+
+
+/******************* Structured vector 3D ****************/
+class StructuredCVector3
+{
+public:
+	inline StructuredCVector3()
+	{
+		for (int n = 0; n < 8; n++)
+		{
+			x[n] = 0.0;
+			y[n] = 0.0;
+			z[n] = 0.0;
+		}
+	}
+
+	inline StructuredCVector3(CVector3 vectors[])
+	{
+		for (int n = 0; n < 8; n++)
+		{
+			x[n] = vectors[n].x;
+			y[n] = vectors[n].y;
+			z[n] = vectors[n].z;
+		}
+	}
+
+	double x[8];
+	double y[8];
+	double z[8];
+};
+
 /************************* vector 4D **********************/
 class CVector4
 {
