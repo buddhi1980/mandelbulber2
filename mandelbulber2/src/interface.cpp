@@ -66,8 +66,6 @@
 #include "rendering_configuration.hpp"
 #include "ui_render_window.h"
 
-#include "audio_track.h"
-
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
 #endif // USE_GAMEPAD
@@ -246,13 +244,6 @@ void cInterface::ShowUi(void)
 	mainWindow->slotPopulateToolbar();
 
 	systemTray = new cSystemTray(mainImage, mainWindow);
-
-	/****************** TEMPORARY CODE FOR AUDIO *******************/
-	cAudioTrack *audio = new cAudioTrack(mainWindow);
-	audio->LoadAudio(
-		"/media/dane/Muzyka/Mp3/Jazz Blues/2001 Marcus Miller - M2/2001 Marcus Miller - M2/01 - "
-		"Power.mp3");
-	/*******************************************************************/
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();

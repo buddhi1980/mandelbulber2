@@ -29,7 +29,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_flight_animation">
       <property name="toolTip">
@@ -1463,6 +1463,13 @@ keyframes</string>
                 </widget>
                </item>
               </layout>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_load_audio">
+               <property name="text">
+                <string>Temporary button to load audio file</string>
+               </property>
+              </widget>
              </item>
              <item>
               <spacer name="verticalSpacer_13">

@@ -37,12 +37,14 @@
 #include "../src/automated_widgets.hpp"
 #include "../src/file_image.hpp"
 #include "ui_dock_animation.h"
+#include "audio_selector.h"
 
 cDockAnimation::cDockAnimation(QWidget *parent) : QWidget(parent), ui(new Ui::cDockAnimation)
 {
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
+	ConnectSignals();
 }
 
 cDockAnimation::~cDockAnimation()
@@ -73,4 +75,16 @@ void cDockAnimation::DisableTIFF()
 Ui::cDockAnimation *cDockAnimation::GetUi()
 {
 	return ui;
+}
+
+void cDockAnimation::ConnectSignals()
+{
+	connect(ui->pushButton_load_audio, SIGNAL(clicked()), this, SLOT(slotLoadAudio()));
+}
+
+void cDockAnimation::slotLoadAudio()
+{
+	cAudioSelector *audioSelectorDialog = new cAudioSelector(this);
+	audioSelectorDialog->setWindowFlags(Qt::Dialog);
+	audioSelectorDialog->show();
 }
