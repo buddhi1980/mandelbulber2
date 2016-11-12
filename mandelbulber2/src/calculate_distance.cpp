@@ -46,6 +46,7 @@
 #include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "texture_mapping.hpp"
+#include "global_data.hpp"
 
 using namespace std;
 
@@ -347,7 +348,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 }
 
 double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals &fractals,
-	const CVector3 planePoint, const CVector3 direction, const CVector3 orthDdirection)
+	const CVector3 planePoint, const CVector3 direction, const CVector3 orthDdirection, bool *stopRequest)
 {
 	// the plane is defined by the 'planePoint' and the orthogogonal 'direction'
 	// the method will return the minimum distance from the plane to the fractal
@@ -389,6 +390,10 @@ double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals
 		if (point.Length() > 1000000)
 		{
 			qDebug() << "surface not found!";
+			return 0;
+		}
+		gApplication->processEvents();
+		if(*stopRequest){
 			return 0;
 		}
 	}

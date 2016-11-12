@@ -1294,6 +1294,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	CVector3 point;
 	double dist;
         double outerBounding = gPar->Get<double>("limit_outer_bounding");
+        stopRequest = false;
 
 	// negative x limit
 	cProgressText::ProgressStatusText(
@@ -1301,7 +1302,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	direction = CVector3(1, 0, 0);
 	orthDirection = CVector3(0, 1, 0);
         point = CVector3(-outerBounding, 0, 0);
-	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minX = point.x + dist;
 
 	// negative y limit
@@ -1310,7 +1311,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	direction = CVector3(0, 1, 0);
 	orthDirection = CVector3(0, 0, 1);
         point = CVector3(0, -outerBounding, 0);
-	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minY = point.y + dist;
 
 	// negative z limit
@@ -1319,7 +1320,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	direction = CVector3(0, 0, 1);
 	orthDirection = CVector3(1, 0, 0);
         point = CVector3(0, 0, -outerBounding);
-	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minZ = point.z + dist;
 
 	// positive x limit
@@ -1328,7 +1329,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	direction = CVector3(-1, 0, 0);
 	orthDirection = CVector3(0, -1, 0);
         point = CVector3(outerBounding, 0, 0);
-	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxX = point.x - dist;
 
 	// positive y limit
@@ -1337,7 +1338,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	direction = CVector3(0, -1, 0);
 	orthDirection = CVector3(0, 0, -1);
         point = CVector3(0, outerBounding, 0);
-	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxY = point.y - dist;
 
 	// positive z limit
@@ -1346,7 +1347,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	direction = CVector3(0, 0, -1);
 	orthDirection = CVector3(-1, 0, 0);
         point = CVector3(0, 0, outerBounding);
-	dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection);
+        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxZ = point.z - dist;
 
 	double medX = (maxX + minX) / 2.0;
