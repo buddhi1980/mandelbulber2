@@ -644,6 +644,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformFabsAddConstantV2Iteration(z, fractal);
 					break;
 				}
+				case transfFabsAddConditional:
+				{
+					TransformFabsAddConditionalIteration(z, fractal, extendedAux);
+					break;
+				}
 				case transfFabsAddMulti:
 				{
 					TransformFabsAddMultiIteration(z, fractal);

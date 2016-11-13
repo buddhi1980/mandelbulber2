@@ -219,6 +219,8 @@ enum enumFractalFormula
 	transfAddExp2Z = 1062,
 	transfReciprocal3 = 1063,
 	transfRotatedFolding = 1064,
+	transfFabsAddConditional = 1065,
+
 };
 }
 

@@ -6021,11 +6021,67 @@ void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
 
 /**
  * fabs. Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+ * tglad's fold
  */
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal)
 {
 	z = fabs(z + fractal->transformCommon.additionConstant000)
 			- fabs(z - fractal->transformCommon.additionConstant000) - z;
+}
+
+/**
+* fabs add conditional
+*/
+void TransformFabsAddConditionalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	CVector3 tempZ = z;
+
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		//tempZ.x = sign(z.x)(fractal->transformCommon.offset111.x - fabs(z.x) + fabs(z.x) * fractal->transformCommon.offset000.x;)
+		tempZ.x = fractal->transformCommon.offset111.x - fabs(z.x)
+				+ fabs(z.x) * fractal->transformCommon.offset000.x;
+		if (z.x > 0.0)
+		{
+			z.x = tempZ.x;
+		}
+		 else
+		{
+			z.x = -tempZ.x;
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		tempZ.y = fractal->transformCommon.offset111.y - fabs(z.y)
+				+ fabs(z.y) * fractal->transformCommon.offset000.y;
+		if (z.y > 0.0)
+		{
+			z.y = tempZ.y;
+		}
+		else
+		{
+			z.y = -tempZ.y;
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		tempZ.z = fractal->transformCommon.offset111.z - fabs(z.z)
+				+ fabs(z.z) * fractal->transformCommon.offset000.z;
+
+		if (z.z > 0.0)
+		{
+			z.z = tempZ.z;
+		}
+		else
+		{
+			z.z = -tempZ.z;
+		}
+	}
+
+	//aux.DE = aux.DE * l/L;
+	aux.DE *= fractal->analyticDE.scale1;  // DE tweak
 }
 
 /**
@@ -6445,47 +6501,47 @@ void TransformReciprocal3Iteration(CVector3 &z, const cFractal *fractal, sExtend
 	{
 		if (fractal->transformCommon.functionEnabledAzFalse)
 		{
-			//CVector3 tempV = fabs(z);
-			tempZ.x = sign(z.x)*( fractal->transformCommon.offsetA111.x - 1.0 / (fabs(z.x) + fractal->transformCommon.offset111.x));
-			//tempZ = fractal->transformCommon.offsetA111 - 1.0 / (fabs(z) + fractal->transformCommon.offset111);
+			//tempZ.x = sign(z.x)*( fractal->transformCommon.offsetA111.x - 1.0 / (fabs(z.x) + fractal->transformCommon.offset111.x));
+
 		}
 		else
 		{
 			tempZ.x = fractal->transformCommon.offsetA111.x - 1.0 / (fabs(z.x) + fractal->transformCommon.offset111.x);
-			//tempZ.y = fractal->transformCommon.offsetA111.y - 1.0 / (fabs(z.y) + fractal->transformCommon.offset111.y);
-			//tempZ.z = fractal->transformCommon.offsetA111.z - 1.0 / (fabs(z.z) + fractal->transformCommon.offset111.z);
+			tempZ.y = fractal->transformCommon.offsetA111.y - 1.0 / (fabs(z.y) + fractal->transformCommon.offset111.y);
+			tempZ.z = fractal->transformCommon.offsetA111.z - 1.0 / (fabs(z.z) + fractal->transformCommon.offset111.z);
 
-
-
-			tempZ += fabs(z) * fractal->transformCommon.offset000;
-
-			if (z.x > 0.0)
-			{
-				z.x = tempZ.x;
-			}
-			else
-			{
-				z.x = -tempZ.x;
-			}
-
-			if (z.y > 0.0)
-			{
-				z.y = tempZ.y;
-			}
-			else
-			{
-				z.y = -tempZ.y;
-			}
-
-			if (z.z > 0.0)
-			{
-				z.z = tempZ.z;
-			}
-			else
-			{
-				z.z = -tempZ.z;
-			}
 		}
+
+		tempZ += fabs(z) * fractal->transformCommon.offset000;
+
+
+		if (z.x > 0.0)
+		{
+			z.x = tempZ.x;
+		}
+		else
+		{
+			z.x = -tempZ.x;
+		}
+
+		if (z.y > 0.0)
+		{
+			z.y = tempZ.y;
+		}
+		else
+		{
+			z.y = -tempZ.y;
+		}
+
+		if (z.z > 0.0)
+		{
+			z.z = tempZ.z;
+		}
+		else
+		{
+			z.z = -tempZ.z;
+		}
+
 	}
 	else
 	{
@@ -7648,7 +7704,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		aux.DE *= fractal->transformCommon.scale1;
 		aux.DE *= fractal->transformCommon.scaleC1;
 	}
-
+		//rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)

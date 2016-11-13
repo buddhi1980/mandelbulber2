@@ -16,6 +16,7 @@ find_package(Qt5Network)
 find_package(Qt5Gui)
 find_package(Qt5UiTools)
 find_package(Qt5Test)
+find_package(Qt5Multimedia)
 
 # find required other libraries
 find_package(PNG REQUIRED)
@@ -59,12 +60,8 @@ include_directories(mandelbulber2/src)
 add_executable(mandelbulber2 ${SOURCE_FILES} ${ADDITIONAL_EXECUTABLE} ${qt_UI_H})
 
 # link qt libraries
-target_link_libraries(mandelbulber2 Qt5::Widgets)
-target_link_libraries(mandelbulber2 Qt5::Core)
-target_link_libraries(mandelbulber2 Qt5::Network)
-target_link_libraries(mandelbulber2 Qt5::Gui)
-target_link_libraries(mandelbulber2 Qt5::UiTools)
-target_link_libraries(mandelbulber2 Qt5::Test)
+qt5_use_modules(mandelbulber2 Core Widgets Network
+    Gui UiTools Test Multimedia)
 
 # link required other libraries
 include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS})
