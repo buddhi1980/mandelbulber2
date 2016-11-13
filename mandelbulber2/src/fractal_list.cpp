@@ -370,6 +370,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Transform - Fabs_Add_ConstantV2", "transf_fabs_add_constantV2",
 			transfFabsAddConstantV2, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
+	fractalList->append(
+		sFractalDescription("Transform - Fabs_Add_Conditional", "transf_fabs_add_conditional",
+			transfFabsAddConditional, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
 	fractalList->append(sFractalDescription("Transform - Fabs_Add_Multi", "transf_fabs_add_multi",
 		transfFabsAddMulti, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
