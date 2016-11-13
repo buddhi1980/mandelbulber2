@@ -81,6 +81,8 @@ after_build:
   - xcopy /I %QTDIR%\plugins\iconengines Release\iconengines
   - xcopy /I %QTDIR%\plugins\imageformats Release\imageformats
   - xcopy /I %QTDIR%\plugins\platforms Release\platforms
+  - xcopy /I %QTDIR%\plugins\audio Release\audio
+  - xcopy /I %QTDIR%\plugins\mediaservices Release\mediaservices
   - IF %tbs_qt_version% EQU '5.7' xcopy %QTDIR%\bin\Qt5Gamepad.dll Release\
   - xcopy %QTDIR%\bin\Qt5Gui.dll Release\
   - xcopy %QTDIR%\bin\Qt5Network.dll Release\
@@ -88,6 +90,7 @@ after_build:
   - xcopy %QTDIR%\bin\Qt5Test.dll Release\
   - xcopy %QTDIR%\bin\Qt5Widgets.dll Release\
   - xcopy %QTDIR%\bin\Qt5Core.dll Release\
+  - xcopy %QTDIR%\bin\Qt5Multimedia.dll Release\
   - xcopy deps\zlib*.dll Release\
   - xcopy deps\libpng*.dll Release\
   - xcopy deps\tiff*.dll Release\
