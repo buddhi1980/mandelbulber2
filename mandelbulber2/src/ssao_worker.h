@@ -47,7 +47,7 @@
 
 // forward declarations
 class cParamRender;
-class sRenderData;
+struct sRenderData;
 class cImage;
 
 class cSSAOWorker : public QObject

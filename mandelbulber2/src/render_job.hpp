@@ -44,7 +44,7 @@
 
 // forward declarations
 class cImage;
-class sRenderData;
+struct sRenderData;
 class cRenderingConfiguration;
 struct sImageOptional;
 

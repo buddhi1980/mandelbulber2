@@ -43,7 +43,7 @@
 #include "fractal_container.hpp"
 
 // forward declarations
-class sRenderData;
+struct sRenderData;
 
 class CNetRender : public QObject
 {
