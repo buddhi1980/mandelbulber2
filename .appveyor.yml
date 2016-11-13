@@ -82,7 +82,7 @@ after_build:
   - xcopy /I %QTDIR%\plugins\imageformats Release\imageformats
   - xcopy /I %QTDIR%\plugins\platforms Release\platforms
   - xcopy /I %QTDIR%\plugins\audio Release\audio
-  - xcopy /I %QTDIR%\plugins\mediaservices Release\mediaservices
+  - xcopy /I %QTDIR%\plugins\mediaservice Release\mediaservice
   - IF %tbs_qt_version% EQU '5.7' xcopy %QTDIR%\bin\Qt5Gamepad.dll Release\
   - xcopy %QTDIR%\bin\Qt5Gui.dll Release\
   - xcopy %QTDIR%\bin\Qt5Network.dll Release\
