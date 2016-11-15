@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>7310</height>
+    <height>7327</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -541,7 +541,7 @@
           <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text">
-          <string>Dot swap</string>
+          <string>Temp Dot swap</string>
          </property>
         </widget>
        </item>
@@ -1508,7 +1508,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>kif  thi&amp;ngy</string>
+      <string>CrossMengerKI&amp;FS2</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -4676,14 +4676,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -851,7 +851,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mixPinski4D:
 				{
 					CVector4 z4D(z, w);
-					MixPinski4DIteration(z4D, fractal, extendedAux);
+					MixPinski4DIteration(z4D, i, fractal, extendedAux);
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;

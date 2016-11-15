@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>754</width>
-    <height>530</height>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -724,20 +724,6 @@
     </layout>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
-     <property name="text">
-      <string>fabs thing</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
-     <property name="text">
-      <string>fabs thing2</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_info">
      <property name="title">
       <string>I&amp;nformation</string>
@@ -838,8 +824,8 @@
      <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>294</x>
-     <y>156</y>
+     <x>432</x>
+     <y>196</y>
     </hint>
    </hints>
   </connection>
@@ -854,8 +840,8 @@
      <y>54</y>
     </hint>
     <hint type="destinationlabel">
-     <x>292</x>
-     <y>173</y>
+     <x>430</x>
+     <y>227</y>
     </hint>
    </hints>
   </connection>
@@ -870,8 +856,8 @@
      <y>51</y>
     </hint>
     <hint type="destinationlabel">
-     <x>331</x>
-     <y>205</y>
+     <x>469</x>
+     <y>258</y>
     </hint>
    </hints>
   </connection>
@@ -886,8 +872,8 @@
      <y>58</y>
     </hint>
     <hint type="destinationlabel">
-     <x>695</x>
-     <y>151</y>
+     <x>750</x>
+     <y>195</y>
     </hint>
    </hints>
   </connection>
@@ -902,8 +888,8 @@
      <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>702</x>
-     <y>178</y>
+     <x>750</x>
+     <y>226</y>
     </hint>
    </hints>
   </connection>
@@ -918,8 +904,8 @@
      <y>57</y>
     </hint>
     <hint type="destinationlabel">
-     <x>744</x>
-     <y>211</y>
+     <x>750</x>
+     <y>257</y>
     </hint>
    </hints>
   </connection>
