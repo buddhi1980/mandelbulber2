@@ -12,6 +12,7 @@ macx:QT += svg
   qtHaveModule(gamepad){
     QT += gamepad
     DEFINES += USE_GAMEPAD
+    message("Use QtGamepad module")
   }
 }
 
@@ -21,6 +22,7 @@ packagesExist(IlmBase){
   PKGCONFIG += IlmBase
   LIBS += -lIlmImf -lHalf
 	DEFINES += USE_EXR
+	message("Use IlmBase library for EXR files")
 }
 
 packagesExist(libtiff-4){
@@ -29,6 +31,16 @@ packagesExist(libtiff-4){
 win32|packagesExist(libtiff-4) {
   LIBS += -ltiff
   DEFINES += USE_TIFF
+  message("Use tiff library for EXR files")
+}
+
+packagesExist(sndfile){
+  PKGCONFIG += sndfile
+}
+win32|packagesExist(sndfile) {
+  LIBS += -lsndfile
+  DEFINES += USE_SNDFILE
+  message("Use sndfile library for WAV files")
 }
 
 TARGET = mandelbulber2 

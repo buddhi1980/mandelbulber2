@@ -36,12 +36,16 @@
 #include <QAudioRecorder>
 #include <QAudioFormat>
 #include <QAudioDecoder>
+#include <sndfile.h>
+#include <QFileInfo>
 
 cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 {
 	decoder = NULL;
 	memoryReserved = false;
 	length = 0;
+	sampleRate = 44100;
+	loaded = false;
 }
 
 cAudioTrack::~cAudioTrack()
@@ -51,23 +55,72 @@ cAudioTrack::~cAudioTrack()
 
 void cAudioTrack::LoadAudio(const QString &filename)
 {
-	QAudioFormat desiredFormat;
-	desiredFormat.setChannelCount(1);
-	desiredFormat.setCodec("audio/x-raw");
-	desiredFormat.setSampleType(QAudioFormat::SignedInt);
-	desiredFormat.setSampleRate(sampleRate);
-	desiredFormat.setSampleSize(16);
+	QString sufix = QFileInfo(filename).suffix();
+	loaded = false;
 
-	decoder = new QAudioDecoder(this);
-	decoder->setAudioFormat(desiredFormat);
-	decoder->setSourceFilename(filename);
+#ifdef USE_SNDFILE
+	if (sufix.toLower() == "wav")
+	{
+		SNDFILE *infile = NULL;
+		SF_INFO sfinfo;
+		memset(&sfinfo, 0, sizeof(sfinfo));
 
-	connect(decoder, SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
-	connect(decoder, SIGNAL(finished()), this, SLOT(slotFinished()));
-	connect(
-		decoder, SIGNAL(error(QAudioDecoder::Error)), this, SLOT(slotError(QAudioDecoder::Error)));
+		if ((infile = sf_open(filename.toLocal8Bit().constData(), SFM_READ, &sfinfo)) == NULL)
+		{
+			qCritical() << "Not able to open input file:" << filename;
+			qCritical() << sf_strerror(NULL);
+			return;
+		};
 
-	decoder->start();
+		qDebug() << "channels:" << sfinfo.channels << "rate:" << sfinfo.samplerate << "samples:" << sfinfo.frames;
+
+		if(sfinfo.frames > 0)
+		{
+			rawAudio.reserve(sfinfo.frames);
+			rawAudio.resize(sfinfo.frames);
+
+			float *tempBuff = new float[sfinfo.frames * sfinfo.channels];
+			sf_count_t readSamples = sf_readf_float(infile, tempBuff, sfinfo.frames);
+
+			for(int64_t i = 0; i < readSamples; i++)
+			{
+				float sample = 0.0;
+				for(int chan = 0; chan < sfinfo.channels; chan++)
+				{
+					sample += tempBuff[i *  sfinfo.channels + chan];
+				}
+				sample /= sfinfo.channels;
+				rawAudio[i] = sample;
+			}
+
+			delete tempBuff;
+		}
+
+		sf_close(infile);
+		loaded = true;
+	}
+#endif
+
+if(!loaded)
+	{
+		QAudioFormat desiredFormat;
+		desiredFormat.setChannelCount(1);
+		desiredFormat.setCodec("audio/x-raw");
+		desiredFormat.setSampleType(QAudioFormat::SignedInt);
+		desiredFormat.setSampleRate(sampleRate);
+		desiredFormat.setSampleSize(16);
+
+		decoder = new QAudioDecoder(this);
+		decoder->setAudioFormat(desiredFormat);
+		decoder->setSourceFilename(filename);
+
+		connect(decoder, SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
+		connect(decoder, SIGNAL(finished()), this, SLOT(slotFinished()));
+		connect(
+			decoder, SIGNAL(error(QAudioDecoder::Error)), this, SLOT(slotError(QAudioDecoder::Error)));
+
+		decoder->start();
+	}
 }
 
 void cAudioTrack::slotReadBuffer()
@@ -103,6 +156,7 @@ void cAudioTrack::slotFinished()
 {
 	qDebug() << "finished";
 	qDebug() << length << (double)length / sampleRate;
+	loaded = true;
 }
 
 void cAudioTrack::slotError(QAudioDecoder::Error error)

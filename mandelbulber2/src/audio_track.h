@@ -59,7 +59,8 @@ private:
 	bool memoryReserved;
 	int length;
 
-	static const int sampleRate = 44100;
+	int sampleRate;
+	bool loaded;
 };
 
 #endif /* MANDELBULBER2_SRC_AUDIO_TRACK_H_ */
