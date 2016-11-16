@@ -70,4 +70,18 @@ Optimize jpg images and compress to 80%
 Optimize png images
 `find . -name '*.png' -print0 | xargs -0 optipng -o7`
 
-
+### (7) new libraries ###
+- add the library to ... and check compilation
+  - mandelbulber/Release/mandelbulber.pro 
+  - mandelbulber/Debug/mandelbulber.pro
+  - CMakeLists.txt
+- add information to mandelbulber2/deploy/README
+- add dependencies to
+  - mandelbulber2/tools/prepare_for_dev_debian_testing.sh
+  - mandelbulber2/tools/prepare_for_dev_ubuntu.sh
+  - mandelbulber2/deploy/setup-cross-compile-to-windows.sh
+- add to package
+  - mandelbulber2/deploy/cross-compile-windows.sh
+- add to ci and check compilation
+  - .appveyor.yml
+  - .travis.yml
