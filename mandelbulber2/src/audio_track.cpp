@@ -96,7 +96,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 				rawAudio[i] = sample;
 			}
 
-			delete tempBuff;
+			delete[] tempBuff;
 		}
 
 		sf_close(infile);
