@@ -36,8 +36,11 @@
 #include <QAudioRecorder>
 #include <QAudioFormat>
 #include <QAudioDecoder>
-#include <sndfile.h>
 #include <QFileInfo>
+
+#ifdef USE_SNDFILE
+#include <sndfile.h>
+#endif
 
 cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 {
