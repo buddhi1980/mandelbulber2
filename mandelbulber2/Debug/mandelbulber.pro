@@ -31,7 +31,7 @@ packagesExist(libtiff-4){
 win32|packagesExist(libtiff-4) {
   LIBS += -ltiff
   DEFINES += USE_TIFF
-  message("Use tiff library for EXR files")
+  message("Use tiff library for TIFF files")
 }
 
 packagesExist(sndfile){
