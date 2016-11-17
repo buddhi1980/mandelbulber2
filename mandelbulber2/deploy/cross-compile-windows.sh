@@ -35,13 +35,16 @@ if [ ! -d mandelbulber2 ]; then
 else
 	cd mandelbulber2
 	git pull
+	#git checkout 2.09-bugfixes
+	git checkout master
+	git pull
 	cd mandelbulber2
 fi
 
 MANDELBULBER_DLL_TARGET=deploy/win$MANDELBULBER_WIN_VERSION/dll/
 
 # purge dll folder
-mkdir $MANDELBULBER_DLL_TARGET
+mkdir -p $MANDELBULBER_DLL_TARGET
 
 ## copy dlls
 cp $MANDELBULBER_PREFIX/bin/libgsl-*.dll $MANDELBULBER_DLL_TARGET
@@ -54,28 +57,30 @@ cp $MANDELBULBER_PREFIX/bin/Qt5Svg.dll $MANDELBULBER_DLL_TARGET
 cp $MANDELBULBER_PREFIX/bin/Qt5Widgets.dll $MANDELBULBER_DLL_TARGET
 cp $MANDELBULBER_PREFIX/bin/Qt5Test.dll $MANDELBULBER_DLL_TARGET
 cp $MANDELBULBER_PREFIX/bin/Qt5Gamepad.dll $MANDELBULBER_DLL_TARGET
+cp $MANDELBULBER_PREFIX/bin/Qt5Multimedia.dll $MANDELBULBER_DLL_TARGET
 cp $MANDELBULBER_PREFIX/bin/zlib*.dll $MANDELBULBER_DLL_TARGET
 cp $MANDELBULBER_PREFIX/bin/libtiff*.dll $MANDELBULBER_DLL_TARGET
+cp $MANDELBULBER_PREFIX/bin/libsndfile*.dll $MANDELBULBER_DLL_TARGET
 
-mkdir $MANDELBULBER_DLL_TARGET/iconengines
+mkdir -p $MANDELBULBER_DLL_TARGET/iconengines
 cp $MANDELBULBER_PREFIX/plugins/iconengines/* $MANDELBULBER_DLL_TARGET/iconengines/
-mkdir $MANDELBULBER_DLL_TARGET/platforms
+mkdir -p $MANDELBULBER_DLL_TARGET/platforms
 cp $MANDELBULBER_PREFIX/plugins/platforms/* $MANDELBULBER_DLL_TARGET/platforms/
-mkdir $MANDELBULBER_DLL_TARGET/imageformats
+mkdir -p $MANDELBULBER_DLL_TARGET/imageformats
 cp $MANDELBULBER_PREFIX/plugins/imageformats/* $MANDELBULBER_DLL_TARGET/imageformats/
-mkdir $MANDELBULBER_DLL_TARGET/gamepads
+mkdir -p $MANDELBULBER_DLL_TARGET/gamepads
 cp $MANDELBULBER_PREFIX/plugins/gamepads/* $MANDELBULBER_DLL_TARGET/gamepads/
 
 cp /usr/$MANDELBULBER_MINGW_HOST/lib/libwinpthread-1.dll $MANDELBULBER_DLL_TARGET
 
-cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libstdc++-6.dll $MANDELBULBER_DLL_TARGET
-cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libgomp-1.dll $MANDELBULBER_DLL_TARGET
+cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/6.1-win32/libstdc++-6.dll $MANDELBULBER_DLL_TARGET
+cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/6.1-win32/libgomp-1.dll $MANDELBULBER_DLL_TARGET
 
 if [ $MANDELBULBER_WIN_VERSION -eq "64" ]
 then
-	cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libgcc_s_seh-1.dll $MANDELBULBER_DLL_TARGET
+	cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/6.1-win32/libgcc_s_seh-1.dll $MANDELBULBER_DLL_TARGET
 else
-	cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libgcc_s_sjlj-1.dll $MANDELBULBER_DLL_TARGET
+	cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/6.1-win32/libgcc_s_sjlj-1.dll $MANDELBULBER_DLL_TARGET
 fi
 
 mkdir -p $MANDELBULBER_BUILD_FOLDER

@@ -13,7 +13,8 @@ then
 fi
 
 CXXFLAGS=""
-MANDELBULBER_QT_URL="http://download.qt.io/archive/qt/5.6/5.6.1-1/single/qt-everywhere-opensource-src-5.6.1-1.tar.gz"
+#MANDELBULBER_QT_URL="http://download.qt.io/archive/qt/5.6/5.6.1-1/single/qt-everywhere-opensource-src-5.6.1-1.tar.gz"
+MANDELBULBER_QT_URL="http://download.qt.io/official_releases/qt/5.7/5.7.0/single/qt-everywhere-opensource-src-5.7.0.tar.gz"
 MANDELBULBER_WIN_VERSION=$1
 
 if [ $MANDELBULBER_WIN_VERSION -eq "64" ]
@@ -32,18 +33,18 @@ sudo apt-get install mingw-w64
 mkdir -p $MANDELBULBER_PREFIX
 
 ### qt
-if [ ! -f qt-everywhere-opensource-src-5.6.1-1.tar.gz ]; then
+if [ ! -f qt-everywhere-opensource-src-5.7.0.tar.gz ]; then
 	wget $MANDELBULBER_QT_URL
 fi
 
-if [ ! -d qt-everywhere-opensource-src-5.6.1 ]; then
+if [ ! -d qt-everywhere-opensource-src-5.7.0 ]; then
 	tar xf qt-everywhere-*.tar.gz
 	cd qt-everywhere-*
 	yes | ./configure -release -xplatform win32-g++ -opengl desktop -nomake examples -device-option \
 		CROSS_COMPILE=$MANDELBULBER_MINGW_HOST- -prefix $MANDELBULBER_PREFIX -opensource \
 		-skip qtactiveqt -skip qtcanvas3d
-	make -j8
-	sudo make -j8 install
+	make -j3
+	sudo make -j3 install
 	cd ..
 fi
 
@@ -77,14 +78,20 @@ if [ ! -d zlib-* ]; then
 fi
 
 ### libpng
-#if [ ! -d libpng-* ]; then
-	apt-get source libpng
+if [ ! -f libpng.tar.gz ]; then
+	wget -O libpng.tar.gz http://download.sourceforge.net/libpng/libpng-1.6.25.tar.gz
+fi
+
+if [ ! -d libpng-* ]; then
+	
+	tar xf libpng.tar.gz
+	#apt-get source libpng
 	cd libpng-*
 	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX LDFLAGS=-L$MANDELBULBER_PREFIX/lib
 	make -j8 CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
 	sudo make -j8 CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include install
 	cd ..
-#fi
+fi
 
 ### openexr
 sudo apt-get install cmake
@@ -135,7 +142,20 @@ if [ ! -d tiff-* ]; then
 	cd ..
 fi
 
-cd ..
+# sndfile
+if [ ! -f libsndfile.tar.gz ]; then
+	wget -O libsndfile.tar.gz http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.27.tar.gz
+fi
+
+if [ ! -d libsndfile-* ]; then
+	tar xf libsndfile.tar.gz
+	cd libsndfile-*
+	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
+	make
+	sudo make install
+	cd ..
+fi
+
 
 echo Finished
 ## clean up
