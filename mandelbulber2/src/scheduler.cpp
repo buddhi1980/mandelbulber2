@@ -71,7 +71,7 @@ void cScheduler::Reset()
 	memset(lastLinesDone, 0, sizeof(bool) * endLine);
 }
 
-bool cScheduler::ThereIsStillSomethingToDo(int threadId)
+bool cScheduler::ThereIsStillSomethingToDo(int threadId) const
 {
 	bool result = false;
 	for (int i = startLine; i < endLine; i++)
@@ -90,7 +90,7 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 	return result;
 }
 
-bool cScheduler::AllLinesDone(void)
+bool cScheduler::AllLinesDone(void) const
 {
 	bool result = true;
 	for (int i = startLine; i < endLine; i++)
@@ -108,7 +108,7 @@ bool cScheduler::AllLinesDone(void)
 	return result;
 }
 
-bool cScheduler::ShouldIBreak(int threadId, int actualLine)
+bool cScheduler::ShouldIBreak(int threadId, int actualLine) const
 {
 	if (actualLine >= 0)
 	{
@@ -185,7 +185,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	return nextLine;
 }
 
-int cScheduler::FindBiggestGap()
+int cScheduler::FindBiggestGap() const
 {
 	bool firstFreeFound = false;
 	int firstFree = -1;
@@ -249,7 +249,7 @@ QList<int> cScheduler::GetLastRenderedLines(void)
 	return list;
 }
 
-double cScheduler::PercentDone()
+double cScheduler::PercentDone() const
 {
 	int count = 0;
 	for (int i = startLine; i < endLine; i++)
@@ -304,7 +304,7 @@ void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 	}
 }
 
-QList<int> cScheduler::CreateDoneList()
+QList<int> cScheduler::CreateDoneList() const
 {
 	QList<int> list;
 	for (int i = startLine; i < endLine; i++)
@@ -331,7 +331,7 @@ void cScheduler::UpdateDoneLines(const QList<int> &done)
 	mutex.unlock();
 }
 
-bool cScheduler::IsLineDoneByServer(int line)
+bool cScheduler::IsLineDoneByServer(int line) const
 {
 	if (line >= startLine && line < endLine)
 	{

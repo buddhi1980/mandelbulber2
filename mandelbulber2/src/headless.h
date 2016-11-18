@@ -77,7 +77,7 @@ public slots:
 	void slotNetRender();
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
 		double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
-	void slotUpdateStatistics(cStatistics stat);
+	void slotUpdateStatistics(const cStatistics &stat);
 
 signals:
 	void finished();

@@ -49,25 +49,25 @@ public:
 	cScheduler(cRegion<int> screenRegion, int progressive);
 	~cScheduler();
 	int NextLine(int threadId, int actualLine, bool lastLineWasBroken);
-	bool ShouldIBreak(int threadId, int actualLine);
-	bool ThereIsStillSomethingToDo(int ThreadId);
-	bool AllLinesDone();
+	bool ShouldIBreak(int threadId, int actualLine) const;
+	bool ThereIsStillSomethingToDo(int ThreadId) const;
+	bool AllLinesDone() const;
 	void InitFirstLine(int threadId, int firstLine);
 	QList<int> GetLastRenderedLines(void);
-	double PercentDone();
+	double PercentDone() const;
 	void Stop() { stopRequest = true; }
 	void MarkReceivedLines(const QList<int> &lineNumbers);
 	void UpdateDoneLines(const QList<int> &done);
 
-	int GetProgressiveStep() { return progressiveStep; }
-	int GetProgressivePass() { return progressivePass; }
+	int GetProgressiveStep() const { return progressiveStep; }
+	int GetProgressivePass() const { return progressivePass; }
 	bool ProgressiveNextStep();
-	QList<int> CreateDoneList();
-	bool IsLineDoneByServer(int line);
+	QList<int> CreateDoneList() const;
+	bool IsLineDoneByServer(int line) const;
 
 private:
 	void Reset(void);
-	int FindBiggestGap();
+	int FindBiggestGap() const;
 
 	int *linePendingThreadId;
 	bool *lineDone;

@@ -64,27 +64,27 @@ public:
 	cStereo();
 	~cStereo();
 	void SetMode(enumStereoMode mode);
-	enumStereoMode GetMode() { return stereoMode; }
-	bool isEnabled() { return stereoMode != stereoDisabled; }
+	enumStereoMode GetMode() const { return stereoMode; }
+	bool isEnabled() const { return stereoMode != stereoDisabled; }
 	CVector3 CalcEyePosition(
-		CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye);
+		CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye) const;
 	void ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
 		const CRotationMatrix &mRotInv, enumEye eye, params::enumPerspectiveType perspType,
-		CVector3 *viewVector);
+		CVector3 *viewVector) const;
 	sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
 	sRGB16 MixColorsRedCyan16(sRGB16 left, sRGB16 right);
-	CVector2<int> ModifyImageResolution(CVector2<int> resolution);
-	enumEye WhichEye(CVector2<double> imagePoint);
-	CVector2<double> ModifyImagePoint(CVector2<double> imagePoint);
-	double ModifyAspectRatio(double aspectRatio);
-	int GetNumberOfRepeats();
-	void WhichEyeForAnaglyph(enumEye *eye, int repeat);
-	cRegion<int> GetRegion(CVector2<int> imageResolution, enumEye eye);
+	CVector2<int> ModifyImageResolution(CVector2<int> resolution) const;
+	enumEye WhichEye(CVector2<double> imagePoint) const;
+	CVector2<double> ModifyImagePoint(CVector2<double> imagePoint) const;
+	double ModifyAspectRatio(double aspectRatio) const;
+	int GetNumberOfRepeats() const;
+	void WhichEyeForAnaglyph(enumEye *eye, int repeat) const;
+	cRegion<int> GetRegion(CVector2<int> imageResolution, enumEye eye) const;
 	void StoreImageInBuffer(cImage *image);
 	void MixImages(cImage *image);
 	void ForceEye(enumEye eye);
 	void SwapEyes() { swapped = true; }
-	bool AreSwapped() { return swapped; }
+	bool AreSwapped() const { return swapped; }
 
 private:
 	bool swapped;

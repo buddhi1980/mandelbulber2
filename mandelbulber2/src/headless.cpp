@@ -260,7 +260,7 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 	}
 }
 
-void cHeadless::slotUpdateStatistics(cStatistics stat)
+void cHeadless::slotUpdateStatistics(const cStatistics &stat)
 {
 	if (!systemData.statsOnCLI) return;
 	/*ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));

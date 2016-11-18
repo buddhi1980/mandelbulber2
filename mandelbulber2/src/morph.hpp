@@ -64,7 +64,7 @@ public:
 	int findInMorph(const int keyframe);
 	void Clear() { dataSets.clear(); }
 	cOneParameter Interpolate(const int keyframe, double factor);
-	cOneParameter None(const int key);
+	cOneParameter None(const int key) const;
 	cOneParameter Linear(const int key, const double factor, bool const angular);
 	cOneParameter CatmullRom(const int key, const double factor, bool const angular);
 	cOneParameter Akima(const int key, const double factor, bool const angular);
