@@ -51,16 +51,16 @@ public:
 	void SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVector3 _top);
 	void SetCamera(CVector3 _camera, enumRotationMode mode);
 	void SetTarget(CVector3 _target, enumRotationMode mode);
-	CVector3 GetCamera() { return camera; }
-	CVector3 GetTarget() { return target; };
-	CVector3 GetRotation() { return CVector3(yaw, pitch, roll); }
-	CVector3 GetForwardVector() { return forwardVector; }
-	CVector3 GetTopVector() { return topVector; }
-	CVector3 GetRightVector() { return rightVector; }
-	double GetDistance() { return distance; }
+	CVector3 GetCamera() const { return camera; }
+	CVector3 GetTarget() const { return target; };
+	CVector3 GetRotation() const { return CVector3(yaw, pitch, roll); }
+	CVector3 GetForwardVector() const { return forwardVector; }
+	CVector3 GetTopVector() const { return topVector; }
+	CVector3 GetRightVector() const { return rightVector; }
+	double GetDistance() const { return distance; }
 
 private:
-	double CorrectAngle(double angle) { return fmod(angle + 3 * M_PI, 2 * M_PI) - M_PI; }
+	double CorrectAngle(double angle) const { return fmod(angle + 3 * M_PI, 2 * M_PI) - M_PI; }
 
 	CVector3 camera;
 	CVector3 target;
