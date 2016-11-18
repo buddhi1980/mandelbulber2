@@ -103,8 +103,8 @@ public:
 		frames = _frames;
 		listOfParameters = _listOfParameters;
 	}
-	QList<sAnimationFrame> GetFrames() { return frames; }
-	QList<sParameterDescription> GetListOfParameters() { return listOfParameters; }
+	QList<sAnimationFrame> GetFrames() const { return frames; }
+	QList<sParameterDescription> GetListOfParameters() const { return listOfParameters; }
 	void SetListOfParametersAndClear(QList<sParameterDescription> _listOfParameters)
 	{
 		listOfParameters = _listOfParameters;
