@@ -107,6 +107,7 @@ public:
 	void RebuildPrimitives(cParameterContainer *par);
 	void ComboMouseClickUpdate();
 	void AutoRecovery();
+	void DataFolderUpgrade();
 	void OptimizeStepFactor(double qualityTarget);
 	void ResetFormula(int fractalNumber);
 	void PeriodicRefresh();

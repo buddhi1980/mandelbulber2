@@ -1665,7 +1665,7 @@ bool cInterface::QuitApplicationDialog()
 			cSettings parSettings(cSettings::formatAppSettings);
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
-			parSettings.SaveToFile(systemData.dataDirectory + "mandelbulber.ini");
+			parSettings.SaveToFile(systemData.GetIniFile());
 
 			while (cRenderJob::GetRunningJobCount() > 0)
 			{
@@ -1711,6 +1711,34 @@ void cInterface::AutoRecovery()
 			return;
 		}
 	}
+}
+
+void cInterface::DataFolderUpgrade()
+{
+	/* TODO
+	if (systemData.IsUpgraded())
+	{
+		// autorecovery dialog
+		QMessageBox::StandardButton reply;
+		reply = QMessageBox::question(
+			mainWindow->ui->centralwidget, QObject::tr("Data folder upgrade"),
+			QObject::tr(
+				"In Mandelbulber 2.10 the default data structure changed for linux and MacOS:\n"
+				"Instead of keeping all working folders/files in ~/.mandelbulber these are now split\n"
+				" in .mandelbulber for program internal folders/files (undo, toolbar, queue, mandelbulber.ini)\n"
+				" and mandelbulber for user defined folders/files (settings, images, materials, slices, textures)\n"
+				" Do you want to upgrade now to this new structure?"),
+			QMessageBox::Yes | QMessageBox::No);
+
+		if (reply == QMessageBox::Yes)
+		{
+			systemData.Upgrade();
+		}
+		else
+		{
+			return;
+		}
+	}*/
 }
 
 void cInterface::OptimizeStepFactor(double qualityTarget)

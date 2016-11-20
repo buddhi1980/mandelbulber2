@@ -77,7 +77,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
 	par->addParam("flight_animation_image_type", 0, morphNone, paramApp);
-	par->addParam("anim_flight_dir", systemData.dataDirectory + "images" + QDir::separator(),
+	par->addParam("anim_flight_dir", systemData.GetImagesFolder() + QDir::separator(),
 		morphNone, paramStandard);
 
 	// keyframe animation
@@ -86,7 +86,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("keyframe_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
 	par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
 	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp);
-	par->addParam("anim_keyframe_dir", systemData.dataDirectory + "images" + QDir::separator(),
+	par->addParam("anim_keyframe_dir", systemData.GetImagesFolder() + QDir::separator(),
 		morphNone, paramStandard);
 	par->addParam("keyframe_collision_thresh", 1.0e-6, 1e-15, 1.0e2, morphNone, paramStandard);
 	par->addParam("keyframe_auto_validate", true, morphNone, paramApp);
@@ -198,7 +198,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("voxel_samples_z", 100, 2, 65535, morphLinear, paramStandard);
 	par->addParam("voxel_max_iter", 30, 1, 10000, morphLinear, paramStandard);
 	par->addParam("voxel_image_path",
-		QDir::toNativeSeparators(systemData.dataDirectory + "slices" + QDir::separator()), morphNone,
+		QDir::toNativeSeparators(systemData.GetSlicesFolder() + QDir::separator()), morphNone,
 		paramStandard);
 	par->addParam("voxel_show_information", true, morphLinear, paramApp);
 
@@ -354,7 +354,7 @@ void InitParams(cParameterContainer *par)
 
 	// files
 	par->addParam("file_destination",
-		QDir::toNativeSeparators(systemData.dataDirectory + "images" + QDir::separator() + "image"),
+		QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator() + "image"),
 		morphNone, paramStandard);
 	par->addParam("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures"
 																														+ QDir::separator() + "background.jpg"),
@@ -365,13 +365,14 @@ void InitParams(cParameterContainer *par)
 	par->addParam("file_lightmap", QDir::toNativeSeparators(systemData.sharedDir + "textures"
 																													+ QDir::separator() + "lightmap.jpg"),
 		morphNone, paramStandard);
+	/* unused in Mandebulber v2
 	par->addParam("file_animation_path",
 		QDir::toNativeSeparators(systemData.dataDirectory + "paths" + QDir::separator() + "path.txt"),
 		morphNone, paramStandard);
 	par->addParam("file_keyframes", QDir::toNativeSeparators(systemData.dataDirectory + "keyframes"
 																													 + QDir::separator() + "keyframe"),
 		morphNone, paramStandard);
-
+	*/
 	par->addParam("description", QString(""), morphNone, paramStandard);
 
 	//----------------------- application parameters ---------------------
@@ -397,10 +398,10 @@ void InitParams(cParameterContainer *par)
 	par->addParam("netrender_client_remote_port", 5555, morphNone, paramApp);
 	par->addParam("netrender_server_local_port", 5555, morphNone, paramApp);
 
-	par->addParam("default_image_path", systemData.dataDirectory + "images", morphNone, paramApp);
+	par->addParam("default_image_path", systemData.GetImagesFolder(), morphNone, paramApp);
 	par->addParam("default_textures_path", systemData.sharedDir + "textures", morphNone, paramApp);
 	par->addParam(
-		"default_settings_path", systemData.dataDirectory + "settings", morphNone, paramApp);
+		"default_settings_path", systemData.GetSettingsFolder(), morphNone, paramApp);
 
 	par->addParam("show_queue_thumbnails", false, morphNone, paramApp);
 	par->addParam("queue_image_format", 0, morphNone, paramApp);

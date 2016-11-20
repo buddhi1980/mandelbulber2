@@ -139,10 +139,10 @@ int main(int argc, char *argv[])
 	gNetRender = new CNetRender(systemData.numberOfThreads);
 
 	// loading AppSettings
-	if (QFile(systemData.dataDirectory + "mandelbulber.ini").exists())
+	if (QFile(systemData.GetIniFile()).exists())
 	{
 		cSettings parSettings(cSettings::formatAppSettings);
-		parSettings.LoadFromFile(systemData.dataDirectory + "mandelbulber.ini");
+		parSettings.LoadFromFile(systemData.GetIniFile());
 		parSettings.Decode(gPar, gParFractal);
 	}
 
@@ -171,8 +171,8 @@ int main(int argc, char *argv[])
 
 		try
 		{
-			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
-				systemData.dataDirectory + "queue", gMainInterface->mainWindow);
+			gQueue = new cQueue(gMainInterface, systemData.GetQueueFractlistFile(),
+				systemData.GetQueueFolder(), gMainInterface->mainWindow);
 		}
 		catch (QString &ex)
 		{

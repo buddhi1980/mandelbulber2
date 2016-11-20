@@ -181,7 +181,7 @@ void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
 void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 {
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started", 2);
-	QDir toolbarDir = QDir(systemData.dataDirectory + "toolbar");
+	QDir toolbarDir = QDir(systemData.GetToolbarFolder());
 	toolbarDir.setSorting(QDir::Time);
 	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 	QSignalMapper *mapPresetsFromExamplesLoad = new QSignalMapper(this);
@@ -213,7 +213,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 			// already present
 			continue;
 		}
-		QString filename = systemData.dataDirectory + "toolbar/" + toolbarFiles.at(i);
+		QString filename = systemData.GetToolbarFolder() + QDir::separator() + toolbarFiles.at(i);
 		cThumbnailWidget *thumbWidget = NULL;
 
 		if (QFileInfo(filename).suffix() == QString("fract"))
@@ -289,7 +289,7 @@ void RenderWindow::slotPresetAddToToolbar()
 	cSettings parSettings(cSettings::formatCondensedText);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
-	QString filename = systemData.dataDirectory + "toolbar/" + parSettings.GetHashCode() + ".fract";
+	QString filename = systemData.GetToolbarFolder() + QDir::separator() + parSettings.GetHashCode() + ".fract";
 	parSettings.SaveToFile(filename);
 	slotPopulateToolbar();
 }

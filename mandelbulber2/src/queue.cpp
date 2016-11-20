@@ -589,7 +589,7 @@ void cQueue::slotQueueAddFromFile()
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(
-		systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+		systemData.GetSettingsFolder() + QDir::separator());
 	dialog.selectFile(systemData.lastSettingsFile);
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Add file to queue..."));

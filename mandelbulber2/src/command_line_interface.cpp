@@ -567,8 +567,8 @@ void cCommandLineInterface::handleQueue()
 	systemData.noGui = true;
 	try
 	{
-		gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
-			systemData.dataDirectory + "queue", NULL);
+		gQueue = new cQueue(gMainInterface, systemData.GetQueueFractlistFile(),
+			systemData.GetQueueFolder(), NULL);
 	}
 	catch (QString &ex)
 	{
@@ -591,7 +591,7 @@ void cCommandLineInterface::handleArgs()
 			if (!QFile::exists(filename))
 			{
 				// try to find settings in default settings path
-				filename = systemData.dataDirectory + "settings" + QDir::separator() + filename;
+				filename = systemData.GetSettingsFolder() + QDir::separator() + filename;
 			}
 			if (QFile::exists(filename))
 			{
@@ -631,8 +631,8 @@ void cCommandLineInterface::handleArgs()
 			systemData.noGui = true;
 			try
 			{
-				gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist",
-					systemData.dataDirectory + "queue", NULL);
+				gQueue = new cQueue(gMainInterface, systemData.GetQueueFractlistFile(),
+					systemData.GetQueueFolder(), NULL);
 			}
 			catch (QString &ex)
 			{
