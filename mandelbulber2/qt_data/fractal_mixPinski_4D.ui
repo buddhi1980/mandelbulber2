@@ -820,7 +820,7 @@
       <number>2</number>
      </property>
      <item row="4" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_1155_z">
+      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_111d5_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -848,7 +848,7 @@
       </widget>
      </item>
      <item row="5" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_1155_w">
+      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_111d5_w">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -883,7 +883,7 @@
       </widget>
      </item>
      <item row="2" column="3">
-      <widget class="QSlider" name="slider4_transf_addition_constant_1155_x">
+      <widget class="QSlider" name="slider4_transf_addition_constant_111d5_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -905,7 +905,7 @@
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="QSlider" name="slider4_transf_addition_constant_1155_y">
+      <widget class="QSlider" name="slider4_transf_addition_constant_111d5_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -934,7 +934,7 @@
       </widget>
      </item>
      <item row="2" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_1155_x">
+      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_111d5_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -976,7 +976,7 @@
       </widget>
      </item>
      <item row="5" column="3">
-      <widget class="QSlider" name="slider4_transf_addition_constant_1155_w">
+      <widget class="QSlider" name="slider4_transf_addition_constant_111d5_w">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -998,7 +998,7 @@
       </widget>
      </item>
      <item row="3" column="4">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_1155_y">
+      <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_111d5_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1033,7 +1033,7 @@
       </widget>
      </item>
      <item row="4" column="3">
-      <widget class="QSlider" name="slider4_transf_addition_constant_1155_z">
+      <widget class="QSlider" name="slider4_transf_addition_constant_111d5_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>

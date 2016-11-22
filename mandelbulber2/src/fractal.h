@@ -532,7 +532,7 @@ struct sFractalTransformCommon
 	CVector3 scale3D444;
 
 	CVector4 additionConstant0000;
-	CVector4 additionConstant1155;
+	CVector4 additionConstant111d5;
 	CVector4 constantMultiplier1220;
 
 	CRotationMatrix rotationMatrix;
