@@ -300,6 +300,8 @@ void cInterface::ConnectSignals(void)
 		SIGNAL(triggered()), mainWindow, SLOT(slotImportOldSettings()));
 	QApplication::connect(mainWindow->ui->actionExportVoxelLayers, SIGNAL(triggered()), mainWindow,
 		SLOT(slotExportVoxelLayers()));
+    QApplication::connect(mainWindow->ui->actionExport_Mesh, SIGNAL(triggered()), mainWindow,
+        SLOT(slotExportMesh()));
 	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImageJPEG()));
 	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow,
