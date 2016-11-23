@@ -41,6 +41,7 @@
 #include "../qt/preferences_dialog.h"
 #include "../qt/thumbnail_widget.h"
 #include "../qt/voxel_export_dialog.h"
+#include "../qt/mesh_export_dialog.h"
 #include "../src/material_item_model.h"
 #include "animation_frames.hpp"
 #include "cimage.hpp"
@@ -422,6 +423,18 @@ void RenderWindow::slotExportVoxelLayers()
 	voxelExportDialog->show();
 	voxelExportDialog->raise();
 	voxelExportDialog->activateWindow();
+}
+
+void RenderWindow::slotExportMesh()
+{
+    if (!meshExportDialog)
+    {
+        meshExportDialog = new cMeshExportDialog;
+    }
+
+    meshExportDialog->show();
+    meshExportDialog->raise();
+    meshExportDialog->activateWindow();
 }
 
 void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QString &questionText,

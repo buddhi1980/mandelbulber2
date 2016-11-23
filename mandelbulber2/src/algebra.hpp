@@ -44,9 +44,10 @@
 #define _USE_MATH_DEFINES
 #endif
 
+#include <math.h>
 #include <QString>
 #include <gsl/gsl_sys.h>
-#include <math.h>
+
 
 /************************* vector 3D **********************/
 class CVector3

@@ -9,12 +9,14 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 #set(CMAKE_AUTOUIC ON)
 
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 # find necessary qt libraries
 find_package(Qt5Widgets)
 find_package(Qt5Core)
 find_package(Qt5Network)
 find_package(Qt5Gui)
-find_package(Qt5UiTools)
+# find_package(Qt5UiTools)
 find_package(Qt5Test)
 find_package(Qt5Multimedia)
 
@@ -34,7 +36,7 @@ IF(ECM_FOUND)
 ENDIF()
 
 IF(WIN32)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /GL /Ox")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -fopenmp -std=c++11")
 ELSE()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math -fopenmp -std=c++11")
 ENDIF()
@@ -60,8 +62,8 @@ include_directories(mandelbulber2/src)
 add_executable(mandelbulber2 ${SOURCE_FILES} ${ADDITIONAL_EXECUTABLE} ${qt_UI_H})
 
 # link qt libraries
-qt5_use_modules(mandelbulber2 Core Widgets Network
-    Gui UiTools Test Multimedia)
+# qt5_use_modules(mandelbulber2 Core Widgets Network
+#    Gui Test Multimedia)
 
 # link required other libraries
 include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS})
@@ -103,3 +105,22 @@ IF(WIN32 AND MSVC) # Check if we are using the Visual Studio compiler on windows
 		LINK_FLAGS "/SUBSYSTEM:WINDOWS"
 	)
 ENDIF()
+
+add_definitions(-D_USE_MATH_DEFINES)
+
+include_directories(C:/Qt/5.4/mingw491_32/include
+    C:/Qt/5.4/mingw491_32/include/QtCore
+    C:/Qt/5.4/mingw491_32/include/QtWidgets
+    C:/Qt/5.4/mingw491_32/include/QtNetwork
+    C:/Qt/5.4/mingw491_32/include/QtGui
+    C:/Qt/5.4/mingw491_32/include/QtTest
+    C:/Qt/5.4/mingw491_32/include/QtMultimedia)
+
+target_link_libraries(mandelbulber2 C:/Qt/5.4/mingw491_32/bin/Qt5Core.dll
+    C:/Qt/5.4/mingw491_32/bin/Qt5Widgets.dll
+    C:/Qt/5.4/mingw491_32/bin/Qt5Network.dll
+    C:/Qt/5.4/mingw491_32/bin/Qt5Gui.dll
+    C:/Qt/5.4/mingw491_32/bin/Qt5Test.dll
+    C:/Qt/5.4/mingw491_32/bin/Qt5Multimedia.dll)
+
+target_link_libraries(mandelbulber2 C:/Qt/5.4/mingw491_32/lib/libQt5UiTools.a)

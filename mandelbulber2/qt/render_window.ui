@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>837</width>
-           <height>551</height>
+           <width>877</width>
+           <height>571</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -277,6 +277,7 @@
     <addaction name="actionImport_settings_from_old_Mandelbulber"/>
     <addaction name="separator"/>
     <addaction name="actionExportVoxelLayers"/>
+    <addaction name="actionExport_Mesh"/>
     <addaction name="separator"/>
     <addaction name="actionProgramSettings"/>
     <addaction name="separator"/>
@@ -376,8 +377,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>69</width>
+          <height>95</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -491,8 +492,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>69</width>
+          <height>96</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -558,8 +559,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>69</width>
+          <height>94</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -625,8 +626,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>69</width>
+          <height>96</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -794,8 +795,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>234</width>
-          <height>84</height>
+          <width>218</width>
+          <height>69</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -891,8 +892,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>69</width>
+          <height>95</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -970,8 +971,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>321</height>
+          <width>69</width>
+          <height>325</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1283,6 +1284,11 @@
    </property>
    <property name="text">
     <string>Show &amp;measurement dock</string>
+   </property>
+  </action>
+  <action name="actionExport_Mesh">
+   <property name="text">
+    <string>Export &amp;Mesh</string>
    </property>
   </action>
  </widget>

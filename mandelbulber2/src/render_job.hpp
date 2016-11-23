@@ -35,6 +35,10 @@
 #ifndef MANDELBULBER2_SRC_RENDER_JOB_HPP_
 #define MANDELBULBER2_SRC_RENDER_JOB_HPP_
 
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+
 #include <QObject>
 
 #include "camera_target.hpp"
