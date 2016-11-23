@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>988</width>
-    <height>2415</height>
+    <height>3149</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -204,7 +204,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledx_false">
      <property name="title">
-      <string>&amp;z.z box fold scale,  for normal use make offset z: (above) = 0.00</string>
+      <string>&amp;z.z box fold scale,  for normal use set &quot;offset z:&quot;  (above) = 0.00</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -635,7 +635,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_167">
        <property name="text">
-        <string>Minimum Radius:</string>
+        <string>Minimum Radius^2: </string>
        </property>
       </widget>
      </item>
