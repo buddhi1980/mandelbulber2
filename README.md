@@ -50,10 +50,10 @@ These scripts install all required packages, compile the program and create symb
 
 [prepare Ubuntu for development] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_ubuntu.sh)
 
-[ArchLinux AUR package (builds latest release)]
+[Arch Linux AUR package (builds latest release)]
 (https://aur.archlinux.org/packages/mandelbulber2/)
 
-[ArchLinux AUR package (builds latest git snapshot)]
+[Arch Linux AUR package (builds latest git snapshot)]
 (https://aur.archlinux.org/packages/mandelbulber2-git/)
 
 ## Resources
