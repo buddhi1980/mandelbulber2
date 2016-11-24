@@ -202,6 +202,10 @@ void InitParams(cParameterContainer *par)
 		paramStandard);
 	par->addParam("voxel_show_information", true, morphLinear, paramApp);
 
+    // mesh export
+    par->addParam("mesh_output_filename", systemData.GetSlicesFolder() +
+        QDir::separator() + "output.ply", morphNone, paramStandard);
+
 	// foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);
 	par->addParam("box_folding_limit", 1.0, morphLinear, paramStandard);
