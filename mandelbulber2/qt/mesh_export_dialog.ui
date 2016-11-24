@@ -539,6 +539,16 @@
          </property>
         </spacer>
        </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Please visit &lt;a href=&quot;http://algoholic.eu/export-meshes-from-mandelbulber/&quot;&gt;http://algoholic.eu/export-meshes-from-mandelbulber/&lt;/a&gt; for more details and usage examples with Blender. Copyright (C) Stanislaw Adaszewski, 2016. Licensed under GPLv3.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
