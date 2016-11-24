@@ -70,20 +70,21 @@ struct FormulaFtor {
 
         double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
 
-        if (dist <= dist_thresh) {
+        //if (dist <= dist_thresh) {
 
-            sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
-            sFractalOut fractOut;
+        sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
+        sFractalOut fractOut;
 
-            Compute<fractal::calcModeColouring>(*fractals, fractIn, &fractOut);
+        Compute<fractal::calcModeColouring>(*fractals, fractIn, &fractOut);
 
-            *colorIndex = fractOut.colorIndex;
-            return 1;
-        } else {
-            *colorIndex = 0;
-            return 0;
-        }
+        *colorIndex = fractOut.colorIndex;
+        //    return 1;
+        // } else {
+        //    *colorIndex = 0;
+        //    return 0;
+        // }
 
+        return dist;
 
         // return (double)(dist <= dist_thresh);
     }
@@ -126,7 +127,7 @@ void cMeshExport::ProcessVolume()
         qDebug() << "Starting marching cubes...";
 
         mc::marching_cubes<double, double[3], FormulaFtor, ProgressFtor>
-            (lower, upper, w, h, l, formulaFtor, 0.5, vertices,
+            (lower, upper, w, h, l, formulaFtor, dist_thresh, vertices,
             polygons, &stop, progressFtor, colorIndices);
 
         qDebug() << "Marching cubes done.";

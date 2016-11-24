@@ -311,7 +311,7 @@ void mc_add_vertex(double x1, double y1, double z1, double c2,
         vertices->push_back(z1);
 
         double f = (x - x1) / (c2 - x1);
-        double colorIndex =  f * colorIndex_2 + (1.0 - f) * colorIndex_1;
+        double colorIndex = mc_isovalue_interpolation(isovalue, f1, f2, colorIndex_1, colorIndex_2); // f * colorIndex_2 + (1.0 - f) * colorIndex_1;
         colorIndices->push_back(colorIndex);
 
         return;
@@ -324,7 +324,7 @@ void mc_add_vertex(double x1, double y1, double z1, double c2,
         vertices->push_back(z1);
 
         double f = (y - y1) / (c2 - y1);
-        double colorIndex =  f * colorIndex_2 + (1.0 - f) * colorIndex_1;
+        double colorIndex = mc_isovalue_interpolation(isovalue, f1, f2, colorIndex_1, colorIndex_2); // f * colorIndex_2 + (1.0 - f) * colorIndex_1;
         colorIndices->push_back(colorIndex);
 
         return;
@@ -337,7 +337,7 @@ void mc_add_vertex(double x1, double y1, double z1, double c2,
         vertices->push_back(z);
 
         double f = (z - z1) / (c2 - z1);
-        double colorIndex =  f * colorIndex_2 + (1.0 - f) * colorIndex_1;
+        double colorIndex = mc_isovalue_interpolation(isovalue, f1, f2, colorIndex_1, colorIndex_2); // f * colorIndex_2 + (1.0 - f) * colorIndex_1;
         colorIndices->push_back(colorIndex);
 
         return;
