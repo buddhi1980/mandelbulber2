@@ -177,7 +177,10 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 				// count usage of DE functions
 				fractal::enumDEFunctionType DEFunction = fractalList[index].DEFunctionType;
-				DEFunctionCount[DEFunction] += counts[f];
+				if (DEFunction != fractal::withoutDEFunction)
+				{
+					DEFunctionCount[DEFunction] += counts[f];
+				}
 
 				// looking if it's possible to use analyticDEType
 				if (!forceDeltaDE && fractalList[index].internalID != fractal::none)
