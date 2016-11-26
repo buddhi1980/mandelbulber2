@@ -108,6 +108,7 @@ private slots:
 	void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotMenuProgramSettings();
 	void slotExportVoxelLayers();
+    void slotExportMesh();
 	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
 		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 	void slotAutoRefresh();
@@ -158,6 +159,7 @@ private:
 	Ui::RenderWindow *ui;
 	QDialog *preferencesDialog;
 	QDialog *voxelExportDialog;
+    QDialog *meshExportDialog;
 	cAutomatedWidgets *automatedWidgets;
 
 	QSettings settings;
