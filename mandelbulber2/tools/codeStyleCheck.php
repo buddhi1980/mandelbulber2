@@ -106,7 +106,7 @@ function checkFileHeader($filePath, &$fileContent, &$status){
 			$regexParseHeaderOld .= 'General\sPublic[\S\s]+';
 			$regexParseHeaderOld .= 'Authors:\s(.*)[\s\S]*?\*\/([\s\S]*)$/';
                         $regexParseHeaderEclipse = '/^[\s\S]+Author:[\s\S]*?\*\/([\s\S]*)$/';
-			$regexParseHeaderAny = '/^[\s\S]+\*\s([\s\S]+)\*\/([\s\S]*)$/';
+			$regexParseHeaderAny = '/^\/\*\*?([\s\S]*?)\*\/([\s\S]*)$/';
 		
 			if(preg_match($regexParseHeaderOld, $fileContent, $matchHeaderOld)){
 				$status[] = noticeString('header is old, will rewrite to new!');
