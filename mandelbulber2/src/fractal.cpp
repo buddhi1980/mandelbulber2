@@ -234,7 +234,6 @@ cFractal::cFractal(const cParameterContainer *container)
 	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
 	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
 
-
 	// common parameters for transforming formulas
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
@@ -372,7 +371,8 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
 
 	transformCommon.additionConstant0000 = container->Get<CVector4>("transf_addition_constant_0000");
-	transformCommon.additionConstant111d5 = container->Get<CVector4>("transf_addition_constant_111d5");
+	transformCommon.additionConstant111d5 =
+		container->Get<CVector4>("transf_addition_constant_111d5");
 	transformCommon.constantMultiplier1220 =
 		container->Get<CVector4>("transf_constant_multiplier_1220");
 
@@ -414,7 +414,6 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledXFalse = container->Get<bool>("transf_function_enabledX_false");
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
-
 
 	WriteLog("cFractal::RecalculateFractalParams(void)", 2);
 

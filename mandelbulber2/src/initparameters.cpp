@@ -77,8 +77,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
 	par->addParam("flight_animation_image_type", 0, morphNone, paramApp);
-	par->addParam("anim_flight_dir", systemData.GetImagesFolder() + QDir::separator(),
-		morphNone, paramStandard);
+	par->addParam(
+		"anim_flight_dir", systemData.GetImagesFolder() + QDir::separator(), morphNone, paramStandard);
 
 	// keyframe animation
 	par->addParam("frames_per_keyframe", 100, 1, 99999, morphNone, paramStandard);
@@ -86,8 +86,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("keyframe_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
 	par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
 	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp);
-	par->addParam("anim_keyframe_dir", systemData.GetImagesFolder() + QDir::separator(),
-		morphNone, paramStandard);
+	par->addParam("anim_keyframe_dir", systemData.GetImagesFolder() + QDir::separator(), morphNone,
+		paramStandard);
 	par->addParam("keyframe_collision_thresh", 1.0e-6, 1e-15, 1.0e2, morphNone, paramStandard);
 	par->addParam("keyframe_auto_validate", true, morphNone, paramApp);
 	par->addParam("keyframe_constant_target_distance", 0.1, 1e-10, 1.0e2, morphNone, paramStandard);
@@ -202,9 +202,9 @@ void InitParams(cParameterContainer *par)
 		paramStandard);
 	par->addParam("voxel_show_information", true, morphLinear, paramApp);
 
-    // mesh export
-    par->addParam("mesh_output_filename", systemData.GetSlicesFolder() +
-        QDir::separator() + "output.ply", morphNone, paramStandard);
+	// mesh export
+	par->addParam("mesh_output_filename",
+		systemData.GetSlicesFolder() + QDir::separator() + "output.ply", morphNone, paramStandard);
 
 	// foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);
@@ -358,8 +358,8 @@ void InitParams(cParameterContainer *par)
 
 	// files
 	par->addParam("file_destination",
-		QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator() + "image"),
-		morphNone, paramStandard);
+		QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator() + "image"), morphNone,
+		paramStandard);
 	par->addParam("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures"
 																														+ QDir::separator() + "background.jpg"),
 		morphNone, paramStandard);
@@ -404,8 +404,7 @@ void InitParams(cParameterContainer *par)
 
 	par->addParam("default_image_path", systemData.GetImagesFolder(), morphNone, paramApp);
 	par->addParam("default_textures_path", systemData.sharedDir + "textures", morphNone, paramApp);
-	par->addParam(
-		"default_settings_path", systemData.GetSettingsFolder(), morphNone, paramApp);
+	par->addParam("default_settings_path", systemData.GetSettingsFolder(), morphNone, paramApp);
 
 	par->addParam("show_queue_thumbnails", false, morphNone, paramApp);
 	par->addParam("queue_image_format", 0, morphNone, paramApp);

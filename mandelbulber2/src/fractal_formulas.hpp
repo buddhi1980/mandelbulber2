@@ -37,7 +37,7 @@
 
 #include "algebra.hpp"
 
-//forward declarations
+// forward declarations
 class cFractal;
 struct sExtendedAux;
 struct sFractalFoldings;
@@ -212,7 +212,5 @@ void TransformFabsAddConstantV24DIteration(CVector4 &z4D, const cFractal *fracta
 void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal);
 void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
-
-
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_ */

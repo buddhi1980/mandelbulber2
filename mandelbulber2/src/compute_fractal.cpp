@@ -521,13 +521,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-
-				// transforms  ------------------------------------------------------------------
-				//				case transfAdditionConstant:
-				{
-					TransformAdditionConstantIteration(z, fractal);
-					break;
-				}
+					// transforms  ------------------------------------------------------------------
+					//				case transfAdditionConstant:
+					{
+						TransformAdditionConstantIteration(z, fractal);
+						break;
+					}
 				case transfAdditionConstantVaryV1:
 				{
 					TransformAdditionConstantVaryV1Iteration(z, i, fractal);
@@ -822,7 +821,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-
 				// 4D  ---------------------------------------------------------------------------
 				case quaternion4D:
 				{
@@ -855,7 +853,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;
-			}
+				}
 				case transfAdditionConstant4D:
 				{
 					CVector4 z4D(z, w);

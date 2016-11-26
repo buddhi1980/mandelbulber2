@@ -290,7 +290,8 @@ void RenderWindow::slotPresetAddToToolbar()
 	cSettings parSettings(cSettings::formatCondensedText);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
-	QString filename = systemData.GetToolbarFolder() + QDir::separator() + parSettings.GetHashCode() + ".fract";
+	QString filename =
+		systemData.GetToolbarFolder() + QDir::separator() + parSettings.GetHashCode() + ".fract";
 	parSettings.SaveToFile(filename);
 	slotPopulateToolbar();
 }
@@ -427,14 +428,14 @@ void RenderWindow::slotExportVoxelLayers()
 
 void RenderWindow::slotExportMesh()
 {
-    if (!meshExportDialog)
-    {
-        meshExportDialog = new cMeshExportDialog;
-    }
+	if (!meshExportDialog)
+	{
+		meshExportDialog = new cMeshExportDialog;
+	}
 
-    meshExportDialog->show();
-    meshExportDialog->raise();
-    meshExportDialog->activateWindow();
+	meshExportDialog->show();
+	meshExportDialog->raise();
+	meshExportDialog->activateWindow();
 }
 
 void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QString &questionText,

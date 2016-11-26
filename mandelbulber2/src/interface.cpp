@@ -300,8 +300,8 @@ void cInterface::ConnectSignals(void)
 		SIGNAL(triggered()), mainWindow, SLOT(slotImportOldSettings()));
 	QApplication::connect(mainWindow->ui->actionExportVoxelLayers, SIGNAL(triggered()), mainWindow,
 		SLOT(slotExportVoxelLayers()));
-    QApplication::connect(mainWindow->ui->actionExport_Mesh, SIGNAL(triggered()), mainWindow,
-        SLOT(slotExportMesh()));
+	QApplication::connect(
+		mainWindow->ui->actionExport_Mesh, SIGNAL(triggered()), mainWindow, SLOT(slotExportMesh()));
 	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImageJPEG()));
 	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow,
@@ -1286,16 +1286,17 @@ void cInterface::SetBoundingBoxAsLimits()
 	CVector3 orthDirection;
 	CVector3 point;
 	double dist;
-        double outerBounding = gPar->Get<double>("limit_outer_bounding");
-        stopRequest = false;
+	double outerBounding = gPar->Get<double>("limit_outer_bounding");
+	stopRequest = false;
 
 	// negative x limit
 	cProgressText::ProgressStatusText(
 		QObject::tr("bounding box as limit"), QObject::tr("Negative X Limit"), 0.0 / 6.0);
 	direction = CVector3(1, 0, 0);
 	orthDirection = CVector3(0, 1, 0);
-        point = CVector3(-outerBounding, 0, 0);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	point = CVector3(-outerBounding, 0, 0);
+	dist =
+		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minX = point.x + dist;
 
 	// negative y limit
@@ -1303,8 +1304,9 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Negative Y Limit"), 1.0 / 6.0);
 	direction = CVector3(0, 1, 0);
 	orthDirection = CVector3(0, 0, 1);
-        point = CVector3(0, -outerBounding, 0);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	point = CVector3(0, -outerBounding, 0);
+	dist =
+		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minY = point.y + dist;
 
 	// negative z limit
@@ -1312,8 +1314,9 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Negative Z Limit"), 2.0 / 6.0);
 	direction = CVector3(0, 0, 1);
 	orthDirection = CVector3(1, 0, 0);
-        point = CVector3(0, 0, -outerBounding);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	point = CVector3(0, 0, -outerBounding);
+	dist =
+		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minZ = point.z + dist;
 
 	// positive x limit
@@ -1321,8 +1324,9 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive X Limit"), 3.0 / 6.0);
 	direction = CVector3(-1, 0, 0);
 	orthDirection = CVector3(0, -1, 0);
-        point = CVector3(outerBounding, 0, 0);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	point = CVector3(outerBounding, 0, 0);
+	dist =
+		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxX = point.x - dist;
 
 	// positive y limit
@@ -1330,8 +1334,9 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive Y Limit"), 4.0 / 6.0);
 	direction = CVector3(0, -1, 0);
 	orthDirection = CVector3(0, 0, -1);
-        point = CVector3(0, outerBounding, 0);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	point = CVector3(0, outerBounding, 0);
+	dist =
+		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxY = point.y - dist;
 
 	// positive z limit
@@ -1339,8 +1344,9 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive Z Limit"), 5.0 / 6.0);
 	direction = CVector3(0, 0, -1);
 	orthDirection = CVector3(-1, 0, 0);
-        point = CVector3(0, 0, outerBounding);
-        dist = CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
+	point = CVector3(0, 0, outerBounding);
+	dist =
+		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxZ = point.z - dist;
 
 	double medX = (maxX + minX) / 2.0;
@@ -1727,8 +1733,10 @@ void cInterface::DataFolderUpgrade()
 			QObject::tr(
 				"In Mandelbulber 2.10 the default data structure changed for linux and MacOS:\n"
 				"Instead of keeping all working folders/files in ~/.mandelbulber these are now split\n"
-				" in .mandelbulber for program internal folders/files (undo, toolbar, queue, mandelbulber.ini)\n"
-				" and mandelbulber for user defined folders/files (settings, images, materials, slices, textures)\n"
+				" in .mandelbulber for program internal folders/files (undo, toolbar, queue,
+	mandelbulber.ini)\n"
+				" and mandelbulber for user defined folders/files (settings, images, materials, slices,
+	textures)\n"
 				" Do you want to upgrade now to this new structure?"),
 			QMessageBox::Yes | QMessageBox::No);
 

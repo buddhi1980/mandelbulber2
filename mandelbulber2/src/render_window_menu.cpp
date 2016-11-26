@@ -169,8 +169,7 @@ void RenderWindow::slotMenuLoadExample()
 		gMainInterface->materialListModel->Regenerate();
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
-		systemData.lastSettingsFile =
-			systemData.GetSettingsFolder() + QFileInfo(filename).fileName();
+		systemData.lastSettingsFile = systemData.GetSettingsFolder() + QFileInfo(filename).fileName();
 		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();

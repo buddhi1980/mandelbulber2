@@ -348,7 +348,8 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 }
 
 double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals &fractals,
-	const CVector3 planePoint, const CVector3 direction, const CVector3 orthDdirection, bool *stopRequest)
+	const CVector3 planePoint, const CVector3 direction, const CVector3 orthDdirection,
+	bool *stopRequest)
 {
 	// the plane is defined by the 'planePoint' and the orthogogonal 'direction'
 	// the method will return the minimum distance from the plane to the fractal
@@ -393,7 +394,8 @@ double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals
 			return 0;
 		}
 		gApplication->processEvents();
-		if(*stopRequest){
+		if (*stopRequest)
+		{
 			return 0;
 		}
 	}

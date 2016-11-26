@@ -147,7 +147,7 @@ enum enumFractalFormula
 	mengerCrossMod1 = 106,
 	// V2.10
 	mengerPrismShape2 = 107,
-	mixPinski4D =108,
+	mixPinski4D = 108,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

@@ -107,7 +107,8 @@ void cDockImageAdjustments::ConnectSignals()
 	connect(
 		ui->pushButton_quality_preset_high, SIGNAL(clicked()), this, SLOT(slotQualityPresetHigh()));
 
-	connect(ui->spinbox_brightness, SIGNAL(valueChanged(double)), this, SLOT(slotDisableAutoRefresh()));
+	connect(
+		ui->spinbox_brightness, SIGNAL(valueChanged(double)), this, SLOT(slotDisableAutoRefresh()));
 	connect(ui->spinbox_contrast, SIGNAL(valueChanged(double)), this, SLOT(slotDisableAutoRefresh()));
 	connect(ui->spinbox_gamma, SIGNAL(valueChanged(double)), this, SLOT(slotDisableAutoRefresh()));
 	connect(ui->checkBox_hdr, SIGNAL(stateChanged(int)), this, SLOT(slotDisableAutoRefresh()));

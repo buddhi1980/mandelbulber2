@@ -100,27 +100,35 @@ function checkFileHeader($filePath, &$fileContent, &$status){
 		$modificationString = getModificationInterval($filePath);
 
 		if(strpos($fileHeader, 'MKNmMMKmm') === false){
-			$regexParseHeader = '/^[\s\S]+Mandelbulber\sv2.*[\s\S]*?(\w.*)[\S\s]+';
-			$regexParseHeader .= 'General\sPublic[\S\s]+';
-			$regexParseHeader .= 'Authors:\s(.*)[\s\S]*?\*\/([\s\S]*)$/';
-			if(preg_match($regexParseHeader, $fileContent, $matchHeaderOld)){
+			// not a recent proper file header, try other known formats
+			// old format
+			$regexParseHeaderOld = '/^[\s\S]+Mandelbulber\sv2.*[\s\S]*?(\w.*)[\S\s]+';
+			$regexParseHeaderOld .= 'General\sPublic[\S\s]+';
+			$regexParseHeaderOld .= 'Authors:\s(.*)[\s\S]*?\*\/([\s\S]*)$/';
+                        $regexParseHeaderEclipse = '/^[\s\S]+Author:[\s\S]*?\*\/([\s\S]*)$/';
+			$regexParseHeaderAny = '/^[\s\S]+\*\s([\s\S]+)\*\/([\s\S]*)$/';
+		
+			if(preg_match($regexParseHeaderOld, $fileContent, $matchHeaderOld)){
 				$status[] = noticeString('header is old, will rewrite to new!');
 				$newFileContent = getFileHeader($matchHeaderOld[2], $matchHeaderOld[1], $modificationString) . $matchHeaderOld[3];
 				$fileContent = $newFileContent;
 				return true;
 			}
-			else{
-                            $regexParseHeader = '/^[\s\S]+Author:[\s\S]*?\*\/([\s\S]*)$/';
-                            if(preg_match($regexParseHeader, $fileContent, $matchHeaderOld)){
-                                    $status[] = noticeString('header is in eclipse format, will rewrite to new!');
-                                    $newFileContent = getFileHeader('Krzysztof Marczak (buddhi1980@gmail.com)', 'TODO: description', date('Y')) . $matchHeaderOld[1];
-                                    $fileContent = $newFileContent;
-                                    return true;
-                            }
-                            else{
-                                    $status[] = errorString('header unknown!');
-                            }
+			else if(preg_match($regexParseHeaderEclipse, $fileContent, $matchHeaderEclipse)){
+                            $status[] = noticeString('header is in eclipse format, will rewrite to new!');
+                            $newFileContent = getFileHeader('Krzysztof Marczak (buddhi1980@gmail.com)', 'TODO: description', date('Y')) . $matchHeaderEclipse[1];
+                            $fileContent = $newFileContent;
+                            return true;                           
 			}
+			else if(preg_match($regexParseHeaderAny, $fileContent, $matchHeaderAny)){
+                            $status[] = noticeString('header is unknown format, just copying contents of header!');
+                            $newFileContent = getFileHeader('### TODO: unknown author! ###', $matchHeaderAny[1], date('Y')) . $matchHeaderAny[2];
+                            $fileContent = $newFileContent;
+                            return true;                           
+			}
+			else{
+                            $status[] = errorString('header unknown!');
+       		        }
 		}
 		else{
 			$regexParseHeader = '/^[\s\S]+#{50}?[\S\s]+Authors:\s(.*)([\s\S]*?)\*\/([\s\S]*)$/';

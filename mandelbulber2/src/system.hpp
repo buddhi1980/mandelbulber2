@@ -71,15 +71,14 @@ using namespace std;
 struct sSystem
 {
 private:
-
 public:
-	QString GetQueueFractlistFile(){ return dataDirectory + "queue.fractlist"; }
-	QString GetQueueFolder(){ return dataDirectory + "queue"; }
-	QString GetSettingsFolder(){ return dataDirectory + "settings"; }
-	QString GetImagesFolder(){ return dataDirectory + "images"; }
-	QString GetSlicesFolder(){ return dataDirectory + "slices"; }
-	QString GetIniFile(){ return dataDirectory + "mandelbulber.ini"; }
-	QString GetToolbarFolder(){ return dataDirectory + "toolbar"; }
+	QString GetQueueFractlistFile() { return dataDirectory + "queue.fractlist"; }
+	QString GetQueueFolder() { return dataDirectory + "queue"; }
+	QString GetSettingsFolder() { return dataDirectory + "settings"; }
+	QString GetImagesFolder() { return dataDirectory + "images"; }
+	QString GetSlicesFolder() { return dataDirectory + "slices"; }
+	QString GetIniFile() { return dataDirectory + "mandelbulber.ini"; }
+	QString GetToolbarFolder() { return dataDirectory + "toolbar"; }
 
 	QString dataDirectory;
 	QString homedir;

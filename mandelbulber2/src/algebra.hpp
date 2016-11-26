@@ -240,9 +240,6 @@ inline CVector3 fabs(CVector3 v)
 	return v;
 }
 
-
-
-
 /******************* Structured vector 3D ****************/
 class StructuredCVector3
 {

@@ -75,9 +75,10 @@ void cAudioTrack::LoadAudio(const QString &filename)
 			return;
 		};
 
-		qDebug() << "channels:" << sfinfo.channels << "rate:" << sfinfo.samplerate << "samples:" << sfinfo.frames;
+		qDebug() << "channels:" << sfinfo.channels << "rate:" << sfinfo.samplerate
+						 << "samples:" << sfinfo.frames;
 
-		if(sfinfo.frames > 0)
+		if (sfinfo.frames > 0)
 		{
 			rawAudio.reserve(sfinfo.frames);
 			rawAudio.resize(sfinfo.frames);
@@ -85,12 +86,12 @@ void cAudioTrack::LoadAudio(const QString &filename)
 			float *tempBuff = new float[sfinfo.frames * sfinfo.channels];
 			sf_count_t readSamples = sf_readf_float(infile, tempBuff, sfinfo.frames);
 
-			for(int64_t i = 0; i < readSamples; i++)
+			for (int64_t i = 0; i < readSamples; i++)
 			{
 				float sample = 0.0;
-				for(int chan = 0; chan < sfinfo.channels; chan++)
+				for (int chan = 0; chan < sfinfo.channels; chan++)
 				{
-					sample += tempBuff[i *  sfinfo.channels + chan];
+					sample += tempBuff[i * sfinfo.channels + chan];
 				}
 				sample /= sfinfo.channels;
 				rawAudio[i] = sample;
@@ -104,7 +105,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 	}
 #endif
 
-if(!loaded)
+	if (!loaded)
 	{
 		QAudioFormat desiredFormat;
 		desiredFormat.setChannelCount(1);
