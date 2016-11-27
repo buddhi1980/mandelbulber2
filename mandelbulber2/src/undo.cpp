@@ -64,7 +64,7 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 	WriteLog("Autosave started", 2);
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
-	parSettings.SaveToFile(systemData.autosaveFile);
+	parSettings.SaveToFile(systemData.GetAutosaveFile());
 	WriteLog("Autosave finished", 2);
 
 	WriteLog("cUndo::Store() started", 2);

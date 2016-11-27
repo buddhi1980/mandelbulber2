@@ -113,7 +113,8 @@ PreviewFileDialog::~PreviewFileDialog()
 
 void PreviewFileDialog::OnPresetAdd()
 {
-	fcopy(filename, systemData.dataDirectory + "toolbar/" + QFileInfo(filename).fileName());
+	fcopy(
+		filename, systemData.GetToolbarFolder() + QDir::separator() + QFileInfo(filename).fileName());
 	gMainInterface->mainWindow->slotPopulateToolbar();
 }
 

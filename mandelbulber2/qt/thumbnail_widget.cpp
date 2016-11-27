@@ -309,7 +309,7 @@ void cThumbnailWidget::slotSetMinimumSize(int width, int height)
 
 QString cThumbnailWidget::GetThumbnailFileName()
 {
-	return systemData.thumbnailDir + hash + QString(".png");
+	return systemData.GetThumbnailsFolder() + QDir::separator() + hash + QString(".png");
 }
 
 int cThumbnailWidget::instanceCount = 0;

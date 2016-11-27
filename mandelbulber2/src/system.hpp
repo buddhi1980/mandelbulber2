@@ -71,7 +71,12 @@ using namespace std;
 struct sSystem
 {
 private:
+	QString dataDirectory;
+
 public:
+	void SetDataDirectory(QString target) { dataDirectory = target; }
+	QString GetDataDirectory() { return dataDirectory; }
+
 	QString GetQueueFractlistFile() { return dataDirectory + "queue.fractlist"; }
 	QString GetQueueFolder() { return dataDirectory + "queue"; }
 	QString GetSettingsFolder() { return dataDirectory + "settings"; }
@@ -79,16 +84,17 @@ public:
 	QString GetSlicesFolder() { return dataDirectory + "slices"; }
 	QString GetIniFile() { return dataDirectory + "mandelbulber.ini"; }
 	QString GetToolbarFolder() { return dataDirectory + "toolbar"; }
+	QString GetMaterialsFolder() { return dataDirectory + "materials"; }
 
-	QString dataDirectory;
+	QString GetThumbnailsFolder() { return dataDirectory + "thumbnails"; }
+	QString GetAutosaveFile() { return dataDirectory + ".autosave.fract"; }
+
 	QString homedir;
 	QString sharedDir;
 	QString logfileName;
 	QString lastSettingsFile;
 	QString lastImageFile;
 	QString lastImagePaletteFile;
-	QString thumbnailDir;
-	QString autosaveFile;
 	QHash<QString, QString> supportedLanguages;
 	int numberOfThreads;
 	bool noGui;

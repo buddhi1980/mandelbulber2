@@ -1680,7 +1680,7 @@ bool cInterface::QuitApplicationDialog()
 				gApplication->processEvents();
 			}
 
-			QFile::remove(systemData.autosaveFile);
+			QFile::remove(systemData.GetAutosaveFile());
 
 			gApplication->quit();
 			quit = true;
@@ -1693,7 +1693,7 @@ bool cInterface::QuitApplicationDialog()
 
 void cInterface::AutoRecovery()
 {
-	if (QFile::exists(systemData.autosaveFile))
+	if (QFile::exists(systemData.GetAutosaveFile()))
 	{
 		// autorecovery dialog
 		QMessageBox::StandardButton reply;
@@ -1706,7 +1706,7 @@ void cInterface::AutoRecovery()
 		if (reply == QMessageBox::Yes)
 		{
 			cSettings parSettings(cSettings::formatFullText);
-			parSettings.LoadFromFile(systemData.autosaveFile);
+			parSettings.LoadFromFile(systemData.GetAutosaveFile());
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gMainInterface->RebuildPrimitives(gPar);
 			gMainInterface->materialListModel->Regenerate();

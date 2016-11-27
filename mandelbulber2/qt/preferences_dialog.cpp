@@ -148,7 +148,7 @@ void cPreferencesDialog::on_pushButton_select_textures_path_clicked()
 
 void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 {
-	QDir thumbnailDir(systemData.thumbnailDir);
+	QDir thumbnailDir(systemData.GetThumbnailsFolder());
 	thumbnailDir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
 	int thumbnailDirCount = thumbnailDir.count();
 
@@ -163,7 +163,8 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 	if (reply == QMessageBox::Yes)
 	{
 		// match exact 32 char hash images, example filename: c0ad626d8c25ab6a25c8d19a53960c8a.png
-		DeleteAllFilesFromDirectory(systemData.thumbnailDir, "????????????????????????????????.*");
+		DeleteAllFilesFromDirectory(
+			systemData.GetThumbnailsFolder(), "????????????????????????????????.*");
 	}
 	else
 	{
@@ -183,7 +184,7 @@ void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked()
 	{
 		cFileDownloader fileDownloader(
 			QString("http://cdn.mandelbulber.org/thumbnail/%1").arg(MANDELBULBER_VERSION_STRING),
-			systemData.thumbnailDir);
+			systemData.GetThumbnailsFolder());
 		QObject::connect(&fileDownloader,
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			gMainInterface->mainWindow,

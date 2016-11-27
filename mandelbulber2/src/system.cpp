@@ -105,27 +105,22 @@ bool InitSystem(void)
 
 // data directory location
 #ifdef WIN32 /* WINDOWS */
-	systemData.dataDirectory = systemData.homedir + "mandelbulber" + QDir::separator();
+	systemData.SetDataDirectory(systemData.homedir + "mandelbulber" + QDir::separator());
 #else
-	systemData.dataDirectory =
-		QDir::toNativeSeparators(systemData.homedir + ".mandelbulber" + QDir::separator());
+	systemData.SetDataDirectory(
+		QDir::toNativeSeparators(systemData.homedir + ".mandelbulber" + QDir::separator()));
 #endif
-	out << "Default data directory: " << systemData.dataDirectory << endl;
-	WriteLogString("Default data directory", systemData.dataDirectory, 1);
-
-	systemData.thumbnailDir =
-		QDir::toNativeSeparators(systemData.dataDirectory + "thumbnails" + QDir::separator());
-
-	systemData.autosaveFile = QDir::toNativeSeparators(systemData.dataDirectory + ".autosave.fract");
+	out << "Default data directory: " << systemData.GetDataDirectory() << endl;
+	WriteLogString("Default data directory", systemData.GetDataDirectory(), 1);
 
 	//*********** temporary set to false ************
 	systemData.noGui = false;
 	systemData.silent = false;
 
 	systemData.lastSettingsFile = QDir::toNativeSeparators(
-		systemData.dataDirectory + "settings" + QDir::separator() + QString("settings.fract"));
+		systemData.GetSettingsFolder() + QDir::separator() + QString("settings.fract"));
 	systemData.lastImageFile = QDir::toNativeSeparators(
-		systemData.dataDirectory + "images" + QDir::separator() + QString("image.jpg"));
+		systemData.GetImagesFolder() + QDir::separator() + QString("image.jpg"));
 	systemData.lastImagePaletteFile = QDir::toNativeSeparators(
 		systemData.sharedDir + "textures" + QDir::separator() + QString("colour palette.jpg"));
 
@@ -216,17 +211,18 @@ bool CreateDefaultFolders(void)
 	// create data directory if not exists
 	bool result = true;
 
-	result &= CreateFolder(systemData.dataDirectory);
-	result &= CreateFolder(systemData.dataDirectory + "images");
-	result &= CreateFolder(systemData.dataDirectory + "keyframes");
-	result &= CreateFolder(systemData.dataDirectory + "paths");
-	result &= CreateFolder(systemData.dataDirectory + "undo");
-	result &= CreateFolder(systemData.dataDirectory + "paths");
-	result &= CreateFolder(systemData.dataDirectory + "thumbnails");
-	result &= CreateFolder(systemData.dataDirectory + "toolbar");
-	result &= CreateFolder(systemData.dataDirectory + "settings");
-	result &= CreateFolder(systemData.dataDirectory + "slices");
-	result &= CreateFolder(systemData.dataDirectory + "materials");
+	result &= CreateFolder(systemData.GetDataDirectory());
+	result &= CreateFolder(systemData.GetImagesFolder());
+	result &= CreateFolder(systemData.GetThumbnailsFolder());
+	result &= CreateFolder(systemData.GetToolbarFolder());
+	result &= CreateFolder(systemData.GetSettingsFolder());
+	result &= CreateFolder(systemData.GetSlicesFolder());
+	result &= CreateFolder(systemData.GetMaterialsFolder());
+
+	// TODO: what to do with the following now unnecessary folders?
+	// result &= CreateFolder(systemData.dataDirectory + "keyframes");
+	// result &= CreateFolder(systemData.dataDirectory + "paths");
+	// result &= CreateFolder(systemData.dataDirectory + "undo");
 
 	RetrieveToolbarPresets(false);
 	RetrieveExampleMaterials(false);
@@ -550,7 +546,7 @@ void UpdateLanguage(QCoreApplication *app)
 
 void RetrieveToolbarPresets(bool force)
 {
-	if (QDir(systemData.dataDirectory + "toolbar")
+	if (QDir(systemData.GetToolbarFolder())
 					.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries)
 					.count()
 				== 0
@@ -562,15 +558,15 @@ void RetrieveToolbarPresets(bool force)
 		{
 			toolbarFiles.next();
 			if (toolbarFiles.fileName() == "." || toolbarFiles.fileName() == "..") continue;
-			fcopy(
-				toolbarFiles.filePath(), systemData.dataDirectory + "toolbar/" + toolbarFiles.fileName());
+			fcopy(toolbarFiles.filePath(),
+				systemData.GetToolbarFolder() + QDir::separator() + toolbarFiles.fileName());
 		}
 	}
 }
 
 void RetrieveExampleMaterials(bool force)
 {
-	if (QDir(systemData.dataDirectory + "materials")
+	if (QDir(systemData.GetMaterialsFolder())
 					.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries)
 					.count()
 				== 0
@@ -583,7 +579,7 @@ void RetrieveExampleMaterials(bool force)
 			materialFiles.next();
 			if (materialFiles.fileName() == "." || materialFiles.fileName() == "..") continue;
 			fcopy(materialFiles.filePath(),
-				systemData.dataDirectory + "materials/" + materialFiles.fileName());
+				systemData.GetMaterialsFolder() + QDir::separator() + materialFiles.fileName());
 		}
 	}
 }

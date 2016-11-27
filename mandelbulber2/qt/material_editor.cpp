@@ -190,8 +190,10 @@ void cMaterialEditor::slotPressedButtonGetPaletteFromImage()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(QDir::toNativeSeparators(
-		systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator()));
+	// dialog.setDirectory(QDir::toNativeSeparators(
+	// 	systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator()));
+	// there is no texture folder in data folder, is images folder OK?
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator()));
 	dialog.selectFile(QDir::toNativeSeparators(systemData.lastImagePaletteFile));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select image to grab colors..."));

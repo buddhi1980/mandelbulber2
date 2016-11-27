@@ -69,7 +69,8 @@ QPixmap cThumbnail::Render()
 		hash = tempSettings.GetHashCode();
 	}
 
-	QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
+	QString thumbnailFileName =
+		systemData.GetThumbnailsFolder() + QDir::separator() + hash + QString(".png");
 	if (QFileInfo::exists(thumbnailFileName))
 	{
 		pixmap.load(thumbnailFileName);
