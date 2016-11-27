@@ -72,8 +72,13 @@ struct sSystem
 {
 private:
 	QString dataDirectory;
+	QString dataDirectoryHidden;
 
 public:
+	bool IsUpgraded(){ return QDir(GetImagesFolder()).exists(); }
+	void Upgrade(){
+		// TODO
+	}
 	void SetDataDirectory(QString target) { dataDirectory = target; }
 	QString GetDataDirectory() { return dataDirectory; }
 
@@ -85,6 +90,7 @@ public:
 	QString GetIniFile() { return dataDirectory + "mandelbulber.ini"; }
 	QString GetToolbarFolder() { return dataDirectory + "toolbar"; }
 	QString GetMaterialsFolder() { return dataDirectory + "materials"; }
+	QString GetAnimationFolder() { return dataDirectory + "animation"; }
 
 	QString GetThumbnailsFolder() { return dataDirectory + "thumbnails"; }
 	QString GetAutosaveFile() { return dataDirectory + ".autosave.fract"; }

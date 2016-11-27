@@ -218,11 +218,7 @@ bool CreateDefaultFolders(void)
 	result &= CreateFolder(systemData.GetSettingsFolder());
 	result &= CreateFolder(systemData.GetSlicesFolder());
 	result &= CreateFolder(systemData.GetMaterialsFolder());
-
-	// TODO: what to do with the following now unnecessary folders?
-	// result &= CreateFolder(systemData.dataDirectory + "keyframes");
-	// result &= CreateFolder(systemData.dataDirectory + "paths");
-	// result &= CreateFolder(systemData.dataDirectory + "undo");
+	result &= CreateFolder(systemData.GetAnimationFolder());
 
 	RetrieveToolbarPresets(false);
 	RetrieveExampleMaterials(false);
