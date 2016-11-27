@@ -75,25 +75,25 @@ private:
 	QString dataDirectoryHidden;
 
 public:
-	bool IsUpgraded(){ return QDir(GetImagesFolder()).exists(); }
+	bool IsUpgraded() const { return QDir(GetImagesFolder()).exists(); }
 	void Upgrade(){
 		// TODO
 	}
 	void SetDataDirectory(QString target) { dataDirectory = target; }
-	QString GetDataDirectory() { return dataDirectory; }
+	QString GetDataDirectory() const { return dataDirectory; }
 
-	QString GetQueueFractlistFile() { return dataDirectory + "queue.fractlist"; }
-	QString GetQueueFolder() { return dataDirectory + "queue"; }
-	QString GetSettingsFolder() { return dataDirectory + "settings"; }
-	QString GetImagesFolder() { return dataDirectory + "images"; }
-	QString GetSlicesFolder() { return dataDirectory + "slices"; }
-	QString GetIniFile() { return dataDirectory + "mandelbulber.ini"; }
-	QString GetToolbarFolder() { return dataDirectory + "toolbar"; }
-	QString GetMaterialsFolder() { return dataDirectory + "materials"; }
-	QString GetAnimationFolder() { return dataDirectory + "animation"; }
+	QString GetQueueFractlistFile() const { return dataDirectory + "queue.fractlist"; }
+	QString GetQueueFolder() const { return dataDirectory + "queue"; }
+	QString GetSettingsFolder() const { return dataDirectory + "settings"; }
+	QString GetImagesFolder() const { return dataDirectory + "images"; }
+	QString GetSlicesFolder() const { return dataDirectory + "slices"; }
+	QString GetIniFile() const { return dataDirectory + "mandelbulber.ini"; }
+	QString GetToolbarFolder() const { return dataDirectory + "toolbar"; }
+	QString GetMaterialsFolder() const { return dataDirectory + "materials"; }
+	QString GetAnimationFolder() const { return dataDirectory + "animation"; }
 
-	QString GetThumbnailsFolder() { return dataDirectory + "thumbnails"; }
-	QString GetAutosaveFile() { return dataDirectory + ".autosave.fract"; }
+	QString GetThumbnailsFolder() const { return dataDirectory + "thumbnails"; }
+	QString GetAutosaveFile() const { return dataDirectory + ".autosave.fract"; }
 
 	QString homedir;
 	QString sharedDir;

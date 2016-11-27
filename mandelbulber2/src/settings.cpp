@@ -277,7 +277,7 @@ QString cSettings::CreateOneLine(const cParameterContainer *par, QString name)
 	return text;
 }
 
-bool cSettings::SaveToFile(QString filename)
+bool cSettings::SaveToFile(QString filename) const
 {
 	WriteLogString("Saving settings started", filename, 2);
 	QFile qfile(filename);
@@ -697,7 +697,7 @@ bool cSettings::CheckSection(QString text, QString &section)
 	return false;
 }
 
-void cSettings::Compatibility(QString &name, QString &value)
+void cSettings::Compatibility(QString &name, QString &value) const
 {
 	if (fileVersion <= 2.01)
 	{
@@ -1032,7 +1032,7 @@ bool cSettings::DecodeFramesLine(
 	return true;
 }
 
-QString cSettings::GetSettingsText()
+QString cSettings::GetSettingsText() const
 {
 	if (textPrepared)
 	{

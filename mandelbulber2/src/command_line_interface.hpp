@@ -78,15 +78,15 @@ public:
 
 	void ReadCLI(void);
 	void ProcessCLI(void);
-	bool isNoGUI(void) { return cliData.nogui; }
+	bool isNoGUI(void) const { return cliData.nogui; }
 
 private:
 	// ## helper methods for ReadCLI
 	// arguments to cause print and exit
-	void printExampleHelpAndExit();
-	void printInputHelpAndExit();
+	void printExampleHelpAndExit() const;
+	void printInputHelpAndExit() const;
 	void printParametersAndExit();
-	void runTestCasesAndExit();
+	void runTestCasesAndExit() const;
 
 	// argument handling methods
 	void handleServer();

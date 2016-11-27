@@ -60,7 +60,7 @@ public:
 	cSettings(enumFormat _format);
 	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
 		cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
-	bool SaveToFile(QString filename);
+	bool SaveToFile(QString filename) const;
 	void SaveToClipboard();
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
@@ -69,7 +69,7 @@ public:
 		cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
 	QString GetHashCode() { return hash.toHex(); }
 	void BeQuiet(bool _quiet) { quiet = _quiet; }
-	QString GetSettingsText();
+	QString GetSettingsText() const;
 
 private:
 	QString CreateHeader(void);
@@ -77,7 +77,7 @@ private:
 	QString CreateOneLine(const cParameterContainer *par, QString name);
 	bool DecodeOneLine(cParameterContainer *par, QString line);
 	bool CheckSection(QString text, QString &section);
-	void Compatibility(QString &name, QString &value);
+	void Compatibility(QString &name, QString &value) const;
 	void Compatibility2(cParameterContainer *par, cFractalContainer *fract);
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const cAnimationFrames *frames);

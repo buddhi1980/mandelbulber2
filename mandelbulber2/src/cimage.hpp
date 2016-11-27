@@ -44,7 +44,10 @@
 struct sImageOptional
 {
 	sImageOptional() : optionalNormal(false) {}
-	inline bool operator==(sImageOptional other) { return other.optionalNormal == optionalNormal; }
+	inline bool operator==(sImageOptional other) const
+	{
+		return other.optionalNormal == optionalNormal;
+	}
 
 	bool optionalNormal;
 };
@@ -66,16 +69,16 @@ public:
 	void construct(void);
 
 	~cImage();
-	bool IsAllocated() { return isAllocated; }
+	bool IsAllocated() const { return isAllocated; }
 	bool ChangeSize(int w, int h, sImageOptional optional);
 	void ClearImage(void);
 
-	bool IsUsed() { return isUsed; }
+	bool IsUsed() const { return isUsed; }
 	void BlockImage() { isUsed = true; }
 	void ReleaseImage() { isUsed = false; }
 
 	void SetAsMainImage() { isMainImage = true; }
-	bool IsMainImage() { return isMainImage; }
+	bool IsMainImage() const { return isMainImage; }
 
 	inline void PutPixelImage(int x, int y, sRGBfloat pixel)
 	{
@@ -105,75 +108,75 @@ public:
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height) normalFloat[x + y * width] = normal;
 	}
-	inline sRGBfloat GetPixelImage(int x, int y)
+	inline sRGBfloat GetPixelImage(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return imageFloat[x + y * width];
 		else
 			return BlackFloat();
 	}
-	inline sRGB16 GetPixelImage16(int x, int y)
+	inline sRGB16 GetPixelImage16(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return image16[x + y * width];
 		else
 			return Black16();
 	}
-	inline sRGB8 GetPixelImage8(int x, int y)
+	inline sRGB8 GetPixelImage8(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return image8[x + y * width];
 		else
 			return Black8();
 	}
-	inline unsigned short int GetPixelAlpha(int x, int y)
+	inline unsigned short int GetPixelAlpha(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return alphaBuffer16[x + y * width];
 		else
 			return 0;
 	}
-	inline unsigned char GetPixelAlpha8(int x, int y)
+	inline unsigned char GetPixelAlpha8(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return alphaBuffer8[x + y * width];
 		else
 			return 0;
 	}
-	inline unsigned short int GetPixelOpacity(int x, int y)
+	inline unsigned short int GetPixelOpacity(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return opacityBuffer[x + y * width];
 		else
 			return 0;
 	}
-	inline sRGB8 GetPixelColor(int x, int y)
+	inline sRGB8 GetPixelColor(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return colourBuffer[x + y * width];
 		else
 			return Black8();
 	}
-	inline float GetPixelZBuffer(int x, int y)
+	inline float GetPixelZBuffer(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return zBuffer[x + y * width];
 		else
 			return 1e20;
 	}
-	inline sRGBfloat GetPixelNormal(int x, int y)
+	inline sRGBfloat GetPixelNormal(int x, int y) const
 	{
 		if (!opt.optionalNormal) return BlackFloat();
 		if (x >= 0 && x < width && y >= 0 && y < height) return normalFloat[x + y * width];
 		return BlackFloat();
 	}
-	inline sRGB16 GetPixelNormal16(int x, int y)
+	inline sRGB16 GetPixelNormal16(int x, int y) const
 	{
 		if (!opt.optionalNormal) return Black16();
 		if (x >= 0 && x < width && y >= 0 && y < height) return normal16[x + y * width];
 		return Black16();
 	}
-	inline sRGB8 GetPixelNormal8(int x, int y)
+	inline sRGB8 GetPixelNormal8(int x, int y) const
 	{
 		if (!opt.optionalNormal) return Black8();
 		if (x >= 0 && x < width && y >= 0 && y < height) return normal8[x + y * width];
@@ -208,18 +211,18 @@ public:
 	float *GetZBufferPtr(void) { return zBuffer; }
 	sRGB8 *GetColorPtr(void) { return colourBuffer; }
 	unsigned short *GetOpacityPtr(void) { return opacityBuffer; }
-	size_t GetZBufferSize(void) { return sizeof(float) * height * width; }
+	size_t GetZBufferSize(void) const { return sizeof(float) * height * width; }
 	QWidget *GetImageWidget(void) { return imageWidget; }
 
 	void CompileImage(QList<int> *list = NULL);
 
-	int GetWidth(void) { return width; }
-	int GetHeight(void) { return height; }
-	int GetPreviewWidth(void) { return previewWidth; }
-	int GetPreviewHeight(void) { return previewHeight; }
-	int GetPreviewVisibleWidth(void) { return previewVisibleWidth; }
-	int GetPreviewVisibleHeight(void) { return previewVisibleHeight; }
-	int GetUsedMB(void);
+	int GetWidth(void) const { return width; }
+	int GetHeight(void) const { return height; }
+	int GetPreviewWidth(void) const { return previewWidth; }
+	int GetPreviewHeight(void) const { return previewHeight; }
+	int GetPreviewVisibleWidth(void) const { return previewVisibleWidth; }
+	int GetPreviewVisibleHeight(void) const { return previewVisibleHeight; }
+	int GetUsedMB(void) const;
 	void SetImageParameters(sImageAdjustments adjustments);
 	sImageAdjustments *GetImageAdjustments(void) { return &adj; }
 	void SetImageOptional(sImageOptional opt) { this->opt = opt; }
@@ -233,9 +236,9 @@ public:
 	void UpdatePreview(QList<int> *list = NULL);
 	unsigned char *GetPreviewPtr(void);
 	unsigned char *GetPreviewPrimaryPtr(void);
-	bool IsPreview(void);
+	bool IsPreview(void) const;
 	void RedrawInWidget(QWidget *qwidget = NULL);
-	double GetPreviewScale() { return previewScale; }
+	double GetPreviewScale() const { return previewScale; }
 	void Squares(int y, int progressiveFactor);
 	void CalculateGammaTable(void);
 	sRGB16 CalculatePixel(sRGBfloat pixel);
@@ -251,12 +254,12 @@ public:
 
 private:
 	bool isAllocated;
-	sRGB8 Interpolation(float x, float y);
+	sRGB8 Interpolation(float x, float y) const;
 	bool AllocMem(void);
 	void FreeImage(void);
-	inline sRGB16 Black16(void) { return sRGB16(0, 0, 0); }
-	inline sRGB8 Black8(void) { return sRGB8(0, 0, 0); }
-	inline sRGBfloat BlackFloat(void) { return sRGBfloat(0, 0, 0); }
+	inline sRGB16 Black16(void) const { return sRGB16(0, 0, 0); }
+	inline sRGB8 Black8(void) const { return sRGB8(0, 0, 0); }
+	inline sRGBfloat BlackFloat(void) const { return sRGBfloat(0, 0, 0); }
 
 	sRGB8 *image8;
 	sRGB16 *image16;

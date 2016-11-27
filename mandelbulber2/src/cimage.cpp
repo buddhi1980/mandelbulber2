@@ -291,7 +291,7 @@ void cImage::CompileImage(QList<int> *list)
 	}
 }
 
-int cImage::GetUsedMB(void)
+int cImage::GetUsedMB(void) const
 {
 	long int mb = 0;
 
@@ -368,7 +368,7 @@ unsigned char *cImage::ConvertNormalto8Bit(void)
 	return (unsigned char *)normal8;
 }
 
-sRGB8 cImage::Interpolation(float x, float y)
+sRGB8 cImage::Interpolation(float x, float y) const
 {
 	sRGB8 colour = sRGB8(0, 0, 0);
 	if (x >= 0 && x < width - 1 && y >= 0 && y < height - 1)
@@ -533,7 +533,7 @@ unsigned char *cImage::GetPreviewPrimaryPtr(void)
 	return ptr;
 }
 
-bool cImage::IsPreview(void)
+bool cImage::IsPreview(void) const
 {
 	if (previewAllocated)
 	{

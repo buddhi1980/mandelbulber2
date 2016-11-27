@@ -383,7 +383,7 @@ void cCommandLineInterface::ProcessCLI(void)
 	}
 }
 
-void cCommandLineInterface::printExampleHelpAndExit()
+void cCommandLineInterface::printExampleHelpAndExit() const
 {
 	QTextStream out(stdout);
 	out << cHeadless::colorize(QObject::tr("Some useful example commands:"), cHeadless::ansiRed)
@@ -446,7 +446,7 @@ void cCommandLineInterface::printExampleHelpAndExit()
 	exit(0);
 }
 
-void cCommandLineInterface::printInputHelpAndExit()
+void cCommandLineInterface::printInputHelpAndExit() const
 {
 	QTextStream out(stdout);
 	out << QObject::tr(
@@ -493,7 +493,7 @@ void cCommandLineInterface::printParametersAndExit()
 	exit(0);
 }
 
-void cCommandLineInterface::runTestCasesAndExit()
+void cCommandLineInterface::runTestCasesAndExit() const
 {
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--test"));

@@ -120,7 +120,7 @@ cOneParameter cMorph::Interpolate(const int keyframe, double factor)
 	}
 }
 
-cOneParameter cMorph::None(const int key)
+cOneParameter cMorph::None(const int key) const
 {
 	return dataSets[key].parameter;
 }

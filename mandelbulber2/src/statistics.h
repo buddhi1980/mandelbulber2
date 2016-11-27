@@ -50,14 +50,14 @@ public:
 	double time;
 	QString usedDEType;
 
-	double GetTotalNumberOfIterations() { return totalNumberOfIterations; }
-	double GetNumberOfIterationsPerPixel()
+	double GetTotalNumberOfIterations() const { return totalNumberOfIterations; }
+	double GetNumberOfIterationsPerPixel() const
 	{
 		return (double)totalNumberOfIterations / numberOfRenderedPixels;
 	}
-	double GetNumberOfIterationsPerSecond() { return (double)totalNumberOfIterations / time; }
-	double GetMissedDEPercentage() { return (double)missedDE / numberOfRaymarchings * 100.0; }
-	QString GetDETypeString() { return usedDEType; }
+	double GetNumberOfIterationsPerSecond() const { return (double)totalNumberOfIterations / time; }
+	double GetMissedDEPercentage() const { return (double)missedDE / numberOfRaymarchings * 100.0; }
+	QString GetDETypeString() const { return usedDEType; }
 	void Reset();
 };
 

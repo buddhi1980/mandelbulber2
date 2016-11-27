@@ -61,7 +61,7 @@ void cStereo::SetMode(enumStereoMode mode)
 }
 
 CVector3 cStereo::CalcEyePosition(
-	CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye)
+	CVector3 camera, CVector3 direction, CVector3 top, double distance, enumEye eye) const
 {
 	if (swapped) distance *= -1.0;
 	CVector3 eyePosition;
@@ -90,7 +90,7 @@ sRGB16 cStereo::MixColorsRedCyan16(sRGB16 left, sRGB16 right)
 	return color;
 }
 
-CVector2<int> cStereo::ModifyImageResolution(CVector2<int> resolution)
+CVector2<int> cStereo::ModifyImageResolution(CVector2<int> resolution) const
 {
 	CVector2<int> newResolution;
 	switch (stereoMode)
@@ -109,7 +109,7 @@ CVector2<int> cStereo::ModifyImageResolution(CVector2<int> resolution)
 	return newResolution;
 }
 
-CVector2<double> cStereo::ModifyImagePoint(CVector2<double> imagePoint)
+CVector2<double> cStereo::ModifyImagePoint(CVector2<double> imagePoint) const
 {
 	CVector2<double> newImagePoint;
 	switch (stereoMode)
@@ -128,7 +128,7 @@ CVector2<double> cStereo::ModifyImagePoint(CVector2<double> imagePoint)
 	return newImagePoint;
 }
 
-cStereo::enumEye cStereo::WhichEye(CVector2<double> imagePoint)
+cStereo::enumEye cStereo::WhichEye(CVector2<double> imagePoint) const
 {
 	enumEye eye;
 	switch (stereoMode)
@@ -141,7 +141,7 @@ cStereo::enumEye cStereo::WhichEye(CVector2<double> imagePoint)
 	return eye;
 }
 
-double cStereo::ModifyAspectRatio(double aspectRatio)
+double cStereo::ModifyAspectRatio(double aspectRatio) const
 {
 	double newAspectRatio = 1.0;
 
@@ -155,7 +155,7 @@ double cStereo::ModifyAspectRatio(double aspectRatio)
 	return newAspectRatio;
 }
 
-int cStereo::GetNumberOfRepeats()
+int cStereo::GetNumberOfRepeats() const
 {
 	if (stereoMode == stereoRedCyan && forceEye == eyeNone)
 	{
@@ -167,7 +167,7 @@ int cStereo::GetNumberOfRepeats()
 	}
 }
 
-void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat)
+void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat) const
 {
 	if (stereoMode == stereoRedCyan)
 	{
@@ -181,7 +181,7 @@ void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat)
 	// else do not modify eye selection
 }
 
-cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye)
+cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye) const
 {
 	cRegion<int> region;
 
@@ -208,7 +208,7 @@ cRegion<int> cStereo::GetRegion(CVector2<int> imageResolution, enumEye eye)
 
 void cStereo::ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
 	const CRotationMatrix &mRotInv, enumEye eye, params::enumPerspectiveType perspType,
-	CVector3 *viewVector)
+	CVector3 *viewVector) const
 {
 	if (swapped) correction *= -1.0;
 	CVector3 viewVectorTemp = *viewVector;
