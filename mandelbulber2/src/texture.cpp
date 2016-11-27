@@ -230,7 +230,7 @@ cTexture::~cTexture(void)
 }
 
 // read pixel
-sRGBfloat cTexture::Pixel(double x, double y, double pixelSize)
+sRGBfloat cTexture::Pixel(double x, double y, double pixelSize) const
 {
 	if (x >= 0 && x < width && y >= 0 && y < height - 1.0)
 	{
@@ -259,7 +259,7 @@ sRGBfloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
 	return MipMap(point.x, point.y, pixelSize);
 }
 
-sRGBA16 cTexture::LinearInterpolation(double x, double y)
+sRGBA16 cTexture::LinearInterpolation(double x, double y) const
 {
 	sRGBA16 color;
 	int ix = (int)x;
@@ -318,7 +318,7 @@ sRGBfloat cTexture::BicubicInterpolation(
 	return sRGBfloat((float)(dR / 65536.0), (float)(dG / 65536.0), (float)(dB / 65536.0));
 }
 
-sRGBA16 cTexture::FastPixel(int x, int y)
+sRGBA16 cTexture::FastPixel(int x, int y) const
 {
 	return bitmap[x + y * width];
 }

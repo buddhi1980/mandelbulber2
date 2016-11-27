@@ -81,15 +81,15 @@ public:
 	void SetMorphType(enumMorphType _morphType) { morphType = _morphType; }
 	void SetOriginalContainerName(const QString &containerName) { originalContainer = containerName; }
 	bool isDefaultValue() const;
-	cMultiVal GetMultival(enumValueSelection selection);
+	cMultiVal GetMultival(enumValueSelection selection) const;
 	void SetMultival(cMultiVal multi, enumValueSelection selection);
-	bool IsEmpty() { return isEmpty; }
+	bool IsEmpty() const { return isEmpty; }
 
 	template <class T>
 	void Set(T val, enumValueSelection selection);
 	template <class T>
 	T Get(enumValueSelection selection) const;
-	void LimitValue(cMultiVal &multi);
+	void LimitValue(cMultiVal &multi) const;
 
 private:
 	// parameter data

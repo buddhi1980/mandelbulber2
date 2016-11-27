@@ -188,6 +188,7 @@ int main(int argc, char *argv[])
 		gMainInterface->ComboMouseClickUpdate();
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
+		gMainInterface->DataFolderUpgrade();
 		gMainInterface->AutoRecovery();
 		gMainInterface->InitPeriodicRefresh();
 	}

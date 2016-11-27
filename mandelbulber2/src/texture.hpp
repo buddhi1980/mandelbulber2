@@ -63,20 +63,20 @@ public:
 	cTexture &operator=(const cTexture &tex);
 
 	~cTexture(void);
-	int Height(void) { return height; }
-	int Width(void) { return width; }
-	sRGBfloat Pixel(double x, double y, double pixelSize = 0.0);
+	int Height(void) const { return height; }
+	int Width(void) const { return width; }
+	sRGBfloat Pixel(double x, double y, double pixelSize = 0.0) const;
 	sRGBfloat Pixel(CVector2<double> point, double pixelSize = 0.0) const;
-	sRGBA16 FastPixel(int x, int y);
+	sRGBA16 FastPixel(int x, int y) const;
 	bool IsLoaded(void) const { return loaded; }
-	QString GetFileName() { return originalFileName; }
+	QString GetFileName() const { return originalFileName; }
 	void FromQByteArray(QByteArray *buffer, enumUseMipmaps mode);
 	CVector3 NormalMapFromBumpMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
 	CVector3 NormalMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
 	void SetInvertGreen(bool invert) { invertGreen = invert; }
 
 private:
-	sRGBA16 LinearInterpolation(double x, double y);
+	sRGBA16 LinearInterpolation(double x, double y) const;
 	sRGBfloat BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h) const;
 	sRGBfloat MipMap(double x, double y, double pixelSize) const;
 	void CreateMipMaps();

@@ -77,8 +77,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
 	par->addParam("flight_animation_image_type", 0, morphNone, paramApp);
-	par->addParam(
-		"anim_flight_dir", systemData.GetImagesFolder() + QDir::separator(), morphNone, paramStandard);
+	par->addParam("anim_flight_dir", systemData.GetAnimationFolder() + QDir::separator(), morphNone,
+		paramStandard);
 
 	// keyframe animation
 	par->addParam("frames_per_keyframe", 100, 1, 99999, morphNone, paramStandard);
@@ -86,7 +86,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("keyframe_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
 	par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
 	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp);
-	par->addParam("anim_keyframe_dir", systemData.GetImagesFolder() + QDir::separator(), morphNone,
+	par->addParam("anim_keyframe_dir", systemData.GetAnimationFolder() + QDir::separator(), morphNone,
 		paramStandard);
 	par->addParam("keyframe_collision_thresh", 1.0e-6, 1e-15, 1.0e2, morphNone, paramStandard);
 	par->addParam("keyframe_auto_validate", true, morphNone, paramApp);
@@ -410,6 +410,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("queue_image_format", 0, morphNone, paramApp);
 
 	par->addParam("quit_do_not_ask_again", false, morphNone, paramApp);
+	par->addParam("upgrade_do_not_ask_again", false, morphNone, paramApp);
 	par->addParam("description_popup_do_not_show_again", false, morphNone, paramApp);
 	par->addParam("system_tray_notify", false, morphNone, paramApp);
 

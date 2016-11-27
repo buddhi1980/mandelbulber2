@@ -1723,32 +1723,52 @@ void cInterface::AutoRecovery()
 
 void cInterface::DataFolderUpgrade()
 {
-	/* TODO
-	if (systemData.IsUpgraded())
-	{
-		// autorecovery dialog
-		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainWindow->ui->centralwidget, QObject::tr("Data folder upgrade"),
-			QObject::tr(
+	if (systemData.IsUpgraded()) return; // already upgraded, nothing to do
+	bool upgradeDoNotAskAgain = gPar->Get<bool>("upgrade_do_not_ask_again");
+	if (upgradeDoNotAskAgain) return; // user does not want to upgrade ever
+
+	QAbstractButton *btnNoAndDoNotAskAgain = NULL;
+	QMessageBox *messageBox = new QMessageBox(mainWindow);
+	QString messageText = QObject::tr(
 				"In Mandelbulber 2.10 the default data structure changed for linux and MacOS:\n"
 				"Instead of keeping all working folders/files in ~/.mandelbulber these are now split\n"
-				" in .mandelbulber for program internal folders/files (undo, toolbar, queue,
-	mandelbulber.ini)\n"
-				" and mandelbulber for user defined folders/files (settings, images, materials, slices,
-	textures)\n"
-				" Do you want to upgrade now to this new structure?"),
-			QMessageBox::Yes | QMessageBox::No);
+				"into .mandelbulber for program internal folders/files (undo, toolbar, queue, mandelbulber.ini)\n"
+				"and mandelbulber for user defined folders/files (settings, images, materials, slices, textures)\n"
+				"Do you want to upgrade now to this new structure?"
+				);
+	messageBox->setText(messageText);
+	messageBox->setWindowTitle(QObject::tr("Data folder upgrade"));
+	messageBox->setIcon(QMessageBox::Question);
+	messageBox->addButton(QMessageBox::Ok);
+	messageBox->addButton(QMessageBox::Cancel);
+	btnNoAndDoNotAskAgain =
+		messageBox->addButton(QObject::tr("No, don't ask again"), QMessageBox::YesRole);
+	messageBox->setDefaultButton(QMessageBox::Ok);
+	int dialogResult = messageBox->exec();
 
-		if (reply == QMessageBox::Yes)
+	switch (dialogResult)
+	{
+		case QMessageBox::Cancel:
+		default:
+		{
+			if (messageBox->clickedButton() == btnNoAndDoNotAskAgain)
+				gPar->Set("upgrade_do_not_ask_again", true);
+			break;
+		}
+		case QMessageBox::Yes:
 		{
 			systemData.Upgrade();
+			// Needs restart
+			while (cRenderJob::GetRunningJobCount() > 0)
+			{
+				gApplication->processEvents();
+			}
+			QFile::remove(systemData.GetAutosaveFile());
+			gApplication->quit();
+			break;
 		}
-		else
-		{
-			return;
-		}
-	}*/
+	}
+	delete messageBox;
 }
 
 void cInterface::OptimizeStepFactor(double qualityTarget)

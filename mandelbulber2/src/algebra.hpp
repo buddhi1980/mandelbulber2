@@ -161,7 +161,7 @@ public:
 		z /= vector.z;
 		return *this;
 	}
-	inline bool operator==(const CVector3 &vector)
+	inline bool operator==(const CVector3 &vector) const
 	{
 		return x == vector.x && y == vector.y && z == vector.z;
 	}
@@ -216,7 +216,7 @@ public:
 		return QString("[%1, %2, %3]").arg(QString::number(x), QString::number(y), QString::number(z));
 	}
 
-	double itemByName(char item);
+	double itemByName(char item) const;
 
 	double x;
 	double y;
@@ -370,7 +370,10 @@ public:
 		w /= s;
 		return *this;
 	}
-	inline bool operator==(const CVector4 &v) { return x == v.x && y == v.y && z == v.z && w == v.w; }
+	inline bool operator==(const CVector4 &v) const
+	{
+		return x == v.x && y == v.y && z == v.z && w == v.w;
+	}
 	inline double Length() const { return sqrt(x * x + y * y + z * z + w * w); }
 	inline double Dot(const CVector4 &v) const { return x * v.x + y * v.y + z * v.z + w * v.w; }
 	inline CVector4 Abs()
@@ -410,7 +413,7 @@ public:
 			.arg(QString::number(x), QString::number(y), QString::number(z), QString::number(w));
 	}
 
-	double itemByName(char item);
+	double itemByName(char item) const;
 
 	double x, y, z, w;
 };
@@ -587,7 +590,7 @@ public:
 	void SetRotation2(CVector3 rotation);
 	void SetRotation3(CVector3 rotation);
 	CRotationMatrix Transpose(void) const;
-	CMatrix33 GetMatrix() { return matrix; }
+	CMatrix33 GetMatrix() const { return matrix; }
 
 private:
 	CMatrix33 matrix;
