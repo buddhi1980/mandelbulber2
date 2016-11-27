@@ -336,6 +336,7 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cIma
 			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 	}
 	imageFileSave->SaveImage();
+	delete imageFileSave;
 	// return SaveImage(fileWithoutExtension, filetype, image, imageConfig);
 }
 

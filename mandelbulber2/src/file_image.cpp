@@ -1184,6 +1184,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 
 	TIFFWriteEncodedStrip(tiff, 0, (void *)colorPtr, tsize_t(width * height * pixelSize));
 	TIFFClose(tiff);
+	delete[] colorPtr;
 	return true;
 }
 
