@@ -255,7 +255,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;fabs. Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:&lt;/p&gt;&lt;table&gt;
+         <string>&lt;p&gt;fabs. Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:&lt;br&gt;tglad's fold&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;

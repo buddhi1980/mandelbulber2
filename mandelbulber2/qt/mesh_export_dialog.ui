@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="icons.qrc">
-    <normaloff>:/system/icons/layer.png</normaloff>:/system/icons/layer.png</iconset>
+    <normaloff>:/system/icons/mesh.png</normaloff>:/system/icons/mesh.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">

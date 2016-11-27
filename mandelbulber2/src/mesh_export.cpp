@@ -54,13 +54,11 @@ cMeshExport::cMeshExport(
 	this->limitMax = limitMax;
 	this->outputFileName = outputFileName;
 	this->maxIter = maxIter;
-	voxelLayer = new unsigned char[w * h];
 	stop = false;
 }
 
 cMeshExport::~cMeshExport()
 {
-	delete[] voxelLayer;
 }
 
 struct ProgressFtor

@@ -59,7 +59,6 @@ public slots:
 	void ProcessVolume();
 
 private:
-	unsigned char *voxelLayer;
 	int w, h, l;
 	CVector3 limitMin;
 	CVector3 limitMax;

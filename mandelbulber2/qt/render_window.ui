@@ -1287,6 +1287,10 @@
    </property>
   </action>
   <action name="actionExport_Mesh">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/system/icons/mesh.png</normaloff>:/system/icons/mesh.png</iconset>
+   </property>
    <property name="text">
     <string>Export &amp;Mesh</string>
    </property>

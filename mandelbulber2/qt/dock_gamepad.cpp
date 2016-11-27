@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
@@ -171,12 +171,9 @@ void cDockGamepad::slotGamepadMove() const
 	// Forward Accelerate [threshold to 1 / sensitivity]
 	if (fabs(z) < threshold && z >= 0.0) z = threshold;
 	// Reverse Backwards [-threshold to -1 / sensitivity]
-	if (fabs(z) < threshold && z <= 0.0)
-		z = -threshold;
-	if (joystick)
-		emit gMainInterface->renderedImage->StrafeChanged(strafe / 2.0);
-	if (trigger)
-		emit gMainInterface->renderedImage->SpeedSet(z / 2.0);
+	if (fabs(z) < threshold && z <= 0.0) z = -threshold;
+	if (joystick) emit gMainInterface->renderedImage->StrafeChanged(strafe / 2.0);
+	if (trigger) emit gMainInterface->renderedImage->SpeedSet(z / 2.0);
 }
 
 void cDockGamepad::slotGamepadPause(bool value)
