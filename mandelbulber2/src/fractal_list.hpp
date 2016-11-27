@@ -247,7 +247,7 @@ struct sFractalDescription
 				defaultBailout(_defaultBailout)
 	{
 	}
-	QString getIconName()
+	QString getIconName() const
 	{
 		if (internalID == fractal::none)
 		{

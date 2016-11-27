@@ -47,7 +47,7 @@ CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle)
 	return vector;
 }
 
-double CVector3::itemByName(char item)
+double CVector3::itemByName(char item) const
 {
 	switch (item)
 	{
@@ -58,7 +58,7 @@ double CVector3::itemByName(char item)
 	}
 }
 
-double CVector4::itemByName(char item)
+double CVector4::itemByName(char item) const
 {
 	switch (item)
 	{

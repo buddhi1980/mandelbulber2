@@ -47,8 +47,8 @@ public:
 	void ChangeColor(int index, const sRGB &color);
 	sRGB IndexToColour(int index) const;
 	sRGB GetColor(int index) const;
-	int GetSize() { return paletteSize; }
-	bool IsInitialized() { return isInitialized; }
+	int GetSize() const { return paletteSize; }
+	bool IsInitialized() const { return isInitialized; }
 
 private:
 	QVector<sRGB> palette;

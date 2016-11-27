@@ -109,7 +109,7 @@ bool cOneParameter::isDefaultValue() const
 	return (actualVal == defaultVal);
 }
 
-cMultiVal cOneParameter::GetMultival(enumValueSelection selection)
+cMultiVal cOneParameter::GetMultival(enumValueSelection selection) const
 {
 	switch (selection)
 	{
@@ -133,7 +133,7 @@ void cOneParameter::SetMultival(cMultiVal multi, enumValueSelection selection)
 	isEmpty = false;
 }
 
-void cOneParameter::LimitValue(cMultiVal &multi)
+void cOneParameter::LimitValue(cMultiVal &multi) const
 {
 	enumVarType varType = multi.GetDefaultype();
 	switch (varType)

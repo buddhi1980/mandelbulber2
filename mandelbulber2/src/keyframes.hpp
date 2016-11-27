@@ -58,7 +58,7 @@ public:
 	void GetInterpolatedFrameAndConsolidate(
 		int index, cParameterContainer *params, cFractalContainer *fractal);
 	void SetFramesPerKeyframe(int frPerKey) { framesPerKeyframe = frPerKey; }
-	int GetFramesPerKeyframe() { return framesPerKeyframe; }
+	int GetFramesPerKeyframe() const { return framesPerKeyframe; }
 	void ChangeMorphType(int parameterIndex, parameterContainer::enumMorphType morphType);
 	void ClearMorphCache() { morph.clear(); }
 	int GetUnrenderedTotal();
