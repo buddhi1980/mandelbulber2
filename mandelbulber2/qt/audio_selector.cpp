@@ -68,6 +68,9 @@ void cAudioSelector::slotLoadAudioFile()
 
 		cAudioTrack *audio = new cAudioTrack(this);
 		audio->LoadAudio(filename);
+
+		ui->waveForm->SetParameters(30.0);
+		ui->waveForm->AssignAudioTrack(audio);
 	}
 }
 

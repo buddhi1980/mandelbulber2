@@ -48,6 +48,11 @@ public:
 
 	void LoadAudio(const QString &filename);
 
+	int getLength() const { return length; }
+	bool isLoaded() const { return loaded; }
+	int getSampleRate() const { return sampleRate; }
+	float getSample(int sampleIndex) const;
+
 private slots:
 	void slotReadBuffer();
 	void slotFinished();

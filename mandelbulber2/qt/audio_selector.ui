@@ -6,27 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>422</width>
-    <height>199</height>
+    <width>961</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton_loadAudioFile">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>20</y>
-     <width>241</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Load Audio</string>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QPushButton" name="pushButton_loadAudioFile">
+     <property name="text">
+      <string>Load audio file</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="cWaveFormView" name="waveForm" native="true"/>
+   </item>
+  </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>cWaveFormView</class>
+   <extends>QWidget</extends>
+   <header>wave_form_view.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -78,6 +78,8 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		qDebug() << "channels:" << sfinfo.channels << "rate:" << sfinfo.samplerate
 						 << "samples:" << sfinfo.frames;
 
+		sampleRate = sfinfo.samplerate;
+
 		if (sfinfo.frames > 0)
 		{
 			rawAudio.reserve(sfinfo.frames);
@@ -96,6 +98,8 @@ void cAudioTrack::LoadAudio(const QString &filename)
 				sample /= sfinfo.channels;
 				rawAudio[i] = sample;
 			}
+
+			length = readSamples;
 
 			delete[] tempBuff;
 		}
@@ -161,6 +165,18 @@ void cAudioTrack::slotFinished()
 	qDebug() << "finished";
 	qDebug() << length << (double)length / sampleRate;
 	loaded = true;
+}
+
+float cAudioTrack::getSample(int sampleIndex) const
+{
+	if(isLoaded() && sampleIndex < length)
+	{
+		return rawAudio[sampleIndex];
+	}
+	else
+	{
+		return 0.0;
+	}
 }
 
 void cAudioTrack::slotError(QAudioDecoder::Error error)
