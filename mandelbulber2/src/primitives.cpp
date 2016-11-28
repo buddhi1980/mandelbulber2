@@ -32,6 +32,8 @@
  * definitions of primitive objects
  */
 
+#include <QtAlgorithms>
+
 #include "primitives.h"
 #include "displacement_map.hpp"
 #include "parameters.hpp"
@@ -257,6 +259,11 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 	mRotAllPrimitivesRotation.SetRotation2(allPrimitivesRotation / 180.0 * M_PI);
 
 	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) finished", 2);
+}
+
+cPrimitives::~cPrimitives()
+{
+	qDeleteAll(allPrimitives);
 }
 
 double sPrimitivePlane::PrimitiveDistance(CVector3 _point) const
