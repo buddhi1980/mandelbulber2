@@ -668,7 +668,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformInvCylindricalIteration(z, fractal, extendedAux);
 					break;
 				}
-
 				case transfLinCombineCxyz:
 				{
 					TransformLinCombineCxyz(z, c, fractal, extendedAux);
@@ -886,10 +885,26 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					w = z4D.w;
 					break;
 				}
+				case transfFabsAddConditional4D:
+				{
+					CVector4 z4D(z, w);
+					TransformFabsAddConditional4DIteration(z4D, fractal, extendedAux);
+					z = z4D.GetXYZ();
+					w = z4D.w;
+					break;
+				}
 				case transfIterationWeight4D:
 				{
 					CVector4 z4D(z, w);
 					TransformIterationWeight4DIteration(z4D, i, fractal);
+					z = z4D.GetXYZ();
+					w = z4D.w;
+					break;
+				}
+				case transfReciprocal4D:
+				{
+					CVector4 z4D(z, w);
+					TransformReciprocal4DIteration(z4D, fractal, extendedAux);
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;

@@ -7216,6 +7216,9 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 		case sFractalMandelbulbMulti::zxy: z = CVector3(z.z, z.x, z.y); break;
 		case sFractalMandelbulbMulti::zyx: z = CVector3(z.z, z.y, z.x); break;
 	}
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
 }
 
 //-------------------------------- 4D ----------------------------------------------
@@ -7549,6 +7552,37 @@ void TransformFabsAddConstantV24DIteration(CVector4 &z4D, const cFractal *fracta
 }
 
 /**
+* fabs add conditional4D
+*/
+void TransformFabsAddConditional4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		z4D.x = sign(z4D.x) * (fractal->transformCommon.offset1111.x - fabs(z4D.x)
+												+ fabs(z4D.x) * fractal->transformCommon.additionConstant0000.x);
+	}
+
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		z4D.y = sign(z4D.y) * (fractal->transformCommon.offset1111.y - fabs(z4D.y)
+												+ fabs(z4D.y) * fractal->transformCommon.additionConstant0000.y);
+	}
+
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		z4D.z = sign(z4D.z) * (fractal->transformCommon.offset1111.z - fabs(z4D.z)
+												+ fabs(z4D.z) * fractal->transformCommon.additionConstant0000.z);
+	}
+
+	if (fractal->transformCommon.functionEnabledw)
+	{
+		z4D.w = sign(z4D.w) * (fractal->transformCommon.offset1111.w - fabs(z4D.w)
+												+ fabs(z4D.w) * fractal->transformCommon.additionConstant0000.w);
+	}
+	aux.DE *= fractal->analyticDE.scale1; // DE tweak
+}
+
+/**
  * iteration weight 4D
  */
 void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
@@ -7561,6 +7595,72 @@ void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *f
 
 	z4D = (z4D * fractal->transformCommon.scale) + (zA * fractal->transformCommon.offset)
 				+ (zB * fractal->transformCommon.offset0);
+}
+
+/**
+ * Reciprocal4D from M3D, Darkbeam's code
+ */
+void TransformReciprocal4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 tempZ = z4D;
+
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		if (fractal->transformCommon.functionEnabledAx)
+			tempZ.x = (1.0 / fractal->transformCommon.offset1111.x)
+								- 1.0 / (fabs(z4D.x) + fractal->transformCommon.offset1111.x);
+
+		if (fractal->transformCommon.functionEnabledAxFalse)
+			tempZ.x = (fractal->transformCommon.offsetA1111.x)
+								- 1.0 / (fabs(z4D.x) + fractal->transformCommon.offset1111.x);
+
+		tempZ.x += fabs(z4D.x) * fractal->transformCommon.additionConstant0000.x; // function slope
+		z4D.x = sign(z4D.x) * tempZ.x;
+	}
+
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		if (fractal->transformCommon.functionEnabledAx)
+			tempZ.y = (1.0 / fractal->transformCommon.offset1111.y)
+								- 1.0 / (fabs(z4D.y) + fractal->transformCommon.offset1111.y);
+
+		if (fractal->transformCommon.functionEnabledAxFalse)
+			tempZ.y = (fractal->transformCommon.offsetA1111.y)
+								- 1.0 / (fabs(z4D.y) + fractal->transformCommon.offset1111.y);
+
+		tempZ.y += fabs(z4D.y) * fractal->transformCommon.additionConstant0000.y;
+		z4D.y = sign(z4D.y) * tempZ.y;
+	}
+
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		if (fractal->transformCommon.functionEnabledAx)
+			tempZ.z = (1.0 / fractal->transformCommon.offset1111.z)
+								- 1.0 / (fabs(z4D.z) + fractal->transformCommon.offset1111.z);
+
+		if (fractal->transformCommon.functionEnabledAxFalse)
+			tempZ.z = (fractal->transformCommon.offsetA1111.z)
+								- 1.0 / (fabs(z4D.z) + fractal->transformCommon.offset1111.z);
+
+		tempZ.z += fabs(z4D.z) * fractal->transformCommon.additionConstant0000.z;
+		z4D.z = sign(z4D.z) * tempZ.z;
+	}
+
+	if (fractal->transformCommon.functionEnabledw)
+	{
+		if (fractal->transformCommon.functionEnabledAw)
+			tempZ.w = (1.0 / fractal->transformCommon.offset1111.w)
+								- 1.0 / (fabs(z4D.w) + fractal->transformCommon.offset1111.w);
+
+		if (fractal->transformCommon.functionEnabledAwFalse)
+			tempZ.w = (fractal->transformCommon.offsetA1111.w)
+								- 1.0 / (fabs(z4D.w) + fractal->transformCommon.offset1111.w);
+
+		tempZ.z += fabs(z4D.w) * fractal->transformCommon.additionConstant0000.w;
+		z4D.z = sign(z4D.w) * tempZ.w;
+	}
+	// aux.DE = aux.DE * l/L;
+	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 }
 
 /**
@@ -7595,6 +7695,10 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 }
+
+
+
+
 //  still to complete dot modes and kifs
 /**
  * Menger Prism Shape2

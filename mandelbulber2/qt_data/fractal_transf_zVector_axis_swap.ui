@@ -34,7 +34,34 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="0" column="1">
+     <item row="1" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
+       <property name="text">
+        <string>z.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4" colspan="2">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
+       <property name="text">
+        <string>z.y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="2">
       <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
        <item>
         <property name="text">
@@ -68,6 +95,19 @@
        </item>
       </widget>
      </item>
+     <item row="1" column="5">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -75,6 +115,33 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>reverse axis sign each iteration</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>swaps order  each iteration</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3" colspan="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+       <property name="text">
+        <string>z.z</string>
        </property>
       </widget>
      </item>
@@ -165,6 +232,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

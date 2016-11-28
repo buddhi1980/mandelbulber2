@@ -501,8 +501,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 			transfFabsAddConstantV24D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
+		sFractalDescription("Transform - Fabs_Add_Conditional4D", "transf_fabs_add_conditional4D",
+			transfFabsAddConditional4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
+	fractalList->append(
 		sFractalDescription("Transform - Iteration Weight_4D", "transf_iteration_weight_4D",
 			transfIterationWeight4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
+	fractalList->append(sFractalDescription("Transform - Reciprocal4D", "transf_reciprocal4D",
+		transfReciprocal4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform - Scale_4D", "transf_scale_4D", transfScale4D,
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

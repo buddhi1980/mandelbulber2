@@ -807,6 +807,11 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam(
 		"transf_addition_constant_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(
+		"transf_offset_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
+	par->addParam(
+		"transf_offsetA_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
+
+	par->addParam(
 		"transf_addition_constant_111d5", CVector4(1.0, 1.0, 1.0, 0.5), morphAkima, paramStandard);
 	par->addParam(
 		"transf_constant_multiplier_1220", CVector4(1.0, 2.0, 2.0, 0.0), morphAkima, paramStandard);
@@ -823,15 +828,18 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledx", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledy", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledz", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledw", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledz_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAx", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAy", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAz", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledAw", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAz_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledAw_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBx", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBy", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBz", true, morphLinear, paramStandard);

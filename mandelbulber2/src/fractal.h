@@ -532,6 +532,8 @@ struct sFractalTransformCommon
 	CVector3 scale3D444;
 
 	CVector4 additionConstant0000;
+	CVector4 offset1111;
+	CVector4 offsetA1111;
 	CVector4 additionConstant111d5;
 	CVector4 constantMultiplier1220;
 
@@ -550,15 +552,18 @@ struct sFractalTransformCommon
 	bool functionEnabledx;
 	bool functionEnabledy;
 	bool functionEnabledz;
+	bool functionEnabledw;
 	bool functionEnabledxFalse;
 	bool functionEnabledyFalse;
 	bool functionEnabledzFalse;
 	bool functionEnabledAx;
 	bool functionEnabledAy;
 	bool functionEnabledAz;
+	bool functionEnabledAw;
 	bool functionEnabledAxFalse;
 	bool functionEnabledAyFalse;
 	bool functionEnabledAzFalse;
+	bool functionEnabledAwFalse;
 	bool functionEnabledBx;
 	bool functionEnabledBy;
 	bool functionEnabledBz;

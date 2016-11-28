@@ -209,7 +209,9 @@ void TransformAdditionConstant4DIteration(CVector4 &z4D, const cFractal *fractal
 void TransformBoxFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformFabsAddConstant4DIteration(CVector4 &z4D, const cFractal *fractal);
 void TransformFabsAddConstantV24DIteration(CVector4 &z4D, const cFractal *fractal);
+void TransformFabsAddConditional4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal);
+void TransformReciprocal4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 

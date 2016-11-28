@@ -371,6 +371,8 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
 
 	transformCommon.additionConstant0000 = container->Get<CVector4>("transf_addition_constant_0000");
+	transformCommon.offset1111 = container->Get<CVector4>("transf_offset_1111");
+	transformCommon.offsetA1111 = container->Get<CVector4>("transf_offsetA_1111");
 	transformCommon.additionConstant111d5 =
 		container->Get<CVector4>("transf_addition_constant_111d5");
 	transformCommon.constantMultiplier1220 =
@@ -387,15 +389,18 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
 	transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
 	transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
+	transformCommon.functionEnabledw = container->Get<bool>("transf_function_enabledw");
 	transformCommon.functionEnabledxFalse = container->Get<bool>("transf_function_enabledx_false");
 	transformCommon.functionEnabledyFalse = container->Get<bool>("transf_function_enabledy_false");
 	transformCommon.functionEnabledzFalse = container->Get<bool>("transf_function_enabledz_false");
 	transformCommon.functionEnabledAx = container->Get<bool>("transf_function_enabledAx");
 	transformCommon.functionEnabledAy = container->Get<bool>("transf_function_enabledAy");
 	transformCommon.functionEnabledAz = container->Get<bool>("transf_function_enabledAz");
+	transformCommon.functionEnabledAw = container->Get<bool>("transf_function_enabledAw");
 	transformCommon.functionEnabledAxFalse = container->Get<bool>("transf_function_enabledAx_false");
 	transformCommon.functionEnabledAyFalse = container->Get<bool>("transf_function_enabledAy_false");
 	transformCommon.functionEnabledAzFalse = container->Get<bool>("transf_function_enabledAz_false");
+	transformCommon.functionEnabledAwFalse = container->Get<bool>("transf_function_enabledAw_false");
 	transformCommon.functionEnabledBx = container->Get<bool>("transf_function_enabledBx");
 	transformCommon.functionEnabledBy = container->Get<bool>("transf_function_enabledBy");
 	transformCommon.functionEnabledBz = container->Get<bool>("transf_function_enabledBz");
