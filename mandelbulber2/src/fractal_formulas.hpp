@@ -203,6 +203,7 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);
 void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void MandelboxVaryScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
+void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion4DIteration(CVector4 &z4D, const cFractal *fractal);
 
 void TransformAdditionConstant4DIteration(CVector4 &z4D, const cFractal *fractal);

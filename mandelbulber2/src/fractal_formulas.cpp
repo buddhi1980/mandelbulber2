@@ -6214,7 +6214,7 @@ void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &
  * Octo
  */
 void TransformOctoFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{ //	z = (float3){ -z.y, -z.x, z.z};
+{
 	if (z.x + z.y < 0.0) z = CVector3(-z.y, -z.x, z.z);
 
 	if (z.x + z.z < 0.0) // z.xz = -z.zx;
@@ -7266,6 +7266,16 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 		if (z4D.y + z4D.w < 0.0) CVector2(z4D.y, z4D.w) = -CVector2(z4D.w, z4D.y);
 		if (z4D.z + z4D.w < 0.0) CVector2(z4D.z, z4D.w) = -CVector2(z4D.w, z4D.z);
 		*/
+		/*
+		if (z4D.x + z4D.y < 0.0) z = -CVector4(z4D.y, z4D.x, z4D.z, z4D.w);
+		if (z4D.x + z4D.z < 0.0) z = -CVector4(z4D.z, z4D.y, z4D.x, z4D.w);
+		if (z4D.y + z4D.z < 0.0) z = -CVector4(z4D.x, z4D.z, z4D.y, z4D.w);
+		if (z4D.x + z4D.w < 0.0) z = -CVector4(z4D.w, z4D.y, z4D.z, z4D.x);
+		if (z4D.y + z4D.w < 0.0) z = -CVector4(z4D.x, z4D.w, z4D.z, z4D.y);
+		if (z4D.z + z4D.w < 0.0) z = -CVector4(z4D.x, z4D.y, z4D.w, z4D.z);
+		*/
+
+
 		double temp;
 		if (z4D.x + z4D.y < 0.0)
 		{
@@ -7308,7 +7318,13 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 			z4D.z = -z4D.w;
 			z4D.w = -temp;
 		}
+		z4D = z4D * fractal->transformCommon.scale1;
+		z4D.x  = z4D.x	- 1 * (fractal->transformCommon.scale1 - 1.0);
+
+		aux.DE *= fractal->transformCommon.scale1;
 	}
+
+
 	if (i >= fractal->transformCommon.startIterationsC
 			&& i < fractal->transformCommon.stopIterationsC)
 	{
@@ -7322,11 +7338,14 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
 		CVector3 Z3 = CVector3(z4D.x, z4D.y, z4D.z);
-		Z3 = fractal->mandelbox.mainRot.RotateVector(Z3);
+		Z3 = fractal->transformCommon.rotationMatrix.RotateVector(Z3);
 		z4D.x = Z3.x;
 		z4D.y = Z3.y;
 		z4D.z = Z3.z;
 	}
+
+
+
 	// 4D r0t
 	/*
 	 * mat4 rotationXY  ( double angle )
@@ -7361,7 +7380,7 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 
 
 	mat4 rotationXW  ( double angle )
-	{
+	{		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 		mat4 rot;
 		rot[0] = CVector4(cos(angle), 0.0, 0.0, sin(angle));
 		rot[1] = CVector4(0.0, 1.0, 0.0, 0.0);
@@ -7419,6 +7438,67 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 	// aux.r = z.Dot(z); // bailout
 	// return sqrt(x* x + y* y + z* z)*scale^(-i);
 }
+
+/**
+ * Sierpinski4D. made from Darkbeams MixPinki4 from M3D
+
+ */
+void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+
+
+
+
+
+
+		/*
+		if (z4D.x + z4D.y < 0.0) CVector2(z4D.x, z4D.y) = -CVector2(z4D.y, z4D.x);
+		if (z4D.x + z4D.z < 0.0) CVector2(z4D.x, z4D.z) = -CVector2(z4D.z, z4D.x);
+		if (z4D.y + z4D.z < 0.0) CVector2(z4D.z, z4D.y) = -CVector2(z4D.y, z4D.z);
+		if (z4D.x + z4D.w < 0.0) CVector2(z4D.x, z4D.w) = -CVector2(z4D.w, z4D.x);
+		if (z4D.y + z4D.w < 0.0) CVector2(z4D.y, z4D.w) = -CVector2(z4D.w, z4D.y);
+		if (z4D.z + z4D.w < 0.0) CVector2(z4D.z, z4D.w) = -CVector2(z4D.w, z4D.z);
+		*/
+
+		if (z4D.x + z4D.y < 0.0) z4D = CVector4(-z4D.y, -z4D.x, z4D.z, z4D.w);
+
+		if (z4D.x + z4D.z < 0.0) z4D = CVector4(-z4D.z, z4D.y, -z4D.x, z4D.w);
+
+		if (z4D.y + z4D.z < 0.0) z4D = CVector4(z4D.x, -z4D.z, -z4D.y, z4D.w);
+
+		if (z4D.x + z4D.w < 0.0) z4D = CVector4(-z4D.w, z4D.y, z4D.z, -z4D.x);
+		if (z4D.y + z4D.w < 0.0) z4D = CVector4(z4D.x, -z4D.w, z4D.z, -z4D.y);
+		if (z4D.z + z4D.w < 0.0) z4D = CVector4(z4D.x, z4D.y, -z4D.w, -z4D.z);
+
+	z4D = z4D * fractal->transformCommon.scaleA2;
+	//z4D.x  = z4D.x	- 1 * (fractal->transformCommon.scaleA2 - 1.0);
+
+	aux.DE *= fractal->transformCommon.scaleA2;
+
+
+	if (i >= fractal->transformCommon.startIterationsC
+			&& i < fractal->transformCommon.stopIterationsC)
+	{
+		z4D -= fractal->transformCommon.offset1111; // neg offset
+	}
+
+	// temp3D rot
+
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		CVector3 z = CVector3(z4D.x, z4D.y, z4D.z);
+
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		z4D.x = z.x;
+		z4D.y = z.y;
+		z4D.z = z.z;
+	}
+			aux.DE *= fractal->analyticDE.scale1;
+}
+
+
 
 /**
  * Quaternion4D
