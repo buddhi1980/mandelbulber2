@@ -151,6 +151,7 @@ class cPrimitives
 
 public:
 	cPrimitives(const cParameterContainer *par, QVector<cObjectData> *obejctData = NULL);
+	~cPrimitives();
 	double TotalDistance(
 		CVector3 point, double fractalDistance, int *closestObjectId, sRenderData *data) const;
 
