@@ -631,10 +631,15 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("Cpara_enabledCurves", true, morphLinear, paramStandard);
 	par->addParam("Cpara_enabledParab_false", false, morphLinear, paramStandard);
 	par->addParam("Cpara_enabledParaAddP0", true, morphLinear, paramStandard);
+	par->addParam("Cpara_para00", 0.0, morphAkima, paramStandard);
+	par->addParam("Cpara_paraA0", 0.0, morphAkima, paramStandard);
+	par->addParam("Cpara_paraB0", 0.0, morphAkima, paramStandard);
+	par->addParam("Cpara_paraC0", 0.0, morphAkima, paramStandard);
 	par->addParam("Cpara_para0", 1.0, morphAkima, paramStandard);
 	par->addParam("Cpara_paraA", 1.0, morphAkima, paramStandard);
 	par->addParam("Cpara_paraB", 1.0, morphAkima, paramStandard);
 	par->addParam("Cpara_paraC", 1.0, morphAkima, paramStandard);
+	par->addParam("Cpara_parab_offset0", 0.0, morphAkima, paramStandard);
 	par->addParam("Cpara_parab_offset", 1.0, morphAkima, paramStandard);
 	par->addParam("Cpara_parab_slope", 0.0, morphAkima, paramStandard);
 	par->addParam("Cpara_parab_scale", 0.0, morphAkima, paramStandard);
@@ -645,6 +650,7 @@ void InitFractalParams(cParameterContainer *par)
 
 	// analyticDE controls
 	par->addParam("analyticDE_tweak_005", 0.05, morphAkima, paramStandard);
+	par->addParam("analyticDE_offset_0", 0.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_2", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_scale_1", 1.0, morphAkima, paramStandard);

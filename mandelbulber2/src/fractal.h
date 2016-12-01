@@ -382,6 +382,11 @@ struct sFractalCpara
 	bool enabledCurves;
 	bool enabledParabFalse;
 	bool enabledParaAddP0;
+	double para00;
+	double paraA0;
+	double paraB0;
+	double paraC0;
+	double parabOffset0;
 	double para0;
 	double paraA;
 	double paraB;
@@ -400,6 +405,7 @@ struct sFractalAnalyticDE
 	bool enabledAuxR2False;
 	double scale1;
 	double tweak005;
+	double offset0;
 	double offset1;
 	double offset2;
 	double scaleLin;

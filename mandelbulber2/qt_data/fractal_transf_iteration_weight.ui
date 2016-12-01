@@ -301,10 +301,13 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item>
-       <widget class="QLabel" name="label_code_content">
-        <property name="text">
-         <string>&lt;p&gt;iteration weight. Influence fractal based on the weight of&lt;br&gt;Z values after different iterations&lt;/p&gt;&lt;table&gt;
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_code_content">
+     <property name="text">
+      <string>&lt;p&gt;iteration weight. Influence fractal based on the weight of&lt;br&gt;Z values after different iterations&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
@@ -325,19 +328,16 @@
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="openExternalLinks">
-         <bool>true</bool>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+     </property>
     </widget>
    </item>
    <item>

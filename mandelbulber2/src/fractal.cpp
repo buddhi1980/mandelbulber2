@@ -208,6 +208,11 @@ cFractal::cFractal(const cParameterContainer *container)
 	Cpara.enabledCurves = container->Get<bool>("Cpara_enabledCurves");
 	Cpara.enabledParabFalse = container->Get<bool>("Cpara_enabledParab_false");
 	Cpara.enabledParaAddP0 = container->Get<bool>("Cpara_enabledParaAddP0");
+	Cpara.para00 = container->Get<double>("Cpara_para00");
+	Cpara.paraA0 = container->Get<double>("Cpara_paraA0");
+	Cpara.paraB0 = container->Get<double>("Cpara_paraB0");
+	Cpara.paraC0 = container->Get<double>("Cpara_paraC0");
+	Cpara.parabOffset0 = container->Get<double>("Cpara_parab_offset0");
 	Cpara.para0 = container->Get<double>("Cpara_para0");
 	Cpara.paraA = container->Get<double>("Cpara_paraA");
 	Cpara.paraB = container->Get<double>("Cpara_paraB");
@@ -221,6 +226,7 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	analyticDE.scale1 = container->Get<double>("analyticDE_scale_1");
 	analyticDE.tweak005 = container->Get<double>("analyticDE_tweak_005");
+	analyticDE.offset0 = container->Get<double>("analyticDE_offset_0");
 	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
 	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");

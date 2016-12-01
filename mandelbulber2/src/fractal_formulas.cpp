@@ -4902,6 +4902,59 @@ void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
+ * Sierpinski3D. made from Darkbeams Sierpinski code from M3D
+
+ */
+void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+
+	CVector3 temp = z;
+
+	//Normal full tetra-fold;
+	if (fractal->transformCommon.functionEnabled)
+	{
+		if (z.x - z.y < 0.0){ temp.x  =  z.y; z.y =  z.x; z.x = temp.x;}
+		if (z.x - z.z < 0.0){ temp.x  =  z.z; z.z =  z.x; z.x = temp.x;}
+		if (z.y - z.z < 0.0){ temp.y  =  z.z; z.z =  z.y; z.y = temp.y;}
+		if (z.x + z.y < 0.0){ temp.x  = -z.y; z.y = -z.x; z.x = temp.x;}
+		if (z.x + z.z < 0.0){ temp.x  = -z.z; z.z = -z.x; z.x = temp.x;}
+		if (z.y + z.z < 0.0){ temp.y  = -z.z; z.z = -z.y; z.y = temp.y;}
+	}
+	z = z * fractal->transformCommon.scaleA2;
+	aux.DE *= fractal->transformCommon.scaleA2;
+
+
+	if (i >= fractal->transformCommon.startIterationsC
+			&& i < fractal->transformCommon.stopIterationsC)
+	{
+		z -= fractal->transformCommon.offset111; // neg offset
+	}
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+
+	//Reversed full tetra-fold;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (z.x + z.y < 0.0){ temp.x  = -z.y; z.y = -z.x; z.x = temp.x;}
+		if (z.x + z.z < 0.0){ temp.x  = -z.z; z.z = -z.x; z.x = temp.x;}
+		if (z.y + z.z < 0.0){ temp.y  = -z.z; z.z = -z.y; z.y = temp.y;}
+		if (z.x - z.y < 0.0){ temp.x  =  z.y; z.y =  z.x; z.x = temp.x;}
+		if (z.x - z.z < 0.0){ temp.x  =  z.z; z.z =  z.x; z.x = temp.x;}
+		if (z.y - z.z < 0.0){ temp.y  =  z.z; z.z =  z.y; z.y = temp.y;}
+	}
+
+
+	aux.DE *= fractal->analyticDE.scale1;
+}
+
+
+/**
  * GeneralizedFoldBoxIteration - Quaternion fractal with extended controls
  * @reference http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/
  */
@@ -6063,11 +6116,11 @@ void TransformFoldingTetra3DIteration(CVector3 &z, const cFractal *fractal)
  * iteration weight. Influence fractal based on the weight of
  * Z values after different iterations
  */
-void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal)
+void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 zA, zB;
 
-	if (i - 1 == fractal->transformCommon.intA)
+	if (i == fractal->transformCommon.intA)
 	{
 		zA = z;
 	}
@@ -6077,6 +6130,8 @@ void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fract
 	}
 	z = (z * fractal->transformCommon.scale) + (zA * fractal->transformCommon.offset)
 			+ (zB * fractal->transformCommon.offset0);
+	aux.DE *= fractal->transformCommon.scale;
+	aux.r_dz *= fractal->transformCommon.scale;
 }
 
 /**
@@ -6366,11 +6421,12 @@ void TransformQuaternionFoldIteration(
 }
 
 /**
- * Reciprocal3 from M3D, Darkbeam's code
+ * Reciprocal3  based on Darkbeam's code from M3D,
  */
 void TransformReciprocal3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 tempZ = z;
+
 
 	if (fractal->transformCommon.functionEnabledx)
 	{
@@ -6381,6 +6437,24 @@ void TransformReciprocal3Iteration(CVector3 &z, const cFractal *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledAxFalse)
 			tempZ.x = (fractal->transformCommon.offsetA111.x)
 								- 1.0 / (fabs(z.x) + fractal->transformCommon.offset111.x);
+
+		if (fractal->transformCommon.functionEnabledBxFalse)
+		{
+			double M1 = fractal->transformCommon.scale1;
+			double M2 = fractal->transformCommon.scaleA1;
+			tempZ.x = (1/fractal->transformCommon.offset111.x)
+								+ (1/fractal->transformCommon.offsetA111.x)
+								- 1.0 / (fabs(z.x * M1) + fractal->transformCommon.offset111.x)
+								- 1.0 / ((z.x * z.x *  M2) + fractal->transformCommon.offsetA111.x);
+		}
+		if (fractal->transformCommon.functionEnabledCxFalse)
+		{
+			double M1 = fractal->transformCommon.scale1;
+			double M2 = fractal->transformCommon.scaleA1;
+			tempZ.x = fractal->transformCommon.offsetB111.x
+								- 1.0 / (fabs(z.x * M1) + fractal->transformCommon.offset111.x)
+								- 1.0 / ((z.x * z.x *  M2) + fractal->transformCommon.offsetA111.x);
+		}
 
 		tempZ.x += fabs(z.x) * fractal->transformCommon.offset000.x; // function slope
 		z.x = sign(z.x) * tempZ.x;
@@ -6396,6 +6470,24 @@ void TransformReciprocal3Iteration(CVector3 &z, const cFractal *fractal, sExtend
 			tempZ.y = (fractal->transformCommon.offsetA111.y)
 								- 1.0 / (fabs(z.y) + fractal->transformCommon.offset111.y);
 
+		if (fractal->transformCommon.functionEnabledBxFalse)
+		{
+			double M1 = fractal->transformCommon.scale1;
+			double M2 = fractal->transformCommon.scaleA1;
+			tempZ.y = (1/fractal->transformCommon.offset111.y)
+								+ (1/fractal->transformCommon.offsetA111.y)
+								- 1.0 / (fabs(z.y * M1) + fractal->transformCommon.offset111.y)
+									- 1.0 / ((z.y * z.y *  M2) + fractal->transformCommon.offsetA111.y);
+		}
+
+		if (fractal->transformCommon.functionEnabledCxFalse)
+		{
+			double M1 = fractal->transformCommon.scale1;
+			double M2 = fractal->transformCommon.scaleA1;
+			tempZ.y = fractal->transformCommon.offsetB111.y
+								- 1.0 / (fabs(z.y * M1) + fractal->transformCommon.offset111.y)
+								- 1.0 / ((z.y * z.y *  M2) + fractal->transformCommon.offsetA111.y);
+		}
 		tempZ.y += fabs(z.y) * fractal->transformCommon.offset000.y;
 		z.y = sign(z.y) * tempZ.y;
 	}
@@ -6410,10 +6502,27 @@ void TransformReciprocal3Iteration(CVector3 &z, const cFractal *fractal, sExtend
 			tempZ.z = (fractal->transformCommon.offsetA111.z)
 								- 1.0 / (fabs(z.z) + fractal->transformCommon.offset111.z);
 
+		if (fractal->transformCommon.functionEnabledBxFalse)
+		{
+			double M1 = fractal->transformCommon.scale1;
+			double M2 = fractal->transformCommon.scaleA1;
+			tempZ.z = (1/fractal->transformCommon.offset111.z)
+								+ (1/fractal->transformCommon.offsetA111.z)
+								- 1.0 / (fabs(z.z * M1) + fractal->transformCommon.offset111.z)
+								- 1.0 / ((z.z * z.z *  M2) + fractal->transformCommon.offsetA111.z);
+		}
+		if (fractal->transformCommon.functionEnabledCxFalse)
+		{
+			double M1 = fractal->transformCommon.scale1;
+			double M2 = fractal->transformCommon.scaleA1;
+			tempZ.z = fractal->transformCommon.offsetB111.z
+								- 1.0 / (fabs(z.z * M1) + fractal->transformCommon.offset111.z)
+								- 1.0 / ((z.z * z.z *  M2) + fractal->transformCommon.offsetA111.z);
+		}
+
 		tempZ.z += fabs(z.z) * fractal->transformCommon.offset000.z;
 		z.z = sign(z.z) * tempZ.z;
 	}
-
 	// aux.DE = aux.DE * l/L;
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 }
@@ -6986,12 +7095,109 @@ void TransformSpherFoldVaryVCLIteration(
  */
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	double lengthTempZ = -z.Length();
-	// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
-	z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+	double para =fractal->transformCommon.offset;
+	if (fractal->transformCommon.functionEnabled)
+	{
+		double lengthTempZ = -z.Length();
+		// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+		z *= 1 + para / lengthTempZ;
+		z *= fractal->transformCommon.scale;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+		aux.r_dz *= fabs(fractal->transformCommon.scale);
+	}
+}
+
+/**
+ * spherical radial offset Curvilinear.
+ */
+void TransformSphericalOffsetVCLIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	double para = fractal->Cpara.para00;
+	double paraAdd = 0.0;
+	double paraDot = 0.0;
+	double paraAddP0 = 0.0;
+	// curvilinear mode
+	if (fractal->transformCommon.functionEnabled)
+	{
+		if (fractal->Cpara.enabledLinear)
+		{
+			para = fractal->Cpara.para00; // parameter value at iter 0
+			double temp0 = para;
+			double tempA = fractal->Cpara.paraA0;
+			double tempB = fractal->Cpara.paraB0;
+			double tempC = fractal->Cpara.paraC0;
+			double lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
+			double lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
+			double grade1 = (tempA - temp0) / fractal->Cpara.iterA;
+			double grade2 = (tempB - tempA) / lengthAB;
+			double grade3 = (tempC - tempB) / lengthBC;
+
+			// slopes
+			if (i < fractal->Cpara.iterA)
+			{
+				para = temp0 + (i * grade1);
+			}
+			if (i < fractal->Cpara.iterB && i >= fractal->Cpara.iterA)
+			{
+				para = tempA + (i - fractal->Cpara.iterA) * grade2;
+			}
+			if (i >= fractal->Cpara.iterB)
+			{
+				para = tempB + (i - fractal->Cpara.iterB) * grade3;
+			}
+
+			// Curvi part on "true"
+			if (fractal->Cpara.enabledCurves)
+			{
+				//double paraAdd = 0.0;
+				double paraIt;
+				if (lengthAB > 2.0 * fractal->Cpara.iterA) // stop  error, todo fix.
+				{
+					double curve1 = (grade2 - grade1) / (4.0 * fractal->Cpara.iterA);
+					double tempL = lengthAB - fractal->Cpara.iterA;
+					double curve2 = (grade3 - grade2) / (4.0 * tempL);
+					if (i < 2 * fractal->Cpara.iterA)
+					{
+						paraIt = tempA - fabs(tempA - i);
+						paraAdd = paraIt * paraIt * curve1;
+					}
+					if (i >= 2 * fractal->Cpara.iterA && i < fractal->Cpara.iterB + tempL)
+					{
+						paraIt = tempB - fabs(tempB * i);
+						paraAdd = paraIt * paraIt * curve2;
+					}
+
+				}
+				para += paraAdd;
+			}
+		}
+	}
+	// Parabolic
+	//double paraAddP0 = 0.0;
+	if (fractal->Cpara.enabledParabFalse)
+	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+		paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
+								+ (i * i * 0.001 * fractal->Cpara.parabScale);
+		para += paraAddP0;
+	}
+
+
+	// using the parameter
+		//z *= 1 + para / -z.Dot(z);
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		paraDot = fractal->transformCommon.offset0;
+		para += paraDot;
+	}
+
+	z *= 1.0 + para/ -z.Dot(z);
+	//post scale
 	z *= fractal->transformCommon.scale;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale);
+
+	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // DE tweak  or aux.DE +=
 }
 
 /**
@@ -7460,19 +7666,14 @@ void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 		if (z4D.z + z4D.w < 0.0) CVector2(z4D.z, z4D.w) = -CVector2(z4D.w, z4D.z);
 		*/
 
-		if (z4D.x + z4D.y < 0.0) z4D = CVector4(-z4D.y, -z4D.x, z4D.z, z4D.w);
-
-		if (z4D.x + z4D.z < 0.0) z4D = CVector4(-z4D.z, z4D.y, -z4D.x, z4D.w);
-
-		if (z4D.y + z4D.z < 0.0) z4D = CVector4(z4D.x, -z4D.z, -z4D.y, z4D.w);
-
-		if (z4D.x + z4D.w < 0.0) z4D = CVector4(-z4D.w, z4D.y, z4D.z, -z4D.x);
-		if (z4D.y + z4D.w < 0.0) z4D = CVector4(z4D.x, -z4D.w, z4D.z, -z4D.y);
-		if (z4D.z + z4D.w < 0.0) z4D = CVector4(z4D.x, z4D.y, -z4D.w, -z4D.z);
+		if (z4D.x + z4D.y < 0.0) z4D = CVector4(-z4D.y, -z4D.x,  z4D.z,  z4D.w);
+		if (z4D.x + z4D.z < 0.0) z4D = CVector4(-z4D.z,  z4D.y, -z4D.x,  z4D.w);
+		if (z4D.y + z4D.z < 0.0) z4D = CVector4( z4D.x, -z4D.z, -z4D.y,  z4D.w);
+		if (z4D.x + z4D.w < 0.0) z4D = CVector4(-z4D.w,  z4D.y,  z4D.z, -z4D.x);
+		if (z4D.y + z4D.w < 0.0) z4D = CVector4( z4D.x, -z4D.w,  z4D.z, -z4D.y);
+		if (z4D.z + z4D.w < 0.0) z4D = CVector4( z4D.x,  z4D.y, -z4D.w, -z4D.z);
 
 	z4D = z4D * fractal->transformCommon.scaleA2;
-	//z4D.x  = z4D.x	- 1 * (fractal->transformCommon.scaleA2 - 1.0);
-
 	aux.DE *= fractal->transformCommon.scaleA2;
 
 
@@ -7488,12 +7689,12 @@ void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
-		CVector3 z = CVector3(z4D.x, z4D.y, z4D.z);
+		CVector3 z3 = CVector3(z4D.x, z4D.y, z4D.z);
 
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-		z4D.x = z.x;
-		z4D.y = z.y;
-		z4D.z = z.z;
+		z3 = fractal->transformCommon.rotationMatrix.RotateVector(z3);
+		z4D.x = z3.x;
+		z4D.y = z3.y;
+		z4D.z = z3.z;
 	}
 			aux.DE *= fractal->analyticDE.scale1;
 }
@@ -7665,16 +7866,18 @@ void TransformFabsAddConditional4DIteration(CVector4 &z4D, const cFractal *fract
 /**
  * iteration weight 4D
  */
-void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
+void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zA, zB;
 
-	if (i - 1 == fractal->transformCommon.intA) zA = z4D;
+	if (i == fractal->transformCommon.intA) zA = z4D;
 
 	if (i == fractal->transformCommon.intB) zB = z4D;
 
 	z4D = (z4D * fractal->transformCommon.scale) + (zA * fractal->transformCommon.offset)
 				+ (zB * fractal->transformCommon.offset0);
+	aux.DE *= fractal->transformCommon.scale;
+	aux.r_dz *=fractal->transformCommon.scale;
 }
 
 /**

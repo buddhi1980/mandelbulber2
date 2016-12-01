@@ -261,6 +261,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Riemann Bulb Msltoe Mod2", "riemann_bulb_msltoe_mod2",
 		riemannBulbMsltoeMod2, deltaDEType, logarithmicDEFunction, cpixelDisabledByDefault, 1.5));
 
+	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski_3D", sierpinski3D,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
 	fractalList->append(sFractalDescription("Smooth Mandelbox", "smooth_mandelbox", smoothMandelbox,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
@@ -477,6 +480,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Transform - Spherical_Offset", "transf_spherical_offset",
 		transfSphericalOffset, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
+	fractalList->append(sFractalDescription("Transform - Spherical_OffsetVCL", "transf_spherical_offsetVCL",
+		transfSphericalOffsetVCL, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform -Surf Box_Fold", "transf_surf_box_fold",
 		transfSurfBoxFold, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

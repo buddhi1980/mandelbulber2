@@ -514,7 +514,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					RiemannBulbMsltoeMod2Iteration(z, fractal);
 					break;
 				}
-
+				case sierpinski3D:
+				{
+					Sierpinski3DIteration(z, i, fractal, extendedAux);
+					break;
+				}
 				case fastImagscaPower2:
 				{
 					FastImagscaPower2Iteration(z);
@@ -660,7 +664,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case transfIterationWeight:
 				{
-					TransformIterationWeightIteration(z, i, fractal);
+					TransformIterationWeightIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfInvCylindrical:
@@ -753,10 +757,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformSphereInvIteration(z, fractal, extendedAux);
 					break;
 				}
-
 				case transfSphericalOffset:
 				{
 					TransformSphericalOffsetIteration(z, fractal, extendedAux);
+					break;
+				}
+				case transfSphericalOffsetVCL:
+				{
+					TransformSphericalOffsetVCLIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalFold:
@@ -904,7 +912,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case transfIterationWeight4D:
 				{
 					CVector4 z4D(z, w);
-					TransformIterationWeight4DIteration(z4D, i, fractal);
+					TransformIterationWeight4DIteration(z4D, i, fractal, extendedAux);
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;
@@ -1228,6 +1236,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerPwr2Poly:
 				case mixPinski4D:
 				case sierpinski4D:
+				case sierpinski3D:
 				{
 					if (extendedAux.DE > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);

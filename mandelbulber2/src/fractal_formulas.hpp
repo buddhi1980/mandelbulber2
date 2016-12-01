@@ -124,6 +124,7 @@ void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal);
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal);
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal);
 void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal);
+void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector3 &z, sExtendedAux &aux);
@@ -164,7 +165,8 @@ void TransformFabsAddConditionalIteration(CVector3 &z, const cFractal *fractal, 
 void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal);
 void TransformFoldingTetra3DIteration(CVector3 &z, const cFractal *fractal);
-void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal);
+void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+
 void TransformInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformLinCombineCxyz(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void TransformMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
@@ -195,6 +197,7 @@ void TransformSpherFoldVaryVCLIteration(
 	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformSphericalOffsetVCLIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformSurfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);
@@ -211,7 +214,7 @@ void TransformBoxFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtend
 void TransformFabsAddConstant4DIteration(CVector4 &z4D, const cFractal *fractal);
 void TransformFabsAddConstantV24DIteration(CVector4 &z4D, const cFractal *fractal);
 void TransformFabsAddConditional4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
-void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal);
+void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformReciprocal4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);

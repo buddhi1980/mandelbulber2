@@ -149,6 +149,7 @@ enum enumFractalFormula
 	mengerPrismShape2 = 107,
 	mixPinski4D = 108,
 	sierpinski4D =109,
+	sierpinski3D = 110,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
@@ -223,6 +224,7 @@ enum enumFractalFormula
 	transfFabsAddConditional = 1065,
 	transfReciprocal4D = 1066,
 	transfFabsAddConditional4D = 1067,
+	transfSphericalOffsetVCL = 1068,
 };
 }
 
