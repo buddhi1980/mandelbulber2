@@ -158,11 +158,11 @@ void cMeshExport::ProcessVolume()
 	qDebug() << "Marching cubes done.";
 
 	double maxColorIndex = -1.0 / 0.0;
-	for (int i = 0; i < colorIndices.size(); i++)
+	for (unsigned int i = 0; i < colorIndices.size(); i++)
 	{
 		maxColorIndex = qMax(maxColorIndex, colorIndices[i]);
 	}
-	for (int i = 0; i < colorIndices.size(); i++)
+	for (unsigned int i = 0; i < colorIndices.size(); i++)
 	{
 		colorIndices[i] /= maxColorIndex;
 	}
@@ -193,7 +193,7 @@ void cMeshExport::ProcessVolume()
 	f.write(QString("property list uchar int vertex_indices\n").toLatin1());
 	// f.write(QString("property list uchar float texcoord\n").toLatin1());
 	f.write(QString("end_header\n").toLatin1());
-	for (int i = 0; i < vertices.size() / 3; i++)
+	for (unsigned int i = 0; i < vertices.size() / 3; i++)
 	{
 
 		// float v[] = {(float) vertices[i * 3], (float) vertices[i * 3 + 1],
@@ -230,7 +230,7 @@ void cMeshExport::ProcessVolume()
 		uchar rgb[3] = {color, color, color};
 		f.write((char*) &rgb[0], sizeof(char) * 3); */
 	}
-	for (int i = 0; i < polygons.size(); i += 3)
+	for (unsigned int i = 0; i < polygons.size(); i += 3)
 	{
 		// uchar n = 3;
 		// int p[] = {polygons[i], polygons[i + 1], polygons[i + 2]};

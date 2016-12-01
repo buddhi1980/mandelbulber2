@@ -482,7 +482,7 @@ void ImageFileSavePNG::SavePNG(
 		/* end write */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during end of write");
 
-		png_write_end(png_ptr, NULL);
+		png_write_end(png_ptr, info_ptr);
 		delete[] row_pointers;
 		if (colorPtr) delete[] colorPtr;
 		fclose(fp);
@@ -542,7 +542,7 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 		/* end write */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during end of write");
 
-		png_write_end(png_ptr, NULL);
+		png_write_end(png_ptr, info_ptr);
 
 		delete[] row_pointers;
 
@@ -670,7 +670,7 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 		return;
 	}
 
-	png_write_end(png_ptr, NULL);
+	png_write_end(png_ptr, info_ptr);
 
 	delete[] rowBuffer;
 	delete[] files;

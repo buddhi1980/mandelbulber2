@@ -401,7 +401,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 		png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, &interlace_type, NULL, NULL);
 	outWidth = width;
 	outHeight = height;
-	unsigned int row_bytes = png_get_rowbytes(png_ptr, info_ptr);
+	// unsigned int row_bytes = png_get_rowbytes(png_ptr, info_ptr);
 	// qDebug() << width << height << bit_depth << color_type << row_bytes;
 
 	sRGBA16 *image = new sRGBA16[outWidth * outHeight];
