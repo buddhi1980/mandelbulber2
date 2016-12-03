@@ -68,7 +68,7 @@ foreach($headerFiles as $headerFilePath) {
 
 if(isDryRun()){
 	echo 'This is a dry run.' . PHP_EOL;
-	echo 'If you want to apply the changes, execute with populateUiInformation.php nondry' . PHP_EOL;
+	echo 'If you want to apply the changes, execute with codeStyleCheck.php nondry' . PHP_EOL;
 }
 else{
 	echo 'Changes applied' . PHP_EOL;
