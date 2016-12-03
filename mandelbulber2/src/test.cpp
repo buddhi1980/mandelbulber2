@@ -49,7 +49,7 @@
 
 QString Test::testFolder()
 {
-	return systemData.GetDataDirectoryHidden() + "test";
+	return systemData.GetDataDirectoryHidden() + ".temporaryTestFolder";
 }
 
 void Test::initTestCase()
