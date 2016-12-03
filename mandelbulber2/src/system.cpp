@@ -105,13 +105,18 @@ bool InitSystem(void)
 
 // data directory location
 #ifdef WIN32 /* WINDOWS */
-	systemData.SetDataDirectory(systemData.homedir + "mandelbulber" + QDir::separator());
+	systemData.SetDataDirectoryHidden(systemData.homedir + "mandelbulber" + QDir::separator());
+	systemData.SetDataDirectoryPublic(systemData.homedir + "mandelbulber" + QDir::separator());
 #else
-	systemData.SetDataDirectory(
+	systemData.SetDataDirectoryHidden(
 		QDir::toNativeSeparators(systemData.homedir + ".mandelbulber" + QDir::separator()));
+	systemData.SetDataDirectoryPublic(
+		QDir::toNativeSeparators(systemData.homedir + "mandelbulber" + QDir::separator()));
 #endif
-	out << "Default data directory: " << systemData.GetDataDirectory() << endl;
-	WriteLogString("Default data directory", systemData.GetDataDirectory(), 1);
+	out << "Default data hidden directory: " << systemData.GetDataDirectoryHidden() << endl;
+	WriteLogString("Default data hidden directory", systemData.GetDataDirectoryHidden(), 1);
+	out << "Default data public directory: " << systemData.GetDataDirectoryPublic() << endl;
+	WriteLogString("Default data public directory", systemData.GetDataDirectoryPublic(), 1);
 
 	//*********** temporary set to false ************
 	systemData.noGui = false;
@@ -211,7 +216,8 @@ bool CreateDefaultFolders(void)
 	// create data directory if not exists
 	bool result = true;
 
-	result &= CreateFolder(systemData.GetDataDirectory());
+	result &= CreateFolder(systemData.GetDataDirectoryHidden());
+	result &= CreateFolder(systemData.GetDataDirectoryPublic());
 	result &= CreateFolder(systemData.GetImagesFolder());
 	result &= CreateFolder(systemData.GetThumbnailsFolder());
 	result &= CreateFolder(systemData.GetToolbarFolder());

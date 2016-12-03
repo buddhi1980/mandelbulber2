@@ -71,29 +71,46 @@ using namespace std;
 struct sSystem
 {
 private:
-	QString dataDirectory;
+	QString dataDirectoryPublic;
 	QString dataDirectoryHidden;
 
 public:
-	bool IsUpgraded() const { return QDir(GetImagesFolder()).exists(); }
+	bool IsUpgraded() const { return QFileInfo(dataDirectoryPublic + "settings").exists(); }
 	void Upgrade(){
-		// TODO
+		QStringList moveFolders = {GetSettingsFolder(), GetImagesFolder(), GetSlicesFolder(), GetMaterialsFolder(), GetAnimationFolder()};
+		for(int i = 0; i < moveFolders.size(); i++)
+		{
+			QString folderSource = moveFolders.at(i);
+			QString folderTarget = folderSource;
+			folderTarget.replace(dataDirectoryHidden, dataDirectoryPublic);
+			if(QFileInfo(folderTarget).exists())
+			{
+				qCritical() << QString("target folder %1 already exists, won't move!").arg(folderTarget);
+			}
+			else if(!QDir().rename(folderSource, folderTarget))
+			{
+				qCritical() << QString("cannot move folder %1 to %2!").arg(folderSource, folderTarget);
+			}
+		}
 	}
-	void SetDataDirectory(QString target) { dataDirectory = target; }
-	QString GetDataDirectory() const { return dataDirectory; }
+	void SetDataDirectoryHidden(QString target) { dataDirectoryHidden = target; }
+	void SetDataDirectoryPublic(QString target) { dataDirectoryPublic = target; }
+	QString GetDataDirectoryPublic() const { return dataDirectoryPublic; }
+	QString GetDataDirectoryHidden() const { return dataDirectoryHidden; }
+	QString GetDataDirectoryUsed() const { return IsUpgraded() ? dataDirectoryPublic : dataDirectoryHidden; }
 
-	QString GetQueueFractlistFile() const { return dataDirectory + "queue.fractlist"; }
-	QString GetQueueFolder() const { return dataDirectory + "queue"; }
-	QString GetSettingsFolder() const { return dataDirectory + "settings"; }
-	QString GetImagesFolder() const { return dataDirectory + "images"; }
-	QString GetSlicesFolder() const { return dataDirectory + "slices"; }
-	QString GetIniFile() const { return dataDirectory + "mandelbulber.ini"; }
-	QString GetToolbarFolder() const { return dataDirectory + "toolbar"; }
-	QString GetMaterialsFolder() const { return dataDirectory + "materials"; }
-	QString GetAnimationFolder() const { return dataDirectory + "animation"; }
+	QString GetSettingsFolder() const { return GetDataDirectoryUsed() + "settings"; }
+	QString GetImagesFolder() const { return GetDataDirectoryUsed() + "images"; }
+	QString GetSlicesFolder() const { return GetDataDirectoryUsed() + "slices"; }
+	QString GetMaterialsFolder() const { return GetDataDirectoryUsed() + "materials"; }
+	QString GetAnimationFolder() const { return GetDataDirectoryUsed() + "animation"; }
 
-	QString GetThumbnailsFolder() const { return dataDirectory + "thumbnails"; }
-	QString GetAutosaveFile() const { return dataDirectory + ".autosave.fract"; }
+	QString GetQueueFolder() const { return dataDirectoryHidden + "queue"; }
+	QString GetToolbarFolder() const { return dataDirectoryHidden + "toolbar"; }
+	QString GetQueueFractlistFile() const { return dataDirectoryHidden + "queue.fractlist"; }
+	QString GetThumbnailsFolder() const { return dataDirectoryHidden + "thumbnails"; }
+	QString GetAutosaveFile() const { return dataDirectoryHidden + ".autosave.fract"; }
+	QString GetIniFile() const { return dataDirectoryHidden + "mandelbulber.ini"; }
 
 	QString homedir;
 	QString sharedDir;

@@ -1734,7 +1734,7 @@ void cInterface::DataFolderUpgrade()
 				"Instead of keeping all working folders/files in ~/.mandelbulber these are now split\n"
 				"into .mandelbulber for program internal folders/files (undo, toolbar, queue, mandelbulber.ini)\n"
 				"and mandelbulber for user defined folders/files (settings, images, materials, slices, textures)\n"
-				"Do you want to upgrade now to this new structure?"
+				"Do you want to upgrade now to this new structure? Program will need restart after upgrade."
 				);
 	messageBox->setText(messageText);
 	messageBox->setWindowTitle(QObject::tr("Data folder upgrade"));
@@ -1755,16 +1755,11 @@ void cInterface::DataFolderUpgrade()
 				gPar->Set("upgrade_do_not_ask_again", true);
 			break;
 		}
-		case QMessageBox::Yes:
+		case QMessageBox::Ok:
 		{
 			systemData.Upgrade();
 			// Needs restart
-			while (cRenderJob::GetRunningJobCount() > 0)
-			{
-				gApplication->processEvents();
-			}
-			QFile::remove(systemData.GetAutosaveFile());
-			gApplication->quit();
+			gApplication->exit();
 			break;
 		}
 	}
