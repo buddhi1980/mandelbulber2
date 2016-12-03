@@ -249,17 +249,19 @@ void ImageFileSavePNG::SavePNG(
 	/* create file */
 	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
 	png_bytep *row_pointers = NULL;
+	png_structp png_ptr = NULL;
+	png_info *info_ptr = NULL;
 
 	try
 	{
 		if (!fp) throw QString("[write_png_file] File %s could not be opened for writing.");
 
 		/* initialize stuff */
-		png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+		png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 
 		if (!png_ptr) throw QString("[write_png_file] png_create_write_struct failed");
 
-		png_info *info_ptr = png_create_info_struct(png_ptr);
+		info_ptr = png_create_info_struct(png_ptr);
 		if (!info_ptr) throw QString("[write_png_file] png_create_info_struct failed");
 
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during init_io");
@@ -483,12 +485,24 @@ void ImageFileSavePNG::SavePNG(
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during end of write");
 
 		png_write_end(png_ptr, info_ptr);
+		png_destroy_write_struct(&png_ptr, &info_ptr);
 		delete[] row_pointers;
 		if (colorPtr) delete[] colorPtr;
 		fclose(fp);
 	}
 	catch (QString &status)
 	{
+		if (png_ptr)
+		{
+			if (info_ptr)
+			{
+				png_destroy_write_struct(&png_ptr, &info_ptr);
+			}
+			else
+			{
+				png_destroy_write_struct(&png_ptr, NULL);
+			}
+		}
 		if (row_pointers) delete[] row_pointers;
 		if (fp) fclose(fp);
 		cErrorMessage::showMessage(
@@ -502,17 +516,19 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 	/* create file */
 	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
 	png_bytep *row_pointers = NULL;
+	png_structp png_ptr = NULL;
+	png_info *info_ptr = NULL;
 
 	try
 	{
 		if (!fp) throw QString("[write_png_file] File %s could not be opened for writing.");
 
 		/* initialize stuff */
-		png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+		png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 
 		if (!png_ptr) throw QString("[write_png_file] png_create_write_struct failed");
 
-		png_info *info_ptr = png_create_info_struct(png_ptr);
+		info_ptr = png_create_info_struct(png_ptr);
 		if (!info_ptr) throw QString("[write_png_file] png_create_info_struct failed");
 
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during init_io");
@@ -543,13 +559,24 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during end of write");
 
 		png_write_end(png_ptr, info_ptr);
-
+		png_destroy_write_struct(&png_ptr, &info_ptr);
 		delete[] row_pointers;
 
 		fclose(fp);
 	}
 	catch (QString &status)
 	{
+		if (png_ptr)
+		{
+			if (info_ptr)
+			{
+				png_destroy_write_struct(&png_ptr, &info_ptr);
+			}
+			else
+			{
+				png_destroy_write_struct(&png_ptr, NULL);
+			}
+		}
 		if (row_pointers) delete[] row_pointers;
 		if (fp) fclose(fp);
 		cErrorMessage::showMessage(
@@ -671,7 +698,7 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 	}
 
 	png_write_end(png_ptr, info_ptr);
-
+	png_destroy_write_struct(&png_ptr, &info_ptr);
 	delete[] rowBuffer;
 	delete[] files;
 

@@ -365,12 +365,14 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 	if (bytesRead < 8)
 	{
 		fclose(fp);
+		png_destroy_read_struct(&png_ptr, NULL, NULL);
 		return NULL;
 	}
 
 	if (!png_check_sig(sig, 8))
 	{
 		fclose(fp);
+		png_destroy_read_struct(&png_ptr, NULL, NULL);
 		return NULL; /* bad signature */
 	}
 
