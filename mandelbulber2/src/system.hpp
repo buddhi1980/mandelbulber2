@@ -76,18 +76,20 @@ private:
 
 public:
 	bool IsUpgraded() const { return QFileInfo(dataDirectoryPublic + "settings").exists(); }
-	void Upgrade(){
-		QStringList moveFolders = {GetSettingsFolder(), GetImagesFolder(), GetSlicesFolder(), GetMaterialsFolder(), GetAnimationFolder()};
-		for(int i = 0; i < moveFolders.size(); i++)
+	void Upgrade()
+	{
+		QStringList moveFolders = {GetSettingsFolder(), GetImagesFolder(), GetSlicesFolder(),
+			GetMaterialsFolder(), GetAnimationFolder()};
+		for (int i = 0; i < moveFolders.size(); i++)
 		{
 			QString folderSource = moveFolders.at(i);
 			QString folderTarget = folderSource;
 			folderTarget.replace(dataDirectoryHidden, dataDirectoryPublic);
-			if(QFileInfo(folderTarget).exists())
+			if (QFileInfo(folderTarget).exists())
 			{
 				qCritical() << QString("target folder %1 already exists, won't move!").arg(folderTarget);
 			}
-			else if(!QDir().rename(folderSource, folderTarget))
+			else if (!QDir().rename(folderSource, folderTarget))
 			{
 				qCritical() << QString("cannot move folder %1 to %2!").arg(folderSource, folderTarget);
 			}
@@ -97,7 +99,10 @@ public:
 	void SetDataDirectoryPublic(QString target) { dataDirectoryPublic = target; }
 	QString GetDataDirectoryPublic() const { return dataDirectoryPublic; }
 	QString GetDataDirectoryHidden() const { return dataDirectoryHidden; }
-	QString GetDataDirectoryUsed() const { return IsUpgraded() ? dataDirectoryPublic : dataDirectoryHidden; }
+	QString GetDataDirectoryUsed() const
+	{
+		return IsUpgraded() ? dataDirectoryPublic : dataDirectoryHidden;
+	}
 
 	QString GetSettingsFolder() const { return GetDataDirectoryUsed() + "settings"; }
 	QString GetImagesFolder() const { return GetDataDirectoryUsed() + "images"; }

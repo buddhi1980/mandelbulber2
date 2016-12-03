@@ -1231,6 +1231,15 @@
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    if (z4D.y + z4D.w &amp;lt; 0.0) CVector2(z4D.y, z4D.w) = -CVector2(z4D.w, z4D.y);&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    if (z4D.z + z4D.w &amp;lt; 0.0) CVector2(z4D.z, z4D.w) = -CVector2(z4D.w, z4D.z);&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    */&lt;/span&gt;
+    &lt;span style=&quot;color:#d0d0a0&quot;&gt;/*&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0a0&quot;&gt;    if (z4D.x + z4D.y &amp;lt; 0.0) z = -CVector4(z4D.y, z4D.x, z4D.z, z4D.w);&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0a0&quot;&gt;    if (z4D.x + z4D.z &amp;lt; 0.0) z = -CVector4(z4D.z, z4D.y, z4D.x, z4D.w);&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0a0&quot;&gt;    if (z4D.y + z4D.z &amp;lt; 0.0) z = -CVector4(z4D.x, z4D.z, z4D.y, z4D.w);&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0a0&quot;&gt;    if (z4D.x + z4D.w &amp;lt; 0.0) z = -CVector4(z4D.w, z4D.y, z4D.z, z4D.x);&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0a0&quot;&gt;    if (z4D.y + z4D.w &amp;lt; 0.0) z = -CVector4(z4D.x, z4D.w, z4D.z, z4D.y);&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0a0&quot;&gt;    if (z4D.z + z4D.w &amp;lt; 0.0) z = -CVector4(z4D.x, z4D.y, z4D.w, z4D.z);&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0a0&quot;&gt;    */&lt;/span&gt;
+
     &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; temp&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
     &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
@@ -1273,7 +1282,12 @@
       z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;= -&lt;/span&gt;z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;w&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
       z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;w &lt;span style=&quot;color:#d0d0d0&quot;&gt;= -&lt;/span&gt;temp&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
+    z4D &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z4D &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+    z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;* (&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1 &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+
+    aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
+
   &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;startIterationsC
       &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;stopIterationsC&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
@@ -1287,11 +1301,12 @@
       &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;stopIterationsR&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
     CVector3 Z3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;CVector3&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
-    Z3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;mainRot&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;RotateVector&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;Z3&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+    Z3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;rotationMatrix&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;RotateVector&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;Z3&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
     z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; Z3&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; Z3&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; Z3&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
+
   &lt;span style=&quot;color:#d0d0a0&quot;&gt;// 4D r0t&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0a0&quot;&gt;/*&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;   * mat4 rotationXY  ( double angle )&lt;/span&gt;
@@ -1326,7 +1341,7 @@
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;  mat4 rotationXW  ( double angle )&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;  {&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0a0&quot;&gt;  {    z = fractal-&amp;gt;transformCommon.rotationMatrix.RotateVector(z);&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    mat4 rot;&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    rot[0] = CVector4(cos(angle), 0.0, 0.0, sin(angle));&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    rot[1] = CVector4(0.0, 1.0, 0.0, 0.0);&lt;/span&gt;

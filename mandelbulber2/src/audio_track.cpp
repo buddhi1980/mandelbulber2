@@ -169,7 +169,7 @@ void cAudioTrack::slotFinished()
 
 float cAudioTrack::getSample(int sampleIndex) const
 {
-	if(isLoaded() && sampleIndex < length)
+	if (isLoaded() && sampleIndex < length)
 	{
 		return rawAudio[sampleIndex];
 	}

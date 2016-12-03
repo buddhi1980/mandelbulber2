@@ -1730,12 +1730,13 @@ void cInterface::DataFolderUpgrade()
 	QAbstractButton *btnNoAndDoNotAskAgain = NULL;
 	QMessageBox *messageBox = new QMessageBox(mainWindow);
 	QString messageText = QObject::tr(
-				"In Mandelbulber 2.10 the default data structure changed for linux and MacOS:\n"
-				"Instead of keeping all working folders/files in ~/.mandelbulber these are now split\n"
-				"into .mandelbulber for program internal folders/files (undo, toolbar, queue, mandelbulber.ini)\n"
-				"and mandelbulber for user defined folders/files (settings, images, materials, slices, textures)\n"
-				"Do you want to upgrade now to this new structure? Program will need restart after upgrade."
-				);
+		"In Mandelbulber 2.10 the default data structure changed for linux and MacOS:\n"
+		"Instead of keeping all working folders/files in ~/.mandelbulber these are now split\n"
+		"into .mandelbulber for program internal folders/files (undo, toolbar, queue, "
+		"mandelbulber.ini)\n"
+		"and mandelbulber for user defined folders/files (settings, images, materials, slices, "
+		"textures)\n"
+		"Do you want to upgrade now to this new structure? Program will need restart after upgrade.");
 	messageBox->setText(messageText);
 	messageBox->setWindowTitle(QObject::tr("Data folder upgrade"));
 	messageBox->setIcon(QMessageBox::Question);

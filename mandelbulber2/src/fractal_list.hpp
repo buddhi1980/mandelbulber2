@@ -148,7 +148,7 @@ enum enumFractalFormula
 	// V2.10
 	mengerPrismShape2 = 107,
 	mixPinski4D = 108,
-	sierpinski4D =109,
+	sierpinski4D = 109,
 	sierpinski3D = 110,
 
 	// 152 to 172 reserved for scator

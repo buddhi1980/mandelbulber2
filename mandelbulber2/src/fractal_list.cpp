@@ -290,7 +290,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Sierpinski 4D", "sierpinski_4D", sierpinski4D,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-
 	//-------------------------- transforms -----------------------------------
 	fractalList->append(
 		sFractalDescription("Transform - Addition Constant", "transf_addition_constant",
@@ -481,8 +480,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Transform - Spherical_Offset", "transf_spherical_offset",
 		transfSphericalOffset, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Transform - Spherical_OffsetVCL", "transf_spherical_offsetVCL",
-		transfSphericalOffsetVCL, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(
+		sFractalDescription("Transform - Spherical_OffsetVCL", "transf_spherical_offsetVCL",
+			transfSphericalOffsetVCL, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform -Surf Box_Fold", "transf_surf_box_fold",
 		transfSurfBoxFold, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
