@@ -47,11 +47,26 @@
 #include "rendering_configuration.hpp"
 #include "system.hpp"
 
+QString Test::testFolder()
+{
+	return systemData.GetDataDirectoryHidden() + "test";
+}
+
+void Test::initTestCase()
+{
+	CreateFolder(testFolder());
+}
+
+void Test::cleanupTestCase()
+{
+	DeleteAllFilesFromDirectory(testFolder(), "*");
+	QDir().rmdir(testFolder());
+}
+
 void Test::renderExamples()
 {
 	// this renders all example files in a resolution of 5x5 px
 	// and benchmarks the runtime
-
 	QString examplePath =
 		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
 	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files);
@@ -162,6 +177,7 @@ void Test::testFlight()
 	testPar->Set("image_height", 5);
 	testPar->Set("flight_first_to_render", 5);
 	testPar->Set("flight_last_to_render", 8);
+	testPar->Set("anim_flight_dir", testFolder() + QDir::separator());
 
 	cFlightAnimation *flightAnimation = new cFlightAnimation(
 		gMainInterface, testAnimFrames, image, NULL, testPar, testParFractal, NULL);
@@ -213,6 +229,7 @@ void Test::testKeyframe()
 	testPar->Set("image_height", 5);
 	testPar->Set("keyframe_first_to_render", 50);
 	testPar->Set("keyframe_last_to_render", 55);
+	testPar->Set("anim_keyframe_dir", testFolder() + QDir::separator());
 
 	cKeyframeAnimation *testKeyframeAnimation = new cKeyframeAnimation(
 		gMainInterface, testKeyframes, image, NULL, testPar, testParFractal, NULL);
