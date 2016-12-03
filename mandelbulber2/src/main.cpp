@@ -183,12 +183,13 @@ int main(int argc, char *argv[])
 	}
 
 	// write parameters to ui
+	bool dataFoldersUpdated = false;
 	if (!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->ComboMouseClickUpdate();
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
-		gMainInterface->DataFolderUpgrade();
+		dataFoldersUpdated = gMainInterface->DataFolderUpgrade();
 		gMainInterface->AutoRecovery();
 		gMainInterface->InitPeriodicRefresh();
 	}
@@ -200,7 +201,7 @@ int main(int argc, char *argv[])
 	// start main Qt loop
 	WriteLog("application->exec()", 2);
 	int result = 0;
-	if (!commandLineInterface.isNoGUI()) result = gApplication->exec();
+	if (!commandLineInterface.isNoGUI() && !dataFoldersUpdated) result = gApplication->exec();
 
 	// clean objects when exit
 	delete gPar;

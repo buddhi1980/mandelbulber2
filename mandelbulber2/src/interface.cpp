@@ -1721,11 +1721,12 @@ void cInterface::AutoRecovery()
 	}
 }
 
-void cInterface::DataFolderUpgrade()
+bool cInterface::DataFolderUpgrade()
 {
-	if (systemData.IsUpgraded()) return; // already upgraded, nothing to do
+#ifndef WIN32
+	if (systemData.IsUpgraded()) return false; // already upgraded, nothing to do
 	bool upgradeDoNotAskAgain = gPar->Get<bool>("upgrade_do_not_ask_again");
-	if (upgradeDoNotAskAgain) return; // user does not want to upgrade ever
+	if (upgradeDoNotAskAgain) return false; // user does not want to upgrade ever
 
 	QAbstractButton *btnNoAndDoNotAskAgain = NULL;
 	QMessageBox *messageBox = new QMessageBox(mainWindow);
@@ -1760,11 +1761,15 @@ void cInterface::DataFolderUpgrade()
 		{
 			systemData.Upgrade();
 			// Needs restart
-			gApplication->exit();
+			QProcess::startDetached(qApp->arguments()[0]);
+			delete messageBox;
+			return true;
 			break;
 		}
 	}
 	delete messageBox;
+#endif
+	return false;
 }
 
 void cInterface::OptimizeStepFactor(double qualityTarget)
