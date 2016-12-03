@@ -136,7 +136,12 @@ void CNetRender::DeleteClient()
 	if (deviceType != netRender_CLIENT) return;
 	deviceType = netRender_UNKNOWN;
 	WriteLog("NetRender - Delete Client", 2);
-	if (reconnectTimer->isActive()) reconnectTimer->stop();
+	if (reconnectTimer)
+	{
+		if (reconnectTimer->isActive()) reconnectTimer->stop();
+		delete reconnectTimer;
+		reconnectTimer = NULL;
+	}
 	if (clientSocket)
 	{
 		clientSocket->close();
