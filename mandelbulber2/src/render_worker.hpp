@@ -96,7 +96,6 @@ private:
 		int R;
 		int G;
 		int B;
-		bool notBlack;
 	};
 
 	struct sRayMarchingIn
