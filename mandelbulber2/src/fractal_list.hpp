@@ -181,7 +181,7 @@ enum enumFractalFormula
 	transfFabsAddConstantV2 = 1025,
 	transfMultipleAngle = 1026,
 	transfRPower = 1027,
-	transfIterationWeight = 1028,
+	transfIterationWeight = 1028, // fixed V2.10
 	transfFabsAddMulti = 1029,
 	transfSphericalPwrFold = 1030,
 	transfAddCpixelVaryV1 = 1031,
@@ -194,7 +194,7 @@ enum enumFractalFormula
 	transfSphereInvC = 1038,
 	transfAdditionConstant4D = 1039,
 	transfBoxFold4D = 1040,
-	transfIterationWeight4D = 1041,
+	transfIterationWeight4D = 1041, // fixed V2.10
 	transfSphericalFold4D = 1042,
 	transfScale4D = 1043,
 	transfFabsAddConstant4D = 1044,

@@ -41,7 +41,12 @@
 class Test : public QObject
 {
 	Q_OBJECT
+private:
+	QString testFolder();
+
 private slots:
+	void initTestCase();
+	void cleanupTestCase();
 	void renderExamples();
 	void netrender();
 	void testFlight();

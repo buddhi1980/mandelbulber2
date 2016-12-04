@@ -7466,7 +7466,7 @@ void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExte
 /**
  * z vector - axis swap
  */
-void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
+void TransformZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fractal)
 {
 	switch (fractal->mandelbulbMulti.orderOfxyz)
 	{
@@ -7481,6 +7481,14 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 	if (fractal->transformCommon.functionEnabledxFalse) z.x = -z.x;
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
+
+	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterations
+			&& i < fractal->transformCommon.stopIterations)
+	{
+	double xtemp = SQRT_1_2 * ( z.x - z.y );
+	z.y = SQRT_1_2 * ( z.y + z.x );
+	z.x = xtemp;
+	}
 }
 
 //-------------------------------- 4D ----------------------------------------------

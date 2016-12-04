@@ -157,7 +157,7 @@ void cMeshExport::ProcessVolume()
 
 	qDebug() << "Marching cubes done.";
 
-	double maxColorIndex = -1.0 / 0.0;
+	double maxColorIndex = -1.0;
 	for (unsigned int i = 0; i < colorIndices.size(); i++)
 	{
 		maxColorIndex = qMax(maxColorIndex, colorIndices[i]);
