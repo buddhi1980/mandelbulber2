@@ -1,6 +1,6 @@
 ![Banner](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberBanner.png)
 
-|Coverity Scan|Build Status|Gitter chat|
+|Coverity Scan|Build Status|Gitter Chat|
 |:-:|:-:|:-:|
 |[![Coverity Scan](https://scan.coverity.com/projects/4723/badge.svg?flat=1)](https://scan.coverity.com/projects/mandelbulber-v2)|Linux / OSX: [![Build Status Linux / OSX](https://travis-ci.org/buddhi1980/mandelbulber2.svg)](https://travis-ci.org/buddhi1980/mandelbulber2), Windows: [![Build Status Windows](https://ci.appveyor.com/api/projects/status/ce02h8jyxc6f8vt4?svg=true)](https://ci.appveyor.com/project/zebastian/mandelbulber2-s84yl)|[![Join the chat at https://gitter.im/buddhi1980/mandelbulber2](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/buddhi1980/mandelbulber2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)|
 
@@ -24,7 +24,7 @@ The possibilities are literally **infinite**!
 - Complex 3D ray-traced shading: hard shadows, ambient occlusion, depth of field, translucency & refraction, etc.
 - Rich GUI in Qt 5 environment
 - Unlimited image resolution on 64-bit systems
-- Program compiled for x86 and x64 CPUs (Linux, Windows, OS X)
+- Program compiled for x86 and x64 CPUs (Linux, Windows, OSX)
 - Simple 3D navigator
 - Distributed Network Rendering
 - Key-frame animation of all parameters with different interpolations
