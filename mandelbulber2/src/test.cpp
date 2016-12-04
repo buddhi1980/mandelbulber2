@@ -126,7 +126,7 @@ void Test::netrender()
 	netRenderServer->SetServer(5555);
 	netRenderClient->SetClient("127.0.0.1", 5555);
 
-	QTest::qWait(100);
+	QTest::qWait(500);
 
 	CNetRender::netRenderStatus clientStatus = netRenderClient->GetStatus();
 	QVERIFY2(clientStatus == CNetRender::netRender_READY,

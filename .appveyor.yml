@@ -69,7 +69,8 @@ build_script:
   # move the auto-generated ui files to qt folder
   #- move ui_* mandelbulber2\qt
   - msbuild mandelbulber2.sln /p:Configuration=Release /m
-  # - Release\mandelbulber2.exe --test deactivated, since netrender tests failed
+  - netstat -ab
+  - Release\mandelbulber2.exe --test
   - tree C:\projects\mandelbulber2\gsl\Release /F
   - tree %QTDIR% /F
   - tree /F
