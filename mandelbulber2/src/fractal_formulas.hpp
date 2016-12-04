@@ -202,7 +202,7 @@ void TransformSphericalOffsetVCLIteration(
 	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformSurfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);
+void TransformZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fractal);
 
 // 4D
 void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);

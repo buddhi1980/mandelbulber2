@@ -804,7 +804,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case transfZvectorAxisSwap:
 				{
-					TransformZvectorAxisSwapIteration(z, fractal);
+					TransformZvectorAxisSwapIteration(z, i, fractal);
 					break;
 				}
 				case transfRotationFoldingPlane:

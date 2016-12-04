@@ -507,7 +507,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 			transfFabsAddConstant4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
-		sFractalDescription("Transform - Fabs_Add_ConstantV2_4D", "transf_fabs_add_constantV2_4D",
+		sFractalDescription("Transform - Fabs_Add_Tglad fold_4D", "transf_fabs_add_constantV2_4D",
 			transfFabsAddConstantV24D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
