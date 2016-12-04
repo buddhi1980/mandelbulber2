@@ -90,7 +90,7 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		}
 
 		painter.setRenderHint(QPainter::SmoothPixmapTransform);
-		scaledWaveImage = waveImage.scaled(this->width(), height);
+		scaledWaveImage = waveImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
 	}
 }

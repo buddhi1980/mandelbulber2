@@ -106,6 +106,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 
 		sf_close(infile);
 		loaded = true;
+		emit loadingFinished();
 	}
 #endif
 
@@ -157,7 +158,7 @@ void cAudioTrack::slotReadBuffer()
 	}
 	length = rawAudio.size();
 	double percent = (double)length / totalSamplesApprox * 100.0;
-	qDebug() << percent << "%" << length << (double)length / sampleRate;
+	emit loadingProgress(percent);
 }
 
 void cAudioTrack::slotFinished()
@@ -165,6 +166,7 @@ void cAudioTrack::slotFinished()
 	qDebug() << "finished";
 	qDebug() << length << (double)length / sampleRate;
 	loaded = true;
+	emit loadingFinished();
 }
 
 float cAudioTrack::getSample(int sampleIndex) const

@@ -66,6 +66,10 @@ private:
 
 	int sampleRate;
 	bool loaded;
+
+signals:
+	void loadingFinished();
+	void loadingProgress(double percentage);
 };
 
 #endif /* MANDELBULBER2_SRC_AUDIO_TRACK_H_ */

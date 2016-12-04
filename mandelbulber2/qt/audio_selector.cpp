@@ -45,11 +45,13 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
+	audio = NULL;
 }
 
 cAudioSelector::~cAudioSelector()
 {
 	delete ui;
+	if(audio) delete audio;
 }
 
 void cAudioSelector::slotLoadAudioFile()
@@ -66,12 +68,20 @@ void cAudioSelector::slotLoadAudioFile()
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 
-		cAudioTrack *audio = new cAudioTrack(this);
+		if(audio) delete audio;
+		audio = new cAudioTrack(this);
+
+		connect(audio, SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
+
 		audio->LoadAudio(filename);
 
-		ui->waveForm->SetParameters(30.0);
-		ui->waveForm->AssignAudioTrack(audio);
+		ui->waveForm->SetParameters(30.0); //TODO settings for frames per second
 	}
+}
+
+void cAudioSelector::slotAudioLoaded()
+{
+	ui->waveForm->AssignAudioTrack(audio);
 }
 
 void cAudioSelector::ConnectSignals()

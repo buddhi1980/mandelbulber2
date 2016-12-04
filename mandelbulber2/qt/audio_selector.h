@@ -39,6 +39,7 @@
 
 // forward declarations
 class cAutomatedWidgets;
+class cAudioTrack;
 
 namespace Ui
 {
@@ -54,6 +55,7 @@ public:
 
 private slots:
 	void slotLoadAudioFile();
+	void slotAudioLoaded();
 
 private:
 	void ConnectSignals();
@@ -61,6 +63,8 @@ private:
 	Ui::cAudioSelector *ui;
 
 	cAutomatedWidgets *automatedWidgets;
+
+	cAudioTrack *audio;
 };
 
 #endif /* MANDELBULBER2_QT_AUDIO_SELECTOR_H_ */
