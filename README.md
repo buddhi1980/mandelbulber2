@@ -12,7 +12,7 @@ In summary, Mandelbulber generates 3-dimensional fractals.
 
 Explore trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals.
 
-Render with a great palette of customizable materials to shade and create stunning images and videos.
+Render with a great palette of customizable materials to create stunning images and videos.
 
 The possibilities are literally **infinite**!
 
