@@ -562,6 +562,8 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 								sizeCompare = size1 / size2;
 							}
 
+							if(sizeCompare > 100.0) sizeCompare = 100.0;
+
 							int intDiff = (1.0 - sizeCompare) * 500;
 							intDiff *= intDiff;
 							if (intDiff < Random(10000))
