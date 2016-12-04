@@ -38,6 +38,9 @@
 #include <QObject>
 #include <QAudioDecoder>
 
+//forward declarations
+class cAudioFFTdata;
+
 class cAudioTrack : public QObject
 {
 	Q_OBJECT
@@ -52,6 +55,7 @@ public:
 	bool isLoaded() const { return loaded; }
 	int getSampleRate() const { return sampleRate; }
 	float getSample(int sampleIndex) const;
+	void calculateFFT(double framesPerSecond);
 
 private slots:
 	void slotReadBuffer();
@@ -61,6 +65,7 @@ private slots:
 private:
 	QAudioDecoder *decoder;
 	QVector<float> rawAudio;
+	QVector<cAudioFFTdata> fftAudio;
 	bool memoryReserved;
 	int length;
 

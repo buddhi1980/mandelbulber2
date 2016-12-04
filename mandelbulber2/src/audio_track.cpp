@@ -33,11 +33,16 @@
  */
 
 #include "audio_track.h"
+
+#include <gsl/gsl_errno.h>
+#include <gsl/gsl_fft_complex.h>
+
 #include <QAudioRecorder>
 #include <QAudioFormat>
 #include <QAudioDecoder>
 #include <QFileInfo>
 
+#include "audio_fft_data.h"
 #ifdef USE_SNDFILE
 #include <sndfile.h>
 #endif
@@ -184,4 +189,41 @@ float cAudioTrack::getSample(int sampleIndex) const
 void cAudioTrack::slotError(QAudioDecoder::Error error)
 {
 	qDebug() << "error" << error;
+}
+
+void cAudioTrack::calculateFFT(double framesPerSecond)
+{
+	int fftSize = cAudioFFTdata::fftSize;
+
+	if (loaded && length > fftSize)
+	{
+		int numberOfFrames = length * framesPerSecond / sampleRate;
+		fftAudio.reserve(numberOfFrames);
+
+		for (int frame = 0; frame < numberOfFrames; ++frame)
+		{
+			int sampleOffset = frame * sampleRate / framesPerSecond;
+			// prepare complex data for fft transform
+			double fftData[fftSize * 2];
+			for (int i = 0; i < fftSize; i++)
+			{
+				fftData[2 * i] = getSample(i + sampleOffset);
+				fftData[2 * i + 1] = 0.0;
+			}
+
+			//do FFT
+			gsl_complex_packed_array data = fftData;
+			gsl_fft_complex_radix2_forward(data, 1, fftSize);
+
+			//write ready FFT data to storage buffer
+			cAudioFFTdata fftFrame;
+			for(int i = 0; i < fftSize; i++)
+			{
+				double re = fftData[2 * i];
+				double im = fftData[2 * i + 1];
+				fftFrame.data[i] = sqrt(re * re + im * im);
+			}
+			fftAudio.append(fftFrame);
+		}
+	}
 }
