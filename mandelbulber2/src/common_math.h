@@ -58,7 +58,6 @@ struct sVectorsAround
 	int R;
 	int G;
 	int B;
-	bool notBlack;
 };
 
 struct sVector
