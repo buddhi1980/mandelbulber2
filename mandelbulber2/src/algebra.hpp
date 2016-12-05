@@ -597,4 +597,71 @@ private:
 	bool zero;
 };
 
+
+/************************* matrix 4x4 (fast) *****************/
+class CMatrix44
+{
+public:
+	CMatrix44();
+	CMatrix44(const CMatrix44 &matrix);
+	CMatrix44(const CVector4 &v1, const CVector4 &v2, const CVector4 &v3, const CVector4 &v4);
+	CMatrix44 operator*(const CMatrix44 &matrix) const;
+	CVector4 operator*(const CVector4 &vector) const;
+	CMatrix44 &operator=(const CMatrix44 &);
+	double m11;
+	double m12;
+	double m13;
+	double m14;
+	double m21;
+	double m22;
+	double m23;
+	double m24;
+	double m31;
+	double m32;
+	double m33;
+	double m34;
+	double m41;
+	double m42;
+	double m43;
+	double m44;
+
+};
+/************************* rotation matrix 44 *******************/
+class CRotationMatrix44
+{
+public:
+	CRotationMatrix44();
+	void RotateXY(double angle);
+	void RotateYZ(double angle);
+	void RotateXZ(double angle);
+	void RotateXW(double angle);
+	void RotateYW(double angle);
+	void RotateZW(double angle);
+	void Null();
+	CVector4 RotateVector(const CVector4 &vector) const; // ....................??
+	double GetAlfa() const;
+	double GetBeta() const;
+	double GetGamma() const;
+	double GetDelta() const;
+	double GetEpsilon() const;
+	double GetZeta() const;
+	void SetRotation(double angles[6]);
+	void SetRotation(double alpha, double beta, double gamma, double delta, double epsilon, double zeta);
+	//void SetRotation(CVector4 rotation);
+	//void SetRotation2(CVector4 rotation);
+	//void SetRotation3(CVector4 rotation);
+
+	void SetRotation44a(CVector3 rotation);
+	void SetRotation44b(CVector3 rotation);
+
+	CRotationMatrix44 Transpose(void) const;
+	CMatrix44 GetMatrix() const { return matrix; }
+
+private:
+	CMatrix44 matrix;
+	bool zero;
+};
+
+
+
 #endif /* MANDELBULBER2_SRC_ALGEBRA_HPP_ */

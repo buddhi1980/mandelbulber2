@@ -7671,8 +7671,10 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 	}
 
 	// 4D r0t
+		z4D = fractal->transformCommon.rotationMatrix44.RotateVector(z4D);
 	/*
-	 * mat4 rotationXY  ( double angle )
+	 *
+	mat4 rotationXY  ( double angle )
 	{
 		mat4 rot;
 		rot[0] = CVector4(cos(angle), sin(angle), 0.0, 0.0);
@@ -7704,7 +7706,7 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 
 
 	mat4 rotationXW  ( double angle )
-	{		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	{
 		mat4 rot;
 		rot[0] = CVector4(cos(angle), 0.0, 0.0, sin(angle));
 		rot[1] = CVector4(0.0, 1.0, 0.0, 0.0);
@@ -7733,7 +7735,7 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 		return rot;
 	}
 
-	mat4 scale  ( CVector4scale4 )
+	mat4 scale  ( CVector4 scale4 )
 	{
 		mat4 rot;
 		rot[0] = CVector4(scale4.x, 0.0, 0.0, 0.0);
