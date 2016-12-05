@@ -20,6 +20,8 @@ $fractalFunctionContent = file_get_contents(PROJECT_PATH .'src/fractal_formulas.
 $fractalFunctionContentFormulasOnly = substr($fractalFunctionContent, 
 	strpos($fractalFunctionContent, 'using namespace fractal;') + strlen('using namespace fractal;'));
 $fractalFunctionContentExploded = explode(PHP_EOL . '}' . PHP_EOL, $fractalFunctionContentFormulasOnly);
+$formulaExampleUsage = getFormulaExampleUsage();
+$indexIdLookup = getIndexIdLookUp();
 
 // parse fractal_list data
 $regexFormulas = '/sFractalDescription\(([\s\S]*?)\)\);/';
@@ -70,6 +72,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 		'functionName' => $functionName,
 		'code' => $code,
 		'comment' => $comment,
+		'id' => $indexIdLookup[$index],
 	);
 	// print_r($formulas); exit;
 }
@@ -104,8 +107,20 @@ foreach($formulas as $index => $formula){
 			$informationText .= $author . "<br>" . PHP_EOL;
 		}
 		$informationText .= '</td></tr>' . PHP_EOL;
-	}
+	}	
 	$informationText .= "</table>" . PHP_EOL;
+	if(array_key_exists($formula['id'], $formulaExampleUsage)){
+		$informationText .= '<b>Examples using this formula</b><br>';
+		$exampleFilenames = $formulaExampleUsage[$formula['id']];		
+		if(count($exampleFilenames) > 5){ // do not show more than 5 examples
+			array_splice($exampleFilenames, 5);
+			$exampleFilenames[] = '...';
+		}
+		$informationText .= implode('<br>', $exampleFilenames);
+	}else{
+		echo warningString('formula ' . $formula['name'] . ' is not used in any examples yet.') . PHP_EOL;
+	}
+
 	$informationText .= "<h3>Code</h3>" . PHP_EOL;
 	$informationText .= $formattedEscapedCode;
 	
@@ -169,6 +184,9 @@ function successString($s){
 function noticeString($s){
 	return "\033[0;34m\033[47m" . $s . "\033[0m";
 }
+function warningString($s){
+	return "\033[0;33m\033[47m" . $s . "\033[0m";
+}
 
 function isDryRun(){
 	global $argv;
@@ -206,6 +224,46 @@ function parseComment($c){
 		}
 	}
 	return $out;
+}
+
+function getFormulaExampleUsage(){
+	// get a lookup for every formula in which example files it is used
+	$exampleBasePath = PROJECT_PATH .'deploy/share/mandelbulber2/examples/';
+	$exampleFileMasks[] = $exampleBasePath . '*.fract';
+	$exampleFileMasks[] = $exampleBasePath . '*/*.fract';
+	$formulaExampleUsage = array();
+	foreach($exampleFileMasks as $exampleFileMask){	
+		foreach (glob($exampleFileMask) as $exampleFileName) {
+			$exampleContent = file_get_contents($exampleFileName);
+			$exampleContentLines = explode(PHP_EOL, $exampleContent);
+			$pathOfFileFromExamples = str_replace($exampleBasePath, '', $exampleFileName);
+
+			foreach ($exampleContentLines as $line) {
+				$line = trim($line);
+				if (preg_match("/^formula_\d+\s(\d+);$/", $line, $match)) {
+					if(!array_key_exists($match[1], $formulaExampleUsage)) $formulaExampleUsage[$match[1]] = array();		
+					if(!in_array($pathOfFileFromExamples, $formulaExampleUsage[$match[1]])){
+						$formulaExampleUsage[$match[1]][] = $pathOfFileFromExamples;
+					}
+				}
+			}
+		}
+	}
+	return $formulaExampleUsage; 
+}
+
+function getIndexIdLookUp(){
+	// get the integer id from fractal_list.hpp for the named index of each formula 
+	$fractalListHeaderContent = file_get_contents(PROJECT_PATH .'src/fractal_list.hpp');
+	$indexIdLookUp = array();
+	$fractalListHeaderContentLines = explode(PHP_EOL, $fractalListHeaderContent);
+	foreach ($fractalListHeaderContentLines as $line) {
+		$line = trim($line);
+		if (preg_match("/^(\w+)\s=\s(\d+),.*$/", $line, $match)) {
+			$indexIdLookUp[$match[1]] = $match[2];
+		}
+	}
+	return $indexIdLookUp; 
 }
 
 ?>
