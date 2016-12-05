@@ -7525,12 +7525,12 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 
 	z4D = fabs(z4D);
 	CVector4 temp4;
-	if ( z4D.x - z4D.y < 0.0) { temp4.x = z4D.y; z4D.y = z4D.x; z4D.x = temp4.x ;}
-	if ( z4D.x - z4D.z < 0.0) { temp4.x = z4D.z; z4D.z = z4D.x; z4D.x = temp4.x ;}
-	if ( z4D.y - z4D.z < 0.0) { temp4.y = z4D.z; z4D.z = z4D.y; z4D.y = temp4.y ;}
-	if ( z4D.x - z4D.w < 0.0) { temp4.x = z4D.w; z4D.w = z4D.x; z4D.x = temp4.x ;}
-	if ( z4D.y - z4D.w < 0.0) { temp4.x = z4D.w; z4D.w = z4D.y; z4D.y = temp4.x ;}
-	if ( z4D.z - z4D.w < 0.0) { temp4.y = z4D.w; z4D.w = z4D.z; z4D.z = temp4.y ;}
+	if ( z4D.x - z4D.y < 0.0) { temp4.x = z4D.y; z4D.y = z4D.x; z4D.x = temp4.x;}
+	if ( z4D.x - z4D.z < 0.0) { temp4.x = z4D.z; z4D.z = z4D.x; z4D.x = temp4.x;}
+	if ( z4D.y - z4D.z < 0.0) { temp4.y = z4D.z; z4D.z = z4D.y; z4D.y = temp4.y;}
+	if ( z4D.x - z4D.w < 0.0) { temp4.x = z4D.w; z4D.w = z4D.x; z4D.x = temp4.x;}
+	if ( z4D.y - z4D.w < 0.0) { temp4.x = z4D.w; z4D.w = z4D.y; z4D.y = temp4.x;}
+	if ( z4D.z - z4D.w < 0.0) { temp4.y = z4D.w; z4D.w = z4D.z; z4D.z = temp4.y;}
 
 	// temp3D rot
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -7546,14 +7546,30 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 
 	double scaleM = fractal->transformCommon.scale3;
 	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
-	z4D.x = scaleM * z4D.x - offsetM.x ;
-	z4D.y = scaleM * z4D.y - offsetM.y ;
-	z4D.w = scaleM * z4D.w - offsetM.w ;
+	z4D.x = scaleM * z4D.x - offsetM.x;
+	z4D.y = scaleM * z4D.y - offsetM.y;
+	z4D.w = scaleM * z4D.w - offsetM.w;
 	z4D.z -= 0.5 * offsetM.z  / scaleM;
 	z4D.z = -fabs(-z4D.z);
 	z4D.z += 0.5 * offsetM.z / scaleM;
 	z4D.z *= scaleM;
-	aux.DE *= scaleM * fractal->analyticDE.scale1;
+	aux.DE *= scaleM;
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		CVector4 zA, zB;
+
+		if (i == fractal->transformCommon.intA) zA = z4D;
+
+		if (i == fractal->transformCommon.intB) zB = z4D;
+
+		z4D = (z4D * fractal->transformCommon.scale) + (zA * fractal->transformCommon.offset)
+					+ (zB * fractal->transformCommon.offset0);
+		aux.DE *= fractal->transformCommon.scale;
+		aux.r_dz *= fractal->transformCommon.scale;
+	}
+
+	aux.DE *= fractal->analyticDE.scale1;
 }
 
 /**
