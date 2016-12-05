@@ -7513,9 +7513,51 @@ void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux
 }
 
 /**
- * Darkbeams MixPinki4 from M3D
- * NOTE: If the formula does not render correctly together with
- *  3D formulas check "Disable analytical DE".
+ * from Darkbeams Menger4 code from M3D
+ */
+void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	if (i >= fractal->transformCommon.startIterationsC
+			&& i < fractal->transformCommon.stopIterationsC)
+	{
+		z4D += fractal->transformCommon.additionConstant0000; // offset
+	}
+
+	z4D = fabs(z4D);
+	CVector4 temp4;
+	if ( z4D.x - z4D.y < 0.0) { temp4.x = z4D.y; z4D.y = z4D.x; z4D.x = temp4.x ;}
+	if ( z4D.x - z4D.z < 0.0) { temp4.x = z4D.z; z4D.z = z4D.x; z4D.x = temp4.x ;}
+	if ( z4D.y - z4D.z < 0.0) { temp4.y = z4D.z; z4D.z = z4D.y; z4D.y = temp4.y ;}
+	if ( z4D.x - z4D.w < 0.0) { temp4.x = z4D.w; z4D.w = z4D.x; z4D.x = temp4.x ;}
+	if ( z4D.y - z4D.w < 0.0) { temp4.x = z4D.w; z4D.w = z4D.y; z4D.y = temp4.x ;}
+	if ( z4D.z - z4D.w < 0.0) { temp4.y = z4D.w; z4D.w = z4D.z; z4D.z = temp4.y ;}
+
+	// temp3D rot
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		CVector3 Z3 = CVector3(z4D.x, z4D.y, z4D.z);
+		Z3 = fractal->transformCommon.rotationMatrix.RotateVector(Z3);
+		z4D.x = Z3.x;
+		z4D.y = Z3.y;
+		z4D.z = Z3.z;
+	}
+
+	double scaleM = fractal->transformCommon.scale3;
+	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
+	z4D.x = scaleM * z4D.x - offsetM.x ;
+	z4D.y = scaleM * z4D.y - offsetM.y ;
+	z4D.w = scaleM * z4D.w - offsetM.w ;
+	z4D.z -= 0.5 * offsetM.z  / scaleM;
+	z4D.z = -fabs(-z4D.z);
+	z4D.z += 0.5 * offsetM.z / scaleM;
+	z4D.z *= scaleM;
+	aux.DE *= scaleM * fractal->analyticDE.scale1;
+}
+
+/**
+ * Darkbeams MixPinski4 from M3D
  *A strange but intriguing fractal, that mixes Sierpinski and Menger folds.
  *The amazing thing is that in 3D it does not work so well! LUCA GN 2011
  */
@@ -7588,7 +7630,7 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 			z4D.w = -temp;
 		}
 		z4D = z4D * fractal->transformCommon.scale1;
-		z4D.x = z4D.x - 1 * (fractal->transformCommon.scale1 - 1.0);
+		z4D.x = z4D.x - (fractal->transformCommon.scale1 - 1.0);// ?
 
 		aux.DE *= fractal->transformCommon.scale1;
 	}
@@ -7688,6 +7730,19 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 	if (i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
+
+		if (fractal->transformCommon.functionEnabledFalse)
+		{
+			z4D = fabs(z4D);
+			CVector4 temp4;
+
+			if ( z4D.x - z4D.y < 0.0) { temp4.x = z4D.y; z4D.y = z4D.x; z4D.x = temp4.x ;}
+			if ( z4D.x - z4D.z < 0.0) { temp4.x = z4D.z; z4D.z = z4D.x; z4D.x = temp4.x ;}
+			if ( z4D.y - z4D.z < 0.0) { temp4.y = z4D.z; z4D.z = z4D.y; z4D.y = temp4.y ;}
+			if ( z4D.x - z4D.w < 0.0) { temp4.x = z4D.w; z4D.w = z4D.x; z4D.x = temp4.x ;}
+			if ( z4D.y - z4D.w < 0.0) { temp4.x = z4D.w; z4D.w = z4D.y; z4D.y = temp4.x ;}
+			if ( z4D.z - z4D.w < 0.0) { temp4.y = z4D.w; z4D.w = z4D.z; z4D.z = temp4.y ;}
+		}
 
 		double scaleM = fractal->transformCommon.scale2;
 		CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
