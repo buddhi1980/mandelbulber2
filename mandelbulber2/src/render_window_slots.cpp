@@ -134,24 +134,54 @@ void RenderWindow::slotChangedComboMouseClickFunction(int index)
 	}
 }
 
-void RenderWindow::slotKeyPressOnImage(Qt::Key key)
+void RenderWindow::slotKeyPressOnImage(QKeyEvent *event)
 {
 
-	switch (key)
+	int key = event->key();
+	Qt::KeyboardModifiers modifiers = event->modifiers();
+	if (modifiers & Qt::ShiftModifier)
+	{ // Shift pressed
+		switch (key)
+		{
+			case Qt::Key_Up: gMainInterface->RotateCamera("bu_rotate_up"); break;
+			case Qt::Key_Down: gMainInterface->RotateCamera("bu_rotate_down"); break;
+			case Qt::Key_Left: gMainInterface->RotateCamera("bu_rotate_left"); break;
+			case Qt::Key_Right: gMainInterface->RotateCamera("bu_rotate_right"); break;
+			default: break;
+		}
+	}
+	else if (modifiers & Qt::ControlModifier)
+	{ // Ctrl pressed
+		switch (key)
+		{
+			case Qt::Key_Up: gMainInterface->MoveCamera("bu_move_up"); break;
+			case Qt::Key_Down: gMainInterface->MoveCamera("bu_move_down"); break;
+			case Qt::Key_Left: gMainInterface->RotateCamera("bu_rotate_roll_left"); break;
+			case Qt::Key_Right: gMainInterface->RotateCamera("bu_rotate_roll_right"); break;
+			default: break;
+		}
+	}
+	else
 	{
-		case Qt::Key_W: gMainInterface->MoveCamera("bu_move_up"); break;
-		case Qt::Key_S: gMainInterface->MoveCamera("bu_move_down"); break;
-		case Qt::Key_A: gMainInterface->MoveCamera("bu_move_left"); break;
-		case Qt::Key_D: gMainInterface->MoveCamera("bu_move_right"); break;
-		case Qt::Key_Up: gMainInterface->MoveCamera("bu_move_forward"); break;
-		case Qt::Key_Down: gMainInterface->MoveCamera("bu_move_backward"); break;
-		default: break;
+		// No keyboard modifiers
+		switch (key)
+		{
+			case Qt::Key_W: gMainInterface->MoveCamera("bu_move_up"); break;
+			case Qt::Key_S: gMainInterface->MoveCamera("bu_move_down"); break;
+			case Qt::Key_A: gMainInterface->MoveCamera("bu_move_left"); break;
+			case Qt::Key_D: gMainInterface->MoveCamera("bu_move_right"); break;
+			case Qt::Key_Up: gMainInterface->MoveCamera("bu_move_forward"); break;
+			case Qt::Key_Down: gMainInterface->MoveCamera("bu_move_backward"); break;
+			case Qt::Key_Left: gMainInterface->MoveCamera("bu_move_left"); break;
+			case Qt::Key_Right: gMainInterface->MoveCamera("bu_move_right"); break;
+			default: break;
+		}
 	}
 }
 
-void RenderWindow::slotKeyReleaseOnImage(Qt::Key key)
+void RenderWindow::slotKeyReleaseOnImage(QKeyEvent *event)
 {
-	(void)key;
+	(void)event;
 }
 
 void RenderWindow::slotMouseWheelRotatedOnImage(int delta)

@@ -144,8 +144,8 @@ private:
 signals:
 	void mouseMoved(int x, int y);
 	void singleClick(int x, int y, Qt::MouseButton button);
-	void keyPress(Qt::Key key);
-	void keyRelease(Qt::Key key);
+	void keyPress(QKeyEvent *event);
+	void keyRelease(QKeyEvent *event);
 	void mouseWheelRotated(int delta);
 };
 

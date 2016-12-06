@@ -343,10 +343,10 @@ void cInterface::ConnectSignals(void)
 		renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
 	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow,
 		SLOT(slotMouseClickOnImage(int, int, Qt::MouseButton)));
-	QApplication::connect(
-		renderedImage, SIGNAL(keyPress(Qt::Key)), mainWindow, SLOT(slotKeyPressOnImage(Qt::Key)));
-	QApplication::connect(
-		renderedImage, SIGNAL(keyRelease(Qt::Key)), mainWindow, SLOT(slotKeyReleaseOnImage(Qt::Key)));
+	QApplication::connect(renderedImage, SIGNAL(keyPress(QKeyEvent *)), mainWindow,
+		SLOT(slotKeyPressOnImage(QKeyEvent *)));
+	QApplication::connect(renderedImage, SIGNAL(keyRelease(QKeyEvent *)), mainWindow,
+		SLOT(slotKeyReleaseOnImage(QKeyEvent *)));
 	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow,
 		SLOT(slotMouseWheelRotatedOnImage(int)));
 
