@@ -151,8 +151,8 @@ private slots:
 	// rendered image widget
 	void slotMouseMovedOnImage(int x, int y);
 	void slotMouseClickOnImage(int x, int y, Qt::MouseButton button);
-	void slotKeyPressOnImage(Qt::Key key);
-	void slotKeyReleaseOnImage(Qt::Key key);
+	void slotKeyPressOnImage(QKeyEvent *event);
+	void slotKeyReleaseOnImage(QKeyEvent *event);
 	void slotMouseWheelRotatedOnImage(int delta);
 
 private:

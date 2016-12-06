@@ -94,6 +94,8 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 			SLOT(slotMovedSliderLastFrame(int)));
 		connect(ui->tableWidget_flightAnimation, SIGNAL(cellDoubleClicked(int, int)), this,
 			SLOT(slotCellDoubleClicked(int, int)));
+		connect(mainInterface->renderedImage, SIGNAL(ShiftModeChanged(bool)), this,
+			SLOT(slotOrthogonalStrafe(bool)));
 
 		// connect renderedImage signals
 		connect(mainInterface->renderedImage, SIGNAL(StrafeChanged(CVector2<double>)), this,
@@ -107,8 +109,6 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		connect(mainInterface->renderedImage, SIGNAL(RotationChanged(double)), this,
 			SLOT(slotFlightRotation(double)));
 		connect(mainInterface->renderedImage, SIGNAL(Pause()), this, SLOT(slotRecordPause()));
-		connect(mainInterface->renderedImage, SIGNAL(ShiftModeChanged(bool)), this,
-			SLOT(slotOrthogonalStrafe(bool)));
 
 		// connect system tray
 		connect(

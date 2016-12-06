@@ -37,7 +37,18 @@ The possibilities are literally **infinite**!
 ![image](https://cloud.githubusercontent.com/assets/11696990/13788910/173cf11a-eae2-11e5-884e-f1d03924a5f3.png)
 ![image](https://cloud.githubusercontent.com/assets/11696990/16526853/a708e7e2-3fb3-11e6-8136-323bda493604.png)
 
-## Building and deploying 
+## Keyboard shortcuts
+
+In render window:
+
+  - <kbd>Up</kbd> / <kbd>Down</kbd>: move camera forward / backward
+  - <kbd>Left</kbd> / <kbd>Right</kbd>: move camera left / right
+  - <kbd>Ctrl</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd>): move camera up / down
+  - <kbd>Shift</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd> / <kbd>Left</kbd> / <kbd>Right</kbd>): rotate camera
+  - <kbd>Ctrl</kbd>+(<kbd>Left</kbd> / <kbd>Right</kbd>): roll camera left / right
+
+
+## Building and deploying
 
 Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
 
