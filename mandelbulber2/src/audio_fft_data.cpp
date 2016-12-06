@@ -9,7 +9,10 @@
 
 cAudioFFTdata::cAudioFFTdata()
 {
-	// TODO Auto-generated constructor stub
+	for(int i = 0; i < fftSize; i++)
+	{
+		data[i] = 0.0;
+	}
 }
 
 cAudioFFTdata::~cAudioFFTdata()

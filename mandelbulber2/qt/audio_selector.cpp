@@ -83,7 +83,7 @@ void cAudioSelector::slotAudioLoaded()
 {
 	audio->calculateFFT(30.0); //TODO settings for frames per second
 	ui->waveForm->AssignAudioTrack(audio);
-
+	ui->fft->AssignAudioTrack(audio);
 }
 
 void cAudioSelector::ConnectSignals()

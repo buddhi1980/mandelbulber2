@@ -207,7 +207,7 @@ void cAudioTrack::calculateFFT(double framesPerSecond)
 			double fftData[fftSize * 2];
 			for (int i = 0; i < fftSize; i++)
 			{
-				fftData[2 * i] = getSample(i + sampleOffset);
+				fftData[2 * i] = getSample(i + sampleOffset) * 0.5 * (1.0 - cos((2*M_PI*i)/(fftSize - 1))); //Hann window function
 				fftData[2 * i + 1] = 0.0;
 			}
 
@@ -225,5 +225,17 @@ void cAudioTrack::calculateFFT(double framesPerSecond)
 			}
 			fftAudio.append(fftFrame);
 		}
+	}
+}
+
+cAudioFFTdata cAudioTrack::getFFTSample(int frame) const
+{
+	if (isLoaded() && frame < fftAudio.size())
+	{
+		return fftAudio[frame];
+	}
+	else
+	{
+		return cAudioFFTdata();
 	}
 }

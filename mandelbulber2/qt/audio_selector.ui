@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>319</height>
+    <height>453</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,6 +24,9 @@
    <item>
     <widget class="cWaveFormView" name="waveForm" native="true"/>
    </item>
+   <item>
+    <widget class="cFFTView" name="fft" native="true"/>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -31,6 +34,12 @@
    <class>cWaveFormView</class>
    <extends>QWidget</extends>
    <header>wave_form_view.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cFFTView</class>
+   <extends>QWidget</extends>
+   <header>fft_view.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

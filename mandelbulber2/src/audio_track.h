@@ -56,6 +56,7 @@ public:
 	int getSampleRate() const { return sampleRate; }
 	float getSample(int sampleIndex) const;
 	void calculateFFT(double framesPerSecond);
+	cAudioFFTdata getFFTSample(int frame) const;
 
 private slots:
 	void slotReadBuffer();
