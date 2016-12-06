@@ -733,10 +733,23 @@ void RenderedImage::DisplayCrosshair()
 	crossCenter.x = (sw * 0.5) * (1.0 + 2.0 * crossShift.x);
 	crossCenter.y = (sh * 0.5) * (1.0 + 2.0 * crossShift.y);
 
-	image->AntiAliasedLine(
-		crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255), sRGBfloat(0.3, 0.3, 0.3), 1);
-	image->AntiAliasedLine(
-		0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255), sRGBfloat(0.3, 0.3, 0.3), 1);
+	if (params->Get<bool>("stereo_enabled")
+			&& params->Get<bool>("stereo_mode") == cStereo::stereoLeftRight)
+	{
+		image->AntiAliasedLine(crossCenter.x / 2, 0, crossCenter.x / 2, sh, -1, -1,
+			sRGB8(255, 255, 255), sRGBfloat(0.3, 0.3, 0.3), 1);
+		image->AntiAliasedLine(crossCenter.x * 1.5, 0, crossCenter.x * 1.5, sh, -1, -1,
+			sRGB8(255, 255, 255), sRGBfloat(0.3, 0.3, 0.3), 1);
+		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
+			sRGBfloat(0.3, 0.3, 0.3), 1);
+	}
+	else
+	{
+		image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255),
+			sRGBfloat(0.3, 0.3, 0.3), 1);
+		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
+			sRGBfloat(0.3, 0.3, 0.3), 1);
+	}
 }
 
 void RenderedImage::DrawHud(CVector3 rotation)
