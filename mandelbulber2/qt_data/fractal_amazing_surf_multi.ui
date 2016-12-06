@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>amazing_surf_multi</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">amazing_surf_multi</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -3135,7 +3135,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;Amazing Surface Multi&lt;br&gt;Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali,&lt;br&gt;with features added by Darkbeam&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Amazing Surface Multi&lt;br&gt;Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali,&lt;br&gt;with features added by Darkbeam&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;

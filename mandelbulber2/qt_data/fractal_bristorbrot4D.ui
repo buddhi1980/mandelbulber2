@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>bristorbrot4D</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">bristorbrot4D</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -315,7 +315,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;Bristorbrot formula 4D&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Bristorbrot formula 4D&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;https://code.google.com/archive/p/fractaldimension/&quot;&gt;https://code.google.com/archive/p/fractaldimension/&lt;br&gt;
 &lt;a href=&quot;by Doug Bristor&quot;&gt;by Doug Bristor&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;

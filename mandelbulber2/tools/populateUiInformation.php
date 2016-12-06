@@ -129,7 +129,7 @@ foreach($formulas as $index => $formula){
      
       	$replacement = '$1<widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>' . htmlentities($informationText) . '</string>
+         <string notr="true">' . htmlentities($informationText) . '</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -142,6 +142,12 @@ foreach($formulas as $index => $formula){
         </property>
        </widget>';
 	$newUiFileContent = preg_replace($regexInformation, $replacement, $uiFileContent, -1, $count);
+	$newUiFileContent = preg_replace('/<class>.+<\/class>/', '<class>' . $formula['internalName'] . '</class>', $newUiFileContent, 1);
+	$postitionOfWindowTitle = strpos($newUiFileContent, 'windowTitle ');
+	$postitionOfWindowTitleStringStart = strpos($newUiFileContent, '<string', $postitionOfWindowTitle);
+	$postitionOfWindowTitleStringEnd = strpos($newUiFileContent, '</string>', $postitionOfWindowTitle) + strlen('</string>');
+	$newUiFileContent = substr_replace($newUiFileContent, '<string notr="true">' . $formula['internalName'] . '</string>', 
+		$postitionOfWindowTitleStringStart, $postitionOfWindowTitleStringEnd - $postitionOfWindowTitleStringStart);	
 	if($count == 0){
 		echo errorString('Warning, could not replace code in ui file for index: ' . $index) . PHP_EOL;
 		continue;	
