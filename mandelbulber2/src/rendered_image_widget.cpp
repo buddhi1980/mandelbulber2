@@ -595,7 +595,7 @@ void RenderedImage::keyPressEvent(QKeyEvent *event)
 		}
 		else
 		{
-			emit keyPress((Qt::Key)event->key());
+			emit keyPress(event);
 		}
 	}
 }
@@ -648,7 +648,7 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 		}
 		else
 		{
-			emit keyRelease((Qt::Key)event->key());
+			emit keyRelease(event);
 		}
 	}
 }
