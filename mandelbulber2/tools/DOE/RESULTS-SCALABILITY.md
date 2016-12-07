@@ -3,7 +3,8 @@ Scalability Results
 
 This file contains the results from eight experimental
 replications of Native Support for x100 Xeon Phi
-Co-Processor to execute Mandelbulber v2.
+Co-Processor to execute Mandelbulber v2. All measurements
+utilize 5110P hardware with units of seconds.
 
 | **PATCHES** | **NAN** | **Light** | **Random** |
 |-------------|---------|-----------|------------|
