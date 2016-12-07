@@ -193,9 +193,7 @@ void cAudioTrack::slotError(QAudioDecoder::Error error)
 
 void cAudioTrack::calculateFFT(double framesPerSecond)
 {
-	int fftSize = cAudioFFTdata::fftSize;
-
-	if (loaded && length > fftSize)
+	if (loaded && length > cAudioFFTdata::fftSize)
 	{
 		int numberOfFrames = length * framesPerSecond / sampleRate;
 		fftAudio.reserve(numberOfFrames);
@@ -204,20 +202,20 @@ void cAudioTrack::calculateFFT(double framesPerSecond)
 		{
 			int sampleOffset = frame * sampleRate / framesPerSecond;
 			// prepare complex data for fft transform
-			double fftData[fftSize * 2];
-			for (int i = 0; i < fftSize; i++)
+			double fftData[cAudioFFTdata::fftSize];
+			for (int i = 0; i < cAudioFFTdata::fftSize; i++)
 			{
-				fftData[2 * i] = getSample(i + sampleOffset) * 0.5 * (1.0 - cos((2*M_PI*i)/(fftSize - 1))); //Hann window function
+				fftData[2 * i] = getSample(i + sampleOffset) * 0.5 * (1.0 - cos((2*M_PI*i)/(cAudioFFTdata::fftSize - 1))); //Hann window function
 				fftData[2 * i + 1] = 0.0;
 			}
 
 			//do FFT
 			gsl_complex_packed_array data = fftData;
-			gsl_fft_complex_radix2_forward(data, 1, fftSize);
+			gsl_fft_complex_radix2_forward(data, 1, cAudioFFTdata::fftSize);
 
 			//write ready FFT data to storage buffer
 			cAudioFFTdata fftFrame;
-			for(int i = 0; i < fftSize; i++)
+			for(int i = 0; i < cAudioFFTdata::fftSize; i++)
 			{
 				double re = fftData[2 * i];
 				double im = fftData[2 * i + 1];

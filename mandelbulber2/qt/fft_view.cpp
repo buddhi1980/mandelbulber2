@@ -51,24 +51,25 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 				double value = fftFrame.data[y];
 
 				QRgb pixel;
-				if(value < 0.5)
+				if (value < 0.5)
 				{
 					pixel = qRgba(0, value * 510, 0, 255);
 				}
 				else
 				{
-					if(value > 1.0) value = 1.0;
+					if (value > 1.0) value = 1.0;
 					pixel = qRgba((value - 0.5) * 510, 255, 0, 255);
 				}
 
-				QRgb *line = (QRgb*)fftImage.scanLine(y2);
+				QRgb *line = (QRgb *)fftImage.scanLine(y2);
 				line[x] = pixel;
 			}
 		}
 
 		QPainter painter(&fftImage);
 		painter.setRenderHint(QPainter::SmoothPixmapTransform);
-		scaledFftImage = fftImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		scaledFftImage =
+			fftImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
 	}
 }
@@ -79,4 +80,3 @@ void cFFTView::paintEvent(QPaintEvent *event)
 	QPainter painter(this);
 	painter.drawImage(0, 0, scaledFftImage);
 }
-

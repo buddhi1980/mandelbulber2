@@ -38,7 +38,7 @@
 #include <QObject>
 #include <QAudioDecoder>
 
-//forward declarations
+// forward declarations
 class cAudioFFTdata;
 
 class cAudioTrack : public QObject
