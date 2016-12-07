@@ -70,7 +70,7 @@ build_script:
   #- move ui_* mandelbulber2\qt
   - msbuild mandelbulber2.sln /p:Configuration=Release /m
   - netstat -ab
-  - Release\mandelbulber2.exe --test
+  #- Release\mandelbulber2.exe --test
   - tree C:\projects\mandelbulber2\gsl\Release /F
   - tree %QTDIR% /F
   - tree /F
