@@ -519,6 +519,20 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	int startFrame = params->Get<int>("keyframe_first_to_render");
 	int endFrame = params->Get<int>("keyframe_last_to_render");
 
+	int frames_per_keyframe = params->Get<int>("frames_per_keyframe");
+
+	if (endFrame == 0) endFrame = keyframes->GetNumberOfFrames() * frames_per_keyframe;
+
+	if (startFrame == endFrame)
+	{
+		emit showErrorMessage(
+			QObject::tr(
+				"There is no frame to render: first frame to render and last frame to render are equals."),
+			cErrorMessage::warningMessage);
+		delete renderJob;
+		return false;
+	}
+
 	try
 	{
 		// updating parameters
@@ -528,7 +542,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			gUndo.Store(params, fractalParams, NULL, keyframes);
 		}
 
-		keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
+		keyframes->SetFramesPerKeyframe(frames_per_keyframe);
 
 		// checking for collisions
 		if (!systemData.noGui && image->IsMainImage())
