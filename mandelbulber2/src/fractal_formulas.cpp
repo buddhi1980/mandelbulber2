@@ -7555,6 +7555,35 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	z4D.z *= scaleM;
 	aux.DE *= scaleM;
 
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& i >= fractal->transformCommon.startIterationsS
+			&& i < fractal->transformCommon.stopIterationsS)
+	{
+		double r2 = 0.;
+		if (fractal->transformCommon.functionEnabledBxFalse)
+			{	 r2 = z4D.x * z4D.x + z4D.y * z4D.y;}
+		if (fractal->transformCommon.functionEnabledByFalse)
+			{	 r2 = z4D.x * z4D.x + z4D.y * z4D.y + z4D.z * z4D.z;}
+		if (fractal->transformCommon.functionEnabledBz)
+			//{	r2 = z4D.Dot(z4D) ;}
+			{	 r2 = z4D.x * z4D.x + z4D.y * z4D.y + z4D.z * z4D.z + z4D.w * z4D.w;}
+		// if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+
+		if (r2 < fractal->mandelbox.mR2)
+		{
+			z4D *= fractal->transformCommon.maxMinR2factor;
+			aux.DE *= fractal->transformCommon.maxMinR2factor;
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
+		else if (r2 < fractal->transformCommon.maxR2d1)
+		{
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
+			z4D *= tglad_factor2;
+			aux.DE *= tglad_factor2;
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
+	}
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		CVector4 zA, zB;
@@ -8088,9 +8117,11 @@ void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtended
  */
 void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
-	double r2 = z4D.Dot(z4D);
+	//double r2 = z4D.Dot(z4D);
+	double r2 = z4D.x * z4D.x +z4D.y *z4D.y;
 	// if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
-
+	r2 += z4D.z * z4D.z;
+	r2 += z4D.w * z4D.w;
 	if (r2 < fractal->mandelbox.mR2)
 	{
 		z4D *= fractal->mandelbox.mboxFactor1;

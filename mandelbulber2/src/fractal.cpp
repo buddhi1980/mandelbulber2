@@ -249,6 +249,8 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.minRneg1 = container->Get<double>("transf_minimum_radius_neg1");
 	transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
 	transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
+	transformCommon.minR2p25 = container->Get<double>("transf_minR2_p25");
+	transformCommon.maxR2d1 = container->Get<double>("transf_maxR2_1");
 	transformCommon.minR06 = container->Get<double>("transf_minimum_radius_06");
 	transformCommon.offset = container->Get<double>("transf_offset");
 	transformCommon.offset0 = container->Get<double>("transf_offset_0");
@@ -424,6 +426,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledMFalse = container->Get<bool>("transf_function_enabledM_false");
 	transformCommon.functionEnabledPFalse = container->Get<bool>("transf_function_enabledP_false");
 	transformCommon.functionEnabledRFalse = container->Get<bool>("transf_function_enabledR_false");
+	transformCommon.functionEnabledSFalse = container->Get<bool>("transf_function_enabledS_false");
 	transformCommon.functionEnabledXFalse = container->Get<bool>("transf_function_enabledX_false");
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
@@ -469,6 +472,7 @@ void cFractal::RecalculateFractalParams(void)
 
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // hmmm??
+	transformCommon.maxMinR2factor = transformCommon.maxR2d1 / transformCommon.minR2p25;
 
 	// Generalized Fold Box precalculated vectors
 	double sqrt_i3 = 1.0 / sqrt(3.0);

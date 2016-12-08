@@ -430,6 +430,9 @@ struct sFractalTransformCommon
 	double minR0;
 	double minR05;
 	double minR06;
+	double minR2p25;
+	double maxR2d1;
+	double maxMinR2factor;
 	double scale;
 	double scale0;
 	double scale025;
@@ -588,6 +591,7 @@ struct sFractalTransformCommon
 	bool functionEnabledMFalse;
 	bool functionEnabledPFalse;
 	bool functionEnabledRFalse;
+	bool functionEnabledSFalse;
 	bool functionEnabledXFalse;
 	bool juliaMode;
 	bool rotationEnabled;
