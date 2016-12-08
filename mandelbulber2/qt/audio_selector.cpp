@@ -51,7 +51,7 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 cAudioSelector::~cAudioSelector()
 {
 	delete ui;
-	if(audio) delete audio;
+	if (audio) delete audio;
 }
 
 void cAudioSelector::slotLoadAudioFile()
@@ -68,20 +68,19 @@ void cAudioSelector::slotLoadAudioFile()
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 
-		if(audio) delete audio;
+		if (audio) delete audio;
 		audio = new cAudioTrack(this);
 
 		connect(audio, SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
-
 		audio->LoadAudio(filename);
 
-		ui->waveForm->SetParameters(30.0); //TODO settings for frames per second
+		ui->waveForm->SetParameters(30.0); // TODO settings for frames per second
 	}
 }
 
 void cAudioSelector::slotAudioLoaded()
 {
-	audio->calculateFFT(30.0); //TODO settings for frames per second
+	audio->calculateFFT(30.0); // TODO settings for frames per second
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
 }

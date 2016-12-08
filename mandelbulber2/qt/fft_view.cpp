@@ -12,6 +12,7 @@
 
 #include "../src/audio_track.h"
 #include "../src/audio_fft_data.h"
+#include "../src/system.hpp"
 
 cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
 {
@@ -38,6 +39,8 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		int sampleRate = audiotrack->getSampleRate();
 		int numberOfFrames = numberOfSampels * framesPerSecond / sampleRate;
 
+		this->setFixedWidth(numberOfFrames);
+
 		const int height = 256;
 
 		fftImage = QImage(QSize(numberOfFrames, height), QImage::Format_RGB32);
@@ -48,7 +51,7 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 			for (int y = 0; y < height; y++)
 			{
 				int y2 = height - y - 1;
-				double value = fftFrame.data[y];
+				double value = fftFrame.data[y] * 0.1;
 
 				QRgb pixel;
 				if (value < 0.5)
@@ -71,6 +74,7 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		scaledFftImage =
 			fftImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
+		WriteLog("FFTView created", 2);
 	}
 }
 

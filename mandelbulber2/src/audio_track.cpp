@@ -43,6 +43,7 @@
 #include <QFileInfo>
 
 #include "audio_fft_data.h"
+#include "system.hpp"
 #ifdef USE_SNDFILE
 #include <sndfile.h>
 #endif
@@ -63,6 +64,8 @@ cAudioTrack::~cAudioTrack()
 
 void cAudioTrack::LoadAudio(const QString &filename)
 {
+	WriteLogString("Loading audio started", filename, 2);
+
 	QString sufix = QFileInfo(filename).suffix();
 	loaded = false;
 
@@ -111,6 +114,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 
 		sf_close(infile);
 		loaded = true;
+		WriteLog("Loading wave file finished", 2);
 		emit loadingFinished();
 	}
 #endif
@@ -171,6 +175,7 @@ void cAudioTrack::slotFinished()
 	qDebug() << "finished";
 	qDebug() << length << (double)length / sampleRate;
 	loaded = true;
+	WriteLog("Loading mp3 file finished", 2);
 	emit loadingFinished();
 }
 
@@ -188,13 +193,15 @@ float cAudioTrack::getSample(int sampleIndex) const
 
 void cAudioTrack::slotError(QAudioDecoder::Error error)
 {
-	qDebug() << "error" << error;
+	qCritical() << "cAudioTrack::error" << error;
 }
 
 void cAudioTrack::calculateFFT(double framesPerSecond)
 {
 	if (loaded && length > cAudioFFTdata::fftSize)
 	{
+		WriteLog("FFT calculation started", 2);
+
 		int numberOfFrames = length * framesPerSecond / sampleRate;
 		fftAudio.reserve(numberOfFrames);
 
@@ -202,20 +209,22 @@ void cAudioTrack::calculateFFT(double framesPerSecond)
 		{
 			int sampleOffset = frame * sampleRate / framesPerSecond;
 			// prepare complex data for fft transform
-			double fftData[cAudioFFTdata::fftSize];
+			double fftData[cAudioFFTdata::fftSize * 2];
 			for (int i = 0; i < cAudioFFTdata::fftSize; i++)
 			{
-				fftData[2 * i] = getSample(i + sampleOffset) * 0.5 * (1.0 - cos((2*M_PI*i)/(cAudioFFTdata::fftSize - 1))); //Hann window function
+				fftData[2 * i] =
+					getSample(i + sampleOffset) * 0.5
+					* (1.0 - cos((2 * M_PI * i) / (cAudioFFTdata::fftSize - 1))); // Hann window function
 				fftData[2 * i + 1] = 0.0;
 			}
 
-			//do FFT
+			// do FFT
 			gsl_complex_packed_array data = fftData;
 			gsl_fft_complex_radix2_forward(data, 1, cAudioFFTdata::fftSize);
 
-			//write ready FFT data to storage buffer
+			// write ready FFT data to storage buffer
 			cAudioFFTdata fftFrame;
-			for(int i = 0; i < cAudioFFTdata::fftSize; i++)
+			for (int i = 0; i < cAudioFFTdata::fftSize; i++)
 			{
 				double re = fftData[2 * i];
 				double im = fftData[2 * i + 1];
@@ -223,6 +232,7 @@ void cAudioTrack::calculateFFT(double framesPerSecond)
 			}
 			fftAudio.append(fftFrame);
 		}
+		WriteLog("FFT calculation finished", 2);
 	}
 }
 

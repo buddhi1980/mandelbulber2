@@ -37,6 +37,7 @@
 #include <QPainter>
 #include <algorithm>
 #include "../src/audio_track.h"
+#include "../src/system.hpp"
 
 cWaveFormView::cWaveFormView(QWidget *parent) : QWidget(parent)
 {
@@ -55,24 +56,26 @@ void cWaveFormView::SetParameters(double _framesPerSecond)
 
 void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 {
-	QVector<audioFrame> audioBuffer;
 	if (audiotrack)
 	{
+		WriteLog("WaveFormView calculation started", 2);
 		int numberOfSampels = audiotrack->getLength();
 		int sampleRate = audiotrack->getSampleRate();
 
 		int numberOfFrames = numberOfSampels * framesPerSecond / sampleRate;
-		audioBuffer.reserve(numberOfFrames + 1);
-		audioBuffer.resize(numberOfFrames + 1);
+		audioFrame *audioBuffer = new audioFrame[numberOfFrames + 1];
+
+		this->setFixedWidth(numberOfFrames);
 
 		for (int i = 0; i < numberOfSampels; i++)
 		{
 			int frameNo = i * framesPerSecond / sampleRate;
 			float sample = audiotrack->getSample(i);
-
 			audioBuffer[frameNo].min = qMin(sample, audioBuffer[frameNo].min);
 			audioBuffer[frameNo].max = qMax(sample, audioBuffer[frameNo].max);
 		}
+
+		WriteLog("audioBuffer created", 2);
 
 		int height = this->height();
 
@@ -85,13 +88,26 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		painter.setPen(Qt::green);
 		for (int x = 0; x < numberOfFrames; x++)
 		{
-			painter.drawLine(
-				x, center + hscale * audioBuffer[x].min, x, center + hscale * audioBuffer[x].max);
+			// painter.drawLine(
+			//	x, center + hscale * audioBuffer[x].min, x, center + hscale * audioBuffer[x].max);
+			int yStart = center + hscale * audioBuffer[x].min;
+			int yStop = center + hscale * audioBuffer[x].max;
+			QRgb pixel = qRgba(0, 255, 0, 255);
+			for (int y = yStart; y < yStop; y++)
+			{
+				QRgb *line = (QRgb *)waveImage.scanLine(y);
+				line[x] = pixel;
+			}
 		}
 
 		painter.setRenderHint(QPainter::SmoothPixmapTransform);
-		scaledWaveImage = waveImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		scaledWaveImage =
+			waveImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
+
+		delete audioBuffer;
+
+		WriteLog("WaveFormView created", 2);
 	}
 }
 
