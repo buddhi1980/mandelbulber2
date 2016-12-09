@@ -1359,7 +1359,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	}
 
 	out->iters = i + 1;
-	out->z =  z;// CVector3( z.x, z.y, w);// z;
+	out->z = z; // CVector3( z.x, z.y, w);// z;
 	// tim = rdtsc() - tim; perf+= tim; perfCount++; outStream << (double)perf/perfCount - 560.0 <<
 	// endl;
 	//------------- 3249 ns for all calculation  ----------------

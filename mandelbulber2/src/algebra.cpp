@@ -432,7 +432,6 @@ CVector4 CMatrix44::operator*(const CVector4 &vector) const
 	return result;
 }
 
-
 /**************** class RotationMatrix **********************/
 CRotationMatrix44::CRotationMatrix44()
 {
@@ -454,7 +453,6 @@ CRotationMatrix44::CRotationMatrix44()
 	matrix.m44 = 1.0;
 	zero = true;
 }
-
 
 void CRotationMatrix44::RotateXY(double angle)
 {
@@ -564,9 +562,6 @@ void CRotationMatrix44::RotateZW(double angle)
 	}
 }
 
-
-
-
 void CRotationMatrix44::SetRotation(double angles[6])
 {
 	Null();
@@ -578,7 +573,8 @@ void CRotationMatrix44::SetRotation(double angles[6])
 	RotateZW(angles[5]);
 }
 
-void CRotationMatrix44::SetRotation(double alpha, double beta, double gamma, double delta, double epsilon, double zeta)
+void CRotationMatrix44::SetRotation(
+	double alpha, double beta, double gamma, double delta, double epsilon, double zeta)
 {
 	Null();
 	RotateXY(alpha);
@@ -587,7 +583,6 @@ void CRotationMatrix44::SetRotation(double alpha, double beta, double gamma, dou
 	RotateXW(delta);
 	RotateYW(epsilon);
 	RotateZW(zeta);
-
 }
 void CRotationMatrix44::SetRotation44a(CVector3 rotation)
 {
@@ -603,7 +598,6 @@ void CRotationMatrix44::SetRotation44b(CVector3 rotation)
 	RotateYW(rotation.y); // ................................
 	RotateXZ(rotation.z); // .................................
 }
-
 
 /*
 void CRotationMatrix44::SetRotation(CVector4 rotation)
@@ -699,7 +693,6 @@ CRotationMatrix44 CRotationMatrix44::Transpose() const
 	m.matrix.m42 = matrix.m24;
 	m.matrix.m43 = matrix.m34;
 	m.matrix.m44 = matrix.m44;
-
 
 	m.zero = false;
 	return m;

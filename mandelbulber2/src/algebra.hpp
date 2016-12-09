@@ -597,7 +597,6 @@ private:
 	bool zero;
 };
 
-
 /************************* matrix 4x4 (fast) *****************/
 class CMatrix44
 {
@@ -624,7 +623,6 @@ public:
 	double m42;
 	double m43;
 	double m44;
-
 };
 /************************* rotation matrix 44 *******************/
 class CRotationMatrix44
@@ -646,10 +644,11 @@ public:
 	double GetEpsilon() const;
 	double GetZeta() const;
 	void SetRotation(double angles[6]);
-	void SetRotation(double alpha, double beta, double gamma, double delta, double epsilon, double zeta);
-	//void SetRotation(CVector4 rotation);
-	//void SetRotation2(CVector4 rotation);
-	//void SetRotation3(CVector4 rotation);
+	void SetRotation(
+		double alpha, double beta, double gamma, double delta, double epsilon, double zeta);
+	// void SetRotation(CVector4 rotation);
+	// void SetRotation2(CVector4 rotation);
+	// void SetRotation3(CVector4 rotation);
 
 	void SetRotation44a(CVector3 rotation);
 	void SetRotation44b(CVector3 rotation);
@@ -661,7 +660,5 @@ private:
 	CMatrix44 matrix;
 	bool zero;
 };
-
-
 
 #endif /* MANDELBULBER2_SRC_ALGEBRA_HPP_ */

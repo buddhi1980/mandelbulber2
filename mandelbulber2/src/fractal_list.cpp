@@ -284,8 +284,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale_4d",
 		mandelboxVaryScale4D, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Menger 4D", "menger_4D", menger4D,
-		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+	fractalList->append(sFractalDescription("Menger 4D", "menger_4D", menger4D, analyticDEType,
+		linearDEFunction, cpixelDisabledByDefault, 10));
 
 	fractalList->append(sFractalDescription("MixPinski 4D", "mixPinski_4D", mixPinski4D,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
