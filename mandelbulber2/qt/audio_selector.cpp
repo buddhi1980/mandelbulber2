@@ -38,6 +38,8 @@
 #include "audio_selector.h"
 #include "../src/automated_widgets.hpp"
 #include "../src/audio_track.h"
+#include "../src/initparameters.hpp"
+#include "../src/synchronize_interface.hpp"
 
 cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cAudioSelector)
 {
@@ -85,7 +87,46 @@ void cAudioSelector::slotAudioLoaded()
 	ui->fft->AssignAudioTrack(audio);
 }
 
+void cAudioSelector::AssignParameter(const QString &_parameterName)
+{
+	parameterName = _parameterName;
+	RenameWidget(ui->groupCheck_animsound_enable);
+
+	QList<QWidget *> listOfWidgets =
+		ui->groupCheck_animsound_enable->findChildren<QWidget *>();
+
+	foreach (QWidget *widget, listOfWidgets)
+	{
+		RenameWidget(widget);
+	}
+
+	AddParameters();
+	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
+}
+
 void cAudioSelector::ConnectSignals()
 {
 	connect(ui->pushButton_loadAudioFile, SIGNAL(clicked()), this, SLOT(slotLoadAudioFile()));
+}
+
+void cAudioSelector::RenameWidget(QWidget *widget)
+{
+	QString oldName = widget->objectName();
+	QString newName = oldName + "_" + parameterName;
+	widget->setObjectName(newName);
+}
+
+void cAudioSelector::AddParameters()
+{
+	using namespace parameterContainer;
+	gPar->addParam(FullParameterName("mid_freq"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+	gPar->addParam(FullParameterName("bandwidth"), 200.0, 5.0, 20000.0, morphNone, paramStandard);
+	gPar->addParam(FullParameterName("addition_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+	gPar->addParam(FullParameterName("mult_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+	gPar->addParam(FullParameterName("enable"), false, morphNone, paramStandard);
+}
+
+QString cAudioSelector::FullParameterName(const QString &name)
+{
+	return QString("animsound_") + name + "_" + parameterName;
 }

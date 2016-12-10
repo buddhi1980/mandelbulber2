@@ -86,5 +86,6 @@ void cDockAnimation::slotLoadAudio()
 {
 	cAudioSelector *audioSelectorDialog = new cAudioSelector(this);
 	audioSelectorDialog->setWindowFlags(Qt::Dialog);
+	audioSelectorDialog->AssignParameter("test");
 	audioSelectorDialog->show();
 }

@@ -52,6 +52,7 @@ class cAudioSelector : public QWidget
 public:
 	explicit cAudioSelector(QWidget *parent = NULL);
 	~cAudioSelector();
+	void AssignParameter(const QString &_parameterName);
 
 private slots:
 	void slotLoadAudioFile();
@@ -59,12 +60,16 @@ private slots:
 
 private:
 	void ConnectSignals();
+	void RenameWidget(QWidget *widget);
+	void AddParameters();
+	QString FullParameterName(const QString &parameterName);
 
 	Ui::cAudioSelector *ui;
 
 	cAutomatedWidgets *automatedWidgets;
 
 	cAudioTrack *audio;
+	QString parameterName;
 };
 
 #endif /* MANDELBULBER2_QT_AUDIO_SELECTOR_H_ */
