@@ -87,6 +87,7 @@ private:
 	void printInputHelpAndExit() const;
 	void printParametersAndExit();
 	void runTestCasesAndExit() const;
+	void runBenchmarksAndExit() const;
 
 	// argument handling methods
 	void handleServer();
@@ -116,6 +117,7 @@ private:
 		bool queue;
 		bool voxel;
 		bool test;
+		bool benchmark;
 		bool touch;
 		QString startFrameText;
 		QString endFrameText;

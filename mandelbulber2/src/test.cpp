@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * class for testing mandelbulber functionality on the cli
  */
@@ -52,16 +52,32 @@ QString Test::testFolder()
 	return systemData.GetDataDirectoryHidden() + ".temporaryTestFolder";
 }
 
-void Test::initTestCase()
+void Test::init()
 {
-	if (QFileInfo(testFolder()).exists()) cleanupTestCase();
+	if (QFileInfo(testFolder()).exists()) cleanup();
 	CreateFolder(testFolder());
 }
 
-void Test::cleanupTestCase()
+void Test::cleanup()
 {
 	DeleteAllFilesFromDirectory(testFolder(), "*");
 	QDir().rmdir(testFolder());
+}
+
+// start of test cases
+void Test::renderExamplesWrapper()
+{
+	if(IsBenchmarking())
+	{
+		QBENCHMARK_ONCE
+		{
+			renderExamples();
+		}
+	}
+	else
+	{
+		renderExamples();
+	}
 }
 
 void Test::renderExamples()
@@ -98,16 +114,21 @@ void Test::renderExamples()
 	while (it.hasNext())
 	{
 		QString filename = it.next();
-		qDebug() << filename;
+		// qDebug() << filename;
 		cSettings parSettings(cSettings::formatFullText);
 		parSettings.BeQuiet(true);
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-		testPar->Set("image_width", 5);
-		testPar->Set("image_height", 5);
+		testPar->Set("image_width", (IsBenchmarking() ? 10 : 5));
+		testPar->Set("image_height", (IsBenchmarking() ? 10 : 5));
 		cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 		renderJob->Init(cRenderJob::still, config);
-		QVERIFY2(renderJob->Execute(), "example render failed.");
+
+		if(IsBenchmarking())
+			renderJob->Execute();
+		else
+			QVERIFY2(renderJob->Execute(), "example render failed.");
+
 		delete renderJob;
 	}
 
@@ -120,6 +141,7 @@ void Test::renderExamples()
 
 void Test::netrender()
 {
+	if(IsBenchmarking()) return; // no reasonable generic network benchmark
 	// test connection of server / client over localhost
 	CNetRender *netRenderServer = new CNetRender(1);
 	CNetRender *netRenderClient = new CNetRender(1);
@@ -140,6 +162,21 @@ void Test::netrender()
 
 	delete netRenderClient;
 	delete netRenderServer;
+}
+
+void Test::testFlightWrapper()
+{
+	if(IsBenchmarking())
+	{
+		QBENCHMARK_ONCE
+		{
+			testFlight();
+		}
+	}
+	else
+	{
+		testFlight();
+	}
 }
 
 void Test::testFlight()
@@ -174,16 +211,19 @@ void Test::testFlight()
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromFile(exampleFlightFile);
 	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-	testPar->Set("image_width", 5);
-	testPar->Set("image_height", 5);
-	testPar->Set("flight_first_to_render", 5);
-	testPar->Set("flight_last_to_render", 8);
+	testPar->Set("image_width", (IsBenchmarking() ? 20 : 5));
+	testPar->Set("image_height", (IsBenchmarking() ? 20 : 5));
+	testPar->Set("flight_first_to_render", 50);
+	testPar->Set("flight_last_to_render", (IsBenchmarking() ? 100 : 55));
 	testPar->Set("anim_flight_dir", testFolder() + QDir::separator());
 
 	cFlightAnimation *flightAnimation = new cFlightAnimation(
 		gMainInterface, testAnimFrames, image, NULL, testPar, testParFractal, NULL);
+	if(IsBenchmarking())
+		flightAnimation->slotRenderFlight();
+	else
+		QVERIFY2(flightAnimation->slotRenderFlight(), "flight render failed.");
 
-	QVERIFY2(flightAnimation->slotRenderFlight(), "flight render failed.");
 	delete image;
 	delete testKeyframes;
 	delete testAnimFrames;
@@ -191,7 +231,21 @@ void Test::testFlight()
 	delete testPar;
 	delete flightAnimation;
 	flightAnimation = NULL;
-	return;
+}
+
+void Test::testKeyframeWrapper()
+{
+	if(IsBenchmarking())
+	{
+		QBENCHMARK_ONCE
+		{
+			testKeyframe();
+		}
+	}
+	else
+	{
+		testKeyframe();
+	}
 }
 
 void Test::testKeyframe()
@@ -226,16 +280,19 @@ void Test::testKeyframe()
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromFile(exampleKeyframeFile);
 	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-	testPar->Set("image_width", 5);
-	testPar->Set("image_height", 5);
+	testPar->Set("image_width", (IsBenchmarking() ? 20 : 5));
+	testPar->Set("image_height", (IsBenchmarking() ? 20 : 5));
 	testPar->Set("keyframe_first_to_render", 50);
-	testPar->Set("keyframe_last_to_render", 55);
+	testPar->Set("keyframe_last_to_render", (IsBenchmarking() ? 100 : 55));
 	testPar->Set("anim_keyframe_dir", testFolder() + QDir::separator());
 
 	cKeyframeAnimation *testKeyframeAnimation = new cKeyframeAnimation(
 		gMainInterface, testKeyframes, image, NULL, testPar, testParFractal, NULL);
+	if(IsBenchmarking())
+		testKeyframeAnimation->slotRenderKeyframes();
+	else
+		QVERIFY2(testKeyframeAnimation->slotRenderKeyframes(), "keyframe render failed.");
 
-	QVERIFY2(testKeyframeAnimation->slotRenderKeyframes(), "keyframe render failed.");
 	delete image;
 	delete testKeyframes;
 	delete testAnimFrames;
@@ -243,5 +300,73 @@ void Test::testKeyframe()
 	delete testPar;
 	delete testKeyframeAnimation;
 	testKeyframeAnimation = NULL;
-	return;
+}
+
+void Test::renderSimpleWrapper()
+{
+	if(IsBenchmarking())
+	{
+		QBENCHMARK_ONCE
+		{
+			renderSimple();
+		}
+	}
+	else
+	{
+		renderSimple();
+	}
+}
+
+void Test::renderSimple()
+{
+	// this renders an example file in an "usual" resolution of 100x100 px
+	// and benchmarks the runtime
+	QString simpleExampleFileName =
+		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
+														 + QDir::separator() + "mandelbox001.fract");
+
+	cParameterContainer *testPar = new cParameterContainer;
+	cFractalContainer *testParFractal = new cFractalContainer;
+	cAnimationFrames *testAnimFrames = new cAnimationFrames;
+	cKeyframes *testKeyframes = new cKeyframes;
+
+	testPar->SetContainerName("main");
+	InitParams(testPar);
+	/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+	InitMaterialParams(1, testPar);
+
+	/*******************************************************************/
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(&testParFractal->at(i));
+	}
+	bool stopRequest = false;
+	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	cRenderingConfiguration config;
+	config.DisableRefresh();
+	config.DisableProgressiveRender();
+
+
+	cSettings parSettings(cSettings::formatFullText);
+	parSettings.BeQuiet(true);
+	parSettings.LoadFromFile(simpleExampleFileName);
+	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
+	testPar->Set("image_width", (IsBenchmarking() ? 250 : 100));
+	testPar->Set("image_height", (IsBenchmarking() ? 250 : 100));
+	cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
+	renderJob->Init(cRenderJob::still, config);
+
+	if(IsBenchmarking())
+		renderJob->Execute();
+	else
+		QVERIFY2(renderJob->Execute(), "example render failed.");
+
+	delete renderJob;
+	delete image;
+	delete testKeyframes;
+	delete testAnimFrames;
+	delete testParFractal;
+	delete testPar;
 }

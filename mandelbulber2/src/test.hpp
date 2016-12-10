@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * class for testing mandelbulber functionality on the cli
  */
@@ -41,16 +41,31 @@
 class Test : public QObject
 {
 	Q_OBJECT
+public:
+	enum enumTestMode
+	{
+		simpleTestMode,
+		benchmarkTestMode
+	};
+	Test(enumTestMode testMode_) { testMode = testMode_; }
+	bool IsBenchmarking() { return testMode == enumTestMode::benchmarkTestMode; }
 private:
 	QString testFolder();
+	enumTestMode testMode;
 
-private slots:
-	void initTestCase();
-	void cleanupTestCase();
 	void renderExamples();
-	void netrender();
 	void testFlight();
 	void testKeyframe();
+	void renderSimple();
+
+private slots:
+	void init();
+	void cleanup();
+	void renderExamplesWrapper();
+	void netrender();
+	void testFlightWrapper();
+	void testKeyframeWrapper();
+	void renderSimpleWrapper();
 };
 
 #endif /* MANDELBULBER2_SRC_TEST_HPP_ */

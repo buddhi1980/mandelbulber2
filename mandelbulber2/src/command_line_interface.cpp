@@ -143,6 +143,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption testOption(QStringList({"t", "test"}),
 		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
 
+	QCommandLineOption benchmarkOption(QStringList({"b", "benchmark"}),
+		QCoreApplication::translate("main", "Runs benchmarks on the mandelbulber instance"));
+
 	QCommandLineOption touchOption(
 		QStringList({"T", "touch"}),
 		QCoreApplication::translate(
@@ -184,6 +187,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(noColorOption);
 	parser.addOption(queueOption);
 	parser.addOption(testOption);
+	parser.addOption(benchmarkOption);
 	parser.addOption(touchOption);
 	parser.addOption(voxelOption);
 	parser.addOption(overrideOption);
@@ -220,6 +224,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.queue = parser.isSet(queueOption);
 	cliData.voxel = parser.isSet(voxelOption);
 	cliData.test = parser.isSet(testOption);
+	cliData.benchmark = parser.isSet(benchmarkOption);
 	cliData.touch = parser.isSet(touchOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
 	cliData.showExampleHelp = parser.isSet(helpExamplesOption);
@@ -234,6 +239,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	if (cliData.listParameters) cliData.nogui = true;
 	if (cliData.queue) cliData.nogui = true;
 	if (cliData.test) cliData.nogui = true;
+	if (cliData.benchmark) cliData.nogui = true;
 	cliTODO = modeBootOnly;
 }
 
@@ -254,6 +260,8 @@ void cCommandLineInterface::ReadCLI(void)
 
 	// run test cases
 	if (cliData.test) runTestCasesAndExit();
+	// run benchmarks
+	if (cliData.benchmark) runBenchmarksAndExit();
 
 	// check netrender server / client
 	if (cliData.server)
@@ -500,7 +508,19 @@ void cCommandLineInterface::runTestCasesAndExit() const
 	arguments.removeOne(QString("-t"));
 
 	int status = 0;
-	Test test;
+	Test test(Test::simpleTestMode);
+	status |= QTest::qExec(&test, arguments);
+	exit(status);
+}
+
+void cCommandLineInterface::runBenchmarksAndExit() const
+{
+	QStringList arguments = gApplication->arguments();
+	arguments.removeOne(QString("--benchmark"));
+	arguments.removeOne(QString("-b"));
+
+	int status = 0;
+	Test test(Test::benchmarkTestMode);
 	status |= QTest::qExec(&test, arguments);
 	exit(status);
 }
