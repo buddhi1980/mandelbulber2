@@ -72,19 +72,20 @@ void cAudioSelector::slotLoadAudioFile()
 
 		if (audio) delete audio;
 		audio = new cAudioTrack(this);
+		audio->setFramesPerSecond(30.0);
 
 		connect(audio, SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
 		audio->LoadAudio(filename);
-
-		ui->waveForm->SetParameters(30.0); // TODO settings for frames per second
 	}
 }
 
 void cAudioSelector::slotAudioLoaded()
 {
-	audio->calculateFFT(30.0); // TODO settings for frames per second
+	audio->setFramesPerSecond(30.0); // TODO settings for frames per second
+	audio->calculateFFT();					 // TODO settings for frames per second
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
+	ui->animAudioView->UpdateChart(audio);
 }
 
 void cAudioSelector::AssignParameter(const QString &_parameterName)
@@ -92,8 +93,7 @@ void cAudioSelector::AssignParameter(const QString &_parameterName)
 	parameterName = _parameterName;
 	RenameWidget(ui->groupCheck_animsound_enable);
 
-	QList<QWidget *> listOfWidgets =
-		ui->groupCheck_animsound_enable->findChildren<QWidget *>();
+	QList<QWidget *> listOfWidgets = ui->groupCheck_animsound_enable->findChildren<QWidget *>();
 
 	foreach (QWidget *widget, listOfWidgets)
 	{
@@ -121,7 +121,8 @@ void cAudioSelector::AddParameters()
 	using namespace parameterContainer;
 	gPar->addParam(FullParameterName("mid_freq"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
 	gPar->addParam(FullParameterName("bandwidth"), 200.0, 5.0, 20000.0, morphNone, paramStandard);
-	gPar->addParam(FullParameterName("addition_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+	gPar->addParam(
+		FullParameterName("addition_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
 	gPar->addParam(FullParameterName("mult_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
 	gPar->addParam(FullParameterName("enable"), false, morphNone, paramStandard);
 }

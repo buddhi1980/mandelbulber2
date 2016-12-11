@@ -49,11 +49,6 @@ cWaveFormView::~cWaveFormView()
 {
 }
 
-void cWaveFormView::SetParameters(double _framesPerSecond)
-{
-	framesPerSecond = _framesPerSecond;
-}
-
 void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 {
 	if (audiotrack)
@@ -61,8 +56,8 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		WriteLog("WaveFormView calculation started", 2);
 		int numberOfSampels = audiotrack->getLength();
 		int sampleRate = audiotrack->getSampleRate();
-
-		int numberOfFrames = numberOfSampels * framesPerSecond / sampleRate;
+		numberOfFrames = audiotrack->getNumberOfFrames();
+		framesPerSecond = audiotrack->getFramesPerSecond();
 		audioFrame *audioBuffer = new audioFrame[numberOfFrames + 1];
 
 		this->setFixedWidth(numberOfFrames);
@@ -70,7 +65,7 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		for (int i = 0; i < numberOfSampels; i++)
 		{
 			int frameNo = i * framesPerSecond / sampleRate;
-			float sample = audiotrack->getSample(i);
+			float sample = audiotrack->getSample(i) / audiotrack->getMaxVolume();
 			audioBuffer[frameNo].min = qMin(sample, audioBuffer[frameNo].min);
 			audioBuffer[frameNo].max = qMax(sample, audioBuffer[frameNo].max);
 		}
@@ -105,7 +100,7 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 			waveImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
 
-		delete audioBuffer;
+		delete[] audioBuffer;
 
 		WriteLog("WaveFormView created", 2);
 	}

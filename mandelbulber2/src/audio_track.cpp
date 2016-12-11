@@ -41,6 +41,7 @@
 #include <QAudioFormat>
 #include <QAudioDecoder>
 #include <QFileInfo>
+#include <QtCore/QtGlobal>
 
 #include "audio_fft_data.h"
 #include "system.hpp"
@@ -55,6 +56,10 @@ cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 	length = 0;
 	sampleRate = 44100;
 	loaded = false;
+	framesPerSecond = 30.0;
+	numberOfFrames = 0;
+	maxVolume = 0.0;
+	maxFft = 0.0;
 }
 
 cAudioTrack::~cAudioTrack()
@@ -105,6 +110,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 				}
 				sample /= sfinfo.channels;
 				rawAudio[i] = sample;
+				maxVolume = qMax(sample, maxVolume);
 			}
 
 			length = readSamples;
@@ -162,7 +168,9 @@ void cAudioTrack::slotReadBuffer()
 
 		for (int i = 0; i < frameCount; i++)
 		{
-			rawAudio.append(frames[i] / 32768.0);
+			float sample = frames[i] / 32768.0;
+			rawAudio.append(sample);
+			maxVolume = qMax(sample, maxVolume);
 		}
 	}
 	length = rawAudio.size();
@@ -196,13 +204,12 @@ void cAudioTrack::slotError(QAudioDecoder::Error error)
 	qCritical() << "cAudioTrack::error" << error;
 }
 
-void cAudioTrack::calculateFFT(double framesPerSecond)
+void cAudioTrack::calculateFFT()
 {
 	if (loaded && length > cAudioFFTdata::fftSize)
 	{
 		WriteLog("FFT calculation started", 2);
 
-		int numberOfFrames = length * framesPerSecond / sampleRate;
 		fftAudio.reserve(numberOfFrames);
 
 		for (int frame = 0; frame < numberOfFrames; ++frame)
@@ -226,9 +233,12 @@ void cAudioTrack::calculateFFT(double framesPerSecond)
 			cAudioFFTdata fftFrame;
 			for (int i = 0; i < cAudioFFTdata::fftSize; i++)
 			{
-				double re = fftData[2 * i];
-				double im = fftData[2 * i + 1];
-				fftFrame.data[i] = sqrt(re * re + im * im);
+				float re = fftData[2 * i];
+				float im = fftData[2 * i + 1];
+				float absVal = sqrt(re * re + im * im);
+				fftFrame.data[i] = absVal;
+				maxFft = qMax(absVal, maxFft);
+				maxFftArray.data[i] = qMax(maxFftArray.data[i], absVal);
 			}
 			fftAudio.append(fftFrame);
 		}
@@ -246,4 +256,45 @@ cAudioFFTdata cAudioTrack::getFFTSample(int frame) const
 	{
 		return cAudioFFTdata();
 	}
+}
+
+float cAudioTrack::getBand(int frame, double midFreq, double bandwidth) const
+{
+	if (isLoaded() && frame < fftAudio.size())
+	{
+		cAudioFFTdata fft = fftAudio[frame];
+
+		int first = freq2FftPos(midFreq - 0.5 * bandwidth);
+		if (first < 0) first = 0;
+		int last = freq2FftPos(midFreq + 0.5 * bandwidth);
+		if (last > cAudioFFTdata::fftSize / 2) last = cAudioFFTdata::fftSize / 2;
+
+		double sum = 0.0;
+		float maxVal = 0.0;
+		for (int i = first; i <= last; i++)
+		{
+			sum += fft.data[i];
+			maxVal += maxFftArray.data[i];
+		}
+		int count = last - first + 1;
+
+		maxVal /= count;
+		float value = sum / count / maxVal;
+		return value;
+	}
+	else
+	{
+		return 0.0;
+	}
+}
+
+int cAudioTrack::freq2FftPos(double freq) const
+{
+	return (double)cAudioFFTdata::fftSize / (double)sampleRate * freq;
+}
+
+void cAudioTrack::setFramesPerSecond(double _framesPerSecond)
+{
+	framesPerSecond = _framesPerSecond;
+	numberOfFrames = length * framesPerSecond / sampleRate;
 }

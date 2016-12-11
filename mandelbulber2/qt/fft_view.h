@@ -48,7 +48,6 @@ public:
 	cFFTView(QWidget *parent);
 	~cFFTView();
 
-	void SetParameters(double _framesPerSecond);
 	void AssignAudioTrack(const cAudioTrack *audiotrack);
 
 private:

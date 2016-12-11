@@ -59,7 +59,6 @@ public:
 	cWaveFormView(QWidget *parent);
 	~cWaveFormView();
 
-	void SetParameters(double _framesPerSecond);
 	void AssignAudioTrack(const cAudioTrack *audiotrack);
 
 private:

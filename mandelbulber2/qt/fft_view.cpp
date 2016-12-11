@@ -52,19 +52,13 @@ cFFTView::~cFFTView()
 	// TODO Auto-generated destructor stub
 }
 
-void cFFTView::SetParameters(double _framesPerSecond)
-{
-	framesPerSecond = _framesPerSecond;
-}
-
 void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 {
 
 	if (audiotrack)
 	{
-		int numberOfSampels = audiotrack->getLength();
-		int sampleRate = audiotrack->getSampleRate();
-		int numberOfFrames = numberOfSampels * framesPerSecond / sampleRate;
+		numberOfFrames = audiotrack->getNumberOfFrames();
+		framesPerSecond = audiotrack->getFramesPerSecond();
 
 		this->setFixedWidth(numberOfFrames);
 
@@ -78,7 +72,7 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 			for (int y = 0; y < height; y++)
 			{
 				int y2 = height - y - 1;
-				double value = fftFrame.data[y] * 0.1;
+				double value = 10.0 * fftFrame.data[y] / audiotrack->getMaxFft();
 
 				QRgb pixel;
 				if (value < 0.5)
