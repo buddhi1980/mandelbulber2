@@ -8120,10 +8120,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z.x -= t * -SQRT_3;
 		z.y = fabs(z.y - t); //- t; //fabs(z.y);// ...............................................
 
-		double temp1;
-		if (z.y > z.z) temp1 = z.z;
-		z.z = z.y;
-		z.y = temp1;
+		if (z.y > z.z) swap(z.y, z.z);
 		// CVector2(z.y, z.z) = CVector2(z.z, z.y);
 
 		z.y = fabs(z.y - 0.5) + 0.5;
