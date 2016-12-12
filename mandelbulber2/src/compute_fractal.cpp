@@ -861,6 +861,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					w = z4D.w;
 					break;
 				}
+				case menger4Dmod1:
+				{
+					CVector4 z4D(z, w);
+					Menger4Dmod1Iteration(z4D, i, fractal, extendedAux);
+					z = z4D.GetXYZ();
+					w = z4D.w;
+					break;
+				}
+
 				case mixPinski4D:
 				{
 					CVector4 z4D(z, w);
@@ -1246,6 +1255,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case sierpinski4D:
 				case sierpinski3D:
 				case menger4D:
+				case menger4Dmod1:
 				{
 					if (extendedAux.DE > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);

@@ -7513,10 +7513,147 @@ void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux
 }
 
 /**
- * from Darkbeams Menger4 code from M3D
+ * from Syntopia & Darkbeams Menger4 code from M3D
  */
 void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
+	if (i >= fractal->transformCommon.startIterationsC
+			&& i < fractal->transformCommon.stopIterationsC)
+	{
+		z4D += fractal->transformCommon.additionConstant0000; // offset
+	}
+	/* z4D = fabs(z4D);
+		double temp4;
+	if ( z4D.x - z4D.y < 0.0) { temp4 = z4D.y; z4D.y = z4D.x; z4D.x = temp4;}
+	if ( z4D.x - z4D.z < 0.0) { temp4 = z4D.z; z4D.z = z4D.x; z4D.x = temp4;}
+	if ( z4D.y - z4D.z < 0.0) { temp4 = z4D.z; z4D.z = z4D.y; z4D.y = temp4;}
+	if ( z4D.x - z4D.w < 0.0) { temp4 = z4D.w; z4D.w = z4D.x; z4D.x = temp4;}
+	if ( z4D.y - z4D.w < 0.0) { temp4 = z4D.w; z4D.w = z4D.y; z4D.y = temp4;}
+	if ( z4D.z - z4D.w < 0.0) { temp4 = z4D.w; z4D.w = z4D.z; z4D.z = temp4;}*/
+
+	z4D = fabs(z4D);
+	double temp4;
+	if (z4D.x - z4D.y < 0.0)
+	{
+		temp4 = z4D.y;
+		z4D.y = z4D.x;
+		z4D.x = temp4;
+	}
+	if (z4D.x - z4D.z < 0.0)
+	{
+		temp4 = z4D.z;
+		z4D.z = z4D.x;
+		z4D.x = temp4;
+	}
+	if (z4D.y - z4D.z < 0.0)
+	{
+		temp4 = z4D.z;
+		z4D.z = z4D.y;
+		z4D.y = temp4;
+	}
+	if (z4D.x - z4D.w < 0.0)
+	{
+		temp4 = z4D.w;
+		z4D.w = z4D.x;
+		z4D.x = temp4;
+	}
+	if (z4D.y - z4D.w < 0.0)
+	{
+		temp4 = z4D.w;
+		z4D.w = z4D.y;
+		z4D.y = temp4;
+	}
+	if (z4D.z - z4D.w < 0.0)
+	{
+		temp4 = z4D.w;
+		z4D.w = z4D.z;
+		z4D.z = temp4;
+	}
+	// temp3D rot
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		CVector3 Z3 = CVector3(z4D.x, z4D.y, z4D.z);
+		Z3 = fractal->transformCommon.rotationMatrix.RotateVector(Z3);
+		z4D.x = Z3.x;
+		z4D.y = Z3.y;
+		z4D.z = Z3.z;
+	}
+
+	double scaleM = fractal->transformCommon.scale3;
+	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
+	z4D.x = scaleM * z4D.x - offsetM.x;
+	z4D.y = scaleM * z4D.y - offsetM.y;
+	z4D.w = scaleM * z4D.w - offsetM.w;
+	z4D.z -= 0.5 * offsetM.z / scaleM;
+	z4D.z = -fabs(-z4D.z);
+	z4D.z += 0.5 * offsetM.z / scaleM;
+	z4D.z *= scaleM;
+	aux.DE *= scaleM;
+
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& i >= fractal->transformCommon.startIterationsS
+			&& i < fractal->transformCommon.stopIterationsS)
+	{
+		double r2 = z4D.Dot(z4D);
+		// if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+
+		if (r2 < fractal->mandelbox.mR2)
+		{
+			z4D *= fractal->transformCommon.maxMinR2factor;
+			aux.DE *= fractal->transformCommon.maxMinR2factor;
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
+		else if (r2 < fractal->transformCommon.maxR2d1)
+		{
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
+			z4D *= tglad_factor2;		double scaleM = fractal->transformCommon.scale2;
+			CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
+			z4D.x = scaleM * z4D.x - offsetM.x * (scaleM - 1.0);
+			z4D.y = scaleM * z4D.y - offsetM.y * (scaleM - 1.0);
+			z4D.w = scaleM * z4D.w - offsetM.w * (scaleM - 1.0);
+			z4D.z -= 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
+			z4D.z = -fabs(-z4D.z);
+			z4D.z += 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
+			z4D.z = scaleM * z4D.z;
+			aux.DE *= scaleM * fractal->analyticDE.scale1;
+
+			aux.DE *= tglad_factor2;
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		CVector4 zA, zB;
+
+		if (i == fractal->transformCommon.intA) zA = z4D;
+
+		if (i == fractal->transformCommon.intB) zB = z4D;
+
+		z4D = (z4D * fractal->transformCommon.scale) + (zA * fractal->transformCommon.offset)
+					+ (zB * fractal->transformCommon.offset0);
+		aux.DE *= fractal->transformCommon.scale;
+		aux.r_dz *= fractal->transformCommon.scale;
+	}
+
+	aux.DE *= fractal->analyticDE.scale1;
+}
+
+/**
+ * Menger4D MOD1   from Syntopia & Darkbeams Menger4 code from M3D
+ */
+void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	double paraAddP0 = 0.0;
+	if (fractal->Cpara.enabledParabFalse)
+	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+		paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
+								+ (i * i * 0.001 * fractal->Cpara.parabScale);
+	z4D.w += paraAddP0;
+	}
+
 	if (i >= fractal->transformCommon.startIterationsC
 			&& i < fractal->transformCommon.stopIterationsC)
 	{
@@ -7579,9 +7716,18 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	z4D.x = scaleM * z4D.x - offsetM.x;
 	z4D.y = scaleM * z4D.y - offsetM.y;
 	z4D.w = scaleM * z4D.w - offsetM.w;
-	z4D.z -= 0.5 * offsetM.z / scaleM;
-	z4D.z = -fabs(-z4D.z);
-	z4D.z += 0.5 * offsetM.z / scaleM;
+	if (fractal->transformCommon.functionEnabledz
+			&& i >= fractal->transformCommon.startIterationsM
+			&& i < fractal->transformCommon.stopIterationsM)
+	{
+		z4D.z -= 0.5 * offsetM.z / scaleM;
+		z4D.z = -fabs(-z4D.z);
+		z4D.z += 0.5 * offsetM.z / scaleM;
+	}
+	else
+	{
+		z4D.w = scaleM * z4D.w - offsetM.w;
+	}
 	z4D.z *= scaleM;
 	aux.DE *= scaleM;
 
@@ -7631,7 +7777,6 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 		z4D = (z4D * fractal->transformCommon.scale) + (zA * fractal->transformCommon.offset)
 					+ (zB * fractal->transformCommon.offset0);
 		aux.DE *= fractal->transformCommon.scale;
-		aux.r_dz *= fractal->transformCommon.scale;
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
@@ -7644,30 +7789,9 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
  */
 void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-
-	// aux.r = z.Dot(z);
-
 	if (i >= fractal->transformCommon.startIterationsS
 			&& i < fractal->transformCommon.stopIterationsS)
 	{
-
-		/*
-		if (z4D.x + z4D.y < 0.0) CVector2(z4D.x, z4D.y) = -CVector2(z4D.y, z4D.x);
-		if (z4D.x + z4D.z < 0.0) CVector2(z4D.x, z4D.z) = -CVector2(z4D.z, z4D.x);
-		if (z4D.y + z4D.z < 0.0) CVector2(z4D.z, z4D.y) = -CVector2(z4D.y, z4D.z);
-		if (z4D.x + z4D.w < 0.0) CVector2(z4D.x, z4D.w) = -CVector2(z4D.w, z4D.x);
-		if (z4D.y + z4D.w < 0.0) CVector2(z4D.y, z4D.w) = -CVector2(z4D.w, z4D.y);
-		if (z4D.z + z4D.w < 0.0) CVector2(z4D.z, z4D.w) = -CVector2(z4D.w, z4D.z);
-		*/
-		/*
-		if (z4D.x + z4D.y < 0.0) z = -CVector4(z4D.y, z4D.x, z4D.z, z4D.w);
-		if (z4D.x + z4D.z < 0.0) z = -CVector4(z4D.z, z4D.y, z4D.x, z4D.w);
-		if (z4D.y + z4D.z < 0.0) z = -CVector4(z4D.x, z4D.z, z4D.y, z4D.w);
-		if (z4D.x + z4D.w < 0.0) z = -CVector4(z4D.w, z4D.y, z4D.z, z4D.x);
-		if (z4D.y + z4D.w < 0.0) z = -CVector4(z4D.x, z4D.w, z4D.z, z4D.y);
-		if (z4D.z + z4D.w < 0.0) z = -CVector4(z4D.x, z4D.y, z4D.w, z4D.z);
-		*/
-
 		double temp;
 		if (z4D.x + z4D.y < 0.0)
 		{
@@ -7810,91 +7934,74 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 		return rot;
 	}*/
 
-	if (i >= fractal->transformCommon.startIterationsM
-			&& i < fractal->transformCommon.stopIterationsM)
-	{
-
-		if (fractal->transformCommon.functionEnabledFalse)
-		{
-			z4D = fabs(z4D);
-			CVector4 temp4;
-
-			if (z4D.x - z4D.y < 0.0)
-			{
-				temp4.x = z4D.y;
-				z4D.y = z4D.x;
-				z4D.x = temp4.x;
-			}
-			if (z4D.x - z4D.z < 0.0)
-			{
-				temp4.x = z4D.z;
-				z4D.z = z4D.x;
-				z4D.x = temp4.x;
-			}
-			if (z4D.y - z4D.z < 0.0)
-			{
-				temp4.y = z4D.z;
-				z4D.z = z4D.y;
-				z4D.y = temp4.y;
-			}
-			if (z4D.x - z4D.w < 0.0)
-			{
-				temp4.x = z4D.w;
-				z4D.w = z4D.x;
-				z4D.x = temp4.x;
-			}
-			if (z4D.y - z4D.w < 0.0)
-			{
-				temp4.x = z4D.w;
-				z4D.w = z4D.y;
-				z4D.y = temp4.x;
-			}
-			if (z4D.z - z4D.w < 0.0)
-			{
-				temp4.y = z4D.w;
-				z4D.w = z4D.z;
-				z4D.z = temp4.y;
-			}
-		}
-
-		double scaleM = fractal->transformCommon.scale2;
-		CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
-		z4D.x = scaleM * z4D.x - offsetM.x * (scaleM - 1.0);
-		z4D.y = scaleM * z4D.y - offsetM.y * (scaleM - 1.0);
-		z4D.w = scaleM * z4D.w - offsetM.w * (scaleM - 1.0);
-		z4D.z -= 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
-		z4D.z = -fabs(-z4D.z);
-		z4D.z += 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
-		z4D.z = scaleM * z4D.z;
-		aux.DE *= scaleM * fractal->analyticDE.scale1;
-	}
-
-	// aux.r = z.Dot(z); // bailout
-	// return sqrt(x* x + y* y + z* z)*scale^(-i);
+	double scaleM = fractal->transformCommon.scale2;
+	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
+	z4D.x = scaleM * z4D.x - offsetM.x * (scaleM - 1.0);
+	z4D.y = scaleM * z4D.y - offsetM.y * (scaleM - 1.0);
+	z4D.w = scaleM * z4D.w - offsetM.w * (scaleM - 1.0);
+	z4D.z -= 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
+	z4D.z = -fabs(-z4D.z);
+	z4D.z += 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
+	z4D.z = scaleM * z4D.z;
+	aux.DE *= scaleM * fractal->analyticDE.scale1;
 }
 
 /**
- * Sierpinski4D. made from Darkbeams MixPinki4 from M3D
+ * Sierpinski4D.from Syntopia & Darkbeams code
 
  */
 void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-
-	/*
-	if (z4D.x + z4D.y < 0.0) CVector2(z4D.x, z4D.y) = -CVector2(z4D.y, z4D.x);
-	if (z4D.x + z4D.z < 0.0) CVector2(z4D.x, z4D.z) = -CVector2(z4D.z, z4D.x);
-	if (z4D.y + z4D.z < 0.0) CVector2(z4D.z, z4D.y) = -CVector2(z4D.y, z4D.z);
-	if (z4D.x + z4D.w < 0.0) CVector2(z4D.x, z4D.w) = -CVector2(z4D.w, z4D.x);
-	if (z4D.y + z4D.w < 0.0) CVector2(z4D.y, z4D.w) = -CVector2(z4D.w, z4D.y);
-	if (z4D.z + z4D.w < 0.0) CVector2(z4D.z, z4D.w) = -CVector2(z4D.w, z4D.z);
-	*/
-
-	if (z4D.x + z4D.y < 0.0) z4D = CVector4(-z4D.y, -z4D.x, z4D.z, z4D.w);
+	/*if (z4D.x + z4D.y < 0.0) z4D = CVector4(-z4D.y, -z4D.x, z4D.z, z4D.w);
 	if (z4D.x + z4D.z < 0.0) z4D = CVector4(-z4D.z, z4D.y, -z4D.x, z4D.w);
 	if (z4D.y + z4D.z < 0.0) z4D = CVector4(z4D.x, -z4D.z, -z4D.y, z4D.w);
 	if (z4D.x + z4D.w < 0.0) z4D = CVector4(-z4D.w, z4D.y, z4D.z, -z4D.x);
 	if (z4D.y + z4D.w < 0.0) z4D = CVector4(z4D.x, -z4D.w, z4D.z, -z4D.y);
-	if (z4D.z + z4D.w < 0.0) z4D = CVector4(z4D.x, z4D.y, -z4D.w, -z4D.z);
+	if (z4D.z + z4D.w < 0.0) z4D = CVector4(z4D.x, z4D.y, -z4D.w, -z4D.z);*/
+
+
+	double temp;
+	if (z4D.x + z4D.y < 0.0)
+	{
+		temp = z4D.x;
+		z4D.x = -z4D.y;
+		z4D.y = -temp;
+	}
+
+	if (z4D.x + z4D.z < 0.0)
+	{
+		temp = z4D.x;
+		z4D.x = -z4D.z;
+		z4D.z = -temp;
+	}
+
+	if (z4D.y + z4D.z < 0.0)
+	{
+		temp = z4D.z;
+		z4D.z = -z4D.y;
+		z4D.y = -temp;
+	}
+
+	if (z4D.x + z4D.w < 0.0)
+	{
+		temp = z4D.x;
+		z4D.x = -z4D.w;
+		z4D.w = -temp;
+	}
+
+	if (z4D.y + z4D.w < 0.0)
+	{
+		temp = z4D.y;
+		z4D.y = -z4D.w;
+		z4D.w = -temp;
+	}
+
+	if (z4D.z + z4D.w < 0.0)
+	{
+		temp = z4D.z;
+		z4D.z = -z4D.w;
+		z4D.w = -temp;
+	}
 
 	z4D = z4D * fractal->transformCommon.scaleA2;
 	aux.DE *= fractal->transformCommon.scaleA2;

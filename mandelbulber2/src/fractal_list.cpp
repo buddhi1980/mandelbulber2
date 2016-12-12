@@ -287,6 +287,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Menger 4D", "menger_4D", menger4D, analyticDEType,
 		linearDEFunction, cpixelDisabledByDefault, 10));
 
+	fractalList->append(sFractalDescription("Menger 4D Mod1", "menger_4D_mod1", menger4Dmod1, analyticDEType,
+		linearDEFunction, cpixelDisabledByDefault, 10));
+
 	fractalList->append(sFractalDescription("MixPinski 4D", "mixPinski_4D", mixPinski4D,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
