@@ -1807,7 +1807,6 @@ void BenesiPwr2sIteration(
 	{
 		CVector3 gap = fractal->transformCommon.constantMultiplier000;
 		double t;
-		double temp;
 		double dot1;
 
 		if (fractal->transformCommon.functionEnabledPFalse
@@ -2302,7 +2301,6 @@ void MandelboxMengerIteration(
 		int k;
 		for (k = 0; k < count; k++)
 		{
-			double tempMS;
 			z = fabs(z);
 			if (z.x - z.y < 0) swap(z.y, z.x);
 			if (z.x - z.z < 0) swap(z.z, z.x);
@@ -2861,7 +2859,6 @@ void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExte
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
-	double temp;
 	double dot1;
 	if (fractal->transformCommon.functionEnabledFalse && i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations1)
@@ -2985,7 +2982,6 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
-	double temp;
 	double dot1;
 	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations1)
@@ -3077,7 +3073,6 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
  */
 void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	double tempMS;
 	z = fabs(z);
 	if (z.x - z.y < 0) swap(z.y, z.x);
 	if (z.x - z.z < 0) swap(z.z, z.x);
@@ -3137,7 +3132,6 @@ void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 void MengerMiddleModIteration(
 	CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 { // fabs() and menger fold
-	double tempMS;
 	z = fabs(z + fractal->transformCommon.additionConstantA000);
 	if (z.x - z.y < 0) swap(z.y, z.x);
 	if (z.x - z.z < 0) swap(z.z, z.x);
@@ -3331,7 +3325,6 @@ void MengerPwr2PolyIteration(
 	int k;
 	for (k = 0; k < count; k++)
 	{
-		double tempMS;
 		z = fabs(z);
 		if (z.x - z.y < 0) swap(z.y, z.x);
 		if (z.x - z.z < 0) swap(z.z, z.x);
@@ -3361,7 +3354,6 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
-	double temp;
 	double dot1;
 
 	if (i >= fractal->transformCommon.startIterationsP
@@ -3471,7 +3463,6 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
-		double tempMS;
 		z = fabs(z);
 		if (z.x - z.y < 0) swap(z.y, z.x);
 		if (z.x - z.z < 0) swap(z.z, z.x);
@@ -4111,7 +4102,6 @@ void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
-	double temp;
 	double dot1;
 
 	if (fractal->transformCommon.functionEnabledPFalse
@@ -4205,7 +4195,6 @@ void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
-	double temp;
 
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& i >= fractal->transformCommon.startIterationsP
@@ -4315,7 +4304,6 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
-		double tempMS;
 		z = fabs(z);
 		if (z.x - z.y < 0) swap(z.y, z.x);
 		if (z.x - z.z < 0) swap(z.z, z.x);
@@ -4383,7 +4371,6 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
-	double temp;
 	double dot1;
 
 	if (fractal->transformCommon.functionEnabledPFalse
@@ -4494,7 +4481,6 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
-		double tempMS;
 		z = fabs(z);
 		if (z.x - z.y < 0) swap(z.y, z.x);
 		if (z.x - z.z < 0) swap(z.z, z.x);
@@ -6006,7 +5992,6 @@ void TransformMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtende
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{ // fabs() and menger fold
-		double tempMS;
 		z = fabs(z + fractal->transformCommon.additionConstantA000);
 		if (z.x - z.y < 0) swap(z.y, z.x);
 		if (z.x - z.z < 0) swap(z.z, z.x);
@@ -7253,7 +7238,6 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	if ( z4D.z - z4D.w < 0.0)  swap(z4D.w, z4D.z);*/
 
 	z4D = fabs(z4D);
-	double temp4;
 	if (z4D.x - z4D.y < 0.0) swap(z4D.y, z4D.x);
 	if (z4D.x - z4D.z < 0.0) swap(z4D.z, z4D.x);
 	if (z4D.y - z4D.z < 0.0) swap(z4D.z, z4D.y);
@@ -7981,7 +7965,6 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
-	double temp;
 	double dot1;
 
 	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterationsP
@@ -8120,10 +8103,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z.x -= t * -SQRT_3;
 		z.y = fabs(z.y - t); //- t; //fabs(z.y);// ...............................................
 
-		double temp1;
-		if (z.y > z.z) temp1 = z.z;
-		z.z = z.y;
-		z.y = temp1;
+		if (z.y > z.z) swap(z.y, z.z);
 		// CVector2(z.y, z.z) = CVector2(z.z, z.y);
 
 		z.y = fabs(z.y - 0.5) + 0.5;
@@ -8229,7 +8209,6 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 	if (fractal->transformCommon.functionEnabledM && i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
-		double tempMS;
 		z = fabs(z);
 		if (z.x - z.y < 0) swap(z.y, z.x);
 		if (z.x - z.z < 0) swap(z.z, z.x);
