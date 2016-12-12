@@ -49,6 +49,7 @@
 #endif
 
 using namespace fractal;
+using std::swap;
 
 /**
  * Classic Mandelbulb fractal.
@@ -329,28 +330,13 @@ void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &
  */
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux)
 {
-	double temp;
 	z.x = fabs(z.x);
 	z.y = fabs(z.y);
 	z.z = fabs(z.z);
-	if (z.x - z.y < 0)
-	{
-		temp = z.y;
-		z.y = z.x;
-		z.x = temp;
-	}
-	if (z.x - z.z < 0)
-	{
-		temp = z.z;
-		z.z = z.x;
-		z.x = temp;
-	}
-	if (z.y - z.z < 0)
-	{
-		temp = z.z;
-		z.z = z.y;
-		z.y = temp;
-	}
+
+	if (z.x - z.y < 0) swap(z.x, z.y);
+	if (z.x - z.z < 0) swap(z.x, z.z);
+	if (z.y - z.z < 0) swap(z.y, z.z);
 
 	z *= 3.0;
 
@@ -4913,42 +4899,12 @@ void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 	// Normal full tetra-fold;
 	if (fractal->transformCommon.functionEnabled)
 	{
-		if (z.x - z.y < 0.0)
-		{
-			temp.x = z.y;
-			z.y = z.x;
-			z.x = temp.x;
-		}
-		if (z.x - z.z < 0.0)
-		{
-			temp.x = z.z;
-			z.z = z.x;
-			z.x = temp.x;
-		}
-		if (z.y - z.z < 0.0)
-		{
-			temp.y = z.z;
-			z.z = z.y;
-			z.y = temp.y;
-		}
-		if (z.x + z.y < 0.0)
-		{
-			temp.x = -z.y;
-			z.y = -z.x;
-			z.x = temp.x;
-		}
-		if (z.x + z.z < 0.0)
-		{
-			temp.x = -z.z;
-			z.z = -z.x;
-			z.x = temp.x;
-		}
-		if (z.y + z.z < 0.0)
-		{
-			temp.y = -z.z;
-			z.z = -z.y;
-			z.y = temp.y;
-		}
+		if (z.x - z.y < 0.0) swap(z.x, z.y);
+		if (z.x - z.z < 0.0) swap(z.x, z.z);
+		if (z.y - z.z < 0.0) swap(z.y, z.z);
+		if (z.x + z.y < 0.0) swap(z.x, z.y);
+		if (z.x + z.z < 0.0) swap(z.x, z.z);
+		if (z.y + z.z < 0.0) swap(z.y, z.z);
 	}
 	z = z * fractal->transformCommon.scaleA2;
 	aux.DE *= fractal->transformCommon.scaleA2;
@@ -7608,7 +7564,8 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 		else if (r2 < fractal->transformCommon.maxR2d1)
 		{
 			double tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
-			z4D *= tglad_factor2;		double scaleM = fractal->transformCommon.scale2;
+			z4D *= tglad_factor2;
+			double scaleM = fractal->transformCommon.scale2;
 			CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
 			z4D.x = scaleM * z4D.x - offsetM.x * (scaleM - 1.0);
 			z4D.y = scaleM * z4D.y - offsetM.y * (scaleM - 1.0);
@@ -7651,7 +7608,7 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
 		paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
 								+ (i * i * 0.001 * fractal->Cpara.parabScale);
-	z4D.w += paraAddP0;
+		z4D.w += paraAddP0;
 	}
 
 	if (i >= fractal->transformCommon.startIterationsC
@@ -7716,8 +7673,7 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 	z4D.x = scaleM * z4D.x - offsetM.x;
 	z4D.y = scaleM * z4D.y - offsetM.y;
 	z4D.w = scaleM * z4D.w - offsetM.w;
-	if (fractal->transformCommon.functionEnabledz
-			&& i >= fractal->transformCommon.startIterationsM
+	if (fractal->transformCommon.functionEnabledz && i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
 		z4D.z -= 0.5 * offsetM.z / scaleM;
@@ -7958,7 +7914,6 @@ void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 	if (z4D.x + z4D.w < 0.0) z4D = CVector4(-z4D.w, z4D.y, z4D.z, -z4D.x);
 	if (z4D.y + z4D.w < 0.0) z4D = CVector4(z4D.x, -z4D.w, z4D.z, -z4D.y);
 	if (z4D.z + z4D.w < 0.0) z4D = CVector4(z4D.x, z4D.y, -z4D.w, -z4D.z);*/
-
 
 	double temp;
 	if (z4D.x + z4D.y < 0.0)
