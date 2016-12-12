@@ -1821,20 +1821,10 @@ void BenesiPwr2sIteration(
 			z.x -= t * -SQRT_3;
 			z.y = fabs(z.y - t);
 
-			if (z.y > z.z)
-			{
-				temp = z.y;
-				z.y = z.z;
-				z.z = temp;
-			}
+			if (z.y > z.z) swap(z.y, z.z);
 			z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 
-			if (z.z > z.x)
-			{
-				temp = z.z;
-				z.z = z.x;
-				z.x = temp;
-			}
+			if (z.z > z.x) swap(z.z, z.x);
 			if (z.x > 0.0)
 			{
 				z.y = max(0.0, z.y);
@@ -2314,24 +2304,9 @@ void MandelboxMengerIteration(
 		{
 			double tempMS;
 			z = fabs(z);
-			if (z.x - z.y < 0)
-			{
-				tempMS = z.y;
-				z.y = z.x;
-				z.x = tempMS;
-			}
-			if (z.x - z.z < 0)
-			{
-				tempMS = z.z;
-				z.z = z.x;
-				z.x = tempMS;
-			}
-			if (z.y - z.z < 0)
-			{
-				tempMS = z.z;
-				z.z = z.y;
-				z.y = tempMS;
-			}
+			if (z.x - z.y < 0) swap(z.y, z.x);
+			if (z.x - z.z < 0) swap(z.z, z.x);
+			if (z.y - z.z < 0) swap(z.z, z.y);
 			z *= fractal->transformCommon.scale3;
 			z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 			z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
@@ -2900,21 +2875,11 @@ void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		z.x -= (t * -SQRT_3) - 0.5;
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z)
-		{
-			temp = z.y;
-			z.y = z.z;
-			z.z = temp;
-		}
+		if (z.y > z.z) swap(z.y, z.z);
 		z.y -= 0.75;
 		z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 
-		if (z.z > z.x)
-		{
-			temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
+		if (z.z > z.x) swap(z.z, z.x);
 
 		z *= fractal->transformCommon.constantMultiplier111; // post scale
 
@@ -3034,21 +2999,11 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z)
-		{
-			temp = z.y;
-			z.y = z.z;
-			z.z = temp;
-		}
+		if (z.y > z.z) swap(z.y, z.z);
 		z.y -= 1.5;
 		z -= gap * CVector3(SQRT_3_4, -1.5, 1.5);
 
-		if (z.z > z.x)
-		{
-			temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
+		if (z.z > z.x) swap(z.z, z.x);
 		if (fractal->transformCommon.functionEnabledyFalse)
 		{
 			if (z.x >= 0.0)
@@ -3124,24 +3079,9 @@ void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 {
 	double tempMS;
 	z = fabs(z);
-	if (z.x - z.y < 0)
-	{
-		tempMS = z.y;
-		z.y = z.x;
-		z.x = tempMS;
-	}
-	if (z.x - z.z < 0)
-	{
-		tempMS = z.z;
-		z.z = z.x;
-		z.x = tempMS;
-	}
-	if (z.y - z.z < 0)
-	{
-		tempMS = z.z;
-		z.z = z.y;
-		z.y = tempMS;
-	}
+	if (z.x - z.y < 0) swap(z.y, z.x);
+	if (z.x - z.z < 0) swap(z.z, z.x);
+	if (z.y - z.z < 0) swap(z.z, z.y);
 	z *= fractal->transformCommon.scale3;
 	z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
 	z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
@@ -3199,24 +3139,9 @@ void MengerMiddleModIteration(
 { // fabs() and menger fold
 	double tempMS;
 	z = fabs(z + fractal->transformCommon.additionConstantA000);
-	if (z.x - z.y < 0)
-	{
-		tempMS = z.y;
-		z.y = z.x;
-		z.x = tempMS;
-	}
-	if (z.x - z.z < 0)
-	{
-		tempMS = z.z;
-		z.z = z.x;
-		z.x = tempMS;
-	}
-	if (z.y - z.z < 0)
-	{
-		tempMS = z.z;
-		z.z = z.y;
-		z.y = tempMS;
-	}
+	if (z.x - z.y < 0) swap(z.y, z.x);
+	if (z.x - z.z < 0) swap(z.z, z.x);
+	if (z.y - z.z < 0) swap(z.z, z.y);
 
 	if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsC
 			&& i < fractal->transformCommon.stopIterationsC) // rotation
@@ -3408,24 +3333,9 @@ void MengerPwr2PolyIteration(
 	{
 		double tempMS;
 		z = fabs(z);
-		if (z.x - z.y < 0)
-		{
-			tempMS = z.y;
-			z.y = z.x;
-			z.x = tempMS;
-		}
-		if (z.x - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.x;
-			z.x = tempMS;
-		}
-		if (z.y - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.y;
-			z.y = tempMS;
-		}
+		if (z.x - z.y < 0) swap(z.y, z.x);
+		if (z.x - z.z < 0) swap(z.z, z.x);
+		if (z.y - z.z < 0) swap(z.z, z.y);
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
@@ -3464,20 +3374,10 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 		z.x -= t * -SQRT_3;
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z)
-		{
-			temp = z.y;
-			z.y = z.z;
-			z.z = temp;
-		}
+		if (z.y > z.z) swap(z.y, z.z);
 		z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 		// z was pos, now some points neg (ie neg shift)
-		if (z.z > z.x)
-		{
-			temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
+		if (z.z > z.x) swap(z.z, z.x);
 		if (z.x > 0.0)
 		{
 			z.y = max(0.0, z.y);
@@ -3573,24 +3473,9 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 	{
 		double tempMS;
 		z = fabs(z);
-		if (z.x - z.y < 0)
-		{
-			tempMS = z.y;
-			z.y = z.x;
-			z.x = tempMS;
-		}
-		if (z.x - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.x;
-			z.x = tempMS;
-		}
-		if (z.y - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.y;
-			z.y = tempMS;
-		}
+		if (z.x - z.y < 0) swap(z.y, z.x);
+		if (z.x - z.z < 0) swap(z.z, z.x);
+		if (z.y - z.z < 0) swap(z.z, z.y);
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
@@ -3996,24 +3881,9 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sE
 
 	aux.r_dz *= fabs(z.Length() / tempL);
 
-	double swap = z.x;
-	if (fabs(z.x) < fabs(z.z))
-	{
-		z.x = z.z;
-		z.z = swap;
-	}
-	if (fabs(z.x) < fabs(z.y))
-	{
-		swap = z.x;
-		z.x = z.y;
-		z.y = swap;
-	}
-	if (fabs(z.y) < fabs(z.z))
-	{
-		swap = z.y;
-		z.y = z.z;
-		z.z = swap;
-	}
+	if (fabs(z.x) < fabs(z.z)) swap(z.x, z.z);
+	if (fabs(z.x) < fabs(z.y)) swap(z.x, z.y);
+	if (fabs(z.y) < fabs(z.z)) swap(z.y, z.z);
 
 	if (z.x * z.z < 0) z.z = -z.z;
 	if (z.x * z.y < 0) z.y = -z.y;
@@ -4255,20 +4125,10 @@ void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		z.x -= t * -SQRT_3;
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z)
-		{
-			temp = z.y;
-			z.y = z.z;
-			z.z = temp;
-		}
+		if (z.y > z.z) swap(z.y, z.z);
 		z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 		// z was pos, now some points neg (ie neg shift)
-		if (z.z > z.x)
-		{
-			temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
+		if (z.z > z.x) swap(z.z, z.x);
 		if (z.x > 0.0)
 		{
 			z.y = max(0.0, z.y);
@@ -4358,20 +4218,10 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		z.x -= t * -SQRT_3;
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z)
-		{
-			temp = z.y;
-			z.y = z.z;
-			z.z = temp;
-		}
+		if (z.y > z.z) swap(z.y, z.z);
 		z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 		// z was pos, now some points neg (ie neg shift)
-		if (z.z > z.x)
-		{
-			temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
+		if (z.z > z.x) swap(z.z, z.x);
 		if (z.x > 0.0)
 		{
 			z.y = max(0.0, z.y);
@@ -4467,24 +4317,9 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	{
 		double tempMS;
 		z = fabs(z);
-		if (z.x - z.y < 0)
-		{
-			tempMS = z.y;
-			z.y = z.x;
-			z.x = tempMS;
-		}
-		if (z.x - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.x;
-			z.x = tempMS;
-		}
-		if (z.y - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.y;
-			z.y = tempMS;
-		}
+		if (z.x - z.y < 0) swap(z.y, z.x);
+		if (z.x - z.z < 0) swap(z.z, z.x);
+		if (z.y - z.z < 0) swap(z.z, z.y);
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
@@ -4562,20 +4397,10 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		z.x -= t * -SQRT_3;
 		z.y = fabs(z.y - t);
 
-		if (z.y > z.z)
-		{
-			temp = z.y;
-			z.y = z.z;
-			z.z = temp;
-		}
+		if (z.y > z.z) swap(z.y, z.z);
 		z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 		// z was pos, now some points neg (ie neg shift)
-		if (z.z > z.x)
-		{
-			temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
+		if (z.z > z.x) swap(z.z, z.x);
 		if (z.x > 0.0)
 		{
 			z.y = max(0.0, z.y);
@@ -4671,24 +4496,9 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	{
 		double tempMS;
 		z = fabs(z);
-		if (z.x - z.y < 0)
-		{
-			tempMS = z.y;
-			z.y = z.x;
-			z.x = tempMS;
-		}
-		if (z.x - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.x;
-			z.x = tempMS;
-		}
-		if (z.y - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.y;
-			z.y = tempMS;
-		}
+		if (z.x - z.y < 0) swap(z.y, z.x);
+		if (z.x - z.z < 0) swap(z.z, z.x);
+		if (z.y - z.z < 0) swap(z.z, z.y);
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
@@ -4943,24 +4753,9 @@ void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 			z.z = -z.y;
 			z.y = temp.y;
 		}
-		if (z.x - z.y < 0.0)
-		{
-			temp.x = z.y;
-			z.y = z.x;
-			z.x = temp.x;
-		}
-		if (z.x - z.z < 0.0)
-		{
-			temp.x = z.z;
-			z.z = z.x;
-			z.x = temp.x;
-		}
-		if (z.y - z.z < 0.0)
-		{
-			temp.y = z.z;
-			z.z = z.y;
-			z.y = temp.y;
-		}
+		if (z.x - z.y < 0.0) swap(z.y, z.x);
+		if (z.x - z.z < 0.0) swap(z.z, z.x);
+		if (z.y - z.z < 0.0) swap(z.z, z.y);
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
@@ -6103,24 +5898,9 @@ void TransformFoldingTetra3DIteration(CVector3 &z, const cFractal *fractal)
 	}
 	if (fractal->transformCommon.functionEnabledy)
 	{
-		if (z.x - z.y < 0.0)
-		{
-			x1 = z.y;
-			z.y = z.x;
-			z.x = x1;
-		}
-		if (z.x - z.z < 0.0)
-		{
-			x1 = z.z;
-			z.z = z.x;
-			z.x = x1;
-		}
-		if (z.y - z.z < 0.0)
-		{
-			y1 = z.z;
-			z.z = z.y;
-			z.y = y1;
-		}
+		if (z.x - z.y < 0.0) swap(z.y, z.x);
+		if (z.x - z.z < 0.0) swap(z.z, z.x);
+		if (z.y - z.z < 0.0) swap(z.z, z.y);
 	}
 }
 
@@ -6228,24 +6008,9 @@ void TransformMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtende
 	{ // fabs() and menger fold
 		double tempMS;
 		z = fabs(z + fractal->transformCommon.additionConstantA000);
-		if (z.x - z.y < 0)
-		{
-			tempMS = z.y;
-			z.y = z.x;
-			z.x = tempMS;
-		}
-		if (z.x - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.x;
-			z.x = tempMS;
-		}
-		if (z.y - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.y;
-			z.y = tempMS;
-		}
+		if (z.x - z.y < 0) swap(z.y, z.x);
+		if (z.x - z.z < 0) swap(z.z, z.x);
+		if (z.y - z.z < 0) swap(z.z, z.y);
 	}
 	if (fractal->transformCommon.functionEnabledy)
 	{ // menger scales and offsets
@@ -7480,51 +7245,21 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	}
 	/* z4D = fabs(z4D);
 		double temp4;
-	if ( z4D.x - z4D.y < 0.0) { temp4 = z4D.y; z4D.y = z4D.x; z4D.x = temp4;}
-	if ( z4D.x - z4D.z < 0.0) { temp4 = z4D.z; z4D.z = z4D.x; z4D.x = temp4;}
-	if ( z4D.y - z4D.z < 0.0) { temp4 = z4D.z; z4D.z = z4D.y; z4D.y = temp4;}
-	if ( z4D.x - z4D.w < 0.0) { temp4 = z4D.w; z4D.w = z4D.x; z4D.x = temp4;}
-	if ( z4D.y - z4D.w < 0.0) { temp4 = z4D.w; z4D.w = z4D.y; z4D.y = temp4;}
-	if ( z4D.z - z4D.w < 0.0) { temp4 = z4D.w; z4D.w = z4D.z; z4D.z = temp4;}*/
+	if ( z4D.x - z4D.y < 0.0)  swap(z4D.y, z4D.x);
+	if ( z4D.x - z4D.z < 0.0)  swap(z4D.z, z4D.x);
+	if ( z4D.y - z4D.z < 0.0)  swap(z4D.z, z4D.y);
+	if ( z4D.x - z4D.w < 0.0)  swap(z4D.w, z4D.x);
+	if ( z4D.y - z4D.w < 0.0)  swap(z4D.w, z4D.y);
+	if ( z4D.z - z4D.w < 0.0)  swap(z4D.w, z4D.z);*/
 
 	z4D = fabs(z4D);
 	double temp4;
-	if (z4D.x - z4D.y < 0.0)
-	{
-		temp4 = z4D.y;
-		z4D.y = z4D.x;
-		z4D.x = temp4;
-	}
-	if (z4D.x - z4D.z < 0.0)
-	{
-		temp4 = z4D.z;
-		z4D.z = z4D.x;
-		z4D.x = temp4;
-	}
-	if (z4D.y - z4D.z < 0.0)
-	{
-		temp4 = z4D.z;
-		z4D.z = z4D.y;
-		z4D.y = temp4;
-	}
-	if (z4D.x - z4D.w < 0.0)
-	{
-		temp4 = z4D.w;
-		z4D.w = z4D.x;
-		z4D.x = temp4;
-	}
-	if (z4D.y - z4D.w < 0.0)
-	{
-		temp4 = z4D.w;
-		z4D.w = z4D.y;
-		z4D.y = temp4;
-	}
-	if (z4D.z - z4D.w < 0.0)
-	{
-		temp4 = z4D.w;
-		z4D.w = z4D.z;
-		z4D.z = temp4;
-	}
+	if (z4D.x - z4D.y < 0.0) swap(z4D.y, z4D.x);
+	if (z4D.x - z4D.z < 0.0) swap(z4D.z, z4D.x);
+	if (z4D.y - z4D.z < 0.0) swap(z4D.z, z4D.y);
+	if (z4D.x - z4D.w < 0.0) swap(z4D.w, z4D.x);
+	if (z4D.y - z4D.w < 0.0) swap(z4D.w, z4D.y);
+	if (z4D.z - z4D.w < 0.0) swap(z4D.w, z4D.z);
 	// temp3D rot
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
@@ -7619,42 +7354,12 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 
 	z4D = fabs(z4D);
 	CVector4 temp4;
-	if (z4D.x - z4D.y < 0.0)
-	{
-		temp4.x = z4D.y;
-		z4D.y = z4D.x;
-		z4D.x = temp4.x;
-	}
-	if (z4D.x - z4D.z < 0.0)
-	{
-		temp4.x = z4D.z;
-		z4D.z = z4D.x;
-		z4D.x = temp4.x;
-	}
-	if (z4D.y - z4D.z < 0.0)
-	{
-		temp4.y = z4D.z;
-		z4D.z = z4D.y;
-		z4D.y = temp4.y;
-	}
-	if (z4D.x - z4D.w < 0.0)
-	{
-		temp4.x = z4D.w;
-		z4D.w = z4D.x;
-		z4D.x = temp4.x;
-	}
-	if (z4D.y - z4D.w < 0.0)
-	{
-		temp4.x = z4D.w;
-		z4D.w = z4D.y;
-		z4D.y = temp4.x;
-	}
-	if (z4D.z - z4D.w < 0.0)
-	{
-		temp4.y = z4D.w;
-		z4D.w = z4D.z;
-		z4D.z = temp4.y;
-	}
+	if (z4D.x - z4D.y < 0.0) swap(z4D.y, z4D.x);
+	if (z4D.x - z4D.z < 0.0) swap(z4D.z, z4D.x);
+	if (z4D.y - z4D.z < 0.0) swap(z4D.z, z4D.y);
+	if (z4D.x - z4D.w < 0.0) swap(z4D.w, z4D.x);
+	if (z4D.y - z4D.w < 0.0) swap(z4D.w, z4D.y);
+	if (z4D.z - z4D.w < 0.0) swap(z4D.w, z4D.z);
 
 	// temp3D rot
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -8307,22 +8012,12 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 			z.x -= t * -SQRT_3;
 		}
 		z.y = fabs(z.y - t);
-		if (z.y > z.z)
-		{
-			temp = z.y;
-			z.y = z.z;
-			z.z = temp;
-		}
+		if (z.y > z.z) swap(z.y, z.z);
 		if (fractal->transformCommon.functionEnabledByFalse) z.y -= fractal->transformCommon.offset105;
 
 		z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 
-		if (z.z > z.x)
-		{
-			temp = z.z;
-			z.z = z.x;
-			z.x = temp;
-		}
+		if (z.z > z.x) swap(z.z, z.x);
 		if (fractal->transformCommon.functionEnabled)
 		{
 			if (z.x >= 0.0)
@@ -8536,24 +8231,9 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 	{
 		double tempMS;
 		z = fabs(z);
-		if (z.x - z.y < 0)
-		{
-			tempMS = z.y;
-			z.y = z.x;
-			z.x = tempMS;
-		}
-		if (z.x - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.x;
-			z.x = tempMS;
-		}
-		if (z.y - z.z < 0)
-		{
-			tempMS = z.z;
-			z.z = z.y;
-			z.y = tempMS;
-		}
+		if (z.x - z.y < 0) swap(z.y, z.x);
+		if (z.x - z.z < 0) swap(z.z, z.x);
+		if (z.y - z.z < 0) swap(z.z, z.y);
 		z *= fractal->transformCommon.scale3;
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
