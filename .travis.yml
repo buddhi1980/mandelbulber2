@@ -20,13 +20,13 @@ install:
       && sudo apt-add-repository -y ppa:beineri/opt-qt57-trusty
       && sudo add-apt-repository -y ppa:ubuntu-sdk-team/ppa
       && sudo apt-get -qq update
-      && sudo apt-get -qq install g++-4.8 libc6-i386
+      && sudo apt-get -qq install g++-6.2 libc6-i386
       && sudo apt-get install -y qt57base qt57tools qt57multimedia
       && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1
       && sudo apt-get install -y libtiff5
       && sudo apt-get install -y libsndfile1-dev
-      && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 100
-      && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 100
+      && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6.2 100
+      && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6.2 100
       && lsb_release -a
       ;
     else
