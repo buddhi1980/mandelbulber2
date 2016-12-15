@@ -100,6 +100,7 @@ xcopy %QTDIR%\bin\Qt5Svg*.dll %BINDIR%
 xcopy %QTDIR%\bin\Qt5Test*.dll %BINDIR%
 xcopy %QTDIR%\bin\Qt5Widgets*.dll %BINDIR%
 xcopy %QTDIR%\bin\Qt5Core*.dll %BINDIR%
+xcopy %QTDIR%\bin\Qt5Multimedia*.dll %BINDIR%
 xcopy deps\zlib*.dll %BINDIR%
 xcopy deps\libpng*.dll %BINDIR%
 xcopy deps\tiff*.dll %BINDIR%
