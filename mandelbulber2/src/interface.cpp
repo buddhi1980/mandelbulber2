@@ -1465,7 +1465,8 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 			InitPrimitiveParams(objectType, primitiveFullName, gPar);
 		}
 
-		gPar->Set(primitiveFullName + "_enabled", true);
+		// primitiveFullName + "_enabled" will be set by SynchronizeInterfaceWindow
+		// gPar->Set(primitiveFullName + "_enabled", true);
 
 		mainWindow->automatedWidgets->ConnectSignalsForSlidersInWindow(mainWidget);
 		SynchronizeInterfaceWindow(mainWidget, gPar, qInterface::write);
