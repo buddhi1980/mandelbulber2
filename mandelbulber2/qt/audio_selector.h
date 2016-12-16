@@ -57,6 +57,7 @@ public:
 private slots:
 	void slotLoadAudioFile();
 	void slotAudioLoaded();
+	void slotFreqChanged();
 
 private:
 	void ConnectSignals();
@@ -70,6 +71,9 @@ private:
 
 	cAudioTrack *audio;
 	QString parameterName;
+
+signals:
+	void freqencyChanged(double midfreq, double bandwidth);
 };
 
 #endif /* MANDELBULBER2_QT_AUDIO_SELECTOR_H_ */

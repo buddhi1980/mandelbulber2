@@ -12,7 +12,6 @@
 
 cAnimAudioView::cAnimAudioView(QWidget *parent) : QWidget(parent)
 {
-	// TODO Auto-generated constructor stub
 }
 
 cAnimAudioView::~cAnimAudioView()
@@ -20,7 +19,7 @@ cAnimAudioView::~cAnimAudioView()
 	// TODO Auto-generated destructor stub
 }
 
-void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack)
+void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack, double midFreq, double bandwidth)
 {
 	int numberOfFrames = audiotrack->getNumberOfFrames();
 	this->setFixedWidth(numberOfFrames);
@@ -38,10 +37,11 @@ void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack)
 
 	for (int frame = 0; frame < numberOfFrames; frame++)
 	{
-		QPoint point(frame, maxY - audiotrack->getBand(frame, 8000.0, 500.0) * maxY);
+		QPoint point(frame, maxY - audiotrack->getBand(frame, midFreq, bandwidth) * maxY);
 		painter.drawLine(prevPoint, point);
 		prevPoint = point;
 	}
+	update();
 }
 
 void cAnimAudioView::paintEvent(QPaintEvent *event)

@@ -85,7 +85,7 @@ void cAudioSelector::slotAudioLoaded()
 	audio->calculateFFT();					 // TODO settings for frames per second
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
-	ui->animAudioView->UpdateChart(audio);
+	slotFreqChanged();
 }
 
 void cAudioSelector::AssignParameter(const QString &_parameterName)
@@ -107,7 +107,13 @@ void cAudioSelector::AssignParameter(const QString &_parameterName)
 void cAudioSelector::ConnectSignals()
 {
 	connect(ui->pushButton_loadAudioFile, SIGNAL(clicked()), this, SLOT(slotLoadAudioFile()));
-}
+	connect(
+		ui->spinbox_animsound_bandwidth, SIGNAL(valueChanged(double)), this, SLOT(slotFreqChanged()));
+	connect(
+		ui->spinbox_animsound_mid_freq, SIGNAL(valueChanged(double)), this, SLOT(slotFreqChanged()));
+	connect(
+		this, SIGNAL(freqencyChanged(double, double)), ui->fft, SLOT(slotFreqChanged(double, double)));
+};
 
 void cAudioSelector::RenameWidget(QWidget *widget)
 {
@@ -125,6 +131,18 @@ void cAudioSelector::AddParameters()
 		FullParameterName("addition_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
 	gPar->addParam(FullParameterName("mult_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
 	gPar->addParam(FullParameterName("enable"), false, morphNone, paramStandard);
+}
+
+void cAudioSelector::slotFreqChanged()
+{
+	if (audio)
+	{
+		SynchronizeInterfaceWindow(this, gPar, qInterface::read);
+		double midFreq = gPar->Get<double>(FullParameterName("mid_freq"));
+		double bandwidth = gPar->Get<double>(FullParameterName("bandwidth"));
+		ui->animAudioView->UpdateChart(audio, midFreq, bandwidth);
+		emit freqencyChanged(midFreq, bandwidth);
+	}
 }
 
 QString cAudioSelector::FullParameterName(const QString &name)

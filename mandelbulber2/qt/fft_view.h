@@ -50,6 +50,9 @@ public:
 
 	void AssignAudioTrack(const cAudioTrack *audiotrack);
 
+public slots:
+	void slotFreqChanged(double midFreq, double bandwidth);
+
 private:
 	void paintEvent(QPaintEvent *event);
 
@@ -57,6 +60,11 @@ private:
 	QImage scaledFftImage;
 	int numberOfFrames;
 	double framesPerSecond;
+	int sampleRate;
+
+	int lowFreqY;
+	int highFreqY;
+	;
 };
 
 #endif /* MANDELBULBER2_QT_FFT_VIEW_H_ */

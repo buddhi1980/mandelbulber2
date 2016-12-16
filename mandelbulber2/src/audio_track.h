@@ -62,12 +62,12 @@ public:
 	double getFramesPerSecond() const { return framesPerSecond; }
 	float getMaxFft() const { return maxFft; }
 	float getMaxVolume() const { return maxVolume; }
+	int freq2FftPos(double freq) const;
 
 private slots:
 	void slotReadBuffer();
 	void slotFinished();
 	void slotError(QAudioDecoder::Error error);
-	int freq2FftPos(double freq) const;
 
 private:
 	QAudioDecoder *decoder;

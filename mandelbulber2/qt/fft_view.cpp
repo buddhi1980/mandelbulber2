@@ -45,6 +45,9 @@ cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
 {
 	numberOfFrames = 0;
 	framesPerSecond = 30.0;
+	lowFreqY = 0;
+	highFreqY = 0;
+	sampleRate = 0;
 }
 
 cFFTView::~cFFTView()
@@ -59,6 +62,7 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 	{
 		numberOfFrames = audiotrack->getNumberOfFrames();
 		framesPerSecond = audiotrack->getFramesPerSecond();
+		sampleRate = audiotrack->getSampleRate();
 
 		this->setFixedWidth(numberOfFrames);
 
@@ -99,9 +103,23 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 	}
 }
 
+void cFFTView::slotFreqChanged(double midFreq, double bandwidth)
+{
+	lowFreqY = height() - 1
+						 - (double)cAudioFFTdata::fftSize / (double)sampleRate * (midFreq - bandwidth * 0.5);
+	highFreqY = height() - 1
+							- (double)cAudioFFTdata::fftSize / (double)sampleRate * (midFreq + bandwidth * 0.5);
+	update();
+}
+
 void cFFTView::paintEvent(QPaintEvent *event)
 {
 	Q_UNUSED(event);
 	QPainter painter(this);
 	painter.drawImage(0, 0, scaledFftImage);
+
+	QBrush brush(QColor(255, 255, 255, 128));
+	painter.setBrush(brush);
+	painter.setPen(Qt::NoPen);
+	painter.drawRect(QRect(QPoint(0, highFreqY), QPoint(width(), lowFreqY)));
 }
