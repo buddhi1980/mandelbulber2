@@ -153,13 +153,13 @@ void cKeyframeAnimation::slotAddKeyframe()
 
 void cKeyframeAnimation::slotInsertKeyframe()
 {
-	int column = table->currentColumn();
-	if (column < 0) column = 0;
+	int index = table->currentColumn() - reservedColums;
+	if (index < 0) index = 0;
 
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 
-	NewKeyframe(column);
+	NewKeyframe(index);
 }
 
 void cKeyframeAnimation::NewKeyframe(int index)
@@ -199,49 +199,59 @@ void cKeyframeAnimation::DeleteKeyframe(int index)
 		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage,
 			mainInterface->mainWindow->GetCentralWidget());
 	}
-	gUndo.Store(params, fractalParams, NULL, keyframes);
-	keyframes->DeleteFrames(index, index);
-	table->removeColumn(index);
-	UpdateLimitsForFrameRange();
+	else
+	{
+		gUndo.Store(params, fractalParams, NULL, keyframes);
+		keyframes->DeleteFrames(index, index);
+		table->removeColumn(index + reservedColums);
+		UpdateLimitsForFrameRange();
+	}
 }
 
 void cKeyframeAnimation::slotModifyKeyframe()
 {
-	int column = table->currentColumn();
-
-	if (keyframes)
+	int index = table->currentColumn() - reservedColums;
+	if (index < 0)
 	{
-		// get latest values of all parameters
-		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
-		gUndo.Store(params, fractalParams, NULL, keyframes);
-
-		// add new frame to container
-		keyframes->DeleteFrames(column, column);
-		keyframes->AddFrame(*params, *fractalParams, column);
-
-		// add column to table
-		table->removeColumn(column);
-		int newColumn = AddColumn(keyframes->GetFrame(column), column);
-		table->selectColumn(newColumn);
-
-		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
-		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
-			thumbWidget->UseOneCPUCore(false);
-			thumbWidget->AssignParameters(*params, *fractalParams);
-			table->setCellWidget(0, newColumn, thumbWidget);
-		}
+		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage,
+			mainInterface->mainWindow->GetCentralWidget());
 	}
 	else
 	{
-		qCritical() << "gAnimFrames not allocated";
+		if (keyframes)
+		{
+			// get latest values of all parameters
+			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+			gUndo.Store(params, fractalParams, NULL, keyframes);
+
+			// add new frame to container
+			keyframes->DeleteFrames(index, index);
+			keyframes->AddFrame(*params, *fractalParams, index);
+
+			// add column to table
+			table->removeColumn(index + reservedColums);
+			int newColumn = AddColumn(keyframes->GetFrame(index), index);
+			table->selectColumn(newColumn);
+
+			if (ui->checkBox_show_keyframe_thumbnails->isChecked())
+			{
+				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+				thumbWidget->UseOneCPUCore(false);
+				thumbWidget->AssignParameters(*params, *fractalParams);
+				table->setCellWidget(0, newColumn, thumbWidget);
+			}
+		}
+		else
+		{
+			qCritical() << "gAnimFrames not allocated";
+		}
 	}
 }
 
 void cKeyframeAnimation::slotDeleteKeyframe()
 {
-	int column = table->currentColumn();
-	DeleteKeyframe(column);
+	int index = table->currentColumn() - reservedColums;
+	DeleteKeyframe(index);
 }
 
 bool cKeyframeAnimation::slotRenderKeyframes()
@@ -286,6 +296,7 @@ void cKeyframeAnimation::PrepareTable()
 	tableRowNames.clear();
 	table->verticalHeader()->setDefaultSectionSize(params->Get<int>("ui_font_size") + 6);
 	CreateRowsInTable();
+	AddAnimSoundColumn();
 }
 
 void cKeyframeAnimation::CreateRowsInTable()
@@ -397,10 +408,11 @@ int cKeyframeAnimation::AddVariableToTable(
 int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index)
 {
 	table->blockSignals(true);
-	int newColumn = index;
+	int newColumn = index + reservedColums;
 	if (index == -1) newColumn = table->columnCount();
 	table->insertColumn(newColumn);
-	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(QString::number(newColumn)));
+	table->setHorizontalHeaderItem(
+		newColumn, new QTableWidgetItem(QString::number(newColumn - reservedColums)));
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 
@@ -803,7 +815,7 @@ void cKeyframeAnimation::DeleteFramesFrom(int index)
 {
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 	for (int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--)
-		table->removeColumn(index);
+		table->removeColumn(index + reservedColums);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
 	UpdateLimitsForFrameRange();
 }
@@ -812,7 +824,7 @@ void cKeyframeAnimation::DeleteFramesTo(int index)
 {
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 	for (int i = 0; i <= index; i++)
-		table->removeColumn(0);
+		table->removeColumn(reservedColums);
 	keyframes->DeleteFrames(0, index);
 	UpdateLimitsForFrameRange();
 }
@@ -845,7 +857,8 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		QTableWidgetItem *cell = table->item(row, column);
 		QString cellText = cell->text();
 
-		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(column);
+		int index = column - reservedColums;
+		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 
 		QString parameterName = GetParameterName(row);
 		int parameterFirstRow = parameterRows[rowParameter[row]];
@@ -884,14 +897,14 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 			frame.parameters.Set(parameterName, cellText);
 		}
 
-		keyframes->ModifyFrame(column, frame);
+		keyframes->ModifyFrame(index, frame);
 
 		// update thumbnail
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
 			cParameterContainer tempPar = *params;
 			cFractalContainer tempFract = *fractalParams;
-			keyframes->GetFrameAndConsolidate(column, &tempPar, &tempFract);
+			keyframes->GetFrameAndConsolidate(index, &tempPar, &tempFract);
 			cThumbnailWidget *thumbWidget = (cThumbnailWidget *)table->cellWidget(0, column);
 
 			if (!thumbWidget)
@@ -955,7 +968,8 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 
 	QString parameterName = GetParameterName(row);
 
-	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(column);
+	int index = column - reservedColums;
+	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 
 	using namespace parameterContainer;
 	enumVarType type = frame.parameters.GetVarType(parameterName);
@@ -969,10 +983,10 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 
 	bool ok;
 	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
-		"Enter last keyframe number", column, column + 1, keyframes->GetNumberOfFrames() - 1, 1, &ok);
+		"Enter last keyframe number", index, index + 1, keyframes->GetNumberOfFrames() - 1, 1, &ok);
 	if (!ok) return;
 
-	int numberOfFrames = (lastFrame - column);
+	int numberOfFrames = (lastFrame - index);
 
 	switch (type)
 	{
@@ -1023,24 +1037,24 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 
 	if (!ok) return;
 
-	for (int i = column + 1; i <= lastFrame; i++)
+	for (int i = index + 1; i <= lastFrame; i++)
 	{
 		QString newCellText;
 		if (valueIsInteger)
 		{
-			int newValue = (int)(integerStep * (i - column) + valueInteger);
+			int newValue = (int)(integerStep * (i - index) + valueInteger);
 			newCellText = QString::number(newValue);
 		}
 		else if (valueIsDouble)
 		{
-			double newValue = doubleStep * (i - column) + valueDouble;
+			double newValue = doubleStep * (i - index) + valueDouble;
 			newCellText = QString("%L1").arg(newValue, 0, 'g', 16);
 		}
 		else if (valueIsText)
 		{
 			newCellText = valueText;
 		}
-		QTableWidgetItem *newCell = table->item(row, i);
+		QTableWidgetItem *newCell = table->item(row, i + reservedColums);
 		newCell->setText(newCellText);
 	}
 }
@@ -1214,7 +1228,7 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 {
 	if (row == 0)
 	{
-		RenderFrame(column);
+		RenderFrame(column - reservedColums);
 	}
 }
 
@@ -1259,4 +1273,15 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 		}
 	}
 	RefreshTable();
+}
+
+void cKeyframeAnimation::AddAnimSoundButton(int row)
+{
+}
+
+void cKeyframeAnimation::AddAnimSoundColumn()
+{
+	int newColumn = table->columnCount();
+	table->insertColumn(newColumn);
+	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(tr("Audio")));
 }

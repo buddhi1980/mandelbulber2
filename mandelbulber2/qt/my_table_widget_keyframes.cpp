@@ -68,13 +68,13 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
 	QAction *actionRender = NULL;
 	QAction *interpolateForward = NULL;
 
-	if (row == 0)
+	if (row == 0 && column >= cKeyframeAnimation::reservedColums)
 	{
 		actionRender = menu->addAction(tr("Render this keyframe"));
 	}
 	else
 	{
-		if (column < columnCount() - 1 && column >= 0)
+		if (column < columnCount() - 1 && column >= cKeyframeAnimation::reservedColums)
 		{
 			interpolateForward = menu->addAction(tr("Interpolate next keyframes"));
 		}
@@ -86,7 +86,7 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
 	{
 		if (selectedItem == actionRender)
 		{
-			gKeyframeAnimation->RenderFrame(column);
+			gKeyframeAnimation->RenderFrame(column - cKeyframeAnimation::reservedColums);
 		}
 		else if (selectedItem == interpolateForward)
 		{
@@ -99,43 +99,46 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
 
 void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point)
 {
-	QMenu *menu = new QMenu;
-
-	QAction *actionRender;
-	QAction *actionDelete;
-	QAction *actionDeleteTo;
-	QAction *actionDeleteFrom;
-
-	actionRender = menu->addAction(tr("Render this keyframe"));
-	actionDelete = menu->addAction(tr("Delete this keyframe"));
-	actionDeleteTo = menu->addAction(tr("Delete all keyframes to here"));
-	actionDeleteFrom = menu->addAction(tr("Delete all keyframes from here"));
-
 	int column = horizontalHeader()->logicalIndexAt(point);
 
-	QAction *selectedItem = menu->exec(horizontalHeader()->viewport()->mapToGlobal(point));
-
-	if (selectedItem)
+	if (column >= cKeyframeAnimation::reservedColums)
 	{
-		if (selectedItem == actionRender)
-		{
-			gKeyframeAnimation->RenderFrame(column);
-		}
-		else if (selectedItem == actionDelete)
-		{
-			gKeyframeAnimation->DeleteKeyframe(column);
-		}
-		else if (selectedItem == actionDeleteFrom)
-		{
-			gKeyframeAnimation->DeleteFramesFrom(column);
-		}
-		else if (selectedItem == actionDeleteTo)
-		{
-			gKeyframeAnimation->DeleteFramesTo(column);
-		}
-	}
+		QMenu *menu = new QMenu;
 
-	delete menu;
+		QAction *actionRender;
+		QAction *actionDelete;
+		QAction *actionDeleteTo;
+		QAction *actionDeleteFrom;
+
+		actionRender = menu->addAction(tr("Render this keyframe"));
+		actionDelete = menu->addAction(tr("Delete this keyframe"));
+		actionDeleteTo = menu->addAction(tr("Delete all keyframes to here"));
+		actionDeleteFrom = menu->addAction(tr("Delete all keyframes from here"));
+
+		QAction *selectedItem = menu->exec(horizontalHeader()->viewport()->mapToGlobal(point));
+
+		if (selectedItem)
+		{
+			if (selectedItem == actionRender)
+			{
+				gKeyframeAnimation->RenderFrame(column - cKeyframeAnimation::reservedColums);
+			}
+			else if (selectedItem == actionDelete)
+			{
+				gKeyframeAnimation->DeleteKeyframe(column - cKeyframeAnimation::reservedColums);
+			}
+			else if (selectedItem == actionDeleteFrom)
+			{
+				gKeyframeAnimation->DeleteFramesFrom(column - cKeyframeAnimation::reservedColums);
+			}
+			else if (selectedItem == actionDeleteTo)
+			{
+				gKeyframeAnimation->DeleteFramesTo(column - cKeyframeAnimation::reservedColums);
+			}
+		}
+
+		delete menu;
+	}
 }
 
 void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)

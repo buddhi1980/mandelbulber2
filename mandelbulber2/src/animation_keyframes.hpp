@@ -65,6 +65,9 @@ class cKeyframeAnimation : public QObject
 	Q_OBJECT
 
 public:
+
+	static const int reservedColums = 1;
+
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image,
 		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
 		QObject *parent = 0);
@@ -111,6 +114,8 @@ private:
 	void NewKeyframe(int index);
 	QString GetKeyframeFilename(int index, int subIndex);
 	QColor MorphType2Color(parameterContainer::enumMorphType morphType);
+	void AddAnimSoundButton(int row);
+	void AddAnimSoundColumn();
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
