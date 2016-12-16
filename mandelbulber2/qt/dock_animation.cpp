@@ -44,7 +44,6 @@ cDockAnimation::cDockAnimation(QWidget *parent) : QWidget(parent), ui(new Ui::cD
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
-	ConnectSignals();
 }
 
 cDockAnimation::~cDockAnimation()
@@ -77,15 +76,3 @@ Ui::cDockAnimation *cDockAnimation::GetUi()
 	return ui;
 }
 
-void cDockAnimation::ConnectSignals()
-{
-	connect(ui->pushButton_load_audio, SIGNAL(clicked()), this, SLOT(slotLoadAudio()));
-}
-
-void cDockAnimation::slotLoadAudio()
-{
-	cAudioSelector *audioSelectorDialog = new cAudioSelector(this);
-	audioSelectorDialog->setWindowFlags(Qt::Dialog);
-	audioSelectorDialog->AssignParameter("test");
-	audioSelectorDialog->show();
-}

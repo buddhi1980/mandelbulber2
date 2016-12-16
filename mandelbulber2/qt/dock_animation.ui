@@ -224,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>425</width>
-              <height>370</height>
+              <width>257</width>
+              <height>313</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -1463,13 +1463,6 @@ keyframes</string>
                 </widget>
                </item>
               </layout>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_load_audio">
-               <property name="text">
-                <string>Temporary button to load audio file</string>
-               </property>
-              </widget>
              </item>
              <item>
               <spacer name="verticalSpacer_13">

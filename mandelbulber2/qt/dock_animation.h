@@ -57,12 +57,7 @@ public:
 
 	Ui::cDockAnimation *GetUi();
 
-private slots:
-	void slotLoadAudio();
-
 private:
-	void ConnectSignals();
-
 	Ui::cDockAnimation *ui;
 
 	cAutomatedWidgets *automatedWidgets;

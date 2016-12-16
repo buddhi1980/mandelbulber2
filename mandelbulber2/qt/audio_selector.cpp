@@ -91,6 +91,9 @@ void cAudioSelector::slotAudioLoaded()
 void cAudioSelector::AssignParameter(const QString &_parameterName)
 {
 	parameterName = _parameterName;
+
+	setWindowTitle(tr("Set animation controlled by audio file for parameter %1").arg(parameterName));
+
 	RenameWidget(ui->groupCheck_animsound_enable);
 
 	QList<QWidget *> listOfWidgets = ui->groupCheck_animsound_enable->findChildren<QWidget *>();

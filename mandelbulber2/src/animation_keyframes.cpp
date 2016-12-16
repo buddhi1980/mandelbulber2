@@ -45,6 +45,7 @@
 #include "../qt/player_widget.hpp"
 #include "../qt/system_tray.hpp"
 #include "../qt/thumbnail_widget.h"
+#include "../qt/pushbutton_anim_sound.h"
 #include "../src/render_window.hpp"
 #include "cimage.hpp"
 #include "dock_animation.h"
@@ -295,8 +296,8 @@ void cKeyframeAnimation::PrepareTable()
 	table->clear();
 	tableRowNames.clear();
 	table->verticalHeader()->setDefaultSectionSize(params->Get<int>("ui_font_size") + 6);
-	CreateRowsInTable();
 	AddAnimSoundColumn();
+	CreateRowsInTable();
 }
 
 void cKeyframeAnimation::CreateRowsInTable()
@@ -329,80 +330,57 @@ int cKeyframeAnimation::AddVariableToTable(
 	{
 		QString varName;
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
-		tableRowNames.append(varName);
-		table->insertRow(row);
-		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
-		tableRowNames.append(varName);
-		table->insertRow(row + 1);
-		table->setVerticalHeaderItem(row + 1, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row + 1, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_z";
-		tableRowNames.append(varName);
-		table->insertRow(row + 2);
-		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row + 2, varName, index);
 	}
 	else if (type == typeVector4)
 	{
 		QString varName;
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
-		tableRowNames.append(varName);
-		table->insertRow(row);
-		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
-		tableRowNames.append(varName);
-		table->insertRow(row + 1);
-		table->setVerticalHeaderItem(row + 1, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row + 1, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_z";
-		tableRowNames.append(varName);
-		table->insertRow(row + 2);
-		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row + 2, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_w";
-		tableRowNames.append(varName);
-		table->insertRow(row + 3);
-		table->setVerticalHeaderItem(row + 3, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row + 3, varName, index);
 	}
 	else if (type == typeRgb)
 	{
 		QString varName;
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
-		tableRowNames.append(varName);
-		table->insertRow(row);
-		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_G";
-		tableRowNames.append(varName);
-		table->insertRow(row + 1);
-		table->setVerticalHeaderItem(row + 1, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row + 1, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_B";
-		tableRowNames.append(varName);
-		table->insertRow(row + 2);
-		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row + 2, varName, index);
 	}
 	else
 	{
 		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
-		tableRowNames.append(varName);
-		table->insertRow(table->rowCount());
-		table->setVerticalHeaderItem(table->rowCount() - 1, new QTableWidgetItem(varName));
-		rowParameter.append(index);
+		AddRow(row, varName, index);
 	}
 	return row;
+}
+
+void cKeyframeAnimation::AddRow(int row, const QString &fullParameterName, int index)
+{
+	tableRowNames.append(fullParameterName);
+	table->insertRow(row);
+	table->setVerticalHeaderItem(row, new QTableWidgetItem(fullParameterName));
+	rowParameter.append(index);
+	table->setCellWidget(row, animSoundColum, new cPushButtonAnimSound(table));
+	static_cast<cPushButtonAnimSound*>(table->cellWidget(row, animSoundColum))->AssingParameterName(fullParameterName);
 }
 
 int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index)
@@ -1273,10 +1251,6 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 		}
 	}
 	RefreshTable();
-}
-
-void cKeyframeAnimation::AddAnimSoundButton(int row)
-{
 }
 
 void cKeyframeAnimation::AddAnimSoundColumn()

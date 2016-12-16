@@ -67,6 +67,7 @@ class cKeyframeAnimation : public QObject
 public:
 
 	static const int reservedColums = 1;
+	static const int animSoundColum = 0;
 
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image,
 		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
@@ -111,10 +112,10 @@ private:
 	int AddVariableToTable(
 		const cAnimationFrames::sParameterDescription &parameterDescription, int index);
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index = -1);
+	void AddRow(int row, const QString &fullParameterName, int index);
 	void NewKeyframe(int index);
 	QString GetKeyframeFilename(int index, int subIndex);
 	QColor MorphType2Color(parameterContainer::enumMorphType morphType);
-	void AddAnimSoundButton(int row);
 	void AddAnimSoundColumn();
 
 	cInterface *mainInterface;
