@@ -29,13 +29,13 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * This class collects all audio tracks (cAudioTrack objects)
  */
 
 #include "audio_track_collection.h"
 #include "audio_track.h"
 
-cAudioTrackCollection::cAudioTrackCollection(QObject *parent) : QObject(parent)
+cAudioTrackCollection::cAudioTrackCollection(QObject *parent)
 {
 }
 
@@ -53,7 +53,7 @@ void cAudioTrackCollection::AddAudioTrack(const QString fullParameterName)
 	}
 	else
 	{
-		audioTracks.insert(fullParameterName, new cAudioTrack(this));
+		audioTracks.insert(fullParameterName, new cAudioTrack());
 	}
 }
 

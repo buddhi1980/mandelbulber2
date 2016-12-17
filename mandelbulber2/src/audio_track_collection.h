@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * This class collects all audio tracks (cAudioTrack objects)
  */
 
 #ifndef MANDELBULBER2_SRC_AUDIO_TRACK_COLLECTION_H_
@@ -40,9 +40,8 @@
 // forward declarations
 class cAudioTrack;
 
-class cAudioTrackCollection : public QObject
+class cAudioTrackCollection
 {
-	Q_OBJECT
 public:
 	cAudioTrackCollection(QObject *parent = 0);
 	~cAudioTrackCollection();

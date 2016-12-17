@@ -52,7 +52,7 @@ cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
 
 cFFTView::~cFFTView()
 {
-	// TODO Auto-generated destructor stub
+	//nothing needed here
 }
 
 void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * Widget which contains UI for rendering engine
  */
 
 #include "dock_rendering_engine.h"

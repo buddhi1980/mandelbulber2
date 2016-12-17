@@ -56,7 +56,7 @@ cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 
 cAudioTrack::~cAudioTrack()
 {
-	// TODO Auto-generated destructor stub
+	//nothing needed here
 }
 
 void cAudioTrack::Clear()

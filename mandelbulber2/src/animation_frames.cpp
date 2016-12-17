@@ -44,12 +44,10 @@ cAnimationFrames *gAnimFrames = NULL;
 
 cAnimationFrames::cAnimationFrames()
 {
-	audioTracks = new cAudioTrackCollection();
 }
 
 cAnimationFrames::~cAnimationFrames()
 {
-	delete audioTracks;
 }
 
 void cAnimationFrames::AddFrame(
@@ -346,26 +344,26 @@ void cAnimationFrames::AddAudioParameter(
 	switch (paramType)
 	{
 		case typeVector3:
-			audioTracks->AddAudioTrack(fullParameterName + "_x");
-			audioTracks->AddAudioTrack(fullParameterName + "_y");
-			audioTracks->AddAudioTrack(fullParameterName + "_z");
+			audioTracks.AddAudioTrack(fullParameterName + "_x");
+			audioTracks.AddAudioTrack(fullParameterName + "_y");
+			audioTracks.AddAudioTrack(fullParameterName + "_z");
 			break;
 		case typeVector4:
-			audioTracks->AddAudioTrack(fullParameterName + "_x");
-			audioTracks->AddAudioTrack(fullParameterName + "_y");
-			audioTracks->AddAudioTrack(fullParameterName + "_z");
-			audioTracks->AddAudioTrack(fullParameterName + "_w");
+			audioTracks.AddAudioTrack(fullParameterName + "_x");
+			audioTracks.AddAudioTrack(fullParameterName + "_y");
+			audioTracks.AddAudioTrack(fullParameterName + "_z");
+			audioTracks.AddAudioTrack(fullParameterName + "_w");
 			break;
 		case typeRgb:
-			audioTracks->AddAudioTrack(fullParameterName + "_R");
-			audioTracks->AddAudioTrack(fullParameterName + "_G");
-			audioTracks->AddAudioTrack(fullParameterName + "_B");
+			audioTracks.AddAudioTrack(fullParameterName + "_R");
+			audioTracks.AddAudioTrack(fullParameterName + "_G");
+			audioTracks.AddAudioTrack(fullParameterName + "_B");
 			break;
-		default: audioTracks->AddAudioTrack(fullParameterName); break;
+		default: audioTracks.AddAudioTrack(fullParameterName); break;
 	}
 }
 
 cAudioTrack *cAnimationFrames::GetAudioPtr(const QString fullParameterName)
 {
-	return audioTracks->GetAudioTrackPtr(fullParameterName);
+	return audioTracks.GetAudioTrackPtr(fullParameterName);
 }

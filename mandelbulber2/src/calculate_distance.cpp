@@ -207,141 +207,132 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 	sFractalOut fractOut;
 	fractOut.colorIndex = 0;
 
-	if (true) // TODO !params.primitives.plane.onlyPlane
+	if (fractals.GetDEType(forcedFormulaIndex) == fractal::analyticDEType)
 	{
-		if (fractals.GetDEType(forcedFormulaIndex) == fractal::analyticDEType)
+		Compute<fractal::calcModeNormal>(fractals, fractIn, &fractOut);
+		distance = fractOut.distance;
+		// qDebug() << "computed distance" << distance;
+		out->maxiter = fractOut.maxiter;
+		out->iters = fractOut.iters;
+		out->colorIndex = fractOut.colorIndex;
+		out->totalIters += fractOut.iters;
+
+		// if (distance < 1e-20) distance = 1e-20;
+
+		if (out->maxiter) distance = 0.0;
+
+		if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
+
+		if (params.interiorMode && !in.normalCalculationMode)
 		{
-			Compute<fractal::calcModeNormal>(fractals, fractIn, &fractOut);
-			distance = fractOut.distance;
-			// qDebug() << "computed distance" << distance;
-			out->maxiter = fractOut.maxiter;
-			out->iters = fractOut.iters;
-			out->colorIndex = fractOut.colorIndex;
-			out->totalIters += fractOut.iters;
-
-			// if (distance < 1e-20) distance = 1e-20;
-
-			if (out->maxiter) distance = 0.0;
-
-			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
-
-			if (params.interiorMode && !in.normalCalculationMode)
+			if (distance < 0.5 * in.detailSize || fractOut.maxiter)
 			{
-				if (distance < 0.5 * in.detailSize || fractOut.maxiter)
-				{
-					distance = in.detailSize;
-					out->maxiter = false;
-				}
-			}
-			else if (params.interiorMode && in.normalCalculationMode)
-			{
-				if (distance < 0.9 * in.detailSize)
-				{
-					distance = in.detailSize - distance;
-					out->maxiter = false;
-				}
-			}
-
-			if (params.common.iterThreshMode && !in.normalCalculationMode && !fractOut.maxiter)
-			{
-				if (distance < in.detailSize)
-				{
-					distance = in.detailSize * 1.01;
-				}
+				distance = in.detailSize;
+				out->maxiter = false;
 			}
 		}
-		else
+		else if (params.interiorMode && in.normalCalculationMode)
 		{
-			double deltaDE = 1e-10;
-
-			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
-			double r = fractOut.z.Length();
-			bool maxiter = out->maxiter = fractOut.maxiter;
-			out->iters = fractOut.iters;
-			out->colorIndex = fractOut.colorIndex;
-			out->totalIters += fractOut.iters;
-
-			fractIn.maxN = fractOut.iters; // for other directions must be the same number of iterations
-
-			fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
-			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
-			double r2 = fractOut.z.Length();
-			double dr1 = fabs(r2 - r) / deltaDE;
-			out->totalIters += fractOut.iters;
-
-			fractIn.point = in.point + CVector3(0.0, deltaDE, 0.0);
-			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
-			r2 = fractOut.z.Length();
-			double dr2 = fabs(r2 - r) / deltaDE;
-			out->totalIters += fractOut.iters;
-
-			fractIn.point = in.point + CVector3(0.0, 0.0, deltaDE);
-			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
-			r2 = fractOut.z.Length();
-			double dr3 = fabs(r2 - r) / deltaDE;
-			out->totalIters += fractOut.iters;
-
-			double dr = sqrt(dr1 * dr1 + dr2 * dr2 + dr3 * dr3);
-
-			if (dr > 0)
+			if (distance < 0.9 * in.detailSize)
 			{
-				// DE functions for deltaDE
-				if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::linearDEFunction)
-					distance = 0.5 * r / dr;
-				else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::logarithmicDEFunction)
-					distance = 0.5 * r * log(r) / dr;
-				else if (fractals.GetDEFunctionType(forcedFormulaIndex)
-								 == fractal::pseudoKleinianDEFunction)
-				{
-					CVector3 z = fractOut.z;
-					double rxy = sqrt(z.x * z.x + z.y * z.y);
-					distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (dr);
-				}
+				distance = in.detailSize - distance;
+				out->maxiter = false;
 			}
-			else
-			{
-				distance = r;
-			}
+		}
 
-			// if (distance < 1e-20) distance = 1e-20;
-
-			if (maxiter)
+		if (params.common.iterThreshMode && !in.normalCalculationMode && !fractOut.maxiter)
+		{
+			if (distance < in.detailSize)
 			{
-				distance = 0;
-			}
-
-			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
-
-			if (params.interiorMode && !in.normalCalculationMode)
-			{
-				if (distance < 0.5 * in.detailSize || maxiter)
-				{
-					distance = in.detailSize;
-					out->maxiter = false;
-				}
-			}
-			else if (params.interiorMode && in.normalCalculationMode)
-			{
-				if (distance < 0.9 * in.detailSize)
-				{
-					distance = in.detailSize - distance;
-					out->maxiter = false;
-				}
-			}
-
-			if (params.common.iterThreshMode && !in.normalCalculationMode && !maxiter)
-			{
-				if (distance < in.detailSize)
-				{
-					distance = in.detailSize * 1.01;
-				}
+				distance = in.detailSize * 1.01;
 			}
 		}
 	}
 	else
 	{
-		distance = 10.0;
-		out->maxiter = false;
+		double deltaDE = 1e-10;
+
+		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
+		double r = fractOut.z.Length();
+		bool maxiter = out->maxiter = fractOut.maxiter;
+		out->iters = fractOut.iters;
+		out->colorIndex = fractOut.colorIndex;
+		out->totalIters += fractOut.iters;
+
+		fractIn.maxN = fractOut.iters; // for other directions must be the same number of iterations
+
+		fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
+		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
+		double r2 = fractOut.z.Length();
+		double dr1 = fabs(r2 - r) / deltaDE;
+		out->totalIters += fractOut.iters;
+
+		fractIn.point = in.point + CVector3(0.0, deltaDE, 0.0);
+		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
+		r2 = fractOut.z.Length();
+		double dr2 = fabs(r2 - r) / deltaDE;
+		out->totalIters += fractOut.iters;
+
+		fractIn.point = in.point + CVector3(0.0, 0.0, deltaDE);
+		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
+		r2 = fractOut.z.Length();
+		double dr3 = fabs(r2 - r) / deltaDE;
+		out->totalIters += fractOut.iters;
+
+		double dr = sqrt(dr1 * dr1 + dr2 * dr2 + dr3 * dr3);
+
+		if (dr > 0)
+		{
+			// DE functions for deltaDE
+			if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::linearDEFunction)
+				distance = 0.5 * r / dr;
+			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::logarithmicDEFunction)
+				distance = 0.5 * r * log(r) / dr;
+			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::pseudoKleinianDEFunction)
+			{
+				CVector3 z = fractOut.z;
+				double rxy = sqrt(z.x * z.x + z.y * z.y);
+				distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (dr);
+			}
+		}
+		else
+		{
+			distance = r;
+		}
+
+		// if (distance < 1e-20) distance = 1e-20;
+
+		if (maxiter)
+		{
+			distance = 0;
+		}
+
+		if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
+
+		if (params.interiorMode && !in.normalCalculationMode)
+		{
+			if (distance < 0.5 * in.detailSize || maxiter)
+			{
+				distance = in.detailSize;
+				out->maxiter = false;
+			}
+		}
+		else if (params.interiorMode && in.normalCalculationMode)
+		{
+			if (distance < 0.9 * in.detailSize)
+			{
+				distance = in.detailSize - distance;
+				out->maxiter = false;
+			}
+		}
+
+		if (params.common.iterThreshMode && !in.normalCalculationMode && !maxiter)
+		{
+			if (distance < in.detailSize)
+			{
+				distance = in.detailSize * 1.01;
+			}
+		}
 	}
 
 	return distance;

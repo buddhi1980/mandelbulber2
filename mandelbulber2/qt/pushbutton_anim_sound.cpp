@@ -41,12 +41,12 @@ cPushButtonAnimSound::cPushButtonAnimSound(QWidget *parent) : QPushButton(parent
 	setText("Anim By Sound");
 	connect(this, SIGNAL(clicked()), this, SLOT(slotLoadAudio()));
 	animationFrames = NULL;
-	// TODO: indicatem when audio is selected
+	// TODO: indicate when audio is selected
 }
 
 cPushButtonAnimSound::~cPushButtonAnimSound()
 {
-	// TODO Auto-generated destructor stub
+	//nothing needed here
 }
 
 void cPushButtonAnimSound::AssignParameterName(const QString &_parameterName)

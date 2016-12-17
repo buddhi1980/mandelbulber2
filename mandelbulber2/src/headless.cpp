@@ -111,7 +111,7 @@ void cHeadless::RenderQueue()
 		do
 		{
 			gApplication->processEvents();
-			Wait(100); // TODO substitute with proper handling
+			Wait(100);
 		} while (gQueue->GetQueueSize() > 0);
 
 		cErrorMessage::showMessage(

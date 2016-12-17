@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * widget which contains UI for animation
  */
 
 #include "dock_animation.h"

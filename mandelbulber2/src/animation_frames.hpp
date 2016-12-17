@@ -41,9 +41,10 @@
 #include "parameters.hpp"
 #include <QtGui>
 
+#include "audio_track_collection.h"
+
 // forward declarations
 class cFractalContainer;
-class cAudioTrackCollection;
 class cAudioTrack;
 
 class cAnimationFrames
@@ -120,7 +121,7 @@ public:
 protected:
 	QList<sAnimationFrame> frames;
 	QList<sParameterDescription> listOfParameters;
-	cAudioTrackCollection *audioTracks;
+	cAudioTrackCollection audioTracks;
 };
 
 extern cAnimationFrames *gAnimFrames;

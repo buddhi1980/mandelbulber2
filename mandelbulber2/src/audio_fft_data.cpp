@@ -44,5 +44,5 @@ cAudioFFTdata::cAudioFFTdata()
 
 cAudioFFTdata::~cAudioFFTdata()
 {
-	// TODO Auto-generated destructor stub
+	//nothing needed here
 }

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * Widget which contains UI for image adjustments
  */
 
 #ifndef MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMNETS_H_

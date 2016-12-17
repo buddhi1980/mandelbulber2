@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * Widget which contains UI for fractals
  */
 
 #ifndef MANDELBULBER2_QT_DOCK_FRACTAL_H_

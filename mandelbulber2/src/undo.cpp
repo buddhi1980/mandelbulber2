@@ -78,6 +78,7 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 	else
 	{
 		record.hasFrames = false;
+		record.animationFrames = cAnimationFrames();
 	}
 
 	if (keyframes)
@@ -88,6 +89,7 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 	else
 	{
 		record.hasKeyframes = false;
+		record.animationKeyframes = cKeyframes();
 	}
 
 	if (undoBuffer.size() > level)
