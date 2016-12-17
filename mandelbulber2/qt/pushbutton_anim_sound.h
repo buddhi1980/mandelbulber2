@@ -10,19 +10,24 @@
 
 #include <qpushbutton.h>
 
+// forward declarations
+class cAnimationFrames;
+
 class cPushButtonAnimSound : public QPushButton
 {
 	Q_OBJECT
 public:
 	cPushButtonAnimSound(QWidget *parent = 0);
 	~cPushButtonAnimSound();
-	void AssingParameterName(const QString &_parameterName);
+	void AssignParameterName(const QString &_parameterName);
+	void AssignAnimation(cAnimationFrames *_animationFrames) { animationFrames = _animationFrames; }
 
 private slots:
 	void slotLoadAudio();
 
 private:
 	QString parameterName;
+	cAnimationFrames *animationFrames;
 };
 
 #endif /* MANDELBULBER2_QT_PUSHBUTTON_ANIM_SOUND_H_ */

@@ -36,16 +36,20 @@
  */
 
 #include "animation_frames.hpp"
+
+#include "audio_track_collection.h"
 #include "fractal_container.hpp"
 
 cAnimationFrames *gAnimFrames = NULL;
 
 cAnimationFrames::cAnimationFrames()
 {
+	audioTracks = new cAudioTrackCollection();
 }
 
 cAnimationFrames::~cAnimationFrames()
 {
+	delete audioTracks;
 }
 
 void cAnimationFrames::AddFrame(
@@ -88,6 +92,8 @@ void cAnimationFrames::AddAnimatedParameter(
 			frames[i].parameters.AddParamFromOneParameter(
 				defaultValue.GetOriginalContainerName() + "_" + parameterName, defaultValue);
 		}
+
+		AddAudioParameter(parameterName, defaultValue);
 	}
 	else
 	{
@@ -224,7 +230,7 @@ cParameterContainer *cAnimationFrames::ContainerSelector(
 	QString containerName, cParameterContainer *params, cFractalContainer *fractal) const
 {
 	cParameterContainer *container = NULL;
-	if (containerName == "main")
+	if (containerName == "main" || containerName == "material")
 	{
 		container = params;
 	}
@@ -326,4 +332,38 @@ void cAnimationFrames::ModifyFrame(int index, sAnimationFrame &frame)
 void cAnimationFrames::AddFrame(const sAnimationFrame &frame)
 {
 	frames.append(frame);
+}
+
+void cAnimationFrames::AddAudioParameter(
+	const QString &parameterName, const cOneParameter &parameter)
+{
+	QString fullParameterName = parameter.GetOriginalContainerName() + "_" + parameterName;
+	enumVarType paramType = parameter.GetValueType();
+	QString fullParameterNameWithSufix = fullParameterName;
+
+	switch(paramType)
+	{
+		case typeVector3:
+			audioTracks->AddAudioTrack(fullParameterName + "_x");
+			audioTracks->AddAudioTrack(fullParameterName + "_y");
+			audioTracks->AddAudioTrack(fullParameterName + "_z");
+			break;
+		case typeVector4:
+			audioTracks->AddAudioTrack(fullParameterName + "_x");
+			audioTracks->AddAudioTrack(fullParameterName + "_y");
+			audioTracks->AddAudioTrack(fullParameterName + "_z");
+			audioTracks->AddAudioTrack(fullParameterName + "_w");
+			break;
+		case typeRgb:
+			audioTracks->AddAudioTrack(fullParameterName + "_R");
+			audioTracks->AddAudioTrack(fullParameterName + "_G");
+			audioTracks->AddAudioTrack(fullParameterName + "_B");
+			break;
+		default: audioTracks->AddAudioTrack(fullParameterName); break;
+	}
+}
+
+cAudioTrack* cAnimationFrames::GetAudioPtr(const QString fullParameterName)
+{
+	return audioTracks->GetAudioTrackPtr(fullParameterName);
 }

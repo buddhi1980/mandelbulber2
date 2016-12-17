@@ -40,6 +40,7 @@
 // forward declarations
 class cAutomatedWidgets;
 class cAudioTrack;
+class cAnimationFrames;
 
 namespace Ui
 {
@@ -53,6 +54,7 @@ public:
 	explicit cAudioSelector(QWidget *parent = NULL);
 	~cAudioSelector();
 	void AssignParameter(const QString &_parameterName);
+	void AssignAnimation(cAnimationFrames *_animationFrames) { animationFrames = _animationFrames; };
 
 private slots:
 	void slotLoadAudioFile();
@@ -71,6 +73,7 @@ private:
 
 	cAudioTrack *audio;
 	QString parameterName;
+	cAnimationFrames *animationFrames;
 
 signals:
 	void freqencyChanged(double midfreq, double bandwidth);

@@ -51,6 +51,16 @@
 
 cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 {
+	Clear();
+}
+
+cAudioTrack::~cAudioTrack()
+{
+	// TODO Auto-generated destructor stub
+}
+
+void cAudioTrack::Clear()
+{
 	decoder = NULL;
 	memoryReserved = false;
 	length = 0;
@@ -60,11 +70,9 @@ cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 	numberOfFrames = 0;
 	maxVolume = 0.0;
 	maxFft = 0.0;
-}
-
-cAudioTrack::~cAudioTrack()
-{
-	// TODO Auto-generated destructor stub
+	rawAudio.clear();
+	fftAudio.clear();
+	maxFftArray = cAudioFFTdata();
 }
 
 void cAudioTrack::LoadAudio(const QString &filename)

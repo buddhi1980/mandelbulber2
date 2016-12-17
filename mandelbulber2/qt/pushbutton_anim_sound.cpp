@@ -12,6 +12,7 @@ cPushButtonAnimSound::cPushButtonAnimSound(QWidget *parent) : QPushButton(parent
 {
 	setText("Anim By Sound");
 	connect(this, SIGNAL(clicked()), this, SLOT(slotLoadAudio()));
+	animationFrames = NULL;
 }
 
 cPushButtonAnimSound::~cPushButtonAnimSound()
@@ -19,7 +20,7 @@ cPushButtonAnimSound::~cPushButtonAnimSound()
 	// TODO Auto-generated destructor stub
 }
 
-void cPushButtonAnimSound::AssingParameterName(const QString &_parameterName)
+void cPushButtonAnimSound::AssignParameterName(const QString &_parameterName)
 {
 	parameterName = _parameterName;
 }
@@ -29,5 +30,6 @@ void cPushButtonAnimSound::slotLoadAudio()
 	cAudioSelector *audioSelectorDialog = new cAudioSelector(this);
 	audioSelectorDialog->setWindowFlags(Qt::Dialog);
 	audioSelectorDialog->AssignParameter(parameterName);
+	audioSelectorDialog->AssignAnimation(animationFrames);
 	audioSelectorDialog->show();
 }

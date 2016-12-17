@@ -40,6 +40,7 @@
 #include "../src/audio_track.h"
 #include "../src/initparameters.hpp"
 #include "../src/synchronize_interface.hpp"
+#include "../src/animation_frames.hpp"
 
 cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cAudioSelector)
 {
@@ -48,12 +49,11 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
 	audio = NULL;
+	animationFrames = NULL;
 }
 
 cAudioSelector::~cAudioSelector()
 {
-	delete ui;
-	if (audio) delete audio;
 }
 
 void cAudioSelector::slotLoadAudioFile()
@@ -70,8 +70,11 @@ void cAudioSelector::slotLoadAudioFile()
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 
-		if (audio) delete audio;
-		audio = new cAudioTrack(this);
+		if(animationFrames)
+		{
+			audio = animationFrames->GetAudioPtr(parameterName);
+		}
+		audio->Clear();
 		audio->setFramesPerSecond(30.0);
 
 		connect(audio, SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
