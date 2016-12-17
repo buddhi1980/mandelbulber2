@@ -35,7 +35,7 @@ mkdir %BUILDTREE%\deps
 :nuget_Dep
 REM # packages from nuget #
 cd %BUILDTREE%\deps
-nuget install gsl-msvc14-%tbs_arch% -Version 2.2.1.2477
+nuget install gsl-msvc14-%tbs_arch% -Version 2.2.1.2577
 nuget install zlib-msvc14-%tbs_arch%-master -Version 1.2.8.4 -Source https://ci.appveyor.com/nuget/zlib-shallow-x0n34b3pfq1b
 powershell -Command move zlib*\* %BUILDTREE%\deps -force
 move %BUILDTREE%\deps\zlibstatic.lib %BUILDTREE%\deps\zlib.lib
@@ -50,15 +50,15 @@ powershell -Command move libjpeg*\* %BUILDTREE%\deps -force
 move %BUILDTREE%\deps\jpeg-static.lib %BUILDTREE%\deps\jpeg.lib
 
 REM # build_script #
-set GSLDIR=%BUILDTREE%\deps\gsl-msvc14-x64.2.2.1.2477
+set GSLDIR=%BUILDTREE%\deps\gsl-msvc14-x64.2.2.1.2577
 cd %BUILDTREE%
 cmake -G %cmake_platform% ^
 -DPNG_LIBRARY=%BUILDTREE%\deps\png.lib -DPNG_PNG_INCLUDE_DIR=%BUILDTREE%\deps ^
 -DZLIB_LIBRARY=%BUILDTREE%\deps\zlib.lib -DZLIB_INCLUDE_DIR=%BUILDTREE%\deps ^
 -DTIFF_LIBRARY=%BUILDTREE%\deps\tiff.lib -DTIFF_INCLUDE_DIR=%BUILDTREE%\deps ^
 -DJPEG_LIBRARY=%BUILDTREE%\deps\jpeg.lib -DJPEG_INCLUDE_DIR=%BUILDTREE%\deps ^
--DGSL_CBLAS_LIBRARY=%GSLDIR%\gslcblas.lib ^
--DGSL_LIBRARY=%GSLDIR%\gsl.lib ^
+-DGSL_CBLAS_LIBRARY=%GSLDIR%\static\gslcblas.lib ^
+-DGSL_LIBRARY=%GSLDIR%\static\gsl.lib ^
 -DGSL_INCLUDE_DIR=%GSLDIR% ^
 -DUSE_GAMEPAD=1 ^
 -DCMAKE_BUILD_TYPE=Release %SRC%
