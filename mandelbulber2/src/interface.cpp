@@ -1463,6 +1463,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		if (index == 0) // for only new primitive
 		{
 			InitPrimitiveParams(objectType, primitiveFullName, gPar);
+			gPar->Set(primitiveFullName + "_enabled", true);
 		}
 
 		// primitiveFullName + "_enabled" will be set by SynchronizeInterfaceWindow
