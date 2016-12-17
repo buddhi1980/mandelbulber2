@@ -4698,29 +4698,7 @@ void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 		if (z.x - z.y < 0.0) swap(z.x, z.y);
 		if (z.x - z.z < 0.0) swap(z.x, z.z);
 		if (z.y - z.z < 0.0) swap(z.y, z.z);
-		if (z.x + z.y < 0.0) swap(z.x, z.y);
-		if (z.x + z.z < 0.0) swap(z.x, z.z);
-		if (z.y + z.z < 0.0) swap(z.y, z.z);
-	}
-	z = z * fractal->transformCommon.scaleA2;
-	aux.DE *= fractal->transformCommon.scaleA2;
 
-	if (i >= fractal->transformCommon.startIterationsC
-			&& i < fractal->transformCommon.stopIterationsC)
-	{
-		z -= fractal->transformCommon.offset111; // neg offset
-	}
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& i >= fractal->transformCommon.startIterationsR
-			&& i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-
-	// Reversed full tetra-fold;
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
 		if (z.x + z.y < 0.0)
 		{
 			temp.x = -z.y;
@@ -4739,9 +4717,48 @@ void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 			z.z = -z.y;
 			z.y = temp.y;
 		}
+	}
+
+	// Reversed full tetra-fold;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (z.x + z.y < 0.0)
+		{
+				temp.x = -z.y;
+				z.y = -z.x;
+				z.x = temp.x;
+		}
+		if (z.x + z.z < 0.0)
+		{
+				temp.x = -z.z;
+				z.z = -z.x;
+				z.x = temp.x;
+		}
+		if (z.y + z.z < 0.0)
+		{
+				temp.y = -z.z;
+				z.z = -z.y;
+				z.y = temp.y;
+		}
 		if (z.x - z.y < 0.0) swap(z.y, z.x);
 		if (z.x - z.z < 0.0) swap(z.z, z.x);
 		if (z.y - z.z < 0.0) swap(z.z, z.y);
+	}
+
+	z = z * fractal->transformCommon.scaleA2;
+	aux.DE *= fractal->transformCommon.scaleA2;
+
+	if (i >= fractal->transformCommon.startIterationsC
+			&& i < fractal->transformCommon.stopIterationsC)
+	{
+		z -= fractal->transformCommon.offset111; // neg offset
+	}
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+				z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
@@ -7228,14 +7245,7 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	{
 		z4D += fractal->transformCommon.additionConstant0000; // offset
 	}
-	/* z4D = fabs(z4D);
-		double temp4;
-	if ( z4D.x - z4D.y < 0.0)  swap(z4D.y, z4D.x);
-	if ( z4D.x - z4D.z < 0.0)  swap(z4D.z, z4D.x);
-	if ( z4D.y - z4D.z < 0.0)  swap(z4D.z, z4D.y);
-	if ( z4D.x - z4D.w < 0.0)  swap(z4D.w, z4D.x);
-	if ( z4D.y - z4D.w < 0.0)  swap(z4D.w, z4D.y);
-	if ( z4D.z - z4D.w < 0.0)  swap(z4D.w, z4D.z);*/
+
 
 	z4D = fabs(z4D);
 	if (z4D.x - z4D.y < 0.0) swap(z4D.y, z4D.x);
