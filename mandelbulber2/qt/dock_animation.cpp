@@ -75,4 +75,3 @@ Ui::cDockAnimation *cDockAnimation::GetUi()
 {
 	return ui;
 }
-
