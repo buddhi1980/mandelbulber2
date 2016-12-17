@@ -29,8 +29,8 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- *  Created on: 16 gru 2016
- *      Author: krzysztof
+ * Created on: 16 gru 2016
+ * Author: krzysztof
  */
 
 #include "pushbutton_anim_sound.h"
@@ -60,5 +60,6 @@ void cPushButtonAnimSound::slotLoadAudio()
 	audioSelectorDialog->setWindowFlags(Qt::Dialog);
 	audioSelectorDialog->AssignParameter(parameterName);
 	audioSelectorDialog->AssignAnimation(animationFrames);
+	audioSelectorDialog->setWindowModality(Qt::ApplicationModal);
 	audioSelectorDialog->show();
 }

@@ -50,6 +50,7 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	ConnectSignals();
 	audio = NULL;
 	animationFrames = NULL;
+	setAttribute(Qt::WA_DeleteOnClose, true);
 }
 
 cAudioSelector::~cAudioSelector()
@@ -130,13 +131,17 @@ void cAudioSelector::RenameWidget(QWidget *widget)
 
 void cAudioSelector::AddParameters()
 {
-	using namespace parameterContainer;
-	gPar->addParam(FullParameterName("mid_freq"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
-	gPar->addParam(FullParameterName("bandwidth"), 200.0, 5.0, 20000.0, morphNone, paramStandard);
-	gPar->addParam(
-		FullParameterName("addition_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
-	gPar->addParam(FullParameterName("mult_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
-	gPar->addParam(FullParameterName("enable"), false, morphNone, paramStandard);
+	if (!gPar->IfExists(FullParameterName("enable")))
+	{
+		using namespace parameterContainer;
+		gPar->addParam(FullParameterName("mid_freq"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+		gPar->addParam(FullParameterName("bandwidth"), 200.0, 5.0, 20000.0, morphNone, paramStandard);
+		gPar->addParam(
+			FullParameterName("addition_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+		gPar->addParam(
+			FullParameterName("mult_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+		gPar->addParam(FullParameterName("enable"), false, morphNone, paramStandard);
+	}
 }
 
 void cAudioSelector::slotFreqChanged()
@@ -154,4 +159,19 @@ void cAudioSelector::slotFreqChanged()
 QString cAudioSelector::FullParameterName(const QString &name)
 {
 	return QString("animsound_") + name + "_" + parameterName;
+}
+
+void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
+{
+	animationFrames = _animationFrames;
+	if (animationFrames && !parameterName.isEmpty())
+	{
+		audio = animationFrames->GetAudioPtr(parameterName);
+		if (audio->isLoaded())
+		{
+			ui->waveForm->AssignAudioTrack(audio);
+			ui->fft->AssignAudioTrack(audio);
+			slotFreqChanged();
+		}
+	}
 }

@@ -115,13 +115,12 @@ public:
 	int IndexOnList(QString parameterName, QString containerName);
 
 	void AddAudioParameter(const QString &parameterName, const cOneParameter &parameter);
-	cAudioTrack* GetAudioPtr(const QString fullParameterName);
+	cAudioTrack *GetAudioPtr(const QString fullParameterName);
 
 protected:
 	QList<sAnimationFrame> frames;
 	QList<sParameterDescription> listOfParameters;
 	cAudioTrackCollection *audioTracks;
-
 };
 
 extern cAnimationFrames *gAnimFrames;

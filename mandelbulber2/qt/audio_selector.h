@@ -54,7 +54,7 @@ public:
 	explicit cAudioSelector(QWidget *parent = NULL);
 	~cAudioSelector();
 	void AssignParameter(const QString &_parameterName);
-	void AssignAnimation(cAnimationFrames *_animationFrames) { animationFrames = _animationFrames; };
+	void AssignAnimation(cAnimationFrames *_animationFrames);
 
 private slots:
 	void slotLoadAudioFile();

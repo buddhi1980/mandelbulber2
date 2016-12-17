@@ -302,6 +302,8 @@ void cAnimationFrames::RemoveAnimatedParameter(const QString &fullParameterName)
 		frames[i].parameters.DeleteParameter(fullParameterName);
 	}
 
+	// TODO delete unused audio track
+
 	for (int i = 0; i < listOfParameters.size(); ++i)
 	{
 		if (listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName
@@ -341,7 +343,7 @@ void cAnimationFrames::AddAudioParameter(
 	enumVarType paramType = parameter.GetValueType();
 	QString fullParameterNameWithSufix = fullParameterName;
 
-	switch(paramType)
+	switch (paramType)
 	{
 		case typeVector3:
 			audioTracks->AddAudioTrack(fullParameterName + "_x");
@@ -363,7 +365,7 @@ void cAnimationFrames::AddAudioParameter(
 	}
 }
 
-cAudioTrack* cAnimationFrames::GetAudioPtr(const QString fullParameterName)
+cAudioTrack *cAnimationFrames::GetAudioPtr(const QString fullParameterName)
 {
 	return audioTracks->GetAudioTrackPtr(fullParameterName);
 }
