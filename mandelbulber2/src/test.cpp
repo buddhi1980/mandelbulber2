@@ -67,12 +67,9 @@ void Test::cleanup()
 // start of test cases
 void Test::renderExamplesWrapper()
 {
-	if(IsBenchmarking())
+	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE
-		{
-			renderExamples();
-		}
+		QBENCHMARK_ONCE { renderExamples(); }
 	}
 	else
 	{
@@ -124,7 +121,7 @@ void Test::renderExamples()
 		cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 		renderJob->Init(cRenderJob::still, config);
 
-		if(IsBenchmarking())
+		if (IsBenchmarking())
 			renderJob->Execute();
 		else
 			QVERIFY2(renderJob->Execute(), "example render failed.");
@@ -141,7 +138,7 @@ void Test::renderExamples()
 
 void Test::netrender()
 {
-	if(IsBenchmarking()) return; // no reasonable generic network benchmark
+	if (IsBenchmarking()) return; // no reasonable generic network benchmark
 	// test connection of server / client over localhost
 	CNetRender *netRenderServer = new CNetRender(1);
 	CNetRender *netRenderClient = new CNetRender(1);
@@ -166,12 +163,9 @@ void Test::netrender()
 
 void Test::testFlightWrapper()
 {
-	if(IsBenchmarking())
+	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE
-		{
-			testFlight();
-		}
+		QBENCHMARK_ONCE { testFlight(); }
 	}
 	else
 	{
@@ -219,7 +213,7 @@ void Test::testFlight()
 
 	cFlightAnimation *flightAnimation = new cFlightAnimation(
 		gMainInterface, testAnimFrames, image, NULL, testPar, testParFractal, NULL);
-	if(IsBenchmarking())
+	if (IsBenchmarking())
 		flightAnimation->slotRenderFlight();
 	else
 		QVERIFY2(flightAnimation->slotRenderFlight(), "flight render failed.");
@@ -235,12 +229,9 @@ void Test::testFlight()
 
 void Test::testKeyframeWrapper()
 {
-	if(IsBenchmarking())
+	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE
-		{
-			testKeyframe();
-		}
+		QBENCHMARK_ONCE { testKeyframe(); }
 	}
 	else
 	{
@@ -288,7 +279,7 @@ void Test::testKeyframe()
 
 	cKeyframeAnimation *testKeyframeAnimation = new cKeyframeAnimation(
 		gMainInterface, testKeyframes, image, NULL, testPar, testParFractal, NULL);
-	if(IsBenchmarking())
+	if (IsBenchmarking())
 		testKeyframeAnimation->slotRenderKeyframes();
 	else
 		QVERIFY2(testKeyframeAnimation->slotRenderKeyframes(), "keyframe render failed.");
@@ -304,12 +295,9 @@ void Test::testKeyframe()
 
 void Test::renderSimpleWrapper()
 {
-	if(IsBenchmarking())
+	if (IsBenchmarking())
 	{
-		QBENCHMARK_ONCE
-		{
-			renderSimple();
-		}
+		QBENCHMARK_ONCE { renderSimple(); }
 	}
 	else
 	{
@@ -348,7 +336,6 @@ void Test::renderSimple()
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
 
-
 	cSettings parSettings(cSettings::formatFullText);
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromFile(simpleExampleFileName);
@@ -358,7 +345,7 @@ void Test::renderSimple()
 	cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 	renderJob->Init(cRenderJob::still, config);
 
-	if(IsBenchmarking())
+	if (IsBenchmarking())
 		renderJob->Execute();
 	else
 		QVERIFY2(renderJob->Execute(), "example render failed.");

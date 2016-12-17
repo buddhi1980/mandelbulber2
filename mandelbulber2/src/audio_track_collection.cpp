@@ -21,7 +21,8 @@ void cAudioTrackCollection::AddAudioTrack(const QString fullParameterName)
 {
 	if (audioTracks.contains(fullParameterName))
 	{
-		qCritical() << "cAudioTrackCollection::AddAudioTrack(): element '" << fullParameterName << "' already existed";
+		qCritical() << "cAudioTrackCollection::AddAudioTrack(): element '" << fullParameterName
+								<< "' already existed";
 	}
 	else
 	{
@@ -37,7 +38,8 @@ void cAudioTrackCollection::DeleteAudioTrack(const QString fullParameterName)
 	}
 	else
 	{
-		qCritical() << "cAudioTrackCollection::DeleteAudioTrack(): element '" << fullParameterName << "' doesn't exist";
+		qCritical() << "cAudioTrackCollection::DeleteAudioTrack(): element '" << fullParameterName
+								<< "' doesn't exist";
 	}
 }
 
@@ -49,7 +51,8 @@ cAudioTrack *cAudioTrackCollection::GetAudioTrackPtr(const QString fullParameter
 	}
 	else
 	{
-		qCritical() << "cAudioTrackCollection::GetAudioTrackPtr(): element '" << fullParameterName << "' doesn't exist";
+		qCritical() << "cAudioTrackCollection::GetAudioTrackPtr(): element '" << fullParameterName
+								<< "' doesn't exist";
 		abort();
 		return NULL;
 	}

@@ -65,7 +65,6 @@ class cKeyframeAnimation : public QObject
 	Q_OBJECT
 
 public:
-
 	static const int reservedColums = 1;
 	static const int animSoundColum = 0;
 

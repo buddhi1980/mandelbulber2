@@ -380,8 +380,10 @@ void cKeyframeAnimation::AddRow(int row, const QString &fullParameterName, int i
 	table->setVerticalHeaderItem(row, new QTableWidgetItem(fullParameterName));
 	rowParameter.append(index);
 	table->setCellWidget(row, animSoundColum, new cPushButtonAnimSound(table));
-	static_cast<cPushButtonAnimSound*>(table->cellWidget(row, animSoundColum))->AssignParameterName(fullParameterName);
-	static_cast<cPushButtonAnimSound*>(table->cellWidget(row, animSoundColum))->AssignAnimation(keyframes);
+	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColum))
+		->AssignParameterName(fullParameterName);
+	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColum))
+		->AssignAnimation(keyframes);
 }
 
 int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index)

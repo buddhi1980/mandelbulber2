@@ -61,7 +61,7 @@ void cAudioSelector::slotLoadAudioFile()
 	QFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
-	dialog.setNameFilter(tr("Fractals (*.wav *.mp3)"));
+	dialog.setNameFilter(tr("Audio files (*.wav *.mp3)"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select audio file..."));
 	QStringList filenames;
@@ -70,7 +70,7 @@ void cAudioSelector::slotLoadAudioFile()
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 
-		if(animationFrames)
+		if (animationFrames)
 		{
 			audio = animationFrames->GetAudioPtr(parameterName);
 		}

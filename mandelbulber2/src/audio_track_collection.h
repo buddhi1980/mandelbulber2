@@ -10,7 +10,7 @@
 
 #include <QtCore>
 
-//forward declarations
+// forward declarations
 class cAudioTrack;
 
 class cAudioTrackCollection : public QObject
@@ -21,10 +21,10 @@ public:
 	~cAudioTrackCollection();
 	void AddAudioTrack(const QString fullParameterName);
 	void DeleteAudioTrack(const QString fullParameterName);
-	cAudioTrack* GetAudioTrackPtr(const QString fullParameterName);
+	cAudioTrack *GetAudioTrackPtr(const QString fullParameterName);
 
 private:
-	QMap<QString, cAudioTrack*> audioTracks;
+	QMap<QString, cAudioTrack *> audioTracks;
 };
 
 #endif /* MANDELBULBER2_SRC_AUDIO_TRACK_COLLECTION_H_ */

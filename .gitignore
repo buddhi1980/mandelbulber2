@@ -7,6 +7,7 @@ render2/
 build/
 build-mic/
 build-win/
+build-*/
 
 # Visual Studio
 *.user
@@ -15,6 +16,10 @@ build-win/
 *.suo
 /Debug
 /Release
+
+# IntelliJ
+.idea/
+
 
 # Compiled Object files
 *.slo
