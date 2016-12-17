@@ -4724,21 +4724,21 @@ void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 	{
 		if (z.x + z.y < 0.0)
 		{
-				temp.x = -z.y;
-				z.y = -z.x;
-				z.x = temp.x;
+			temp.x = -z.y;
+			z.y = -z.x;
+			z.x = temp.x;
 		}
 		if (z.x + z.z < 0.0)
 		{
-				temp.x = -z.z;
-				z.z = -z.x;
-				z.x = temp.x;
+			temp.x = -z.z;
+			z.z = -z.x;
+			z.x = temp.x;
 		}
 		if (z.y + z.z < 0.0)
 		{
-				temp.y = -z.z;
-				z.z = -z.y;
-				z.y = temp.y;
+			temp.y = -z.z;
+			z.z = -z.y;
+			z.y = temp.y;
 		}
 		if (z.x - z.y < 0.0) swap(z.y, z.x);
 		if (z.x - z.z < 0.0) swap(z.z, z.x);
@@ -4758,7 +4758,7 @@ void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
-				z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
@@ -7245,7 +7245,6 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	{
 		z4D += fractal->transformCommon.additionConstant0000; // offset
 	}
-
 
 	z4D = fabs(z4D);
 	if (z4D.x - z4D.y < 0.0) swap(z4D.y, z4D.x);
