@@ -44,7 +44,7 @@ cmake3 \
 -DGSL_CBLAS_LIBRARY=$KNC_LIB/gsl/install-mic/lib/libgslcblas.a \
 -DCMAKE_INSTALL_PREFIX=$SRC/install-mic \
 -G "Eclipse CDT4 - Unix Makefiles" \
-$SRC/
+$SRC/mandelbulber2/cmake/
 cd $BUILDTREE && make -j12 VERBOSE=1
 
 # XEON x64 Build #
@@ -69,7 +69,7 @@ cmake3 \
 -DQt5UiTools_DIR=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake/Qt5UiTools \
 -DUSE_GAMEPAD=1 \
 -G "Eclipse CDT4 - Unix Makefiles" \
-$SRC/
+$SRC/mandelbulber2/cmake/
 cd $BUILDTREE && make -j12 VERBOSE=1
 # error using icc w/ cmake # call make twice
 cd $BUILDTREE && make -j12 VERBOSE=1
