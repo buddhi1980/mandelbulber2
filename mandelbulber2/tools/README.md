@@ -19,7 +19,11 @@ When a new version is prepared for release, the following steps should be taken:
 - 1. Everything from "(1) ongoing changes"
 - 2. Update README / NEWS (check for newer dependencies, supported platforms, ...)
 - 3. Run build CI's / code coverage / any code validating software
-- 4. Tag current point in master as release
+- 4. Testing
+  - Add test cases for new introduced features
+  - Run `mandelbulber --test` with valgrind and check for memory leaks
+  - Run `mandelbulber --benchmark` and check for performance regressions 
+- 6. Tag current point in master as release
 
 from here on only working on the tag:
 - 5. package binaries for different OS's and deploy to sourceforge / github
