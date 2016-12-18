@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.08
+# version 2.09
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -7,7 +7,6 @@ camera 0,454097650739787 -2,219072397550683 0,3993908086339395;
 camera_distance_to_target 2,3;
 camera_rotation 11,565 -9,999999999999989 0;
 camera_top -0,03481289900076248 0,1701227547102634 0,9848077530122081;
-delta_DE_function 0;
 flight_last_to_render 0;
 formula_1 10;
 keyframe_last_to_render 0;
@@ -29,8 +28,3 @@ IFS_rotation_enabled true;
 IFS_rotation_enabled true;
 [fractal_4]
 IFS_rotation_enabled true;
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]
