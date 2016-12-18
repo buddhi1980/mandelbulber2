@@ -61,7 +61,7 @@ cmake -G %cmake_platform% ^
 -DGSL_LIBRARY=%GSLDIR%\static\gsl.lib ^
 -DGSL_INCLUDE_DIR=%GSLDIR% ^
 -DUSE_GAMEPAD=1 ^
--DCMAKE_BUILD_TYPE=Release %SRC%
+-DCMAKE_BUILD_TYPE=Release %SRC%\mandelbulber2\cmake\
 
 msbuild mandelbulber2.sln /p:Configuration=Release /m
 
