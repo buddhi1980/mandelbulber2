@@ -40,21 +40,21 @@ ELSE()
 ENDIF()
 
 # find all sources
-file(GLOB srcHeader "mandelbulber2/src/*.h" "mandelbulber2/src/*.hpp")
-file(GLOB srcDef "mandelbulber2/src/*.c" "mandelbulber2/src/*.cpp")
-file(GLOB qtHeader "mandelbulber2/qt/*.h" "mandelbulber2/qt/*.hpp")
-file(GLOB qtDef "mandelbulber2/qt/*.c" "mandelbulber2/qt/*.cpp")
+file(GLOB srcHeader "../src/*.h" "../src/*.hpp")
+file(GLOB srcDef "../src/*.c" "../src/*.cpp")
+file(GLOB qtHeader "../qt/*.h" "../qt/*.hpp")
+file(GLOB qtDef "../qt/*.c" "../qt/*.cpp")
 set(SOURCE_FILES ${srcHeader} ${srcDef} ${qtHeader} ${qtDef})
 
 # set additional files for compilation
-set(ADDITIONAL_EXECUTABLE mandelbulber2/qt/icons.qrc)
+set(ADDITIONAL_EXECUTABLE ../qt/icons.qrc)
 
 # find all ui files in qt/*.ui and add for header generation and linking
-file(GLOB qt_UI "mandelbulber2/qt/*.ui")
+file(GLOB qt_UI "../qt/*.ui")
 QT5_WRAP_UI(qt_UI_H ${qt_UI})
 
-include_directories(mandelbulber2/qt)
-include_directories(mandelbulber2/src)
+include_directories(../qt)
+include_directories(../src)
 
 # add source files to the build target
 add_executable(mandelbulber2 ${SOURCE_FILES} ${ADDITIONAL_EXECUTABLE} ${qt_UI_H})
