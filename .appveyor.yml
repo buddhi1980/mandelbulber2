@@ -50,8 +50,7 @@ before_build:
 build_script:
   #- cd mandelbulber2/Release
   #- qmake -win32 mandelbulber.pro
-  # TODO: remove hardcoded version here
-  # TODO: verify and rework GSL nuget on appveyor
+  # TODO: remove hardcoded GSL version below
   - SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\gsl-msvc14-%tbs_arch%.2.2.1.2577
   - SET LIB=%LIB%;C:\projects\mandelbulber2\gsl-msvc14-%tbs_arch%.2.2.1.2577
   - cmake -G "%cmake_platform%" \
