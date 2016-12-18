@@ -29,6 +29,7 @@ CFLAGS="-03 -g -fPIC -mmic -wd39,10006" \
 cmake3 \
 -DCMAKE_PREFIX_PATH=$KNC_LIB/qt5/build-mic/qtbase/lib/cmake \
 -DQt5UiTools_DIR=$KNC_LIB/qt5/build-mic/qttools/lib/cmake/Qt5UiTools \
+-DQt5Multimedia_DIR=$KNC_LIB/qt5/build-mic/qtmultimedia/lib/cmake/Qt5Multimedia \
 -DCMAKE_SYSTEM_NAME=Linux \
 -DCMAKE_SYSTEM_PROCESSOR=k1om \
 -DCMAKE_FIND_ROOT_PATH=$MPSSDIR \
