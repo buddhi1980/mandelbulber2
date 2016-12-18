@@ -39,15 +39,18 @@
 
 // forward declarations
 class cAudioTrack;
+class cParameterContainer;
 
 class cAudioTrackCollection
 {
 public:
 	cAudioTrackCollection(QObject *parent = 0);
 	~cAudioTrackCollection();
-	void AddAudioTrack(const QString fullParameterName);
+	void AddAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAudioTrack(const QString fullParameterName);
-	cAudioTrack *GetAudioTrackPtr(const QString fullParameterName);
+	cAudioTrack *GetAudioTrackPtr(const QString fullParameterName) const;
+	void AddParameters(cParameterContainer *params, const QString parameterName);
+	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName);
 
 private:
 	QMap<QString, cAudioTrack *> audioTracks;

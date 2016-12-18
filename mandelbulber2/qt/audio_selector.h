@@ -64,7 +64,6 @@ private slots:
 private:
 	void ConnectSignals();
 	void RenameWidget(QWidget *widget);
-	void AddParameters();
 	QString FullParameterName(const QString &parameterName);
 
 	Ui::cAudioSelector *ui;

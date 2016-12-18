@@ -44,5 +44,5 @@ cAudioFFTdata::cAudioFFTdata()
 
 cAudioFFTdata::~cAudioFFTdata()
 {
-	//nothing needed here
+	// nothing needed here
 }

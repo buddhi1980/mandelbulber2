@@ -127,9 +127,10 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		// add default parameters for animation
 		if (keyframes->GetListOfUsedParameters().size() == 0)
 		{
-			keyframes->AddAnimatedParameter("camera", params->GetAsOneParameter("camera"));
-			keyframes->AddAnimatedParameter("target", params->GetAsOneParameter("target"));
-			keyframes->AddAnimatedParameter("camera_top", params->GetAsOneParameter("camera_top"));
+			keyframes->AddAnimatedParameter("camera", params->GetAsOneParameter("camera"), params);
+			keyframes->AddAnimatedParameter("target", params->GetAsOneParameter("target"), params);
+			keyframes->AddAnimatedParameter(
+				"camera_top", params->GetAsOneParameter("camera_top"), params);
 			if (mainInterface->mainWindow) PrepareTable();
 		}
 	}

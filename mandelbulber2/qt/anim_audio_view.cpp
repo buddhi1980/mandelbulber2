@@ -46,7 +46,7 @@ cAnimAudioView::~cAnimAudioView()
 {
 }
 
-void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack, double midFreq, double bandwidth)
+void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack)
 {
 	int numberOfFrames = audiotrack->getNumberOfFrames();
 	this->setFixedWidth(numberOfFrames);
@@ -64,7 +64,7 @@ void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack, double midFreq, 
 
 	for (int frame = 0; frame < numberOfFrames; frame++)
 	{
-		QPoint point(frame, maxY - audiotrack->getBand(frame, midFreq, bandwidth) * maxY);
+		QPoint point(frame, maxY - audiotrack->getAnimation(frame) * maxY);
 		painter.drawLine(prevPoint, point);
 		prevPoint = point;
 	}

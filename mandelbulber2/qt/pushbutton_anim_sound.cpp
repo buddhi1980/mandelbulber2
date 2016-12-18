@@ -46,7 +46,7 @@ cPushButtonAnimSound::cPushButtonAnimSound(QWidget *parent) : QPushButton(parent
 
 cPushButtonAnimSound::~cPushButtonAnimSound()
 {
-	//nothing needed here
+	// nothing needed here
 }
 
 void cPushButtonAnimSound::AssignParameterName(const QString &_parameterName)

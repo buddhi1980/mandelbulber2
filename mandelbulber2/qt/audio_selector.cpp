@@ -55,6 +55,7 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 
 cAudioSelector::~cAudioSelector()
 {
+	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
 }
 
 void cAudioSelector::slotLoadAudioFile()
@@ -107,7 +108,6 @@ void cAudioSelector::AssignParameter(const QString &_parameterName)
 		RenameWidget(widget);
 	}
 
-	AddParameters();
 	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
 }
 
@@ -129,21 +129,6 @@ void cAudioSelector::RenameWidget(QWidget *widget)
 	widget->setObjectName(newName);
 }
 
-void cAudioSelector::AddParameters()
-{
-	if (!gPar->IfExists(FullParameterName("enable")))
-	{
-		using namespace parameterContainer;
-		gPar->addParam(FullParameterName("mid_freq"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
-		gPar->addParam(FullParameterName("bandwidth"), 200.0, 5.0, 20000.0, morphNone, paramStandard);
-		gPar->addParam(
-			FullParameterName("addition_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
-		gPar->addParam(
-			FullParameterName("mult_factor"), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
-		gPar->addParam(FullParameterName("enable"), false, morphNone, paramStandard);
-	}
-}
-
 void cAudioSelector::slotFreqChanged()
 {
 	if (audio)
@@ -151,7 +136,8 @@ void cAudioSelector::slotFreqChanged()
 		SynchronizeInterfaceWindow(this, gPar, qInterface::read);
 		double midFreq = gPar->Get<double>(FullParameterName("mid_freq"));
 		double bandwidth = gPar->Get<double>(FullParameterName("bandwidth"));
-		ui->animAudioView->UpdateChart(audio, midFreq, bandwidth);
+		audio->calculateAnimation(midFreq, bandwidth);
+		ui->animAudioView->UpdateChart(audio);
 		emit freqencyChanged(midFreq, bandwidth);
 	}
 }

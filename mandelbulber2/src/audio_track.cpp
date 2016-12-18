@@ -56,7 +56,7 @@ cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 
 cAudioTrack::~cAudioTrack()
 {
-	//nothing needed here
+	// nothing needed here
 }
 
 void cAudioTrack::Clear()
@@ -72,6 +72,7 @@ void cAudioTrack::Clear()
 	maxFft = 0.0;
 	rawAudio.clear();
 	fftAudio.clear();
+	animation.clear();
 	maxFftArray = cAudioFFTdata();
 }
 
@@ -207,6 +208,18 @@ float cAudioTrack::getSample(int sampleIndex) const
 	}
 }
 
+float cAudioTrack::getAnimation(int frame) const
+{
+	if (frame < numberOfFrames)
+	{
+		return animation[frame];
+	}
+	else
+	{
+		return animation.last();
+	}
+}
+
 void cAudioTrack::slotError(QAudioDecoder::Error error)
 {
 	qCritical() << "cAudioTrack::error" << error;
@@ -305,4 +318,14 @@ void cAudioTrack::setFramesPerSecond(double _framesPerSecond)
 {
 	framesPerSecond = _framesPerSecond;
 	numberOfFrames = length * framesPerSecond / sampleRate;
+}
+
+void cAudioTrack::calculateAnimation(double midFreq, double bandwidth)
+{
+	animation.clear();
+	animation.reserve(numberOfFrames);
+	for (int i = 0; i < numberOfFrames; i++)
+	{
+		animation.append(getBand(i, midFreq, bandwidth));
+	}
 }

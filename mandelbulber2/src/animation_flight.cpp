@@ -270,16 +270,17 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		// add default parameters for animation
 		if (frames->GetListOfUsedParameters().size() == 0)
 		{
-			gAnimFrames->AddAnimatedParameter("camera", params->GetAsOneParameter("camera"));
-			gAnimFrames->AddAnimatedParameter("target", params->GetAsOneParameter("target"));
-			gAnimFrames->AddAnimatedParameter("camera_top", params->GetAsOneParameter("camera_top"));
+			gAnimFrames->AddAnimatedParameter("camera", params->GetAsOneParameter("camera"), params);
+			gAnimFrames->AddAnimatedParameter("target", params->GetAsOneParameter("target"), params);
+			gAnimFrames->AddAnimatedParameter(
+				"camera_top", params->GetAsOneParameter("camera_top"), params);
 			if (addSpeeds)
 			{
 				{
 					gAnimFrames->AddAnimatedParameter("flight_movement_speed_vector",
-						params->GetAsOneParameter("flight_movement_speed_vector"));
+						params->GetAsOneParameter("flight_movement_speed_vector"), params);
 					gAnimFrames->AddAnimatedParameter("flight_rotation_speed_vector",
-						params->GetAsOneParameter("flight_rotation_speed_vector"));
+						params->GetAsOneParameter("flight_rotation_speed_vector"), params);
 				}
 			}
 		}

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- *  widget which contains UI for animation
+ * widget which contains UI for animation
  */
 
 #ifndef MANDELBULBER2_QT_DOCK_ANIMATION_H_

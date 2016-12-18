@@ -39,6 +39,8 @@
 
 #include "audio_track_collection.h"
 #include "fractal_container.hpp"
+#include "audio_track.h"
+#include "initparameters.hpp"
 
 cAnimationFrames *gAnimFrames = NULL;
 
@@ -78,7 +80,7 @@ void cAnimationFrames::AddFrame(
 }
 
 void cAnimationFrames::AddAnimatedParameter(
-	const QString &parameterName, const cOneParameter &defaultValue)
+	const QString &parameterName, const cOneParameter &defaultValue, cParameterContainer *params)
 {
 	if (IndexOnList(parameterName, defaultValue.GetOriginalContainerName()) == -1)
 	{
@@ -91,7 +93,11 @@ void cAnimationFrames::AddAnimatedParameter(
 				defaultValue.GetOriginalContainerName() + "_" + parameterName, defaultValue);
 		}
 
-		AddAudioParameter(parameterName, defaultValue);
+		// if parameter container is NULL then will be used default global container for sound
+		// parameters
+		if (!params) params = gPar;
+
+		AddAudioParameter(parameterName, defaultValue, params);
 	}
 	else
 	{
@@ -101,8 +107,8 @@ void cAnimationFrames::AddAnimatedParameter(
 	}
 }
 
-bool cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName,
-	const cParameterContainer *param, const cFractalContainer *fractal)
+bool cAnimationFrames::AddAnimatedParameter(
+	const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal)
 {
 	int firstUnderscore = fullParameterName.indexOf('_');
 	QString containerName = fullParameterName.left(firstUnderscore);
@@ -122,7 +128,7 @@ bool cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName,
 		}
 		else
 		{
-			AddAnimatedParameter(parameterName, container->GetAsOneParameter(parameterName));
+			AddAnimatedParameter(parameterName, container->GetAsOneParameter(parameterName), param);
 			return true;
 		}
 	}
@@ -335,31 +341,30 @@ void cAnimationFrames::AddFrame(const sAnimationFrame &frame)
 }
 
 void cAnimationFrames::AddAudioParameter(
-	const QString &parameterName, const cOneParameter &parameter)
+	const QString &parameterName, const cOneParameter &parameter, cParameterContainer *params)
 {
 	QString fullParameterName = parameter.GetOriginalContainerName() + "_" + parameterName;
 	enumVarType paramType = parameter.GetValueType();
-	QString fullParameterNameWithSufix = fullParameterName;
 
 	switch (paramType)
 	{
 		case typeVector3:
-			audioTracks.AddAudioTrack(fullParameterName + "_x");
-			audioTracks.AddAudioTrack(fullParameterName + "_y");
-			audioTracks.AddAudioTrack(fullParameterName + "_z");
+			audioTracks.AddAudioTrack(fullParameterName + "_x", params);
+			audioTracks.AddAudioTrack(fullParameterName + "_y", params);
+			audioTracks.AddAudioTrack(fullParameterName + "_z", params);
 			break;
 		case typeVector4:
-			audioTracks.AddAudioTrack(fullParameterName + "_x");
-			audioTracks.AddAudioTrack(fullParameterName + "_y");
-			audioTracks.AddAudioTrack(fullParameterName + "_z");
-			audioTracks.AddAudioTrack(fullParameterName + "_w");
+			audioTracks.AddAudioTrack(fullParameterName + "_x", params);
+			audioTracks.AddAudioTrack(fullParameterName + "_y", params);
+			audioTracks.AddAudioTrack(fullParameterName + "_z", params);
+			audioTracks.AddAudioTrack(fullParameterName + "_w", params);
 			break;
 		case typeRgb:
-			audioTracks.AddAudioTrack(fullParameterName + "_R");
-			audioTracks.AddAudioTrack(fullParameterName + "_G");
-			audioTracks.AddAudioTrack(fullParameterName + "_B");
+			audioTracks.AddAudioTrack(fullParameterName + "_R", params);
+			audioTracks.AddAudioTrack(fullParameterName + "_G", params);
+			audioTracks.AddAudioTrack(fullParameterName + "_B", params);
 			break;
-		default: audioTracks.AddAudioTrack(fullParameterName); break;
+		default: audioTracks.AddAudioTrack(fullParameterName, params); break;
 	}
 }
 
@@ -367,3 +372,101 @@ cAudioTrack *cAnimationFrames::GetAudioPtr(const QString fullParameterName)
 {
 	return audioTracks.GetAudioTrackPtr(fullParameterName);
 }
+
+cOneParameter cAnimationFrames::ApplyAudioAnimation(int frame, const cOneParameter &parameter,
+	const QString &parameterName, const cParameterContainer *params) const
+{
+	cOneParameter newValue = parameter;
+	QString fullParameterName = parameter.GetOriginalContainerName() + "_" + parameterName;
+	enumVarType paramType = parameter.GetValueType();
+	QString fullParameterNameWithSufix;
+
+	switch (paramType)
+	{
+		case typeInt:
+		{
+			int value = parameter.Get<int>(valueActual);
+			fullParameterNameWithSufix = fullParameterName;
+			value = ApplyAudioAnimationOneComponent(frame, value, fullParameterNameWithSufix, params);
+			newValue.Set(value, valueActual);
+			break;
+		}
+		case typeDouble:
+		{
+			double value = parameter.Get<double>(valueActual);
+			fullParameterNameWithSufix = fullParameterName;
+			value = ApplyAudioAnimationOneComponent(frame, value, fullParameterNameWithSufix, params);
+			newValue.Set(value, valueActual);
+			break;
+		}
+		case typeVector3:
+		{
+			CVector3 value = parameter.Get<CVector3>(valueActual);
+			fullParameterNameWithSufix = fullParameterName + "_x";
+			value.x = ApplyAudioAnimationOneComponent(frame, value.x, fullParameterNameWithSufix, params);
+			fullParameterNameWithSufix = fullParameterName + "_y";
+			value.y = ApplyAudioAnimationOneComponent(frame, value.y, fullParameterNameWithSufix, params);
+			fullParameterNameWithSufix = fullParameterName + "_z";
+			value.z = ApplyAudioAnimationOneComponent(frame, value.z, fullParameterNameWithSufix, params);
+			newValue.Set(value, valueActual);
+			break;
+		}
+		case typeVector4:
+		{
+			CVector4 value = parameter.Get<CVector4>(valueActual);
+			QString fullParameterNameWithSufix = fullParameterName + "_x";
+			value.x = ApplyAudioAnimationOneComponent(frame, value.x, fullParameterNameWithSufix, params);
+			fullParameterNameWithSufix = fullParameterName + "_y";
+			value.y = ApplyAudioAnimationOneComponent(frame, value.y, fullParameterNameWithSufix, params);
+			fullParameterNameWithSufix = fullParameterName + "_z";
+			value.z = ApplyAudioAnimationOneComponent(frame, value.z, fullParameterNameWithSufix, params);
+			fullParameterNameWithSufix = fullParameterName + "_w";
+			value.w = ApplyAudioAnimationOneComponent(frame, value.w, fullParameterNameWithSufix, params);
+			newValue.Set(value, valueActual);
+			break;
+		}
+		case typeRgb:
+		{
+			sRGB value = parameter.Get<sRGB>(valueActual);
+			fullParameterNameWithSufix = fullParameterName + "_R";
+			value.R = ApplyAudioAnimationOneComponent(frame, value.R, fullParameterNameWithSufix, params);
+			fullParameterNameWithSufix = fullParameterName + "_G";
+			value.G = ApplyAudioAnimationOneComponent(frame, value.G, fullParameterNameWithSufix, params);
+			fullParameterNameWithSufix = fullParameterName + "_B";
+			value.B = ApplyAudioAnimationOneComponent(frame, value.B, fullParameterNameWithSufix, params);
+			newValue.Set(value, valueActual);
+			break;
+		}
+		default:
+		{
+			// not possible to use animation by audio
+			break;
+		}
+	}
+
+	return newValue;
+}
+
+template <typename T>
+T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
+	const QString &fullParameterNameWithSufix, const cParameterContainer *params) const
+{
+	T newVal = oldVal;
+	bool isEnabled =
+		params->Get<double>(QString("animsound_enable_%1").arg(fullParameterNameWithSufix));
+	if (isEnabled)
+	{
+		double addiitionFactor =
+			params->Get<double>(QString("animsound_addition_factor_%1").arg(fullParameterNameWithSufix));
+		double multFactor =
+			params->Get<double>(QString("animsound_mult_factor_%1").arg(fullParameterNameWithSufix));
+		float animSound = audioTracks.GetAudioTrackPtr(fullParameterNameWithSufix)->getAnimation(frame);
+		newVal = oldVal * (1.0 + animSound * multFactor) + animSound * addiitionFactor;
+	}
+	return newVal;
+}
+
+template int cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, int oldVal,
+	const QString &fullParameterNameWithSufix, const cParameterContainer *params) const;
+template double cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, double oldVal,
+	const QString &fullParameterNameWithSufix, const cParameterContainer *params) const;

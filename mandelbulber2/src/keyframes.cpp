@@ -123,6 +123,9 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(
 			QString parameterName = listOfParameters[i].parameterName;
 			cOneParameter oneParameter =
 				frame.parameters.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
+
+			oneParameter = ApplyAudioAnimation(index, oneParameter, parameterName, params);
+
 			container->SetFromOneParameter(parameterName, oneParameter);
 		}
 	}
@@ -180,14 +183,14 @@ void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMor
 	}
 }
 void cKeyframes::AddAnimatedParameter(
-	const QString &parameterName, const cOneParameter &defaultValue)
+	const QString &parameterName, const cOneParameter &defaultValue, cParameterContainer *params)
 {
 	morph.clear();
-	cAnimationFrames::AddAnimatedParameter(parameterName, defaultValue);
+	cAnimationFrames::AddAnimatedParameter(parameterName, defaultValue, params);
 }
 
-bool cKeyframes::AddAnimatedParameter(const QString &fullParameterName,
-	const cParameterContainer *param, const cFractalContainer *fractal)
+bool cKeyframes::AddAnimatedParameter(
+	const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal)
 {
 	morph.clear();
 	return cAnimationFrames::AddAnimatedParameter(fullParameterName, param, fractal);

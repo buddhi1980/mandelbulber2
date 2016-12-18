@@ -52,7 +52,7 @@ cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
 
 cFFTView::~cFFTView()
 {
-	//nothing needed here
+	// nothing needed here
 }
 
 void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)

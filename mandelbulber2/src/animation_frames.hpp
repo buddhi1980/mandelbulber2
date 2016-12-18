@@ -90,10 +90,10 @@ public:
 	virtual int GetUnrenderedTotal();
 	void Clear();
 	void ClearAll();
-	virtual void AddAnimatedParameter(
-		const QString &parameterName, const cOneParameter &defaultValue);
-	virtual bool AddAnimatedParameter(const QString &fullParameterName,
-		const cParameterContainer *param, const cFractalContainer *fractal);
+	virtual void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue,
+		cParameterContainer *params = NULL);
+	virtual bool AddAnimatedParameter(
+		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal);
 	virtual void RemoveAnimatedParameter(const QString &fullParameterName);
 	QList<sParameterDescription> GetListOfUsedParameters() const { return listOfParameters; }
 	const cParameterContainer *ContainerSelector(QString containerName,
@@ -115,8 +115,17 @@ public:
 	}
 	int IndexOnList(QString parameterName, QString containerName);
 
-	void AddAudioParameter(const QString &parameterName, const cOneParameter &parameter);
+	void AddAudioParameter(
+		const QString &parameterName, const cOneParameter &parameter, cParameterContainer *params);
+
 	cAudioTrack *GetAudioPtr(const QString fullParameterName);
+
+	cOneParameter ApplyAudioAnimation(int frame, const cOneParameter &parameter,
+		const QString &parameterName, const cParameterContainer *params) const;
+
+	template <typename T>
+	T ApplyAudioAnimationOneComponent(int frame, T oldVal, const QString &fullParameterNameWithSufix,
+		const cParameterContainer *params) const;
 
 protected:
 	QList<sAnimationFrame> frames;

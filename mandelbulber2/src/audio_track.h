@@ -64,6 +64,8 @@ public:
 	float getMaxFft() const { return maxFft; }
 	float getMaxVolume() const { return maxVolume; }
 	int freq2FftPos(double freq) const;
+	void calculateAnimation(double midFreq, double bandwidth);
+	float getAnimation(int frame) const;
 
 private slots:
 	void slotReadBuffer();
@@ -74,6 +76,7 @@ private:
 	QAudioDecoder *decoder;
 	QVector<float> rawAudio;
 	QVector<cAudioFFTdata> fftAudio;
+	QVector<float> animation;
 	bool memoryReserved;
 	int length;
 	int sampleRate;

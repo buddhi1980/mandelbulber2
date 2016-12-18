@@ -63,9 +63,10 @@ public:
 	void ClearMorphCache() { morph.clear(); }
 	int GetUnrenderedTotal();
 	int GetUnrenderedTillIndex(int frameIndex);
-	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue);
-	bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param,
-		const cFractalContainer *fractal);
+	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue,
+		cParameterContainer *params = NULL);
+	bool AddAnimatedParameter(
+		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal);
 	void RemoveAnimatedParameter(const QString &fullParameterName);
 
 private:

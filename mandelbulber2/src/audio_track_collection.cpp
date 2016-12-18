@@ -34,6 +34,8 @@
 
 #include "audio_track_collection.h"
 #include "audio_track.h"
+#include "one_parameter.hpp"
+#include "parameters.hpp"
 
 cAudioTrackCollection::cAudioTrackCollection(QObject *parent)
 {
@@ -44,7 +46,8 @@ cAudioTrackCollection::~cAudioTrackCollection()
 	qDeleteAll(audioTracks);
 }
 
-void cAudioTrackCollection::AddAudioTrack(const QString fullParameterName)
+void cAudioTrackCollection::AddAudioTrack(
+	const QString fullParameterName, cParameterContainer *params)
 {
 	if (audioTracks.contains(fullParameterName))
 	{
@@ -54,6 +57,7 @@ void cAudioTrackCollection::AddAudioTrack(const QString fullParameterName)
 	else
 	{
 		audioTracks.insert(fullParameterName, new cAudioTrack());
+		AddParameters(params, fullParameterName);
 	}
 }
 
@@ -70,7 +74,7 @@ void cAudioTrackCollection::DeleteAudioTrack(const QString fullParameterName)
 	}
 }
 
-cAudioTrack *cAudioTrackCollection::GetAudioTrackPtr(const QString fullParameterName)
+cAudioTrack *cAudioTrackCollection::GetAudioTrackPtr(const QString fullParameterName) const
 {
 	if (audioTracks.contains(fullParameterName))
 	{
@@ -83,4 +87,29 @@ cAudioTrack *cAudioTrackCollection::GetAudioTrackPtr(const QString fullParameter
 		abort();
 		return NULL;
 	}
+}
+
+void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QString parameterName)
+{
+	// TODO to move AddParameters to cAudioTrackCollection
+
+	if (!params->IfExists(FullParameterName("enable", parameterName)))
+	{
+		using namespace parameterContainer;
+		params->addParam(
+			FullParameterName("mid_freq", parameterName), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("bandwidth", parameterName), 200.0, 5.0, 20000.0, morphNone, paramStandard);
+		params->addParam(FullParameterName("addition_factor", parameterName), 1.0, 0.0, 20000.0,
+			morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("mult_factor", parameterName), 1.0, 0.0, 20000.0, morphNone, paramStandard);
+		params->addParam(FullParameterName("enable", parameterName), false, morphNone, paramStandard);
+	}
+}
+
+QString cAudioTrackCollection::FullParameterName(
+	const QString &nameOfSoundParameter, const QString parameterName)
+{
+	return QString("animsound_") + nameOfSoundParameter + "_" + parameterName;
 }
