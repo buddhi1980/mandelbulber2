@@ -3123,6 +3123,8 @@ void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 		}
 		z = (z * fractal->transformCommon.scale1) + (zA * fractal->transformCommon.offset)
 				+ (zB * fractal->transformCommon.offset0);
+		aux.DE *= fractal->transformCommon.scale1;
+		aux.r_dz *= fractal->transformCommon.scale1;
 	}
 }
 
@@ -3477,6 +3479,174 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 	}
 
 	aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
+}
+
+/**
+ * Menger Smooth
+ * // http://www.fractalforums.com/fragmentarium/help-t22583/
+ */
+void MengerSmoothIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	double sc1 = fractal->transformCommon.scale3 - 1.0;  // 3 - 1 = 2, 2/3 = 0.6667;
+	double sc2 = sc1/fractal->transformCommon.scale3; //  8 - 1 = 7, 7/8 = 0.89ish;
+	double OffsetS = fractal->transformCommon.offset0005; //
+
+	if (fractal->transformCommon.functionEnabled)
+	{
+	// the closer to origin the greater the effect of OffsetSQ
+	z = CVector3{sqrt( z.x * z.x + OffsetS),
+				sqrt(z.y * z.y + OffsetS),
+				sqrt(z.z * z.z + OffsetS)};
+	}
+
+		double t;
+		CVector3 OffsetC = fractal->transformCommon.offset1105;
+
+		t = z.x - z.y;
+		t = 0.5 * (t - sqrt(t * t + OffsetS ));
+		z.x = z.x - t;
+		z.y = z.y + t;
+
+		t = z.x - z.z;
+		t = 0.5 * (t - sqrt(t * t + OffsetS));
+		z.x = z.x - t;
+		z.z = z.z + t;
+
+		t = z.y - z.z;
+		t = 0.5 * (t - sqrt(t * t + OffsetS));
+		z.y = z.y - t;
+		z.z = z.z + t;
+
+		z.z = z.z - OffsetC.z * sc2; // sc2 reduces C.z
+		z.z = -sqrt(z.z * z.z + OffsetS);
+		z.z = z.z + OffsetC.z * sc2;
+
+		z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x * sc1; // sc1 scales up C.x
+		z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y * sc1;
+		z.z = fractal->transformCommon.scale3 * z.z;
+
+		aux.DE *= fractal->transformCommon.scale3;
+
+
+	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	if (fractal->transformCommon.functionEnabledzFalse)
+	{
+		CVector3 zA = z * 0;
+		CVector3 zB = z * 0;
+		if (i == fractal->transformCommon.intA)
+		{
+			zA = z;
+		}
+		if (i == fractal->transformCommon.intB)
+		{
+			zB = z;
+		}
+		z = (z * fractal->transformCommon.scale1) + (zA * fractal->transformCommon.offsetA0)
+				+ (zB * fractal->transformCommon.offsetB0);
+		aux.DE *= fractal->transformCommon.scale1;
+		aux.r_dz *= fractal->transformCommon.scale1;
+	}
+}
+
+/**
+ * Menger Smooth Mod1, based on :
+ * // http://www.fractalforums.com/fragmentarium/help-t22583/
+ */
+void MengerSmoothMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+
+	if (fractal->transformCommon.functionEnabled)
+	{
+	z = CVector3{sqrt( z.x * z.x + fractal->transformCommon.offset0),
+				sqrt(z.y * z.y + fractal->transformCommon.offset0),
+				sqrt(z.z * z.z + fractal->transformCommon.offset0)};
+	}
+	if (fractal->transformCommon.functionEnabledFFalse)
+	{
+		z = fabs(z);
+		double s = fractal->transformCommon.offset;
+			z +=  CVector3( s,s,s);
+	}
+
+		double t;
+		double ScaleP5 = fractal->transformCommon.scale05;
+		CVector3 OffsetC = fractal->transformCommon.constantMultiplier221;
+		double OffsetS = fractal->transformCommon.offset0005;
+
+		t = z.x - z.y;
+		t = ScaleP5 * (t - sqrt(t * t + OffsetS * fractal->transformCommon.constantMultiplier111.x));
+		z.x = z.x - t;
+		z.y = z.y + t;
+
+		t = z.x - z.z;
+		t = ScaleP5 * (t - sqrt(t * t + OffsetS* fractal->transformCommon.constantMultiplier111.y ));
+		z.x = z.x - t;
+		z.z = z.z + t;
+
+		t = z.y - z.z;
+		t = ScaleP5 * (t - sqrt(t * t + OffsetS* fractal->transformCommon.constantMultiplier111.z));
+		z.y = z.y - t;
+		z.z = z.z + t;
+
+		z.z = z.z -  OffsetC.z / 3.0;
+		z.z = -sqrt(z.z * z.z + OffsetS);
+		z.z = z.z + OffsetC.z / 3.0;
+
+		z.x = fractal->transformCommon.scale3 * z.x - OffsetC.x ;
+		z.y = fractal->transformCommon.scale3 * z.y - OffsetC.y ;
+		z.z = fractal->transformCommon.scale3 * z.z;
+
+		aux.DE *= fractal->transformCommon.scale3;
+
+
+	/*if (z.x - z.y < 0) swap(z.y, z.x);
+	if (z.x - z.z < 0) swap(z.z, z.x);
+	if (z.y - z.z < 0) swap(z.z, z.y);
+	z *= fractal->transformCommon.scale3;
+	z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
+	z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
+	if (z.z > 1) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+
+	aux.DE *= fractal->transformCommon.scale3;*/
+
+
+	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	if (fractal->transformCommon.functionEnabledxFalse
+			&& i >= fractal->transformCommon.startIterationsA
+			&& i < fractal->transformCommon.stopIterationsA) // box offset
+	{
+		z.x = sign(z.x) * fractal->transformCommon.additionConstantA000.x + z.x;
+		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
+		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
+	}
+
+	if (fractal->transformCommon.functionEnabledzFalse)
+	{
+		CVector3 zA = z * 0;
+		CVector3 zB = z * 0;
+		if (i == fractal->transformCommon.intA)
+		{
+			zA = z;
+		}
+		if (i == fractal->transformCommon.intB)
+		{
+			zB = z;
+		}
+		z = (z * fractal->transformCommon.scale1) + (zA * fractal->transformCommon.offsetA0)
+				+ (zB * fractal->transformCommon.offsetB0);
+		aux.DE *= fractal->transformCommon.scale1;
+		aux.r_dz *= fractal->transformCommon.scale1;
+	}
 }
 
 /**

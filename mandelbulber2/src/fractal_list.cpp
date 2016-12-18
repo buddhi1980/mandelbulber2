@@ -201,6 +201,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Menger - Prism Shape2", "menger_prism_shape2",
 		mengerPrismShape2, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
+	fractalList->append(sFractalDescription("Menger - Smooth", "menger_smooth",
+		mengerSmooth, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
+	fractalList->append(sFractalDescription("Menger - Smooth Mod1", "menger_smooth_mod1",
+		mengerSmoothMod1, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+
 	fractalList->append(sFractalDescription("Msltoe Donut", "msltoe_donut", msltoeDonut, deltaDEType,
 		linearDEFunction, cpixelDisabledByDefault, 4));
 

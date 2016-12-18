@@ -254,6 +254,9 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.minR06 = container->Get<double>("transf_minimum_radius_06");
 	transformCommon.offset = container->Get<double>("transf_offset");
 	transformCommon.offset0 = container->Get<double>("transf_offset_0");
+	transformCommon.offsetA0 = container->Get<double>("transf_offsetA_0");
+	transformCommon.offsetB0 = container->Get<double>("transf_offsetB_0");
+	transformCommon.offset0005 = container->Get<double>("transf_offset_0005");
 	transformCommon.offset05 = container->Get<double>("transf_offset_05");
 	transformCommon.offset1 = container->Get<double>("transf_offset_1");
 	transformCommon.offset105 = container->Get<double>("transf_offset_105");
@@ -265,6 +268,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.scale = container->Get<double>("transf_scale");
 	transformCommon.scale0 = container->Get<double>("transf_scale_0");
 	transformCommon.scale025 = container->Get<double>("transf_scale_025");
+	transformCommon.scale05 = container->Get<double>("transf_scale_05");
 	transformCommon.scale1 = container->Get<double>("transf_scale_1");
 	transformCommon.scaleA1 = container->Get<double>("transf_scaleA_1");
 	transformCommon.scaleB1 = container->Get<double>("transf_scaleB_1");
@@ -357,6 +361,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.offsetA000 = container->Get<CVector3>("transf_offsetA_000");
 	transformCommon.offsetF000 = container->Get<CVector3>("transf_offsetF_000");
 	transformCommon.offset100 = container->Get<CVector3>("transf_offset_100");
+	transformCommon.offset1105 = container->Get<CVector3>("transf_offset_1105");
 	transformCommon.offset111 = container->Get<CVector3>("transf_offset_111");
 	transformCommon.offsetA111 = container->Get<CVector3>("transf_offsetA_111");
 	transformCommon.offsetB111 = container->Get<CVector3>("transf_offsetB_111");

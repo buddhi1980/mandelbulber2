@@ -421,6 +421,9 @@ struct sFractalTransformCommon
 	double foldingLimit;
 	double offset;
 	double offset0;
+	double offsetA0;
+	double offsetB0;
+	double offset0005;
 	double offset05;
 	double offset1;
 	double offset105;
@@ -436,6 +439,7 @@ struct sFractalTransformCommon
 	double scale;
 	double scale0;
 	double scale025;
+	double scale05;
 	double scale1;
 	double scaleA1;
 	double scaleB1;
@@ -519,6 +523,7 @@ struct sFractalTransformCommon
 	CVector3 offsetA000;
 	CVector3 offsetF000;
 	CVector3 offset100;
+	CVector3 offset1105;
 	CVector3 offset111;
 	CVector3 offsetA111;
 	CVector3 offsetB111;

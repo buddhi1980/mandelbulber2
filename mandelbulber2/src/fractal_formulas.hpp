@@ -104,6 +104,8 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerPwr2PolyIteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void MengerSmoothIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void MengerSmoothMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym2ModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3ModIteration(

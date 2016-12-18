@@ -681,6 +681,9 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offset_0", 0.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetA_0", 0.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetB_0", 0.0, morphAkima, paramStandard);
+	par->addParam("transf_offset_0005", 0.005, morphAkima, paramStandard);
 	par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_offset_105", 1.5, morphAkima, paramStandard);
@@ -692,6 +695,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_025", 0.25, morphAkima, paramStandard);
+	par->addParam("transf_scale_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_scale_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_scaleA_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_scaleB_1", 1.0, morphAkima, paramStandard);
@@ -792,6 +796,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offsetA_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetF_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_100", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("transf_offset_1105", CVector3(1.0, 1.0, 0.5), morphAkima, paramStandard);
 	par->addParam("transf_offset_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetB_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
