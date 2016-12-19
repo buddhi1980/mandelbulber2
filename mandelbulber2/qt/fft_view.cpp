@@ -122,4 +122,12 @@ void cFFTView::paintEvent(QPaintEvent *event)
 	painter.setBrush(brush);
 	painter.setPen(Qt::NoPen);
 	painter.drawRect(QRect(QPoint(0, highFreqY), QPoint(width(), lowFreqY)));
+
+	painter.setPen(Qt::red);
+	QFont font = QApplication::font();
+	font.setPixelSize(10);
+	painter.setFont(font);
+	painter.drawText(3, 13, QString("%1 Hz").arg((int)((double)sampleRate / cAudioFFTdata::fftSize * height())));
+	painter.drawText(3, height()/2, QString("%1 Hz").arg((int)((double)sampleRate / cAudioFFTdata::fftSize * height() * 0.5)));
+	painter.drawText(3, height()-3, QString("%1 Hz").arg(0));
 }
