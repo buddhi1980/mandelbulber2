@@ -90,6 +90,7 @@ void cAudioSelector::slotAudioLoaded()
 	audio->calculateFFT();					 // TODO settings for frames per second
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
+	ui->timeRuller->SetParameters(audio, 100); //TODO hardcoded frames per keyframe
 	slotFreqChanged();
 }
 
@@ -157,6 +158,7 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 		{
 			ui->waveForm->AssignAudioTrack(audio);
 			ui->fft->AssignAudioTrack(audio);
+			ui->timeRuller->SetParameters(audio, 100); //TODO hardcoded frames per keyframe
 			slotFreqChanged();
 		}
 	}
