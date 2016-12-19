@@ -47,9 +47,10 @@ public:
 	cAudioTrackCollection(QObject *parent = 0);
 	~cAudioTrackCollection();
 	void AddAudioTrack(const QString fullParameterName, cParameterContainer *params);
-	void DeleteAudioTrack(const QString fullParameterName);
+	void DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	cAudioTrack *GetAudioTrackPtr(const QString fullParameterName) const;
 	void AddParameters(cParameterContainer *params, const QString parameterName);
+	void RemoveParameters(cParameterContainer *params, const QString parameterName);
 	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName);
 
 private:

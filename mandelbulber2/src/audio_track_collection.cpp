@@ -61,7 +61,7 @@ void cAudioTrackCollection::AddAudioTrack(
 	}
 }
 
-void cAudioTrackCollection::DeleteAudioTrack(const QString fullParameterName)
+void cAudioTrackCollection::DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params)
 {
 	if (audioTracks.contains(fullParameterName))
 	{
@@ -91,8 +91,6 @@ cAudioTrack *cAudioTrackCollection::GetAudioTrackPtr(const QString fullParameter
 
 void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QString parameterName)
 {
-	// TODO to move AddParameters to cAudioTrackCollection
-
 	if (!params->IfExists(FullParameterName("enable", parameterName)))
 	{
 		using namespace parameterContainer;
@@ -105,6 +103,18 @@ void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QSt
 		params->addParam(
 			FullParameterName("mult_factor", parameterName), 1.0, 0.0, 20000.0, morphNone, paramStandard);
 		params->addParam(FullParameterName("enable", parameterName), false, morphNone, paramStandard);
+	}
+}
+
+void cAudioTrackCollection::RemoveParameters(cParameterContainer *params, const QString parameterName)
+{
+	if (params->IfExists(FullParameterName("enable", parameterName)))
+	{
+		params->DeleteParameter(FullParameterName("bandwidth", parameterName));
+		params->DeleteParameter(FullParameterName("mid_freq", parameterName));
+		params->DeleteParameter(FullParameterName("addition_factor", parameterName));
+		params->DeleteParameter(FullParameterName("mult_factor", parameterName));
+		params->DeleteParameter(FullParameterName("enable", parameterName));
 	}
 }
 

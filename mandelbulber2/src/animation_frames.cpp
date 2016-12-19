@@ -301,18 +301,18 @@ void cAnimationFrames::GetFrameAndConsolidate(
 
 void cAnimationFrames::RemoveAnimatedParameter(const QString &fullParameterName)
 {
+
 	for (int i = 0; i < frames.size(); ++i)
 	{
 		frames[i].parameters.DeleteParameter(fullParameterName);
 	}
-
-	// TODO delete unused audio track
 
 	for (int i = 0; i < listOfParameters.size(); ++i)
 	{
 		if (listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName
 				== fullParameterName)
 		{
+			RemoveAudioParameter(listOfParameters[i]);
 			listOfParameters.removeAt(i);
 			break;
 		}
@@ -365,6 +365,34 @@ void cAnimationFrames::AddAudioParameter(
 			audioTracks.AddAudioTrack(fullParameterName + "_B", params);
 			break;
 		default: audioTracks.AddAudioTrack(fullParameterName, params); break;
+	}
+}
+
+void cAnimationFrames::RemoveAudioParameter(const sParameterDescription &parameter, cParameterContainer *params)
+{
+	if(!params) params = gPar;
+	QString fullParameterName = parameter.containerName + "_" + parameter.parameterName;
+	enumVarType paramType = parameter.varType;
+
+	switch (paramType)
+	{
+		case typeVector3:
+			audioTracks.DeleteAudioTrack(fullParameterName + "_x", params);
+			audioTracks.DeleteAudioTrack(fullParameterName + "_y", params);
+			audioTracks.DeleteAudioTrack(fullParameterName + "_z", params);
+			break;
+		case typeVector4:
+			audioTracks.DeleteAudioTrack(fullParameterName + "_x", params);
+			audioTracks.DeleteAudioTrack(fullParameterName + "_y", params);
+			audioTracks.DeleteAudioTrack(fullParameterName + "_z", params);
+			audioTracks.DeleteAudioTrack(fullParameterName + "_w", params);
+			break;
+		case typeRgb:
+			audioTracks.DeleteAudioTrack(fullParameterName + "_R", params);
+			audioTracks.DeleteAudioTrack(fullParameterName + "_G", params);
+			audioTracks.DeleteAudioTrack(fullParameterName + "_B", params);
+			break;
+		default: audioTracks.DeleteAudioTrack(fullParameterName, params); break;
 	}
 }
 

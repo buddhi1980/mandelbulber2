@@ -62,7 +62,7 @@ public:
 	inline bool IsCheckForBailout(int formulaIndex) const { return checkForBailout[formulaIndex]; }
 	inline bool UseOptimizedDE() const { return useOptimizedDE; }
 	QString GetDETypeString() const;
-	inline double GetBailout(int formulaIndex) const { return bailout[formulaIndex]; };
+	inline double GetBailout(int formulaIndex) const { return bailout[formulaIndex]; }
 	inline bool IsJuliaEnabled(int formulaIndex) const { return juliaEnabled[formulaIndex]; }
 	inline CVector3 GetJuliaConstant(int formulaIndex) const { return juliaConstant[formulaIndex]; }
 	inline CVector3 GetConstantMultiplier(int formulaIndex) const
