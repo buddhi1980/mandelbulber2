@@ -1617,6 +1617,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Import Project="packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets" Condition="Exists('packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" />
     <Import Project="packages\libjpeg.9.2.0.1\build\native\libjpeg.targets" Condition="Exists('packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" />
     <Import Project="packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets" Condition="Exists('packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" />
+    <Import Project="packages\bulbqt-msvc14-x64.5.7.0.10077\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('packages\bulbqt-msvc14-x64.5.7.0.10077\build\native\bulbqt-msvc14-x64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -1631,5 +1632,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Error Condition="!Exists('packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets'))" />
     <Error Condition="!Exists('packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libjpeg.9.2.0.1\build\native\libjpeg.targets'))" />
     <Error Condition="!Exists('packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('packages\bulbqt-msvc14-x64.5.7.0.10077\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\bulbqt-msvc14-x64.5.7.0.10077\build\native\bulbqt-msvc14-x64.targets'))" />
   </Target>
 </Project>

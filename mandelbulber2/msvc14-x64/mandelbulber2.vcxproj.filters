@@ -367,12 +367,6 @@
     <ClCompile Include="..\..\mandelbulber2\qt\wave_form_view.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\build-win\mandelbulber2_automoc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\build-win\CMakeFiles\mandelbulber2.dir\qrc_icons.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\mandelbulber2\src\ao_modes.h">
