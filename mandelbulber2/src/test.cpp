@@ -111,7 +111,7 @@ void Test::renderExamples()
 	while (it.hasNext())
 	{
 		QString filename = it.next();
-		// qDebug() << filename;
+		if (!IsBenchmarking()) qDebug() << "trying file: " << filename;
 		cSettings parSettings(cSettings::formatFullText);
 		parSettings.BeQuiet(true);
 		parSettings.LoadFromFile(filename);
