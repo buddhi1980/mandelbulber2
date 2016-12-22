@@ -419,6 +419,9 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
+			table->item(row, newColumn)->setTextColor(Qt::black);
+			table->item(row + 1, newColumn)->setTextColor(Qt::black);
+			table->item(row + 2, newColumn)->setTextColor(Qt::black);
 		}
 		else if (type == typeVector4)
 		{
@@ -434,6 +437,10 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 3, newColumn)->setBackgroundColor(MorphType2Color(morphType));
+			table->item(row, newColumn)->setTextColor(Qt::black);
+			table->item(row + 1, newColumn)->setTextColor(Qt::black);
+			table->item(row + 2, newColumn)->setTextColor(Qt::black);
+			table->item(row + 3, newColumn)->setTextColor(Qt::black);
 		}
 		else if (type == typeRgb)
 		{
@@ -444,12 +451,18 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
+			table->item(row, newColumn)->setTextColor(Qt::black);
+			table->item(row + 1, newColumn)->setTextColor(Qt::black);
+			table->item(row + 2, newColumn)->setTextColor(Qt::black);
 		}
 		else
 		{
 			QString val = parameter.Get<QString>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(val));
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
+			table->item(row, newColumn)->setTextColor(Qt::black);
+			table->item(row + 2, newColumn)->setTextColor(Qt::black);
+			table->item(row + 3, newColumn)->setTextColor(Qt::black);
 		}
 	}
 	table->blockSignals(false);
@@ -1038,6 +1051,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		}
 		QTableWidgetItem *newCell = table->item(row, i + reservedColums);
 		newCell->setText(newCellText);
+		newCell->setTextColor(Qt::black);
 	}
 }
 

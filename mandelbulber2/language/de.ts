@@ -4767,7 +4767,7 @@ und Wasser):</translation>
     </message>
     <message>
         <source>Add keyframe</source>
-        <translation type="vanished">Keyframe einfügen</translation>
+        <translation type="vanished">Keyframe hinzufügen</translation>
     </message>
     <message>
         <source>Render animation</source>
@@ -5552,7 +5552,7 @@ und Distanz</translation>
         <location filename="../qt/dock_animation.ui" line="906"/>
         <location filename="../qt/ui_dock_animation.h" line="1048"/>
         <source>Add keyframe</source>
-        <translation>Keyframe einfügen</translation>
+        <translation>Keyframe hinzufügen</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="923"/>
