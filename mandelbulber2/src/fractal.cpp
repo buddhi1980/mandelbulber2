@@ -203,6 +203,17 @@ cFractal::cFractal(const cParameterContainer *container)
 	magTransf.orderOfTransf5 =
 		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_5");
 
+
+
+	// basic combox
+	combo.modeA = (sFractalCombo::combo)container->Get<int>("combo_mode_A");
+
+
+//	combo.mode1 = (sFractalCombo::combo)container->Get<int>("combo_mode_B");
+//	combo.mode2 = (sFractalCombo::combo)container->Get<int>("combo_mode_C");
+
+
+
 	// for curvilinear parameter
 	Cpara.enabledLinear = container->Get<bool>("Cpara_enabledLinear");
 	Cpara.enabledCurves = container->Get<bool>("Cpara_enabledCurves");
@@ -424,6 +435,9 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledBxFalse = container->Get<bool>("transf_function_enabledBx_false");
 	transformCommon.functionEnabledByFalse = container->Get<bool>("transf_function_enabledBy_false");
 	transformCommon.functionEnabledBzFalse = container->Get<bool>("transf_function_enabledBz_false");
+	transformCommon.functionEnabledCx = container->Get<bool>("transf_function_enabledCx");
+	transformCommon.functionEnabledCy = container->Get<bool>("transf_function_enabledCy");
+	transformCommon.functionEnabledCz = container->Get<bool>("transf_function_enabledCz");
 	transformCommon.functionEnabledCxFalse = container->Get<bool>("transf_function_enabledCx_false");
 	transformCommon.functionEnabledCyFalse = container->Get<bool>("transf_function_enabledCy_false");
 	transformCommon.functionEnabledCzFalse = container->Get<bool>("transf_function_enabledCz_false");

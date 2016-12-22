@@ -471,7 +471,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mengerPrismShape2:
 				{
+					z = CVector3{-z.z, z.x, z.y};
 					MengerPrismShape2Iteration(z, i, fractal, extendedAux);
+
 					break;
 				}
 				case mengerPwr2Poly:

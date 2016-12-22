@@ -620,6 +620,10 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("magTransf_order_of_transf_4", 0, morphNone, paramStandard);
 	par->addParam("magTransf_order_of_transf_5", 0, morphNone, paramStandard);
 
+	// Basic comboBox
+	par->addParam("combo_mode_A", 0, morphNone, paramStandard);
+
+
 	// donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
 	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
@@ -862,6 +866,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledBx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledBz_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledCx", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledCy", true, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledCz", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCz_false", false, morphLinear, paramStandard);

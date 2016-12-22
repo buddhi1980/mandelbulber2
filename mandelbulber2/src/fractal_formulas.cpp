@@ -1994,7 +1994,7 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
 	}
 
 	if (fractal->transformCommon.functionEnabledFalse
-			&& i >= fractal->transformCommon.startIterationsA - 0.100000
+			&& i >= fractal->transformCommon.startIterationsA
 			&& i < fractal->transformCommon.stopIterationsA) // box fold
 	{
 		if (z.x > fractal->mandelbox.foldingLimit)
@@ -8149,38 +8149,78 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterationsP
 			&& i < fractal->transformCommon.stopIterationsP1)
 	{
-		z.y = fabs(z.y);
-		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
 			z.x = fabs(z.x);
 		}
-		if (fractal->transformCommon.functionEnabledzFalse)
+		if (fractal->transformCommon.functionEnabledCy)
 		{
-			dot1 = (z.y * -SQRT_3 + z.z)
-						 * fractal->transformCommon.scale; //.........................................
-		} // (z.x * -SQRT_3_4 + z.y )(z.y * -SQRT_3 + z.z * 0.5)
-		else
-		{
-			dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+			z.y = fabs(z.y);
 		}
-		t = max(0.0, dot1);
-		if (fractal->transformCommon.functionEnabledBxFalse)
+		if (fractal->transformCommon.functionEnabledCz)
 		{
-			z.x -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+			z.z = fabs(z.z);
 		}
-		else
+
+		switch (fractal->combo.modeA)
 		{
-			z.x -= t * -SQRT_3;
+
+			case sFractalCombo::mode0:
+			default:
+				dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+				t = max(0.0, dot1);
+				z.x -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+				z.y = fabs(z.y - t);
+				break;
+			case sFractalCombo::mode1:
+				dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+				t = max(0.0, dot1);
+				z.y -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+				z.x = fabs(z.x - t); // x y swap
+				break;
+			case sFractalCombo::mode2:
+				dot1 = (z.z * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+				t = max(0.0, dot1);
+				z.z -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+				z.y = fabs(z.y - t);  // z.z z.y swap
+				break;
+			case sFractalCombo::mode3:
+				dot1 = (z.z * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+				t = max(0.0, dot1);
+				z.y -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+				z.z = fabs(z.z - t);  // z.z z.y swap
+				break;
+			case sFractalCombo::mode4:
+				dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+				t = max(0.0, dot1);
+				z.y -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+				z.z -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+				z.x = fabs(z.x - t);  //x y swap and other things
+				z.y = fabs(z.y - t);  //x y swap and other things
+				break;
+			case sFractalCombo::mode5:
+				dot1 = (z.z * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+				t = max(0.0, dot1);
+				z.x -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+				z.y -= t * -SQRT_3 - (fractal->transformCommon.offset0);
+				z.y = fabs(z.y - t);  //x y swap and other things
+				z.z = fabs(z.z - t);  //x y swap and other things
+				break;
 		}
-		z.y = fabs(z.y - t);
+
 		if (z.y > z.z) swap(z.y, z.z);
-		if (fractal->transformCommon.functionEnabledByFalse) z.y -= fractal->transformCommon.offset105;
+		z.y -= fractal->transformCommon.offsetB0;
 
 		z -= gap * CVector3(SQRT_3_4, 1.5, 1.5);
 
 		if (z.z > z.x) swap(z.z, z.x);
-		if (fractal->transformCommon.functionEnabled)
+
+		if (fractal->transformCommon.functionEnabledyFalse)
+		{
+			z.y = max(0.0, z.y) * fractal->transformCommon.scaleA1;
+			z.z = max(0.0, z.z) * fractal->transformCommon.scaleB1;
+		}
+		if (fractal->transformCommon.functionEnabledzFalse)
 		{
 			if (z.x >= 0.0)
 			{
@@ -8188,20 +8228,12 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 				z.z = max(0.0, z.z) * fractal->transformCommon.scaleB1;
 			}
 		}
-		if (fractal->transformCommon.functionEnabledyFalse)
-		{
-			z.y = max(0.0, z.y) * fractal->transformCommon.scaleA1;
-			z.z = max(0.0, z.z) * fractal->transformCommon.scaleB1;
-		}
+
 		z *= fractal->transformCommon.scale1;
 		aux.DE *= fractal->transformCommon.scale1;
 		aux.DE *= fractal->transformCommon.scaleC1;
 	}
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& i >= fractal->transformCommon.startIterationsR
-			&& i < fractal->transformCommon.stopIterationsR)
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
 
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& i >= fractal->transformCommon.startIterationsA
@@ -8385,6 +8417,12 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z += fractal->transformCommon.offsetA000;
 	}
 
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	//menger
 	if (fractal->transformCommon.functionEnabledM && i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{

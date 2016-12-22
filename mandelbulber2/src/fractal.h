@@ -346,6 +346,25 @@ struct sFractalMagTransforms
 	multi_orderOfTransf orderOfTransf5;
 };
 
+
+// basic combo
+struct sFractalCombo
+{
+	enum combo
+	{
+		mode0,
+		mode1,
+		mode2,
+		mode3,
+		mode4,
+		mode5,
+	};
+	combo modeA;
+//		combo modeB;
+//		combo modeC;
+
+};
+
 // for surfbox types
 struct sFractalSurfBox
 {
@@ -587,6 +606,9 @@ struct sFractalTransformCommon
 	bool functionEnabledBxFalse;
 	bool functionEnabledByFalse;
 	bool functionEnabledBzFalse;
+	bool functionEnabledCx;
+	bool functionEnabledCy;
+	bool functionEnabledCz;
 	bool functionEnabledCxFalse;
 	bool functionEnabledCyFalse;
 	bool functionEnabledCzFalse;
@@ -628,6 +650,7 @@ public:
 	sFoldColor foldColor;
 	sFractalMagTransforms magTransf;
 	sFractalCpara Cpara;
+	sFractalCombo combo;
 
 #ifdef CLSUPPORT
 	double customParameters[15];
