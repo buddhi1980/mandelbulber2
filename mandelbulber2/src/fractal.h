@@ -358,6 +358,8 @@ struct sFractalCombo
 		mode3,
 		mode4,
 		mode5,
+		mode6,
+		mode7,
 	};
 	combo modeA;
 //		combo modeB;

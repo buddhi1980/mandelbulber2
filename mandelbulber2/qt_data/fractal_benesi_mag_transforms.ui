@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>benesi_mag_transforms</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4618</height>
+    <height>4788</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -438,9 +438,6 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="0" colspan="4">
-         <layout class="QGridLayout" name="gridLayout_6"/>
-        </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transf_scale3D_222_x">
           <property name="sizePolicy">
@@ -491,6 +488,13 @@
           </property>
          </widget>
         </item>
+        <item row="3" column="0" colspan="4">
+         <widget class="Line" name="line_53">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_222_y">
           <property name="sizePolicy">
@@ -536,13 +540,6 @@
           <property name="singleStep">
            <number>1</number>
           </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="4">
-         <widget class="Line" name="line_53">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>

@@ -100,6 +100,7 @@ void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExte
 void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerMiddleModIteration(
 	CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
+void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerPwr2PolyIteration(
