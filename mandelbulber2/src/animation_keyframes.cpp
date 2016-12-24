@@ -461,8 +461,6 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 			table->setItem(row, newColumn, new QTableWidgetItem(val));
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row, newColumn)->setTextColor(Qt::black);
-			table->item(row + 2, newColumn)->setTextColor(Qt::black);
-			table->item(row + 3, newColumn)->setTextColor(Qt::black);
 		}
 	}
 	table->blockSignals(false);
