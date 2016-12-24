@@ -464,6 +464,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MengerMiddleModIteration(z, c, i, fractal, extendedAux);
 					break;
 				}
+				case mengerOcto:
+				{
+					MengerOctoIteration(z, i, fractal, extendedAux);
+					break;
+				}
 				case mengerPrismShape:
 				{
 					MengerPrismShapeIteration(z, i, fractal, extendedAux);
@@ -473,7 +478,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					z = CVector3{-z.z, z.x, z.y};
 					MengerPrismShape2Iteration(z, i, fractal, extendedAux);
-
 					break;
 				}
 				case mengerPwr2Poly:
@@ -1273,6 +1277,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			case menger4Dmod1:
 			case mengerSmooth:
 			case mengerSmoothMod1:
+			case mengerOcto:
 				{
 					if (extendedAux.DE > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);

@@ -152,8 +152,9 @@ enum enumFractalFormula
 	sierpinski3D = 110,
 	menger4D = 111,
 	menger4Dmod1 = 112,
-	mengerSmooth =113,
-	mengerSmoothMod1 =114,
+	mengerSmooth = 113,
+	mengerSmoothMod1 = 114,
+	mengerOcto =115,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,
