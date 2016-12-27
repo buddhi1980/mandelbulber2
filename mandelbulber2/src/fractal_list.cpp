@@ -195,8 +195,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Menger Middle Mod", "menger_middle_mod", mengerMiddleMod,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Menger - Octo", "menger_octo",
-		mengerOcto, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+	fractalList->append(sFractalDescription("Menger - Octo", "menger_octo", mengerOcto,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
 	fractalList->append(sFractalDescription("Menger - Prism Shape", "menger_prism_shape",
 		mengerPrismShape, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
@@ -204,8 +204,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Menger - Prism Shape2", "menger_prism_shape2",
 		mengerPrismShape2, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Menger - Smooth", "menger_smooth",
-		mengerSmooth, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
+	fractalList->append(sFractalDescription("Menger - Smooth", "menger_smooth", mengerSmooth,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
 	fractalList->append(sFractalDescription("Menger - Smooth Mod1", "menger_smooth_mod1",
 		mengerSmoothMod1, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));

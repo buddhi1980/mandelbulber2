@@ -203,16 +203,11 @@ cFractal::cFractal(const cParameterContainer *container)
 	magTransf.orderOfTransf5 =
 		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_5");
 
-
-
 	// basic combox
 	combo.modeA = (sFractalCombo::combo)container->Get<int>("combo_mode_A");
 
-
-//	combo.mode1 = (sFractalCombo::combo)container->Get<int>("combo_mode_B");
-//	combo.mode2 = (sFractalCombo::combo)container->Get<int>("combo_mode_C");
-
-
+	//	combo.mode1 = (sFractalCombo::combo)container->Get<int>("combo_mode_B");
+	//	combo.mode2 = (sFractalCombo::combo)container->Get<int>("combo_mode_C");
 
 	// for curvilinear parameter
 	Cpara.enabledLinear = container->Get<bool>("Cpara_enabledLinear");

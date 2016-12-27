@@ -97,7 +97,7 @@ enum enumFractalFormula
 	// benesiTransforms = 58,
 	foldBoxMod1 = 59,
 	aboxModKali = 60,
-	mengerMod1 = 61,// fix V2.10
+	mengerMod1 = 61, // fix V2.10
 	quaternion3D = 62,
 	aexionOctopusMod = 63,
 	aboxMod1 = 64,
@@ -154,7 +154,7 @@ enum enumFractalFormula
 	menger4Dmod1 = 112,
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
-	mengerOcto =115,
+	mengerOcto = 115,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

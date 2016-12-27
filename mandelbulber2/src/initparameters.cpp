@@ -623,7 +623,6 @@ void InitFractalParams(cParameterContainer *par)
 	// Basic comboBox
 	par->addParam("combo_mode_A", 0, morphNone, paramStandard);
 
-
 	// donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
 	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);

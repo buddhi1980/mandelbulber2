@@ -368,9 +368,10 @@ void cAnimationFrames::AddAudioParameter(
 	}
 }
 
-void cAnimationFrames::RemoveAudioParameter(const sParameterDescription &parameter, cParameterContainer *params)
+void cAnimationFrames::RemoveAudioParameter(
+	const sParameterDescription &parameter, cParameterContainer *params)
 {
-	if(!params) params = gPar;
+	if (!params) params = gPar;
 	QString fullParameterName = parameter.containerName + "_" + parameter.parameterName;
 	enumVarType paramType = parameter.varType;
 

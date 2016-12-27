@@ -61,7 +61,8 @@ void cAudioTrackCollection::AddAudioTrack(
 	}
 }
 
-void cAudioTrackCollection::DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params)
+void cAudioTrackCollection::DeleteAudioTrack(
+	const QString fullParameterName, cParameterContainer *params)
 {
 	if (audioTracks.contains(fullParameterName))
 	{
@@ -106,7 +107,8 @@ void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QSt
 	}
 }
 
-void cAudioTrackCollection::RemoveParameters(cParameterContainer *params, const QString parameterName)
+void cAudioTrackCollection::RemoveParameters(
+	cParameterContainer *params, const QString parameterName)
 {
 	if (params->IfExists(FullParameterName("enable", parameterName)))
 	{
