@@ -1070,10 +1070,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-				if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
+				if (fractals.UseAdditionalBailoutCond(sequence))
 				{
-					out->maxiter = false;
-					break;
+					if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
+					{
+						out->maxiter = false;
+						break;
+					}
 				}
 			}
 			else if (Mode == calcModeDeltaDE1)
@@ -1084,10 +1087,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-				if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
+				if (fractals.UseAdditionalBailoutCond(sequence))
 				{
-					out->maxiter = false;
-					break;
+					if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
+					{
+						out->maxiter = false;
+						break;
+					}
 				}
 			}
 			else if (Mode == calcModeDeltaDE2)

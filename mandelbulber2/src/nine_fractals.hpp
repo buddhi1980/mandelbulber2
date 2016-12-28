@@ -70,6 +70,10 @@ public:
 		return constantMultiplier[formulaIndex];
 	}
 	inline double GetInitialWAxis(int formulaIndex) const { return initialWAxis[formulaIndex]; }
+	inline bool UseAdditionalBailoutCond(int formulaIndex) const
+	{
+		return useAdditionalBailoutCond[formulaIndex];
+	};
 
 private:
 	bool forceDeltaDE;
@@ -94,6 +98,7 @@ private:
 	CVector3 juliaConstant[NUMBER_OF_FRACTALS];
 	CVector3 constantMultiplier[NUMBER_OF_FRACTALS];
 	double initialWAxis[NUMBER_OF_FRACTALS];
+	bool useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
 
 	void CreateSequence(const cParameterContainer *generalPar);
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);

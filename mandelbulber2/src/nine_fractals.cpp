@@ -132,6 +132,16 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor");
 			initialWAxis[i] = generalPar->Get<double>("initial_waxis");
 		}
+
+		useAdditionalBailoutCond[i] = false;
+		if (isBoolean)
+		{
+			if (fractalList[GetIndexOnFractalList(fractals[i]->formula)].DEFunctionType
+					== fractal::pseudoKleinianDEFunction)
+			{
+				useAdditionalBailoutCond[i] = true;
+			}
+		}
 	}
 
 	// common bailout for all hybrid components
@@ -231,6 +241,24 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 			DEType[f] = fractalList[index].DEType;
 			DEFunctionType[f] = fractalList[index].DEFunctionType;
+		}
+	}
+
+	if (isHybrid)
+		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+		{
+			if (fractalList[GetIndexOnFractalList(fractals[f]->formula)].DEFunctionType
+					== fractal::pseudoKleinianDEFunction)
+			{
+				useAdditionalBailoutCond[0] = true;
+			}
+		}
+	else if (!isBoolean)
+	{
+		if (fractalList[GetIndexOnFractalList(fractals[0]->formula)].DEFunctionType
+				== fractal::pseudoKleinianDEFunction)
+		{
+			useAdditionalBailoutCond[0] = true;
 		}
 	}
 }
