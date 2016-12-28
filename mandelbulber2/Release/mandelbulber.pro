@@ -71,7 +71,8 @@ INCLUDEPATH += ../qt/
 TRANSLATIONS = ../language/en.ts\
                ../language/de.ts\
                ../language/pl.ts\
-               ../language/it.ts
+               ../language/it.ts\
+               ../language/nl.ts
 
 QMAKE_CXXFLAGS += $$(CXXFLAGS)
 QMAKE_CFLAGS += $$(CFLAGS)

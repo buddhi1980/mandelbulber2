@@ -137,6 +137,7 @@ bool InitSystem(void)
 	systemData.supportedLanguages.insert("pl_PL", "Polski");
 	systemData.supportedLanguages.insert("de_DE", "Deutsch");
 	systemData.supportedLanguages.insert("it_IT", "Italiano");
+	systemData.supportedLanguages.insert("nl_NL", "Nederlands");
 
 	// get number of columns of console
 	systemData.terminalWidth = 80;
