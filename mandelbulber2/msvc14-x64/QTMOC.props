@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <SourceDir>..\..\</SourceDir>
+    <CppDir>$(SourceDir)mandelbulber2</CppDir>
+    <GenDir>$(SourceDir)build-win</GenDir>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\</QtDir>
+    <Moc>$(QtDir)/bin/moc.exe</Moc>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <MocFlags>-DUSE_TIFF</MocFlags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <QtIncludes Include="$(CppDir)/qt/*.hpp"/>
+    <QtIncludes Include="$(CppDir)/qt/*.h"/>
+    <QtIncludes Include="$(CppDir)/src/*.hpp"/>
+    <QtIncludes Include="$(CppDir)/src/*.h"/>
+  </ItemGroup>
+
+  <Target Inputs="@(QtIncludes)" 
+          Name="Moc" 
+          BeforeTargets="ClCompile" 
+          Outputs="@(QtIncludes->'$(GenDir)/moc_%(Filename).cpp')">
+    <Exec Command = "$(Moc) %(QtIncludes.identity) -nw -o $(GenDir)/moc_%(Filename).cpp $(MocFlags)"/>
+  </Target>
+
+</Project>

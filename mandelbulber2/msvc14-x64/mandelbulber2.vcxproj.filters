@@ -123,6 +123,7 @@
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\thumbnail_widget.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\wave_form_view.cpp" />
+    <ClCompile Include="..\qt\time_ruler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\ao_modes.h" />
@@ -275,6 +276,7 @@
     <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_render_window.h" />
     <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_tab_fractal.h" />
     <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_voxel_export_dialog.h" />
+    <ClInclude Include="..\qt\time_ruler.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.ui" />
