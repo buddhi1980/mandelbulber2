@@ -9,14 +9,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="MinSizeRel|x64">
-      <Configuration>MinSizeRel</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="RelWithDebInfo|x64">
-      <Configuration>RelWithDebInfo</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGUID>{9E956454-2841-3284-B807-12E6244099E3}</ProjectGUID>
@@ -25,6 +17,7 @@
     <ProjectName>mandelbulber2</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(SolutionDir)\QTMOC.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
@@ -32,18 +25,6 @@
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>false</UseOfMfc>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseOfMfc>false</UseOfMfc>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
@@ -70,18 +51,6 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">mandelbulber2.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">mandelbulber2</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\RelWithDebInfo\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">mandelbulber2.dir\RelWithDebInfo\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">mandelbulber2</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -175,97 +144,6 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <Optimization>MinSpace</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <WarningLevel>Level3</WarningLevel>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";QT_GAMEPAD_LIB;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";QT_GAMEPAD_LIB;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
-    <Link>
-      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5UiTools.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Test.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Multimedia.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Gamepad.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Widgets.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Network.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Gui.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Core.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\qtmain.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>No</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>../../build-win/MinSizeRel/mandelbulber2.lib</ImportLibrary>
-      <ProgramDataBaseFile>../../build-win/MinSizeRel/mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
-      <Version>
-      </Version>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <WarningLevel>Level3</WarningLevel>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";QT_GAMEPAD_LIB;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";QT_GAMEPAD_LIB;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
-    <Link>
-      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5UiTools.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Test.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Multimedia.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Gamepad.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Widgets.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Network.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Gui.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Core.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\qtmain.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>Debug</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>../../build-win/RelWithDebInfo/mandelbulber2.lib</ImportLibrary>
-      <ProgramDataBaseFile>../../build-win/RelWithDebInfo/mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
-      <Version>
-      </Version>
-    </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_audio_selector.h</Message>
@@ -294,32 +172,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/audio_selector.ui;$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_audio_selector.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_audio_selector.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_audio_selector.h ../../mandelbulber2/qt/audio_selector.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/audio_selector.ui;$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_audio_selector.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_audio_selector.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_audio_selector.h ../../mandelbulber2/qt/audio_selector.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/audio_selector.ui;$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_audio_selector.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -350,32 +202,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_animation.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_animation.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_animation.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_animation.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_animation.h ../../mandelbulber2/qt/dock_animation.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_animation.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_animation.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_animation.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_animation.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_animation.h ../../mandelbulber2/qt/dock_animation.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_animation.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_animation.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_animation.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -406,32 +232,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_effects.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_effects.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_effects.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_effects.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_effects.h ../../mandelbulber2/qt/dock_effects.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_effects.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_effects.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_effects.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_effects.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_effects.h ../../mandelbulber2/qt/dock_effects.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_effects.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_effects.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_effects.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -462,32 +262,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_fractal.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_fractal.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_fractal.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_fractal.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_fractal.h ../../mandelbulber2/qt/dock_fractal.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_fractal.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_fractal.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_fractal.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_fractal.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_fractal.h ../../mandelbulber2/qt/dock_fractal.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_fractal.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_fractal.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_fractal.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -518,32 +292,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_gamepad.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_gamepad.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_gamepad.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_gamepad.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_gamepad.h ../../mandelbulber2/qt/dock_gamepad.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_gamepad.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_gamepad.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_gamepad.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_gamepad.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_gamepad.h ../../mandelbulber2/qt/dock_gamepad.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_gamepad.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_gamepad.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_gamepad.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -574,32 +322,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_image_adjustments.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_image_adjustments.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_image_adjustments.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_image_adjustments.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_image_adjustments.h ../../mandelbulber2/qt/dock_image_adjustments.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_image_adjustments.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_image_adjustments.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_image_adjustments.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_image_adjustments.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_image_adjustments.h ../../mandelbulber2/qt/dock_image_adjustments.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_image_adjustments.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_image_adjustments.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_image_adjustments.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -630,32 +352,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_measurements.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_measurements.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_measurements.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_measurements.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_measurements.h ../../mandelbulber2/qt/dock_measurements.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_measurements.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_measurements.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_measurements.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_measurements.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_measurements.h ../../mandelbulber2/qt/dock_measurements.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_measurements.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_measurements.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_measurements.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -686,32 +382,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_navigation.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_navigation.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_navigation.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_navigation.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_navigation.h ../../mandelbulber2/qt/dock_navigation.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_navigation.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_navigation.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_navigation.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_navigation.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_navigation.h ../../mandelbulber2/qt/dock_navigation.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_navigation.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_navigation.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_navigation.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -742,32 +412,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_queue.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_queue.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_queue.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_queue.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_queue.h ../../mandelbulber2/qt/dock_queue.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_queue.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_queue.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_queue.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_queue.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_queue.h ../../mandelbulber2/qt/dock_queue.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_queue.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_queue.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_queue.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -798,32 +442,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_rendering_engine.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_rendering_engine.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_rendering_engine.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_rendering_engine.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_rendering_engine.h ../../mandelbulber2/qt/dock_rendering_engine.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_rendering_engine.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_rendering_engine.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_rendering_engine.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_rendering_engine.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_rendering_engine.h ../../mandelbulber2/qt/dock_rendering_engine.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_rendering_engine.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_rendering_engine.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_rendering_engine.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -854,32 +472,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/dock_statistics.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_statistics.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_dock_statistics.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_dock_statistics.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_statistics.h ../../mandelbulber2/qt/dock_statistics.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/dock_statistics.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_statistics.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_dock_statistics.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_dock_statistics.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_statistics.h ../../mandelbulber2/qt/dock_statistics.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/dock_statistics.ui;$(SolutionDir)\..\..\mandelbulber2\qt\dock_statistics.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_dock_statistics.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -910,32 +502,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/image_save_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\image_save_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_image_save_dialog.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_image_save_dialog.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_image_save_dialog.h ../../mandelbulber2/qt/image_save_dialog.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/image_save_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\image_save_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_image_save_dialog.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_image_save_dialog.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_image_save_dialog.h ../../mandelbulber2/qt/image_save_dialog.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/image_save_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\image_save_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_image_save_dialog.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -966,32 +532,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/material_editor.ui;$(SolutionDir)\..\..\mandelbulber2\qt\material_editor.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_material_editor.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_material_editor.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_material_editor.h ../../mandelbulber2/qt/material_editor.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/material_editor.ui;$(SolutionDir)\..\..\mandelbulber2\qt\material_editor.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_material_editor.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_material_editor.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_material_editor.h ../../mandelbulber2/qt/material_editor.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/material_editor.ui;$(SolutionDir)\..\..\mandelbulber2\qt\material_editor.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_material_editor.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1022,32 +562,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/material_manager_view.ui;$(SolutionDir)\..\..\mandelbulber2\qt\material_manager_view.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_material_manager_view.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_material_manager_view.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_material_manager_view.h ../../mandelbulber2/qt/material_manager_view.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/material_manager_view.ui;$(SolutionDir)\..\..\mandelbulber2\qt\material_manager_view.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_material_manager_view.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_material_manager_view.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_material_manager_view.h ../../mandelbulber2/qt/material_manager_view.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/material_manager_view.ui;$(SolutionDir)\..\..\mandelbulber2\qt\material_manager_view.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_material_manager_view.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1078,32 +592,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/mesh_export_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\mesh_export_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_mesh_export_dialog.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_mesh_export_dialog.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_mesh_export_dialog.h ../../mandelbulber2/qt/mesh_export_dialog.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/mesh_export_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\mesh_export_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_mesh_export_dialog.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_mesh_export_dialog.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_mesh_export_dialog.h ../../mandelbulber2/qt/mesh_export_dialog.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/mesh_export_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\mesh_export_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_mesh_export_dialog.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1134,32 +622,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/preferences_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\preferences_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_preferences_dialog.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_preferences_dialog.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_preferences_dialog.h ../../mandelbulber2/qt/preferences_dialog.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/preferences_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\preferences_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_preferences_dialog.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_preferences_dialog.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_preferences_dialog.h ../../mandelbulber2/qt/preferences_dialog.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/preferences_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\preferences_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_preferences_dialog.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1190,32 +652,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/render_window.ui;$(SolutionDir)\..\..\mandelbulber2\qt\render_window.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_render_window.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_render_window.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_render_window.h ../../mandelbulber2/qt/render_window.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/render_window.ui;$(SolutionDir)\..\..\mandelbulber2\qt\render_window.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_render_window.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_render_window.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_render_window.h ../../mandelbulber2/qt/render_window.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/render_window.ui;$(SolutionDir)\..\..\mandelbulber2\qt\render_window.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_render_window.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1246,32 +682,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/tab_fractal.ui;$(SolutionDir)\..\..\mandelbulber2\qt\tab_fractal.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_tab_fractal.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_tab_fractal.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_tab_fractal.h ../../mandelbulber2/qt/tab_fractal.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/tab_fractal.ui;$(SolutionDir)\..\..\mandelbulber2\qt\tab_fractal.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_tab_fractal.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_tab_fractal.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_tab_fractal.h ../../mandelbulber2/qt/tab_fractal.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/tab_fractal.ui;$(SolutionDir)\..\..\mandelbulber2\qt\tab_fractal.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_tab_fractal.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1302,35 +712,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../mandelbulber2/qt/voxel_export_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\ui_voxel_export_dialog.h</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating ui_voxel_export_dialog.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_voxel_export_dialog.h ../../mandelbulber2/qt/voxel_export_dialog.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">../../mandelbulber2/qt/voxel_export_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(SolutionDir)\..\..\build-win\ui_voxel_export_dialog.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating ui_voxel_export_dialog.h</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_voxel_export_dialog.h ../../mandelbulber2/qt/voxel_export_dialog.ui
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">../../mandelbulber2/qt/voxel_export_dialog.ui;$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(SolutionDir)\..\..\build-win\ui_voxel_export_dialog.h</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\qt\time_ruler.cpp" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\ao_modes.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_fft_data.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_track.h" />
@@ -1603,6 +988,78 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\thumbnail_widget.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\wave_form_view.cpp" />
+    <ClInclude Include="..\qt\time_ruler.h" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_wave_form_view.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_anim_audio_view.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_animation_flight.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_animation_keyframes.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_audio_selector.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_audio_track.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_automated_widgets.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_color_palette_widget.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_animation.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_effects.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_fractal.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_gamepad.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_image_adjustmnets.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_measurements.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_navigation.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_queue.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_rendering_engine.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_statistics.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dof.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_error_message.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_fft_view.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_file_downloader.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_file_image.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_file_select_widget.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_headless.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_image_save_dialog.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_lights.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_editor.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_item_model.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_item_view.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_manager_view.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_selector.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_widget.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_mesh_export.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_mesh_export_dialog.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_check_box.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_color_button.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_double_spin_box.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_group_box.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_histogram_label.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_line_edit.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_log_widget.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_progress_bar.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_scrolled_area.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_spin_box.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_tab_bar.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_tab_widget.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_table_widget_anim.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_table_widget_keyframes.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_ui_loader.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_netrender.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_player_widget.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_preferences_dialog.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_preview_file_dialog.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_pushbutton_anim_sound.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_queue.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_image.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_job.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_queue.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_ssao.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_window.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_worker.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_rendered_image_widget.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_ssao_worker.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_system_tray.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_tab_fractal.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_test.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_thumbnail_widget.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_time_ruler.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_voxel_export.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_voxel_export_dialog.cpp" />
     <None Include="$(SolutionDir)\..\..\mandelbulber2\qt\icons.qrc" />
     <None Include="packages.config" />
   </ItemGroup>
