@@ -47,9 +47,10 @@ public:
 	cPushButtonAnimSound(QWidget *parent = 0);
 	~cPushButtonAnimSound();
 	void AssignParameterName(const QString &_parameterName);
-	void AssignAnimation(cAnimationFrames *_animationFrames) { animationFrames = _animationFrames; }
+	void AssignAnimation(cAnimationFrames *_animationFrames) { animationFrames = _animationFrames; slotUpdateButton(); }
 
 private slots:
+	void slotUpdateButton();
 	void slotLoadAudio();
 
 private:

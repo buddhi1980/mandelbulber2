@@ -76,6 +76,7 @@ private:
 
 signals:
 	void freqencyChanged(double midfreq, double bandwidth);
+	void audioLoaded();
 };
 
 #endif /* MANDELBULBER2_QT_AUDIO_SELECTOR_H_ */

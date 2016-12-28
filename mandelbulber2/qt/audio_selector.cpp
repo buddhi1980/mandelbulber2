@@ -92,6 +92,7 @@ void cAudioSelector::slotAudioLoaded()
 	ui->fft->AssignAudioTrack(audio);
 	ui->timeRuler->SetParameters(audio, 100); // TODO hardcoded frames per keyframe
 	slotFreqChanged();
+	emit audioLoaded();
 }
 
 void cAudioSelector::AssignParameter(const QString &_parameterName)

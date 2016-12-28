@@ -35,13 +35,15 @@
 
 #include "pushbutton_anim_sound.h"
 #include "audio_selector.h"
+#include "../src/initparameters.hpp"
+#include "../src/animation_frames.hpp"
+#include "../src/audio_track.h"
 
 cPushButtonAnimSound::cPushButtonAnimSound(QWidget *parent) : QPushButton(parent)
 {
-	setText("Anim By Sound");
 	connect(this, SIGNAL(clicked()), this, SLOT(slotLoadAudio()));
 	animationFrames = NULL;
-	// TODO: indicate when audio is selected
+	setIcon(QIcon::fromTheme("audio-x-generic", QIcon(":system/icons/audio-x-generic.svg")));
 }
 
 cPushButtonAnimSound::~cPushButtonAnimSound()
@@ -54,6 +56,23 @@ void cPushButtonAnimSound::AssignParameterName(const QString &_parameterName)
 	parameterName = _parameterName;
 }
 
+void cPushButtonAnimSound::slotUpdateButton()
+{
+	QFont f = font();
+	if(animationFrames)
+	{
+		cAudioTrack *audio = animationFrames->GetAudioPtr(parameterName);
+		if (audio && audio->isLoaded())
+		{
+			setText("Audio loaded");
+			f.setBold(true);
+			return;
+		}
+	}
+	f.setBold(false);
+	setText("Anim By Sound");
+}
+
 void cPushButtonAnimSound::slotLoadAudio()
 {
 	cAudioSelector *audioSelectorDialog = new cAudioSelector(this);
@@ -61,5 +80,6 @@ void cPushButtonAnimSound::slotLoadAudio()
 	audioSelectorDialog->AssignParameter(parameterName);
 	audioSelectorDialog->AssignAnimation(animationFrames);
 	audioSelectorDialog->setWindowModality(Qt::ApplicationModal);
+	connect(audioSelectorDialog, SIGNAL(audioLoaded()), this, SLOT(slotUpdateButton()));
 	audioSelectorDialog->show();
 }
