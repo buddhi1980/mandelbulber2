@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -72,10 +72,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";QT_GAMEPAD_LIB;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -84,7 +84,7 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5UiToolsd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Testd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Multimediad.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Gamepadd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Widgetsd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Networkd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Guid.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Cored.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\qtmaind.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5UiToolsd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Testd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Multimediad.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gamepadd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Widgetsd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Networkd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Guid.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Cored.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\qtmaind.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -104,7 +104,7 @@ call "$(SolutionDir)POST-BUILD.bat"</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -122,10 +122,10 @@ call "$(SolutionDir)POST-BUILD.bat"</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";QT_GAMEPAD_LIB;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -134,7 +134,7 @@ call "$(SolutionDir)POST-BUILD.bat"</Command>
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5UiTools.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Test.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Multimedia.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Gamepad.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Widgets.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Network.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Gui.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\Qt5Core.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\lib\qtmain.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5UiTools.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Test.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Multimedia.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gamepad.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Widgets.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Network.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gui.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Core.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\qtmain.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -147,12 +147,16 @@ call "$(SolutionDir)POST-BUILD.bat"</Command>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
+    <PostBuildEvent>
+      <Command>call cd $(SolutionDir)
+call "$(SolutionDir)POST-BUILD.bat"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_audio_selector.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_audio_selector.h ../../mandelbulber2/qt/audio_selector.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_audio_selector.h ../../mandelbulber2/qt/audio_selector.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -165,7 +169,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_audio_selector.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_audio_selector.h ../../mandelbulber2/qt/audio_selector.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_audio_selector.h ../../mandelbulber2/qt/audio_selector.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -182,7 +186,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_animation.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_animation.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_animation.h ../../mandelbulber2/qt/dock_animation.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_animation.h ../../mandelbulber2/qt/dock_animation.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -195,7 +199,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_animation.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_animation.h ../../mandelbulber2/qt/dock_animation.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_animation.h ../../mandelbulber2/qt/dock_animation.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -212,7 +216,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_effects.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_effects.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_effects.h ../../mandelbulber2/qt/dock_effects.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_effects.h ../../mandelbulber2/qt/dock_effects.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -225,7 +229,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_effects.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_effects.h ../../mandelbulber2/qt/dock_effects.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_effects.h ../../mandelbulber2/qt/dock_effects.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -242,7 +246,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_fractal.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_fractal.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_fractal.h ../../mandelbulber2/qt/dock_fractal.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_fractal.h ../../mandelbulber2/qt/dock_fractal.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -255,7 +259,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_fractal.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_fractal.h ../../mandelbulber2/qt/dock_fractal.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_fractal.h ../../mandelbulber2/qt/dock_fractal.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -272,7 +276,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_gamepad.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_gamepad.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_gamepad.h ../../mandelbulber2/qt/dock_gamepad.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_gamepad.h ../../mandelbulber2/qt/dock_gamepad.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -285,7 +289,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_gamepad.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_gamepad.h ../../mandelbulber2/qt/dock_gamepad.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_gamepad.h ../../mandelbulber2/qt/dock_gamepad.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -302,7 +306,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_image_adjustments.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_image_adjustments.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_image_adjustments.h ../../mandelbulber2/qt/dock_image_adjustments.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_image_adjustments.h ../../mandelbulber2/qt/dock_image_adjustments.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -315,7 +319,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_image_adjustments.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_image_adjustments.h ../../mandelbulber2/qt/dock_image_adjustments.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_image_adjustments.h ../../mandelbulber2/qt/dock_image_adjustments.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -332,7 +336,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_measurements.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_measurements.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_measurements.h ../../mandelbulber2/qt/dock_measurements.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_measurements.h ../../mandelbulber2/qt/dock_measurements.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -345,7 +349,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_measurements.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_measurements.h ../../mandelbulber2/qt/dock_measurements.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_measurements.h ../../mandelbulber2/qt/dock_measurements.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -362,7 +366,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_navigation.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_navigation.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_navigation.h ../../mandelbulber2/qt/dock_navigation.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_navigation.h ../../mandelbulber2/qt/dock_navigation.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -375,7 +379,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_navigation.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_navigation.h ../../mandelbulber2/qt/dock_navigation.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_navigation.h ../../mandelbulber2/qt/dock_navigation.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -392,7 +396,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_queue.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_queue.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_queue.h ../../mandelbulber2/qt/dock_queue.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_queue.h ../../mandelbulber2/qt/dock_queue.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -405,7 +409,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_queue.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_queue.h ../../mandelbulber2/qt/dock_queue.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_queue.h ../../mandelbulber2/qt/dock_queue.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -422,7 +426,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_rendering_engine.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_rendering_engine.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_rendering_engine.h ../../mandelbulber2/qt/dock_rendering_engine.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_rendering_engine.h ../../mandelbulber2/qt/dock_rendering_engine.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -435,7 +439,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_rendering_engine.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_rendering_engine.h ../../mandelbulber2/qt/dock_rendering_engine.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_rendering_engine.h ../../mandelbulber2/qt/dock_rendering_engine.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -452,7 +456,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_statistics.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_dock_statistics.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_statistics.h ../../mandelbulber2/qt/dock_statistics.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_statistics.h ../../mandelbulber2/qt/dock_statistics.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -465,7 +469,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_dock_statistics.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_dock_statistics.h ../../mandelbulber2/qt/dock_statistics.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_dock_statistics.h ../../mandelbulber2/qt/dock_statistics.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -482,7 +486,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\image_save_dialog.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_image_save_dialog.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_image_save_dialog.h ../../mandelbulber2/qt/image_save_dialog.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_image_save_dialog.h ../../mandelbulber2/qt/image_save_dialog.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -495,7 +499,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_image_save_dialog.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_image_save_dialog.h ../../mandelbulber2/qt/image_save_dialog.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_image_save_dialog.h ../../mandelbulber2/qt/image_save_dialog.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -512,7 +516,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_editor.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_material_editor.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_material_editor.h ../../mandelbulber2/qt/material_editor.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_material_editor.h ../../mandelbulber2/qt/material_editor.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -525,7 +529,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_material_editor.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_material_editor.h ../../mandelbulber2/qt/material_editor.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_material_editor.h ../../mandelbulber2/qt/material_editor.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -542,7 +546,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_manager_view.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_material_manager_view.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_material_manager_view.h ../../mandelbulber2/qt/material_manager_view.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_material_manager_view.h ../../mandelbulber2/qt/material_manager_view.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -555,7 +559,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_material_manager_view.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_material_manager_view.h ../../mandelbulber2/qt/material_manager_view.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_material_manager_view.h ../../mandelbulber2/qt/material_manager_view.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -572,7 +576,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\mesh_export_dialog.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_mesh_export_dialog.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_mesh_export_dialog.h ../../mandelbulber2/qt/mesh_export_dialog.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_mesh_export_dialog.h ../../mandelbulber2/qt/mesh_export_dialog.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -585,7 +589,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_mesh_export_dialog.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_mesh_export_dialog.h ../../mandelbulber2/qt/mesh_export_dialog.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_mesh_export_dialog.h ../../mandelbulber2/qt/mesh_export_dialog.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -602,7 +606,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\preferences_dialog.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_preferences_dialog.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_preferences_dialog.h ../../mandelbulber2/qt/preferences_dialog.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_preferences_dialog.h ../../mandelbulber2/qt/preferences_dialog.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -615,7 +619,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_preferences_dialog.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_preferences_dialog.h ../../mandelbulber2/qt/preferences_dialog.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_preferences_dialog.h ../../mandelbulber2/qt/preferences_dialog.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -632,7 +636,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\render_window.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_render_window.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_render_window.h ../../mandelbulber2/qt/render_window.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_render_window.h ../../mandelbulber2/qt/render_window.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -645,7 +649,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_render_window.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_render_window.h ../../mandelbulber2/qt/render_window.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_render_window.h ../../mandelbulber2/qt/render_window.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -662,7 +666,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\tab_fractal.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_tab_fractal.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_tab_fractal.h ../../mandelbulber2/qt/tab_fractal.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_tab_fractal.h ../../mandelbulber2/qt/tab_fractal.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -675,7 +679,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_tab_fractal.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_tab_fractal.h ../../mandelbulber2/qt/tab_fractal.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_tab_fractal.h ../../mandelbulber2/qt/tab_fractal.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -692,7 +696,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.ui">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating ui_voxel_export_dialog.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_voxel_export_dialog.h ../../mandelbulber2/qt/voxel_export_dialog.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_voxel_export_dialog.h ../../mandelbulber2/qt/voxel_export_dialog.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -705,7 +709,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating ui_voxel_export_dialog.h</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bin\uic.exe -o ../../build-win/ui_voxel_export_dialog.h ../../mandelbulber2/qt/voxel_export_dialog.ui
+$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bin\uic.exe -o ../../build-win/ui_voxel_export_dialog.h ../../mandelbulber2/qt/voxel_export_dialog.ui
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -1078,7 +1082,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Import Project="packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets" Condition="Exists('packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" />
     <Import Project="packages\libjpeg.9.2.0.1\build\native\libjpeg.targets" Condition="Exists('packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" />
     <Import Project="packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets" Condition="Exists('packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" />
-    <Import Project="packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bulbqt-msvc14-x64.targets')" />
+    <Import Project="packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -1093,6 +1097,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Error Condition="!Exists('packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets'))" />
     <Error Condition="!Exists('packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libjpeg.9.2.0.1\build\native\libjpeg.targets'))" />
     <Error Condition="!Exists('packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets'))" />
-    <Error Condition="!Exists('packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\bulbqt-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets'))" />
   </Target>
 </Project>

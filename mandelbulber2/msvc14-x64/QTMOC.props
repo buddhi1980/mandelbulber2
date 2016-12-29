@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10177\build\native\</QtDir>
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\</QtDir>
     <Moc>$(QtDir)/bin/moc.exe</Moc>
   </PropertyGroup>
   
