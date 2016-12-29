@@ -18,6 +18,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(SolutionDir)\QTMOC.props" />
+  <Import Project="$(SolutionDir)\QTRC.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
@@ -723,6 +724,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\qrc_icons.cpp" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\ao_modes.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_fft_data.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_track.h" />

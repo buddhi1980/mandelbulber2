@@ -195,6 +195,7 @@
     <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_time_ruler.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_voxel_export.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_voxel_export_dialog.cpp" />
+    <ClCompile Include="$(SolutionDir)\..\..\build-win\qrc_icons.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\ao_modes.h" />

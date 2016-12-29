@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <SourceDir>..\..\</SourceDir>
+    <CppDir>$(SourceDir)mandelbulber2</CppDir>
+    <GenDir>$(SourceDir)build-win</GenDir>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\</QtDir>
+    <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <QtrcInclude Include="$(CppDir)/qt/*.qrc"/>
+    <QtrcInclude Include="$(CppDir)/src/*.qrc"/>
+  </ItemGroup>
+
+  <Target Inputs="@(QtrcInclude)" 
+          Name="Rcc" 
+          BeforeTargets="ClCompile" 
+          Outputs="@(QtrcInclude->'$(GenDir)/qrc_%(Filename).cpp')">
+    <Exec Command = "$(Rcc) %(QtrcInclude.identity) -o $(GenDir)/qrc_%(Filename).cpp"/>
+  </Target>
+
+</Project>
