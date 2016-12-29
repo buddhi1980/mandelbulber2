@@ -97,6 +97,10 @@
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
+    <PostBuildEvent>
+      <Command>call cd $(SolutionDir)
+call "$(SolutionDir)POST-BUILD.bat"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -715,7 +719,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\qt\time_ruler.cpp" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\ao_modes.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_fft_data.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_track.h" />
@@ -843,6 +846,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\thumbnail_widget.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\wave_form_view.h" />
+    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\time_ruler.h" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_table_widget_anim.hpp" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_table_widget_keyframes.hpp" />
     <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\player_widget.hpp" />
@@ -988,7 +992,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\thumbnail_widget.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\wave_form_view.cpp" />
-    <ClInclude Include="..\qt\time_ruler.h" />
+    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\time_ruler.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_wave_form_view.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_anim_audio_view.cpp" />
     <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_animation_flight.cpp" />
