@@ -26,7 +26,7 @@
         </widget>
        </item>
        <item>
-        <widget class="MyLineEdit" name="text_animsound_sound_file"/>
+        <widget class="MyLineEdit" name="text_animsound_soundfile"/>
        </item>
        <item>
         <widget class="MyGroupBox" name="groupCheck_animsound_enable">
@@ -62,7 +62,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QSlider" name="slider_animsound_mid_freq">
+             <widget class="QSlider" name="slider_animsound_midfreq">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -84,7 +84,7 @@
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="MyDoubleSpinBox" name="spinbox_animsound_mid_freq">
+             <widget class="MyDoubleSpinBox" name="spinbox_animsound_midfreq">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -189,7 +189,7 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QSlider" name="logslider_animsound_addition_factor">
+             <widget class="QSlider" name="logslider_animsound_additionfactor">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -211,7 +211,7 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QSlider" name="logslider_animsound_mult_factor">
+             <widget class="QSlider" name="logslider_animsound_multfactor">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -233,10 +233,10 @@
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="MyLineEdit" name="logedit_animsound_addition_factor"/>
+             <widget class="MyLineEdit" name="logedit_animsound_additionfactor"/>
             </item>
             <item row="3" column="2">
-             <widget class="MyLineEdit" name="logedit_animsound_mult_factor"/>
+             <widget class="MyLineEdit" name="logedit_animsound_multfactor"/>
             </item>
            </layout>
           </item>

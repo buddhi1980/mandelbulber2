@@ -66,6 +66,7 @@ void cAudioTrack::Clear()
 	length = 0;
 	sampleRate = 44100;
 	loaded = false;
+	loadingInProgress = false;
 	framesPerSecond = 30.0;
 	numberOfFrames = 0;
 	maxVolume = 0.0;
@@ -152,7 +153,13 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		connect(
 			decoder, SIGNAL(error(QAudioDecoder::Error)), this, SLOT(slotError(QAudioDecoder::Error)));
 
+		loadingInProgress = true;
 		decoder->start();
+
+		while(loadingInProgress)
+		{
+			QApplication::processEvents();
+		}
 	}
 }
 
@@ -192,6 +199,7 @@ void cAudioTrack::slotFinished()
 	qDebug() << "finished";
 	qDebug() << length << (double)length / sampleRate;
 	loaded = true;
+	loadingInProgress = false;
 	WriteLog("Loading mp3 file finished", 2);
 	emit loadingFinished();
 }
@@ -223,6 +231,7 @@ float cAudioTrack::getAnimation(int frame) const
 void cAudioTrack::slotError(QAudioDecoder::Error error)
 {
 	qCritical() << "cAudioTrack::error" << error;
+	loadingInProgress = false;
 }
 
 void cAudioTrack::calculateFFT()

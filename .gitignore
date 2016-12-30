@@ -16,6 +16,12 @@ build-*/
 *.suo
 /Debug
 /Release
+packages/
+.vs
+mandelbulber2.dir
+mandelbulber2.VC.db
+mandelbulber2.VC.VC.opendb
+x64/
 
 # IntelliJ
 .idea/

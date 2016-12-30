@@ -63,69 +63,49 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  
   <PropertyGroup>
-    <SourceDir>$(SolutionDir)\..\..\</SourceDir>
+    <SourceDir>$(SolutionDir)</SourceDir>
     <CppDir>$(SourceDir)mandelbulber2</CppDir>
     <GenDir>$(SourceDir)build-win</GenDir>
   </PropertyGroup>
-
   <PropertyGroup>
     <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\</QtDir>
     <Moc>$(QtDir)/bin/moc.exe</Moc>
     <Uic>$(QtDir)/bin/uic.exe</Uic>
     <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
   </PropertyGroup>
-  
   <PropertyGroup>
     <MocFlags>-DUSE_TIFF</MocFlags>
   </PropertyGroup>
-
   <ItemGroup>
-    <QtIncludes Include="$(CppDir)/qt/*.hpp"/>
-    <QtIncludes Include="$(CppDir)/qt/*.h"/>
-    <QtIncludes Include="$(CppDir)/src/*.hpp"/>
-    <QtIncludes Include="$(CppDir)/src/*.h"/>
+    <QtIncludes Include="$(CppDir)/qt/*.hpp" />
+    <QtIncludes Include="$(CppDir)/qt/*.h" />
+    <QtIncludes Include="$(CppDir)/src/*.hpp" />
+    <QtIncludes Include="$(CppDir)/src/*.h" />
   </ItemGroup>
-
   <ItemGroup>
-    <QtuiInclude Include="$(CppDir)/qt/*.ui"/>
-    <QtuiInclude Include="$(CppDir)/src/*.ui"/>
+    <QtuiInclude Include="$(CppDir)/qt/*.ui" />
+    <QtuiInclude Include="$(CppDir)/src/*.ui" />
   </ItemGroup>
-
   <ItemGroup>
-    <QtrcInclude Include="$(CppDir)/qt/*.qrc"/>
-    <QtrcInclude Include="$(CppDir)/src/*.qrc"/>
+    <QtrcInclude Include="$(CppDir)/qt/*.qrc" />
+    <QtrcInclude Include="$(CppDir)/src/*.qrc" />
   </ItemGroup>
-  
   <Target Name="Build">
-    <MakeDir
-        Directories="$(GenDir)"/>
+    <MakeDir Directories="$(GenDir)" />
   </Target>
-  
-  <Target Inputs="@(QtIncludes)" 
-          Name="Moc" 
-          AfterTargets="Build" 
-          Outputs="@(QtIncludes->'$(GenDir)/moc_%(Filename).cpp')">
-    <Exec Command = "$(Moc) %(QtIncludes.identity) -nw -o $(GenDir)/moc_%(Filename).cpp $(MocFlags)"/>
+  <Target Inputs="@(QtIncludes)" Name="Moc" AfterTargets="Build" Outputs="@(QtIncludes->'$(GenDir)/moc_%(Filename).cpp')">
+    <Exec Command="$(Moc) %(QtIncludes.identity) -nw -o $(GenDir)/moc_%(Filename).cpp $(MocFlags)" />
   </Target>
-
-  <Target Inputs="@(QtuiInclude)" 
-          Name="Uic" 
-          AfterTargets="Build" 
-          Outputs="@(QtuiInclude->'$(GenDir)/ui_%(Filename).h')">
-    <Exec Command = "$(Uic) %(QtuiInclude.identity) -o $(GenDir)/ui_%(Filename).h"/>
+  <Target Inputs="@(QtuiInclude)" Name="Uic" AfterTargets="Build" Outputs="@(QtuiInclude->'$(GenDir)/ui_%(Filename).h')">
+    <Exec Command="$(Uic) %(QtuiInclude.identity) -o $(GenDir)/ui_%(Filename).h" />
   </Target>
-  
-  <Target Inputs="@(QtrcInclude)" 
-          Name="Rcc" 
-          AfterTargets="Build" 
-          Outputs="@(QtrcInclude->'$(GenDir)/qrc_%(Filename).cpp')">
-    <Exec Command = "$(Rcc) %(QtrcInclude.identity) -o $(GenDir)/qrc_%(Filename).cpp"/>
+  <Target Inputs="@(QtrcInclude)" Name="Rcc" AfterTargets="Build" Outputs="@(QtrcInclude->'$(GenDir)/qrc_%(Filename).cpp')">
+    <Exec Command="$(Rcc) %(QtrcInclude.identity) -o $(GenDir)/qrc_%(Filename).cpp" />
   </Target>
-
 </Project>

@@ -107,16 +107,16 @@ void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QSt
 	{
 		using namespace parameterContainer;
 		params->addParam(
-			FullParameterName("mid_freq", parameterName), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
+			FullParameterName("midfreq", parameterName), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
 		params->addParam(
 			FullParameterName("bandwidth", parameterName), 200.0, 5.0, 20000.0, morphNone, paramStandard);
-		params->addParam(FullParameterName("addition_factor", parameterName), 1.0, 0.0, 20000.0,
+		params->addParam(FullParameterName("additionfactor", parameterName), 1.0, 0.0, 20000.0,
 			morphNone, paramStandard);
 		params->addParam(
-			FullParameterName("mult_factor", parameterName), 1.0, 0.0, 20000.0, morphNone, paramStandard);
+			FullParameterName("multfactor", parameterName), 1.0, 0.0, 20000.0, morphNone, paramStandard);
 		params->addParam(FullParameterName("enable", parameterName), false, morphNone, paramStandard);
 		params->addParam(
-			FullParameterName("sound_file", parameterName), false, morphNone, paramStandard);
+			FullParameterName("soundfile", parameterName), QString(""), morphNone, paramStandard);
 	}
 }
 
@@ -126,11 +126,11 @@ void cAudioTrackCollection::RemoveParameters(
 	if (params->IfExists(FullParameterName("enable", parameterName)))
 	{
 		params->DeleteParameter(FullParameterName("bandwidth", parameterName));
-		params->DeleteParameter(FullParameterName("mid_freq", parameterName));
-		params->DeleteParameter(FullParameterName("addition_factor", parameterName));
-		params->DeleteParameter(FullParameterName("mult_factor", parameterName));
+		params->DeleteParameter(FullParameterName("midfreq", parameterName));
+		params->DeleteParameter(FullParameterName("additionfactor", parameterName));
+		params->DeleteParameter(FullParameterName("multfactor", parameterName));
 		params->DeleteParameter(FullParameterName("enable", parameterName));
-		params->DeleteParameter(FullParameterName("sound_file", parameterName));
+		params->DeleteParameter(FullParameterName("soundfile", parameterName));
 	}
 }
 
@@ -138,4 +138,21 @@ QString cAudioTrackCollection::FullParameterName(
 	const QString &nameOfSoundParameter, const QString parameterName)
 {
 	return QString("animsound_") + nameOfSoundParameter + "_" + parameterName;
+}
+
+
+void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
+{
+	QStringList listOfAllParameters = audioTracks.keys();
+
+	for (int i = 0; i < listOfAllParameters.length(); i++)
+	{
+		QString filename = params->Get<QString>(FullParameterName("soundfile", listOfAllParameters.at(i)));
+		if (!filename.isEmpty() && !audioTracks[listOfAllParameters[i]]->isLoaded())
+		{
+			audioTracks[listOfAllParameters[i]]->LoadAudio(filename);
+			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(30.0); // TODO settings for frames per second
+			audioTracks[listOfAllParameters[i]]->calculateFFT();
+		}
+	}
 }

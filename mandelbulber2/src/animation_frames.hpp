@@ -122,6 +122,7 @@ public:
 		const sParameterDescription &parameter, cParameterContainer *params = NULL);
 
 	void RemoveAllAudioParameters(cParameterContainer *params = NULL);
+	void LoadAllAudioFiles(cParameterContainer *params = NULL);
 
 	cAudioTrack *GetAudioPtr(const QString fullParameterName);
 

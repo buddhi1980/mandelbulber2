@@ -81,6 +81,7 @@ private:
 	int length;
 	int sampleRate;
 	bool loaded;
+	bool loadingInProgress;
 
 	double framesPerSecond;
 	int numberOfFrames;
