@@ -351,27 +351,6 @@
     <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_voxel_export_dialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_animation.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_effects.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_fractal.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_gamepad.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_image_adjustments.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_measurements.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_navigation.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_queue.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_rendering_engine.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_statistics.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\image_save_dialog.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_editor.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_manager_view.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\mesh_export_dialog.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\preferences_dialog.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\render_window.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\tab_fractal.ui" />
-    <CustomBuild Include="$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.ui" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <None Include="$(SolutionDir)\..\..\mandelbulber2\qt\icons.qrc" />
   </ItemGroup>
