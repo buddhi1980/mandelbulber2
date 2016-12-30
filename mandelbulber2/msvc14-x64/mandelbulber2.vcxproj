@@ -38,14 +38,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\..\..\build-win\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\..\..\build-win\mandelbulber2.dir\Debug\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build-win\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build-win\mandelbulber2.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">mandelbulber2</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)\..\..\build-win\mandelbulber2.dir\Release\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build-win\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build-win\mandelbulber2.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">mandelbulber2</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -71,10 +71,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";QT_GAMEPAD_LIB;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -83,7 +83,7 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5UiToolsd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Testd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Multimediad.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gamepadd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Widgetsd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Networkd.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Guid.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Cored.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\qtmaind.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5UiToolsd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Testd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Multimediad.lib;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gamepadd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Widgetsd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Networkd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Guid.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Cored.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\qtmaind.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -97,13 +97,13 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>call cd $(SolutionDir)
-call "$(SolutionDir)POST-BUILD.bat"</Command>
+      <Command>call cd $(ProjectDir)
+call "$(ProjectDir)POST-BUILD.bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -121,10 +121,10 @@ call "$(SolutionDir)POST-BUILD.bat"</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";QT_GAMEPAD_LIB;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\build-win;$(SolutionDir)\..\..\mandelbulber2\cmake;$(SolutionDir)\..\..\mandelbulber2\cmake\..\qt;$(SolutionDir)\..\..\mandelbulber2\cmake\..\src;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)\packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -133,7 +133,7 @@ call "$(SolutionDir)POST-BUILD.bat"</Command>
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5UiTools.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Test.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Multimedia.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gamepad.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Widgets.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Network.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gui.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Core.lib;$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\qtmain.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5UiTools.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Test.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Multimedia.lib;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gamepad.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Widgets.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Network.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gui.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Core.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\qtmain.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -147,358 +147,20 @@ call "$(SolutionDir)POST-BUILD.bat"</Command>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>call cd $(SolutionDir)
-call "$(SolutionDir)POST-BUILD.bat"</Command>
+      <Command>call cd $(ProjectDir)
+call "$(ProjectDir)POST-BUILD.bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\ao_modes.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_fft_data.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_track.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_track_collection.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\calculation_mode.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\common_math.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\files.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal_enums.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\headless.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\image_adjustments.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\marchingcubes.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\material.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\material_item_model.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\material_item_view.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\my_ui_loader.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\primitives.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\render_ssao.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\ssao_worker.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\statistics.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\stereo.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\undo.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\algebra.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\animation_flight.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\animation_frames.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\animation_keyframes.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\automated_widgets.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\calculate_distance.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\camera_target.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\cimage.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\color_palette.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\color_structures.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\command_line_interface.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\commonparams.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\compute_fractal.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\displacement_map.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\dof.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\error_message.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\file_downloader.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\file_image.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal_coloring.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal_container.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal_formulas.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal_list.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\fractparams.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\global_data.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\histogram.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\image_scale.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\initparameters.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\interface.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\keyframes.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\lights.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\main.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\mesh_export.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\morph.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\multi_val.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\netrender.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\nine_fractals.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\object_data.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\object_types.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\old_settings.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\one_parameter.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\parameters.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\progress_text.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\projection_3d.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\queue.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\random.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\region.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\render_data.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\render_image.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\render_job.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\render_queue.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\render_window.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\render_worker.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\rendered_image_widget.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\rendering_configuration.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\scheduler.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\settings.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\synchronize_interface.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\system.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\test.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\texture.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\texture_enums.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\texture_mapping.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\thumbnail.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\src\voxel_export.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\anim_audio_view.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\color_palette_widget.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\common_my_widget_wrapper.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_animation.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_effects.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_fractal.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_gamepad.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_image_adjustmnets.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_measurements.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_navigation.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_queue.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_rendering_engine.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_statistics.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\fft_view.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\file_select_widget.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\image_save_dialog.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_editor.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_manager_view.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_selector.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_widget.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\mesh_export_dialog.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_check_box.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_color_button.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_double_spin_box.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_group_box.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_histogram_label.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_line_edit.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_log_widget.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_progress_bar.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_scrolled_area.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_spin_box.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_tab_bar.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_tab_widget.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\preferences_dialog.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\preview_file_dialog.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\pushbutton_anim_sound.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\tab_fractal.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\thumbnail_widget.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\wave_form_view.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\time_ruler.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_table_widget_anim.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_table_widget_keyframes.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\player_widget.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\mandelbulber2\qt\system_tray.hpp" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_audio_selector.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_animation.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_effects.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_fractal.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_gamepad.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_image_adjustments.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_measurements.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_navigation.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_queue.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_rendering_engine.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_dock_statistics.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_image_save_dialog.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_material_editor.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_material_manager_view.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_mesh_export_dialog.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_preferences_dialog.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_render_window.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_tab_fractal.h" />
-    <ClInclude Include="$(SolutionDir)\..\..\build-win\ui_voxel_export_dialog.h" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\algebra.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\animation_flight.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\animation_frames.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\animation_keyframes.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_fft_data.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_track.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\audio_track_collection.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\automated_widgets.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\calculate_distance.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\camera_target.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\cimage.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\color_palette.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\command_line_interface.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\common_math.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\compute_fractal.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\displacement_map.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\dof.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\error_message.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\file_downloader.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\file_image.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\files.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal_container.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal_formulas.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\fractal_list.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\fractparams.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\global_data.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\headless.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\histogram.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\image_scale.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\initparameters.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\interface.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\keyframes.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\lights.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\main.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\marchingcubes.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\material.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\material_item_model.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\material_item_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\mesh_export.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\morph.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\multi_val.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\my_ui_loader.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\netrender.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\nine_fractals.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\old_settings.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\one_parameter.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\parameters.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\primitives.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\progress_text.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\projection_3d.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\queue.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\random.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_image.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_job.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_queue.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_ssao.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_window.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_window_buttons.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_window_menu.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_window_slots.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\render_worker.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\rendered_image_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\rendering_configuration.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\scheduler.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\settings.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\shaders.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\ssao_worker.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\statistics.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\stereo.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\synchronize_interface.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\system.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\test.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\texture.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\texture_mapping.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\thumbnail.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\undo.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\src\voxel_export.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\anim_audio_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\audio_selector.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\color_palette_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\common_my_widget_wrapper.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_animation.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_effects.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_fractal.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_gamepad.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_image_adjustments.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_measurements.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_navigation.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_queue.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_rendering_engine.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\dock_statistics.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\fft_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\file_select_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\image_save_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_editor.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_manager_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_selector.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\material_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\mesh_export_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_check_box.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_color_button.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_double_spin_box.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_group_box.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_histogram_label.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_line_edit.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_log_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_progress_bar.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_spin_box.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_tab_bar.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_tab_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_table_widget_anim.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\my_table_widget_keyframes.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\player_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\preferences_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\preview_file_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\pushbutton_anim_sound.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\system_tray.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\tab_fractal.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\thumbnail_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\voxel_export_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\wave_form_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\mandelbulber2\qt\time_ruler.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\qrc_icons.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_wave_form_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_anim_audio_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_animation_flight.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_animation_keyframes.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_audio_selector.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_audio_track.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_automated_widgets.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_color_palette_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_animation.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_effects.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_fractal.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_gamepad.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_image_adjustmnets.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_measurements.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_navigation.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_queue.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_rendering_engine.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dock_statistics.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_dof.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_error_message.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_fft_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_file_downloader.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_file_image.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_file_select_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_headless.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_image_save_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_lights.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_editor.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_item_model.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_item_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_manager_view.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_selector.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_material_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_mesh_export.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_mesh_export_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_check_box.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_color_button.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_double_spin_box.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_group_box.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_histogram_label.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_line_edit.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_log_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_progress_bar.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_scrolled_area.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_spin_box.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_tab_bar.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_tab_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_table_widget_anim.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_table_widget_keyframes.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_my_ui_loader.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_netrender.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_player_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_preferences_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_preview_file_dialog.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_pushbutton_anim_sound.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_queue.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_image.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_job.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_queue.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_ssao.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_window.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_render_worker.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_rendered_image_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_ssao_worker.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_system_tray.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_tab_fractal.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_test.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_thumbnail_widget.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_time_ruler.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_voxel_export.cpp" />
-    <ClCompile Include="$(SolutionDir)\..\..\build-win\moc_voxel_export_dialog.cpp" />
-    <None Include="$(SolutionDir)\..\..\mandelbulber2\qt\icons.qrc" />
+    <ClInclude Include="$(SolutionDir)mandelbulber2\src\*.h" />
+    <ClInclude Include="$(SolutionDir)mandelbulber2\src\*.hpp" />
+    <ClInclude Include="$(SolutionDir)mandelbulber2\qt\*.h" />
+    <ClInclude Include="$(SolutionDir)mandelbulber2\qt\*.hpp" />
+    <ClInclude Include="$(SolutionDir)build-win\*.h" />
+    <ClCompile Include="$(SolutionDir)mandelbulber2\src\*.cpp" />
+    <ClCompile Include="$(SolutionDir)mandelbulber2\qt\*.cpp" />
+    <ClCompile Include="$(SolutionDir)build-win\*.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\icons.qrc" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -508,30 +170,30 @@ call "$(SolutionDir)POST-BUILD.bat"</Command>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets" Condition="Exists('packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets')" />
-    <Import Project="packages\libpng.1.6.26.1\build\native\libpng.targets" Condition="Exists('packages\libpng.1.6.26.1\build\native\libpng.targets')" />
-    <Import Project="packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets" Condition="Exists('packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" />
-    <Import Project="packages\libtiff.4.0.6.2\build\native\libtiff.targets" Condition="Exists('packages\libtiff.4.0.6.2\build\native\libtiff.targets')" />
-    <Import Project="packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets" Condition="Exists('packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" />
-    <Import Project="packages\libjpeg.9.2.0.1\build\native\libjpeg.targets" Condition="Exists('packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" />
-    <Import Project="packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets" Condition="Exists('packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" />
-    <Import Project="packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+    <Import Project="$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+    <Import Project="$(SolutionDir)packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets" Condition="Exists('$(SolutionDir)packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets')" />
+    <Import Project="$(SolutionDir)packages\libpng.1.6.26.1\build\native\libpng.targets" Condition="Exists('$(SolutionDir)packages\libpng.1.6.26.1\build\native\libpng.targets')" />
+    <Import Project="$(SolutionDir)packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets" Condition="Exists('$(SolutionDir)packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" />
+    <Import Project="$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets" Condition="Exists('$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets')" />
+    <Import Project="$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets" Condition="Exists('$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" />
+    <Import Project="$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets" Condition="Exists('$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" />
+    <Import Project="$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
-    <Error Condition="!Exists('packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
-    <Error Condition="!Exists('packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets'))" />
-    <Error Condition="!Exists('packages\libpng.1.6.26.1\build\native\libpng.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libpng.1.6.26.1\build\native\libpng.targets'))" />
-    <Error Condition="!Exists('packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets'))" />
-    <Error Condition="!Exists('packages\libtiff.4.0.6.2\build\native\libtiff.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libtiff.4.0.6.2\build\native\libtiff.targets'))" />
-    <Error Condition="!Exists('packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets'))" />
-    <Error Condition="!Exists('packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libjpeg.9.2.0.1\build\native\libjpeg.targets'))" />
-    <Error Condition="!Exists('packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets'))" />
-    <Error Condition="!Exists('packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libpng.1.6.26.1\build\native\libpng.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libpng.1.6.26.1\build\native\libpng.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets'))" />
   </Target>
 </Project>

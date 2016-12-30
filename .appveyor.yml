@@ -35,32 +35,32 @@ before_build:
   #packages from nuget
   - nuget install gsl-msvc14-%tbs_arch% -Version 2.2.1.2577
   - nuget install zlib-msvc14-%tbs_arch%-master -Version 1.2.8.4 -Source https://ci.appveyor.com/nuget/zlib-shallow-x0n34b3pfq1b
-  - ps: move zlib*\* deps -force
+  - ps: move packages\zlib*\* deps -force
   - move deps\zlibstatic.lib deps\zlib.lib
   - nuget install libpng-msvc14-%tbs_arch%-master -Version 1.6.18.44 -Source https://ci.appveyor.com/nuget/libpng-7hwq4pmmrc48
-  - ps: move libpng*\* deps -force
+  - ps: move packages\libpng*\* deps -force
   - move deps\libpng16_static.lib deps\png.lib
   - nuget install libtiff-msvc14-%tbs_arch%-master -Version 4.0.6.85 -Source https://ci.appveyor.com/nuget/libtiff-i3h8tqqy7o7b
-  - ps: move libtiff*\* deps -force
+  - ps: move packages\libtiff*\* deps -force
   - move deps\tiff_static.lib deps\tiff.lib
   - nuget install libjpeg-msvc14-%tbs_arch%-master -Version 1.4.80.21 -Source https://ci.appveyor.com/nuget/libjpegturbo-o6k4js4y7pjw
-  - ps: move libjpeg*\* deps -force
+  - ps: move packages\libjpeg*\* deps -force
   - move deps\jpeg-static.lib deps\jpeg.lib
  
 build_script:
   #- cd mandelbulber2/Release
   #- qmake -win32 mandelbulber.pro
   # TODO: remove hardcoded GSL version below
-  - SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\gsl-msvc14-%tbs_arch%.2.2.1.2577
-  - SET LIB=%LIB%;C:\projects\mandelbulber2\gsl-msvc14-%tbs_arch%.2.2.1.2577
+  - SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\packages\gsl-msvc14-%tbs_arch%.2.2.1.2577
+  - SET LIB=%LIB%;C:\projects\mandelbulber2\packages\gsl-msvc14-%tbs_arch%.2.2.1.2577
   - cmake -G "%cmake_platform%" \
      -DPNG_LIBRARY=deps\png.lib -DPNG_PNG_INCLUDE_DIR=deps \
      -DZLIB_LIBRARY=deps\zlib.lib -DZLIB_INCLUDE_DIR=deps \
      -DTIFF_LIBRARY=deps\tiff.lib -DTIFF_INCLUDE_DIR=deps \
      -DJPEG_LIBRARY=deps\jpeg.lib -DJPEG_INCLUDE_DIR=deps \
-     -DGSL_CBLAS_LIBRARY=gsl-msvc14-%tbs_arch%.2.2.1.2577\static\gslcblas.lib \
-     -DGSL_LIBRARY=gsl-msvc14-%tbs_arch%.2.2.1.2577\static\gsl.lib \
-     -DGSL_INCLUDE_DIR=gsl-msvc14-%tbs_arch%.2.2.1.2577 \
+     -DGSL_CBLAS_LIBRARY=packages\gsl-msvc14-%tbs_arch%.2.2.1.2577\static\gslcblas.lib \
+     -DGSL_LIBRARY=packages\gsl-msvc14-%tbs_arch%.2.2.1.2577\static\gsl.lib \
+     -DGSL_INCLUDE_DIR=packages\gsl-msvc14-%tbs_arch%.2.2.1.2577 \
      -DCMAKE_BUILD_TYPE=Release ./mandelbulber2/cmake/
   # move the auto-generated ui files to qt folder
   #- move ui_* mandelbulber2\qt
