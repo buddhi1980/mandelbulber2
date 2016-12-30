@@ -3290,70 +3290,75 @@ void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 			aux.DE = aux.DE * avgScale + 1.0;
 		}
 	}
+
 	if (fractal->transformCommon.functionEnabledSFalse
 			&& i >= fractal->transformCommon.startIterationsS
 			&& i < fractal->transformCommon.stopIterationsS)
 	{
 		double para = 0.0;
-		if (fractal->Cpara.enabledLinear)
+		double paraAddP0 = 0.0;
+		if (fractal->transformCommon.functionEnabledyFalse)
 		{
-			para = fractal->Cpara.para00; // parameter value at iter 0
-			double temp0 = para;
-			double tempA = fractal->Cpara.paraA;
-			double tempB = fractal->Cpara.paraB;
-			double tempC = fractal->Cpara.paraC;
-			double lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
-			double lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
-			double grade1 = (tempA - temp0) / fractal->Cpara.iterA;
-			double grade2 = (tempB - tempA) / lengthAB;
-			double grade3 = (tempC - tempB) / lengthBC;
+			//para += paraAddP0 + fractal->transformCommon.minR2p25;
+			if (fractal->Cpara.enabledLinear)
+			{
+				para = fractal->Cpara.para00; // parameter value at iter 0
+				double temp0 = para;
+				double tempA = fractal->Cpara.paraA;
+				double tempB = fractal->Cpara.paraB;
+				double tempC = fractal->Cpara.paraC;
+				double lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
+				double lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
+				double grade1 = (tempA - temp0) / fractal->Cpara.iterA;
+				double grade2 = (tempB - tempA) / lengthAB;
+				double grade3 = (tempC - tempB) / lengthBC;
 
-			// slopes
-			if (i < fractal->Cpara.iterA)
-			{
-				para = temp0 + (i * grade1);
-			}
-			if (i < fractal->Cpara.iterB && i >= fractal->Cpara.iterA)
-			{
-				para = tempA + (i - fractal->Cpara.iterA) * grade2;
-			}
-			if (i >= fractal->Cpara.iterB)
-			{
-				para = tempB + (i - fractal->Cpara.iterB) * grade3;
-			}
-
-			// Curvi part on "true"
-			if (fractal->Cpara.enabledCurves)
-			{
-				double paraAdd = 0.0;
-				double paraIt;
-				if (lengthAB > 2.0 * fractal->Cpara.iterA) // stop  error, todo fix.
+				// slopes
+				if (i < fractal->Cpara.iterA)
 				{
-					double curve1 = (grade2 - grade1) / (4.0 * fractal->Cpara.iterA);
-					double tempL = lengthAB - fractal->Cpara.iterA;
-					double curve2 = (grade3 - grade2) / (4.0 * tempL);
-					if (i < 2 * fractal->Cpara.iterA)
+					para = temp0 + (i * grade1);
+				}
+				if (i < fractal->Cpara.iterB && i >= fractal->Cpara.iterA)
+				{
+					para = tempA + (i - fractal->Cpara.iterA) * grade2;
+				}
+				if (i >= fractal->Cpara.iterB)
+				{
+					para = tempB + (i - fractal->Cpara.iterB) * grade3;
+				}
+
+				// Curvi part on "true"
+				if (fractal->Cpara.enabledCurves)
+				{
+					double paraAdd = 0.0;
+					double paraIt;
+					if (lengthAB > 2.0 * fractal->Cpara.iterA) // stop  error, todo fix.
 					{
-						paraIt = tempA - fabs(tempA - i);
-						paraAdd = paraIt * paraIt * curve1;
+						double curve1 = (grade2 - grade1) / (4.0 * fractal->Cpara.iterA);
+						double tempL = lengthAB - fractal->Cpara.iterA;
+						double curve2 = (grade3 - grade2) / (4.0 * tempL);
+						if (i < 2 * fractal->Cpara.iterA)
+						{
+							paraIt = tempA - fabs(tempA - i);
+							paraAdd = paraIt * paraIt * curve1;
+						}
+						if (i >= 2 * fractal->Cpara.iterA && i < fractal->Cpara.iterB + tempL)
+						{
+							paraIt = tempB - fabs(tempB * i);
+							paraAdd = paraIt * paraIt * curve2;
+						}
+						para += paraAdd;
 					}
-					if (i >= 2 * fractal->Cpara.iterA && i < fractal->Cpara.iterB + tempL)
-					{
-						paraIt = tempB - fabs(tempB * i);
-						paraAdd = paraIt * paraIt * curve2;
-					}
-					para += paraAdd;
 				}
 			}
-		}
-		double paraAddP0 = 0.0;
-		if (fractal->Cpara.enabledParabFalse)
-		{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
-			paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
-									+ (i * i * 0.001 * fractal->Cpara.parabScale);
+			paraAddP0 = 0.0;
+			if (fractal->Cpara.enabledParabFalse)
+			{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+				paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
+										+ (i * i * 0.001 * fractal->Cpara.parabScale);
+			}
 		}
 		para += paraAddP0 + fractal->transformCommon.minR2p25;
-
 		// spherical fold
 		double r2 = z.Dot(z);
 
@@ -3376,7 +3381,7 @@ void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 		z -= fractal->mandelbox.offset;
-		z *= fractal->transformCommon.scale;
+		z *= fractal->transformCommon.scale08;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	}
 
