@@ -3381,7 +3381,7 @@ void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 		}
 		z -= fractal->mandelbox.offset;
 		z *= fractal->transformCommon.scale08;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale08) + 1.0;
 	}
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
