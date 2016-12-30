@@ -11,7 +11,7 @@ SET tbs_arch=x64
 SET vcvar_arg=x86_amd64
 SET qt_version=Qt5.7.0\5.7\msvc2015_64
 set PACKAGESDIR=%SRC%\packages
-set QTDIR=%PACKAGESDIR%\bulbqt-msvc14-x64.5.7.0.10377\build\native
+set QTDIR=%PACKAGESDIR%\bulbqt-msvc14-x64.5.7.0.10477\build\native
 
 :copy_files
 set BINDIR=%BUILDTREE%\Release\

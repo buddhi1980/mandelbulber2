@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -66,15 +66,15 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";QT_GAMEPAD_LIB;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";QT_GAMEPAD_LIB;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -83,12 +83,12 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5UiToolsd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Testd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Multimediad.lib;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gamepadd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Widgetsd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Networkd.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Guid.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Cored.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\qtmaind.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>../../build-win/Debug/mandelbulber2.lib</ImportLibrary>
-      <ProgramDataBaseFile>../../build-win/Debug/mandelbulber2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>$(SolutionDir)build-win/Debug/mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(SolutionDir)build-win/Debug/mandelbulber2.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version>
       </Version>
@@ -103,7 +103,7 @@ call "$(ProjectDir)POST-BUILD.bat"</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -114,17 +114,17 @@ call "$(ProjectDir)POST-BUILD.bat"</Command>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";QT_GAMEPAD_LIB;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";QT_GAMEPAD_LIB;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\cmake;$(SolutionDir)mandelbulber2\cmake\..\qt;$(SolutionDir)mandelbulber2\cmake\..\src;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtCore;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\.\mkspecs\win32-msvc2015;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtWidgets;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGui;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtNetwork;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtUiTools;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtTest;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtMultimedia;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\include\QtGamepad;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -133,12 +133,12 @@ call "$(ProjectDir)POST-BUILD.bat"</Command>
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5UiTools.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Test.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Multimedia.lib;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gsl.lib;$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\static\gslcblas.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gamepad.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Widgets.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Network.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Gui.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\Qt5Core.lib;$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\lib\qtmain.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>../../build-win/Release/mandelbulber2.lib</ImportLibrary>
-      <ProgramDataBaseFile>../../build-win/Release/mandelbulber2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>$(SolutionDir)build-win/Release/mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(SolutionDir)build-win/Release/mandelbulber2.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version>
       </Version>
@@ -178,8 +178,9 @@ call "$(ProjectDir)POST-BUILD.bat"</Command>
     <Import Project="$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets" Condition="Exists('$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets')" />
     <Import Project="$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets" Condition="Exists('$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" />
     <Import Project="$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets" Condition="Exists('$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" />
-    <Import Project="$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" />
-    <Import Project="$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\bulbqt-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7778\build\native\OpenEXR-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7778\build\native\OpenEXR-msvc14-x64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -193,7 +194,8 @@ call "$(ProjectDir)POST-BUILD.bat"</Command>
     <Error Condition="!Exists('$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\gsl-msvc14-x64.2.2.1.2677\build\native\gsl-msvc14-x64.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10377\build\native\bulbqt-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\bulbqt-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7778\build\native\OpenEXR-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7778\build\native\OpenEXR-msvc14-x64.targets'))" />
   </Target>
 </Project>
