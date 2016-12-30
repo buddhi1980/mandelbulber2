@@ -499,3 +499,9 @@ template int cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, int ol
 	const QString &fullParameterNameWithSufix, const cParameterContainer *params) const;
 template double cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, double oldVal,
 	const QString &fullParameterNameWithSufix, const cParameterContainer *params) const;
+
+void cAnimationFrames::RemoveAllAudioParameters(cParameterContainer *params)
+{
+	if (!params) params = gPar;
+	audioTracks.DeleteAllAudioTracks(params);
+}

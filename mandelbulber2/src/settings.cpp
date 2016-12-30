@@ -448,11 +448,16 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		listOfLoadedPrimitives.clear();
 		DeleteAllMaterialParams(par);
 
-		if (frames) frames->ClearAll();
+		if (frames)
+		{
+			frames->ClearAll();
+			frames->RemoveAllAudioParameters(par);
+		}
 		if (keyframes)
 		{
 			keyframes->ClearAll();
 			keyframes->ClearMorphCache();
+			keyframes->RemoveAllAudioParameters(par);
 		}
 		// temporary containers to decode frames
 		cParameterContainer parTemp;

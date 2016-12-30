@@ -26,6 +26,9 @@
         </widget>
        </item>
        <item>
+        <widget class="MyLineEdit" name="text_animsound_sound_file"/>
+       </item>
+       <item>
         <widget class="MyGroupBox" name="groupCheck_animsound_enable">
          <property name="title">
           <string>Enable animation by so&amp;und</string>

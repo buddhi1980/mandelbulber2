@@ -44,10 +44,11 @@ class cParameterContainer;
 class cAudioTrackCollection
 {
 public:
-	cAudioTrackCollection(QObject *parent = 0);
+	cAudioTrackCollection();
 	~cAudioTrackCollection();
 	void AddAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params);
+	void DeleteAllAudioTracks(cParameterContainer *params);
 	cAudioTrack *GetAudioTrackPtr(const QString fullParameterName) const;
 	void AddParameters(cParameterContainer *params, const QString parameterName);
 	void RemoveParameters(cParameterContainer *params, const QString parameterName);

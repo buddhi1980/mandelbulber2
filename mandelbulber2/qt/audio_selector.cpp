@@ -79,6 +79,8 @@ void cAudioSelector::slotLoadAudioFile()
 		audio->Clear();
 		audio->setFramesPerSecond(30.0);
 
+		ui->text_animsound_sound_file->setText(filename);
+
 		connect(audio, SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
 		audio->LoadAudio(filename);
 	}
@@ -102,6 +104,7 @@ void cAudioSelector::AssignParameter(const QString &_parameterName)
 	setWindowTitle(tr("Set animation controlled by audio file for parameter %1").arg(parameterName));
 
 	RenameWidget(ui->groupCheck_animsound_enable);
+	RenameWidget(ui->text_animsound_sound_file);
 
 	QList<QWidget *> listOfWidgets = ui->groupCheck_animsound_enable->findChildren<QWidget *>();
 

@@ -37,7 +37,7 @@
 #include "one_parameter.hpp"
 #include "parameters.hpp"
 
-cAudioTrackCollection::cAudioTrackCollection(QObject *parent)
+cAudioTrackCollection::cAudioTrackCollection()
 {
 }
 
@@ -67,11 +67,22 @@ void cAudioTrackCollection::DeleteAudioTrack(
 	if (audioTracks.contains(fullParameterName))
 	{
 		audioTracks.remove(fullParameterName);
+		RemoveParameters(params, fullParameterName);
 	}
 	else
 	{
 		qCritical() << "cAudioTrackCollection::DeleteAudioTrack(): element '" << fullParameterName
 								<< "' doesn't exist";
+	}
+}
+
+void cAudioTrackCollection::DeleteAllAudioTracks(cParameterContainer *params)
+{
+	QStringList listOfAllParameters = audioTracks.keys();
+
+	for (int i = 0; i < listOfAllParameters.length(); i++)
+	{
+		DeleteAudioTrack(listOfAllParameters.at(i), params);
 	}
 }
 
@@ -104,6 +115,8 @@ void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QSt
 		params->addParam(
 			FullParameterName("mult_factor", parameterName), 1.0, 0.0, 20000.0, morphNone, paramStandard);
 		params->addParam(FullParameterName("enable", parameterName), false, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("sound_file", parameterName), false, morphNone, paramStandard);
 	}
 }
 
@@ -117,6 +130,7 @@ void cAudioTrackCollection::RemoveParameters(
 		params->DeleteParameter(FullParameterName("addition_factor", parameterName));
 		params->DeleteParameter(FullParameterName("mult_factor", parameterName));
 		params->DeleteParameter(FullParameterName("enable", parameterName));
+		params->DeleteParameter(FullParameterName("sound_file", parameterName));
 	}
 }
 

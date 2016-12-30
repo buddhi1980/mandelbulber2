@@ -121,6 +121,8 @@ public:
 	void RemoveAudioParameter(
 		const sParameterDescription &parameter, cParameterContainer *params = NULL);
 
+	void RemoveAllAudioParameters(cParameterContainer *params = NULL);
+
 	cAudioTrack *GetAudioPtr(const QString fullParameterName);
 
 	cOneParameter ApplyAudioAnimation(int frame, const cOneParameter &parameter,
