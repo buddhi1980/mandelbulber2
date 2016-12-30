@@ -58,6 +58,7 @@ cSettings::cSettings(enumFormat _format)
 	fileVersion = 0;
 	quiet = false;
 	csvNoOfColumns = 0;
+	foundAnimSoundParameters = false;
 }
 
 size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
@@ -578,7 +579,42 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			CheckIfMaterialsAreDefined(par);
 		}
 
+		//now when anim sound parameters are already prepeared by animation, all animsound parameters can be processed
+		if(linesWithSoundParameters.length() > 0)
+		{
+			foundAnimSoundParameters = true;
+			for(int i =0; i < linesWithSoundParameters.length(); i++)
+			{
+				bool result = false;
+				result = DecodeOneLine(par, linesWithSoundParameters[i]);
+
+				if (!result)
+				{
+					QString errorMessage =
+						QObject::tr("Error in settings file. Line: ") + linesWithSoundParameters[i];
+					cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
+					errorCount++;
+					if (errorCount > 3)
+					{
+						cErrorMessage::showMessage(
+							QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
+						return false;
+					}
+				}
+			}
+		}
+
 		Compatibility2(par, fractPar);
+
+		if(frames)
+		{
+			frames->LoadAllAudioFiles(par);
+		}
+
+		if(keyframes)
+		{
+			keyframes->LoadAllAudioFiles(par);
+		}
 
 		return true;
 	}
@@ -656,6 +692,15 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 					QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
 				return false;
 			}
+		}
+	}
+
+	if (parameterName.left(9) == "animsound")
+	{
+		if(!foundAnimSoundParameters)
+		{
+			linesWithSoundParameters.append(line); //added line for further processing (after animation is loaded)
+			return true; //parameter will be processed later
 		}
 	}
 

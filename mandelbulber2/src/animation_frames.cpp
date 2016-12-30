@@ -505,3 +505,10 @@ void cAnimationFrames::RemoveAllAudioParameters(cParameterContainer *params)
 	if (!params) params = gPar;
 	audioTracks.DeleteAllAudioTracks(params);
 }
+
+void cAnimationFrames::LoadAllAudioFiles(cParameterContainer *params)
+{
+	if (!params) params = gPar;
+	audioTracks.LoadAllAudioFiles(params);
+}
+

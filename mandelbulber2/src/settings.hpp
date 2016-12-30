@@ -101,6 +101,9 @@ private:
 	QByteArray hash;
 	int csvNoOfColumns;
 	QStringList listOfLoadedPrimitives;
+
+	QList<QString> linesWithSoundParameters;
+	bool foundAnimSoundParameters;
 };
 
 #endif /* MANDELBULBER2_SRC_SETTINGS_HPP_ */
