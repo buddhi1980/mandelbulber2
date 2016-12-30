@@ -352,13 +352,15 @@ function parseToOpenCL($code){
 	$s = '[\n\r\s]+'; // any whitespace including new lines
 	$all = '[\S\s]+?'; // anything including new lines as few as possible (mark end with next operator)
 	$rval = "$br1_2|$br1_1|$br|$float|$var"; // any of those types can be an "assignable expression"
-	
+	$preF = "\s|\(|\{|-"; // these chars can occur befire a function
+	// see here for all possible: https://www.khronos.org/registry/cl/sdk/1.0/docs/man/xhtml/mathFunctions.html
 	$cppToOpenCLReplaceLookup = array(
 		array('find' => '/double/', 'replace' => 'float'),				// all doubles to floats
 		array('find' => "/([\s\(\{])($double)([\s\)\};,])/", 'replace' => '$1$2f$3'),	// double literals to float literals
-		array('find' => "/(\s|\()sin\(/", 'replace' => '$1native_sin('),		// native sin
-		array('find' => "/(\s|\()cos\(/", 'replace' => '$1native_cos('),		// native cos
-		array('find' => "/(\s|\()pow\(/", 'replace' => '$1native_powr('),		// native pow
+		array('find' => "/($preF)sin\(/", 'replace' => '$1native_sin('),		// native sin
+		array('find' => "/($preF)cos\(/", 'replace' => '$1native_cos('),		// native cos
+		array('find' => "/($preF)pow\(/", 'replace' => '$1native_powr('),		// native pow
+		array('find' => "/($preF)sqrt\(/", 'replace' => '$1native_sqrt('),		// native sqrt
 		array('find' => "/CVector3\(($all)\);/", 'replace' => '(float3) {$1};'),	// CVector3 to built in float3
 		array('find' => "/CVector3(\s)/", 'replace' => 'float3$1'),			// CVector3 to built in float3
 		array('find' => "/($var)\.Length\(\)/", 'replace' => 'length($1)'),		// CVector3 Length() to built in length
@@ -366,12 +368,20 @@ function parseToOpenCL($code){
 		array('find' => "/($var)\.Cross\(/", 'replace' => 'cross($1, '),		// CVector3 Cross() to built in cross
 
 		// from here on its getting messy
+		array('find' => "/1.0f$s\/$s($rval)/", 'replace' => 'native_recip($1)'),		// native reciprocal
 		array('find' => "/($rval)$s\/$s($rval)/", 'replace' => 'native_divide($1, $2)'),		// native division
-		// mad (literally ;D )
+		array('find' => "/($preF)native_recip\(native_sqrt($rval)\)/", 'replace' => '$1native_rsqrt$2'),		// native reciprocal sqrt
+		array('find' => "/($preF)native_sqrt\(native_recip($rval)\)/", 'replace' => '$1native_rsqrt$2'),		// native reciprocal sqrt
+
+    // mad (literally ;D )
 		array('find' => "/\(($rval)$s\*$s($rval)$s\+$s($rval)\)/", 'replace' => '(mad($1, $2, $3))'), 	// (a * b + c) ====> mad(a, b, c)
 		array('find' => "/\(($rval)$s\*$s($rval)$s\-$s($rval)\)/", 'replace' => '(mad($1, $2, -$3))'), 	// (a * b - c) ====> mad(a, b, -c)
 		array('find' => "/([^*]$s)($rval)$s\*$s($rval)$s\+$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, $4)$5'), // a * b + c ====> mad(a, b, c)
 		array('find' => "/([^*]$s)($rval)$s\*$s($rval)$s\-$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, -$4)$5'), // a * b + c ====> mad(a, b, -c)
+		array('find' => "/\(($rval)$s\+$s($rval)$s\*$s($rval)\)/", 'replace' => '(mad($2, $3, $1))'), 	// (c + a * b) ====> mad(a, b, c)
+		array('find' => "/\(($rval)$s\-$s($rval)$s\*$s($rval)\)/", 'replace' => '(mad(-$2, $3, $1))'), 	// (c - a * b) ====> mad(-a, b, c)
+		array('find' => "/([^*]$s)($rval)$s\+$s($rval)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($4, $3, $3)$5'), // a * b + c ====> mad(a, b, c)
+		array('find' => "/([^*]$s)($rval)$s\-$s($rval)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $3)$5'), // c - a * b ====> mad(-a, b, c)
 		// TODO more replacements
 	);
 
