@@ -242,6 +242,7 @@ void cAudioTrack::calculateFFT()
 
 		fftAudio.reserve(numberOfFrames);
 
+#pragma omp parallel for
 		for (int frame = 0; frame < numberOfFrames; ++frame)
 		{
 			int sampleOffset = frame * sampleRate / framesPerSecond;
