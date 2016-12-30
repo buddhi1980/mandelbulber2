@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>871</width>
-    <height>2584</height>
+    <height>2613</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -632,7 +632,7 @@
          </widget>
         </item>
         <item row="4" column="2" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>

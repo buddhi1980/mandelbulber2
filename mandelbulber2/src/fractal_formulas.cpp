@@ -3250,7 +3250,7 @@ void MengerMiddleModIteration(
  * from code by Knighty
  */
 void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
-{
+{ // octo
 	if (i >= fractal->transformCommon.startIterationsE
 			&& i < fractal->transformCommon.stopIterationsE)
 	{
@@ -3271,26 +3271,25 @@ void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 
 		aux.DE *= fractal->transformCommon.scale2;
 	}
-
+	// box offset
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& i >= fractal->transformCommon.startIterationsA
-			&& i < fractal->transformCommon.stopIterationsA) // box offset
+			&& i < fractal->transformCommon.stopIterationsA)
 	{
 		CVector3 temp = z;
 		z.x = sign(z.x) * fractal->transformCommon.additionConstantA000.x + z.x;
 		z.y = sign(z.y) * fractal->transformCommon.additionConstantA000.y + z.y;
 		z.z = sign(z.z) * fractal->transformCommon.additionConstantA000.z + z.z;
 
-		if (fractal->transformCommon.functionEnabledFalse)
+		if (fractal->transformCommon.functionEnabledzFalse)
 		{
 			double tempL = temp.Length();
 			// if (tempL < 1e-21) tempL = 1e-21;
 			double avgScale = z.Length() / tempL;
-			aux.r_dz *= avgScale;
 			aux.DE = aux.DE * avgScale + 1.0;
 		}
 	}
-
+	//spherical fold
 	if (fractal->transformCommon.functionEnabledSFalse
 			&& i >= fractal->transformCommon.startIterationsS
 			&& i < fractal->transformCommon.stopIterationsS)
@@ -3384,18 +3383,18 @@ void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 		z *= fractal->transformCommon.scale08;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	}
-
+	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-
+	// menger
 	if (fractal->transformCommon.functionEnabledM && i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
-		z = fabs(z); //+ fractal->transformCommon.additionConstant000);
+		z = fabs(z );
 		if (z.x - z.y < 0) swap(z.y, z.x);
 		if (z.x - z.z < 0) swap(z.z, z.x);
 		if (z.y - z.z < 0) swap(z.z, z.y);
@@ -3404,8 +3403,9 @@ void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
 		if (z.z > 1) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 		aux.DE *= fractal->transformCommon.scale3;
+		 z += fractal->transformCommon.additionConstant000;
 	}
-
+		// iter weight
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		CVector3 zA = z * 0;
