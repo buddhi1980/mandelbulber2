@@ -66,9 +66,11 @@ void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
 	double th = th0 * fractal->bulb.power;
 	double ph = ph0 * fractal->bulb.power;
 	double cth = cos(th);
-	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+	aux.r_dz = (rp * aux.r_dz) * fractal->bulb.power + 1.0;
 	rp *= aux.r;
-	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+	z.x = cth * cos(ph) * rp;
+	z.y = cth * sin(ph) * rp;
+	z.z = sin(th) * rp;
 }
 
 /**
