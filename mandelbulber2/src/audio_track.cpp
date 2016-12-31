@@ -56,7 +56,7 @@ cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 
 cAudioTrack::~cAudioTrack()
 {
-	// nothing needed here
+	if(fftAudio) delete[] fftAudio;
 }
 
 void cAudioTrack::Clear()
@@ -72,7 +72,7 @@ void cAudioTrack::Clear()
 	maxVolume = 0.0;
 	maxFft = 0.0;
 	rawAudio.clear();
-	fftAudio.clear();
+	fftAudio = NULL;
 	animation.clear();
 	maxFftArray = cAudioFFTdata();
 }
@@ -240,9 +240,10 @@ void cAudioTrack::calculateFFT()
 	{
 		WriteLog("FFT calculation started", 2);
 
-		fftAudio.reserve(numberOfFrames);
+		if(fftAudio) delete[] fftAudio;
+		fftAudio = new cAudioFFTdata[numberOfFrames];
 
-//#pragma omp parallel for - FIXME disambled because fftAudio.append(fftFrame) is not thread safe.
+#pragma omp parallel for
 		for (int frame = 0; frame < numberOfFrames; ++frame)
 		{
 			int sampleOffset = (qint64)frame * sampleRate / framesPerSecond;
@@ -271,7 +272,7 @@ void cAudioTrack::calculateFFT()
 				maxFft = qMax(absVal, maxFft);
 				maxFftArray.data[i] = qMax(maxFftArray.data[i], absVal);
 			}
-			fftAudio.append(fftFrame);
+			fftAudio[frame] = fftFrame;
 		}
 		WriteLog("FFT calculation finished", 2);
 	}
@@ -279,7 +280,7 @@ void cAudioTrack::calculateFFT()
 
 cAudioFFTdata cAudioTrack::getFFTSample(int frame) const
 {
-	if (isLoaded() && frame < fftAudio.size())
+	if (isLoaded() && frame < numberOfFrames)
 	{
 		return fftAudio[frame];
 	}
@@ -291,7 +292,7 @@ cAudioFFTdata cAudioTrack::getFFTSample(int frame) const
 
 float cAudioTrack::getBand(int frame, double midFreq, double bandwidth) const
 {
-	if (isLoaded() && frame < fftAudio.size())
+	if (isLoaded() && frame < numberOfFrames)
 	{
 		cAudioFFTdata fft = fftAudio[frame];
 
