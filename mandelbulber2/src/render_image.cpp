@@ -469,8 +469,15 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 			if (image->GetImageOptional()->optionalNormal)
 				lineOfImage[x].normalFloat = image->GetPixelNormal(x, y);
 		}
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable: 4267) // possible loss of data
+#endif
 		lineData->append((char *)lineOfImage, dataSize);
 		delete[] lineOfImage;
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 	}
 	else
 	{

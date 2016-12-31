@@ -371,7 +371,7 @@ void ImageFileSavePNG::SavePNG(
 			colorPtr = new char[(uint64_t)width * height * pixelSize];
 
 			// calculate min / max values from zbuffer range
-			float minZ = 1.0e50;
+			float minZ = float(1.0e50);
 			float maxZ = 0.0;
 			if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
 			{
@@ -1057,7 +1057,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	char *colorPtr = new char[(uint64_t)width * height * pixelSize];
 
 	// calculate min / max values from zbuffer range
-	float minZ = 1.0e50;
+	float minZ = float(1.0e50);
 	float maxZ = 0.0;
 	float rangeZ = 0.0;
 	if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)

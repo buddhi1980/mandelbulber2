@@ -57,7 +57,7 @@ int cRandom::Random(unsigned long max)
 double cRandom::Random(double min, double max, double resolution)
 {
 	double range = max - min;
-	unsigned long n = round(range / resolution);
+	unsigned long n = (unsigned long) round(range / resolution);
 	return min + resolution * Random(n);
 }
 

@@ -181,7 +181,7 @@ void cImage::ClearImage(void)
 		if (normal8) memset(normal8, 0, (unsigned long int)sizeof(sRGB8) * width * height);
 	}
 	for (long int i = 0; i < width * height; ++i)
-		zBuffer[i] = 1e20;
+		zBuffer[i] = float(1e20);
 }
 
 void cImage::FreeImage(void)
@@ -604,9 +604,9 @@ void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity,
 		float zImage = GetPixelZBuffer(x / previewScale, y / previewScale);
 		if (z > zImage)
 		{
-			opacity.R *= 0.03;
-			opacity.G *= 0.03;
-			opacity.B *= 0.03;
+			opacity.R *= float(0.03);
+			opacity.G *= float(0.03);
+			opacity.B *= float(0.03);
 		}
 		sRGB8 oldPixel;
 		if (layer == 0)

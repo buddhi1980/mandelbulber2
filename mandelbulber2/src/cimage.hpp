@@ -162,7 +162,7 @@ public:
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return zBuffer[x + y * width];
 		else
-			return 1e20;
+			return float(1e20);
 	}
 	inline sRGBfloat GetPixelNormal(int x, int y) const
 	{
