@@ -711,6 +711,11 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		emit notifyRenderKeyframeRenderStatus(
 			QObject::tr("Animation finished"), progressText.getText(1.0));
 	}
+// TODO: Fix unreferenced local variable: 'ex'
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable: 4101) // unreferenced local variable
+#endif
 	catch (bool ex)
 	{
 		emit updateProgressAndStatus(QObject::tr("Rendering terminated"), progressText.getText(1.0),
@@ -719,6 +724,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		delete renderJob;
 		return false;
 	}
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 	delete renderJob;
 	return true;
