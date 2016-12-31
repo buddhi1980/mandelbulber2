@@ -98,6 +98,7 @@ ENDIF()
 
 # generate proper GUI program on specified platform
 IF(WIN32 AND MSVC) # Check if we are using the Visual Studio compiler on windows
+	add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
 	set_target_properties(${PROJECT_NAME} PROPERTIES
 		WIN32_EXECUTABLE YES
 		LINK_FLAGS "/SUBSYSTEM:WINDOWS"
