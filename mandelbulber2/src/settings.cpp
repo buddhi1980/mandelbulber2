@@ -580,7 +580,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		}
 
 		//now when anim sound parameters are already prepeared by animation, all animsound parameters can be processed
-		if(linesWithSoundParameters.length() > 0)
+		if(keyframes && linesWithSoundParameters.length() > 0)
 		{
 			foundAnimSoundParameters = true;
 			for(int i =0; i < linesWithSoundParameters.length(); i++)
