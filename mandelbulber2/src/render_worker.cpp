@@ -536,7 +536,7 @@ CVector3 cRenderWorker::RayMarching(
 
 		point = in.start + in.direction * scan;
 
-		if (point == lastPoint || point == point / 0.0) // detection of dead calculation
+		if (point == lastPoint || point.IsNotANumber()) // detection of dead calculation
 		{
 			// qWarning() << "Dead computation\n"
 			//		<< "Point:" << point.Debug()

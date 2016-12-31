@@ -99,6 +99,10 @@ int Random(int max);
 double dMax(double a, double b, double c);
 double dMin(double a, double b, double c);
 
+inline bool CheckNAN(double a)
+{
+	return !gsl_finite(a);
+}
 inline double SmoothConditionAGreaterB(double a, double b, double sharpness)
 {
 	return 1.0 / (1.0 + exp(sharpness * (b - a)));

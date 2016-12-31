@@ -186,7 +186,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 		}
 	}
 
-	if (distance == distance / 0.0) // check if not a number
+	if (CheckNAN(distance)) // check if not a number
 	{
 		distance = 0.0;
 	}

@@ -39,7 +39,7 @@
 #ifndef MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 #define MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_
 
-#include "algebra.hpp"
+#include "common_math.h"
 
 // forward declarations
 class cNineFractals;
