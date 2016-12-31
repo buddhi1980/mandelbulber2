@@ -242,10 +242,10 @@ void cAudioTrack::calculateFFT()
 
 		fftAudio.reserve(numberOfFrames);
 
-#pragma omp parallel for
+//#pragma omp parallel for - FIXME disambled because fftAudio.append(fftFrame) is not thread safe.
 		for (int frame = 0; frame < numberOfFrames; ++frame)
 		{
-			int sampleOffset = frame * sampleRate / framesPerSecond;
+			int sampleOffset = (qint64)frame * sampleRate / framesPerSecond;
 			// prepare complex data for fft transform
 			double fftData[cAudioFFTdata::fftSize * 2];
 			for (int i = 0; i < cAudioFFTdata::fftSize; i++)

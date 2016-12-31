@@ -86,7 +86,9 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 			// painter.drawLine(
 			//	x, center + hscale * audioBuffer[x].min, x, center + hscale * audioBuffer[x].max);
 			int yStart = center + hscale * audioBuffer[x].min;
+			if(yStart < 0) yStart = 0;
 			int yStop = center + hscale * audioBuffer[x].max;
+			if(yStop > height -1) yStop = height - 1;
 			QRgb pixel = qRgba(0, 255, 0, 255);
 			for (int y = yStart; y < yStop; y++)
 			{
