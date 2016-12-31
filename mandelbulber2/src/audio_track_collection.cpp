@@ -66,6 +66,7 @@ void cAudioTrackCollection::DeleteAudioTrack(
 {
 	if (audioTracks.contains(fullParameterName))
 	{
+		delete audioTracks[fullParameterName];
 		audioTracks.remove(fullParameterName);
 		RemoveParameters(params, fullParameterName);
 	}
@@ -150,6 +151,7 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 		QString filename = params->Get<QString>(FullParameterName("soundfile", listOfAllParameters.at(i)));
 		if (!filename.isEmpty() && !audioTracks[listOfAllParameters[i]]->isLoaded())
 		{
+			audioTracks[listOfAllParameters[i]]->Clear();
 			audioTracks[listOfAllParameters[i]]->LoadAudio(filename);
 			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(30.0); // TODO settings for frames per second
 			audioTracks[listOfAllParameters[i]]->calculateFFT();

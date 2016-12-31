@@ -51,17 +51,22 @@
 
 cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 {
+	fftAudio = NULL;
+	decoder = NULL;
 	Clear();
 }
 
 cAudioTrack::~cAudioTrack()
 {
 	if(fftAudio) delete[] fftAudio;
+	if(decoder) delete decoder;
 }
 
 void cAudioTrack::Clear()
 {
+	if(decoder) delete decoder;
 	decoder = NULL;
+
 	memoryReserved = false;
 	length = 0;
 	sampleRate = 44100;
@@ -72,7 +77,10 @@ void cAudioTrack::Clear()
 	maxVolume = 0.0;
 	maxFft = 0.0;
 	rawAudio.clear();
+
+	if(fftAudio) delete[] fftAudio;
 	fftAudio = NULL;
+
 	animation.clear();
 	maxFftArray = cAudioFFTdata();
 }
@@ -80,6 +88,8 @@ void cAudioTrack::Clear()
 void cAudioTrack::LoadAudio(const QString &filename)
 {
 	WriteLogString("Loading audio started", filename, 2);
+
+	Clear();
 
 	QString sufix = QFileInfo(filename).suffix();
 	loaded = false;
@@ -144,6 +154,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		desiredFormat.setSampleRate(sampleRate);
 		desiredFormat.setSampleSize(16);
 
+		if(decoder) delete decoder;
 		decoder = new QAudioDecoder(this);
 		decoder->setAudioFormat(desiredFormat);
 		decoder->setSourceFilename(filename);

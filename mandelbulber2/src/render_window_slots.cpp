@@ -305,6 +305,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 			QApplication::connect(
 				buttonRemove, SIGNAL(clicked()), mapPresetsFromExamplesRemove, SLOT(map()));
 		}
+		QApplication::processEvents();
 	}
 	QApplication::connect(
 		mapPresetsFromExamplesLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
