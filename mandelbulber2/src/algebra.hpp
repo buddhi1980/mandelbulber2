@@ -46,7 +46,17 @@
 
 #include <QString>
 #include <gsl/gsl_sys.h>
+
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable: 4005) // macro redefinition
+#endif
+
 #include <math.h>
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 /************************* vector 3D **********************/
 class CVector3
