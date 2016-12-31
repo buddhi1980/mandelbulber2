@@ -35,7 +35,6 @@
 #ifndef MANDELBULBER2_QT_DOCK_QUEUE_H_
 #define MANDELBULBER2_QT_DOCK_QUEUE_H_
 
-#include "dock_queue.h"
 #include <QWidget>
 
 #include "../qt/my_progress_bar.h"
