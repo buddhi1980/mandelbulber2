@@ -97,14 +97,14 @@ void cAudioTrack::LoadAudio(const QString &filename)
 #ifdef USE_SNDFILE
 	if (sufix.toLower() == "wav")
 	{
-		SNDFILE *infile = NULL;
+		SNDFILE *infile = nullptr;
 		SF_INFO sfinfo;
 		memset(&sfinfo, 0, sizeof(sfinfo));
 
-		if ((infile = sf_open(filename.toLocal8Bit().constData(), SFM_READ, &sfinfo)) == NULL)
+		if ((infile = sf_open(filename.toLocal8Bit().constData(), SFM_READ, &sfinfo)) == nullptr)
 		{
 			qCritical() << "Not able to open input file:" << filename;
-			qCritical() << sf_strerror(NULL);
+			qCritical() << sf_strerror(nullptr);
 			return;
 		};
 

@@ -56,7 +56,7 @@ void cMaterialItemModel::AssignContainer(cParameterContainer *_parameterContaine
 	}
 	else
 	{
-		qCritical() << "Parameter container is NULL";
+		qCritical() << "Parameter container is nullptr";
 	}
 }
 

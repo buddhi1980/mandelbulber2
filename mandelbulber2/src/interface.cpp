@@ -220,7 +220,7 @@ void cInterface::ShowUi(void)
 #ifndef USE_GAMEPAD
 	{
 		delete mainWindow->ui->dockWidget_gamepad_dock;
-		mainWindow->ui->dockWidget_gamepad_dock = NULL;
+		mainWindow->ui->dockWidget_gamepad_dock = nullptr;
 	}
 #endif
 
@@ -1727,7 +1727,7 @@ bool cInterface::DataFolderUpgrade()
 	bool upgradeDoNotAskAgain = gPar->Get<bool>("upgrade_do_not_ask_again");
 	if (upgradeDoNotAskAgain) return false; // user does not want to upgrade ever
 
-	QAbstractButton *btnNoAndDoNotAskAgain = NULL;
+	QAbstractButton *btnNoAndDoNotAskAgain = nullptr;
 	QMessageBox *messageBox = new QMessageBox(mainWindow);
 	QString messageText = QObject::tr(
 		"In Mandelbulber 2.10 the default data structure changed for linux and MacOS:\n"

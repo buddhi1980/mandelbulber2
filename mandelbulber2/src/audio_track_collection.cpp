@@ -73,7 +73,7 @@ void cAudioTrackCollection::AddAudioTrack(
 	else
 	{
 		audioTracks.insert(fullParameterName, new cAudioTrack());
-		if (params) // params is NULL when audio tracks are regenerated
+		if (params) // params is nullptr when audio tracks are regenerated
 		{
 			AddParameters(params, fullParameterName);
 		}

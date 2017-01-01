@@ -60,7 +60,7 @@ public:
 		bool *_stopRequest, QWidget *_qwidget = nullptr);
 	~cRenderJob();
 	// QWidtet *parent is needed to connect signals for refreshing progress and status bar.
-	// If _parent is not NULL then parent has to have slot slotUpdateProgressAndStatus()
+	// If _parent is not nullptr then parent has to have slot slotUpdateProgressAndStatus()
 
 	enum enumMode
 	{

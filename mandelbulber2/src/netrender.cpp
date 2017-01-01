@@ -48,9 +48,7 @@
 
 CNetRender *gNetRender = nullptr;
 
-// ReSharper disable CppZeroConstantCanBeReplacedWithNullptr
-CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
-// ReSharper restore CppZeroConstantCanBeReplacedWithNullptr
+CNetRender::CNetRender(qint32 workerCount) : QObject(nullptr)
 {
 	this->workerCount = workerCount;
 	deviceType = netRender_UNKNOWN;
@@ -358,7 +356,7 @@ void CNetRender::ResetMessage(sMessage *msg)
 {
 	if (msg == nullptr)
 	{
-		qCritical() << "CNetRender::ResetMessage(sMessage *msg): message has NULL pointer!";
+		qCritical() << "CNetRender::ResetMessage(sMessage *msg): message is nullptr!";
 	}
 	else
 	{

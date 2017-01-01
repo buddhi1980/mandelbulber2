@@ -93,7 +93,7 @@ void cAnimationFrames::AddAnimatedParameter(
 				defaultValue.GetOriginalContainerName() + "_" + parameterName, defaultValue);
 		}
 
-		// if parameter container is NULL then will be used default global container for sound
+		// if parameter container is nullptr then will be used default global container for sound
 		// parameters
 		if (!params) params = gPar;
 
