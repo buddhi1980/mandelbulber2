@@ -84,7 +84,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	progressText.ResetTimer();
 
 	// create list of lines to render for each CPU core
-	QList<int> *lists = NULL;
+	QList<int> *lists = nullptr;
 	if (list)
 	{
 		lists = new QList<int>[numberOfThreads];
@@ -121,7 +121,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		if (list)
 			threadData[i].list = &lists[i];
 		else
-			threadData[i].list = NULL;
+			threadData[i].list = nullptr;
 	}
 
 	QString statusText;

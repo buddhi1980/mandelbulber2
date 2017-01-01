@@ -51,7 +51,7 @@ class cMeshExportDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit cMeshExportDialog(QWidget *parent = 0);
+	explicit cMeshExportDialog(QWidget *parent = nullptr);
 	~cMeshExportDialog();
 
 public slots:

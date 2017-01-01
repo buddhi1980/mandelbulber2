@@ -150,7 +150,7 @@ class cPrimitives
 	// http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
 
 public:
-	cPrimitives(const cParameterContainer *par, QVector<cObjectData> *obejctData = NULL);
+	cPrimitives(const cParameterContainer *par, QVector<cObjectData> *obejctData = nullptr);
 	~cPrimitives();
 	double TotalDistance(
 		CVector3 point, double fractalDistance, int *closestObjectId, sRenderData *data) const;

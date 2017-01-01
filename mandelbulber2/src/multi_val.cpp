@@ -111,7 +111,7 @@ enumVarType cMultiVal::Store(QString val)
 			if (size >= 4) size = 4;
 			for (int i = 0; i < size; i++)
 			{
-				dVal[i] = iVal[i] = split[i].toInt(NULL, 16);
+				dVal[i] = iVal[i] = split[i].toInt(nullptr, 16);
 			}
 			break;
 		}
@@ -265,7 +265,7 @@ cColorPalette cMultiVal::GetPaletteFromString(const QString &paletteString) cons
 	{
 		if (split[i].size() > 0)
 		{
-			unsigned int colour = split[i].toInt(NULL, 16);
+			unsigned int colour = split[i].toInt(nullptr, 16);
 			sRGB rgbColour;
 			rgbColour.R = colour / 65536;
 			rgbColour.G = (colour / 256) % 256;

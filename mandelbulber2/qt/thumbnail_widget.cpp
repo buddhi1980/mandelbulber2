@@ -65,11 +65,11 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 
 void cThumbnailWidget::Init(QWidget *parent)
 {
-	image = NULL;
+	image = nullptr;
 	tWidth = 0;
 	tHeight = 0;
 	oversample = 0;
-	progressBar = NULL;
+	progressBar = nullptr;
 	stopRequest = false;
 	isRendered = false;
 	hasParameters = false;
@@ -193,9 +193,9 @@ void cThumbnailWidget::AssignParameters(
 				memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
 				memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
 				delete params;
-				params = NULL;
+				params = nullptr;
 				delete fractal;
-				fractal = NULL;
+				fractal = nullptr;
 				emit thumbnailRendered();
 			}
 			else
@@ -282,9 +282,9 @@ void cThumbnailWidget::slotFullyRendered()
 	}
 	lastRenderTime = renderingTimeTimer.nsecsElapsed() / 1e9;
 	delete params;
-	params = NULL;
+	params = nullptr;
 	delete fractal;
-	fractal = NULL;
+	fractal = nullptr;
 	emit thumbnailRendered();
 }
 

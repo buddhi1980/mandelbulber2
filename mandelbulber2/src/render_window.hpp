@@ -67,7 +67,7 @@ class RenderWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	explicit RenderWindow(QWidget *parent = 0);
+	explicit RenderWindow(QWidget *parent = nullptr);
 	~RenderWindow();
 
 	// Getters for UI elements

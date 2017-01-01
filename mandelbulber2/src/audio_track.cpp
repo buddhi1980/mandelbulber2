@@ -51,8 +51,8 @@
 
 cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 {
-	fftAudio = NULL;
-	decoder = NULL;
+	fftAudio = nullptr;
+	decoder = nullptr;
 	Clear();
 }
 
@@ -65,7 +65,7 @@ cAudioTrack::~cAudioTrack()
 void cAudioTrack::Clear()
 {
 	if (decoder) delete decoder;
-	decoder = NULL;
+	decoder = nullptr;
 
 	memoryReserved = false;
 	length = 0;
@@ -79,7 +79,7 @@ void cAudioTrack::Clear()
 	rawAudio.clear();
 
 	if (fftAudio) delete[] fftAudio;
-	fftAudio = NULL;
+	fftAudio = nullptr;
 
 	animation.clear();
 	maxFftArray = cAudioFFTdata();

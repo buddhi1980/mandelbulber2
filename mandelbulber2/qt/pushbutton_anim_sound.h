@@ -44,7 +44,7 @@ class cPushButtonAnimSound : public QPushButton
 {
 	Q_OBJECT
 public:
-	cPushButtonAnimSound(QWidget *parent = 0);
+	cPushButtonAnimSound(QWidget *parent = nullptr);
 	~cPushButtonAnimSound();
 	void AssignParameterName(const QString &_parameterName);
 	void AssignAnimation(cAnimationFrames *_animationFrames)

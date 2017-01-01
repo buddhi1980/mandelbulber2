@@ -41,11 +41,11 @@ class MyUiLoader : public QUiLoader
 {
 	Q_OBJECT
 public:
-	MyUiLoader(QObject *parent = 0) : QUiLoader(parent) {}
+	MyUiLoader(QObject *parent = nullptr) : QUiLoader(parent) {}
 	~MyUiLoader();
 
 	virtual QWidget *createWidget(
-		const QString &className, QWidget *parent = 0, const QString &name = QString());
+		const QString &className, QWidget *parent = nullptr, const QString &name = QString());
 };
 
 #endif /* MANDELBULBER2_SRC_MY_UI_LOADER_H_ */

@@ -61,7 +61,7 @@ struct sTextures
 
 struct sRenderData
 {
-	sRenderData() : rendererID(0), stopRequest(NULL), lastPercentage(1.0), reduceDetail(1.0) {}
+	sRenderData() : rendererID(0), stopRequest(nullptr), lastPercentage(1.0), reduceDetail(1.0) {}
 
 	int rendererID;
 	cRegion<int> screenRegion;

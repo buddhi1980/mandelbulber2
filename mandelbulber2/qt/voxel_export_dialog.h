@@ -51,7 +51,7 @@ class cVoxelExportDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit cVoxelExportDialog(QWidget *parent = 0);
+	explicit cVoxelExportDialog(QWidget *parent = nullptr);
 	~cVoxelExportDialog();
 
 public slots:

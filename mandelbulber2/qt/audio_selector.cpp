@@ -48,8 +48,8 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
-	audio = NULL;
-	animationFrames = NULL;
+	audio = nullptr;
+	animationFrames = nullptr;
 	setAttribute(Qt::WA_DeleteOnClose, true);
 }
 

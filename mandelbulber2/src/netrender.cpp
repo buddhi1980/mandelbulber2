@@ -46,18 +46,20 @@
 #include "render_window.hpp"
 #include "texture.hpp"
 
-CNetRender *gNetRender = NULL;
+CNetRender *gNetRender = nullptr;
 
+// ReSharper disable CppZeroConstantCanBeReplacedWithNullptr
 CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
+// ReSharper restore CppZeroConstantCanBeReplacedWithNullptr
 {
 	this->workerCount = workerCount;
 	deviceType = netRender_UNKNOWN;
 	version = 1000 * MANDELBULBER_VERSION;
-	clientSocket = NULL;
-	server = NULL;
+	clientSocket = nullptr;
+	server = nullptr;
 	portNo = 0;
 	status = netRender_NEW;
-	reconnectTimer = NULL;
+	reconnectTimer = nullptr;
 	actualId = 0;
 	totalReceivedUncompressed = 0;
 	totalReceived = 0;
@@ -123,7 +125,7 @@ void CNetRender::DeleteServer()
 	{
 		server->close();
 		delete server;
-		server = NULL;
+		server = nullptr;
 	}
 	clients.clear();
 	emit ClientsChanged();
@@ -140,13 +142,13 @@ void CNetRender::DeleteClient()
 	{
 		if (reconnectTimer->isActive()) reconnectTimer->stop();
 		delete reconnectTimer;
-		reconnectTimer = NULL;
+		reconnectTimer = nullptr;
 	}
 	if (clientSocket)
 	{
 		clientSocket->close();
 		delete clientSocket;
-		clientSocket = NULL;
+		clientSocket = nullptr;
 	}
 	status = netRender_DISABLED;
 	emit NotifyStatus();
@@ -354,7 +356,7 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 
 void CNetRender::ResetMessage(sMessage *msg)
 {
-	if (msg == NULL)
+	if (msg == nullptr)
 	{
 		qCritical() << "CNetRender::ResetMessage(sMessage *msg): message has NULL pointer!";
 	}
@@ -846,7 +848,7 @@ void CNetRender::SetCurrentJob(
 
 void CNetRender::NotifyStatus()
 {
-	if (clientSocket != NULL)
+	if (clientSocket != nullptr)
 	{
 		sMessage outMsg;
 		outMsg.command = netRender_STATUS;

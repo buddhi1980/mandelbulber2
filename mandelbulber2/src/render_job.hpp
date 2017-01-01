@@ -57,7 +57,7 @@ class cRenderJob : public QObject
 	Q_OBJECT
 public:
 	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image,
-		bool *_stopRequest, QWidget *_qwidget = NULL);
+		bool *_stopRequest, QWidget *_qwidget = nullptr);
 	~cRenderJob();
 	// QWidtet *parent is needed to connect signals for refreshing progress and status bar.
 	// If _parent is not NULL then parent has to have slot slotUpdateProgressAndStatus()

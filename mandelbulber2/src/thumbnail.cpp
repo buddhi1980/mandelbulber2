@@ -47,8 +47,8 @@ cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContain
 	int _width, int _height, const QString &_hash = QString())
 		: params(_params), fractal(_fractal), width(_width), height(_height), hash(_hash)
 {
-	image = NULL;
-	qwidget = NULL;
+	image = nullptr;
+	qwidget = nullptr;
 	image = new cImage(width, height);
 	// image->CreatePreview(1.0, width, height, qwidget);
 }

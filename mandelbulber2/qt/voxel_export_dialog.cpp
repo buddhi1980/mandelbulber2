@@ -53,7 +53,7 @@ cVoxelExportDialog::cVoxelExportDialog(QWidget *parent)
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	initFinished = true;
 	ui->progressBar->hide();
-	voxelExport = NULL;
+	voxelExport = nullptr;
 }
 
 cVoxelExportDialog::~cVoxelExportDialog()

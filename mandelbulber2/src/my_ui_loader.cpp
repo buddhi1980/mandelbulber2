@@ -48,7 +48,7 @@ MyUiLoader::~MyUiLoader()
 
 QWidget *MyUiLoader::createWidget(const QString &className, QWidget *parent, const QString &name)
 {
-	QWidget *widget = NULL;
+	QWidget *widget = nullptr;
 
 	if (className == QString("MyLineEdit"))
 	{

@@ -40,7 +40,7 @@ cStereo::cStereo()
 {
 	swapped = false;
 	stereoMode = stereoDisabled;
-	imageBuffer = NULL;
+	imageBuffer = nullptr;
 	imageBufferWidth = 0;
 	imageBufferHeight = 0;
 	forceEye = eyeNone;
@@ -51,7 +51,7 @@ cStereo::~cStereo()
 	if (imageBuffer)
 	{
 		delete[] imageBuffer;
-		imageBuffer = NULL;
+		imageBuffer = nullptr;
 	}
 }
 

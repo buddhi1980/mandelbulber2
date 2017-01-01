@@ -195,7 +195,7 @@ void WriteLog(QString text, int verbosityLevel)
 		fclose(logfile);
 
 		// write to log in window
-		if (gMainInterface && gMainInterface->mainWindow != NULL)
+		if (gMainInterface && gMainInterface->mainWindow != nullptr)
 		{
 			gMainInterface->mainWindow->AppendToLog(logtext);
 		}
@@ -332,7 +332,7 @@ int fcopy(QString source, QString dest)
 	size_t result;
 
 	pFile = fopen(source.toLocal8Bit().constData(), "rb");
-	if (pFile == NULL)
+	if (pFile == nullptr)
 	{
 		qCritical() << "Can't open source file for copying: " << source << endl;
 		WriteLogString("Can't open source file for copying", source, 1);
@@ -371,7 +371,7 @@ int fcopy(QString source, QString dest)
 	// ----- file writing
 
 	pFile = fopen(dest.toLocal8Bit().constData(), "wb");
-	if (pFile == NULL)
+	if (pFile == nullptr)
 	{
 		qCritical() << "Can't open destination file for copying: " << dest << endl;
 		WriteLogString("Can't open destination file for copying", dest, 1);

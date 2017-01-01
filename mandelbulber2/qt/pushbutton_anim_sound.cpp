@@ -42,7 +42,7 @@
 cPushButtonAnimSound::cPushButtonAnimSound(QWidget *parent) : QPushButton(parent)
 {
 	connect(this, SIGNAL(clicked()), this, SLOT(slotLoadAudio()));
-	animationFrames = NULL;
+	animationFrames = nullptr;
 	setIcon(QIcon::fromTheme("audio-x-generic", QIcon(":system/icons/audio-x-generic.svg")));
 }
 

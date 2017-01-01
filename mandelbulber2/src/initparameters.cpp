@@ -45,7 +45,7 @@
 #include <QtCore>
 #include "texture_enums.hpp"
 
-cParameterContainer *gPar = NULL;
+cParameterContainer *gPar = nullptr;
 
 // definition of all parameters
 void InitParams(cParameterContainer *par)

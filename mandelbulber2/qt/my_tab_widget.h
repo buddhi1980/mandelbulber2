@@ -44,7 +44,7 @@ class MyTabWidget : public QTabWidget
 	Q_OBJECT
 
 public:
-	MyTabWidget(QWidget *parent = 0);
+	MyTabWidget(QWidget *parent = nullptr);
 
 signals:
 	void swapTabs(int swapA, int swapB);

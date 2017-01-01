@@ -41,7 +41,7 @@
 
 cMaterialItemModel::cMaterialItemModel(QObject *parent) : QAbstractListModel(parent)
 {
-	container = NULL;
+	container = nullptr;
 }
 
 cMaterialItemModel::~cMaterialItemModel()
@@ -88,7 +88,7 @@ QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 		}
 
 		cSettings tempSettings(cSettings::formatCondensedText);
-		tempSettings.CreateText(&params, NULL);
+		tempSettings.CreateText(&params, nullptr);
 		return tempSettings.GetSettingsText();
 	}
 
@@ -115,7 +115,7 @@ bool cMaterialItemModel::setData(const QModelIndex &index, const QVariant &value
 
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.LoadFromString(value.toString());
-		tempSettings.Decode(&params, NULL);
+		tempSettings.Decode(&params, nullptr);
 
 		// copy parameters from temporary container for material to main parameter container
 		for (int i = 0; i < cMaterial::paramsList.size(); i++)

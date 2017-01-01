@@ -45,7 +45,7 @@ class MyCheckBox : public QCheckBox, public CommonMyWidgetWrapper
 	Q_OBJECT
 
 public:
-	MyCheckBox(QWidget *parent = 0) : QCheckBox(parent), CommonMyWidgetWrapper(this)
+	MyCheckBox(QWidget *parent = nullptr) : QCheckBox(parent), CommonMyWidgetWrapper(this)
 	{
 		defaultValue = false;
 	}

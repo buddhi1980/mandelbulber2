@@ -50,7 +50,7 @@ public:
 	cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
 	~cMaterialWidget();
 	void AssignMaterial(
-		cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = NULL);
+		cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = nullptr);
 	void AssignMaterial(const QString &settings, int materialIndex);
 
 private:

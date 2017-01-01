@@ -49,7 +49,7 @@ class cDockNavigation : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockNavigation(QWidget *parent = NULL);
+	explicit cDockNavigation(QWidget *parent = nullptr);
 	~cDockNavigation();
 
 	void RenderButtonSetEnabled(bool enabled);

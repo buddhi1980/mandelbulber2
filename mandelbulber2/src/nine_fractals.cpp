@@ -54,13 +54,13 @@ cNineFractals::~cNineFractals()
 		delete[] fractals;
 	}
 	if (hybridSequence) delete[] hybridSequence;
-	hybridSequence = NULL;
+	hybridSequence = nullptr;
 }
 
 cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
 {
 	fractals = new cFractal *[NUMBER_OF_FRACTALS];
-	hybridSequence = NULL;
+	hybridSequence = nullptr;
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
@@ -266,7 +266,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 {
 	if (hybridSequence) delete[] hybridSequence;
-	hybridSequence = NULL;
+	hybridSequence = nullptr;
 	hybridSequenceLength = maxN * 5;
 	hybridSequence = new int[hybridSequenceLength];
 	int repeatFrom = generalPar->Get<int>("repeat_from");

@@ -68,7 +68,7 @@ struct sDistanceOut
 };
 
 double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
-	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = NULL);
+	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = nullptr);
 double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
 double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals &fractals,

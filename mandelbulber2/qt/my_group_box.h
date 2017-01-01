@@ -45,7 +45,7 @@ class MyGroupBox : public QGroupBox, public CommonMyWidgetWrapper
 	Q_OBJECT
 
 public:
-	MyGroupBox(QWidget *parent = 0);
+	MyGroupBox(QWidget *parent = nullptr);
 
 private:
 	bool GetDefault();

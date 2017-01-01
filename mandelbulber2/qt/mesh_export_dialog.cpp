@@ -53,7 +53,7 @@ cMeshExportDialog::cMeshExportDialog(QWidget *parent)
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	initFinished = true;
 	ui->progressBar->hide();
-	meshExport = NULL;
+	meshExport = nullptr;
 }
 
 cMeshExportDialog::~cMeshExportDialog()

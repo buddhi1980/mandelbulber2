@@ -47,7 +47,7 @@ class MyLogWidget : public QPlainTextEdit
 	Q_OBJECT
 
 public:
-	explicit MyLogWidget(QWidget *parent = 0);
+	explicit MyLogWidget(QWidget *parent = nullptr);
 	~MyLogWidget();
 
 public slots:

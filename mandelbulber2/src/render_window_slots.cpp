@@ -245,7 +245,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 			continue;
 		}
 		QString filename = systemData.GetToolbarFolder() + QDir::separator() + toolbarFiles.at(i);
-		cThumbnailWidget *thumbWidget = NULL;
+		cThumbnailWidget *thumbWidget = nullptr;
 
 		if (QFileInfo(filename).suffix() == QString("fract"))
 		{
@@ -380,7 +380,7 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 	double progress, cProgressText::enumProgressType progressType)
 {
 	ui->statusbar->showMessage(text, 0);
-	MyProgressBar *progressBar = NULL;
+	MyProgressBar *progressBar = nullptr;
 	bool isQueue = this->sender() && this->sender()->objectName() == "Queue";
 	switch (progressType)
 	{
@@ -415,7 +415,7 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 
 void RenderWindow::slotUpdateProgressHide(cProgressText::enumProgressType progressType)
 {
-	MyProgressBar *progressBar = NULL;
+	MyProgressBar *progressBar = nullptr;
 	switch (progressType)
 	{
 		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;

@@ -59,7 +59,7 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent)
 
 	itemView = new cMaterialItemView(this);
 	ui->verticalLayout->addWidget(itemView);
-	model = NULL;
+	model = nullptr;
 
 	connect(ui->pushButton_newMaterial, SIGNAL(clicked()), this, SLOT(slotAddMaterial()));
 	connect(ui->pushButton_deleteMaterial, SIGNAL(clicked()), this, SLOT(slotDeleteMaterial()));
@@ -131,7 +131,7 @@ void cMaterialManagerView::slotLoadMaterial()
 			parSettings.LoadFromFile(filename);
 
 			cParameterContainer params1;
-			parSettings.Decode(&params1, NULL);
+			parSettings.Decode(&params1, nullptr);
 
 			model->insertRowWithParameters(&params1);
 			emit materialEdited();
@@ -149,7 +149,7 @@ void cMaterialManagerView::slotSaveMaterial()
 	params.SetContainerName("materialToSave");
 	cSettings tempSettings(cSettings::formatCondensedText);
 	tempSettings.LoadFromString(settingsFromModel);
-	tempSettings.Decode(&params, NULL);
+	tempSettings.Decode(&params, nullptr);
 
 	// change material number to 1
 	cParameterContainer params1;
@@ -162,7 +162,7 @@ void cMaterialManagerView::slotSaveMaterial()
 	}
 
 	cSettings settingsToSave(cSettings::formatCondensedText);
-	settingsToSave.CreateText(&params1, NULL);
+	settingsToSave.CreateText(&params1, nullptr);
 
 	QString suggestedFilename = params1.Get<QString>("mat1_name");
 
@@ -221,7 +221,7 @@ void cMaterialManagerView::slotEditMaterial()
 
 	cSettings tempSettings(cSettings::formatCondensedText);
 	tempSettings.LoadFromString(settingsFromModel);
-	tempSettings.Decode(&params, NULL);
+	tempSettings.Decode(&params, nullptr);
 
 	materialEditor->AssignMaterial(&params, matIndex);
 
@@ -234,7 +234,7 @@ void cMaterialManagerView::slotEditMaterial()
 	{
 		SynchronizeInterfaceWindow(dialog, &params, qInterface::read);
 		cSettings tempSettings2(cSettings::formatCondensedText);
-		tempSettings2.CreateText(&params, NULL);
+		tempSettings2.CreateText(&params, nullptr);
 		model->setData(index, tempSettings2.GetSettingsText());
 		emit materialEdited();
 	}

@@ -47,7 +47,7 @@ cFileDownloader::cFileDownloader(QString sourceBaseURL, QString targetDir) : QOb
 	cntFilesAlreadyExists = 0;
 	cntFilesToDownload = 0;
 	cntFilesDownloaded = 0;
-	tempFile = NULL;
+	tempFile = nullptr;
 }
 
 cFileDownloader::~cFileDownloader()
@@ -55,7 +55,7 @@ cFileDownloader::~cFileDownloader()
 	if (tempFile)
 	{
 		delete tempFile;
-		tempFile = NULL;
+		tempFile = nullptr;
 	}
 }
 
@@ -106,7 +106,7 @@ void cFileDownloader::filelistDownloaded()
 		if (tempFile)
 		{
 			delete tempFile;
-			tempFile = NULL;
+			tempFile = nullptr;
 		}
 		tempFile = new QFile(this->targetDir + QDir::separator() + file);
 		if (!tempFile->open(QIODevice::WriteOnly))

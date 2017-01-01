@@ -41,7 +41,7 @@
 
 MyProgressBar::MyProgressBar(QWidget *parent) : QProgressBar(parent)
 {
-	textLabel = NULL;
+	textLabel = nullptr;
 #ifdef __APPLE__
 	QHBoxLayout *layout = new QHBoxLayout(this);
 	textLabel = new QLabel();

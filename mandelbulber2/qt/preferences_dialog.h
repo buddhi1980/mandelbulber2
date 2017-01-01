@@ -50,7 +50,7 @@ class cPreferencesDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit cPreferencesDialog(QWidget *parent = 0);
+	explicit cPreferencesDialog(QWidget *parent = nullptr);
 	~cPreferencesDialog();
 
 private slots:

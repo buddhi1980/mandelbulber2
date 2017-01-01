@@ -75,7 +75,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	}
 	else
 	{
-		imageWidget = NULL;
+		imageWidget = nullptr;
 		hasQWidget = false;
 	}
 
@@ -83,7 +83,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	systemData.threadsPriority =
 		(enumRenderingThreadPriority)paramsContainer->Get<int>("threads_priority");
 	totalNumberOfCPUs = systemData.numberOfThreads;
-	renderData = NULL;
+	renderData = nullptr;
 	useSizeFromImage = false;
 	stopRequest = _stopRequest;
 

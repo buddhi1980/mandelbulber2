@@ -42,7 +42,7 @@
 #include "audio_track.h"
 #include "initparameters.hpp"
 
-cAnimationFrames *gAnimFrames = NULL;
+cAnimationFrames *gAnimFrames = nullptr;
 
 cAnimationFrames::cAnimationFrames()
 {
@@ -211,7 +211,7 @@ int cAnimationFrames::IndexOnList(QString parameterName, QString containerName)
 const cParameterContainer *cAnimationFrames::ContainerSelector(
 	QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const
 {
-	const cParameterContainer *container = NULL;
+	const cParameterContainer *container = nullptr;
 	if (containerName == "main")
 	{
 		container = params;
@@ -245,7 +245,7 @@ const cParameterContainer *cAnimationFrames::ContainerSelector(
 cParameterContainer *cAnimationFrames::ContainerSelector(
 	QString containerName, cParameterContainer *params, cFractalContainer *fractal) const
 {
-	cParameterContainer *container = NULL;
+	cParameterContainer *container = nullptr;
 	if (containerName == "main" || containerName == "material")
 	{
 		container = params;

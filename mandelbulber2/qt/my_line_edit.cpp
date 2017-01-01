@@ -42,9 +42,9 @@
 
 MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapper(this)
 {
-	actionResetVectorToDefault = NULL;
-	actionCopyVectorToClipboard = NULL;
-	actionPasteVectorFromClipboard = NULL;
+	actionResetVectorToDefault = nullptr;
+	actionCopyVectorToClipboard = nullptr;
+	actionPasteVectorFromClipboard = nullptr;
 }
 
 void MyLineEdit::paintEvent(QPaintEvent *event)

@@ -47,7 +47,7 @@ class ColorPaletteWidget : public QWidget, public CommonMyWidgetWrapper
 	Q_OBJECT
 
 public:
-	ColorPaletteWidget(QWidget *parent = 0);
+	ColorPaletteWidget(QWidget *parent = nullptr);
 	void SetPalette(const cColorPalette &_palette);
 	cColorPalette GetPalette(void) { return palette; }
 	void SetOffset(double offset);

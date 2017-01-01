@@ -65,7 +65,7 @@ cMaterialWidget::cMaterialWidget(int _width, int _height, int _oversample, QWidg
 
 void cMaterialWidget::Init()
 {
-	paramsHandle = NULL;
+	paramsHandle = nullptr;
 	// DisableThumbnailCache();
 	DisableTimer();
 
@@ -205,7 +205,7 @@ void cMaterialWidget::AssignMaterial(const QString &text, int materialIndex)
 	settings.LoadFromString(text);
 	cParameterContainer params;
 	InitMaterialParams(materialIndex, &params);
-	settings.Decode(&params, NULL);
+	settings.Decode(&params, nullptr);
 	AssignMaterial(&params, materialIndex);
 }
 

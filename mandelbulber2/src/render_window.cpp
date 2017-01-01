@@ -44,9 +44,9 @@
 RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::RenderWindow)
 {
 	ui->setupUi(this);
-	preferencesDialog = NULL;
-	voxelExportDialog = NULL;
-	meshExportDialog = NULL;
+	preferencesDialog = nullptr;
+	voxelExportDialog = nullptr;
+	meshExportDialog = nullptr;
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 

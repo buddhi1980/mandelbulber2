@@ -42,7 +42,7 @@ class MyTableWidgetAnim : public QTableWidget
 	Q_OBJECT
 
 public:
-	MyTableWidgetAnim(QWidget *parent = 0);
+	MyTableWidgetAnim(QWidget *parent = nullptr);
 	~MyTableWidgetAnim();
 
 private:

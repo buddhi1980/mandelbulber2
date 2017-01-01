@@ -49,7 +49,7 @@ cMaterialEditor::cMaterialEditor(QWidget *parent) : QWidget(parent), ui(new Ui::
 	ui->setupUi(this);
 
 	materialIndex = 0;
-	parameterContainer = NULL;
+	parameterContainer = nullptr;
 	isMaterialAssigned = false;
 
 	automatedWidgets = new cAutomatedWidgets(this);

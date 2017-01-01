@@ -55,7 +55,7 @@ class cTabFractal : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cTabFractal(QWidget *parent = NULL);
+	explicit cTabFractal(QWidget *parent = nullptr);
 	~cTabFractal();
 
 	void InitWidgetNames();

@@ -49,14 +49,14 @@ cMorph::~cMorph()
 {
 	gsl_spline_free(splineAkimaPeriodic);
 	gsl_interp_accel_free(interpolationAccelerator);
-	splineAkimaPeriodic = NULL;
-	interpolationAccelerator = NULL;
+	splineAkimaPeriodic = nullptr;
+	interpolationAccelerator = nullptr;
 }
 
 cMorph::cMorph(const cMorph &source)
 {
-	splineAkimaPeriodic = NULL;
-	interpolationAccelerator = NULL;
+	splineAkimaPeriodic = nullptr;
+	interpolationAccelerator = nullptr;
 	*this = source;
 }
 

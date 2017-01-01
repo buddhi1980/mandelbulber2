@@ -53,7 +53,7 @@ class cRenderQueue : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderQueue(cImage *_image, RenderedImage *widget = NULL);
+	cRenderQueue(cImage *_image, RenderedImage *widget = nullptr);
 	~cRenderQueue();
 	bool RenderStill(const QString &filename);
 	bool RenderFlight();

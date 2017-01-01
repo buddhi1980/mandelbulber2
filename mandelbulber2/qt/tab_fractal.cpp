@@ -54,7 +54,7 @@ cTabFractal::cTabFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cTabFrac
 	// automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
 
-	fractalWidget = NULL;
+	fractalWidget = nullptr;
 	tabIndex = 0;
 }
 
@@ -155,7 +155,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_" + formulaName + ".ui";
 
 		if (fractalWidget) delete fractalWidget;
-		fractalWidget = NULL;
+		fractalWidget = nullptr;
 
 		MyUiLoader loader;
 		QFile uiFile(uiFilename);
@@ -236,7 +236,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 	else
 	{
 		if (fractalWidget) delete fractalWidget;
-		fractalWidget = NULL;
+		fractalWidget = nullptr;
 	}
 
 	gMainInterface->mainWindow->GetWidgetDockFractal()->SetTabText(

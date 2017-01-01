@@ -44,7 +44,7 @@ class MyScrolledArea : public QScrollArea
 	Q_OBJECT
 
 public:
-	MyScrolledArea(QWidget *parent = 0) : QScrollArea(parent)
+	MyScrolledArea(QWidget *parent = nullptr) : QScrollArea(parent)
 	{
 		visibleAreaWidth = width() - verticalScrollBar()->width();
 		visibleAreaHeight = height() - horizontalScrollBar()->height();

@@ -39,24 +39,24 @@ cHistogram::cHistogram()
 	histSize = 0;
 	count = 0;
 	sum = 0;
-	data = NULL;
+	data = nullptr;
 }
 
 cHistogram::cHistogram(int size)
 {
-	data = NULL;
+	data = nullptr;
 	Alloc(size);
 }
 
 cHistogram::~cHistogram()
 {
 	if (data) delete[] data;
-	data = NULL;
+	data = nullptr;
 }
 
 cHistogram::cHistogram(const cHistogram &source)
 {
-	data = NULL;
+	data = nullptr;
 	Copy(source);
 }
 
@@ -72,7 +72,7 @@ cHistogram &cHistogram::operator=(const cHistogram &source)
 void cHistogram::Resize(int size)
 {
 	if (data) delete[] data;
-	data = NULL;
+	data = nullptr;
 	Alloc(size);
 }
 

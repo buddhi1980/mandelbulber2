@@ -49,7 +49,7 @@ class cDockMeasurements : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockMeasurements(QWidget *parent = NULL);
+	explicit cDockMeasurements(QWidget *parent = nullptr);
 	~cDockMeasurements();
 
 private slots:

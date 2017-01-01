@@ -56,7 +56,7 @@ class cMaterialManagerView : public QWidget
 	Q_OBJECT;
 
 public:
-	explicit cMaterialManagerView(QWidget *parent = NULL);
+	explicit cMaterialManagerView(QWidget *parent = nullptr);
 	~cMaterialManagerView();
 	void SetModel(cMaterialItemModel *_model);
 	void SetSelection(QModelIndex index);

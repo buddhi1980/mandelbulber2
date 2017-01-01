@@ -52,7 +52,7 @@ class cDockQueue : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockQueue(QWidget *parent = NULL);
+	explicit cDockQueue(QWidget *parent = nullptr);
 	~cDockQueue();
 	MyProgressBar *GetProgressBarImage();
 	MyProgressBar *GetProgressBarAnimation();

@@ -49,7 +49,7 @@ class cDockImageAdjustments : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockImageAdjustments(QWidget *parent = NULL);
+	explicit cDockImageAdjustments(QWidget *parent = nullptr);
 	~cDockImageAdjustments();
 
 	enum enumImageProportion

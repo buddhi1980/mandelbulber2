@@ -48,24 +48,24 @@ cImage::cImage(int w, int h, bool _allocLater)
 void cImage::construct()
 {
 	previewAllocated = false;
-	image8 = NULL;
-	image16 = NULL;
-	imageFloat = NULL;
-	alphaBuffer8 = NULL;
-	alphaBuffer16 = NULL;
-	opacityBuffer = NULL;
-	colourBuffer = NULL;
-	zBuffer = NULL;
-	gammaTable = NULL;
+	image8 = nullptr;
+	image16 = nullptr;
+	imageFloat = nullptr;
+	alphaBuffer8 = nullptr;
+	alphaBuffer16 = nullptr;
+	opacityBuffer = nullptr;
+	colourBuffer = nullptr;
+	zBuffer = nullptr;
+	gammaTable = nullptr;
 
 	// optional image buffers
-	normalFloat = NULL;
-	normal8 = NULL;
-	normal16 = NULL;
+	normalFloat = nullptr;
+	normal8 = nullptr;
+	normal16 = nullptr;
 
 	AllocMem();
 	progressiveFactor = 1;
-	imageWidget = NULL;
+	imageWidget = nullptr;
 	isUsed = false;
 	previewScale = 1.0;
 	previewVisibleWidth = 1;
@@ -87,9 +87,9 @@ cImage::~cImage()
 	if (previewAllocated)
 	{
 		if (preview) delete[] preview;
-		preview = NULL;
+		preview = nullptr;
 		if (preview2) delete[] preview2;
-		preview2 = NULL;
+		preview2 = nullptr;
 	}
 }
 
@@ -142,8 +142,8 @@ bool cImage::AllocMem(void)
 	}
 	previewAllocated = false;
 
-	preview = NULL;
-	preview2 = NULL;
+	preview = nullptr;
+	preview2 = nullptr;
 	isAllocated = true;
 	return true;
 }
@@ -189,29 +189,29 @@ void cImage::FreeImage(void)
 	isAllocated = false;
 	// qDebug() << "void cImage::FreeImage(void)";
 	if (imageFloat) delete[] imageFloat;
-	imageFloat = NULL;
+	imageFloat = nullptr;
 	if (image16) delete[] image16;
-	image16 = NULL;
+	image16 = nullptr;
 	if (image8) delete[] image8;
-	image8 = NULL;
+	image8 = nullptr;
 	if (alphaBuffer8) delete[] alphaBuffer8;
-	alphaBuffer8 = NULL;
+	alphaBuffer8 = nullptr;
 	if (alphaBuffer16) delete[] alphaBuffer16;
-	alphaBuffer16 = NULL;
+	alphaBuffer16 = nullptr;
 	if (opacityBuffer) delete[] opacityBuffer;
-	opacityBuffer = NULL;
+	opacityBuffer = nullptr;
 	if (colourBuffer) delete[] colourBuffer;
-	colourBuffer = NULL;
+	colourBuffer = nullptr;
 	if (zBuffer) delete[] zBuffer;
-	zBuffer = NULL;
+	zBuffer = nullptr;
 	if (normalFloat) delete[] normalFloat;
-	normalFloat = NULL;
+	normalFloat = nullptr;
 	if (normal16) delete[] normal16;
-	normal16 = NULL;
+	normal16 = nullptr;
 	if (normal8) delete[] normal8;
-	normal8 = NULL;
+	normal8 = nullptr;
 	if (gammaTable) delete[] gammaTable;
-	gammaTable = NULL;
+	gammaTable = nullptr;
 	gammaTablePrepared = false;
 }
 
@@ -346,7 +346,7 @@ unsigned char *cImage::ConvertAlphaTo8bit(void)
 
 unsigned char *cImage::ConvertNormalto16Bit(void)
 {
-	if (!opt.optionalNormal) return NULL;
+	if (!opt.optionalNormal) return nullptr;
 	for (long int i = 0; i < width * height; i++)
 	{
 		normal16[i].R = normalFloat[i].R * 65535;
@@ -358,7 +358,7 @@ unsigned char *cImage::ConvertNormalto16Bit(void)
 
 unsigned char *cImage::ConvertNormalto8Bit(void)
 {
-	if (!opt.optionalNormal) return NULL;
+	if (!opt.optionalNormal) return nullptr;
 	for (long int i = 0; i < width * height; i++)
 	{
 		normal8[i].R = normalFloat[i].R * 255;
@@ -395,7 +395,7 @@ sRGB8 cImage::Interpolation(float x, float y) const
 }
 
 unsigned char *cImage::CreatePreview(
-	double scale, int visibleWidth, int visibleHeight, QWidget *widget = NULL)
+	double scale, int visibleWidth, int visibleHeight, QWidget *widget = nullptr)
 {
 	previewMutex.lock();
 	int w = width * scale;
@@ -511,7 +511,7 @@ void cImage::UpdatePreview(QList<int> *list)
 
 unsigned char *cImage::GetPreviewPtr(void)
 {
-	unsigned char *ptr = 0;
+	unsigned char *ptr = nullptr;
 	if (previewAllocated)
 	{
 		ptr = (unsigned char *)preview2;
@@ -523,7 +523,7 @@ unsigned char *cImage::GetPreviewPtr(void)
 
 unsigned char *cImage::GetPreviewPrimaryPtr(void)
 {
-	unsigned char *ptr = 0;
+	unsigned char *ptr = nullptr;
 	if (previewAllocated)
 	{
 		ptr = (unsigned char *)preview;

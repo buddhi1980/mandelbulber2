@@ -45,7 +45,7 @@ class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 	Q_OBJECT
 
 public:
-	MyLineEdit(QWidget *parent = 0);
+	MyLineEdit(QWidget *parent = nullptr);
 
 private:
 	QAction *actionResetVectorToDefault;

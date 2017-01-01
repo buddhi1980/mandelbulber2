@@ -161,7 +161,7 @@ void cHeadless::RenderFlightAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gFlightAnimation =
-		new cFlightAnimation(gMainInterface, gAnimFrames, image, NULL, gPar, gParFractal, NULL);
+		new cFlightAnimation(gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, nullptr);
 	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
 																			 const QString &, double, cProgressText::enumProgressType)),
 		this, SLOT(slotUpdateProgressAndStatus(
@@ -174,7 +174,7 @@ void cHeadless::RenderFlightAnimation()
 	gFlightAnimation->slotRenderFlight();
 	delete image;
 	delete gFlightAnimation;
-	gFlightAnimation = NULL;
+	gFlightAnimation = nullptr;
 	return;
 }
 
@@ -182,7 +182,7 @@ void cHeadless::RenderKeyframeAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gKeyframeAnimation =
-		new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL, gPar, gParFractal, NULL);
+		new cKeyframeAnimation(gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, nullptr);
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
 																				 const QString &, double, cProgressText::enumProgressType)),
 		this, SLOT(slotUpdateProgressAndStatus(
@@ -195,7 +195,7 @@ void cHeadless::RenderKeyframeAnimation()
 	gKeyframeAnimation->slotRenderKeyframes();
 	delete image;
 	delete gKeyframeAnimation;
-	gKeyframeAnimation = NULL;
+	gKeyframeAnimation = nullptr;
 	return;
 }
 

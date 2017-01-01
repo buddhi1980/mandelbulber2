@@ -54,7 +54,7 @@ public:
 	cUndo();
 	~cUndo();
 	void Store(cParameterContainer *par, cFractalContainer *parFractal,
-		cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
+		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);
 	bool Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,
 		cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
 	bool Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,

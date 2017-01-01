@@ -83,7 +83,7 @@ ImageFileSave *ImageFileSave::create(
 #endif /* USE_EXR */
 	}
 	qCritical() << "filetype " << ImageFileExtension(filetype) << " not supported!";
-	return NULL;
+	return nullptr;
 }
 
 QString ImageFileSave::ImageFileExtension(enumImageFileType imageFileType)
@@ -248,16 +248,16 @@ void ImageFileSavePNG::SavePNG(
 
 	/* create file */
 	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
-	png_bytep *row_pointers = NULL;
-	png_structp png_ptr = NULL;
-	png_info *info_ptr = NULL;
+	png_bytep *row_pointers = nullptr;
+	png_structp png_ptr = nullptr;
+	png_info *info_ptr = nullptr;
 
 	try
 	{
 		if (!fp) throw QString("[write_png_file] File %s could not be opened for writing.");
 
 		/* initialize stuff */
-		png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+		png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
 		if (!png_ptr) throw QString("[write_png_file] png_create_write_struct failed");
 
@@ -305,7 +305,7 @@ void ImageFileSavePNG::SavePNG(
 		png_write_info(png_ptr, info_ptr);
 		png_set_swap(png_ptr);
 
-		char *colorPtr = NULL;
+		char *colorPtr = nullptr;
 
 		/* write bytes */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during writing bytes");
@@ -328,7 +328,7 @@ void ImageFileSavePNG::SavePNG(
 
 		if (directOnBuffer)
 		{
-			char *directPointer = NULL;
+			char *directPointer = nullptr;
 			switch (imageChannel.contentType)
 			{
 				case IMAGE_CONTENT_COLOR:
@@ -500,7 +500,7 @@ void ImageFileSavePNG::SavePNG(
 			}
 			else
 			{
-				png_destroy_write_struct(&png_ptr, NULL);
+				png_destroy_write_struct(&png_ptr, nullptr);
 			}
 		}
 		if (row_pointers) delete[] row_pointers;
@@ -515,16 +515,16 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 {
 	/* create file */
 	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
-	png_bytep *row_pointers = NULL;
-	png_structp png_ptr = NULL;
-	png_info *info_ptr = NULL;
+	png_bytep *row_pointers = nullptr;
+	png_structp png_ptr = nullptr;
+	png_info *info_ptr = nullptr;
 
 	try
 	{
 		if (!fp) throw QString("[write_png_file] File %s could not be opened for writing.");
 
 		/* initialize stuff */
-		png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+		png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
 		if (!png_ptr) throw QString("[write_png_file] png_create_write_struct failed");
 
@@ -574,7 +574,7 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 			}
 			else
 			{
-				png_destroy_write_struct(&png_ptr, NULL);
+				png_destroy_write_struct(&png_ptr, nullptr);
 			}
 		}
 		if (row_pointers) delete[] row_pointers;
@@ -598,7 +598,7 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 	}
 
 	/* initialize stuff */
-	png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+	png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
 	if (!png_ptr)
 	{

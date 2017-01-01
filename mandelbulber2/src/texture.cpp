@@ -47,7 +47,7 @@
 // constructor
 cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 {
-	bitmap = NULL;
+	bitmap = nullptr;
 
 	// try to load image if it's PNG format (this one supports 16-bit depth images)
 	bitmap = LoadPNG(filename, width, height);
@@ -133,7 +133,7 @@ cTexture &cTexture::operator=(const cTexture &tex)
 	if (bitmap)
 	{
 		delete[] bitmap;
-		bitmap = NULL;
+		bitmap = nullptr;
 		// qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): "
 		// 				 << "delete[] bitmap;:" << width * height * sizeof(sRGB8);
 	}
@@ -161,7 +161,7 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 		delete[] bitmap;
 	}
 
-	bitmap = NULL;
+	bitmap = nullptr;
 	QImage qimage(*buffer);
 	qimage.loadFromData(*buffer);
 	qimage = qimage.convertToFormat(QImage::Format_RGB888);
@@ -219,7 +219,7 @@ cTexture::~cTexture(void)
 	if (bitmap)
 	{
 		delete[] bitmap;
-		bitmap = NULL;
+		bitmap = nullptr;
 		// qDebug() << "cTexture::~cTexture(void):"
 		// 				 << "delete[] bitmap:" << width * height * sizeof(sRGB8);
 	}

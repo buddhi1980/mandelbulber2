@@ -48,7 +48,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {
 	setOption(QFileDialog::DontUseNativeDialog);
 
-	preview = NULL;
+	preview = nullptr;
 	vboxlayout = new QVBoxLayout();
 
 	checkbox = new QCheckBox(tr("Preview"));

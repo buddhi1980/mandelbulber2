@@ -47,7 +47,7 @@ class cSystemTray : public QObject
 {
 	Q_OBJECT
 public:
-	cSystemTray(cImage *image, QObject *parent = 0);
+	cSystemTray(cImage *image, QObject *parent = nullptr);
 	~cSystemTray();
 
 private:

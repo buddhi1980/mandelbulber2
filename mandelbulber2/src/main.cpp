@@ -205,7 +205,7 @@ int main(int argc, char *argv[])
 
 	// clean objects when exit
 	delete gPar;
-	gPar = NULL;
+	gPar = nullptr;
 	delete gParFractal;
 	if (gFlightAnimation) delete gFlightAnimation;
 	if (gKeyframeAnimation) delete gKeyframeAnimation;

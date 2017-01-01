@@ -53,7 +53,7 @@
 #include "ui_dock_queue.h"
 #include "dock_queue.h"
 
-cQueue *gQueue = NULL;
+cQueue *gQueue = nullptr;
 
 cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	const QString &_queueFolder, QObject *parent)
@@ -127,7 +127,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	}
 	else
 	{
-		renderedImageWidget = NULL;
+		renderedImageWidget = nullptr;
 	}
 
 	stopRequest = false;
@@ -570,7 +570,7 @@ void cQueue::slotQueueRender()
 	else
 	{
 		cErrorMessage::showMessage(
-			QObject::tr("No queue items to render"), cErrorMessage::errorMessage, NULL);
+			QObject::tr("No queue items to render"), cErrorMessage::errorMessage, nullptr);
 	}
 }
 

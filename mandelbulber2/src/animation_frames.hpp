@@ -91,7 +91,7 @@ public:
 	void Clear();
 	void ClearAll();
 	virtual void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue,
-		cParameterContainer *params = NULL);
+		cParameterContainer *params = nullptr);
 	virtual bool AddAnimatedParameter(
 		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal);
 	virtual void RemoveAnimatedParameter(const QString &fullParameterName);
@@ -116,13 +116,13 @@ public:
 	int IndexOnList(QString parameterName, QString containerName);
 
 	void AddAudioParameter(const QString &parameterName, enumVarType paramType,
-		const QString originalContainerName, cParameterContainer *params = NULL);
+		const QString originalContainerName, cParameterContainer *params = nullptr);
 
 	void RemoveAudioParameter(
-		const sParameterDescription &parameter, cParameterContainer *params = NULL);
+		const sParameterDescription &parameter, cParameterContainer *params = nullptr);
 
-	void RemoveAllAudioParameters(cParameterContainer *params = NULL);
-	void LoadAllAudioFiles(cParameterContainer *params = NULL);
+	void RemoveAllAudioParameters(cParameterContainer *params = nullptr);
+	void LoadAllAudioFiles(cParameterContainer *params = nullptr);
 
 	cAudioTrack *GetAudioPtr(const QString fullParameterName);
 

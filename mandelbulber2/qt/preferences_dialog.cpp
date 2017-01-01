@@ -154,7 +154,7 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 
 	// confirmation dialog before clearing
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(NULL, QObject::tr("Are you sure to clear the thumbnail cache?"),
+	reply = QMessageBox::question(nullptr, QObject::tr("Are you sure to clear the thumbnail cache?"),
 		QObject::tr("Are you sure to clear the thumbnail cache?\nThere are currently %1 thumbnails "
 								"cached. These will be deleted and rerendered when necessary.\n Clear now?")
 			.arg(thumbnailDirCount),
@@ -175,7 +175,7 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked()
 {
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(NULL,
+	reply = QMessageBox::question(nullptr,
 		QObject::tr("Are you sure to load the thumbnail cache from the server?"),
 		QObject::tr("This will try to load missing common thumbnails from the server.\nProceed?"),
 		QMessageBox::Yes | QMessageBox::No);
@@ -207,7 +207,7 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 	infoGenerateCacheFiles +=
 		"This process will take a lot of time and cannot be cancelled.\nProceed?";
 
-	reply = QMessageBox::question(NULL,
+	reply = QMessageBox::question(nullptr,
 		QObject::tr("Are you sure to generate all example thumbnail cache files?"),
 		infoGenerateCacheFiles, QMessageBox::Yes | QMessageBox::No);
 
@@ -306,7 +306,7 @@ void cPreferencesDialog::on_comboBox_ui_skin_currentIndexChanged(int index)
 void cPreferencesDialog::on_pushButton_retrieve_toolbar_clicked()
 {
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(NULL, QObject::tr("Retrieve toolbar"),
+	reply = QMessageBox::question(nullptr, QObject::tr("Retrieve toolbar"),
 		QObject::tr("Are you sure to retrieve default presets into toolbar?\nIt could overwrite some "
 								"of existing presets.\nProceed?"),
 		QMessageBox::Yes | QMessageBox::No);
@@ -320,7 +320,7 @@ void cPreferencesDialog::on_pushButton_retrieve_toolbar_clicked()
 void cPreferencesDialog::on_pushButton_retrieve_materials_clicked()
 {
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(NULL, QObject::tr("Retrieve materials"),
+	reply = QMessageBox::question(nullptr, QObject::tr("Retrieve materials"),
 		QObject::tr("Are you sure to retrieve default materials into materials folder?\nIt could "
 								"overwrite some of existing materials.\nProceed?"),
 		QMessageBox::Yes | QMessageBox::No);

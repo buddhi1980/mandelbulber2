@@ -212,7 +212,7 @@ void Test::testFlight()
 	testPar->Set("anim_flight_dir", testFolder() + QDir::separator());
 
 	cFlightAnimation *flightAnimation = new cFlightAnimation(
-		gMainInterface, testAnimFrames, image, NULL, testPar, testParFractal, NULL);
+		gMainInterface, testAnimFrames, image, nullptr, testPar, testParFractal, nullptr);
 	if (IsBenchmarking())
 		flightAnimation->slotRenderFlight();
 	else
@@ -224,7 +224,7 @@ void Test::testFlight()
 	delete testParFractal;
 	delete testPar;
 	delete flightAnimation;
-	flightAnimation = NULL;
+	flightAnimation = nullptr;
 }
 
 void Test::testKeyframeWrapper()
@@ -278,7 +278,7 @@ void Test::testKeyframe()
 	testPar->Set("anim_keyframe_dir", testFolder() + QDir::separator());
 
 	cKeyframeAnimation *testKeyframeAnimation = new cKeyframeAnimation(
-		gMainInterface, testKeyframes, image, NULL, testPar, testParFractal, NULL);
+		gMainInterface, testKeyframes, image, nullptr, testPar, testParFractal, nullptr);
 	if (IsBenchmarking())
 		testKeyframeAnimation->slotRenderKeyframes();
 	else
@@ -290,7 +290,7 @@ void Test::testKeyframe()
 	delete testParFractal;
 	delete testPar;
 	delete testKeyframeAnimation;
-	testKeyframeAnimation = NULL;
+	testKeyframeAnimation = nullptr;
 }
 
 void Test::renderSimpleWrapper()

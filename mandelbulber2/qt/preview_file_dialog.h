@@ -49,7 +49,7 @@ class PreviewFileDialog : public QFileDialog
 {
 	Q_OBJECT
 public:
-	PreviewFileDialog(QWidget *parent = 0);
+	PreviewFileDialog(QWidget *parent = nullptr);
 	~PreviewFileDialog();
 protected slots:
 	void OnCurrentChanged(const QString &filename);

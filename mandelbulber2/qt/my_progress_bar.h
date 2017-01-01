@@ -46,7 +46,7 @@ class MyProgressBar : public QProgressBar
 	Q_OBJECT
 
 public:
-	MyProgressBar(QWidget *parent = 0);
+	MyProgressBar(QWidget *parent = nullptr);
 	void setFormat(const QString &format);
 
 private slots:

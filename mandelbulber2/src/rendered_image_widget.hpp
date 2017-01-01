@@ -81,7 +81,7 @@ public:
 		CVector3 topVector;
 	};
 
-	RenderedImage(QWidget *parent = 0);
+	RenderedImage(QWidget *parent = nullptr);
 	void AssignImage(cImage *_image) { image = _image; }
 	void AssignParameters(cParameterContainer *_mainParams) { params = _mainParams; }
 	void setNewZ(double z) { smoothLastZMouse = z; }

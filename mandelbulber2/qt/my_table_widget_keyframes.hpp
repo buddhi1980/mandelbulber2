@@ -42,7 +42,7 @@ class MyTableWidgetKeyframes : public QTableWidget
 	Q_OBJECT
 
 public:
-	MyTableWidgetKeyframes(QWidget *parent = 0);
+	MyTableWidgetKeyframes(QWidget *parent = nullptr);
 	~MyTableWidgetKeyframes();
 
 private:

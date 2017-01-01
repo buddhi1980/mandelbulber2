@@ -59,14 +59,14 @@ public:
 
 	cSettings(enumFormat _format);
 	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
-		cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
+		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);
 	bool SaveToFile(QString filename) const;
 	void SaveToClipboard();
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
 	bool LoadFromClipboard();
 	bool Decode(cParameterContainer *par, cFractalContainer *fractPar,
-		cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
+		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);
 	QString GetHashCode() { return hash.toHex(); }
 	void BeQuiet(bool _quiet) { quiet = _quiet; }
 	QString GetSettingsText() const;

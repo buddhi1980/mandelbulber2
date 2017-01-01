@@ -588,7 +588,7 @@ void cCommandLineInterface::handleQueue()
 	try
 	{
 		gQueue = new cQueue(
-			gMainInterface, systemData.GetQueueFractlistFile(), systemData.GetQueueFolder(), NULL);
+			gMainInterface, systemData.GetQueueFractlistFile(), systemData.GetQueueFolder(), nullptr);
 	}
 	catch (QString &ex)
 	{
@@ -652,7 +652,7 @@ void cCommandLineInterface::handleArgs()
 			try
 			{
 				gQueue = new cQueue(
-					gMainInterface, systemData.GetQueueFractlistFile(), systemData.GetQueueFolder(), NULL);
+					gMainInterface, systemData.GetQueueFractlistFile(), systemData.GetQueueFolder(), nullptr);
 			}
 			catch (QString &ex)
 			{

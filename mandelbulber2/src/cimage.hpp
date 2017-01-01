@@ -214,7 +214,7 @@ public:
 	size_t GetZBufferSize(void) const { return sizeof(float) * height * width; }
 	QWidget *GetImageWidget(void) { return imageWidget; }
 
-	void CompileImage(QList<int> *list = NULL);
+	void CompileImage(QList<int> *list = nullptr);
 
 	int GetWidth(void) const { return width; }
 	int GetHeight(void) const { return height; }
@@ -233,11 +233,11 @@ public:
 	unsigned char *ConvertNormalto16Bit(void);
 	unsigned char *ConvertNormalto8Bit(void);
 	unsigned char *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
-	void UpdatePreview(QList<int> *list = NULL);
+	void UpdatePreview(QList<int> *list = nullptr);
 	unsigned char *GetPreviewPtr(void);
 	unsigned char *GetPreviewPrimaryPtr(void);
 	bool IsPreview(void) const;
-	void RedrawInWidget(QWidget *qwidget = NULL);
+	void RedrawInWidget(QWidget *qwidget = nullptr);
 	double GetPreviewScale() const { return previewScale; }
 	void Squares(int y, int progressiveFactor);
 	void CalculateGammaTable(void);

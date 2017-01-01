@@ -49,7 +49,7 @@ class cMaterialSelector : public QWidget, public CommonMyWidgetWrapper
 	Q_OBJECT
 
 public:
-	cMaterialSelector(QWidget *parent = NULL);
+	cMaterialSelector(QWidget *parent = nullptr);
 	~cMaterialSelector();
 
 	void SetMaterialIndex(int materialIndex);

@@ -45,7 +45,7 @@ class cAudioTrack : public QObject
 	Q_OBJECT
 
 public:
-	cAudioTrack(QObject *parent = NULL);
+	cAudioTrack(QObject *parent = nullptr);
 	~cAudioTrack();
 	void Clear();
 

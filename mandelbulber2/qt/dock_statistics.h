@@ -51,7 +51,7 @@ class cDockStatistics : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockStatistics(QWidget *parent = NULL);
+	explicit cDockStatistics(QWidget *parent = nullptr);
 	~cDockStatistics();
 
 	void UpdateDistanceToFractal(double distance);

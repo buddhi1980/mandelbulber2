@@ -65,8 +65,8 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
 
 	QMenu *menu = new QMenu;
 
-	QAction *actionRender = NULL;
-	QAction *interpolateForward = NULL;
+	QAction *actionRender = nullptr;
+	QAction *interpolateForward = nullptr;
 
 	if (row == 0 && column >= cKeyframeAnimation::reservedColums)
 	{

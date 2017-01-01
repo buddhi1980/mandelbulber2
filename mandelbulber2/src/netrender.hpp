@@ -125,7 +125,7 @@ public:
 	// all information about connected clients
 	struct sClient
 	{
-		sClient() : socket(NULL), status(netRender_NEW), linesRendered(0), clientWorkerCount(0) {}
+		sClient() : socket(nullptr), status(netRender_NEW), linesRendered(0), clientWorkerCount(0) {}
 		QTcpSocket *socket;
 		sMessage msg;
 		netRenderStatus status;

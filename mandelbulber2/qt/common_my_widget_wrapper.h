@@ -55,12 +55,12 @@ class CommonMyWidgetWrapper
 public:
 	CommonMyWidgetWrapper(QWidget *referenceWidget)
 	{
-		actionResetToDefault = NULL;
-		actionAddToFlightAnimation = NULL;
-		actionRemoveFromFlightAnimation = NULL;
-		actionAddToKeyframeAnimation = NULL;
-		actionRemoveFromKeyframeAnimation = NULL;
-		parameterContainer = NULL;
+		actionResetToDefault = nullptr;
+		actionAddToFlightAnimation = nullptr;
+		actionRemoveFromFlightAnimation = nullptr;
+		actionAddToKeyframeAnimation = nullptr;
+		actionRemoveFromKeyframeAnimation = nullptr;
+		parameterContainer = nullptr;
 		gotDefault = false;
 		widget = referenceWidget;
 	};
@@ -85,7 +85,7 @@ protected:
 	QString GetType(const QString &name);
 
 	// contextMenuEvent doesn't overwrite method from child class, but this function cal be called
-	void contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu = NULL);
+	void contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu = nullptr);
 
 	// these methods have to be implemented by widgets inheriting this class
 	virtual void resetToDefault() = 0;

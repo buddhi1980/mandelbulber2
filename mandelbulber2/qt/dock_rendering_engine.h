@@ -51,7 +51,7 @@ class cDockRenderingEngine : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockRenderingEngine(QWidget *parent = NULL);
+	explicit cDockRenderingEngine(QWidget *parent = nullptr);
 	~cDockRenderingEngine();
 
 	void SynchronizeInterfaceDistanceEstimation(cParameterContainer *par);

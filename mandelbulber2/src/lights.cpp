@@ -45,7 +45,7 @@
 
 cLights::cLights() : QObject()
 {
-	lights = NULL;
+	lights = nullptr;
 	numberOfLights = 0;
 	lightsReady = false;
 	isAnyLight = false;
@@ -53,7 +53,7 @@ cLights::cLights() : QObject()
 
 cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_fractal) : QObject()
 {
-	lights = NULL;
+	lights = nullptr;
 	numberOfLights = 0;
 	lightsReady = false;
 	isAnyLight = false;
@@ -66,7 +66,7 @@ cLights::~cLights()
 	if (lights)
 	{
 		delete[] lights;
-		lights = NULL;
+		lights = nullptr;
 	}
 }
 

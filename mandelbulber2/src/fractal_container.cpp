@@ -34,7 +34,7 @@
 
 #include "fractal_container.hpp"
 
-cFractalContainer *gParFractal = NULL;
+cFractalContainer *gParFractal = nullptr;
 
 cParameterContainer &cFractalContainer::operator[](int index)
 {

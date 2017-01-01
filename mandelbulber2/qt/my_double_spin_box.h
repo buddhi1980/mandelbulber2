@@ -45,7 +45,7 @@ class MyDoubleSpinBox : public QDoubleSpinBox, public CommonMyWidgetWrapper
 	Q_OBJECT
 
 public:
-	MyDoubleSpinBox(QWidget *parent = 0) : QDoubleSpinBox(parent), CommonMyWidgetWrapper(this)
+	MyDoubleSpinBox(QWidget *parent = nullptr) : QDoubleSpinBox(parent), CommonMyWidgetWrapper(this)
 	{
 		defaultValue = 0;
 	};

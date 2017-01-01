@@ -38,7 +38,7 @@
 #include <QMessageBox>
 #include "system.hpp"
 
-cErrorMessage *gErrorMessage = NULL;
+cErrorMessage *gErrorMessage = nullptr;
 
 void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidget *parent)
 {

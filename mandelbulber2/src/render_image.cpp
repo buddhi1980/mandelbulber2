@@ -58,7 +58,7 @@ cRenderer::cRenderer(const cParamRender *_params, const cNineFractals *_fractal,
 	fractal = _fractal;
 	data = _renderData;
 	image = _image;
-	scheduler = NULL;
+	scheduler = nullptr;
 	netRenderAckReceived = true;
 }
 

@@ -39,7 +39,7 @@
 
 #include "keyframes.hpp"
 
-cKeyframes *gKeyframes = NULL;
+cKeyframes *gKeyframes = nullptr;
 
 cKeyframes::cKeyframes() : cAnimationFrames()
 {

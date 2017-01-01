@@ -64,7 +64,7 @@ public:
 	int GetUnrenderedTotal();
 	int GetUnrenderedTillIndex(int frameIndex);
 	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue,
-		cParameterContainer *params = NULL);
+		cParameterContainer *params = nullptr);
 	bool AddAnimatedParameter(
 		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal);
 	void RemoveAnimatedParameter(const QString &fullParameterName);

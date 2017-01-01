@@ -52,7 +52,7 @@ public:
 	~cRenderSSAO();
 
 	void SetRegion(const cRegion<int> &_region);
-	void RenderSSAO(QList<int> *list = NULL);
+	void RenderSSAO(QList<int> *list = nullptr);
 	void setProgressive(double step) { progressive = step; }
 
 private:

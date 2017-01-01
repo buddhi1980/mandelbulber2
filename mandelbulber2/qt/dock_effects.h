@@ -51,7 +51,7 @@ class cDockEffects : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockEffects(QWidget *parent = NULL);
+	explicit cDockEffects(QWidget *parent = nullptr);
 	~cDockEffects();
 
 	void SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par);

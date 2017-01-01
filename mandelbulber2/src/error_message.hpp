@@ -41,7 +41,7 @@ class cErrorMessage : public QObject
 {
 	Q_OBJECT
 public:
-	cErrorMessage(QObject *parent = NULL) : QObject(parent) {}
+	cErrorMessage(QObject *parent = nullptr) : QObject(parent) {}
 
 	enum enumMessageType
 	{
@@ -50,11 +50,11 @@ public:
 		infoMessage
 	};
 
-	static void showMessage(QString text, enumMessageType messageType, QWidget *parent = NULL);
+	static void showMessage(QString text, enumMessageType messageType, QWidget *parent = nullptr);
 
 public slots:
 	void slotShowMessage(
-		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = NULL);
+		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = nullptr);
 };
 
 extern cErrorMessage *gErrorMessage;

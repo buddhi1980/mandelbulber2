@@ -70,28 +70,28 @@
 #include <QtGamepad/qgamepadmanager.h>
 #endif // USE_GAMEPAD
 
-cInterface *gMainInterface = NULL;
+cInterface *gMainInterface = nullptr;
 
 // constructor of interface (loading of ui files)
 cInterface::cInterface()
 {
-	mainWindow = NULL;
-	headless = NULL;
-	qimage = NULL;
-	renderedImage = NULL;
-	imageSequencePlayer = NULL;
-	mainImage = NULL;
-	progressBar = NULL;
-	progressBarAnimation = NULL;
-	progressBarQueueImage = NULL;
-	progressBarQueueAnimation = NULL;
-	progressBarFrame = NULL;
-	progressBarLayout = NULL;
-	autoRefreshTimer = NULL;
-	materialListModel = NULL;
-	materialEditor = NULL;
-	scrollAreaMaterialEditor = NULL;
-	systemTray = NULL;
+	mainWindow = nullptr;
+	headless = nullptr;
+	qimage = nullptr;
+	renderedImage = nullptr;
+	imageSequencePlayer = nullptr;
+	mainImage = nullptr;
+	progressBar = nullptr;
+	progressBarAnimation = nullptr;
+	progressBarQueueImage = nullptr;
+	progressBarQueueAnimation = nullptr;
+	progressBarFrame = nullptr;
+	progressBarLayout = nullptr;
+	autoRefreshTimer = nullptr;
+	materialListModel = nullptr;
+	materialEditor = nullptr;
+	scrollAreaMaterialEditor = nullptr;
+	systemTray = nullptr;
 	stopRequest = false;
 	repeatRequest = false;
 	interfaceReady = false;
@@ -1630,8 +1630,8 @@ bool cInterface::QuitApplicationDialog()
 	bool quit = false;
 	int closeResult = 0;
 	bool quitDoNotAskAgain = gPar->Get<bool>("quit_do_not_ask_again");
-	QMessageBox *messageBox = NULL;
-	QAbstractButton *btnYesAndDoNotAskAgain = NULL;
+	QMessageBox *messageBox = nullptr;
+	QAbstractButton *btnYesAndDoNotAskAgain = nullptr;
 	if (quitDoNotAskAgain)
 	{
 		closeResult = QMessageBox::Ok;

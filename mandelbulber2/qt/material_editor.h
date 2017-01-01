@@ -53,7 +53,7 @@ class cMaterialEditor : public QWidget
 	Q_OBJECT
 
 public:
-	explicit cMaterialEditor(QWidget *parent = NULL);
+	explicit cMaterialEditor(QWidget *parent = nullptr);
 	~cMaterialEditor();
 	void AssignMaterial(cParameterContainer *params, int index);
 

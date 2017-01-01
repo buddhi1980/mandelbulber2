@@ -49,7 +49,7 @@ class PlayerWidget : public QWidget
 	Q_OBJECT
 
 public:
-	PlayerWidget(QWidget *parent = 0);
+	PlayerWidget(QWidget *parent = nullptr);
 	~PlayerWidget();
 	void SetFilePath(QString filePath);
 	QSize sizeHint() const { return QSize(800, 600); }

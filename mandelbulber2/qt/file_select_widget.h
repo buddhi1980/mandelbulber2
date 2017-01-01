@@ -48,7 +48,7 @@ class FileSelectWidget : public QWidget, public CommonMyWidgetWrapper
 	Q_OBJECT
 
 public:
-	FileSelectWidget(QWidget *parent = 0);
+	FileSelectWidget(QWidget *parent = nullptr);
 	~FileSelectWidget();
 	QString GetPath() { return lineEdit->text(); }
 	void SetPath(QString path);

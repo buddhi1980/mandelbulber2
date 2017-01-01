@@ -57,9 +57,9 @@ cRenderWorker::cRenderWorker(const cParamRender *_params, const cNineFractals *_
 	data = _data;
 	image = _image;
 	threadData = _threadData;
-	cameraTarget = NULL;
-	rayBuffer = NULL;
-	AOvectorsAround = NULL;
+	cameraTarget = nullptr;
+	rayBuffer = nullptr;
+	AOvectorsAround = nullptr;
 	AOvectorsCount = 0;
 	baseX = CVector3(1.0, 0.0, 0.0);
 	baseY = CVector3(0.0, 1.0, 0.0);
@@ -74,7 +74,7 @@ cRenderWorker::~cRenderWorker()
 	if (cameraTarget)
 	{
 		delete cameraTarget;
-		cameraTarget = NULL;
+		cameraTarget = nullptr;
 	}
 
 	if (rayBuffer)
@@ -89,7 +89,7 @@ cRenderWorker::~cRenderWorker()
 	if (AOvectorsAround)
 	{
 		delete[] AOvectorsAround;
-		AOvectorsAround = NULL;
+		AOvectorsAround = nullptr;
 	}
 }
 

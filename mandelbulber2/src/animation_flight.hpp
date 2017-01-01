@@ -74,7 +74,7 @@ public:
 
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image,
 		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
-		QObject *parent = 0);
+		QObject *parent = nullptr);
 	void RecordFlight(bool continueRecording);
 	bool RenderFlight(bool *stopRequest);
 	void RenderFrame(int index);
@@ -85,7 +85,7 @@ public:
 	void UpdateThumbnailFromImage(int index);
 	void InterpolateForward(int row, int column);
 	QString GetFlightFilename(int index);
-	void UpdateLimitsForFrameRange(void);
+	void UpdateLimitsForFrameRange();
 
 public slots:
 	bool slotRenderFlight();
@@ -144,7 +144,7 @@ signals:
 	void QuestionMessage(const QString &questionTitle, const QString &questionText,
 		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 	void showErrorMessage(
-		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = NULL);
+		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = nullptr);
 	void notifyRenderFlightRenderStatus(QString text, QString progressText);
 };
 

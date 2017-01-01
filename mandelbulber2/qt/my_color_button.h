@@ -46,7 +46,7 @@ class MyColorButton : public QPushButton, public CommonMyWidgetWrapper
 	Q_OBJECT
 
 public:
-	MyColorButton(QWidget *parent = 0);
+	MyColorButton(QWidget *parent = nullptr);
 	~MyColorButton();
 
 	sRGB GetColor();

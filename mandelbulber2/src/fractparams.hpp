@@ -67,7 +67,7 @@ class cParamRender
 {
 public:
 	// constructor with init
-	cParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = NULL);
+	cParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = nullptr);
 
 	int ambientOcclusionQuality; // ambient occlusion quality
 	int auxLightNumber;

@@ -70,7 +70,7 @@ public:
 
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image,
 		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
-		QObject *parent = 0);
+		QObject *parent = nullptr);
 
 	bool RenderKeyframes(bool *stopRequest);
 	void RenderFrame(int index);
@@ -138,7 +138,7 @@ signals:
 	void QuestionMessage(const QString &questionTitle, const QString &questionText,
 		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 	void showErrorMessage(
-		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = NULL);
+		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = nullptr);
 	void notifyRenderKeyframeRenderStatus(QString text, QString progressText);
 };
 

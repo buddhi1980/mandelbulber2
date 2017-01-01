@@ -34,4 +34,4 @@
 
 #include "global_data.hpp"
 
-QApplication *gApplication = NULL;
+QApplication *gApplication = nullptr;

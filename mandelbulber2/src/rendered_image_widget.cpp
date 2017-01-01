@@ -53,8 +53,8 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	setFocusPolicy(Qt::StrongFocus);
 	setMouseTracking(true);
 
-	image = NULL;
-	params = NULL;
+	image = nullptr;
+	params = nullptr;
 	cursorVisible = true;
 	smoothLastZMouse = 0.0;
 	redrawed = true;

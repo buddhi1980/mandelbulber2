@@ -44,7 +44,7 @@ class MyTabBar : public QTabBar
 	Q_OBJECT
 
 public:
-	MyTabBar(QWidget *parent = 0);
+	MyTabBar(QWidget *parent = nullptr);
 	void setupMoveButtons();
 
 signals:

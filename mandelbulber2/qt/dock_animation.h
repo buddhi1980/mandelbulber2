@@ -49,7 +49,7 @@ class cDockAnimation : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockAnimation(QWidget *parent = NULL);
+	explicit cDockAnimation(QWidget *parent = nullptr);
 	~cDockAnimation();
 
 	void DisableEXR();
