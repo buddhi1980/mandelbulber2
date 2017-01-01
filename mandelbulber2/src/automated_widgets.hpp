@@ -44,27 +44,27 @@ class cAutomatedWidgets : public QObject
 	Q_OBJECT
 public:
 	cAutomatedWidgets(QObject *parent);
-	void ConnectSignalsForSlidersInWindow(QWidget *window);
+	void ConnectSignalsForSlidersInWindow(QWidget *window) const;
 
 private slots:
-	void slotSliderMoved(int value);
-	void slotDoubleSpinBoxChanged(double value);
-	void slotIntSliderMoved(int value);
-	void slotIntSpinBoxChanged(int value);
-	void slotSlider3Moved(int value);
-	void slotSlider4Moved(int value);
-	void slotSpinBox3Changed(double value);
-	void slotSpinBox4Changed(double value);
-	void slotDial3Moved(int value);
-	void slotDial4Moved(int value);
-	void slotSpinBoxD3Changed(double value);
-	void slotSpinBoxD4Changed(double value);
-	void slotDialMoved(int value);
-	void slotSpinBoxDChanged(double value);
-	void slotLogSliderMoved(int value);
-	void slotLogSliderVect3Moved(int value);
-	void slotLogLineEditChanged(const QString &text);
-	void slotLogVect3Changed(const QString &text);
+	void slotSliderMoved(int value) const;
+	void slotDoubleSpinBoxChanged(double value) const;
+	void slotIntSliderMoved(int value) const;
+	void slotIntSpinBoxChanged(int value) const;
+	void slotSlider3Moved(int value) const;
+	void slotSlider4Moved(int value) const;
+	void slotSpinBox3Changed(double value) const;
+	void slotSpinBox4Changed(double value) const;
+	void slotDial3Moved(int value) const;
+	void slotDial4Moved(int value) const;
+	void slotSpinBoxD3Changed(double value) const;
+	void slotSpinBoxD4Changed(double value) const;
+	void slotDialMoved(int value) const;
+	void slotSpinBoxDChanged(double value) const;
+	void slotLogSliderMoved(int value) const;
+	void slotLogSliderVect3Moved(int value) const;
+	void slotLogLineEditChanged(const QString &text) const;
+	void slotLogVect3Changed(const QString &text) const;
 };
 
 #endif /* MANDELBULBER2_SRC_AUTOMATED_WIDGETS_HPP_ */

@@ -71,7 +71,7 @@ public:
 	~cImage();
 	bool IsAllocated() const { return isAllocated; }
 	bool ChangeSize(int w, int h, sImageOptional optional);
-	void ClearImage(void);
+	void ClearImage(void) const;
 
 	bool IsUsed() const { return isUsed; }
 	void BlockImage() { isUsed = true; }
@@ -228,14 +228,14 @@ public:
 	void SetImageOptional(sImageOptional opt) { this->opt = opt; }
 	sImageOptional *GetImageOptional(void) { return &opt; }
 
-	unsigned char *ConvertTo8bit(void);
-	unsigned char *ConvertAlphaTo8bit(void);
-	unsigned char *ConvertNormalto16Bit(void);
-	unsigned char *ConvertNormalto8Bit(void);
+	unsigned char *ConvertTo8bit(void) const;
+	unsigned char *ConvertAlphaTo8bit(void) const;
+	unsigned char *ConvertNormalto16Bit(void) const;
+	unsigned char *ConvertNormalto8Bit(void) const;
 	unsigned char *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
-	unsigned char *GetPreviewPtr(void);
-	unsigned char *GetPreviewPrimaryPtr(void);
+	unsigned char *GetPreviewPtr(void) const;
+	unsigned char *GetPreviewPrimaryPtr(void) const;
 	bool IsPreview(void) const;
 	void RedrawInWidget(QWidget *qwidget = nullptr);
 	double GetPreviewScale() const { return previewScale; }
@@ -243,12 +243,12 @@ public:
 	void CalculateGammaTable(void);
 	sRGB16 CalculatePixel(sRGBfloat pixel);
 
-	void PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity, int layer);
-	void AntiAliasedPoint(double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer);
+	void PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity, int layer) const;
+	void AntiAliasedPoint(double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer) const;
 	void AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2, sRGB8 color,
-		sRGBfloat opacity, int layer);
+		sRGBfloat opacity, int layer) const;
 	void CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
-		sRGBfloat opacity, int layer);
+		sRGBfloat opacity, int layer) const;
 
 	int progressiveFactor;
 

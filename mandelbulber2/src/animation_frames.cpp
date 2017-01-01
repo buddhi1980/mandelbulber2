@@ -209,7 +209,7 @@ int cAnimationFrames::IndexOnList(QString parameterName, QString containerName)
 }
 
 const cParameterContainer *cAnimationFrames::ContainerSelector(
-	QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const
+	QString containerName, const cParameterContainer *params, const cFractalContainer *fractal)
 {
 	const cParameterContainer *container = nullptr;
 	if (containerName == "main")
@@ -243,7 +243,7 @@ const cParameterContainer *cAnimationFrames::ContainerSelector(
 }
 
 cParameterContainer *cAnimationFrames::ContainerSelector(
-	QString containerName, cParameterContainer *params, cFractalContainer *fractal) const
+	QString containerName, cParameterContainer *params, cFractalContainer *fractal)
 {
 	cParameterContainer *container = nullptr;
 	if (containerName == "main" || containerName == "material")
@@ -408,7 +408,7 @@ void cAnimationFrames::RemoveAudioParameter(
 	}
 }
 
-cAudioTrack *cAnimationFrames::GetAudioPtr(const QString fullParameterName)
+cAudioTrack *cAnimationFrames::GetAudioPtr(const QString fullParameterName) const
 {
 	return audioTracks.GetAudioTrackPtr(fullParameterName);
 }
@@ -454,7 +454,7 @@ cOneParameter cAnimationFrames::ApplyAudioAnimation(int frame, const cOneParamet
 		case typeVector4:
 		{
 			CVector4 value = parameter.Get<CVector4>(valueActual);
-			QString fullParameterNameWithSufix = fullParameterName + "_x";
+			fullParameterNameWithSufix = fullParameterName + "_x";
 			value.x = ApplyAudioAnimationOneComponent(frame, value.x, fullParameterNameWithSufix, params);
 			fullParameterNameWithSufix = fullParameterName + "_y";
 			value.y = ApplyAudioAnimationOneComponent(frame, value.y, fullParameterNameWithSufix, params);

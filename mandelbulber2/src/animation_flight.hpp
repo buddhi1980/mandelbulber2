@@ -77,15 +77,15 @@ public:
 		QObject *parent = nullptr);
 	void RecordFlight(bool continueRecording);
 	bool RenderFlight(bool *stopRequest);
-	void RenderFrame(int index);
+	void RenderFrame(int index) const;
 	void RefreshTable();
 	QString GetParameterName(int rowNumber);
-	void DeleteFramesFrom(int index);
-	void DeleteFramesTo(int index);
-	void UpdateThumbnailFromImage(int index);
+	void DeleteFramesFrom(int index) const;
+	void DeleteFramesTo(int index) const;
+	void UpdateThumbnailFromImage(int index) const;
 	void InterpolateForward(int row, int column);
-	QString GetFlightFilename(int index);
-	void UpdateLimitsForFrameRange();
+	QString GetFlightFilename(int index) const;
+	void UpdateLimitsForFrameRange() const;
 
 public slots:
 	bool slotRenderFlight();
@@ -99,16 +99,16 @@ private slots:
 	void slotFlightYawAndPitch(CVector2<double> _yawAndPitch);
 	void slotFlightRotation(double direction);
 	void slotOrthogonalStrafe(bool _orthogonalStrafe);
-	void slotSelectAnimFlightImageDir();
+	void slotSelectAnimFlightImageDir() const;
 	void slotTableCellChanged(int row, int column);
-	void slotDeleteAllImages();
-	void slotShowAnimation();
+	void slotDeleteAllImages() const;
+	void slotShowAnimation() const;
 	void slotRecordPause();
 	void slotRefreshTable();
-	void slotExportFlightToKeyframes();
-	void slotMovedSliderFirstFrame(int value);
-	void slotMovedSliderLastFrame(int value);
-	void slotCellDoubleClicked(int row, int column);
+	void slotExportFlightToKeyframes() const;
+	void slotMovedSliderFirstFrame(int value) const;
+	void slotMovedSliderLastFrame(int value) const;
+	void slotCellDoubleClicked(int row, int column) const;
 
 private:
 	void PrepareTable();

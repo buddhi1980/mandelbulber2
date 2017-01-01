@@ -93,7 +93,7 @@ cImage::~cImage()
 	}
 }
 
-bool cImage::AllocMem(void)
+bool cImage::AllocMem()
 {
 	isAllocated = false;
 	// qDebug() << "bool cImage::AllocMem(void)";
@@ -165,26 +165,26 @@ bool cImage::ChangeSize(int w, int h, sImageOptional optional)
 	return true;
 }
 
-void cImage::ClearImage(void)
+void cImage::ClearImage() const
 {
-	memset(imageFloat, 0, (unsigned long int)sizeof(sRGBfloat) * width * height);
-	memset(image16, 0, (unsigned long int)sizeof(sRGB16) * width * height);
-	memset(image8, 0, (unsigned long int)sizeof(sRGB8) * width * height);
-	memset(alphaBuffer8, 0, (unsigned long int)sizeof(unsigned char) * width * height);
-	memset(alphaBuffer16, 0, (unsigned long int)sizeof(unsigned short) * width * height);
-	memset(opacityBuffer, 0, (unsigned long int)sizeof(unsigned short) * width * height);
-	memset(colourBuffer, 0, (unsigned long int)sizeof(sRGB8) * width * height);
+	memset(imageFloat, 0, static_cast<unsigned long int>(sizeof(sRGBfloat)) * width * height);
+	memset(image16, 0, static_cast<unsigned long int>(sizeof(sRGB16)) * width * height);
+	memset(image8, 0, static_cast<unsigned long int>(sizeof(sRGB8)) * width * height);
+	memset(alphaBuffer8, 0, static_cast<unsigned long int>(sizeof(unsigned char)) * width * height);
+	memset(alphaBuffer16, 0, static_cast<unsigned long int>(sizeof(unsigned short)) * width * height);
+	memset(opacityBuffer, 0, static_cast<unsigned long int>(sizeof(unsigned short)) * width * height);
+	memset(colourBuffer, 0, static_cast<unsigned long int>(sizeof(sRGB8)) * width * height);
 	if (opt.optionalNormal)
 	{
-		if (normalFloat) memset(normalFloat, 0, (unsigned long int)sizeof(sRGBfloat) * width * height);
-		if (normal16) memset(normal16, 0, (unsigned long int)sizeof(sRGB16) * width * height);
-		if (normal8) memset(normal8, 0, (unsigned long int)sizeof(sRGB8) * width * height);
+		if (normalFloat) memset(normalFloat, 0, static_cast<unsigned long int>(sizeof(sRGBfloat)) * width * height);
+		if (normal16) memset(normal16, 0, static_cast<unsigned long int>(sizeof(sRGB16)) * width * height);
+		if (normal8) memset(normal8, 0, static_cast<unsigned long int>(sizeof(sRGB8)) * width * height);
 	}
 	for (long int i = 0; i < width * height; ++i)
 		zBuffer[i] = float(1e20);
 }
 
-void cImage::FreeImage(void)
+void cImage::FreeImage()
 {
 	isAllocated = false;
 	// qDebug() << "void cImage::FreeImage(void)";
@@ -256,7 +256,7 @@ sRGB16 cImage::CalculatePixel(sRGBfloat pixel)
 	return newPixel16;
 }
 
-void cImage::CalculateGammaTable(void)
+void cImage::CalculateGammaTable()
 {
 	if (!gammaTablePrepared)
 	{
@@ -291,24 +291,24 @@ void cImage::CompileImage(QList<int> *list)
 	}
 }
 
-int cImage::GetUsedMB(void) const
+int cImage::GetUsedMB() const
 {
-	long int mb = 0;
+	long int mb;
 
-	long int zBufferSize = (long int)width * height * sizeof(float);
-	long int alphaSize16 = (long int)width * height * sizeof(unsigned short);
-	long int alphaSize8 = (long int)width * height * sizeof(unsigned char);
-	long int imageFloatSize = (long int)width * height * sizeof(sRGBfloat);
-	long int image16Size = (long int)width * height * sizeof(sRGB16);
-	long int image8Size = (long int)width * height * sizeof(sRGB8);
-	long int colorSize = (long int)width * height * sizeof(sRGB8);
-	long int opacitySize = (long int)width * height * sizeof(unsigned short);
+	long int zBufferSize = static_cast<long int>(width) * height * sizeof(float);
+	long int alphaSize16 = static_cast<long int>(width) * height * sizeof(unsigned short);
+	long int alphaSize8 = static_cast<long int>(width) * height * sizeof(unsigned char);
+	long int imageFloatSize = static_cast<long int>(width) * height * sizeof(sRGBfloat);
+	long int image16Size = static_cast<long int>(width) * height * sizeof(sRGB16);
+	long int image8Size = static_cast<long int>(width) * height * sizeof(sRGB8);
+	long int colorSize = static_cast<long int>(width) * height * sizeof(sRGB8);
+	long int opacitySize = static_cast<long int>(width) * height * sizeof(unsigned short);
 	long int optionalSize = 0;
 	if (opt.optionalNormal)
 	{
-		optionalSize += (long int)width * height * sizeof(sRGBfloat);
-		optionalSize += (long int)width * height * sizeof(sRGB16);
-		optionalSize += (long int)width * height * sizeof(sRGB8);
+		optionalSize += static_cast<long int>(width) * height * sizeof(sRGBfloat);
+		optionalSize += static_cast<long int>(width) * height * sizeof(sRGB16);
+		optionalSize += static_cast<long int>(width) * height * sizeof(sRGB8);
 	}
 	mb = (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size + imageFloatSize
 				 + colorSize + opacitySize + optionalSize)
@@ -324,7 +324,7 @@ void cImage::SetImageParameters(sImageAdjustments adjustments)
 	CalculateGammaTable();
 }
 
-unsigned char *cImage::ConvertTo8bit(void)
+unsigned char *cImage::ConvertTo8bit() const
 {
 	for (long int i = 0; i < width * height; i++)
 	{
@@ -332,10 +332,10 @@ unsigned char *cImage::ConvertTo8bit(void)
 		image8[i].G = image16[i].G / 256;
 		image8[i].B = image16[i].B / 256;
 	}
-	return (unsigned char *)image8;
+	return reinterpret_cast<unsigned char *>(image8);
 }
 
-unsigned char *cImage::ConvertAlphaTo8bit(void)
+unsigned char *cImage::ConvertAlphaTo8bit() const
 {
 	for (long int i = 0; i < width * height; i++)
 	{
@@ -344,7 +344,7 @@ unsigned char *cImage::ConvertAlphaTo8bit(void)
 	return alphaBuffer8;
 }
 
-unsigned char *cImage::ConvertNormalto16Bit(void)
+unsigned char *cImage::ConvertNormalto16Bit() const
 {
 	if (!opt.optionalNormal) return nullptr;
 	for (long int i = 0; i < width * height; i++)
@@ -353,10 +353,10 @@ unsigned char *cImage::ConvertNormalto16Bit(void)
 		normal16[i].G = normalFloat[i].G * 65535;
 		normal16[i].B = normalFloat[i].B * 65535;
 	}
-	return (unsigned char *)normal16;
+	return reinterpret_cast<unsigned char *>(normal16);
 }
 
-unsigned char *cImage::ConvertNormalto8Bit(void)
+unsigned char *cImage::ConvertNormalto8Bit() const
 {
 	if (!opt.optionalNormal) return nullptr;
 	for (long int i = 0; i < width * height; i++)
@@ -365,7 +365,7 @@ unsigned char *cImage::ConvertNormalto8Bit(void)
 		normal8[i].G = normalFloat[i].G * 255;
 		normal8[i].B = normalFloat[i].B * 255;
 	}
-	return (unsigned char *)normal8;
+	return reinterpret_cast<unsigned char *>(normal8);
 }
 
 sRGB8 cImage::Interpolation(float x, float y) const
@@ -410,13 +410,13 @@ unsigned char *cImage::CreatePreview(
 	preview = new sRGB8[w * h];
 	preview2 = new sRGB8[w * h];
 
-	memset(preview, 0, (unsigned long int)sizeof(sRGB8) * (w * h));
-	memset(preview2, 0, (unsigned long int)sizeof(sRGB8) * (w * h));
+	memset(preview, 0, static_cast<unsigned long int>(sizeof(sRGB8)) * (w * h));
+	memset(preview2, 0, static_cast<unsigned long int>(sizeof(sRGB8)) * (w * h));
 	previewAllocated = true;
 	previewWidth = w;
 	previewHeight = h;
 	previewScale = scale;
-	unsigned char *ptr = (unsigned char *)preview;
+	unsigned char *ptr = reinterpret_cast<unsigned char *>(preview);
 
 	if (widget) imageWidget = widget;
 
@@ -439,12 +439,12 @@ void cImage::UpdatePreview(QList<int> *list)
 		}
 		else
 		{
-			float scaleX = (float)width / w;
-			float scaleY = (float)height / h;
+			float scaleX = float(width) / w;
+			float scaleY = float(height) / h;
 
 			// number of pixels to sum
-			int countX = (float)width / w + 1;
-			int countY = (float)height / h + 1;
+			int countX = float(width) / w + 1;
+			int countY = float(height) / h + 1;
 			int factor = countX * countY;
 
 			float deltaX = scaleX / countX;
@@ -459,9 +459,9 @@ void cImage::UpdatePreview(QList<int> *list)
 				{
 					if (listIndex >= list->size()) break;
 
-					if (scaleY * y < list->at(listIndex) - (int)scaleY - 1) continue;
+					if (scaleY * y < list->at(listIndex) - int(scaleY) - 1) continue;
 
-					while (scaleY * y - (int)scaleY - 1 > list->at(listIndex))
+					while (scaleY * y - int(scaleY) - 1 > list->at(listIndex))
 					{
 						listIndex++;
 						if (listIndex >= list->size()) break;
@@ -509,31 +509,31 @@ void cImage::UpdatePreview(QList<int> *list)
 	}
 }
 
-unsigned char *cImage::GetPreviewPtr(void)
+unsigned char *cImage::GetPreviewPtr() const
 {
-	unsigned char *ptr = nullptr;
+	unsigned char *ptr;
 	if (previewAllocated)
 	{
-		ptr = (unsigned char *)preview2;
+		ptr = reinterpret_cast<unsigned char *>(preview2);
 	}
 	else
 		abort();
 	return ptr;
 }
 
-unsigned char *cImage::GetPreviewPrimaryPtr(void)
+unsigned char *cImage::GetPreviewPrimaryPtr() const
 {
-	unsigned char *ptr = nullptr;
+	unsigned char *ptr;
 	if (previewAllocated)
 	{
-		ptr = (unsigned char *)preview;
+		ptr = reinterpret_cast<unsigned char *>(preview);
 	}
 	else
 		abort();
 	return ptr;
 }
 
-bool cImage::IsPreview(void) const
+bool cImage::IsPreview() const
 {
 	if (previewAllocated)
 	{
@@ -561,7 +561,7 @@ void cImage::RedrawInWidget(QWidget *qwidget)
 		QPainter painter(widget);
 		painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
-		QImage qimage((const uchar *)GetPreviewPtr(), previewWidth, previewHeight,
+		QImage qimage(static_cast<const uchar *>(GetPreviewPtr()), previewWidth, previewHeight,
 			previewWidth * sizeof(sRGB8), QImage::Format_RGB888);
 		painter.drawImage(
 			QRect(0, 0, previewWidth, previewHeight), qimage, QRect(0, 0, previewWidth, previewHeight));
@@ -596,7 +596,7 @@ void cImage::Squares(int y, int pFactor)
 	}
 }
 
-void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity, int layer)
+void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity, int layer) const
 {
 	if (x >= 0 && x < previewWidth && y >= 0 && y < previewHeight)
 	{
@@ -628,10 +628,10 @@ void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity,
 }
 
 void cImage::AntiAliasedPoint(
-	double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer)
+	double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer) const
 {
-	double deltaX = x - (int)x;
-	double deltaY = y - (int)y;
+	double deltaX = x - int(x);
+	double deltaY = y - int(y);
 
 	double intensity1 = (1.0 - deltaX) * (1.0 - deltaY);
 	double intensity2 = (deltaX) * (1.0 - deltaY);
@@ -663,7 +663,7 @@ void cImage::AntiAliasedPoint(
 }
 
 void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2,
-	sRGB8 color, sRGBfloat opacity, int layer)
+	sRGB8 color, sRGBfloat opacity, int layer) const
 {
 	if ((x1 >= 0 && x1 < previewWidth && y1 >= 0 && y1 < previewHeight)
 			|| (x2 >= 0 && x2 < previewWidth && y2 >= 0 && y2 < previewHeight))
@@ -797,7 +797,7 @@ void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z
 }
 
 void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
-	sRGBfloat opacity, int layer)
+	sRGBfloat opacity, int layer) const
 {
 	if (borderWidth > 0 && r > 0)
 	{

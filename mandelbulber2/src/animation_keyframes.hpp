@@ -73,36 +73,36 @@ public:
 		QObject *parent = nullptr);
 
 	bool RenderKeyframes(bool *stopRequest);
-	void RenderFrame(int index);
+	void RenderFrame(int index) const;
 	void RefreshTable();
 	QString GetParameterName(int rowNumber);
-	void DeleteKeyframe(int index);
-	void DeleteFramesFrom(int index);
-	void DeleteFramesTo(int index);
+	void DeleteKeyframe(int index) const;
+	void DeleteFramesFrom(int index) const;
+	void DeleteFramesTo(int index) const;
 	void InterpolateForward(int row, int column);
-	parameterContainer::enumMorphType GetMorphType(int row);
+	parameterContainer::enumMorphType GetMorphType(int row) const;
 	void ChangeMorphType(int row, parameterContainer::enumMorphType morphType);
 	QList<int> CheckForCollisions(double minDist, bool *stopRequest);
 
 public slots:
-	void UpdateLimitsForFrameRange();
+	void UpdateLimitsForFrameRange() const;
 	bool slotRenderKeyframes();
 
 private slots:
 	void slotAddKeyframe();
 	void slotInsertKeyframe();
-	void slotDeleteKeyframe();
+	void slotDeleteKeyframe() const;
 	void slotModifyKeyframe();
-	void slotSelectKeyframeAnimImageDir();
+	void slotSelectKeyframeAnimImageDir() const;
 	void slotTableCellChanged(int row, int column);
-	void slotDeleteAllImages();
-	void slotShowAnimation();
+	void slotDeleteAllImages() const;
+	void slotShowAnimation() const;
 	void slotRefreshTable();
 	void slotExportKeyframesToFlight();
-	void slotMovedSliderFirstFrame(int value);
-	void slotMovedSliderLastFrame(int value);
+	void slotMovedSliderFirstFrame(int value) const;
+	void slotMovedSliderLastFrame(int value) const;
 	void slotValidate();
-	void slotCellDoubleClicked(int row, int column);
+	void slotCellDoubleClicked(int row, int column) const;
 	void slotSetConstantTargetDistance();
 
 private:
@@ -113,9 +113,9 @@ private:
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index = -1);
 	void AddRow(int row, const QString &fullParameterName, int index);
 	void NewKeyframe(int index);
-	QString GetKeyframeFilename(int index, int subIndex);
-	QColor MorphType2Color(parameterContainer::enumMorphType morphType);
-	void AddAnimSoundColumn();
+	QString GetKeyframeFilename(int index, int subIndex) const;
+	static QColor MorphType2Color(parameterContainer::enumMorphType morphType);
+	void AddAnimSoundColumn() const;
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;

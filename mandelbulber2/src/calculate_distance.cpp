@@ -254,6 +254,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 
 		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 		double r = fractOut.z.Length();
+		// TODO: Design Intent : == ? =
 		bool maxiter = out->maxiter = fractOut.maxiter;
 		out->iters = fractOut.iters;
 		out->colorIndex = fractOut.colorIndex;

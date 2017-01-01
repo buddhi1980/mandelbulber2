@@ -96,10 +96,10 @@ public:
 		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal);
 	virtual void RemoveAnimatedParameter(const QString &fullParameterName);
 	QList<sParameterDescription> GetListOfUsedParameters() const { return listOfParameters; }
-	const cParameterContainer *ContainerSelector(QString containerName,
-		const cParameterContainer *params, const cFractalContainer *fractal) const;
-	cParameterContainer *ContainerSelector(
-		QString containerName, cParameterContainer *params, cFractalContainer *fractal) const;
+	static const cParameterContainer *ContainerSelector(QString containerName,
+		const cParameterContainer *params, const cFractalContainer *fractal);
+	static cParameterContainer *ContainerSelector(
+		QString containerName, cParameterContainer *params, cFractalContainer *fractal);
 	void DeleteFrames(int begin, int end);
 	void Override(QList<sAnimationFrame> _frames, QList<sParameterDescription> _listOfParameters)
 	{
@@ -124,7 +124,7 @@ public:
 	void RemoveAllAudioParameters(cParameterContainer *params = nullptr);
 	void LoadAllAudioFiles(cParameterContainer *params = nullptr);
 
-	cAudioTrack *GetAudioPtr(const QString fullParameterName);
+	cAudioTrack *GetAudioPtr(const QString fullParameterName) const;
 
 	cOneParameter ApplyAudioAnimation(int frame, const cOneParameter &parameter,
 		const QString &parameterName, const cParameterContainer *params) const;
