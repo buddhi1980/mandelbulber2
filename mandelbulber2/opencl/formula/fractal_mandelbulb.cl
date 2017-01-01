@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
- * Copyright (C) 2016 Krzysztof Marczak
+ * Copyright (C) 2017 Krzysztof Marczak
  * This file is part of Mandelbulber.
  * License is GPL, see also COPYING file.
  *

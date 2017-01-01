@@ -353,6 +353,7 @@ function parseToOpenCL($code){
 	$all = '[\S\s]+?'; // anything including new lines as few as possible (mark end with next operator)
 	$rval = "$br1_2|$br1_1|$br|$float|$var"; // any of those types can be an "assignable expression"
 	$preF = "\s|\(|\{|-"; // these chars can occur befire a function
+	$multChain = "(?:(?:$rval)$s\*$s)*(?:$rval)"; // a chain of multiplicated expressions
 	// see here for all possible: https://www.khronos.org/registry/cl/sdk/1.0/docs/man/xhtml/mathFunctions.html
 	$cppToOpenCLReplaceLookup = array(
 		array('find' => '/double/', 'replace' => 'float'),				// all doubles to floats
@@ -366,6 +367,8 @@ function parseToOpenCL($code){
 		array('find' => "/($var)\.Length\(\)/", 'replace' => 'length($1)'),		// CVector3 Length() to built in length
 		array('find' => "/($var)\.Dot\(/", 'replace' => 'dot($1, '),			// CVector3 Dot() to built in dot
 		array('find' => "/($var)\.Cross\(/", 'replace' => 'cross($1, '),		// CVector3 Cross() to built in cross
+		array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ float temp = $1; $2 = $1; $1 = temp; }'),// swap vals
+		array('find' => "/($s|\()(\d+)f($s|;)/", 'replace' => '$1$2$3'),// int vals should not have a "f" at the end
 
 		// from here on its getting messy
 		array('find' => "/1.0f$s\/$s($rval)/", 'replace' => 'native_recip($1)'),		// native reciprocal
@@ -374,14 +377,14 @@ function parseToOpenCL($code){
 		array('find' => "/($preF)native_sqrt\(native_recip($rval)\)/", 'replace' => '$1native_rsqrt$2'),		// native reciprocal sqrt
 
     // mad (literally ;D )
-		array('find' => "/\(($rval)$s\*$s($rval)$s\+$s($rval)\)/", 'replace' => '(mad($1, $2, $3))'), 	// (a * b + c) ====> mad(a, b, c)
-		array('find' => "/\(($rval)$s\*$s($rval)$s\-$s($rval)\)/", 'replace' => '(mad($1, $2, -$3))'), 	// (a * b - c) ====> mad(a, b, -c)
-		array('find' => "/([^*]$s)($rval)$s\*$s($rval)$s\+$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, $4)$5'), // a * b + c ====> mad(a, b, c)
-		array('find' => "/([^*]$s)($rval)$s\*$s($rval)$s\-$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, -$4)$5'), // a * b + c ====> mad(a, b, -c)
-		array('find' => "/\(($rval)$s\+$s($rval)$s\*$s($rval)\)/", 'replace' => '(mad($2, $3, $1))'), 	// (c + a * b) ====> mad(a, b, c)
-		array('find' => "/\(($rval)$s\-$s($rval)$s\*$s($rval)\)/", 'replace' => '(mad(-$2, $3, $1))'), 	// (c - a * b) ====> mad(-a, b, c)
-		array('find' => "/([^*]$s)($rval)$s\+$s($rval)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($4, $3, $3)$5'), // a * b + c ====> mad(a, b, c)
-		array('find' => "/([^*]$s)($rval)$s\-$s($rval)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $3)$5'), // c - a * b ====> mad(-a, b, c)
+		array('find' => "/\(($multChain)$s\*$s($rval)$s\+$s($rval)\)/", 'replace' => '(mad($1, $2, $3))'), 	// (a * b + c) ====> mad(a, b, c)
+		array('find' => "/\(($multChain)$s\*$s($rval)$s\-$s($rval)\)/", 'replace' => '(mad($1, $2, -$3))'), 	// (a * b - c) ====> mad(a, b, -c)
+		array('find' => "/([^*]$s)($multChain)$s\*$s($rval)$s\+$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, $4)$5'), // a * b + c ====> mad(a, b, c)
+		array('find' => "/([^*]$s)($multChain)$s\*$s($rval)$s\-$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, -$4)$5'), // a * b + c ====> mad(a, b, -c)
+		array('find' => "/\(($multChain)$s\+$s($rval)$s\*$s($rval)\)/", 'replace' => '(mad($2, $3, $1))'), 	// (c + a * b) ====> mad(a, b, c)
+		array('find' => "/\(($multChain)$s\-$s($rval)$s\*$s($rval)\)/", 'replace' => '(mad(-$2, $3, $1))'), 	// (c - a * b) ====> mad(-a, b, c)
+		array('find' => "/([^*]$s)($multChain)$s\+$s($rval)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($4, $3, $3)$5'), // a * b + c ====> mad(a, b, c)
+		array('find' => "/([^*]$s)($multChain)$s\-$s($rval)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $3)$5'), // c - a * b ====> mad(-a, b, c)
 		// TODO more replacements
 	);
 
