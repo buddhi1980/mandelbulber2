@@ -207,21 +207,21 @@ void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
 
 	double temp, tempR;
 	tempR = sqrt(z.x * z.x + z.y * z.y); //+ 1e-061
-	z *= (1.0 / tempR);
+	z *= 1.0 / tempR;
 	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
 	z.x = temp;
 	z *= tempR;
 
 	tempR = sqrt(z.y * z.y + z.z * z.z); //+ 1e-061
-	z *= (1.0 / tempR);
+	z *= 1.0 / tempR;
 	temp = z.y * z.y - z.z * z.z;
 	z.z = 2.0 * z.y * z.z;
 	z.y = temp;
 	z *= tempR;
 
 	tempR = sqrt(z.x * z.x + z.z * z.z); //+ 1e-061
-	z *= (1.0 / tempR);
+	z *= 1.0 / tempR;
 	temp = z.x * z.x - z.z * z.z;
 	z.z = 2.0 * z.x * z.z;
 	z.x = temp;
@@ -242,17 +242,17 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 	double sign = 1.0;
 	double sign2 = 1.0;
 
-	if (z.x < 0) sign2 = -1.0;
+	if (z.x < 0.0) sign2 = -1.0;
 	tempR = sqrt(z.x * z.x + z.y * z.y); //+ 1e-061
-	z *= (1.0 / tempR);
+	z *= 1.0 / tempR;
 	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
 	z.x = temp;
 	z *= tempR;
 
-	if (z.x < 0) sign = -1.0;
+	if (z.x < 0.0) sign = -1.0;
 	tempR = sqrt(z.x * z.x + z.z * z.z); //+ 1e-061
-	z *= (1.0 / tempR);
+	z *= 1.0 / tempR;
 	temp = z.x * z.x - z.z * z.z;
 	z.z = 2.0 * z.x * z.z * sign2;
 	z.x = temp * sign;
@@ -266,7 +266,7 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
  */
 void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	double rp = pow(aux.r, fractal->bulb.power - 1);
+	double rp = pow(aux.r, fractal->bulb.power - 1.0);
 	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
 
 	double angZ = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
@@ -307,7 +307,7 @@ void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux)
  */
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	double rp = pow(aux.r, fractal->bulb.power - 1);
+	double rp = pow(aux.r, fractal->bulb.power - 1.0);
 	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
 	rp *= aux.r;
 
@@ -338,9 +338,9 @@ void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux)
 	z.y = fabs(z.y);
 	z.z = fabs(z.z);
 
-	if (z.x - z.y < 0) swap(z.x, z.y);
-	if (z.x - z.z < 0) swap(z.x, z.z);
-	if (z.y - z.z < 0) swap(z.y, z.z);
+	if (z.x - z.y < 0.0) swap(z.x, z.y);
+	if (z.x - z.z < 0.0) swap(z.x, z.z);
+	if (z.y - z.z < 0.0) swap(z.y, z.z);
 
 	z *= 3.0;
 
@@ -479,9 +479,9 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 	if (fractal->IFS.rotationEnabled)
 		z = fractal->IFS.mainRot.RotateVector(z - fractal->IFS.offset) + fractal->IFS.offset;
 
-	if (fractal->IFS.edge.x > 0) z.x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z.x);
-	if (fractal->IFS.edge.y > 0) z.y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z.y);
-	if (fractal->IFS.edge.z > 0) z.z = fractal->IFS.edge.z - fabs(fractal->IFS.edge.z - z.z);
+	if (fractal->IFS.edge.x > 0.0) z.x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z.x);
+	if (fractal->IFS.edge.y > 0.0) z.y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z.y);
+	if (fractal->IFS.edge.z > 0.0) z.z = fractal->IFS.edge.z - fabs(fractal->IFS.edge.z - z.z);
 
 	z *= fractal->IFS.scale;
 	if (fractal->IFS.mengerSpongeMode)
