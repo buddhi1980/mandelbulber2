@@ -606,15 +606,8 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 
 		Compatibility2(par, fractPar);
 
-		if(frames)
-		{
-			frames->LoadAllAudioFiles(par);
-		}
-
-		if(keyframes)
-		{
-			keyframes->LoadAllAudioFiles(par);
-		}
+		if (frames) frames->LoadAllAudioFiles(par);
+		if (keyframes) keyframes->LoadAllAudioFiles(par);
 
 		return true;
 	}

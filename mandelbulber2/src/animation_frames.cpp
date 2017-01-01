@@ -486,9 +486,9 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 	if (isEnabled)
 	{
 		double addiitionFactor =
-			params->Get<double>(QString("animsound_addition_factor_%1").arg(fullParameterNameWithSufix));
+			params->Get<double>(QString("animsound_additionfactor_%1").arg(fullParameterNameWithSufix));
 		double multFactor =
-			params->Get<double>(QString("animsound_mult_factor_%1").arg(fullParameterNameWithSufix));
+			params->Get<double>(QString("animsound_multfactor_%1").arg(fullParameterNameWithSufix));
 		float animSound = audioTracks.GetAudioTrackPtr(fullParameterNameWithSufix)->getAnimation(frame);
 		newVal = oldVal * (1.0 + animSound * multFactor) + animSound * addiitionFactor;
 	}
