@@ -39,7 +39,7 @@
 
 #include "algebra.hpp"
 
-CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle)
+CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle) const
 {
 	CVector3 vector = *this * cos(angle);
 	vector += (axis.Cross(*this)) * sin(angle);
@@ -51,10 +51,10 @@ double CVector3::itemByName(char item) const
 {
 	switch (item)
 	{
-		case 'x': return x; break;
-		case 'y': return y; break;
-		case 'z': return z; break;
-		default: return 0.0; break;
+		case 'x': return x;
+		case 'y': return y;
+		case 'z': return z;
+		default: return 0.0;
 	}
 }
 
@@ -62,11 +62,11 @@ double CVector4::itemByName(char item) const
 {
 	switch (item)
 	{
-		case 'x': return x; break;
-		case 'y': return y; break;
-		case 'z': return z; break;
-		case 'w': return w; break;
-		default: return 0.0; break;
+		case 'x': return x;
+		case 'y': return y;
+		case 'z': return z;
+		case 'w': return w;
+		default: return 0.0;
 	}
 }
 
