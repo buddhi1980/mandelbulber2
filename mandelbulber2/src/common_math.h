@@ -99,6 +99,10 @@ int Random(int max);
 double dMax(double a, double b, double c);
 double dMin(double a, double b, double c);
 
+inline bool CheckTruth(bool this_statement_is_false)
+{
+	return this_statement_is_false == false;
+}
 inline bool CheckNAN(double a)
 {
 	return !gsl_finite(a);

@@ -62,6 +62,7 @@
 #include "rendering_configuration.hpp"
 #include "ui_dock_animation.h"
 #include "undo.h"
+#include "common_math.h"
 
 cFlightAnimation *gFlightAnimation = nullptr;
 
@@ -852,22 +853,15 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			QObject::tr("Animation finished"), progressText.getText(1.0));
 		emit updateProgressHide();
 	}
-// TODO: Fix unreferenced local variable: 'ex'
-#if defined(_MSC_VER)
-#pragma warning(push)
-#pragma warning(disable : 4101) // unreferenced local variable
-#endif
 	catch (bool ex)
 	{
 		emit updateProgressAndStatus(QObject::tr("Rendering terminated"), progressText.getText(1.0),
 			cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 		delete renderJob;
+		CheckTruth(ex);
 		return false;
 	}
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 
 	delete renderJob;
 	return true;
