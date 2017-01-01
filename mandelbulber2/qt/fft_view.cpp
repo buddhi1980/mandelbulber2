@@ -58,7 +58,7 @@ cFFTView::~cFFTView()
 void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 {
 
-	if (audiotrack)
+	if (audiotrack && audiotrack->isLoaded())
 	{
 		numberOfFrames = audiotrack->getNumberOfFrames();
 		framesPerSecond = audiotrack->getFramesPerSecond();
@@ -100,6 +100,10 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 			fftImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
 		WriteLog("FFTView created", 2);
+	}
+	else
+	{
+		scaledFftImage = QImage();
 	}
 }
 

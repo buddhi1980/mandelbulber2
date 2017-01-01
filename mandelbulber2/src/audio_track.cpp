@@ -313,16 +313,22 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth) const
 		if (last > cAudioFFTdata::fftSize / 2) last = cAudioFFTdata::fftSize / 2;
 
 		double sum = 0.0;
-		float maxVal = 0.0;
+		double denominator = 0.0;
+		//float maxVal = 0.0;
 		for (int i = first; i <= last; i++)
 		{
-			sum += fft.data[i];
-			maxVal += maxFftArray.data[i];
+			double weight = i - first;
+			double val = pow(fft.data[i], 4.0);
+			sum += val * weight;
+			denominator += val;
+			//maxVal += maxFftArray.data[i];
 		}
 		int count = last - first + 1;
 
-		maxVal /= count;
-		float value = sum / count / maxVal;
+		//maxVal /= count;
+		//float value = sum / count / maxVal;
+		float value = sum / denominator / (last - first);
+
 		return value;
 	}
 	else

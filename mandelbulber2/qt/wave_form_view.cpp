@@ -51,7 +51,7 @@ cWaveFormView::~cWaveFormView()
 
 void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 {
-	if (audiotrack)
+	if (audiotrack && audiotrack->isLoaded())
 	{
 		WriteLog("WaveFormView calculation started", 2);
 		int numberOfSampels = audiotrack->getLength();
@@ -105,6 +105,11 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		delete[] audioBuffer;
 
 		WriteLog("WaveFormView created", 2);
+	}
+	else
+	{
+		scaledWaveImage = QImage();
+		update();
 	}
 }
 

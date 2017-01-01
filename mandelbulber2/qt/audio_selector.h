@@ -60,6 +60,7 @@ private slots:
 	void slotLoadAudioFile();
 	void slotAudioLoaded();
 	void slotFreqChanged();
+	void slotDeleteAudioTrack();
 
 private:
 	void ConnectSignals();

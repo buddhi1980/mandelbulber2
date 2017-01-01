@@ -82,6 +82,7 @@ void InitParams(cParameterContainer *par)
 
 	// keyframe animation
 	par->addParam("frames_per_keyframe", 100, 1, 99999, morphNone, paramStandard);
+	par->addParam("keyframe_frames_per_second", 30.0, 0.01, 1000.0, morphNone, paramStandard);
 	par->addParam("keyframe_first_to_render", 0, 0, 99999, morphNone, paramStandard);
 	par->addParam("keyframe_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
 	par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);

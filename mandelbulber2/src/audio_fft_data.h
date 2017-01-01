@@ -38,7 +38,7 @@
 class cAudioFFTdata
 {
 public:
-	static const int fftSize = 1024;
+	static const int fftSize = 2048;
 
 	cAudioFFTdata();
 	~cAudioFFTdata();

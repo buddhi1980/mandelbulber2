@@ -134,6 +134,20 @@ void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QSt
 			morphNone, paramStandard);
 		params->addParam(
 			FullParameterName("multfactor", parameterName), 1.0, 0.0, 20000.0, morphNone, paramStandard);
+
+		params->addParam(
+			FullParameterName("negative", parameterName), false, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("pitchmode", parameterName), false, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("decayfilter", parameterName), false, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("smoothfilter", parameterName), false, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("decaystrength", parameterName), 5.0, 0.01, 1000.0, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("smoothstrength", parameterName), 5.0, 0.01, 1000.0, morphNone, paramStandard);
+
 		params->addParam(FullParameterName("enable", parameterName), false, morphNone, paramStandard);
 		params->addParam(
 			FullParameterName("soundfile", parameterName), QString(""), morphNone, paramStandard);
@@ -151,6 +165,12 @@ void cAudioTrackCollection::RemoveParameters(
 		params->DeleteParameter(FullParameterName("multfactor", parameterName));
 		params->DeleteParameter(FullParameterName("enable", parameterName));
 		params->DeleteParameter(FullParameterName("soundfile", parameterName));
+		params->DeleteParameter(FullParameterName("negative", parameterName));
+		params->DeleteParameter(FullParameterName("pitchmode", parameterName));
+		params->DeleteParameter(FullParameterName("decayfilter", parameterName));
+		params->DeleteParameter(FullParameterName("smoothfilter", parameterName));
+		params->DeleteParameter(FullParameterName("decaystrength", parameterName));
+		params->DeleteParameter(FullParameterName("smoothstrength", parameterName));
 	}
 }
 

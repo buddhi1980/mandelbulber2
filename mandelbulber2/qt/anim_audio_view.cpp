@@ -48,27 +48,35 @@ cAnimAudioView::~cAnimAudioView()
 
 void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack)
 {
-	int numberOfFrames = audiotrack->getNumberOfFrames();
-	this->setFixedWidth(numberOfFrames);
-
-	animAudioImage = QImage(QSize(numberOfFrames, height()), QImage::Format_RGB32);
-	animAudioImage.fill(Qt::black);
-
-	QPainter painter(&animAudioImage);
-
-	int maxY = height() - 1;
-	QPoint prevPoint(0, maxY);
-
-	painter.setPen(Qt::green);
-	painter.setRenderHint(QPainter::Antialiasing, true);
-
-	for (int frame = 0; frame < numberOfFrames; frame++)
+	if (audiotrack && audiotrack->isLoaded())
 	{
-		QPoint point(frame, maxY - audiotrack->getAnimation(frame) * maxY);
-		painter.drawLine(prevPoint, point);
-		prevPoint = point;
+		int numberOfFrames = audiotrack->getNumberOfFrames();
+		this->setFixedWidth(numberOfFrames);
+
+		animAudioImage = QImage(QSize(numberOfFrames, height()), QImage::Format_RGB32);
+		animAudioImage.fill(Qt::black);
+
+		QPainter painter(&animAudioImage);
+
+		int maxY = height() - 1;
+		QPoint prevPoint(0, maxY);
+
+		painter.setPen(Qt::green);
+		painter.setRenderHint(QPainter::Antialiasing, true);
+
+		for (int frame = 0; frame < numberOfFrames; frame++)
+		{
+			QPoint point(frame, maxY - audiotrack->getAnimation(frame) * maxY);
+			painter.drawLine(prevPoint, point);
+			prevPoint = point;
+		}
+		update();
 	}
-	update();
+	else
+	{
+		animAudioImage = QImage();
+		update();
+	}
 }
 
 void cAnimAudioView::paintEvent(QPaintEvent *event)

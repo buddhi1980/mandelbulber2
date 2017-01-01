@@ -119,6 +119,7 @@ void cAudioSelector::AssignParameter(const QString &_parameterName)
 void cAudioSelector::ConnectSignals()
 {
 	connect(ui->pushButton_loadAudioFile, SIGNAL(clicked()), this, SLOT(slotLoadAudioFile()));
+	connect(ui->pushButton_delete_audiotrack, SIGNAL(clicked()), this, SLOT(slotDeleteAudioTrack()));
 	connect(
 		ui->spinbox_animsound_bandwidth, SIGNAL(valueChanged(double)), this, SLOT(slotFreqChanged()));
 	connect(
@@ -166,4 +167,13 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 			slotFreqChanged();
 		}
 	}
+}
+
+void cAudioSelector::slotDeleteAudioTrack()
+{
+	audio->Clear();
+	ui->waveForm->AssignAudioTrack(audio);
+	ui->fft->AssignAudioTrack(audio);
+	ui->timeRuler->SetParameters(audio, 100);
+	slotFreqChanged();
 }
