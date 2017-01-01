@@ -115,8 +115,8 @@ public:
 	}
 	int IndexOnList(QString parameterName, QString containerName);
 
-	void AddAudioParameter(
-		const QString &parameterName, const cOneParameter &parameter, cParameterContainer *params);
+	void AddAudioParameter(const QString &parameterName, enumVarType paramType,
+		const QString originalContainerName, cParameterContainer *params = NULL);
 
 	void RemoveAudioParameter(
 		const sParameterDescription &parameter, cParameterContainer *params = NULL);
@@ -132,6 +132,8 @@ public:
 	template <typename T>
 	T ApplyAudioAnimationOneComponent(int frame, T oldVal, const QString &fullParameterNameWithSufix,
 		const cParameterContainer *params) const;
+
+	void RegenerateAudioTracks(cParameterContainer *param);
 
 protected:
 	QList<sAnimationFrame> frames;

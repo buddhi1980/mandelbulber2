@@ -125,6 +125,7 @@ bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnima
 			if (keyframes && record.hasKeyframes)
 			{
 				*keyframes = record.animationKeyframes;
+				keyframes->RegenerateAudioTracks(par);
 				*refreshKeyframes = true;
 			}
 		}
@@ -155,6 +156,7 @@ bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnima
 		if (keyframes && record.hasKeyframes)
 		{
 			*keyframes = record.animationKeyframes;
+			keyframes->RegenerateAudioTracks(par);
 			*refreshKeyframes = true;
 		}
 		return true;

@@ -46,6 +46,22 @@ cAudioTrackCollection::~cAudioTrackCollection()
 	qDeleteAll(audioTracks);
 }
 
+/* Warning! this is fake constructor to avoid copying audio data to cUndo buffers */
+cAudioTrackCollection::cAudioTrackCollection(const cAudioTrackCollection &collection)
+{
+	Q_UNUSED(collection);
+	this->audioTracks.clear();
+}
+
+/* Warning! this is fake operator to avoid copying audio data to cUndo buffers */
+cAudioTrackCollection &cAudioTrackCollection::operator=(const cAudioTrackCollection &collection)
+{
+	Q_UNUSED(collection);
+	qDeleteAll(audioTracks);
+	this->audioTracks.clear();
+	return *this;
+}
+
 void cAudioTrackCollection::AddAudioTrack(
 	const QString fullParameterName, cParameterContainer *params)
 {
@@ -57,7 +73,10 @@ void cAudioTrackCollection::AddAudioTrack(
 	else
 	{
 		audioTracks.insert(fullParameterName, new cAudioTrack());
-		AddParameters(params, fullParameterName);
+		if (params) // params is NULL when audio tracks are regenerated
+		{
+			AddParameters(params, fullParameterName);
+		}
 	}
 }
 
@@ -141,19 +160,20 @@ QString cAudioTrackCollection::FullParameterName(
 	return QString("animsound_") + nameOfSoundParameter + "_" + parameterName;
 }
 
-
 void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 {
 	QStringList listOfAllParameters = audioTracks.keys();
 
 	for (int i = 0; i < listOfAllParameters.length(); i++)
 	{
-		QString filename = params->Get<QString>(FullParameterName("soundfile", listOfAllParameters.at(i)));
+		QString filename =
+			params->Get<QString>(FullParameterName("soundfile", listOfAllParameters.at(i)));
 		if (!filename.isEmpty() && !audioTracks[listOfAllParameters[i]]->isLoaded())
 		{
 			audioTracks[listOfAllParameters[i]]->Clear();
 			audioTracks[listOfAllParameters[i]]->LoadAudio(filename);
-			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(30.0); // TODO settings for frames per second
+			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(
+				30.0); // TODO settings for frames per second
 			audioTracks[listOfAllParameters[i]]->calculateFFT();
 		}
 	}

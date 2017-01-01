@@ -97,7 +97,8 @@ void cAnimationFrames::AddAnimatedParameter(
 		// parameters
 		if (!params) params = gPar;
 
-		AddAudioParameter(parameterName, defaultValue, params);
+		AddAudioParameter(
+			parameterName, defaultValue.GetValueType(), defaultValue.GetOriginalContainerName(), params);
 	}
 	else
 	{
@@ -140,6 +141,17 @@ bool cAnimationFrames::AddAnimatedParameter(
 								<< containerName;
 		return false;
 	}
+}
+
+void cAnimationFrames::RegenerateAudioTracks(cParameterContainer *param)
+{
+	for (int i = 0; i < listOfParameters.length(); i++)
+	{
+		AddAudioParameter(listOfParameters[i].parameterName, listOfParameters[i].varType,
+			listOfParameters[i].containerName);
+	}
+
+	audioTracks.LoadAllAudioFiles(param);
 }
 
 int cAnimationFrames::GetUnrenderedTotal()
@@ -340,11 +352,10 @@ void cAnimationFrames::AddFrame(const sAnimationFrame &frame)
 	frames.append(frame);
 }
 
-void cAnimationFrames::AddAudioParameter(
-	const QString &parameterName, const cOneParameter &parameter, cParameterContainer *params)
+void cAnimationFrames::AddAudioParameter(const QString &parameterName, enumVarType paramType,
+	const QString originalContainerName, cParameterContainer *params)
 {
-	QString fullParameterName = parameter.GetOriginalContainerName() + "_" + parameterName;
-	enumVarType paramType = parameter.GetValueType();
+	QString fullParameterName = originalContainerName + "_" + parameterName;
 
 	switch (paramType)
 	{

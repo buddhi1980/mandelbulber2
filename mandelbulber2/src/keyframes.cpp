@@ -71,7 +71,7 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 	this->frames = source.frames;
 	this->listOfParameters = source.listOfParameters;
 	this->framesPerKeyframe = source.framesPerKeyframe;
-
+	this->audioTracks = source.audioTracks;
 	return *this;
 }
 
