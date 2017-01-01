@@ -567,9 +567,9 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		{
 			if (keyframes->GetListOfUsedParameters().size() == 0)
 			{
-				keyframes->AddAnimatedParameter("camera", par->GetAsOneParameter("camera"));
-				keyframes->AddAnimatedParameter("target", par->GetAsOneParameter("target"));
-				keyframes->AddAnimatedParameter("camera_top", par->GetAsOneParameter("camera_top"));
+				keyframes->AddAnimatedParameter("camera", par->GetAsOneParameter("camera"), par);
+				keyframes->AddAnimatedParameter("target", par->GetAsOneParameter("target"), par);
+				keyframes->AddAnimatedParameter("camera_top", par->GetAsOneParameter("camera_top"), par);
 			}
 		}
 
