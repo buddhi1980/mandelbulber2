@@ -713,7 +713,7 @@ void GetNameAndType(QString name, QString *parameterName, QString *type)
 {
 #if defined(_MSC_VER)
 #pragma warning(push)
-#pragma warning(disable: 4267) // possible loss of data
+#pragma warning(disable : 4267) // possible loss of data
 #endif
 	size_t firstDashPosition = name.indexOf("_");
 	*type = name.left(firstDashPosition);

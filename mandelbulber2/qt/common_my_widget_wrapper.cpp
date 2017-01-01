@@ -152,7 +152,7 @@ QString CommonMyWidgetWrapper::GetType(const QString &name)
 {
 #if defined(_MSC_VER)
 #pragma warning(push)
-#pragma warning(disable: 4267) // possible loss of data
+#pragma warning(disable : 4267) // possible loss of data
 #endif
 	size_t firstDashPosition = name.indexOf("_");
 	return name.left(firstDashPosition);

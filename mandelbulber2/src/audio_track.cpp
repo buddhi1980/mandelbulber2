@@ -58,13 +58,13 @@ cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 
 cAudioTrack::~cAudioTrack()
 {
-	if(fftAudio) delete[] fftAudio;
-	if(decoder) delete decoder;
+	if (fftAudio) delete[] fftAudio;
+	if (decoder) delete decoder;
 }
 
 void cAudioTrack::Clear()
 {
-	if(decoder) delete decoder;
+	if (decoder) delete decoder;
 	decoder = NULL;
 
 	memoryReserved = false;
@@ -78,7 +78,7 @@ void cAudioTrack::Clear()
 	maxFft = 0.0;
 	rawAudio.clear();
 
-	if(fftAudio) delete[] fftAudio;
+	if (fftAudio) delete[] fftAudio;
 	fftAudio = NULL;
 
 	animation.clear();
@@ -154,7 +154,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		desiredFormat.setSampleRate(sampleRate);
 		desiredFormat.setSampleSize(16);
 
-		if(decoder) delete decoder;
+		if (decoder) delete decoder;
 		decoder = new QAudioDecoder(this);
 		decoder->setAudioFormat(desiredFormat);
 		decoder->setSourceFilename(filename);
@@ -167,7 +167,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		loadingInProgress = true;
 		decoder->start();
 
-		while(loadingInProgress)
+		while (loadingInProgress)
 		{
 			QApplication::processEvents();
 		}
@@ -251,7 +251,7 @@ void cAudioTrack::calculateFFT()
 	{
 		WriteLog("FFT calculation started", 2);
 
-		if(fftAudio) delete[] fftAudio;
+		if (fftAudio) delete[] fftAudio;
 		fftAudio = new cAudioFFTdata[numberOfFrames];
 
 #pragma omp parallel for

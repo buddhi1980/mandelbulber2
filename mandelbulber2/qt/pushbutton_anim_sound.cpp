@@ -59,7 +59,7 @@ void cPushButtonAnimSound::AssignParameterName(const QString &_parameterName)
 void cPushButtonAnimSound::slotUpdateButton()
 {
 	QFont f = font();
-	if(animationFrames)
+	if (animationFrames)
 	{
 		cAudioTrack *audio = animationFrames->GetAudioPtr(parameterName);
 		if (audio && audio->isLoaded())

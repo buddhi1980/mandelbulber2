@@ -855,7 +855,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 // TODO: Fix unreferenced local variable: 'ex'
 #if defined(_MSC_VER)
 #pragma warning(push)
-#pragma warning(disable: 4101) // unreferenced local variable
+#pragma warning(disable : 4101) // unreferenced local variable
 #endif
 	catch (bool ex)
 	{

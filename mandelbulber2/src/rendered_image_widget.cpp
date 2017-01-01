@@ -311,9 +311,11 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		// draw small cross
 		image->AntiAliasedLine(screenPoint.x - 20, screenPoint.y - 20, screenPoint.x + 20,
-			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255),
+			sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
 		image->AntiAliasedLine(screenPoint.x + 20, screenPoint.y - 20, screenPoint.x - 20,
-			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255),
+			sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
 	}
 	lastDepth = z;
 }

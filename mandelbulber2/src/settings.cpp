@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-16 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-17 Krzysztof Marczak     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -579,11 +579,12 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			CheckIfMaterialsAreDefined(par);
 		}
 
-		//now when anim sound parameters are already prepeared by animation, all animsound parameters can be processed
-		if(keyframes && linesWithSoundParameters.length() > 0)
+		// now when anim sound parameters are already prepeared by animation, all animsound parameters
+		// can be processed
+		if (keyframes && linesWithSoundParameters.length() > 0)
 		{
 			foundAnimSoundParameters = true;
-			for(int i =0; i < linesWithSoundParameters.length(); i++)
+			for (int i = 0; i < linesWithSoundParameters.length(); i++)
 			{
 				bool result = false;
 				result = DecodeOneLine(par, linesWithSoundParameters[i]);
@@ -690,10 +691,11 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 	if (parameterName.left(9) == "animsound")
 	{
-		if(!foundAnimSoundParameters)
+		if (!foundAnimSoundParameters)
 		{
-			linesWithSoundParameters.append(line); //added line for further processing (after animation is loaded)
-			return true; //parameter will be processed later
+			linesWithSoundParameters.append(
+				line);		 // added line for further processing (after animation is loaded)
+			return true; // parameter will be processed later
 		}
 	}
 

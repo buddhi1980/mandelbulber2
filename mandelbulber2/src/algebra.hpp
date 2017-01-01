@@ -49,7 +49,7 @@
 
 #if defined(_MSC_VER)
 #pragma warning(push)
-#pragma warning(disable: 4005) // macro redefinition
+#pragma warning(disable : 4005) // macro redefinition
 #endif
 
 #include <math.h>
