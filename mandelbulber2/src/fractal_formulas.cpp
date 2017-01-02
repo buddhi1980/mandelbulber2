@@ -742,9 +742,9 @@ void Makin3D2Iteration(CVector3 &z)
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
-	double newx = x2 + 2 * z.y * z.z;
-	double newy = -y2 - 2 * z.x * z.z;
-	double newz = -z2 + 2 * z.x * z.y;
+	double newx = x2 + 2.0 * z.y * z.z;
+	double newy = -y2 - 2.0 * z.x * z.z;
+	double newz = -z2 + 2.0 * z.x * z.y;
 	z.x = newx;
 	z.y = newy;
 	z.z = newz;

@@ -14,23 +14,23 @@ void Mandelbulb2Iteration(float3 &z, sExtendedAux &aux)
 	aux.r_dz = aux.r_dz * 2.0f * aux.r;
 
 	float temp, tempR;
-	tempR = native_sqrt(mad(z.y, z.y, z.x * z.x)); //+ 1e-061f
+	tempR = native_sqrt(mad(z.x, z.x, z.y * z.y)); //+ 1e-061f
 	z *= native_recip(tempR);
-	temp = mad(-z.y, z.y, z.y);
+	temp = mad(z.x, z.x, -z.y * z.y);
 	z.y = 2.0f * z.x * z.y;
 	z.x = temp;
 	z *= tempR;
 
-	tempR = native_sqrt(mad(z.z, z.z, z.y * z.y)); //+ 1e-061f
+	tempR = native_sqrt(mad(z.y, z.y, z.z * z.z)); //+ 1e-061f
 	z *= native_recip(tempR);
-	temp = mad(-z.z, z.z, z.z);
+	temp = mad(z.y, z.y, -z.z * z.z);
 	z.z = 2.0f * z.y * z.z;
 	z.y = temp;
 	z *= tempR;
 
-	tempR = native_sqrt(mad(z.z, z.z, z.x * z.x)); //+ 1e-061f
+	tempR = native_sqrt(mad(z.x, z.x, z.z * z.z)); //+ 1e-061f
 	z *= native_recip(tempR);
-	temp = mad(-z.z, z.z, z.z);
+	temp = mad(z.x, z.x, -z.z * z.z);
 	z.z = 2.0f * z.x * z.z;
 	z.x = temp;
 	z *= tempR;
