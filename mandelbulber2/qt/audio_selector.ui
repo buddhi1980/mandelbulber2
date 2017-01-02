@@ -122,7 +122,7 @@
                <double>20000.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>1.000000000000000</double>
+               <double>10.000000000000000</double>
               </property>
               <property name="value">
                <double>1.000000000000000</double>
@@ -160,7 +160,7 @@
                <double>20000.000000000000000</double>
               </property>
               <property name="singleStep">
-               <double>1.000000000000000</double>
+               <double>10.000000000000000</double>
               </property>
               <property name="value">
                <double>1.000000000000000</double>
@@ -375,7 +375,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_animsound_smoothfilter">
             <property name="title">
-             <string>Smooth filter</string>
+             <string>S&amp;mooth filter</string>
             </property>
             <property name="checkable">
              <bool>true</bool>

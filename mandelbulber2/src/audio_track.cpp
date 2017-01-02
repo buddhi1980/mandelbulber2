@@ -301,7 +301,7 @@ cAudioFFTdata cAudioTrack::getFFTSample(int frame) const
 	}
 }
 
-float cAudioTrack::getBand(int frame, double midFreq, double bandwidth) const
+float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pitchMode) const
 {
 	if (isLoaded() && frame < numberOfFrames)
 	{
@@ -312,23 +312,35 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth) const
 		int last = freq2FftPos(midFreq + 0.5 * bandwidth);
 		if (last > cAudioFFTdata::fftSize / 2) last = cAudioFFTdata::fftSize / 2;
 
-		double sum = 0.0;
-		double denominator = 0.0;
-		//float maxVal = 0.0;
-		for (int i = first; i <= last; i++)
+		float value;
+
+		if (pitchMode)
 		{
-			double weight = i - first;
-			double val = pow(fft.data[i], 4.0);
-			sum += val * weight;
-			denominator += val;
-			//maxVal += maxFftArray.data[i];
+			double nominator = 0.0;
+			double denominator = 0.0;
+
+			for (int i = first; i <= last; i++)
+			{
+				double weight = i - first;
+				double val = pow(fft.data[i], 2.0);
+				nominator += val * weight;
+				denominator += val;
+			}
+			value = nominator / denominator / (last - first);
 		}
-		int count = last - first + 1;
-
-		//maxVal /= count;
-		//float value = sum / count / maxVal;
-		float value = sum / denominator / (last - first);
-
+		else
+		{
+			double sum = 0.0;
+			float maxVal = 0.0;
+			for (int i = first; i <= last; i++)
+			{
+				sum += fft.data[i];
+				maxVal += maxFftArray.data[i];
+			}
+			int count = last - first + 1;
+			maxVal /= count;
+			value = sum / count / maxVal;
+		}
 		return value;
 	}
 	else
@@ -348,12 +360,12 @@ void cAudioTrack::setFramesPerSecond(double _framesPerSecond)
 	numberOfFrames = length * framesPerSecond / sampleRate;
 }
 
-void cAudioTrack::calculateAnimation(double midFreq, double bandwidth)
+void cAudioTrack::calculateAnimation(double midFreq, double bandwidth, bool pitchMode)
 {
 	animation.clear();
 	animation.reserve(numberOfFrames);
 	for (int i = 0; i < numberOfFrames; i++)
 	{
-		animation.append(getBand(i, midFreq, bandwidth));
+		animation.append(getBand(i, midFreq, bandwidth, pitchMode));
 	}
 }

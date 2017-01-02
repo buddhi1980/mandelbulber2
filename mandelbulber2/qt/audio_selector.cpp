@@ -125,6 +125,8 @@ void cAudioSelector::ConnectSignals()
 	connect(
 		ui->spinbox_animsound_midfreq, SIGNAL(valueChanged(double)), this, SLOT(slotFreqChanged()));
 	connect(
+		ui->checkBox_animsound_pitchmode, SIGNAL(stateChanged(int)), this, SLOT(slotFreqChanged()));
+	connect(
 		this, SIGNAL(freqencyChanged(double, double)), ui->fft, SLOT(slotFreqChanged(double, double)));
 };
 
@@ -142,7 +144,8 @@ void cAudioSelector::slotFreqChanged()
 		SynchronizeInterfaceWindow(this, gPar, qInterface::read);
 		double midFreq = gPar->Get<double>(FullParameterName("midfreq"));
 		double bandwidth = gPar->Get<double>(FullParameterName("bandwidth"));
-		audio->calculateAnimation(midFreq, bandwidth);
+		bool pitchMode = gPar->Get<bool>(FullParameterName("pitchmode"));
+		audio->calculateAnimation(midFreq, bandwidth, pitchMode);
 		ui->animAudioView->UpdateChart(audio);
 		emit freqencyChanged(midFreq, bandwidth);
 	}

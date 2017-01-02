@@ -57,14 +57,14 @@ public:
 	float getSample(int sampleIndex) const;
 	void calculateFFT();
 	cAudioFFTdata getFFTSample(int frame) const;
-	float getBand(int frame, double midFreq, double bandwidth) const;
+	float getBand(int frame, double midFreq, double bandwidth, bool pitchMode) const;
 	int getNumberOfFrames() const { return numberOfFrames; };
 	void setFramesPerSecond(double _framesPerSecond);
 	double getFramesPerSecond() const { return framesPerSecond; }
 	float getMaxFft() const { return maxFft; }
 	float getMaxVolume() const { return maxVolume; }
 	int freq2FftPos(double freq) const;
-	void calculateAnimation(double midFreq, double bandwidth);
+	void calculateAnimation(double midFreq, double bandwidth, bool pitchMode);
 	float getAnimation(int frame) const;
 
 private slots:
