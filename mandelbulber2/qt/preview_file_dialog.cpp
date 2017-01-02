@@ -196,7 +196,7 @@ void PreviewFileDialog::slotUpdateProgressAndStatus(
 	progressBar->setFormat(progressText);
 }
 
-void PreviewFileDialog::slotHideProgressBar()
+void PreviewFileDialog::slotHideProgressBar() const
 {
 	progressBar->hide();
 }
