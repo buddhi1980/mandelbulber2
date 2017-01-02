@@ -78,7 +78,7 @@ void MyLogWidget::initFromLogFile()
 	this->ensureCursorVisible();
 }
 
-QString MyLogWidget::formatLine(const QString &text)
+QString MyLogWidget::formatLine(const QString &text) const
 {
 	QRegularExpressionMatch match = reBasic->match(text);
 	if (match.hasMatch())

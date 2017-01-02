@@ -456,7 +456,7 @@
     <None Include="$(SolutionDir)mandelbulber2\qt\dock_gamepad.cpp" />
     <None Include="$(SolutionDir)mandelbulber2\qt\dock_gamepad.h" />
     <None Include="$(SolutionDir)mandelbulber2\qt\dock_image_adjustments.cpp" />
-    <None Include="$(SolutionDir)mandelbulber2\qt\dock_image_adjustmnets.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_image_adjustments.h" />
     <None Include="$(SolutionDir)mandelbulber2\qt\dock_measurements.cpp" />
     <None Include="$(SolutionDir)mandelbulber2\qt\dock_measurements.h" />
     <None Include="$(SolutionDir)mandelbulber2\qt\dock_navigation.cpp" />

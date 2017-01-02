@@ -197,7 +197,7 @@ sLight *cLights::GetLight(const int index) const
 	{
 		qCritical() << "Lights not initialized";
 	}
-	return (sLight *)&dummyLight;
+	return const_cast<sLight *>(&dummyLight);
 }
 
 void cLights::Copy(const cLights &_lights)

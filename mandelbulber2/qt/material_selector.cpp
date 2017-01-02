@@ -144,7 +144,7 @@ void cMaterialSelector::slotMaterialSelected(int matIndex)
 	SetMaterialIndex(actualValue);
 }
 
-void cMaterialSelector::slotMaterialEdited()
+void cMaterialSelector::slotMaterialEdited() const
 {
 	SynchronizeInterfaceWindow(
 		gMainInterface->scrollAreaMaterialEditor, parameterContainer, qInterface::write);

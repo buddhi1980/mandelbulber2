@@ -143,7 +143,7 @@ void cMaterialItemView::dataChanged(
 	Q_UNUSED(bottomRight);
 	Q_UNUSED(roles);
 	QString settings = model()->data(topLeft).toString();
-	cMaterialWidget *widget = (cMaterialWidget *)indexWidget(topLeft);
+	cMaterialWidget *widget = static_cast<cMaterialWidget *>(indexWidget(topLeft));
 	if (widget)
 	{
 		int materialId = model()->data(topLeft, Qt::UserRole).toInt();
@@ -226,7 +226,7 @@ void cMaterialItemView::paintEvent(QPaintEvent *event)
 	}
 }
 
-void cMaterialItemView::updateScrollBar()
+void cMaterialItemView::updateScrollBar() const
 {
 	horizontalScrollBar()->setRange(
 		0, model()->rowCount() * (cMaterialWidget::previewWidth + iconMargin) - width());
@@ -251,5 +251,5 @@ void cMaterialItemView::setModel(QAbstractItemModel *model)
 void cMaterialItemView::updateNameHeight()
 {
 	QFont f = font();
-	maxNameHeight = max(f.pixelSize(), (int)f.pointSizeF()) * 3;
+	maxNameHeight = max(f.pixelSize(), int(f.pointSizeF())) * 3;
 }

@@ -68,7 +68,7 @@ int cMaterialItemModel::rowCount(const QModelIndex &parent) const
 
 QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 {
-	Qt::ItemDataRole itemRole = (Qt::ItemDataRole)role;
+	Qt::ItemDataRole itemRole = Qt::ItemDataRole(role);
 
 	if (itemRole == Qt::DisplayRole)
 	{
@@ -102,7 +102,7 @@ QVariant cMaterialItemModel::data(const QModelIndex &index, int role) const
 
 bool cMaterialItemModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-	Qt::ItemDataRole itemRole = (Qt::ItemDataRole)role;
+	Qt::ItemDataRole itemRole = Qt::ItemDataRole(role);
 
 	if (itemRole == Qt::EditRole)
 	{
@@ -133,7 +133,7 @@ bool cMaterialItemModel::setData(const QModelIndex &index, const QVariant &value
 
 QVariant cMaterialItemModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-	Qt::ItemDataRole itemRole = (Qt::ItemDataRole)role;
+	Qt::ItemDataRole itemRole = Qt::ItemDataRole(role);
 
 	if (itemRole == Qt::DisplayRole && orientation == Qt::Horizontal)
 	{
@@ -208,7 +208,7 @@ void cMaterialItemModel::Regenerate()
 
 int cMaterialItemModel::FindFreeIndex()
 {
-	bool occupied = false;
+	bool occupied;
 	int materialIndex = 1;
 	do
 	{
@@ -241,7 +241,7 @@ void cMaterialItemModel::slotMaterialChanged(int matIndex)
 	emit dataChanged(index(row, 0, QModelIndex()), index(row, 0, QModelIndex()));
 }
 
-int cMaterialItemModel::materialIndex(const QModelIndex &index)
+int cMaterialItemModel::materialIndex(const QModelIndex &index) const
 {
 	if (index.row() < materialIndexes.count())
 	{
@@ -255,7 +255,7 @@ int cMaterialItemModel::materialIndex(const QModelIndex &index)
 	}
 }
 
-QModelIndex cMaterialItemModel::getModelIndexByMaterialId(int materialId)
+QModelIndex cMaterialItemModel::getModelIndexByMaterialId(int materialId) const
 {
 	int row = materialIndexes.indexOf(materialId);
 	if (row >= 0)

@@ -49,18 +49,18 @@ public:
 	MyColorButton(QWidget *parent = nullptr);
 	~MyColorButton();
 
-	sRGB GetColor();
+	sRGB GetColor() const;
 	void SetColor(sRGB newColor);
 	void SetupColor();
 
 	// methods to define from CommonMyWidgetWrapper
-	virtual void resetToDefault();
-	virtual QString getDefaultAsString();
-	virtual QString getFullParameterName();
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
 
 private:
-	void mousePressEvent(QMouseEvent *event);
-	void contextMenuEvent(QContextMenuEvent *event);
+	void mousePressEvent(QMouseEvent *event) override;
+	void contextMenuEvent(QContextMenuEvent *event) override;
 	sRGB GetDefault();
 
 	sRGB defaultValue;

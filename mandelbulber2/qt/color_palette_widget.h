@@ -49,7 +49,7 @@ class ColorPaletteWidget : public QWidget, public CommonMyWidgetWrapper
 public:
 	ColorPaletteWidget(QWidget *parent = nullptr);
 	void SetPalette(const cColorPalette &_palette);
-	cColorPalette GetPalette(void) { return palette; }
+	cColorPalette GetPalette() const { return palette; }
 	void SetOffset(double offset);
 
 private:
@@ -57,16 +57,16 @@ private:
 	double paletteOffset;
 	cColorPalette GetDefault();
 	cColorPalette defaultValue;
-	void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *event) override;
 
 	// methods to define from CommonMyWidgetWrapper
-	virtual void resetToDefault();
-	virtual QString getDefaultAsString();
-	virtual QString getFullParameterName();
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
 
 protected:
-	void mousePressEvent(QMouseEvent *event);
-	void contextMenuEvent(QContextMenuEvent *event);
+	void mousePressEvent(QMouseEvent *event) override;
+	void contextMenuEvent(QContextMenuEvent *event) override;
 };
 
 #endif /* MANDELBULBER2_QT_COLOR_PALETTE_WIDGET_H_ */

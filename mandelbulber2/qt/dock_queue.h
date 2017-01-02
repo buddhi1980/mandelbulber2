@@ -54,11 +54,11 @@ class cDockQueue : public QWidget
 public:
 	explicit cDockQueue(QWidget *parent = nullptr);
 	~cDockQueue();
-	MyProgressBar *GetProgressBarImage();
-	MyProgressBar *GetProgressBarAnimation();
-	Ui::cDockQueue *GetUi();
+	MyProgressBar *GetProgressBarImage() const;
+	MyProgressBar *GetProgressBarAnimation() const;
+	Ui::cDockQueue *GetUi() const;
 
-	RenderedImage *GetRenderedImageWidget() { return renderedImageWidget; }
+	RenderedImage *GetRenderedImageWidget() const { return renderedImageWidget; }
 
 private:
 	Ui::cDockQueue *ui;

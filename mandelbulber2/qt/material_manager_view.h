@@ -59,7 +59,7 @@ public:
 	explicit cMaterialManagerView(QWidget *parent = nullptr);
 	~cMaterialManagerView();
 	void SetModel(cMaterialItemModel *_model);
-	void SetSelection(QModelIndex index);
+	void SetSelection(QModelIndex index) const;
 
 private:
 	Ui::cMaterialManagerView *ui;
@@ -67,7 +67,7 @@ private:
 	cMaterialItemModel *model;
 
 private slots:
-	void slotAddMaterial();
+	void slotAddMaterial() const;
 	void slotDeleteMaterial();
 	void slotEditMaterial();
 	void slotLoadMaterial();

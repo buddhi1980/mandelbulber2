@@ -39,7 +39,7 @@
 
 MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapper(this)
 {
-	defaultValue = 0;
+	defaultValue = false;
 	firstDisplay = true;
 	connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
 }
@@ -93,7 +93,7 @@ bool MyGroupBox::GetDefault()
 	return defaultValue;
 }
 
-void MyGroupBox::slotToggled(bool on)
+void MyGroupBox::slotToggled(bool on) const
 {
 	QList<QWidget *> list = this->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
 	for (int i = 0; i < list.size(); ++i)

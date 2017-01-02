@@ -46,7 +46,7 @@ MyColorButton::MyColorButton(QWidget *parent) : QPushButton(parent), CommonMyWid
 	SetupColor();
 }
 
-MyColorButton::~MyColorButton(void)
+MyColorButton::~MyColorButton()
 {
 	delete painter;
 	delete pix;
@@ -81,7 +81,7 @@ QString MyColorButton::getFullParameterName()
 	return parameterName;
 }
 
-sRGB MyColorButton::GetColor()
+sRGB MyColorButton::GetColor() const
 {
 	return currentValue;
 }

@@ -115,7 +115,7 @@ cInterface::~cInterface()
 	if (mainWindow) delete mainWindow;
 }
 
-void cInterface::ShowUi(void)
+void cInterface::ShowUi()
 {
 	WriteLog("Prepare RenderWindow class", 2);
 
@@ -250,7 +250,7 @@ void cInterface::ShowUi(void)
 	WriteLog("cInterface::ConnectSignals(void) finished", 2);
 }
 
-void cInterface::ConnectSignals(void)
+void cInterface::ConnectSignals() const
 {
 	// other
 
@@ -382,7 +382,7 @@ void cInterface::ConnectSignals(void)
 
 // Reading ad writing parameters from/to ui to/from parameters container
 void cInterface::SynchronizeInterface(
-	cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode)
+	cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode) const
 {
 	WriteLog(
 		"cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, "
@@ -514,9 +514,9 @@ void cInterface::MoveCamera(QString buttonName)
 		direction = cameraTarget.GetForwardVector() * (-1.0);
 
 	enumCameraMovementStepMode stepMode =
-		(enumCameraMovementStepMode)gPar->Get<int>("camera_absolute_distance_mode");
+		enumCameraMovementStepMode(gPar->Get<int>("camera_absolute_distance_mode"));
 	enumCameraMovementMode movementMode =
-		(enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
+		enumCameraMovementMode(gPar->Get<int>("camera_movement_mode"));
 
 	// movement step
 	double step;
@@ -556,7 +556,7 @@ void cInterface::MoveCamera(QString buttonName)
 
 	// recalculation of camera-target
 	cCameraTarget::enumRotationMode rollMode =
-		(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
 	if (movementMode == moveCamera)
 		cameraTarget.SetCamera(camera, rollMode);
 	else if (movementMode == moveTarget)
@@ -576,7 +576,7 @@ void cInterface::MoveCamera(QString buttonName)
 	StartRender();
 }
 
-void cInterface::CameraOrTargetEdited(void)
+void cInterface::CameraOrTargetEdited() const
 {
 	WriteLog("cInterface::CameraOrTargetEdited(void)", 2);
 
@@ -592,7 +592,7 @@ void cInterface::CameraOrTargetEdited(void)
 
 	// recalculation of camera-target
 	cCameraTarget::enumRotationMode rollMode =
-		(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
 	cameraTarget.SetCamera(camera, rollMode);
 	cameraTarget.SetTarget(target, rollMode);
 
@@ -619,9 +619,9 @@ void cInterface::RotateCamera(QString buttonName)
 	double distance = cameraTarget.GetDistance();
 
 	enumCameraRotationMode rotationMode =
-		(enumCameraRotationMode)gPar->Get<int>("camera_rotation_mode");
+		enumCameraRotationMode(gPar->Get<int>("camera_rotation_mode"));
 	cCameraTarget::enumRotationMode rollMode =
-		(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
 
 	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
 	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
@@ -699,7 +699,7 @@ void cInterface::RotateCamera(QString buttonName)
 	StartRender();
 }
 
-void cInterface::RotationEdited(void)
+void cInterface::RotationEdited() const
 {
 	WriteLog("cInterface::RotationEdited(void)", 2);
 	// get data from interface before synchronization
@@ -712,7 +712,7 @@ void cInterface::RotationEdited(void)
 	CVector3 rotation = gPar->Get<CVector3>("camera_rotation") * (M_PI / 180.0);
 
 	enumCameraRotationMode rotationMode =
-		(enumCameraRotationMode)gPar->Get<int>("camera_rotation_mode");
+		enumCameraRotationMode(gPar->Get<int>("camera_rotation_mode"));
 
 	CVector3 forwardVector(0.0, 1.0, 0.0);
 	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), rotation.z);
@@ -734,7 +734,7 @@ void cInterface::RotationEdited(void)
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-void cInterface::CameraDistanceEdited()
+void cInterface::CameraDistanceEdited() const
 {
 	WriteLog("cInterface::CameraDistanceEdited()", 2);
 
@@ -748,7 +748,7 @@ void cInterface::CameraDistanceEdited()
 	double distance = gPar->Get<double>("camera_distance_to_target");
 
 	enumCameraMovementMode movementMode =
-		(enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
+		enumCameraMovementMode(gPar->Get<int>("camera_movement_mode"));
 	if (movementMode == moveTarget)
 	{
 		target = camera + forwardVector * distance;
@@ -765,7 +765,7 @@ void cInterface::CameraDistanceEdited()
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::write);
 }
 
-void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal)
+void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal) const
 {
 	double phi = (1 + sqrt(5.0)) / 2.0;
 	parFractal->Set("IFS_scale", phi * phi);
@@ -782,7 +782,7 @@ void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal)
 	parFractal->Set("IFS_menger_sponge_mode", false);
 }
 
-void cInterface::IFSDefaultsIcosahedron(cParameterContainer *parFractal)
+void cInterface::IFSDefaultsIcosahedron(cParameterContainer *parFractal) const
 {
 	double phi = (1 + sqrt(5.0)) / 2.0;
 	parFractal->Set("IFS_scale", 2.0);
@@ -903,7 +903,7 @@ void cInterface::RefreshMainImage()
 	mainImage->GetImageWidget()->update();
 }
 
-void cInterface::AutoFog()
+void cInterface::AutoFog() const
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
@@ -931,7 +931,7 @@ double cInterface::GetDistanceForPoint(
 	return distance;
 }
 
-double cInterface::GetDistanceForPoint(CVector3 point)
+double cInterface::GetDistanceForPoint(CVector3 point) const
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	double distance = GetDistanceForPoint(point, gPar, gParFractal);
@@ -947,7 +947,7 @@ void cInterface::SetByMouse(
 		2);
 	// get data from interface
 
-	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
+	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
 
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -956,13 +956,13 @@ void cInterface::SetByMouse(
 	cCameraTarget cameraTarget(camera, target, topVector);
 
 	enumCameraMovementStepMode stepMode =
-		(enumCameraMovementStepMode)gPar->Get<int>("camera_absolute_distance_mode");
+		enumCameraMovementStepMode(gPar->Get<int>("camera_absolute_distance_mode"));
 	enumCameraMovementMode movementMode =
-		(enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
+		enumCameraMovementMode(gPar->Get<int>("camera_movement_mode"));
 	params::enumPerspectiveType perspType =
-		(params::enumPerspectiveType)gPar->Get<int>("perspective_type");
+		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
 	cCameraTarget::enumRotationMode rollMode =
-		(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+		cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
 	double movementStep = gPar->Get<double>("camera_movement_step");
 	double fov = gPar->Get<double>("fov");
 	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
@@ -984,7 +984,7 @@ void cInterface::SetByMouse(
 		if (depth < 1e10)
 		{
 			CVector3 viewVector;
-			double aspectRatio = (double)width / height;
+			double aspectRatio = double(width) / height;
 
 			if (perspType == params::perspEquirectangular) aspectRatio = 2.0;
 
@@ -1149,10 +1149,10 @@ void cInterface::SetByMouse(
 	}
 }
 
-void cInterface::MovementStepModeChanged(int mode)
+void cInterface::MovementStepModeChanged(int mode) const
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)mode;
+	enumCameraMovementStepMode stepMode = enumCameraMovementStepMode(mode);
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 	double oldStep = gPar->Get<double>("camera_movement_step");
 	double newStep;
@@ -1211,7 +1211,7 @@ void cInterface::ResetView()
 	CVector3 forwardVector = cameraTarget.GetForwardVector();
 	double fov = gPar->Get<double>("fov");
 	params::enumPerspectiveType perspType =
-		(params::enumPerspectiveType)gPar->Get<int>("perspective_type");
+		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
 	double DEactor = gPar->Get<double>("DE_factor");
 
 	cParameterContainer parTemp = *gPar;
@@ -1231,7 +1231,7 @@ void cInterface::ResetView()
 		CVector3 direction(
 			Random(1000) / 500.0 - 1.0, Random(1000) / 500.0 - 1.0, Random(1000) / 500.0 - 1.0);
 		direction.Normalize();
-		double distStep = 0.0;
+		double distStep;
 		double scan;
 
 		for (scan = 100.0; scan > 0; scan -= distStep)
@@ -1546,7 +1546,7 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 	}
 }
 
-void cInterface::ComboMouseClickUpdate()
+void cInterface::ComboMouseClickUpdate() const
 {
 	QComboBox *combo = mainWindow->ui->comboBox_mouse_click_function;
 	int lastIndex = combo->currentIndex();
@@ -1555,51 +1555,51 @@ void cInterface::ComboMouseClickUpdate()
 	QList<QVariant> item;
 
 	item.clear();
-	item.append((int)RenderedImage::clickDoNothing);
+	item.append(int(RenderedImage::clickDoNothing));
 	combo->addItem(QObject::tr("No action"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickMoveCamera);
+	item.append(int(RenderedImage::clickMoveCamera));
 	combo->addItem(QObject::tr("Move the camera"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickFogVisibility);
+	item.append(int(RenderedImage::clickFogVisibility));
 	combo->addItem(QObject::tr("Set fog visibility"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickDOFFocus);
+	item.append(int(RenderedImage::clickDOFFocus));
 	combo->addItem(QObject::tr("Set DOF focus"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickGetJuliaConstant);
+	item.append(int(RenderedImage::clickGetJuliaConstant));
 	combo->addItem(QObject::tr("Get Julia constant"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append(int(RenderedImage::clickPlaceLight));
 	item.append(1);
 	combo->addItem(QObject::tr("Place light #1"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append(int(RenderedImage::clickPlaceLight));
 	item.append(2);
 	combo->addItem(QObject::tr("Place light #2"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append(int(RenderedImage::clickPlaceLight));
 	item.append(3);
 	combo->addItem(QObject::tr("Place light #3"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append(int(RenderedImage::clickPlaceLight));
 	item.append(4);
 	combo->addItem(QObject::tr("Place light #4"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickPlaceRandomLightCenter);
+	item.append(int(RenderedImage::clickPlaceRandomLightCenter));
 	combo->addItem(QObject::tr("Place random light center"), item);
 
 	item.clear();
-	item.append((int)RenderedImage::clickGetPoint);
+	item.append(int(RenderedImage::clickGetPoint));
 	combo->addItem(QObject::tr("Get point coordinates"), item);
 
 	if (listOfPrimitives.size() > 0)
@@ -1611,8 +1611,8 @@ void cInterface::ComboMouseClickUpdate()
 			QString comboItemString =
 				QString(QObject::tr("Place ")) + primitiveName + QString(" #") + QString::number(index);
 			item.clear();
-			item.append((int)RenderedImage::clickPlacePrimitive);
-			item.append((int)listOfPrimitives.at(i).type);
+			item.append(int(RenderedImage::clickPlacePrimitive));
+			item.append(int(listOfPrimitives.at(i).type));
 			item.append(listOfPrimitives.at(i).id);
 			item.append(listOfPrimitives.at(i).name);
 			combo->addItem(comboItemString, item);
@@ -1628,7 +1628,7 @@ void cInterface::ComboMouseClickUpdate()
 bool cInterface::QuitApplicationDialog()
 {
 	bool quit = false;
-	int closeResult = 0;
+	int closeResult;
 	bool quitDoNotAskAgain = gPar->Get<bool>("quit_do_not_ask_again");
 	QMessageBox *messageBox = nullptr;
 	QAbstractButton *btnYesAndDoNotAskAgain = nullptr;
@@ -1690,7 +1690,7 @@ bool cInterface::QuitApplicationDialog()
 	return quit;
 }
 
-void cInterface::AutoRecovery()
+void cInterface::AutoRecovery() const
 {
 	if (QFile::exists(systemData.GetAutosaveFile()))
 	{
@@ -1720,7 +1720,8 @@ void cInterface::AutoRecovery()
 	}
 }
 
-bool cInterface::DataFolderUpgrade()
+// ReSharper disable once CppMemberFunctionMayBeStatic
+bool cInterface::DataFolderUpgrade() const
 {
 #ifndef WIN32
 	if (systemData.IsUpgraded()) return false; // already upgraded, nothing to do
@@ -1808,8 +1809,8 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	}
 
 	int maxDimension = max(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	int newWidth = (double)gPar->Get<int>("image_width") / maxDimension * 256.0;
-	int newHeight = (double)gPar->Get<int>("image_height") / maxDimension * 256.0;
+	int newWidth = double(gPar->Get<int>("image_width")) / maxDimension * 256.0;
+	int newHeight = double(gPar->Get<int>("image_height")) / maxDimension * 256.0;
 
 	tempParam.Set("image_width", newWidth);
 	tempParam.Set("image_height", newHeight);
@@ -1898,7 +1899,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	delete renderJob;
 }
 
-void cInterface::ResetFormula(int fractalNumber)
+void cInterface::ResetFormula(int fractalNumber) const
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
@@ -1999,24 +2000,24 @@ void cInterface::MaterialSelected(int matIndex)
 	}
 }
 
-void cInterface::StartupDefaultSettings(void)
+void cInterface::StartupDefaultSettings()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", true);
-	gPar->Set("ambient_occlusion_mode", (int)params::AOmodeScreenSpace);
+	gPar->Set("ambient_occlusion_mode", int(params::AOmodeScreenSpace));
 	gPar->Set("ambient_occlusion_quality", 4);
 	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);
 	gPar->Set("detail_level", 1.0);
 }
 
-void cInterface::DisableJuliaPointMode()
+void cInterface::DisableJuliaPointMode() const
 {
 	QList<QVariant> itemMouseMove;
-	itemMouseMove.append((int)RenderedImage::clickMoveCamera);
+	itemMouseMove.append(int(RenderedImage::clickMoveCamera));
 
 	QList<QVariant> itemJuliaMode;
-	itemJuliaMode.append((int)RenderedImage::clickGetJuliaConstant);
+	itemJuliaMode.append(int(RenderedImage::clickGetJuliaConstant));
 
 	if (mainWindow->ui->comboBox_mouse_click_function->currentData() == itemJuliaMode)
 	{
@@ -2027,7 +2028,7 @@ void cInterface::DisableJuliaPointMode()
 }
 // function to create icons with actual color in ColorButtons
 
-void cInterface::ConnectProgressAndStatisticsSignals()
+void cInterface::ConnectProgressAndStatisticsSignals() const
 {
 	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
 																			 const QString &, double, cProgressText::enumProgressType)),

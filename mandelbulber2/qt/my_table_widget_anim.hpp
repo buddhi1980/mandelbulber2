@@ -47,9 +47,9 @@ public:
 
 private:
 public slots:
-	void tableContextMenuRequest(QPoint point);
-	void columnContextMenuRequest(QPoint point);
-	void rowContextMenuRequest(QPoint point);
+	void tableContextMenuRequest(QPoint point) const;
+	void columnContextMenuRequest(QPoint point) const;
+	void rowContextMenuRequest(QPoint point) const;
 };
 
 #endif /* MANDELBULBER2_QT_MY_TABLE_WIDGET_ANIM_HPP_ */

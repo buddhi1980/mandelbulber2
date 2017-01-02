@@ -54,7 +54,7 @@ public slots:
 	void slotFreqChanged(double midFreq, double bandwidth);
 
 private:
-	void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *event) override;
 
 	QImage fftImage;
 	QImage scaledFftImage;

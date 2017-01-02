@@ -1323,7 +1323,7 @@
   <customwidget>
    <class>cDockImageAdjustments</class>
    <extends>QWidget</extends>
-   <header>dock_image_adjustmnets.h</header>
+   <header>dock_image_adjustments.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

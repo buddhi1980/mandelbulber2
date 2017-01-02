@@ -52,12 +52,12 @@ cDockStatistics::~cDockStatistics()
 	delete ui;
 }
 
-void cDockStatistics::UpdateDistanceToFractal(double distance)
+void cDockStatistics::UpdateDistanceToFractal(double distance) const
 {
 	ui->tableWidget_statistics->item(5, 0)->setText(QString::number(distance));
 }
 
-void cDockStatistics::slotUpdateStatistics(cStatistics stat)
+void cDockStatistics::slotUpdateStatistics(cStatistics stat) const
 {
 	ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
 	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);

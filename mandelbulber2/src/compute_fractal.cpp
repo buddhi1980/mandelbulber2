@@ -111,7 +111,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	// main iteration loop
 	int i;
-	int sequence = 0;
+	int sequence;
 
 	CVector3 lastGoodZ;
 	CVector3 lastZ;
@@ -1311,7 +1311,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// color calculation
 	else if (Mode == calcModeColouring)
 	{
-		double mboxDE = 1.0;
+		double mboxDE;
 		mboxDE = extendedAux.DE;
 		double r2 = r / fabs(mboxDE);
 		if (r2 > 20) r2 = 20;
@@ -1320,7 +1320,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		{
 			if (minimumR > 100) minimumR = 100;
 
-			double mboxColor = 0.0;
+			double mboxColor;
 
 			mboxColor = extendedAux.color;
 

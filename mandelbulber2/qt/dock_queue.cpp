@@ -60,17 +60,17 @@ cDockQueue::~cDockQueue()
 	if (renderedImageWidget) delete renderedImageWidget;
 }
 
-MyProgressBar *cDockQueue::GetProgressBarImage()
+MyProgressBar *cDockQueue::GetProgressBarImage() const
 {
 	return ui->queueProgressBarImage;
 }
 
-MyProgressBar *cDockQueue::GetProgressBarAnimation()
+MyProgressBar *cDockQueue::GetProgressBarAnimation() const
 {
 	return ui->queueProgressBarAnimation;
 }
 
-Ui::cDockQueue *cDockQueue::GetUi()
+Ui::cDockQueue *cDockQueue::GetUi() const
 {
 	return ui;
 }

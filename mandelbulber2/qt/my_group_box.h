@@ -53,16 +53,16 @@ private:
 	QString originalText;
 	bool firstDisplay;
 
-	virtual void resetToDefault();
-	virtual QString getDefaultAsString();
-	virtual QString getFullParameterName();
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
 
 private slots:
-	void slotToggled(bool on);
+	void slotToggled(bool on) const;
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
 };
 
 #endif /* MANDELBULBER2_QT_MY_GROUP_BOX_H_ */

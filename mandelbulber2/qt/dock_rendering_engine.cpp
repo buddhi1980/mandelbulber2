@@ -41,7 +41,7 @@
 #include "../src/render_window.hpp"
 #include "../src/synchronize_interface.hpp"
 #include "dock_fractal.h"
-#include "dock_image_adjustmnets.h"
+#include "dock_image_adjustments.h"
 #include "dock_navigation.h"
 #include "ui_dock_rendering_engine.h"
 
@@ -61,7 +61,7 @@ cDockRenderingEngine::~cDockRenderingEngine()
 	delete ui;
 }
 
-void cDockRenderingEngine::ConnectSignals()
+void cDockRenderingEngine::ConnectSignals() const
 {
 	connect(ui->checkBox_use_default_bailout, SIGNAL(stateChanged(int)), this,
 		SLOT(slotChangedCheckBoxUseDefaultBailout(int)));
@@ -99,7 +99,7 @@ void cDockRenderingEngine::ConnectSignals()
 		SIGNAL(stateChangedConnectDetailLevel(int)));
 }
 
-void cDockRenderingEngine::slotNetRenderServerStart()
+void cDockRenderingEngine::slotNetRenderServerStart() const
 {
 	SynchronizeInterfaceWindow(ui->group_netrender, gPar, qInterface::read);
 	qint32 port = gPar->Get<int>("netrender_server_local_port");
@@ -111,7 +111,7 @@ void cDockRenderingEngine::slotNetRenderServerStop()
 	gNetRender->DeleteServer();
 }
 
-void cDockRenderingEngine::slotNetRenderClientConnect()
+void cDockRenderingEngine::slotNetRenderClientConnect() const
 {
 	SynchronizeInterfaceWindow(ui->group_netrender, gPar, qInterface::read);
 	QString address = gPar->Get<QString>("netrender_client_remote_address");
@@ -124,13 +124,13 @@ void cDockRenderingEngine::slotNetRenderClientDisconnect()
 	gNetRender->DeleteClient();
 }
 
-void cDockRenderingEngine::slotNetRenderClientServerChange(int index)
+void cDockRenderingEngine::slotNetRenderClientServerChange(int index) const
 {
 	ui->groupBox_netrender_client_config->setVisible(index == CNetRender::netRender_CLIENT);
 	ui->groupBox_netrender_server_config->setVisible(index == CNetRender::netRender_SERVER);
 }
 
-void cDockRenderingEngine::slotNetRenderClientListUpdate()
+void cDockRenderingEngine::slotNetRenderClientListUpdate() const
 {
 	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
 
@@ -163,7 +163,7 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate()
 	}
 }
 
-void cDockRenderingEngine::slotNetRenderClientListUpdate(int i)
+void cDockRenderingEngine::slotNetRenderClientListUpdate(int i) const
 {
 	// update row i
 	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
@@ -173,7 +173,7 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate(int i)
 	}
 }
 
-void cDockRenderingEngine::slotNetRenderClientListUpdate(int i, int j)
+void cDockRenderingEngine::slotNetRenderClientListUpdate(int i, int j) const
 {
 	// update element in row i, column j
 	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
@@ -203,10 +203,11 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate(int i, int j)
 			break;
 		}
 		case 4: cell->setText(QString::number(gNetRender->GetClient(i).linesRendered)); break;
+		default: break;
 	}
 }
 
-void cDockRenderingEngine::slotNetRenderStatusServerUpdate()
+void cDockRenderingEngine::slotNetRenderStatusServerUpdate() const
 {
 	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
 	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
@@ -218,7 +219,7 @@ void cDockRenderingEngine::slotNetRenderStatusServerUpdate()
 	ui->bu_netrender_stop_server->setEnabled(gNetRender->IsServer());
 }
 
-void cDockRenderingEngine::slotNetRenderStatusClientUpdate()
+void cDockRenderingEngine::slotNetRenderStatusClientUpdate() const
 {
 	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
 	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
@@ -240,44 +241,44 @@ void cDockRenderingEngine::slotCheckBoxDisableNetRender(bool on)
 	}
 }
 
-void cDockRenderingEngine::SynchronizeInterfaceDistanceEstimation(cParameterContainer *par)
+void cDockRenderingEngine::SynchronizeInterfaceDistanceEstimation(cParameterContainer *par) const
 {
 	SynchronizeInterfaceWindow(ui->groupBox_distanceEstimation, par, qInterface::write);
 }
 
-void cDockRenderingEngine::ComboDeltaDEFunctionSetEnabled(bool enabled)
+void cDockRenderingEngine::ComboDeltaDEFunctionSetEnabled(bool enabled) const
 {
 	ui->comboBox_delta_DE_function->setEnabled(enabled);
 }
 
-int cDockRenderingEngine::ComboDeltaDEMethodCurrentIndex(void)
+int cDockRenderingEngine::ComboDeltaDEMethodCurrentIndex() const
 {
 	return ui->comboBox_delta_DE_method->currentIndex();
 }
 
-void cDockRenderingEngine::slotChangedComboDistanceEstimationMethod(int index)
+void cDockRenderingEngine::slotChangedComboDistanceEstimationMethod(int index) const
 {
 	ui->comboBox_delta_DE_function->setEnabled(
 		gMainInterface->mainWindow->GetWidgetDockFractal()->AreHybridFractalsEnabled()
-		|| index == (int)fractal::forceDeltaDEMethod);
+		|| index == int(fractal::forceDeltaDEMethod));
 }
 
-void cDockRenderingEngine::CheckboxConnectDetailLevelSetCheckState(Qt::CheckState state)
+void cDockRenderingEngine::CheckboxConnectDetailLevelSetCheckState(Qt::CheckState state) const
 {
 	ui->checkBox_connect_detail_level_2->setCheckState(state);
 }
 
-void cDockRenderingEngine::UpdateLabelWrongDEPercentage(const QString &text)
+void cDockRenderingEngine::UpdateLabelWrongDEPercentage(const QString &text) const
 {
 	ui->label_wrong_DE_percentage->setText(text);
 }
 
-void cDockRenderingEngine::UpdateLabelUsedDistanceEstimation(const QString &text)
+void cDockRenderingEngine::UpdateLabelUsedDistanceEstimation(const QString &text) const
 {
 	ui->label_used_distance_estimation->setText(text);
 }
 
-void cDockRenderingEngine::slotChangedCheckBoxUseDefaultBailout(int state)
+void cDockRenderingEngine::slotChangedCheckBoxUseDefaultBailout(int state) const
 {
 	ui->logslider_bailout->setEnabled(!state);
 	ui->logedit_bailout->setEnabled(!state);

@@ -73,7 +73,7 @@ inline tsRGBA<unsigned char>::tsRGBA()
 	R = 0;
 	G = 0;
 	B = 0;
-	A = (unsigned char)255;
+	A = static_cast<unsigned char>(255);
 }
 template <>
 inline tsRGBA<unsigned short>::tsRGBA()
@@ -81,7 +81,7 @@ inline tsRGBA<unsigned short>::tsRGBA()
 	R = 0;
 	G = 0;
 	B = 0;
-	A = (unsigned short)65535;
+	A = static_cast<unsigned short>(65535);
 }
 template <>
 inline tsRGBA<float>::tsRGBA()

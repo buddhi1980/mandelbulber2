@@ -78,7 +78,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbox.solid = container->Get<double>("mandelbox_solid");
 	mandelbox.melt = container->Get<double>("mandelbox_melt");
 	genFoldBox.type =
-		(fractal::enumGeneralizedFoldBoxType)container->Get<int>("mandelbox_generalized_fold_type");
+		fractal::enumGeneralizedFoldBoxType(container->Get<int>("mandelbox_generalized_fold_type"));
 
 	foldingIntPow.foldfactor = container->Get<double>("boxfold_bulbpow2_folding_factor");
 	foldingIntPow.zFactor = container->Get<double>("boxfold_bulbpow2_z_factor");
@@ -129,29 +129,29 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	// mandelbulb multi
 	mandelbulbMulti.acosOrasin =
-		(sFractalMandelbulbMulti::multi_acosOrasin)container->Get<int>("mandelbulbMulti_acos_or_asin");
-	mandelbulbMulti.atanOratan2 = (sFractalMandelbulbMulti::multi_atanOratan2)container->Get<int>(
-		"mandelbulbMulti_atan_or_atan2");
+		sFractalMandelbulbMulti::multi_acosOrasin(container->Get<int>("mandelbulbMulti_acos_or_asin"));
+	mandelbulbMulti.atanOratan2 = sFractalMandelbulbMulti::multi_atanOratan2(container->Get<int>(
+		"mandelbulbMulti_atan_or_atan2"));
 
-	mandelbulbMulti.acosOrasinA = (sFractalMandelbulbMulti::multi_acosOrasin)container->Get<int>(
-		"mandelbulbMulti_acos_or_asin_A");
-	mandelbulbMulti.atanOratan2A = (sFractalMandelbulbMulti::multi_atanOratan2)container->Get<int>(
-		"mandelbulbMulti_atan_or_atan2_A");
+	mandelbulbMulti.acosOrasinA = sFractalMandelbulbMulti::multi_acosOrasin(container->Get<int>(
+		"mandelbulbMulti_acos_or_asin_A"));
+	mandelbulbMulti.atanOratan2A = sFractalMandelbulbMulti::multi_atanOratan2(container->Get<int>(
+		"mandelbulbMulti_atan_or_atan2_A"));
 
 	mandelbulbMulti.orderOfxyz =
-		(sFractalMandelbulbMulti::multi_OrderOfxyz)container->Get<int>("mandelbulbMulti_order_of_xyz");
-	mandelbulbMulti.orderOfxyz2 = (sFractalMandelbulbMulti::multi_OrderOfxyz)container->Get<int>(
-		"mandelbulbMulti_order_of_xyz_2");
-	mandelbulbMulti.orderOfxyzC = (sFractalMandelbulbMulti::multi_OrderOfxyz)container->Get<int>(
-		"mandelbulbMulti_order_of_xyz_C");
+		sFractalMandelbulbMulti::multi_OrderOfxyz(container->Get<int>("mandelbulbMulti_order_of_xyz"));
+	mandelbulbMulti.orderOfxyz2 = sFractalMandelbulbMulti::multi_OrderOfxyz(container->Get<int>(
+		"mandelbulbMulti_order_of_xyz_2"));
+	mandelbulbMulti.orderOfxyzC = sFractalMandelbulbMulti::multi_OrderOfxyz(container->Get<int>(
+		"mandelbulbMulti_order_of_xyz_C"));
 
 	// sinTan2Trig
 	sinTan2Trig.asinOracos =
-		(sFractalSinTan2Trig::multi_asinOracos)container->Get<int>("sinTan2Trig_asin_or_acos");
+		sFractalSinTan2Trig::multi_asinOracos(container->Get<int>("sinTan2Trig_asin_or_acos"));
 	sinTan2Trig.atan2Oratan =
-		(sFractalSinTan2Trig::multi_atan2Oratan)container->Get<int>("sinTan2Trig_atan2_or_atan");
+		sFractalSinTan2Trig::multi_atan2Oratan(container->Get<int>("sinTan2Trig_atan2_or_atan"));
 	sinTan2Trig.orderOfzyx =
-		(sFractalSinTan2Trig::multi_OrderOfzyx)container->Get<int>("sinTan2Trig_order_of_zyx");
+		sFractalSinTan2Trig::multi_OrderOfzyx(container->Get<int>("sinTan2Trig_order_of_zyx"));
 
 	// surfBox
 	surfBox.enabledX1 = container->Get<bool>("surfBox_enabledX1");
@@ -181,30 +181,30 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	// surfFolds
 	surfFolds.orderOfFolds1 =
-		(sFractalSurfFolds::multi_orderOfFolds)container->Get<int>("surfFolds_order_of_folds_1");
+		sFractalSurfFolds::multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_1"));
 	surfFolds.orderOfFolds2 =
-		(sFractalSurfFolds::multi_orderOfFolds)container->Get<int>("surfFolds_order_of_folds_2");
+		sFractalSurfFolds::multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_2"));
 	surfFolds.orderOfFolds3 =
-		(sFractalSurfFolds::multi_orderOfFolds)container->Get<int>("surfFolds_order_of_folds_3");
+		sFractalSurfFolds::multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_3"));
 	surfFolds.orderOfFolds4 =
-		(sFractalSurfFolds::multi_orderOfFolds)container->Get<int>("surfFolds_order_of_folds_4");
+		sFractalSurfFolds::multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_4"));
 	surfFolds.orderOfFolds5 =
-		(sFractalSurfFolds::multi_orderOfFolds)container->Get<int>("surfFolds_order_of_folds_5");
+		sFractalSurfFolds::multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_5"));
 
 	// bensei mag transforms
 	magTransf.orderOfTransf1 =
-		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_1");
+		sFractalMagTransforms::multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_1"));
 	magTransf.orderOfTransf2 =
-		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_2");
+		sFractalMagTransforms::multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_2"));
 	magTransf.orderOfTransf3 =
-		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_3");
+		sFractalMagTransforms::multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_3"));
 	magTransf.orderOfTransf4 =
-		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_4");
+		sFractalMagTransforms::multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_4"));
 	magTransf.orderOfTransf5 =
-		(sFractalMagTransforms::multi_orderOfTransf)container->Get<int>("magTransf_order_of_transf_5");
+		sFractalMagTransforms::multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_5"));
 
 	// basic combox
-	combo.modeA = (sFractalCombo::combo)container->Get<int>("combo_mode_A");
+	combo.modeA = sFractalCombo::combo(container->Get<int>("combo_mode_A"));
 
 	//	combo.mode1 = (sFractalCombo::combo)container->Get<int>("combo_mode_B");
 	//	combo.mode2 = (sFractalCombo::combo)container->Get<int>("combo_mode_C");
@@ -455,7 +455,7 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	RecalculateFractalParams();
 }
-void cFractal::RecalculateFractalParams(void)
+void cFractal::RecalculateFractalParams()
 {
 	IFS.mainRot.SetRotation3(IFS.rotation * (M_PI / 180.0));
 

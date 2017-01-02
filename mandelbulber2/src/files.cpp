@@ -103,7 +103,7 @@ int fcopy(const char *source, const char *dest)
 
 		// copy the file into the buffer:
 		result = fread(buffer, 1, lSize, pFile);
-		if (result != (size_t)lSize)
+		if (result != size_t(lSize))
 		{
 			printf("Can't read source file for copying: %s\n", source);
 			delete[] buffer;
@@ -317,9 +317,9 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cIma
 		QString imageChannelName = imageChannelNames.at(i);
 		if (gPar->Get<bool>(imageChannelName + "_enabled"))
 		{
-			ImageFileSave::enumImageContentType contentType = (ImageFileSave::enumImageContentType)i;
+			ImageFileSave::enumImageContentType contentType = ImageFileSave::enumImageContentType(i);
 			ImageFileSave::enumImageChannelQualityType channelQuality =
-				(ImageFileSave::enumImageChannelQualityType)gPar->Get<int>(imageChannelName + "_quality");
+				ImageFileSave::enumImageChannelQualityType(gPar->Get<int>(imageChannelName + "_quality"));
 			QString postfix = gPar->Get<QString>(imageChannelName + "_postfix");
 			imageConfig.insert(
 				contentType, ImageFileSave::structSaveImageChannel(contentType, channelQuality, postfix));
@@ -418,7 +418,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 			{
 				for (int x = 0; x < outWidth; x++)
 				{
-					unsigned char *pointer = (unsigned char *)row_pointers[y] + x * 3;
+					unsigned char *pointer = static_cast<unsigned char *>(row_pointers[y]) + x * 3;
 					sRGBA16 pixel(pointer[0] * 256, pointer[1] * 256, pointer[2] * 256, 65535);
 					image[x + y * outWidth] = pixel;
 				}
@@ -430,7 +430,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 			{
 				for (int x = 0; x < outWidth; x++)
 				{
-					unsigned char *pointer = (unsigned char *)row_pointers[y] + x * 4;
+					unsigned char *pointer = static_cast<unsigned char *>(row_pointers[y]) + x * 4;
 					sRGBA16 pixel(pointer[0] * 256, pointer[1] * 256, pointer[2] * 256, pointer[2] * 256);
 					image[x + y * outWidth] = pixel;
 				}
@@ -442,7 +442,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 			{
 				for (int x = 0; x < outWidth; x++)
 				{
-					unsigned char *pointer = (unsigned char *)row_pointers[y] + x;
+					unsigned char *pointer = static_cast<unsigned char *>(row_pointers[y]) + x;
 					sRGBA16 pixel(pointer[0] * 256, pointer[0] * 256, pointer[0] * 256, 65535);
 					image[x + y * outWidth] = pixel;
 				}
@@ -457,7 +457,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 			{
 				for (int x = 0; x < outWidth; x++)
 				{
-					unsigned short *pointer = (unsigned short *)row_pointers[y] + x * 3;
+					unsigned short *pointer = reinterpret_cast<unsigned short *>(row_pointers[y]) + x * 3;
 					sRGBA16 pixel(pointer[0], pointer[1], pointer[2], 65535);
 					image[x + y * outWidth] = pixel;
 				}
@@ -469,7 +469,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 			{
 				for (int x = 0; x < outWidth; x++)
 				{
-					unsigned short *pointer = (unsigned short *)row_pointers[y] + x * 4;
+					unsigned short *pointer = reinterpret_cast<unsigned short *>(row_pointers[y]) + x * 4;
 					sRGBA16 pixel(pointer[0], pointer[1], pointer[2], pointer[3]);
 					image[x + y * outWidth] = pixel;
 				}
@@ -481,7 +481,7 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 			{
 				for (int x = 0; x < outWidth; x++)
 				{
-					unsigned short *pointer = (unsigned short *)row_pointers[y] + x;
+					unsigned short *pointer = reinterpret_cast<unsigned short *>(row_pointers[y]) + x;
 					sRGBA16 pixel(pointer[0], pointer[0], pointer[0], 65535);
 					image[x + y * outWidth] = pixel;
 				}

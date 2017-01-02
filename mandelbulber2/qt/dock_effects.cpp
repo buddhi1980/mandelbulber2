@@ -42,7 +42,7 @@
 #include "../src/automated_widgets.hpp"
 #include "../src/render_window.hpp"
 #include "../src/system.hpp"
-#include "dock_image_adjustmnets.h"
+#include "dock_image_adjustments.h"
 #include "ui_dock_effects.h"
 
 cDockEffects::cDockEffects(QWidget *parent) : QWidget(parent), ui(new Ui::cDockEffects)
@@ -58,7 +58,7 @@ cDockEffects::~cDockEffects()
 	delete ui;
 }
 
-void cDockEffects::ConnectSignals()
+void cDockEffects::ConnectSignals() const
 {
 	connect(ui->button_calculateFog, SIGNAL(clicked()), this, SLOT(slotPressedButtonAutoFog()));
 
@@ -91,30 +91,30 @@ void cDockEffects::ConnectSignals()
 		SLOT(slotPressedButtonPlaceRandomLightsByMouse()));
 }
 
-void cDockEffects::SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par)
+void cDockEffects::SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_basic_fog_enabled, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfaceDOFEnabled(cParameterContainer *par)
+void cDockEffects::SynchronizeInterfaceDOFEnabled(cParameterContainer *par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_DOF_enabled, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfaceLights(cParameterContainer *par)
+void cDockEffects::SynchronizeInterfaceLights(cParameterContainer *par) const
 {
 	SynchronizeInterfaceWindow(ui->groupBox_Lights, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfacerandomLights(cParameterContainer *par)
+void cDockEffects::SynchronizeInterfacerandomLights(cParameterContainer *par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_random_lights_group, par, qInterface::write);
 }
 
-void cDockEffects::slotPressedButtonSetLight1ByMouse()
+void cDockEffects::slotPressedButtonSetLight1ByMouse() const
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append(int(RenderedImage::clickPlaceLight));
 	item.append(1); // light number
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
@@ -126,7 +126,7 @@ void cDockEffects::slotPressedButtonSetLight1ByMouse()
 void cDockEffects::slotPressedButtonSetLight2ByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append(int(RenderedImage::clickPlaceLight));
 	item.append(2); // light number
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
@@ -136,19 +136,19 @@ void cDockEffects::slotPressedButtonSetLight2ByMouse()
 void cDockEffects::slotPressedButtonSetLight3ByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append(int(RenderedImage::clickPlaceLight));
 	item.append(3); // light number
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
 }
 
-double cDockEffects::GetAuxLightManualPlacementDistance()
+double cDockEffects::GetAuxLightManualPlacementDistance() const
 {
 	return systemData.locale.toDouble(ui->logedit_aux_light_manual_placement_dist->text());
 }
 
-void cDockEffects::SetAuxLightManualPlacementDistance(double dist)
+void cDockEffects::SetAuxLightManualPlacementDistance(double dist) const
 {
 	ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(dist));
 }
@@ -156,7 +156,7 @@ void cDockEffects::SetAuxLightManualPlacementDistance(double dist)
 void cDockEffects::slotPressedButtonSetLight4ByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append(int(RenderedImage::clickPlaceLight));
 	item.append(4); // light number
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
@@ -168,12 +168,12 @@ void cDockEffects::slotEditedLineEditManualLightPlacementDistance(const QString 
 	gMainInterface->renderedImage->SetFrontDist(systemData.locale.toDouble(text));
 }
 
-void cDockEffects::slotSliderMovedEditManualLightPlacementDistance(int value)
+void cDockEffects::slotSliderMovedEditManualLightPlacementDistance(int value) const
 {
 	gMainInterface->renderedImage->SetFrontDist(pow(10.0, value / 100.0));
 }
 
-void cDockEffects::slotChangedCheckBoxDOFHDR(int state)
+void cDockEffects::slotChangedCheckBoxDOFHDR(int state) const
 {
 	ui->pushButton_DOF_update->setEnabled(!state);
 	gMainInterface->mainWindow->GetWidgetDockImageAdjustments()->ApplyImageChangesSetEnabled(!state);
@@ -183,7 +183,7 @@ void cDockEffects::slotChangedCheckBoxDOFHDR(int state)
 	}
 }
 
-void cDockEffects::slotChangedComboAmbientOcclusionMode(int index)
+void cDockEffects::slotChangedComboAmbientOcclusionMode(int index) const
 {
 	bool enabled = index == params::AOmodeMultipeRays ? true : false;
 	ui->frame_lightmap_texture->setEnabled(enabled);
@@ -205,7 +205,7 @@ void cDockEffects::slotPressedButtonDOFUpdate()
 void cDockEffects::slotPressedButtonSetDOFByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickDOFFocus);
+	item.append(int(RenderedImage::clickDOFFocus));
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
@@ -214,7 +214,7 @@ void cDockEffects::slotPressedButtonSetDOFByMouse()
 void cDockEffects::slotPressedButtonSetFogByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickFogVisibility);
+	item.append(int(RenderedImage::clickFogVisibility));
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
@@ -223,7 +223,7 @@ void cDockEffects::slotPressedButtonSetFogByMouse()
 void cDockEffects::slotPressedButtonPlaceRandomLightsByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceRandomLightCenter);
+	item.append(int(RenderedImage::clickPlaceRandomLightCenter));
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);

@@ -61,13 +61,13 @@ public:
 	int GetFramesPerKeyframe() const { return framesPerKeyframe; }
 	void ChangeMorphType(int parameterIndex, parameterContainer::enumMorphType morphType);
 	void ClearMorphCache() { morph.clear(); }
-	int GetUnrenderedTotal();
-	int GetUnrenderedTillIndex(int frameIndex);
+	int GetUnrenderedTotal() override;
+	int GetUnrenderedTillIndex(int frameIndex) override;
 	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue,
-		cParameterContainer *params = nullptr);
+		cParameterContainer *params = nullptr) override;
 	bool AddAnimatedParameter(
-		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal);
-	void RemoveAnimatedParameter(const QString &fullParameterName);
+		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal) override;
+	void RemoveAnimatedParameter(const QString &fullParameterName) override;
 
 private:
 	int framesPerKeyframe;

@@ -121,7 +121,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	if (textureScale.z < 1e-20) textureScale.z = 1e-20;
 
 	textureMappingType =
-		(texture::enumTextureMapping)materialParam->Get<int>(Name("texture_mapping_type", id));
+		texture::enumTextureMapping(materialParam->Get<int>(Name("texture_mapping_type", id)));
 
 	fresnelReflectance = materialParam->Get<bool>(Name("fresnel_reflectance", id));
 	useColorsFromPalette = materialParam->Get<bool>(Name("use_colors_from_palette", id));
@@ -141,8 +141,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	normalMapTextureHeight = materialParam->Get<double>(Name("normal_map_texture_height", id));
 
 	fractalColoring.coloringAlgorithm =
-		(sFractalColoring::enumFractalColoringAlgorithm)materialParam->Get<int>(
-			Name("fractal_coloring_algorithm", id));
+		sFractalColoring::enumFractalColoringAlgorithm(materialParam->Get<int>(
+			Name("fractal_coloring_algorithm", id)));
 	fractalColoring.sphereRadius =
 		materialParam->Get<double>(Name("fractal_coloring_sphere_radius", id));
 	fractalColoring.lineDirection =

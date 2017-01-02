@@ -124,7 +124,7 @@ void ColorPaletteWidget::mousePressEvent(QMouseEvent *event)
 	}
 }
 
-cColorPalette ColorPaletteWidget::GetDefault(void)
+cColorPalette ColorPaletteWidget::GetDefault()
 {
 	if (parameterContainer && !gotDefault)
 	{

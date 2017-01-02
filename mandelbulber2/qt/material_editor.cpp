@@ -63,7 +63,7 @@ cMaterialEditor::~cMaterialEditor()
 	delete ui;
 }
 
-void cMaterialEditor::ConnectSignals(void)
+void cMaterialEditor::ConnectSignals()
 {
 	connect(ui->pushButton_randomize, SIGNAL(clicked()), this, SLOT(slotPressedButtonRandomize()));
 	connect(ui->pushButton_randomPalette, SIGNAL(clicked()), this,
@@ -112,7 +112,7 @@ void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)
 	}
 }
 
-cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename)
+cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename) const
 {
 	cColorPalette palette;
 	QImage imagePalette(filename);
@@ -129,7 +129,7 @@ cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename)
 
 		for (int i = 0; i < paletteSize; i++)
 		{
-			double angle = (double)i / paletteSize * M_PI * 2.0;
+			double angle = double(i) / paletteSize * M_PI * 2.0;
 			double x = width / 2 + cos(angle) * width * 0.4;
 			double y = height / 2 + sin(angle) * height * 0.4;
 			QRgb pixel = imagePalette.pixel(x, y);
@@ -140,7 +140,7 @@ cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename)
 	return palette;
 }
 
-void cMaterialEditor::slotPressedButtonNewRandomPalette()
+void cMaterialEditor::slotPressedButtonNewRandomPalette() const
 {
 	SynchronizeInterfaceWindow(
 		ui->groupCheck_use_colors_from_palette, parameterContainer, qInterface::read);
@@ -151,28 +151,28 @@ void cMaterialEditor::slotPressedButtonNewRandomPalette()
 	ui->colorpalette_surface_color_palette->SetPalette(palette);
 }
 
-void cMaterialEditor::slotPressedButtonRandomize()
+void cMaterialEditor::slotPressedButtonRandomize() const
 {
-	srand((unsigned int)QTime::currentTime().msec());
+	srand(static_cast<unsigned int>(QTime::currentTime().msec()));
 	int seed = Random(999999);
 	ui->spinboxInt_coloring_random_seed->setValue(seed);
 	slotPressedButtonNewRandomPalette();
 }
 
-void cMaterialEditor::slotChangedSpinBoxPaletteOffset(double value)
+void cMaterialEditor::slotChangedSpinBoxPaletteOffset(double value) const
 {
 	ui->colorpalette_surface_color_palette->SetOffset(value);
 }
 
-void cMaterialEditor::slotChangedSpinBoxPaletteSize(int value)
+void cMaterialEditor::slotChangedSpinBoxPaletteSize(int value) const
 {
 	ui->slider_coloring_palette_offset->setMaximum(value * 100);
 }
 
-void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index)
+void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index) const
 {
 	sFractalColoring::enumFractalColoringAlgorithm selection =
-		(sFractalColoring::enumFractalColoringAlgorithm)index;
+		sFractalColoring::enumFractalColoringAlgorithm(index);
 	ui->slider_fractal_coloring_sphere_radius->setEnabled(
 		selection == sFractalColoring::fractalColoringSphere);
 	ui->spinbox_fractal_coloring_sphere_radius->setEnabled(

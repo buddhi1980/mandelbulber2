@@ -55,13 +55,13 @@ private:
 	int defaultValue;
 
 	// methods to define from CommonMyWidgetWrapper
-	virtual void resetToDefault();
-	virtual QString getDefaultAsString();
-	virtual QString getFullParameterName();
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
 };
 
 #endif /* MANDELBULBER2_QT_MY_SPIN_BOX_H_ */

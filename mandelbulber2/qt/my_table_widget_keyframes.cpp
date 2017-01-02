@@ -57,7 +57,7 @@ MyTableWidgetKeyframes::~MyTableWidgetKeyframes()
 {
 }
 
-void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
+void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 {
 	QModelIndex index = indexAt(point);
 	int row = index.row();
@@ -97,7 +97,7 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
 	delete menu;
 }
 
-void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point)
+void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point) const
 {
 	int column = horizontalHeader()->logicalIndexAt(point);
 
@@ -141,7 +141,7 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point)
 	}
 }
 
-void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
+void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point) const
 {
 	int row = verticalHeader()->logicalIndexAt(point);
 

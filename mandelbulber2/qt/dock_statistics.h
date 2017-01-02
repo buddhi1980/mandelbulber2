@@ -54,10 +54,10 @@ public:
 	explicit cDockStatistics(QWidget *parent = nullptr);
 	~cDockStatistics();
 
-	void UpdateDistanceToFractal(double distance);
+	void UpdateDistanceToFractal(double distance) const;
 
 public slots:
-	void slotUpdateStatistics(cStatistics);
+	void slotUpdateStatistics(cStatistics) const;
 
 private:
 	Ui::cDockStatistics *ui;

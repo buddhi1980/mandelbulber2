@@ -52,10 +52,10 @@ public:
 	explicit cDockAnimation(QWidget *parent = nullptr);
 	~cDockAnimation();
 
-	void DisableEXR();
-	void DisableTIFF();
+	void DisableEXR() const;
+	void DisableTIFF() const;
 
-	Ui::cDockAnimation *GetUi();
+	Ui::cDockAnimation *GetUi() const;
 
 private:
 	Ui::cDockAnimation *ui;

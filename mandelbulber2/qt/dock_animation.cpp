@@ -51,7 +51,7 @@ cDockAnimation::~cDockAnimation()
 	delete ui;
 }
 
-void cDockAnimation::DisableEXR()
+void cDockAnimation::DisableEXR() const
 {
 	qobject_cast<QStandardItemModel *>(ui->comboBox_keyframe_animation_image_type->model())
 		->item(ImageFileSave::IMAGE_FILE_TYPE_EXR)
@@ -61,7 +61,7 @@ void cDockAnimation::DisableEXR()
 		->setEnabled(false);
 }
 
-void cDockAnimation::DisableTIFF()
+void cDockAnimation::DisableTIFF() const
 {
 	qobject_cast<QStandardItemModel *>(ui->comboBox_keyframe_animation_image_type->model())
 		->item(ImageFileSave::IMAGE_FILE_TYPE_TIFF)
@@ -71,7 +71,7 @@ void cDockAnimation::DisableTIFF()
 		->setEnabled(false);
 }
 
-Ui::cDockAnimation *cDockAnimation::GetUi()
+Ui::cDockAnimation *cDockAnimation::GetUi() const
 {
 	return ui;
 }

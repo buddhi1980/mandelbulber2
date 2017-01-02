@@ -76,16 +76,16 @@ public:
 		cliErrorVoxelOutputFolderDoesNotExists = -50
 	};
 
-	void ReadCLI(void);
-	void ProcessCLI(void);
-	bool isNoGUI(void) const { return cliData.nogui; }
+	void ReadCLI();
+	void ProcessCLI() const;
+	bool isNoGUI() const { return cliData.nogui; }
 
 private:
 	// ## helper methods for ReadCLI
 	// arguments to cause print and exit
-	void printExampleHelpAndExit() const;
-	void printInputHelpAndExit() const;
-	void printParametersAndExit();
+	static void printExampleHelpAndExit();
+	static void printInputHelpAndExit();
+	static void printParametersAndExit();
 	void runTestCasesAndExit() const;
 	void runBenchmarksAndExit() const;
 
@@ -94,7 +94,7 @@ private:
 	void handleClient();
 	void handleQueue();
 	void handleArgs();
-	void handleOverrideParameters();
+	void handleOverrideParameters() const;
 	void handleResolution();
 	void handleFpk();
 	void handleImageFileFormat();
