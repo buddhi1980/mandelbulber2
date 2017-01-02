@@ -49,9 +49,16 @@ In render window:
 
 ## Building and Deploying 
 
+Dowload latest stable version from [Releases] (https://github.com/buddhi1980/mandelbulber2/releases)
+
+Unpack dowloaded file and follow instructions from README file
 Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
 
 ## Easy Preparation for Development
+
+Thre program is natively developed using Qt Creator under Linux (Debian or Ubuntu)
+
+The file [mandelbulber2/Release/mandelbulber.pro] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/Release/mandelbulber.pro) provides all needed configuration for Qt Creator. But to be able to compile the program, the system has to be prepared.
 
 Use the following scripts to prepare your Linux environment for development.
 These scripts install all required packages, compile the program, and create symbolic links in /usr/share/mandelbulber to your working directory.
@@ -65,6 +72,8 @@ These scripts install all required packages, compile the program, and create sym
 
 [Arch Linux AUR Package (builds latest git snapshot)]
 (https://aur.archlinux.org/packages/mandelbulber2-git/)
+
+In addition there is prepared solution for VC++ 2015 located in root folder of git package. This solution includes all needed nugets to compile the program.
 
 ## Resources
 
