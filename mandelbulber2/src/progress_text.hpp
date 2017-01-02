@@ -51,11 +51,11 @@ public:
 	cProgressText();
 	void ResetTimer();
 	QString getText(double progress);
-	double getTime() { return timer.elapsed() / 1000.0; }
+	double getTime() const { return timer.elapsed() / 1000.0; }
 
 private:
 	QElapsedTimer timer;
-	QString TimeString(qint64 time);
+	QString TimeString(qint64 time) const;
 	qint64 lastTimeForETA;
 	double lastProgressForETA;
 	double renderingSpeed;

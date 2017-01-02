@@ -65,8 +65,8 @@ public:
 	template <typename TNew>
 	CVector2<TNew> transpose(cRegion<TNew> region, CVector2<T> point) const
 	{
-		double scaleX = (double)region.width / (double)width;
-		double scaleY = (double)region.height / (double)height;
+		double scaleX = double(region.width) / double(width);
+		double scaleY = double(region.height) / double(height);
 		return CVector2<TNew>(scaleX * (point.x - x1) + region.x1, scaleY * (point.y - y1) + region.y1);
 	}
 

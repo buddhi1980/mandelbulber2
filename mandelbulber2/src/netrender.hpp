@@ -137,9 +137,9 @@ public:
 	//----------------- public methods --------------------------
 public:
 	// ask if server is established
-	bool IsServer() { return deviceType == netRender_SERVER; }
+	bool IsServer() const { return deviceType == netRender_SERVER; }
 	// ask if client is connected
-	bool IsClient() { return deviceType == netRender_CLIENT; }
+	bool IsClient() const { return deviceType == netRender_CLIENT; }
 	// initializing server
 	void SetServer(qint32 portNo);
 	// deleting server
@@ -152,13 +152,13 @@ public:
 	// get client
 	const sClient &GetClient(int index);
 	// get number of connected clients
-	qint32 GetClientCount() { return clients.size(); }
+	qint32 GetClientCount() const { return clients.size(); }
 	// get number of CPU cores for selected client
 	qint32 GetWorkerCount(qint32 index) { return clients[index].clientWorkerCount; }
 	// get total number of available CPUs
 	qint32 getTotalWorkerCount();
 	// get status
-	netRenderStatus GetStatus() { return status; }
+	netRenderStatus GetStatus() const { return status; }
 	// update status
 	void SetStatus(netRenderStatus _status) { status = _status; }
 	// get status of Client
@@ -167,7 +167,7 @@ public:
 	// stop rendering of all clients
 	void Stop();
 	// get line numbers which should be rendered first
-	QList<int> GetStartingPositions() { return startingPositions; }
+	QList<int> GetStartingPositions() const { return startingPositions; }
 	// get received textures
 	QByteArray *GetTexture(QString textureName);
 
@@ -183,17 +183,17 @@ public:
 
 private:
 	// send data to communication partner
-	bool SendData(QTcpSocket *socket, sMessage msg);
+	bool SendData(QTcpSocket *socket, sMessage msg) const;
 	// receive data from partner
 	void ReceiveData(QTcpSocket *socket, sMessage *msg);
 	// process received data and send response if needed
 	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
 	// clearing message buffer
-	void ResetMessage(sMessage *msg);
+	static void ResetMessage(sMessage *msg);
 	// get client index by given socket pointer
-	int GetClientIndexFromSocket(const QTcpSocket *socket);
+	int GetClientIndexFromSocket(const QTcpSocket *socket) const;
 	// compare major version of software
-	bool CompareMajorVersion(qint32 version1, qint32 version2);
+	static bool CompareMajorVersion(qint32 version1, qint32 version2);
 
 	//---------------- private data -----------------
 private:
@@ -226,7 +226,7 @@ public slots:
 	void SetCurrentJob(
 		cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
 	// send to server a list of numbers and image data of already rendered lines
-	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
+	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines) const;
 	// send list of already rendered lines
 	void SendToDoList(int clientIndex, QList<int> done); // send list of already rendered lines
 	// notify the server about client status change

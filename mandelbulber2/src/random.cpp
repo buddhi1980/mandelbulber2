@@ -44,26 +44,26 @@ cRandom::~cRandom()
 	gsl_rng_free(gBaseRand);
 }
 
-void cRandom::Initialize(int seed)
+void cRandom::Initialize(int seed) const
 {
 	gsl_rng_set(gBaseRand, seed);
 }
 
-int cRandom::Random(unsigned long max)
+int cRandom::Random(unsigned long max) const
 {
 	return gsl_rng_uniform_int(gBaseRand, max + 1);
 }
 
-double cRandom::Random(double min, double max, double resolution)
+double cRandom::Random(double min, double max, double resolution) const
 {
 	double range = max - min;
-	unsigned long n = (unsigned long)round(range / resolution);
+	unsigned long n = static_cast<unsigned long>(round(range / resolution));
 	return min + resolution * Random(n);
 }
 
 // generates random number with more precision
 // works with range / resolution < unsigned long long MAX
-double cRandom::DoubleRandom(double min, double max)
+double cRandom::DoubleRandom(double min, double max) const
 {
 	double range = max - min;
 	double random = gsl_rng_uniform(gBaseRand);

@@ -89,7 +89,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	vboxlayout->addStretch();
 
 	// add to existing layout
-	QGridLayout *gridLayout = (QGridLayout *)this->layout();
+	QGridLayout *gridLayout = static_cast<QGridLayout *>(this->layout());
 	gridLayout->addLayout(vboxlayout, 1, 3, 3, 1);
 
 	connect(
@@ -111,14 +111,14 @@ PreviewFileDialog::~PreviewFileDialog()
 	delete queueAddButton;
 }
 
-void PreviewFileDialog::OnPresetAdd()
+void PreviewFileDialog::OnPresetAdd() const
 {
 	fcopy(
 		filename, systemData.GetToolbarFolder() + QDir::separator() + QFileInfo(filename).fileName());
 	gMainInterface->mainWindow->slotPopulateToolbar();
 }
 
-void PreviewFileDialog::OnQueueAdd()
+void PreviewFileDialog::OnQueueAdd() const
 {
 	gQueue->Append(filename, cQueue::queue_STILL);
 }
@@ -187,7 +187,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 }
 
 void PreviewFileDialog::slotUpdateProgressAndStatus(
-	const QString &text, const QString &progressText, double progress)
+	const QString &text, const QString &progressText, double progress) const
 {
 	info->setText(text);
 	if (!progressBar->isVisible()) progressBar->setVisible(true);

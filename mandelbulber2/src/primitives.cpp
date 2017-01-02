@@ -136,7 +136,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objPlane:
 			{
 				primitive = new sPrimitivePlane;
-				sPrimitivePlane *obj = (sPrimitivePlane *)primitive;
+				sPrimitivePlane *obj = static_cast<sPrimitivePlane *>(primitive);
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->size = CVector3(1.0, 1.0, 1.0);
 				break;
@@ -144,7 +144,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objBox:
 			{
 				primitive = new sPrimitiveBox;
-				sPrimitiveBox *obj = (sPrimitiveBox *)primitive;
+				sPrimitiveBox *obj = static_cast<sPrimitiveBox *>(primitive);
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->rounding = par->Get<double>(item.name + "_rounding");
 				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
@@ -154,7 +154,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objSphere:
 			{
 				primitive = new sPrimitiveSphere;
-				sPrimitiveSphere *obj = (sPrimitiveSphere *)primitive;
+				sPrimitiveSphere *obj = static_cast<sPrimitiveSphere *>(primitive);
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
 				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
@@ -164,7 +164,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objWater:
 			{
 				primitive = new sPrimitiveWater;
-				sPrimitiveWater *obj = (sPrimitiveWater *)primitive;
+				sPrimitiveWater *obj = static_cast<sPrimitiveWater *>(primitive);
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->amplitude = par->Get<double>(item.name + "_amplitude");
 				obj->length = par->Get<double>(item.name + "_length");
@@ -177,7 +177,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objCone:
 			{
 				primitive = new sPrimitiveCone;
-				sPrimitiveCone *obj = (sPrimitiveCone *)primitive;
+				sPrimitiveCone *obj = static_cast<sPrimitiveCone *>(primitive);
 				obj->caps = par->Get<bool>(item.name + "_caps");
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
@@ -191,7 +191,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objCylinder:
 			{
 				primitive = new sPrimitiveCylinder;
-				sPrimitiveCylinder *obj = (sPrimitiveCylinder *)primitive;
+				sPrimitiveCylinder *obj = static_cast<sPrimitiveCylinder *>(primitive);
 				obj->caps = par->Get<bool>(item.name + "_caps");
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
@@ -203,7 +203,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objTorus:
 			{
 				primitive = new sPrimitiveTorus;
-				sPrimitiveTorus *obj = (sPrimitiveTorus *)primitive;
+				sPrimitiveTorus *obj = static_cast<sPrimitiveTorus *>(primitive);
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
 				obj->tube_radius = par->Get<double>(item.name + "_tube_radius");
@@ -215,7 +215,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objCircle:
 			{
 				primitive = new sPrimitiveCircle;
-				sPrimitiveCircle *obj = (sPrimitiveCircle *)primitive;
+				sPrimitiveCircle *obj = static_cast<sPrimitiveCircle *>(primitive);
 				obj->radius = par->Get<double>(item.name + "_radius");
 				obj->size = CVector3(obj->radius * 2.0, obj->radius * 2.0, 1.0);
 				break;
@@ -223,7 +223,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 			case objRectangle:
 			{
 				primitive = new sPrimitiveRectangle;
-				sPrimitiveRectangle *obj = (sPrimitiveRectangle *)primitive;
+				sPrimitiveRectangle *obj = static_cast<sPrimitiveRectangle *>(primitive);
 				obj->height = par->Get<double>(item.name + "_height");
 				obj->width = par->Get<double>(item.name + "_width");
 				obj->size = CVector3(obj->width, obj->height, 1.0);
@@ -367,8 +367,8 @@ double sPrimitiveWater::PrimitiveDistance(CVector3 _point) const
 	{
 		double phase = animSpeed * animFrame * 0.1;
 		double k = 0.23;
-		double waveXtemp = point.x;
-		double waveYtemp = point.y;
+		double waveXtemp;
+		double waveYtemp;
 		double waveX = 0;
 		double waveY = 0;
 		double p = 1.0;

@@ -79,10 +79,10 @@ public:
 	enumParameterType GetParameterType(QString name) const;
 	bool isDefaultValue(QString name) const;
 	void Copy(QString name, const cParameterContainer *sourceContainer);
-	QList<QString> GetListOfParameters(void) const;
-	void ResetAllToDefault(void);
+	QList<QString> GetListOfParameters() const;
+	void ResetAllToDefault();
 	void SetContainerName(QString name) { containerName = name; }
-	QString GetContainerName(void) const { return containerName; }
+	QString GetContainerName() const { return containerName; }
 	bool IfExists(const QString &name) const;
 	void DeleteParameter(const QString &name);
 

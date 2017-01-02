@@ -131,7 +131,7 @@ void cOldSettings::GetPaletteFromString(sRGB *palette, const char *paletteString
 	for (int i = 0; i < 2000; i++)
 	{
 		int colour = 0;
-		sscanf(&paletteString[i], "%x", (unsigned int *)&colour);
+		sscanf(&paletteString[i], "%x", reinterpret_cast<unsigned int *>(&colour));
 		sRGB rgbColour;
 		rgbColour.R = colour / 65536;
 		rgbColour.G = (colour / 256) % 256;
@@ -195,7 +195,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "perspective"))
 		params->doubles.persp = atof2(str2);
 	else if (!strcmp(str1, "formula"))
-		params->fractal.formula = (enumFractalFormula)atoi(str2);
+		params->fractal.formula = enumFractalFormula(atoi(str2));
 	else if (!strcmp(str1, "power"))
 		params->fractal.doubles.power = atof2(str2);
 	else if (!strcmp(str1, "N"))
@@ -568,7 +568,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "hybrid_cyclic"))
 		params->fractal.hybridCyclic = atoi(str2);
 	else if (!strcmp(str1, "fish_eye"))
-		params->perspectiveType = (enumPerspectiveType)atoi(str2);
+		params->perspectiveType = enumPerspectiveType(atoi(str2));
 	else if (!strcmp(str1, "fish_eye_180cut"))
 		params->fishEyeCut = atoi(str2);
 	else if (!strcmp(str1, "stereo_enabled"))
@@ -610,7 +610,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 		else if (!strcmp(str1, "mandelbox_rotation_enabled"))
 			params->fractal.mandelbox.rotationsEnabled = atoi(str2);
 		else if (!strcmp(str1, "mandelbox_fold_mode"))
-			params->fractal.genFoldBox.type = (enumGeneralizedFoldBoxType)atoi(str2);
+			params->fractal.genFoldBox.type = enumGeneralizedFoldBoxType(atoi(str2));
 		else if (!strcmp(str1, "mandelbox_solid"))
 			params->fractal.mandelbox.doubles.solid = atof2(str2);
 		else if (!strcmp(str1, "mandelbox_melt"))
@@ -908,7 +908,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 			sprintf(buf, "hybrid_formula_%d", i);
 			if (!strcmp(str1, buf))
 			{
-				params->fractal.hybridFormula[i - 1] = (enumFractalFormula)atoi(str2);
+				params->fractal.hybridFormula[i - 1] = enumFractalFormula(atoi(str2));
 				matched = true;
 				break;
 			}
@@ -939,7 +939,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 	return true;
 }
 
-void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalContainer *fractal)
+void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalContainer *fractal) const
 {
 	// general parameters
 	par->ResetAllToDefault();
@@ -986,11 +986,11 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
 	par->Set("camera_distance_to_target", cameraTarget.GetDistance());
 	par->Set("fov", oldData->doubles.persp);
-	par->Set("perspective_type", (int)oldData->perspectiveType);
+	par->Set("perspective_type", int(oldData->perspectiveType));
 	par->Set("stereo_eye_distance", oldData->doubles.stereoEyeDistance);
 	par->Set("stereo_enabled", oldData->stereoEnabled);
 
-	par->Set("formula", 1, (int)oldData->fractal.formula);
+	par->Set("formula", 1, int(oldData->fractal.formula));
 
 	par->Set("julia_mode", oldData->fractal.juliaMode);
 	par->Set("julia_c", oldData->fractal.doubles.julia);
@@ -1014,9 +1014,9 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("limits_enabled", oldData->fractal.limits_enabled);
 	par->Set("interior_mode", oldData->fractal.interiorMode);
 	if (oldData->fractal.linearDEmode)
-		par->Set("delta_DE_function", (int)fractal::linearDEFunction);
+		par->Set("delta_DE_function", int(fractal::linearDEFunction));
 	else
-		par->Set("delta_DE_function", (int)fractal::logarithmicDEFunction);
+		par->Set("delta_DE_function", int(fractal::logarithmicDEFunction));
 
 	par->Set("constant_DE_threshold", oldData->fractal.constantDEThreshold);
 	par->Set("hybrid_fractal_enable", false);
@@ -1034,7 +1034,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	params::enumAOMode AOmode = params::AOmodeMultipeRays;
 	if (oldData->SSAOEnabled) AOmode = params::AOmodeScreenSpace;
 	if (oldData->fastGlobalIllumination && !oldData->SSAOEnabled) AOmode = params::AOmodeFast;
-	par->Set("ambient_occlusion_mode", (int)AOmode);
+	par->Set("ambient_occlusion_mode", int(AOmode));
 	if (AOmode == params::AOmodeScreenSpace)
 		par->Set("ambient_occlusion_quality", sqrt(oldData->SSAOQuality));
 
@@ -1071,8 +1071,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("iteration_fog_enable", oldData->imageSwitches.iterFogEnabled);
 	par->Set("iteration_fog_opacity", oldData->doubles.iterFogOpacity);
 	par->Set("iteration_fog_opacity_trim", oldData->doubles.iterFogOpacityTrim);
-	par->Set("iteration_fog_color_1_maxiter", (int)(oldData->fractal.doubles.N * 0.33));
-	par->Set("iteration_fog_color_2_maxiter", (int)(oldData->fractal.doubles.N * 0.66));
+	par->Set("iteration_fog_color_1_maxiter", int(oldData->fractal.doubles.N * 0.33));
+	par->Set("iteration_fog_color_2_maxiter", int(oldData->fractal.doubles.N * 0.66));
 	par->Set("iteration_fog_color", 1, oldData->fogColour1);
 	par->Set("iteration_fog_color", 2, oldData->fogColour2);
 	par->Set("iteration_fog_color", 3, oldData->fogColour3);
@@ -1222,7 +1222,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 
 	if (oldData->fractal.formula == trig_DE)
 	{
-		par->Set("formula", 1, (int)fractal::mandelbulb);
+		par->Set("formula", 1, int(fractal::mandelbulb));
 		fractal->at(0).Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
 		fractal->at(0).Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
 	}
@@ -1294,7 +1294,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(0).Set("mandelbox_vary_rpower", oldData->fractal.mandelbox.doubles.vary4D.rPower);
 	fractal->at(0).Set("mandelbox_vary_wadd", oldData->fractal.mandelbox.doubles.vary4D.wadd);
 
-	fractal->at(0).Set("mandelbox_generalized_fold_type", (int)oldData->fractal.genFoldBox.type);
+	fractal->at(0).Set("mandelbox_generalized_fold_type", int(oldData->fractal.genFoldBox.type));
 
 	fractal->at(0).Set(
 		"boxfold_bulbpow2_folding_factor", oldData->fractal.doubles.FoldingIntPowFoldFactor);
@@ -1329,7 +1329,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 				bool found = false;
 				for (int l = 0; l < fractalList.size(); l++)
 				{
-					if (formula == (oldSettings::enumFractalFormula)fractalList.at(l).internalID)
+					if (formula == oldSettings::enumFractalFormula(fractalList.at(l).internalID))
 					{
 						found = true;
 						break;
@@ -1337,10 +1337,10 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 				}
 				if (found)
 				{
-					par->Set("formula", i + 1, (int)oldData->fractal.hybridFormula[fractalsListTemp.at(i)]);
+					par->Set("formula", i + 1, int(oldData->fractal.hybridFormula[fractalsListTemp.at(i)]));
 					if (formula == trig_DE)
 					{
-						par->Set("formula", 1, (int)fractal::mandelbulb);
+						par->Set("formula", 1, int(fractal::mandelbulb));
 						fractal->at(i).Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
 						fractal->at(i).Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
 					}
@@ -1376,7 +1376,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 
 					if (!oldData->fractal.hybridCyclic && i == fractalsListTemp.size() - 1)
 					{
-						par->Set("formula_iterations", i + 1, (int)oldData->fractal.doubles.N);
+						par->Set("formula_iterations", i + 1, int(oldData->fractal.doubles.N));
 					}
 				}
 				else
@@ -1405,7 +1405,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	if (oldData->fractal.IFS.foldingMode)
 	{
 		par->Set("hybrid_fractal_enable", true);
-		par->Set("formula", 2, (int)fractal::kaleidoscopicIFS);
+		par->Set("formula", 2, int(fractal::kaleidoscopicIFS));
 	}
 
 	if (oldData->fractal.juliaMode)

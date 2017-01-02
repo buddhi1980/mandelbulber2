@@ -499,12 +499,12 @@ public:
 	cOldSettings();
 	~cOldSettings();
 	bool LoadSettings(const QString &filename);
-	void ConvertToNewContainer(cParameterContainer *params, cFractalContainer *fractal);
+	void ConvertToNewContainer(cParameterContainer *params, cFractalContainer *fractal) const;
 
 private:
 	bool LoadSettings2(const QString &filename);
 	bool LoadOneSetting(const char *str1, const char *str2, sParamRender *params);
-	double atof2(const char *str);
+	static double atof2(const char *str);
 	void GetPaletteFromString(sRGB *palette, const char *paletteString);
 	sParamRender *oldData;
 	bool paletteLoadedFromSettingsFile;

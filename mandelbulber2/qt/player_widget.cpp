@@ -132,7 +132,7 @@ void PlayerWidget::updateFromFolder()
 	}
 }
 
-void PlayerWidget::playPause()
+void PlayerWidget::playPause() const
 {
 	if (imageFiles.size() > 0)
 	{
@@ -200,7 +200,7 @@ void PlayerWidget::updateFrame()
 	}
 }
 
-void PlayerWidget::setFPS(double fps)
+void PlayerWidget::setFPS(double fps) const
 {
 	playTimer->setInterval(1000.0 / fps);
 }

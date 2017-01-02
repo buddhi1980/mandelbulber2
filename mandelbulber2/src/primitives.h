@@ -157,7 +157,8 @@ public:
 
 private:
 	QList<sPrimitiveBasic *> allPrimitives;
-	inline double Plane(CVector3 point, CVector3 position, CVector3 normal) const
+
+	static double Plane(CVector3 point, CVector3 position, CVector3 normal)
 	{
 		return (normal.Dot(point - position));
 	}

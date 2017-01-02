@@ -55,7 +55,7 @@ public:
 	bool RenderImage();
 
 private:
-	void CreateLineData(int y, QByteArray *lineData);
+	void CreateLineData(int y, QByteArray *lineData) const;
 
 	const cParamRender *params;
 	const cNineFractals *fractal;
@@ -65,8 +65,8 @@ private:
 	bool netRenderAckReceived;
 
 public slots:
-	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
-	void ToDoListArrived(QList<int> done);
+	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines) const;
+	void ToDoListArrived(QList<int> done) const;
 	void AckReceived();
 
 signals:
