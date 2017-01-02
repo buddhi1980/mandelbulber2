@@ -58,13 +58,13 @@ private slots:
 	void on_pushButton_select_image_path_clicked();
 	void on_pushButton_select_settings_path_clicked();
 	void on_pushButton_select_textures_path_clicked();
-	void on_pushButton_clear_thumbnail_cache_clicked();
-	void on_pushButton_load_thumbnail_cache_clicked();
+	void on_pushButton_clear_thumbnail_cache_clicked() const;
+	void on_pushButton_load_thumbnail_cache_clicked() const;
 	void on_pushButton_generate_thumbnail_cache_clicked();
-	void on_comboBox_ui_style_type_currentIndexChanged(int index);
-	void on_comboBox_ui_skin_currentIndexChanged(int index);
-	void on_pushButton_retrieve_toolbar_clicked();
-	void on_pushButton_retrieve_materials_clicked();
+	void on_comboBox_ui_style_type_currentIndexChanged(int index) const;
+	void on_comboBox_ui_skin_currentIndexChanged(int index) const;
+	void on_pushButton_retrieve_toolbar_clicked() const;
+	void on_pushButton_retrieve_materials_clicked() const;
 
 private:
 	Ui::cPreferencesDialog *ui;

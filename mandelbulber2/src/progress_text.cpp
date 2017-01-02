@@ -99,13 +99,13 @@ QString cProgressText::getText(double progress)
 	return text;
 }
 
-QString cProgressText::TimeString(qint64 time)
+QString cProgressText::TimeString(qint64 time) const
 {
 	QString timeString;
 	double time_s = time / 1000.0;
-	int time_min = (int)time_s / 60;
-	int time_h = (int)time_s / (60 * 60);
-	int time_d = (int)time_s / (60 * 60 * 24);
+	int time_min = int(time_s) / 60;
+	int time_h = int(time_s) / (60 * 60);
+	int time_d = int(time_s) / (60 * 60 * 24);
 
 	QString time_s_str, time_min_str, time_h_str, time_d_str;
 

@@ -406,7 +406,7 @@ void cQueue::StoreList()
 	mutex.unlock();
 }
 
-void cQueue::RemoveFromFileSystem(const QString &filename)
+void cQueue::RemoveFromFileSystem(const QString &filename) const
 {
 	// remove queue file from filesystem
 	if (filename.startsWith(queueFolder + QDir::separator()))
@@ -521,7 +521,7 @@ void cQueue::UpdateListFromFileSystem()
 	mutex.unlock();
 }
 
-void cQueue::RenderQueue()
+void cQueue::RenderQueue() const
 {
 	QThread *thread = new QThread; // deleted by deleteLater()
 	cRenderQueue *renderQueue = new cRenderQueue(image, renderedImageWidget);
@@ -556,7 +556,7 @@ void cQueue::RenderQueue()
 
 /* UI Slots */
 
-void cQueue::slotQueueRender()
+void cQueue::slotQueueRender() const
 {
 	if (!systemData.noGui)
 	{
@@ -631,7 +631,7 @@ void cQueue::slotQueueMoveItemDown()
 void cQueue::slotQueueTypeChanged(int index)
 {
 	QString buttonName = this->sender()->objectName();
-	UpdateQueueItemType(buttonName.toInt(), (cQueue::enumRenderType)index);
+	UpdateQueueItemType(buttonName.toInt(), cQueue::enumRenderType(index));
 }
 
 void cQueue::slotQueueListUpdate()
@@ -704,7 +704,7 @@ void cQueue::slotQueueListUpdate(int i, int j)
 				if (parSettings.LoadFromFile(queueList.at(i).filename)
 						&& parSettings.Decode(&tempPar, &tempFract))
 				{
-					cThumbnailWidget *thumbWidget = (cThumbnailWidget *)table->cellWidget(i, j);
+					cThumbnailWidget *thumbWidget = static_cast<cThumbnailWidget *>(table->cellWidget(i, j));
 					if (!thumbWidget)
 					{
 						thumbWidget = new cThumbnailWidget(100, 70, 1, table);
@@ -767,6 +767,7 @@ void cQueue::slotQueueListUpdate(int i, int j)
 			table->setCellWidget(i, j, frame);
 			break;
 		}
+		default: break;
 	}
 	table->blockSignals(false);
 }

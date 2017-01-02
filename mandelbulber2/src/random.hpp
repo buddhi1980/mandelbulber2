@@ -46,10 +46,10 @@ class cRandom
 public:
 	cRandom();
 	~cRandom();
-	void Initialize(int seed);
-	int Random(unsigned long max);
-	double Random(double min, double max, double resolution);
-	double DoubleRandom(double min, double max);
+	void Initialize(int seed) const;
+	int Random(unsigned long max) const;
+	double Random(double min, double max, double resolution) const;
+	double DoubleRandom(double min, double max) const;
 
 private:
 	gsl_rng *gBaseRand;

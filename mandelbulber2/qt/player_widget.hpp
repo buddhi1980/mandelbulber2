@@ -52,16 +52,16 @@ public:
 	PlayerWidget(QWidget *parent = nullptr);
 	~PlayerWidget();
 	void SetFilePath(QString filePath);
-	QSize sizeHint() const { return QSize(800, 600); }
+	QSize sizeHint() const override { return QSize(800, 600); }
 
 public slots:
-	void playPause();
+	void playPause() const;
 	void stop();
 
 private slots:
 	void setPosition(int position);
 	void nextFrame();
-	void setFPS(double fps);
+	void setFPS(double fps) const;
 	void updateFromFolder();
 
 private:
@@ -79,8 +79,8 @@ private:
 	QFileSystemWatcher imageFolderWatcher;
 
 protected:
-	void closeEvent(QCloseEvent *event);
-	void resizeEvent(QResizeEvent *event);
+	void closeEvent(QCloseEvent *event) override;
+	void resizeEvent(QResizeEvent *event) override;
 };
 
 #endif /* MANDELBULBER2_QT_PLAYER_WIDGET_HPP_ */

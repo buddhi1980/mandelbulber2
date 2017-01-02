@@ -146,7 +146,7 @@ void cPreferencesDialog::on_pushButton_select_textures_path_clicked()
 	}
 }
 
-void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
+void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked() const
 {
 	QDir thumbnailDir(systemData.GetThumbnailsFolder());
 	thumbnailDir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
@@ -172,7 +172,7 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 	}
 }
 
-void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked()
+void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked() const
 {
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(nullptr,
@@ -289,21 +289,21 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 	}
 }
 
-void cPreferencesDialog::on_comboBox_ui_style_type_currentIndexChanged(int index)
+void cPreferencesDialog::on_comboBox_ui_style_type_currentIndexChanged(int index) const
 {
 	if (!initFinished) return;
 	gPar->Set<int>("ui_style_type", index);
 	UpdateUIStyle();
 }
 
-void cPreferencesDialog::on_comboBox_ui_skin_currentIndexChanged(int index)
+void cPreferencesDialog::on_comboBox_ui_skin_currentIndexChanged(int index) const
 {
 	if (!initFinished) return;
 	gPar->Set<int>("ui_skin", index);
 	UpdateUISkin();
 }
 
-void cPreferencesDialog::on_pushButton_retrieve_toolbar_clicked()
+void cPreferencesDialog::on_pushButton_retrieve_toolbar_clicked() const
 {
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(nullptr, QObject::tr("Retrieve toolbar"),
@@ -317,7 +317,7 @@ void cPreferencesDialog::on_pushButton_retrieve_toolbar_clicked()
 	}
 }
 
-void cPreferencesDialog::on_pushButton_retrieve_materials_clicked()
+void cPreferencesDialog::on_pushButton_retrieve_materials_clicked() const
 {
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(nullptr, QObject::tr("Retrieve materials"),

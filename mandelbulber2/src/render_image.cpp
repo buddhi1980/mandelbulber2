@@ -78,12 +78,12 @@ bool cRenderer::RenderImage()
 		int progressiveSteps;
 		if (data->configuration.UseProgressive())
 			progressiveSteps =
-				(int)(log((double)max(image->GetWidth(), image->GetHeight())) / log(2.0)) - 3;
+				int(log(double(max(image->GetWidth(), image->GetHeight()))) / log(2.0)) - 3;
 		else
 			progressiveSteps = 0;
 
 		if (progressiveSteps < 0) progressiveSteps = 0;
-		int progressive = pow(2.0, (double)progressiveSteps - 1);
+		int progressive = pow(2.0, double(progressiveSteps) - 1);
 		if (progressive == 0) progressive = 1;
 
 		// prepare multiple threads
@@ -452,7 +452,7 @@ bool cRenderer::RenderImage()
 	}
 }
 
-void cRenderer::CreateLineData(int y, QByteArray *lineData)
+void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 {
 	if (y >= 0 && y < image->GetHeight())
 	{
@@ -473,7 +473,7 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 #pragma warning(push)
 #pragma warning(disable : 4267) // possible loss of data
 #endif
-		lineData->append((char *)lineOfImage, dataSize);
+		lineData->append(reinterpret_cast<char *>(lineOfImage), dataSize);
 		delete[] lineOfImage;
 #if defined(_MSC_VER)
 #pragma warning(pop)
@@ -485,7 +485,7 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 	}
 }
 
-void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
+void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines) const
 {
 	for (int i = 0; i < lineNumbers.size(); i++)
 	{
@@ -517,7 +517,7 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 	scheduler->MarkReceivedLines(lineNumbers);
 }
 
-void cRenderer::ToDoListArrived(QList<int> toDo)
+void cRenderer::ToDoListArrived(QList<int> toDo) const
 {
 	scheduler->UpdateDoneLines(toDo);
 }

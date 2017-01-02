@@ -413,7 +413,7 @@ void cParameterContainer::Copy(QString name, const cParameterContainer *sourceCo
 	}
 }
 
-QList<QString> cParameterContainer::GetListOfParameters(void) const
+QList<QString> cParameterContainer::GetListOfParameters() const
 {
 	QList<QString> list = myMap.keys();
 	std::sort(list.begin(), list.end(), compareStrings);
@@ -472,7 +472,7 @@ bool cParameterContainer::isDefaultValue(QString name) const
 	return isDefault;
 }
 
-void cParameterContainer::ResetAllToDefault(void)
+void cParameterContainer::ResetAllToDefault()
 {
 	QMap<QString, cOneParameter>::iterator it = myMap.begin();
 	while (it != myMap.end())

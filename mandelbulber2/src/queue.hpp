@@ -101,10 +101,10 @@ public:
 	QStringList AddOrphanedFilesToList();
 
 	// returns list of fractals to render from queue file
-	QList<structQueueItem> GetListFromQueueFile() { return queueListFromFile; }
+	QList<structQueueItem> GetListFromQueueFile() const { return queueListFromFile; }
 	// returns list of fractals to render from file system
-	QStringList GetListFromFileSystem() { return queueListFileSystem; }
-	QString GetQueueFolder() { return queueFolder; }
+	QStringList GetListFromFileSystem() const { return queueListFileSystem; }
+	QString GetQueueFolder() const { return queueFolder; }
 
 	// get the queue type enum from qstring value
 	static enumRenderType GetTypeEnum(const QString &queueText);
@@ -137,12 +137,12 @@ signals:
 	void queueChanged(int i, int j);
 
 public slots:
-	void slotQueueRender();
+	void slotQueueRender() const;
 
 private slots:
 	void queueFileChanged(const QString &path);
 	void queueFolderChanged(const QString &path);
-	void RenderQueue();
+	void RenderQueue() const;
 
 	// UI
 	void slotQueueAddCurrentSettings();
@@ -163,11 +163,11 @@ private:
 	// add filename to the end of list
 	void AddToList(const structQueueItem &queueItem);
 	// remove queue file from filesystem
-	void RemoveFromFileSystem(const QString &filename);
+	void RemoveFromFileSystem(const QString &filename) const;
 	// store queueListFromFile to filesystem
 	void StoreList();
 	// checks if file exists and it is a proper fractal file
-	bool ValidateEntry(const QString &filename);
+	static bool ValidateEntry(const QString &filename);
 	// updates the list of fractals to render from queue file
 	void UpdateListFromQueueFile();
 	// updates the list of fractals to render from file system
