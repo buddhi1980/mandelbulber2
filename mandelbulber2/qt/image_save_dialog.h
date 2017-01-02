@@ -63,7 +63,7 @@ private:
 	cAutomatedWidgets *automatedWidgets;
 
 protected:
-	void accept();
+	void accept() override;
 };
 
 #endif /* MANDELBULBER2_QT_IMAGE_SAVE_DIALOG_H_ */

@@ -157,7 +157,7 @@ void cHeadless::RenderVoxel()
 	emit finished();
 }
 
-void cHeadless::RenderFlightAnimation()
+void cHeadless::RenderFlightAnimation() const
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gFlightAnimation =
@@ -178,7 +178,7 @@ void cHeadless::RenderFlightAnimation()
 	return;
 }
 
-void cHeadless::RenderKeyframeAnimation()
+void cHeadless::RenderKeyframeAnimation() const
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gKeyframeAnimation =
@@ -260,7 +260,7 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 	}
 }
 
-void cHeadless::slotUpdateStatistics(const cStatistics &stat)
+void cHeadless::slotUpdateStatistics(const cStatistics &stat) const
 {
 	if (!systemData.statsOnCLI) return;
 	/*ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));

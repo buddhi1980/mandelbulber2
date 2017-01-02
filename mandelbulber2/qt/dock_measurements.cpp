@@ -54,7 +54,7 @@ cDockMeasurements::~cDockMeasurements()
 	delete ui;
 }
 
-void cDockMeasurements::ConnectSignals()
+void cDockMeasurements::ConnectSignals() const
 {
 	connect(
 		ui->pushButton_meas_get_point, SIGNAL(clicked()), this, SLOT(slotPressedButtonGetPoint()));
@@ -63,7 +63,7 @@ void cDockMeasurements::ConnectSignals()
 void cDockMeasurements::slotPressedButtonGetPoint()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickGetPoint);
+	item.append(int(RenderedImage::clickGetPoint));
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);

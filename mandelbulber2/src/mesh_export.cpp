@@ -67,7 +67,7 @@ struct ProgressFtor
 
 	ProgressFtor(cMeshExport *meshExport) { this->meshExport = meshExport; }
 
-	void operator()(int i) { meshExport->updateProgressAndStatus(i); }
+	void operator()(int i) const { meshExport->updateProgressAndStatus(i); }
 };
 
 struct FormulaFtor
@@ -84,7 +84,7 @@ struct FormulaFtor
 		this->fractals = fractals;
 	}
 
-	double operator()(double x, double y, double z, double *colorIndex)
+	double operator()(double x, double y, double z, double *colorIndex) const
 	{
 		CVector3 point;
 		point.x = x;
@@ -121,7 +121,7 @@ void cMeshExport::updateProgressAndStatus(int i)
 	QString statusText =
 		" - " + tr("Processing layer %1 of %2").arg(QString::number(i + 1), QString::number(w));
 
-	double percentDone = (double)i / w;
+	double percentDone = double(i) / w;
 
 	emit updateProgressAndStatus(
 		tr("Mesh Export") + statusText, progressText.getText(percentDone), percentDone);

@@ -570,7 +570,7 @@ void BenesiIteration(CVector3 &z, CVector3 c, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	double r1 = z.y * z.y + z.z * z.z;
-	double newx = 0;
+	double newx;
 	if (c.x < 0 || z.x < sqrt(r1))
 	{
 		newx = z.x * z.x - r1;

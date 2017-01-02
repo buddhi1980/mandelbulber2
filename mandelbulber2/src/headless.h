@@ -60,10 +60,10 @@ public:
 	};
 
 	void RenderStillImage(QString filename, QString imageFileFormat);
-	void RenderQueue();
+	static void RenderQueue();
 	void RenderVoxel();
-	void RenderFlightAnimation();
-	void RenderKeyframeAnimation();
+	void RenderFlightAnimation() const;
+	void RenderKeyframeAnimation() const;
 	static void RenderingProgressOutput(
 		const QString &header, const QString &progressTxt, double percentDone);
 	static QString colorize(QString text, ansiColor foregroundcolor,
@@ -75,9 +75,9 @@ public:
 
 public slots:
 	void slotNetRender();
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
+	static void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
 		double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
-	void slotUpdateStatistics(const cStatistics &stat);
+	void slotUpdateStatistics(const cStatistics &stat) const;
 
 signals:
 	void finished();

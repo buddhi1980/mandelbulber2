@@ -49,27 +49,27 @@ public:
 	~MyHistogramLabel();
 
 	void SetBarcolor(const QColor &c) { barColor = c; }
-	QColor GetBarcolor() { return barColor; }
+	QColor GetBarcolor() const { return barColor; }
 
 	void SetBackgroundcolor(const QColor &c) { backgroundColor = c; }
-	QColor GetBackgroundcolor() { return backgroundColor; }
+	QColor GetBackgroundcolor() const { return backgroundColor; }
 
 	void SetLegendcolor(const QColor &c) { legendColor = c; }
-	QColor GetLegendcolor() { return legendColor; }
+	QColor GetLegendcolor() const { return legendColor; }
 
 	void SetMaxcolor(const QColor &c) { maxColor = c; }
-	QColor GetMaxcolor() { return maxColor; }
+	QColor GetMaxcolor() const { return maxColor; }
 
 	void UpdateHistogram(const cHistogram &histData);
 
 protected:
-	void resizeEvent(QResizeEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void resizeEvent(QResizeEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
 
 private:
 	void DrawLegend(QPainter &painter);
-	void RedrawHistogram(QPainter &painter);
-	QString GetShortNumberDisplay(int val);
+	void RedrawHistogram(QPainter &painter) const;
+	QString GetShortNumberDisplay(int val) const;
 
 	QColor barColor;
 	QColor backgroundColor;

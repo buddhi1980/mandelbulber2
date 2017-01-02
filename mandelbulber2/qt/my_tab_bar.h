@@ -58,7 +58,7 @@ public slots:
 	void slotToggleActive(int state);
 
 protected:
-	void mouseReleaseEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent *event) override;
 };
 
 #endif /* MANDELBULBER2_QT_MY_TAB_BAR_H_ */

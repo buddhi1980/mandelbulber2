@@ -61,7 +61,7 @@ private:
 	QTimer *timerPeriodicUpdateData;
 	void Init();
 	QWidget *materialEditorWidget;
-	QSize sizeHint() const;
+	QSize sizeHint() const override;
 	void InitializeData();
 
 	bool initialized;
@@ -69,7 +69,7 @@ private:
 	double timeUpdateData;
 	double timeAssignData;
 
-	virtual void mousePressEvent(QMouseEvent *event);
+	void mousePressEvent(QMouseEvent *event) override;
 
 private slots:
 

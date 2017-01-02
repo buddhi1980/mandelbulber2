@@ -47,6 +47,7 @@ class MyProgressBar : public QProgressBar
 
 public:
 	MyProgressBar(QWidget *parent = nullptr);
+	// TODO: Design Intent: setFormat - Class Function hides Base Function
 	void setFormat(const QString &format);
 
 private slots:

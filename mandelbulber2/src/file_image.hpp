@@ -95,8 +95,8 @@ public:
 	struct structSaveImageChannel
 	{
 		structSaveImageChannel()
-				: contentType((enumImageContentType)0),
-					channelQuality((enumImageChannelQualityType)0),
+				: contentType(enumImageContentType(0)),
+					channelQuality(enumImageChannelQualityType(0)),
 					postfix("")
 		{
 		}
@@ -142,8 +142,8 @@ public:
 			: ImageFileSave(filename, image, imageConfig)
 	{
 	}
-	void SaveImage();
-	QString getJobName() { return tr("Saving %1").arg("PNG"); }
+	void SaveImage() override;
+	QString getJobName() override { return tr("Saving %1").arg("PNG"); }
 	static void SavePNG(
 		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 	static void SavePNG16(QString filename, int width, int height, sRGB16 *image16);
@@ -159,8 +159,8 @@ public:
 			: ImageFileSave(filename, image, imageConfig)
 	{
 	}
-	void SaveImage();
-	QString getJobName() { return tr("Saving %1").arg("JPG"); }
+	void SaveImage() override;
+	QString getJobName() override { return tr("Saving %1").arg("JPG"); }
 	static bool SaveJPEGQt(
 		QString filename, unsigned char *image, int width, int height, int quality);
 	static bool SaveJPEGQtGreyscale(
@@ -176,8 +176,8 @@ public:
 			: ImageFileSave(filename, image, imageConfig)
 	{
 	}
-	void SaveImage();
-	QString getJobName() { return tr("Saving %1").arg("TIFF"); }
+	void SaveImage() override;
+	QString getJobName() override { return tr("Saving %1").arg("TIFF"); }
 	static bool SaveTIFF(
 		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 };
@@ -192,8 +192,8 @@ public:
 			: ImageFileSave(filename, image, imageConfig)
 	{
 	}
-	void SaveImage();
-	QString getJobName() { return tr("Saving %1").arg("EXR"); }
+	void SaveImage() override;
+	QString getJobName() override { return tr("Saving %1").arg("EXR"); }
 	static void SaveEXR(QString filename, cImage *image,
 		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
 };

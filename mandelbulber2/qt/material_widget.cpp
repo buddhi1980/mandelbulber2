@@ -162,7 +162,7 @@ void cMaterialWidget::InitializeData()
 	}
 }
 
-void cMaterialWidget::slotPeriodicRender(void)
+void cMaterialWidget::slotPeriodicRender()
 {
 	if (!visibleRegion().isEmpty())
 	{
@@ -185,7 +185,7 @@ void cMaterialWidget::slotPeriodicRender(void)
 	}
 }
 
-void cMaterialWidget::slotPeriodicUpdateData(void)
+void cMaterialWidget::slotPeriodicUpdateData()
 {
 	if (!visibleRegion().isEmpty())
 	{

@@ -62,8 +62,8 @@ public:
 	void Set(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	~cLights();
 	sLight *GetLight(const int index) const;
-	int GetNumberOfLights(void) const { return numberOfLights; }
-	int IsAnyLightEnabled() { return isAnyLight; };
+	int GetNumberOfLights() const { return numberOfLights; }
+	int IsAnyLightEnabled() const { return isAnyLight; };
 
 private:
 	void Copy(const cLights &);

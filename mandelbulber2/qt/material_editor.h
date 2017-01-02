@@ -58,16 +58,16 @@ public:
 	void AssignMaterial(cParameterContainer *params, int index);
 
 private slots:
-	void slotPressedButtonNewRandomPalette();
+	void slotPressedButtonNewRandomPalette() const;
 	void slotPressedButtonGetPaletteFromImage();
-	void slotPressedButtonRandomize();
-	void slotChangedSpinBoxPaletteOffset(double value);
-	void slotChangedSpinBoxPaletteSize(int value);
-	void slotChangedComboFractalColoringAlgorithm(int index);
+	void slotPressedButtonRandomize() const;
+	void slotChangedSpinBoxPaletteOffset(double value) const;
+	void slotChangedSpinBoxPaletteSize(int value) const;
+	void slotChangedComboFractalColoringAlgorithm(int index) const;
 
 private:
-	void ConnectSignals(void);
-	cColorPalette GetPaletteFromImage(const QString &filename);
+	void ConnectSignals();
+	cColorPalette GetPaletteFromImage(const QString &filename) const;
 
 	Ui::cMaterialEditor *ui;
 	int materialIndex;

@@ -56,15 +56,15 @@ public:
 
 public slots:
 	void on_pushButton_start_render_layers_clicked();
-	void on_pushButton_stop_render_layers_clicked();
+	void on_pushButton_stop_render_layers_clicked() const;
 	void on_pushButton_select_image_path_clicked();
 	void slotUpdateProgressAndStatus(
-		const QString &text, const QString &progressText, double progress);
+		const QString &text, const QString &progressText, double progress) const;
 	void slotSlicerFinished();
 
 protected:
-	void closeEvent(QCloseEvent *event);
-	void showEvent(QShowEvent *event);
+	void closeEvent(QCloseEvent *event) override;
+	void showEvent(QShowEvent *event) override;
 
 private:
 	Ui::cMeshExportDialog *ui;

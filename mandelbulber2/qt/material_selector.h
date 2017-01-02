@@ -53,7 +53,7 @@ public:
 	~cMaterialSelector();
 
 	void SetMaterialIndex(int materialIndex);
-	int GetMaterialIndex() { return actualValue; }
+	int GetMaterialIndex() const { return actualValue; }
 
 private:
 	cMaterialWidget *materialWidget;
@@ -61,22 +61,22 @@ private:
 	QLabel *label;
 
 	// methods to define from CommonMyWidgetWrapper
-	virtual void resetToDefault();
-	virtual QString getDefaultAsString();
-	virtual QString getFullParameterName();
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
 
 	int GetDefault();
 	int defaultValue;
 	int actualValue;
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
 
 private slots:
 	void slotClicked(Qt::MouseButton button);
 	void slotMaterialSelected(int matIndex);
-	void slotMaterialEdited();
+	void slotMaterialEdited() const;
 };
 
 #endif /* MANDELBULBER2_QT_MATERIAL_SELECTOR_H_ */

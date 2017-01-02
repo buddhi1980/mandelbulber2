@@ -58,8 +58,8 @@ double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cIm
 	double scaleOut;
 	if (scale == 0.0)
 	{
-		double scale1 = (double)previewHeight / image->GetHeight();
-		double scale2 = (double)previewWidth / image->GetWidth();
+		double scale1 = double(previewHeight) / image->GetHeight();
+		double scale2 = double(previewWidth) / image->GetWidth();
 		scaleOut = min(scale1, scale2);
 	}
 	else

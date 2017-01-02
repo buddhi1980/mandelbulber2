@@ -53,10 +53,10 @@ public:
 	~cDockMeasurements();
 
 private slots:
-	void slotPressedButtonGetPoint();
+	static void slotPressedButtonGetPoint();
 
 private:
-	void ConnectSignals();
+	void ConnectSignals() const;
 
 	Ui::cDockMeasurements *ui;
 

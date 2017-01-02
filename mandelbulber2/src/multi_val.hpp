@@ -80,12 +80,12 @@ public:
 	enumVarType Get(sRGB &val) const;
 	enumVarType Get(bool &val) const;
 	enumVarType Get(cColorPalette &val) const;
-	enumVarType GetDefaultype(void) const { return type; }
+	enumVarType GetDefaultype() const { return type; }
 	bool operator==(const cMultiVal &m) const;
 
 private:
-	QString MakePaletteString(cColorPalette &palette);
-	cColorPalette GetPaletteFromString(const QString &paletteString) const;
+	static QString MakePaletteString(cColorPalette &palette);
+	static cColorPalette GetPaletteFromString(const QString &paletteString);
 	bool isEqual(const cMultiVal &m) const;
 
 	double dVal[4];

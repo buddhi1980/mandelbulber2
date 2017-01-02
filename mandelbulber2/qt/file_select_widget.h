@@ -50,7 +50,7 @@ class FileSelectWidget : public QWidget, public CommonMyWidgetWrapper
 public:
 	FileSelectWidget(QWidget *parent = nullptr);
 	~FileSelectWidget();
-	QString GetPath() { return lineEdit->text(); }
+	QString GetPath() const { return lineEdit->text(); }
 	void SetPath(QString path);
 
 private slots:
@@ -67,13 +67,13 @@ private:
 	QString actualText;
 
 	// methods to define from CommonMyWidgetWrapper
-	virtual void resetToDefault();
-	virtual QString getDefaultAsString();
-	virtual QString getFullParameterName();
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
 };
 
 #endif /* MANDELBULBER2_QT_FILE_SELECT_WIDGET_H_ */

@@ -54,20 +54,20 @@ private:
 
 	QString GetDefault();
 	QString defaultText;
-	void CopyToClipboard();
+	void CopyToClipboard() const;
 	void PasteFromClipboard();
 	void ResetVectorToDefault();
 
-	virtual void resetToDefault();
-	virtual QString getDefaultAsString();
-	virtual QString getFullParameterName();
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
 
 private slots:
-	void slotCopyVector();
+	void slotCopyVector() const;
 	void slotPasteVector();
 	void slotResetVector();
 };

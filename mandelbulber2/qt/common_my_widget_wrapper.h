@@ -76,13 +76,14 @@ private:
 	QAction *actionRemoveFromKeyframeAnimation;
 
 protected:
+	~CommonMyWidgetWrapper() = default;
 	cParameterContainer *parameterContainer;
 	QString parameterName;
 	bool gotDefault;
 	QWidget *widget;
 
 	void setToolTipText();
-	QString GetType(const QString &name);
+	static QString GetType(const QString &name);
 
 	// contextMenuEvent doesn't overwrite method from child class, but this function cal be called
 	void contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu = nullptr);

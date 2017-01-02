@@ -47,22 +47,22 @@ class cMaterialItemView : public QAbstractItemView
 public:
 	cMaterialItemView(QWidget *parent);
 	~cMaterialItemView();
-	virtual QModelIndex indexAt(const QPoint &point) const;
-	virtual QRegion visualRegionForSelection(const QItemSelection &selection) const;
-	virtual void scrollTo(const QModelIndex &index, ScrollHint hint = EnsureVisible);
-	virtual int verticalOffset() const;
-	virtual int horizontalOffset() const;
-	virtual void setSelection(const QRect &rect, QItemSelectionModel::SelectionFlags flags);
-	virtual QModelIndex moveCursor(CursorAction cursorAction, Qt::KeyboardModifiers modifiers);
-	virtual QRect visualRect(const QModelIndex &index) const;
-	virtual bool isIndexHidden(const QModelIndex &index) const;
-	virtual void setModel(QAbstractItemModel *model);
+	QModelIndex indexAt(const QPoint &point) const override;
+	QRegion visualRegionForSelection(const QItemSelection &selection) const override;
+	void scrollTo(const QModelIndex &index, ScrollHint hint = EnsureVisible) override;
+	int verticalOffset() const override;
+	int horizontalOffset() const override;
+	void setSelection(const QRect &rect, QItemSelectionModel::SelectionFlags flags) override;
+	QModelIndex moveCursor(CursorAction cursorAction, Qt::KeyboardModifiers modifiers) override;
+	QRect visualRect(const QModelIndex &index) const override;
+	bool isIndexHidden(const QModelIndex &index) const override;
+	void setModel(QAbstractItemModel *model) override;
 
 private:
-	void resizeEvent(QResizeEvent *event);
-	void scrollContentsBy(int dx, int dy);
-	void paintEvent(QPaintEvent *event);
-	void updateScrollBar();
+	void resizeEvent(QResizeEvent *event) override;
+	void scrollContentsBy(int dx, int dy) override;
+	void paintEvent(QPaintEvent *event) override;
+	void updateScrollBar() const;
 	void updateNameHeight();
 
 	int viewHeight;
@@ -70,10 +70,10 @@ private:
 	int maxNameHeight;
 
 protected slots:
-	virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
-		const QVector<int> &roles = QVector<int>());
-	virtual void rowsInserted(const QModelIndex &parent, int start, int end);
-	virtual void currentChanged(const QModelIndex &current, const QModelIndex &previous);
+	void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
+		const QVector<int> &roles = QVector<int>()) override;
+	void rowsInserted(const QModelIndex &parent, int start, int end) override;
+	void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
 };
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_ITEM_VIEW_H_ */

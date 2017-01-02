@@ -89,7 +89,7 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 					pixel = qRgba((value - 0.5) * 510, 255, 0, 255);
 				}
 
-				QRgb *line = (QRgb *)fftImage.scanLine(y2);
+				QRgb *line = reinterpret_cast<QRgb *>(fftImage.scanLine(y2));
 				line[x] = pixel;
 			}
 		}
@@ -110,9 +110,9 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 void cFFTView::slotFreqChanged(double midFreq, double bandwidth)
 {
 	lowFreqY = height() - 1
-						 - (double)cAudioFFTdata::fftSize / (double)sampleRate * (midFreq - bandwidth * 0.5);
+						 - double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq - bandwidth * 0.5);
 	highFreqY = height() - 1
-							- (double)cAudioFFTdata::fftSize / (double)sampleRate * (midFreq + bandwidth * 0.5);
+							- double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq + bandwidth * 0.5);
 	update();
 }
 
@@ -132,8 +132,8 @@ void cFFTView::paintEvent(QPaintEvent *event)
 	font.setPixelSize(10);
 	painter.setFont(font);
 	painter.drawText(
-		3, 13, QString("%1 Hz").arg((int)((double)sampleRate / cAudioFFTdata::fftSize * height())));
+		3, 13, QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTdata::fftSize * height())));
 	painter.drawText(3, height() / 2,
-		QString("%1 Hz").arg((int)((double)sampleRate / cAudioFFTdata::fftSize * height() * 0.5)));
+		QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTdata::fftSize * height() * 0.5)));
 	painter.drawText(3, height() - 3, QString("%1 Hz").arg(0));
 }

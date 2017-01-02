@@ -58,32 +58,32 @@ public:
 	explicit cDockFractal(QWidget *parent = nullptr);
 	~cDockFractal();
 
-	void InitializeFractalUi();
-	bool AreHybridFractalsEnabled();
-	bool AreBooleanFractalsEnabled();
-	void EnableJuliaMode();
-	void SetTabText(int tabIndex, QString text);
+	void InitializeFractalUi() const;
+	bool AreHybridFractalsEnabled() const;
+	bool AreBooleanFractalsEnabled() const;
+	void EnableJuliaMode() const;
+	void SetTabText(int tabIndex, QString text) const;
 	void SynchronizeInterfaceFractals(
-		cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode);
-	void SynchronizeInterfaceJulia();
-	void SynchronizeInterfacePrimitives();
+		cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode) const;
+	void SynchronizeInterfaceJulia() const;
+	void SynchronizeInterfacePrimitives() const;
 
-	QWidget *GetContainerWithPrimitives();
-	QVBoxLayout *GetLayoutWithPrimitives();
+	QWidget *GetContainerWithPrimitives() const;
+	QVBoxLayout *GetLayoutWithPrimitives() const;
 
 private slots:
-	void slotChangedJuliaPoint();
-	void slotPressedButtonGetJuliaConstant();
-	void slotPressedButtonNewPrimitive();
-	void slotGroupCheckJuliaModeToggled(bool state);
-	void slotChangedCheckBoxHybridFractal(int state);
-	void slotChangedCheckBoxBooleanOperators(bool state);
-	void slotChangedCheckBoxJuliaMode(bool state);
-	void slotToggledFractalEnable(int fractalIndex, bool enabled);
-	void slotFractalSwap(int swapA, int swapB);
+	void slotChangedJuliaPoint() const;
+	static void slotPressedButtonGetJuliaConstant();
+	void slotPressedButtonNewPrimitive() const;
+	static void slotGroupCheckJuliaModeToggled(bool state);
+	void slotChangedCheckBoxHybridFractal(int state) const;
+	void slotChangedCheckBoxBooleanOperators(bool state) const;
+	void slotChangedCheckBoxJuliaMode(bool state) const;
+	void slotToggledFractalEnable(int fractalIndex, bool enabled) const;
+	void slotFractalSwap(int swapA, int swapB) const;
 
 private:
-	void ConnectSignals();
+	void ConnectSignals() const;
 	Ui::cDockFractal *ui;
 
 	cAutomatedWidgets *automatedWidgets;

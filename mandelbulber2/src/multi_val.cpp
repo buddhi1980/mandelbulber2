@@ -256,7 +256,7 @@ QString cMultiVal::MakePaletteString(cColorPalette &palette)
 	return paletteString;
 }
 
-cColorPalette cMultiVal::GetPaletteFromString(const QString &paletteString) const
+cColorPalette cMultiVal::GetPaletteFromString(const QString &paletteString)
 {
 	cColorPalette colorPalette;
 	QStringList split = paletteString.split(" ");

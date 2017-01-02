@@ -50,17 +50,17 @@ public:
 		defaultValue = 0;
 	};
 
-	virtual void resetToDefault();
-	virtual QString getDefaultAsString();
-	virtual QString getFullParameterName();
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
 
 private:
 	double GetDefault();
 	double defaultValue;
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
-	void paintEvent(QPaintEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event) override;
+	void paintEvent(QPaintEvent *event) override;
 };
 
 #endif /* MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_ */

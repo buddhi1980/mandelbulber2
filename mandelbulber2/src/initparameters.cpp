@@ -108,12 +108,12 @@ void InitParams(cParameterContainer *par)
 	par->addParam("sweet_spot_vertical_angle", 0.0, -90.0, 90.0, morphAkima, paramStandard);
 
 	// fractal formula selections
-	par->addParam("formula", 1, (int)fractal::mandelbulb, morphNone, paramStandard);
+	par->addParam("formula", 1, int(fractal::mandelbulb), morphNone, paramStandard);
 	par->addParam("formula_iterations", 1, 1, 1, 65536, morphNone, paramStandard);
 
 	for (int i = 2; i <= NUMBER_OF_FRACTALS; i++)
 	{
-		par->addParam("formula", i, (int)fractal::none, morphNone, paramStandard);
+		par->addParam("formula", i, int(fractal::none), morphNone, paramStandard);
 		par->addParam("formula_iterations", i, 1, 1, 65536, morphNone, paramStandard);
 	}
 
@@ -135,7 +135,7 @@ void InitParams(cParameterContainer *par)
 	for (int i = 1; i < NUMBER_OF_FRACTALS; i++)
 	{
 		par->addParam(
-			"boolean_operator", i, (int)params::booleanOperatorOR, morphLinear, paramStandard);
+			"boolean_operator", i, int(params::booleanOperatorOR), morphLinear, paramStandard);
 	}
 
 	// fractal transform
@@ -177,18 +177,18 @@ void InitParams(cParameterContainer *par)
 	par->addParam("bailout", 1e2, 1.0, 1e15, morphLinear, paramStandard);
 	par->addParam("repeat_from", 1, 1, 9, morphLinear, paramStandard);
 	par->addParam(
-		"delta_DE_function", (int)fractal::preferedDEfunction, 0, 3, morphNone, paramStandard);
-	par->addParam("delta_DE_method", (int)fractal::preferedDEMethod, 0, 1, morphNone, paramStandard);
+		"delta_DE_function", int(fractal::preferedDEfunction), 0, 3, morphNone, paramStandard);
+	par->addParam("delta_DE_method", int(fractal::preferedDEMethod), 0, 1, morphNone, paramStandard);
 	par->addParam("use_default_bailout", true, morphNone, paramStandard);
 	par->addParam("initial_waxis", 0.0, morphAkima, paramStandard);
 
 	// stereoscopic
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
 	par->addParam("stereo_eye_distance", 0.1, 1e-15, 1e15, morphAkima, paramStandard);
-	par->addParam("stereo_mode", (int)cStereo::stereoLeftRight, morphLinear, paramStandard);
+	par->addParam("stereo_mode", int(cStereo::stereoLeftRight), morphLinear, paramStandard);
 	par->addParam("stereo_swap_eyes", false, morphLinear, paramStandard);
 	par->addParam("stereo_infinite_correction", 0.0, 0.0, 10.0, morphAkima, paramStandard);
-	par->addParam("stereo_actual_eye", (int)cStereo::eyeNone, morphAkima, paramOnlyForNet);
+	par->addParam("stereo_actual_eye", int(cStereo::eyeNone), morphAkima, paramOnlyForNet);
 
 	// volume slicing
 	par->addParam("voxel_limit_min", CVector3(-1.0, -1.0, -1.0), morphLinear, paramStandard);
@@ -226,13 +226,13 @@ void InitParams(cParameterContainer *par)
 	par->addParam("ambient_occlusion_fast_tune", 1.0, 1e-5, 1e5, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_enabled", false, morphLinear, paramStandard);
 	par->addParam(
-		"ambient_occlusion_mode", (int)params::AOmodeScreenSpace, morphLinear, paramStandard);
+		"ambient_occlusion_mode", int(params::AOmodeScreenSpace), morphLinear, paramStandard);
 	par->addParam("SSAO_random_mode", false, morphLinear, paramStandard);
 	par->addParam("glow_enabled", true, morphLinear, paramStandard);
 	par->addParam("glow_intensity", 0.2, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("textured_background", false, morphLinear, paramStandard);
 	par->addParam(
-		"textured_background_map_type", (int)params::mapEquirectangular, morphNone, paramStandard);
+		"textured_background_map_type", int(params::mapEquirectangular), morphNone, paramStandard);
 	par->addParam("background_brightness", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("shadows_enabled", true, morphLinear, paramStandard);
 	par->addParam("penetrating_lights", true, morphLinear, paramStandard);
@@ -398,7 +398,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("auto_save_images", false, morphNone, paramApp);
 	par->addParam("save_image_format", 0, morphNone, paramApp);
 	par->addParam("image_preview_scale", 3, 0, 6, morphNone, paramApp);
-	par->addParam("netrender_mode", (int)CNetRender::netRenderServer, morphNone, paramApp);
+	par->addParam("netrender_mode", int(CNetRender::netRenderServer), morphNone, paramApp);
 	par->addParam("netrender_client_remote_address", QString("localhost"), morphNone, paramApp);
 	par->addParam("netrender_client_remote_port", 5555, morphNone, paramApp);
 	par->addParam("netrender_server_local_port", 5555, morphNone, paramApp);
@@ -440,12 +440,12 @@ void InitParams(cParameterContainer *par)
 	par->addParam("zbuffer_enabled", false, morphNone, paramApp);
 	par->addParam("normal_enabled", false, morphNone, paramApp);
 
-	par->addParam("color_quality", (int)ImageFileSave::IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
-	par->addParam("alpha_quality", (int)ImageFileSave::IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
+	par->addParam("color_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_8), morphNone, paramApp);
+	par->addParam("alpha_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_8), morphNone, paramApp);
 	par->addParam(
-		"zbuffer_quality", (int)ImageFileSave::IMAGE_CHANNEL_QUALITY_32, morphNone, paramApp);
+		"zbuffer_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 	par->addParam(
-		"normal_quality", (int)ImageFileSave::IMAGE_CHANNEL_QUALITY_32, morphNone, paramApp);
+		"normal_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 
 	par->addParam("color_postfix", QString(""), morphNone, paramApp);
 	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramApp);
@@ -1021,7 +1021,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		cMaterial::Name("coloring_palette_size", materialId), 10, 1, 255, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("coloring_palette_offset", materialId), 0.0, 0.0, 256.0,
 		morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("texture_mapping_type", materialId), (int)texture::mappingPlanar,
+	par->addParam(cMaterial::Name("texture_mapping_type", materialId), int(texture::mappingPlanar),
 		morphNone, paramStandard);
 	par->addParam(
 		cMaterial::Name("use_colors_from_palette", materialId), true, morphLinear, paramStandard);
@@ -1050,7 +1050,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("normal_map_texture_invert_green", materialId), false, morphNone,
 		paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId),
-		(int)sFractalColoring::fractalColoringStandard, 0, 4, morphNone, paramStandard);
+		int(sFractalColoring::fractalColoringStandard), 0, 4, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),

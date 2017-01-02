@@ -82,13 +82,13 @@ cDockFractal::~cDockFractal()
 	delete[] fractalTabs;
 }
 
-bool cDockFractal::AreHybridFractalsEnabled()
+bool cDockFractal::AreHybridFractalsEnabled() const
 {
 	return ui->checkBox_hybrid_fractal_enable->isChecked();
 }
 
 void cDockFractal::SynchronizeInterfaceFractals(
-	cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode)
+	cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode) const
 {
 	WriteLog("cInterface::SynchronizeInterface: tabWidget_fractal_common", 3);
 	SynchronizeInterfaceWindow(ui->tabWidget_fractal_common, par, mode);
@@ -110,42 +110,42 @@ void cDockFractal::SynchronizeInterfaceFractals(
 	}
 }
 
-void cDockFractal::SynchronizeInterfaceJulia()
+void cDockFractal::SynchronizeInterfaceJulia() const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_julia_mode, gPar, qInterface::write);
 }
 
-void cDockFractal::SynchronizeInterfacePrimitives()
+void cDockFractal::SynchronizeInterfacePrimitives() const
 {
 	SynchronizeInterfaceWindow(ui->scrollArea_primitives, gPar, qInterface::write);
 }
 
-void cDockFractal::EnableJuliaMode()
+void cDockFractal::EnableJuliaMode() const
 {
 	ui->groupCheck_julia_mode->setChecked(true);
 }
 
-QWidget *cDockFractal::GetContainerWithPrimitives()
+QWidget *cDockFractal::GetContainerWithPrimitives() const
 {
 	return ui->scrollAreaWidgetContents_primitives;
 }
 
-QVBoxLayout *cDockFractal::GetLayoutWithPrimitives()
+QVBoxLayout *cDockFractal::GetLayoutWithPrimitives() const
 {
 	return ui->verticalLayout_primitives;
 }
 
-bool cDockFractal::AreBooleanFractalsEnabled()
+bool cDockFractal::AreBooleanFractalsEnabled() const
 {
 	return ui->groupCheck_boolean_operators->isChecked();
 }
 
-void cDockFractal::SetTabText(int tabIndex, QString text)
+void cDockFractal::SetTabText(int tabIndex, QString text) const
 {
 	ui->tabWidget_fractals->setTabText(tabIndex, text);
 }
 
-void cDockFractal::ConnectSignals()
+void cDockFractal::ConnectSignals() const
 {
 	connect(
 		ui->vect3_julia_c_x, SIGNAL(textChanged(const QString &)), this, SLOT(slotChangedJuliaPoint()));
@@ -193,7 +193,7 @@ void cDockFractal::ConnectSignals()
 }
 
 // initialize ui for hybrid fractal components
-void cDockFractal::InitializeFractalUi()
+void cDockFractal::InitializeFractalUi() const
 {
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started", 2);
 	// MyUiLoader loader;
@@ -226,7 +226,7 @@ void cDockFractal::InitializeFractalUi()
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished", 2);
 }
 
-void cDockFractal::slotFractalSwap(int swapA, int swapB)
+void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 {
 	// qDebug() << "swapping " << swapA << " with " << swapB;
 
@@ -259,7 +259,7 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB)
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state)
+void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state) const
 {
 	if (state) ui->checkBox_hybrid_fractal_enable->setChecked(false);
 	gApplication->processEvents();
@@ -292,7 +292,7 @@ void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state)
 	ui->groupBox_material_fractal->setVisible(!state);
 }
 
-void cDockFractal::slotChangedCheckBoxHybridFractal(int state)
+void cDockFractal::slotChangedCheckBoxHybridFractal(int state) const
 {
 	if (state) ui->groupCheck_boolean_operators->setChecked(false);
 	gApplication->processEvents();
@@ -312,7 +312,7 @@ void cDockFractal::slotChangedCheckBoxHybridFractal(int state)
 	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEFunctionSetEnabled(
 		state
 		|| gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->ComboDeltaDEMethodCurrentIndex()
-				 == (int)fractal::forceDeltaDEMethod);
+				 == int(fractal::forceDeltaDEMethod));
 
 	ui->label_fractals_remark_hybrid->setVisible(!state);
 	ui->label_repeat_from->setEnabled(state);
@@ -320,12 +320,12 @@ void cDockFractal::slotChangedCheckBoxHybridFractal(int state)
 	ui->spinboxInt_repeat_from->setEnabled(state);
 }
 
-void cDockFractal::slotChangedCheckBoxJuliaMode(bool state)
+void cDockFractal::slotChangedCheckBoxJuliaMode(bool state) const
 {
 	ui->label_fractals_remark_julia->setVisible(state);
 }
 
-void cDockFractal::slotToggledFractalEnable(int fractalIndex, bool enabled)
+void cDockFractal::slotToggledFractalEnable(int fractalIndex, bool enabled) const
 {
 	ui->tabWidget_fractals->widget(fractalIndex - 1)->setEnabled(enabled);
 }
@@ -338,7 +338,7 @@ void cDockFractal::slotGroupCheckJuliaModeToggled(bool state)
 	}
 }
 
-void cDockFractal::slotChangedJuliaPoint()
+void cDockFractal::slotChangedJuliaPoint() const
 {
 	if (ui->groupCheck_julia_mode->isChecked() && gMainInterface->interfaceReady)
 	{
@@ -370,13 +370,13 @@ void cDockFractal::slotChangedJuliaPoint()
 void cDockFractal::slotPressedButtonGetJuliaConstant()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickGetJuliaConstant);
+	item.append(int(RenderedImage::clickGetJuliaConstant));
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
 }
 
-void cDockFractal::slotPressedButtonNewPrimitive()
+void cDockFractal::slotPressedButtonNewPrimitive() const
 {
 	QString buttonName = this->sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.lastIndexOf('_') + 1);

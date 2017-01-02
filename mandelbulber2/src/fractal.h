@@ -632,7 +632,7 @@ class cFractal
 {
 public:
 	cFractal(const cParameterContainer *par);
-	void RecalculateFractalParams(void);
+	void RecalculateFractalParams();
 
 	fractal::enumFractalFormula formula;
 	sFractalMandelbulb bulb;

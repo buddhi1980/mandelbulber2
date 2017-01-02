@@ -42,7 +42,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	ambientOcclusion = container->Get<double>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
-	ambientOcclusionMode = (params::enumAOMode)container->Get<int>("ambient_occlusion_mode");
+	ambientOcclusionMode = params::enumAOMode(container->Get<int>("ambient_occlusion_mode"));
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
 	auxLightNumber = 4;
 	auxLightRandomNumber = container->Get<int>("random_lights_number");
@@ -65,8 +65,8 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	constantDEThreshold = container->Get<bool>("constant_DE_threshold");
 	constantFactor = container->Get<double>("fractal_constant_factor");
 	DEFactor = container->Get<double>("DE_factor");
-	delta_DE_function = (fractal::enumDEFunctionType)container->Get<int>("delta_DE_function");
-	delta_DE_method = (fractal::enumDEMethod)container->Get<int>("delta_DE_method");
+	delta_DE_function = fractal::enumDEFunctionType(container->Get<int>("delta_DE_function"));
+	delta_DE_method = fractal::enumDEMethod(container->Get<int>("delta_DE_method"));
 	detailLevel = container->Get<double>("detail_level");
 	DEThresh = container->Get<double>("DE_thresh");
 	DOFEnabled = container->Get<bool>("DOF_enabled");
@@ -122,7 +122,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	minN = container->Get<int>("minN");
 	N = container->Get<int>("N");
 	penetratingLights = container->Get<bool>("penetrating_lights");
-	perspectiveType = (params::enumPerspectiveType)container->Get<int>("perspective_type");
+	perspectiveType = params::enumPerspectiveType(container->Get<int>("perspective_type"));
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");
 	repeatFrom = container->Get<int>("repeat_from");
@@ -140,7 +140,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	target = container->Get<CVector3>("target");
 	texturedBackground = container->Get<bool>("textured_background");
 	texturedBackgroundMapType =
-		(params::enumTextureMapType)container->Get<int>("textured_background_map_type");
+		params::enumTextureMapType(container->Get<int>("textured_background_map_type"));
 	topVector = container->Get<CVector3>("camera_top");
 	useDefaultBailout = container->Get<bool>("use_default_bailout");
 	viewAngle = container->Get<CVector3>("camera_rotation");
@@ -180,7 +180,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{
 		booleanOperator[i] =
-			(params::enumBooleanOperator)container->Get<int>("boolean_operator", i + 1);
+			params::enumBooleanOperator(container->Get<int>("boolean_operator", i + 1));
 	}
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)

@@ -80,7 +80,7 @@ void cMaterialManagerView::SetModel(cMaterialItemModel *_model)
 	itemView->setModel(_model);
 }
 
-void cMaterialManagerView::slotAddMaterial()
+void cMaterialManagerView::slotAddMaterial() const
 {
 	int rows = model->rowCount();
 	model->insertRows(rows, 1);
@@ -191,7 +191,7 @@ void cMaterialManagerView::slotItemSelected(const QModelIndex &index)
 	emit materialSelected(selection);
 }
 
-void cMaterialManagerView::SetSelection(QModelIndex index)
+void cMaterialManagerView::SetSelection(QModelIndex index) const
 {
 	itemView->setCurrentIndex(index);
 }

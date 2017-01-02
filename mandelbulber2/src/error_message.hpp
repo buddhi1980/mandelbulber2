@@ -53,7 +53,7 @@ public:
 	static void showMessage(QString text, enumMessageType messageType, QWidget *parent = nullptr);
 
 public slots:
-	void slotShowMessage(
+	static void slotShowMessage(
 		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = nullptr);
 };
 

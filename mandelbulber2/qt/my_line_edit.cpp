@@ -90,7 +90,7 @@ QString MyLineEdit::GetDefault()
 	return defaultText;
 }
 
-void MyLineEdit::CopyToClipboard()
+void MyLineEdit::CopyToClipboard() const
 {
 	if (parameterContainer)
 	{
@@ -254,7 +254,7 @@ QString MyLineEdit::getFullParameterName()
 	return parName;
 }
 
-void MyLineEdit::slotCopyVector()
+void MyLineEdit::slotCopyVector() const
 {
 	CopyToClipboard();
 }

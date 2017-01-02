@@ -39,7 +39,7 @@
 #include "../src/interface.hpp"
 #include "../src/projection_3d.hpp"
 #include "../src/render_window.hpp"
-#include "dock_image_adjustmnets.h"
+#include "dock_image_adjustments.h"
 #include "dock_rendering_engine.h"
 #include "ui_dock_image_adjustments.h"
 
@@ -62,7 +62,7 @@ void cDockImageAdjustments::slotDisableAutoRefresh()
 	gMainInterface->DisablePeriodicRefresh();
 }
 
-void cDockImageAdjustments::ConnectSignals()
+void cDockImageAdjustments::ConnectSignals() const
 {
 	connect(ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboPerspectiveType(int)));
@@ -114,11 +114,11 @@ void cDockImageAdjustments::ConnectSignals()
 	connect(ui->checkBox_hdr, SIGNAL(stateChanged(int)), this, SLOT(slotDisableAutoRefresh()));
 }
 
-void cDockImageAdjustments::slotChangedComboImageProportion(int index)
+void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
 {
 	bool enableSlider = false;
 	double ratio = 1.0;
-	enumImageProportion proportionSelection = (enumImageProportion)index;
+	enumImageProportion proportionSelection = enumImageProportion(index);
 
 	switch (proportionSelection)
 	{
@@ -145,14 +145,14 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index)
 
 	if (ui->checkBox_connect_detail_level->isChecked())
 	{
-		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
+		double sizeRatio = double(height) / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
 		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
 			->SynchronizeInterfaceDistanceEstimation(gPar);
 	}
 }
 
-void cDockImageAdjustments::slotPressedResolutionPreset()
+void cDockImageAdjustments::slotPressedResolutionPreset() const
 {
 	int width = 0, height = 0;
 	enumImageProportion proportion = proportionFree;
@@ -218,16 +218,16 @@ void cDockImageAdjustments::slotPressedResolutionPreset()
 
 	if (ui->checkBox_connect_detail_level->isChecked())
 	{
-		double sizeRatio = (double)height / gMainInterface->lockedImageResolution.y;
+		double sizeRatio = double(height) / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
 		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
 			->SynchronizeInterfaceDistanceEstimation(gPar);
 	}
 }
 
-void cDockImageAdjustments::slotChangedComboPerspectiveType(int index)
+void cDockImageAdjustments::slotChangedComboPerspectiveType(int index) const
 {
-	params::enumPerspectiveType perspType = (params::enumPerspectiveType)index;
+	params::enumPerspectiveType perspType = params::enumPerspectiveType(index);
 	if (perspType == params::perspFishEyeCut)
 	{
 		ui->comboBox_image_proportion->setCurrentIndex(proportion1_1);
@@ -240,14 +240,14 @@ void cDockImageAdjustments::slotChangedComboPerspectiveType(int index)
 	}
 }
 
-void cDockImageAdjustments::slotImageHeightChanged(int value)
+void cDockImageAdjustments::slotImageHeightChanged(int value) const
 {
 	(void)value;
 	int index = ui->comboBox_image_proportion->currentIndex();
 	slotChangedComboImageProportion(index);
 }
 
-void cDockImageAdjustments::slotCheckedDetailLevelLock(int state)
+void cDockImageAdjustments::slotCheckedDetailLevelLock(int state) const
 {
 	if (state)
 	{
@@ -260,11 +260,11 @@ void cDockImageAdjustments::slotCheckedDetailLevelLock(int state)
 	if (this->sender()->objectName() == "checkBox_connect_detail_level")
 	{
 		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
-			->CheckboxConnectDetailLevelSetCheckState((Qt::CheckState)state);
+			->CheckboxConnectDetailLevelSetCheckState(Qt::CheckState(state));
 	}
 	else
 	{
-		ui->checkBox_connect_detail_level->setCheckState((Qt::CheckState)state);
+		ui->checkBox_connect_detail_level->setCheckState(Qt::CheckState(state));
 	}
 }
 
@@ -290,7 +290,7 @@ void cDockImageAdjustments::slotQualityPresetNormal()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", true);
-	gPar->Set("ambient_occlusion_mode", (int)params::AOmodeScreenSpace);
+	gPar->Set("ambient_occlusion_mode", int(params::AOmodeScreenSpace));
 	gPar->Set("ambient_occlusion_quality", 4);
 	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);
@@ -298,7 +298,7 @@ void cDockImageAdjustments::slotQualityPresetNormal()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-bool cDockImageAdjustments::IsConnectDetailLevelEnabled()
+bool cDockImageAdjustments::IsConnectDetailLevelEnabled() const
 {
 	return ui->checkBox_connect_detail_level->isChecked();
 }
@@ -307,7 +307,7 @@ void cDockImageAdjustments::slotQualityPresetHigh()
 {
 	gPar->Set("DE_factor", 0.2);
 	gPar->Set("ambient_occlusion_enabled", true);
-	gPar->Set("ambient_occlusion_mode", (int)params::AOmodeMultipeRays);
+	gPar->Set("ambient_occlusion_mode", int(params::AOmodeMultipeRays));
 	gPar->Set("ambient_occlusion_quality", 4);
 	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);
@@ -315,7 +315,7 @@ void cDockImageAdjustments::slotQualityPresetHigh()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-void cDockImageAdjustments::ApplyImageChangesSetEnabled(bool enable)
+void cDockImageAdjustments::ApplyImageChangesSetEnabled(bool enable) const
 {
 	ui->pushButton_apply_image_changes->setEnabled(enable);
 }
@@ -325,7 +325,7 @@ void cDockImageAdjustments::slotPressedButtonImageApply()
 	gMainInterface->RefreshMainImage();
 }
 
-void cDockImageAdjustments::slotPressedImagesizeIncrease()
+void cDockImageAdjustments::slotPressedImagesizeIncrease() const
 {
 	int width = ui->spinboxInt_image_width->value();
 	int height = ui->spinboxInt_image_height->value();
@@ -335,7 +335,7 @@ void cDockImageAdjustments::slotPressedImagesizeIncrease()
 	ui->spinboxInt_image_height->setValue(height);
 }
 
-void cDockImageAdjustments::slotPressedImagesizeDecrease()
+void cDockImageAdjustments::slotPressedImagesizeDecrease() const
 {
 	int width = ui->spinboxInt_image_width->value();
 	int height = ui->spinboxInt_image_height->value();

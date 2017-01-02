@@ -44,8 +44,8 @@ public:
 	MyUiLoader(QObject *parent = nullptr) : QUiLoader(parent) {}
 	~MyUiLoader();
 
-	virtual QWidget *createWidget(
-		const QString &className, QWidget *parent = nullptr, const QString &name = QString());
+	QWidget *createWidget(
+		const QString &className, QWidget *parent = nullptr, const QString &name = QString()) override;
 };
 
 #endif /* MANDELBULBER2_SRC_MY_UI_LOADER_H_ */

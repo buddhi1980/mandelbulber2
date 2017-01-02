@@ -90,10 +90,10 @@ QString ImageFileSave::ImageFileExtension(enumImageFileType imageFileType)
 {
 	switch (imageFileType)
 	{
-		case IMAGE_FILE_TYPE_JPG: return "jpg"; break;
-		case IMAGE_FILE_TYPE_PNG: return "png"; break;
-		case IMAGE_FILE_TYPE_EXR: return "exr"; break;
-		case IMAGE_FILE_TYPE_TIFF: return "tiff"; break;
+		case IMAGE_FILE_TYPE_JPG: return "jpg";
+		case IMAGE_FILE_TYPE_PNG: return "png";
+		case IMAGE_FILE_TYPE_EXR: return "exr";
+		case IMAGE_FILE_TYPE_TIFF: return "tiff";
 	}
 	return "";
 }
@@ -102,10 +102,10 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 {
 	switch (imageContentType)
 	{
-		case IMAGE_CONTENT_COLOR: return "color"; break;
-		case IMAGE_CONTENT_ALPHA: return "alpha"; break;
-		case IMAGE_CONTENT_ZBUFFER: return "zbuffer"; break;
-		case IMAGE_CONTENT_NORMAL: return "normal"; break;
+		case IMAGE_CONTENT_COLOR: return "color";
+		case IMAGE_CONTENT_ALPHA: return "alpha";
+		case IMAGE_CONTENT_ZBUFFER: return "zbuffer";
+		case IMAGE_CONTENT_NORMAL: return "normal";
 	}
 	return "";
 }
@@ -335,11 +335,11 @@ void ImageFileSavePNG::SavePNG(
 				{
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
-						directPointer = (char *)image->GetImage16Ptr();
+						directPointer = reinterpret_cast<char *>(image->GetImage16Ptr());
 					}
 					else
 					{
-						directPointer = (char *)image->ConvertTo8bit();
+						directPointer = reinterpret_cast<char *>(image->ConvertTo8bit());
 					}
 				}
 				break;
@@ -347,11 +347,11 @@ void ImageFileSavePNG::SavePNG(
 				{
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
-						directPointer = (char *)image->GetAlphaBufPtr();
+						directPointer = reinterpret_cast<char *>(image->GetAlphaBufPtr());
 					}
 					else
 					{
-						directPointer = (char *)image->ConvertAlphaTo8bit();
+						directPointer = reinterpret_cast<char *>(image->ConvertAlphaTo8bit());
 					}
 				}
 				break;
@@ -363,12 +363,12 @@ void ImageFileSavePNG::SavePNG(
 
 			for (uint64_t y = 0; y < height; y++)
 			{
-				row_pointers[y] = (png_byte *)&directPointer[y * width * pixelSize];
+				row_pointers[y] = reinterpret_cast<png_byte *>(&directPointer[y * width * pixelSize]);
 			}
 		}
 		else
 		{
-			colorPtr = new char[(uint64_t)width * height * pixelSize];
+			colorPtr = new char[uint64_t(width) * height * pixelSize];
 
 			// calculate min / max values from zbuffer range
 			float minZ = float(1.0e50);
@@ -399,7 +399,7 @@ void ImageFileSavePNG::SavePNG(
 							{
 								if (appendAlpha)
 								{
-									sRGBA16 *typedColorPtr = (sRGBA16 *)&colorPtr[ptr];
+									sRGBA16 *typedColorPtr = reinterpret_cast<sRGBA16 *>(&colorPtr[ptr]);
 									*typedColorPtr = sRGBA16(image->GetPixelImage16(x, y));
 									typedColorPtr->A = image->GetPixelAlpha(x, y);
 								}
@@ -413,7 +413,7 @@ void ImageFileSavePNG::SavePNG(
 										image->ConvertAlphaTo8bit();
 										image->ConvertTo8bit();
 									}
-									sRGBA8 *typedColorPtr = (sRGBA8 *)&colorPtr[ptr];
+									sRGBA8 *typedColorPtr = reinterpret_cast<sRGBA8 *>(&colorPtr[ptr]);
 									*typedColorPtr = sRGBA8(image->GetPixelImage8(x, y));
 									typedColorPtr->A = image->GetPixelAlpha8(x, y);
 								}
@@ -432,8 +432,8 @@ void ImageFileSavePNG::SavePNG(
 								int intZ = z1 * 60000;
 								if (z > 1e19) intZ = 65535;
 
-								unsigned short *typedColorPtr = (unsigned short *)&colorPtr[ptr];
-								*typedColorPtr = (unsigned short)(intZ);
+								unsigned short *typedColorPtr = reinterpret_cast<unsigned short *>(&colorPtr[ptr]);
+								*typedColorPtr = static_cast<unsigned short>(intZ);
 							}
 							else
 							{
@@ -442,8 +442,8 @@ void ImageFileSavePNG::SavePNG(
 								int intZ = z1 * 240;
 								if (z > 1e19) intZ = 255;
 
-								unsigned char *typedColorPtr = (unsigned char *)&colorPtr[ptr];
-								*typedColorPtr = (unsigned char)(intZ);
+								unsigned char *typedColorPtr = reinterpret_cast<unsigned char *>(&colorPtr[ptr]);
+								*typedColorPtr = static_cast<unsigned char>(intZ);
 							}
 						}
 						break;
@@ -452,20 +452,20 @@ void ImageFileSavePNG::SavePNG(
 							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 							{
 								if (x == 0 && y == 0) image->ConvertNormalto16Bit();
-								sRGB16 *typedColorPtr = (sRGB16 *)&colorPtr[ptr];
+								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
 								*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
 							}
 							else
 							{
 								if (x == 0 && y == 0) image->ConvertNormalto8Bit();
-								sRGB8 *typedColorPtr = (sRGB8 *)&colorPtr[ptr];
+								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 								*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
 							}
 						}
 						break;
 					}
 				}
-				row_pointers[y] = (png_byte *)&colorPtr[y * width * pixelSize];
+				row_pointers[y] = reinterpret_cast<png_byte *>(&colorPtr[y * width * pixelSize]);
 			}
 		}
 
@@ -474,7 +474,7 @@ void ImageFileSavePNG::SavePNG(
 		for (uint64_t r = 0; r < height; r += chunkSize)
 		{
 			uint64_t leftToWrite = height - r;
-			png_write_rows(png_ptr, (png_bytepp)&row_pointers[r], min(leftToWrite, chunkSize));
+			png_write_rows(png_ptr, png_bytepp(&row_pointers[r]), min(leftToWrite, chunkSize));
 			/* TODO: make SavePNG private non static and rewrite direct accesses to static function
 			 emit updateProgressAndStatus(getJobName(),
 				QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
@@ -550,7 +550,7 @@ void ImageFileSavePNG::SavePNG16(QString filename, int width, int height, sRGB16
 		row_pointers = new png_bytep[height];
 		for (int y = 0; y < height; y++)
 		{
-			row_pointers[y] = (png_byte *)&image16[y * width];
+			row_pointers[y] = reinterpret_cast<png_byte *>(&image16[y * width]);
 		}
 
 		png_write_image(png_ptr, row_pointers);
@@ -675,7 +675,7 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 					return;
 				}
 			}
-			png_write_rows(png_ptr, (png_bytep *)&rowBuffer, 1);
+			png_write_rows(png_ptr, reinterpret_cast<png_bytep *>(&rowBuffer), 1);
 		}
 
 		for (int tile = 0; tile < tiles; tile++)
@@ -830,9 +830,9 @@ void ImageFileSaveEXR::SaveEXR(
 
 		int pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		char *buffer = new char[(uint64_t)width * height * pixelSize];
-		tsRGB<half> *halfPointer = (tsRGB<half> *)buffer;
-		tsRGB<float> *floatPointer = (tsRGB<float> *)buffer;
+		char *buffer = new char[uint64_t(width) * height * pixelSize];
+		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
+		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
 
 		for (int y = 0; y < height; y++)
 		{
@@ -859,11 +859,11 @@ void ImageFileSaveEXR::SaveEXR(
 		// point EXR frame buffer to rgb
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
 		frameBuffer.insert("R",
-			Imf::Slice(imfQuality, (char *)buffer + 0 * compSize, 3 * compSize, 3 * width * compSize));
+			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize, 3 * compSize, 3 * width * compSize));
 		frameBuffer.insert("G",
-			Imf::Slice(imfQuality, (char *)buffer + 1 * compSize, 3 * compSize, 3 * width * compSize));
+			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize, 3 * compSize, 3 * width * compSize));
 		frameBuffer.insert("B",
-			Imf::Slice(imfQuality, (char *)buffer + 2 * compSize, 3 * compSize, 3 * width * compSize));
+			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize, 3 * compSize, 3 * width * compSize));
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_ALPHA))
@@ -877,9 +877,9 @@ void ImageFileSaveEXR::SaveEXR(
 
 		int pixelSize = sizeof(half);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(float);
-		char *buffer = new char[(uint64_t)width * height * pixelSize];
-		half *halfPointer = (half *)buffer;
-		float *floatPointer = (float *)buffer;
+		char *buffer = new char[uint64_t(width) * height * pixelSize];
+		half *halfPointer = reinterpret_cast<half *>(buffer);
+		float *floatPointer = reinterpret_cast<float *>(buffer);
 
 		for (int y = 0; y < height; y++)
 		{
@@ -899,7 +899,7 @@ void ImageFileSaveEXR::SaveEXR(
 		}
 		// point EXR frame buffer to alpha
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("A", Imf::Slice(imfQuality, (char *)buffer, compSize, width * compSize));
+		frameBuffer.insert("A", Imf::Slice(imfQuality, static_cast<char *>(buffer), compSize, width * compSize));
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
@@ -917,13 +917,13 @@ void ImageFileSaveEXR::SaveEXR(
 			// direct on buffer
 			float *zBuffer = image->GetZBufferPtr();
 			frameBuffer.insert(
-				"Z", Imf::Slice(Imf::FLOAT, (char *)zBuffer, sizeof(float), width * sizeof(float)));
+				"Z", Imf::Slice(Imf::FLOAT, reinterpret_cast<char *>(zBuffer), sizeof(float), width * sizeof(float)));
 		}
 		else
 		{
 			int pixelSize = sizeof(half);
-			char *buffer = new char[(uint64_t)width * height * pixelSize];
-			half *halfPointer = (half *)buffer;
+			char *buffer = new char[uint64_t(width) * height * pixelSize];
+			half *halfPointer = reinterpret_cast<half *>(buffer);
 
 			for (int y = 0; y < height; y++)
 			{
@@ -934,7 +934,7 @@ void ImageFileSaveEXR::SaveEXR(
 				}
 			}
 			frameBuffer.insert(
-				"Z", Imf::Slice(imfQuality, (char *)buffer, sizeof(half), width * sizeof(half)));
+				"Z", Imf::Slice(imfQuality, static_cast<char *>(buffer), sizeof(half), width * sizeof(half)));
 		}
 	}
 
@@ -951,9 +951,9 @@ void ImageFileSaveEXR::SaveEXR(
 
 		int pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		char *buffer = new char[(uint64_t)width * height * pixelSize];
-		tsRGB<half> *halfPointer = (tsRGB<half> *)buffer;
-		tsRGB<float> *floatPointer = (tsRGB<float> *)buffer;
+		char *buffer = new char[uint64_t(width) * height * pixelSize];
+		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
+		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
 
 		for (int y = 0; y < height; y++)
 		{
@@ -977,11 +977,11 @@ void ImageFileSaveEXR::SaveEXR(
 		// point EXR frame buffer to rgb
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
 		frameBuffer.insert("n.X",
-			Imf::Slice(imfQuality, (char *)buffer + 0 * compSize, 3 * compSize, 3 * width * compSize));
+			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize, 3 * compSize, 3 * width * compSize));
 		frameBuffer.insert("n.Y",
-			Imf::Slice(imfQuality, (char *)buffer + 1 * compSize, 3 * compSize, 3 * width * compSize));
+			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize, 3 * compSize, 3 * width * compSize));
 		frameBuffer.insert("n.Z",
-			Imf::Slice(imfQuality, (char *)buffer + 2 * compSize, 3 * compSize, 3 * width * compSize));
+			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize, 3 * compSize, 3 * width * compSize));
 	}
 
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
@@ -1054,7 +1054,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleFormat);
 
 	uint64_t pixelSize = samplesPerPixel * qualitySize / 8;
-	char *colorPtr = new char[(uint64_t)width * height * pixelSize];
+	char *colorPtr = new char[uint64_t(width) * height * pixelSize];
 
 	// calculate min / max values from zbuffer range
 	float minZ = float(1.0e50);
@@ -1085,7 +1085,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 					{
 						if (appendAlpha)
 						{
-							sRGBAfloat *typedColorPtr = (sRGBAfloat *)&colorPtr[ptr];
+							sRGBAfloat *typedColorPtr = reinterpret_cast<sRGBAfloat *>(&colorPtr[ptr]);
 							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
 							typedColorPtr->R = rgbPointer.R / 65536.0;
 							typedColorPtr->G = rgbPointer.G / 65536.0;
@@ -1094,7 +1094,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 						}
 						else
 						{
-							sRGBfloat *typedColorPtr = (sRGBfloat *)&colorPtr[ptr];
+							sRGBfloat *typedColorPtr = reinterpret_cast<sRGBfloat *>(&colorPtr[ptr]);
 							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
 							typedColorPtr->R = rgbPointer.R / 65536.0;
 							typedColorPtr->G = rgbPointer.G / 65536.0;
@@ -1105,13 +1105,13 @@ bool ImageFileSaveTIFF::SaveTIFF(
 					{
 						if (appendAlpha)
 						{
-							sRGBA16 *typedColorPtr = (sRGBA16 *)&colorPtr[ptr];
+							sRGBA16 *typedColorPtr = reinterpret_cast<sRGBA16 *>(&colorPtr[ptr]);
 							*typedColorPtr = sRGBA16(image->GetPixelImage16(x, y));
 							typedColorPtr->A = image->GetPixelAlpha(x, y);
 						}
 						else
 						{
-							sRGB16 *typedColorPtr = (sRGB16 *)&colorPtr[ptr];
+							sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
 							*typedColorPtr = sRGB16(image->GetPixelImage16(x, y));
 						}
 					}
@@ -1124,7 +1124,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 								image->ConvertAlphaTo8bit();
 								image->ConvertTo8bit();
 							}
-							sRGBA8 *typedColorPtr = (sRGBA8 *)&colorPtr[ptr];
+							sRGBA8 *typedColorPtr = reinterpret_cast<sRGBA8 *>(&colorPtr[ptr]);
 							*typedColorPtr = sRGBA8(image->GetPixelImage8(x, y));
 							typedColorPtr->A = image->GetPixelAlpha8(x, y);
 						}
@@ -1134,7 +1134,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 							{
 								image->ConvertTo8bit();
 							}
-							sRGB8 *typedColorPtr = (sRGB8 *)&colorPtr[ptr];
+							sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 							*typedColorPtr = sRGB8(image->GetPixelImage8(x, y));
 						}
 					}
@@ -1144,12 +1144,12 @@ bool ImageFileSaveTIFF::SaveTIFF(
 				{
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 					{
-						float *typedColorPtr = (float *)&colorPtr[ptr];
+						float *typedColorPtr = reinterpret_cast<float *>(&colorPtr[ptr]);
 						*typedColorPtr = image->GetPixelAlpha(x, y) / 65536.0;
 					}
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
-						unsigned short *typedColorPtr = (unsigned short *)&colorPtr[ptr];
+						unsigned short *typedColorPtr = reinterpret_cast<unsigned short *>(&colorPtr[ptr]);
 						*typedColorPtr = image->GetPixelAlpha(x, y);
 					}
 					else
@@ -1158,7 +1158,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 						{
 							image->ConvertAlphaTo8bit();
 						}
-						unsigned char *typedColorPtr = (unsigned char *)&colorPtr[ptr];
+						unsigned char *typedColorPtr = reinterpret_cast<unsigned char *>(&colorPtr[ptr]);
 						*typedColorPtr = image->GetPixelAlpha8(x, y);
 					}
 				}
@@ -1167,20 +1167,20 @@ bool ImageFileSaveTIFF::SaveTIFF(
 				{
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 					{
-						float *typedColorPtr = (float *)&colorPtr[ptr];
+						float *typedColorPtr = reinterpret_cast<float *>(&colorPtr[ptr]);
 						*typedColorPtr = (image->GetPixelZBuffer(x, y) - minZ) / rangeZ;
 					}
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
-						unsigned short *typedColorPtr = (unsigned short *)&colorPtr[ptr];
+						unsigned short *typedColorPtr = reinterpret_cast<unsigned short *>(&colorPtr[ptr]);
 						*typedColorPtr =
-							(unsigned short)(((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 65535);
+							static_cast<unsigned short>(((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 65535);
 					}
 					else
 					{
-						unsigned char *typedColorPtr = (unsigned char *)&colorPtr[ptr];
+						unsigned char *typedColorPtr = reinterpret_cast<unsigned char *>(&colorPtr[ptr]);
 						*typedColorPtr =
-							(unsigned char)(((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 255);
+							static_cast<unsigned char>(((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 255);
 					}
 				}
 				break;
@@ -1188,19 +1188,19 @@ bool ImageFileSaveTIFF::SaveTIFF(
 				{
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 					{
-						sRGBfloat *typedColorPtr = (sRGBfloat *)&colorPtr[ptr];
+						sRGBfloat *typedColorPtr = reinterpret_cast<sRGBfloat *>(&colorPtr[ptr]);
 						*typedColorPtr = sRGBfloat(image->GetPixelNormal(x, y));
 					}
 					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
 						if (x == 0 && y == 0) image->ConvertNormalto16Bit();
-						sRGB16 *typedColorPtr = (sRGB16 *)&colorPtr[ptr];
+						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
 						*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
 					}
 					else
 					{
 						if (x == 0 && y == 0) image->ConvertNormalto8Bit();
-						sRGB8 *typedColorPtr = (sRGB8 *)&colorPtr[ptr];
+						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 						*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
 					}
 				}
@@ -1209,7 +1209,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		}
 	}
 
-	TIFFWriteEncodedStrip(tiff, 0, (void *)colorPtr, tsize_t(width * height * pixelSize));
+	TIFFWriteEncodedStrip(tiff, 0, static_cast<void *>(colorPtr), tsize_t(width * height * pixelSize));
 	TIFFClose(tiff);
 	delete[] colorPtr;
 	return true;
