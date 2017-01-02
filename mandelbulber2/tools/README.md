@@ -18,6 +18,7 @@ The project should be kept updated and clean with the following steps (when nece
 When a new version is prepared for release, the following steps should be taken:
 - 1. Everything from "(1) ongoing changes"
 - 2. Update README / NEWS (check for newer dependencies, supported platforms, ...)
+  - `mandelbulber2/tools/updateREADMEandCo.php # update release relevant things`
 - 3. Run build CI's / code coverage / any code validating software
 - 4. Testing
   - Add test cases for new introduced features
