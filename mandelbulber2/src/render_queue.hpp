@@ -56,8 +56,8 @@ public:
 	cRenderQueue(cImage *_image, RenderedImage *widget = nullptr);
 	~cRenderQueue();
 	bool RenderStill(const QString &filename);
-	bool RenderFlight();
-	bool RenderKeyframe();
+	bool RenderFlight() const;
+	bool RenderKeyframe() const;
 
 public slots:
 	void slotRenderQueue();

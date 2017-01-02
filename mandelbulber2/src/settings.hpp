@@ -61,35 +61,35 @@ public:
 	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
 		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);
 	bool SaveToFile(QString filename) const;
-	void SaveToClipboard();
+	void SaveToClipboard() const;
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
 	bool LoadFromClipboard();
 	bool Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		cAnimationFrames *frames = nullptr, cKeyframes *keyframes = nullptr);
-	QString GetHashCode() { return hash.toHex(); }
+	QString GetHashCode() const { return hash.toHex(); }
 	void BeQuiet(bool _quiet) { quiet = _quiet; }
 	QString GetSettingsText() const;
 
 private:
-	QString CreateHeader(void);
+	QString CreateHeader() const;
 	void DecodeHeader(QStringList &separatedText);
-	QString CreateOneLine(const cParameterContainer *par, QString name);
+	QString CreateOneLine(const cParameterContainer *par, QString name) const;
 	bool DecodeOneLine(cParameterContainer *par, QString line);
-	bool CheckSection(QString text, QString &section);
+	static bool CheckSection(QString text, QString &section);
 	void Compatibility(QString &name, QString &value) const;
 	void Compatibility2(cParameterContainer *par, cFractalContainer *fract);
 	void CreateAnimationString(
-		QString &text, const QString &headerText, const cAnimationFrames *frames);
+		QString &text, const QString &headerText, const cAnimationFrames *frames) const;
 
 	bool DecodeFramesHeader(
 		QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
 	bool DecodeFramesLine(
 		QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
 
-	QString everyLocaleDouble(QString txt);
+	static QString everyLocaleDouble(QString txt);
 
-	bool CheckIfMaterialsAreDefined(cParameterContainer *par);
+	static bool CheckIfMaterialsAreDefined(cParameterContainer *par);
 
 	enumFormat format;
 	QString settingsText;

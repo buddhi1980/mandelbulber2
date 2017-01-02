@@ -71,49 +71,49 @@ public:
 	~RenderWindow();
 
 	// Getters for UI elements
-	cDockAnimation *GetWidgetDockAnimation();
-	cDockNavigation *GetWidgetDockNavigation();
-	cDockStatistics *GetWidgetDockStatistics();
-	cDockQueue *GetWidgetDockQueue();
-	cDockImageAdjustments *GetWidgetDockImageAdjustments();
-	cDockRenderingEngine *GetWidgetDockRenderingEngine();
-	cDockFractal *GetWidgetDockFractal();
+	cDockAnimation *GetWidgetDockAnimation() const;
+	cDockNavigation *GetWidgetDockNavigation() const;
+	cDockStatistics *GetWidgetDockStatistics() const;
+	cDockQueue *GetWidgetDockQueue() const;
+	cDockImageAdjustments *GetWidgetDockImageAdjustments() const;
+	cDockRenderingEngine *GetWidgetDockRenderingEngine() const;
+	cDockFractal *GetWidgetDockFractal() const;
 
-	QWidget *GetCentralWidget();
-	QComboBox *GetComboBoxMouseClickFunction();
+	QWidget *GetCentralWidget() const;
+	QComboBox *GetComboBoxMouseClickFunction() const;
 
 private:
-	void closeEvent(QCloseEvent *event);
-	void changeEvent(QEvent *event);
+	void closeEvent(QCloseEvent *event) override;
+	void changeEvent(QEvent *event) override;
 
 public slots:
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
-		double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
+		double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE) const;
 	void slotPopulateToolbar(bool completeRefresh = false);
 
 private slots:
-	void slotQuit();
+	static void slotQuit();
 
 	// other
-	void slotChangedCheckBoxCursorVisibility(int state);
-	void slotChangedComboImageScale(int index);
-	void slotChangedComboMouseClickFunction(int index);
-	void slotPressedButtonDeletePrimitive();
+	static void slotChangedCheckBoxCursorVisibility(int state);
+	void slotChangedComboImageScale(int index) const;
+	void slotChangedComboMouseClickFunction(int index) const;
+	void slotPressedButtonDeletePrimitive() const;
 
-	void slotPressedButtonSetPositionPrimitive();
-	void slotResizedScrolledAreaImage(int width, int height);
+	void slotPressedButtonSetPositionPrimitive() const;
+	void slotResizedScrolledAreaImage(int width, int height) const;
 	void slotMenuLoadPreset(QString filename);
 	void slotMenuRemovePreset(QString filename);
 
-	void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
+	static void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotMenuProgramSettings();
 	void slotExportVoxelLayers();
 	void slotExportMesh();
 	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
-		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
-	void slotAutoRefresh();
-	void slotMaterialSelected(int matIndex);
-	void slotMaterialEdited();
+		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply) const;
+	static void slotAutoRefresh();
+	void slotMaterialSelected(int matIndex) const;
+	static void slotMaterialEdited();
 
 	// pull down menu
 	void slotImportOldSettings();
@@ -124,7 +124,7 @@ private slots:
 	void slotMenuLoadExample();
 	void slotMenuLoadSettings();
 	void slotMenuLoadSettingsFromClipboard();
-	void slotMenuRedo();
+	static void slotMenuRedo();
 	void slotMenuResetDocksPositions();
 	void slotMenuSaveDocksPositions();
 	void slotMenuSaveImageJPEG();
@@ -139,21 +139,21 @@ private slots:
 	void slotMenuSaveImagePNG16Alpha();
 
 	void slotMenuSaveSettings();
-	void slotMenuSaveSettingsToClipboard();
-	void slotMenuUndo();
+	static void slotMenuSaveSettingsToClipboard();
+	static void slotMenuUndo();
 	void slotUpdateDocksandToolbarbyAction();
-	void slotUpdateDocksandToolbarbyView();
+	void slotUpdateDocksandToolbarbyView() const;
 	void slotStackAllDocks();
 
 	// toolbar
 	void slotPresetAddToToolbar();
 
 	// rendered image widget
-	void slotMouseMovedOnImage(int x, int y);
-	void slotMouseClickOnImage(int x, int y, Qt::MouseButton button);
-	void slotKeyPressOnImage(QKeyEvent *event);
-	void slotKeyReleaseOnImage(QKeyEvent *event);
-	void slotMouseWheelRotatedOnImage(int delta);
+	static void slotMouseMovedOnImage(int x, int y);
+	void slotMouseClickOnImage(int x, int y, Qt::MouseButton button) const;
+	static void slotKeyPressOnImage(QKeyEvent *event);
+	static void slotKeyReleaseOnImage(QKeyEvent *event);
+	void slotMouseWheelRotatedOnImage(int delta) const;
 
 private:
 	Ui::RenderWindow *ui;

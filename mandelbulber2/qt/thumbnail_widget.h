@@ -62,14 +62,14 @@ public:
 	void UseOneCPUCore(bool onlyOne) { useOneCPUCore = onlyOne; }
 	void DisableTimer() { disableTimer = true; }
 	void DisableThumbnailCache() { disableThumbnailCache = true; }
-	bool IsRendered() { return isRendered; }
-	QString GetThumbnailFileName();
+	bool IsRendered() const { return isRendered; }
+	QString GetThumbnailFileName() const;
 
 	static int instanceCount;
 	int instanceIndex;
 
 private:
-	void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *event) override;
 
 private slots:
 	void slotFullyRendered();

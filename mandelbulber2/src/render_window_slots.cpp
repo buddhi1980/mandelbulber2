@@ -53,7 +53,7 @@
 #include "system.hpp"
 #include "ui_render_window.h"
 
-void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
+void RenderWindow::slotResizedScrolledAreaImage(int width, int height) const
 {
 	if (gMainInterface->mainImage)
 	{
@@ -70,7 +70,7 @@ void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
 	}
 }
 
-void RenderWindow::slotChangedComboImageScale(int index)
+void RenderWindow::slotChangedComboImageScale(int index) const
 {
 	if (gMainInterface->mainImage)
 	{
@@ -97,11 +97,11 @@ void RenderWindow::slotMouseMovedOnImage(int x, int y)
 	// CVector2<int> point(x, y);
 }
 
-void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button)
+void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button) const
 {
 	int index = ui->comboBox_mouse_click_function->currentIndex();
 	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
-	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
+	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
 
 	switch (clickMode)
 	{
@@ -124,7 +124,7 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button)
 	}
 }
 
-void RenderWindow::slotChangedComboMouseClickFunction(int index)
+void RenderWindow::slotChangedComboMouseClickFunction(int index) const
 {
 	if (index >= 0) // if list is empty, then index = -1
 	{
@@ -184,11 +184,11 @@ void RenderWindow::slotKeyReleaseOnImage(QKeyEvent *event)
 	(void)event;
 }
 
-void RenderWindow::slotMouseWheelRotatedOnImage(int delta)
+void RenderWindow::slotMouseWheelRotatedOnImage(int delta) const
 {
 	int index = ui->comboBox_mouse_click_function->currentIndex();
 	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
-	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
+	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
 	switch (clickMode)
 	{
 		case RenderedImage::clickPlaceLight:
@@ -258,8 +258,8 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 				cParameterContainer *par = new cParameterContainer;
 				cFractalContainer *parFractal = new cFractalContainer;
 				InitParams(par);
-				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-					InitFractalParams(&parFractal->at(i));
+				for (int j = 0; j < NUMBER_OF_FRACTALS; j++)
+					InitFractalParams(&parFractal->at(j));
 
 				/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
@@ -377,7 +377,7 @@ void RenderWindow::changeEvent(QEvent *event)
 }
 
 void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
-	double progress, cProgressText::enumProgressType progressType)
+	double progress, cProgressText::enumProgressType progressType) const
 {
 	ui->statusbar->showMessage(text, 0);
 	MyProgressBar *progressBar = nullptr;
@@ -470,17 +470,17 @@ void RenderWindow::slotExportMesh()
 }
 
 void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QString &questionText,
-	QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply)
+	QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply) const
 {
 	*reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, buttons);
 }
 
-void RenderWindow::slotAutoRefresh(void)
+void RenderWindow::slotAutoRefresh()
 {
 	gMainInterface->PeriodicRefresh();
 }
 
-void RenderWindow::slotMaterialSelected(int matIndex)
+void RenderWindow::slotMaterialSelected(int matIndex) const
 {
 	gMainInterface->MaterialSelected(matIndex);
 	ui->dockWidget_materialEditor->raise();

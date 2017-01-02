@@ -71,8 +71,8 @@ public:
 	void ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
 		const CRotationMatrix &mRotInv, enumEye eye, params::enumPerspectiveType perspType,
 		CVector3 *viewVector) const;
-	sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
-	sRGB16 MixColorsRedCyan16(sRGB16 left, sRGB16 right);
+	static sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
+	static sRGB16 MixColorsRedCyan16(sRGB16 left, sRGB16 right);
 	CVector2<int> ModifyImageResolution(CVector2<int> resolution) const;
 	enumEye WhichEye(CVector2<double> imagePoint) const;
 	CVector2<double> ModifyImagePoint(CVector2<double> imagePoint) const;
@@ -81,7 +81,7 @@ public:
 	void WhichEyeForAnaglyph(enumEye *eye, int repeat) const;
 	cRegion<int> GetRegion(CVector2<int> imageResolution, enumEye eye) const;
 	void StoreImageInBuffer(cImage *image);
-	void MixImages(cImage *image);
+	void MixImages(cImage *image) const;
 	void ForceEye(enumEye eye);
 	void SwapEyes() { swapped = true; }
 	bool AreSwapped() const { return swapped; }

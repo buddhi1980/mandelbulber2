@@ -94,12 +94,12 @@ cRenderWorker::~cRenderWorker()
 }
 
 // main render engine function called as multiple threads
-void cRenderWorker::doWork(void)
+void cRenderWorker::doWork()
 {
 	// here will be rendering thread
 	int width = image->GetWidth();
 	int height = image->GetHeight();
-	double aspectRatio = (double)width / height;
+	double aspectRatio = double(width) / height;
 
 	if (params->perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
 
@@ -354,7 +354,7 @@ void cRenderWorker::doWork(void)
 							image->PutPixelImage(xxx, yyy, finallPixel);
 							image->PutPixelColour(xxx, yyy, colour);
 							image->PutPixelAlpha(xxx, yyy, alpha);
-							image->PutPixelZBuffer(xxx, yyy, (float)depth);
+							image->PutPixelZBuffer(xxx, yyy, float(depth));
 							image->PutPixelOpacity(xxx, yyy, opacity16);
 							if (image->GetImageOptional()->optionalNormal)
 								image->PutPixelNormal(xxx, yyy, normalFloat);
@@ -374,7 +374,7 @@ void cRenderWorker::doWork(void)
 }
 
 // calculation of base vectors
-void cRenderWorker::PrepareMainVectors(void)
+void cRenderWorker::PrepareMainVectors()
 {
 	cameraTarget = new cCameraTarget(params->camera, params->target, params->topVector);
 	// cameraTarget->SetCameraTargetRotation(params->camera, params->target, params->viewAngle);
@@ -414,7 +414,7 @@ void cRenderWorker::PrepareMainVectors(void)
 }
 
 // reflection data
-void cRenderWorker::PrepareReflectionBuffer(void)
+void cRenderWorker::PrepareReflectionBuffer()
 {
 
 	reflectionsMax = params->reflectionsMax * 2;
@@ -430,7 +430,7 @@ void cRenderWorker::PrepareReflectionBuffer(void)
 }
 
 // calculating vectors for AmbientOcclusion
-void cRenderWorker::PrepareAOVectors(void)
+void cRenderWorker::PrepareAOVectors()
 {
 	AOvectorsAround = new sVectorsAround[10000];
 	AOvectorsCount = 0;
@@ -448,8 +448,8 @@ void cRenderWorker::PrepareAOVectors(void)
 			AOvectorsAround[counter].alpha = a;
 			AOvectorsAround[counter].beta = b;
 			AOvectorsAround[counter].v = d;
-			int X = (int)((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
-			int Y = (int)(b / (M_PI)*lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
+			int X = int((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
+			int Y = int(b / (M_PI) * lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
 			AOvectorsAround[counter].R = data->textures.lightmapTexture.FastPixel(X, Y).R;
 			AOvectorsAround[counter].G = data->textures.lightmapTexture.FastPixel(X, Y).G;
 			AOvectorsAround[counter].B = data->textures.lightmapTexture.FastPixel(X, Y).B;
@@ -508,7 +508,7 @@ double cRenderWorker::CalcDelta(CVector3 point) const
 
 // Ray-Marching
 CVector3 cRenderWorker::RayMarching(
-	sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out)
+	sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out) const
 {
 	CVector3 point;
 	bool found = false;
@@ -524,12 +524,11 @@ CVector3 cRenderWorker::RayMarching(
 
 	// qDebug() << "Start ************************";
 
-	CVector3 lastPoint, lastGoodPoint;
+	CVector3 lastPoint;
 	bool deadComputationFound = false;
 
 	for (int i = 0; i < 10000; i++)
 	{
-		lastGoodPoint = lastPoint;
 		lastPoint = point;
 
 		counter++;
@@ -686,7 +685,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	// here will be called branch for RayRecursion();
 
 	sRGBAfloat objectShader;
-	objectShader.A = 0.0;
 	sRGBAfloat backgroundShader;
 	sRGBAfloat volumetricShader;
 	sRGBAfloat specular;
@@ -955,7 +953,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 }
 
 void cRenderWorker::MonteCarloDOF(
-	CVector2<double> imagePoint, CVector3 *startRay, CVector3 *viewVector)
+	CVector2<double> imagePoint, CVector3 *startRay, CVector3 *viewVector) const
 {
 	if (params->perspectiveType == params::perspThreePoint)
 	{
@@ -963,7 +961,6 @@ void cRenderWorker::MonteCarloDOF(
 		float randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 		CVector3 randVectorRot = mRot.RotateVector(randVector);
-		CVector2<double> imagePoint2;
 		CVector3 viewVectorTemp =
 			CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
 		viewVectorTemp -= randVectorRot / params->DOFFocus;
@@ -984,7 +981,6 @@ void cRenderWorker::MonteCarloDOF(
 		topTemp.Normalize();
 		CVector3 randVectorRot = side * randVector.x + topTemp * randVector.z;
 
-		CVector2<double> imagePoint2;
 		viewVectorTemp -= randVectorRot / params->DOFFocus;
 		*viewVector = viewVectorTemp;
 		*startRay = params->camera + randVectorRot;

@@ -63,16 +63,16 @@ private:
 	QTimer *checkBusyTimer;
 
 public slots:
-	void showMessage(QString text, QString progressText);
+	void showMessage(QString text, QString progressText) const;
 
 private slots:
-	void slotStopped();
-	void slotStarted();
-	void slotToggleNotification(bool notify);
+	void slotStopped() const;
+	void slotStarted() const;
+	static void slotToggleNotification(bool notify);
 	void checkBusy();
-	void slotStartRender();
-	void slotStopRender();
-	void slotQuit();
+	static void slotStartRender();
+	static void slotStopRender();
+	static void slotQuit();
 
 signals:
 	void notifyRenderFlight();

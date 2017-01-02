@@ -43,21 +43,21 @@
 #include "interface.hpp"
 #include "ui_render_window.h"
 
-void RenderWindow::slotPressedButtonDeletePrimitive()
+void RenderWindow::slotPressedButtonDeletePrimitive() const
 {
 	QString buttonName = this->sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
 	gMainInterface->DeletePrimitive(primitiveName);
 }
 
-void RenderWindow::slotPressedButtonSetPositionPrimitive()
+void RenderWindow::slotPressedButtonSetPositionPrimitive() const
 {
 	QString buttonName = this->sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
 	QStringList split = primitiveName.split('_');
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlacePrimitive);
-	item.append((int)PrimitiveNameToEnum(split.at(1)));
+	item.append(int(RenderedImage::clickPlacePrimitive));
+	item.append(int(PrimitiveNameToEnum(split.at(1))));
 	item.append(split.at(2).toInt());
 	item.append(primitiveName); // light number
 	int index = ui->comboBox_mouse_click_function->findData(item);

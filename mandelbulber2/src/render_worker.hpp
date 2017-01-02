@@ -169,39 +169,39 @@ private:
 	};
 
 	// functions
-	void PrepareMainVectors(void);
-	void PrepareReflectionBuffer(void);
-	void PrepareAOVectors(void);
-	CVector3 RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out);
+	void PrepareMainVectors();
+	void PrepareReflectionBuffer();
+	void PrepareAOVectors();
+	CVector3 RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out) const;
 	double CalcDistThresh(CVector3 point) const;
 	double CalcDelta(CVector3 point) const;
-	double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);
+	static double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
-	void MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRay, CVector3 *viewVector);
+	void MonteCarloDOF(CVector2<double> imagePoint, CVector3 *startRay, CVector3 *viewVector) const;
 
 	// shaders
 	sRGBAfloat ObjectShader(
-		const sShaderInputData &input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut);
-	CVector3 CalculateNormals(const sShaderInputData &input);
-	sRGBAfloat MainShading(const sShaderInputData &input);
-	sRGBAfloat MainShadow(const sShaderInputData &input);
-	sRGBAfloat MainSpecular(const sShaderInputData &input);
-	sRGBAfloat SurfaceColour(const sShaderInputData &input);
-	sRGBAfloat FastAmbientOcclusion(const sShaderInputData &input);
-	sRGBAfloat AmbientOcclusion(const sShaderInputData &input);
-	sRGBAfloat EnvMapping(const sShaderInputData &input);
-	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut);
-	double AuxShadow(const sShaderInputData &input, double distance, CVector3 lightVector);
+		const sShaderInputData &input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut) const;
+	CVector3 CalculateNormals(const sShaderInputData &input) const;
+	static sRGBAfloat MainShading(const sShaderInputData &input);
+	sRGBAfloat MainShadow(const sShaderInputData &input) const;
+	sRGBAfloat MainSpecular(const sShaderInputData &input) const;
+	sRGBAfloat SurfaceColour(const sShaderInputData &input) const;
+	sRGBAfloat FastAmbientOcclusion(const sShaderInputData &input) const;
+	sRGBAfloat AmbientOcclusion(const sShaderInputData &input) const;
+	sRGBAfloat EnvMapping(const sShaderInputData &input) const;
+	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut) const;
+	double AuxShadow(const sShaderInputData &input, double distance, CVector3 lightVector) const;
 	sRGBAfloat LightShading(
-		const sShaderInputData &input, const sLight *light, int number, sRGBAfloat *outSpecular);
-	sRGBAfloat BackgroundShader(const sShaderInputData &input);
-	sRGBAfloat FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec);
+		const sShaderInputData &input, const sLight *light, int number, sRGBAfloat *outSpecular) const;
+	sRGBAfloat BackgroundShader(const sShaderInputData &input) const;
+	sRGBAfloat FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec) const;
 	sRGBAfloat VolumetricShader(
-		const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut);
+		const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut) const;
 
 	sRGBfloat TextureShader(
 		const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const;
-	CVector3 NormalMapShader(const sShaderInputData &input);
+	CVector3 NormalMapShader(const sShaderInputData &input) const;
 
 	// data got from main thread
 	const cParamRender *params;
@@ -229,7 +229,7 @@ private:
 	sVectorsAround *AOvectorsAround;
 
 public slots:
-	void doWork(void);
+	void doWork();
 
 signals:
 	void finished();

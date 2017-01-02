@@ -67,7 +67,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	anaglyphMode = false;
 
 	QList<QVariant> mode;
-	mode.append((int)RenderedImage::clickDoNothing);
+	mode.append(int(RenderedImage::clickDoNothing));
 	clickModeData = mode;
 
 	// timer to refresh image
@@ -89,7 +89,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 
 			if (!anaglyphMode) DisplayCrosshair();
 
-			if (z < 1e10 || (enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
+			if (z < 1e10 || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 			{
 				redrawed = false;
 				if (!isOnObject)
@@ -113,7 +113,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		image->RedrawInWidget();
 
 		if (cursorVisible && isFocus && !anaglyphMode
-				&& (isOnObject || (enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl))
+				&& (isOnObject || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl))
 		{
 			DisplayCoordinates();
 		}
@@ -135,7 +135,7 @@ void RenderedImage::DisplayCoordinates()
 	QBrush brushDarkBlue(QColor(0, 0, 100));
 
 	QString text;
-	enumClickMode clickMode = (enumClickMode)clickModeData.at(0).toInt();
+	enumClickMode clickMode = enumClickMode(clickModeData.at(0).toInt());
 	switch (clickMode)
 	{
 		case clickMoveCamera: text = tr("Move camera"); break;
@@ -146,7 +146,7 @@ void RenderedImage::DisplayCoordinates()
 			text += tr("\nMouse wheel - light fov / bkw");
 			break;
 		case clickPlacePrimitive:
-			text = tr("Place ") + PrimitiveNames((fractal::enumObjectType)clickModeData.at(1).toInt())
+			text = tr("Place ") + PrimitiveNames(fractal::enumObjectType(clickModeData.at(1).toInt()))
 						 + QString(" #") + QString::number(clickModeData.at(2).toInt());
 			break;
 		case clickGetJuliaConstant: text = tr("Get Julia constant"); break;
@@ -216,7 +216,7 @@ void RenderedImage::DisplayCoordinates()
 
 void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 {
-	clickMode = (enumClickMode)clickModeData.at(0).toInt();
+	clickMode = enumClickMode(clickModeData.at(0).toInt());
 	if (clickMode == clickPlaceLight)
 	{
 		z -= frontDist;
@@ -246,13 +246,13 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		double sweetSpotVAngle = params->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
 
 		bool stereoEnabled = params->Get<bool>("stereo_enabled");
-		cStereo::enumStereoMode stereoMode = (cStereo::enumStereoMode)params->Get<int>("stereo_mode");
+		cStereo::enumStereoMode stereoMode = cStereo::enumStereoMode(params->Get<int>("stereo_mode"));
 		anaglyphMode = stereoMode == cStereo::stereoRedCyan && stereoEnabled;
 		double stereoEyeDistance = params->Get<double>("stereo_eye_distance");
 		double stereoInfiniteCorrection = params->Get<double>("stereo_infinite_correction");
 
 		params::enumPerspectiveType perspType =
-			(params::enumPerspectiveType)params->Get<int>("perspective_type");
+			params::enumPerspectiveType(params->Get<int>("perspective_type"));
 		CVector3 camera = params->Get<CVector3>("camera");
 
 		CRotationMatrix mRot;
@@ -321,7 +321,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 }
 
 void RenderedImage::Draw3DBox(
-	double scale, double fov, CVector2<double> p, double z, cStereo::enumEye eye)
+	double scale, double fov, CVector2<double> p, double z, cStereo::enumEye eye) const
 {
 	double sw = image->GetPreviewWidth();
 	double sh = image->GetPreviewHeight();
@@ -377,6 +377,7 @@ void RenderedImage::Draw3DBox(
 		double xx2 = ((p.x - n * boxWidth) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
 		for (int iy = -n; iy <= n; iy++)
 		{
+			// TODO: Design Intent: yy1 - Declaration Hides Local
 			double yy1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
 
 			if (eye == cStereo::eyeNone)
@@ -408,6 +409,7 @@ void RenderedImage::Draw3DBox(
 			{
 				for (int iy = -n; iy <= n; iy++)
 				{
+					// TODO: Design Intent: xx & yy Declarations Hide Locals
 					double xx1 =
 						((p.x + boxWidth * ix) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
 					double yy1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
@@ -477,8 +479,8 @@ void RenderedImage::mouseMoveEvent(QMouseEvent *event)
 	lastMousePosition = screenPoint;
 
 	CVector2<double> yawAndPitch;
-	yawAndPitch.x = ((double)lastMousePosition.x / image->GetPreviewWidth() - 0.5) * 2.0;
-	yawAndPitch.y = ((double)lastMousePosition.y / image->GetPreviewHeight() - 0.5) * 2.0;
+	yawAndPitch.x = (double(lastMousePosition.x) / image->GetPreviewWidth() - 0.5) * 2.0;
+	yawAndPitch.y = (double(lastMousePosition.y) / image->GetPreviewHeight() - 0.5) * 2.0;
 	emit YawAndPitchChanged(yawAndPitch);
 
 	if (params)
@@ -499,7 +501,7 @@ void RenderedImage::mouseMoveEvent(QMouseEvent *event)
 
 void RenderedImage::mousePressEvent(QMouseEvent *event)
 {
-	if ((enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
+	if (enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 	{
 		if (event->button() == Qt::LeftButton)
 		{
@@ -553,9 +555,9 @@ void RenderedImage::keyPressEvent(QKeyEvent *event)
 	}
 	else
 	{
-		if ((enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
+		if (enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 		{
-			Qt::Key key = (Qt::Key)event->key();
+			Qt::Key key = Qt::Key(event->key());
 			if (key == Qt::Key_Up)
 			{
 				keyArrows.y += 1;
@@ -610,9 +612,9 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 	}
 	else
 	{
-		if ((enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
+		if (enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 		{
-			Qt::Key key = (Qt::Key)event->key();
+			Qt::Key key = Qt::Key(event->key());
 			if (key == Qt::Key_Up)
 			{
 				keyArrows.y -= 1;
@@ -672,14 +674,14 @@ void RenderedImage::wheelEvent(QWheelEvent *event)
 	}
 }
 
-void RenderedImage::DisplayCrosshair()
+void RenderedImage::DisplayCrosshair() const
 {
 	// calculate crosshair center point according to sweet point
 
 	double sweetSpotHAngle = params->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
 	double sweetSpotVAngle = params->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
 	params::enumPerspectiveType perspType =
-		(params::enumPerspectiveType)params->Get<int>("perspective_type");
+		params::enumPerspectiveType(params->Get<int>("perspective_type"));
 
 	double fov = params->Get<double>("fov");
 
@@ -754,7 +756,7 @@ void RenderedImage::DisplayCrosshair()
 	}
 }
 
-void RenderedImage::DrawHud(CVector3 rotation)
+void RenderedImage::DrawHud(CVector3 rotation) const
 {
 	CRotationMatrix mRotInv;
 	mRotInv.RotateY(-rotation.z);

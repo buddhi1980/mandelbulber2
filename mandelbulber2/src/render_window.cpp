@@ -65,47 +65,47 @@ RenderWindow::~RenderWindow()
 	delete ui;
 }
 
-cDockAnimation *RenderWindow::GetWidgetDockAnimation()
+cDockAnimation *RenderWindow::GetWidgetDockAnimation() const
 {
 	return ui->widgetDockAnimation;
 }
 
-QWidget *RenderWindow::GetCentralWidget()
+QWidget *RenderWindow::GetCentralWidget() const
 {
 	return ui->centralwidget;
 }
 
-cDockNavigation *RenderWindow::GetWidgetDockNavigation()
+cDockNavigation *RenderWindow::GetWidgetDockNavigation() const
 {
 	return ui->widgetDockNavigation;
 }
 
-cDockStatistics *RenderWindow::GetWidgetDockStatistics()
+cDockStatistics *RenderWindow::GetWidgetDockStatistics() const
 {
 	return ui->widgetDockStatistics;
 }
 
-cDockQueue *RenderWindow::GetWidgetDockQueue()
+cDockQueue *RenderWindow::GetWidgetDockQueue() const
 {
 	return ui->widgetDockQueue;
 }
 
-cDockImageAdjustments *RenderWindow::GetWidgetDockImageAdjustments()
+cDockImageAdjustments *RenderWindow::GetWidgetDockImageAdjustments() const
 {
 	return ui->widgetImageAjustments;
 }
 
-cDockRenderingEngine *RenderWindow::GetWidgetDockRenderingEngine()
+cDockRenderingEngine *RenderWindow::GetWidgetDockRenderingEngine() const
 {
 	return ui->widgetDockRenderingEngine;
 }
 
-cDockFractal *RenderWindow::GetWidgetDockFractal()
+cDockFractal *RenderWindow::GetWidgetDockFractal() const
 {
 	return ui->widgetDockFractal;
 }
 
-QComboBox *RenderWindow::GetComboBoxMouseClickFunction()
+QComboBox *RenderWindow::GetComboBoxMouseClickFunction() const
 {
 	return ui->comboBox_mouse_click_function;
 }

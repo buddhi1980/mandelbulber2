@@ -104,7 +104,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			double alphaTexture = fmod(point.GetAlpha() + 2.0 * M_PI, 2.0 * M_PI);
 			double betaTexture = -point.GetBeta();
 			textureCoordinates.x = alphaTexture / (2.0 * M_PI);
-			textureCoordinates.y = (betaTexture / M_PI);
+			textureCoordinates.y = betaTexture / M_PI;
 			textureCoordinates.x /= material->textureScale.x;
 			textureCoordinates.y /= material->textureScale.y;
 			textureCoordinates.x -= material->textureCenter.x;

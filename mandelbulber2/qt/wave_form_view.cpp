@@ -92,7 +92,7 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 			QRgb pixel = qRgba(0, 255, 0, 255);
 			for (int y = yStart; y < yStop; y++)
 			{
-				QRgb *line = (QRgb *)waveImage.scanLine(y);
+				QRgb *line = reinterpret_cast<QRgb *>(waveImage.scanLine(y));
 				line[x] = pixel;
 			}
 		}

@@ -179,7 +179,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 			totalDone += threadData[i].done;
 		}
 
-		double percentDone = (double)totalDone / toDo;
+		double percentDone = double(totalDone) / toDo;
 		statusText = QObject::tr("Rendering SSAO effect in progress");
 		progressTxt = progressText.getText(percentDone);
 

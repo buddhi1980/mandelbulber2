@@ -52,7 +52,7 @@ public:
 	void SetParameters(cAudioTrack *audioTrack, int _framesPerKeyframe);
 
 private:
-	void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *event) override;
 
 	int frames;
 	double framesPerSecond;

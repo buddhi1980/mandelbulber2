@@ -150,7 +150,7 @@ void cThumbnailWidget::AssignParameters(
 		*fractal = _fractal;
 		params->Set("image_width", tWidth * oversample);
 		params->Set("image_height", tHeight * oversample);
-		params->Set("stereo_mode", (int)cStereo::stereoRedCyan);
+		params->Set("stereo_mode", int(cStereo::stereoRedCyan));
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.CreateText(params, fractal);
 		oldHash = hash;
@@ -185,11 +185,11 @@ void cThumbnailWidget::AssignParameters(
 				QImage qimage = pixmap.toImage();
 				qimage = qimage.convertToFormat(QImage::Format_RGB888);
 				sRGB8 *bitmap;
-				bitmap = (sRGB8 *)(qimage.bits());
+				bitmap = reinterpret_cast<sRGB8 *>(qimage.bits());
 				int bwidth = qimage.width();
 				int bheight = qimage.height();
-				sRGB8 *previewPointer = (sRGB8 *)image->GetPreviewPrimaryPtr();
-				sRGB8 *preview2Pointer = (sRGB8 *)image->GetPreviewPtr();
+				sRGB8 *previewPointer = reinterpret_cast<sRGB8 *>(image->GetPreviewPrimaryPtr());
+				sRGB8 *preview2Pointer = reinterpret_cast<sRGB8 *>(image->GetPreviewPtr());
 				memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
 				memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
 				delete params;
@@ -231,7 +231,7 @@ void cThumbnailWidget::slotRender()
 		Wait(Random(100) + 50);
 		stopRequest = false;
 
-		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, (QWidget *)this);
+		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, static_cast<QWidget *>(this));
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
@@ -272,7 +272,7 @@ void cThumbnailWidget::slotFullyRendered()
 	isRendered = true;
 	if (!disableThumbnailCache)
 	{
-		QImage qImage((const uchar *)image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(),
+		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(), image->GetHeight(),
 			image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
 		QPixmap pixmap;
 		pixmap.convertFromImage(qImage);
@@ -307,7 +307,7 @@ void cThumbnailWidget::slotSetMinimumSize(int width, int height)
 	setMinimumSize(width, height);
 }
 
-QString cThumbnailWidget::GetThumbnailFileName()
+QString cThumbnailWidget::GetThumbnailFileName() const
 {
 	return systemData.GetThumbnailsFolder() + QDir::separator() + hash + QString(".png");
 }
