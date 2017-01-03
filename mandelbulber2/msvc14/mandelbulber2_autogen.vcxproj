@@ -179,7 +179,7 @@
     <GenDir>$(SourceDir)build-win</GenDir>
   </PropertyGroup>
   <PropertyGroup>
-    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\</QtDir>
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.0.10577\build\native\</QtDir>
     <Moc>$(QtDir)/bin/moc.exe</Moc>
     <Uic>$(QtDir)/bin/uic.exe</Uic>
     <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
@@ -216,6 +216,7 @@
   <Target Name="Build-Package" AfterTargets="Build" >
     <MakeDir Directories="$(OutDir)" />
     <MakeDir Directories="$(IntDir)" />
+    <Exec Command="rd /s /q $(OutDir)" />
     <Exec Command="xcopy /Y /I /S $(SourceDir)mandelbulber2\deploy\share\mandelbulber2 $(OutDir)" />
     <Exec Command="xcopy /Y /I $(QtDir)\plugins\gamepads $(OutDir)gamepads" />
     <Exec Command="xcopy /Y /I $(QtDir)\plugins\iconengines $(OutDir)iconengines" />
