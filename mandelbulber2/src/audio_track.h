@@ -66,6 +66,8 @@ public:
 	int freq2FftPos(double freq) const;
 	void calculateAnimation(double midFreq, double bandwidth, bool pitchMode);
 	float getAnimation(int frame) const;
+	void decayFilter(double strength);
+	void smoothFilter(double strength);
 
 private slots:
 	void slotReadBuffer();

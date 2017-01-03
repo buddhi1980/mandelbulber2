@@ -127,6 +127,14 @@ void cAudioSelector::ConnectSignals()
 	connect(
 		ui->checkBox_animsound_pitchmode, SIGNAL(stateChanged(int)), this, SLOT(slotFreqChanged()));
 	connect(
+		ui->groupCheck_animsound_decayfilter, SIGNAL(toggled(bool)), this, SLOT(slotFreqChanged()));
+	connect(
+		ui->groupCheck_animsound_smoothfilter, SIGNAL(toggled(bool)), this, SLOT(slotFreqChanged()));
+	connect(ui->spinbox_animsound_decaystrength, SIGNAL(valueChanged(double)), this,
+		SLOT(slotFreqChanged()));
+	connect(ui->spinbox_animsound_smoothstrength, SIGNAL(valueChanged(double)), this,
+		SLOT(slotFreqChanged()));
+	connect(
 		this, SIGNAL(freqencyChanged(double, double)), ui->fft, SLOT(slotFreqChanged(double, double)));
 };
 
@@ -146,6 +154,15 @@ void cAudioSelector::slotFreqChanged()
 		double bandwidth = gPar->Get<double>(FullParameterName("bandwidth"));
 		bool pitchMode = gPar->Get<bool>(FullParameterName("pitchmode"));
 		audio->calculateAnimation(midFreq, bandwidth, pitchMode);
+		if (gPar->Get<bool>(FullParameterName("decayfilter")))
+		{
+			audio->decayFilter(gPar->Get<double>(FullParameterName("decaystrength")));
+		}
+		if (gPar->Get<bool>(FullParameterName("smoothfilter")))
+		{
+			audio->smoothFilter(gPar->Get<double>(FullParameterName("smoothstrength")));
+		}
+
 		ui->animAudioView->UpdateChart(audio);
 		emit freqencyChanged(midFreq, bandwidth);
 	}

@@ -369,3 +369,30 @@ void cAudioTrack::calculateAnimation(double midFreq, double bandwidth, bool pitc
 		animation.append(getBand(i, midFreq, bandwidth, pitchMode));
 	}
 }
+
+void cAudioTrack::decayFilter(double strength)
+{
+	float value = 0.0f;
+	for (int i = 0; i < numberOfFrames; i++)
+	{
+		if (animation[i] > value)
+		{
+			value = animation[i];
+		}
+		else
+		{
+			value = (animation[i] - value) / strength + value;
+		}
+		animation[i] = value;
+	}
+}
+
+void cAudioTrack::smoothFilter(double strength)
+{
+	float value = 0.0f;
+	for (int i = 0; i < numberOfFrames; i++)
+	{
+		value = (animation[i] - value) / strength + value;
+		animation[i] = value;
+	}
+}

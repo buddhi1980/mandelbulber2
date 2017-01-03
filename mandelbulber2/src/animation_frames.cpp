@@ -501,7 +501,15 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 		double multFactor =
 			params->Get<double>(QString("animsound_multfactor_%1").arg(fullParameterNameWithSufix));
 		float animSound = audioTracks.GetAudioTrackPtr(fullParameterNameWithSufix)->getAnimation(frame);
-		newVal = oldVal * (1.0 + animSound * multFactor) + animSound * addiitionFactor;
+
+		if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSufix)))
+		{
+			newVal = oldVal / (1.0 + animSound * multFactor) - animSound * addiitionFactor;
+		}
+		else
+		{
+			newVal = oldVal * (1.0 + animSound * multFactor) + animSound * addiitionFactor;
+		}
 	}
 	return newVal;
 }
