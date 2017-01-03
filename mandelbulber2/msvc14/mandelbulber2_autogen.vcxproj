@@ -217,16 +217,6 @@
     <MakeDir Directories="$(OutDir)" />
     <MakeDir Directories="$(IntDir)" />
     <Exec Command="xcopy /Y /I /S $(SourceDir)mandelbulber2\deploy\share\mandelbulber2 $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Core.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Gamepad.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Gui.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Multimedia.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5MultimediaQuick_p.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5MultimediaWidgets.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Network.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Svg.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Test.dll $(OutDir)" />
-    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Widgets.dll $(OutDir)" />
     <Exec Command="xcopy /Y /I $(QtDir)\plugins\gamepads $(OutDir)gamepads" />
     <Exec Command="xcopy /Y /I $(QtDir)\plugins\iconengines $(OutDir)iconengines" />
     <Exec Command="xcopy /Y /I $(QtDir)\plugins\imageformats $(OutDir)imageformats" />
@@ -248,5 +238,29 @@
     <Exec Command="xcopy /Y /I  $(SourceDir)\mandelbulber2\qt $(OutDir)source\qt" />
     <Exec Command="mkdir $(OutDir)makefiles" />
     <Exec Command="copy /Y $(SourceDir)\mandelbulber2\Release\mandelbulber.pro $(OutDir)makefiles\mandelbulber.pro" />
+  </Target>
+  <Target Name="Copy-QTLIBS" AfterTargets="Build-Package" Label="Release" Condition="( $(Configuration.ToLower().IndexOf('debug')) == -1 ) ">
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Core.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Gamepad.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Gui.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Multimedia.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5MultimediaQuick_p.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5MultimediaWidgets.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Network.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Svg.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Test.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Widgets.dll $(OutDir)" />
+  </Target>
+  <Target Name="Copy-QTLIBS" AfterTargets="Build-Package" Label="Debug" Condition="( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) ">
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Cored.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Gamepadd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Guid.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Multimediad.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5MultimediaQuick_pd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5MultimediaWidgetsd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Networkd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Svgd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Testd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Widgetsd.dll $(OutDir)" />
   </Target>
 </Project>

@@ -96,8 +96,8 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>$(SolutionDir)build-win/Debug/mandelbulber2.lib</ImportLibrary>
-      <ProgramDataBaseFile>$(SolutionDir)build-win/Debug/mandelbulber2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version>
       </Version>
@@ -142,8 +142,8 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>$(SolutionDir)build-win/Debug/mandelbulber2.lib</ImportLibrary>
-      <ProgramDataBaseFile>$(SolutionDir)build-win/Debug/mandelbulber2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version>
       </Version>
@@ -188,8 +188,8 @@
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>$(SolutionDir)build-win/Debug/mandelbulber2.lib</ImportLibrary>
-      <ProgramDataBaseFile>$(SolutionDir)build-win/Debug/mandelbulber2.pdb</ProgramDataBaseFile>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
       <Version>
       </Version>
@@ -713,7 +713,7 @@
     <Import Project="$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets" Condition="Exists('$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" />
     <Import Project="$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets')" />
     <Import Project="$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\bulbqt-msvc14-x64.targets')" />
-    <Import Project="$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7778\build\native\OpenEXR-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7778\build\native\OpenEXR-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7779\build\native\OpenEXR-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7779\build\native\OpenEXR-msvc14-x64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -729,6 +729,6 @@
     <Error Condition="!Exists('$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.0.10477\build\native\bulbqt-msvc14-x64.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7778\build\native\OpenEXR-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7778\build\native\OpenEXR-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7779\build\native\OpenEXR-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7779\build\native\OpenEXR-msvc14-x64.targets'))" />
   </Target>
 </Project>
