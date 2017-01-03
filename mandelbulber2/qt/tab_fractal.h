@@ -58,30 +58,30 @@ public:
 	explicit cTabFractal(QWidget *parent = nullptr);
 	~cTabFractal();
 
-	void InitWidgetNames();
+	void InitWidgetNames() const;
 	void Init(bool firstTab, int _tabIndex);
-	void FormulaTransformSetVisible(bool visible);
-	void CConstantAdditionSetVisible(bool visible);
-	void MaterialSetVisible(bool visible);
-	void FrameIterationFormulaSetEnabled(bool enabled);
-	void FrameIterationFormulaSetWidgetsVisibility(bool visible);
-	int GetCurrentFractalIndexOnList();
-	void SynchronizeInterface(cParameterContainer *par, qInterface::enumReadWrite mode);
-	void SynchronizeFractal(cParameterContainer *fractal, qInterface::enumReadWrite mode);
+	void FormulaTransformSetVisible(bool visible) const;
+	void CConstantAdditionSetVisible(bool visible) const;
+	void MaterialSetVisible(bool visible) const;
+	void FrameIterationFormulaSetEnabled(bool enabled) const;
+	void FrameIterationFormulaSetWidgetsVisibility(bool visible) const;
+	int GetCurrentFractalIndexOnList() const;
+	void SynchronizeInterface(cParameterContainer *par, qInterface::enumReadWrite mode) const;
+	void SynchronizeFractal(cParameterContainer *fractal, qInterface::enumReadWrite mode) const;
 
 private slots:
 	void slotChangedComboFractal(int indexInComboBox);
-	void slotPressedButtonResetFormula();
+	void slotPressedButtonResetFormula() const;
 
 	// IFS
-	void slotPressedButtonIFSDefaultsDodecahedron();
-	void slotPressedButtonIFSDefaultsIcosahedron();
-	void slotPressedButtonIFSDefaultsOctahedron();
-	void slotPressedButtonIFSDefaultsMengerSponge();
-	void slotPressedButtonIFSDefaultsReset();
+	void slotPressedButtonIFSDefaultsDodecahedron() const;
+	void slotPressedButtonIFSDefaultsIcosahedron() const;
+	void slotPressedButtonIFSDefaultsOctahedron() const;
+	void slotPressedButtonIFSDefaultsMengerSponge() const;
+	void slotPressedButtonIFSDefaultsReset() const;
 
 private:
-	void ConnectSignals();
+	static void ConnectSignals();
 
 	Ui::cTabFractal *ui;
 

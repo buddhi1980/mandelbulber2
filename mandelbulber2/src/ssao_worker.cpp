@@ -73,14 +73,14 @@ void cSSAOWorker::doWork()
 	double *sine = new double[quality];
 	for (int i = 0; i < quality; i++)
 	{
-		sine[i] = sin((double)i / quality * 2.0 * M_PI);
-		cosine[i] = cos((double)i / quality * 2.0 * M_PI);
+		sine[i] = sin(double(i) / quality * 2.0 * M_PI);
+		cosine[i] = cos(double(i) / quality * 2.0 * M_PI);
 	}
 
 	params::enumPerspectiveType perspectiveType = params->perspectiveType;
 
-	double scale_factor = (double)width / (quality * quality) / 2.0;
-	double aspectRatio = (double)width / height;
+	double scale_factor = double(width) / (quality * quality) / 2.0;
+	double aspectRatio = double(width) / height;
 
 	if (perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
 
@@ -125,8 +125,8 @@ void cSSAOWorker::doWork()
 				double x2, y2;
 				if (perspectiveType == params::perspFishEye)
 				{
-					x2 = M_PI * ((double)x / width - 0.5) * aspectRatio;
-					y2 = M_PI * ((double)y / height - 0.5);
+					x2 = M_PI * (double(x) / width - 0.5) * aspectRatio;
+					y2 = M_PI * (double(y) / height - 0.5);
 					double r = sqrt(x2 * x2 + y2 * y2);
 					if (r != 0.0)
 					{
@@ -136,21 +136,21 @@ void cSSAOWorker::doWork()
 				}
 				else if (perspectiveType == params::perspEquirectangular)
 				{
-					x2 = M_PI * ((double)x / width - 0.5) * aspectRatio;
-					y2 = M_PI * ((double)y / height - 0.5);
+					x2 = M_PI * (double(x) / width - 0.5) * aspectRatio;
+					y2 = M_PI * (double(y) / height - 0.5);
 					x2 = sin(fov * x2) * cos(fov * y2) * z;
 					y2 = sin(fov * y2) * z;
 				}
 				else
 				{
-					x2 = ((double)x / width - 0.5) * aspectRatio;
-					y2 = ((double)y / height - 0.5);
+					x2 = (double(x) / width - 0.5) * aspectRatio;
+					y2 = double(y) / height - 0.5;
 					x2 = x2 * z * fov;
 					y2 = y2 * z * fov;
 				}
 
 				double ambient = 0;
-				double angleStep = M_PI * 2.0 / (double)quality;
+				double angleStep = M_PI * 2.0 / double(quality);
 				int maxRandom = 62831 / quality;
 				double rRandom = 1.0;
 
@@ -179,9 +179,9 @@ void cSSAOWorker::doWork()
 						double xx = x + rr * ca;
 						double yy = y + rr * sa;
 
-						if ((int)xx == x && (int)yy == y) continue;
+						if (int(xx) == x && int(yy) == y) continue;
 						if (xx < startX || xx > endX - 1 || yy < startLine || yy > endLine - 1) continue;
-						double z2 = image->GetPixelZBuffer((int)xx, (int)yy);
+						double z2 = image->GetPixelZBuffer(int(xx), int(yy));
 
 						double xx2, yy2;
 						if (perspectiveType == params::perspFishEye)
@@ -205,7 +205,7 @@ void cSSAOWorker::doWork()
 						else
 						{
 							xx2 = (xx / width - 0.5) * aspectRatio;
-							yy2 = (yy / height - 0.5);
+							yy2 = yy / height - 0.5;
 							xx2 = xx2 * (z2 * fov);
 							yy2 = yy2 * (z2 * fov);
 						}
@@ -232,10 +232,10 @@ void cSSAOWorker::doWork()
 				if (xx >= endX - 1) break;
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGB16 pixel = image->GetPixelImage16(x + xx, y);
-				double shadeFactor = (65535.0 / 256.0) * total_ambient * intensity * (1.0 - opacity);
-				pixel.R = (unsigned short)std::min(pixel.R + (int)(colour.R * shadeFactor), 65535);
-				pixel.G = (unsigned short)std::min(pixel.G + (int)(colour.G * shadeFactor), 65535);
-				pixel.B = (unsigned short)std::min(pixel.B + (int)(colour.B * shadeFactor), 65535);
+				double shadeFactor = 65535.0 / 256.0 * total_ambient * intensity * (1.0 - opacity);
+				pixel.R = static_cast<unsigned short>(std::min(pixel.R + int(colour.R * shadeFactor), 65535));
+				pixel.G = static_cast<unsigned short>(std::min(pixel.G + int(colour.G * shadeFactor), 65535));
+				pixel.B = static_cast<unsigned short>(std::min(pixel.B + int(colour.B * shadeFactor), 65535));
 				image->PutPixelImage16(x + xx, y, pixel);
 			}
 		}

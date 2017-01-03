@@ -79,7 +79,7 @@ public:
 	cImage *image;
 
 public slots:
-	void doWork(void);
+	void doWork();
 
 signals:
 	void finished();

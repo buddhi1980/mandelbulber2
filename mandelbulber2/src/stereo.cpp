@@ -130,12 +130,12 @@ CVector2<double> cStereo::ModifyImagePoint(CVector2<double> imagePoint) const
 
 cStereo::enumEye cStereo::WhichEye(CVector2<double> imagePoint) const
 {
-	enumEye eye;
+	enumEye eye = eyeLeft;
 	switch (stereoMode)
 	{
 		case stereoDisabled: eye = eyeLeft; break;
-		case stereoLeftRight: eye = (imagePoint.x >= 0.0) ? eyeLeft : eyeRight; break;
-		case stereoTopBottom: eye = (imagePoint.y >= 0.0) ? eyeRight : eyeLeft; break;
+		case stereoLeftRight: eye = imagePoint.x >= 0.0 ? eyeLeft : eyeRight; break;
+		case stereoTopBottom: eye = imagePoint.y >= 0.0 ? eyeRight : eyeLeft; break;
 		case stereoRedCyan: eye = eyeLeft; break;
 	}
 	return eye;
@@ -176,7 +176,7 @@ void cStereo::WhichEyeForAnaglyph(enumEye *eye, int repeat) const
 		else if (forceEye == eyeRight)
 			*eye = eyeRight;
 		else
-			*eye = (enumEye)(repeat % 2);
+			*eye = enumEye(repeat % 2);
 	}
 	// else do not modify eye selection
 }
@@ -271,7 +271,7 @@ void cStereo::StoreImageInBuffer(cImage *image)
 	imageBufferHeight = height;
 }
 
-void cStereo::MixImages(cImage *image)
+void cStereo::MixImages(cImage *image) const
 {
 	int width = image->GetWidth();
 	int height = image->GetHeight();

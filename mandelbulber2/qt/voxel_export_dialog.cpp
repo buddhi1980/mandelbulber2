@@ -124,7 +124,7 @@ void cVoxelExportDialog::on_pushButton_start_render_layers_clicked()
 	}
 }
 
-void cVoxelExportDialog::on_pushButton_stop_render_layers_clicked()
+void cVoxelExportDialog::on_pushButton_stop_render_layers_clicked() const
 {
 	if (slicerBusy)
 	{
@@ -167,11 +167,11 @@ void cVoxelExportDialog::slotSlicerFinished()
 }
 
 void cVoxelExportDialog::slotUpdateProgressAndStatus(
-	const QString &text, const QString &progressText, double progress)
+	const QString &text, const QString &progressText, double progress) const
 {
 	ui->label_info->setText(text);
 	if (!ui->progressBar->isVisible()) ui->progressBar->setVisible(true);
-	ui->progressBar->setValue((int)(progress * 1000.0));
+	ui->progressBar->setValue(int(progress * 1000.0));
 	ui->progressBar->setTextVisible(true);
 	ui->progressBar->setFormat(progressText);
 }

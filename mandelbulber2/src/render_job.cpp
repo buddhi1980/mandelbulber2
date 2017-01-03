@@ -81,7 +81,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 
 	systemData.numberOfThreads = paramsContainer->Get<int>("limit_CPU_cores");
 	systemData.threadsPriority =
-		(enumRenderingThreadPriority)paramsContainer->Get<int>("threads_priority");
+		enumRenderingThreadPriority(paramsContainer->Get<int>("threads_priority"));
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	renderData = nullptr;
 	useSizeFromImage = false;
@@ -115,7 +115,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	if (config.UseNetRender()) canUseNetRender = gNetRender->Block();
 
 	cStereo stereo;
-	stereo.SetMode((cStereo::enumStereoMode)paramsContainer->Get<int>("stereo_mode"));
+	stereo.SetMode(cStereo::enumStereoMode(paramsContainer->Get<int>("stereo_mode")));
 	if (!paramsContainer->Get<bool>("stereo_enabled")) stereo.SetMode(cStereo::stereoDisabled);
 	if (paramsContainer->Get<bool>("stereo_swap_eyes")) stereo.SwapEyes();
 
@@ -301,7 +301,7 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 	renderData->objectData.resize(NUMBER_OF_FRACTALS); // reserve first items for fractal formulas
 }
 
-bool cRenderJob::Execute(void)
+bool cRenderJob::Execute()
 {
 	// if(image->IsUsed())
 	//{
@@ -344,16 +344,16 @@ bool cRenderJob::Execute(void)
 				eye = cStereo::eyeRight;
 
 			renderData->stereo.ForceEye(eye);
-			paramsContainer->Set("stereo_actual_eye", (int)eye);
+			paramsContainer->Set("stereo_actual_eye", int(eye));
 		}
 		else if (!gNetRender->IsClient())
 		{
-			paramsContainer->Set("stereo_actual_eye", (int)cStereo::eyeNone);
+			paramsContainer->Set("stereo_actual_eye", int(cStereo::eyeNone));
 		}
 
 		if (gNetRender->IsClient())
 		{
-			cStereo::enumEye eye = (cStereo::enumEye)paramsContainer->Get<int>("stereo_actual_eye");
+			cStereo::enumEye eye = cStereo::enumEye(paramsContainer->Get<int>("stereo_actual_eye"));
 			if (eye != cStereo::eyeNone)
 			{
 				renderData->stereo.ForceEye(eye);
@@ -504,7 +504,7 @@ bool cRenderJob::Execute(void)
 	return result;
 }
 
-void cRenderJob::ChangeCameraTargetPosition(cCameraTarget &cameraTarget)
+void cRenderJob::ChangeCameraTargetPosition(cCameraTarget &cameraTarget) const
 {
 	paramsContainer->Set("camera", cameraTarget.GetCamera());
 	paramsContainer->Set("target", cameraTarget.GetTarget());
@@ -528,7 +528,7 @@ void cRenderJob::UpdateParameters(
 	PrepareData(renderData->configuration);
 }
 
-void cRenderJob::ReduceDetail()
+void cRenderJob::ReduceDetail() const
 {
 	if (mode == flightAnimRecord)
 	{
@@ -547,7 +547,7 @@ void cRenderJob::slotExecute()
 	emit finished();
 }
 
-QStringList cRenderJob::CreateListOfUsedTextures()
+QStringList cRenderJob::CreateListOfUsedTextures() const
 {
 	QSet<QString> listOfTextures;
 	if (renderData)
@@ -583,12 +583,12 @@ QStringList cRenderJob::CreateListOfUsedTextures()
 	return QStringList();
 }
 
-void cRenderJob::UpdateConfig(const cRenderingConfiguration &config)
+void cRenderJob::UpdateConfig(const cRenderingConfiguration &config) const
 {
 	renderData->configuration = config;
 }
 
-cStatistics cRenderJob::GetStatistics(void)
+cStatistics cRenderJob::GetStatistics() const
 {
 	return renderData->statistics;
 }

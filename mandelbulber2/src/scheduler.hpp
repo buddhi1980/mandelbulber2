@@ -52,11 +52,11 @@ public:
 	bool ShouldIBreak(int threadId, int actualLine) const;
 	bool ThereIsStillSomethingToDo(int ThreadId) const;
 	bool AllLinesDone() const;
-	void InitFirstLine(int threadId, int firstLine);
-	QList<int> GetLastRenderedLines(void);
+	void InitFirstLine(int threadId, int firstLine) const;
+	QList<int> GetLastRenderedLines() const;
 	double PercentDone() const;
 	void Stop() { stopRequest = true; }
-	void MarkReceivedLines(const QList<int> &lineNumbers);
+	void MarkReceivedLines(const QList<int> &lineNumbers) const;
 	void UpdateDoneLines(const QList<int> &done);
 
 	int GetProgressiveStep() const { return progressiveStep; }
@@ -66,7 +66,7 @@ public:
 	bool IsLineDoneByServer(int line) const;
 
 private:
-	void Reset(void);
+	void Reset() const;
 	int FindBiggestGap() const;
 
 	int *linePendingThreadId;

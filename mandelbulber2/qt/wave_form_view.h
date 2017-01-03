@@ -62,7 +62,7 @@ public:
 	void AssignAudioTrack(const cAudioTrack *audiotrack);
 
 private:
-	void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *event) override;
 
 	QImage waveImage;
 	QImage scaledWaveImage;

@@ -48,9 +48,9 @@ public:
 		benchmarkTestMode
 	};
 	Test(enumTestMode testMode_) { testMode = testMode_; }
-	bool IsBenchmarking() { return testMode == enumTestMode::benchmarkTestMode; }
+	bool IsBenchmarking() const { return testMode == enumTestMode::benchmarkTestMode; }
 private:
-	QString testFolder();
+	static QString testFolder();
 	enumTestMode testMode;
 
 	void renderExamples();
@@ -59,8 +59,8 @@ private:
 	void renderSimple();
 
 private slots:
-	void init();
-	void cleanup();
+	static void init();
+	static void cleanup();
 	void renderExamplesWrapper();
 	void netrender();
 	void testFlightWrapper();

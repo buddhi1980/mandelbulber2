@@ -575,7 +575,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	}
 }
 
-void RenderWindow::slotUpdateDocksandToolbarbyView()
+void RenderWindow::slotUpdateDocksandToolbarbyView() const
 {
 	// Animation dock
 	if (ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())

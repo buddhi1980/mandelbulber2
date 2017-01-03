@@ -64,7 +64,7 @@ cScheduler::~cScheduler()
 	delete[] lastLinesDone;
 }
 
-void cScheduler::Reset()
+void cScheduler::Reset() const
 {
 	memset(linePendingThreadId, 0, sizeof(int) * endLine);
 	memset(lineDone, 0, sizeof(bool) * endLine);
@@ -90,7 +90,7 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId) const
 	return result;
 }
 
-bool cScheduler::AllLinesDone(void) const
+bool cScheduler::AllLinesDone() const
 {
 	bool result = true;
 	for (int i = startLine; i < endLine; i++)
@@ -127,7 +127,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	mutex.lock();
 	// qDebug() << "threadID:" << threadId << " Actual line:" << actualLine;
 
-	int nextLine = -1;
+	int nextLine;
 
 	if (!lastLineWasBroken)
 	{
@@ -189,7 +189,7 @@ int cScheduler::FindBiggestGap() const
 {
 	bool firstFreeFound = false;
 	int firstFree = -1;
-	int lastFree = -1;
+	int lastFree;
 	int maxHole = 0;
 	int theBest = -1;
 
@@ -230,12 +230,12 @@ int cScheduler::FindBiggestGap() const
 	return theBest;
 }
 
-void cScheduler::InitFirstLine(int threadId, int firstLine)
+void cScheduler::InitFirstLine(int threadId, int firstLine) const
 {
 	linePendingThreadId[firstLine] = threadId;
 }
 
-QList<int> cScheduler::GetLastRenderedLines(void)
+QList<int> cScheduler::GetLastRenderedLines() const
 {
 	QList<int> list;
 	for (int i = startLine; i < endLine; i++)
@@ -265,12 +265,12 @@ double cScheduler::PercentDone() const
 
 	if (progressiveEnabled)
 	{
-		percent_done = ((double)count / numberOfLines) * 0.75 / (progressiveStep * progressiveStep)
+		percent_done = double(count) / numberOfLines * 0.75 / (progressiveStep * progressiveStep)
 									 + progressiveDone;
 	}
 	else
 	{
-		percent_done = (double)count / numberOfLines;
+		percent_done = double(count) / numberOfLines;
 	}
 
 	return percent_done;
@@ -293,7 +293,7 @@ bool cScheduler::ProgressiveNextStep()
 	}
 }
 
-void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
+void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers) const
 {
 	for (int i = 0; i < lineNumbers.size(); i++)
 	{

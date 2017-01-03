@@ -116,7 +116,7 @@ void cSystemTray::checkBusy()
 	}
 }
 
-void cSystemTray::showMessage(QString text, QString progressText)
+void cSystemTray::showMessage(QString text, QString progressText) const
 {
 	if (gPar->Get<bool>("system_tray_notify"))
 	{
@@ -124,7 +124,7 @@ void cSystemTray::showMessage(QString text, QString progressText)
 	}
 }
 
-void cSystemTray::slotStopped()
+void cSystemTray::slotStopped() const
 {
 	stActionStop->setEnabled(false);
 	stActionRender->setEnabled(true);
@@ -132,7 +132,7 @@ void cSystemTray::slotStopped()
 	stActionRenderFlight->setEnabled(true);
 }
 
-void cSystemTray::slotStarted()
+void cSystemTray::slotStarted() const
 {
 	stActionStop->setEnabled(true);
 	stActionRender->setEnabled(false);
@@ -145,12 +145,12 @@ void cSystemTray::slotToggleNotification(bool notify)
 	gPar->Set("system_tray_notify", notify);
 }
 
-void cSystemTray::slotStartRender(void)
+void cSystemTray::slotStartRender()
 {
 	gMainInterface->StartRender();
 }
 
-void cSystemTray::slotStopRender(void)
+void cSystemTray::slotStopRender()
 {
 	gMainInterface->stopRequest = true;
 }

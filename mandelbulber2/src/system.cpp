@@ -61,7 +61,7 @@
 sSystem systemData;
 sActualFileNames actualFileNames;
 
-bool InitSystem(void)
+bool InitSystem()
 {
 	setlocale(LC_ALL, "");
 	systemData.locale = QLocale::system();
@@ -75,7 +75,7 @@ bool InitSystem(void)
 	systemData.homedir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
 
 #ifdef WIN32 /* WINDOWS */
-	systemData.sharedDir = QDir::toNativeSeparators((QDir::currentPath() + QDir::separator()));
+	systemData.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());
 #else
 	systemData.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
 #endif /* WINDOWS */
@@ -212,7 +212,7 @@ void WriteLogDouble(QString text, double value, int verbosityLevel)
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
 
-bool CreateDefaultFolders(void)
+bool CreateDefaultFolders()
 {
 	// create data directory if not exists
 	bool result = true;
@@ -351,7 +351,7 @@ int fcopy(QString source, QString dest)
 
 		// copy the file into the buffer:
 		result = fread(buffer, 1, lSize, pFile);
-		if (result != (size_t)lSize)
+		if (result != size_t(lSize))
 		{
 			qCritical() << "Can't read source file for copying: " << source << endl;
 			WriteLogString("Can't read source file for copying", source, 1);
@@ -435,7 +435,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 	if (type == QtFatalMsg) abort();
 }
 
-void UpdateDefaultPaths(void)
+void UpdateDefaultPaths()
 {
 	systemData.lastSettingsFile =
 		gPar->Get<QString>("default_settings_path") + QDir::separator() + QString("settings.fract");
@@ -449,7 +449,7 @@ void UpdateDefaultPaths(void)
 		gPar->Get<QString>("default_textures_path") + QDir::separator() + "lightmap.jpg");
 }
 
-void UpdateUIStyle(void)
+void UpdateUIStyle()
 {
 	// set ui style
 	if (gPar->Get<int>("ui_style_type") >= 0
@@ -460,7 +460,7 @@ void UpdateUIStyle(void)
 	}
 }
 
-void UpdateUISkin(void)
+void UpdateUISkin()
 {
 	static QPalette defaultPalette; // cache "normal" skin on first call
 	QPalette palette;

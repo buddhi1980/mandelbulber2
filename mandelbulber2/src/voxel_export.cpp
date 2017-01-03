@@ -86,7 +86,7 @@ void cVoxelExport::ProcessVolume()
 	{
 		QString statusText =
 			" - " + tr("Processing layer %1 of %2").arg(QString::number(z + 1), QString::number(l));
-		double percentDone = (double)z / l;
+		double percentDone = double(z) / l;
 		emit updateProgressAndStatus(
 			tr("Voxel Export") + statusText, progressText.getText(percentDone), percentDone);
 
@@ -106,7 +106,7 @@ void cVoxelExport::ProcessVolume()
 
 				double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
 
-				voxelLayer[x + y * w] = (unsigned char)(dist <= dist_thresh);
+				voxelLayer[x + y * w] = static_cast<unsigned char>(dist <= dist_thresh);
 			}
 		}
 
@@ -127,7 +127,7 @@ void cVoxelExport::ProcessVolume()
 	emit finished();
 }
 
-bool cVoxelExport::StoreLayer(int z)
+bool cVoxelExport::StoreLayer(int z) const
 {
 	QString filename =
 		folder.absolutePath() + QDir::separator() + QString("layer_%1.png").arg(z, 5, 10, QChar('0'));

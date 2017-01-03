@@ -89,7 +89,7 @@ public:
 	void SetFrontDist(double dist) { frontDist = dist; }
 	void SetCursorVisibility(bool enable) { cursorVisible = enable; }
 	void SetFlightData(const sFlightData &fData) { flightData = fData; }
-	CVector2<double> GetLastMousePositionScaled(void);
+	// CVector2<double> GetLastMousePositionScaled();
 
 public slots:
 	void slotSetMinimumSize(int width, int height);
@@ -104,23 +104,23 @@ signals:
 	void Pause();
 
 protected:
-	void paintEvent(QPaintEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);
-	void mousePressEvent(QMouseEvent *event);
-	void mouseReleaseEvent(QMouseEvent *event);
-	void keyPressEvent(QKeyEvent *event);
-	void keyReleaseEvent(QKeyEvent *event);
-	void enterEvent(QEvent *event);
-	void leaveEvent(QEvent *event);
-	void wheelEvent(QWheelEvent *event);
+	void paintEvent(QPaintEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
+	void mousePressEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
+	void keyPressEvent(QKeyEvent *event) override;
+	void keyReleaseEvent(QKeyEvent *event) override;
+	void enterEvent(QEvent *event) override;
+	void leaveEvent(QEvent *event) override;
+	void wheelEvent(QWheelEvent *event) override;
 
 private:
 	void DisplayCoordinates();
 	void Display3DCursor(CVector2<int> screenPoint, double z);
-	void DisplayCrosshair();
-	void DrawHud(CVector3 rotation);
-	void Draw3DBox(double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye);
-	CVector3 CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
+	void DisplayCrosshair() const;
+	void DrawHud(CVector3 rotation) const;
+	void Draw3DBox(double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye) const;
+	static CVector3 CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
 
 	cImage *image;
 	QList<QVariant> clickModeData;

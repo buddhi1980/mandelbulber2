@@ -72,15 +72,15 @@ public:
 
 	bool Init(enumMode _mode, const cRenderingConfiguration &config);
 	bool Execute();
-	cImage *GetImagePtr() { return image; }
-	int GetNumberOfCPUs() { return totalNumberOfCPUs; }
+	cImage *GetImagePtr() const { return image; }
+	int GetNumberOfCPUs() const { return totalNumberOfCPUs; }
 	void UseSizeFromImage(bool mode) { useSizeFromImage = mode; }
-	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget);
+	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget) const;
 
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
-	void UpdateConfig(const cRenderingConfiguration &config);
+	void UpdateConfig(const cRenderingConfiguration &config) const;
 	static int GetRunningJobCount() { return runningJobs; }
-	cStatistics GetStatistics(void);
+	cStatistics GetStatistics() const;
 
 public slots:
 	void slotExecute();
@@ -88,8 +88,8 @@ public slots:
 private:
 	bool InitImage(int w, int h, const sImageOptional &optional);
 	void PrepareData(const cRenderingConfiguration &config);
-	void ReduceDetail();
-	QStringList CreateListOfUsedTextures();
+	void ReduceDetail() const;
+	QStringList CreateListOfUsedTextures() const;
 
 	bool hasQWidget;
 	bool inProgress;

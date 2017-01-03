@@ -60,7 +60,7 @@ public slots:
 	void ProcessVolume();
 
 private:
-	bool StoreLayer(int z);
+	bool StoreLayer(int z) const;
 
 	unsigned char *voxelLayer;
 	int w, h, l;

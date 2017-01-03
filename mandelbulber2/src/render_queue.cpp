@@ -169,9 +169,9 @@ void cRenderQueue::slotRenderQueue()
 	emit finished();
 }
 
-bool cRenderQueue::RenderFlight()
+bool cRenderQueue::RenderFlight() const
 {
-	bool result = false;
+	bool result;
 	if (systemData.noGui)
 	{
 		// gMainInterface->headless->RenderFlightAnimation();
@@ -184,9 +184,9 @@ bool cRenderQueue::RenderFlight()
 	return result;
 }
 
-bool cRenderQueue::RenderKeyframe()
+bool cRenderQueue::RenderKeyframe() const
 {
-	bool result = false;
+	bool result;
 	if (systemData.noGui)
 	{
 		// gMainInterface->headless->RenderKeyframeAnimation();
@@ -202,7 +202,7 @@ bool cRenderQueue::RenderKeyframe()
 bool cRenderQueue::RenderStill(const QString &filename)
 {
 	ImageFileSave::enumImageFileType imageFormat =
-		(ImageFileSave::enumImageFileType)gPar->Get<int>("queue_image_format");
+		ImageFileSave::enumImageFileType(gPar->Get<int>("queue_image_format"));
 	QString extension = ImageFileSave::ImageFileExtension(imageFormat);
 	QString saveFilename = QFileInfo(filename).baseName() + extension;
 

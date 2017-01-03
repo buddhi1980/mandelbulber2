@@ -50,7 +50,7 @@ public:
 	~cThumbnail();
 	void AssignWidget(QWidget *widget) { qwidget = widget; }
 	QPixmap Render();
-	void Save(QString filename);
+	void Save(QString filename) const;
 
 private:
 	cImage *image;
