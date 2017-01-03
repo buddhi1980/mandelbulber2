@@ -97,7 +97,7 @@ after_build:
   - del Release\qt_data
   - del Release\data
   - xcopy /I mandelbulber2\language Release\language
-  - xcopy /I mandelbulber2\qt_data Release\qt_data
+  - xcopy /I /S mandelbulber2\qt_data Release\qt_data
   - xcopy /I mandelbulber2\data Release\data
   
   # gather other meta files
