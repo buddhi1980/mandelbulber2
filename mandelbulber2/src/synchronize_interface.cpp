@@ -711,14 +711,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 // extract name and type string from widget name
 void GetNameAndType(QString name, QString *parameterName, QString *type)
 {
-#if defined(_MSC_VER)
-#pragma warning(push)
-#pragma warning(disable : 4267) // possible loss of data
-#endif
-	size_t firstDashPosition = name.indexOf("_");
+	int firstDashPosition = name.indexOf("_");
 	*type = name.left(firstDashPosition);
 	*parameterName = name.mid(firstDashPosition + 1);
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 }

@@ -52,6 +52,8 @@
 #pragma warning(disable : 4005) // macro redefinition
 #endif
 
+// MSVC defines math constants elsewhere, do not warn about the
+// redefinition in math.h
 #include <math.h>
 
 #if defined(_MSC_VER)
