@@ -240,7 +240,7 @@
     <Exec Command="mkdir $(OutDir)makefiles" />
     <Exec Command="copy /Y $(SourceDir)\mandelbulber2\Release\mandelbulber.pro $(OutDir)makefiles\mandelbulber.pro" />
   </Target>
-  <Target Name="Copy-QTLIBS" AfterTargets="Build-Package" Label="Release" Condition="( $(Configuration.ToLower().IndexOf('debug')) == -1 ) ">
+  <Target Name="Copy-QTLIBS-Release" AfterTargets="Build-Package" Condition="( $(Configuration.ToLower().IndexOf('debug')) == -1 ) ">
     <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Core.dll $(OutDir)" />
     <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Gamepad.dll $(OutDir)" />
     <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Gui.dll $(OutDir)" />
@@ -252,7 +252,7 @@
     <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Test.dll $(OutDir)" />
     <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Widgets.dll $(OutDir)" />
   </Target>
-  <Target Name="Copy-QTLIBS" AfterTargets="Build-Package" Label="Debug" Condition="( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) ">
+  <Target Name="Copy-QTLIBS-Debug" AfterTargets="Build-Package" Condition="( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) ">
     <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Cored.dll $(OutDir)" />
     <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Gamepadd.dll $(OutDir)" />
     <Exec Command="xcopy /Y $(QtDir)\bin\Qt5Guid.dll $(OutDir)" />
