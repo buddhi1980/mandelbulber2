@@ -79,6 +79,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 		'id' => $indexIdLookup[$index],
 		'openclFile' => PROJECT_PATH . 'opencl/formula/fractal_' . $internalName . '.cl',
 		'openclCode' => parseToOpenCL($code),
+		'type' => (strpos($internalName, 'transf_') !== false ? 'transf' : 'formula'),
 	);
 	// print_r($formulas); exit;
 }
@@ -222,6 +223,23 @@ foreach($formulas as $index => $formula){
 	}
 	echo successString(basename($formula['openclFile']) . ' changed.') . PHP_EOL;
 }
+
+// formula icons
+foreach($formulas as $index => $formula){
+	// autogenerate missing formula_and_transform_images
+        $imgPath = PROJECT_PATH .'qt_data/formula_and_transform_images/' . $formula['internalName'] . '.png';
+        if(file_exists($imgPath)){
+            if(isVerbose()){
+                    echo noticeString('image ' . $imgPath . ' already exists.') . PHP_EOL;
+            }
+            continue;
+        }
+	echo noticeString('image ' . $imgPath . ' does not exist, will generate...') . PHP_EOL;
+        generate_formula_icon($formula, $imgPath);
+	echo successString('image ' . $imgPath . ' generated.') . PHP_EOL;
+}
+
+
 
 if(isDryRun()){
 	echo 'This is a dry run.' . PHP_EOL;
@@ -396,6 +414,89 @@ function parseToOpenCL($code){
 		$code = preg_replace($item['find'], $item['replace'], $code); // regex sometimes overlap, so run twice!
 	}
 	return $code;
+}
+
+
+function generate_formula_icon($formula, $imgPath){
+	$formulaId = $formula['id'];
+	if($formula['type'] == 'transf'){
+        $settings = '# Mandelbulber settings file
+# version 2.09
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 1,079630935663999 -2,590704819137228 1,163428502911517;
+camera_distance_to_target 7,000000000000004;
+camera_rotation 23,56505117707793 -24,60154959902026 0;
+camera_top -0,1664347300812756 0,3815883285622319 0,9092248501486611;
+flight_last_to_render 0;
+formula_1 7;
+formula_2 ' . $formulaId . ';
+hdr true;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+keyframe_last_to_render 0;
+target -1,464862100002681 3,2431066939054 -1,750709177730066;
+[fractal_1]
+[fractal_2]
+info true;
+mandelbox_folding_limit -0,5;
+mandelbox_folding_value 0;
+transf_addition_constant_0000 0,1 -0,5 0,1 -0,2;
+transf_addition_constant_111 0,135135 1 1;
+transf_function_enabledAz_false true;
+transf_int_A 5;
+transf_int_B 5;
+transf_offset 0,7;
+transf_offset_0 0,8;';
+	}else{
+                $settings = '# Mandelbulber settings file
+# version 2.09
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 1,080915186153033 -1,903722297292515 1,202015809937754;
+camera_distance_to_target 6,277124159763113;
+camera_rotation 29,9681686749304 -29,10022837829406 0;
+camera_top -0,2429354017345652 0,421316840960071 0,8737702845184721;
+DE_factor 0,18197;
+flight_last_to_render 0;
+formula_1 ' . $formulaId . ';
+hdr true;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+keyframe_last_to_render 0;
+mat1_coloring_palette_offset 1,6;
+target -1,65882778581033 2,847745976777177 -1,850793618305075;
+[fractal_1]
+transf_function_enabled_false true;
+[fractal_2]
+info true;
+mandelbox_folding_limit -0,5;
+mandelbox_folding_value 0;
+transf_addition_constant 1,935484 0 0;
+transf_addition_constant_0000 0,1 -0,5 0,1 -0,2;
+transf_constant_multiplier_111 2,934272 2,089201 1,877934;
+transf_function_enabledy_false true;
+transf_function_enabledz_false true;
+transf_int_A 5;
+transf_int_B 5;
+transf_offset 0,7;
+transf_offset_0 0,8;
+transf_scale_0 0,034722;
+transf_scale_2 1,079812;';
+	}
+        $tempFractPath = PROJECT_PATH .'qt_data/formula_and_transform_images/' . $formula['internalName'] . '.fract';
+        
+        if(!file_exists($tempFractPath)){ // allow manual override
+            file_put_contents($tempFractPath, $settings);
+        }
+        $cmd = PROJECT_PATH ."Debug/mandelbulber2 -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
+        echo PHP_EOL . $cmd . PHP_EOL;
+        shell_exec($cmd);
+        shell_exec("convert '" . $imgPath . "' -depth 8 '" . $imgPath . "'"); // save disk space with 8-bit png
 }
 
 ?>
