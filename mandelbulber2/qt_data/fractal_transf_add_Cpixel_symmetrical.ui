@@ -290,19 +290,6 @@
   z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sign&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sign&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sign&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-
-  &lt;span style=&quot;color:#d0d0a0&quot;&gt;/*if (z.x &amp;gt; 0)&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;    z.x += tempFAB.x;&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;  else&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;    z.x -= tempFAB.x;&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;  if (z.y &amp;gt; 0)&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;    z.y += tempFAB.y;&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;  else&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;    z.y -= tempFAB.y;&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;  if (z.z &amp;gt; 0)&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;    z.z += tempFAB.z;&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;  else&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;    z.z -= tempFAB.z;*/&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>

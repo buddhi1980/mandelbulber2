@@ -543,10 +543,13 @@ void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sEx
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w, 2.0 * z.x * z.y - 2.0 * w * z.z,
-		2.0 * z.x * z.z - 2.0 * z.y * w);
+	double newx = z.x * z.x - z.y * z.y - z.z * z.z - w * w;
+	double newy = 2.0 * z.x * z.y - 2.0 * w * z.z;
+	double newz = 2.0 * z.x * z.z - 2.0 * z.y * w;
 	double neww = 2.0 * z.x * w - 2.0 * z.y * z.z;
-	z = newz;
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
 	w = neww;
 }
 
@@ -557,9 +560,13 @@ void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux)
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w, 2.0 * z.x * z.y, 2.0 * z.x * z.z);
+	double newx = z.x * z.x - z.y * z.y - z.z * z.z - w * w;
+	double newy = 2.0 * z.x * z.y;
+	double newz = 2.0 * z.x * z.z;
 	double neww = 2.0 * z.x * w;
-	z = newz;
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
 	w = neww;
 }
 
@@ -657,27 +664,11 @@ void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	double temp = 1.0 - z2 / (x2 + y2);
 	double newx = (x2 - y2) * temp;
 	double newy = 2.0 * z.x * z.y * temp;
-	double newz;
+	double newz = (fractal->buffalo.posz ? 2.0 : -2.0) * z.z * sqrt(x2 + y2);
 
-	if (fractal->buffalo.posz)
-		newz = 2.0 * z.z * sqrt(x2 + y2);
-	else
-		newz = -2.0 * z.z * sqrt(x2 + y2);
-
-	if (fractal->buffalo.absx)
-		z.x = fabs(newx);
-	else
-		z.x = newx;
-
-	if (fractal->buffalo.absy)
-		z.y = fabs(newy);
-	else
-		z.y = newy;
-
-	if (fractal->buffalo.absz)
-		z.z = fabs(newz);
-	else
-		z.z = newz;
+	z.x = fractal->buffalo.absx ? fabs(newx) : newx;
+	z.y = fractal->buffalo.absy ? fabs(newy) : newy;
+	z.z = fractal->buffalo.absz ? fabs(newz) : newz;
 }
 
 /**
@@ -1058,9 +1049,7 @@ void AexionOctopusModIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 	tempN.z = z.y;
 
 	if (fractal->transformCommon.functionEnabledAx) tempN.x = fabs(tempN.x);
-
 	if (fractal->transformCommon.functionEnabledAy) tempN.y = fabs(tempN.y);
-
 	if (fractal->transformCommon.functionEnabledAz) tempN.z = fabs(tempN.z);
 
 	z = tempN;
@@ -1074,24 +1063,14 @@ void AexionOctopusModIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 	{
 		CVector3 tempFAB = c;
 		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
-
 		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
-
 		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
 
 		tempFAB *= fractal->transformCommon.constantMultiplier000;
-		if (z.x > 0)
-			z.x += tempFAB.x;
-		else
-			z.x -= tempFAB.x;
-		if (z.y > 0)
-			z.y += tempFAB.y;
-		else
-			z.y -= tempFAB.y;
-		if (z.z > 0)
-			z.z += tempFAB.z;
-		else
-			z.z -= tempFAB.z;
+
+		z.x += sign(z.x) * tempFAB.x;
+		z.y += sign(z.y) * tempFAB.y;
+		z.z += sign(z.z) * tempFAB.z;
 	}
 }
 
@@ -5540,19 +5519,6 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 c, const cFractal *
 	z.x += sign(z.x) * tempFAB.x;
 	z.y += sign(z.y) * tempFAB.y;
 	z.z += sign(z.z) * tempFAB.z;
-
-	/*if (z.x > 0)
-		z.x += tempFAB.x;
-	else
-		z.x -= tempFAB.x;
-	if (z.y > 0)
-		z.y += tempFAB.y;
-	else
-		z.y -= tempFAB.y;
-	if (z.z > 0)
-		z.z += tempFAB.z;
-	else
-		z.z -= tempFAB.z;*/
 }
 
 /**
@@ -5600,10 +5566,7 @@ void TransformAddExp2ZIteration(CVector3 &z, const cFractal *fractal, sExtendedA
 				tempZ.x = -tempZ.x;
 			}
 			tempZ.x = exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
-			if (z.x > 0)
-				z.x += tempZ.x;
-			else
-				z.x -= tempZ.x;
+			z.x += sign(z.x) * tempZ.x;
 		}
 		else
 			z.x += exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
@@ -5619,10 +5582,7 @@ void TransformAddExp2ZIteration(CVector3 &z, const cFractal *fractal, sExtendedA
 				tempZ.y = -tempZ.y;
 			}
 			tempZ.y = exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
-			if (z.y > 0)
-				z.y += tempZ.y;
-			else
-				z.y -= tempZ.y;
+			z.y += sign(z.y) * tempZ.y;
 		}
 		else
 			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
@@ -5638,10 +5598,7 @@ void TransformAddExp2ZIteration(CVector3 &z, const cFractal *fractal, sExtendedA
 				tempZ.z = -tempZ.z;
 			}
 			tempZ.z = exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
-			if (z.z > 0)
-				z.z += tempZ.z;
-			else
-				z.z -= tempZ.z;
+			z.z += sign(z.z) * tempZ.z;
 		}
 		else
 			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
@@ -6470,18 +6427,9 @@ void TransformPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExt
 			M_PI * fractal->transformCommon.scale0);				// * cPI ;
 	if (fractal->transformCommon.functionEnabledzFalse) // box offset
 	{
-		if (fnZ1.x > 0)
-			fnZ1.x = fnZ1.x + fractal->transformCommon.additionConstant000.x;
-		else
-			fnZ1.x = fnZ1.x - fractal->transformCommon.additionConstant000.x;
-		if (fnZ1.y > 0)
-			fnZ1.y = fnZ1.y + fractal->transformCommon.additionConstant000.y;
-		else
-			fnZ1.y = fnZ1.y - fractal->transformCommon.additionConstant000.y;
-		if (fnZ1.z > 0)
-			fnZ1.z = fnZ1.z + fractal->transformCommon.additionConstant000.z;
-		else
-			fnZ1.z = fnZ1.z - fractal->transformCommon.additionConstant000.z;
+		fnZ1.x = fnZ1.x + sign(fnZ1.x) * fractal->transformCommon.additionConstant000.x;
+		fnZ1.y = fnZ1.y + sign(fnZ1.y) * fractal->transformCommon.additionConstant000.y;
+		fnZ1.z = fnZ1.z + sign(fnZ1.z) * fractal->transformCommon.additionConstant000.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // fabs fnZ1
