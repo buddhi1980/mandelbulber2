@@ -11,6 +11,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mandelbulber2_autogen", "ma
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AnalysisRelease|ARM = AnalysisRelease|ARM
+		AnalysisRelease|Win32 = AnalysisRelease|Win32
+		AnalysisRelease|x64 = AnalysisRelease|x64
 		Debug|ARM = Debug|ARM
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
@@ -19,6 +22,12 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E956454-2841-3284-B807-12E6244099E3}.AnalysisRelease|ARM.ActiveCfg = AnalysisRelease|ARM
+		{9E956454-2841-3284-B807-12E6244099E3}.AnalysisRelease|ARM.Build.0 = AnalysisRelease|ARM
+		{9E956454-2841-3284-B807-12E6244099E3}.AnalysisRelease|Win32.ActiveCfg = AnalysisRelease|Win32
+		{9E956454-2841-3284-B807-12E6244099E3}.AnalysisRelease|Win32.Build.0 = AnalysisRelease|Win32
+		{9E956454-2841-3284-B807-12E6244099E3}.AnalysisRelease|x64.ActiveCfg = AnalysisRelease|x64
+		{9E956454-2841-3284-B807-12E6244099E3}.AnalysisRelease|x64.Build.0 = AnalysisRelease|x64
 		{9E956454-2841-3284-B807-12E6244099E3}.Debug|ARM.ActiveCfg = Debug|ARM
 		{9E956454-2841-3284-B807-12E6244099E3}.Debug|ARM.Build.0 = Debug|ARM
 		{9E956454-2841-3284-B807-12E6244099E3}.Debug|Win32.ActiveCfg = Debug|Win32
@@ -31,6 +40,12 @@ Global
 		{9E956454-2841-3284-B807-12E6244099E3}.Release|Win32.Build.0 = Release|Win32
 		{9E956454-2841-3284-B807-12E6244099E3}.Release|x64.ActiveCfg = Release|x64
 		{9E956454-2841-3284-B807-12E6244099E3}.Release|x64.Build.0 = Release|x64
+		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.AnalysisRelease|ARM.ActiveCfg = AnalysisRelease|ARM
+		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.AnalysisRelease|ARM.Build.0 = AnalysisRelease|ARM
+		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.AnalysisRelease|Win32.ActiveCfg = AnalysisRelease|Win32
+		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.AnalysisRelease|Win32.Build.0 = AnalysisRelease|Win32
+		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.AnalysisRelease|x64.ActiveCfg = AnalysisRelease|x64
+		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.AnalysisRelease|x64.Build.0 = AnalysisRelease|x64
 		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.Debug|ARM.ActiveCfg = Debug|ARM
 		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.Debug|ARM.Build.0 = Debug|ARM
 		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}.Debug|Win32.ActiveCfg = Debug|Win32
