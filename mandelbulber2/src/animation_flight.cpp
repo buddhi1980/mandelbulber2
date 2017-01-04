@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
  *
  * Functions for flight animation.
  *
@@ -495,8 +495,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 {
 	table->blockSignals(true);
-	QImage qimage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(), image->GetHeight(),
-		image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
+	QImage qimage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
+		image->GetHeight(), image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qimage);
 	QIcon icon(
@@ -1236,9 +1236,8 @@ QString cFlightAnimation::GetFlightFilename(int index) const
 {
 	QString filename = params->Get<QString>("anim_flight_dir") + "frame_"
 										 + QString("%1").arg(index, 5, 10, QChar('0'));
-	filename +=
-		"." + ImageFileSave::ImageFileExtension(
-						ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type")));
+	filename += "." + ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
+											params->Get<int>("flight_animation_image_type")));
 	return filename;
 }
 

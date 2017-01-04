@@ -634,9 +634,8 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
 
-	const bool bSoft =
-		!params->iterFogEnabled && !params->limitsEnabled && !params->common.iterThreshMode
-		&& softRange > 0.0;
+	const bool bSoft = !params->iterFogEnabled && !params->limitsEnabled
+										 && !params->common.iterThreshMode && softRange > 0.0;
 
 	for (double i = start; i < factor; i += dist * DEFactor)
 	{
@@ -1137,7 +1136,8 @@ sRGBAfloat cRenderWorker::LightShading(
 	return shading;
 }
 
-sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut) const
+sRGBAfloat cRenderWorker::AuxLightsShader(
+	const sShaderInputData &input, sRGBAfloat *specularOut) const
 {
 
 	int numberOfLights = data->lights.GetNumberOfLights();
@@ -1316,13 +1316,11 @@ sRGBfloat cRenderWorker::TextureShader(
 	double delta = CalcDelta(input.point);
 	double deltaTexX =
 		(TextureMapping(input.point + textureVectorX * delta, input.normal, objectData, mat)
-			+ CVector2<double>(0.5, 0.5)
-			- texPoint)
+			+ CVector2<double>(0.5, 0.5) - texPoint)
 			.Length();
 	double deltaTexY =
 		(TextureMapping(input.point + textureVectorY * delta, input.normal, objectData, mat)
-			+ CVector2<double>(0.5, 0.5)
-			- texPoint)
+			+ CVector2<double>(0.5, 0.5) - texPoint)
 			.Length();
 
 	if (deltaTexX > 0.5) deltaTexX = 1.0 - deltaTexX;
@@ -1374,13 +1372,11 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input) const
 	double delta = CalcDelta(input.point);
 	double deltaTexX =
 		(TextureMapping(input.point + texX * delta, input.normal, objectData, input.material)
-			+ CVector2<double>(0.5, 0.5)
-			- texPoint)
+			+ CVector2<double>(0.5, 0.5) - texPoint)
 			.Length();
 	double deltaTexY =
 		(TextureMapping(input.point + texY * delta, input.normal, objectData, input.material)
-			+ CVector2<double>(0.5, 0.5)
-			- texPoint)
+			+ CVector2<double>(0.5, 0.5) - texPoint)
 			.Length();
 	deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
 	deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));

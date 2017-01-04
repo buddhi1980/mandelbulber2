@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * cVoxelExportDialog class - class for handling the voxelexport dialog
  */

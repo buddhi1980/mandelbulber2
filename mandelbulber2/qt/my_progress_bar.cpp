@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * MyProgressBar class - promoted QProgressBar widget for OSX compatibility
  *

@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * cPreferencesDialog - dialog to configure program wide settings and program maintaining
  */

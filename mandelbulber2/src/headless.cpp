@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
  *
  * cHeadless - class to handle CLI instructions without GUI manipulation
  */

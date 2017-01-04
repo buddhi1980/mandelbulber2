@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * file image class to store different image file formats
  *
@@ -858,12 +858,12 @@ void ImageFileSaveEXR::SaveEXR(
 
 		// point EXR frame buffer to rgb
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("R",
-			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize, 3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("G",
-			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize, 3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("B",
-			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("R", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
+															3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("G", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
+															3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("B", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
+															3 * compSize, 3 * width * compSize));
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_ALPHA))
@@ -899,7 +899,8 @@ void ImageFileSaveEXR::SaveEXR(
 		}
 		// point EXR frame buffer to alpha
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("A", Imf::Slice(imfQuality, static_cast<char *>(buffer), compSize, width * compSize));
+		frameBuffer.insert(
+			"A", Imf::Slice(imfQuality, static_cast<char *>(buffer), compSize, width * compSize));
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
@@ -916,8 +917,8 @@ void ImageFileSaveEXR::SaveEXR(
 		{
 			// direct on buffer
 			float *zBuffer = image->GetZBufferPtr();
-			frameBuffer.insert(
-				"Z", Imf::Slice(Imf::FLOAT, reinterpret_cast<char *>(zBuffer), sizeof(float), width * sizeof(float)));
+			frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, reinterpret_cast<char *>(zBuffer),
+																sizeof(float), width * sizeof(float)));
 		}
 		else
 		{
@@ -933,8 +934,8 @@ void ImageFileSaveEXR::SaveEXR(
 					halfPointer[ptr] = image->GetPixelZBuffer(x, y);
 				}
 			}
-			frameBuffer.insert(
-				"Z", Imf::Slice(imfQuality, static_cast<char *>(buffer), sizeof(half), width * sizeof(half)));
+			frameBuffer.insert("Z",
+				Imf::Slice(imfQuality, static_cast<char *>(buffer), sizeof(half), width * sizeof(half)));
 		}
 	}
 
@@ -976,12 +977,12 @@ void ImageFileSaveEXR::SaveEXR(
 
 		// point EXR frame buffer to rgb
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("n.X",
-			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize, 3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("n.Y",
-			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize, 3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("n.Z",
-			Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("n.X", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
+																3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("n.Y", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
+																3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("n.Z", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
+																3 * compSize, 3 * width * compSize));
 	}
 
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
@@ -1209,7 +1210,8 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		}
 	}
 
-	TIFFWriteEncodedStrip(tiff, 0, static_cast<void *>(colorPtr), tsize_t(width * height * pixelSize));
+	TIFFWriteEncodedStrip(
+		tiff, 0, static_cast<void *>(colorPtr), tsize_t(width * height * pixelSize));
 	TIFFClose(tiff);
 	delete[] colorPtr;
 	return true;

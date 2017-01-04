@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * CommonMyWidgetWrapper - contains context menu and common widget functionality
  *

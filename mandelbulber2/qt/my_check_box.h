@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * MyCheckBox class - promoted QCheckBox widget with context menu
  */

@@ -323,7 +323,7 @@ function lookUpAuthor($authorName){
 	if(strpos($authorName, 'pmneila') !== false) return 'pmneila';
 	if(strpos($authorName, 'Stanislaw Adaszewski') !== false) return 'Stanislaw Adaszewski (http://algoholic.eu)';
 	if(strpos($authorName, 'Rayan Hitchman') !== false) return 'Rayan Hitchman';
-	if(strpos($authorName, 'Robert Pancoast') !== false) return 'Robert Pancoast';
+	if(strpos($authorName, 'Robert Pancoast') !== false) return 'Robert Pancoast (RobertPancoast77@gmail.com)';
 	if(strpos($authorName, 'Sebastian Jennen') !== false) return 'Sebastian Jennen (jenzebas@gmail.com)';
 
 	errorString('unknown author: ' . $authorName);

@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * MyColorButton class - promoted QPushButton widget with context menu
  */

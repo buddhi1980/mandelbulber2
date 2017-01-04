@@ -186,7 +186,7 @@ foreach($formulas as $index => $formula){
 
 	$fileHeader = '/**
  * Mandelbulber v2, a 3D fractal generator
- * Copyright (C) ' . date('Y') . ' Krzysztof Marczak
+ * Copyright (C) ' . date('Y') . ' Mandelbulber Team
  * This file is part of Mandelbulber. 
  * License is GPL, see also COPYING file.
  * ' . str_replace('/**', '', $formula['rawComment']) . PHP_EOL . PHP_EOL;

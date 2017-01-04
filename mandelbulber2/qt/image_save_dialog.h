@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * ImageSaveDialog - promoted QFileDialog for selection of the image file to store the render.
  * This dialog also contains a widget to select the image quality settings

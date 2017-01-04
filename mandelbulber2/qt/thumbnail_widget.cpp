@@ -231,7 +231,8 @@ void cThumbnailWidget::slotRender()
 		Wait(Random(100) + 50);
 		stopRequest = false;
 
-		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, static_cast<QWidget *>(this));
+		cRenderJob *renderJob =
+			new cRenderJob(params, fractal, image, &stopRequest, static_cast<QWidget *>(this));
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
@@ -272,8 +273,8 @@ void cThumbnailWidget::slotFullyRendered()
 	isRendered = true;
 	if (!disableThumbnailCache)
 	{
-		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(), image->GetHeight(),
-			image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
+		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
+			image->GetHeight(), image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
 		QPixmap pixmap;
 		pixmap.convertFromImage(qImage);
 

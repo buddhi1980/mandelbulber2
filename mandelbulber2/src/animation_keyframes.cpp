@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
  *
  * Functions for flight animation.
  *
@@ -1065,9 +1065,8 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex) const
 	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
 										 + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
-	filename +=
-		"." + ImageFileSave::ImageFileExtension(
-						ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type")));
+	filename += "." + ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
+											params->Get<int>("keyframe_animation_image_type")));
 	return filename;
 }
 

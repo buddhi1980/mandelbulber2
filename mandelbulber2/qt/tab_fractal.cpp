@@ -258,7 +258,8 @@ void cTabFractal::CConstantAdditionSetVisible(bool visible) const
 	ui->groupBox_c_constant_addition->setVisible(visible);
 }
 
-void cTabFractal::SynchronizeInterface(cParameterContainer *par, qInterface::enumReadWrite mode) const
+void cTabFractal::SynchronizeInterface(
+	cParameterContainer *par, qInterface::enumReadWrite mode) const
 {
 	WriteLog("cTabFractal::SynchronizeInterface: frame_iterations_formula", 3);
 	SynchronizeInterfaceWindow(ui->frame_iterations_formula, par, mode);
@@ -302,7 +303,8 @@ void cTabFractal::FrameIterationFormulaSetEnabled(bool enabled) const
 	ui->frame_iterations_formula->setEnabled(enabled);
 }
 
-void cTabFractal::SynchronizeFractal(cParameterContainer *fractal, qInterface::enumReadWrite mode) const
+void cTabFractal::SynchronizeFractal(
+	cParameterContainer *fractal, qInterface::enumReadWrite mode) const
 {
 	SynchronizeInterfaceWindow(fractalWidget, fractal, mode);
 }

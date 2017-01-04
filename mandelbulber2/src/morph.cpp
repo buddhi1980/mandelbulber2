@@ -296,11 +296,11 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 			for (int i = 0; i < v1.GetSize(); i++)
 			{
 				out.AppendColor(sRGB(int(CatmullRomInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R,
-				                                               v3.GetColor(i).R, v4.GetColor(i).R, angular)),
+															 v3.GetColor(i).R, v4.GetColor(i).R, angular)),
 					int(CatmullRomInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G, v3.GetColor(i).G,
-					                          v4.GetColor(i).G, angular)),
+						v4.GetColor(i).G, angular)),
 					int(CatmullRomInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B, v3.GetColor(i).B,
-					                          v4.GetColor(i).B, angular))));
+						v4.GetColor(i).B, angular))));
 			}
 			val.Store(out);
 			break;
@@ -421,11 +421,11 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			{
 				out.AppendColor(
 					sRGB(int(AkimaInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R, v3.GetColor(i).R,
-					                          v4.GetColor(i).R, v5.GetColor(i).R, v6.GetColor(i).R, angular)),
+								 v4.GetColor(i).R, v5.GetColor(i).R, v6.GetColor(i).R, angular)),
 						int(AkimaInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G, v3.GetColor(i).G,
-						                     v4.GetColor(i).G, v5.GetColor(i).G, v6.GetColor(i).G, angular)),
+							v4.GetColor(i).G, v5.GetColor(i).G, v6.GetColor(i).G, angular)),
 						int(AkimaInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B, v3.GetColor(i).B,
-						                     v4.GetColor(i).B, v5.GetColor(i).B, v6.GetColor(i).B, angular))));
+							v4.GetColor(i).B, v5.GetColor(i).B, v6.GetColor(i).B, angular))));
 			}
 			val.Store(out);
 			break;
@@ -436,7 +436,8 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 	return interpolated;
 }
 
-double cMorph::LinearInterpolate(const double factor, double v1, double v2, bool const angular) const
+double cMorph::LinearInterpolate(
+	const double factor, double v1, double v2, bool const angular) const
 {
 	if (angular)
 	{

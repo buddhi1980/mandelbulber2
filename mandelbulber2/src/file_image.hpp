@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * file image class to store different image file formats
  *

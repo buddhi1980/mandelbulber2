@@ -449,7 +449,7 @@ void cRenderWorker::PrepareAOVectors()
 			AOvectorsAround[counter].beta = b;
 			AOvectorsAround[counter].v = d;
 			int X = int((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
-			int Y = int(b / (M_PI) * lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
+			int Y = int(b / (M_PI)*lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
 			AOvectorsAround[counter].R = data->textures.lightmapTexture.FastPixel(X, Y).R;
 			AOvectorsAround[counter].G = data->textures.lightmapTexture.FastPixel(X, Y).G;
 			AOvectorsAround[counter].B = data->textures.lightmapTexture.FastPixel(X, Y).B;

@@ -96,8 +96,8 @@ public:
 		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal);
 	virtual void RemoveAnimatedParameter(const QString &fullParameterName);
 	QList<sParameterDescription> GetListOfUsedParameters() const { return listOfParameters; }
-	static const cParameterContainer *ContainerSelector(QString containerName,
-		const cParameterContainer *params, const cFractalContainer *fractal);
+	static const cParameterContainer *ContainerSelector(
+		QString containerName, const cParameterContainer *params, const cFractalContainer *fractal);
 	static cParameterContainer *ContainerSelector(
 		QString containerName, cParameterContainer *params, cFractalContainer *fractal);
 	void DeleteFrames(int begin, int end);

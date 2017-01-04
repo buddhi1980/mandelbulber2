@@ -27,7 +27,8 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Graeme McLaren
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Graeme McLaren,
+ *  Sebastian Jennen (jenzebas@gmail.com)
  *
  * functions for calculation single fractal iterations
  */

@@ -244,7 +244,8 @@ public:
 	sRGB16 CalculatePixel(sRGBfloat pixel);
 
 	void PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity, int layer) const;
-	void AntiAliasedPoint(double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer) const;
+	void AntiAliasedPoint(
+		double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer) const;
 	void AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2, sRGB8 color,
 		sRGBfloat opacity, int layer) const;
 	void CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,

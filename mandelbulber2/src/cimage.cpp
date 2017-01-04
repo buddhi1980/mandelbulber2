@@ -176,8 +176,10 @@ void cImage::ClearImage() const
 	memset(colourBuffer, 0, static_cast<unsigned long int>(sizeof(sRGB8)) * width * height);
 	if (opt.optionalNormal)
 	{
-		if (normalFloat) memset(normalFloat, 0, static_cast<unsigned long int>(sizeof(sRGBfloat)) * width * height);
-		if (normal16) memset(normal16, 0, static_cast<unsigned long int>(sizeof(sRGB16)) * width * height);
+		if (normalFloat)
+			memset(normalFloat, 0, static_cast<unsigned long int>(sizeof(sRGBfloat)) * width * height);
+		if (normal16)
+			memset(normal16, 0, static_cast<unsigned long int>(sizeof(sRGB16)) * width * height);
 		if (normal8) memset(normal8, 0, static_cast<unsigned long int>(sizeof(sRGB8)) * width * height);
 	}
 	for (long int i = 0; i < width * height; ++i)

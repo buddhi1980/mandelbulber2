@@ -65,7 +65,8 @@ public:
 	bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
 	// will provide material name
-	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+	QVariant headerData(
+		int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
 	bool insertRows(int position, int rows, const QModelIndex &parent = QModelIndex()) override;
 	bool removeRows(int position, int rows, const QModelIndex &parent = QModelIndex()) override;

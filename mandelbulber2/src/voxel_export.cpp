@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * cVoxelExport calculates voxel volume and stores data in image layers for 3d reconstruction
  *

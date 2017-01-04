@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
  *
  * Netrender class - Networking class for command and payload communication
  */
@@ -751,7 +751,8 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				case netRender_STATUS:
 				{
 					WriteLog("NetRender - ProcessData(), command STATUS", 3);
-					clients[index].status = netRenderStatus(* reinterpret_cast<qint32 *>(inMsg->payload.data()));
+					clients[index].status =
+						netRenderStatus(*reinterpret_cast<qint32 *>(inMsg->payload.data()));
 					emit ClientsChanged(index);
 					break;
 				}

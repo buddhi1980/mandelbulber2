@@ -140,9 +140,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	displacementTextureHeight = materialParam->Get<double>(Name("displacement_texture_height", id));
 	normalMapTextureHeight = materialParam->Get<double>(Name("normal_map_texture_height", id));
 
-	fractalColoring.coloringAlgorithm =
-		sFractalColoring::enumFractalColoringAlgorithm(materialParam->Get<int>(
-			Name("fractal_coloring_algorithm", id)));
+	fractalColoring.coloringAlgorithm = sFractalColoring::enumFractalColoringAlgorithm(
+		materialParam->Get<int>(Name("fractal_coloring_algorithm", id)));
 	fractalColoring.sphereRadius =
 		materialParam->Get<double>(Name("fractal_coloring_sphere_radius", id));
 	fractalColoring.lineDirection =

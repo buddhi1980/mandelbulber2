@@ -119,7 +119,8 @@ private:
 	void Display3DCursor(CVector2<int> screenPoint, double z);
 	void DisplayCrosshair() const;
 	void DrawHud(CVector3 rotation) const;
-	void Draw3DBox(double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye) const;
+	void Draw3DBox(
+		double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye) const;
 	static CVector3 CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
 
 	cImage *image;

@@ -265,8 +265,8 @@ double cScheduler::PercentDone() const
 
 	if (progressiveEnabled)
 	{
-		percent_done = double(count) / numberOfLines * 0.75 / (progressiveStep * progressiveStep)
-									 + progressiveDone;
+		percent_done =
+			double(count) / numberOfLines * 0.75 / (progressiveStep * progressiveStep) + progressiveDone;
 	}
 	else
 	{

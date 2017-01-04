@@ -89,8 +89,8 @@ QPixmap cThumbnail::Render()
 
 		renderJob->Init(cRenderJob::still, config);
 		renderJob->Execute();
-		QImage qimage(static_cast<const uchar *>(image->ConvertTo8bit()), width, height, width * sizeof(sRGB8),
-			QImage::Format_RGB888);
+		QImage qimage(static_cast<const uchar *>(image->ConvertTo8bit()), width, height,
+			width * sizeof(sRGB8), QImage::Format_RGB888);
 		pixmap.convertFromImage(qimage);
 		delete renderJob;
 		pixmap.save(thumbnailFileName, "PNG");

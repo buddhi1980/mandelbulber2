@@ -68,7 +68,8 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 				sRGB8 *line = reinterpret_cast<sRGB8 *>(qimage.scanLine(y));
 				for (int x = 0; x < width; x++)
 				{
-					sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256, static_cast<unsigned short>(line[x].G) * 256,
+					sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256,
+						static_cast<unsigned short>(line[x].G) * 256,
 						static_cast<unsigned short>(line[x].B) * 256, 65535);
 					bitmap[x + y * width] = pixel;
 				}
@@ -176,7 +177,8 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 			sRGB8 *line = reinterpret_cast<sRGB8 *>(qimage.scanLine(y));
 			for (int x = 0; x < width; x++)
 			{
-				sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256, static_cast<unsigned short>(line[x].G) * 256,
+				sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256,
+					static_cast<unsigned short>(line[x].G) * 256,
 					static_cast<unsigned short>(line[x].B) * 256, 65535);
 				bitmap[x + y * width] = pixel;
 			}
@@ -271,16 +273,15 @@ sRGBA16 cTexture::LinearInterpolation(double x, double y) const
 	sRGBA16 k3 = bitmap[(iy + 1) * width + ix];
 	sRGBA16 k4 = bitmap[(iy + 1) * width + ix + 1];
 	color.R = static_cast<unsigned short>(k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * rx * (1.0 - ry)
-		+ k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
+																				+ k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
 	color.G = static_cast<unsigned short>(k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * rx * (1.0 - ry)
-		+ k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
+																				+ k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
 	color.B = static_cast<unsigned short>(k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * rx * (1.0 - ry)
-		+ k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
+																				+ k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
 	return color;
 }
 
-sRGBfloat cTexture::BicubicInterpolation(
-	double x, double y, const sRGBA16 *bitmap, int w, int h)
+sRGBfloat cTexture::BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h)
 {
 	int ix = int(x);
 	int iy = int(y);

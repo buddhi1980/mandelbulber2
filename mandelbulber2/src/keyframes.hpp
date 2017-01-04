@@ -65,8 +65,8 @@ public:
 	int GetUnrenderedTillIndex(int frameIndex) override;
 	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue,
 		cParameterContainer *params = nullptr) override;
-	bool AddAnimatedParameter(
-		const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal) override;
+	bool AddAnimatedParameter(const QString &fullParameterName, cParameterContainer *param,
+		const cFractalContainer *fractal) override;
 	void RemoveAnimatedParameter(const QString &fullParameterName) override;
 
 private:

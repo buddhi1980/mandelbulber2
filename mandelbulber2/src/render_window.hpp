@@ -88,7 +88,8 @@ private:
 
 public slots:
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
-		double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE) const;
+		double progress,
+		cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE) const;
 	void slotPopulateToolbar(bool completeRefresh = false);
 
 private slots:

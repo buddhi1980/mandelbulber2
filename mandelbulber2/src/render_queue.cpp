@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen, Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * cRenderQueue class - processes queue render request
  */
