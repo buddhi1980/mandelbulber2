@@ -171,7 +171,7 @@ function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderNa
 }
 
 function checkClang($filepath, &$fileContent, &$status){
-	$contentsBefore = $fileContent;
+  $contentsBefore = $fileContent;
 	// method 1
 	// $cmd = 'cat <<EOF |' . PHP_EOL . escapeshellarg($fileContent) . PHP_EOL . 'EOF' . PHP_EOL;
         // $cmd = 'echo ' . escapeshellarg($fileContent) . ' | ';
@@ -242,13 +242,12 @@ function isVerbose(){
 	return false;
 }
 
-
 function getFileHeader($author, $description, $modificationString){
 	$out = <<<EOT
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) __date__ Krzysztof Marczak __spacing__ §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) __date__ Mandelbulber Team __spacing__ §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M

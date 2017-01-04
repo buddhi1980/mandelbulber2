@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016 Krzysztof Marczak        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -95,4 +95,4 @@ private:
 	cAutomatedWidgets *automatedWidgets;
 };
 
-#endif /* MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMNETS_H_ */
+#endif /* MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMENTS_H_ */
