@@ -4504,6 +4504,8 @@ void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
 	z += fractal->transformCommon.additionConstant000;
 	// no bailout
+
+	aux.pseudoKleinianDE = fractal->analyticDE.scale1;
 }
 
 /**
@@ -4620,21 +4622,7 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
 		z += fractal->transformCommon.offsetA000;
 	}
-	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterationsM
-			&& i < fractal->transformCommon.stopIterationsM)
-	{
-		z = fabs(z);
-		if (z.x - z.y < 0) swap(z.y, z.x);
-		if (z.x - z.z < 0) swap(z.z, z.x);
-		if (z.y - z.z < 0) swap(z.z, z.y);
-		z *= fractal->transformCommon.scale3;
-		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
-		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
-		if (z.z > 1) z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
-		aux.DE *= fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1;
 
-		z += fractal->transformCommon.additionConstantA000;
-	}
 
 	aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
 	double k;
@@ -4679,7 +4667,22 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
 	z += fractal->transformCommon.additionConstant000;
 
-	// no bailout
+	if (fractal->transformCommon.functionEnabledMFalse && i >= fractal->transformCommon.startIterationsM
+			&& i < fractal->transformCommon.stopIterationsM)
+	{
+		z = fabs(z);
+		if (z.x - z.y < 0) swap(z.y, z.x);
+		if (z.x - z.z < 0) swap(z.z, z.x);
+		if (z.y - z.z < 0) swap(z.z, z.y);
+		z *= fractal->transformCommon.scale3;
+		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
+		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
+		if (z.z > 1) z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
+		aux.DE *= fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1;
+
+		z += fractal->transformCommon.additionConstantA000;
+	}
+	aux.pseudoKleinianDE = fractal->analyticDE.scale1;
 }
 /**
  * Pseudo Kleinian std DE Knighty - Theli-at's Pseudo Kleinian (Scale 1 JuliaBox + Something

@@ -102,6 +102,7 @@ struct sExtendedAux
 	//double newR;
 	//double orbitTraps;
 	//double axisBias;
+	double pseudoKleinianDE;
 	double cw;
 	double foldFactor;
 	double minRFactor;

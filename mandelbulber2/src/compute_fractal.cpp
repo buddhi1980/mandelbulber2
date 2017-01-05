@@ -107,6 +107,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// extendedAux.newR = 1e+20;
 	// extendedAux.axisBias = 1e+20;
 	// extendedAux.orbitTraps = 1e+20;
+	extendedAux.pseudoKleinianDE = 1.0;
+
+
+
 
 	// main iteration loop
 	int i;
@@ -1299,7 +1303,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (extendedAux.DE > 0)
 					{
 						double rxy = sqrt(z.x * z.x + z.y * z.y);
-						out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (extendedAux.DE);
+						out->distance = max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE); //0.92784 extendedAux.pseudoKleinianDE
 					}
 					else
 						out->distance = r;
