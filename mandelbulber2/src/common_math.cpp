@@ -67,11 +67,7 @@ int RandomInt()
 
 int Random(int max)
 {
-#ifdef WIN32
-	return (RandomInt() + RandomInt() * 32768) % (max + 1);
-#else
 	return RandomInt() % (max + 1);
-#endif
 }
 
 double dMax(double a, double b, double c)
