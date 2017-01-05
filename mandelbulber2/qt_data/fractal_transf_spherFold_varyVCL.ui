@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherFold_varyVCL</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>853</width>
-    <height>2049</height>
+    <height>2088</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -565,7 +565,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Note. Curvi Function requires the condition that  (B - A) &gt;  A</string>
+        <string>Note. Curvi Function requires the condition that  B  &gt;  2 * A</string>
        </property>
       </widget>
      </item>
@@ -987,7 +987,7 @@ offset:</string>
      <item row="0" column="3">
       <widget class="QLabel" name="label_97">
        <property name="text">
-        <string> The Curviliner and Parabolic functions can be applied together</string>
+        <string> The Curvilinear and Parabolic functions can be applied together</string>
        </property>
       </widget>
      </item>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_offsetVCL</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
-    <height>746</height>
+    <width>880</width>
+    <height>2164</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -81,7 +81,7 @@
         </font>
        </property>
        <property name="text">
-        <string>  Note. Curvi Function requires the condition that  (B - A) /2  &gt;  A</string>
+        <string>Note. Curvi Function requires the condition that  B  &gt;  2 *A</string>
        </property>
       </widget>
      </item>
@@ -1110,14 +1110,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

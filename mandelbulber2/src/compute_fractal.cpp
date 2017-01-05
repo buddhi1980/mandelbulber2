@@ -107,7 +107,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// extendedAux.newR = 1e+20;
 	// extendedAux.axisBias = 1e+20;
 	// extendedAux.orbitTraps = 1e+20;
-	// extendedAux.transformSampling = 1e+20;
 
 	// main iteration loop
 	int i;
@@ -466,6 +465,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mengerOcto:
 				{
+					//double xtemp = 0.70710678118654752440084436210485 * ( z.x - z.z );
+					//z.z = 0.70710678118654752440084436210485 * ( z.z + z.x );
+					//z.x = xtemp;
 					MengerOctoIteration(z, i, fractal, extendedAux);
 					break;
 				}
@@ -476,7 +478,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mengerPrismShape2:
 				{
-					z = CVector3{-z.z, z.x, z.y};
+					//z = CVector3{-z.z, z.x, z.y};
 					MengerPrismShape2Iteration(z, i, fractal, extendedAux);
 					break;
 				}

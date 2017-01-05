@@ -1272,7 +1272,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Note. Curvi Function requires the condition that  B  &gt;  2 *A</string>
+           <string>Note. Curvi Function requires the condition that  B  &gt;  2 * A</string>
           </property>
          </widget>
         </item>

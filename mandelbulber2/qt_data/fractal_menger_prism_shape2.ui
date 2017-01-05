@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger_prism_shape2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>7719</height>
+    <height>7800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -429,7 +429,14 @@
      </item>
      <item row="2" column="1" colspan="4">
       <layout class="QGridLayout" name="gridLayout_13">
-       <item row="1" column="5">
+       <item row="0" column="6">
+        <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
+         <property name="text">
+          <string>Swizzle </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_P1">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -442,7 +449,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="7">
+       <item row="1" column="6">
         <spacer name="horizontalSpacer_5">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -462,21 +469,21 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="4">
+       <item row="1" column="3">
         <widget class="QLabel" name="label_48">
          <property name="text">
           <string>Stop at iteration :</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="6">
+       <item row="1" column="5">
         <widget class="QLabel" name="label_133">
          <property name="text">
           <string>Note: Default = 1</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="6">
+       <item row="0" column="5">
         <widget class="QComboBox" name="comboBox_combo_mode_A">
          <item>
           <property name="text">
@@ -520,7 +527,7 @@
          </item>
         </widget>
        </item>
-       <item row="0" column="4" colspan="2">
+       <item row="0" column="3" colspan="2">
         <widget class="QLabel" name="label_178">
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
@@ -530,7 +537,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1" colspan="7">
+       <item row="2" column="1" colspan="6">
         <layout class="QGridLayout" name="gridLayout_6">
          <item row="0" column="1">
           <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
@@ -555,7 +562,7 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="0" colspan="4">
+       <item row="0" column="0" colspan="3">
         <widget class="QLabel" name="label_173">
          <property name="font">
           <font>
@@ -564,11 +571,11 @@
           </font>
          </property>
          <property name="text">
-          <string>Prism Shape</string>
+          <string>Prism Shape2</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1" colspan="3">
+       <item row="1" column="1" colspan="2">
         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_P">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1500,6 +1507,59 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="4">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>99.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="3">
+         <widget class="QSlider" name="slider_transf_scaleG_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>

@@ -3764,16 +3764,6 @@ void MengerSmoothMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExt
 
 	aux.DE *= fractal->transformCommon.scale3;
 
-	/*if (z.x - z.y < 0) swap(z.y, z.x);
-	if (z.x - z.z < 0) swap(z.z, z.x);
-	if (z.y - z.z < 0) swap(z.z, z.y);
-	z *= fractal->transformCommon.scale3;
-	z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
-	z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
-	if (z.z > 1) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
-
-	aux.DE *= fractal->transformCommon.scale3;*/
-
 	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
@@ -8273,7 +8263,10 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
 	double dot1;
-
+	if (fractal->transformCommon.functionEnabledSwFalse)
+	{
+	 z = CVector3{-z.z, z.x, z.y};
+	}
 	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterationsP
 			&& i < fractal->transformCommon.stopIterationsP1)
 	{
@@ -8461,7 +8454,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z *= fractal->transformCommon.scaleB3;
 		aux.DE *= fractal->transformCommon.scaleB3;
 
-		dd *= 0.33333333333333333333333333333; // constant
+		dd *= 0.33333333333333333333333333333 * fractal->transformCommon.scaleG1; // constant
 		z += CVector3(0.5 * SQRT_3, 1.5, 1.5);
 		if (fractal->transformCommon.functionEnabledxFalse)
 		{

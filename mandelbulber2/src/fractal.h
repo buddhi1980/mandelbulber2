@@ -99,10 +99,9 @@ struct sExtendedAux
 	double DE;
 	double color;
 	double actualScale;
-	double newR;
-	double orbitTraps;
-	double axisBias;
-	double transformSampling;
+	//double newR;
+	//double orbitTraps;
+	//double axisBias;
 	double cw;
 	double foldFactor;
 	double minRFactor;
@@ -623,6 +622,7 @@ struct sFractalTransformCommon
 	bool functionEnabledPFalse;
 	bool functionEnabledRFalse;
 	bool functionEnabledSFalse;
+	bool functionEnabledSwFalse;
 	bool functionEnabledXFalse;
 	bool juliaMode;
 	bool rotationEnabled;
