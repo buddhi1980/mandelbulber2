@@ -242,7 +242,7 @@ void cInterface::ShowUi()
 	ComboMouseClickUpdate();
 
 	mainWindow->slotPopulateToolbar();
-
+	mainWindow->slotPopulateCustomWindowStates();
 	systemTray = new cSystemTray(mainImage, mainWindow);
 
 	WriteLog("cInterface::ConnectSignals(void)", 2);
@@ -377,6 +377,8 @@ void cInterface::ConnectSignals() const
 
 	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()),
 		mainWindow, SLOT(slotPresetAddToToolbar()));
+	QApplication::connect(mainWindow->ui->actionAdd_CustomWindowStateToMenu, SIGNAL(triggered()),
+		mainWindow, SLOT(slotCustomWindowStateAddToMenu()));
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksandToolbarbyView();

@@ -287,6 +287,7 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
+    <addaction name="actionAdd_CustomWindowStateToMenu"/>
     <addaction name="actionSave_docks_positions"/>
     <addaction name="actionDefault_docks_positions"/>
     <addaction name="actionAnimation_docks_positions"/>
@@ -1298,6 +1299,15 @@
    </property>
    <property name="text">
     <string>Add current settings to toolbar</string>
+   </property>
+  </action>
+  <action name="actionAdd_CustomWindowStateToMenu">
+   <property name="icon">
+    <iconset theme="list-add" resource="icons.qrc">
+     <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Add Custom Window State</string>
    </property>
   </action>
   <action name="actionShow_measurement_dock">

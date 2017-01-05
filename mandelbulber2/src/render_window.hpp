@@ -91,7 +91,7 @@ public slots:
 		double progress,
 		cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE) const;
 	void slotPopulateToolbar(bool completeRefresh = false);
-
+	void slotPopulateCustomWindowStates(bool completeRefresh = false);
 private slots:
 	static void slotQuit();
 
@@ -105,7 +105,8 @@ private slots:
 	void slotResizedScrolledAreaImage(int width, int height) const;
 	void slotMenuLoadPreset(QString filename);
 	void slotMenuRemovePreset(QString filename);
-
+	void slotMenuLoadCustomWindowState(QString filename);
+	void slotMenuRemoveCustomWindowState(QString filename);
 	static void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotMenuProgramSettings();
 	void slotExportVoxelLayers();
@@ -150,6 +151,7 @@ private slots:
 
 	// toolbar
 	void slotPresetAddToToolbar();
+	void slotCustomWindowStateAddToMenu();
 
 	// rendered image widget
 	static void slotMouseMovedOnImage(int x, int y);

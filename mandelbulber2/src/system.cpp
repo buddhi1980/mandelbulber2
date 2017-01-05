@@ -222,6 +222,7 @@ bool CreateDefaultFolders()
 	result &= CreateFolder(systemData.GetImagesFolder());
 	result &= CreateFolder(systemData.GetThumbnailsFolder());
 	result &= CreateFolder(systemData.GetToolbarFolder());
+	result &= CreateFolder(systemData.GetCustomWindowStateFolder());
 	result &= CreateFolder(systemData.GetSettingsFolder());
 	result &= CreateFolder(systemData.GetSlicesFolder());
 	result &= CreateFolder(systemData.GetMaterialsFolder());

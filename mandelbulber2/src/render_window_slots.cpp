@@ -347,6 +347,107 @@ void RenderWindow::slotMenuRemovePreset(QString filename)
 	slotPopulateToolbar();
 }
 
+// adds dynamic actions to the view > window states
+void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
+{
+	return; // disabled, TODO fix implementation
+	WriteLog("cInterface::slotPopulateCustomWindowStates() started", 2);
+	QDir customWindowStateDir = QDir(systemData.GetCustomWindowStateFolder());
+	customWindowStateDir.setSorting(QDir::Time);
+	QStringList customWindowStateFiles = customWindowStateDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+	QSignalMapper *mapCustomWindowLoad = new QSignalMapper(this);
+	QSignalMapper *mapCustomWindowRemove = new QSignalMapper(this);
+
+	QList<QAction *> actions = ui->menuView->actions();
+	QStringList customWindowActions;
+	for (int i = 0; i < actions.size(); i++)
+	{
+		QAction *action = actions.at(i);
+		if (action->objectName() == "actionAdd_CustomWindowStateToMenu") continue;
+		// TODO also ignore other normal actions
+		if (!customWindowStateFiles.contains(action->objectName()) || completeRefresh)
+		{
+			// preset has been removed
+			ui->menuView->removeAction(action);
+		}
+		else
+		{
+			customWindowActions << action->objectName();
+		}
+	}
+
+	for (int i = 0; i < customWindowStateFiles.size(); i++)
+	{
+		if (customWindowActions.contains(customWindowStateFiles.at(i)))
+		{
+			// already present
+			continue;
+		}
+		QString filename = systemData.GetCustomWindowStateFolder() + QDir::separator() + customWindowStateFiles.at(i);
+
+		QWidgetAction *action = new QWidgetAction(this);
+		QToolButton *buttonLoad = new QToolButton;
+		QVBoxLayout *tooltipLayout = new QVBoxLayout;
+		QToolButton *buttonRemove = new QToolButton;
+		QLabel *label = new QLabel;
+		label->setText(filename);
+		tooltipLayout->setContentsMargins(3, 3, 3, 3);
+		tooltipLayout->addWidget(label);
+		QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
+		buttonRemove->setIcon(iconDelete);
+		buttonRemove->setMaximumSize(QSize(15, 15));
+		buttonRemove->setStyleSheet("margin-bottom: -2px; margin-left: -2px;");
+		tooltipLayout->addWidget(buttonRemove);
+		buttonLoad->setLayout(tooltipLayout);
+		action->setDefaultWidget(buttonLoad);
+		action->setObjectName(customWindowStateFiles.at(i));
+		ui->menuView->addAction(action);
+
+		mapCustomWindowLoad->setMapping(buttonLoad, filename);
+		mapCustomWindowRemove->setMapping(buttonRemove, filename);
+		QApplication::connect(buttonLoad, SIGNAL(clicked()), mapCustomWindowLoad, SLOT(map()));
+		QApplication::connect(
+			buttonRemove, SIGNAL(clicked()), mapCustomWindowRemove, SLOT(map()));
+		QApplication::processEvents();
+	}
+	QApplication::connect(
+		mapCustomWindowLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadCustomWindowState(QString)));
+
+	QApplication::connect(mapCustomWindowRemove, SIGNAL(mapped(QString)), this,
+		SLOT(slotMenuRemoveCustomWindowState(QString)));
+
+	WriteLog("cInterface::slotPopulateCustomWindowStates() finished", 2);
+}
+
+void RenderWindow::slotCustomWindowStateAddToMenu()
+{
+	QString wholeSettings = "mainWindowGeometry: " + saveGeometry();
+	wholeSettings += "mainWindowState: " + saveState();
+	QString fileName = systemData.GetCustomWindowStateFolder() + QDir::separator() + "aaa";
+	QFile file(fileName);
+	if(!file.open(QIODevice::WriteOnly) )
+	{
+		qWarning() << "Could not open file: " << fileName;
+		return;
+	}
+	QTextStream outputStream(&file);
+	outputStream << wholeSettings;
+	file.close();
+
+	slotPopulateCustomWindowStates();
+}
+
+void RenderWindow::slotMenuLoadCustomWindowState(QString filename)
+{
+	// TODO load
+}
+
+void RenderWindow::slotMenuRemoveCustomWindowState(QString filename)
+{
+	QFile::remove(filename);
+	slotPopulateCustomWindowStates();
+}
+
 void RenderWindow::slotQuit()
 {
 	gMainInterface->QuitApplicationDialog();
