@@ -277,8 +277,15 @@ void RenderWindow::slotMenuAnimationtDocksPositions()
 	ui->dockWidget_gamepad_dock->hide();
 #endif
 	ui->dockWidget_queue_dock->hide();
-}
 
+	tabifyDockWidget(ui->dockWidget_materialEditor, ui->dockWidget_effects);
+	tabifyDockWidget(ui->dockWidget_effects, ui->dockWidget_image_adjustments);
+	tabifyDockWidget(ui->dockWidget_image_adjustments, ui->dockWidget_rendering_engine);
+	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_fractal);
+	tabifyDockWidget(ui->dockWidget_fractal, ui->dockWidget_histogram);
+
+	addDockWidget(Qt::LeftDockWidgetArea, ui->dockWidget_Materials);
+}
 
 void RenderWindow::slotMenuSaveDocksPositions()
 {
