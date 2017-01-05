@@ -141,8 +141,8 @@ enum enumFractalFormula
 	benesiMagTransforms = 100,
 	pseudoKleinian1 = 101, // fix T1 T1M V2.10
 	bristorbrot4D = 102,
-	pseudoKleinian2 = 103,
-	pseudoKleinian3 = 104, // fix T1 T1M V2.10
+	pseudoKleinian2 = 103, // fix DE V2.10
+	pseudoKleinian3 = 104, // fix T1 T1M V2.10 & DE
 	benesiPwr2s = 105,
 	mengerCrossMod1 = 106,
 	// V2.10

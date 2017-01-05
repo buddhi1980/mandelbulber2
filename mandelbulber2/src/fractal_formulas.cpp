@@ -8426,8 +8426,11 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		}
 		aux.DE *= fractal->transformCommon.offset1; //.DE tweak cross menger trick part
 	}
+	if (fractal->transformCommon.functionEnabledPFalse)
+	{
+		z.x = fabs(z.x + fractal->transformCommon.offset) + fractal->transformCommon.offsetC0;
+	}
 
-	//}
 	// void KIFS(vec3 z)
 	//{//Pure KIFS... almost correct
 
@@ -8435,18 +8438,19 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 			&& i >= fractal->transformCommon.startIterationsB
 			&& i < fractal->transformCommon.stopIterationsB)
 	{
-		double dd = aux.DE;
-		z.y = fabs(z.y);
-		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledCzFalse)
 		{
-			z.x = fabs(z.x);
+			z.x = fabs(fractal->transformCommon.offset - z.x ) + fractal->transformCommon.offsetC0;
 		}
+
+		z.y = fabs(z.y);
+		z.z = fabs(z.z);
+
 		double dot2 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scaleF1;
-		double t = max(0.0, dot2); // check
+		double t = max(0.0, dot2);
 
 		z.x -= t * -SQRT_3;
-		z.y = fabs(z.y - t); //- t; //fabs(z.y);// ...............................................
+		z.y = fabs(z.y - t);
 
 		if (z.y > z.z) swap(z.y, z.z);
 
@@ -8457,17 +8461,8 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z *= fractal->transformCommon.scaleB3;
 		aux.DE *= fractal->transformCommon.scaleB3;
 
-		dd *= 0.33333333333333333333333333333 * fractal->transformCommon.scaleG1; // constant
+
 		z += CVector3(0.5 * SQRT_3, 1.5, 1.5);
-		if (fractal->transformCommon.functionEnabledxFalse)
-		{
-			z *= dd;
-			aux.DE *= dd; // * s;
-		}
-		// gap2 = dd * gap2;
-		// z = dd * z;
-		// aux.DE *=  gap2;//.................................................
-		//	aux.DE *= s;//...........DE tweak
 	}
 
 	if (fractal->transformCommon.benesiT1EnabledFalse && i >= fractal->transformCommon.startIterations
