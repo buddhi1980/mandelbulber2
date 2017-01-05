@@ -60,17 +60,20 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 		unsigned short *temp_alpha = new unsigned short[imageWidth * imageHeight];
 		long int sortBufferSize = screenRegion.height * screenRegion.width;
 		sSortZ<float> *temp_sort = new sSortZ<float>[sortBufferSize];
-		long int index = 0;
-		for (int y = screenRegion.y1; y < screenRegion.y2; y++)
+
 		{
-			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
+			long index = 0;
+			for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 			{
-				int ptr = x + y * imageWidth;
-				temp_image[ptr] = image->GetPixelImage(x, y);
-				temp_alpha[ptr] = image->GetPixelAlpha(x, y);
-				temp_sort[index].z = image->GetPixelZBuffer(x, y);
-				temp_sort[index].i = ptr;
-				index++;
+				for (int x = screenRegion.x1; x < screenRegion.x2; x++)
+				{
+					int ptr = x + y * imageWidth;
+					temp_image[ptr] = image->GetPixelImage(x, y);
+					temp_alpha[ptr] = image->GetPixelAlpha(x, y);
+					temp_sort[index].z = image->GetPixelZBuffer(x, y);
+					temp_sort[index].i = ptr;
+					index++;
+				}
 			}
 		}
 
@@ -285,8 +288,8 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 #pragma omp parallel for schedule(dynamic, 1)
 					for (int j = 0; j < screenRegion.height; j++)
 					{
-						int index_nested = i * screenRegion.height + j;
-						int ii = temp_sort[sortBufferSize - index_nested - 1].i;
+						long int index = i * screenRegion.height + j;
+						int ii = temp_sort[sortBufferSize - index - 1].i;
 						int x = ii % imageWidth;
 						int y = ii / imageWidth;
 						double z = image->GetPixelZBuffer(x, y);
@@ -368,17 +371,20 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 		unsigned short *temp_alpha = new unsigned short[imageWidth * imageHeight];
 		long int sortBufferSize = screenRegion.height * screenRegion.width;
 		sSortZ<float> *temp_sort = new sSortZ<float>[sortBufferSize];
-		long int index = 0;
-		for (int y = screenRegion.y1; y < screenRegion.y2; y++)
+
 		{
-			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
+			long index = 0;
+			for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 			{
-				int ptr = x + y * imageWidth;
-				temp_image[ptr] = image->GetPixelImage16(x, y);
-				temp_alpha[ptr] = image->GetPixelAlpha(x, y);
-				temp_sort[index].z = image->GetPixelZBuffer(x, y);
-				temp_sort[index].i = ptr;
-				index++;
+				for (int x = screenRegion.x1; x < screenRegion.x2; x++)
+				{
+					int ptr = x + y * imageWidth;
+					temp_image[ptr] = image->GetPixelImage16(x, y);
+					temp_alpha[ptr] = image->GetPixelAlpha(x, y);
+					temp_sort[index].z = image->GetPixelZBuffer(x, y);
+					temp_sort[index].i = ptr;
+					index++;
+				}
 			}
 		}
 
@@ -593,7 +599,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, double deep, double ne
 #pragma omp parallel for schedule(dynamic, 1)
 					for (int j = 0; j < screenRegion.height; j++)
 					{
-						int index = i * screenRegion.height + j;
+						long index = i * screenRegion.height + j;
 						int ii = temp_sort[sortBufferSize - index - 1].i;
 						int x = ii % imageWidth;
 						int y = ii / imageWidth;
