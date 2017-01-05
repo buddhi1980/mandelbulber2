@@ -270,6 +270,8 @@ void cInterface::ConnectSignals() const
 		SLOT(slotMenuSaveDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()),
 		mainWindow, SLOT(slotMenuResetDocksPositions()));
+	QApplication::connect(mainWindow->ui->actionAnimation_docks_positions, SIGNAL(triggered()),
+		mainWindow, SLOT(slotMenuAnimationtDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow,
 		SLOT(slotStackAllDocks()));
 	QApplication::connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow,

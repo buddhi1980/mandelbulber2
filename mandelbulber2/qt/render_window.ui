@@ -289,6 +289,7 @@
     </property>
     <addaction name="actionSave_docks_positions"/>
     <addaction name="actionDefault_docks_positions"/>
+    <addaction name="actionAnimation_docks_positions"/>
     <addaction name="actionStack_all_docks"/>
     <addaction name="separator"/>
     <addaction name="separator"/>
@@ -1104,13 +1105,30 @@
    </property>
   </action>
   <action name="actionSave_docks_positions">
+   <property name="icon">
+    <iconset theme="document-save" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Save window state</string>
    </property>
   </action>
   <action name="actionDefault_docks_positions">
+   <property name="icon">
+    <iconset theme="edit-undo" resource="icons.qrc">
+     <normaloff>:/system/icons/edit-undo.svg</normaloff>:/system/icons/edit-undo.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Default docks positions</string>
+   </property>
+  </action>
+  <action name="actionAnimation_docks_positions">
+   <property name="icon">
+    <iconset theme="video-x-generic" resource="icons.qrc">
+     <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Animation docks positions</string>
    </property>
   </action>
   <action name="actionAbout_Qt">
@@ -1239,6 +1257,10 @@
    </property>
   </action>
   <action name="actionStack_all_docks">
+   <property name="icon">
+    <iconset theme="list-remove" resource="icons.qrc">
+     <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
+   </property>
    <property name="text">
     <string>Sta&amp;ck all docks</string>
    </property>

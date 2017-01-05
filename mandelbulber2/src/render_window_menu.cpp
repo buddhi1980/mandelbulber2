@@ -244,7 +244,7 @@ void RenderWindow::slotMenuRedo()
 	gMainInterface->Redo();
 }
 
-void RenderWindow::slotMenuResetDocksPositions()
+void RenderWindow::ResetDocksPositions()
 {
 	restoreGeometry(defaultGeometry);
 	restoreState(defaultState);
@@ -252,7 +252,11 @@ void RenderWindow::slotMenuResetDocksPositions()
 	setCorner(Qt::TopRightCorner, Qt::RightDockWidgetArea);
 	setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
 	setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
+}
 
+void RenderWindow::slotMenuResetDocksPositions()
+{
+	ResetDocksPositions();
 	ui->dockWidget_histogram->hide();
 	ui->dockWidget_info->hide();
 	ui->dockWidget_animation->hide();
@@ -261,6 +265,20 @@ void RenderWindow::slotMenuResetDocksPositions()
 #endif
 	ui->dockWidget_queue_dock->hide();
 }
+
+void RenderWindow::slotMenuAnimationtDocksPositions()
+{
+	ResetDocksPositions();
+	ui->dockWidget_histogram->hide();
+	ui->dockWidget_info->hide();
+	ui->dockWidget_animation->show();
+	ui->toolBar->hide();
+#ifdef USE_GAMEPAD
+	ui->dockWidget_gamepad_dock->hide();
+#endif
+	ui->dockWidget_queue_dock->hide();
+}
+
 
 void RenderWindow::slotMenuSaveDocksPositions()
 {

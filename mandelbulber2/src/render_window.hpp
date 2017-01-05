@@ -115,6 +115,7 @@ private slots:
 	static void slotAutoRefresh();
 	void slotMaterialSelected(int matIndex) const;
 	static void slotMaterialEdited();
+	void ResetDocksPositions();
 
 	// pull down menu
 	void slotImportOldSettings();
@@ -127,6 +128,7 @@ private slots:
 	void slotMenuLoadSettingsFromClipboard();
 	static void slotMenuRedo();
 	void slotMenuResetDocksPositions();
+	void slotMenuAnimationtDocksPositions();
 	void slotMenuSaveDocksPositions();
 	void slotMenuSaveImageJPEG();
 	void slotMenuSaveImagePNG();
