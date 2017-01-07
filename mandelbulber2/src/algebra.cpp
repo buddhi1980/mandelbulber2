@@ -689,18 +689,6 @@ double CRotationMatrix44::GetZeta() const
 	return atan2(matrix.m31, matrix.m33); // fix
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 CRotationMatrix44 CRotationMatrix44::Transpose() const
 {
 	CRotationMatrix44 m;

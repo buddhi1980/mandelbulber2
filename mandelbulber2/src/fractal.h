@@ -99,9 +99,9 @@ struct sExtendedAux
 	double DE;
 	double color;
 	double actualScale;
-	//double newR;
-	//double orbitTraps;
-	//double axisBias;
+	// double newR;
+	// double orbitTraps;
+	// double axisBias;
 	double pseudoKleinianDE;
 	double cw;
 	double foldFactor;

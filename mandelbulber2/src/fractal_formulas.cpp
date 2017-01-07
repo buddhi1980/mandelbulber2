@@ -3659,7 +3659,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 	double dot1;
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-	 z = CVector3{-z.z, z.x, z.y};
+		z = CVector3{-z.z, z.x, z.y};
 	}
 	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterationsP
 			&& i < fractal->transformCommon.stopIterationsP1)
@@ -3831,7 +3831,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 	{
 		if (fractal->transformCommon.functionEnabledCzFalse)
 		{
-			z.x = fabs(fractal->transformCommon.offset - z.x ) + fractal->transformCommon.offsetC0;
+			z.x = fabs(fractal->transformCommon.offset - z.x) + fractal->transformCommon.offsetC0;
 		}
 
 		z.y = fabs(z.y);
@@ -3851,7 +3851,6 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 
 		z *= fractal->transformCommon.scaleB3;
 		aux.DE *= fractal->transformCommon.scaleB3;
-
 
 		z += CVector3(0.5 * SQRT_3, 1.5, 1.5);
 	}
@@ -4939,7 +4938,6 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		z += fractal->transformCommon.offsetA000;
 	}
 
-
 	aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
 	double k;
 	// Pseudo kleinian
@@ -4983,7 +4981,8 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 
 	z += fractal->transformCommon.additionConstant000;
 
-	if (fractal->transformCommon.functionEnabledMFalse && i >= fractal->transformCommon.startIterationsM
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& i >= fractal->transformCommon.startIterationsM
 			&& i < fractal->transformCommon.stopIterationsM)
 	{
 		z = fabs(z);
@@ -7867,48 +7866,47 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	if (fractal->transformCommon.rotation44a.x != 0)
 	{
 		tp = z4D;
-		double alpha = fractal->transformCommon.rotation44a.x *M_PI/180;
+		double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
 		z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
 		z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
 	}
 	if (fractal->transformCommon.rotation44a.y != 0)
 	{
 		tp = z4D;
-		double beta = fractal->transformCommon.rotation44a.y *M_PI/180;
+		double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
 		z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
 		z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
 	}
 	if (fractal->transformCommon.rotation44a.z != 0)
 	{
 		tp = z4D;
-		double gamma = fractal->transformCommon.rotation44a.z *M_PI/180;
+		double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
 		z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
 		z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
 	}
 	if (fractal->transformCommon.rotation44b.x != 0)
 	{
 		tp = z4D;
-		double delta = fractal->transformCommon.rotation44b.x *M_PI/180;
+		double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
 		z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
 		z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
 	}
 	if (fractal->transformCommon.rotation44b.y != 0)
 	{
 		tp = z4D;
-		double epsilon = fractal->transformCommon.rotation44b.y *M_PI/180;
+		double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
 		z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
 		z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
 	}
 	if (fractal->transformCommon.rotation44b.z != 0)
 	{
 		tp = z4D;
-		double zeta = fractal->transformCommon.rotation44b.z *M_PI/180;
+		double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
 		z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
 		z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
 	}
 
 	// temp3D rot
-
 
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
@@ -8593,47 +8591,46 @@ void TransformRotation4DIteration(CVector4 &z4D, const cFractal *fractal)
 	if (fractal->transformCommon.rotation44a.x != 0)
 	{
 		tp = z4D;
-		double alpha = fractal->transformCommon.rotation44a.x *M_PI/180;
+		double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
 		z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
 		z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
 	}
 	if (fractal->transformCommon.rotation44a.y != 0)
 	{
 		tp = z4D;
-		double beta = fractal->transformCommon.rotation44a.y *M_PI/180;
+		double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
 		z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
 		z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
 	}
 	if (fractal->transformCommon.rotation44a.z != 0)
 	{
 		tp = z4D;
-		double gamma = fractal->transformCommon.rotation44a.z *M_PI/180;
+		double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
 		z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
 		z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
 	}
 	if (fractal->transformCommon.rotation44b.x != 0)
 	{
 		tp = z4D;
-		double delta = fractal->transformCommon.rotation44b.x *M_PI/180;
+		double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
 		z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
 		z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
 	}
 	if (fractal->transformCommon.rotation44b.y != 0)
 	{
 		tp = z4D;
-		double epsilon = fractal->transformCommon.rotation44b.y *M_PI/180;
+		double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
 		z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
 		z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
 	}
 	if (fractal->transformCommon.rotation44b.z != 0)
 	{
 		tp = z4D;
-		double zeta = fractal->transformCommon.rotation44b.z *M_PI/180;
+		double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
 		z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
 		z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
 	}
 }
-
 
 /**
  * scale 4D
@@ -8669,4 +8666,3 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 }
-

@@ -109,9 +109,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// extendedAux.orbitTraps = 1e+20;
 	extendedAux.pseudoKleinianDE = 1.0;
 
-
-
-
 	// main iteration loop
 	int i;
 	int sequence;
@@ -469,9 +466,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mengerOcto:
 				{
-					//double xtemp = 0.70710678118654752440084436210485 * ( z.x - z.z );
-					//z.z = 0.70710678118654752440084436210485 * ( z.z + z.x );
-					//z.x = xtemp;
+					// double xtemp = 0.70710678118654752440084436210485 * ( z.x - z.z );
+					// z.z = 0.70710678118654752440084436210485 * ( z.z + z.x );
+					// z.x = xtemp;
 					MengerOctoIteration(z, i, fractal, extendedAux);
 					break;
 				}
@@ -482,7 +479,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mengerPrismShape2:
 				{
-					//z = CVector3{-z.z, z.x, z.y};
+					// z = CVector3{-z.z, z.x, z.y};
 					MengerPrismShape2Iteration(z, i, fractal, extendedAux);
 					break;
 				}
@@ -1311,7 +1308,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (extendedAux.DE > 0)
 					{
 						double rxy = sqrt(z.x * z.x + z.y * z.y);
-						out->distance = max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE); //0.92784 extendedAux.pseudoKleinianDE
+						out->distance = max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r)
+														/ (extendedAux.DE); // 0.92784 extendedAux.pseudoKleinianDE
 					}
 					else
 						out->distance = r;

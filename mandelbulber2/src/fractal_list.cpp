@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-16 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -529,8 +529,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Transform - Iteration Weight_4D", "transf_iteration_weight_4D",
 			transfIterationWeight4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Transfrom Rotation 4D", "transf_rotation_4D", transfRotation4D,
-		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(sFractalDescription("Transfrom Rotation 4D", "transf_rotation_4D",
+		transfRotation4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Transform - Scale_4D", "transf_scale_4D", transfScale4D,
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

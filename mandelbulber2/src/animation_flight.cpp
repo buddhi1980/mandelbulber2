@@ -856,9 +856,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	catch (bool ex)
 	{
 		QString resultStatus = QObject::tr("Rendering terminated");
-		if(ex) resultStatus += " - " + QObject::tr("Error occured, see log output");
-		emit updateProgressAndStatus(resultStatus, progressText.getText(1.0),
-			cProgressText::progress_ANIMATION);
+		if (ex) resultStatus += " - " + QObject::tr("Error occured, see log output");
+		emit updateProgressAndStatus(
+			resultStatus, progressText.getText(1.0), cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 		delete renderJob;
 		return false;
