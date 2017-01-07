@@ -1307,7 +1307,7 @@
      <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
    </property>
    <property name="text">
-    <string>Add Custom Window State</string>
+    <string>Add current window settings</string>
    </property>
   </action>
   <action name="actionShow_measurement_dock">

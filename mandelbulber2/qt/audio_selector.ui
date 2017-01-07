@@ -21,7 +21,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_loadAudioFile">
          <property name="text">
-          <string>Load audio file</string>
+          <string>Select audio file</string>
          </property>
          <property name="icon">
           <iconset theme="document-open" resource="icons.qrc">
@@ -199,7 +199,7 @@
             <item row="3" column="0">
              <widget class="QLabel" name="label_134">
               <property name="text">
-               <string>Multiplication factor factor</string>
+               <string>Multiplication factor</string>
               </property>
              </widget>
             </item>

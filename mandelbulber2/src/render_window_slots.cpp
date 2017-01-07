@@ -425,8 +425,8 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 void RenderWindow::slotCustomWindowStateAddToMenu()
 {
 	bool ok;
-	QString text = QInputDialog::getText(this, tr("Custom Window State"),
-		tr("Enter a name for the custom window state"), QLineEdit::Normal, "", &ok);
+	QString text = QInputDialog::getText(this, tr("Add window settings"),
+		tr("Enter a name for the new window settings"), QLineEdit::Normal, "", &ok);
 	if (!ok || text.isEmpty())
 	{
 		qDebug() << "Cancelled window saving";
