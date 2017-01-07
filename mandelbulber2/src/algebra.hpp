@@ -652,9 +652,9 @@ public:
 	double GetAlfa() const;
 	double GetBeta() const;
 	double GetGamma() const;
-	// double GetDelta() const;
-	// double GetEpsilon() const;
-	// double GetZeta() const;
+	double GetDelta() const;
+	double GetEpsilon() const;
+	double GetZeta() const;
 	void SetRotation(double angles[6]);
 	void SetRotation(
 		double alpha, double beta, double gamma, double delta, double epsilon, double zeta);

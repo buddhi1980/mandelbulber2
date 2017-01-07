@@ -674,6 +674,33 @@ double CRotationMatrix44::GetGamma() const
 	return atan2(matrix.m31, matrix.m33);
 }
 
+double CRotationMatrix44::GetDelta() const
+{
+	return atan2(matrix.m12, matrix.m22); // fix
+}
+
+double CRotationMatrix44::GetEpsilon() const
+{
+	return asin(-matrix.m32); // fix
+}
+
+double CRotationMatrix44::GetZeta() const
+{
+	return atan2(matrix.m31, matrix.m33); // fix
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 CRotationMatrix44 CRotationMatrix44::Transpose() const
 {
 	CRotationMatrix44 m;
