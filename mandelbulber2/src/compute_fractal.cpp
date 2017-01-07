@@ -964,6 +964,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					w = z4D.w;
 					break;
 				}
+				case transfRotation4D:
+				{
+					CVector4 z4D(z, w);
+					TransformRotation4DIteration(z4D, fractal);
+					z = z4D.GetXYZ();
+					w = z4D.w;
+					break;
+				}
 				case transfScale4D:
 				{
 					CVector4 z4D(z, w);

@@ -226,6 +226,7 @@ void TransformFabsAddConditional4DIteration(
 void TransformIterationWeight4DIteration(
 	CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformReciprocal4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
+void TransformRotation4DIteration(CVector4 &z4D, const cFractal *fractal);
 void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 

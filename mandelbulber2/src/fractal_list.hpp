@@ -230,6 +230,7 @@ enum enumFractalFormula
 	transfReciprocal4D = 1066,
 	transfFabsAddConditional4D = 1067,
 	transfSphericalOffsetVCL = 1068,
+	transfRotation4D = 1069,
 };
 }
 

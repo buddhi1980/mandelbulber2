@@ -529,6 +529,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Transform - Iteration Weight_4D", "transf_iteration_weight_4D",
 			transfIterationWeight4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
+	fractalList->append(sFractalDescription("Transfrom Rotation 4D", "transf_rotation_4D", transfRotation4D,
+		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
 	fractalList->append(sFractalDescription("Transform - Scale_4D", "transf_scale_4D", transfScale4D,
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 

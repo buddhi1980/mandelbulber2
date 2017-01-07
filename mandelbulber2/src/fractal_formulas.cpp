@@ -7903,8 +7903,8 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	{
 		tp = z4D;
 		double zeta = fractal->transformCommon.rotation44b.z *M_PI/180;
-		z4D.y = tp.z * cos(zeta) + tp.w * sin(zeta);
-		z4D.z = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+		z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
 	}
 
 	// temp3D rot
@@ -8582,6 +8582,58 @@ void TransformReciprocal4DIteration(CVector4 &z4D, const cFractal *fractal, sExt
 	// aux.DE = aux.DE * l/L;
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 }
+
+/**
+ * rotation 4D
+ */
+void TransformRotation4DIteration(CVector4 &z4D, const cFractal *fractal)
+// temp 4D rotation
+{
+	CVector4 tp;
+	if (fractal->transformCommon.rotation44a.x != 0)
+	{
+		tp = z4D;
+		double alpha = fractal->transformCommon.rotation44a.x *M_PI/180;
+		z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+		z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+	}
+	if (fractal->transformCommon.rotation44a.y != 0)
+	{
+		tp = z4D;
+		double beta = fractal->transformCommon.rotation44a.y *M_PI/180;
+		z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+		z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+	}
+	if (fractal->transformCommon.rotation44a.z != 0)
+	{
+		tp = z4D;
+		double gamma = fractal->transformCommon.rotation44a.z *M_PI/180;
+		z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+		z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+	}
+	if (fractal->transformCommon.rotation44b.x != 0)
+	{
+		tp = z4D;
+		double delta = fractal->transformCommon.rotation44b.x *M_PI/180;
+		z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+		z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+	}
+	if (fractal->transformCommon.rotation44b.y != 0)
+	{
+		tp = z4D;
+		double epsilon = fractal->transformCommon.rotation44b.y *M_PI/180;
+		z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+		z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+	}
+	if (fractal->transformCommon.rotation44b.z != 0)
+	{
+		tp = z4D;
+		double zeta = fractal->transformCommon.rotation44b.z *M_PI/180;
+		z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+		z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+	}
+}
+
 
 /**
  * scale 4D
