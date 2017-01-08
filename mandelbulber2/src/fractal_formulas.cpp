@@ -3645,7 +3645,7 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 	aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
 }
 
-//  still to complete kifs
+
 /**
  * Menger Prism Shape2
  * from code by Knighty
@@ -3654,13 +3654,13 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
  */
 void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	CVector3 gap = fractal->transformCommon.constantMultiplier000;
-	double t;
-	double dot1;
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
 		z = CVector3{-z.z, z.x, z.y};
 	}
+	CVector3 gap = fractal->transformCommon.constantMultiplier000;
+	double t;
+	double dot1;
 	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterationsP
 			&& i < fractal->transformCommon.stopIterationsP1)
 	{
@@ -7860,6 +7860,20 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	if (z4D.y - z4D.w < 0.0) swap(z4D.w, z4D.y);
 	if (z4D.z - z4D.w < 0.0) swap(z4D.w, z4D.z);
 
+	// temp3D rot
+
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		CVector3 Z3 = CVector3(z4D.x, z4D.y, z4D.z);
+		Z3 = fractal->transformCommon.rotationMatrix.RotateVector(Z3);
+		z4D.x = Z3.x;
+		z4D.y = Z3.y;
+		z4D.z = Z3.z;
+	}
+
+
 	// temp 4D rotation
 
 	CVector4 tp;
@@ -7906,18 +7920,7 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 		z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
 	}
 
-	// temp3D rot
 
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& i >= fractal->transformCommon.startIterationsR
-			&& i < fractal->transformCommon.stopIterationsR)
-	{
-		CVector3 Z3 = CVector3(z4D.x, z4D.y, z4D.z);
-		Z3 = fractal->transformCommon.rotationMatrix.RotateVector(Z3);
-		z4D.x = Z3.x;
-		z4D.y = Z3.y;
-		z4D.z = Z3.z;
-	}
 
 	double scaleM = fractal->transformCommon.scale3;
 	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
@@ -8000,7 +8003,6 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 	}
 
 	z4D = fabs(z4D);
-	CVector4 temp4;
 	if (z4D.x - z4D.y < 0.0) swap(z4D.y, z4D.x);
 	if (z4D.x - z4D.z < 0.0) swap(z4D.z, z4D.x);
 	if (z4D.y - z4D.z < 0.0) swap(z4D.z, z4D.y);
@@ -8019,7 +8021,51 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 		z4D.y = Z3.y;
 		z4D.z = Z3.z;
 	}
+	// temp 4D rotation
 
+	CVector4 tp;
+	if (fractal->transformCommon.rotation44a.x != 0)
+	{
+		tp = z4D;
+		double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
+		z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+		z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+	}
+	if (fractal->transformCommon.rotation44a.y != 0)
+	{
+		tp = z4D;
+		double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
+		z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+		z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+	}
+	if (fractal->transformCommon.rotation44a.z != 0)
+	{
+		tp = z4D;
+		double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
+		z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+		z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+	}
+	if (fractal->transformCommon.rotation44b.x != 0)
+	{
+		tp = z4D;
+		double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
+		z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+		z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+	}
+	if (fractal->transformCommon.rotation44b.y != 0)
+	{
+		tp = z4D;
+		double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
+		z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+		z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+	}
+	if (fractal->transformCommon.rotation44b.z != 0)
+	{
+		tp = z4D;
+		double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
+		z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+		z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+	}
 	double scaleM = fractal->transformCommon.scale3;
 	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
 	z4D.x = scaleM * z4D.x - offsetM.x;
