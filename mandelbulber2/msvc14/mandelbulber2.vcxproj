@@ -526,10 +526,10 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemGroup Condition="( $(Configuration.ToLower().IndexOf('analysis')) == -1 )">
+  <ItemGroup Condition="( $(Configuration.ToLower().IndexOf('analysis')) &gt; -1 )">
     <ClCompile Include="$(SolutionDir)build-win\*.cpp" Exclude="$(SolutionDir)build-win\qrc_icons.cpp" />
   </ItemGroup>
-  <ItemGroup Condition="( $(Configuration.ToLower().IndexOf('analysis')) &gt; -1 )">
+  <ItemGroup Condition="( $(Configuration.ToLower().IndexOf('analysis')) == -1 )">
     <ClCompile Include="$(SolutionDir)build-win\*.cpp" />
   </ItemGroup>
   <ItemGroup>
