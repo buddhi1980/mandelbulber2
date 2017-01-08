@@ -579,7 +579,7 @@ void BenesiIteration(CVector3 &z, CVector3 c, sExtendedAux &aux)
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	double r1 = z.y * z.y + z.z * z.z;
 	double newx;
-	if (c.x < 0 || z.x < sqrt(r1))
+	if (c.x < 0.0 || z.x < sqrt(r1))
 	{
 		newx = z.x * z.x - r1;
 	}
@@ -771,25 +771,9 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 				- fabs(fractal->transformCommon.additionConstant000.z);
 
 	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
-	// if (rr < 1e-21) rr = 1e-21;
-	double m;
 	double sqrtMinR = sqrt(fractal->transformCommon.minR0);
-	// if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
-	if (rr < sqrtMinR)
-	{
-		m = aux.actualScale / sqrtMinR;
-	}
-	else
-	{
-		if (rr < 1)
-		{
-			m = aux.actualScale / rr;
-		}
-		else
-		{
-			m = aux.actualScale;
-		}
-	}
+	double dividend = rr < sqrtMinR ? sqrtMinR : min(rr, 1.0);
+	double m = aux.actualScale / dividend;
 	z *= m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
 }
@@ -809,35 +793,17 @@ void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
-	double tem = fabs(z.z) - fractal->transformCommon.offset05;
+	double temp = fabs(z.z) - fractal->transformCommon.offset05;
+
 	double rr;
-	if (tem > 0.0)
-	{
-		rr = (z.x * z.x + z.y * z.y + z.z * z.z); // on top & bottom of cyl
-	}
+	if (temp > 0.0)
+		rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl
 	else
-	{
-		rr = (z.x * z.x + z.y * z.y); // on cyl body
-	}
-	// if (rr < 1e-21) rr = 1e-21;
-	double m;
+		rr = z.x * z.x + z.y * z.y; // on cyl body
+
 	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-	// if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
-	if (rr < sqrtMinR)
-	{
-		m = fractal->mandelbox.scale / sqrtMinR;
-	}
-	else
-	{
-		if (rr < 1)
-		{
-			m = fractal->mandelbox.scale / rr;
-		}
-		else
-		{
-			m = fractal->mandelbox.scale;
-		}
-	}
+	double dividend = rr < sqrtMinR ? sqrtMinR : min(rr, 1.0);
+	double m = aux.actualScale / dividend;
 	z *= m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
 }
@@ -850,19 +816,9 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 {
 	z = fractal->transformCommon.additionConstant0555 - fabs(z);
 	double rr = z.Dot(z);
-	// if(rr < 1e-21) rr = 1e-21;
 	double MinR = fractal->transformCommon.minR06;
-	// if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
-	double m;
-	if (rr < (MinR))
-		m = fractal->transformCommon.scale015 / (MinR);
-	else
-	{
-		if (rr < 1)
-			m = fractal->transformCommon.scale015 / rr;
-		else
-			m = fractal->transformCommon.scale015;
-	}
+	double dividend = rr < MinR ? MinR : min(rr, 1.0);
+	double m = fractal->transformCommon.scale015 / dividend;
 	z = z * m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
 }
@@ -891,14 +847,9 @@ void AboxModKaliEiffieIteration(
 		double zLimit =
 			fractal->transformCommon.additionConstant111.z * fractal->transformCommon.scale1;
 		double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
-		if (z.z > zLimit)
+		if (fabs(z.z) > zLimit)
 		{
-			z.z = zValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
-		}
-		else if (z.z < -zLimit)
-		{
-			z.z = -zValue - z.z;
+			z.z = sign(z.z) * zValue - z.z;
 			aux.color += fractal->mandelbox.color.factor.z;
 		}
 	}
@@ -910,9 +861,7 @@ void AboxModKaliEiffieIteration(
 	if (z.y > z.x) z = CVector3(z.y, z.x, z.z); // conditional
 
 	double rr = z.Dot(z);
-	// if(rr < 1e-21) rr = 1e-21;
 	double MinR = fractal->transformCommon.minR05;
-	// if (MinR < -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
 	double m = fractal->transformCommon.scale015;
 	if (rr < MinR)
 	{
@@ -1090,27 +1039,13 @@ void AmazingSurfIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExt
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	// no z fold
 
-	double r2;
-	r2 = z.Dot(z);
+	double rr = z.Dot(z);
 	if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
-		r2 -= z.z * z.z;
-	// if (r2 < 1e-21)
-	//	r2 = 1e-21;
+		rr -= z.z * z.z;
 
-	double m;
 	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-	// if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21)
-	//	sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
-	if (r2 < sqrtMinR)
-		m = aux.actualScale / sqrtMinR;
-	else
-	{
-		if (r2 < 1.0)
-			m = aux.actualScale / r2;
-		else
-			m = aux.actualScale;
-	}
-
+	double dividend = rr < sqrtMinR ? sqrtMinR : min(rr, 1.0);
+	double m = aux.actualScale / dividend;
 	z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 	aux.DE = aux.DE * fabs(m) + 1.0;
 
@@ -1162,24 +1097,14 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 	// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
-		if (z.x > fractal->transformCommon.additionConstant111.x)
+		if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
 		{
-			z.x = fractal->mandelbox.foldingValue - z.x;
+			z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
 			// aux.color += fractal->mandelbox.color.factor.x;
 		}
-		else if (z.x < -fractal->transformCommon.additionConstant111.x)
+		if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
 		{
-			z.x = -fractal->mandelbox.foldingValue - z.x;
-			// aux.color += fractal->mandelbox.color.factor.x;
-		}
-		if (z.y > fractal->transformCommon.additionConstant111.y)
-		{
-			z.y = fractal->mandelbox.foldingValue - z.y;
-			// aux.color += fractal->mandelbox.color.factor.y;
-		}
-		else if (z.y < -fractal->transformCommon.additionConstant111.y)
-		{
-			z.y = -fractal->mandelbox.foldingValue - z.y;
+			z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 			// aux.color += fractal->mandelbox.color.factor.y;
 		}
 		aux.color += fractal->mandelbox.color.factor.x;
