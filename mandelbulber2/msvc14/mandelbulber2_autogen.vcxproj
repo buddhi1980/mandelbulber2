@@ -290,8 +290,6 @@
   </ItemGroup>
   <Target Name="Build">
     <MakeDir Directories="$(GenDir)" />
-    <Exec Command="del /F /Q $(GenDir)\*.h" />
-    <Exec Command="del /F /Q $(GenDir)\*.cpp" />
   </Target>
   <Target Inputs="@(QtIncludes)" Name="Moc" AfterTargets="Build" Outputs="@(QtIncludes->'$(GenDir)/moc_%(Filename).cpp')">
     <Exec Command="$(Moc) %(QtIncludes.identity) -nw -o $(GenDir)/moc_%(Filename).cpp $(MocFlags)" />

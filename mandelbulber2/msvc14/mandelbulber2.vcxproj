@@ -928,5 +928,7 @@
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q $(IntDir)" />
+    <Exec Command="del /F /Q $(GenDir)\*.h" />
+    <Exec Command="del /F /Q $(GenDir)\*.cpp" />
   </Target>
 </Project>
