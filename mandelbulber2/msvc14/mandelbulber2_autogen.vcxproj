@@ -263,7 +263,7 @@
     <GenDir>$(SourceDir)build-win</GenDir>
   </PropertyGroup>
   <PropertyGroup>
-    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.1.10777\build\native\</QtDir>
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.1.10779\build\native\</QtDir>
     <Moc>$(QtDir)/bin/moc.exe</Moc>
     <Uic>$(QtDir)/bin/uic.exe</Uic>
     <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
