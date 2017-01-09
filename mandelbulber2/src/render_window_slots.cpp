@@ -390,16 +390,17 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 			systemData.GetCustomWindowStateFolder() + QDir::separator() + customWindowStateFile;
 
 		QWidgetAction *action = new QWidgetAction(this);
-		QToolButton *buttonLoad = new QToolButton;
+		QPushButton *buttonLoad = new QPushButton;
 		QHBoxLayout *tooltipLayout = new QHBoxLayout;
 		QToolButton *buttonRemove = new QToolButton;
 		QLabel *label = new QLabel;
+
+		buttonLoad->setStyleSheet("QPushButton{ border: none; margin: 2px; padding: 1px; }");
 		label->setText(QByteArray().fromBase64(QByteArray().append(customWindowStateFile)));
-		tooltipLayout->setContentsMargins(3, 3, 3, 3);
+		tooltipLayout->setContentsMargins(5, 0, 0, 0);
 		QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
 		buttonRemove->setIcon(iconDelete);
 		buttonRemove->setMaximumSize(QSize(15, 15));
-		// buttonRemove->setStyleSheet("margin-bottom: -2px; margin-left: -2px;");
 		tooltipLayout->addWidget(buttonRemove);
 		tooltipLayout->addWidget(label);
 		buttonLoad->setLayout(tooltipLayout);

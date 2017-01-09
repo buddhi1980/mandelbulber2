@@ -293,7 +293,6 @@
     <addaction name="actionAnimation_docks_positions"/>
     <addaction name="actionStack_all_docks"/>
     <addaction name="separator"/>
-    <addaction name="separator"/>
     <addaction name="actionShow_animation_dock"/>
     <addaction name="actionShow_info_dock"/>
     <addaction name="actionShow_toolbar"/>
@@ -301,6 +300,7 @@
     <addaction name="actionShow_gamepad_dock"/>
     <addaction name="actionShow_queue_dock"/>
     <addaction name="actionShow_measurement_dock"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
