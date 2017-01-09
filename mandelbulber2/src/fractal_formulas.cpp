@@ -2775,7 +2775,7 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			dy = 1.5;
 			dz = 1.5;
 		}
-		else if (z < y)
+		else if (z.z < z.y)
 		{
 			dy = 1.5; // and dz is unchanged
 		}
@@ -3517,7 +3517,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 			dy = 1.5;
 			dz = 1.5;
 		}
-		else if (z < y)
+		else if (z.z < z.y)
 		{
 			dy = 1.5;
 		}
