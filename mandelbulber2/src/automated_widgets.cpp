@@ -81,7 +81,7 @@ void cAutomatedWidgets::slotDoubleSpinBoxChanged(double value) const
 		QDoubleSpinBox *spinBox = static_cast<QDoubleSpinBox *>(this->sender());
 		double decimals = spinBox->decimals();
 		double multiplier = pow(10.0, decimals);
-		slider->setValue(value * multiplier);
+		slider->setValue(int(value * multiplier));
 	}
 	else
 	{
@@ -189,7 +189,7 @@ void cAutomatedWidgets::slotSpinBox3Changed(double value) const
 		QDoubleSpinBox *spinBox = static_cast<QDoubleSpinBox *>(this->sender());
 		double decimals = spinBox->decimals();
 		double multiplier = pow(10.0, decimals);
-		slider->setValue(value * multiplier);
+		slider->setValue(int(value * multiplier));
 	}
 	else
 	{
@@ -212,7 +212,7 @@ void cAutomatedWidgets::slotSpinBox4Changed(double value) const
 		QDoubleSpinBox *spinBox = static_cast<QDoubleSpinBox *>(this->sender());
 		double decimals = spinBox->decimals();
 		double multiplier = pow(10.0, decimals);
-		slider->setValue(value * multiplier);
+		slider->setValue(int(value * multiplier));
 	}
 	else
 	{
@@ -269,7 +269,7 @@ void cAutomatedWidgets::slotSpinBoxD3Changed(double value) const
 	QDial *dial = this->sender()->parent()->findChild<QDial *>(dialName);
 	if (dial)
 	{
-		dial->setValue(value * 100.0);
+		dial->setValue(int(value * 100.0));
 	}
 	else
 	{
@@ -288,7 +288,7 @@ void cAutomatedWidgets::slotSpinBoxD4Changed(double value) const
 	QDial *dial = this->sender()->parent()->findChild<QDial *>(dialName);
 	if (dial)
 	{
-		dial->setValue(value * 100.0);
+		dial->setValue(int(value * 100.0));
 	}
 	else
 	{
@@ -326,7 +326,7 @@ void cAutomatedWidgets::slotSpinBoxDChanged(double value) const
 	QDial *dial = this->sender()->parent()->findChild<QDial *>(dialName);
 	if (dial)
 	{
-		dial->setValue(value * 100.0);
+		dial->setValue(int(value * 100.0));
 	}
 	else
 	{
@@ -392,7 +392,7 @@ void cAutomatedWidgets::slotLogLineEditChanged(const QString &text) const
 		double value = systemData.locale.toDouble(text);
 		if (value > 0.0)
 		{
-			int sliderPosition = log10(systemData.locale.toDouble(text)) * 100.0;
+			int sliderPosition = int(log10(systemData.locale.toDouble(text)) * 100.0);
 			slider->setValue(sliderPosition);
 		}
 		else
@@ -422,7 +422,7 @@ void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 		double value = systemData.locale.toDouble(text);
 		if (value > 0.0)
 		{
-			int sliderPosition = log10(systemData.locale.toDouble(text)) * 100.0;
+			int sliderPosition = int(log10(systemData.locale.toDouble(text)) * 100.0);
 			slider->setValue(sliderPosition);
 		}
 		else

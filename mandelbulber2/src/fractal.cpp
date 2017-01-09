@@ -66,8 +66,8 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbox.color.factorR = container->Get<double>("mandelbox_color_R");
 	mandelbox.color.factorSp1 = container->Get<double>("mandelbox_color_Sp1");
 	mandelbox.color.factorSp2 = container->Get<double>("mandelbox_color_Sp2");
-	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotations_enabled");
-	mandelbox.mainRotationEnabled = container->Get<double>("mandelbox_main_rotation_enabled");
+	mandelbox.rotationsEnabled = container->Get<bool>("mandelbox_rotations_enabled");
+	mandelbox.mainRotationEnabled = container->Get<bool>("mandelbox_main_rotation_enabled");
 
 	mandelboxVary4D.fold = container->Get<double>("mandelbox_vary_fold");
 	mandelboxVary4D.minR = container->Get<double>("mandelbox_vary_minr");

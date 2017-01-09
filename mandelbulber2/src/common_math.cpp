@@ -62,7 +62,7 @@ int RandomInt()
 	// No division required, since hi + lo is always < 232 - 2
 	if (lo > 2147483647) lo -= 2147483647;
 
-	return (gRandomSeed = lo);
+	return (int(gRandomSeed = lo));
 }
 
 int Random(int max)

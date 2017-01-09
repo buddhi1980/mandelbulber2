@@ -1159,7 +1159,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				CVector3 delta = z - in.common.fakeLightsOrbitTrap;
 				double distance = delta.Length();
 				if (i >= in.common.fakeLightsMinIter && i <= in.common.fakeLightsMaxIter)
-					orbitTrapTotal += (1.0f / (distance * distance));
+					orbitTrapTotal += (1.0 / (distance * distance));
 				if (distance > 1000)
 				{
 					out->orbitTrapR = orbitTrapTotal;

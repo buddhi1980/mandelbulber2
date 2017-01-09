@@ -201,14 +201,14 @@ void cAudioTrack::slotReadBuffer()
 		}
 	}
 	length = rawAudio.size();
-	double percent = (double)length / totalSamplesApprox * 100.0;
+	double percent = double(length) / totalSamplesApprox * 100.0;
 	emit loadingProgress(percent);
 }
 
 void cAudioTrack::slotFinished()
 {
 	qDebug() << "finished";
-	qDebug() << length << (double)length / sampleRate;
+	qDebug() << length << double(length) / sampleRate;
 	loaded = true;
 	loadingInProgress = false;
 	WriteLog("Loading mp3 file finished", 2);
@@ -257,7 +257,7 @@ void cAudioTrack::calculateFFT()
 #pragma omp parallel for
 		for (int frame = 0; frame < numberOfFrames; ++frame)
 		{
-			int sampleOffset = (qint64)frame * sampleRate / framesPerSecond;
+			int sampleOffset = int(qint64(frame) * sampleRate / framesPerSecond);
 			// prepare complex data for fft transform
 			double fftData[cAudioFFTdata::fftSize * 2];
 			for (int i = 0; i < cAudioFFTdata::fftSize; i++)
@@ -351,13 +351,13 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pit
 
 int cAudioTrack::freq2FftPos(double freq) const
 {
-	return (double)cAudioFFTdata::fftSize / (double)sampleRate * freq;
+	return int(double(cAudioFFTdata::fftSize) / double(sampleRate) * freq);
 }
 
 void cAudioTrack::setFramesPerSecond(double _framesPerSecond)
 {
 	framesPerSecond = _framesPerSecond;
-	numberOfFrames = length * framesPerSecond / sampleRate;
+	numberOfFrames = int(length * framesPerSecond / sampleRate);
 }
 
 void cAudioTrack::calculateAnimation(double midFreq, double bandwidth, bool pitchMode)

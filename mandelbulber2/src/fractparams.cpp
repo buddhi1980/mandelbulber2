@@ -78,7 +78,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	DOFSamples = container->Get<int>("DOF_samples");
 	DOFBlurOpacity = container->Get<double>("DOF_blur_opacity");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
-	fakeLightsEnabled = container->Get<double>("fake_lights_enabled");
+	fakeLightsEnabled = container->Get<bool>("fake_lights_enabled");
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
 	fakeLightsVisibility = container->Get<double>("fake_lights_visibility");
 	fakeLightsVisibilitySize = container->Get<double>("fake_lights_visibility_size");
@@ -154,7 +154,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	volFogDensity = container->Get<double>("volumetric_fog_density");
 	volFogDistanceFactor = container->Get<double>("volumetric_fog_distance_factor");
 	volFogEnabled = container->Get<bool>("volumetric_fog_enabled");
-	volumetricLightEnabled[0] = container->Get<double>("main_light_volumetric_enabled");
+	volumetricLightEnabled[0] = container->Get<bool>("main_light_volumetric_enabled");
 	volumetricLightIntensity[0] = container->Get<double>("main_light_volumetric_intensity");
 
 	for (int i = 0; i < 4; ++i)
@@ -168,7 +168,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	for (int i = 1; i <= 4; i++)
 	{
 		volumetricLightIntensity[i] = container->Get<double>("aux_light_volumetric_intensity", i);
-		volumetricLightEnabled[i] = container->Get<double>("aux_light_volumetric_enabled", i);
+		volumetricLightEnabled[i] = container->Get<bool>("aux_light_volumetric_enabled", i);
 	}
 
 	volumetricLightAnyEnabled = false;
@@ -210,8 +210,8 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 		(*objectData)[0].materialId = formulaMaterialId[0];
 	}
 
-	common.fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
-	common.fakeLightsMinIter = container->Get<double>("fake_lights_min_iter");
+	common.fakeLightsMaxIter = container->Get<int>("fake_lights_max_iter");
+	common.fakeLightsMinIter = container->Get<int>("fake_lights_min_iter");
 	common.fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");
 	common.foldings.boxEnable = container->Get<bool>("box_folding");
 	common.foldings.boxLimit = container->Get<double>("box_folding_limit");

@@ -493,7 +493,7 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 {
 	T newVal = oldVal;
 	bool isEnabled =
-		params->Get<double>(QString("animsound_enable_%1").arg(fullParameterNameWithSufix));
+		params->Get<bool>(QString("animsound_enable_%1").arg(fullParameterNameWithSufix));
 	if (isEnabled)
 	{
 		double addiitionFactor =
