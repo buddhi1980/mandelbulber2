@@ -72,6 +72,7 @@ void cAudioTrack::Clear()
 	sampleRate = 44100;
 	loaded = false;
 	loadingInProgress = false;
+	fftCalculated = false;
 	framesPerSecond = 30.0;
 	numberOfFrames = 0;
 	maxVolume = 0.0;
@@ -247,7 +248,7 @@ void cAudioTrack::slotError(QAudioDecoder::Error error)
 
 void cAudioTrack::calculateFFT()
 {
-	if (loaded && length > cAudioFFTdata::fftSize)
+	if (loaded && !fftCalculated && length > cAudioFFTdata::fftSize)
 	{
 		WriteLog("FFT calculation started", 2);
 
@@ -285,6 +286,7 @@ void cAudioTrack::calculateFFT()
 			}
 			fftAudio[frame] = fftFrame;
 		}
+		fftCalculated = true;
 		WriteLog("FFT calculation finished", 2);
 	}
 }
@@ -356,6 +358,8 @@ int cAudioTrack::freq2FftPos(double freq) const
 
 void cAudioTrack::setFramesPerSecond(double _framesPerSecond)
 {
+	if(_framesPerSecond != framesPerSecond) fftCalculated = false;
+
 	framesPerSecond = _framesPerSecond;
 	numberOfFrames = int(length * framesPerSecond / sampleRate);
 }

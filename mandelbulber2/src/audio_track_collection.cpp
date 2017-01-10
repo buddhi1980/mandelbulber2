@@ -190,8 +190,7 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 		{
 			audioTracks[listOfAllParameters[i]]->Clear();
 			audioTracks[listOfAllParameters[i]]->LoadAudio(filename);
-			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(
-				30.0); // TODO settings for frames per second
+			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(params->Get<double>("keyframe_frames_per_second"));
 			audioTracks[listOfAllParameters[i]]->calculateFFT();
 		}
 	}

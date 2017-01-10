@@ -84,6 +84,7 @@ private:
 	int sampleRate;
 	bool loaded;
 	bool loadingInProgress;
+	bool fftCalculated;
 
 	double framesPerSecond;
 	int numberOfFrames;

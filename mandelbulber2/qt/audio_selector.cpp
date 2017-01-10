@@ -77,7 +77,7 @@ void cAudioSelector::slotLoadAudioFile()
 			audio = animationFrames->GetAudioPtr(parameterName);
 		}
 		audio->Clear();
-		audio->setFramesPerSecond(30.0);
+		audio->setFramesPerSecond(gPar->Get<double>("keyframe_frames_per_second"));
 
 		ui->text_animsound_soundfile->setText(filename);
 
@@ -88,11 +88,11 @@ void cAudioSelector::slotLoadAudioFile()
 
 void cAudioSelector::slotAudioLoaded()
 {
-	audio->setFramesPerSecond(30.0); // TODO settings for frames per second
-	audio->calculateFFT();					 // TODO settings for frames per second
+	audio->setFramesPerSecond(gPar->Get<double>("keyframe_frames_per_second"));
+	audio->calculateFFT();
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
-	ui->timeRuler->SetParameters(audio, 100); // TODO hardcoded frames per keyframe
+	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 	slotFreqChanged();
 	emit audioLoaded();
 }
@@ -181,9 +181,11 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 		audio = animationFrames->GetAudioPtr(parameterName);
 		if (audio->isLoaded())
 		{
+			audio->setFramesPerSecond(gPar->Get<double>("keyframe_frames_per_second"));
+			audio->calculateFFT();
 			ui->waveForm->AssignAudioTrack(audio);
 			ui->fft->AssignAudioTrack(audio);
-			ui->timeRuler->SetParameters(audio, 100); // TODO hardcoded frames per keyframe
+			ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 			slotFreqChanged();
 		}
 	}
@@ -194,6 +196,6 @@ void cAudioSelector::slotDeleteAudioTrack()
 	audio->Clear();
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
-	ui->timeRuler->SetParameters(audio, 100);
+	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 	slotFreqChanged();
 }

@@ -52,8 +52,6 @@ public:
 	/* Warning! this is fake operator to avoid copying audio data to cUndo buffers */
 	cAudioTrackCollection &operator=(const cAudioTrackCollection &collection);
 
-	// FIXME restoring of audiotracks after UNDO
-
 	void AddAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAllAudioTracks(cParameterContainer *params);
