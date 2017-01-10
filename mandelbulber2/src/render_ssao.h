@@ -53,7 +53,7 @@ public:
 
 	void SetRegion(const cRegion<int> &_region);
 	void RenderSSAO(QList<int> *list = nullptr);
-	void setProgressive(double step) { progressive = step; }
+	void setProgressive(int step) { progressive = step; }
 
 private:
 	const cParamRender *params;

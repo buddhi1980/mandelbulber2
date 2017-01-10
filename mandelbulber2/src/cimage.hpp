@@ -192,9 +192,9 @@ public:
 			return normal8[qint64(x) + qint64(y) * qint64(width)];
 		return Black8();
 	}
-	inline void BlendPixelImage16(int x, int y, double factor, sRGB16 other)
+	inline void BlendPixelImage16(int x, int y, float factor, sRGB16 other)
 	{
-		double factorN = 1.0 - factor;
+		float factorN = 1.0f - factor;
 		image16[qint64(x) + qint64(y) * qint64(width)].R =
 			quint16(image16[qint64(x) + qint64(y) * qint64(width)].R * factorN + other.R * factor);
 		image16[qint64(x) + qint64(y) * qint64(width)].G =
@@ -214,9 +214,9 @@ public:
 			imageFloat[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor;
 	}
 
-	inline void BlendPixelAlpha(int x, int y, double factor, quint16 other)
+	inline void BlendPixelAlpha(int x, int y, float factor, quint16 other)
 	{
-		double factorN = 1.0 - factor;
+		float factorN = 1.0f - factor;
 		alphaBuffer16[qint64(x) + qint64(y) * qint64(width)] =
 			quint16(alphaBuffer16[qint64(x) + qint64(y) * qint64(width)] * factorN + other * factor);
 	}

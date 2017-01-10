@@ -112,7 +112,7 @@ void cSSAOWorker::doWork()
 		}
 		for (int x = startX; x < endX; x += step)
 		{
-			double z = image->GetPixelZBuffer(x, y);
+			double z = double(image->GetPixelZBuffer(x, y));
 			unsigned short opacity16 = image->GetPixelOpacity(x, y);
 			double opacity = opacity16 / 65535.0;
 			double total_ambient = 0;
@@ -181,7 +181,7 @@ void cSSAOWorker::doWork()
 
 						if (int(xx) == x && int(yy) == y) continue;
 						if (xx < startX || xx > endX - 1 || yy < startLine || yy > endLine - 1) continue;
-						double z2 = image->GetPixelZBuffer(int(xx), int(yy));
+						double z2 = double(image->GetPixelZBuffer(int(xx), int(yy)));
 
 						double xx2, yy2;
 						if (perspectiveType == params::perspFishEye)
@@ -233,12 +233,9 @@ void cSSAOWorker::doWork()
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGB16 pixel = image->GetPixelImage16(x + xx, y);
 				double shadeFactor = 65535.0 / 256.0 * total_ambient * intensity * (1.0 - opacity);
-				pixel.R =
-					static_cast<unsigned short>(std::min(pixel.R + int(colour.R * shadeFactor), 65535));
-				pixel.G =
-					static_cast<unsigned short>(std::min(pixel.G + int(colour.G * shadeFactor), 65535));
-				pixel.B =
-					static_cast<unsigned short>(std::min(pixel.B + int(colour.B * shadeFactor), 65535));
+				pixel.R = quint16(std::min(pixel.R + int(colour.R * shadeFactor), 65535));
+				pixel.G = quint16(std::min(pixel.G + int(colour.G * shadeFactor), 65535));
+				pixel.B = quint16(std::min(pixel.B + int(colour.B * shadeFactor), 65535));
 				image->PutPixelImage16(x + xx, y, pixel);
 			}
 		}

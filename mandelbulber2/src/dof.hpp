@@ -48,16 +48,16 @@ private:
 	struct sSortZ
 	{
 		TYPE z;
-		int i;
+		quint64 i;
 	};
 
 public:
 	cPostRenderingDOF(cImage *_image);
 
-	void Render(cRegion<int> screenRegion, double deep, double neutral, bool floatVersion,
-		int numberOfPasses, double blurOpacity, bool *stopRequest);
+	void Render(cRegion<int> screenRegion, float deep, float neutral, bool floatVersion,
+		int numberOfPasses, float blurOpacity, bool *stopRequest);
 	template <class T>
-	void QuickSortZBuffer(sSortZ<T> *buffer, int l, int p);
+	void QuickSortZBuffer(sSortZ<T> *buffer, quint64 l, quint64 p);
 
 	cImage *image;
 

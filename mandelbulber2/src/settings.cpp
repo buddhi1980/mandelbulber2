@@ -255,9 +255,9 @@ QString cSettings::CreateOneLine(const cParameterContainer *par, QString name) c
 {
 	QString text;
 	enumParameterType parType = par->GetParameterType(name);
-	if ((format == formatFullText || format == formatCondensedText) && parType == paramStandard
-			|| format == formatNetRender && (parType == paramStandard || parType == paramOnlyForNet)
-			|| format == formatAppSettings && parType == paramApp)
+	if (((format == formatFullText || format == formatCondensedText) && parType == paramStandard)
+			|| (format == formatNetRender && (parType == paramStandard || parType == paramOnlyForNet))
+			|| (format == formatAppSettings && parType == paramApp))
 	{
 		QString value;
 		enumVarType type = par->GetVarType(name);
