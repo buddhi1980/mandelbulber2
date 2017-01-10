@@ -33,6 +33,35 @@
         <widget class="MyLineEdit" name="text_animsound_soundfile"/>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="pushButton_playback_start">
+           <property name="text">
+            <string>Play sound</string>
+           </property>
+           <property name="icon">
+            <iconset theme="media-playback-start" resource="icons.qrc">
+             <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_playback_stop">
+           <property name="text">
+            <string>Stop</string>
+           </property>
+           <property name="icon">
+            <iconset theme="media-playback-stop" resource="icons.qrc">
+             <normaloff>:/system/icons/media-playback-stop.svg</normaloff>:/system/icons/media-playback-stop.svg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_delete_audiotrack">
          <property name="text">
           <string>Delete audio track</string>
@@ -500,7 +529,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>1102</width>
+          <width>1126</width>
           <height>667</height>
          </rect>
         </property>

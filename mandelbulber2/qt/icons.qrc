@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/system">
+    <file>icons/media-playback-stop.svg</file>
     <file>icons/dialog-ok-apply.png</file>
     <file>icons/mandelbulber.png</file>
     <file>icons/layer.png</file>

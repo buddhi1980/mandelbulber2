@@ -36,6 +36,7 @@
 #define MANDELBULBER2_QT_AUDIO_SELECTOR_H_
 
 #include <QWidget>
+#include <QMediaPlayer>
 
 // forward declarations
 class cAutomatedWidgets;
@@ -61,6 +62,8 @@ private slots:
 	void slotAudioLoaded();
 	void slotFreqChanged();
 	void slotDeleteAudioTrack();
+	void slotPlaybackStart();
+	void slotPlaybackStop();
 
 private:
 	void ConnectSignals();
@@ -74,6 +77,8 @@ private:
 	cAudioTrack *audio;
 	QString parameterName;
 	cAnimationFrames *animationFrames;
+
+	QMediaPlayer *player;
 
 signals:
 	void freqencyChanged(double midfreq, double bandwidth);

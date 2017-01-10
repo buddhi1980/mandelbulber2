@@ -33,6 +33,7 @@
  */
 
 #include <QtWidgets/QtWidgets>
+#include <QMediaPlayer>
 
 #include "ui_audio_selector.h"
 #include "audio_selector.h"
@@ -47,6 +48,7 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
+	player = new QMediaPlayer;
 	ConnectSignals();
 	audio = nullptr;
 	animationFrames = nullptr;
@@ -56,6 +58,7 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 cAudioSelector::~cAudioSelector()
 {
 	SynchronizeInterfaceWindow(this, gPar, qInterface::read);
+	delete player;
 }
 
 void cAudioSelector::slotLoadAudioFile()
@@ -136,6 +139,8 @@ void cAudioSelector::ConnectSignals()
 		SLOT(slotFreqChanged()));
 	connect(
 		this, SIGNAL(freqencyChanged(double, double)), ui->fft, SLOT(slotFreqChanged(double, double)));
+	connect(ui->pushButton_playback_start, SIGNAL(clicked()), this, SLOT(slotPlaybackStart()));
+	connect(ui->pushButton_playback_stop, SIGNAL(clicked()), this, SLOT(slotPlaybackStop()));
 };
 
 void cAudioSelector::RenameWidget(QWidget *widget)
@@ -166,6 +171,23 @@ void cAudioSelector::slotFreqChanged()
 		ui->animAudioView->UpdateChart(audio);
 		emit freqencyChanged(midFreq, bandwidth);
 	}
+}
+
+void cAudioSelector::slotPlaybackStart()
+{
+	if(audio->isLoaded())
+	{
+		QString filename = ui->text_animsound_soundfile->text();
+		connect(player, SIGNAL(positionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
+		player->setMedia(QUrl::fromLocalFile(filename));
+		player->setNotifyInterval(50);
+		player->play();
+	}
+}
+
+void cAudioSelector::slotPlaybackStop()
+{
+	player->stop();
 }
 
 QString cAudioSelector::FullParameterName(const QString &name)

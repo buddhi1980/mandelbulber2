@@ -54,6 +54,11 @@ private:
 	void paintEvent(QPaintEvent *event);
 
 	QImage animAudioImage;
+	int playbackPositionX;
+	double framesPerSecond;
+
+private slots:
+	void positionChanged(qint64 position);
 };
 
 #endif /* MANDELBULBER2_QT_ANIM_AUDIO_VIEW_H_ */

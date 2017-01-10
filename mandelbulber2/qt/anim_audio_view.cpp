@@ -40,6 +40,8 @@
 
 cAnimAudioView::cAnimAudioView(QWidget *parent) : QWidget(parent)
 {
+	playbackPositionX = 0;
+	framesPerSecond = 30.0;
 }
 
 cAnimAudioView::~cAnimAudioView()
@@ -51,6 +53,7 @@ void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack)
 	if (audiotrack && audiotrack->isLoaded())
 	{
 		int numberOfFrames = audiotrack->getNumberOfFrames();
+		framesPerSecond = audiotrack->getFramesPerSecond();
 		this->setFixedWidth(numberOfFrames);
 
 		animAudioImage = QImage(QSize(numberOfFrames, height()), QImage::Format_RGB32);
@@ -84,4 +87,15 @@ void cAnimAudioView::paintEvent(QPaintEvent *event)
 	Q_UNUSED(event);
 	QPainter painter(this);
 	painter.drawImage(0, 0, animAudioImage);
+	QPen pen(QColor(255, 255, 255, 128));
+
+	painter.setPen(pen);
+	painter.drawLine(playbackPositionX, 0, playbackPositionX, height() - 1);
+}
+
+void cAnimAudioView::positionChanged(qint64 position)
+{
+	double time = position * 0.001;
+	playbackPositionX = time * framesPerSecond;
+	update();
 }
