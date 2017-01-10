@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_
 #define MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_
 
+#include <QtCore>
+
 template <typename T>
 struct tsRGB
 {
@@ -68,20 +70,20 @@ struct tsRGBA
 
 // explicitly define constructor for rgba with regards to max value of Opacity
 template <>
-inline tsRGBA<unsigned char>::tsRGBA()
+inline tsRGBA<quint8>::tsRGBA()
 {
 	R = 0;
 	G = 0;
 	B = 0;
-	A = static_cast<unsigned char>(255);
+	A = static_cast<quint8>(255);
 }
 template <>
-inline tsRGBA<unsigned short>::tsRGBA()
+inline tsRGBA<quint16>::tsRGBA()
 {
 	R = 0;
 	G = 0;
 	B = 0;
-	A = static_cast<unsigned short>(65535);
+	A = static_cast<quint16>(65535);
 }
 template <>
 inline tsRGBA<float>::tsRGBA()
@@ -92,13 +94,13 @@ inline tsRGBA<float>::tsRGBA()
 	A = 1.0;
 }
 
-typedef tsRGB<unsigned char> sRGB8;
-typedef tsRGB<unsigned short> sRGB16;
+typedef tsRGB<quint8> sRGB8;
+typedef tsRGB<quint16> sRGB16;
 typedef tsRGB<float> sRGBfloat;
-typedef tsRGB<int> sRGB;
+typedef tsRGB<qint32> sRGB;
 
-typedef tsRGBA<unsigned char> sRGBA8;
-typedef tsRGBA<unsigned short> sRGBA16;
+typedef tsRGBA<quint8> sRGBA8;
+typedef tsRGBA<quint16> sRGBA16;
 typedef tsRGBA<float> sRGBAfloat;
 
 #endif /* MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_ */

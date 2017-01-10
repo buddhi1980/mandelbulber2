@@ -55,8 +55,8 @@ struct sImageOptional
 struct sAllImageData
 {
 	sRGBfloat imageFloat;
-	unsigned short alphaBuffer;
-	unsigned short opacityBuffer;
+	quint16 alphaBuffer;
+	quint16 opacityBuffer;
 	sRGBfloat normalFloat;
 	sRGB8 colourBuffer;
 	float zBuffer;
@@ -80,138 +80,155 @@ public:
 	void SetAsMainImage() { isMainImage = true; }
 	bool IsMainImage() const { return isMainImage; }
 
-	inline void PutPixelImage(int x, int y, sRGBfloat pixel)
+	inline void PutPixelImage(qint64 x, qint64 y, sRGBfloat pixel)
 	{
-		if (x >= 0 && x < width && y >= 0 && y < height) imageFloat[x + y * width] = pixel;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			imageFloat[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
 	inline void PutPixelImage16(int x, int y, sRGB16 pixel)
 	{
-		if (x >= 0 && x < width && y >= 0 && y < height) image16[x + y * width] = pixel;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			image16[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
 	inline void PutPixelColour(int x, int y, sRGB8 pixel)
 	{
-		if (x >= 0 && x < width && y >= 0 && y < height) colourBuffer[x + y * width] = pixel;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			colourBuffer[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
 	inline void PutPixelZBuffer(int x, int y, float pixel)
 	{
-		if (x >= 0 && x < width && y >= 0 && y < height) zBuffer[x + y * width] = pixel;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			zBuffer[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelAlpha(int x, int y, unsigned short pixel)
+	inline void PutPixelAlpha(int x, int y, quint16 pixel)
 	{
-		if (x >= 0 && x < width && y >= 0 && y < height) alphaBuffer16[x + y * width] = pixel;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			alphaBuffer16[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelOpacity(int x, int y, unsigned short pixel)
+	inline void PutPixelOpacity(int x, int y, quint16 pixel)
 	{
-		if (x >= 0 && x < width && y >= 0 && y < height) opacityBuffer[x + y * width] = pixel;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			opacityBuffer[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
 	inline void PutPixelNormal(int x, int y, sRGBfloat normal)
 	{
-		if (x >= 0 && x < width && y >= 0 && y < height) normalFloat[x + y * width] = normal;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			normalFloat[qint64(x) + qint64(y) * qint64(width)] = normal;
 	}
 	inline sRGBfloat GetPixelImage(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-			return imageFloat[x + y * width];
+			return imageFloat[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return BlackFloat();
 	}
 	inline sRGB16 GetPixelImage16(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-			return image16[x + y * width];
+			return image16[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return Black16();
 	}
 	inline sRGB8 GetPixelImage8(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-			return image8[x + y * width];
+			return image8[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return Black8();
 	}
-	inline unsigned short int GetPixelAlpha(int x, int y) const
+	inline quint16 GetPixelAlpha(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-			return alphaBuffer16[x + y * width];
+			return alphaBuffer16[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return 0;
 	}
-	inline unsigned char GetPixelAlpha8(int x, int y) const
+	inline quint8 GetPixelAlpha8(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-			return alphaBuffer8[x + y * width];
+			return alphaBuffer8[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return 0;
 	}
-	inline unsigned short int GetPixelOpacity(int x, int y) const
+	inline quint16 GetPixelOpacity(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-			return opacityBuffer[x + y * width];
+			return opacityBuffer[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return 0;
 	}
 	inline sRGB8 GetPixelColor(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-			return colourBuffer[x + y * width];
+			return colourBuffer[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return Black8();
 	}
 	inline float GetPixelZBuffer(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
-			return zBuffer[x + y * width];
+			return zBuffer[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return float(1e20);
 	}
 	inline sRGBfloat GetPixelNormal(int x, int y) const
 	{
 		if (!opt.optionalNormal) return BlackFloat();
-		if (x >= 0 && x < width && y >= 0 && y < height) return normalFloat[x + y * width];
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			return normalFloat[qint64(x) + qint64(y) * qint64(width)];
 		return BlackFloat();
 	}
 	inline sRGB16 GetPixelNormal16(int x, int y) const
 	{
 		if (!opt.optionalNormal) return Black16();
-		if (x >= 0 && x < width && y >= 0 && y < height) return normal16[x + y * width];
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			return normal16[qint64(x) + qint64(y) * qint64(width)];
 		return Black16();
 	}
 	inline sRGB8 GetPixelNormal8(int x, int y) const
 	{
 		if (!opt.optionalNormal) return Black8();
-		if (x >= 0 && x < width && y >= 0 && y < height) return normal8[x + y * width];
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			return normal8[qint64(x) + qint64(y) * qint64(width)];
 		return Black8();
 	}
 	inline void BlendPixelImage16(int x, int y, double factor, sRGB16 other)
 	{
 		double factorN = 1.0 - factor;
-		image16[x + y * width].R = image16[x + y * width].R * factorN + other.R * factor;
-		image16[x + y * width].G = image16[x + y * width].G * factorN + other.G * factor;
-		image16[x + y * width].B = image16[x + y * width].B * factorN + other.B * factor;
+		image16[qint64(x) + qint64(y) * qint64(width)].R =
+			quint16(image16[qint64(x) + qint64(y) * qint64(width)].R * factorN + other.R * factor);
+		image16[qint64(x) + qint64(y) * qint64(width)].G =
+			quint16(image16[qint64(x) + qint64(y) * qint64(width)].G * factorN + other.G * factor);
+		image16[qint64(x) + qint64(y) * qint64(width)].B =
+			quint16(image16[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor);
 	}
 
-	inline void BlendPixelImage(int x, int y, double factor, sRGBfloat other)
+	inline void BlendPixelImage(int x, int y, float factor, sRGBfloat other)
 	{
-		double factorN = 1.0 - factor;
-		imageFloat[x + y * width].R = imageFloat[x + y * width].R * factorN + other.R * factor;
-		imageFloat[x + y * width].G = imageFloat[x + y * width].G * factorN + other.G * factor;
-		imageFloat[x + y * width].B = imageFloat[x + y * width].B * factorN + other.B * factor;
+		float factorN = 1.0f - factor;
+		imageFloat[qint64(x) + qint64(y) * qint64(width)].R =
+			imageFloat[qint64(x) + qint64(y) * qint64(width)].R * factorN + other.R * factor;
+		imageFloat[qint64(x) + qint64(y) * qint64(width)].G =
+			imageFloat[qint64(x) + qint64(y) * qint64(width)].G * factorN + other.G * factor;
+		imageFloat[qint64(x) + qint64(y) * qint64(width)].B =
+			imageFloat[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor;
 	}
 
-	inline void BlendPixelAlpha(int x, int y, double factor, unsigned short int other)
+	inline void BlendPixelAlpha(int x, int y, double factor, quint16 other)
 	{
 		double factorN = 1.0 - factor;
-		alphaBuffer16[x + y * width] = alphaBuffer16[x + y * width] * factorN + other * factor;
+		alphaBuffer16[qint64(x) + qint64(y) * qint64(width)] =
+			quint16(alphaBuffer16[qint64(x) + qint64(y) * qint64(width)] * factorN + other * factor);
 	}
 
 	sRGB16 *GetImage16Ptr(void) { return image16; }
 	sRGB8 *GetImage8Ptr(void) { return image8; }
-	unsigned short *GetAlphaBufPtr(void) { return alphaBuffer16; }
-	unsigned char *GetAlphaBufPtr8(void) { return alphaBuffer8; }
+	quint16 *GetAlphaBufPtr(void) { return alphaBuffer16; }
+	quint8 *GetAlphaBufPtr8(void) { return alphaBuffer8; }
 	float *GetZBufferPtr(void) { return zBuffer; }
 	sRGB8 *GetColorPtr(void) { return colourBuffer; }
-	unsigned short *GetOpacityPtr(void) { return opacityBuffer; }
-	size_t GetZBufferSize(void) const { return sizeof(float) * height * width; }
+	quint16 *GetOpacityPtr(void) { return opacityBuffer; }
+	size_t GetZBufferSize(void) const { return sizeof(float) * quint64(height) * quint64(width); }
 	QWidget *GetImageWidget(void) { return imageWidget; }
 
 	void CompileImage(QList<int> *list = nullptr);
@@ -228,14 +245,14 @@ public:
 	void SetImageOptional(sImageOptional opt) { this->opt = opt; }
 	sImageOptional *GetImageOptional(void) { return &opt; }
 
-	unsigned char *ConvertTo8bit(void) const;
-	unsigned char *ConvertAlphaTo8bit(void) const;
-	unsigned char *ConvertNormalto16Bit(void) const;
-	unsigned char *ConvertNormalto8Bit(void) const;
-	unsigned char *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
+	quint8 *ConvertTo8bit(void) const;
+	quint8 *ConvertAlphaTo8bit(void) const;
+	quint8 *ConvertNormalto16Bit(void) const;
+	quint8 *ConvertNormalto8Bit(void) const;
+	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
-	unsigned char *GetPreviewPtr(void) const;
-	unsigned char *GetPreviewPrimaryPtr(void) const;
+	quint8 *GetPreviewPtr(void) const;
+	quint8 *GetPreviewPrimaryPtr(void) const;
 	bool IsPreview(void) const;
 	void RedrawInWidget(QWidget *qwidget = nullptr);
 	double GetPreviewScale() const { return previewScale; }
@@ -266,9 +283,9 @@ private:
 	sRGB16 *image16;
 	sRGBfloat *imageFloat;
 
-	unsigned char *alphaBuffer8;
-	unsigned short *alphaBuffer16;
-	unsigned short *opacityBuffer;
+	quint8 *alphaBuffer8;
+	quint16 *alphaBuffer16;
+	quint16 *opacityBuffer;
 	sRGB8 *colourBuffer;
 	float *zBuffer;
 
