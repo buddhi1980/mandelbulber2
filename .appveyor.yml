@@ -7,117 +7,48 @@ build: false # use custom build_script instead
 
 environment:
   matrix:
-    - tbs_arch: "x86"
-      tbs_qt_version: "5.7"
-    
-    - tbs_arch: "x64"
-      tbs_qt_version: "5.7"
-    
-    - tbs_arch: "x86"
-      tbs_qt_version: "5.6"
-    
-    - tbs_arch: "x64"
-      tbs_qt_version: "5.6"
-  
+    - tbs_platform: "Win32"
+      tbs_config: "AnalysisRelease"
+
+    - tbs_platform: "x64"
+      tbs_config: "AnalysisRelease"
+
+    - tbs_platform: "Win32"
+      tbs_config: "Release"
+
+    - tbs_platform: "x64"
+      tbs_config: "Release"
+
+    - tbs_platform: "Win32"
+      tbs_config: "Debug"
+
+    - tbs_platform: "x64"
+      tbs_config: "Debug"
+
 install:
-  - ps: if($env:tbs_arch -eq 'x64') { $env:vcvar_arg = 'x86_amd64'; } else { $env:vcvar_arg = 'x86'; }
-  - ps: if($env:tbs_arch -eq 'x64') { $env:qt_version = '%tbs_qt_version%\msvc2015_64'; } else { $env:qt_version = '%tbs_qt_version%\msvc2015'; }
-  - ps: if($env:tbs_arch -eq 'x64') { $env:ms_build_suffix = 'Bin\amd64'; } else { $env:ms_build_suffix = 'Bin'; }
-  - ps: if($env:tbs_arch -eq 'x64') { $env:cmake_platform = 'Visual Studio 14 2015 Win64'; } else { $env:cmake_platform = 'Visual Studio 14 2015'; }
+  - ps: if($env:tbs_platform -eq 'x64') { $env:vcvar_arg = 'x86_amd64'; } else { $env:vcvar_arg = 'x86'; }
+  - ps: if($env:tbs_platform -eq 'x64') { $env:ms_build_suffix = 'Bin\amd64'; } else { $env:ms_build_suffix = 'Bin'; }
   - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall" %vcvar_arg%'
-  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /%tbs_arch%'
-  - set QTDIR=C:\Qt\%qt_version%
-  - set PATH=%QTDIR%\bin;C:\MinGW\bin;C:\Program Files (x86)\MSBuild\14.0\%ms_build_suffix%;%PATH%
+  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /%vcvar_arg%'
+  - set PATH=C:\Program Files (x86)\MSBuild\14.0\%ms_build_suffix%;%PATH%
 
 before_build:
-  - mkdir deps
-  
   #packages from nuget
-  - nuget install gsl-msvc14-%tbs_arch% -Version 2.2.1.2577
-  - nuget install zlib-msvc14-%tbs_arch%-master -Version 1.2.8.4 -Source https://ci.appveyor.com/nuget/zlib-shallow-x0n34b3pfq1b
-  - ps: move packages\zlib*\* deps -force
-  - move deps\zlibstatic.lib deps\zlib.lib
-  - nuget install libpng-msvc14-%tbs_arch%-master -Version 1.6.18.44 -Source https://ci.appveyor.com/nuget/libpng-7hwq4pmmrc48
-  - ps: move packages\libpng*\* deps -force
-  - move deps\libpng16_static.lib deps\png.lib
-  - nuget install libtiff-msvc14-%tbs_arch%-master -Version 4.0.6.85 -Source https://ci.appveyor.com/nuget/libtiff-i3h8tqqy7o7b
-  - ps: move packages\libtiff*\* deps -force
-  - move deps\tiff_static.lib deps\tiff.lib
-  - nuget install libjpeg-msvc14-%tbs_arch%-master -Version 1.4.80.21 -Source https://ci.appveyor.com/nuget/libjpegturbo-o6k4js4y7pjw
-  - ps: move packages\libjpeg*\* deps -force
-  - move deps\jpeg-static.lib deps\jpeg.lib
+  - nuget restore mandelbulber2.sln
  
 build_script:
-  #- cd mandelbulber2/Release
-  #- qmake -win32 mandelbulber.pro
-  # TODO: remove hardcoded GSL version below
-  - SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\packages\gsl-msvc14-%tbs_arch%.2.2.1.2577
-  - SET LIB=%LIB%;C:\projects\mandelbulber2\packages\gsl-msvc14-%tbs_arch%.2.2.1.2577
-  - cmake -G "%cmake_platform%" \
-     -DPNG_LIBRARY=deps\png.lib -DPNG_PNG_INCLUDE_DIR=deps \
-     -DZLIB_LIBRARY=deps\zlib.lib -DZLIB_INCLUDE_DIR=deps \
-     -DTIFF_LIBRARY=deps\tiff.lib -DTIFF_INCLUDE_DIR=deps \
-     -DJPEG_LIBRARY=deps\jpeg.lib -DJPEG_INCLUDE_DIR=deps \
-     -DGSL_CBLAS_LIBRARY=packages\gsl-msvc14-%tbs_arch%.2.2.1.2577\static\gslcblas.lib \
-     -DGSL_LIBRARY=packages\gsl-msvc14-%tbs_arch%.2.2.1.2577\static\gsl.lib \
-     -DGSL_INCLUDE_DIR=packages\gsl-msvc14-%tbs_arch%.2.2.1.2577 \
-     -DCMAKE_BUILD_TYPE=Release ./mandelbulber2/cmake/
-  # move the auto-generated ui files to qt folder
-  #- move ui_* mandelbulber2\qt
-  - msbuild mandelbulber2.sln /p:Configuration=Release /m
+  - msbuild mandelbulber2.sln /p:Configuration=%tbs_config% /p:Platform=%tbs_platform%
   - netstat -ab
-  #- Release\mandelbulber2.exe --test
-  - tree C:\projects\mandelbulber2\gsl\Release /F
-  - tree %QTDIR% /F
   - tree /F
-
+  
 after_build:
-  # gather dependencies
-  - xcopy /B /S mandelbulber2\deploy\share\mandelbulber2 Release\
-  - IF %tbs_qt_version% EQU '5.7' xcopy /I %QTDIR%\plugins\gamepads Release\gamepads;
-  - xcopy /I %QTDIR%\plugins\iconengines Release\iconengines
-  - xcopy /I %QTDIR%\plugins\imageformats Release\imageformats
-  - xcopy /I %QTDIR%\plugins\platforms Release\platforms
-  - xcopy /I %QTDIR%\plugins\audio Release\audio
-  - xcopy /I %QTDIR%\plugins\mediaservice Release\mediaservice
-  - IF %tbs_qt_version% EQU '5.7' xcopy %QTDIR%\bin\Qt5Gamepad.dll Release\
-  - xcopy %QTDIR%\bin\Qt5Gui.dll Release\
-  - xcopy %QTDIR%\bin\Qt5Network.dll Release\
-  - xcopy %QTDIR%\bin\Qt5Svg.dll Release\
-  - xcopy %QTDIR%\bin\Qt5Test.dll Release\
-  - xcopy %QTDIR%\bin\Qt5Widgets.dll Release\
-  - xcopy %QTDIR%\bin\Qt5Core.dll Release\
-  - xcopy %QTDIR%\bin\Qt5Multimedia.dll Release\
-  - xcopy deps\zlib*.dll Release\
-  - xcopy deps\libpng*.dll Release\
-  - xcopy deps\tiff*.dll Release\
-  
-  # fix broken symlinks
-  - del Release\language
-  - del Release\qt_data
-  - del Release\data
-  - xcopy /I mandelbulber2\language Release\language
-  - xcopy /I /S mandelbulber2\qt_data Release\qt_data
-  - xcopy /I mandelbulber2\data Release\data
-  
-  # gather other meta files
-  - copy mandelbulber2\deploy\README-win32.txt Release\README.txt
-  - copy mandelbulber2\deploy\NEWS Release\NEWS.txt
-  - copy mandelbulber2\deploy\COPYING Release\COPYING.txt
-  - copy mandelbulber2\deploy\win32\mandelbulber2.ico Release\mandelbulber2.ico
-  - mkdir Release\source
-  - xcopy /I  mandelbulber2\src Release\source\src
-  - xcopy /I  mandelbulber2\qt Release\source\qt
-  - mkdir Release\makefiles
-  - copy mandelbulber2\Release\mandelbulber.pro Release\makefiles\mandelbulber.pro
-  
   # zip the archive
-  - 7z a mandelbulber-%tbs_arch%.zip Release
+  - 7z a mandelbulber-%tbs_config%-%tbs_platform%.zip build-win\%tbs_config%\%tbs_platform%
   
 #specify artifacts to upload
 artifacts:
-  - path: mandelbulber-%tbs_arch%.zip
-    name: Mandelbulber-%tbs_arch%
+  - path: mandelbulber-%tbs_config%-%tbs_platform%.zip
+    name: Mandelbulber-%tbs_config%-%tbs_platform%
 
 #deploy:
 # todo, see here for instructions: https://www.appveyor.com/docs/deployment/github
