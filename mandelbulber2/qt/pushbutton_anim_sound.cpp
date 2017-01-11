@@ -64,13 +64,15 @@ void cPushButtonAnimSound::slotUpdateButton()
 		cAudioTrack *audio = animationFrames->GetAudioPtr(parameterName);
 		if (audio && audio->isLoaded())
 		{
-			setText("Audio loaded");
+			setText(tr("Audio loaded"));
 			f.setBold(true);
+			setFont(f);
 			return;
 		}
 	}
 	f.setBold(false);
-	setText("Anim By Sound");
+	setText(tr("Anim By Sound"));
+	setFont(f);
 }
 
 void cPushButtonAnimSound::slotLoadAudio()

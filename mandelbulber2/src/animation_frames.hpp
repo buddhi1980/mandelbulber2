@@ -134,6 +134,7 @@ public:
 		const cParameterContainer *params) const;
 
 	void RegenerateAudioTracks(cParameterContainer *param);
+	void RefreshAllAudioTracks(cParameterContainer *param);
 
 protected:
 	QList<sAnimationFrame> frames;

@@ -60,6 +60,7 @@ public:
 	void RemoveParameters(cParameterContainer *params, const QString parameterName);
 	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName);
 	void LoadAllAudioFiles(cParameterContainer *params);
+	void RefreshAllAudioTracks(cParameterContainer *params);
 
 private:
 	QMap<QString, cAudioTrack *> audioTracks;

@@ -175,10 +175,11 @@ void cAudioSelector::slotFreqChanged()
 
 void cAudioSelector::slotPlaybackStart()
 {
-	if(audio->isLoaded())
+	if (audio->isLoaded())
 	{
 		QString filename = ui->text_animsound_soundfile->text();
-		connect(player, SIGNAL(positionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
+		connect(
+			player, SIGNAL(positionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
 		player->setMedia(QUrl::fromLocalFile(filename));
 		player->setNotifyInterval(50);
 		player->play();
@@ -220,4 +221,5 @@ void cAudioSelector::slotDeleteAudioTrack()
 	ui->fft->AssignAudioTrack(audio);
 	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 	slotFreqChanged();
+	emit audioLoaded();
 }

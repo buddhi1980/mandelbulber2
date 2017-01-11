@@ -195,3 +195,32 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 		}
 	}
 }
+
+void cAudioTrackCollection::RefreshAllAudioTracks(cParameterContainer *params)
+{
+	QStringList listOfAllParameters = audioTracks.keys();
+
+	for (int i = 0; i < listOfAllParameters.length(); i++)
+	{
+		QString parameterName = listOfAllParameters[i];
+		if(audioTracks[parameterName]->isLoaded())
+		{
+			audioTracks[parameterName]->setFramesPerSecond(params->Get<double>("keyframe_frames_per_second"));
+			audioTracks[parameterName]->calculateFFT();
+
+			double midFreq = params->Get<double>(FullParameterName("midfreq", parameterName));
+			double bandwidth = params->Get<double>(FullParameterName("bandwidth", parameterName));
+			bool pitchmode = params->Get<bool>(FullParameterName("pitchmode", parameterName));
+			audioTracks[parameterName]->calculateAnimation(midFreq, bandwidth, pitchmode);
+
+			if (params->Get<bool>(FullParameterName("decayfilter", parameterName)))
+			{
+				audioTracks[parameterName]->decayFilter(params->Get<double>(FullParameterName("decaystrength", parameterName)));
+			}
+			if (params->Get<bool>(FullParameterName("smoothfilter", parameterName)))
+			{
+				audioTracks[parameterName]->smoothFilter(params->Get<double>(FullParameterName("smoothstrength", parameterName)));
+			}
+		}
+	}
+}

@@ -154,6 +154,11 @@ void cAnimationFrames::RegenerateAudioTracks(cParameterContainer *param)
 	audioTracks.LoadAllAudioFiles(param);
 }
 
+void cAnimationFrames::RefreshAllAudioTracks(cParameterContainer *param)
+{
+	audioTracks.RefreshAllAudioTracks(param);
+}
+
 int cAnimationFrames::GetUnrenderedTotal()
 {
 	return GetUnrenderedTillIndex(frames.count() - 1);

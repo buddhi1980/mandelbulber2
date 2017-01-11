@@ -109,9 +109,6 @@ void cAudioTrack::LoadAudio(const QString &filename)
 			return;
 		};
 
-		qDebug() << "channels:" << sfinfo.channels << "rate:" << sfinfo.samplerate
-						 << "samples:" << sfinfo.frames;
-
 		sampleRate = sfinfo.samplerate;
 
 		if (sfinfo.frames > 0)
@@ -208,8 +205,6 @@ void cAudioTrack::slotReadBuffer()
 
 void cAudioTrack::slotFinished()
 {
-	qDebug() << "finished";
-	qDebug() << length << double(length) / sampleRate;
 	loaded = true;
 	loadingInProgress = false;
 	WriteLog("Loading mp3 file finished", 2);

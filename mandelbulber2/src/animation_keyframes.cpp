@@ -394,8 +394,14 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	int newColumn = index + reservedColums;
 	if (index == -1) newColumn = table->columnCount();
 	table->insertColumn(newColumn);
-	table->setHorizontalHeaderItem(
-		newColumn, new QTableWidgetItem(QString::number(newColumn - reservedColums)));
+
+	double time = params->Get<double>("frames_per_keyframe")
+								/ params->Get<double>("keyframe_frames_per_second") * (newColumn - reservedColums);
+	int minutes = int(time / 60);
+	int seconds = int(time) % 60;
+	QString columnHeader =
+		QString("%1 (%2:%3)").arg(newColumn - reservedColums).arg(minutes).arg(seconds, 2, 10, QChar('0'));
+	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(columnHeader));
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 
@@ -549,6 +555,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		}
 
 		keyframes->SetFramesPerKeyframe(frames_per_keyframe);
+
+		keyframes->RefreshAllAudioTracks(params);
 
 		// checking for collisions
 		if (!systemData.noGui && image->IsMainImage())
