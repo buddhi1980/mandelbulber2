@@ -1,8 +1,10 @@
 /**
- * Mandelbulber v2, a 3D fractal generator
- * Copyright (C) 2017 Mandelbulber Team
- * This file is part of Mandelbulber.
- * License is GPL, see also COPYING file.
+ * Mandelbulber v2, a 3D fractal generator  _%}}i*<.
+ * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,
+ *                                        \><||i|=>>%)
+ * This file is part of Mandelbulber.     )<=i=]=|=i<>
+ * The project is licensed under GPLv3,   -<>>=|><|||`
+ * see also COPYING file in this folder.    ~+{i%+++
  *
  * Fractal formula created by Buddhi
  */
