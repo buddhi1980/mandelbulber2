@@ -30,7 +30,7 @@ environment:
 cache:
   # preserve "packages" directory in the root of build folder
   # but will reset it if packages.config is modified
-  # - packages -> **\packages.config
+  - packages -> **\packages.config
   # local npm modules
   # - node_modules
   - '%LocalAppData%\NuGet\Cache'
