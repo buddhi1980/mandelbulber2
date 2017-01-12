@@ -97,7 +97,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">
     <EnableExperimentalCppCoreCheck>true</EnableExperimentalCppCoreCheck>
-    <CAExcludePath>$(SolutionDir)\build-win\;$(SolutionDir)packages\;$(WindowsSDK_IncludePath);$(CAExcludePath)</CAExcludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -947,4 +946,7 @@
     <Exec Command="del /F /Q $(GenDir)\*.h" />
     <Exec Command="del /F /Q $(GenDir)\*.cpp" />
   </Target>
+  <PropertyGroup>
+    <CAExcludePath>$(SolutionDir)\build-win\;$(SolutionDir)packages\;$(WindowsSDK_IncludePath);$(CAExcludePath)</CAExcludePath>
+  </PropertyGroup>
 </Project>
