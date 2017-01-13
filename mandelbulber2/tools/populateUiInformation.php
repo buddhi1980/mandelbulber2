@@ -226,6 +226,30 @@ foreach($formulas as $index => $formula){
 	echo successString(basename($formula['openclFile']) . ' changed.') . PHP_EOL;
 }
 
+// fractal h
+$fractalHContent = file_get_contents(PROJECT_PATH . 'src/fractal.h');
+$fractalHReplaceLookup = array(
+    array('find' => '/(\s)int(\s)/', 'replace' => '$1cl_int$2'),
+    array('find' => '/(\s)bool(\s)/', 'replace' => '$1cl_int$2'),
+    array('find' => '/(\s)double(\s)/', 'replace' => '$1cl_float$2'),
+    array('find' => '/(\s)CVector3(\s)/', 'replace' => '$1cl_float3$2'),
+    array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
+    array('find' => '/(\s)CRotationMatrix(\s)/', 'replace' => '$1matrix33$2'),
+    array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1"),
+    array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1"),
+);
+foreach($fractalHReplaceLookup as $item){
+	$fractalHContent = preg_replace($item['find'], $item['replace'], $fractalHContent);
+}
+// clang-format
+$filepathTemp = PROJECT_PATH . 'opencl/fractalCl.h' . '.tmp.c';
+file_put_contents($filepathTemp, $fractalHContent);
+shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
+$fractalHContent = file_get_contents($filepathTemp);
+unlink($filepathTemp); // nothing to see here :)
+file_put_contents(PROJECT_PATH . 'opencl/fractalCl.h', $fractalHContent);
+
+
 // formula icons
 foreach($formulas as $index => $formula){
 	// autogenerate missing formula_and_transform_images
