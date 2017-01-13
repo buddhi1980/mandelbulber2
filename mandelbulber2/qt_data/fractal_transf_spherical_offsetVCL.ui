@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>transf_spherical_offsetVCL</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1048,7 +1048,7 @@
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 
   &lt;span style=&quot;color:#d0d0a0&quot;&gt;// using the parameter&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// z *= 1 + para / -z.Dot(z);&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// z *= 1.0 + para / -z.Dot(z);&lt;/span&gt;
 
   &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;

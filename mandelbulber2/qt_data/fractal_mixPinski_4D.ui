@@ -1286,10 +1286,10 @@
     z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; Z3&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 
-  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// 4D r0t&lt;/span&gt;
-  z4D &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;rotationMatrix44&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;RotateVector&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// 4D rotation&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// z4D = fractal-&amp;gt;transformCommon.rotationMatrix44.RotateVector(z4D);&lt;/span&gt;
+
   &lt;span style=&quot;color:#d0d0a0&quot;&gt;/*&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;   *&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;  mat4 rotationXY  ( double angle )&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;  {&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    mat4 rot;&lt;/span&gt;
@@ -1319,7 +1319,6 @@
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    rot[3] = CVector4(0.0, 0.0, 0.0, 1.0);&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;    return rot;&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;  }&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0a0&quot;&gt;&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;  mat4 rotationXW  ( double angle )&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0a0&quot;&gt;  {&lt;/span&gt;
