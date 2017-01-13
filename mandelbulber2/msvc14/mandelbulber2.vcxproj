@@ -97,7 +97,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">
     <EnableExperimentalCppCoreCheck>true</EnableExperimentalCppCoreCheck>
-    <CAExcludePath>$(SolutionDir)\build-win\;$(SolutionDir)packages\;$(WindowsSDK_IncludePath);$(CAExcludePath)</CAExcludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -901,7 +900,13 @@
       <Project>{a4b9bf4a-39ad-43e0-b1a1-3e39ab811a7c}</Project>
     </ProjectReference>
   </ItemGroup>
+  <PropertyGroup>
+    <IncludePath>$(SolutionDir)build-win;$(SolutionDir)packages;$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <!-- <PropertyGroup>
+    <CAExcludePath>$(SolutionDir)build-win;$(SolutionDir)packages;$(WindowsSDK_IncludePath);$(CAExcludePath)</CAExcludePath>
+  </PropertyGroup> -->
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
     <Import Project="$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />

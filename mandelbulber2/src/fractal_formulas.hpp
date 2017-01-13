@@ -164,7 +164,7 @@ void TransformBoxFoldVaryV1Iteration(
 void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
-void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal);
+void TransformFabsAddConstantV2Iteration(CVector3 &z, int i, const cFractal *fractal);
 void TransformFabsAddConditionalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal);
