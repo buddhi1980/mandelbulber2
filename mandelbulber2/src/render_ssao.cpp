@@ -105,7 +105,8 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	{
 		qualityFactor = 1.0;
 	}
-	int quality = int(params->ambientOcclusionQuality * params->ambientOcclusionQuality * qualityFactor);
+	int quality =
+		int(params->ambientOcclusionQuality * params->ambientOcclusionQuality * qualityFactor);
 	if (quality < 3) quality = 3;
 
 	for (int i = 0; i < numberOfThreads; i++)

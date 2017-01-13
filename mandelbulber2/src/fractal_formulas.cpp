@@ -6062,18 +6062,22 @@ void TransformFabsAddConstantV2Iteration(CVector3 &z, int i, const cFractal *fra
 			- fabs(z - fractal->transformCommon.additionConstant000) - z;
 
 	if (fractal->transformCommon.functionEnabledFalse
-			&& i >= fractal->transformCommon.startIterationsA && i < fractal->transformCommon.stopIterationsA)
+			&& i >= fractal->transformCommon.startIterationsA
+			&& i < fractal->transformCommon.stopIterationsA)
 	{
 		CVector3 limit = fractal->transformCommon.additionConstant000;
 		CVector3 length = 2 * limit;
-		CVector3 tgladS = 2/(4 * limit);
+		CVector3 tgladS = 2 / (4 * limit);
 		CVector3 Add;
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-		if (fabs(z.x) > limit.x && fabs(z.x) < length.x) Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-		if (fabs(z.y) > limit.y && fabs(z.y) < length.y) Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-		if (fabs(z.z) > limit.z && fabs(z.z) < length.z) Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
 		Add *= fractal->transformCommon.scale3D111;
 		z.x = (z.x - (sign(z.x) * (Add.x)));
 		z.y = (z.y - (sign(z.y) * (Add.y)));

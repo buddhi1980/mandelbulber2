@@ -399,8 +399,10 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 								/ params->Get<double>("keyframe_frames_per_second") * (newColumn - reservedColums);
 	int minutes = int(time / 60);
 	int seconds = int(time) % 60;
-	QString columnHeader =
-		QString("%1 (%2:%3)").arg(newColumn - reservedColums).arg(minutes).arg(seconds, 2, 10, QChar('0'));
+	QString columnHeader = QString("%1 (%2:%3)")
+													 .arg(newColumn - reservedColums)
+													 .arg(minutes)
+													 .arg(seconds, 2, 10, QChar('0'));
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(columnHeader));
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();

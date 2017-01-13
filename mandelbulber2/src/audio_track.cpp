@@ -353,7 +353,7 @@ int cAudioTrack::freq2FftPos(double freq) const
 
 void cAudioTrack::setFramesPerSecond(double _framesPerSecond)
 {
-	if(_framesPerSecond != framesPerSecond) fftCalculated = false;
+	if (_framesPerSecond != framesPerSecond) fftCalculated = false;
 
 	framesPerSecond = _framesPerSecond;
 	numberOfFrames = int(length * framesPerSecond / sampleRate);

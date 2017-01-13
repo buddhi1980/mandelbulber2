@@ -190,7 +190,8 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 		{
 			audioTracks[listOfAllParameters[i]]->Clear();
 			audioTracks[listOfAllParameters[i]]->LoadAudio(filename);
-			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(params->Get<double>("keyframe_frames_per_second"));
+			audioTracks[listOfAllParameters[i]]->setFramesPerSecond(
+				params->Get<double>("keyframe_frames_per_second"));
 			audioTracks[listOfAllParameters[i]]->calculateFFT();
 		}
 	}
@@ -203,9 +204,10 @@ void cAudioTrackCollection::RefreshAllAudioTracks(cParameterContainer *params)
 	for (int i = 0; i < listOfAllParameters.length(); i++)
 	{
 		QString parameterName = listOfAllParameters[i];
-		if(audioTracks[parameterName]->isLoaded())
+		if (audioTracks[parameterName]->isLoaded())
 		{
-			audioTracks[parameterName]->setFramesPerSecond(params->Get<double>("keyframe_frames_per_second"));
+			audioTracks[parameterName]->setFramesPerSecond(
+				params->Get<double>("keyframe_frames_per_second"));
 			audioTracks[parameterName]->calculateFFT();
 
 			double midFreq = params->Get<double>(FullParameterName("midfreq", parameterName));
@@ -215,11 +217,13 @@ void cAudioTrackCollection::RefreshAllAudioTracks(cParameterContainer *params)
 
 			if (params->Get<bool>(FullParameterName("decayfilter", parameterName)))
 			{
-				audioTracks[parameterName]->decayFilter(params->Get<double>(FullParameterName("decaystrength", parameterName)));
+				audioTracks[parameterName]->decayFilter(
+					params->Get<double>(FullParameterName("decaystrength", parameterName)));
 			}
 			if (params->Get<bool>(FullParameterName("smoothfilter", parameterName)))
 			{
-				audioTracks[parameterName]->smoothFilter(params->Get<double>(FullParameterName("smoothstrength", parameterName)));
+				audioTracks[parameterName]->smoothFilter(
+					params->Get<double>(FullParameterName("smoothstrength", parameterName)));
 			}
 		}
 	}
