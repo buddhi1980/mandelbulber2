@@ -56,9 +56,9 @@ typedef enum {
 	foldIcosa = 5,
 	foldBox6 = 6,
 	foldBox5 = 7
-} enumGeneralizedFoldBoxType;
+} eClenumGeneralizedFoldBoxType;
 
-typedef enum { ocl_DEcalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2 } enumOCLDEMode;
+typedef enum { ocl_DEcalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2 } eClenumOCLDEMode;
 }
 
 // struct sMandelbulbAux
@@ -102,7 +102,7 @@ typedef struct
 	cl_float minRFactor;
 	cl_float scaleFactor;
 	cl_float3 c;
-} sExtendedAux;
+} sClsExtendedAux;
 
 typedef struct
 {
@@ -116,7 +116,7 @@ typedef struct
 	cl_float compFold;
 	cl_float compMinR;
 	cl_float compScale;
-} sFoldColor;
+} sClsFoldColor;
 
 typedef struct
 {
@@ -137,7 +137,7 @@ typedef struct
 	cl_int sides_icosa;
 	cl_int sides_box6;
 	cl_int sides_box5;
-} sFractalGeneralizedFoldBox;
+} sClsFractalGeneralizedFoldBox;
 
 typedef struct
 {
@@ -156,7 +156,7 @@ typedef struct
 	cl_float intensity[IFS_VECTOR_COUNT];
 	cl_float3 rotation;
 	cl_float scale;
-} sFractalIFS;
+} sClsFractalIFS;
 
 typedef struct
 {
@@ -165,7 +165,7 @@ typedef struct
 	cl_float scaleVary;
 	cl_float wadd;
 	cl_float rPower;
-} sFractalMandelboxVary4D;
+} sClsFractalMandelboxVary4D;
 
 typedef struct
 {
@@ -190,13 +190,13 @@ typedef struct
 	cl_float fR2;
 	cl_float mR2;
 	cl_float mboxFactor1;
-} sFractalMandelbox;
+} sClsFractalMandelbox;
 
 typedef struct
 {
 	cl_float zFactor;
 	cl_float foldfactor;
-} sFractalBoxFoldBulbPow2;
+} sClsFractalBoxFoldBulbPow2;
 
 typedef struct
 {
@@ -204,12 +204,12 @@ typedef struct
 	cl_float alphaAngleOffset;
 	cl_float betaAngleOffset;
 	cl_float gammaAngleOffset;
-} sFractalMandelbulb;
+} sClsFractalMandelbulb;
 
 typedef struct
 {
 	cl_float cadd;
-} sFractalAexion;
+} sClsFractalAexion;
 
 typedef struct
 {
@@ -220,7 +220,7 @@ typedef struct
 	cl_int absy;
 	cl_int absz;
 	cl_int posz;
-} sFractalBuffalo;
+} sClsFractalBuffalo;
 
 typedef struct
 {
@@ -228,7 +228,7 @@ typedef struct
 	cl_float ringThickness;
 	cl_float factor;
 	cl_float number;
-} sFractalDonut;
+} sClsFractalDonut;
 
 //----------------------------------------------------------
 typedef struct
@@ -236,16 +236,16 @@ typedef struct
 	cl_float frequency;
 	cl_float amplitude;
 	cl_float rhoMul;
-} sFractalPlatonicSolid;
+} sClsFractalPlatonicSolid;
 
 // mandelbulb multi
 typedef struct
 {
-	typedef enum { acos, asin } multi_acosOrasin;
+	typedef enum { acos, asin } eClmulti_acosOrasin;
 
-	typedef enum { atan, atan2 } multi_atanOratan2;
+	typedef enum { atan, atan2 } eClmulti_atanOratan2;
 
-	typedef enum { xyz, xzy, yxz, yzx, zxy, zyx } multi_OrderOfxyz;
+	typedef enum { xyz, xzy, yxz, yzx, zxy, zyx } eClmulti_OrderOfxyz;
 
 	multi_acosOrasin acosOrasin;
 	multi_acosOrasin acosOrasinA;
@@ -255,32 +255,32 @@ typedef struct
 	multi_OrderOfxyz orderOfxyz;
 	multi_OrderOfxyz orderOfxyz2;
 	multi_OrderOfxyz orderOfxyzC;
-} sFractalMandelbulbMulti;
+} sClsFractalMandelbulbMulti;
 
 // sinTan2Trig
 typedef struct
 {
-	typedef enum { asin, acos } multi_asinOracos;
+	typedef enum { asin, acos } eClmulti_asinOracos;
 
-	typedef enum { atan2, atan } multi_atan2Oratan;
+	typedef enum { atan2, atan } eClmulti_atan2Oratan;
 
-	typedef enum { zyx, zxy, yzx, yxz, xzy, xyz } multi_OrderOfzyx;
+	typedef enum { zyx, zxy, yzx, yxz, xzy, xyz } eClmulti_OrderOfzyx;
 
 	multi_asinOracos asinOracos;
 	multi_atan2Oratan atan2Oratan;
 	multi_OrderOfzyx orderOfzyx;
-} sFractalSinTan2Trig;
+} sClsFractalSinTan2Trig;
 
 // surf fold box
 typedef struct
 {
-	typedef enum { type1, type2, type3, type4, type5 } multi_orderOfFolds;
+	typedef enum { type1, type2, type3, type4, type5 } eClmulti_orderOfFolds;
 	multi_orderOfFolds orderOfFolds1;
 	multi_orderOfFolds orderOfFolds2;
 	multi_orderOfFolds orderOfFolds3;
 	multi_orderOfFolds orderOfFolds4;
 	multi_orderOfFolds orderOfFolds5;
-} sFractalSurfFolds;
+} sClsFractalSurfFolds;
 
 // benesi mag transfroms
 typedef struct
@@ -292,13 +292,13 @@ typedef struct
 		typeT3,
 		typeT4,
 		typeT5b,
-	} multi_orderOfTransf;
+	} eClmulti_orderOfTransf;
 	multi_orderOfTransf orderOfTransf1;
 	multi_orderOfTransf orderOfTransf2;
 	multi_orderOfTransf orderOfTransf3;
 	multi_orderOfTransf orderOfTransf4;
 	multi_orderOfTransf orderOfTransf5;
-} sFractalMagTransforms;
+} sClsFractalMagTransforms;
 
 // basic combo
 typedef struct
@@ -312,11 +312,11 @@ typedef struct
 		mode5,
 		mode6,
 		mode7,
-	} combo;
+	} eClcombo;
 	combo modeA;
 	//		combo modeB;
 	//		combo modeC;
-} sFractalCombo;
+} sClsFractalCombo;
 
 // for surfbox types
 typedef struct
@@ -345,7 +345,7 @@ typedef struct
 	cl_float3 offset1A222;
 	cl_float3 offset1B222;
 	cl_float scale1Z1;
-} sFractalSurfBox;
+} sClsFractalSurfBox;
 
 // for curvilinear
 typedef struct
@@ -369,7 +369,7 @@ typedef struct
 	cl_int iterA;
 	cl_int iterB;
 	cl_int iterC;
-} sFractalCpara;
+} sClsFractalCpara;
 
 typedef struct
 {
@@ -382,7 +382,7 @@ typedef struct
 	cl_float offset2;
 	cl_float scaleLin;
 	cl_float offsetLin;
-} sFractalAnalyticDE;
+} sClsFractalAnalyticDE;
 
 // common parameters for transforming formulas
 typedef struct
@@ -581,7 +581,7 @@ typedef struct
 	cl_int functionEnabledXFalse;
 	cl_int juliaMode;
 	cl_int rotationEnabled;
-} sFractalTransformCommon;
+} sClsFractalTransformCommon;
 
 class cFractal
 {

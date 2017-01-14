@@ -235,8 +235,8 @@ $fractalHReplaceLookup = array(
     array('find' => '/(\s)CVector3(\s)/', 'replace' => '$1cl_float3$2'),
     array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
     array('find' => '/(\s)CRotationMatrix(\s)/', 'replace' => '$1matrix33$2'),
-    array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1"),
-    array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1"),
+    array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 sCl$1"),
+    array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 eCl$1"),
 );
 foreach($fractalHReplaceLookup as $item){
 	$fractalHContent = preg_replace($item['find'], $item['replace'], $fractalHContent);
@@ -434,7 +434,7 @@ function parseToOpenCL($code){
 			array('find' => "/([^*]$s)($multChain)$s\-$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $2)$5'), // c - a * b ====> mad(-a, b, c)
 
 			// formula specific replacements
-			array('find' => "/^void(\s)/", 'replace' => 'kernel void$1'), // mark void with kernel void
+			array('find' => "/^void(\s)/", 'replace' => 'inline void$1'), // mark void with inline void
 			array('find' => "/float3 &z/", 'replace' => 'global float3 *z'), // no passing by reference
 			array('find' => "/sExtendedAux &aux/", 'replace' => 'global sExtendedAux *aux'), // no passing by reference
 			array('find' => "/z\./", 'replace' => 'z->'),
