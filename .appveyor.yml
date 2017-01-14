@@ -228,7 +228,7 @@ build:
 
 # MSBuild verbosity level
 #  verbosity: quiet|minimal|normal|detailed
-  verbosity: Diagnostic
+#  verbosity: Diagnostic
 
 # scripts to run before build
 before_build:
