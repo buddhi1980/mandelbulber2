@@ -87,6 +87,13 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 		int index = ui->comboboxLanguage->findText(systemData.locale.name());
 		ui->comboboxLanguage->setCurrentIndex(index);
 	}
+
+#ifdef USE_OPENCL
+	// TODO
+#else // USE_OPENCL
+	ui->tabWidget->removeTab(2); // hide GPU tab for now
+#endif // USE_OPENCL
+
 	initFinished = true;
 }
 
