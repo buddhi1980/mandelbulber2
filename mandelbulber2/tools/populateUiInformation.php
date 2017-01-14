@@ -432,6 +432,14 @@ function parseToOpenCL($code){
 			array('find' => "/\(($multChain)$s\-$s($rval)$s\*$s($multChain)\)/", 'replace' => '(mad(-$2, $3, $1))'), 	// (c - a * b) ====> mad(-a, b, c)
 			array('find' => "/([^*]$s)($multChain)$s\+$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($4, $3, $2)$5'), // a * b + c ====> mad(a, b, c)
 			array('find' => "/([^*]$s)($multChain)$s\-$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $2)$5'), // c - a * b ====> mad(-a, b, c)
+
+			// formula specific replacements
+			array('find' => "/^void(\s)/", 'replace' => 'kernel void$1'), // mark void with kernel void
+			array('find' => "/float3 &z/", 'replace' => 'global float3 *z'), // no passing by reference
+			array('find' => "/sExtendedAux &aux/", 'replace' => 'global sExtendedAux *aux'), // no passing by reference
+			array('find' => "/z\./", 'replace' => 'z->'),
+			array('find' => "/aux\./", 'replace' => 'aux->'),
+			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			// TODO more replacements
 		);
 
