@@ -427,8 +427,8 @@ notifications:
       - buddhi1980@gmail.com
       - sebastian.jennen@gmx.de
       - RobertPancoast77@gmail.com
-    subject: 'Build {{status}}'                  # optional
-    message: "{{message}}, {{commitId}}, ..."    # optional
-    on_build_status_changed: true
+#    subject: 'Build {{status}}'                  # optional
+#    message: "{{message}}, {{commitId}}, ..."    # optional
+#    on_build_status_changed: true
 
 
