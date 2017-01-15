@@ -458,6 +458,12 @@ void InitParams(cParameterContainer *par)
 	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
 	par->addParam("threads_priority", 2, 0, 3, morphNone, paramApp);
 
+	par->addParam("gpu_enabled", false, morphNone, paramApp);
+	par->addParam("gpu_mode", 0, morphNone, paramApp);
+	par->addParam("gpu_precision", 0, morphNone, paramApp);
+	par->addParam("gpu_memory_limit", 256, 1, 10000, morphNone, paramApp);
+	par->addParam("gpu_cycle_time", 1.0, 0.02, 60.0, morphNone, paramApp);
+
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);
 	par->SetAsAppParam("openCL_use_CPU", true);
