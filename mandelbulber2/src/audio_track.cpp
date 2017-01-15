@@ -98,6 +98,8 @@ void cAudioTrack::LoadAudio(const QString &filename)
 #ifdef USE_SNDFILE
 	if (sufix.toLower() == "wav")
 	{
+		emit loadingProgress(tr("Loading WAV file"));
+		QApplication::processEvents();
 		SNDFILE *infile = nullptr;
 		SF_INFO sfinfo;
 		memset(&sfinfo, 0, sizeof(sfinfo));
@@ -106,6 +108,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		{
 			qCritical() << "Not able to open input file:" << filename;
 			qCritical() << sf_strerror(nullptr);
+			emit loadingFailed();
 			return;
 		};
 
@@ -145,6 +148,9 @@ void cAudioTrack::LoadAudio(const QString &filename)
 
 	if (!loaded)
 	{
+		emit loadingProgress(tr("Decompressing audio file"));
+		QApplication::processEvents();
+
 		QAudioFormat desiredFormat;
 		desiredFormat.setChannelCount(1);
 		desiredFormat.setCodec("audio/x-raw");
@@ -200,7 +206,7 @@ void cAudioTrack::slotReadBuffer()
 	}
 	length = rawAudio.size();
 	double percent = double(length) / totalSamplesApprox * 100.0;
-	emit loadingProgress(percent);
+	//emit loadingProgress(percent);
 }
 
 void cAudioTrack::slotFinished()
@@ -239,6 +245,7 @@ void cAudioTrack::slotError(QAudioDecoder::Error error)
 {
 	qCritical() << "cAudioTrack::error" << error;
 	loadingInProgress = false;
+	emit loadingFailed();
 }
 
 void cAudioTrack::calculateFFT()
@@ -246,6 +253,8 @@ void cAudioTrack::calculateFFT()
 	if (loaded && !fftCalculated && length > cAudioFFTdata::fftSize)
 	{
 		WriteLog("FFT calculation started", 2);
+		emit loadingProgress(tr("Calculationg FFT"));
+		QApplication::processEvents();
 
 		if (fftAudio) delete[] fftAudio;
 		fftAudio = new cAudioFFTdata[numberOfFrames];

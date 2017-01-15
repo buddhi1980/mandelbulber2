@@ -68,6 +68,13 @@ private:
 	QImage scaledWaveImage;
 	int numberOfFrames;
 	double framesPerSecond;
+	bool failed;
+	bool inProgress;
+	QString progressText;
+
+public slots:
+	void slotLoadingProgress(QString progressText);
+	void slotLoadingFailed();
 };
 
 #endif /* MANDELBULBER2_QT_WAVE_FORM_VIEW_H_ */

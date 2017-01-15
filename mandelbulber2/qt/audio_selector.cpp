@@ -66,7 +66,7 @@ void cAudioSelector::slotLoadAudioFile()
 	QFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
-	dialog.setNameFilter(tr("Audio files (*.wav *.mp3)"));
+	dialog.setNameFilter(tr("Audio files (*.wav *.mp3 *.flac)"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select audio file..."));
 	QStringList filenames;
@@ -141,6 +141,7 @@ void cAudioSelector::ConnectSignals()
 		this, SIGNAL(freqencyChanged(double, double)), ui->fft, SLOT(slotFreqChanged(double, double)));
 	connect(ui->pushButton_playback_start, SIGNAL(clicked()), this, SLOT(slotPlaybackStart()));
 	connect(ui->pushButton_playback_stop, SIGNAL(clicked()), this, SLOT(slotPlaybackStop()));
+	connect(this, SIGNAL(loadingProgress(QString)), ui->waveForm, SLOT(slotLoadingProgress(QString)));
 };
 
 void cAudioSelector::RenameWidget(QWidget *widget)
@@ -202,6 +203,9 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 	if (animationFrames && !parameterName.isEmpty())
 	{
 		audio = animationFrames->GetAudioPtr(parameterName);
+		connect(audio, SIGNAL(loadingProgress(QString)), this, SIGNAL(loadingProgress(QString)));
+		connect(audio, SIGNAL(loadingFailed()), ui->waveForm, SLOT(slotLoadingFailed()));
+
 		if (audio->isLoaded())
 		{
 			audio->setFramesPerSecond(gPar->Get<double>("keyframe_frames_per_second"));

@@ -43,6 +43,8 @@ cWaveFormView::cWaveFormView(QWidget *parent) : QWidget(parent)
 {
 	numberOfFrames = 0;
 	framesPerSecond = 30.0;
+	inProgress = false;
+	failed = false;
 }
 
 cWaveFormView::~cWaveFormView()
@@ -54,6 +56,10 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 	if (audiotrack && audiotrack->isLoaded())
 	{
 		WriteLog("WaveFormView calculation started", 2);
+
+		inProgress = false;
+		failed = false;
+
 		int numberOfSampels = audiotrack->getLength();
 		int sampleRate = audiotrack->getSampleRate();
 		numberOfFrames = audiotrack->getNumberOfFrames();
@@ -115,7 +121,49 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 void cWaveFormView::paintEvent(QPaintEvent *event)
 {
-	Q_UNUSED(event);
-	QPainter painter(this);
-	painter.drawImage(0, 0, scaledWaveImage);
+	if(!failed)
+	{
+		if(inProgress)
+		{
+			QPainter painter(this);
+			QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, progressText);
+			textRect.setHeight(textRect.height() + 2);
+			textRect.moveTopLeft(QPoint(5, 5));
+			this->setFixedWidth(textRect.width() + 5);
+			painter.drawText(textRect, Qt::AlignTop || Qt::AlignLeft, progressText);
+		}
+		else
+		{
+			Q_UNUSED(event);
+			QPainter painter(this);
+			painter.drawImage(0, 0, scaledWaveImage);
+		}
+	}
+	else
+	{
+		QPainter painter(this);
+		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, progressText);
+		textRect.setHeight(textRect.height() + 2);
+		textRect.moveTopLeft(QPoint(5, 5));
+		this->setFixedWidth(textRect.width() + 5);
+
+		QBrush brush(QColor(255, 0,0));
+		painter.fillRect(textRect, brush);
+		painter.drawText(textRect, Qt::AlignTop || Qt::AlignLeft, progressText);
+	}
+}
+
+void cWaveFormView::slotLoadingProgress(QString _progressText)
+{
+	progressText = _progressText;
+	inProgress = true;
+	failed = false;
+	update();
+}
+
+void cWaveFormView::slotLoadingFailed()
+{
+	failed = true;
+	progressText = tr("Not able to load audio file!");
+	update();
 }

@@ -95,7 +95,8 @@ private:
 
 signals:
 	void loadingFinished();
-	void loadingProgress(double percentage);
+	void loadingFailed();
+	void loadingProgress(QString progressText);
 };
 
 #endif /* MANDELBULBER2_SRC_AUDIO_TRACK_H_ */
