@@ -49,14 +49,13 @@ if [ ! -d qt-everywhere-opensource-src-5.7.0 ]; then
 fi
 
 ### gsl
+if [ ! -f gsl-latest.tar.gz ]; then
+        wget ftp://ftp.gnu.org/gnu/gsl/gsl-latest.tar.gz
+fi
+
 if [ ! -d gsl-* ]; then
-	apt-get source gsl
+        tar xf gsl-latest.tar.gz
 	cd gsl-*
-	mkdir -p doc
-	if [ ! -f doc/Makefile.in ]; then
-		cp -vax debian/Makefile.in.doc doc/Makefile.in
-		dh_autoreconf
-	fi
 	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
 	make -j8
 	sudo make -j8 install
