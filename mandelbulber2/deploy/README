@@ -24,15 +24,15 @@ LICENCE: GNU GPL v3.0
 2. COMPILING
 ------------
 
-packages needed to run: libqt5gui5, libpng16-16, libgsl2, libgomp1 libqt5multimedia5
-packages needed to compile: build-essential, qt5-default, libpng-dev, qttools5-dev, qttools5-dev-tools, libgsl-dev, libgomp1 qtmultimedia5-dev libsndfile1-dev
+packages needed to run: libqt5gui5, libpng16-16, libgsl2, libgomp1 libqt5multimedia5 libqt5multimedia5-plugins
+packages needed to compile: build-essential, qt5-default, libpng-dev, qttools5-dev, qttools5-dev-tools, libgsl-dev, libgomp1 qtmultimedia5-dev libqt5multimedia5-plugins libsndfile1-dev
 
 
 On Ubuntu, Debian stable (jessie) or Mint: 
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev libsndfile1-dev
+sudo apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins
 
 On Debian testing (stretch)
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev qtmultimedia5-dev libsndfile1-dev
+sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev qtmultimedia5-dev libsndfile1-dev libqt5multimedia5-plugins
 
 
 Then:
