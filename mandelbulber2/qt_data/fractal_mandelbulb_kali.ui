@@ -282,7 +282,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_298">
        <property name="text">
-        <string>Rotate about z axis :  </string>
+        <string>Rotate about z axis:</string>
        </property>
       </widget>
      </item>
@@ -403,7 +403,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_293">
        <property name="text">
-        <string>Beta angle offset1:  </string>
+        <string>Beta angle offset1:</string>
        </property>
       </widget>
      </item>
@@ -466,7 +466,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Analytic &amp;Logrithmic DE adjustment </string>
+      <string>Analytic &amp;Logrithmic DE adjustment</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -495,14 +495,14 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>Analytic Logrithmic DE offset1: </string>
+           <string>Analytic Logrithmic DE offset1:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>Analytic Logrithmic DE multiplier: </string>
+           <string>Analytic Logrithmic DE multiplier:</string>
           </property>
          </widget>
         </item>
@@ -606,7 +606,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>Analytic Logrithmic DE offset2: </string>
+           <string>Analytic Logrithmic DE offset2:</string>
           </property>
          </widget>
         </item>

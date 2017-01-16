@@ -133,7 +133,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_292">
        <property name="text">
-        <string>Rotate about z axis:  </string>
+        <string>Rotate about z axis:</string>
        </property>
       </widget>
      </item>
@@ -197,7 +197,7 @@
           <item row="1" column="0" colspan="3">
            <widget class="QLabel" name="label_multi1_order_of_xyz_3">
             <property name="text">
-             <string>function order of x, y and z: </string>
+             <string>function order of x, y and z:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -222,32 +222,32 @@
            <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_2">
             <item>
              <property name="text">
-              <string>xyz</string>
+              <string notr="true">xyz</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>xzy</string>
+              <string notr="true">xzy</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>yxz</string>
+              <string notr="true">yxz</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>yzx</string>
+              <string notr="true">yzx</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>zxy</string>
+              <string notr="true">zxy</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>zyx</string>
+              <string notr="true">zyx</string>
              </property>
             </item>
            </widget>
@@ -269,7 +269,7 @@
           <item row="0" column="3" colspan="2">
            <widget class="QLabel" name="label_multi1_ph0_function_3">
             <property name="text">
-             <string>ph0 function2: </string>
+             <string>ph0 function2:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -279,7 +279,7 @@
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label_multi1_th0_function_3">
             <property name="text">
-             <string>th0 function2: </string>
+             <string>th0 function2:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -587,7 +587,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_293">
        <property name="text">
-        <string>Beta angle offset1:  </string>
+        <string>Beta angle offset1:</string>
        </property>
       </widget>
      </item>
@@ -660,32 +660,32 @@
       <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
        <item>
         <property name="text">
-         <string>xyz</string>
+         <string notr="true">xyz</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>xzy</string>
+         <string notr="true">xzy</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>yxz</string>
+         <string notr="true">yxz</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>yzx</string>
+         <string notr="true">yzx</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>zxy</string>
+         <string notr="true">zxy</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>zyx</string>
+         <string notr="true">zyx</string>
         </property>
        </item>
       </widget>
@@ -707,7 +707,7 @@
      <item row="2" column="0" colspan="3">
       <widget class="QLabel" name="label_multi1_order_of_xyz_2">
        <property name="text">
-        <string>function order of x, y and z: </string>
+        <string>function order of x, y and z:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -731,7 +731,7 @@
      <item row="1" column="0" colspan="2">
       <widget class="QLabel" name="label_multi1_th0_function_2">
        <property name="text">
-        <string>th0 function: </string>
+        <string>th0 function:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -741,7 +741,7 @@
      <item row="1" column="3" colspan="2">
       <widget class="QLabel" name="label_multi1_ph0_function_2">
        <property name="text">
-        <string>ph0 function: </string>
+        <string>ph0 function:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -756,7 +756,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>addCpi&amp;xel Axis Swap ConstantMultiplier </string>
+      <string>addCpi&amp;xel Axis Swap ConstantMultiplier</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -888,7 +888,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_109">
           <property name="text">
-           <string>c.x:</string>
+           <string notr="true">c.x</string>
           </property>
          </widget>
         </item>
@@ -951,14 +951,14 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_110">
           <property name="text">
-           <string>c.y:</string>
+           <string notr="true">c.y</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>function order of c.x, c.y and c.z: </string>
+           <string>function order of c.x, c.y and c.z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -969,32 +969,32 @@
          <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_C">
           <item>
            <property name="text">
-            <string>xyz</string>
+            <string notr="true">xyz</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>xzy</string>
+            <string notr="true">xzy</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>yxz</string>
+            <string notr="true">yxz</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>yzx</string>
+            <string notr="true">yzx</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>zxy</string>
+            <string notr="true">zxy</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>zyx</string>
+            <string notr="true">zyx</string>
            </property>
           </item>
          </widget>
@@ -1009,7 +1009,7 @@
         <item row="3" column="1">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>c.z:</string>
+           <string notr="true">c.z</string>
           </property>
          </widget>
         </item>
@@ -1031,7 +1031,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Analytic &amp;Logrithmic DE adjustment </string>
+      <string>Analytic &amp;Logrithmic DE adjustment</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1060,14 +1060,14 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>Analytic Logrithmic DE offset1: </string>
+           <string>Analytic Logrithmic DE offset1:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>Analytic Logrithmic DE multiplier: </string>
+           <string>Analytic Logrithmic DE multiplier:</string>
           </property>
          </widget>
         </item>
@@ -1171,7 +1171,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>Analytic Logrithmic DE offset2: </string>
+           <string>Analytic Logrithmic DE offset2:</string>
           </property>
          </widget>
         </item>

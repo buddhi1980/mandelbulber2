@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>amazing_surf</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>835</width>
+    <width>862</width>
     <height>2415</height>
    </rect>
   </property>
@@ -135,6 +135,9 @@
        <property name="text">
         <string>Fold y:</string>
        </property>
+       <property name="buddy">
+        <cstring>spinbox3_transf_addition_constant_111_y</cstring>
+       </property>
       </widget>
      </item>
      <item row="6" column="1">
@@ -194,6 +197,9 @@
       <widget class="QLabel" name="label_105">
        <property name="text">
         <string>Fold x:</string>
+       </property>
+       <property name="buddy">
+        <cstring>spinbox3_transf_addition_constant_111_x</cstring>
        </property>
       </widget>
      </item>
@@ -380,7 +386,7 @@
      <item row="6" column="0">
       <widget class="QLabel" name="label_172">
        <property name="text">
-        <string>Scale Vary :</string>
+        <string>Scale Vary:</string>
        </property>
       </widget>
      </item>
@@ -421,7 +427,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_114">
           <property name="text">
-           <string>c.y:</string>
+           <string notr="true">c.y</string>
           </property>
          </widget>
         </item>
@@ -456,7 +462,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_115">
           <property name="text">
-           <string>c.z:</string>
+           <string notr="true">c.z</string>
           </property>
          </widget>
         </item>
@@ -498,7 +504,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_116">
           <property name="text">
-           <string>c.x:</string>
+           <string notr="true">c.x</string>
           </property>
          </widget>
         </item>
@@ -631,7 +637,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_36">
        <property name="text">
-        <string>gamma</string>
+        <string notr="true">gamma</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -641,7 +647,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_34">
        <property name="text">
-        <string>beta</string>
+        <string notr="true">beta</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -651,7 +657,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_35">
        <property name="text">
-        <string>alpha</string>
+        <string notr="true">alpha</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -818,7 +824,7 @@
 &lt;a href=&quot;This formula has a c.x c.y SWAP&quot;&gt;This formula has a c.x c.y SWAP&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
-&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;amazing_surf 001.fract&lt;h3&gt;Code&lt;/h3&gt;
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;amazing_surf 001.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
 &lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;AmazingSurfIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; CVector3 c&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
@@ -880,15 +886,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>

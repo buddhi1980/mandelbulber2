@@ -311,7 +311,7 @@
      <item row="8" column="2">
       <widget class="QLabel" name="label_264">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -325,7 +325,7 @@
      <item row="7" column="2">
       <widget class="QLabel" name="label_262">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -339,14 +339,14 @@
      <item row="3" column="2">
       <widget class="QLabel" name="label_263">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
      <item row="6" column="2">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -403,7 +403,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_260">
        <property name="text">
-        <string>Scale  </string>
+        <string>Scale</string>
        </property>
       </widget>
      </item>
@@ -438,14 +438,14 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -536,7 +536,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>Internal &amp;Rotation; </string>
+      <string>Internal &amp;Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -565,7 +565,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>gamma</string>
+           <string notr="true">gamma</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -631,7 +631,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>alpha</string>
+           <string notr="true">alpha</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -695,7 +695,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>beta</string>
+           <string notr="true">beta</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -726,7 +726,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>addCpixel Symmetrical Constant &amp;Multiplier </string>
+      <string>addCpixel Symmetrical Constant &amp;Multiplier</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -861,7 +861,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_110">
           <property name="text">
-           <string>c.y:</string>
+           <string notr="true">c.y</string>
           </property>
          </widget>
         </item>
@@ -875,7 +875,7 @@
         <item row="2" column="2">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>c.z:</string>
+           <string notr="true">c.z</string>
           </property>
          </widget>
         </item>
@@ -896,14 +896,14 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_112">
           <property name="text">
-           <string> Cpixel Multiplier </string>
+           <string>Cpixel Multiplier</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_109">
           <property name="text">
-           <string>c.x:</string>
+           <string notr="true">c.x</string>
           </property>
          </widget>
         </item>

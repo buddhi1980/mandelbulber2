@@ -140,7 +140,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>c.x:</string>
+        <string notr="true">c.x</string>
        </property>
       </widget>
      </item>
@@ -203,7 +203,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>function order of c.x, c.y and c.z: </string>
+        <string>function order of c.x, c.y and c.z:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -214,32 +214,32 @@
       <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
        <item>
         <property name="text">
-         <string>xyz</string>
+         <string notr="true">xyz</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>xzy</string>
+         <string notr="true">xzy</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>yxz</string>
+         <string notr="true">yxz</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>yzx</string>
+         <string notr="true">yzx</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>zxy</string>
+         <string notr="true">zxy</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>zyx</string>
+         <string notr="true">zyx</string>
         </property>
        </item>
       </widget>
@@ -247,7 +247,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_110">
        <property name="text">
-        <string>c.y:</string>
+        <string notr="true">c.y</string>
        </property>
       </widget>
      </item>
@@ -261,7 +261,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>c.z:</string>
+        <string notr="true">c.z</string>
        </property>
       </widget>
      </item>

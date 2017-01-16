@@ -110,7 +110,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_133">
        <property name="text">
-        <string> z = SIGN(z) ((1.0/LimitA )   -    (1.0/(fabs(z) +LimitA))    +  (fabs(z) * Slope))</string>
+        <string>z = SIGN(z) ((1.0/LimitA )   -    (1.0/(fabs(z) +LimitA))    +  (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -124,7 +124,7 @@
      <item row="3" column="2" colspan="3">
       <widget class="QLabel" name="label_135">
        <property name="text">
-        <string> z = SIGN(z) (LimitC  -  1/(fabs(z*MultA)+LimA)  -1/(z*z*MultB+ LimB)   +(fabs(z) * Slope))</string>
+        <string>z = SIGN(z) (LimitC  -  1/(fabs(z*MultA)+LimA)  -1/(z*z*MultB+ LimB)   +(fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -187,7 +187,7 @@
      <item row="14" column="0">
       <widget class="QLabel" name="label_132">
        <property name="text">
-        <string>LimitB : </string>
+        <string>LimitB:</string>
        </property>
       </widget>
      </item>
@@ -201,14 +201,14 @@
      <item row="7" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="text">
-        <string>z.x</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
      <item row="26" column="1">
       <widget class="QLabel" name="label_117">
        <property name="text">
-        <string>z.y:</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
@@ -271,14 +271,14 @@
      <item row="26" column="0">
       <widget class="QLabel" name="label_119">
        <property name="text">
-        <string>Slope :   </string>
+        <string>Slope:</string>
        </property>
       </widget>
      </item>
      <item row="27" column="1">
       <widget class="QLabel" name="label_118">
        <property name="text">
-        <string>z.z:</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -565,14 +565,14 @@
      <item row="9" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
        <property name="text">
-        <string>z.z</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
      <item row="14" column="1">
       <widget class="QLabel" name="label_114">
        <property name="text">
-        <string>z.y:</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
@@ -604,7 +604,7 @@
      <item row="2" column="2" colspan="3">
       <widget class="QLabel" name="label_134">
        <property name="text">
-        <string> z = SIGN(z) ((1/LimA )+(1/LimB)  -  1/(fabs(z*MultA)+LimA)  -1/(z*z*MultB+ LimB) etc)</string>
+        <string>z = SIGN(z) ((1/LimA )+(1/LimB)  -  1/(fabs(z*MultA)+LimA)  -1/(z*z*MultB+ LimB) etc)</string>
        </property>
       </widget>
      </item>
@@ -636,14 +636,14 @@
      <item row="8" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>LimitA :   </string>
+        <string>LimitA:</string>
        </property>
       </widget>
      </item>
      <item row="10" column="0">
       <widget class="QLabel" name="label_122">
        <property name="text">
-        <string>MultiplierA :</string>
+        <string>MultiplierA:</string>
        </property>
       </widget>
      </item>
@@ -657,14 +657,14 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_148">
        <property name="text">
-        <string> z = SIGN(z) (LimitB   -   (1.0/(fabs(z) +LimitA))    +   (fabs(z) * Slope))</string>
+        <string>z = SIGN(z) (LimitB   -   (1.0/(fabs(z) +LimitA))    +   (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
      <item row="25" column="1">
       <widget class="QLabel" name="label_116">
        <property name="text">
-        <string>z.x:</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -678,7 +678,7 @@
      <item row="8" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
        <property name="text">
-        <string>z.y </string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
@@ -777,14 +777,14 @@
      <item row="21" column="1">
       <widget class="QLabel" name="label_123">
        <property name="text">
-        <string>z.y:</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
      <item row="22" column="1">
       <widget class="QLabel" name="label_124">
        <property name="text">
-        <string>z.z:</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -847,7 +847,7 @@
      <item row="20" column="1">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>z.x:</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -935,7 +935,7 @@
      <item row="21" column="0">
       <widget class="QLabel" name="label_136">
        <property name="text">
-        <string>LimitC : </string>
+        <string>LimitC:</string>
        </property>
       </widget>
      </item>
@@ -967,14 +967,14 @@
      <item row="16" column="0">
       <widget class="QLabel" name="label_121">
        <property name="text">
-        <string>MultiplierB :</string>
+        <string>MultiplierB:</string>
        </property>
       </widget>
      </item>
      <item row="13" column="1">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>z.x:</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -1006,7 +1006,7 @@
      <item row="15" column="1">
       <widget class="QLabel" name="label_115">
        <property name="text">
-        <string>z.z:</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>

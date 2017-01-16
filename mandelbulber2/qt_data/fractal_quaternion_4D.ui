@@ -94,7 +94,7 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_93">
        <property name="text">
-        <string> z.x :</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -186,7 +186,7 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string> z.z :</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -265,7 +265,7 @@
      <item row="8" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset  </string>
+        <string>Offset</string>
        </property>
       </widget>
      </item>
@@ -294,14 +294,14 @@
      <item row="8" column="2">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
       <widget class="QLabel" name="label_91">
        <property name="text">
-        <string>Quaternion Scales   </string>
+        <string>Quaternion Scales</string>
        </property>
       </widget>
      </item>
@@ -380,28 +380,28 @@
      <item row="3" column="2">
       <widget class="QLabel" name="label_90">
        <property name="text">
-        <string> z.y :</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
      <item row="10" column="2">
       <widget class="QLabel" name="label_115">
        <property name="text">
-        <string>w:</string>
+        <string notr="true">w</string>
        </property>
       </widget>
      </item>
      <item row="5" column="2">
       <widget class="QLabel" name="label_99">
        <property name="text">
-        <string> z.w :</string>
+        <string notr="true">z.w</string>
        </property>
       </widget>
      </item>
      <item row="7" column="2">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -430,7 +430,7 @@
      <item row="9" column="2">
       <widget class="QLabel" name="label_114">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -552,7 +552,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Quaternion4D&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;quaternion4D_001.fract&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/sponged.fract&lt;h3&gt;Code&lt;/h3&gt;
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;quaternion4D_001.fract&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/sponged.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
 &lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;Quaternion4DIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z4D&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;

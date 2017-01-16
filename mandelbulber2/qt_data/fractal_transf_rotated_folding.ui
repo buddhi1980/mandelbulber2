@@ -114,7 +114,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_15">
        <property name="text">
-        <string>gamma</string>
+        <string notr="true">gamma</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -124,7 +124,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_13">
        <property name="text">
-        <string>alpha</string>
+        <string notr="true">alpha</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -134,7 +134,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_14">
        <property name="text">
-        <string>beta</string>
+        <string notr="true">beta</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -413,21 +413,21 @@
      <item row="3" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
        <property name="text">
-        <string>z.z</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
        <property name="text">
-        <string>z.y</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="text">
-        <string>z.x</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -570,7 +570,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_169">
          <property name="text">
-          <string>Offset: </string>
+          <string>Offset:</string>
          </property>
         </widget>
        </item>
@@ -655,21 +655,21 @@
        <item row="3" column="1">
         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
          <property name="text">
-          <string>z.z</string>
+          <string notr="true">z.z</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
          <property name="text">
-          <string>z.x</string>
+          <string notr="true">z.x</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
          <property name="text">
-          <string>z.y</string>
+          <string notr="true">z.y</string>
          </property>
         </widget>
        </item>
@@ -781,7 +781,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_172">
          <property name="text">
-          <string>z.z  scale : </string>
+          <string>z.z  scale:</string>
          </property>
         </widget>
        </item>
@@ -853,7 +853,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>if ( z &gt;Limit) z =  Value -z,   else if( z &lt;Limit) z = - Value - z, </string>
+        <string>if ( z &gt;Limit) z =  Value -z,   else if( z &lt;Limit) z = - Value - z,</string>
        </property>
       </widget>
      </item>
@@ -862,14 +862,14 @@
        <item row="1" column="2">
         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy">
          <property name="text">
-          <string>z.y</string>
+          <string notr="true">z.y</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx">
          <property name="text">
-          <string>z.x</string>
+          <string notr="true">z.x</string>
          </property>
         </widget>
        </item>
@@ -883,7 +883,7 @@
        <item row="1" column="3">
         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz">
          <property name="text">
-          <string>z.z</string>
+          <string notr="true">z.z</string>
          </property>
         </widget>
        </item>
@@ -1023,7 +1023,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_34">
        <property name="text">
-        <string>beta</string>
+        <string notr="true">beta</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1033,7 +1033,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_35">
        <property name="text">
-        <string>alpha</string>
+        <string notr="true">alpha</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1043,7 +1043,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_36">
        <property name="text">
-        <string>gamma</string>
+        <string notr="true">gamma</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

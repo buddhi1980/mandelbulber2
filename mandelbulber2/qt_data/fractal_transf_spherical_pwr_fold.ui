@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string> Spherical Power Fold</string>
+      <string>Spherical Power Fold</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -281,14 +281,14 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_358">
           <property name="text">
-           <string>Power A  </string>
+           <string>Power A</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_355">
           <property name="text">
-           <string>Power B  </string>
+           <string>Power B</string>
           </property>
          </widget>
         </item>

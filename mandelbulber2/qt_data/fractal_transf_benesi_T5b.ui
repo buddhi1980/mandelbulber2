@@ -37,7 +37,7 @@
      <item row="9" column="2">
       <widget class="QLabel" name="label_254">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -79,14 +79,14 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_265">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="13" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset  </string>
+        <string>Offset</string>
        </property>
       </widget>
      </item>
@@ -115,7 +115,7 @@
      <item row="6" column="2">
       <widget class="QLabel" name="label_266">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -232,7 +232,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_263">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -288,7 +288,7 @@
      <item row="12" column="2">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -398,14 +398,14 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_262">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="13" column="2">
       <widget class="QLabel" name="label_260">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -469,14 +469,14 @@
      <item row="10" column="2">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
      <item row="14" column="2">
       <widget class="QLabel" name="label_261">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -512,7 +512,7 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_267">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -576,7 +576,7 @@
      <item row="8" column="2">
       <widget class="QLabel" name="label_252">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -605,21 +605,21 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_358">
        <property name="text">
-        <string>Power A  </string>
+        <string>Power A</string>
        </property>
       </widget>
      </item>
      <item row="5" column="2">
       <widget class="QLabel" name="label_264">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
       <widget class="QLabel" name="label_355">
        <property name="text">
-        <string>Power B  </string>
+        <string>Power B</string>
        </property>
       </widget>
      </item>
@@ -666,7 +666,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>Mag Transform &amp;T5b  Internal Rotation; </string>
+      <string>Mag Transform &amp;T5b  Internal Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -695,7 +695,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>gamma</string>
+           <string notr="true">gamma</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -705,7 +705,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>beta</string>
+           <string notr="true">beta</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -715,7 +715,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>alpha</string>
+           <string notr="true">alpha</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

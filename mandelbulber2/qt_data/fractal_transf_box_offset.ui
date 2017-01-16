@@ -37,14 +37,14 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -101,14 +101,14 @@
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Box Offset  </string>
+        <string>Box Offset</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_110">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>

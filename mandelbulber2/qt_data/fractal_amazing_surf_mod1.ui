@@ -37,7 +37,7 @@
      <item row="3" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
        <property name="text">
-        <string>Type 1 </string>
+        <string>Type 1</string>
        </property>
       </widget>
      </item>
@@ -51,7 +51,7 @@
      <item row="6" column="2">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z, </string>
+        <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
        </property>
       </widget>
      </item>
@@ -65,7 +65,7 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>z = fabs(z + fold) </string>
+        <string>z = fabs(z + fold)</string>
        </property>
       </widget>
      </item>
@@ -113,7 +113,7 @@
      <item row="5" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
-        <string>Type 3 </string>
+        <string>Type 3</string>
        </property>
       </widget>
      </item>
@@ -353,28 +353,28 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Offset :                    </string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_121">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_119">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -545,7 +545,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_167">
        <property name="text">
-        <string>Sqrt Minimum Radius :</string>
+        <string>Sqrt Minimum Radius:</string>
        </property>
       </widget>
      </item>
@@ -612,7 +612,7 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_172">
        <property name="text">
-        <string>Scale Vary :</string>
+        <string>Scale Vary:</string>
        </property>
       </widget>
      </item>
@@ -813,7 +813,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_35">
        <property name="text">
-        <string>alpha</string>
+        <string notr="true">alpha</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -823,7 +823,7 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_36">
        <property name="text">
-        <string>gamma</string>
+        <string notr="true">gamma</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -859,7 +859,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_34">
        <property name="text">
-        <string>beta</string>
+        <string notr="true">beta</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1093,7 +1093,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Fold function components -group weight:   </string>
+        <string>Fold function components -group weight:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1187,7 +1187,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Scale component  </string>
+        <string>Scale component</string>
        </property>
       </widget>
      </item>
@@ -1422,7 +1422,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component  </string>
+        <string>Absolute value of z  component</string>
        </property>
       </widget>
      </item>
@@ -1660,7 +1660,7 @@
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;????&quot;&gt;????&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
-&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;amazing surf mod1 001.fract&lt;br&gt;amazing_surf 002.fract&lt;br&gt;Sebastian Jennen collection - license Creative Commons  (CC-BY 4.0)/hybrid 02 - rectangle hieroglyphs animation.fract&lt;br&gt;Sebastian Jennen collection - license Creative Commons  (CC-BY 4.0)/hybrid 02 - rectangle hieroglyphs.fract&lt;h3&gt;Code&lt;/h3&gt;
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;amazing surf mod1 001.fract&lt;br&gt;amazing_surf 002.fract&lt;br&gt;Sebastian Jennen collection - license Creative Commons  (CC-BY 4.0)/hybrid 02 - rectangle hieroglyphs animation.fract&lt;br&gt;Sebastian Jennen collection - license Creative Commons  (CC-BY 4.0)/hybrid 02 - rectangle hieroglyphs.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
 &lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;AmazingSurfMod1Iteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;

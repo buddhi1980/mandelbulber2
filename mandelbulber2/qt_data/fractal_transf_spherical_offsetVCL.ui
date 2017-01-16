@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_97">
      <property name="text">
-      <string> The Curvilinear, Parabolic  &amp; Dot modes  can be applied consecutively</string>
+      <string>The Curvilinear, Parabolic  &amp; Dot modes  can be applied consecutively</string>
      </property>
     </widget>
    </item>
@@ -48,7 +48,7 @@
      <item row="1" column="2">
       <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
        <property name="text">
-        <string>Curvi  function </string>
+        <string>Curvi  function</string>
        </property>
       </widget>
      </item>
@@ -245,7 +245,7 @@
      <item row="6" column="1">
       <widget class="QLabel" name="label_174">
        <property name="text">
-        <string>  0</string>
+        <string>0</string>
        </property>
       </widget>
      </item>
@@ -472,7 +472,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_101">
        <property name="text">
-        <string>Axis Slope :</string>
+        <string>Axis Slope:</string>
        </property>
       </widget>
      </item>
@@ -507,7 +507,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string>Parabolic scale :</string>
+        <string>Parabolic scale:</string>
        </property>
       </widget>
      </item>

@@ -154,7 +154,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset  </string>
+        <string>Offset</string>
        </property>
       </widget>
      </item>
@@ -183,7 +183,7 @@
      <item row="3" column="2">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -212,14 +212,14 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_114">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="4" column="2">
       <widget class="QLabel" name="label_115">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>

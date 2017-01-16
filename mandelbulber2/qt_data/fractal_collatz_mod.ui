@@ -87,7 +87,7 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_121">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -113,7 +113,7 @@
      <item row="20" column="0" colspan="3">
       <widget class="QLabel" name="label_176">
        <property name="text">
-        <string>Analytic Linear DE adjustment factor: </string>
+        <string>Analytic Linear DE adjustment factor:</string>
        </property>
       </widget>
      </item>
@@ -396,7 +396,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -450,14 +450,14 @@
      <item row="10" column="1">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
       <widget class="QLabel" name="label_119">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -566,7 +566,7 @@
      <item row="9" column="1">
       <widget class="QLabel" name="label_118">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -656,7 +656,7 @@
      <item row="11" column="1">
       <widget class="QLabel" name="label_122">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -828,14 +828,14 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>c.z:</string>
+           <string notr="true">c.z</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_110">
           <property name="text">
-           <string>c.y:</string>
+           <string notr="true">c.y</string>
           </property>
          </widget>
         </item>
@@ -877,7 +877,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_109">
           <property name="text">
-           <string>c.x:</string>
+           <string notr="true">c.x</string>
           </property>
          </widget>
         </item>

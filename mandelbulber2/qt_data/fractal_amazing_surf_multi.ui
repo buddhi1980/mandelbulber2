@@ -108,7 +108,7 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>z = fabs(z + fold) </string>
+        <string>z = fabs(z + fold)</string>
        </property>
       </widget>
      </item>
@@ -197,7 +197,7 @@
      <item row="6" column="1">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z, </string>
+        <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
        </property>
       </widget>
      </item>
@@ -528,7 +528,7 @@
      <item row="1" column="3">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
-        <string>Slot 3 </string>
+        <string>Slot 3</string>
        </property>
       </widget>
      </item>
@@ -680,7 +680,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Enable slot sequence:  </string>
+        <string>Enable slot sequence:</string>
        </property>
       </widget>
      </item>
@@ -878,28 +878,28 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Offset :                    </string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_121">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_119">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -1201,7 +1201,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_68">
           <property name="text">
-           <string>Start Fold at iteration :</string>
+           <string>Start Fold at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1235,7 +1235,7 @@
         <item row="1" column="0">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledAz">
           <property name="text">
-           <string>Abox spherical folding :</string>
+           <string>Abox spherical folding:</string>
           </property>
          </widget>
         </item>
@@ -1376,14 +1376,14 @@
         <item row="1" column="0">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
           <property name="text">
-           <string>Mbox spherical folding :</string>
+           <string>Mbox spherical folding:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="2">
          <widget class="QLabel" name="label_67">
           <property name="text">
-           <string>Start Fold at iteration :</string>
+           <string>Start Fold at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1606,7 +1606,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1622,7 +1622,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1716,7 +1716,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1811,7 +1811,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_66">
           <property name="text">
-           <string>Start Scale at iteration :</string>
+           <string>Start Scale at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1853,7 +1853,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_140">
           <property name="text">
-           <string>Scale : </string>
+           <string>Scale:</string>
           </property>
          </widget>
         </item>
@@ -2016,32 +2016,32 @@ offset:</string>
             <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
              <item>
               <property name="text">
-               <string>xyz</string>
+               <string notr="true">xyz</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>xzy</string>
+               <string notr="true">xzy</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>yxz</string>
+               <string notr="true">yxz</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>yzx</string>
+               <string notr="true">yzx</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>zxy</string>
+               <string notr="true">zxy</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>zyx</string>
+               <string notr="true">zyx</string>
               </property>
              </item>
             </widget>
@@ -2049,7 +2049,7 @@ offset:</string>
            <item row="0" column="2">
             <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>function order of c.x, c.y and c.z: </string>
+              <string>function order of c.x, c.y and c.z:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2140,21 +2140,21 @@ offset:</string>
            <item row="1" column="1">
             <widget class="QLabel" name="label_118">
              <property name="text">
-              <string>c.x:</string>
+              <string notr="true">c.x</string>
              </property>
             </widget>
            </item>
            <item row="2" column="1">
             <widget class="QLabel" name="label_114">
              <property name="text">
-              <string>c.y:</string>
+              <string notr="true">c.y</string>
              </property>
             </widget>
            </item>
            <item row="3" column="1">
             <widget class="QLabel" name="label_122">
              <property name="text">
-              <string>c.z:</string>
+              <string notr="true">c.z</string>
              </property>
             </widget>
            </item>
@@ -2285,7 +2285,7 @@ offset:</string>
            <item row="0" column="0">
             <widget class="QLabel" name="label_249">
              <property name="text">
-              <string>Start Rotation at iteration :</string>
+              <string>Start Rotation at iteration:</string>
              </property>
             </widget>
            </item>
@@ -2378,7 +2378,7 @@ offset:</string>
            <item row="0" column="2">
             <widget class="QLabel" name="label_18">
              <property name="text">
-              <string>gamma</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -2416,7 +2416,7 @@ offset:</string>
            <item row="0" column="1">
             <widget class="QLabel" name="label_19">
              <property name="text">
-              <string>beta</string>
+              <string notr="true">beta</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -2426,7 +2426,7 @@ offset:</string>
            <item row="0" column="0">
             <widget class="QLabel" name="label_17">
              <property name="text">
-              <string>alpha</string>
+              <string notr="true">alpha</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -2572,7 +2572,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Fold function components -group weight:   </string>
+        <string>Fold function components -group weight:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2666,7 +2666,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Scale component  </string>
+        <string>Scale component</string>
        </property>
       </widget>
      </item>
@@ -2901,7 +2901,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component  </string>
+        <string>Absolute value of z  component</string>
        </property>
       </widget>
      </item>

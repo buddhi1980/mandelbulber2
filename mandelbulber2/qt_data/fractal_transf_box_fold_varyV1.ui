@@ -118,7 +118,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_172">
          <property name="text">
-          <string>z.z  scale : </string>
+          <string>z.z  scale:</string>
          </property>
         </widget>
        </item>
@@ -155,7 +155,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_48">
        <property name="text">
-        <string>Value/Limit Scale: </string>
+        <string>Value/Limit Scale:</string>
        </property>
       </widget>
      </item>
@@ -261,7 +261,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_177">
        <property name="text">
-        <string>Vary Limit: </string>
+        <string>Vary Limit:</string>
        </property>
       </widget>
      </item>
@@ -344,7 +344,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_171">
          <property name="text">
-          <string>Start varying at iteration :</string>
+          <string>Start varying at iteration:</string>
          </property>
         </widget>
        </item>

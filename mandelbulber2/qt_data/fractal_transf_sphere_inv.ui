@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_17">
      <property name="text">
-      <string> SphereInv from M3D</string>
+      <string>SphereInv from M3D</string>
      </property>
     </widget>
    </item>
@@ -186,7 +186,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -202,7 +202,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -218,7 +218,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -335,7 +335,7 @@ offset:</string>
      <item row="1" column="1">
       <widget class="QLabel" name="label_48">
        <property name="text">
-        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion) </string>
+        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion)</string>
        </property>
       </widget>
      </item>
@@ -469,7 +469,7 @@ offset:</string>
      <item row="0" column="1">
       <widget class="QLabel" name="label_20">
        <property name="text">
-        <string>let r2 = Radius2  (conformal - undo the inversion inside a sphere) </string>
+        <string>let r2 = Radius2  (conformal - undo the inversion inside a sphere)</string>
        </property>
       </widget>
      </item>
@@ -497,28 +497,28 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Adjust Offset :      </string>
+        <string>Adjust Offset:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="label_121">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_122">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_123">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -713,7 +713,7 @@ offset:</string>
         <property name="text">
          <string notr="true">&lt;p&gt;spherical invert&lt;br&gt;from M3D. Formula by Luca GN 2011, updated May 2012.&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;pseudo kleinian mod 001.fract&lt;h3&gt;Code&lt;/h3&gt;
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;pseudo kleinian mod 001.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
 &lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;TransformSphereInvIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;

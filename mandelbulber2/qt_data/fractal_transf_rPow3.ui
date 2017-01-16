@@ -65,7 +65,7 @@
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Scale: </string>
+        <string>Scale:</string>
        </property>
       </widget>
      </item>

@@ -37,7 +37,7 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_37">
        <property name="text">
-        <string>XZ</string>
+        <string notr="true">xz</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -47,7 +47,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_38">
        <property name="text">
-        <string>YZ</string>
+        <string notr="true">yz</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -161,7 +161,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_40">
        <property name="text">
-        <string>XY</string>
+        <string notr="true">xy</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

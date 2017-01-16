@@ -117,7 +117,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_246">
           <property name="text">
-           <string>Start T1 at iteration :</string>
+           <string>Start T1 at iteration:</string>
           </property>
          </widget>
         </item>
@@ -331,7 +331,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Offset  </string>
+           <string>Offset</string>
           </property>
          </widget>
         </item>
@@ -344,7 +344,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -360,7 +360,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -376,7 +376,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -386,7 +386,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_258">
           <property name="text">
-           <string>Scale </string>
+           <string>Scale</string>
           </property>
          </widget>
         </item>
@@ -399,7 +399,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -415,7 +415,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -431,7 +431,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -605,7 +605,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_249">
           <property name="text">
-           <string>Start PT at iteration :</string>
+           <string>Start PT at iteration:</string>
           </property>
          </widget>
         </item>
@@ -681,7 +681,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_122">
           <property name="text">
-           <string>c.y:</string>
+           <string notr="true">c.y</string>
           </property>
          </widget>
         </item>
@@ -714,7 +714,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>c.z:</string>
+           <string notr="true">c.z</string>
           </property>
          </widget>
         </item>
@@ -803,7 +803,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_125">
           <property name="text">
-           <string>Cpixel Multiplier  </string>
+           <string>Cpixel Multiplier</string>
           </property>
          </widget>
         </item>
@@ -844,7 +844,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>gamma</string>
+           <string notr="true">gamma</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -854,7 +854,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>beta</string>
+           <string notr="true">beta</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -864,7 +864,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>alpha</string>
+           <string notr="true">alpha</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1211,7 +1211,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>Transform: </string>
+        <string>Transform:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1228,7 +1228,7 @@
      <item row="1" column="3">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
-        <string>Slot 3 </string>
+        <string>Slot 3</string>
        </property>
       </widget>
      </item>
@@ -1380,7 +1380,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Enable slot sequence:  </string>
+        <string>Enable slot sequence:</string>
        </property>
       </widget>
      </item>
@@ -1416,7 +1416,7 @@
    <item>
     <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Mag Transform Parameters.  </string>
+      <string>Mag Transform Parameters.</string>
      </property>
     </widget>
    </item>
@@ -1494,14 +1494,14 @@
      <item row="8" column="0">
       <widget class="QLabel" name="label_279">
        <property name="text">
-        <string>T5b </string>
+        <string>T5b</string>
        </property>
       </widget>
      </item>
      <item row="7" column="6">
       <widget class="QLabel" name="label_288">
        <property name="text">
-        <string>power B.z  </string>
+        <string>power B.z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1511,7 +1511,7 @@
      <item row="7" column="4">
       <widget class="QLabel" name="label_286">
        <property name="text">
-        <string>power B.x  </string>
+        <string>power B.x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1521,7 +1521,7 @@
      <item row="7" column="5">
       <widget class="QLabel" name="label_287">
        <property name="text">
-        <string>power B.y </string>
+        <string>power B.y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1531,7 +1531,7 @@
      <item row="7" column="3">
       <widget class="QLabel" name="label_285">
        <property name="text">
-        <string>power A.z  </string>
+        <string>power A.z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1936,7 +1936,7 @@
      <item row="7" column="1">
       <widget class="QLabel" name="label_283">
        <property name="text">
-        <string>power A.x  </string>
+        <string>power A.x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -2068,7 +2068,7 @@
      <item row="7" column="2">
       <widget class="QLabel" name="label_284">
        <property name="text">
-        <string>power A.y  </string>
+        <string>power A.y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

@@ -44,21 +44,21 @@
      <item row="7" column="1">
       <widget class="QLabel" name="label_119">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="20" column="1">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="8" column="1">
       <widget class="QLabel" name="label_121">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -103,7 +103,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_246">
          <property name="text">
-          <string> Polynomial iterations. Start :</string>
+          <string>Polynomial iterations. Start:</string>
          </property>
         </widget>
        </item>
@@ -358,7 +358,7 @@
      <item row="11" column="0" colspan="3">
       <widget class="QLabel" name="label_171">
        <property name="text">
-        <string> fn( z)  options,  (default = z;)</string>
+        <string>fn( z)  options,  (default = z;)</string>
        </property>
       </widget>
      </item>
@@ -394,7 +394,7 @@
      <item row="25" column="0" colspan="3">
       <widget class="QLabel" name="label_176">
        <property name="text">
-        <string>Analytic Linear DE multiplier: </string>
+        <string>Analytic Linear DE multiplier:</string>
        </property>
       </widget>
      </item>
@@ -468,7 +468,7 @@
         <string/>
        </property>
        <property name="title">
-        <string> fn( z) = Pi Rotation about &amp;VectorA</string>
+        <string>fn( z) = Pi Rotation about &amp;VectorA</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -569,7 +569,7 @@
      <item row="19" column="1">
       <widget class="QLabel" name="label_118">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -681,7 +681,7 @@
      <item row="23" column="0">
       <widget class="QLabel" name="label_173">
        <property name="text">
-        <string> Final Scale:</string>
+        <string>Final Scale:</string>
        </property>
       </widget>
      </item>
@@ -717,7 +717,7 @@
         <string/>
        </property>
        <property name="title">
-        <string> fn( z) = &amp;Box Offset</string>
+        <string>fn( z) = &amp;Box Offset</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -859,21 +859,21 @@
           <item row="0" column="1">
            <widget class="QLabel" name="label_124">
             <property name="text">
-             <string>x:</string>
+             <string notr="true">x</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
            <widget class="QLabel" name="label_125">
             <property name="text">
-             <string>z:</string>
+             <string notr="true">z</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
            <widget class="QLabel" name="label_123">
             <property name="text">
-             <string>y:</string>
+             <string notr="true">y</string>
             </property>
            </widget>
           </item>
@@ -963,7 +963,7 @@
      <item row="26" column="0" colspan="3">
       <widget class="QLabel" name="label_188">
        <property name="text">
-        <string>Analytic Linear DE offset: </string>
+        <string>Analytic Linear DE offset:</string>
        </property>
       </widget>
      </item>
@@ -1010,7 +1010,7 @@
      <item row="6" column="1">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -1036,7 +1036,7 @@
      <item row="21" column="1">
       <widget class="QLabel" name="label_122">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -1046,7 +1046,7 @@
         <string/>
        </property>
        <property name="title">
-        <string> fn( z)   =  cos (  z * pi )</string>
+        <string>fn( z)   =  cos (  z * pi )</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -1330,7 +1330,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_109">
           <property name="text">
-           <string>c.x:</string>
+           <string notr="true">c.x</string>
           </property>
          </widget>
         </item>
@@ -1393,7 +1393,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>function order of c.x, c.y and c.z: </string>
+           <string>function order of c.x, c.y and c.z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1404,32 +1404,32 @@
          <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
           <item>
            <property name="text">
-            <string>xyz</string>
+            <string notr="true">xyz</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>xzy</string>
+            <string notr="true">xzy</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>yxz</string>
+            <string notr="true">yxz</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>yzx</string>
+            <string notr="true">yzx</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>zxy</string>
+            <string notr="true">zxy</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>zyx</string>
+            <string notr="true">zyx</string>
            </property>
           </item>
          </widget>
@@ -1437,7 +1437,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_110">
           <property name="text">
-           <string>c.y:</string>
+           <string notr="true">c.y</string>
           </property>
          </widget>
         </item>
@@ -1451,7 +1451,7 @@
         <item row="3" column="1">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>c.z:</string>
+           <string notr="true">c.z</string>
           </property>
          </widget>
         </item>
@@ -1524,7 +1524,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_91">
           <property name="text">
-           <string> Multiplier:    </string>
+           <string>Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -1581,7 +1581,7 @@
         <item row="12" column="1" colspan="6">
          <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
           <property name="title">
-           <string>Internal &amp;Rotation; </string>
+           <string>Internal &amp;Rotation;</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -1656,7 +1656,7 @@
              <item row="1" column="0">
               <widget class="QLabel" name="label_249">
                <property name="text">
-                <string>Start Rotation at iteration :</string>
+                <string>Start Rotation at iteration:</string>
                </property>
               </widget>
              </item>
@@ -1683,7 +1683,7 @@
              <item row="1" column="0">
               <widget class="QLabel" name="label_35">
                <property name="text">
-                <string>alpha</string>
+                <string notr="true">alpha</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -1721,7 +1721,7 @@
              <item row="1" column="1">
               <widget class="QLabel" name="label_34">
                <property name="text">
-                <string>beta</string>
+                <string notr="true">beta</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -1800,7 +1800,7 @@
              <item row="1" column="2">
               <widget class="QLabel" name="label_36">
                <property name="text">
-                <string>gamma</string>
+                <string notr="true">gamma</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -1913,14 +1913,14 @@
         <item row="6" column="2">
          <widget class="QLabel" name="label_90">
           <property name="text">
-           <string> z.y :</string>
+           <string notr="true">z.y</string>
           </property>
          </widget>
         </item>
         <item row="9" column="2">
          <widget class="QLabel" name="label_115">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
@@ -1949,21 +1949,21 @@
         <item row="11" column="2">
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>
         <item row="10" column="2">
          <widget class="QLabel" name="label_116">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
         <item row="7" column="2">
          <widget class="QLabel" name="label_98">
           <property name="text">
-           <string> z.z :</string>
+           <string notr="true">z.z</string>
           </property>
          </widget>
         </item>
@@ -2061,7 +2061,7 @@
         <item row="5" column="2">
          <widget class="QLabel" name="label_93">
           <property name="text">
-           <string> z.x :</string>
+           <string notr="true">z.x</string>
           </property>
          </widget>
         </item>
@@ -2138,14 +2138,14 @@
         <item row="3" column="1" colspan="2">
          <widget class="QLabel" name="label_64">
           <property name="text">
-           <string>Menger Scale Factor: </string>
+           <string>Menger Scale Factor:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1" colspan="2">
          <widget class="QLabel" name="label_92">
           <property name="text">
-           <string> Menger Iterations</string>
+           <string>Menger Iterations</string>
           </property>
          </widget>
         </item>
@@ -2174,7 +2174,7 @@
         <item row="10" column="1">
          <widget class="QLabel" name="label_255">
           <property name="text">
-           <string>Offset :</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>

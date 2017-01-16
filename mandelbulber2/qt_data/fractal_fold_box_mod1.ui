@@ -63,7 +63,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_67">
        <property name="text">
-        <string>Start at iteration :</string>
+        <string>Start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -375,7 +375,7 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_95">
        <property name="text">
-        <string>fabs(z - Const.F2)   </string>
+        <string>fabs(z - Const.F2)</string>
        </property>
       </widget>
      </item>
@@ -404,14 +404,14 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_68">
        <property name="text">
-        <string>fabs(z + Const.F1)  </string>
+        <string>fabs(z + Const.F1)</string>
        </property>
       </widget>
      </item>
@@ -444,7 +444,7 @@
      <item row="10" column="1">
       <widget class="QLabel" name="label_100">
        <property name="text">
-        <string> Const.F3</string>
+        <string>Const.F3</string>
        </property>
       </widget>
      </item>
@@ -495,14 +495,14 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="2" column="2">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -537,7 +537,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -626,35 +626,35 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="7" column="2">
       <widget class="QLabel" name="label_12">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
      <item row="11" column="2">
       <widget class="QLabel" name="label_13">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
      <item row="10" column="2">
       <widget class="QLabel" name="label_14">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="9" column="2">
       <widget class="QLabel" name="label_15">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -663,7 +663,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="title">
-      <string>&amp;Box Fold  </string>
+      <string>&amp;Box Fold</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -711,7 +711,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_52">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -948,7 +948,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
-      <string>Spherical Fold; </string>
+      <string>Spherical Fold;</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -1029,7 +1029,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_65">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1175,7 +1175,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Scale </string>
+      <string>Scale</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -1273,7 +1273,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_mandelbox_main_rotation_enabled">
      <property name="title">
-      <string>&amp;Rotation  </string>
+      <string>&amp;Rotation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1299,7 +1299,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_47">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1359,7 +1359,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_49">
           <property name="text">
-           <string>gamma</string>
+           <string notr="true">gamma</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1369,7 +1369,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_50">
           <property name="text">
-           <string>beta</string>
+           <string notr="true">beta</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1379,7 +1379,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_51">
           <property name="text">
-           <string>alpha</string>
+           <string notr="true">alpha</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1546,7 +1546,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Modified Mandelbox (ABox) formula&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;fabs_box_mod1_001.fract&lt;h3&gt;Code&lt;/h3&gt;
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;fabs_box_mod1_001.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
 &lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;FoldBoxMod1Iteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;i&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;

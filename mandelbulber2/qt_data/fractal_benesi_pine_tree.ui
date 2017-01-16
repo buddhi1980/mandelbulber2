@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string> Pine Tree  addCpixel ConstantMultiplier  ( c.y  c.z Swap)</string>
+      <string>Pine Tree  addCpixel ConstantMultiplier  ( c.y  c.z Swap)</string>
      </property>
     </widget>
    </item>
@@ -135,7 +135,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>c.x:</string>
+        <string notr="true">c.x</string>
        </property>
       </widget>
      </item>
@@ -214,21 +214,21 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_71">
        <property name="text">
-        <string>c.y:</string>
+        <string notr="true">c.y</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_117">
        <property name="text">
-        <string>c.z:</string>
+        <string notr="true">c.z</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_114">
        <property name="text">
-        <string>Cpixel Multiplier   </string>
+        <string>Cpixel Multiplier</string>
        </property>
       </widget>
      </item>
@@ -276,7 +276,7 @@
 &lt;a href=&quot;do-m3d-formula-have-to-be-distance-estimation-formulas/&quot;&gt;do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
-&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;benesi_pine_tree_001.fract&lt;h3&gt;Code&lt;/h3&gt;
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;benesi_pine_tree_001.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
 &lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;BenesiPineTreeIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; CVector3 c&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;

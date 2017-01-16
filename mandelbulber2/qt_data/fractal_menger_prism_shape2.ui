@@ -232,7 +232,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -326,7 +326,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -349,7 +349,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -526,7 +526,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>Dot modes :</string>
+          <string>Dot modes:</string>
          </property>
         </widget>
        </item>
@@ -535,21 +535,21 @@
          <item row="0" column="1">
           <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
            <property name="text">
-            <string>enable fabs(z.x) </string>
+            <string>enable fabs(z.x)</string>
            </property>
           </widget>
          </item>
          <item row="0" column="2">
           <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy">
            <property name="text">
-            <string>enable fabs(z.y) </string>
+            <string>enable fabs(z.y)</string>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
           <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz">
            <property name="text">
-            <string>enable fabs(z.z) </string>
+            <string>enable fabs(z.z)</string>
            </property>
           </widget>
          </item>
@@ -590,14 +590,14 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_66">
          <property name="text">
-          <string>Start at iteration :</string>
+          <string>Start at iteration:</string>
          </property>
         </widget>
        </item>
        <item row="2" column="3">
         <widget class="QLabel" name="label_48">
          <property name="text">
-          <string>Stop at iteration :</string>
+          <string>Stop at iteration:</string>
          </property>
         </widget>
        </item>
@@ -606,14 +606,14 @@
      <item row="10" column="1">
       <widget class="QLabel" name="label_174">
        <property name="text">
-        <string>Shift/offset scale:  </string>
+        <string>Shift/offset scale:</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
       <widget class="QLabel" name="label_175">
        <property name="text">
-        <string>z.x shift:  </string>
+        <string>z.x shift:</string>
        </property>
       </widget>
      </item>
@@ -739,14 +739,14 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>z.z scale: </string>
+        <string>z.z scale:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="label_106">
        <property name="text">
-        <string>z.y scale: </string>
+        <string>z.y scale:</string>
        </property>
       </widget>
      </item>
@@ -862,7 +862,7 @@
      <item row="4" column="1">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>DE tweak: </string>
+        <string>DE tweak:</string>
        </property>
       </widget>
      </item>
@@ -901,7 +901,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_107">
        <property name="text">
-        <string>post_scale: </string>
+        <string>post_scale:</string>
        </property>
       </widget>
      </item>
@@ -980,7 +980,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_257">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1020,7 +1020,7 @@
         <item row="0" column="6">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
           <property name="text">
-           <string>enable fabs(z.x) </string>
+           <string>enable fabs(z.x)</string>
           </property>
          </widget>
         </item>
@@ -1082,14 +1082,14 @@
         <item row="8" column="0">
          <widget class="QLabel" name="label_115">
           <property name="text">
-           <string>DE tweak: </string>
+           <string>DE tweak:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_112">
           <property name="text">
-           <string>cmt Scale: </string>
+           <string>cmt Scale:</string>
           </property>
          </widget>
         </item>
@@ -1216,7 +1216,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>DotScale:  : </string>
+           <string>DotScale::</string>
           </property>
          </widget>
         </item>
@@ -1345,14 +1345,14 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_262">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>cmtKIFS Scale: </string>
+           <string>cmtKIFS Scale:</string>
           </property>
          </widget>
         </item>
@@ -1402,7 +1402,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>DotScale:  : </string>
+           <string>DotScale::</string>
           </property>
          </widget>
         </item>
@@ -1806,7 +1806,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_246">
           <property name="text">
-           <string>Start T1 at iteration :</string>
+           <string>Start T1 at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1833,7 +1833,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2043,7 +2043,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Offset  </string>
+           <string>Offset</string>
           </property>
          </widget>
         </item>
@@ -2056,7 +2056,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2072,7 +2072,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2082,7 +2082,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_258">
           <property name="text">
-           <string>Scale </string>
+           <string>Scale</string>
           </property>
          </widget>
         </item>
@@ -2095,7 +2095,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2111,7 +2111,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2127,7 +2127,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2334,7 +2334,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_251">
           <property name="text">
-           <string>Start T1 Mod at iteration :</string>
+           <string>Start T1 Mod at iteration:</string>
           </property>
          </widget>
         </item>
@@ -2361,7 +2361,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2571,7 +2571,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_260">
           <property name="text">
-           <string>Offset  </string>
+           <string>Offset</string>
           </property>
          </widget>
         </item>
@@ -2584,7 +2584,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2600,7 +2600,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2610,7 +2610,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_261">
           <property name="text">
-           <string>Scale </string>
+           <string>Scale</string>
           </property>
          </widget>
         </item>
@@ -2623,7 +2623,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2639,7 +2639,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2655,7 +2655,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2849,7 +2849,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_254">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -2934,14 +2934,14 @@
         <item row="3" column="1">
          <widget class="QLabel" name="label_68">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
         <item row="13" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>  - ( z  *  C )</string>
+           <string>- ( z  *  C )</string>
           </property>
          </widget>
         </item>
@@ -2974,7 +2974,7 @@
         <item row="11" column="1">
          <widget class="QLabel" name="label_99">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
@@ -3041,7 +3041,7 @@
         <item row="14" column="1">
          <widget class="QLabel" name="label_101">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>
@@ -3199,14 +3199,14 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_69">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
         <item row="6" column="1">
          <widget class="QLabel" name="label_94">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
@@ -3245,21 +3245,21 @@
         <item row="13" column="1">
          <widget class="QLabel" name="label_100">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
         <item row="4" column="1">
          <widget class="QLabel" name="label_70">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>
         <item row="9" column="1">
          <widget class="QLabel" name="label_96">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>
@@ -3310,7 +3310,7 @@
         <item row="7" column="1">
          <widget class="QLabel" name="label_95">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
@@ -3451,7 +3451,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3590,7 +3590,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_264">
           <property name="text">
-           <string>Offset  </string>
+           <string>Offset</string>
           </property>
          </widget>
         </item>
@@ -3603,7 +3603,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3619,7 +3619,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3726,7 +3726,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_249">
             <property name="text">
-             <string>Start Rotation at iteration :</string>
+             <string>Start Rotation at iteration:</string>
             </property>
            </widget>
           </item>
@@ -3768,7 +3768,7 @@
         <item row="2" column="2">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>gamma</string>
+           <string notr="true">gamma</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -3778,7 +3778,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>beta</string>
+           <string notr="true">beta</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -3788,7 +3788,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>alpha</string>
+           <string notr="true">alpha</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -4045,7 +4045,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -4099,7 +4099,7 @@
            </font>
           </property>
           <property name="text">
-           <string> Multiplier:    </string>
+           <string>Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -4112,7 +4112,7 @@
            </font>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4176,7 +4176,7 @@
            </font>
           </property>
           <property name="text">
-           <string> z.x :</string>
+           <string notr="true">z.x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4195,7 +4195,7 @@
            </font>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4313,7 +4313,7 @@
            </font>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4329,7 +4329,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Menger Scale Factor: </string>
+           <string>Menger Scale Factor:</string>
           </property>
          </widget>
         </item>
@@ -4376,7 +4376,7 @@
            </font>
           </property>
           <property name="text">
-           <string> z.z :</string>
+           <string notr="true">z.z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4426,7 +4426,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Offset :</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>
@@ -4439,7 +4439,7 @@
            </font>
           </property>
           <property name="text">
-           <string> z.y :</string>
+           <string notr="true">z.y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

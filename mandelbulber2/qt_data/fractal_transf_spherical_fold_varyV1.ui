@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_17">
      <property name="text">
-      <string> Spherical Fold, Variable Radius Controls -  MBox type</string>
+      <string>Spherical Fold, Variable Radius Controls -  MBox type</string>
      </property>
     </widget>
    </item>
@@ -150,7 +150,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_172">
        <property name="text">
-        <string>Start varying at iteration :</string>
+        <string>Start varying at iteration:</string>
        </property>
       </widget>
      </item>
@@ -386,7 +386,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_171">
        <property name="text">
-        <string>Start varying at iteration :</string>
+        <string>Start varying at iteration:</string>
        </property>
       </widget>
      </item>
@@ -503,7 +503,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -519,7 +519,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -607,7 +607,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

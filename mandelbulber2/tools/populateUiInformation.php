@@ -118,7 +118,7 @@ foreach($formulas as $index => $formula){
 	}	
 	$informationText .= "</table>" . PHP_EOL;
 	if(array_key_exists($formula['id'], $formulaExampleUsage)){
-		$informationText .= '<b>Examples using this formula</b><br>';
+		$informationText .= '<br><b>Examples using this formula</b><br>';
 		$exampleFilenames = $formulaExampleUsage[$formula['id']];		
 		if(count($exampleFilenames) > 5){ // do not show more than 5 examples
 			array_splice($exampleFilenames, 5);
@@ -162,6 +162,30 @@ foreach($formulas as $index => $formula){
 		echo errorString('Warning, could not replace code in ui file for index: ' . $index) . PHP_EOL;
 		continue;	
 	}
+
+  $replaceFormulaLookup = array(
+	  array('find' => '/\>\s*([^<]+?)\s*<\/string>/', 'replace' => '>$1</string>'), // whitespace fix 1
+		array('find' => '/\>\s*([^<]+?)\s*:\s*<\/string>/', 'replace' => '>$1:</string>'), // whitespace fix 2
+	);
+	foreach($replaceFormulaLookup as $item){
+	  $newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);
+	}
+
+  // untranslatable and remove double point
+	$notrRemoveDoublePointCI = array(
+	  'z\.x', 'z\.y', 'z\.z', 'z\.w',
+		'c\.x', 'c\.y', 'c\.z', 'c\.w',
+		'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx',
+		'x', 'y', 'z', 'w',
+		'xy', 'yx', 'xz', 'zx', 'yz', 'zy',
+		'alpha', 'beta', 'gamma',
+	);
+
+  foreach($notrRemoveDoublePointCI as $item){
+	  $newUiFileContent = preg_replace('/<string>'. $item .':*;*<\/string>/i',
+		  '<string notr="true">' . str_replace('\\', '', $item) . '</string>', $newUiFileContent);
+	}
+
 	if($newUiFileContent == $uiFileContent){
 		if(isVerbose()){
 			echo noticeString('formula ' . $formula['name'] . ' has not changed.') . PHP_EOL;

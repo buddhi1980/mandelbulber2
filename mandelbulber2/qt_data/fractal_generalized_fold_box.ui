@@ -158,7 +158,7 @@ min radius:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -174,7 +174,7 @@ min radius:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -336,7 +336,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -659,7 +659,7 @@ offset:</string>
         <item row="0" column="1">
          <widget class="QLabel" name="label_14">
           <property name="text">
-           <string>beta</string>
+           <string notr="true">beta</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -697,7 +697,7 @@ offset:</string>
         <item row="0" column="0">
          <widget class="QLabel" name="label_13">
           <property name="text">
-           <string>alpha</string>
+           <string notr="true">alpha</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -720,7 +720,7 @@ offset:</string>
         <item row="0" column="2">
          <widget class="QLabel" name="label_15">
           <property name="text">
-           <string>gamma</string>
+           <string notr="true">gamma</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1195,7 +1195,7 @@ offset:</string>
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
-&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox01.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox02.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox03_2.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid31.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox56.fract&lt;h3&gt;Code&lt;/h3&gt;
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox01.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox02.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox03_2.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid31.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox56.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
 &lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;GeneralizedFoldBoxIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
