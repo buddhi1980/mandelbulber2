@@ -655,7 +655,7 @@ Notiz: </translation>
         <translation>Globale C Konstante nicht hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1484"/>
+        <location filename="../src/interface.cpp" line="1480"/>
         <source>Can&apos;t open file </source>
         <translation>Kann Datei nicht öffnen </translation>
     </message>
@@ -664,24 +664,24 @@ Notiz: </translation>
         <translation type="vanished">Fraktal UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="477"/>
+        <location filename="../src/interface.cpp" line="473"/>
         <source>Cannot init renderJob, see log output for more information.</source>
         <translation>renderJob kann nicht gestartet werden, siehe Log Output für weitere Informationen.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1237"/>
-        <location filename="../src/interface.cpp" line="1262"/>
+        <location filename="../src/interface.cpp" line="1233"/>
+        <location filename="../src/interface.cpp" line="1258"/>
         <source>Reseting view</source>
         <translation>Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1238"/>
+        <location filename="../src/interface.cpp" line="1234"/>
         <source>Fractal size calculation</source>
         <translation>Fraktalgröße berechnen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1262"/>
-        <location filename="../src/interface.cpp" line="1370"/>
+        <location filename="../src/interface.cpp" line="1258"/>
+        <location filename="../src/interface.cpp" line="1366"/>
         <source>Done</source>
         <translation>Fertig</translation>
     </message>
@@ -690,128 +690,128 @@ Notiz: </translation>
         <translation type="vanished">Setze Position von </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1302"/>
-        <location filename="../src/interface.cpp" line="1312"/>
-        <location filename="../src/interface.cpp" line="1322"/>
-        <location filename="../src/interface.cpp" line="1332"/>
-        <location filename="../src/interface.cpp" line="1342"/>
-        <location filename="../src/interface.cpp" line="1352"/>
-        <location filename="../src/interface.cpp" line="1370"/>
+        <location filename="../src/interface.cpp" line="1298"/>
+        <location filename="../src/interface.cpp" line="1308"/>
+        <location filename="../src/interface.cpp" line="1318"/>
+        <location filename="../src/interface.cpp" line="1328"/>
+        <location filename="../src/interface.cpp" line="1338"/>
+        <location filename="../src/interface.cpp" line="1348"/>
+        <location filename="../src/interface.cpp" line="1366"/>
         <source>bounding box as limit</source>
         <translation>Fraktalhülle als Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1302"/>
+        <location filename="../src/interface.cpp" line="1298"/>
         <source>Negative X Limit</source>
         <translation>Negative X Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1312"/>
+        <location filename="../src/interface.cpp" line="1308"/>
         <source>Negative Y Limit</source>
         <translation>Negative Y Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1322"/>
+        <location filename="../src/interface.cpp" line="1318"/>
         <source>Negative Z Limit</source>
         <translation>Negative Z Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1332"/>
+        <location filename="../src/interface.cpp" line="1328"/>
         <source>Positive X Limit</source>
         <translation>Positive X Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1342"/>
+        <location filename="../src/interface.cpp" line="1338"/>
         <source>Positive Y Limit</source>
         <translation>Positive Y Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1352"/>
+        <location filename="../src/interface.cpp" line="1348"/>
         <source>Positive Z Limit</source>
         <translation>Positive Z Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1421"/>
+        <location filename="../src/interface.cpp" line="1417"/>
         <source>Set position of %1 # %2 by mouse pointer</source>
         <translation>Setze Position von %1 # %2 per Mausklick</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1427"/>
+        <location filename="../src/interface.cpp" line="1423"/>
         <source>Delete </source>
         <translation>Lösche </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1485"/>
+        <location filename="../src/interface.cpp" line="1481"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation>Primitive Objekte UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1567"/>
+        <location filename="../src/interface.cpp" line="1563"/>
         <source>No action</source>
         <translation>Keine Aktion</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1571"/>
+        <location filename="../src/interface.cpp" line="1567"/>
         <source>Move the camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1575"/>
+        <location filename="../src/interface.cpp" line="1571"/>
         <source>Set fog visibility</source>
         <translation>Nebelsichtbarkeit setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1579"/>
+        <location filename="../src/interface.cpp" line="1575"/>
         <source>Set DOF focus</source>
         <translation>Tiefenschärfefokus setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1583"/>
+        <location filename="../src/interface.cpp" line="1579"/>
         <source>Get Julia constant</source>
         <translation>Julia Konstante holen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1588"/>
+        <location filename="../src/interface.cpp" line="1584"/>
         <source>Place light #1</source>
         <translation>Setze Licht #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1593"/>
+        <location filename="../src/interface.cpp" line="1589"/>
         <source>Place light #2</source>
         <translation>Setze Licht #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1598"/>
+        <location filename="../src/interface.cpp" line="1594"/>
         <source>Place light #3</source>
         <translation>Setze Licht #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1603"/>
+        <location filename="../src/interface.cpp" line="1599"/>
         <source>Place light #4</source>
         <translation>Setze Licht #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1607"/>
+        <location filename="../src/interface.cpp" line="1603"/>
         <source>Place random light center</source>
         <translation>Setze Zufallslichter</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1611"/>
+        <location filename="../src/interface.cpp" line="1607"/>
         <source>Get point coordinates</source>
         <translation>Hole Punktkoordinaten</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1620"/>
+        <location filename="../src/interface.cpp" line="1616"/>
         <source>Place </source>
         <translation>Setze </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1657"/>
+        <location filename="../src/interface.cpp" line="1653"/>
         <source>Yes, don&apos;t ask again</source>
         <translation>Ja, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1741"/>
+        <location filename="../src/interface.cpp" line="1737"/>
         <source>In Mandelbulber 2.10 the default data structure changed for linux and MacOS:
 Instead of keeping all working folders/files in ~/.mandelbulber these are now split into&lt;ul&gt;&lt;li&gt;&lt;b&gt;.mandelbulber&lt;/b&gt; for program internal folders/files:&lt;br&gt;undo, toolbar, queue, thumbnails, mandelbulber.ini, miscellaneous meta files&lt;/li&gt;&lt;li&gt;&lt;b&gt;mandelbulber&lt;/b&gt; for user defined folders/files:&lt;br&gt;settings, images, materials, slices, animation, textures&lt;/li&gt;&lt;/ul&gt;
 Do you want to upgrade now to this new structure? Program will restart after upgrade.</source>
@@ -820,28 +820,28 @@ Anstatt alle Arbeitsordner und -Dateien in ~/.mandelbulber zu halten, werden die
 Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet sich nach dem Upgrade neu.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1751"/>
+        <location filename="../src/interface.cpp" line="1747"/>
         <source>Data folder upgrade</source>
         <translation>Datenstruktur Upgrade</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1756"/>
+        <location filename="../src/interface.cpp" line="1752"/>
         <source>No, don&apos;t ask again</source>
         <translation>Nein, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1844"/>
-        <location filename="../src/interface.cpp" line="1889"/>
+        <location filename="../src/interface.cpp" line="1840"/>
+        <location filename="../src/interface.cpp" line="1885"/>
         <source>Looking for optimal DE factor</source>
         <translation>Suche nach optimalem DE Faktor</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1890"/>
+        <location filename="../src/interface.cpp" line="1886"/>
         <source>Percentage of wrong distance estimations: %1</source>
         <translation>Prozentsatz falscher Distanzermittlungen: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1900"/>
+        <location filename="../src/interface.cpp" line="1896"/>
         <source>Optimal DE factor is: %1 which gives %2% of bad distance estimations</source>
         <translation>Optimaler DE Faktor ist: %1, welcher %2% an falschen Distanzermittlungen liefert</translation>
     </message>
@@ -851,22 +851,22 @@ Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet si
         <translation>Toolbar Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1650"/>
+        <location filename="../src/interface.cpp" line="1646"/>
         <source>Are you sure to close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1652"/>
+        <location filename="../src/interface.cpp" line="1648"/>
         <source>Quit?</source>
         <translation>Beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1708"/>
+        <location filename="../src/interface.cpp" line="1704"/>
         <source>Auto recovery</source>
         <translation>Auto Recovery</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1709"/>
+        <location filename="../src/interface.cpp" line="1705"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
         <translation>Das Programm wurde beim letzten Mal nicht richtig geschlossen.
@@ -902,9 +902,9 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1899"/>
+        <location filename="../src/interface.cpp" line="1895"/>
         <location filename="../src/render_image.cpp" line="420"/>
-        <location filename="../src/render_ssao.cpp" line="201"/>
+        <location filename="../src/render_ssao.cpp" line="202"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
@@ -930,7 +930,7 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Starte Rendern des Bildes</translation>
     </message>
     <message>
-        <location filename="../src/render_ssao.cpp" line="183"/>
+        <location filename="../src/render_ssao.cpp" line="184"/>
         <source>Rendering SSAO effect in progress</source>
         <translation>Rendere SSAO Effekt</translation>
     </message>
@@ -955,8 +955,8 @@ Den letzten Stand wiederherstellen?</translation>
         <location filename="../src/animation_flight.cpp" line="219"/>
         <location filename="../src/animation_flight.cpp" line="754"/>
         <location filename="../src/animation_flight.cpp" line="1098"/>
-        <location filename="../src/animation_keyframes.cpp" line="603"/>
-        <location filename="../src/animation_keyframes.cpp" line="931"/>
+        <location filename="../src/animation_keyframes.cpp" line="613"/>
+        <location filename="../src/animation_keyframes.cpp" line="941"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Das wird alle Bilder im Bildordner löschen.
@@ -970,8 +970,8 @@ Fortsetzen?</translation>
     <message>
         <location filename="../src/animation_flight.cpp" line="245"/>
         <location filename="../src/animation_flight.cpp" line="693"/>
-        <location filename="../src/animation_keyframes.cpp" line="495"/>
-        <location filename="../src/interface.cpp" line="1792"/>
+        <location filename="../src/animation_keyframes.cpp" line="503"/>
+        <location filename="../src/interface.cpp" line="1788"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
         <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können</translation>
     </message>
@@ -989,14 +989,14 @@ Fortsetzen?</translation>
     <message>
         <location filename="../src/animation_flight.cpp" line="748"/>
         <location filename="../src/animation_flight.cpp" line="1097"/>
-        <location filename="../src/animation_keyframes.cpp" line="598"/>
-        <location filename="../src/animation_keyframes.cpp" line="930"/>
+        <location filename="../src/animation_keyframes.cpp" line="608"/>
+        <location filename="../src/animation_keyframes.cpp" line="940"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="750"/>
-        <location filename="../src/animation_keyframes.cpp" line="600"/>
+        <location filename="../src/animation_keyframes.cpp" line="610"/>
         <source>The animation has already been rendered completely.
  Do you want to purge the output folder?
 </source>
@@ -1011,45 +1011,45 @@ Soll der Bilderordner geleert werden?</translation>
     <message>
         <location filename="../qt/player_widget.cpp" line="189"/>
         <location filename="../src/animation_flight.cpp" line="815"/>
-        <location filename="../src/animation_keyframes.cpp" line="668"/>
+        <location filename="../src/animation_keyframes.cpp" line="678"/>
         <source>Frame %1 of %2</source>
         <translation>Frame %1 von %2</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="850"/>
         <location filename="../src/animation_flight.cpp" line="853"/>
-        <location filename="../src/animation_keyframes.cpp" line="709"/>
-        <location filename="../src/animation_keyframes.cpp" line="713"/>
+        <location filename="../src/animation_keyframes.cpp" line="719"/>
+        <location filename="../src/animation_keyframes.cpp" line="723"/>
         <source>Animation finished</source>
         <translation>Animation beendet</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="858"/>
-        <location filename="../src/animation_keyframes.cpp" line="717"/>
+        <location filename="../src/animation_keyframes.cpp" line="727"/>
         <source>Rendering terminated</source>
         <translation>Rendern beendet</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="859"/>
-        <location filename="../src/animation_keyframes.cpp" line="718"/>
+        <location filename="../src/animation_keyframes.cpp" line="728"/>
         <source>Error occured, see log output</source>
         <translation>Ein Fehler ist aufgetreten, Log Output prüfen</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="901"/>
-        <location filename="../src/animation_keyframes.cpp" line="760"/>
+        <location filename="../src/animation_keyframes.cpp" line="770"/>
         <source>Refreshing animation</source>
         <translation>Animationsframes werden aktualisiert</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1000"/>
-        <location filename="../src/animation_keyframes.cpp" line="832"/>
+        <location filename="../src/animation_keyframes.cpp" line="842"/>
         <source>Animation Image Folder</source>
         <translation>Ordner für Animationsbilder</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1003"/>
-        <location filename="../src/animation_keyframes.cpp" line="835"/>
+        <location filename="../src/animation_keyframes.cpp" line="845"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wähle Ordner für Animationsbilder</translation>
     </message>
@@ -1108,65 +1108,65 @@ Adresse des Klienten:</translation>
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="535"/>
+        <location filename="../src/animation_keyframes.cpp" line="543"/>
         <source>There is no frame to render: first frame to render and last frame to render are equals.</source>
         <translation>Es gibt keinen Frame zu rendern, erster und letzter Frame sind gleich.</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="572"/>
-        <location filename="../src/animation_keyframes.cpp" line="1214"/>
+        <location filename="../src/animation_keyframes.cpp" line="582"/>
+        <location filename="../src/animation_keyframes.cpp" line="1224"/>
         <source>Camera collides with fractal at following frames:
 </source>
         <translation>Die Kamera kollidiert mit dem Fraktal an folgenden Frames:
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="667"/>
+        <location filename="../src/animation_keyframes.cpp" line="677"/>
         <source>Rendering animation</source>
         <translation>Rendere Animation</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1100"/>
+        <location filename="../src/animation_keyframes.cpp" line="1110"/>
         <source>Export keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1101"/>
+        <location filename="../src/animation_keyframes.cpp" line="1111"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
         <translation>Es sind bereits aufgenommene Flugframes vorhanden.
 Aktuelle Flugframes verwerfen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1120"/>
+        <location filename="../src/animation_keyframes.cpp" line="1130"/>
         <source>Exporting</source>
         <translation>Exportiere</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1168"/>
-        <location filename="../src/animation_keyframes.cpp" line="1188"/>
+        <location filename="../src/animation_keyframes.cpp" line="1178"/>
+        <location filename="../src/animation_keyframes.cpp" line="1198"/>
         <source>Checking for collissions</source>
         <translation>Prüfe auf Kollisionen</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1169"/>
+        <location filename="../src/animation_keyframes.cpp" line="1179"/>
         <source>Checking for collissions on keyframe # %1</source>
         <translation>Prüfe auf Kollisionen bei Keyframe # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1189"/>
+        <location filename="../src/animation_keyframes.cpp" line="1199"/>
         <source>Checking for collisions finished</source>
         <translation>Kollisionsprüfung beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1219"/>
+        <location filename="../src/animation_keyframes.cpp" line="1229"/>
         <source>No collisions detected
 </source>
         <translation>Keine Kollisionen erkannt
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1266"/>
+        <location filename="../src/animation_keyframes.cpp" line="1276"/>
         <source>Cannot change target distance. Missing camera parameters in keyframes</source>
         <translation>Zielentfernung kann nicht geändert werden. Fehlende Kameraparameter in Keyframes</translation>
     </message>
@@ -1186,7 +1186,7 @@ Aktuelle Flugframes verwerfen?</translation>
         <translation>Ok, nicht erneut zeigen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="542"/>
+        <location filename="../src/render_window_menu.cpp" line="500"/>
         <source>Settings saved to clipboard</source>
         <translation>Einstellungen in Zwischenablage gespeichert</translation>
     </message>
@@ -1196,7 +1196,7 @@ Aktuelle Flugframes verwerfen?</translation>
         <translation>Kann die Einstellungen nicht aus der Zwischenablage laden!</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="157"/>
+        <location filename="../qt/preferences_dialog.cpp" line="164"/>
         <source>Are you sure to clear the thumbnail cache?</source>
         <translation>Sind Sie sicher, dass Sie den Thumbnail Cache löschen wollen?</translation>
     </message>
@@ -1207,7 +1207,7 @@ Aktuelle Flugframes verwerfen?</translation>
 Jetzt löschen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="158"/>
+        <location filename="../qt/preferences_dialog.cpp" line="165"/>
         <source>Are you sure to clear the thumbnail cache?
 There are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.
  Clear now?</source>
@@ -1216,29 +1216,29 @@ Es befinden sich zur Zeit %1 Thumbnails im Cache. Diese werden gelöscht und bei
 Jetzt löschen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="179"/>
+        <location filename="../qt/preferences_dialog.cpp" line="186"/>
         <source>Are you sure to load the thumbnail cache from the server?</source>
         <translation>Sind Sie sicher, dass Sie den Thumbnail Cache vom Server herunterladen wollen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="180"/>
+        <location filename="../qt/preferences_dialog.cpp" line="187"/>
         <source>This will try to load missing common thumbnails from the server.
 Proceed?</source>
         <translation>Das wird versuchen fehlende allgemeine Thumbnails vom Server zu laden.
 Fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="211"/>
+        <location filename="../qt/preferences_dialog.cpp" line="218"/>
         <source>Are you sure to generate all example thumbnail cache files?</source>
         <translation>Sind sie sicher, dass alle Beispiel Thumbnails im Cache neu erzeugt werden sollen?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="309"/>
+        <location filename="../qt/preferences_dialog.cpp" line="316"/>
         <source>Retrieve toolbar</source>
         <translation>Toolbar holen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="310"/>
+        <location filename="../qt/preferences_dialog.cpp" line="317"/>
         <source>Are you sure to retrieve default presets into toolbar?
 It could overwrite some of existing presets.
 Proceed?</source>
@@ -1247,12 +1247,12 @@ Dies kann existierende Toolbar Elemente überschreiben.
 Fortfahren?</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="323"/>
+        <location filename="../qt/preferences_dialog.cpp" line="330"/>
         <source>Retrieve materials</source>
         <translation>Hole Materialien</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="324"/>
+        <location filename="../qt/preferences_dialog.cpp" line="331"/>
         <source>Are you sure to retrieve default materials into materials folder?
 It could overwrite some of existing materials.
 Proceed?</source>
@@ -4943,12 +4943,12 @@ und Wasser):</translation>
         <location filename="../src/render_window_menu.cpp" line="59"/>
         <location filename="../src/render_window_menu.cpp" line="155"/>
         <location filename="../src/render_window_menu.cpp" line="190"/>
-        <location filename="../src/render_window_menu.cpp" line="511"/>
+        <location filename="../src/render_window_menu.cpp" line="469"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="517"/>
+        <location filename="../src/render_window_menu.cpp" line="475"/>
         <source>Save settings...</source>
         <translation>Einstellungen speichern...</translation>
     </message>
@@ -4958,53 +4958,53 @@ und Wasser):</translation>
         <translation>Lade Beispiel Einstellungen...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="344"/>
+        <location filename="../src/render_window_menu.cpp" line="302"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>JPEG Bilder (*.jpg *.jpeg)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="349"/>
-        <location filename="../src/render_window_menu.cpp" line="377"/>
-        <location filename="../src/render_window_menu.cpp" line="402"/>
-        <location filename="../src/render_window_menu.cpp" line="428"/>
-        <location filename="../src/render_window_menu.cpp" line="453"/>
-        <location filename="../src/render_window_menu.cpp" line="482"/>
+        <location filename="../src/render_window_menu.cpp" line="307"/>
+        <location filename="../src/render_window_menu.cpp" line="335"/>
+        <location filename="../src/render_window_menu.cpp" line="360"/>
+        <location filename="../src/render_window_menu.cpp" line="386"/>
+        <location filename="../src/render_window_menu.cpp" line="411"/>
+        <location filename="../src/render_window_menu.cpp" line="440"/>
         <source>Save image to %1 file...</source>
         <translation>Speichere Bild als %1 Datei...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="356"/>
-        <location filename="../src/render_window_menu.cpp" line="361"/>
-        <location filename="../src/render_window_menu.cpp" line="460"/>
-        <location filename="../src/render_window_menu.cpp" line="466"/>
-        <location filename="../src/render_window_menu.cpp" line="489"/>
-        <location filename="../src/render_window_menu.cpp" line="495"/>
+        <location filename="../src/render_window_menu.cpp" line="314"/>
+        <location filename="../src/render_window_menu.cpp" line="319"/>
+        <location filename="../src/render_window_menu.cpp" line="418"/>
+        <location filename="../src/render_window_menu.cpp" line="424"/>
+        <location filename="../src/render_window_menu.cpp" line="447"/>
+        <location filename="../src/render_window_menu.cpp" line="453"/>
         <source>Saving %1 image</source>
         <translation>Speichere %1 Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="356"/>
-        <location filename="../src/render_window_menu.cpp" line="461"/>
-        <location filename="../src/render_window_menu.cpp" line="490"/>
+        <location filename="../src/render_window_menu.cpp" line="314"/>
+        <location filename="../src/render_window_menu.cpp" line="419"/>
+        <location filename="../src/render_window_menu.cpp" line="448"/>
         <source>Saving image started</source>
         <translation>Speichern gestartet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="361"/>
-        <location filename="../src/render_window_menu.cpp" line="467"/>
-        <location filename="../src/render_window_menu.cpp" line="496"/>
+        <location filename="../src/render_window_menu.cpp" line="319"/>
+        <location filename="../src/render_window_menu.cpp" line="425"/>
+        <location filename="../src/render_window_menu.cpp" line="454"/>
         <source>Saving image finished</source>
         <translation>Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="372"/>
-        <location filename="../src/render_window_menu.cpp" line="448"/>
-        <location filename="../src/render_window_menu.cpp" line="477"/>
+        <location filename="../src/render_window_menu.cpp" line="330"/>
+        <location filename="../src/render_window_menu.cpp" line="406"/>
+        <location filename="../src/render_window_menu.cpp" line="435"/>
         <source>PNG images (*.png)</source>
         <translation>PNG Bilder (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="423"/>
+        <location filename="../src/render_window_menu.cpp" line="381"/>
         <source>TIFF images (*.tiff)</source>
         <translation>TIFF Bilder (*.tiff)</translation>
     </message>
@@ -5025,7 +5025,7 @@ und Wasser):</translation>
         <translation type="vanished">PNG Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="397"/>
+        <location filename="../src/render_window_menu.cpp" line="355"/>
         <source>EXR images (*.exr)</source>
         <translation>EXR Bilder (*.exr)</translation>
     </message>
@@ -5117,12 +5117,12 @@ und Wasser):</translation>
         <translation>Info Drittanbieter</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="428"/>
+        <location filename="../src/render_window_slots.cpp" line="429"/>
         <source>Add window settings</source>
         <translation>Fenstereinstellungen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="429"/>
+        <location filename="../src/render_window_slots.cpp" line="430"/>
         <source>Enter a name for the new window settings</source>
         <translation>Geben Sie einen Namen für die neuen Fenstereinstellungen ein</translation>
     </message>
@@ -5255,116 +5255,150 @@ und Distanz</translation>
     <name>cAudioSelector</name>
     <message>
         <location filename="../qt/audio_selector.ui" line="14"/>
-        <location filename="../qt/ui_audio_selector.h" line="445"/>
+        <location filename="../qt/ui_audio_selector.h" line="480"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="24"/>
-        <location filename="../qt/ui_audio_selector.h" line="446"/>
+        <location filename="../qt/ui_audio_selector.h" line="481"/>
         <source>Select audio file</source>
         <translation>Audio Datei auswählen</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="38"/>
-        <location filename="../qt/ui_audio_selector.h" line="447"/>
+        <location filename="../qt/audio_selector.ui" line="43"/>
+        <location filename="../qt/ui_audio_selector.h" line="482"/>
+        <source>Play sound</source>
+        <translation>Sound spielen</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="54"/>
+        <location filename="../qt/ui_audio_selector.h" line="483"/>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="67"/>
+        <location filename="../qt/ui_audio_selector.h" line="484"/>
         <source>Delete audio track</source>
         <translation>Audio Track löschen</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="49"/>
-        <location filename="../qt/ui_audio_selector.h" line="448"/>
+        <location filename="../qt/audio_selector.ui" line="78"/>
+        <location filename="../qt/ui_audio_selector.h" line="485"/>
         <source>Enable animation by so&amp;und</source>
         <translation>Aktiviere Animation durch Sound</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="75"/>
-        <location filename="../qt/ui_audio_selector.h" line="449"/>
+        <location filename="../qt/audio_selector.ui" line="104"/>
+        <location filename="../qt/ui_audio_selector.h" line="486"/>
         <source>Frequency of interest:</source>
         <translation>Frequenz von Interesse:</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="135"/>
-        <location filename="../qt/ui_audio_selector.h" line="452"/>
+        <location filename="../qt/audio_selector.ui" line="164"/>
+        <location filename="../qt/ui_audio_selector.h" line="489"/>
         <source>Bandwidth:</source>
         <translation>Bandbreite:</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="195"/>
-        <location filename="../qt/ui_audio_selector.h" line="455"/>
+        <location filename="../qt/audio_selector.ui" line="224"/>
+        <location filename="../qt/ui_audio_selector.h" line="492"/>
         <source>Addition factor</source>
         <translation>Additionsfaktor</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="202"/>
-        <location filename="../qt/ui_audio_selector.h" line="456"/>
+        <location filename="../qt/audio_selector.ui" line="231"/>
+        <location filename="../qt/ui_audio_selector.h" line="493"/>
         <source>Multiplication factor</source>
         <translation>Multiplikationsfaktor</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="265"/>
-        <location filename="../qt/ui_audio_selector.h" line="457"/>
+        <location filename="../qt/audio_selector.ui" line="294"/>
+        <location filename="../qt/ui_audio_selector.h" line="494"/>
         <source>Negative influence</source>
         <translation>Negative Auswirkung</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="278"/>
-        <location filename="../qt/ui_audio_selector.h" line="458"/>
+        <location filename="../qt/audio_selector.ui" line="307"/>
+        <location filename="../qt/ui_audio_selector.h" line="495"/>
         <source>Sound pitch mode</source>
         <translation>Sound Pitch Modus</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="287"/>
-        <location filename="../qt/ui_audio_selector.h" line="459"/>
+        <location filename="../qt/audio_selector.ui" line="316"/>
+        <location filename="../qt/ui_audio_selector.h" line="496"/>
         <source>Decay fil&amp;ter</source>
         <translation>Abkling-Filter</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="313"/>
-        <location filename="../qt/audio_selector.ui" line="404"/>
-        <location filename="../qt/ui_audio_selector.h" line="460"/>
-        <location filename="../qt/ui_audio_selector.h" line="464"/>
+        <location filename="../qt/audio_selector.ui" line="342"/>
+        <location filename="../qt/audio_selector.ui" line="433"/>
+        <location filename="../qt/ui_audio_selector.h" line="497"/>
+        <location filename="../qt/ui_audio_selector.h" line="501"/>
         <source>Strength:</source>
         <translation>Stärke:</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="378"/>
-        <location filename="../qt/ui_audio_selector.h" line="463"/>
+        <location filename="../qt/audio_selector.ui" line="407"/>
+        <location filename="../qt/ui_audio_selector.h" line="500"/>
         <source>S&amp;mooth filter</source>
         <translation>Weich-Filter</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="523"/>
-        <location filename="../qt/ui_audio_selector.h" line="467"/>
+        <location filename="../qt/audio_selector.ui" line="552"/>
+        <location filename="../qt/ui_audio_selector.h" line="504"/>
         <source>Waveform</source>
         <translation>Wellenform</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="558"/>
-        <location filename="../qt/ui_audio_selector.h" line="468"/>
+        <location filename="../qt/audio_selector.ui" line="587"/>
+        <location filename="../qt/ui_audio_selector.h" line="505"/>
         <source>Frequency spectrum</source>
         <translation>Frequenzspektrum</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="587"/>
-        <location filename="../qt/ui_audio_selector.h" line="469"/>
+        <location filename="../qt/audio_selector.ui" line="616"/>
+        <location filename="../qt/ui_audio_selector.h" line="506"/>
         <source>Animation chart</source>
         <translation>Animationsdiagramm</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.cpp" line="66"/>
         <source>Audio files (*.wav *.mp3)</source>
-        <translation>Audio Dateien (*.wav *.mp3)</translation>
+        <translation type="vanished">Audio Dateien (*.wav *.mp3)</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.cpp" line="68"/>
+        <location filename="../qt/audio_selector.cpp" line="69"/>
+        <source>Audio files (*.wav *.mp3 *.flac)</source>
+        <translation>Audio Dateien (*.wav *.mp3 *.flac)</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.cpp" line="71"/>
         <source>Select audio file...</source>
         <translation>Audio Datei auswählen...</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.cpp" line="104"/>
+        <location filename="../qt/audio_selector.cpp" line="107"/>
         <source>Set animation controlled by audio file for parameter %1</source>
         <translation>Setze Animationskontrolle durch Audio Datei für Parameter %1</translation>
+    </message>
+</context>
+<context>
+    <name>cAudioTrack</name>
+    <message>
+        <location filename="../src/audio_track.cpp" line="101"/>
+        <source>Loading WAV file</source>
+        <translation>Lade WAV Datei</translation>
+    </message>
+    <message>
+        <location filename="../src/audio_track.cpp" line="151"/>
+        <source>Decompressing audio file</source>
+        <translation>Dekomprimiere Audio Datei</translation>
+    </message>
+    <message>
+        <location filename="../src/audio_track.cpp" line="256"/>
+        <source>Calculationg FFT</source>
+        <translation>Berechne FFT</translation>
     </message>
 </context>
 <context>
@@ -9657,17 +9691,17 @@ previews</source>
 Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="761"/>
+        <location filename="../src/animation_keyframes.cpp" line="771"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1120"/>
+        <location filename="../src/animation_keyframes.cpp" line="1130"/>
         <source>Exporting keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1278"/>
+        <location filename="../src/animation_keyframes.cpp" line="1288"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
@@ -10767,43 +10801,43 @@ Objektgröße)</translation>
     <name>cPreferencesDialog</name>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="83"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="649"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="780"/>
         <source>Default file paths</source>
         <translation>Standard Dateipfade</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="123"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="651"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="782"/>
         <source>Settings:</source>
         <translation>Einstellungen:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="141"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="653"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="784"/>
         <source>Images:</source>
         <translation>Bilder:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="151"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="654"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="785"/>
         <source>Textures:</source>
         <translation>Texturen:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="253"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="669"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="800"/>
         <source>UI font size (pixels)</source>
         <translation>UI Schriftgröße (Pixel)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="203"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="657"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="788"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="210"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="659"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="790"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprache der Programmtexte.&lt;/p&gt;&lt;p&gt;Sie müssen die Anwendung neu starten, um die Änderungen zu übernehmen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -10813,7 +10847,7 @@ Objektgröße)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="515"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="691"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="822"/>
         <source>Image Settings</source>
         <translation>Bildeinstellungen</translation>
     </message>
@@ -10826,25 +10860,25 @@ und das Speichern der Animationsframes.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="270"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="670"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="801"/>
         <source>Toolbar icon size (pixels)</source>
         <translation>Toolbar Icongröße (Pixel)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="476"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="738"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="869"/>
         <source>Image</source>
         <translation>Bild</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="512"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="688"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="819"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert wird ignoriert, da JPG nur 8-Bit-Genauigkeit unterstützt.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit oder 16-Bit einnehmen (32-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG und TIFF)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit, 16-Bit, oder 32 bit einnehmen.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG und TIFF)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 16-Bit oder 32-Bit einnehmen (8-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Der Postfix wird ignoriert, da alle Bildkanäle in einer Datei gespeichert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="536"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="692"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="823"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
  and saving animation frames.</source>
         <translation>Diese Einstellungen beeinflussen 
@@ -10853,7 +10887,7 @@ und das Speichern der Animationsframes.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="639"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="713"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="844"/>
         <source>Z Buffer</source>
         <translation>Z Buffer</translation>
     </message>
@@ -10862,10 +10896,10 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferences_dialog.ui" line="614"/>
         <location filename="../qt/preferences_dialog.ui" line="647"/>
         <location filename="../qt/preferences_dialog.ui" line="688"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="700"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="708"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="716"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="726"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="831"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="839"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="847"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="857"/>
         <source>8 bit</source>
         <translation>8 bit</translation>
     </message>
@@ -10874,10 +10908,10 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferences_dialog.ui" line="619"/>
         <location filename="../qt/preferences_dialog.ui" line="652"/>
         <location filename="../qt/preferences_dialog.ui" line="693"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="701"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="709"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="717"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="727"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="832"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="840"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="848"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="858"/>
         <source>16 bit</source>
         <translation>16 bit</translation>
     </message>
@@ -10886,112 +10920,112 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferences_dialog.ui" line="624"/>
         <location filename="../qt/preferences_dialog.ui" line="657"/>
         <location filename="../qt/preferences_dialog.ui" line="698"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="702"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="710"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="718"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="728"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="833"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="841"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="849"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="859"/>
         <source>32 bit</source>
         <translation>32 bit</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="606"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="705"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="836"/>
         <source>Alpha</source>
         <translation>Alpha</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="556"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="695"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="826"/>
         <source>Quality</source>
         <translation>Qualität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="563"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="696"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="827"/>
         <source>Postfix</source>
         <translation>Postfix</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="549"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="694"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="825"/>
         <source>Image Channel</source>
         <translation>Bildkanal</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="295"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="671"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="802"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="324"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="672"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="803"/>
         <source>Max. number of CPU cores to use</source>
         <translation>Max. Anzahl zu nutzender CPU Kerne</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="367"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="673"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="804"/>
         <source>Logging verbosity level</source>
         <translation>Logging Level</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="391"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="676"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="807"/>
         <source>Lowest priority</source>
         <translation>Geringste Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="396"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="677"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="808"/>
         <source>Low prioriry</source>
         <translation>Geringe Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="401"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="678"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="809"/>
         <source>Normal priority</source>
         <translation>Normale Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="406"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="679"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="810"/>
         <source>High priority</source>
         <translation>Hohe Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="414"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="681"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="812"/>
         <source>Rendering threads priority</source>
         <translation>Renderthreads Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="433"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="683"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="814"/>
         <source>Do not show description on settings load</source>
         <translation>Beschreibung beim Laden nicht zeigen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="440"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="684"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="815"/>
         <source>Retrieve default toolbar presets</source>
         <translation>Hole Standard Toolbar Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="447"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="685"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="816"/>
         <source>Retrieve default materials in material folder</source>
         <translation>Hole Standard Materialien in Materialordner</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="570"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="697"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="828"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="672"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="721"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="852"/>
         <source>Following channels are only rendered on demand
 and will only be present after enabling and re-render.</source>
         <translation>Die folgenden Bildkanäle werden nur auf Abruf gerendert
@@ -10999,45 +11033,117 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="680"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="723"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="854"/>
         <source>Surface Normal</source>
         <translation>Oberflächennormale</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="718"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="731"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="862"/>
         <source>Misc Image Settings</source>
         <translation>Diverse Bildeinstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="780"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="733"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="864"/>
         <source>Append alpha to image (only PNG and TIFF)</source>
         <translation>Alpha an das Bild anhängen (nur bei PNG und TIFF)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="792"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="734"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="865"/>
         <source>Thumbnail options</source>
         <translation>Thumbnail Optionen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="818"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="735"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="866"/>
         <source>Clear</source>
         <translation>Leeren</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="829"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="736"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="867"/>
         <source>Load</source>
         <translation>Laden</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="840"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="737"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="868"/>
         <source>Generate</source>
         <translation>Generieren</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="874"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="889"/>
+        <source>GPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="913"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="871"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TODO: add explanation for GPU.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="916"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="873"/>
+        <source>GPU enable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="937"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="874"/>
+        <source>This will offload the rendering to the GPU.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="949"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="875"/>
+        <source>Precision</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="957"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="878"/>
+        <source>single</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="962"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="879"/>
+        <source>double</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="970"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="881"/>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="978"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="884"/>
+        <source>full</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="983"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="885"/>
+        <source>fast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="991"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="887"/>
+        <source>Memory Limit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="1027"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="888"/>
+        <source>Cycle time:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Append alpha to image (only PNG)</source>
@@ -11049,7 +11155,7 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="426"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="682"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="813"/>
         <source>Do not ask for quit confirmation</source>
         <translation>Bei Beenden keine Bestätigung erfragen</translation>
     </message>
@@ -11059,55 +11165,55 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="744"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="732"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="863"/>
         <source>JPEG quality:</source>
         <translation>JPEG Qualität:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="177"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="656"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="787"/>
         <source>System Look and Feel</source>
         <translation>Darstellung</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="14"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="648"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="779"/>
         <source>Program Settings</source>
         <translation>Programm Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="47"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="686"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="817"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="217"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="661"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="792"/>
         <source>UI Style type</source>
         <translation>Oberfläche</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="227"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="662"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="793"/>
         <source>UI Skin</source>
         <translation>Skin</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="235"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="665"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="796"/>
         <source>normal</source>
         <translation>Normal</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="240"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="666"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="797"/>
         <source>dark</source>
         <translation>Dunkel</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="245"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="667"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="798"/>
         <source>light</source>
         <translation>Hell</translation>
     </message>
@@ -11116,24 +11222,37 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">Thumbnail Cache laden</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="119"/>
+        <location filename="../qt/preferences_dialog.cpp" line="126"/>
         <source>Select default directory for images</source>
         <translation>Standardordner für Bilder wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="130"/>
+        <location filename="../qt/preferences_dialog.cpp" line="137"/>
         <source>Select default directory for settings files</source>
         <translation>Standardordner für Einstellungen wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="141"/>
+        <location filename="../qt/preferences_dialog.cpp" line="148"/>
         <source>Select default directory for textures</source>
         <translation>Standardordner für Texturen wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.cpp" line="249"/>
+        <location filename="../qt/preferences_dialog.cpp" line="256"/>
         <source>rendering %1, %2 of %3</source>
         <translation>Rendere %1, %2 von %3</translation>
+    </message>
+</context>
+<context>
+    <name>cPushButtonAnimSound</name>
+    <message>
+        <location filename="../qt/pushbutton_anim_sound.cpp" line="67"/>
+        <source>Audio loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/pushbutton_anim_sound.cpp" line="74"/>
+        <source>Anim By Sound</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11613,6 +11732,14 @@ für 4D Fraktale</translation>
         <location filename="../qt/voxel_export_dialog.cpp" line="138"/>
         <source>Select path for slice images</source>
         <translation>Pfas zum Schichtordner auswählen</translation>
+    </message>
+</context>
+<context>
+    <name>cWaveFormView</name>
+    <message>
+        <location filename="../qt/wave_form_view.cpp" line="167"/>
+        <source>Not able to load audio file!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

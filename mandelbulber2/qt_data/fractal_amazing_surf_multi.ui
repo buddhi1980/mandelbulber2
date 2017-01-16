@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4764</height>
+    <height>5580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,28 +44,28 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>Fold Type 2</string>
+        <string>Type 2</string>
        </property>
       </widget>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Fold Type 3</string>
+        <string>Type 3</string>
        </property>
       </widget>
      </item>
      <item row="6" column="0">
       <widget class="QLabel" name="label_110">
        <property name="text">
-        <string>Fold Type 4</string>
+        <string>Type 4</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>z = fold - fabs( fabs(z) - fold)</string>
+        <string notr="true">z = fold - fabs( fabs(z) - fold)</string>
        </property>
       </widget>
      </item>
@@ -94,7 +94,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>z = fabs(z + fold) - fabs(z - fold) -z</string>
+        <string notr="true">z = fabs(z + fold) - fabs(z - fold) -z</string>
        </property>
       </widget>
      </item>
@@ -108,7 +108,7 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>z = fabs(z + fold)</string>
+        <string notr="true">z = fabs(z + fold)</string>
        </property>
       </widget>
      </item>
@@ -197,7 +197,7 @@
      <item row="6" column="1">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
+        <string notr="true">if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
        </property>
       </widget>
      </item>
@@ -239,14 +239,14 @@
      <item row="7" column="1">
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)</string>
+        <string notr="true">z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_107">
        <property name="text">
-        <string>Fold Type 1</string>
+        <string>Type 1</string>
        </property>
       </widget>
      </item>
@@ -318,7 +318,7 @@
      <item row="7" column="0">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>Fold Type 5</string>
+        <string>Type 5</string>
        </property>
       </widget>
      </item>
@@ -693,7 +693,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Slot , Fold Type and  Iteration controls</string>
+        <string>Slot , Fold Type and Iteration controls</string>
        </property>
       </widget>
      </item>
@@ -737,7 +737,7 @@
      <item row="1" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
        <property name="text">
-        <string>enable z.z  scale</string>
+        <string>enable z.z scale</string>
        </property>
       </widget>
      </item>
@@ -2265,7 +2265,7 @@ offset:</string>
            <item row="0" column="2">
             <widget class="QLabel" name="label_248">
              <property name="text">
-              <string>Stop  Rotation at iteration:</string>
+              <string>Stop Rotation at iteration:</string>
              </property>
             </widget>
            </item>
@@ -2901,7 +2901,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component</string>
+        <string>Absolute value of z component</string>
        </property>
       </widget>
      </item>
@@ -3367,9 +3367,9 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -3378,9 +3378,9 @@ offset:</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

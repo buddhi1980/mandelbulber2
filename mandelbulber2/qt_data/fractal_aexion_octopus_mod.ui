@@ -401,7 +401,7 @@
      <item row="8" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset</string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -456,21 +456,21 @@
        <item row="0" column="0">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
          <property name="text">
-          <string>Enable fabs(z. x)</string>
+          <string>fabs(z. x)</string>
          </property>
         </widget>
        </item>
        <item row="0" column="3">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledAz">
          <property name="text">
-          <string>Enable fabs( z.z)</string>
+          <string>fabs( z.z)</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy">
          <property name="text">
-          <string>Enable fabs (z.y)</string>
+          <string>fabs(z.y)</string>
          </property>
         </widget>
        </item>
@@ -565,7 +565,7 @@
      <item row="4" column="1">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Sqr Multiplier:</string>
+        <string>Sqr multiplier:</string>
        </property>
       </widget>
      </item>
@@ -577,7 +577,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>addCpi&amp;xel Symmetrical  Constant Multiplier</string>
+      <string>addCpi&amp;xel Symmetrical Constant Multiplier</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -719,7 +719,7 @@
         <item row="0" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
           <property name="text">
-           <string>fABS</string>
+           <string>fabs</string>
           </property>
          </widget>
         </item>
@@ -733,21 +733,21 @@
         <item row="1" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
-           <string>fABS</string>
+           <string>fabs</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
-           <string>fABS</string>
+           <string>fabs</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>Cpixel Multiplier</string>
+           <string>Cpixel Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -918,17 +918,50 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledAx</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz</tabstop>
+  <tabstop>slider3_transf_scale3D_111_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
+  <tabstop>slider3_transf_scale3D_111_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>groupCheck_transf_rotation_enabled</tabstop>
+  <tabstop>dial3_transf_rotation_x</tabstop>
+  <tabstop>dial3_transf_rotation_y</tabstop>
+  <tabstop>dial3_transf_rotation_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation_z</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledz</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
