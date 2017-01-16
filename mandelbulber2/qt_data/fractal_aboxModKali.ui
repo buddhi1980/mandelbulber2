@@ -387,17 +387,30 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_addition_constant_0555_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_0555_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_0555_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_0555_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_0555_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_0555_z</tabstop>
+  <tabstop>slider_transf_minimum_radius_06</tabstop>
+  <tabstop>spinbox_transf_minimum_radius_06</tabstop>
+  <tabstop>slider_transf_scale_015</tabstop>
+  <tabstop>spinbox_transf_scale_015</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

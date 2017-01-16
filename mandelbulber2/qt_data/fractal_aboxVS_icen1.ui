@@ -63,7 +63,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_105">
        <property name="text">
-        <string>Fold  x:</string>
+        <string>Fold x:</string>
        </property>
       </widget>
      </item>
@@ -162,7 +162,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_106">
        <property name="text">
-        <string>Fold  y:</string>
+        <string>Fold y:</string>
        </property>
       </widget>
      </item>
@@ -428,7 +428,7 @@
      <item row="4" column="0" colspan="2">
       <widget class="QCheckBox" name="checkBox_transf_constant_julia_mode">
        <property name="text">
-        <string>Enable   internal addCpixel  constant / Julia constant swap</string>
+        <string>Enable internal addCpixel constant / Julia constant swap</string>
        </property>
        <property name="checked">
         <bool>true</bool>
@@ -446,7 +446,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Single Formula addCpixel  Constant Multiplier</string>
+      <string>Single Formula addCpixel Constant Multiplier</string>
      </property>
     </widget>
    </item>
@@ -546,7 +546,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>Cpixel Multiplier</string>
+        <string>Cpixel Multiplier:</string>
        </property>
       </widget>
      </item>
@@ -735,7 +735,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_117">
        <property name="text">
-        <string>Julia constant</string>
+        <string>Julia constant:</string>
        </property>
       </widget>
      </item>
@@ -990,17 +990,47 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_addition_constant_111_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_z</tabstop>
+  <tabstop>checkBox_transf_constant_julia_mode</tabstop>
+  <tabstop>slider_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>slider_mandelbox_folding_min_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_min_radius</tabstop>
+  <tabstop>slider_mandelbox_scale</tabstop>
+  <tabstop>spinbox_mandelbox_scale</tabstop>
+  <tabstop>slider_mandelbox_vary_scale_vary</tabstop>
+  <tabstop>spinbox_mandelbox_vary_scale_vary</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>slider3_transf_constant_julia_c_x</tabstop>
+  <tabstop>spinbox3_transf_constant_julia_c_x</tabstop>
+  <tabstop>slider3_transf_constant_julia_c_y</tabstop>
+  <tabstop>spinbox3_transf_constant_julia_c_y</tabstop>
+  <tabstop>slider3_transf_constant_julia_c_z</tabstop>
+  <tabstop>spinbox3_transf_constant_julia_c_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

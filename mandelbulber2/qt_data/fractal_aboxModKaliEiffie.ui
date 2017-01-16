@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>988</width>
-    <height>3149</height>
+    <height>3300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -204,7 +204,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledx_false">
      <property name="title">
-      <string>&amp;z.z box fold scale,  for normal use set &quot;offset z:&quot;  (above) = 0.00</string>
+      <string>&amp;z.z box fold scale, for normal use set &quot;Offset z&quot; (above) to 0.00</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1046,7 +1046,7 @@
         <item row="1" column="0" rowspan="3">
          <widget class="QLabel" name="label_108">
           <property name="text">
-           <string>Cpixel Multiplier</string>
+           <string>Cpixel Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -1118,7 +1118,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>&amp;Rotation;</string>
+      <string>&amp;Rotation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1160,7 +1160,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_247">
           <property name="text">
-           <string>Stop  Rotation at iteration:</string>
+           <string>Stop Rotation at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1568,7 +1568,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Scale component</string>
+        <string>Scale component:</string>
        </property>
       </widget>
      </item>
@@ -1759,7 +1759,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Orbit trap component</string>
+        <string>Orbit trap component:</string>
        </property>
       </widget>
      </item>
@@ -1803,7 +1803,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component</string>
+        <string>Absolute value of z component:</string>
        </property>
       </widget>
      </item>
@@ -2178,9 +2178,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -2189,11 +2189,77 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_addition_constant_111_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabledx_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_A</tabstop>
+  <tabstop>slider_mandelbox_folding_limit</tabstop>
+  <tabstop>spinbox_mandelbox_folding_limit</tabstop>
+  <tabstop>slider_mandelbox_folding_value</tabstop>
+  <tabstop>spinbox_mandelbox_folding_value</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>checkBox_transf_function_enabled</tabstop>
+  <tabstop>slider_transf_minimum_radius_05</tabstop>
+  <tabstop>spinbox_transf_minimum_radius_05</tabstop>
+  <tabstop>slider_transf_scale_015</tabstop>
+  <tabstop>spinbox_transf_scale_015</tabstop>
+  <tabstop>slider3_transf_addition_constant_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled</tabstop>
+  <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_order_of_xyz</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>groupCheck_transf_rotation_enabled</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations</tabstop>
+  <tabstop>dial3_transf_rotation_x</tabstop>
+  <tabstop>dial3_transf_rotation_y</tabstop>
+  <tabstop>dial3_transf_rotation_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation_z</tabstop>
+  <tabstop>spinbox_fold_color_comp_fold0</tabstop>
+  <tabstop>slider3_mandelbox_color_x</tabstop>
+  <tabstop>spinbox3_mandelbox_color_x</tabstop>
+  <tabstop>slider3_mandelbox_color_y</tabstop>
+  <tabstop>spinbox3_mandelbox_color_y</tabstop>
+  <tabstop>slider3_mandelbox_color_z</tabstop>
+  <tabstop>spinbox3_mandelbox_color_z</tabstop>
+  <tabstop>slider_mandelbox_color_Sp1</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp1</tabstop>
+  <tabstop>slider_mandelbox_color_Sp2</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp2</tabstop>
+  <tabstop>slider_fold_color_comp_scale</tabstop>
+  <tabstop>spinbox_fold_color_comp_scale</tabstop>
+  <tabstop>slider_fold_color_color_min</tabstop>
+  <tabstop>spinbox_fold_color_color_min</tabstop>
+  <tabstop>slider_mandelbox_color_R</tabstop>
+  <tabstop>spinbox_mandelbox_color_R</tabstop>
+  <tabstop>slider_fold_color_comp_minR</tabstop>
+  <tabstop>spinbox_fold_color_comp_minR</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
