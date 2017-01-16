@@ -351,42 +351,42 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_167">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="QLabel" name="label_165">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="2" column="2">
       <widget class="QLabel" name="label_161">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
      <item row="5" column="2">
       <widget class="QLabel" name="label_163">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
      <item row="4" column="2">
       <widget class="QLabel" name="label_162">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="3" column="2">
       <widget class="QLabel" name="label_160">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>

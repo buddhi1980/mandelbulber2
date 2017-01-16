@@ -503,7 +503,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -519,7 +519,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -607,7 +607,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

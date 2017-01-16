@@ -171,6 +171,21 @@ foreach($formulas as $index => $formula){
 	  $newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);
 	}
 
+  // untranslatable and remove double point
+	$notrRemoveDoublePointCI = array(
+	  'z\.x', 'z\.y', 'z\.z', 'z\.w',
+		'c\.x', 'c\.y', 'c\.z', 'c\.w',
+		'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx',
+		'x', 'y', 'z', 'w',
+		'xy', 'yx', 'xz', 'zx', 'yz', 'zy',
+		'alpha', 'beta', 'gamma',
+	);
+
+  foreach($notrRemoveDoublePointCI as $item){
+	  $newUiFileContent = preg_replace('/<string>'. $item .':*;*<\/string>/i',
+		  '<string notr="true">' . str_replace('\\', '', $item) . '</string>', $newUiFileContent);
+	}
+
 	if($newUiFileContent == $uiFileContent){
 		if(isVerbose()){
 			echo noticeString('formula ' . $formula['name'] . ' has not changed.') . PHP_EOL;

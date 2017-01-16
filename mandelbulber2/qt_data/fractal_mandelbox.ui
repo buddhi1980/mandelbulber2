@@ -107,7 +107,7 @@ fixed radius:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -123,7 +123,7 @@ fixed radius:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -337,7 +337,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -611,7 +611,7 @@ offset:</string>
         <item row="0" column="1">
          <widget class="QLabel" name="label_14">
           <property name="text">
-           <string>beta</string>
+           <string notr="true">beta</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -649,7 +649,7 @@ offset:</string>
         <item row="0" column="0">
          <widget class="QLabel" name="label_13">
           <property name="text">
-           <string>alpha</string>
+           <string notr="true">alpha</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -672,7 +672,7 @@ offset:</string>
         <item row="0" column="2">
          <widget class="QLabel" name="label_15">
           <property name="text">
-           <string>gamma</string>
+           <string notr="true">gamma</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -933,7 +933,7 @@ offset:</string>
            <item row="1" column="4">
             <widget class="QLabel" name="label_19">
              <property name="text">
-              <string>alpha</string>
+              <string notr="true">alpha</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -943,7 +943,7 @@ offset:</string>
            <item row="1" column="5">
             <widget class="QLabel" name="label_20">
              <property name="text">
-              <string>beta</string>
+              <string notr="true">beta</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -953,7 +953,7 @@ offset:</string>
            <item row="1" column="2">
             <widget class="QLabel" name="label_18">
              <property name="text">
-              <string>gamma</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -976,7 +976,7 @@ offset:</string>
            <item row="1" column="1">
             <widget class="QLabel" name="label_16">
              <property name="text">
-              <string>beta</string>
+              <string notr="true">beta</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1059,7 +1059,7 @@ offset:</string>
            <item row="1" column="0">
             <widget class="QLabel" name="label_17">
              <property name="text">
-              <string>alpha</string>
+              <string notr="true">alpha</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1095,7 +1095,7 @@ offset:</string>
            <item row="1" column="6">
             <widget class="QLabel" name="label_21">
              <property name="text">
-              <string>gamma</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1191,7 +1191,7 @@ offset:</string>
            <item row="1" column="0">
             <widget class="QLabel" name="label_33">
              <property name="text">
-              <string>alpha</string>
+              <string notr="true">alpha</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1227,7 +1227,7 @@ offset:</string>
            <item row="1" column="6">
             <widget class="QLabel" name="label_34">
              <property name="text">
-              <string>gamma</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1257,7 +1257,7 @@ offset:</string>
            <item row="1" column="2">
             <widget class="QLabel" name="label_30">
              <property name="text">
-              <string>gamma</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1299,7 +1299,7 @@ offset:</string>
            <item row="1" column="1">
             <widget class="QLabel" name="label_37">
              <property name="text">
-              <string>beta</string>
+              <string notr="true">beta</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1475,7 +1475,7 @@ offset:</string>
            <item row="1" column="4">
             <widget class="QLabel" name="label_31">
              <property name="text">
-              <string>alpha</string>
+              <string notr="true">alpha</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1485,7 +1485,7 @@ offset:</string>
            <item row="1" column="5">
             <widget class="QLabel" name="label_32">
              <property name="text">
-              <string>beta</string>
+              <string notr="true">beta</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1533,7 +1533,7 @@ offset:</string>
            <item row="1" column="2">
             <widget class="QLabel" name="label_38">
              <property name="text">
-              <string>gamma</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1571,7 +1571,7 @@ offset:</string>
            <item row="1" column="0">
             <widget class="QLabel" name="label_41">
              <property name="text">
-              <string>alpha</string>
+              <string notr="true">alpha</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1607,7 +1607,7 @@ offset:</string>
            <item row="1" column="6">
             <widget class="QLabel" name="label_42">
              <property name="text">
-              <string>gamma</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1650,7 +1650,7 @@ offset:</string>
            <item row="1" column="1">
             <widget class="QLabel" name="label_45">
              <property name="text">
-              <string>beta</string>
+              <string notr="true">beta</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1798,7 +1798,7 @@ offset:</string>
            <item row="1" column="4">
             <widget class="QLabel" name="label_39">
              <property name="text">
-              <string>alpha</string>
+              <string notr="true">alpha</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1808,7 +1808,7 @@ offset:</string>
            <item row="1" column="5">
             <widget class="QLabel" name="label_40">
              <property name="text">
-              <string>beta</string>
+              <string notr="true">beta</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>

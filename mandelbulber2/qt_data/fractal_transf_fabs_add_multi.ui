@@ -75,14 +75,14 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_69">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
       <widget class="QLabel" name="label_94">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -147,7 +147,7 @@
      <item row="9" column="1">
       <widget class="QLabel" name="label_99">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
@@ -182,7 +182,7 @@
      <item row="11" column="1">
       <widget class="QLabel" name="label_101">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -395,7 +395,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_68">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -412,7 +412,7 @@
      <item row="10" column="1">
       <widget class="QLabel" name="label_100">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -515,7 +515,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_70">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -566,14 +566,14 @@
      <item row="7" column="1">
       <widget class="QLabel" name="label_96">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
       <widget class="QLabel" name="label_95">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -625,7 +625,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -777,7 +777,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -793,7 +793,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

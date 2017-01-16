@@ -149,7 +149,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_120">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
@@ -182,14 +182,14 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_121">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
@@ -270,32 +270,32 @@
       <widget class="QComboBox" name="comboBox_sinTan2Trig_order_of_zyx">
        <item>
         <property name="text">
-         <string>zyx</string>
+         <string notr="true">zyx</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>zxy</string>
+         <string notr="true">zxy</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>yzx</string>
+         <string notr="true">yzx</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>yxz</string>
+         <string notr="true">yxz</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>xzy</string>
+         <string notr="true">xzy</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>xyz</string>
+         <string notr="true">xyz</string>
         </property>
        </item>
       </widget>

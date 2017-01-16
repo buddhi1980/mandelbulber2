@@ -66,7 +66,7 @@
      <item row="3" column="2">
       <widget class="QLabel" name="label_266">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -108,7 +108,7 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_264">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -215,7 +215,7 @@
      <item row="7" column="2">
       <widget class="QLabel" name="label_271">
        <property name="text">
-        <string>zx:</string>
+        <string notr="true">zx</string>
        </property>
       </widget>
      </item>
@@ -251,7 +251,7 @@
      <item row="6" column="2">
       <widget class="QLabel" name="label_270">
        <property name="text">
-        <string>xy:</string>
+        <string notr="true">xy</string>
        </property>
       </widget>
      </item>
@@ -343,14 +343,14 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_258">
        <property name="text">
-        <string>yz</string>
+        <string notr="true">yz</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="QLabel" name="label_257">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>

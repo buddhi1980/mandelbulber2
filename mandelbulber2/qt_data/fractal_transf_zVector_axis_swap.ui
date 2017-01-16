@@ -37,14 +37,14 @@
      <item row="2" column="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
        <property name="text">
-        <string>z.y</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
        <property name="text">
-        <string>z.x</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -52,32 +52,32 @@
       <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
        <item>
         <property name="text">
-         <string>xyz</string>
+         <string notr="true">xyz</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>xzy</string>
+         <string notr="true">xzy</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>yxz</string>
+         <string notr="true">yxz</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>yzx</string>
+         <string notr="true">yzx</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>zxy</string>
+         <string notr="true">zxy</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>zyx</string>
+         <string notr="true">zyx</string>
         </property>
        </item>
       </widget>
@@ -95,7 +95,7 @@
      <item row="2" column="3" colspan="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
        <property name="text">
-        <string>z.z</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>

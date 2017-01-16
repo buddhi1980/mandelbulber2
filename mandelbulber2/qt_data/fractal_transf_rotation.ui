@@ -63,7 +63,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_14">
        <property name="text">
-        <string>beta</string>
+        <string notr="true">beta</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -101,7 +101,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_13">
        <property name="text">
-        <string>alpha</string>
+        <string notr="true">alpha</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -124,7 +124,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_15">
        <property name="text">
-        <string>gamma</string>
+        <string notr="true">gamma</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

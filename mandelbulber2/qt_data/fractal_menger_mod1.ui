@@ -59,21 +59,21 @@
      <item row="8" column="2">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="6" column="2">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string>z.z:</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
      <item row="9" column="2">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
@@ -347,7 +347,7 @@
           <item row="1" column="1">
            <widget class="QLabel" name="label_34">
             <property name="text">
-             <string>beta</string>
+             <string notr="true">beta</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -411,7 +411,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_35">
             <property name="text">
-             <string>alpha</string>
+             <string notr="true">alpha</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -421,7 +421,7 @@
           <item row="1" column="2">
            <widget class="QLabel" name="label_36">
             <property name="text">
-             <string>gamma</string>
+             <string notr="true">gamma</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -484,7 +484,7 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_90">
        <property name="text">
-        <string>z.y:</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
@@ -561,7 +561,7 @@
      <item row="10" column="2">
       <widget class="QLabel" name="label_114">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -604,7 +604,7 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_93">
        <property name="text">
-        <string>z.x:</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -834,14 +834,14 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_109">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
         <item row="2" column="2">
          <widget class="QLabel" name="label_110">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
@@ -989,7 +989,7 @@
         <item row="3" column="2">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>

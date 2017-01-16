@@ -199,7 +199,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -318,7 +318,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -369,7 +369,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -625,7 +625,7 @@
         <item row="2" column="2">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>gamma</string>
+           <string notr="true">gamma</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -635,7 +635,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>beta</string>
+           <string notr="true">beta</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -645,7 +645,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>alpha</string>
+           <string notr="true">alpha</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -833,7 +833,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1056,7 +1056,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1072,7 +1072,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1095,7 +1095,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1111,7 +1111,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1127,7 +1127,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1361,7 +1361,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1584,7 +1584,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1600,7 +1600,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1623,7 +1623,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1639,7 +1639,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1655,7 +1655,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1934,7 +1934,7 @@
         <item row="3" column="1">
          <widget class="QLabel" name="label_68">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
@@ -1974,7 +1974,7 @@
         <item row="11" column="1">
          <widget class="QLabel" name="label_99">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
@@ -2019,7 +2019,7 @@
         <item row="14" column="1">
          <widget class="QLabel" name="label_101">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>
@@ -2036,14 +2036,14 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_69">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
         <item row="6" column="1">
          <widget class="QLabel" name="label_94">
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
@@ -2072,21 +2072,21 @@
         <item row="13" column="1">
          <widget class="QLabel" name="label_100">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
         <item row="4" column="1">
          <widget class="QLabel" name="label_70">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>
         <item row="9" column="1">
          <widget class="QLabel" name="label_96">
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
          </widget>
         </item>
@@ -2137,7 +2137,7 @@
         <item row="7" column="1">
          <widget class="QLabel" name="label_95">
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
          </widget>
         </item>
@@ -2956,7 +2956,7 @@
         </font>
        </property>
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2972,7 +2972,7 @@
         </font>
        </property>
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2995,7 +2995,7 @@
         </font>
        </property>
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3271,21 +3271,21 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_132">
        <property name="text">
-        <string>x:</string>
+        <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_143">
        <property name="text">
-        <string>y:</string>
+        <string notr="true">y</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_144">
        <property name="text">
-        <string>z:</string>
+        <string notr="true">z</string>
        </property>
       </widget>
      </item>
@@ -3657,7 +3657,7 @@
            </font>
           </property>
           <property name="text">
-           <string>x:</string>
+           <string notr="true">x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3721,7 +3721,7 @@
            </font>
           </property>
           <property name="text">
-           <string>z.x:</string>
+           <string notr="true">z.x</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3740,7 +3740,7 @@
            </font>
           </property>
           <property name="text">
-           <string>y:</string>
+           <string notr="true">y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3858,7 +3858,7 @@
            </font>
           </property>
           <property name="text">
-           <string>z:</string>
+           <string notr="true">z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3921,7 +3921,7 @@
            </font>
           </property>
           <property name="text">
-           <string>z.z:</string>
+           <string notr="true">z.z</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3997,7 +3997,7 @@
            </font>
           </property>
           <property name="text">
-           <string>z.y:</string>
+           <string notr="true">z.y</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

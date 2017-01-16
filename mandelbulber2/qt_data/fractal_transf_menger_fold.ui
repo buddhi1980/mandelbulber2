@@ -384,7 +384,7 @@
         <item row="4" column="1">
          <widget class="QLabel" name="label_98">
           <property name="text">
-           <string>z.z:</string>
+           <string notr="true">z.z</string>
           </property>
          </widget>
         </item>
@@ -498,14 +498,14 @@
         <item row="3" column="1">
          <widget class="QLabel" name="label_90">
           <property name="text">
-           <string>z.y:</string>
+           <string notr="true">z.y</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_93">
           <property name="text">
-           <string>z.x:</string>
+           <string notr="true">z.x</string>
           </property>
          </widget>
         </item>

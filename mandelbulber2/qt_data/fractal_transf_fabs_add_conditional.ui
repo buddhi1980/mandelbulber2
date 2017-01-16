@@ -96,7 +96,7 @@
      <item row="9" column="1">
       <widget class="QLabel" name="label_117">
        <property name="text">
-        <string>z.y:</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
@@ -184,7 +184,7 @@
      <item row="8" column="1">
       <widget class="QLabel" name="label_116">
        <property name="text">
-        <string>z.x:</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -223,7 +223,7 @@
      <item row="10" column="1">
       <widget class="QLabel" name="label_118">
        <property name="text">
-        <string>z.z:</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -393,7 +393,7 @@
      <item row="4" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
        <property name="text">
-        <string>z.y</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
@@ -481,7 +481,7 @@
      <item row="5" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
        <property name="text">
-        <string>z.z</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -495,7 +495,7 @@
      <item row="3" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="text">
-        <string>z.x</string>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
