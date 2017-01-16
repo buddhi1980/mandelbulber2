@@ -118,7 +118,7 @@ foreach($formulas as $index => $formula){
 	}	
 	$informationText .= "</table>" . PHP_EOL;
 	if(array_key_exists($formula['id'], $formulaExampleUsage)){
-		$informationText .= '<b>Examples using this formula</b><br>';
+		$informationText .= '<br><b>Examples using this formula</b><br>';
 		$exampleFilenames = $formulaExampleUsage[$formula['id']];		
 		if(count($exampleFilenames) > 5){ // do not show more than 5 examples
 			array_splice($exampleFilenames, 5);
