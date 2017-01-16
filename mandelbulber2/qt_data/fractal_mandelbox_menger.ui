@@ -91,7 +91,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_52">
          <property name="text">
-          <string>Start at iteration :</string>
+          <string>Start at iteration:</string>
          </property>
         </widget>
        </item>
@@ -104,7 +104,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Box Fold  </string>
+          <string>Box Fold</string>
          </property>
         </widget>
        </item>
@@ -307,7 +307,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_65">
          <property name="text">
-          <string>Start at iteration :</string>
+          <string>Start at iteration:</string>
          </property>
         </widget>
        </item>
@@ -695,7 +695,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Spherical Fold; </string>
+        <string>Spherical Fold;</string>
        </property>
       </widget>
      </item>
@@ -800,7 +800,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Start Rotation at iteration :</string>
+           <string>Start Rotation at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1079,7 +1079,7 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_66">
        <property name="text">
-        <string>Start at iteration :</string>
+        <string>Start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -2646,7 +2646,7 @@ offset:</string>
         <item row="0" column="2">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>function order of c.x, c.y and c.z: </string>
+           <string>function order of c.x, c.y and c.z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2916,7 +2916,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>  Menger sub-loop Iterations</string>
+           <string>Menger sub-loop Iterations</string>
           </property>
          </widget>
         </item>
@@ -2929,7 +2929,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -3079,7 +3079,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string> z.x :</string>
+           <string>z.x:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3132,7 +3132,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string> Multiplier:    </string>
+           <string>Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -3458,7 +3458,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string> z.z :</string>
+           <string>z.z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3468,7 +3468,7 @@ offset:</string>
         <item row="0" column="1" colspan="2">
          <widget class="QLabel" name="label_64">
           <property name="text">
-           <string>Menger Scale Factor: </string>
+           <string>Menger Scale Factor:</string>
           </property>
          </widget>
         </item>
@@ -3515,7 +3515,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Analytic Logrithmic DE multiplier: </string>
+           <string>Analytic Logrithmic DE multiplier:</string>
           </property>
          </widget>
         </item>
@@ -3528,7 +3528,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Offset :</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>
@@ -3563,7 +3563,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string> z.y :</string>
+           <string>z.y:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3803,7 +3803,7 @@ offset:</string>
               </font>
              </property>
              <property name="text">
-              <string>function order of c.x, c.y and c.z: </string>
+              <string>function order of c.x, c.y and c.z:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -4009,7 +4009,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Fold function components -group weight:   </string>
+        <string>Fold function components -group weight:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4520,7 +4520,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component  </string>
+        <string>Absolute value of z  component</string>
        </property>
       </widget>
      </item>

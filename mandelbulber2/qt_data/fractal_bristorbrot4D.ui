@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_256">
      <property name="text">
-      <string>Offsets  </string>
+      <string>Offsets</string>
      </property>
     </widget>
    </item>

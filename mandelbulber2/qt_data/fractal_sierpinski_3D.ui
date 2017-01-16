@@ -230,7 +230,7 @@
        <item row="0" column="2">
         <widget class="QLabel" name="label_263">
          <property name="text">
-          <string>Start at iteration :</string>
+          <string>Start at iteration:</string>
          </property>
         </widget>
        </item>
@@ -446,7 +446,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_249">
             <property name="text">
-             <string>Start Rotation at iteration :</string>
+             <string>Start Rotation at iteration:</string>
             </property>
            </widget>
           </item>

@@ -188,7 +188,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_257">
        <property name="text">
-        <string>Offset:   </string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -252,7 +252,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_52">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -635,7 +635,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_167">
        <property name="text">
-        <string>Minimum Radius^2: </string>
+        <string>Minimum Radius^2:</string>
        </property>
       </widget>
      </item>
@@ -721,7 +721,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset:   </string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -934,7 +934,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>function order of c.x, c.y and c.z: </string>
+           <string>function order of c.x, c.y and c.z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1118,7 +1118,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string> &amp;Rotation; </string>
+      <string>&amp;Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1193,7 +1193,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_246">
           <property name="text">
-           <string>Start Rotation at iteration :</string>
+           <string>Start Rotation at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1474,7 +1474,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Fold function components -group weight:   </string>
+        <string>Fold function components -group weight:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1568,7 +1568,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Scale component  </string>
+        <string>Scale component</string>
        </property>
       </widget>
      </item>
@@ -1803,7 +1803,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component  </string>
+        <string>Absolute value of z  component</string>
        </property>
       </widget>
      </item>

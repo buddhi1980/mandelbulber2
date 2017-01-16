@@ -248,7 +248,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledy">
      <property name="title">
-      <string>&amp;Menger Sponge End Function     Apply Constants; </string>
+      <string>&amp;Menger Sponge End Function     Apply Constants;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -377,14 +377,14 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_92">
           <property name="text">
-           <string> Menger Sponge scale:    </string>
+           <string>Menger Sponge scale:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="1">
          <widget class="QLabel" name="label_98">
           <property name="text">
-           <string> z.z :</string>
+           <string>z.z:</string>
           </property>
          </widget>
         </item>
@@ -413,7 +413,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_91">
           <property name="text">
-           <string> Offset Multiplier:    </string>
+           <string>Offset Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -498,21 +498,21 @@
         <item row="3" column="1">
          <widget class="QLabel" name="label_90">
           <property name="text">
-           <string> z.y :</string>
+           <string>z.y:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_93">
           <property name="text">
-           <string> z.x :</string>
+           <string>z.x:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0" colspan="3">
          <widget class="QCheckBox" name="checkBox_transf_function_enabled">
           <property name="text">
-           <string> Conditional mode:     if ( z.z  &lt; limit )  z.z = z.z;</string>
+           <string>Conditional mode:     if ( z.z  &lt; limit )  z.z = z.z;</string>
           </property>
          </widget>
         </item>

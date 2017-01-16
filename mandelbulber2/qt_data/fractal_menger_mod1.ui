@@ -66,7 +66,7 @@
      <item row="6" column="2">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string> z.z :</string>
+        <string>z.z:</string>
        </property>
       </widget>
      </item>
@@ -202,7 +202,7 @@
      <item row="11" column="1" colspan="4">
       <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
        <property name="title">
-        <string>Internal &amp;Rotation; </string>
+        <string>Internal &amp;Rotation;</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -277,7 +277,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_246">
             <property name="text">
-             <string>Start Rotation at iteration :</string>
+             <string>Start Rotation at iteration:</string>
             </property>
            </widget>
           </item>
@@ -449,7 +449,7 @@
      <item row="1" column="1" colspan="2">
       <widget class="QLabel" name="label_64">
        <property name="text">
-        <string>Menger Scale Factor: </string>
+        <string>Menger Scale Factor:</string>
        </property>
       </widget>
      </item>
@@ -484,14 +484,14 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_90">
        <property name="text">
-        <string> z.y :</string>
+        <string>z.y:</string>
        </property>
       </widget>
      </item>
      <item row="9" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset  </string>
+        <string>Offset</string>
        </property>
       </widget>
      </item>
@@ -590,7 +590,7 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_91">
        <property name="text">
-        <string> Multiplier  </string>
+        <string>Multiplier</string>
        </property>
       </widget>
      </item>
@@ -604,7 +604,7 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_93">
        <property name="text">
-        <string> z.x :</string>
+        <string>z.x:</string>
        </property>
       </widget>
      </item>
@@ -795,7 +795,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_249">
           <property name="text">
-           <string>Start Offset at iteration :</string>
+           <string>Start Offset at iteration:</string>
           </property>
          </widget>
         </item>
@@ -954,7 +954,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Box Offset:  </string>
+           <string>Box Offset:</string>
           </property>
          </widget>
         </item>
@@ -1018,7 +1018,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="title">
-      <string> I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
+      <string>I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

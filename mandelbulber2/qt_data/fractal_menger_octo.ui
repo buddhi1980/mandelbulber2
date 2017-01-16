@@ -90,7 +90,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_258">
        <property name="text">
-        <string>Start at iteration :</string>
+        <string>Start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -221,7 +221,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Offset  </string>
+        <string>Offset</string>
        </property>
       </widget>
      </item>
@@ -433,7 +433,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_249">
           <property name="text">
-           <string>Start Offset at iteration :</string>
+           <string>Start Offset at iteration:</string>
           </property>
          </widget>
         </item>
@@ -592,7 +592,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Box Offset:  </string>
+           <string>Box Offset:</string>
           </property>
          </widget>
         </item>
@@ -717,7 +717,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_253">
        <property name="text">
-        <string>Start at iteration :</string>
+        <string>Start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -1352,7 +1352,7 @@ offset:</string>
         <item row="2" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>  0</string>
+           <string>0</string>
           </property>
          </widget>
         </item>
@@ -1480,7 +1480,7 @@ offset:</string>
         <item row="2" column="2">
          <widget class="QLabel" name="label_107">
           <property name="text">
-           <string>Initial add: </string>
+           <string>Initial add:</string>
           </property>
          </widget>
         </item>
@@ -1661,28 +1661,28 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_108">
           <property name="text">
-           <string>Initial add: </string>
+           <string>Initial add:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_121">
           <property name="text">
-           <string>Parabolic scale :</string>
+           <string>Parabolic scale:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="3">
          <widget class="QLabel" name="label_122">
           <property name="text">
-           <string> The Curviliner and Parabolic functions can be applied together</string>
+           <string>The Curviliner and Parabolic functions can be applied together</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>Axis Slope :</string>
+           <string>Axis Slope:</string>
           </property>
          </widget>
         </item>
@@ -1701,7 +1701,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledR_false">
      <property name="title">
-      <string>R&amp;otation; </string>
+      <string>R&amp;otation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1776,7 +1776,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_246">
           <property name="text">
-           <string>Start Rotation at iteration :</string>
+           <string>Start Rotation at iteration:</string>
           </property>
          </widget>
         </item>
@@ -2013,7 +2013,7 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_251">
        <property name="text">
-        <string>Start at iteration :</string>
+        <string>Start at iteration:</string>
        </property>
       </widget>
      </item>
@@ -2056,7 +2056,7 @@ offset:</string>
      <item row="6" column="2">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string> z.z :</string>
+        <string>z.z:</string>
        </property>
       </widget>
      </item>
@@ -2199,7 +2199,7 @@ offset:</string>
      <item row="1" column="1" colspan="2">
       <widget class="QLabel" name="label_64">
        <property name="text">
-        <string>Menger Scale Factor: </string>
+        <string>Menger Scale Factor:</string>
        </property>
       </widget>
      </item>
@@ -2234,7 +2234,7 @@ offset:</string>
      <item row="5" column="2">
       <widget class="QLabel" name="label_90">
        <property name="text">
-        <string> z.y :</string>
+        <string>z.y:</string>
        </property>
       </widget>
      </item>
@@ -2248,7 +2248,7 @@ offset:</string>
      <item row="9" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset  </string>
+        <string>Offset</string>
        </property>
       </widget>
      </item>
@@ -2311,7 +2311,7 @@ offset:</string>
      <item row="5" column="1">
       <widget class="QLabel" name="label_91">
        <property name="text">
-        <string> Multiplier  </string>
+        <string>Multiplier</string>
        </property>
       </widget>
      </item>
@@ -2354,7 +2354,7 @@ offset:</string>
      <item row="4" column="2">
       <widget class="QLabel" name="label_93">
        <property name="text">
-        <string> z.x :</string>
+        <string>z.x:</string>
        </property>
       </widget>
      </item>
@@ -2463,7 +2463,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="title">
-      <string> I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
+      <string>I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

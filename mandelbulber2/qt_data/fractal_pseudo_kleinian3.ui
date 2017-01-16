@@ -32,14 +32,14 @@
    <item>
     <widget class="QLabel" name="label_267">
      <property name="text">
-      <string>Note 1) : termination condition is when iteration reaches  Maxiter,  </string>
+      <string>Note 1) : termination condition is when iteration reaches  Maxiter,</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_268">
      <property name="text">
-      <string>Note 2) : each additional iteration adds more detail.  </string>
+      <string>Note 2) : each additional iteration adds more detail.</string>
      </property>
     </widget>
    </item>
@@ -105,7 +105,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_66">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -144,7 +144,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label_48">
           <property name="text">
-           <string>Stop at iteration :</string>
+           <string>Stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -386,7 +386,7 @@
         <item row="6" column="0">
          <widget class="QLabel" name="label_174">
           <property name="text">
-           <string>Shift/offset scale:  </string>
+           <string>Shift/offset scale:</string>
           </property>
          </widget>
         </item>
@@ -516,7 +516,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_249">
           <property name="text">
-           <string>Start Rotation at iteration :</string>
+           <string>Start Rotation at iteration:</string>
           </property>
          </widget>
         </item>
@@ -806,7 +806,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_246">
           <property name="text">
-           <string>Start T1 at iteration :</string>
+           <string>Start T1 at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1043,7 +1043,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Offset  </string>
+           <string>Offset</string>
           </property>
          </widget>
         </item>
@@ -1082,7 +1082,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_258">
           <property name="text">
-           <string>Scale </string>
+           <string>Scale</string>
           </property>
          </widget>
         </item>
@@ -1334,7 +1334,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_251">
           <property name="text">
-           <string>Start T1 Mod at iteration :</string>
+           <string>Start T1 Mod at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1571,7 +1571,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_260">
           <property name="text">
-           <string>Offset  </string>
+           <string>Offset</string>
           </property>
          </widget>
         </item>
@@ -1610,7 +1610,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_261">
           <property name="text">
-           <string>Scale </string>
+           <string>Scale</string>
           </property>
          </widget>
         </item>
@@ -1849,7 +1849,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_254">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1941,7 +1941,7 @@
         <item row="13" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>  - ( z  *  C )</string>
+           <string>- ( z  *  C )</string>
           </property>
          </widget>
         </item>
@@ -2555,7 +2555,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -2679,7 +2679,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -3070,7 +3070,7 @@
         </font>
        </property>
        <property name="text">
-        <string>DEadd (tweak): </string>
+        <string>DEadd (tweak):</string>
        </property>
       </widget>
      </item>
@@ -3108,7 +3108,7 @@
         </font>
        </property>
        <property name="text">
-        <string>DE factor: </string>
+        <string>DE factor:</string>
        </property>
       </widget>
      </item>
@@ -3264,7 +3264,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_269">
        <property name="text">
-        <string>Offset :                    </string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -3556,7 +3556,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -3644,7 +3644,7 @@
            </font>
           </property>
           <property name="text">
-           <string> Multiplier:    </string>
+           <string>Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -3721,7 +3721,7 @@
            </font>
           </property>
           <property name="text">
-           <string> z.x :</string>
+           <string>z.x:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3874,7 +3874,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Menger Scale Factor: </string>
+           <string>Menger Scale Factor:</string>
           </property>
          </widget>
         </item>
@@ -3921,7 +3921,7 @@
            </font>
           </property>
           <property name="text">
-           <string> z.z :</string>
+           <string>z.z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3971,7 +3971,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Analytic Logrithmic DE multiplier: </string>
+           <string>Analytic Logrithmic DE multiplier:</string>
           </property>
          </widget>
         </item>
@@ -3984,7 +3984,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Offset :</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>
@@ -3997,7 +3997,7 @@
            </font>
           </property>
           <property name="text">
-           <string> z.y :</string>
+           <string>z.y:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

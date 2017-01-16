@@ -38,14 +38,14 @@
       </font>
      </property>
      <property name="text">
-      <string>Riemann Sphere Msltoe </string>
+      <string>Riemann Sphere Msltoe</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>In&amp;ternal Rotation; </string>
+      <string>In&amp;ternal Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

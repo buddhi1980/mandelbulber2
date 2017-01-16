@@ -129,7 +129,7 @@
         <item row="2" column="0" colspan="3">
          <widget class="QLabel" name="label_multi1_order_of_xyz_2">
           <property name="text">
-           <string>function order of x, y and z: </string>
+           <string>function order of x, y and z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -153,7 +153,7 @@
         <item row="1" column="0" colspan="2">
          <widget class="QLabel" name="label_multi1_th0_function_2">
           <property name="text">
-           <string>th0 function: </string>
+           <string>th0 function:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -163,7 +163,7 @@
         <item row="1" column="3" colspan="2">
          <widget class="QLabel" name="label_multi1_ph0_function_2">
           <property name="text">
-           <string>ph0 function: </string>
+           <string>ph0 function:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -586,7 +586,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>addCpi&amp;xel Axis Swap ConstantMultiplier </string>
+      <string>addCpi&amp;xel Axis Swap ConstantMultiplier</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -822,7 +822,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>function order of c.x, c.y and c.z: </string>
+           <string>function order of c.x, c.y and c.z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

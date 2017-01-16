@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_17">
      <property name="text">
-      <string> Spherical Fold - Iteration based varying minR2 parameter</string>
+      <string>Spherical Fold - Iteration based varying minR2 parameter</string>
      </property>
     </widget>
    </item>
@@ -757,7 +757,7 @@ offset:</string>
      <item row="2" column="1">
       <widget class="QLabel" name="label_174">
        <property name="text">
-        <string>  0</string>
+        <string>0</string>
        </property>
       </widget>
      </item>
@@ -785,7 +785,7 @@ offset:</string>
      <item row="2" column="2">
       <widget class="QLabel" name="label_94">
        <property name="text">
-        <string>Initial add: </string>
+        <string>Initial add:</string>
        </property>
       </widget>
      </item>
@@ -973,28 +973,28 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_100">
        <property name="text">
-        <string>Initial add: </string>
+        <string>Initial add:</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string>Parabolic scale :</string>
+        <string>Parabolic scale:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="3">
       <widget class="QLabel" name="label_97">
        <property name="text">
-        <string> The Curvilinear and Parabolic functions can be applied together</string>
+        <string>The Curvilinear and Parabolic functions can be applied together</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_101">
        <property name="text">
-        <string>Axis Slope :</string>
+        <string>Axis Slope:</string>
        </property>
       </widget>
      </item>

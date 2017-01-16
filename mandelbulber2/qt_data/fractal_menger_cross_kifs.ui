@@ -292,7 +292,7 @@
         <item row="7" column="0">
          <widget class="QLabel" name="label_174">
           <property name="text">
-           <string>Shift/offset scale:  </string>
+           <string>Shift/offset scale:</string>
           </property>
          </widget>
         </item>
@@ -398,7 +398,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_69">
             <property name="text">
-             <string>Start at iteration :</string>
+             <string>Start at iteration:</string>
             </property>
            </widget>
           </item>
@@ -425,7 +425,7 @@
           <item row="1" column="4">
            <widget class="QLabel" name="label_51">
             <property name="text">
-             <string>Stop at iteration :</string>
+             <string>Stop at iteration:</string>
             </property>
            </widget>
           </item>
@@ -451,7 +451,7 @@
           <item row="1" column="8">
            <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
             <property name="text">
-             <string>enable fabs(z.x) </string>
+             <string>enable fabs(z.x)</string>
             </property>
            </widget>
           </item>
@@ -601,7 +601,7 @@
         <item row="11" column="0">
          <widget class="QLabel" name="label_109">
           <property name="text">
-           <string>Post Scale: </string>
+           <string>Post Scale:</string>
           </property>
          </widget>
         </item>
@@ -786,7 +786,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_106">
           <property name="text">
-           <string>z.y scale: </string>
+           <string>z.y scale:</string>
           </property>
          </widget>
         </item>
@@ -849,7 +849,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>z.z scale: </string>
+           <string>z.z scale:</string>
           </property>
          </widget>
         </item>
@@ -906,7 +906,7 @@
         <item row="4" column="0">
          <widget class="QLabel" name="label_256">
           <property name="text">
-           <string>Offset :                    </string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>
@@ -1133,7 +1133,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_105">
           <property name="text">
-           <string>DE tweak: </string>
+           <string>DE tweak:</string>
           </property>
          </widget>
         </item>
@@ -1346,14 +1346,14 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_67">
          <property name="text">
-          <string>Start at iteration :</string>
+          <string>Start at iteration:</string>
          </property>
         </widget>
        </item>
        <item row="0" column="6">
         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
          <property name="text">
-          <string>enable fabs(z.x) </string>
+          <string>enable fabs(z.x)</string>
          </property>
         </widget>
        </item>
@@ -1388,7 +1388,7 @@
      <item row="0" column="7">
       <widget class="QLabel" name="label_107">
        <property name="text">
-        <string>Scale: </string>
+        <string>Scale:</string>
        </property>
       </widget>
      </item>
@@ -1618,7 +1618,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_126">
        <property name="text">
-        <string>Fold : </string>
+        <string>Fold:</string>
        </property>
       </widget>
      </item>
@@ -1813,7 +1813,7 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_257">
        <property name="text">
-        <string>Offset :                    </string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -1960,7 +1960,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledR_false">
      <property name="title">
-      <string>&amp;Rotation; </string>
+      <string>&amp;Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2035,7 +2035,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_246">
           <property name="text">
-           <string>Start Rotation at iteration :</string>
+           <string>Start Rotation at iteration:</string>
           </property>
          </widget>
         </item>

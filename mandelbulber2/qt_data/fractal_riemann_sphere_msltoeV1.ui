@@ -502,7 +502,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>In&amp;ternal Rotation; </string>
+      <string>In&amp;ternal Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

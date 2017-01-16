@@ -570,7 +570,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_169">
          <property name="text">
-          <string>Offset: </string>
+          <string>Offset:</string>
          </property>
         </widget>
        </item>
@@ -781,7 +781,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_172">
          <property name="text">
-          <string>z.z  scale : </string>
+          <string>z.z  scale:</string>
          </property>
         </widget>
        </item>
@@ -853,7 +853,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>if ( z &gt;Limit) z =  Value -z,   else if( z &lt;Limit) z = - Value - z, </string>
+        <string>if ( z &gt;Limit) z =  Value -z,   else if( z &lt;Limit) z = - Value - z,</string>
        </property>
       </widget>
      </item>

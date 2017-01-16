@@ -94,7 +94,7 @@
      <item row="2" column="2">
       <widget class="QLabel" name="label_93">
        <property name="text">
-        <string> z.x :</string>
+        <string>z.x:</string>
        </property>
       </widget>
      </item>
@@ -186,7 +186,7 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string> z.z :</string>
+        <string>z.z:</string>
        </property>
       </widget>
      </item>
@@ -265,7 +265,7 @@
      <item row="8" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset  </string>
+        <string>Offset</string>
        </property>
       </widget>
      </item>
@@ -301,7 +301,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_91">
        <property name="text">
-        <string>Quaternion Scales   </string>
+        <string>Quaternion Scales</string>
        </property>
       </widget>
      </item>
@@ -380,7 +380,7 @@
      <item row="3" column="2">
       <widget class="QLabel" name="label_90">
        <property name="text">
-        <string> z.y :</string>
+        <string>z.y:</string>
        </property>
       </widget>
      </item>
@@ -394,7 +394,7 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_99">
        <property name="text">
-        <string> z.w :</string>
+        <string>z.w:</string>
        </property>
       </widget>
      </item>

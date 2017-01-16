@@ -372,7 +372,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_164">
        <property name="text">
-        <string>Addition Constant  </string>
+        <string>Addition Constant</string>
        </property>
       </widget>
      </item>
@@ -434,7 +434,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_171">
          <property name="text">
-          <string>Start varying at iteration :</string>
+          <string>Start varying at iteration:</string>
          </property>
         </widget>
        </item>

@@ -113,7 +113,7 @@
      <item row="20" column="0" colspan="3">
       <widget class="QLabel" name="label_176">
        <property name="text">
-        <string>Analytic Linear DE adjustment factor: </string>
+        <string>Analytic Linear DE adjustment factor:</string>
        </property>
       </widget>
      </item>

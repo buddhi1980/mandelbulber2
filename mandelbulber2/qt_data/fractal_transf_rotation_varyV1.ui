@@ -252,7 +252,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_171">
          <property name="text">
-          <string>Start varying at iteration :</string>
+          <string>Start varying at iteration:</string>
          </property>
         </widget>
        </item>
@@ -289,7 +289,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_161">
        <property name="text">
-        <string>gamma :</string>
+        <string>gamma:</string>
        </property>
       </widget>
      </item>
@@ -324,14 +324,14 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_167">
        <property name="text">
-        <string>alpha: </string>
+        <string>alpha:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_166">
        <property name="text">
-        <string>Variable    </string>
+        <string>Variable</string>
        </property>
       </widget>
      </item>
@@ -382,7 +382,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_165">
        <property name="text">
-        <string>beta : </string>
+        <string>beta:</string>
        </property>
       </widget>
      </item>

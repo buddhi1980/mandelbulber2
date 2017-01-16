@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_17">
      <property name="text">
-      <string> SphereInv from M3D</string>
+      <string>SphereInv from M3D</string>
      </property>
     </widget>
    </item>
@@ -335,7 +335,7 @@ offset:</string>
      <item row="1" column="1">
       <widget class="QLabel" name="label_48">
        <property name="text">
-        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion) </string>
+        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion)</string>
        </property>
       </widget>
      </item>
@@ -469,7 +469,7 @@ offset:</string>
      <item row="0" column="1">
       <widget class="QLabel" name="label_20">
        <property name="text">
-        <string>let r2 = Radius2  (conformal - undo the inversion inside a sphere) </string>
+        <string>let r2 = Radius2  (conformal - undo the inversion inside a sphere)</string>
        </property>
       </widget>
      </item>
@@ -497,7 +497,7 @@ offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Adjust Offset :      </string>
+        <string>Adjust Offset:</string>
        </property>
       </widget>
      </item>

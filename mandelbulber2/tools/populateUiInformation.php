@@ -162,6 +162,15 @@ foreach($formulas as $index => $formula){
 		echo errorString('Warning, could not replace code in ui file for index: ' . $index) . PHP_EOL;
 		continue;	
 	}
+
+  $replaceFormulaLookup = array(
+	  array('find' => '/\>\s*([^<]+?)\s*<\/string>/', 'replace' => '>$1</string>'), // whitespace fix 1
+		array('find' => '/\>\s*([^<]+?)\s*:\s*<\/string>/', 'replace' => '>$1:</string>'), // whitespace fix 2
+	);
+	foreach($replaceFormulaLookup as $item){
+	  $newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);
+	}
+
 	if($newUiFileContent == $uiFileContent){
 		if(isVerbose()){
 			echo noticeString('formula ' . $formula['name'] . ' has not changed.') . PHP_EOL;

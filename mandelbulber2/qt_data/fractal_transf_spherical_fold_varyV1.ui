@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_17">
      <property name="text">
-      <string> Spherical Fold, Variable Radius Controls -  MBox type</string>
+      <string>Spherical Fold, Variable Radius Controls -  MBox type</string>
      </property>
     </widget>
    </item>
@@ -150,7 +150,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_172">
        <property name="text">
-        <string>Start varying at iteration :</string>
+        <string>Start varying at iteration:</string>
        </property>
       </widget>
      </item>
@@ -386,7 +386,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_171">
        <property name="text">
-        <string>Start varying at iteration :</string>
+        <string>Start varying at iteration:</string>
        </property>
       </widget>
      </item>

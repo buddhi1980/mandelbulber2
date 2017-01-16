@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string> Pine Tree  addCpixel ConstantMultiplier  ( c.y  c.z Swap)</string>
+      <string>Pine Tree  addCpixel ConstantMultiplier  ( c.y  c.z Swap)</string>
      </property>
     </widget>
    </item>
@@ -228,7 +228,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_114">
        <property name="text">
-        <string>Cpixel Multiplier   </string>
+        <string>Cpixel Multiplier</string>
        </property>
       </widget>
      </item>

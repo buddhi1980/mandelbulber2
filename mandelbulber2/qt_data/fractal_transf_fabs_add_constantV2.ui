@@ -190,7 +190,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_23">
        <property name="text">
-        <string>fABS addition constant   </string>
+        <string>fABS addition constant</string>
        </property>
       </widget>
      </item>
@@ -250,7 +250,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_257">
        <property name="text">
-        <string>Start at iteration :</string>
+        <string>Start at iteration:</string>
        </property>
       </widget>
      </item>

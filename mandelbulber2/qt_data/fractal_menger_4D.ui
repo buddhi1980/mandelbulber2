@@ -192,7 +192,7 @@
        <item row="0" column="2">
         <widget class="QLabel" name="label_263">
          <property name="text">
-          <string>Start at iteration :</string>
+          <string>Start at iteration:</string>
          </property>
         </widget>
        </item>
@@ -405,7 +405,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_249">
             <property name="text">
-             <string>Start Rotation at iteration :</string>
+             <string>Start Rotation at iteration:</string>
             </property>
            </widget>
           </item>
@@ -983,7 +983,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Menger Scale </string>
+        <string>Menger Scale</string>
        </property>
       </widget>
      </item>
@@ -1106,7 +1106,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_91">
        <property name="text">
-        <string>Menger offsets:   </string>
+        <string>Menger offsets:</string>
        </property>
       </widget>
      </item>
@@ -1157,7 +1157,7 @@
      <item row="3" column="2">
       <widget class="QLabel" name="label_90">
        <property name="text">
-        <string> z.y :</string>
+        <string>z.y:</string>
        </property>
       </widget>
      </item>
@@ -1192,14 +1192,14 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string> z.z :</string>
+        <string>z.z:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="2">
       <widget class="QLabel" name="label_93">
        <property name="text">
-        <string> z.x :</string>
+        <string>z.x:</string>
        </property>
       </widget>
      </item>
@@ -1256,7 +1256,7 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_99">
        <property name="text">
-        <string> z.w :</string>
+        <string>z.w:</string>
        </property>
       </widget>
      </item>
@@ -1343,7 +1343,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_257">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1515,7 +1515,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="title">
-      <string> I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
+      <string>I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

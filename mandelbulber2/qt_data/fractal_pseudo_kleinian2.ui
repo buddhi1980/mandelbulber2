@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_267">
      <property name="text">
-      <string>Note 1) : termination condition is when iteration reaches  Maxiter,  </string>
+      <string>Note 1) : termination condition is when iteration reaches  Maxiter,</string>
      </property>
     </widget>
    </item>
@@ -105,7 +105,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_66">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -144,7 +144,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label_48">
           <property name="text">
-           <string>Stop at iteration :</string>
+           <string>Stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -450,7 +450,7 @@
           <item row="6" column="0">
            <widget class="QLabel" name="label_174">
             <property name="text">
-             <string>Shift/offset scale:  </string>
+             <string>Shift/offset scale:</string>
             </property>
            </widget>
           </item>
@@ -516,14 +516,14 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label_49">
           <property name="text">
-           <string>Stop at iteration :</string>
+           <string>Stop at iteration:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_67">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1006,7 +1006,7 @@
         </font>
        </property>
        <property name="text">
-        <string>DEadd (tweak): </string>
+        <string>DEadd (tweak):</string>
        </property>
       </widget>
      </item>
@@ -1176,7 +1176,7 @@
         </font>
        </property>
        <property name="text">
-        <string>DE factor: </string>
+        <string>DE factor:</string>
        </property>
       </widget>
      </item>
@@ -1301,7 +1301,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_249">
             <property name="text">
-             <string>Start Rotation at iteration :</string>
+             <string>Start Rotation at iteration:</string>
             </property>
            </widget>
           </item>
@@ -1520,7 +1520,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Offset :                    </string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>

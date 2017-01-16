@@ -228,7 +228,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_mandelbox_main_rotation_enabled">
      <property name="title">
-      <string>Middle &amp;Rotation  </string>
+      <string>Middle &amp;Rotation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -254,7 +254,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_47">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -472,7 +472,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledBx_false">
      <property name="title">
-      <string>Middle &amp;Box Fold  </string>
+      <string>Middle &amp;Box Fold</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -520,7 +520,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_56">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -799,7 +799,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_71">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1316,14 +1316,14 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_97">
           <property name="text">
-           <string>fabs(z - Const.F2)   </string>
+           <string>fabs(z - Const.F2)</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_74">
           <property name="text">
-           <string>fabs(z + Const.F1)  </string>
+           <string>fabs(z + Const.F1)</string>
           </property>
          </widget>
         </item>
@@ -1359,7 +1359,7 @@
         <item row="10" column="1">
          <widget class="QLabel" name="label_102">
           <property name="text">
-           <string> Const.F3</string>
+           <string>Const.F3</string>
           </property>
          </widget>
         </item>
@@ -1512,7 +1512,7 @@
           <item row="1" column="1">
            <widget class="QLabel" name="label_103">
             <property name="text">
-             <string>FabsBoxFold Scale </string>
+             <string>FabsBoxFold Scale</string>
             </property>
            </widget>
           </item>
@@ -1540,7 +1540,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Menger Sponge End Function     Apply Constants; </string>
+      <string>Menger Sponge End Function     Apply Constants;</string>
      </property>
     </widget>
    </item>
@@ -1552,14 +1552,14 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_91">
        <property name="text">
-        <string> Offset Multiplier:    </string>
+        <string>Offset Multiplier:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_92">
        <property name="text">
-        <string> Menger Sponge scale:    </string>
+        <string>Menger Sponge scale:</string>
        </property>
       </widget>
      </item>
@@ -1644,7 +1644,7 @@
      <item row="6" column="2">
       <widget class="QLabel" name="label_98">
        <property name="text">
-        <string> z.z :</string>
+        <string>z.z:</string>
        </property>
       </widget>
      </item>
@@ -1752,7 +1752,7 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_93">
        <property name="text">
-        <string> z.x :</string>
+        <string>z.x:</string>
        </property>
       </widget>
      </item>
@@ -1787,14 +1787,14 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_90">
        <property name="text">
-        <string> z.y :</string>
+        <string>z.y:</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1" colspan="3">
       <widget class="QCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
-        <string> Conditional mode:     if ( z.z  &lt; limit )  z.z = z.z;</string>
+        <string>Conditional mode:     if ( z.z  &lt; limit )  z.z = z.z;</string>
        </property>
       </widget>
      </item>
@@ -1806,7 +1806,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>addCpi&amp;xel Axis Swap ConstantMultiplier </string>
+      <string>addCpi&amp;xel Axis Swap ConstantMultiplier</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2042,7 +2042,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>function order of c.x, c.y and c.z: </string>
+           <string>function order of c.x, c.y and c.z:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -2052,7 +2052,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_108">
           <property name="text">
-           <string>Cpixel Multiplier: </string>
+           <string>Cpixel Multiplier:</string>
           </property>
          </widget>
         </item>

@@ -150,7 +150,7 @@
      <item row="11" column="1" colspan="4">
       <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
        <property name="title">
-        <string>R&amp;otation; </string>
+        <string>R&amp;otation;</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -225,7 +225,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_246">
             <property name="text">
-             <string>Start Rotation at iteration :</string>
+             <string>Start Rotation at iteration:</string>
             </property>
            </widget>
           </item>
@@ -454,7 +454,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_64">
        <property name="text">
-        <string>Menger Scale: </string>
+        <string>Menger Scale:</string>
        </property>
       </widget>
      </item>
@@ -562,7 +562,7 @@
      <item row="4" column="1">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>OffsetS  </string>
+        <string>OffsetS</string>
        </property>
       </widget>
      </item>
@@ -599,7 +599,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledz_false">
      <property name="title">
-      <string> I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
+      <string>I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

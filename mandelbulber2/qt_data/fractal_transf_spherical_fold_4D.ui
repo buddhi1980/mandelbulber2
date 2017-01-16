@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string> Spherical Fold_4D</string>
+      <string>Spherical Fold_4D</string>
      </property>
      <property name="checkable">
       <bool>false</bool>

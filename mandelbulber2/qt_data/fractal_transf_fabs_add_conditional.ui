@@ -42,7 +42,7 @@
    <item>
     <widget class="QLabel" name="label_133">
      <property name="text">
-      <string> z = SIGN(z) (offset  -  fabs(z)  +  fabs(z) * Slope)</string>
+      <string>z = SIGN(z) (offset  -  fabs(z)  +  fabs(z) * Slope)</string>
      </property>
     </widget>
    </item>
@@ -61,7 +61,7 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Offset : </string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -216,7 +216,7 @@
      <item row="9" column="0">
       <widget class="QLabel" name="label_119">
        <property name="text">
-        <string>Slope :   </string>
+        <string>Slope:</string>
        </property>
       </widget>
      </item>
@@ -393,7 +393,7 @@
      <item row="4" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
        <property name="text">
-        <string>z.y </string>
+        <string>z.y</string>
        </property>
       </widget>
      </item>

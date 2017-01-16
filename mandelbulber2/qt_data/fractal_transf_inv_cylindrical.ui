@@ -255,7 +255,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Analytic DE Muliplier: </string>
+        <string>Analytic DE Muliplier:</string>
        </property>
       </widget>
      </item>
@@ -386,7 +386,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Analytic DE Offset: </string>
+        <string>Analytic DE Offset:</string>
        </property>
       </widget>
      </item>

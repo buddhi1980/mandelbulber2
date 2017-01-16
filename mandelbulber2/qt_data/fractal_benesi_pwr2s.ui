@@ -84,7 +84,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_66">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -123,7 +123,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label_48">
           <property name="text">
-           <string>Stop at iteration :</string>
+           <string>Stop at iteration:</string>
           </property>
          </widget>
         </item>
@@ -365,7 +365,7 @@
         <item row="6" column="0">
          <widget class="QLabel" name="label_174">
           <property name="text">
-           <string>Shift/offset scale:  </string>
+           <string>Shift/offset scale:</string>
           </property>
          </widget>
         </item>
@@ -528,7 +528,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_246">
           <property name="text">
-           <string>Start T1 at iteration :</string>
+           <string>Start T1 at iteration:</string>
           </property>
          </widget>
         </item>
@@ -742,7 +742,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Offset  </string>
+           <string>Offset</string>
           </property>
          </widget>
         </item>
@@ -797,7 +797,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_258">
           <property name="text">
-           <string>Scale </string>
+           <string>Scale</string>
           </property>
          </widget>
         </item>
@@ -854,7 +854,7 @@
           <item row="0" column="0">
            <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
             <property name="title">
-             <string>Mag Transform &amp;T1   Internal Rotation; </string>
+             <string>Mag Transform &amp;T1   Internal Rotation;</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -1240,7 +1240,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_255">
           <property name="text">
-           <string>Start Pwr2 at iteration :</string>
+           <string>Start Pwr2 at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1254,7 +1254,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_129">
           <property name="text">
-           <string>Cpixel Multiplier  </string>
+           <string>Cpixel Multiplier</string>
           </property>
          </widget>
         </item>
@@ -1495,7 +1495,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_249">
           <property name="text">
-           <string>Start PT at iteration :</string>
+           <string>Start PT at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1516,7 +1516,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>Cpixel Multiplier  </string>
+           <string>Cpixel Multiplier</string>
           </property>
          </widget>
         </item>
@@ -1757,7 +1757,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_251">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -2038,7 +2038,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_253">
           <property name="text">
-           <string>Start at iteration :</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -2100,7 +2100,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>Offset: </string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>

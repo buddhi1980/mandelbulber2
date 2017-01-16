@@ -329,14 +329,14 @@
      <item row="3" column="0">
       <widget class="QCheckBox" name="checkBox_surfBox_enabledX3_false">
        <property name="text">
-        <string>Type 3 </string>
+        <string>Type 3</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QCheckBox" name="checkBox_surfBox_enabledX1">
        <property name="text">
-        <string>Type 1 </string>
+        <string>Type 1</string>
        </property>
       </widget>
      </item>
@@ -513,7 +513,7 @@
      <item row="1" column="0">
       <widget class="QCheckBox" name="checkBox_surfBox_enabledY1">
        <property name="text">
-        <string>Type 1 </string>
+        <string>Type 1</string>
        </property>
       </widget>
      </item>
@@ -542,7 +542,7 @@
      <item row="3" column="0">
       <widget class="QCheckBox" name="checkBox_surfBox_enabledY3_false">
        <property name="text">
-        <string>Type 3 </string>
+        <string>Type 3</string>
        </property>
       </widget>
      </item>
@@ -783,7 +783,7 @@
      <item row="7" column="0">
       <widget class="QLabel" name="label_173">
        <property name="text">
-        <string>Type 4 z.z  scale : </string>
+        <string>Type 4 z.z  scale:</string>
        </property>
       </widget>
      </item>
@@ -809,7 +809,7 @@
      <item row="1" column="0">
       <widget class="QCheckBox" name="checkBox_surfBox_enabledZ1">
        <property name="text">
-        <string>Type 1 </string>
+        <string>Type 1</string>
        </property>
       </widget>
      </item>
@@ -1073,7 +1073,7 @@
      <item row="3" column="0">
       <widget class="QCheckBox" name="checkBox_surfBox_enabledZ3_false">
        <property name="text">
-        <string>Type 3 </string>
+        <string>Type 3</string>
        </property>
       </widget>
      </item>

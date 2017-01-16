@@ -86,7 +86,7 @@
      <item row="13" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>Offset  </string>
+        <string>Offset</string>
        </property>
       </widget>
      </item>
@@ -605,7 +605,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_358">
        <property name="text">
-        <string>Power A  </string>
+        <string>Power A</string>
        </property>
       </widget>
      </item>
@@ -619,7 +619,7 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_355">
        <property name="text">
-        <string>Power B  </string>
+        <string>Power B</string>
        </property>
       </widget>
      </item>
@@ -666,7 +666,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>Mag Transform &amp;T5b  Internal Rotation; </string>
+      <string>Mag Transform &amp;T5b  Internal Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

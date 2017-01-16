@@ -118,7 +118,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_23">
           <property name="text">
-           <string>fABS addition constant   </string>
+           <string>fABS addition constant</string>
           </property>
          </widget>
         </item>

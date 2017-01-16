@@ -44,7 +44,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string> Cpixel Multiplier </string>
+        <string>Cpixel Multiplier</string>
        </property>
       </widget>
      </item>

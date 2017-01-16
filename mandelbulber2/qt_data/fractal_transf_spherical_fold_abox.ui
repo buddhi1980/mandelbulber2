@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_52">
      <property name="text">
-      <string> Spherical Fold - ABox/ASurf</string>
+      <string>Spherical Fold - ABox/ASurf</string>
      </property>
     </widget>
    </item>

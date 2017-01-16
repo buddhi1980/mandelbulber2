@@ -212,7 +212,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Sing&amp;le Formula addCpixel  Constant Multiplier </string>
+      <string>Sing&amp;le Formula addCpixel  Constant Multiplier</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -540,7 +540,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>Julia constant </string>
+           <string>Julia constant</string>
           </property>
          </widget>
         </item>
@@ -552,7 +552,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>Internal &amp;Rotation; </string>
+      <string>Internal &amp;Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

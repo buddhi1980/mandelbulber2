@@ -100,7 +100,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z, </string>
+           <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
           </property>
          </widget>
         </item>
@@ -147,14 +147,14 @@
         <item row="4" column="0">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
           <property name="text">
-           <string>Type 3 </string>
+           <string>Type 3</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
           <property name="text">
-           <string>Type 1 </string>
+           <string>Type 1</string>
           </property>
          </widget>
         </item>
@@ -242,7 +242,7 @@
         <item row="4" column="1">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>z = fabs(z + fold) </string>
+           <string>z = fabs(z + fold)</string>
           </property>
          </widget>
         </item>

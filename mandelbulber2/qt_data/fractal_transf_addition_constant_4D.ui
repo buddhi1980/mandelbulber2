@@ -129,7 +129,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_164">
        <property name="text">
-        <string>Addition Constant  </string>
+        <string>Addition Constant</string>
        </property>
       </widget>
      </item>
