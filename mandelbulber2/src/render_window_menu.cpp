@@ -246,7 +246,7 @@ void RenderWindow::slotMenuRedo()
 
 void RenderWindow::ResetDocksPositions()
 {
-	restoreGeometry(defaultGeometry);
+	//restoreGeometry(defaultGeometry);
 	restoreState(defaultState);
 	setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
 	setCorner(Qt::TopRightCorner, Qt::RightDockWidgetArea);

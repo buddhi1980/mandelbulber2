@@ -462,7 +462,7 @@ void RenderWindow::slotMenuLoadCustomWindowState(QString filename)
 		qWarning() << "Could not open input files: " << filename << ".[geometry,state]";
 		return;
 	}
-	this->restoreGeometry(fileGeometry.readAll());
+	//this->restoreGeometry(fileGeometry.readAll());
 	this->restoreState(fileState.readAll());
 }
 
