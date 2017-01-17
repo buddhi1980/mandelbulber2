@@ -7513,63 +7513,54 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	if (z4D.y - z4D.w < 0.0) swap(z4D.w, z4D.y);
 	if (z4D.z - z4D.w < 0.0) swap(z4D.w, z4D.z);
 
-	// temp3D rot
-
+		// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
-		CVector3 Z3 = CVector3(z4D.x, z4D.y, z4D.z);
-		Z3 = fractal->transformCommon.rotationMatrix.RotateVector(Z3);
-		z4D.x = Z3.x;
-		z4D.y = Z3.y;
-		z4D.z = Z3.z;
-	}
-
-	// temp 4D rotation
-
-	CVector4 tp;
-	if (fractal->transformCommon.rotation44a.x != 0)
-	{
-		tp = z4D;
-		double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
-		z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
-		z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
-	}
-	if (fractal->transformCommon.rotation44a.y != 0)
-	{
-		tp = z4D;
-		double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
-		z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
-		z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
-	}
-	if (fractal->transformCommon.rotation44a.z != 0)
-	{
-		tp = z4D;
-		double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
-		z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
-		z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
-	}
-	if (fractal->transformCommon.rotation44b.x != 0)
-	{
-		tp = z4D;
-		double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
-		z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
-		z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
-	}
-	if (fractal->transformCommon.rotation44b.y != 0)
-	{
-		tp = z4D;
-		double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
-		z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
-		z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
-	}
-	if (fractal->transformCommon.rotation44b.z != 0)
-	{
-		tp = z4D;
-		double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
-		z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
-		z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		CVector4 tp;
+		if (fractal->transformCommon.rotation44a.x != 0)
+		{
+			tp = z4D;
+			double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
+			z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+			z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+		}
+		if (fractal->transformCommon.rotation44a.y != 0)
+		{
+			tp = z4D;
+			double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
+			z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+			z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+		}
+		if (fractal->transformCommon.rotation44a.z != 0)
+		{
+			tp = z4D;
+			double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
+			z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+			z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+		}
+		if (fractal->transformCommon.rotation44b.x != 0)
+		{
+			tp = z4D;
+			double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
+			z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+			z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+		}
+		if (fractal->transformCommon.rotation44b.y != 0)
+		{
+			tp = z4D;
+			double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
+			z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+			z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+		}
+		if (fractal->transformCommon.rotation44b.z != 0)
+		{
+			tp = z4D;
+			double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
+			z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+			z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		}
 	}
 
 	double scaleM = fractal->transformCommon.scale3;
@@ -7657,61 +7648,54 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 	if (z4D.y - z4D.w < 0.0) swap(z4D.w, z4D.y);
 	if (z4D.z - z4D.w < 0.0) swap(z4D.w, z4D.z);
 
-	// temp3D rot
+		// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
-		CVector3 Z3 = CVector3(z4D.x, z4D.y, z4D.z);
-		Z3 = fractal->transformCommon.rotationMatrix.RotateVector(Z3);
-		z4D.x = Z3.x;
-		z4D.y = Z3.y;
-		z4D.z = Z3.z;
-	}
-	// temp 4D rotation
-
-	CVector4 tp;
-	if (fractal->transformCommon.rotation44a.x != 0)
-	{
-		tp = z4D;
-		double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
-		z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
-		z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
-	}
-	if (fractal->transformCommon.rotation44a.y != 0)
-	{
-		tp = z4D;
-		double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
-		z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
-		z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
-	}
-	if (fractal->transformCommon.rotation44a.z != 0)
-	{
-		tp = z4D;
-		double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
-		z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
-		z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
-	}
-	if (fractal->transformCommon.rotation44b.x != 0)
-	{
-		tp = z4D;
-		double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
-		z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
-		z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
-	}
-	if (fractal->transformCommon.rotation44b.y != 0)
-	{
-		tp = z4D;
-		double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
-		z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
-		z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
-	}
-	if (fractal->transformCommon.rotation44b.z != 0)
-	{
-		tp = z4D;
-		double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
-		z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
-		z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		CVector4 tp;
+		if (fractal->transformCommon.rotation44a.x != 0)
+		{
+			tp = z4D;
+			double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
+			z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+			z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+		}
+		if (fractal->transformCommon.rotation44a.y != 0)
+		{
+			tp = z4D;
+			double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
+			z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+			z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+		}
+		if (fractal->transformCommon.rotation44a.z != 0)
+		{
+			tp = z4D;
+			double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
+			z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+			z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+		}
+		if (fractal->transformCommon.rotation44b.x != 0)
+		{
+			tp = z4D;
+			double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
+			z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+			z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+		}
+		if (fractal->transformCommon.rotation44b.y != 0)
+		{
+			tp = z4D;
+			double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
+			z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+			z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+		}
+		if (fractal->transformCommon.rotation44b.z != 0)
+		{
+			tp = z4D;
+			double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
+			z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+			z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		}
 	}
 	double scaleM = fractal->transformCommon.scale3;
 	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
@@ -7843,93 +7827,55 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 	{
 		z4D += fractal->transformCommon.additionConstant0000; // offset
 	}
-
-	// temp3D rot
-
+		// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
-		CVector3 Z3 = CVector3(z4D.x, z4D.y, z4D.z);
-		Z3 = fractal->transformCommon.rotationMatrix.RotateVector(Z3);
-		z4D.x = Z3.x;
-		z4D.y = Z3.y;
-		z4D.z = Z3.z;
+		CVector4 tp;
+		if (fractal->transformCommon.rotation44a.x != 0)
+		{
+			tp = z4D;
+			double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
+			z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+			z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+		}
+		if (fractal->transformCommon.rotation44a.y != 0)
+		{
+			tp = z4D;
+			double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
+			z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+			z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+		}
+		if (fractal->transformCommon.rotation44a.z != 0)
+		{
+			tp = z4D;
+			double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
+			z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+			z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+		}
+		if (fractal->transformCommon.rotation44b.x != 0)
+		{
+			tp = z4D;
+			double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
+			z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+			z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+		}
+		if (fractal->transformCommon.rotation44b.y != 0)
+		{
+			tp = z4D;
+			double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
+			z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+			z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+		}
+		if (fractal->transformCommon.rotation44b.z != 0)
+		{
+			tp = z4D;
+			double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
+			z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+			z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		}
 	}
-
-	// 4D rotation
-	// z4D = fractal->transformCommon.rotationMatrix44.RotateVector(z4D);
-
-	/*
-	mat4 rotationXY  ( double angle )
-	{
-		mat4 rot;
-		rot[0] = CVector4(cos(angle), sin(angle), 0.0, 0.0);
-		rot[1] = CVector4(-sin(angle), cos(angle), 0.0, 0.0);
-		rot[2] = CVector4(0.0, 0.0, 1.0, 0.0);
-		rot[3] = CVector4(0.0, 0.0, 0.0, 1.0);
-		return rot;
-	}
-
-	mat4 rotationYZ  ( double angle )
-	{
-		mat4 rot;
-		rot[0] = CVector4(1.0, 0.0, 0.0, 0.0);
-		rot[1] = CVector4(0.0, cos(angle), sin(angle), 0.0);
-		rot[2] = CVector4(0.0, -sin(angle), cos(angle), 0.0);
-		rot[3] = CVector4(0.0, 0.0, 0.0, 1.0);
-		return rot;
-	}
-
-	mat4 rotationXZ  ( double angle )
-	{
-		mat4 rot;
-		rot[0] = CVector4(cos(angle), 0.0, -sin(angle), 0.0);
-		rot[1] = CVector4(0.0, 1.0, 0.0, 0.0);
-		rot[2] = CVector4(sin(angle), 0.0, cos(angle), 0.0);
-		rot[3] = CVector4(0.0, 0.0, 0.0, 1.0);
-		return rot;
-	}
-
-	mat4 rotationXW  ( double angle )
-	{
-		mat4 rot;
-		rot[0] = CVector4(cos(angle), 0.0, 0.0, sin(angle));
-		rot[1] = CVector4(0.0, 1.0, 0.0, 0.0);
-		rot[2] = CVector4(0.0, 0.0, 1.0, 0.0);
-		rot[3] = CVector4(-sin(angle), 0.0, 0.0, cos(angle));
-		return rot;
-	}
-
-	mat4 rotationYW  ( double angle )
-	{
-		mat4 rot;
-		rot[0] = CVector4(1.0, 0.0, 0.0, 0.0);
-		rot[1] = CVector4(0.0, cos(angle), 0.0, -sin(angle));
-		rot[2] = CVector4(0.0, 0.0, 1.0, 0.0);
-		rot[3] = CVector4(0.0, sin(angle), 0.0, cos(angle));
-		return rot;
-	}
-
-	mat4 rotationZW  ( double angle )
-	{
-		mat4 rot;
-		rot[0] = CVector4(1.0, 0.0, 0.0, 0.0);
-		rot[1] = CVector4(0.0, 1.0, 0.0, 0.0);
-		rot[2] = CVector4(0.0, 0.0, cos(angle), -sin(angle));
-		rot[3] = CVector4(0.0, 0.0, sin(angle), cos(angle));
-		return rot;
-	}
-
-	mat4 scale  ( CVector4 scale4 )
-	{
-		mat4 rot;
-		rot[0] = CVector4(scale4.x, 0.0, 0.0, 0.0);
-		rot[1] = CVector4(0.0, scale4.y, 0.0, 0.0);
-		rot[2] = CVector4(0.0, 0.0, scale4.z, 0.0);
-		rot[3] = CVector4(0.0, 0.0, 0.0, scale4.w);
-		return rot;
-	}*/
 
 	double scaleM = fractal->transformCommon.scale2;
 	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
@@ -7949,12 +7895,6 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
  */
 void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	/*if (z4D.x + z4D.y < 0.0) z4D = CVector4(-z4D.y, -z4D.x, z4D.z, z4D.w);
-	if (z4D.x + z4D.z < 0.0) z4D = CVector4(-z4D.z, z4D.y, -z4D.x, z4D.w);
-	if (z4D.y + z4D.z < 0.0) z4D = CVector4(z4D.x, -z4D.z, -z4D.y, z4D.w);
-	if (z4D.x + z4D.w < 0.0) z4D = CVector4(-z4D.w, z4D.y, z4D.z, -z4D.x);
-	if (z4D.y + z4D.w < 0.0) z4D = CVector4(z4D.x, -z4D.w, z4D.z, -z4D.y);
-	if (z4D.z + z4D.w < 0.0) z4D = CVector4(z4D.x, z4D.y, -z4D.w, -z4D.z);*/
 
 	double temp;
 	if (z4D.x + z4D.y < 0.0)
@@ -8008,18 +7948,54 @@ void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 		z4D -= fractal->transformCommon.offset1111; // neg offset
 	}
 
-	// temp3D rot
-
+		// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
-		CVector3 z3 = CVector3(z4D.x, z4D.y, z4D.z);
-
-		z3 = fractal->transformCommon.rotationMatrix.RotateVector(z3);
-		z4D.x = z3.x;
-		z4D.y = z3.y;
-		z4D.z = z3.z;
+		CVector4 tp;
+		if (fractal->transformCommon.rotation44a.x != 0)
+		{
+			tp = z4D;
+			double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
+			z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+			z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+		}
+		if (fractal->transformCommon.rotation44a.y != 0)
+		{
+			tp = z4D;
+			double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
+			z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+			z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+		}
+		if (fractal->transformCommon.rotation44a.z != 0)
+		{
+			tp = z4D;
+			double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
+			z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+			z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+		}
+		if (fractal->transformCommon.rotation44b.x != 0)
+		{
+			tp = z4D;
+			double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
+			z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+			z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+		}
+		if (fractal->transformCommon.rotation44b.y != 0)
+		{
+			tp = z4D;
+			double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
+			z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+			z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+		}
+		if (fractal->transformCommon.rotation44b.z != 0)
+		{
+			tp = z4D;
+			double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
+			z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+			z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		}
 	}
 	aux.DE *= fractal->analyticDE.scale1;
 }
@@ -8027,19 +8003,79 @@ void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 /**
  * Quaternion4D
  */
-void Quaternion4DIteration(CVector4 &z4D, const cFractal *fractal)
+void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 {
 	z4D = CVector4(z4D.x * z4D.x - z4D.y * z4D.y - z4D.z * z4D.z - z4D.w * z4D.w, z4D.x * z4D.y,
 		z4D.x * z4D.z, z4D.w);
 	z4D *= fractal->transformCommon.constantMultiplier1220;
 	z4D += fractal->transformCommon.additionConstant0000;
+
+		// 6 plane rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		CVector4 tp;
+		if (fractal->transformCommon.rotation44a.x != 0)
+		{
+			tp = z4D;
+			double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
+			z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+			z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+		}
+		if (fractal->transformCommon.rotation44a.y != 0)
+		{
+			tp = z4D;
+			double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
+			z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+			z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+		}
+		if (fractal->transformCommon.rotation44a.z != 0)
+		{
+			tp = z4D;
+			double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
+			z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+			z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+		}
+		if (fractal->transformCommon.rotation44b.x != 0)
+		{
+			tp = z4D;
+			double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
+			z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+			z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+		}
+		if (fractal->transformCommon.rotation44b.y != 0)
+		{
+			tp = z4D;
+			double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
+			z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+			z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+		}
+		if (fractal->transformCommon.rotation44b.z != 0)
+		{
+			tp = z4D;
+			double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
+			z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+			z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		}
+	}
 }
+
 
 /**
  * Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
  */
-void MandelboxVaryScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
+void MandelboxVaryScale4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
+	double paraAddP0 = 0.0;
+	if (fractal->Cpara.enabledParabFalse)
+	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+		paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
+								+ (i * i * 0.001 * fractal->Cpara.parabScale);
+		z4D.w += paraAddP0;
+	}
+
+
 	aux.actualScale =
 		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector4 oldz = z4D;
@@ -8071,8 +8107,56 @@ void MandelboxVaryScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExte
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z4D *= m;
-	z4D.w += fractal->mandelboxVary4D.wadd;
 	aux.DE = aux.DE * fabs(m) + 1.0;
+		// 6 plane rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		CVector4 tp;
+		if (fractal->transformCommon.rotation44a.x != 0)
+		{
+			tp = z4D;
+			double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
+			z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+			z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+		}
+		if (fractal->transformCommon.rotation44a.y != 0)
+		{
+			tp = z4D;
+			double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
+			z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+			z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+		}
+		if (fractal->transformCommon.rotation44a.z != 0)
+		{
+			tp = z4D;
+			double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
+			z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+			z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+		}
+		if (fractal->transformCommon.rotation44b.x != 0)
+		{
+			tp = z4D;
+			double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
+			z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+			z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+		}
+		if (fractal->transformCommon.rotation44b.y != 0)
+		{
+			tp = z4D;
+			double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
+			z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+			z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+		}
+		if (fractal->transformCommon.rotation44b.z != 0)
+		{
+			tp = z4D;
+			double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
+			z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+			z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		}
+	}
 }
 
 /**

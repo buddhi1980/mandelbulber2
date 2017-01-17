@@ -851,7 +851,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case quaternion4D:
 				{
 					CVector4 z4D(z, w);
-					Quaternion4DIteration(z4D, fractal);
+					Quaternion4DIteration(z4D, i, fractal);
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;
@@ -859,7 +859,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelboxVaryScale4D:
 				{
 					CVector4 z4D(z, w);
-					MandelboxVaryScale4DIteration(z4D, fractal, extendedAux);
+					MandelboxVaryScale4DIteration(z4D, i, fractal, extendedAux);
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;

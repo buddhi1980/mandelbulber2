@@ -60,7 +60,7 @@ enum enumFractalFormula
 	mandelbulb4 = 15,
 	boxFoldBulbPow2 = 16,
 	smoothMandelbox = 17,
-	mandelboxVaryScale4D = 18,
+	mandelboxVaryScale4D = 18,// updated V2.10
 	aexion = 19,
 	benesi = 20,
 	bristorbrot = 21,
@@ -115,7 +115,7 @@ enum enumFractalFormula
 	aboxVSIcen1 = 76,
 	amazingSurfMod1 = 77, // updated V2.08
 	mandelbulbVaryPowerV1 = 78,
-	quaternion4D = 79,
+	quaternion4D = 79,// updated V2.10
 	msltoesym3Mod2 = 80,
 	msltoesym3Mod3 = 81,
 	msltoeDonut = 82,
