@@ -48,7 +48,20 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
+
 	player = new QMediaPlayer;
+
+  QAudioFormat format;
+  // Set up the format, eg.
+  format.setSampleRate(44100);
+  format.setChannelCount(1);
+  format.setSampleSize(32);
+  format.setCodec("audio/pcm");
+  format.setByteOrder(QAudioFormat::LittleEndian);
+  format.setSampleType(QAudioFormat::Float);
+  audioOutput = new QAudioOutput(format, this);
+  audioOutput->setVolume(1.0);
+
 	ConnectSignals();
 	audio = nullptr;
 	animationFrames = nullptr;
@@ -59,6 +72,11 @@ cAudioSelector::~cAudioSelector()
 {
 	SynchronizeInterfaceWindow(this, gPar, qInterface::read);
 	delete player;
+	if(audioOutput)
+	{
+		audioOutput->stop();
+		delete audioOutput;
+	}
 }
 
 void cAudioSelector::slotLoadAudioFile()
@@ -178,18 +196,33 @@ void cAudioSelector::slotPlaybackStart()
 {
 	if (audio->isLoaded())
 	{
-		QString filename = ui->text_animsound_soundfile->text();
-		connect(
-			player, SIGNAL(positionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
-		player->setMedia(QUrl::fromLocalFile(filename));
-		player->setNotifyInterval(50);
-		player->play();
+//		QString filename = ui->text_animsound_soundfile->text();
+//		connect(
+//			player, SIGNAL(positionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
+//		player->setMedia(QUrl::fromLocalFile(filename));
+//		player->setNotifyInterval(50);
+//		player->play();
+
+    audioOutput->setNotifyInterval(100);
+
+    connect(audioOutput, SIGNAL(notify()), this, SLOT(positionChanged()));
+
+    QByteArray byteArray(reinterpret_cast<char*>(audio->getRawAudio()), audio->getLength() * sizeof(float));
+    QDataStream stream(&byteArray, QIODevice::ReadOnly);
+
+    audioOutput->start(stream.device());
+
+  	QApplication::processEvents();
+    while(audioOutput->state() != QAudio::StoppedState)
+    {
+    	QApplication::processEvents();
+    }
 	}
 }
 
 void cAudioSelector::slotPlaybackStop()
 {
-	player->stop();
+	audioOutput->stop();
 }
 
 QString cAudioSelector::FullParameterName(const QString &name)

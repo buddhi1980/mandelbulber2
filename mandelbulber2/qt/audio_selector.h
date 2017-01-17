@@ -37,6 +37,7 @@
 
 #include <QWidget>
 #include <QMediaPlayer>
+#include <QAudioOutput>
 
 // forward declarations
 class cAutomatedWidgets;
@@ -79,6 +80,7 @@ private:
 	cAnimationFrames *animationFrames;
 
 	QMediaPlayer *player;
+	QAudioOutput *audioOutput; // class member.
 
 signals:
 	void freqencyChanged(double midfreq, double bandwidth);

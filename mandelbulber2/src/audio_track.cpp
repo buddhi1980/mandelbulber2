@@ -404,3 +404,15 @@ void cAudioTrack::smoothFilter(double strength)
 		animation[i] = value;
 	}
 }
+
+float *cAudioTrack::getRawAudio()
+{
+	if(isLoaded())
+	{
+		return rawAudio.data();
+	}
+	else
+	{
+		return nullptr;
+	}
+}
