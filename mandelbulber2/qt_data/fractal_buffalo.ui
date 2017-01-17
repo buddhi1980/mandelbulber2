@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>648</width>
+    <width>718</width>
     <height>845</height>
    </rect>
   </property>
@@ -64,7 +64,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>PreAbs(x)</string>
+      <string>PreAbs(z)</string>
      </property>
     </widget>
    </item>
@@ -77,7 +77,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Abs(x)</string>
+      <string notr="true">abs(x)</string>
      </property>
     </widget>
    </item>
@@ -90,7 +90,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Abs(y)</string>
+      <string notr="true">abs(y)</string>
      </property>
     </widget>
    </item>
@@ -103,7 +103,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Abs(z)</string>
+      <string notr="true">abs(z)</string>
      </property>
     </widget>
    </item>

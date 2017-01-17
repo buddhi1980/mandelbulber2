@@ -168,6 +168,7 @@ foreach($formulas as $index => $formula){
 		array('find' => '/\>\s*([^<]+?)\s*:\s*<\/string>/', 'replace' => '>$1:</string>'), // whitespace fix 2
 		array('find' => '/<string>(.*?)\s(\s.*?)<\/string>/', 'replace' => '<string>$1$2</string>'), // whitespace fix 3
 		array('find' => '/<string>fabs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>fabs($1)</string>'),
+		array('find' => '/<string>abs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>abs($1)</string>'),
 		array('find' => '/<string>(.*?)::(.*?)<\/string>/', 'replace' => '<string>$1:$2</string>'),
 	);
 	foreach($replaceFormulaLookup as $item){
@@ -184,6 +185,9 @@ foreach($formulas as $index => $formula){
 		'xw', 'yw', 'zw',
 		'alpha', 'beta', 'gamma',
 		'fabs', 'fabs\(z\.x\)', 'fabs\(z\.y\)', 'fabs\(z\.z\)',
+		'abs', 'abs\(x\)', 'abs\(y\)', 'abs\(z\)',
+		'T1', 'T1mod', 'T2', 'T3', 'T4', 'T5b',
+		'asin', 'acos', 'atan', 'atan2',
 	);
 
   foreach($notrRemoveDoublePointCI as $item){

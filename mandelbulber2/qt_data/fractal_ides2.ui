@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>718</width>
-    <height>562</height>
+    <height>589</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_267">
        <property name="text">
-        <string>Multiplier</string>
+        <string>Multiplier:</string>
        </property>
       </widget>
      </item>
@@ -219,17 +219,10 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="label_147">
-       <property name="text">
-        <string>Sub Multiplier</string>
-       </property>
-      </widget>
-     </item>
      <item row="5" column="1">
       <widget class="QLabel" name="label_146">
        <property name="text">
-        <string>Sub Multiplier</string>
+        <string>Sub Multiplier:</string>
        </property>
       </widget>
      </item>
@@ -443,15 +436,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

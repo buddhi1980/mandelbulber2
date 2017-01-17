@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>979</width>
-    <height>5787</height>
+    <width>1107</width>
+    <height>5933</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -695,7 +695,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Spherical Fold;</string>
+        <string>Spherical Fold</string>
        </property>
       </widget>
      </item>
@@ -1091,7 +1091,7 @@ offset:</string>
        <item row="0" column="0">
         <widget class="QLabel" name="label_140">
          <property name="text">
-          <string>Scale</string>
+          <string>Scale:</string>
          </property>
         </widget>
        </item>
@@ -2846,7 +2846,7 @@ offset:</string>
       <string/>
      </property>
      <property name="title">
-      <string>Men&amp;ger_Sponge</string>
+      <string>Men&amp;ger Sponge</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3872,7 +3872,7 @@ offset:</string>
               </font>
              </property>
              <property name="text">
-              <string>Cpixel Multiplier</string>
+              <string>Cpixel Multiplier:</string>
              </property>
             </widget>
            </item>
@@ -4103,7 +4103,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Scale component</string>
+        <string>Scale component:</string>
        </property>
       </widget>
      </item>
@@ -4520,7 +4520,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z component</string>
+        <string>Absolute value of z component:</string>
        </property>
       </widget>
      </item>
@@ -4533,7 +4533,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Orbit trap component</string>
+        <string>Orbit trap component:</string>
        </property>
       </widget>
      </item>
@@ -4800,9 +4800,9 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -4811,9 +4811,9 @@ offset:</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -127,7 +127,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_173">
           <property name="text">
-           <string>KaliDucks minR</string>
+           <string>KaliDucks minR:</string>
           </property>
          </widget>
         </item>
@@ -329,7 +329,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>Cpixel Multiplier</string>
+           <string>Cpixel Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -540,7 +540,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>Julia constant</string>
+           <string>Julia constant:</string>
           </property>
          </widget>
         </item>
@@ -552,7 +552,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>Internal &amp;Rotation;</string>
+      <string>Internal &amp;Rotation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -829,15 +829,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyLineEdit</class>

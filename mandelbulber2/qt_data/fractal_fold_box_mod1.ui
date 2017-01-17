@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>2538</height>
+    <height>2567</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Fold Box Mod1 z = fabs(z + Const.F1) - fabs(z - Const.F2) - (z * Const.F3)</string>
+      <string notr="true">Fold Box Mod1 z = fabs(z + Const.F1) - fabs(z - Const.F2) - (z * Const.F3)</string>
      </property>
     </widget>
    </item>
@@ -375,7 +375,7 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_95">
        <property name="text">
-        <string>fabs(z - Const.F2)</string>
+        <string notr="true">fabs(z - Const.F2)</string>
        </property>
       </widget>
      </item>
@@ -411,7 +411,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_68">
        <property name="text">
-        <string>fabs(z + Const.F1)</string>
+        <string notr="true">fabs(z + Const.F1)</string>
        </property>
       </widget>
      </item>
@@ -444,7 +444,7 @@
      <item row="10" column="1">
       <widget class="QLabel" name="label_100">
        <property name="text">
-        <string>Const.F3</string>
+        <string notr="true">Const.F3</string>
        </property>
       </widget>
      </item>
@@ -948,7 +948,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
-      <string>Spherical Fold;</string>
+      <string>Spherical Fold</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -1661,9 +1661,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -1672,9 +1672,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

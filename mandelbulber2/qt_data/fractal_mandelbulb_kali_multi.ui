@@ -208,12 +208,12 @@
            <widget class="QComboBox" name="comboBox_mandelbulbMulti_acos_or_asin_A">
             <item>
              <property name="text">
-              <string>acos</string>
+              <string notr="true">acos</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>asin</string>
+              <string notr="true">asin</string>
              </property>
             </item>
            </widget>
@@ -256,12 +256,12 @@
            <widget class="QComboBox" name="comboBox_mandelbulbMulti_atan_or_atan2_A">
             <item>
              <property name="text">
-              <string>atan</string>
+              <string notr="true">atan</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>atan2</string>
+              <string notr="true">atan2</string>
              </property>
             </item>
            </widget>
@@ -694,12 +694,12 @@
       <widget class="QComboBox" name="comboBox_mandelbulbMulti_acos_or_asin">
        <item>
         <property name="text">
-         <string>acos</string>
+         <string notr="true">acos</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>asin</string>
+         <string notr="true">asin</string>
         </property>
        </item>
       </widget>
@@ -718,12 +718,12 @@
       <widget class="QComboBox" name="comboBox_mandelbulbMulti_atan_or_atan2">
        <item>
         <property name="text">
-         <string>atan</string>
+         <string notr="true">atan</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>atan2</string>
+         <string notr="true">atan2</string>
         </property>
        </item>
       </widget>
@@ -1002,7 +1002,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_108">
           <property name="text">
-           <string>Cpixel Multiplier</string>
+           <string>Cpixel Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -1407,15 +1407,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -172,7 +172,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>abs (x)</string>
+           <string notr="true">abs(x)</string>
           </property>
          </widget>
         </item>
@@ -185,7 +185,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>abs (z)</string>
+           <string notr="true">abs(z)</string>
           </property>
          </widget>
         </item>
@@ -366,7 +366,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>abs (y)</string>
+           <string notr="true">abs(y)</string>
           </property>
          </widget>
         </item>

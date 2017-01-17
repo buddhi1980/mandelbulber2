@@ -236,12 +236,12 @@
       <widget class="QComboBox" name="comboBox_sinTan2Trig_atan2_or_atan">
        <item>
         <property name="text">
-         <string>atan2</string>
+         <string notr="true">atan2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>atan</string>
+         <string notr="true">atan</string>
         </property>
        </item>
       </widget>
@@ -304,12 +304,12 @@
       <widget class="QComboBox" name="comboBox_sinTan2Trig_asin_or_acos">
        <item>
         <property name="text">
-         <string>asin</string>
+         <string notr="true">asin</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>acos</string>
+         <string notr="true">acos</string>
         </property>
        </item>
       </widget>
