@@ -98,21 +98,21 @@
            <item row="0" column="2">
             <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
              <property name="text">
-              <string>fabs(z.z)</string>
+              <string notr="true">fabs(z.z)</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
             <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
              <property name="text">
-              <string>fabs(z.y)</string>
+              <string notr="true">fabs(z.y)</string>
              </property>
             </widget>
            </item>
            <item row="0" column="0">
             <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
              <property name="text">
-              <string>fabs(z.x)</string>
+              <string notr="true">fabs(z.x)</string>
              </property>
             </widget>
            </item>

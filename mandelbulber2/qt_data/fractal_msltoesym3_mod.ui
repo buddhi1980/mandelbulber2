@@ -647,7 +647,7 @@
         <item row="2" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
-           <string>fABS</string>
+           <string notr="true">fabs</string>
           </property>
          </widget>
         </item>
@@ -679,7 +679,7 @@
         <item row="0" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
           <property name="text">
-           <string>fABS</string>
+           <string notr="true">fabs</string>
           </property>
          </widget>
         </item>
@@ -711,7 +711,7 @@
         <item row="1" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
-           <string>fABS</string>
+           <string notr="true">fabs</string>
           </property>
          </widget>
         </item>

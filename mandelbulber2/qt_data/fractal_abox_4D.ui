@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>916</width>
-    <height>1849</height>
+    <width>1051</width>
+    <height>3145</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -197,7 +197,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_100">
        <property name="text">
-        <string>Value:</string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -211,7 +211,7 @@
      <item row="0" column="3">
       <widget class="QLabel" name="label_97">
        <property name="text">
-        <string>z.w parabolic = paraOffset + iter *slope + (iter *iter *scale)</string>
+        <string notr="true">z.w parabolic = paraOffset + iter *slope + (iter *iter *scale)</string>
        </property>
       </widget>
      </item>
@@ -558,7 +558,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>MaximumR2</string>
+        <string>MaximumR2:</string>
        </property>
       </widget>
      </item>
@@ -626,7 +626,7 @@
        <item row="3" column="1">
         <widget class="QLabel" name="label_91">
          <property name="text">
-          <string>Spherical Fold</string>
+          <string>Spherical Fold Offset:</string>
          </property>
         </widget>
        </item>
@@ -802,13 +802,6 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QLabel" name="label_92">
-         <property name="text">
-          <string>Offset:</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item row="3" column="1" colspan="2">
@@ -858,7 +851,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
-        <string>MinimumR2</string>
+        <string>MinimumR2:</string>
        </property>
       </widget>
      </item>
@@ -1240,7 +1233,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_48">
           <property name="text">
-           <string>ZW</string>
+           <string notr="true">zw</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1291,7 +1284,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_49">
           <property name="text">
-           <string>YW</string>
+           <string notr="true">yw</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1329,7 +1322,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_50">
           <property name="text">
-           <string>XW</string>
+           <string notr="true">xw</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -1495,7 +1488,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_164">
        <property name="text">
-        <string>Addition Constant</string>
+        <string>Addition Constant:</string>
        </property>
       </widget>
      </item>
@@ -2174,9 +2167,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -2185,9 +2178,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
