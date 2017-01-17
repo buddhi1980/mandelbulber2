@@ -1216,7 +1216,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>DotScale::</string>
+           <string>DotScale:</string>
           </property>
          </widget>
         </item>
@@ -1402,7 +1402,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>DotScale::</string>
+           <string>DotScale:</string>
           </property>
          </widget>
         </item>

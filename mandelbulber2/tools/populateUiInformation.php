@@ -168,6 +168,7 @@ foreach($formulas as $index => $formula){
 		array('find' => '/\>\s*([^<]+?)\s*:\s*<\/string>/', 'replace' => '>$1:</string>'), // whitespace fix 2
 		array('find' => '/<string>(.*?)\s(\s.*?)<\/string>/', 'replace' => '<string>$1$2</string>'), // whitespace fix 3
 		array('find' => '/<string>fabs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>fabs($1)</string>'),
+		array('find' => '/<string>(.*?)::(.*?)<\/string>/', 'replace' => '<string>$1:$2</string>'),
 	);
 	foreach($replaceFormulaLookup as $item){
 	  $newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);

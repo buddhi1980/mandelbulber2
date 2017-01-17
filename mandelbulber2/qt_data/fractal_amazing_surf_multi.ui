@@ -232,7 +232,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Fold Types</string>
+        <string>Fold Type</string>
        </property>
       </widget>
      </item>
@@ -366,27 +366,27 @@
        </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
@@ -398,27 +398,27 @@
        </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
@@ -430,27 +430,27 @@
        </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
@@ -462,27 +462,27 @@
        </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
@@ -497,10 +497,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>order of Fold Types</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <string>Order of Fold Types:</string>
        </property>
       </widget>
      </item>
@@ -518,27 +515,27 @@
        </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
@@ -738,7 +735,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Slot , Fold Type and Iteration controls</string>
+        <string>Slot, Fold Type and Iteration controls</string>
        </property>
       </widget>
      </item>
@@ -775,14 +772,14 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_12">
        <property name="text">
-        <string>z.z Fold Value</string>
+        <string>z.z Fold Value:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
        <property name="text">
-        <string>enable z.z scale</string>
+        <string>Enable z.z scale</string>
        </property>
       </widget>
      </item>
@@ -902,7 +899,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_21">
        <property name="text">
-        <string>z.z Fold Limit</string>
+        <string>z.z Fold Limit:</string>
        </property>
       </widget>
      </item>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>916</width>
-    <height>4788</height>
+    <width>1085</width>
+    <height>5074</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -331,7 +331,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Offset</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>
@@ -386,7 +386,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_258">
           <property name="text">
-           <string>Scale</string>
+           <string>Scale:</string>
           </property>
          </widget>
         </item>
@@ -688,7 +688,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>cx:</string>
+           <string notr="true">c.x</string>
           </property>
          </widget>
         </item>
@@ -803,7 +803,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_125">
           <property name="text">
-           <string>Cpixel Multiplier</string>
+           <string>Cpixel Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -1020,6 +1020,9 @@
      </property>
      <item row="5" column="2">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_B">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1033,6 +1036,9 @@
      </item>
      <item row="2" column="3">
       <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_3">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
          <string>T1</string>
@@ -1067,6 +1073,9 @@
      </item>
      <item row="2" column="5">
       <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_5">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
          <string>T1</string>
@@ -1101,6 +1110,9 @@
      </item>
      <item row="2" column="4">
       <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_4">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
          <string>T1</string>
@@ -1135,6 +1147,9 @@
      </item>
      <item row="2" column="2">
       <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
          <string>T1</string>
@@ -1176,6 +1191,9 @@
      </item>
      <item row="2" column="1">
       <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_1">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
          <string>T1</string>
@@ -1248,6 +1266,9 @@
      </item>
      <item row="3" column="1">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1268,6 +1289,9 @@
      </item>
      <item row="3" column="2">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1281,6 +1305,9 @@
      </item>
      <item row="3" column="3">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1294,6 +1321,9 @@
      </item>
      <item row="5" column="1">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_A">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1307,6 +1337,9 @@
      </item>
      <item row="3" column="4">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1320,6 +1353,9 @@
      </item>
      <item row="3" column="5">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_E">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1333,6 +1369,9 @@
      </item>
      <item row="5" column="3">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1346,6 +1385,9 @@
      </item>
      <item row="5" column="4">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1359,6 +1401,9 @@
      </item>
      <item row="5" column="5">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_E">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -1494,7 +1539,7 @@
      <item row="8" column="0">
       <widget class="QLabel" name="label_279">
        <property name="text">
-        <string>T5b</string>
+        <string>T5b:</string>
        </property>
       </widget>
      </item>
@@ -1737,7 +1782,7 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_277">
        <property name="text">
-        <string>T4</string>
+        <string>T4:</string>
        </property>
       </widget>
      </item>
@@ -1772,14 +1817,14 @@
      <item row="6" column="0">
       <widget class="QLabel" name="label_278">
        <property name="text">
-        <string>T5b</string>
+        <string>T5b:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_267">
        <property name="text">
-        <string>T1</string>
+        <string>T1:</string>
        </property>
       </widget>
      </item>
@@ -2154,7 +2199,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_275">
        <property name="text">
-        <string>T2</string>
+        <string>T2:</string>
        </property>
       </widget>
      </item>
@@ -2647,7 +2692,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_274">
        <property name="text">
-        <string>T1Mod</string>
+        <string>T1Mod:</string>
        </property>
       </widget>
      </item>
@@ -2682,7 +2727,7 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_276">
        <property name="text">
-        <string>T3</string>
+        <string>T3:</string>
        </property>
       </widget>
      </item>
@@ -2989,9 +3034,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -3000,11 +3045,252 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_magTransf_order_of_transf_1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>263</x>
+     <y>768</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>802</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_A</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>328</x>
+     <y>769</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>852</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_A</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>280</x>
+     <y>765</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>281</x>
+     <y>886</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_magTransf_order_of_transf_2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>455</x>
+     <y>770</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>453</x>
+     <y>793</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_B</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>484</x>
+     <y>770</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>476</x>
+     <y>840</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_B</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>529</x>
+     <y>759</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>495</x>
+     <y>889</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_magTransf_order_of_transf_3</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>618</x>
+     <y>763</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>616</x>
+     <y>802</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_C</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>685</x>
+     <y>765</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>665</x>
+     <y>842</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_C</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>690</x>
+     <y>764</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>691</x>
+     <y>893</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_magTransf_order_of_transf_4</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>794</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>794</x>
+     <y>796</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_D</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>764</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>842</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_D</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>861</x>
+     <y>770</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>866</x>
+     <y>873</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_magTransf_order_of_transf_5</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>981</x>
+     <y>769</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>970</x>
+     <y>808</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_E</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1022</x>
+     <y>772</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1003</x>
+     <y>842</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_E</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1039</x>
+     <y>775</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1026</x>
+     <y>884</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

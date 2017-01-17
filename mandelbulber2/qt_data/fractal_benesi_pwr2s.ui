@@ -1799,7 +1799,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_113">
           <property name="text">
-           <string>z.y Multiplier::</string>
+           <string>z.y Multiplier:</string>
           </property>
          </widget>
         </item>
