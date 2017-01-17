@@ -466,9 +466,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mengerOcto:
 				{
-					// double xtemp = 0.70710678118654752440084436210485 * ( z.x - z.z );
-					// z.z = 0.70710678118654752440084436210485 * ( z.z + z.x );
-					// z.x = xtemp;
 					MengerOctoIteration(z, i, fractal, extendedAux);
 					break;
 				}
@@ -479,7 +476,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mengerPrismShape2:
 				{
-					// z = CVector3{-z.z, z.x, z.y};
 					MengerPrismShape2Iteration(z, i, fractal, extendedAux);
 					break;
 				}
@@ -545,11 +541,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 
 					// transforms  ------------------------------------------------------------------
-					//				case transfAdditionConstant:
-					{
-						TransformAdditionConstantIteration(z, fractal);
-						break;
-					}
+				case transfAdditionConstant:
+				{
+					TransformAdditionConstantIteration(z, fractal);
+					break;
+				}
 				case transfAdditionConstantVaryV1:
 				{
 					TransformAdditionConstantVaryV1Iteration(z, i, fractal);
@@ -848,6 +844,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 
 				// 4D  ---------------------------------------------------------------------------
+				case abox4D:
+				{
+					CVector4 z4D(z, w);
+					Abox4DIteration(z4D, i, fractal, extendedAux);
+					z = z4D.GetXYZ();
+					w = z4D.w;
+					break;
+				}
+
 				case quaternion4D:
 				{
 					CVector4 z4D(z, w);
@@ -1266,6 +1271,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case aboxVSIcen1:
 				case pseudoKleinian1:
 				case mixPinski4D:
+				case abox4D:
 					// case mengerSmooth:
 					// case mengerSmoothMod1:
 					{
@@ -1360,7 +1366,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
-
+				case abox4D:
 				case foldBoxMod1:
 					out->colorIndex =
 						extendedAux.color * 100.0														 // folds part

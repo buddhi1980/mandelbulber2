@@ -155,6 +155,7 @@ enum enumFractalFormula
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
 	mengerOcto = 115,
+	abox4D = 116,
 
 	// 152 to 172 reserved for scator
 	fastImagscaPower2 = 152,

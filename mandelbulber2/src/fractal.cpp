@@ -399,6 +399,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
 
 	transformCommon.additionConstant0000 = container->Get<CVector4>("transf_addition_constant_0000");
+	transformCommon.offset0000 = container->Get<CVector4>("transf_offset_0000");
 	transformCommon.offset1111 = container->Get<CVector4>("transf_offset_1111");
 	transformCommon.offsetA1111 = container->Get<CVector4>("transf_offsetA_1111");
 	transformCommon.additionConstant111d5 =

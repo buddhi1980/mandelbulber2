@@ -209,6 +209,7 @@ void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExte
 void TransformZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fractal);
 
 // 4D
+void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void MandelboxVaryScale4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);

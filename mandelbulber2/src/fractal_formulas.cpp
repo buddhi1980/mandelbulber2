@@ -7474,6 +7474,107 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fract
 }
 
 //-------------------------------- 4D ----------------------------------------------
+
+/**
+ * Formula based on Mandelbox (ABox). Extended to 4 dimensions
+ */
+void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	double paraAddP0 = 0.0;
+	if (fractal->Cpara.enabledParabFalse)
+	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+		paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
+								+ (i * i * 0.001 * fractal->Cpara.parabScale);
+		z4D.w += paraAddP0;
+	}
+
+	CVector4 oldz = z4D;
+	z4D.x = fabs(z4D.x + fractal->transformCommon.offset1111.x) - fabs(z4D.x - fractal->transformCommon.offset1111.x)
+					- z4D.x;
+	z4D.y = fabs(z4D.y + fractal->transformCommon.offset1111.y) - fabs(z4D.y - fractal->transformCommon.offset1111.y)
+					- z4D.y;
+	z4D.z = fabs(z4D.z + fractal->transformCommon.offset1111.z) - fabs(z4D.z - fractal->transformCommon.offset1111.z)
+					- z4D.z;
+	z4D.w = fabs(z4D.w + fractal->transformCommon.offset1111.w) - fabs(z4D.w - fractal->transformCommon.offset1111.w)
+					- z4D.w;
+
+	if (z4D.x != oldz.x) aux.color += fractal->mandelbox.color.factor4D.x;
+	if (z4D.y != oldz.y) aux.color += fractal->mandelbox.color.factor4D.y;
+	if (z4D.z != oldz.z) aux.color += fractal->mandelbox.color.factor4D.z;
+	if (z4D.w != oldz.w) aux.color += fractal->mandelbox.color.factor4D.w;
+
+	double rr = pow(
+		z4D.x * z4D.x + z4D.y * z4D.y + z4D.z * z4D.z + z4D.w * z4D.w, fractal->mandelboxVary4D.rPower);
+
+	z4D += fractal->transformCommon.offset0000;
+	double m = fractal->mandelbox.scale;
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		m = fractal->mandelbox.scale *  fractal->transformCommon.maxMinR2factor;
+		aux.color += fractal->mandelbox.color.factorSp1;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		m = fractal->mandelbox.scale * fractal->transformCommon.maxR2d1/ rr;
+		aux.color += fractal->mandelbox.color.factorSp2;
+	}
+	z4D -= fractal->transformCommon.offset0000;
+
+
+	z4D *= m;
+	aux.DE = aux.DE * fabs(m) + 1.0;
+		// 6 plane rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		CVector4 tp;
+		if (fractal->transformCommon.rotation44a.x != 0)
+		{
+			tp = z4D;
+			double alpha = fractal->transformCommon.rotation44a.x * M_PI / 180;
+			z4D.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+			z4D.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+		}
+		if (fractal->transformCommon.rotation44a.y != 0)
+		{
+			tp = z4D;
+			double beta = fractal->transformCommon.rotation44a.y * M_PI / 180;
+			z4D.y = tp.y * cos(beta) + tp.z * sin(beta);
+			z4D.z = tp.y * -sin(beta) + tp.z * cos(beta);
+		}
+		if (fractal->transformCommon.rotation44a.z != 0)
+		{
+			tp = z4D;
+			double gamma = fractal->transformCommon.rotation44a.z * M_PI / 180;
+			z4D.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+			z4D.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+		}
+		if (fractal->transformCommon.rotation44b.x != 0)
+		{
+			tp = z4D;
+			double delta = fractal->transformCommon.rotation44b.x * M_PI / 180;
+			z4D.x = tp.x * cos(delta) + tp.w * sin(delta);
+			z4D.w = tp.x * -sin(delta) + tp.w * cos(delta);
+		}
+		if (fractal->transformCommon.rotation44b.y != 0)
+		{
+			tp = z4D;
+			double epsilon = fractal->transformCommon.rotation44b.y * M_PI / 180;
+			z4D.y = tp.y * cos(epsilon) + tp.w * sin(epsilon);
+			z4D.w = tp.y * -sin(epsilon) + tp.w * cos(epsilon);
+		}
+		if (fractal->transformCommon.rotation44b.z != 0)
+		{
+			tp = z4D;
+			double zeta = fractal->transformCommon.rotation44b.z * M_PI / 180;
+			z4D.z = tp.z * cos(zeta) + tp.w * sin(zeta);
+			z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
+		}
+	}
+	z4D += fractal->transformCommon.additionConstant0000;
+}
+
 /**
  * Bristorbrot formula 4D
  * @reference https://code.google.com/archive/p/fractaldimension/
