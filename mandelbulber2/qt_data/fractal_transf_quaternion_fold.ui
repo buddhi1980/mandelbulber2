@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="title">
-      <string>Enable Sca&amp;le and Offset controls; (  iterates only the quaternion fold when disabled.)</string>
+      <string>Enable Sca&amp;le and Offset controls; ( iterates only the quaternion fold when disabled.)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

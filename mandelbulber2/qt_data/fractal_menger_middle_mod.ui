@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Menger Sponge Start Function     Fabs function z = fabs( z + const.A);</string>
+      <string>Menger Sponge Start Function Fabs function z = fabs( z + const.A);</string>
      </property>
     </widget>
    </item>
@@ -757,7 +757,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledBy_false">
      <property name="title">
-      <string>Middle FabsBoxFold (z = fabs(z  + Const.F1)  -  fabs(z - Const.F2)  -  (z * Const.F3)) * Scale</string>
+      <string>Middle FabsBoxFold (z = fabs(z + Const.F1) - fabs(z - Const.F2) - (z * Const.F3)) * Scale</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1540,7 +1540,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Menger Sponge End Function     Apply Constants;</string>
+      <string>Menger Sponge End Function Apply Constants;</string>
      </property>
     </widget>
    </item>
@@ -1794,7 +1794,7 @@
      <item row="3" column="1" colspan="3">
       <widget class="QCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
-        <string>Conditional mode:     if ( z.z  &lt; limit )  z.z = z.z;</string>
+        <string>Conditional mode: if ( z.z &lt; limit ) z.z = z.z;</string>
        </property>
       </widget>
      </item>

@@ -666,7 +666,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>Mag Transform &amp;T5b  Internal Rotation;</string>
+      <string>Mag Transform &amp;T5b Internal Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_167">
      <property name="text">
-      <string>Pre-Rotate , choose a fold,  post-rotate back</string>
+      <string>Pre-Rotate , choose a fold, post-rotate back</string>
      </property>
     </widget>
    </item>
@@ -539,7 +539,7 @@
          <item row="0" column="1">
           <widget class="QLabel" name="label_173">
            <property name="text">
-            <string>z = fabs(z  + offset) - fabs( z - offset ) - z;</string>
+            <string>z = fabs(z + offset) - fabs( z - offset ) - z;</string>
            </property>
           </widget>
          </item>
@@ -781,7 +781,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_172">
          <property name="text">
-          <string>z.z  scale:</string>
+          <string>z.z scale:</string>
          </property>
         </widget>
        </item>
@@ -853,7 +853,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>if ( z &gt;Limit) z =  Value -z,   else if( z &lt;Limit) z = - Value - z,</string>
+        <string>if ( z &gt;Limit) z = Value -z, else if( z &lt;Limit) z = - Value - z,</string>
        </property>
       </widget>
      </item>

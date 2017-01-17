@@ -104,7 +104,7 @@
         <string/>
        </property>
        <property name="title">
-        <string>fn(z)  = Pi Rotation about Vector A</string>
+        <string>fn(z) = Pi Rotation about Vector A</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -379,7 +379,7 @@
      <item row="4" column="0" colspan="3">
       <widget class="QLabel" name="label_175">
        <property name="text">
-        <string>PART A   =  - (ScaleA * z + VectA)  *  fn(z)</string>
+        <string>PART A = - (ScaleA * z + VectA) * fn(z)</string>
        </property>
       </widget>
      </item>
@@ -435,7 +435,7 @@
      <item row="0" column="0" colspan="4">
       <widget class="QLabel" name="label_189">
        <property name="text">
-        <string>Power2 Polynomial   Az^2 + Bz + C</string>
+        <string>Power2 Polynomial Az^2 + Bz + C</string>
        </property>
       </widget>
      </item>
@@ -529,7 +529,7 @@
      <item row="24" column="0" colspan="3">
       <widget class="QLabel" name="label_178">
        <property name="text">
-        <string>PART B =  ScaleB *  z  + VectorC</string>
+        <string>PART B = ScaleB * z + VectorC</string>
        </property>
       </widget>
      </item>
@@ -715,7 +715,7 @@
         <string/>
        </property>
        <property name="title">
-        <string>fn(z)  = Box Offset</string>
+        <string>fn(z) = Box Offset</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -1036,7 +1036,7 @@
      <item row="12" column="0" colspan="3">
       <widget class="QLabel" name="label_171">
        <property name="text">
-        <string>fn( z)  options,  (default = z;)</string>
+        <string>fn( z) options, (default = z;)</string>
        </property>
       </widget>
      </item>
@@ -1046,7 +1046,7 @@
         <string/>
        </property>
        <property name="title">
-        <string>fn( z)   =  cos (  z * pi )</string>
+        <string>fn( z) = cos ( z * pi )</string>
        </property>
        <property name="checkable">
         <bool>true</bool>

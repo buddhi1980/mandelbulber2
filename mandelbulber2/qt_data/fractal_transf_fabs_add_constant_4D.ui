@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_27">
      <property name="text">
-      <string>fABS Add Constant  4D        z = fabs( z + constant)</string>
+      <string>fABS Add Constant 4D z = fabs( z + constant)</string>
      </property>
     </widget>
    </item>

@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>fABS Add Constant   Multi   z = fabs(  z + const.A ) - fabs(  z - const.B )  - (  z * const.C  )</string>
+      <string>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B ) - ( z * const.C )</string>
      </property>
     </widget>
    </item>
@@ -366,7 +366,7 @@
      <item row="10" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>- ( z  *  C )</string>
+        <string>- ( z * C )</string>
        </property>
       </widget>
      </item>

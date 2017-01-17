@@ -39,7 +39,7 @@
    <item>
     <widget class="QLabel" name="label_268">
      <property name="text">
-      <string>Note 2) : termination condition is when iteration reaches  Maxiter,</string>
+      <string>Note 2) : termination condition is when iteration reaches Maxiter,</string>
      </property>
     </widget>
    </item>
@@ -1801,7 +1801,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>fABS Add Constant   Multi   z = fabs(  z + const.A ) - fabs(  z - const.B )&amp;  - (  z * const.C  )</string>
+      <string>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1955,7 +1955,7 @@
         <item row="13" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>- ( z  *  C )</string>
+           <string>- ( z * C )</string>
           </property>
          </widget>
         </item>

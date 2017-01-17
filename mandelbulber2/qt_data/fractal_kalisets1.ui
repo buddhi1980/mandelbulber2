@@ -196,7 +196,7 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Enable Limits (box) on Rendering Engine tab,  and change bottom parameter   z: 10   to    z: 0,  and try low bailout  of 1 or 2.</string>
+         <string>Enable Limits (box) on Rendering Engine tab, and change bottom parameter z: 10 to z: 0, and try low bailout of 1 or 2.</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -212,7 +212,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Sing&amp;le Formula addCpixel  Constant Multiplier</string>
+      <string>Sing&amp;le Formula addCpixel Constant Multiplier</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

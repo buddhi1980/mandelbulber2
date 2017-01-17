@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_97">
      <property name="text">
-      <string>The Curvilinear, Parabolic  &amp; Dot modes  can be applied consecutively</string>
+      <string>The Curvilinear, Parabolic &amp; Dot modes can be applied consecutively</string>
      </property>
     </widget>
    </item>
@@ -48,7 +48,7 @@
      <item row="1" column="2">
       <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
        <property name="text">
-        <string>Curvi  function</string>
+        <string>Curvi function</string>
        </property>
       </widget>
      </item>
@@ -81,7 +81,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Note. Curvi Function requires the condition that  B  &gt;  2 *A</string>
+        <string>Note. Curvi Function requires the condition that B &gt; 2 *A</string>
        </property>
       </widget>
      </item>
@@ -103,7 +103,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Parameters for tweaking value of radial offset  in respect to iteration count</string>
+      <string>Parameters for tweaking value of radial offset in respect to iteration count</string>
      </property>
     </widget>
    </item>
@@ -643,7 +643,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_144">
        <property name="text">
-        <string>z  *= 1.0 + offset/ -z.Dot(z);</string>
+        <string>z *= 1.0 + offset/ -z.Dot(z);</string>
        </property>
       </widget>
      </item>

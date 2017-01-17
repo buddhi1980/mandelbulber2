@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_267">
      <property name="text">
-      <string>Note 1) : termination condition is when iteration reaches  Maxiter,</string>
+      <string>Note 1) : termination condition is when iteration reaches Maxiter,</string>
      </property>
     </widget>
    </item>

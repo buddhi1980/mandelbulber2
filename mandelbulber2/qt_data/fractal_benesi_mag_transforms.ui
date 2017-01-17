@@ -563,7 +563,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;In this formula the c.y and c.z components of &amp;quot;CVector3 c&amp;quot; are swapped before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Pine T&amp;ree  addCpixel ConstantMultiplier  ( c.y c.z Swap)</string>
+      <string>Pine T&amp;ree addCpixel ConstantMultiplier ( c.y c.z Swap)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -815,7 +815,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>Mag Transform &amp;T1   Rotation</string>
+      <string>Mag Transform &amp;T1 Rotation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1400,7 +1400,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Slot , Mag Transform Type and  Iteration controls for additional transforms</string>
+        <string>Slot , Mag Transform Type and Iteration controls for additional transforms</string>
        </property>
       </widget>
      </item>
@@ -1456,7 +1456,7 @@
      <item row="0" column="6">
       <widget class="QLabel" name="label_273">
        <property name="text">
-        <string>Offset  z.z</string>
+        <string>Offset z.z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -1842,7 +1842,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_269">
        <property name="text">
-        <string>Scale  z.y</string>
+        <string>Scale z.y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -2030,7 +2030,7 @@
      <item row="0" column="4">
       <widget class="QLabel" name="label_271">
        <property name="text">
-        <string>Offset  z.x</string>
+        <string>Offset z.x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -2078,7 +2078,7 @@
      <item row="0" column="3">
       <widget class="QLabel" name="label_270">
        <property name="text">
-        <string>Scale  z.z</string>
+        <string>Scale z.z</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -2144,7 +2144,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_268">
        <property name="text">
-        <string>Scale  z.x</string>
+        <string>Scale z.x</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -2217,7 +2217,7 @@
      <item row="0" column="5">
       <widget class="QLabel" name="label_272">
        <property name="text">
-        <string>Offset  z.y</string>
+        <string>Offset z.y</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

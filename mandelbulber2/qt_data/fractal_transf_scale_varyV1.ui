@@ -44,7 +44,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_169">
        <property name="text">
-        <string>Finish varying  at iteration:</string>
+        <string>Finish varying at iteration:</string>
        </property>
       </widget>
      </item>

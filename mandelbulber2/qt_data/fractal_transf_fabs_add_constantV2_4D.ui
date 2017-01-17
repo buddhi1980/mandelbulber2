@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>fABS Add Constant V2  4D     z = fabs( z + constant) - fabs(  z - constant) - z;</string>
+      <string>fABS Add Constant V2 4D z = fabs( z + constant) - fabs( z - constant) - z;</string>
      </property>
      <property name="checkable">
       <bool>false</bool>

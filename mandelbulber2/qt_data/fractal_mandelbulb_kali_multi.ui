@@ -124,7 +124,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_122">
          <property name="text">
-          <string>Polar to Cartesian -  Cosine Mode z.z = cos(th);</string>
+          <string>Polar to Cartesian - Cosine Mode z.z = cos(th);</string>
          </property>
         </widget>
        </item>
@@ -168,7 +168,7 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="title">
-        <string>Enable seperate &amp;trig control of second  function</string>
+        <string>Enable seperate &amp;trig control of second function</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -369,7 +369,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_123">
          <property name="text">
-          <string>Polar to Cartesian -  Cosine Mode z.z = cos(th);</string>
+          <string>Polar to Cartesian - Cosine Mode z.z = cos(th);</string>
          </property>
         </widget>
        </item>
@@ -554,7 +554,7 @@
      <item row="8" column="0">
       <widget class="QLabel" name="label_297">
        <property name="text">
-        <string>Phi  Scale:</string>
+        <string>Phi Scale:</string>
        </property>
       </widget>
      </item>

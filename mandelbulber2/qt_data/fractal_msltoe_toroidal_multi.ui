@@ -683,7 +683,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_122">
          <property name="text">
-          <string>Polar to Cartesian -  Sine Mode z.z = sin(th0);</string>
+          <string>Polar to Cartesian - Sine Mode z.z = sin(th0);</string>
          </property>
         </widget>
        </item>

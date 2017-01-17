@@ -525,6 +525,7 @@ typedef struct
 	cl_float3 scale3D444;
 
 	cl_float4 additionConstant0000;
+	cl_float4 offset0000;
 	cl_float4 offset1111;
 	cl_float4 offsetA1111;
 	cl_float4 additionConstant111d5;

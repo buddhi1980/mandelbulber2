@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Mandelbulb  Multi_Trig Formula;</string>
+      <string>Mandelbulb Multi_Trig Formula;</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -543,7 +543,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_122">
           <property name="text">
-           <string>Polar to Cartesian -  Sine Mode z.z = sin(th);</string>
+           <string>Polar to Cartesian - Sine Mode z.z = sin(th);</string>
           </property>
          </widget>
         </item>
@@ -557,14 +557,14 @@
         <item row="3" column="0">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
           <property name="text">
-           <string>in Sine mode, enable   costh = cos(th0)</string>
+           <string>in Sine mode, enable costh = cos(th0)</string>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
           <property name="text">
-           <string>in Cosine mode, enable  sinth = sin(th0)</string>
+           <string>in Cosine mode, enable sinth = sin(th0)</string>
           </property>
          </widget>
         </item>

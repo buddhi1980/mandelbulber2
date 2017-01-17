@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Fold Box Mod1       z = fabs(z  + Const.F1)  -  fabs(z - Const.F2)  -  (z * Const.F3)</string>
+      <string>Fold Box Mod1 z = fabs(z + Const.F1) - fabs(z - Const.F2) - (z * Const.F3)</string>
      </property>
     </widget>
    </item>

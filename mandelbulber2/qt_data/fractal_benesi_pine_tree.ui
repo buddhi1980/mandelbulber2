@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Pine Tree  addCpixel ConstantMultiplier  ( c.y  c.z Swap)</string>
+      <string>Pine Tree addCpixel ConstantMultiplier ( c.y c.z Swap)</string>
      </property>
     </widget>
    </item>
