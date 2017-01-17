@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledx">
      <property name="title">
-      <string>&amp;Menger Sponge Start Function     Fabs function z = fabs( z + const.A);</string>
+      <string>&amp;Menger Sponge Start Function Fabs function z = fabs( z + const.A);</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -248,7 +248,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledy">
      <property name="title">
-      <string>&amp;Menger Sponge End Function     Apply Constants;</string>
+      <string>&amp;Menger Sponge End Function Apply Constants;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -512,7 +512,7 @@
         <item row="1" column="0" colspan="3">
          <widget class="QCheckBox" name="checkBox_transf_function_enabled">
           <property name="text">
-           <string>Conditional mode:     if ( z.z  &lt; limit )  z.z = z.z;</string>
+           <string>Conditional mode: if ( z.z &lt; limit ) z.z = z.z;</string>
           </property>
          </widget>
         </item>

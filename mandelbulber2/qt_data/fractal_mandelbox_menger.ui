@@ -768,7 +768,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>Stop  Rotation at iteration:</string>
+           <string>Stop Rotation at iteration:</string>
           </property>
          </widget>
         </item>
@@ -4103,7 +4103,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Scale  component</string>
+        <string>Scale component</string>
        </property>
       </widget>
      </item>
@@ -4520,7 +4520,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component</string>
+        <string>Absolute value of z component</string>
        </property>
       </widget>
      </item>

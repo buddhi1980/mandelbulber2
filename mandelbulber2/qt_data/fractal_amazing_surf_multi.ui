@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4764</height>
+    <height>5580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,35 +37,35 @@
      <item row="14" column="0">
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>Type 5 Fold2 Value</string>
+        <string>Type 5 Fold2 value:</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>Fold Type 2</string>
+        <string>Type 2</string>
        </property>
       </widget>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Fold Type 3</string>
+        <string>Type 3</string>
        </property>
       </widget>
      </item>
      <item row="6" column="0">
       <widget class="QLabel" name="label_110">
        <property name="text">
-        <string>Fold Type 4</string>
+        <string>Type 4</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>z = fold - fabs( fabs(z) - fold)</string>
+        <string notr="true">z = fold - fabs( fabs(z) - fold)</string>
        </property>
       </widget>
      </item>
@@ -94,21 +94,21 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>z = fabs(z + fold) - fabs(z - fold) -z</string>
+        <string notr="true">z = fabs(z + fold) - fabs(z - fold) -z</string>
        </property>
       </widget>
      </item>
      <item row="12" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
-        <string>Type 4 Fold Value</string>
+        <string>Type 4 Fold value:</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>z = fabs(z + fold)</string>
+        <string notr="true">z = fabs(z + fold)</string>
        </property>
       </widget>
      </item>
@@ -197,7 +197,7 @@
      <item row="6" column="1">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
+        <string notr="true">if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
        </property>
       </widget>
      </item>
@@ -232,21 +232,21 @@
         </font>
        </property>
        <property name="text">
-        <string>Fold Types</string>
+        <string>Fold Type</string>
        </property>
       </widget>
      </item>
      <item row="7" column="1">
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)</string>
+        <string notr="true">z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_107">
        <property name="text">
-        <string>Fold Type 1</string>
+        <string>Type 1</string>
        </property>
       </widget>
      </item>
@@ -318,7 +318,7 @@
      <item row="7" column="0">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>Fold Type 5</string>
+        <string>Type 5</string>
        </property>
       </widget>
      </item>
@@ -345,6 +345,9 @@
      </property>
      <item row="5" column="2">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_B">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -358,116 +361,128 @@
      </item>
      <item row="2" column="3">
       <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_3">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
      </item>
      <item row="2" column="5">
       <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_5">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
      </item>
      <item row="2" column="4">
       <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_4">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
      </item>
      <item row="2" column="2">
       <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
@@ -482,10 +497,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>order of Fold Types</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <string>Order of Fold Types:</string>
        </property>
       </widget>
      </item>
@@ -498,29 +510,32 @@
      </item>
      <item row="2" column="1">
       <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_1">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
-         <string>type 1</string>
+         <string>Type 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 2</string>
+         <string>Type 2</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 3</string>
+         <string>Type 3</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 4</string>
+         <string>Type 4</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>type 5</string>
+         <string>Type 5</string>
         </property>
        </item>
       </widget>
@@ -548,6 +563,9 @@
      </item>
      <item row="3" column="1">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -568,6 +586,9 @@
      </item>
      <item row="3" column="2">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -581,6 +602,9 @@
      </item>
      <item row="3" column="3">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -594,6 +618,9 @@
      </item>
      <item row="5" column="1">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_A">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -607,6 +634,9 @@
      </item>
      <item row="3" column="4">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -620,6 +650,9 @@
      </item>
      <item row="3" column="5">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_E">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -633,6 +666,9 @@
      </item>
      <item row="5" column="3">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -646,6 +682,9 @@
      </item>
      <item row="5" column="4">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -659,6 +698,9 @@
      </item>
      <item row="5" column="5">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_E">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -693,7 +735,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Slot , Fold Type and  Iteration controls</string>
+        <string>Slot, Fold Type and Iteration controls</string>
        </property>
       </widget>
      </item>
@@ -730,14 +772,14 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_12">
        <property name="text">
-        <string>z.z Fold Value</string>
+        <string>z.z Fold Value:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
        <property name="text">
-        <string>enable z.z  scale</string>
+        <string>Enable z.z scale</string>
        </property>
       </widget>
      </item>
@@ -857,7 +899,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_21">
        <property name="text">
-        <string>z.z Fold Limit</string>
+        <string>z.z Fold Limit:</string>
        </property>
       </widget>
      </item>
@@ -2265,7 +2307,7 @@ offset:</string>
            <item row="0" column="2">
             <widget class="QLabel" name="label_248">
              <property name="text">
-              <string>Stop  Rotation at iteration:</string>
+              <string>Stop Rotation at iteration:</string>
              </property>
             </widget>
            </item>
@@ -2901,7 +2943,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component</string>
+        <string>Absolute value of z component</string>
        </property>
       </widget>
      </item>
@@ -3367,9 +3409,9 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -3378,11 +3420,120 @@ offset:</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_addition_constant_111_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
+  <tabstop>slider_mandelbox_folding_value</tabstop>
+  <tabstop>spinbox_mandelbox_folding_value</tabstop>
+  <tabstop>slider_transf_offset_2</tabstop>
+  <tabstop>spinbox_transf_offset_2</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledBx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledBy_false</tabstop>
+  <tabstop>comboBox_surfFolds_order_of_folds_1</tabstop>
+  <tabstop>comboBox_surfFolds_order_of_folds_2</tabstop>
+  <tabstop>comboBox_surfFolds_order_of_folds_3</tabstop>
+  <tabstop>comboBox_surfFolds_order_of_folds_4</tabstop>
+  <tabstop>comboBox_surfFolds_order_of_folds_5</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_B</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_C</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_D</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_E</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_B</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_C</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_D</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_E</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
+  <tabstop>slider_transf_scale_0</tabstop>
+  <tabstop>spinbox_transf_scale_0</tabstop>
+  <tabstop>slider_transf_folding_limit</tabstop>
+  <tabstop>spinbox_transf_folding_limit</tabstop>
+  <tabstop>slider_transf_folding_value</tabstop>
+  <tabstop>spinbox_transf_folding_value</tabstop>
+  <tabstop>slider3_transf_addition_constant_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabledAy</tabstop>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>slider_transf_scaleB_1</tabstop>
+  <tabstop>spinbox_transf_scaleB_1</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_T</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_T</tabstop>
+  <tabstop>slider_transf_minimum_radius_05</tabstop>
+  <tabstop>spinbox_transf_minimum_radius_05</tabstop>
+  <tabstop>checkBox_transf_function_enabledz_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_M</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_M</tabstop>
+  <tabstop>slider_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>slider_mandelbox_folding_min_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_min_radius</tabstop>
+  <tabstop>slider3_mandelbox_offset_x</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_x</tabstop>
+  <tabstop>slider3_mandelbox_offset_y</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_y</tabstop>
+  <tabstop>slider3_mandelbox_offset_z</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_z</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_S</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_S</tabstop>
+  <tabstop>slider_mandelbox_scale</tabstop>
+  <tabstop>spinbox_mandelbox_scale</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
+  <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_order_of_xyz</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>groupCheck_mandelbox_main_rotation_enabled</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_R</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_R</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_x</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_y</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_z</tabstop>
+  <tabstop>spinbox_fold_color_comp_fold0</tabstop>
+  <tabstop>slider3_mandelbox_color_x</tabstop>
+  <tabstop>spinbox3_mandelbox_color_x</tabstop>
+  <tabstop>slider3_mandelbox_color_y</tabstop>
+  <tabstop>spinbox3_mandelbox_color_y</tabstop>
+  <tabstop>slider3_mandelbox_color_z</tabstop>
+  <tabstop>spinbox3_mandelbox_color_z</tabstop>
+  <tabstop>slider_mandelbox_color_Sp1</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp1</tabstop>
+  <tabstop>slider_mandelbox_color_Sp2</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp2</tabstop>
+  <tabstop>slider_fold_color_comp_scale</tabstop>
+  <tabstop>spinbox_fold_color_comp_scale</tabstop>
+  <tabstop>slider_fold_color_color_min</tabstop>
+  <tabstop>spinbox_fold_color_color_min</tabstop>
+  <tabstop>slider_mandelbox_color_R</tabstop>
+  <tabstop>spinbox_mandelbox_color_R</tabstop>
+  <tabstop>slider_fold_color_comp_minR</tabstop>
+  <tabstop>spinbox_fold_color_comp_minR</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -3392,12 +3543,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>457</y>
+     <x>112</x>
+     <y>543</y>
     </hint>
     <hint type="destinationlabel">
-     <x>849</x>
-     <y>460</y>
+     <x>912</x>
+     <y>549</y>
     </hint>
    </hints>
   </connection>
@@ -3408,12 +3559,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>457</y>
+     <x>89</x>
+     <y>543</y>
     </hint>
     <hint type="destinationlabel">
-     <x>474</x>
-     <y>461</y>
+     <x>614</x>
+     <y>543</y>
     </hint>
    </hints>
   </connection>
@@ -3424,12 +3575,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>526</y>
+     <x>172</x>
+     <y>881</y>
     </hint>
     <hint type="destinationlabel">
-     <x>744</x>
-     <y>529</y>
+     <x>818</x>
+     <y>887</y>
     </hint>
    </hints>
   </connection>
@@ -3440,12 +3591,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>197</x>
-     <y>526</y>
+     <x>184</x>
+     <y>881</y>
     </hint>
     <hint type="destinationlabel">
-     <x>503</x>
-     <y>504</y>
+     <x>546</x>
+     <y>887</y>
     </hint>
    </hints>
   </connection>
@@ -3456,12 +3607,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
-     <y>507</y>
+     <x>79</x>
+     <y>881</y>
     </hint>
     <hint type="destinationlabel">
-     <x>288</x>
-     <y>537</y>
+     <x>414</x>
+     <y>921</y>
     </hint>
    </hints>
   </connection>
@@ -3472,12 +3623,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>187</x>
-     <y>526</y>
+     <x>184</x>
+     <y>881</y>
     </hint>
     <hint type="destinationlabel">
-     <x>847</x>
-     <y>561</y>
+     <x>906</x>
+     <y>927</y>
     </hint>
    </hints>
   </connection>
@@ -3488,12 +3639,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>158</x>
-     <y>595</y>
+     <x>167</x>
+     <y>966</y>
     </hint>
     <hint type="destinationlabel">
-     <x>518</x>
-     <y>579</y>
+     <x>548</x>
+     <y>972</y>
     </hint>
    </hints>
   </connection>
@@ -3504,12 +3655,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>204</x>
-     <y>595</y>
+     <x>188</x>
+     <y>966</y>
     </hint>
     <hint type="destinationlabel">
-     <x>741</x>
-     <y>574</y>
+     <x>820</x>
+     <y>972</y>
     </hint>
    </hints>
   </connection>
@@ -3520,12 +3671,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>175</x>
-     <y>595</y>
+     <x>184</x>
+     <y>966</y>
     </hint>
     <hint type="destinationlabel">
-     <x>379</x>
-     <y>631</y>
+     <x>505</x>
+     <y>1006</y>
     </hint>
    </hints>
   </connection>
@@ -3536,12 +3687,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>204</x>
-     <y>595</y>
+     <x>188</x>
+     <y>966</y>
     </hint>
     <hint type="destinationlabel">
-     <x>788</x>
-     <y>605</y>
+     <x>906</x>
+     <y>1012</y>
     </hint>
    </hints>
   </connection>
@@ -3552,12 +3703,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>595</y>
+     <x>118</x>
+     <y>966</y>
     </hint>
     <hint type="destinationlabel">
-     <x>356</x>
-     <y>666</y>
+     <x>482</x>
+     <y>1048</y>
     </hint>
    </hints>
   </connection>
@@ -3568,12 +3719,252 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>114</x>
-     <y>595</y>
+     <x>123</x>
+     <y>966</y>
     </hint>
     <hint type="destinationlabel">
-     <x>847</x>
-     <y>665</y>
+     <x>906</x>
+     <y>1054</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_surfFolds_order_of_folds_1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>359</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>400</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_A</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>276</x>
+     <y>361</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>259</x>
+     <y>437</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_A</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>247</x>
+     <y>361</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>233</x>
+     <y>486</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_surfFolds_order_of_folds_2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>396</x>
+     <y>368</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>387</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_B</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>429</x>
+     <y>360</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>424</x>
+     <y>444</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_B</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>361</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>353</x>
+     <y>484</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_surfFolds_order_of_folds_3</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>521</x>
+     <y>414</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_C</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>542</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>549</x>
+     <y>447</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_C</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>570</x>
+     <y>368</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>567</x>
+     <y>480</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_surfFolds_order_of_folds_4</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>731</x>
+     <y>374</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>728</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_D</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>654</x>
+     <y>370</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>652</x>
+     <y>443</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_D</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>366</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>700</x>
+     <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_surfFolds_order_of_folds_5</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>841</x>
+     <y>365</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>841</x>
+     <y>399</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_start_iterations_E</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>799</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>804</x>
+     <y>436</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_stop_iterations_E</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>823</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>827</x>
+     <y>489</y>
     </hint>
    </hints>
   </connection>

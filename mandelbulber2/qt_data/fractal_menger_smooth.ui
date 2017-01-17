@@ -192,7 +192,7 @@
           <item row="1" column="2">
            <widget class="QLabel" name="label_247">
             <property name="text">
-             <string>Stop  Rotation at iteration:</string>
+             <string>Stop Rotation at iteration:</string>
             </property>
            </widget>
           </item>
@@ -599,7 +599,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledz_false">
      <property name="title">
-      <string>I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
+      <string>I&amp;teration Weight.; z = ( z * const.Z) + ( zA * const.A) + ( zB * const.B)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -845,7 +845,7 @@
         <item row="3" column="0" colspan="5">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Normal use :  Constants A &amp; B are negative numbers, Constant Z remains at 1.0</string>
+           <string>Normal use : Constants A &amp; B are negative numbers, Constant Z remains at 1.0</string>
           </property>
          </widget>
         </item>

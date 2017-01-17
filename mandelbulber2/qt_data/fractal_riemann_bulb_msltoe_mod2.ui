@@ -136,7 +136,7 @@
      <item row="20" column="3">
       <widget class="QLabel" name="label_115">
        <property name="text">
-        <string>Sine Function  Scale</string>
+        <string>Sine Function Scale</string>
        </property>
       </widget>
      </item>

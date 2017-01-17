@@ -110,7 +110,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_133">
        <property name="text">
-        <string>z = SIGN(z) ((1.0/LimitA )   -    (1.0/(fabs(z) +LimitA))    +  (fabs(z) * Slope))</string>
+        <string>z = SIGN(z) ((1.0/LimitA ) - (1.0/(fabs(z) +LimitA)) + (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -124,7 +124,7 @@
      <item row="3" column="2" colspan="3">
       <widget class="QLabel" name="label_135">
        <property name="text">
-        <string>z = SIGN(z) (LimitC  -  1/(fabs(z*MultA)+LimA)  -1/(z*z*MultB+ LimB)   +(fabs(z) * Slope))</string>
+        <string>z = SIGN(z) (LimitC - 1/(fabs(z*MultA)+LimA) -1/(z*z*MultB+ LimB) +(fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -604,7 +604,7 @@
      <item row="2" column="2" colspan="3">
       <widget class="QLabel" name="label_134">
        <property name="text">
-        <string>z = SIGN(z) ((1/LimA )+(1/LimB)  -  1/(fabs(z*MultA)+LimA)  -1/(z*z*MultB+ LimB) etc)</string>
+        <string>z = SIGN(z) ((1/LimA )+(1/LimB) - 1/(fabs(z*MultA)+LimA) -1/(z*z*MultB+ LimB) etc)</string>
        </property>
       </widget>
      </item>
@@ -657,7 +657,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_148">
        <property name="text">
-        <string>z = SIGN(z) (LimitB   -   (1.0/(fabs(z) +LimitA))    +   (fabs(z) * Slope))</string>
+        <string>z = SIGN(z) (LimitB - (1.0/(fabs(z) +LimitA)) + (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>

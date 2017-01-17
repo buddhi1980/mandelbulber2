@@ -631,7 +631,7 @@
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
         <property name="text">
-         <string>Apply  z.x condition</string>
+         <string>Apply z.x condition</string>
         </property>
        </widget>
       </item>
@@ -1944,7 +1944,7 @@
      <item row="7" column="0" colspan="3">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
        <property name="text">
-        <string>enable fabs(z.x)  Fold</string>
+        <string>enable fabs(z.x) Fold</string>
        </property>
       </widget>
      </item>
@@ -2002,7 +2002,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_247">
           <property name="text">
-           <string>Stop  Rotation at iteration:</string>
+           <string>Stop Rotation at iteration:</string>
           </property>
          </widget>
         </item>

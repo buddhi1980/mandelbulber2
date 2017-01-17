@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_93">
      <property name="text">
-      <string>Scale_Vary_VCL   Vary Curvilinear</string>
+      <string>Scale_Vary_VCL Vary Curvilinear</string>
      </property>
     </widget>
    </item>
@@ -73,7 +73,7 @@
      <item row="1" column="3">
       <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
        <property name="text">
-        <string>Curvi  funtion ( disable to use linear slopes only)</string>
+        <string>Curvi funtion ( disable to use linear slopes only)</string>
        </property>
       </widget>
      </item>
@@ -372,7 +372,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Note. Curvi Function requires the condition that  B  &gt;  2 * A</string>
+        <string>Note. Curvi Function requires the condition that B &gt; 2 * A</string>
        </property>
       </widget>
      </item>

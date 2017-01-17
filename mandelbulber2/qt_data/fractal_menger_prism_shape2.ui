@@ -32,7 +32,7 @@
    <item>
     <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
      <property name="text">
-      <string>Swizzle  z = CVector3{-z.z, z.x, z.y}</string>
+      <string>Swizzle z = CVector3{-z.z, z.x, z.y}</string>
      </property>
     </widget>
    </item>
@@ -1216,7 +1216,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>DotScale::</string>
+           <string>DotScale:</string>
           </property>
          </widget>
         </item>
@@ -1402,7 +1402,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>DotScale::</string>
+           <string>DotScale:</string>
           </property>
          </widget>
         </item>
@@ -1573,7 +1573,7 @@
           <item row="2" column="0" colspan="2">
            <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
             <property name="text">
-             <string>enable fabs(z.x)  Fold</string>
+             <string>enable fabs(z.x) Fold</string>
             </property>
            </widget>
           </item>
@@ -2787,7 +2787,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>fABS Add Constant   Multi   z = fabs(  z + const.A ) - fabs(  z - const.B )&amp;  - (  z * const.C  )</string>
+      <string>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2941,7 +2941,7 @@
         <item row="13" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>- ( z  *  C )</string>
+           <string>- ( z * C )</string>
           </property>
          </widget>
         </item>

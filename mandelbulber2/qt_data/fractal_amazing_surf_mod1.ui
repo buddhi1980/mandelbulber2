@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>835</width>
-    <height>2973</height>
+    <height>3240</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,7 +51,7 @@
      <item row="6" column="2">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
+        <string notr="true">if ( z &gt; Fold) z =  Value -z,   else if( z &lt;Fold) z = - Value - z,</string>
        </property>
       </widget>
      </item>
@@ -65,21 +65,21 @@
      <item row="5" column="2">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>z = fabs(z + fold)</string>
+        <string notr="true">z = fabs(z + fold)</string>
        </property>
       </widget>
      </item>
      <item row="3" column="2">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>z = fabs(z + fold) - fabs(z - fold) -z</string>
+        <string notr="true">z = fabs(z + fold) - fabs(z - fold) -z</string>
        </property>
       </widget>
      </item>
      <item row="13" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
-        <string>Type 4 Fold Value</string>
+        <string>Type 4 Fold value:</string>
        </property>
       </widget>
      </item>
@@ -99,14 +99,14 @@
      <item row="14" column="0">
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>Type 5 Fold2 Value</string>
+        <string>Type 5 Fold2 value:</string>
        </property>
       </widget>
      </item>
      <item row="8" column="2">
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)</string>
+        <string notr="true">z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)</string>
        </property>
       </widget>
      </item>
@@ -168,7 +168,7 @@
      <item row="4" column="2">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>z = fold - fabs( fabs(z) - fold)</string>
+        <string notr="true">z = fold - fabs( fabs(z) - fold)</string>
        </property>
       </widget>
      </item>
@@ -1187,7 +1187,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Scale component</string>
+        <string>Scale component:</string>
        </property>
       </widget>
      </item>
@@ -1378,7 +1378,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Orbit trap component</string>
+        <string>Orbit trap component:</string>
        </property>
       </widget>
      </item>
@@ -1422,7 +1422,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Absolute value of z  component</string>
+        <string>Absolute value of z component:</string>
        </property>
       </widget>
      </item>
@@ -1799,17 +1799,73 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledAx</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledy_false</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
+  <tabstop>slider_mandelbox_folding_value</tabstop>
+  <tabstop>spinbox_mandelbox_folding_value</tabstop>
+  <tabstop>slider_transf_offset_2</tabstop>
+  <tabstop>spinbox_transf_offset_2</tabstop>
+  <tabstop>slider3_transf_addition_constant_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>slider_transf_minimum_radius_05</tabstop>
+  <tabstop>spinbox_transf_minimum_radius_05</tabstop>
+  <tabstop>slider_mandelbox_scale</tabstop>
+  <tabstop>spinbox_mandelbox_scale</tabstop>
+  <tabstop>slider_mandelbox_vary_scale_vary</tabstop>
+  <tabstop>spinbox_mandelbox_vary_scale_vary</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>dial3_transf_rotation_x</tabstop>
+  <tabstop>dial3_transf_rotation_y</tabstop>
+  <tabstop>dial3_transf_rotation_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation_z</tabstop>
+  <tabstop>spinbox_fold_color_comp_fold0</tabstop>
+  <tabstop>slider3_mandelbox_color_x</tabstop>
+  <tabstop>spinbox3_mandelbox_color_x</tabstop>
+  <tabstop>slider3_mandelbox_color_y</tabstop>
+  <tabstop>spinbox3_mandelbox_color_y</tabstop>
+  <tabstop>slider3_mandelbox_color_z</tabstop>
+  <tabstop>spinbox3_mandelbox_color_z</tabstop>
+  <tabstop>slider_mandelbox_color_Sp1</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp1</tabstop>
+  <tabstop>slider_mandelbox_color_Sp2</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp2</tabstop>
+  <tabstop>slider_fold_color_comp_scale</tabstop>
+  <tabstop>spinbox_fold_color_comp_scale</tabstop>
+  <tabstop>slider_fold_color_color_min</tabstop>
+  <tabstop>spinbox_fold_color_color_min</tabstop>
+  <tabstop>slider_mandelbox_color_R</tabstop>
+  <tabstop>spinbox_mandelbox_color_R</tabstop>
+  <tabstop>slider_fold_color_comp_minR</tabstop>
+  <tabstop>spinbox_fold_color_comp_minR</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

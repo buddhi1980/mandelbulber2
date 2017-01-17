@@ -338,7 +338,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>CX Cpixel  Multiplier</string>
+        <string>CX Cpixel Multiplier</string>
        </property>
       </widget>
      </item>
@@ -524,14 +524,14 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>CY Cpixel  Multiplier</string>
+        <string>CY Cpixel Multiplier</string>
        </property>
       </widget>
      </item>
      <item row="9" column="0">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>CZ Cpixel  Multiplier</string>
+        <string>CZ Cpixel Multiplier</string>
        </property>
       </widget>
      </item>

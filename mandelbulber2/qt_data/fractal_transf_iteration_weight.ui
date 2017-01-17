@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_78">
      <property name="text">
-      <string>Iteration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B)</string>
+      <string>Iteration Weight.; z = ( z * const.Z) + ( zA * const.A) + ( zB * const.B)</string>
      </property>
     </widget>
    </item>
@@ -261,7 +261,7 @@
      <item row="3" column="0" colspan="5">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Normal use :  Constants A &amp; B are negative numbers, Constant Z remains at 1.0</string>
+        <string>Normal use : Constants A &amp; B are negative numbers, Constant Z remains at 1.0</string>
        </property>
       </widget>
      </item>

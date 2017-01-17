@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>979</width>
-    <height>1675</height>
+    <height>2621</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -338,7 +338,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Offset</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>
@@ -393,7 +393,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_258">
           <property name="text">
-           <string>Scale</string>
+           <string>Scale:</string>
           </property>
          </widget>
         </item>
@@ -450,7 +450,7 @@
           <item row="0" column="0">
            <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
             <property name="title">
-             <string>Mag Transform &amp;T1   Internal Rotation;</string>
+             <string>Mag Transform &amp;T1 Internal Rotation</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -761,7 +761,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;In this formula the c.y and c.z components of &amp;quot;CVector3 c&amp;quot; are swapped before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Pine T&amp;ree  addCpixel ConstantMultiplier  ( c.y c.z Swap)</string>
+      <string>Pine T&amp;ree addCpixel ConstantMultiplier (c.y c.z Swap)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -857,7 +857,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>Cpixel Multiplier</string>
+           <string>Cpixel Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -893,7 +893,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_120">
           <property name="text">
-           <string>cx:</string>
+           <string notr="true">c.x</string>
           </property>
          </widget>
         </item>
@@ -1023,7 +1023,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;In this formula the c.y and c.z components of &amp;quot;CVector3 c&amp;quot; are swapped before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>In&amp;verse_Cylindrical</string>
+      <string>In&amp;verse Cylindrical</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1140,7 +1140,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_113">
           <property name="text">
-           <string>z.y Multiplier::</string>
+           <string>z.y Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -1745,9 +1745,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -1756,9 +1756,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

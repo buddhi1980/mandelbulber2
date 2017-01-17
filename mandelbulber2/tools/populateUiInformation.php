@@ -166,6 +166,9 @@ foreach($formulas as $index => $formula){
   $replaceFormulaLookup = array(
 	  array('find' => '/\>\s*([^<]+?)\s*<\/string>/', 'replace' => '>$1</string>'), // whitespace fix 1
 		array('find' => '/\>\s*([^<]+?)\s*:\s*<\/string>/', 'replace' => '>$1:</string>'), // whitespace fix 2
+		array('find' => '/<string>(.*?)\s(\s.*?)<\/string>/', 'replace' => '<string>$1$2</string>'), // whitespace fix 3
+		array('find' => '/<string>fabs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>fabs($1)</string>'),
+		array('find' => '/<string>(.*?)::(.*?)<\/string>/', 'replace' => '<string>$1:$2</string>'),
 	);
 	foreach($replaceFormulaLookup as $item){
 	  $newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);
@@ -178,12 +181,24 @@ foreach($formulas as $index => $formula){
 		'xyz', 'xzy', 'yxz', 'yzx', 'zxy', 'zyx',
 		'x', 'y', 'z', 'w',
 		'xy', 'yx', 'xz', 'zx', 'yz', 'zy',
+		'xw', 'yw', 'zw',
 		'alpha', 'beta', 'gamma',
+		'fabs', 'fabs\(z\.x\)', 'fabs\(z\.y\)', 'fabs\(z\.z\)',
 	);
 
   foreach($notrRemoveDoublePointCI as $item){
 	  $newUiFileContent = preg_replace('/<string>'. $item .':*;*<\/string>/i',
 		  '<string notr="true">' . str_replace('\\', '', $item) . '</string>', $newUiFileContent);
+	}
+ 
+  // simple find and replace whole string
+	$simpleReplace = array(
+	  array('find' => 'Type 4 Fold Value', 'replace' => 'Type 4 Fold value:'),
+		array('find' => 'Type 5 Fold2 Value', 'replace' => 'Type 5 Fold2 value:'),
+	);
+
+  foreach($simpleReplace as $item){
+	  $newUiFileContent = str_replace($item['find'], $item['replace'], $newUiFileContent);
 	}
 
 	if($newUiFileContent == $uiFileContent){
