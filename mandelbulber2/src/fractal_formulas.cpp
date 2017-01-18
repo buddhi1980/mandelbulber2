@@ -56,7 +56,6 @@
 #define M_PI_8 0.39269908169872415480783042290994
 #endif
 
-
 using namespace fractal;
 using std::swap;
 
@@ -7494,14 +7493,14 @@ void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 	}
 
 	CVector4 oldz = z4D;
-	z4D.x = fabs(z4D.x + fractal->transformCommon.offset1111.x) - fabs(z4D.x - fractal->transformCommon.offset1111.x)
-					- z4D.x;
-	z4D.y = fabs(z4D.y + fractal->transformCommon.offset1111.y) - fabs(z4D.y - fractal->transformCommon.offset1111.y)
-					- z4D.y;
-	z4D.z = fabs(z4D.z + fractal->transformCommon.offset1111.z) - fabs(z4D.z - fractal->transformCommon.offset1111.z)
-					- z4D.z;
-	z4D.w = fabs(z4D.w + fractal->transformCommon.offset1111.w) - fabs(z4D.w - fractal->transformCommon.offset1111.w)
-					- z4D.w;
+	z4D.x = fabs(z4D.x + fractal->transformCommon.offset1111.x)
+					- fabs(z4D.x - fractal->transformCommon.offset1111.x) - z4D.x;
+	z4D.y = fabs(z4D.y + fractal->transformCommon.offset1111.y)
+					- fabs(z4D.y - fractal->transformCommon.offset1111.y) - z4D.y;
+	z4D.z = fabs(z4D.z + fractal->transformCommon.offset1111.z)
+					- fabs(z4D.z - fractal->transformCommon.offset1111.z) - z4D.z;
+	z4D.w = fabs(z4D.w + fractal->transformCommon.offset1111.w)
+					- fabs(z4D.w - fractal->transformCommon.offset1111.w) - z4D.w;
 
 	if (z4D.x != oldz.x) aux.color += fractal->mandelbox.color.factor4D.x;
 	if (z4D.y != oldz.y) aux.color += fractal->mandelbox.color.factor4D.y;
@@ -7520,16 +7519,15 @@ void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		z4D *= fractal->transformCommon.maxR2d1/ rr;
-		aux.DE *= fractal->transformCommon.maxR2d1/ rr;
+		z4D *= fractal->transformCommon.maxR2d1 / rr;
+		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z4D -= fractal->transformCommon.offset0000;
 
-
 	z4D *= fractal->mandelbox.scale;
 	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
-		// 6 plane rotation
+	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
@@ -7620,7 +7618,7 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	if (z4D.y - z4D.w < 0.0) swap(z4D.w, z4D.y);
 	if (z4D.z - z4D.w < 0.0) swap(z4D.w, z4D.z);
 
-		// 6 plane rotation
+	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
@@ -7755,7 +7753,7 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 	if (z4D.y - z4D.w < 0.0) swap(z4D.w, z4D.y);
 	if (z4D.z - z4D.w < 0.0) swap(z4D.w, z4D.z);
 
-		// 6 plane rotation
+	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
@@ -7934,7 +7932,7 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 	{
 		z4D += fractal->transformCommon.additionConstant0000; // offset
 	}
-		// 6 plane rotation
+	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
@@ -8055,7 +8053,7 @@ void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 		z4D -= fractal->transformCommon.offset1111; // neg offset
 	}
 
-		// 6 plane rotation
+	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
@@ -8117,7 +8115,7 @@ void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 	z4D *= fractal->transformCommon.constantMultiplier1220;
 	z4D += fractal->transformCommon.additionConstant0000;
 
-		// 6 plane rotation
+	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
@@ -8168,7 +8166,6 @@ void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 	}
 }
 
-
 /**
  * Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
  */
@@ -8181,7 +8178,6 @@ void MandelboxVaryScale4DIteration(CVector4 &z4D, int i, const cFractal *fractal
 								+ (i * i * 0.001 * fractal->Cpara.parabScale);
 		z4D.w += paraAddP0;
 	}
-
 
 	aux.actualScale =
 		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
@@ -8215,7 +8211,7 @@ void MandelboxVaryScale4DIteration(CVector4 &z4D, int i, const cFractal *fractal
 	}
 	z4D *= m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
-		// 6 plane rotation
+	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)

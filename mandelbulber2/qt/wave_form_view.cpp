@@ -121,9 +121,9 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 void cWaveFormView::paintEvent(QPaintEvent *event)
 {
-	if(!failed)
+	if (!failed)
 	{
-		if(inProgress)
+		if (inProgress)
 		{
 			QPainter painter(this);
 			QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, progressText);
@@ -147,7 +147,7 @@ void cWaveFormView::paintEvent(QPaintEvent *event)
 		textRect.moveTopLeft(QPoint(5, 5));
 		this->setFixedWidth(textRect.width() + 5);
 
-		QBrush brush(QColor(255, 0,0));
+		QBrush brush(QColor(255, 0, 0));
 		painter.fillRect(textRect, brush);
 		painter.drawText(textRect, Qt::AlignTop || Qt::AlignLeft, progressText);
 	}

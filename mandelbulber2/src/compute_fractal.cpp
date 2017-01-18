@@ -540,7 +540,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				}
 
-					// transforms  ------------------------------------------------------------------
+				// transforms  ------------------------------------------------------------------
 				case transfAdditionConstant:
 				{
 					TransformAdditionConstantIteration(z, fractal);

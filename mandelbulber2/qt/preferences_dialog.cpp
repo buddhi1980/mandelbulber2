@@ -89,8 +89,8 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	}
 
 #ifdef USE_OPENCL
-	// TODO
-#else // USE_OPENCL
+// TODO
+#else	// USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
 

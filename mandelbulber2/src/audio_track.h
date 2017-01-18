@@ -68,7 +68,7 @@ public:
 	float getAnimation(int frame) const;
 	void decayFilter(double strength);
 	void smoothFilter(double strength);
-	float* getRawAudio();
+	float *getRawAudio();
 
 private slots:
 	void slotReadBuffer();

@@ -206,7 +206,7 @@ void cAudioTrack::slotReadBuffer()
 	}
 	length = rawAudio.size();
 	double percent = double(length) / totalSamplesApprox * 100.0;
-	//emit loadingProgress(percent);
+	// emit loadingProgress(percent);
 }
 
 void cAudioTrack::slotFinished()
@@ -407,7 +407,7 @@ void cAudioTrack::smoothFilter(double strength)
 
 float *cAudioTrack::getRawAudio()
 {
-	if(isLoaded())
+	if (isLoaded())
 	{
 		return rawAudio.data();
 	}

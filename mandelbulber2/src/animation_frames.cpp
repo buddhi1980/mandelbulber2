@@ -551,4 +551,3 @@ void cAnimationFrames::SetListOfParametersAndClear(
 	audioTracks.DeleteAllAudioTracks(params);
 	RegenerateAudioTracks(params);
 }
-

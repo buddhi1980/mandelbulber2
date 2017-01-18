@@ -284,8 +284,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// ------------------ 4D -----------------------
 
-	fractalList->append(sFractalDescription("Abox 4D", "abox_4D",
-		abox4D, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
+	fractalList->append(sFractalDescription(
+		"Abox 4D", "abox_4D", abox4D, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Bristorbrot4D", "bristorbrot4D", bristorbrot4D,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
