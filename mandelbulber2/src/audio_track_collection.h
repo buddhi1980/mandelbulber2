@@ -61,9 +61,11 @@ public:
 	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName);
 	void LoadAllAudioFiles(cParameterContainer *params);
 	void RefreshAllAudioTracks(cParameterContainer *params);
+	void SetPrefix(QString _prefix) { prefix = _prefix; }
 
 private:
 	QMap<QString, cAudioTrack *> audioTracks;
+	QString prefix;
 };
 
 #endif /* MANDELBULBER2_SRC_AUDIO_TRACK_COLLECTION_H_ */

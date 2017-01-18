@@ -201,3 +201,8 @@ void cKeyframes::RemoveAnimatedParameter(const QString &fullParameterName)
 	morph.clear();
 	cAnimationFrames::RemoveAnimatedParameter(fullParameterName);
 }
+
+void cKeyframes::setAudioParameterPrefix()
+{
+	audioTracks.SetPrefix("animsound");
+}

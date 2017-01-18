@@ -68,6 +68,7 @@ public:
 	bool AddAnimatedParameter(const QString &fullParameterName, cParameterContainer *param,
 		const cFractalContainer *fractal) override;
 	void RemoveAnimatedParameter(const QString &fullParameterName) override;
+	void setAudioParameterPrefix() override;
 
 private:
 	int framesPerKeyframe;

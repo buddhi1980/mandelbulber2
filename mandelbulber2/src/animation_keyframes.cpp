@@ -1116,7 +1116,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	}
 
 	gAnimFrames->ClearAll();
-	gAnimFrames->SetListOfParametersAndClear(gKeyframes->GetListOfParameters());
+	gAnimFrames->SetListOfParametersAndClear(gKeyframes->GetListOfParameters(), params);
 
 	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{

@@ -148,7 +148,7 @@ void cAnimationFrames::RegenerateAudioTracks(cParameterContainer *param)
 	for (int i = 0; i < listOfParameters.length(); i++)
 	{
 		AddAudioParameter(listOfParameters[i].parameterName, listOfParameters[i].varType,
-			listOfParameters[i].containerName);
+			listOfParameters[i].containerName, param);
 	}
 
 	audioTracks.LoadAllAudioFiles(param);
@@ -360,6 +360,8 @@ void cAnimationFrames::AddFrame(const sAnimationFrame &frame)
 void cAnimationFrames::AddAudioParameter(const QString &parameterName, enumVarType paramType,
 	const QString originalContainerName, cParameterContainer *params)
 {
+
+	setAudioParameterPrefix();
 	QString fullParameterName = originalContainerName + "_" + parameterName;
 
 	switch (paramType)
@@ -535,3 +537,18 @@ void cAnimationFrames::LoadAllAudioFiles(cParameterContainer *params)
 	if (!params) params = gPar;
 	audioTracks.LoadAllAudioFiles(params);
 }
+
+void cAnimationFrames::setAudioParameterPrefix()
+{
+	audioTracks.SetPrefix("flightanimsound");
+}
+
+void cAnimationFrames::SetListOfParametersAndClear(
+	QList<sParameterDescription> _listOfParameters, cParameterContainer *params)
+{
+	listOfParameters = _listOfParameters;
+	frames.clear();
+	audioTracks.DeleteAllAudioTracks(params);
+	RegenerateAudioTracks(params);
+}
+

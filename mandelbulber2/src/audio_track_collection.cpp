@@ -175,7 +175,7 @@ void cAudioTrackCollection::RemoveParameters(
 QString cAudioTrackCollection::FullParameterName(
 	const QString &nameOfSoundParameter, const QString parameterName)
 {
-	return QString("animsound_") + nameOfSoundParameter + "_" + parameterName;
+	return prefix + QString("_") + nameOfSoundParameter + "_" + parameterName;
 }
 
 void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)

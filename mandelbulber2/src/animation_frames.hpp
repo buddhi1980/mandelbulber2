@@ -108,11 +108,9 @@ public:
 	}
 	QList<sAnimationFrame> GetFrames() const { return frames; }
 	QList<sParameterDescription> GetListOfParameters() const { return listOfParameters; }
-	void SetListOfParametersAndClear(QList<sParameterDescription> _listOfParameters)
-	{
-		listOfParameters = _listOfParameters;
-		frames.clear();
-	}
+	void SetListOfParametersAndClear(
+		QList<sParameterDescription> _listOfParameters, cParameterContainer *params);
+
 	int IndexOnList(QString parameterName, QString containerName);
 
 	void AddAudioParameter(const QString &parameterName, enumVarType paramType,
@@ -135,6 +133,8 @@ public:
 
 	void RegenerateAudioTracks(cParameterContainer *param);
 	void RefreshAllAudioTracks(cParameterContainer *param);
+
+	virtual void setAudioParameterPrefix();
 
 protected:
 	QList<sAnimationFrame> frames;
