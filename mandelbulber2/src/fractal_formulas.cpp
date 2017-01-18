@@ -7507,22 +7507,23 @@ void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 		z4D.x * z4D.x + z4D.y * z4D.y + z4D.z * z4D.z + z4D.w * z4D.w, fractal->mandelboxVary4D.rPower);
 
 	z4D += fractal->transformCommon.offset0000;
-	double m = fractal->mandelbox.scale;
 	if (rr < fractal->transformCommon.minR2p25)
 	{
-		m = fractal->mandelbox.scale *  fractal->transformCommon.maxMinR2factor;
+		z4D *= fractal->transformCommon.maxMinR2factor;
+		aux.DE *= fractal->transformCommon.maxMinR2factor;
 		aux.color += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		m = fractal->mandelbox.scale * fractal->transformCommon.maxR2d1/ rr;
+		z4D *= fractal->transformCommon.maxR2d1/ rr;
+		aux.DE *= fractal->transformCommon.maxR2d1/ rr;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z4D -= fractal->transformCommon.offset0000;
 
 
-	z4D *= m;
-	aux.DE = aux.DE * fabs(m) + 1.0;
+	z4D *= fractal->mandelbox.scale;
+	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 		// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
