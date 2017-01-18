@@ -65,6 +65,7 @@ private slots:
 	void slotDeleteAudioTrack();
 	void slotPlaybackStart();
 	void slotPlaybackStop();
+	void slotPlayPositionChanged();
 
 private:
 	void ConnectSignals();
@@ -79,13 +80,15 @@ private:
 	QString parameterName;
 	cAnimationFrames *animationFrames;
 
-	QMediaPlayer *player;
-	QAudioOutput *audioOutput; // class member.
+	QAudioOutput *audioOutput;
+	QByteArray playBuffer;
+	QDataStream *playStream;
 
 signals:
 	void freqencyChanged(double midfreq, double bandwidth);
 	void audioLoaded();
 	void loadingProgress(QString progressText);
+	void playPositionChanged(qint64 miliseconds);
 };
 
 #endif /* MANDELBULBER2_QT_AUDIO_SELECTOR_H_ */

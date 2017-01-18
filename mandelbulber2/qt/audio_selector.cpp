@@ -49,18 +49,8 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
-	player = new QMediaPlayer;
-
-  QAudioFormat format;
-  // Set up the format, eg.
-  format.setSampleRate(44100);
-  format.setChannelCount(1);
-  format.setSampleSize(32);
-  format.setCodec("audio/pcm");
-  format.setByteOrder(QAudioFormat::LittleEndian);
-  format.setSampleType(QAudioFormat::Float);
-  audioOutput = new QAudioOutput(format, this);
-  audioOutput->setVolume(1.0);
+	audioOutput = nullptr;
+	playStream = nullptr;
 
 	ConnectSignals();
 	audio = nullptr;
@@ -71,12 +61,14 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 cAudioSelector::~cAudioSelector()
 {
 	SynchronizeInterfaceWindow(this, gPar, qInterface::read);
-	delete player;
-	if(audioOutput)
+
+	if (audioOutput)
 	{
 		audioOutput->stop();
 		delete audioOutput;
 	}
+
+	if (playStream) delete playStream;
 }
 
 void cAudioSelector::slotLoadAudioFile()
@@ -160,6 +152,8 @@ void cAudioSelector::ConnectSignals()
 	connect(ui->pushButton_playback_start, SIGNAL(clicked()), this, SLOT(slotPlaybackStart()));
 	connect(ui->pushButton_playback_stop, SIGNAL(clicked()), this, SLOT(slotPlaybackStop()));
 	connect(this, SIGNAL(loadingProgress(QString)), ui->waveForm, SLOT(slotLoadingProgress(QString)));
+	connect(
+		this, SIGNAL(playPositionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
 };
 
 void cAudioSelector::RenameWidget(QWidget *widget)
@@ -196,33 +190,43 @@ void cAudioSelector::slotPlaybackStart()
 {
 	if (audio->isLoaded())
 	{
-//		QString filename = ui->text_animsound_soundfile->text();
-//		connect(
-//			player, SIGNAL(positionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
-//		player->setMedia(QUrl::fromLocalFile(filename));
-//		player->setNotifyInterval(50);
-//		player->play();
+		if (audioOutput && audioOutput->state() == QAudio::ActiveState)
+		{
+			return;
+		}
 
-    audioOutput->setNotifyInterval(100);
+		QAudioFormat format;
+		format.setSampleRate(audio->getSampleRate());
+		format.setChannelCount(1);
+		format.setSampleSize(32);
+		format.setCodec("audio/pcm");
+		format.setByteOrder(QAudioFormat::LittleEndian);
+		format.setSampleType(QAudioFormat::Float);
 
-    connect(audioOutput, SIGNAL(notify()), this, SLOT(positionChanged()));
+		if (audioOutput) delete audioOutput;
+		audioOutput = new QAudioOutput(format, this);
+		audioOutput->setVolume(1.0);
+		audioOutput->setNotifyInterval(50);
 
-    QByteArray byteArray(reinterpret_cast<char*>(audio->getRawAudio()), audio->getLength() * sizeof(float));
-    QDataStream stream(&byteArray, QIODevice::ReadOnly);
+		connect(audioOutput, SIGNAL(notify()), this, SLOT(slotPlayPositionChanged()));
 
-    audioOutput->start(stream.device());
+		playBuffer = QByteArray(
+			reinterpret_cast<char *>(audio->getRawAudio()), audio->getLength() * sizeof(float));
 
-  	QApplication::processEvents();
-    while(audioOutput->state() != QAudio::StoppedState)
-    {
-    	QApplication::processEvents();
-    }
+		if (playStream) delete playStream;
+		playStream = new QDataStream(&playBuffer, QIODevice::ReadOnly);
+
+		audioOutput->start(playStream->device());
 	}
 }
 
 void cAudioSelector::slotPlaybackStop()
 {
-	audioOutput->stop();
+	if (audioOutput)
+	{
+		audioOutput->stop();
+		playBuffer.clear();
+	}
 }
 
 QString cAudioSelector::FullParameterName(const QString &name)
@@ -259,4 +263,9 @@ void cAudioSelector::slotDeleteAudioTrack()
 	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 	slotFreqChanged();
 	emit audioLoaded();
+}
+
+void cAudioSelector::slotPlayPositionChanged()
+{
+	emit playPositionChanged(audioOutput->elapsedUSecs() / 1000);
 }
