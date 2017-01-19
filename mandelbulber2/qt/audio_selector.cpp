@@ -56,6 +56,9 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	audio = nullptr;
 	animationFrames = nullptr;
 	setAttribute(Qt::WA_DeleteOnClose, true);
+
+	ui->pushButton_playback_start->setEnabled(false);
+	ui->pushButton_playback_stop->setEnabled(false);
 }
 
 cAudioSelector::~cAudioSelector()
@@ -94,6 +97,8 @@ void cAudioSelector::slotLoadAudioFile()
 
 		ui->text_animsound_soundfile->setText(filename);
 
+		slotPlaybackStop();
+
 		connect(audio, SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
 		audio->LoadAudio(filename);
 	}
@@ -107,6 +112,10 @@ void cAudioSelector::slotAudioLoaded()
 	ui->fft->AssignAudioTrack(audio);
 	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 	slotFreqChanged();
+
+	ui->pushButton_playback_start->setEnabled(true);
+	ui->pushButton_playback_stop->setEnabled(false);
+
 	emit audioLoaded();
 }
 
@@ -217,6 +226,9 @@ void cAudioSelector::slotPlaybackStart()
 		playStream = new QDataStream(&playBuffer, QIODevice::ReadOnly);
 
 		audioOutput->start(playStream->device());
+
+		ui->pushButton_playback_start->setEnabled(false);
+		ui->pushButton_playback_stop->setEnabled(true);
 	}
 }
 
@@ -226,6 +238,9 @@ void cAudioSelector::slotPlaybackStop()
 	{
 		audioOutput->stop();
 		playBuffer.clear();
+
+		ui->pushButton_playback_start->setEnabled(true);
+		ui->pushButton_playback_stop->setEnabled(false);
 	}
 }
 
@@ -251,6 +266,9 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 			ui->fft->AssignAudioTrack(audio);
 			ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 			slotFreqChanged();
+
+			ui->pushButton_playback_start->setEnabled(true);
+			ui->pushButton_playback_stop->setEnabled(false);
 		}
 	}
 }
@@ -261,7 +279,9 @@ void cAudioSelector::slotDeleteAudioTrack()
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
 	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
-	slotFreqChanged();
+	ui->text_animsound_soundfile->setText("");
+	slotFreqChanged();\
+	slotPlaybackStop();
 	emit audioLoaded();
 }
 
