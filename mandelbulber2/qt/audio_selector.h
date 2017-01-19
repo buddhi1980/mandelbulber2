@@ -66,6 +66,7 @@ private slots:
 	void slotPlaybackStart();
 	void slotPlaybackStop();
 	void slotPlayPositionChanged();
+	void slotPlaybackStateChanged(QAudio::State state);
 
 private:
 	void ConnectSignals();

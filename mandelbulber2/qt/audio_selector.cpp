@@ -218,6 +218,8 @@ void cAudioSelector::slotPlaybackStart()
 		audioOutput->setNotifyInterval(50);
 
 		connect(audioOutput, SIGNAL(notify()), this, SLOT(slotPlayPositionChanged()));
+		connect(audioOutput, SIGNAL(stateChanged(QAudio::State)), this,
+			SLOT(slotPlaybackStateChanged(QAudio::State)));
 
 		playBuffer = QByteArray(
 			reinterpret_cast<char *>(audio->getRawAudio()), audio->getLength() * sizeof(float));
@@ -280,7 +282,7 @@ void cAudioSelector::slotDeleteAudioTrack()
 	ui->fft->AssignAudioTrack(audio);
 	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 	ui->text_animsound_soundfile->setText("");
-	slotFreqChanged();\
+	slotFreqChanged();
 	slotPlaybackStop();
 	emit audioLoaded();
 }
@@ -288,4 +290,13 @@ void cAudioSelector::slotDeleteAudioTrack()
 void cAudioSelector::slotPlayPositionChanged()
 {
 	emit playPositionChanged(audioOutput->elapsedUSecs() / 1000);
+}
+
+void cAudioSelector::slotPlaybackStateChanged(QAudio::State state)
+{
+	if (state == QAudio::StoppedState or state == QAudio::IdleState)
+	{
+		ui->pushButton_playback_start->setEnabled(true);
+		ui->pushButton_playback_stop->setEnabled(false);
+	}
 }
