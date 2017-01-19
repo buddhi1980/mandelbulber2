@@ -7494,6 +7494,12 @@ void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 		}
 	}
 	z4D += fractal->transformCommon.additionConstant0000;
+
+	aux.foldFactor = fractal->foldColor.compFold;
+	aux.minRFactor = fractal->foldColor.compMinR;
+	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
+	// scaleColor += fabs(fractal->mandelbox.scale);
+	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
 
 /**

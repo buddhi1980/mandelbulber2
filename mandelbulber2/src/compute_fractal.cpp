@@ -1366,7 +1366,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
-				case abox4D:
+
 				case foldBoxMod1:
 					out->colorIndex =
 						extendedAux.color * 100.0														 // folds part
@@ -1392,6 +1392,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelboxMenger:
 				case amazingSurfMod1:
 				case aboxModKaliEiffie:
+				case abox4D:
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
