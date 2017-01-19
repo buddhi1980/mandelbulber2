@@ -51,6 +51,8 @@
 #include "keyframes.hpp"
 #include "settings.hpp"
 #include "system.hpp"
+#include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
 #include "ui_render_window.h"
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height) const
@@ -331,13 +333,17 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 {
 	cSettings parSettings(cSettings::formatFullText);
 	parSettings.LoadFromFile(filename);
-	parSettings.Decode(gPar, gParFractal);
+	parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 	gMainInterface->RebuildPrimitives(gPar);
 	gMainInterface->materialListModel->Regenerate();
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	gMainInterface->ComboMouseClickUpdate();
 	systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
 																+ QFileInfo(filename).fileName();
+
+	gFlightAnimation->RefreshTable();
+	gKeyframeAnimation->RefreshTable();
+	showDescriptionPopup();
 	this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 }
 
