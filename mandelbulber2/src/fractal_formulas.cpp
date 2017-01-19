@@ -7399,12 +7399,13 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fract
  * Formula based on Mandelbox (ABox). Extended to 4 dimensions
  */
 void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
-{
+{  // parabolic = paraOffset + iter *slope + (iter *iter *scale)
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
-	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
-		paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
-								+ (i * i * 0.001 * fractal->Cpara.parabScale);
+	{
+		double parabScale = 0.0;
+		if (fractal->Cpara.parabScale != 0.0) parabScale = i * i * 0.001 * fractal->Cpara.parabScale;
+		paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope) + (parabScale);
 		z4D.w += paraAddP0;
 	}
 
@@ -7423,8 +7424,8 @@ void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 	if (z4D.z != oldz.z) aux.color += fractal->mandelbox.color.factor4D.z;
 	if (z4D.w != oldz.w) aux.color += fractal->mandelbox.color.factor4D.w;
 
-	double rr = pow(
-		z4D.x * z4D.x + z4D.y * z4D.y + z4D.z * z4D.z + z4D.w * z4D.w, fractal->mandelboxVary4D.rPower);
+	double rr = z4D.Dot(z4D);
+	if (fractal->mandelboxVary4D.rPower != 1.0) rr = pow(rr,fractal->mandelboxVary4D.rPower);
 
 	z4D += fractal->transformCommon.offset0000;
 	if (rr < fractal->transformCommon.minR2p25)
