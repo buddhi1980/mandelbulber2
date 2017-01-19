@@ -70,6 +70,10 @@ mkdir -p $MANDELBULBER_DLL_TARGET/imageformats
 cp $MANDELBULBER_PREFIX/plugins/imageformats/* $MANDELBULBER_DLL_TARGET/imageformats/
 mkdir -p $MANDELBULBER_DLL_TARGET/gamepads
 cp $MANDELBULBER_PREFIX/plugins/gamepads/* $MANDELBULBER_DLL_TARGET/gamepads/
+mkdir -p $MANDELBULBER_DLL_TARGET/audio
+cp $MANDELBULBER_PREFIX/plugins/audio/* $MANDELBULBER_DLL_TARGET/audio/
+mkdir -p $MANDELBULBER_DLL_TARGET/mediaservice
+cp $MANDELBULBER_PREFIX/plugins/mediaservice/* $MANDELBULBER_DLL_TARGET/mediaservice/
 
 cp /usr/$MANDELBULBER_MINGW_HOST/lib/libwinpthread-1.dll $MANDELBULBER_DLL_TARGET
 
