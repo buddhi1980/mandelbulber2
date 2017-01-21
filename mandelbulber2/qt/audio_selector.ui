@@ -20,6 +20,9 @@
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QPushButton" name="pushButton_loadAudioFile">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load audio from file. It supports folowing formats:&lt;/p&gt;&lt;p&gt;- *.wav (wave forrm audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - supported only under Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Select audio file</string>
          </property>
@@ -30,7 +33,11 @@
         </widget>
        </item>
        <item>
-        <widget class="MyLineEdit" name="text_animsound_soundfile"/>
+        <widget class="MyLineEdit" name="text_animsound_soundfile">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;path to file with sound&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -39,6 +46,9 @@
          </property>
          <item>
           <widget class="QPushButton" name="pushButton_playback_start">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play loaded sound&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Play sound</string>
            </property>
@@ -50,6 +60,9 @@
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_playback_stop">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop sound playback&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Stop</string>
            </property>
@@ -63,6 +76,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_delete_audiotrack">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove audio track from animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Delete audio track</string>
          </property>
@@ -74,6 +90,9 @@
        </item>
        <item>
         <widget class="MyGroupBox" name="groupCheck_animsound_enable">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables animation controlled by sound track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="title">
           <string>Enable animation by so&amp;und</string>
          </property>
@@ -135,6 +154,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Frequency of sound which will be used to calculate animation.&lt;/p&gt;&lt;p&gt;This frequency is indicated on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="prefix">
                <string/>
               </property>
@@ -172,6 +194,9 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of the band of frequeces which will be used to calculate animation.&lt;/p&gt;&lt;p&gt;Selected bandwidth is indicated on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;p&gt;If bandwidth is wide then animation will be calculated as a average amplitude of selected frequences.&lt;/p&gt;&lt;p&gt;If bandwidth is set to maximum value then animation is caluculated as a amplitude of sound.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="prefix">
                <string/>
@@ -277,10 +302,18 @@
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="MyLineEdit" name="logedit_animsound_additionfactor"/>
+             <widget class="MyLineEdit" name="logedit_animsound_additionfactor">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animations is calculated using folowing formula:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; * (1.0 + sound * multiplication_factor) &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;+ addition_factor * sound&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - finall value of animated parameter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- value of parameter got form keyframe animation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude of selected range of sound frequences&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;If addition factor is close to zero, then value generated by sound will not be added to animated parameter vale&lt;/p&gt;&lt;p&gt;If addition factor is close to 1.0, then animated parameter value is increased by range from 0 to 1.0 depending on sound amplitude&lt;/p&gt;&lt;p&gt;If addition factor is close to 10.0, then animated parameter value is increased by range from 0 to 10.0 depending on sound amplitude&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
             </item>
             <item row="3" column="2">
-             <widget class="MyLineEdit" name="logedit_animsound_multfactor"/>
+             <widget class="MyLineEdit" name="logedit_animsound_multfactor">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animations is calculated using folowing formula:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; * &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;(1.0 + sound * multiplication_factor)&lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;+ addition_factor * sound&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - finall value of animated parameter&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- value of parameter got form keyframe animation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude of selected range of sound frequences&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;If multiplication factor is close to zero, then value generated by sound will not change to animated parameter vale&lt;/p&gt;&lt;p&gt;If multiplication factor is close to 1.0, then when sound is silent, animated parameter will stay unchanged. When sound is loud then animated parameter value will be twice higher.&lt;/p&gt;&lt;p&gt;If multiplication factor is close to 10.0,  then when sound is silent, animated parameter will stay unchanged. When sound is loud then animated parameter value will be about 10 times higher.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
             </item>
             <item row="4" column="0" colspan="3">
              <widget class="MyCheckBox" name="checkBox_animsound_negative">
@@ -289,6 +322,9 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of animation generated by sound.&lt;/p&gt;&lt;p&gt;Addition factor will decrease animated value. Multiplication factor will divide animated value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string>Negative influence</string>
@@ -303,6 +339,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changed way how animation is calculaded.&lt;/p&gt;&lt;p&gt;When it is disabled, then animation is calculated as a avarage amplitude of selected sound frequences.&lt;/p&gt;&lt;p&gt;When is enabled, then animation is calculated as a average pitch of selected sound frequences.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="text">
                <string>Sound pitch mode</string>
               </property>
@@ -312,6 +351,9 @@
           </item>
           <item>
            <widget class="MyGroupBox" name="groupCheck_animsound_decayfilter">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables decay filter.&lt;/p&gt;&lt;p&gt;Value of animated parameter will rise fast, but decay slow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="title">
              <string>Decay fil&amp;ter</string>
             </property>
@@ -373,6 +415,9 @@
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes slower dacaying of animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
                  <property name="prefix">
                   <string/>
                  </property>
@@ -403,6 +448,9 @@
           </item>
           <item>
            <widget class="MyGroupBox" name="groupCheck_animsound_smoothfilter">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables smoth filter.&lt;/p&gt;&lt;p&gt;Value of animated parameter will change in smooth way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="title">
              <string>S&amp;mooth filter</string>
             </property>
@@ -463,6 +511,9 @@
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes slower changes of animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="prefix">
                   <string/>
@@ -579,6 +630,9 @@
              <height>0</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays waveform of loaded audio file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
           </widget>
          </item>
          <item>
@@ -607,6 +661,9 @@
              <width>16777215</width>
              <height>256</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays frequency spectrum of loaded sound file.&lt;/p&gt;&lt;p&gt;On the bottom of chart there are painted low frequences of the sound (bass). On the top there are high frequences (high tones).&lt;/p&gt;&lt;p&gt;Brighter pixels indicates lauder tones.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -642,6 +699,9 @@
              <width>0</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animation chart showes how the sound will modify animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
