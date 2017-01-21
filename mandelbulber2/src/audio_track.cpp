@@ -96,22 +96,20 @@ void cAudioTrack::LoadAudio(const QString &filename)
 	loaded = false;
 
 #ifdef USE_SNDFILE
-	if (sufix.toLower() == "wav")
+
+	emit loadingProgress(tr("Loading sound file"));
+	QApplication::processEvents();
+	SNDFILE *infile = nullptr;
+	SF_INFO sfinfo;
+	memset(&sfinfo, 0, sizeof(sfinfo));
+
+	if ((infile = sf_open(filename.toLocal8Bit().constData(), SFM_READ, &sfinfo)) == nullptr)
 	{
-		emit loadingProgress(tr("Loading WAV file"));
-		QApplication::processEvents();
-		SNDFILE *infile = nullptr;
-		SF_INFO sfinfo;
-		memset(&sfinfo, 0, sizeof(sfinfo));
-
-		if ((infile = sf_open(filename.toLocal8Bit().constData(), SFM_READ, &sfinfo)) == nullptr)
-		{
-			qCritical() << "Not able to open input file:" << filename;
-			qCritical() << sf_strerror(nullptr);
-			emit loadingFailed();
-			return;
-		};
-
+		//qCritical() << "Not able to open input file:" << filename;
+		//qCritical() << sf_strerror(nullptr);
+	}
+	else
+	{
 		sampleRate = sfinfo.samplerate;
 
 		if (sfinfo.frames > 0)
@@ -144,6 +142,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		WriteLog("Loading wave file finished", 2);
 		emit loadingFinished();
 	}
+
 #endif
 
 	if (!loaded)
@@ -175,6 +174,12 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		{
 			QApplication::processEvents();
 		}
+	}
+
+	if(!loaded)
+	{
+		emit loadingFailed();
+		return;
 	}
 }
 
