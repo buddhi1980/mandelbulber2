@@ -318,7 +318,7 @@
      <item row="7" column="1">
       <widget class="QLabel" name="label_257">
        <property name="text">
-        <string>Offset</string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -536,7 +536,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
-      <string>Internal &amp;Rotation;</string>
+      <string>Internal &amp;Rotation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

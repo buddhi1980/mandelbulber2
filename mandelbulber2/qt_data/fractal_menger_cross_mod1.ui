@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
+    <width>889</width>
     <height>3346</height>
    </rect>
   </property>
@@ -1039,14 +1039,14 @@
      <item row="3" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>z.x offset A</string>
+        <string>z.x offset A:</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_110">
        <property name="text">
-        <string>z.x offset B</string>
+        <string>z.x offset B:</string>
        </property>
       </widget>
      </item>
@@ -1122,7 +1122,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledR_false">
      <property name="title">
-      <string>&amp;Rotation;</string>
+      <string>&amp;Rotation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1529,9 +1529,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -1540,9 +1540,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>

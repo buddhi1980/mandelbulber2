@@ -995,7 +995,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>Offset</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>
@@ -1523,7 +1523,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_260">
           <property name="text">
-           <string>Offset</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>
@@ -2542,7 +2542,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_264">
           <property name="text">
-           <string>Offset</string>
+           <string>Offset:</string>
           </property>
          </widget>
         </item>

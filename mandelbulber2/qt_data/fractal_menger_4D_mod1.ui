@@ -197,7 +197,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_100">
        <property name="text">
-        <string>Value:</string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>
@@ -211,7 +211,7 @@
      <item row="0" column="3">
       <widget class="QLabel" name="label_97">
        <property name="text">
-        <string>z.w parabolic = paraOffset + iter *slope + (iter *iter *scale)</string>
+        <string notr="true">z.w parabolic = paraOffset + iter *slope + (iter *iter *scale)</string>
        </property>
       </widget>
      </item>
@@ -1046,7 +1046,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Menger Scale</string>
+        <string>Menger Scale:</string>
        </property>
       </widget>
      </item>
@@ -1169,7 +1169,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_91">
        <property name="text">
-        <string>Menger offsets:</string>
+        <string>Menger Offset:</string>
        </property>
       </widget>
      </item>
@@ -1443,21 +1443,21 @@
         <item row="2" column="0">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
           <property name="text">
-           <string>Dot2 mode (x*x+y*y);</string>
+           <string>Dot2 mode (x*x+y*y)</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
           <property name="text">
-           <string>Dot3 mode (x*x+y*y+z*z);</string>
+           <string>Dot3 mode (x*x+y*y+z*z)</string>
           </property>
          </widget>
         </item>
         <item row="2" column="2">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledBz">
           <property name="text">
-           <string>Dot4 mode (x*x+y*y+z*z+w*w);</string>
+           <string>Dot4 mode (x*x+y*y+z*z+w*w)</string>
           </property>
          </widget>
         </item>
@@ -1870,7 +1870,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>DE tweak temp</string>
+        <string>DE tweak temp:</string>
        </property>
       </widget>
      </item>
@@ -2136,9 +2136,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -2147,9 +2147,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

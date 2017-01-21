@@ -170,6 +170,12 @@ foreach($formulas as $index => $formula){
 		array('find' => '/<string>fabs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>fabs($1)</string>'),
 		array('find' => '/<string>abs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>abs($1)</string>'),
 		array('find' => '/<string>(.*?)::(.*?)<\/string>/', 'replace' => '<string>$1:$2</string>'),
+		array('find' => '/<string>Menger Scale<\/string>/', 'replace' => '<string>Menger Scale:</string>'),
+		array('find' => '/<string>Menger offsets:<\/string>/', 'replace' => '<string>Menger Offset:</string>'),
+		array('find' => '/<string>DE tweak temp<\/string>/', 'replace' => '<string>DE tweak temp:</string>'),
+		array('find' => '/<string>Offset<\/string>/', 'replace' => '<string>Offset:</string>'),
+		array('find' => '/Rotation;<\/string>/', 'replace' => 'Rotation</string>'),
+		array('find' => '/>Multiplier<\/string>/', 'replace' => '>Multiplier:</string>'),
 	);
 	foreach($replaceFormulaLookup as $item){
 	  $newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);
