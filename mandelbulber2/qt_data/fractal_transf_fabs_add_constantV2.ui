@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_fabs_add_constantV2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
-    <height>439</height>
+    <width>781</width>
+    <height>830</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -329,7 +329,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QSlider" name="slider3_transf_scale3D_111_z">
+      <widget class="QSlider" name="slider3_transf_offset_000_z">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -351,7 +351,7 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -376,7 +376,7 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -401,7 +401,7 @@
       </widget>
      </item>
      <item row="2" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -426,7 +426,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QSlider" name="slider3_transf_scale3D_111_y">
+      <widget class="QSlider" name="slider3_transf_offset_000_y">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -448,7 +448,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QSlider" name="slider3_transf_scale3D_111_x">
+      <widget class="QSlider" name="slider3_transf_offset_000_x">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -567,9 +567,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -578,9 +578,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
