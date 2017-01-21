@@ -37,7 +37,7 @@
      <item row="4" column="1">
       <widget class="QLabel" name="label_267">
        <property name="text">
-        <string>Offset</string>
+        <string>Offset:</string>
        </property>
       </widget>
      </item>

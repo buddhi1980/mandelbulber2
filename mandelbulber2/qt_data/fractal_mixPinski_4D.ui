@@ -312,7 +312,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_95">
          <property name="text">
-          <string>Offset</string>
+          <string>Offset:</string>
          </property>
         </widget>
        </item>
@@ -961,7 +961,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Menger Scale</string>
+        <string>Menger Scale:</string>
        </property>
       </widget>
      </item>
@@ -1084,7 +1084,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_91">
        <property name="text">
-        <string>Menger offsets:</string>
+        <string>Menger Offset:</string>
        </property>
       </widget>
      </item>
@@ -1267,7 +1267,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>DE tweak temp</string>
+        <string>DE tweak temp:</string>
        </property>
       </widget>
      </item>

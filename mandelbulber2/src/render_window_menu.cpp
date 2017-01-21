@@ -84,7 +84,7 @@ void RenderWindow::slotMenuAboutMandelbulber()
 	text += "version: <b>" + QString(MANDELBULBER_VERSION_STRING) + "</b>" + "<br>";
 	text += "<br>";
 	text += "Licence: GNU GPL version 3.0<br>";
-	text += "Copyright Ⓒ 2015<br>";
+	text += "Copyright Ⓒ 2017<br>";
 	text += "project leader: Krzysztof Marczak<br>";
 	text += "programmers:<br>";
 	text += "Krzysztof Marczak<br>";

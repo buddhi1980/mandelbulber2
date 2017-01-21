@@ -6002,7 +6002,7 @@ void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
 
 /**
  * fabs. Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
- * tglad's fold
+ * tglad's fold, with a fold tweak option
  */
 void TransformFabsAddConstantV2Iteration(CVector3 &z, int i, const cFractal *fractal)
 {
@@ -6014,8 +6014,8 @@ void TransformFabsAddConstantV2Iteration(CVector3 &z, int i, const cFractal *fra
 			&& i < fractal->transformCommon.stopIterationsA)
 	{
 		CVector3 limit = fractal->transformCommon.additionConstant000;
-		CVector3 length = 2 * limit;
-		CVector3 tgladS = 2 / (4 * limit);
+		CVector3 length = 2.0 * limit;
+		CVector3 tgladS = 1.0 / length;
 		CVector3 Add;
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
@@ -6026,7 +6026,7 @@ void TransformFabsAddConstantV2Iteration(CVector3 &z, int i, const cFractal *fra
 			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
 		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
 			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-		Add *= fractal->transformCommon.scale3D111;
+		Add *= fractal->transformCommon.offset000;
 		z.x = (z.x - (sign(z.x) * (Add.x)));
 		z.y = (z.y - (sign(z.y) * (Add.y)));
 		z.z = (z.z - (sign(z.z) * (Add.z)));
