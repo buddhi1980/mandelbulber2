@@ -6546,9 +6546,9 @@ void TransformRotationFoldingPlane(CVector3 &z, const cFractal *fractal, sExtend
 	{
 		// handle each dimension x, y and z sequentially in pointer var dim
 		double *dim = (i == 0) ? &zRot.x : ((i == 1) ? &zRot.y : &zRot.z);
-		const double *colorFactor =
-			(i == 0) ? &fractal->mandelbox.color.factor.x
-							 : ((i == 1) ? &fractal->mandelbox.color.factor.y : &fractal->mandelbox.color.factor.z);
+		const double *colorFactor = (i == 0) ? &fractal->mandelbox.color.factor.x
+																				 : ((i == 1) ? &fractal->mandelbox.color.factor.y
+																										 : &fractal->mandelbox.color.factor.z);
 
 		zRot = fractal->mandelbox.rot[0][i].RotateVector(z);
 		if (*dim > fractal->mandelbox.foldingLimit)
@@ -7399,7 +7399,7 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fract
  * Formula based on Mandelbox (ABox). Extended to 4 dimensions
  */
 void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
-{  // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
 	{
@@ -7425,7 +7425,7 @@ void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 	if (z4D.w != oldz.w) aux.color += fractal->mandelbox.color.factor4D.w;
 
 	double rr = z4D.Dot(z4D);
-	if (fractal->mandelboxVary4D.rPower != 1.0) rr = pow(rr,fractal->mandelboxVary4D.rPower);
+	if (fractal->mandelboxVary4D.rPower != 1.0) rr = pow(rr, fractal->mandelboxVary4D.rPower);
 
 	z4D += fractal->transformCommon.offset0000;
 	if (rr < fractal->transformCommon.minR2p25)
