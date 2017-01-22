@@ -3040,9 +3040,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -3051,11 +3051,108 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>groupCheck_transf_benesi_T1_enabled</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations</tabstop>
+  <tabstop>slider3_transf_scale3D_222_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_x</tabstop>
+  <tabstop>slider3_transf_scale3D_222_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_y</tabstop>
+  <tabstop>slider3_transf_scale3D_222_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_z</tabstop>
+  <tabstop>slider3_transf_offset_200_x</tabstop>
+  <tabstop>spinbox3_transf_offset_200_x</tabstop>
+  <tabstop>slider3_transf_offset_200_y</tabstop>
+  <tabstop>spinbox3_transf_offset_200_y</tabstop>
+  <tabstop>slider3_transf_offset_200_z</tabstop>
+  <tabstop>spinbox3_transf_offset_200_z</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_T</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_T</tabstop>
+  <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_100_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_100_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_100_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_100_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_100_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_100_z</tabstop>
+  <tabstop>groupCheck_transf_rotation_enabled</tabstop>
+  <tabstop>dial3_transf_rotation_x</tabstop>
+  <tabstop>dial3_transf_rotation_y</tabstop>
+  <tabstop>dial3_transf_rotation_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation_z</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledBx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledBy_false</tabstop>
+  <tabstop>comboBox_magTransf_order_of_transf_1</tabstop>
+  <tabstop>comboBox_magTransf_order_of_transf_2</tabstop>
+  <tabstop>comboBox_magTransf_order_of_transf_3</tabstop>
+  <tabstop>comboBox_magTransf_order_of_transf_4</tabstop>
+  <tabstop>comboBox_magTransf_order_of_transf_5</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_B</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_C</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_D</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_E</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_B</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_C</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_D</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_E</tabstop>
+  <tabstop>spinbox3_transf_scale3Da_222_x</tabstop>
+  <tabstop>spinbox3_transf_scale3Da_222_y</tabstop>
+  <tabstop>spinbox3_transf_scale3Da_222_z</tabstop>
+  <tabstop>spinbox3_transf_offsetA_200_x</tabstop>
+  <tabstop>spinbox3_transf_offsetA_200_y</tabstop>
+  <tabstop>spinbox3_transf_offsetA_200_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_333_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_333_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_333_z</tabstop>
+  <tabstop>spinbox3_transf_offset_111_x</tabstop>
+  <tabstop>spinbox3_transf_offset_111_y</tabstop>
+  <tabstop>spinbox3_transf_offset_111_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_444_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_444_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_444_z</tabstop>
+  <tabstop>spinbox3_transf_offsetA_111_x</tabstop>
+  <tabstop>spinbox3_transf_offsetA_111_y</tabstop>
+  <tabstop>spinbox3_transf_offsetA_111_z</tabstop>
+  <tabstop>spinbox3_transf_scale3Db_222_x</tabstop>
+  <tabstop>spinbox3_transf_scale3Db_222_y</tabstop>
+  <tabstop>spinbox3_transf_scale3Db_222_z</tabstop>
+  <tabstop>spinbox3_transf_offset_222_x</tabstop>
+  <tabstop>spinbox3_transf_offset_222_y</tabstop>
+  <tabstop>spinbox3_transf_offset_222_z</tabstop>
+  <tabstop>spinbox3_transf_scale3Dc_222_x</tabstop>
+  <tabstop>spinbox3_transf_scale3Dc_222_y</tabstop>
+  <tabstop>spinbox3_transf_scale3Dc_222_z</tabstop>
+  <tabstop>spinbox3_transf_offsetB_111_x</tabstop>
+  <tabstop>spinbox3_transf_offsetB_111_y</tabstop>
+  <tabstop>spinbox3_transf_offsetB_111_z</tabstop>
+  <tabstop>spinbox3_transf_scale3Dd_222_x</tabstop>
+  <tabstop>spinbox3_transf_scale3Dd_222_y</tabstop>
+  <tabstop>spinbox3_transf_scale3Dd_222_z</tabstop>
+  <tabstop>spinbox3_transf_offsetC_111_x</tabstop>
+  <tabstop>spinbox3_transf_offsetC_111_y</tabstop>
+  <tabstop>spinbox3_transf_offsetC_111_z</tabstop>
+  <tabstop>spinboxInt_transf_int8_X</tabstop>
+  <tabstop>spinboxInt_transf_int8_Y</tabstop>
+  <tabstop>spinboxInt_transf_int8_Z</tabstop>
+  <tabstop>spinbox3_transf_power_025_x</tabstop>
+  <tabstop>spinbox3_transf_power_025_y</tabstop>
+  <tabstop>spinbox3_transf_power_025_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

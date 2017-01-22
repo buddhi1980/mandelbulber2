@@ -1661,11 +1661,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1676,7 +1671,67 @@
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
   </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>spinboxInt_transf_start_iterations</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations</tabstop>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledz</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_z</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx</tabstop>
+  <tabstop>slider3_transf_addition_constantA_111_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_111_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy</tabstop>
+  <tabstop>slider3_transf_addition_constantA_111_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_111_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz</tabstop>
+  <tabstop>slider3_transf_addition_constantA_111_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_111_z</tabstop>
+  <tabstop>slider3_transf_scale3D_111_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
+  <tabstop>slider3_transf_scale3D_111_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
+  <tabstop>slider3_transf_scale3D_111_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabled_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_A</tabstop>
+  <tabstop>slider_mandelbox_folding_limit</tabstop>
+  <tabstop>spinbox_mandelbox_folding_limit</tabstop>
+  <tabstop>slider_mandelbox_folding_value</tabstop>
+  <tabstop>spinbox_mandelbox_folding_value</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_B</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_B</tabstop>
+  <tabstop>slider_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>slider_mandelbox_folding_min_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_min_radius</tabstop>
+  <tabstop>slider_mandelbox_scale</tabstop>
+  <tabstop>spinbox_mandelbox_scale</tabstop>
+  <tabstop>groupCheck_mandelbox_main_rotation_enabled</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_C</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_C</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_x</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_y</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

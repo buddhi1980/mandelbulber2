@@ -447,6 +447,19 @@
    <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_constant_multiplier_121_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_121_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_121_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_121_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_121_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_121_z</tabstop>
+  <tabstop>slider3_transf_addition_constant_0555_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_0555_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_0555_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_0555_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>817</width>
-    <height>4447</height>
+    <height>4749</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1446,18 +1446,19 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>comboBox_mandelbox_generalized_fold_type</tabstop>
   <tabstop>slider_mandelbox_scale</tabstop>
   <tabstop>spinbox_mandelbox_scale</tabstop>
   <tabstop>slider_mandelbox_folding_fixed_radius</tabstop>
@@ -1470,25 +1471,30 @@ offset:</string>
   <tabstop>spinbox3_mandelbox_offset_y</tabstop>
   <tabstop>slider3_mandelbox_offset_z</tabstop>
   <tabstop>spinbox3_mandelbox_offset_z</tabstop>
+  <tabstop>slider_mandelbox_solid</tabstop>
+  <tabstop>spinbox_mandelbox_solid</tabstop>
+  <tabstop>slider_mandelbox_melt</tabstop>
+  <tabstop>spinbox_mandelbox_melt</tabstop>
   <tabstop>groupCheck_mandelbox_main_rotation_enabled</tabstop>
   <tabstop>dial3_mandelbox_rotation_main_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_main_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_main_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_main_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_main_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_main_z</tabstop>
   <tabstop>slider_mandelbox_color_R</tabstop>
   <tabstop>spinbox_mandelbox_color_R</tabstop>
   <tabstop>slider3_mandelbox_color_x</tabstop>
   <tabstop>spinbox3_mandelbox_color_x</tabstop>
-  <tabstop>slider3_mandelbox_color_z</tabstop>
-  <tabstop>spinbox3_mandelbox_color_y</tabstop>
   <tabstop>slider3_mandelbox_color_y</tabstop>
+  <tabstop>spinbox3_mandelbox_color_y</tabstop>
+  <tabstop>slider3_mandelbox_color_z</tabstop>
   <tabstop>spinbox3_mandelbox_color_z</tabstop>
   <tabstop>slider_mandelbox_color_Sp1</tabstop>
   <tabstop>spinbox_mandelbox_color_Sp1</tabstop>
   <tabstop>slider_mandelbox_color_Sp2</tabstop>
   <tabstop>spinbox_mandelbox_color_Sp2</tabstop>
+  <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
  <connections/>

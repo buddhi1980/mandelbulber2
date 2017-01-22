@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>3453</height>
+    <height>3507</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1473,7 +1473,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Menger_Sponge</string>
+      <string>Menger Sponge</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -2145,7 +2145,7 @@
         <item row="2" column="1" colspan="2">
          <widget class="QLabel" name="label_92">
           <property name="text">
-           <string>Menger Iterations</string>
+           <string>Menger Iterations:</string>
           </property>
          </widget>
         </item>

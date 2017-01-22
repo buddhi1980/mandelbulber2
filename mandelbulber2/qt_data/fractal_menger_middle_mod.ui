@@ -1316,14 +1316,14 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_97">
           <property name="text">
-           <string>fabs(z - Const.F2)</string>
+           <string notr="true">fabs(z - Const.F2)</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_74">
           <property name="text">
-           <string>fabs(z + Const.F1)</string>
+           <string notr="true">fabs(z + Const.F1)</string>
           </property>
          </widget>
         </item>
@@ -1359,7 +1359,7 @@
         <item row="10" column="1">
          <widget class="QLabel" name="label_102">
           <property name="text">
-           <string>Const.F3</string>
+           <string notr="true">Const.F3</string>
           </property>
          </widget>
         </item>
@@ -1512,7 +1512,7 @@
           <item row="1" column="1">
            <widget class="QLabel" name="label_103">
             <property name="text">
-             <string>FabsBoxFold Scale</string>
+             <string>FabsBoxFold Scale:</string>
             </property>
            </widget>
           </item>
@@ -1540,7 +1540,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Menger Sponge End Function Apply Constants;</string>
+      <string>Menger Sponge End Function Apply Constants</string>
      </property>
     </widget>
    </item>

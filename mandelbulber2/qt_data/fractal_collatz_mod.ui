@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1240</width>
-    <height>996</height>
+    <height>1131</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -975,17 +975,48 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_scale_4</tabstop>
+  <tabstop>spinbox_transf_scale_4</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_z</tabstop>
+  <tabstop>slider_transf_scale_2</tabstop>
+  <tabstop>spinbox_transf_scale_2</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>slider_transf_scale_025</tabstop>
+  <tabstop>spinbox_transf_scale_025</tabstop>
+  <tabstop>spinbox_analyticDE_scale_linear</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

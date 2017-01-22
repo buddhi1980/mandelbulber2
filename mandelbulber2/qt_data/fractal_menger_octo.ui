@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
-    <height>2613</height>
+    <width>889</width>
+    <height>4861</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1002,7 +1002,7 @@ offset:</string>
      <item row="6" column="0">
       <widget class="QLabel" name="label_19">
        <property name="text">
-        <string>Post_scale</string>
+        <string>Post scale:</string>
        </property>
       </widget>
      </item>
@@ -1352,7 +1352,7 @@ offset:</string>
         <item row="2" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>0</string>
+           <string notr="true">0</string>
           </property>
          </widget>
         </item>
@@ -1423,7 +1423,7 @@ offset:</string>
         <item row="1" column="3">
          <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
           <property name="text">
-           <string>Curvi funtion ( disable to use linear slopes only)</string>
+           <string>Curvi function (disable to use linear slopes only)</string>
           </property>
          </widget>
         </item>
@@ -1701,7 +1701,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledR_false">
      <property name="title">
-      <string>R&amp;otation;</string>
+      <string>R&amp;otation</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

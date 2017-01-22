@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
+    <width>898</width>
     <height>2415</height>
    </rect>
   </property>
@@ -150,7 +150,7 @@
      <item row="11" column="1" colspan="4">
       <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
        <property name="title">
-        <string>R&amp;otation;</string>
+        <string>R&amp;otation</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -461,7 +461,7 @@
      <item row="8" column="1">
       <widget class="QLabel" name="label_255">
        <property name="text">
-        <string>OffsetC</string>
+        <string>OffsetC:</string>
        </property>
       </widget>
      </item>
@@ -562,7 +562,7 @@
      <item row="4" column="1">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>OffsetS</string>
+        <string>OffsetS:</string>
        </property>
       </widget>
      </item>

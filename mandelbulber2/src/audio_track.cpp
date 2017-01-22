@@ -105,8 +105,8 @@ void cAudioTrack::LoadAudio(const QString &filename)
 
 	if ((infile = sf_open(filename.toLocal8Bit().constData(), SFM_READ, &sfinfo)) == nullptr)
 	{
-		//qCritical() << "Not able to open input file:" << filename;
-		//qCritical() << sf_strerror(nullptr);
+		// qCritical() << "Not able to open input file:" << filename;
+		// qCritical() << sf_strerror(nullptr);
 	}
 	else
 	{
@@ -176,7 +176,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 		}
 	}
 
-	if(!loaded)
+	if (!loaded)
 	{
 		emit loadingFailed();
 		return;

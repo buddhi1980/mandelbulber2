@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
+    <width>790</width>
     <height>1040</height>
    </rect>
   </property>
@@ -381,6 +381,17 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider4_transf_addition_constant_0000_x</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_x</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_y</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_y</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_z</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_z</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_w</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_w</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
