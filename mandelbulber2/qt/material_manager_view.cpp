@@ -131,6 +131,7 @@ void cMaterialManagerView::slotLoadMaterial()
 			parSettings.LoadFromFile(filename);
 
 			cParameterContainer params1;
+			params1.SetContainerName(model->GetContainer()->GetContainerName());
 			parSettings.Decode(&params1, nullptr);
 
 			model->insertRowWithParameters(&params1);

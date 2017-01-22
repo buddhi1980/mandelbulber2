@@ -52,6 +52,7 @@ public:
 
 	// will be used to synchronize the data
 	void AssignContainer(cParameterContainer *_parameterContainer);
+	cParameterContainer* GetContainer() {return container;};
 
 	// regenerate model from parametr container data
 	void Regenerate();
