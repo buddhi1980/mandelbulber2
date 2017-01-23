@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>quick_dudley_mod</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>470</width>
-    <height>531</height>
+    <width>727</width>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -222,7 +222,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_267">
        <property name="text">
-        <string>Sq-Multiplier</string>
+        <string>Sq-Multiplier:</string>
        </property>
       </widget>
      </item>
@@ -502,6 +502,21 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_222_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_222_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_222_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_222_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_222_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_222_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

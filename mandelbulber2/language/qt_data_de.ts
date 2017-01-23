@@ -7216,13 +7216,18 @@ Offset:</translation>
     <name>pseudo_kleinian1</name>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="35"/>
-        <source>Note 1) : the pseudo kleinian fractal on this UI, works with the standard linear analytic DE calculation.</source>
-        <translation type="unfinished"></translation>
+        <source>Note 1): The pseudo kleinian fractal on this UI, works with the standard linear analytic DE calculation.</source>
+        <translation>Hinweis 1): Das Pseudo-Kleinian Fraktal auf dieser Oberfläche funktioniert mit der Standard Linear-analytischen DE Berechnung.</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="42"/>
+        <source>Note 2): The termination condition is reached when iteration reaches Maxiter.</source>
+        <translation>Hinweis 2): Die Abbruchbedingung ist erreicht, wenn die Iteration MaxIter erreicht.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="59"/>
         <source>Pr&amp;ism Shape</source>
-        <translation type="unfinished">Prisma Form</translation>
+        <translation>Prisma Form</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="108"/>
@@ -7231,7 +7236,7 @@ Offset:</translation>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3319"/>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3443"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="147"/>
@@ -7240,54 +7245,54 @@ Offset:</translation>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3274"/>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3398"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="154"/>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="830"/>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1358"/>
         <source>Note: Default = 1</source>
-        <translation type="unfinished">Hinweis: Standardwert = 1</translation>
+        <translation>Hinweis: Standardwert = 1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="336"/>
         <source>Dot scale:</source>
-        <translation type="unfinished">Punkt Skalierung:</translation>
+        <translation>Punkt Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="394"/>
         <source>Shift/offset scale:</source>
-        <translation type="unfinished">Shift/Offset Skalierung:</translation>
+        <translation>Shift/Offset Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="477"/>
         <source>Rotat&amp;ion</source>
-        <translation type="unfinished">Rotation</translation>
+        <translation>Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="524"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished">Stoppe Rotation bei Iteration:</translation>
+        <translation>Stoppe Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="531"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished">Starte Rotation bei Iteration:</translation>
+        <translation>Starte Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="748"/>
         <source>Benesi Mag Transform T&amp;1</source>
-        <translation type="unfinished">Benesi Mag Transform T1</translation>
+        <translation>Benesi Mag Transform T1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="790"/>
         <source>Stop T1 at iteration:</source>
-        <translation type="unfinished">Stoppe T1 bei Iteration:</translation>
+        <translation>Stoppe T1 bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="823"/>
         <source>Start T1 at iteration:</source>
-        <translation type="unfinished">Starte T1 bei Iteration:</translation>
+        <translation>Starte T1 bei Iteration:</translation>
     </message>
     <message>
         <source>Scale</source>
@@ -7296,57 +7301,42 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1276"/>
         <source>Benesi Mag Transform T&amp;1 Mod</source>
-        <translation type="unfinished">Benesi Mag Transform T1 Mod</translation>
+        <translation>Benesi Mag Transform T1 Mod</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1318"/>
         <source>Stop T1 Mod at iteration:</source>
-        <translation type="unfinished">Stoppe T1 Mod bei Iteration:</translation>
+        <translation>Stoppe T1 Mod bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1351"/>
         <source>Start T1 Mod at iteration:</source>
-        <translation type="unfinished">Starte T1 Mod bei Iteration:</translation>
+        <translation>Starte T1 Mod bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1804"/>
         <source>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</source>
-        <translation type="unfinished">fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1958"/>
-        <source>- ( z * C )</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="2186"/>
-        <source>Enable fABS(z - B)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="2404"/>
-        <source>Enable fABS(z + A)</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="2476"/>
         <source>Men&amp;ger Sponge</source>
-        <translation type="unfinished">Menger-Schwamm</translation>
+        <translation>Menger-Schwamm</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="2660"/>
         <source>Multiplier:</source>
-        <translation type="unfinished">Multiplikator:</translation>
+        <translation>Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="2890"/>
         <source>Menger Scale Factor:</source>
-        <translation type="unfinished">Menger Skalierungsfaktor:</translation>
+        <translation>Menger Skalierungsfaktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="2987"/>
         <source>Analytic Logrithmic DE multiplier:</source>
-        <translation type="unfinished">Analytisch-logarithmischer DE Multiplikator:</translation>
+        <translation>Analytisch-logarithmischer DE Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1060"/>
@@ -7354,201 +7344,181 @@ Offset:</translation>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3000"/>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3956"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="42"/>
-        <source>Note 2) : The termination condition is when iteration reaches Maxiter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1099"/>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1627"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3223"/>
         <source>Pseu&amp;do Kleinian</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo Kleinian</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3347"/>
         <source>Pseu&amp;do Kleinian Variation</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo Kleinian Variation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3563"/>
         <source>Pseudo Kleinian Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo Kleinian Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3576"/>
         <source>Size R2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe R2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3667"/>
         <source>Csize:</source>
-        <translation type="unfinished"></translation>
+        <translation>Csize:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3834"/>
         <source>DEadd (tweak):</source>
-        <translation type="unfinished"></translation>
+        <translation>DEadd (tweak):</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3876"/>
         <source>z subtr. scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>z Subtr. Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="4143"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>pseudo_kleinian2</name>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="35"/>
-        <source>Note 1) : termination condition is when iteration reaches Maxiter,</source>
-        <translation type="unfinished"></translation>
+        <source>Note 1): The termination condition is reached when iteration reaches Maxiter.</source>
+        <translation>Hinweis 1): Die Abbruchbedingung ist erreicht, wenn die Iteration MaxIter erreicht.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="42"/>
-        <source>Note 2) : each additional iteration adds more detail.</source>
-        <translation type="unfinished"></translation>
+        <source>Note 2): Each additional iteration adds more detail.</source>
+        <translation>Hinweis 2): Jede weitere Iteration sorgt für mehr Details.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="49"/>
-        <source>Note 3 ): this type of DE calculation will not work with other types.</source>
-        <translation type="unfinished"></translation>
+        <source>Note 3): This type of DE calculation will not work with other DE types.</source>
+        <translation>Hinweis 3): Diese Art der DE Berechnung funktioniert nicht mit anderen DE Arten.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="66"/>
         <source>Pr&amp;ism Shape</source>
-        <translation type="unfinished">Prisma Form</translation>
+        <translation>Prisma Form</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="108"/>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="526"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="147"/>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="519"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="154"/>
         <source>Note: Default = 1</source>
-        <translation type="unfinished">Hinweis: Standardwert = 1</translation>
+        <translation>Hinweis: Standardwert = 1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="295"/>
         <source>Dot scale:</source>
-        <translation type="unfinished">Punkt Skalierung:</translation>
+        <translation>Punkt Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="453"/>
         <source>Shift/offset scale:</source>
-        <translation type="unfinished">Shift/Offset Skalierung:</translation>
+        <translation>Shift/Offset Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="477"/>
         <source>Bo&amp;x Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Box Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="712"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Box Faltungswert:</translation>
+        <translation>Box Faltungswert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="719"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Box Faltung Grenze:</translation>
+        <translation>Box Faltung Grenze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="726"/>
         <source>z.z scale:</source>
-        <translation type="unfinished">z.z Skalierung:</translation>
+        <translation>z.z Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="817"/>
         <source>Csize:</source>
-        <translation type="unfinished"></translation>
+        <translation>Csize:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1009"/>
         <source>DEadd (tweak):</source>
-        <translation type="unfinished"></translation>
+        <translation>DEadd (tweak):</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1097"/>
         <source>Pseudo Kleinian</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo Kleinian</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1110"/>
         <source>Size R2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe R2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1179"/>
         <source>DE factor:</source>
-        <translation type="unfinished"></translation>
+        <translation>DE Faktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1250"/>
         <source>Rotat&amp;ion</source>
-        <translation type="unfinished">Rotation</translation>
+        <translation>Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1297"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished">Stoppe Rotation bei Iteration:</translation>
+        <translation>Stoppe Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1304"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished">Starte Rotation bei Iteration:</translation>
+        <translation>Starte Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1523"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian2.ui" line="1710"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>pseudo_kleinian3</name>
     <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="35"/>
-        <source>Note 1) : termination condition is when iteration reaches Maxiter,</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="42"/>
-        <source>Note 2) : each additional iteration adds more detail.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="49"/>
-        <source>Note 3) : this type of DE calculation will not work with other types.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="66"/>
         <source>Pr&amp;ism Shape</source>
-        <translation type="unfinished">Prisma Form</translation>
+        <translation>Prisma Form</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="108"/>
@@ -7557,7 +7527,7 @@ Offset:</translation>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2682"/>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3559"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="147"/>
@@ -7566,135 +7536,118 @@ Offset:</translation>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2637"/>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3514"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="154"/>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="816"/>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1344"/>
         <source>Note: Default = 1</source>
-        <translation type="unfinished">Hinweis: Standardwert = 1</translation>
+        <translation>Hinweis: Standardwert = 1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="331"/>
         <source>Dot scale:</source>
-        <translation type="unfinished">Punkt Skalierung:</translation>
+        <translation>Punkt Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="389"/>
         <source>Shift/offset scale:</source>
-        <translation type="unfinished">Shift/Offset Skalierung:</translation>
+        <translation>Shift/Offset Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="470"/>
         <source>Rotat&amp;ion</source>
-        <translation type="unfinished">Rotation</translation>
+        <translation>Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="512"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished">Stoppe Rotation bei Iteration:</translation>
+        <translation>Stoppe Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="519"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished">Starte Rotation bei Iteration:</translation>
+        <translation>Starte Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="734"/>
         <source>Benesi Mag Transform T&amp;1</source>
-        <translation type="unfinished">Benesi Mag Transform T1</translation>
+        <translation>Benesi Mag Transform T1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="776"/>
         <source>Stop T1 at iteration:</source>
-        <translation type="unfinished">Stoppe T1 bei Iteration:</translation>
+        <translation>Stoppe T1 bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="809"/>
         <source>Start T1 at iteration:</source>
-        <translation type="unfinished">Starte T1 bei Iteration:</translation>
+        <translation>Starte T1 bei Iteration:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1085"/>
-        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1613"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <translation type="obsolete">Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1262"/>
         <source>Benesi Mag Transform T&amp;1 Mod</source>
-        <translation type="unfinished">Benesi Mag Transform T1 Mod</translation>
+        <translation>Benesi Mag Transform T1 Mod</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1304"/>
         <source>Stop T1 Mod at iteration:</source>
-        <translation type="unfinished">Stoppe T1 Mod bei Iteration:</translation>
+        <translation>Stoppe T1 Mod bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1337"/>
         <source>Start T1 Mod at iteration:</source>
-        <translation type="unfinished">Starte T1 Mod bei Iteration:</translation>
+        <translation>Starte T1 Mod bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1790"/>
         <source>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</source>
-        <translation type="unfinished">fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1944"/>
-        <source>- ( z * C )</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3187"/>
         <source>z.z subtr. scale:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2172"/>
-        <source>Enable fABS(z - B)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2390"/>
-        <source>Enable fABS(z + A)</source>
-        <translation type="unfinished"></translation>
+        <translation>z.z Subtr. Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2462"/>
         <source>Pseu&amp;do Kleinian</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo Kleinian</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2586"/>
         <source>Pseu&amp;do Kleinian Variation</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo Kleinian Variation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2836"/>
         <source>Pseudo Kleinian Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo Kleinian Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2849"/>
         <source>Size R2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe R2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="2940"/>
         <source>Csize:</source>
-        <translation type="unfinished"></translation>
+        <translation>Csize:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3073"/>
         <source>DEadd (tweak):</source>
-        <translation type="unfinished"></translation>
+        <translation>DEadd (tweak):</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3111"/>
         <source>DE factor:</source>
-        <translation type="unfinished"></translation>
+        <translation>DE Faktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1046"/>
@@ -7702,32 +7655,53 @@ Offset:</translation>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3267"/>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3987"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="35"/>
+        <source>Note 1): The termination condition is reached when iteration reaches Maxiter.</source>
+        <translation>Hinweis 1): Die Abbruchbedingung ist erreicht, wenn die Iteration MaxIter erreicht.</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="42"/>
+        <source>Note 2): Each additional iteration adds more detail.</source>
+        <translation>Hinweis 2): Jede weitere Iteration sorgt für mehr Details.</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="49"/>
+        <source>Note 3): This type of DE calculation will not work with other DE types.</source>
+        <translation>Hinweis 3): Diese Art der DE Berechnung funktioniert nicht mit anderen DE Arten.</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1085"/>
+        <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1613"/>
+        <source>Scale:</source>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3463"/>
         <source>Men&amp;ger Sponge</source>
-        <translation type="unfinished">Menger-Schwamm</translation>
+        <translation>Menger-Schwamm</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3647"/>
         <source>Multiplier:</source>
-        <translation type="unfinished">Multiplikator:</translation>
+        <translation>Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3877"/>
         <source>Menger Scale Factor:</source>
-        <translation type="unfinished">Menger Skalierungsfaktor:</translation>
+        <translation>Menger Skalierungsfaktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="3974"/>
         <source>Analytic Logrithmic DE multiplier:</source>
-        <translation type="unfinished">Analytisch-logarithmischer DE Multiplikator:</translation>
+        <translation>Analytisch-logarithmischer DE Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="4201"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7748,27 +7722,27 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_quaternion3D.ui" line="100"/>
         <source>DE Vector Influence:</source>
-        <translation type="unfinished">DE Vektor Einfluss:</translation>
+        <translation>DE Vektor Einfluss:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion3D.ui" line="107"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion3D.ui" line="114"/>
         <source>In&amp;ternal Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion3D.ui" line="415"/>
-        <source>Quaternion Scales</source>
-        <translation type="unfinished"></translation>
+        <source>Quaternion Scale:</source>
+        <translation>Quaternion Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion3D.ui" line="652"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7776,32 +7750,32 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_quaternion_4D.ui" line="275"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion_4D.ui" line="311"/>
-        <source>Quaternion Scales</source>
-        <translation type="unfinished"></translation>
+        <source>Quaternion Scale:</source>
+        <translation>Quaternion Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion_4D.ui" line="543"/>
         <source>Rotat&amp;ion 6 planes</source>
-        <translation type="unfinished">Rotation 6 Flächen</translation>
+        <translation>Rotation 6 Flächen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion_4D.ui" line="585"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished">Stoppe Rotation bei Iteration:</translation>
+        <translation>Stoppe Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion_4D.ui" line="592"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished">Starte Rotation bei Iteration:</translation>
+        <translation>Starte Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion_4D.ui" line="950"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7809,17 +7783,17 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_quick_dudley_mod.ui" line="104"/>
         <source>Multiplier:</source>
-        <translation type="unfinished">Multiplikator:</translation>
+        <translation>Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quick_dudley_mod.ui" line="225"/>
-        <source>Sq-Multiplier</source>
-        <translation type="unfinished"></translation>
+        <source>Sq-Multiplier:</source>
+        <translation>Quadrat-Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quick_dudley_mod.ui" line="412"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7827,12 +7801,12 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_quickdudley.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Keine Parameter</translation>
+        <translation>Keine Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quickdudley.ui" line="42"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7840,77 +7814,81 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="35"/>
         <source>Use bailout between 1.0 and 2.4</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende Bailout zwischen 1.0 und 2.4</translation>
+    </message>
+    <message>
+        <source>Sine Function Scale</source>
+        <translation type="obsolete">Sinus Funktionsskalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="139"/>
-        <source>Sine Function Scale</source>
-        <translation type="unfinished"></translation>
+        <source>Sine Function Scale:</source>
+        <translation>Sinus Funktionsskalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="146"/>
         <source>Periodic Cubic Tiling</source>
-        <translation type="unfinished"></translation>
+        <translation>Periodisch-kubische Teilung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="286"/>
         <source>Sine function</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinus Funktion</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="321"/>
         <source>Radius^2 &lt; Minimum Radius^2 Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Radius ^2 &lt; Minumum Radius^2 Parameters</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="335"/>
-        <source>Scale (not smooth inside)</source>
-        <translation type="unfinished"></translation>
+        <source>Scale (not smooth inside):</source>
+        <translation>Skalierung (nicht smooth von innen):</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="405"/>
-        <source>Second Offset</source>
-        <translation type="unfinished"></translation>
+        <source>Second Offset:</source>
+        <translation>Zweiter Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="527"/>
-        <source>Second Scale</source>
-        <translation type="unfinished"></translation>
+        <source>Second Scale:</source>
+        <translation>Zweite Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="611"/>
-        <source>Fudge Factor</source>
-        <translation type="unfinished"></translation>
+        <source>Fudge Factor:</source>
+        <translation>Fudge Faktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="646"/>
-        <source>First Offset</source>
-        <translation type="unfinished"></translation>
+        <source>First Offset:</source>
+        <translation>Erster Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="675"/>
-        <source>First Scale</source>
-        <translation type="unfinished"></translation>
+        <source>First Scale:</source>
+        <translation>Erste Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="682"/>
         <source>Radius^2 &gt; Minimum Radius^2 Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Radius ^2 &gt; Minumum Radius^2 Parameters</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="721"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Minimaler Radius:</translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="803"/>
         <source>Smooth Inside</source>
-        <translation type="unfinished"></translation>
+        <translation>Smooth von innen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_bulb_msltoe_mod2.ui" line="812"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7918,32 +7896,32 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoe.ui" line="41"/>
         <source>Riemann Sphere Msltoe</source>
-        <translation type="unfinished"></translation>
+        <translation>Riemann Sphäre Msltoe</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoe.ui" line="48"/>
         <source>In&amp;ternal Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoe.ui" line="241"/>
         <source>Scale and Offsets:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalierung und Offsets:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoe.ui" line="253"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoe.ui" line="353"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoe.ui" line="497"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7951,32 +7929,32 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoeV1.ui" line="41"/>
         <source>Riemann Sphere Msltoe Variation1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_riemann_sphere_msltoeV1.ui" line="109"/>
-        <source>Constant Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>Riemann Sphäre Msltoe Variation1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoeV1.ui" line="183"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoeV1.ui" line="505"/>
         <source>In&amp;ternal Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoeV1.ui" line="288"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_riemann_sphere_msltoeV1.ui" line="109"/>
+        <source>Constant Multiplier:</source>
+        <translation>Konstanter Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_riemann_sphere_msltoeV1.ui" line="692"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7984,57 +7962,57 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="93"/>
         <source>Sierpinski scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sierpinski Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="109"/>
         <source>normal</source>
-        <translation type="unfinished"></translation>
+        <translation>normal</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="116"/>
         <source>reverse</source>
-        <translation type="unfinished"></translation>
+        <translation>umgekehrt</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="226"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="233"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="240"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="395"/>
         <source>Rotat&amp;ion 3D</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotation 3D</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="442"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished">Stoppe Rotation bei Iteration:</translation>
+        <translation>Stoppe Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="449"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished">Starte Rotation bei Iteration:</translation>
+        <translation>Starte Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="665"/>
         <source>DE tweak temp:</source>
-        <translation type="unfinished">DE Tweak temp:</translation>
+        <translation>DE Tweak temp:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_3D.ui" line="727"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8042,47 +8020,47 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="93"/>
         <source>Sierpinski scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sierpinski Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="141"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="148"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="155"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="421"/>
         <source>Rotat&amp;ion 6 planes</source>
-        <translation type="unfinished">Rotation 6 Flächen</translation>
+        <translation>Rotation 6 Flächen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="463"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished">Stoppe Rotation bei Iteration:</translation>
+        <translation>Stoppe Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="470"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished">Starte Rotation bei Iteration:</translation>
+        <translation>Starte Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="830"/>
         <source>DE tweak temp:</source>
-        <translation type="unfinished">DE Tweak temp:</translation>
+        <translation>DE Tweak temp:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_sierpinski_4D.ui" line="892"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8090,86 +8068,86 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="35"/>
         <source>Main parameters</source>
-        <translation type="unfinished">Hauptparameter</translation>
+        <translation>Hauptparameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="61"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Box Faltungswert:</translation>
+        <translation>Box Faltungswert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="68"/>
         <source>Spherical folding
 fixed radius:</source>
-        <translation type="unfinished">Spherische Faltung
+        <translation>Spherische Faltung
 fester Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="186"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Box Faltung Grenze:</translation>
+        <translation>Box Faltung Grenze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="193"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="312"/>
         <source>Spherical folding
 min radius:</source>
-        <translation type="unfinished">Spherische Faltung
+        <translation>Spherische Faltung
 min Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="348"/>
         <source>Sharpness:</source>
-        <translation type="unfinished">Schärfe:</translation>
+        <translation>Schärfe:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="410"/>
         <source>&amp;Main rotation</source>
-        <translation type="unfinished">Hauptrotation</translation>
+        <translation>Hauptrotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="597"/>
         <source>Coloring parameters</source>
-        <translation type="unfinished">Farbparameter</translation>
+        <translation>Farbparameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="623"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Min Radius Komponente:</translation>
+        <translation>Min Radius Komponente:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="630"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Y Ebenenkomponente:</translation>
+        <translation>Y Ebenenkomponente:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="737"/>
         <source>X plane component:</source>
-        <translation type="unfinished">X Ebenenkomponente:</translation>
+        <translation>X Ebenenkomponente:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="744"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Z Ebenenkomponente:</translation>
+        <translation>Z Ebenenkomponente:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="823"/>
         <source>Absolute value of z:</source>
-        <translation type="unfinished">Absoluter Wert von z:</translation>
+        <translation>Absoluter Wert von z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="858"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Fixe radius Komponente:</translation>
+        <translation>Fixe radius Komponente:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="970"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8177,22 +8155,22 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel.ui" line="35"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel.ui" line="38"/>
         <source>addCpixel ConstantMultiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>addCpixel mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel.ui" line="230"/>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation>Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel.ui" line="239"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8200,12 +8178,12 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_CxCy_axis_swap.ui" line="54"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_CxCy_axis_swap.ui" line="57"/>
         <source>addCpixel c.x c.y axis swap ConstantMultiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>addCpixel Achsen Tauschen mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_CxCy_axis_swap.ui" line="64"/>

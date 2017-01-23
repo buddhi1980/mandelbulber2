@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>riemann_sphere_msltoeV1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>673</width>
-    <height>932</height>
+    <height>1012</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -106,7 +106,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Constant Multiplier</string>
+        <string>Constant Multiplier:</string>
        </property>
       </widget>
      </item>
@@ -793,6 +793,30 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_441_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_441_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_441_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_441_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_441_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_441_z</tabstop>
+  <tabstop>slider3_transf_addition_constant_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>groupCheck_transf_rotation_enabled</tabstop>
+  <tabstop>dial3_transf_rotation_x</tabstop>
+  <tabstop>dial3_transf_rotation_y</tabstop>
+  <tabstop>dial3_transf_rotation_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
