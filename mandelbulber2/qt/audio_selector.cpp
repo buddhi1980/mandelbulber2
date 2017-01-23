@@ -152,9 +152,15 @@ void cAudioSelector::ConnectSignals()
 		ui->groupCheck_animsound_decayfilter, SIGNAL(toggled(bool)), this, SLOT(slotFreqChanged()));
 	connect(
 		ui->groupCheck_animsound_smoothfilter, SIGNAL(toggled(bool)), this, SLOT(slotFreqChanged()));
+	connect(
+		ui->groupCheck_animsound_binaryfilter, SIGNAL(toggled(bool)), this, SLOT(slotFreqChanged()));
 	connect(ui->spinbox_animsound_decaystrength, SIGNAL(valueChanged(double)), this,
 		SLOT(slotFreqChanged()));
 	connect(ui->spinbox_animsound_smoothstrength, SIGNAL(valueChanged(double)), this,
+		SLOT(slotFreqChanged()));
+	connect(ui->spinbox_animsound_binarythresh, SIGNAL(valueChanged(double)), this,
+		SLOT(slotFreqChanged()));
+	connect(ui->spinbox_animsound_binarylength, SIGNAL(valueChanged(double)), this,
 		SLOT(slotFreqChanged()));
 	connect(
 		this, SIGNAL(freqencyChanged(double, double)), ui->fft, SLOT(slotFreqChanged(double, double)));
@@ -181,6 +187,11 @@ void cAudioSelector::slotFreqChanged()
 		double bandwidth = gPar->Get<double>(FullParameterName("bandwidth"));
 		bool pitchMode = gPar->Get<bool>(FullParameterName("pitchmode"));
 		audio->calculateAnimation(midFreq, bandwidth, pitchMode);
+		if (gPar->Get<bool>(FullParameterName("binaryfilter")))
+		{
+			audio->binaryFilter(gPar->Get<double>(FullParameterName("binarythresh")),
+				gPar->Get<int>(FullParameterName("binarylength")));
+		}
 		if (gPar->Get<bool>(FullParameterName("decayfilter")))
 		{
 			audio->decayFilter(gPar->Get<double>(FullParameterName("decaystrength")));

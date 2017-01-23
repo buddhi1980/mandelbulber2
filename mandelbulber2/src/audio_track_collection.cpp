@@ -141,9 +141,15 @@ void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QSt
 			FullParameterName("decayfilter", parameterName), false, morphNone, paramStandard);
 		params->addParam(
 			FullParameterName("smoothfilter", parameterName), false, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("binaryfilter", parameterName), false, morphNone, paramStandard);
 		params->addParam(FullParameterName("decaystrength", parameterName), 5.0, 0.01, 1000.0,
 			morphNone, paramStandard);
 		params->addParam(FullParameterName("smoothstrength", parameterName), 5.0, 0.01, 1000.0,
+			morphNone, paramStandard);
+		params->addParam(FullParameterName("binarythresh", parameterName), 0.5, 0.0, 1.0,
+			morphNone, paramStandard);
+		params->addParam(FullParameterName("binarylength", parameterName), 1, 1, 1000,
 			morphNone, paramStandard);
 
 		params->addParam(FullParameterName("enable", parameterName), false, morphNone, paramStandard);
@@ -169,6 +175,9 @@ void cAudioTrackCollection::RemoveParameters(
 		params->DeleteParameter(FullParameterName("smoothfilter", parameterName));
 		params->DeleteParameter(FullParameterName("decaystrength", parameterName));
 		params->DeleteParameter(FullParameterName("smoothstrength", parameterName));
+		params->DeleteParameter(FullParameterName("binaryfilter", parameterName));
+		params->DeleteParameter(FullParameterName("binarythresh", parameterName));
+		params->DeleteParameter(FullParameterName("binarylength", parameterName));
 	}
 }
 
@@ -215,6 +224,12 @@ void cAudioTrackCollection::RefreshAllAudioTracks(cParameterContainer *params)
 			bool pitchmode = params->Get<bool>(FullParameterName("pitchmode", parameterName));
 			audioTracks[parameterName]->calculateAnimation(midFreq, bandwidth, pitchmode);
 
+			if (params->Get<bool>(FullParameterName("binaryfilter", parameterName)))
+			{
+				audioTracks[parameterName]->binaryFilter(
+					params->Get<double>(FullParameterName("binarythresh", parameterName)),
+					params->Get<int>(FullParameterName("binarylength", parameterName)));
+			}
 			if (params->Get<bool>(FullParameterName("decayfilter", parameterName)))
 			{
 				audioTracks[parameterName]->decayFilter(

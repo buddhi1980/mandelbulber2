@@ -68,6 +68,7 @@ public:
 	float getAnimation(int frame) const;
 	void decayFilter(double strength);
 	void smoothFilter(double strength);
+	void binaryFilter(double thresh, int length);
 	float *getRawAudio();
 
 private slots:

@@ -410,6 +410,26 @@ void cAudioTrack::smoothFilter(double strength)
 	}
 }
 
+void cAudioTrack::binaryFilter(double thresh, int length)
+{
+	float value = 0.0f;
+	int count = 0;
+	for (int i = 0; i < numberOfFrames; i++)
+	{
+		count++;
+		if (animation[i] > thresh)
+		{
+			value = 1.0f;
+			count = 0;
+		}
+		else if(count > length)
+		{
+			value = 0.0f;
+		}
+		animation[i] = value;
+	}
+}
+
 float *cAudioTrack::getRawAudio()
 {
 	if (isLoaded())
