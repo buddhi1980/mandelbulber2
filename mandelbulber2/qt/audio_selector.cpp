@@ -305,7 +305,7 @@ void cAudioSelector::slotPlayPositionChanged()
 
 void cAudioSelector::slotPlaybackStateChanged(QAudio::State state)
 {
-	if (state == QAudio::StoppedState or state == QAudio::IdleState)
+	if (state == QAudio::StoppedState || state == QAudio::IdleState)
 	{
 		ui->pushButton_playback_start->setEnabled(true);
 		ui->pushButton_playback_stop->setEnabled(false);
