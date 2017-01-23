@@ -530,12 +530,9 @@ void cCommandLineInterface::handleServer()
 {
 	QTextStream out(stdout);
 	bool checkParse = true;
-	int port;
-	// TODO: Design Intent: port - assigned value never used
-	port = gPar->Get<int>("netrender_server_local_port");
 	if (cliData.portText != "")
 	{
-		port = cliData.portText.toInt(&checkParse);
+		int port = cliData.portText.toInt(&checkParse);
 		if (!checkParse || port <= 0)
 		{
 			cErrorMessage::showMessage(

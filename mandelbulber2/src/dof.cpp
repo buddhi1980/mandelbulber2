@@ -245,8 +245,6 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 						float z2 = temp2.z;
 						float size2 = (z2 - neutral) / z2 * deep;
 
-						if (size1 == 0 && size2 == 0) done = true;
-
 						if (size1 * size2 > 0)
 						{
 							float sizeCompare;
@@ -553,8 +551,6 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 						sSortZ<float> temp2 = temp_sort[ii];
 						float z2 = temp2.z;
 						float size2 = (z2 - neutral) / z2 * deep;
-
-						if (size1 == 0 && size2 == 0) done = true;
 
 						if (size1 * size2 > 0)
 						{

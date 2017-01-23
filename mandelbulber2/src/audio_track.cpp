@@ -211,6 +211,7 @@ void cAudioTrack::slotReadBuffer()
 	}
 	length = rawAudio.size();
 	double percent = double(length) / totalSamplesApprox * 100.0;
+	Q_UNUSED(percent);
 	// emit loadingProgress(percent);
 }
 
@@ -422,7 +423,7 @@ void cAudioTrack::binaryFilter(double thresh, int length)
 			value = 1.0f;
 			count = 0;
 		}
-		else if(count > length)
+		else if (count > length)
 		{
 			value = 0.0f;
 		}

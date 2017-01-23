@@ -377,8 +377,7 @@ void RenderedImage::Draw3DBox(
 		double xx2 = ((p.x - n * boxWidth) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
 		for (int iy = -n; iy <= n; iy++)
 		{
-			// TODO: Design Intent: yy1 - Declaration Hides Local
-			double yy1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
+			double yyn1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
 
 			if (eye == cStereo::eyeNone)
 			{
@@ -400,7 +399,7 @@ void RenderedImage::Draw3DBox(
 			}
 
 			image->AntiAliasedLine(
-				xx1, yy1, xx2, yy1, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
+				xx1, yyn1, xx2, yyn1, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
 		}
 
 		if (iz < n)
@@ -409,13 +408,12 @@ void RenderedImage::Draw3DBox(
 			{
 				for (int iy = -n; iy <= n; iy++)
 				{
-					// TODO: Design Intent: xx & yy Declarations Hide Locals
-					double xx1 =
+					double xxn1 =
 						((p.x + boxWidth * ix) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
-					double yy1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
-					double xx2 =
+					double yyn1 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
+					double xxn2 =
 						((p.x + boxWidth * ix) / (1.0 - boxDepth * (iz + 1) * fov) / aspectRatio + 0.5) * sw;
-					double yy2 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * (iz + 1) * fov) + 0.5) * sh;
+					double yyn2 = ((p.y + boxWidth * iy) / (1.0 - boxDepth * (iz + 1) * fov) + 0.5) * sh;
 
 					if (eye == cStereo::eyeNone)
 					{
@@ -436,7 +434,7 @@ void RenderedImage::Draw3DBox(
 						// opacity = 1.0;
 					}
 
-					image->AntiAliasedLine(xx1, yy1, xx2, yy2, z - iz * boxDepth2, z - (iz + 1) * boxDepth2,
+					image->AntiAliasedLine(xxn1, yyn1, xxn2, yyn2, z - iz * boxDepth2, z - (iz + 1) * boxDepth2,
 						sRGB8(R, G, B), opacity, 1);
 				}
 			}

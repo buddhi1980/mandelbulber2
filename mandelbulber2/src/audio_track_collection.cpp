@@ -147,10 +147,10 @@ void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QSt
 			morphNone, paramStandard);
 		params->addParam(FullParameterName("smoothstrength", parameterName), 5.0, 0.01, 1000.0,
 			morphNone, paramStandard);
-		params->addParam(FullParameterName("binarythresh", parameterName), 0.5, 0.0, 1.0,
-			morphNone, paramStandard);
-		params->addParam(FullParameterName("binarylength", parameterName), 1, 1, 1000,
-			morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("binarythresh", parameterName), 0.5, 0.0, 1.0, morphNone, paramStandard);
+		params->addParam(
+			FullParameterName("binarylength", parameterName), 1, 1, 1000, morphNone, paramStandard);
 
 		params->addParam(FullParameterName("enable", parameterName), false, morphNone, paramStandard);
 		params->addParam(
