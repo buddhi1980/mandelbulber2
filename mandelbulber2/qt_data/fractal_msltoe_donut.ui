@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>754</width>
-    <height>834</height>
+    <height>953</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -357,17 +357,28 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_donut_ring_radius</tabstop>
+  <tabstop>spinbox_donut_ring_radius</tabstop>
+  <tabstop>slider_donut_ring_thickness</tabstop>
+  <tabstop>spinbox_donut_ring_thickness</tabstop>
+  <tabstop>slider_donut_number</tabstop>
+  <tabstop>spinbox_donut_number</tabstop>
+  <tabstop>slider_donut_factor</tabstop>
+  <tabstop>spinbox_donut_factor</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

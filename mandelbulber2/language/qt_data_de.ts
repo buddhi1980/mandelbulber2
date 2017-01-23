@@ -290,6 +290,30 @@
         <translation></translation>
     </message>
     <message>
+        <source>P&amp;re-Scale</source>
+        <translation type="obsolete">Vor-Skalierung</translation>
+    </message>
+    <message>
+        <source>Analytic Logrithmic DE offset1:</source>
+        <translation type="obsolete">Analytisch-logarithmischer DE Offset1:</translation>
+    </message>
+    <message>
+        <source>Analytic Logrithmic DE multiplier:</source>
+        <translation type="obsolete">Analytisch-logarithmischer DE Multiplikator:</translation>
+    </message>
+    <message>
+        <source>Analytic Logrithmic DE offset2:</source>
+        <translation type="obsolete">Analytisch-logarithmischer DE Offset2:</translation>
+    </message>
+    <message>
+        <source>Spherica&amp;l Offset</source>
+        <translation type="obsolete">Spherischer Offset:</translation>
+    </message>
+    <message>
+        <source>Offset Radius:</source>
+        <translation type="obsolete">Offset Radius:</translation>
+    </message>
+    <message>
         <source>Scale:</source>
         <translation type="vanished">Skalierung:</translation>
     </message>
@@ -5815,22 +5839,12 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape.ui" line="1742"/>
         <source>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_prism_shape.ui" line="1896"/>
-        <source>- ( z * C )</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_prism_shape.ui" line="2006"/>
-        <source>Enable fABS(z - B)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_prism_shape.ui" line="2364"/>
-        <source>Enable fABS(z + A)</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_menger_prism_shape.ui" line="3379"/>
+        <source>Temp DE fudge factor:</source>
+        <translation>Temp DE Fudge Faktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape.ui" line="2633"/>
@@ -5861,14 +5875,9 @@ Offset:</translation>
         <translation>Offset:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_prism_shape.ui" line="3379"/>
-        <source>Temp DE fudge factor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_menger_prism_shape.ui" line="3447"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -5876,85 +5885,78 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="35"/>
         <source>Swizzle z = CVector3{-z.z, z.x, z.y}</source>
-        <translation type="unfinished"></translation>
+        <translation>Swizzle z = CVector3{-z.z, z.x, z.y}</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="54"/>
         <source>Dot scale:</source>
-        <translation type="unfinished">Punkt Skalierung:</translation>
+        <translation>Punkt Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="463"/>
         <source>mode 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 0</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="468"/>
         <source>mode 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="473"/>
         <source>mode 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 2</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="478"/>
         <source>mode 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 3</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="483"/>
         <source>mode 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 4</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="488"/>
         <source>mode 5</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="493"/>
         <source>mode 6</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 6</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="498"/>
         <source>mode 7</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 7</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="512"/>
         <source>Prism Shape2</source>
-        <translation type="unfinished"></translation>
+        <translation>Prisma Form2</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="519"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1816"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2344"/>
         <source>Note: Default = 1</source>
-        <translation type="unfinished">Hinweis: Standardwert = 1</translation>
+        <translation>Hinweis: Standardwert = 1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="529"/>
         <source>Dot modes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkt Modus:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="538"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1023"/>
         <source>enable fabs(z.x)</source>
-        <translation type="unfinished">aktiviere fabs(z.x)</translation>
+        <translation>aktiviere fabs(z.x)</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="545"/>
         <source>enable fabs(z.y)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="552"/>
-        <source>enable fabs(z.z)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">aktiviere fabs(z.y)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="593"/>
@@ -5963,7 +5965,7 @@ Offset:</translation>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2852"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="4048"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="600"/>
@@ -5972,195 +5974,185 @@ Offset:</translation>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2832"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="4003"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="609"/>
         <source>Shift/offset scale:</source>
-        <translation type="unfinished">Shift/Offset Skalierung:</translation>
+        <translation>Shift/Offset Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="616"/>
         <source>z.x shift:</source>
-        <translation type="unfinished"></translation>
+        <translation>z.x Verschiebung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="623"/>
         <source>z.y shift</source>
-        <translation type="unfinished"></translation>
+        <translation>z.y Verschiebung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="644"/>
         <source>z.x &gt;= 0 conditional</source>
-        <translation type="unfinished"></translation>
+        <translation>z.x &gt;= 0 Bedingung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="651"/>
         <source>Apply yz floor</source>
-        <translation type="unfinished"></translation>
+        <translation>yz abrunden</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="742"/>
         <source>z.z scale:</source>
-        <translation type="unfinished">z.z Skalierung:</translation>
+        <translation>z.z Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="749"/>
         <source>z.y scale:</source>
-        <translation type="unfinished">z.y Skalierung:</translation>
+        <translation>z.y Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="865"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1085"/>
         <source>DE tweak:</source>
-        <translation type="unfinished">DE Tweak:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="904"/>
-        <source>post_scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>DE Tweak:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="941"/>
         <source>CrossMe&amp;ngerTrick</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreuz Menger Trick</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1033"/>
         <source>enable mod1</source>
-        <translation type="unfinished"></translation>
+        <translation>aktiviere Mod1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1050"/>
         <source>deriv. Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>deriv. Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1092"/>
         <source>cmt Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>CMT Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1319"/>
         <source>CrossMengerKI&amp;FS2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreuz Menger KIFS2</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1355"/>
         <source>cmtKIFS Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>cmtKIFS Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1365"/>
         <source>dd thingy</source>
-        <translation type="unfinished"></translation>
+        <translation>DD Thingy</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1576"/>
         <source>enable fabs(z.x) Fold</source>
-        <translation type="unfinished">aktiviere fabs(z.x) Faltung</translation>
+        <translation>aktiviere fabs(z.x) Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2790"/>
         <source>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2944"/>
-        <source>- ( z * C )</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="4626"/>
+        <source>Temp DE fudge factor:</source>
+        <translation>Temp DE Fudge Faktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1636"/>
         <source>z.x offset A</source>
-        <translation type="unfinished">z.x Offset A</translation>
+        <translation>z.x Offset A</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="904"/>
+        <source>Post scale:</source>
+        <translation>Nachskalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1219"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1405"/>
-        <source>DotScale:</source>
-        <translation type="unfinished"></translation>
+        <source>Dot Scale:</source>
+        <translation>Punkt Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1643"/>
         <source>z.x offset B</source>
-        <translation type="unfinished">z.x Offset B</translation>
+        <translation>z.x Offset B</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1734"/>
         <source>Benesi Mag Transform T&amp;1</source>
-        <translation type="unfinished"></translation>
+        <translation>Benesi Mag Transform T1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1776"/>
         <source>Stop T1 at iteration:</source>
-        <translation type="unfinished">Stoppe T1 bei Iteration:</translation>
+        <translation>Stoppe T1 bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="1809"/>
         <source>Start T1 at iteration:</source>
-        <translation type="unfinished">Starte T1 bei Iteration:</translation>
+        <translation>Starte T1 bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2085"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2613"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <translation>Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2262"/>
         <source>Benesi Mag Transform T&amp;1 Mod</source>
-        <translation type="unfinished">Benesi Mag Transform T1 Mod</translation>
+        <translation>Benesi Mag Transform T1 Mod</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2304"/>
         <source>Stop T1 Mod at iteration:</source>
-        <translation type="unfinished">Stoppe T1 Mod bei Iteration:</translation>
+        <translation>Stoppe T1 Mod bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2337"/>
         <source>Start T1 Mod at iteration:</source>
-        <translation type="unfinished">Starte T1 Mod bei Iteration:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="3054"/>
-        <source>Enable fABS(z - B)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="3412"/>
-        <source>Enable fABS(z + A)</source>
-        <translation type="unfinished"></translation>
+        <translation>Starte T1 Mod bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="3675"/>
         <source>Rotat&amp;ion</source>
-        <translation type="unfinished">Rotation</translation>
+        <translation>Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="3722"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished">Stoppe Rotation bei Iteration:</translation>
+        <translation>Stoppe Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="3729"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished">Starte Rotation bei Iteration:</translation>
+        <translation>Starte Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="3952"/>
         <source>Men&amp;ger Sponge</source>
-        <translation type="unfinished">Menger-Schwamm</translation>
+        <translation>Menger-Schwamm</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="4102"/>
         <source>Multiplier:</source>
-        <translation type="unfinished">Multiplikator:</translation>
+        <translation>Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="4332"/>
         <source>Menger Scale Factor:</source>
-        <translation type="unfinished">Menger Skalierungsfaktor:</translation>
+        <translation>Menger Skalierungsfaktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="2046"/>
@@ -6168,17 +6160,12 @@ Offset:</translation>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="3593"/>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="4429"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="4626"/>
-        <source>Temp DE fudge factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_prism_shape2.ui" line="4694"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -6214,9 +6201,8 @@ Offset:</translation>
         <translation>Vektor A:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="390"/>
         <source>fabs(z):</source>
-        <translation>fabs(z):</translation>
+        <translation type="vanished">fabs(z):</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="397"/>
@@ -6224,55 +6210,35 @@ Offset:</translation>
         <translation>Analytisch-linearer DE Multiplikator:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="432"/>
-        <source>fabs(z)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="471"/>
-        <source>fn( z) = Pi Rotation about &amp;VectorA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="528"/>
         <source>Pi Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>PI Rotation:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="630"/>
         <source>Power3</source>
-        <translation type="unfinished"></translation>
+        <translation>Potenz 3</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="670"/>
         <source>Vector C:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vektor C:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="684"/>
         <source>Final Scale:</source>
-        <translation type="unfinished">Finale Skalierung:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="720"/>
-        <source>fn( z) = &amp;Box Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Finale Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="830"/>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="2177"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="966"/>
         <source>Analytic Linear DE offset:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="999"/>
-        <source>fabs(fn(z)):</source>
-        <translation type="unfinished"></translation>
+        <translation>Analytisch-linearer DE Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="1476"/>
@@ -6292,32 +6258,37 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="329"/>
         <source>PART B = ScaleB * z + VectorC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="361"/>
-        <source>fn( z) options, (default = z;)</source>
-        <translation type="unfinished"></translation>
+        <translation>TEIL B = Skalierung B * z + VektorC</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="644"/>
         <source>Power2 Polynomial Az^2 + Bz + C</source>
-        <translation type="unfinished"></translation>
+        <translation>Power 2 Polynom Az^2 + Bz + C</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="710"/>
         <source>PART A = - (ScaleA * z + VectA) * fn(z)</source>
-        <translation type="unfinished"></translation>
+        <translation>TEIL A = Skalierung A * z + VektorA) * fn(z)</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="1049"/>
-        <source>fn( z) = cos ( z * pi )</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="361"/>
+        <source>fn( z) options, (default = z)</source>
+        <translation>fn(z) Optionen, (Standard = z)</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="471"/>
+        <source>fn(z) = Pi Rotation about &amp;VectorA</source>
+        <translation>fn(z) = Pi Rotation um VektorA</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="720"/>
+        <source>fn(z) = &amp;Box Offset</source>
+        <translation>fn(z) = Box Offset</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="1078"/>
         <source>Pi Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>PI Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="1198"/>
@@ -6367,7 +6338,7 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="2217"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -6448,123 +6419,123 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="38"/>
         <source>Menger Smooth Mod1</source>
-        <translation type="unfinished"></translation>
+        <translation>Menger Smooth Mod1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="126"/>
         <source>Fabs Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="133"/>
-        <source>ScaleC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="147"/>
-        <source>OffsetS</source>
-        <translation type="unfinished"></translation>
+        <translation>Fabs Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="176"/>
         <source>Menger Scale:</source>
-        <translation type="unfinished">Menger Skalierung:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="333"/>
-        <source>R&amp;otation;</source>
-        <translation type="unfinished"></translation>
+        <translation>Menger Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="375"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished">Stoppe Rotation bei Iteration:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="714"/>
-        <source>OffsetS Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>Stoppe Rotation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1050"/>
         <source>Stop Offset at iteration:</source>
-        <translation type="unfinished">Stoppe Offset bei Iteration:</translation>
+        <translation>Stoppe Offset bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1296"/>
         <source>I&amp;teration Weight.; z = ( z * const.Z) + ( zA * const.A) + ( zB * const.B)</source>
-        <translation type="unfinished">Iterationsgewicht:  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B)</translation>
+        <translation>Iterationsgewicht:  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1542"/>
         <source>Normal use : Constants A &amp; B are negative numbers, Constant Z remains at 1.0 to 1.1</source>
-        <translation type="unfinished"></translation>
+        <translation>Normale Verwendung: Konstanten A &amp; B sind negativ, Konstante Z bleibt auf 1.0 bis 1.1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="408"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished">Starte Rotation bei Iteration:</translation>
+        <translation>Starte Rotation bei Iteration:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="133"/>
+        <source>ScaleC:</source>
+        <translation>SkalierungC:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="140"/>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="183"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="147"/>
+        <source>OffsetS:</source>
+        <translation>OffsetS:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="333"/>
+        <source>R&amp;otation</source>
+        <translation>Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="622"/>
-        <source>OffsetC</source>
-        <translation type="unfinished"></translation>
+        <source>OffsetC:</source>
+        <translation>OffsetC:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="714"/>
+        <source>OffsetS Multiplier:</source>
+        <translation>OffsetS Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="839"/>
         <source>Squares Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Quadrat Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1008"/>
         <source>&amp;Box Offset</source>
-        <translation type="unfinished">Box Offset</translation>
+        <translation>Box Offset</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1083"/>
         <source>Start Offset at iteration:</source>
-        <translation type="unfinished">Starte Offset bei Iteration:</translation>
+        <translation>Starte Offset bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1242"/>
         <source>Box Offset:</source>
-        <translation type="unfinished">Box Offset:</translation>
+        <translation>Box Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1388"/>
         <source>zA after itr.:</source>
-        <translation type="unfinished">zA nach Itr.:</translation>
+        <translation>zA nach Itr.:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1395"/>
         <source>Constant Z:</source>
-        <translation type="unfinished">Konstante Z:</translation>
+        <translation>Konstante Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1415"/>
         <source>Constant B:</source>
-        <translation type="unfinished">Konstante B:</translation>
+        <translation>Konstante B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1422"/>
         <source>Constant A:</source>
-        <translation type="unfinished">Konstante A:</translation>
+        <translation>Konstante A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1457"/>
         <source>zB after itr.:</source>
-        <translation type="unfinished">zB nach Itr.:</translation>
+        <translation>zB nach Itr.:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_smooth_mod1.ui" line="1561"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -6692,74 +6663,86 @@ Offset:</translation>
         <translation>Vor-Skalierung</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="159"/>
         <source>Pre-Scale</source>
-        <translation>Vor-Skalierung</translation>
+        <translation type="vanished">Vor-Skalierung</translation>
+    </message>
+    <message>
+        <source>Theta power</source>
+        <translation type="vanished">Theta Skalierung:</translation>
+    </message>
+    <message>
+        <source>Radius power</source>
+        <translation type="obsolete">Radius Potenz</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="159"/>
+        <source>Pre-Scale:</source>
+        <translation>Vor-Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="235"/>
-        <source>Theta power</source>
-        <translation type="unfinished">Theta Skalierung:</translation>
+        <source>Theta power:</source>
+        <translation>Theta Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="242"/>
-        <source>Radius power</source>
-        <translation type="unfinished"></translation>
+        <source>Radius power:</source>
+        <translation>Radius Potenz:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="321"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Minimaler Radius:</translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="384"/>
-        <source>Phi power</source>
-        <translation type="unfinished"></translation>
+        <source>Phi power:</source>
+        <translation>Phi Stärke:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="475"/>
         <source>Analytic &amp;Logrithmic DE adjustment ( beta version only, may need to force Delta DE method)</source>
-        <translation type="unfinished"></translation>
+        <translation>Analytisch logarithmische DE Anpassung (Beta Version, braucht vielleicht Force Delta DE)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="504"/>
         <source>Analytic Logrithmic DE offset1:</source>
-        <translation type="unfinished">Analytisch-logarithmischer DE Offset1:</translation>
+        <translation>Analytisch-logarithmischer DE Offset1:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="511"/>
         <source>Analytic Logrithmic DE multiplier:</source>
-        <translation type="unfinished">Analytisch-logarithmischer DE Multiplikator:</translation>
+        <translation>Analytisch-logarithmischer DE Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="615"/>
         <source>Analytic Logrithmic DE offset2:</source>
-        <translation type="unfinished">Analytisch-logarithmischer DE Offset2:</translation>
+        <translation>Analytisch-logarithmischer DE Offset2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="622"/>
         <source>enable aux.r_dz squared</source>
-        <translation type="unfinished"></translation>
+        <translation>aktiviere aux.r_dz quadriert</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="644"/>
         <source>Spherica&amp;l Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Spherischer Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="695"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Offset Radius:</translation>
+        <translation>Offset Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="762"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal.ui" line="774"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -6767,117 +6750,117 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="38"/>
         <source>P&amp;re-Scale</source>
-        <translation type="unfinished">Vor-Skalierung</translation>
+        <translation>Vor-Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="159"/>
         <source>Pre-Scale</source>
-        <translation type="unfinished">Vor-Skalierung</translation>
+        <translation>Vor-Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="228"/>
         <source>function order of x, y and z:</source>
-        <translation type="unfinished">Funktionsreihenfolge von x, y und z:</translation>
+        <translation>Funktionsreihenfolge von x, y und z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="252"/>
         <source>th0 function:</source>
-        <translation type="unfinished">th0 Funktion:</translation>
+        <translation>th0 Funktion:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="262"/>
         <source>ph0 function:</source>
-        <translation type="unfinished">ph0 Funktion:</translation>
+        <translation>ph0 Funktion:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="330"/>
         <source>sqrt(aux.r)</source>
-        <translation type="unfinished"></translation>
+        <translation>sqrt(aux.r)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="372"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Minimaler Radius:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="407"/>
-        <source>Radius power</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="493"/>
         <source>Beta angle offset:</source>
-        <translation type="unfinished">Beta Winkel Offset:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="528"/>
-        <source>Th0 Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Beta Winkel Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="638"/>
         <source>Alpha angle offset:</source>
-        <translation type="unfinished">Alpha Winkel Offset:</translation>
+        <translation>Alpha Winkel Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="679"/>
         <source>Enable cosine mode (disable sine mode)</source>
-        <translation type="unfinished">Aktiviere cosinus Modus (Deaktiviert sinus Modus)</translation>
+        <translation>Aktiviere cosinus Modus (Deaktiviert sinus Modus)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="686"/>
         <source>Polar to Cartesian - Sine Mode z.z = sin(th0);</source>
-        <translation type="unfinished"></translation>
+        <translation>Polar zu kartesisch - sinus Modus z.z = sin(th0);</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="407"/>
+        <source>Radius power:</source>
+        <translation>Radius Potenz:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="528"/>
+        <source>Th0 Scale:</source>
+        <translation>Th0 Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="720"/>
-        <source>Ph0 Scale</source>
-        <translation type="unfinished"></translation>
+        <source>Ph0 Scale:</source>
+        <translation>Ph0 Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="739"/>
         <source>Analytic &amp;Logrithmic DE adjustment ( beta version only, may need to force Delta DE method)</source>
-        <translation type="unfinished"></translation>
+        <translation>Analytisch logarithmische DE Anpassung (Beta Version, braucht vielleicht Force Delta DE)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="768"/>
         <source>Analytic Logrithmic DE offset1:</source>
-        <translation type="unfinished">Analytisch-logarithmischer DE Offset1:</translation>
+        <translation>Analytisch-logarithmischer DE Offset1:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="775"/>
         <source>Analytic Logrithmic DE multiplier:</source>
-        <translation type="unfinished">Analytisch-logarithmischer DE Multiplikator:</translation>
+        <translation>Analytisch-logarithmischer DE Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="879"/>
         <source>Analytic Logrithmic DE offset2:</source>
-        <translation type="unfinished">Analytisch-logarithmischer DE Offset2:</translation>
+        <translation>Analytisch-logarithmischer DE Offset2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="886"/>
         <source>enable aux.r_dz squared</source>
-        <translation type="unfinished"></translation>
+        <translation>aktiviere aux.r_dz quadriert</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="908"/>
         <source>Spherica&amp;l Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Spherischer Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="975"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Offset Radius:</translation>
+        <translation>Offset Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="1026"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoe_toroidal_multi.ui" line="1038"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -6885,53 +6868,57 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="153"/>
         <source>Global Constant Multiplier of c.z must be set at 0.0 for this formula</source>
-        <translation type="unfinished"></translation>
+        <translation>Globaler Konstanter Multiplikator von c.z muss für diese Formel auf 0.0 gesetzt sein</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="195"/>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="227"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="266"/>
         <source>Y scale:</source>
-        <translation type="unfinished">Y Skalierung</translation>
+        <translation>Y Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="273"/>
         <source>Offset. Use in normal mode or use to fine tune in Julia mode</source>
-        <translation type="unfinished">Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
+        <translation>Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="280"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Offset Radius:</translation>
+        <translation>Offset Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="287"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="398"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="401"/>
         <source>addCpixel Symmetrical Constant &amp;Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>addCpixel symmetrisch mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="631"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="vanished">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2_mod.ui" line="643"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -6939,77 +6926,81 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="47"/>
         <source>addYZ Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Addiere YZ Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="213"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="220"/>
         <source>Y scale:</source>
-        <translation type="unfinished">Y Skalierung</translation>
+        <translation>Y Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="316"/>
         <source>Offset. Use in normal mode or use to fine tune in Julia mode</source>
-        <translation type="unfinished">Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
+        <translation>Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="465"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Offset Radius:</translation>
+        <translation>Offset Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="472"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="488"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="491"/>
         <source>addCpixel Symmetrical Constant &amp;Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>addCpixel symmetrisch mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="721"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="vanished">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="733"/>
         <source>&amp;Quaternion Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Quaternion Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="762"/>
         <source>Stop at Iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="769"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="849"/>
         <source>Enable DE Vector mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviere DE Vektor Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="856"/>
         <source>DE Vector Influence:</source>
-        <translation type="unfinished"></translation>
+        <translation>DE Vektor Einfluss:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod.ui" line="875"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7017,47 +7008,51 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="40"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="221"/>
         <source>Offset. Use in normal mode or use to fine tune in Julia mode</source>
-        <translation type="unfinished">Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
+        <translation>Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="256"/>
         <source>addYZ Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Addiere YZ Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="385"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Offset Radius:</translation>
+        <translation>Offset Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="417"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="442"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="445"/>
         <source>addCpixel Symmetrical Constant &amp;Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>addCpixel symmetrisch mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="675"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod2.ui" line="687"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7065,125 +7060,133 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="54"/>
         <source>Offset. Use in normal mode or use to fine tune in Julia mode</source>
-        <translation type="unfinished">Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
+        <translation>Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="83"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="90"/>
         <source>Y scale:</source>
-        <translation type="unfinished">Y Skalierung</translation>
+        <translation>Y Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="182"/>
         <source>addYZ Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Addiere YZ Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="470"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="477"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Offset Radius:</translation>
+        <translation>Offset Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="502"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="505"/>
         <source>addCpixel Symmetrical Constant &amp;Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>addCpixel symmetrisch mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="735"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="747"/>
         <source>&amp;Quaternion Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Quaternion Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="776"/>
         <source>Enable DE Vector mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviere DE Vektor Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="828"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="835"/>
         <source>Stop at Iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym3_mod3.ui" line="854"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>msltoesym4_mod</name>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="115"/>
+        <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="406"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="173"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Offset Radius:</translation>
+        <translation>Offset Radius:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="406"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <translation type="obsolete">Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="477"/>
         <source>Offset. Use in normal mode or use to fine tune in Julia mode</source>
-        <translation type="unfinished">Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
+        <translation>Offset zu benutzen im normalen Modus, oder zum Feintuning bei Julia Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="321"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="539"/>
         <source>Internal &amp;Rotation</source>
-        <translation type="unfinished">Interne Rotation</translation>
+        <translation>Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="726"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt das Addieren / Subtrahieren von Cpixel, abhängig vom Vorzeichen von z.&lt;/p&gt;&lt;p&gt;beispielsweise, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; positiv ist, dann wird&lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; hinzugefügt, wenn &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; negativ ist wird &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; abgezogen. &lt;/p&gt;&lt;p&gt;negative addCpixel mit konstantem Multiplikator: Wenn Check Boxen abgewählt sind, dann bleibt Cpixel vorzeichenbehaftet.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="729"/>
         <source>addCpixel Symmetrical Constant &amp;Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation>addCpixel symmetrisch mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="899"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym4_mod.ui" line="971"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7191,22 +7194,22 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_platonic_solid.ui" line="40"/>
         <source>Frequency:</source>
-        <translation type="unfinished"></translation>
+        <translation>Frequenz:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_platonic_solid.ui" line="94"/>
         <source>Amplitude:</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplitude:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_platonic_solid.ui" line="148"/>
         <source>Rho Mul:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rho Mul:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_platonic_solid.ui" line="204"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7214,11 +7217,6 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="35"/>
         <source>Note 1) : the pseudo kleinian fractal on this UI, works with the standard linear analytic DE calculation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="42"/>
-        <source>Note 2) : termination condition is when iteration reaches Maxiter,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7279,7 +7277,7 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="748"/>
         <source>Benesi Mag Transform T&amp;1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Benesi Mag Transform T1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="790"/>
@@ -7292,10 +7290,8 @@ Offset:</translation>
         <translation type="unfinished">Starte T1 bei Iteration:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1099"/>
-        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1627"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <translation type="obsolete">Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1276"/>
@@ -7315,7 +7311,7 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1804"/>
         <source>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1958"/>
@@ -7359,6 +7355,17 @@ Offset:</translation>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3956"/>
         <source>Offset:</source>
         <translation type="unfinished">Offset:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="42"/>
+        <source>Note 2) : The termination condition is when iteration reaches Maxiter.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1099"/>
+        <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="1627"/>
+        <source>Scale:</source>
+        <translation type="unfinished">Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian1.ui" line="3223"/>
@@ -7596,7 +7603,7 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="734"/>
         <source>Benesi Mag Transform T&amp;1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Benesi Mag Transform T1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="776"/>
@@ -7632,7 +7639,7 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1790"/>
         <source>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_pseudo_kleinian3.ui" line="1944"/>
@@ -7728,12 +7735,12 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_quaternion.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Keine Parameter</translation>
+        <translation>Keine Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion.ui" line="42"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -7741,7 +7748,7 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_quaternion3D.ui" line="100"/>
         <source>DE Vector Influence:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DE Vektor Einfluss:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion3D.ui" line="107"/>
@@ -8330,11 +8337,6 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="248"/>
         <source>scale z.z:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="403"/>
-        <source>fabs(z)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9261,19 +9263,14 @@ min Radius:</translation>
 <context>
     <name>transf_pwr2_polynomial</name>
     <message>
-        <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="97"/>
-        <source>fabs(z)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="136"/>
         <source>Pi Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PI Rotation:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="264"/>
         <source>Analytic Linear DE offset:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Analytisch-linearer DE Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="389"/>
@@ -9281,9 +9278,8 @@ min Radius:</translation>
         <translation type="unfinished">Finale Skalierung:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="396"/>
         <source>fabs(z):</source>
-        <translation type="unfinished">fabs(z):</translation>
+        <translation type="obsolete">fabs(z):</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="107"/>
@@ -9293,12 +9289,12 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="382"/>
         <source>PART A = - (ScaleA * z + VectA) * fn(z)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">TEIL A = Skalierung A * z + VektorA) * fn(z)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="438"/>
         <source>Power2 Polynomial Az^2 + Bz + C</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Power 2 Polynom Az^2 + Bz + C</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="471"/>
@@ -9308,7 +9304,7 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="504"/>
         <source>Vector C:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vektor C:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="511"/>
@@ -9318,7 +9314,7 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="532"/>
         <source>PART B = ScaleB * z + VectorC</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">TEIL B = Skalierung B * z + VektorC</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="718"/>
@@ -9343,7 +9339,7 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="635"/>
         <source>Power3</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Potenz 3</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="642"/>
@@ -9363,7 +9359,7 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="1078"/>
         <source>Pi Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PI Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="1145"/>
@@ -9391,7 +9387,7 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="487"/>
         <source>DE Vector Influence:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DE Vektor Einfluss:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="499"/>

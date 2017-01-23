@@ -404,7 +404,7 @@
      <item row="4" column="1">
       <widget class="QLabel" name="label_127">
        <property name="text">
-        <string>Radius power</string>
+        <string>Radius power:</string>
        </property>
       </widget>
      </item>
@@ -525,7 +525,7 @@
      <item row="5" column="1">
       <widget class="QLabel" name="label_129">
        <property name="text">
-        <string>Th0 Scale</string>
+        <string>Th0 Scale:</string>
        </property>
       </widget>
      </item>
@@ -717,7 +717,7 @@
      <item row="6" column="1">
       <widget class="QLabel" name="label_130">
        <property name="text">
-        <string>Ph0 Scale</string>
+        <string>Ph0 Scale:</string>
        </property>
       </widget>
      </item>
@@ -1223,17 +1223,54 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>groupCheck_transf_function_enabled_false</tabstop>
+  <tabstop>slider3_transf_scale3D_111_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
+  <tabstop>slider3_transf_scale3D_111_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
+  <tabstop>slider3_transf_scale3D_111_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_z</tabstop>
+  <tabstop>comboBox_sinTan2Trig_asin_or_acos</tabstop>
+  <tabstop>comboBox_sinTan2Trig_atan2_or_atan</tabstop>
+  <tabstop>comboBox_sinTan2Trig_order_of_zyx</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy</tabstop>
+  <tabstop>slider_alpha_angle_offset</tabstop>
+  <tabstop>spinbox_alpha_angle_offset</tabstop>
+  <tabstop>slider_beta_angle_offset</tabstop>
+  <tabstop>spinbox_beta_angle_offset</tabstop>
+  <tabstop>slider_transf_minimum_radius_05</tabstop>
+  <tabstop>spinbox_transf_minimum_radius_05</tabstop>
+  <tabstop>slider_transf_pwr_4</tabstop>
+  <tabstop>spinbox_transf_pwr_4</tabstop>
+  <tabstop>slider_transf_pwr_8</tabstop>
+  <tabstop>spinbox_transf_pwr_8</tabstop>
+  <tabstop>slider_power</tabstop>
+  <tabstop>spinbox_power</tabstop>
+  <tabstop>checkBox_transf_function_enabledz_false</tabstop>
+  <tabstop>groupCheck_analyticDE_enabled_false</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_offset_1</tabstop>
+  <tabstop>spinbox_analyticDE_offset_2</tabstop>
+  <tabstop>checkBox_analyticDE_enabled_auxR2_false</tabstop>
+  <tabstop>groupCheck_transf_function_enabledAx_false</tabstop>
+  <tabstop>slider_transf_offset</tabstop>
+  <tabstop>spinbox_transf_offset</tabstop>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

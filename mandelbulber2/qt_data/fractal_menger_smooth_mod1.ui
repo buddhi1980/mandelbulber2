@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
+    <width>880</width>
     <height>2415</height>
    </rect>
   </property>
@@ -130,7 +130,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_65">
           <property name="text">
-           <string>ScaleC</string>
+           <string>ScaleC:</string>
           </property>
          </widget>
         </item>
@@ -144,7 +144,7 @@
         <item row="7" column="1">
          <widget class="QLabel" name="label_259">
           <property name="text">
-           <string>OffsetS</string>
+           <string>OffsetS:</string>
           </property>
          </widget>
         </item>
@@ -330,7 +330,7 @@
         <item row="19" column="1" colspan="4">
          <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
           <property name="title">
-           <string>R&amp;otation;</string>
+           <string>R&amp;otation</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -619,7 +619,7 @@
         <item row="16" column="1">
          <widget class="QLabel" name="label_255">
           <property name="text">
-           <string>OffsetC</string>
+           <string>OffsetC:</string>
           </property>
          </widget>
         </item>
@@ -711,7 +711,7 @@
         <item row="12" column="1">
          <widget class="QLabel" name="label_91">
           <property name="text">
-           <string>OffsetS Multiplier</string>
+           <string>OffsetS Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -1695,9 +1695,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -1706,11 +1706,65 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_scale_3</tabstop>
+  <tabstop>spinbox_transf_scale_3</tabstop>
+  <tabstop>checkBox_transf_function_enabled</tabstop>
+  <tabstop>slider_transf_offset_0</tabstop>
+  <tabstop>spinbox_transf_offset_0</tabstop>
+  <tabstop>checkBox_transf_function_enabledF_false</tabstop>
+  <tabstop>slider_transf_offset</tabstop>
+  <tabstop>spinbox_transf_offset</tabstop>
+  <tabstop>slider_transf_scale_05</tabstop>
+  <tabstop>spinbox_transf_scale_05</tabstop>
+  <tabstop>slider_transf_offset_0005</tabstop>
+  <tabstop>spinbox_transf_offset_0005</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_221_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_221_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_221_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_221_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_221_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_221_z</tabstop>
+  <tabstop>groupCheck_transf_rotation_enabled</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_R</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_R</tabstop>
+  <tabstop>dial3_transf_rotation_x</tabstop>
+  <tabstop>dial3_transf_rotation_y</tabstop>
+  <tabstop>dial3_transf_rotation_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabledx_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_A</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_x</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_y</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabledz_false</tabstop>
+  <tabstop>spinboxInt_transf_int_A</tabstop>
+  <tabstop>slider_transf_offsetA_0</tabstop>
+  <tabstop>spinbox_transf_offsetA_0</tabstop>
+  <tabstop>spinboxInt_transf_int_B</tabstop>
+  <tabstop>slider_transf_offsetB_0</tabstop>
+  <tabstop>spinbox_transf_offsetB_0</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -190,7 +190,7 @@ foreach($formulas as $index => $formula){
 		'xy', 'yx', 'xz', 'zx', 'yz', 'zy',
 		'xw', 'yw', 'zw',
 		'alpha', 'beta', 'gamma',
-		'fabs', 'fabs\(z\.x\)', 'fabs\(z\.y\)', 'fabs\(z\.z\)',
+		'fabs', 'fabs\(z\.x\)', 'fabs\(z\.y\)', 'fabs\(z\.z\)', 'fabs\(z\)',
 		'abs', 'abs\(x\)', 'abs\(y\)', 'abs\(z\)',
 		'T1', 'T1mod', 'T2', 'T3', 'T4', 'T5b',
 		'asin', 'acos', 'atan', 'atan2',

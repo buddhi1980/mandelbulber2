@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
+    <width>880</width>
     <height>684</height>
    </rect>
   </property>
@@ -278,17 +278,26 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_platonic_solid_frequency</tabstop>
+  <tabstop>spinbox_platonic_solid_frequency</tabstop>
+  <tabstop>slider_platonic_solid_amplitude</tabstop>
+  <tabstop>spinbox_platonic_solid_amplitude</tabstop>
+  <tabstop>slider_platonic_solid_rhoMul</tabstop>
+  <tabstop>spinbox_platonic_solid_rhoMul</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

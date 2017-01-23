@@ -1846,6 +1846,62 @@
    <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>spinboxInt_transf_start_iterations_C</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_C</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_x</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_x</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_y</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_y</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_z</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_z</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_w</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_w</tabstop>
+  <tabstop>groupCheck_transf_function_enabledR_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_R</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_R</tabstop>
+  <tabstop>dial3_transf_rotation44a_x</tabstop>
+  <tabstop>dial3_transf_rotation44a_y</tabstop>
+  <tabstop>dial3_transf_rotation44a_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation44a_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation44a_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation44a_z</tabstop>
+  <tabstop>dial3_transf_rotation44b_x</tabstop>
+  <tabstop>dial3_transf_rotation44b_y</tabstop>
+  <tabstop>dial3_transf_rotation44b_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation44b_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation44b_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation44b_z</tabstop>
+  <tabstop>slider_transf_scale_3</tabstop>
+  <tabstop>spinbox_transf_scale_3</tabstop>
+  <tabstop>slider4_transf_addition_constant_111d5_x</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_111d5_x</tabstop>
+  <tabstop>slider4_transf_addition_constant_111d5_y</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_111d5_y</tabstop>
+  <tabstop>slider4_transf_addition_constant_111d5_z</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_111d5_z</tabstop>
+  <tabstop>slider4_transf_addition_constant_111d5_w</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_111d5_w</tabstop>
+  <tabstop>groupCheck_transf_function_enabledS_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_S</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_S</tabstop>
+  <tabstop>slider_transf_maxR2_1</tabstop>
+  <tabstop>spinbox_transf_maxR2_1</tabstop>
+  <tabstop>slider_transf_minR2_p25</tabstop>
+  <tabstop>spinbox_transf_minR2_p25</tabstop>
+  <tabstop>groupCheck_transf_function_enabled_false</tabstop>
+  <tabstop>spinboxInt_transf_int_A</tabstop>
+  <tabstop>slider_transf_offset</tabstop>
+  <tabstop>spinbox_transf_offset</tabstop>
+  <tabstop>spinboxInt_transf_int_B</tabstop>
+  <tabstop>slider_transf_offset_0</tabstop>
+  <tabstop>spinbox_transf_offset_0</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

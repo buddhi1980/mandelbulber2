@@ -94,7 +94,7 @@
      <item row="24" column="3">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
-        <string>fabs(z)</string>
+        <string notr="true">fabs(z)</string>
        </property>
       </widget>
      </item>
@@ -393,7 +393,7 @@
      <item row="4" column="3">
       <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="text">
-        <string>fabs(z):</string>
+        <string notr="true">fabs(z)</string>
        </property>
       </widget>
      </item>

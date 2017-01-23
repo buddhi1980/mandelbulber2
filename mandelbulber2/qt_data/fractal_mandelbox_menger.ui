@@ -4789,43 +4789,132 @@ offset:</string>
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_A</tabstop>
+  <tabstop>slider_mandelbox_folding_limit</tabstop>
+  <tabstop>spinbox_mandelbox_folding_limit</tabstop>
+  <tabstop>slider_mandelbox_folding_value</tabstop>
+  <tabstop>spinbox_mandelbox_folding_value</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_B</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_B</tabstop>
+  <tabstop>slider_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>slider_mandelbox_folding_min_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_min_radius</tabstop>
+  <tabstop>slider3_mandelbox_offset_x</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_x</tabstop>
+  <tabstop>slider3_mandelbox_offset_y</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_y</tabstop>
+  <tabstop>slider3_mandelbox_offset_z</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_z</tabstop>
+  <tabstop>groupCheck_mandelbox_main_rotation_enabled</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_R</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_R</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_x</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_y</tabstop>
+  <tabstop>dial3_mandelbox_rotation_main_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_main_z</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_S</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_S</tabstop>
+  <tabstop>slider_mandelbox_scale</tabstop>
+  <tabstop>spinbox_mandelbox_scale</tabstop>
   <tabstop>groupCheck_mandelbox_rotations_enabled</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_1_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_1_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_1_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_1_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_1_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_1_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_1_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_1_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_1_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_1_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_1_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_1_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_1_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_1_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_1_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_1_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_pos_1_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_2_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_2_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_2_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_2_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_2_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_2_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_2_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_2_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_2_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_2_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_2_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_2_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_2_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_pos_2_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_3_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_3_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_3_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_3_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_3_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_3_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_3_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_3_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_3_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_3_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_3_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_3_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_3_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_pos_3_z</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
+  <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_order_of_xyz</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabled</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_M</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_M</tabstop>
+  <tabstop>spinboxInt_transf_int_1</tabstop>
+  <tabstop>slider_transf_scale_3</tabstop>
+  <tabstop>spinbox_transf_scale_3</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_z</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_x</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_y</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_z</tabstop>
+  <tabstop>spinbox_transf_scaleA_1</tabstop>
+  <tabstop>groupCheck_transf_function_enabledx_false</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_order_of_xyz_2</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_z</tabstop>
+  <tabstop>spinbox_fold_color_comp_fold</tabstop>
+  <tabstop>slider3_mandelbox_color_x</tabstop>
+  <tabstop>spinbox3_mandelbox_color_x</tabstop>
+  <tabstop>slider3_mandelbox_color_y</tabstop>
+  <tabstop>spinbox3_mandelbox_color_y</tabstop>
+  <tabstop>slider3_mandelbox_color_z</tabstop>
+  <tabstop>spinbox3_mandelbox_color_z</tabstop>
+  <tabstop>slider_mandelbox_color_Sp1</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp1</tabstop>
+  <tabstop>slider_mandelbox_color_Sp2</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp2</tabstop>
+  <tabstop>slider_fold_color_comp_scale</tabstop>
+  <tabstop>spinbox_fold_color_comp_scale</tabstop>
+  <tabstop>slider_fold_color_color_min</tabstop>
+  <tabstop>spinbox_fold_color_color_min</tabstop>
+  <tabstop>slider_mandelbox_color_R</tabstop>
+  <tabstop>spinbox_mandelbox_color_R</tabstop>
+  <tabstop>slider_fold_color_comp_minR</tabstop>
+  <tabstop>spinbox_fold_color_comp_minR</tabstop>
+  <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
  <connections/>

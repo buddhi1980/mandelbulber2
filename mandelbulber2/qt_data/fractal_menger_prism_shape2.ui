@@ -535,21 +535,21 @@
          <item row="0" column="1">
           <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
            <property name="text">
-            <string>enable fabs(z.x)</string>
+            <string notr="true">fabs(z.x)</string>
            </property>
           </widget>
          </item>
          <item row="0" column="2">
           <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy">
            <property name="text">
-            <string>enable fabs(z.y)</string>
+            <string notr="true">fabs(z.y)</string>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
           <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz">
            <property name="text">
-            <string>enable fabs(z.z)</string>
+            <string notr="true">fabs(z.z)</string>
            </property>
           </widget>
          </item>
@@ -901,7 +901,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_107">
        <property name="text">
-        <string>post_scale:</string>
+        <string>Post scale:</string>
        </property>
       </widget>
      </item>
@@ -1216,7 +1216,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>DotScale:</string>
+           <string>Dot Scale:</string>
           </property>
          </widget>
         </item>
@@ -1402,7 +1402,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>DotScale:</string>
+           <string>Dot Scale:</string>
           </property>
          </widget>
         </item>
@@ -2941,7 +2941,7 @@
         <item row="13" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>- ( z * C )</string>
+           <string notr="true">- ( z * C )</string>
           </property>
          </widget>
         </item>
@@ -3051,7 +3051,7 @@
            <enum>Qt::RightToLeft</enum>
           </property>
           <property name="text">
-           <string>Enable fABS(z - B)</string>
+           <string notr="true">fabs(z - B)</string>
           </property>
          </widget>
         </item>
@@ -3409,7 +3409,7 @@
            <enum>Qt::RightToLeft</enum>
           </property>
           <property name="text">
-           <string>Enable fABS(z + A)</string>
+           <string notr="true">fabs(z + A)</string>
           </property>
          </widget>
         </item>
@@ -4623,7 +4623,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Temp DE fudge factor</string>
+        <string>Temp DE fudge factor:</string>
        </property>
       </widget>
      </item>
@@ -5063,9 +5063,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -5074,9 +5074,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
@@ -5084,6 +5084,158 @@
    <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledSw_false</tabstop>
+  <tabstop>comboBox_combo_mode_A</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_P</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_P1</tabstop>
+  <tabstop>checkBox_transf_function_enabledCx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledCy</tabstop>
+  <tabstop>checkBox_transf_function_enabledCz</tabstop>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>slider_transf_offset_0</tabstop>
+  <tabstop>spinbox_transf_offset_0</tabstop>
+  <tabstop>slider_transf_offsetB_0</tabstop>
+  <tabstop>spinbox_transf_offsetB_0</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_z</tabstop>
+  <tabstop>checkBox_transf_function_enabledy_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledz_false</tabstop>
+  <tabstop>slider_transf_scaleA_1</tabstop>
+  <tabstop>spinbox_transf_scaleA_1</tabstop>
+  <tabstop>slider_transf_scaleB_1</tabstop>
+  <tabstop>spinbox_transf_scaleB_1</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>slider_transf_scaleC_1</tabstop>
+  <tabstop>spinbox_transf_scaleC_1</tabstop>
+  <tabstop>groupCheck_transf_function_enabledX_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_A</tabstop>
+  <tabstop>checkBox_transf_function_enabledBz_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledCy_false</tabstop>
+  <tabstop>slider_transf_scaleD_1</tabstop>
+  <tabstop>spinbox_transf_scaleD_1</tabstop>
+  <tabstop>slider_transf_scaleA_3</tabstop>
+  <tabstop>spinbox_transf_scaleA_3</tabstop>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>slider_transf_scaleE_1</tabstop>
+  <tabstop>spinbox_transf_scaleE_1</tabstop>
+  <tabstop>slider_transf_offset_1</tabstop>
+  <tabstop>spinbox_transf_offset_1</tabstop>
+  <tabstop>groupCheck_transf_function_enabledK_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_B</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_B</tabstop>
+  <tabstop>checkBox_transf_function_enabledCz_false</tabstop>
+  <tabstop>slider_transf_offset</tabstop>
+  <tabstop>spinbox_transf_offset</tabstop>
+  <tabstop>slider_transf_offsetC_0</tabstop>
+  <tabstop>spinbox_transf_offsetC_0</tabstop>
+  <tabstop>slider_transf_scaleF_1</tabstop>
+  <tabstop>spinbox_transf_scaleF_1</tabstop>
+  <tabstop>slider_transf_scaleB_3</tabstop>
+  <tabstop>spinbox_transf_scaleB_3</tabstop>
+  <tabstop>checkBox_transf_function_enabledx_false</tabstop>
+  <tabstop>slider_transf_scaleG_1</tabstop>
+  <tabstop>spinbox_transf_scaleG_1</tabstop>
+  <tabstop>groupCheck_transf_benesi_T1_enabled_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterationsT_1</tabstop>
+  <tabstop>slider3_transf_scale3D_222_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_x</tabstop>
+  <tabstop>slider3_transf_scale3D_222_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_y</tabstop>
+  <tabstop>slider3_transf_scale3D_222_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_z</tabstop>
+  <tabstop>slider3_transf_offset_200_x</tabstop>
+  <tabstop>spinbox3_transf_offset_200_x</tabstop>
+  <tabstop>slider3_transf_offset_200_y</tabstop>
+  <tabstop>spinbox3_transf_offset_200_y</tabstop>
+  <tabstop>slider3_transf_offset_200_z</tabstop>
+  <tabstop>spinbox3_transf_offset_200_z</tabstop>
+  <tabstop>groupCheck_transf_benesi_T1M_enabled_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_D</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterationsTM_1</tabstop>
+  <tabstop>slider3_transf_scale3D_333_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_333_x</tabstop>
+  <tabstop>slider3_transf_scale3D_333_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_333_y</tabstop>
+  <tabstop>slider3_transf_scale3D_333_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_333_z</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_111_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_111_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabledF_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_F</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_F</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx</tabstop>
+  <tabstop>slider3_transf_offsetF_000_x</tabstop>
+  <tabstop>spinbox3_transf_offsetF_000_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy</tabstop>
+  <tabstop>slider3_transf_offsetF_000_y</tabstop>
+  <tabstop>spinbox3_transf_offsetF_000_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz</tabstop>
+  <tabstop>slider3_transf_offsetF_000_z</tabstop>
+  <tabstop>spinbox3_transf_offsetF_000_z</tabstop>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>slider3_transf_offset_000_x</tabstop>
+  <tabstop>spinbox3_transf_offset_000_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>slider3_transf_offset_000_y</tabstop>
+  <tabstop>spinbox3_transf_offset_000_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledz</tabstop>
+  <tabstop>slider3_transf_offset_000_z</tabstop>
+  <tabstop>spinbox3_transf_offset_000_z</tabstop>
+  <tabstop>slider3_transf_scale3D_111_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
+  <tabstop>slider3_transf_scale3D_111_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
+  <tabstop>slider3_transf_scale3D_111_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_z</tabstop>
+  <tabstop>slider3_transf_offsetA_000_x</tabstop>
+  <tabstop>spinbox3_transf_offsetA_000_x</tabstop>
+  <tabstop>slider3_transf_offsetA_000_y</tabstop>
+  <tabstop>spinbox3_transf_offsetA_000_y</tabstop>
+  <tabstop>slider3_transf_offsetA_000_z</tabstop>
+  <tabstop>spinbox3_transf_offsetA_000_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabledR_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_R</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_R</tabstop>
+  <tabstop>dial3_transf_rotation_x</tabstop>
+  <tabstop>dial3_transf_rotation_y</tabstop>
+  <tabstop>dial3_transf_rotation_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation_z</tabstop>
+  <tabstop>groupCheck_transf_function_enabledM</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_M</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_M</tabstop>
+  <tabstop>slider_transf_scale_3</tabstop>
+  <tabstop>spinbox_transf_scale_3</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierA_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierA_111_z</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_x</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_y</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_z</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

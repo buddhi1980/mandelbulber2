@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4741</height>
+    <height>5097</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
    <item>
     <widget class="QLabel" name="label_268">
      <property name="text">
-      <string>Note 2) : termination condition is when iteration reaches Maxiter,</string>
+      <string>Note 2) : The termination condition is when iteration reaches Maxiter.</string>
      </property>
     </widget>
    </item>
@@ -1096,7 +1096,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_258">
           <property name="text">
-           <string>Scale</string>
+           <string>Scale:</string>
           </property>
          </widget>
         </item>
@@ -1624,7 +1624,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_261">
           <property name="text">
-           <string>Scale</string>
+           <string>Scale:</string>
           </property>
          </widget>
         </item>
@@ -4378,9 +4378,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
@@ -4389,9 +4389,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

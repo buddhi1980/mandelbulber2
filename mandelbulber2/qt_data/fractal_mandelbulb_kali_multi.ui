@@ -1418,6 +1418,47 @@
    <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>groupCheck_transf_function_enabled_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
+  <tabstop>slider_alpha_angle_offset</tabstop>
+  <tabstop>spinbox_alpha_angle_offset</tabstop>
+  <tabstop>slider_beta_angle_offset</tabstop>
+  <tabstop>spinbox_beta_angle_offset</tabstop>
+  <tabstop>slider_transf_scaleA_1</tabstop>
+  <tabstop>spinbox_transf_scaleA_1</tabstop>
+  <tabstop>checkBox_transf_function_enabledBx_false</tabstop>
+  <tabstop>groupCheck_transf_function_enabledx_false</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_acos_or_asin_A</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_atan_or_atan2_A</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_order_of_xyz_2</tabstop>
+  <tabstop>slider_transf_beta_angle_offset</tabstop>
+  <tabstop>spinbox_transf_beta_angle_offset</tabstop>
+  <tabstop>slider_transf_scaleB_1</tabstop>
+  <tabstop>spinbox_transf_scaleB_1</tabstop>
+  <tabstop>slider_transf_pwr_8</tabstop>
+  <tabstop>spinbox_transf_pwr_8</tabstop>
+  <tabstop>checkBox_transf_function_enabledz_false</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_acos_or_asin</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_atan_or_atan2</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_order_of_xyz</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
+  <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_order_of_xyz_C</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_z</tabstop>
+  <tabstop>groupCheck_analyticDE_enabled_false</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_offset_1</tabstop>
+  <tabstop>spinbox_analyticDE_offset_2</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
