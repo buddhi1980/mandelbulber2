@@ -389,7 +389,14 @@ void cAudioTrack::calculateAnimation(double midFreq, double bandwidth, bool pitc
 	animation.reserve(numberOfFrames);
 	for (int i = 0; i < numberOfFrames; i++)
 	{
-		animation.append(getBand(i, midFreq, bandwidth, pitchMode));
+		float value;
+		if (i == 0)
+			value = getBand(i, midFreq, bandwidth, pitchMode);
+		else
+			value =
+				getBand(i, midFreq, bandwidth, pitchMode) + getBand(i - 1, midFreq, bandwidth, pitchMode);
+
+		animation.append(value);
 	}
 }
 
