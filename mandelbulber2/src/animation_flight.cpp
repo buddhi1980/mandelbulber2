@@ -848,7 +848,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		}
 
 		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,
-			cProgressText::progress_ANIMATION);
+			cProgressText::progress_IMAGE);
 		emit notifyRenderFlightRenderStatus(
 			QObject::tr("Animation finished"), progressText.getText(1.0));
 		emit updateProgressHide();
