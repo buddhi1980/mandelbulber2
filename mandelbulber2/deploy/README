@@ -1,5 +1,5 @@
 
-MANDELBULBER 2.09
+MANDELBULBER 2.10
 -----------------
 
 project leader: Krzysztof Marczak
@@ -18,7 +18,7 @@ LICENCE: GNU GPL v3.0
 ---------------
 
 - Linux OS with installed Qt 5 libraries (version >5.3) and libjpeg
-- very fast CPU (recommended 2GHz, 4 cores)
+- very fast CPU (recommended 3GHz, 4 cores)
 - 2GB RAM
 
 2. COMPILING
@@ -29,7 +29,7 @@ packages needed to compile: build-essential, qt5-default, libpng-dev, qttools5-d
 
 
 On Ubuntu, Debian stable (jessie) or Mint: 
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins
+sudo apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins
 
 On Debian testing (stretch)
 sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev qtmultimedia5-dev libsndfile1-dev libqt5multimedia5-plugins
@@ -64,16 +64,16 @@ please type:
 ------------
 
 - Debian Stretch x64
-- Ubuntu 16.04
+- Ubuntu 16.10
 - Chakra 2016.02 "Ian"
 - Raspbian
 - Centos 7 Intel MIC K1OM Development (more info: https://github.com/buddhi1980/mandelbulber2/issues/106)
 
-- gcc 5.4.0
-- clang 3.7.0
+- gcc 6.2.1
+- clang 3.8.1
 - msvc14
 
-- Qt 5.6.1
+- Qt 5.7.1
 
 5. USAGE
 --------
@@ -82,7 +82,7 @@ Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
 Actually there is only available documentation for old Mandelbulber (v1)
 
-A lot of useful information you can find in tooltips.
+A lot of useful information you can find in tooltips. Just hover mouse pointer over the edit fields.
 
 6. COMMAND LINE INTERFACE
 -------------------------

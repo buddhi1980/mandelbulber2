@@ -19,7 +19,8 @@ installing all needed packages
 
 "
 
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools qtmultimedia5-dev libgsl-dev libgomp1 git qtcreator libsndfile1-dev
+sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev qtmultimedia5-dev libsndfile1-dev libqt5multimedia5-plugins
+sudo apt-get install qtcreator git
 
 echo "
 getting fresh source files from git repository
