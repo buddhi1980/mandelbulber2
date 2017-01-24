@@ -265,34 +265,43 @@ void cAudioTrack::calculateFFT()
 		if (fftAudio) delete[] fftAudio;
 		fftAudio = new cAudioFFTdata[numberOfFrames];
 
+		int oversample = sampleRate / framesPerSecond / cAudioFFTdata::fftSize + 2;
+
 #pragma omp parallel for
 		for (int frame = 0; frame < numberOfFrames; ++frame)
 		{
-			int sampleOffset = int(qint64(frame) * sampleRate / framesPerSecond);
-			// prepare complex data for fft transform
-			double fftData[cAudioFFTdata::fftSize * 2];
-			for (int i = 0; i < cAudioFFTdata::fftSize; i++)
-			{
-				fftData[2 * i] =
-					getSample(i + sampleOffset) * 0.5
-					* (1.0 - cos((2 * M_PI * i) / (cAudioFFTdata::fftSize - 1))); // Hann window function
-				fftData[2 * i + 1] = 0.0;
-			}
-
-			// do FFT
-			gsl_complex_packed_array data = fftData;
-			gsl_fft_complex_radix2_forward(data, 1, cAudioFFTdata::fftSize);
-
-			// write ready FFT data to storage buffer
 			cAudioFFTdata fftFrame;
-			for (int i = 0; i < cAudioFFTdata::fftSize; i++)
+
+			for (int ov = 0; ov < oversample; ov++)
 			{
-				float re = fftData[2 * i];
-				float im = fftData[2 * i + 1];
-				float absVal = sqrt(re * re + im * im);
-				fftFrame.data[i] = absVal;
-				maxFft = qMax(absVal, maxFft);
-				maxFftArray.data[i] = qMax(maxFftArray.data[i], absVal);
+				int sampleOffset =
+					int(qint64(frame * oversample + ov) * sampleRate / framesPerSecond / oversample);
+
+				// prepare complex data for fft transform
+				double fftData[cAudioFFTdata::fftSize * 2];
+				for (int i = 0; i < cAudioFFTdata::fftSize; i++)
+				{
+					fftData[2 * i] =
+						getSample(i + sampleOffset) * 0.5
+						* (1.0 - cos((2 * M_PI * i) / (cAudioFFTdata::fftSize - 1))); // Hann window function
+
+					fftData[2 * i + 1] = 0.0;
+				}
+
+				// do FFT
+				gsl_complex_packed_array data = fftData;
+				gsl_fft_complex_radix2_forward(data, 1, cAudioFFTdata::fftSize);
+
+				// write ready FFT data to storage buffer
+				for (int i = 0; i < cAudioFFTdata::fftSize; i++)
+				{
+					float re = fftData[2 * i];
+					float im = fftData[2 * i + 1];
+					float absVal = sqrt(re * re + im * im);
+					fftFrame.data[i] += absVal / oversample;
+					maxFft = qMax(absVal, maxFft);
+					maxFftArray.data[i] = qMax(maxFftArray.data[i], absVal);
+				}
 			}
 			fftAudio[frame] = fftFrame;
 		}
