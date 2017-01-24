@@ -1108,7 +1108,7 @@
                   <string/>
                  </property>
                  <property name="decimals">
-                  <number>2</number>
+                  <number>4</number>
                  </property>
                  <property name="maximum">
                   <double>18000.000000000000000</double>
@@ -1503,7 +1503,7 @@ keyframes</string>
                   </sizepolicy>
                  </property>
                  <property name="maximum">
-                  <number>5000</number>
+                  <number>1000000</number>
                  </property>
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
