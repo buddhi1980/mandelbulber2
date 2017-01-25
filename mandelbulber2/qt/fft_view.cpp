@@ -66,7 +66,7 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 		this->setFixedWidth(numberOfFrames);
 
-		const int height = 256;
+		const int height = cAudioFFTdata::fftSize / 2;
 
 		fftImage = QImage(QSize(numberOfFrames, height), QImage::Format_RGB32);
 
@@ -109,10 +109,8 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 void cFFTView::slotFreqChanged(double midFreq, double bandwidth)
 {
-	lowFreqY = height() - 1
-						 - double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq - bandwidth * 0.5);
-	highFreqY = height() - 1
-							- double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq + bandwidth * 0.5);
+	lowFreqY = int(double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq - bandwidth * 0.5));
+	highFreqY = int(double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq + bandwidth * 0.5));
 	update();
 }
 
@@ -120,12 +118,12 @@ void cFFTView::paintEvent(QPaintEvent *event)
 {
 	Q_UNUSED(event);
 	QPainter painter(this);
-	painter.drawImage(0, 0, scaledFftImage);
+	painter.drawImage(0, height() - cAudioFFTdata::fftSize / 2, scaledFftImage);
 
 	QBrush brush(QColor(255, 255, 255, 128));
 	painter.setBrush(brush);
 	painter.setPen(Qt::NoPen);
-	painter.drawRect(QRect(QPoint(0, highFreqY), QPoint(width(), lowFreqY)));
+	painter.drawRect(QRect(QPoint(0, height() - highFreqY -1), QPoint(width(), height() - lowFreqY - 1)));
 
 	painter.setPen(Qt::red);
 	QFont font = QApplication::font();

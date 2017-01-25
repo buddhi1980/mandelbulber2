@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1481</width>
-    <height>700</height>
+    <width>1006</width>
+    <height>626</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -740,8 +740,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>1039</width>
-          <height>673</height>
+          <width>651</width>
+          <height>593</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -805,21 +805,15 @@
          <item>
           <widget class="cFFTView" name="fft" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>256</height>
-            </size>
-           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>256</height>
+             <height>1024</height>
             </size>
            </property>
            <property name="toolTip">
@@ -892,19 +886,6 @@
             </size>
            </property>
           </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </widget>
