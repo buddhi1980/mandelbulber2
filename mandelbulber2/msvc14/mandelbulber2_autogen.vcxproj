@@ -262,8 +262,13 @@
     <CppDir>$(SourceDir)mandelbulber2</CppDir>
     <GenDir>$(SourceDir)build-win</GenDir>
   </PropertyGroup>
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
     <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.7.1.10779\build\native\</QtDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='Win32'">
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\</QtDir>
+  </PropertyGroup>
+  <PropertyGroup>
     <Moc>$(QtDir)/bin/moc.exe</Moc>
     <Uic>$(QtDir)/bin/uic.exe</Uic>
     <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
