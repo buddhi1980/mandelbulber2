@@ -21,7 +21,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_loadAudioFile">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load audio from file. It supports folowing formats:&lt;/p&gt;&lt;p&gt;- *.wav (wave forrm audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - supported only under Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load audio from file. The following formats are supported:&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - supported only under Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Select audio file</string>
@@ -35,7 +35,7 @@
        <item>
         <widget class="MyLineEdit" name="text_animsound_soundfile">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;path to file with sound&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;path to audio file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -47,7 +47,7 @@
          <item>
           <widget class="QPushButton" name="pushButton_playback_start">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play loaded sound&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play loaded audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Play sound</string>
@@ -61,7 +61,7 @@
          <item>
           <widget class="QPushButton" name="pushButton_playback_stop">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop sound playback&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop playing audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Stop</string>
@@ -91,7 +91,7 @@
        <item>
         <widget class="MyGroupBox" name="groupCheck_animsound_enable">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables animation controlled by sound track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables animation controlled by audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="title">
           <string>Enable animation by so&amp;und</string>
@@ -155,7 +155,7 @@
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Frequency of sound which will be used to calculate animation.&lt;/p&gt;&lt;p&gt;This frequency is indicated on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Frequency of sound which will be used to calculate animation.&lt;/p&gt;&lt;p&gt;This frequency is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="prefix">
                <string/>
@@ -196,7 +196,7 @@
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of the band of frequeces which will be used to calculate animation.&lt;/p&gt;&lt;p&gt;Selected bandwidth is indicated on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;p&gt;If bandwidth is wide then animation will be calculated as a average amplitude of selected frequences.&lt;/p&gt;&lt;p&gt;If bandwidth is set to maximum value then animation is caluculated as a amplitude of sound.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of the band of frequencies used to calculate animation.&lt;/p&gt;&lt;p&gt;Selected bandwidth is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;p&gt;If the bandwidth is wide, then the animation will be calculated from the average amplitude of the selected frequencies.&lt;/p&gt;&lt;p&gt;If the bandwidth is set to the maximum value, then the animation will be calculated from the  amplitude of sound.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="prefix">
                <string/>
@@ -740,8 +740,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>1126</width>
-          <height>667</height>
+          <width>1039</width>
+          <height>673</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -916,6 +916,22 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>cWaveFormView</class>
    <extends>QWidget</extends>
    <header>wave_form_view.h</header>
@@ -933,17 +949,6 @@
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>cAnimAudioView</class>
    <extends>QWidget</extends>
    <header>anim_audio_view.h</header>
@@ -954,11 +959,6 @@
    <extends>QWidget</extends>
    <header>time_ruler.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <resources>
