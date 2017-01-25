@@ -429,7 +429,8 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		2);
 
 	QString settingsTextTrimmed = settingsText.trimmed();
-	QStringList separatedText = settingsTextTrimmed.split(QRegExp("[\r\n]"), QString::KeepEmptyParts);
+	QStringList separatedText =
+		settingsTextTrimmed.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
 	DecodeHeader(separatedText);
 
 	int errorCount = 0;
