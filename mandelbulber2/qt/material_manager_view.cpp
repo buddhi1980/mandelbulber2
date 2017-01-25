@@ -217,7 +217,7 @@ void cMaterialManagerView::slotEditMaterial()
 	int matIndex = model->materialIndex(index);
 
 	cParameterContainer params;
-	params.SetContainerName("materialEdited");
+	params.SetContainerName("main");
 	InitMaterialParams(matIndex, &params);
 
 	cSettings tempSettings(cSettings::formatCondensedText);
