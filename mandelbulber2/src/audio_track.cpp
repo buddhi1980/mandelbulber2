@@ -431,17 +431,24 @@ void cAudioTrack::binaryFilter(double thresh, int length)
 {
 	float value = 0.0f;
 	int count = 0;
+	bool counterWasReset = false;
 	for (int i = 0; i < numberOfFrames; i++)
 	{
 		count++;
 		if (animation[i] > thresh)
 		{
+			if(!counterWasReset)
+			{
+				count = 0;
+				counterWasReset = true;
+			}
 			value = 1.0f;
-			count = 0;
 		}
 		else if (count > length)
 		{
 			value = 0.0f;
+			count = 0;
+			counterWasReset = false;
 		}
 		animation[i] = value;
 	}
