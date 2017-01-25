@@ -4,11 +4,12 @@ v2.10
 - AnimBySound: Added possibility to animate any parameter using sound wave (added "Anim By Sound" buttons in animation table)
 - AnimBySound: Added dialog window to load and setup AnimBySound feature
 - AnimBySound: Added views for waveform, fft and animation generated from sound
-- AnimBySound: there is possible to load wav, ogg, flac (all operating systems) and mp3 (actually only Linux)
+- AnimBySound: there is possible to load wav, ogg, flac (all operating systems) and mp3 (Linux only)
 - AnimBySound: Added binary, decay and smooth filters for animation generated from sound
 - Settings: added description field for fractal settings
 - Added new fractal formulas:
   * Menger - Prism Shape2
+	* MixPinski 4D
   * Sierpinski 3D
   * Sierpinski 4D
   * Menger 4D
@@ -17,15 +18,19 @@ v2.10
   * Menger - Smooth Mod1
   * Menger - Octo
   * Abox 4D
-  * Transform - Octo Fold
-  * Transform - Spherical_Fold_VaryVCL
-  * Transform - Add exp2(z)
-  * Transform - Reciprocal3
-  * Transform - Rotated Folding
-  * Transform - Fabs_Add_Conditional4D
-  * Transform - Reciprocal4D
-  * Transform - Spherical_OffsetVCL
-  * Transform - Fabs_Add_Tglad fold_4D
+	* Transform - SurfBoxFold
+	* Transform - Octo Fold
+	* Transform - ScaleVaryVCL
+	* Transform - Spherical_Fold_VaryVCL
+	* Transform - Add exp2(z)
+	* Transform - Reciprocal3
+	* Transform - Rotated Folding
+	* Transform - FabsAddConditional
+	* Transform - Reciproca l4D
+	* Transform - FabsAddConditional 4D
+	* Transform - Spherical_OffsetVCL
+	* Transform - Rotation 4D
+
 - Shaders: in some cases there was wrong calculation of object colors in boolean mode
 - Shaders: fixed bug in DOF algorithm which could cause crashes
 - Animation: Improved gamepad integration for flight animations

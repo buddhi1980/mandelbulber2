@@ -80,6 +80,7 @@ In addition there is prepared solution for VC++ 2015 located in root folder of g
 [Image Gallery] (http://krzysztofmarczak.deviantart.com/gallery/)
 
 [Forum] (http://www.fractalforums.com/mandelbulber/)
+[Forum Gallery] (http://www.fractalforums.com/index.php?action=gallery;cat=51)
 
 [Compiled Binaries](http://sourceforge.net/projects/mandelbulber/)
 
