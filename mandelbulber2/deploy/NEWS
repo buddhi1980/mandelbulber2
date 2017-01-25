@@ -1,17 +1,22 @@
 Version history
 
 v2.10
-- Animsound: Added possibility to animate any parameter using sound wave
-- Animsound: Added dialog window to load and setup Animsound feature
-- Animsound: Added view for waveform, fft and animation generated from sound
-- Animsound: there is possible to load wav, ogg, flac (all operating systems) and mp3 (actually only Linux)
-- Animsound: Added binary, decay and smooth filters for animation generated from sound
+- AnimBySound: Added possibility to animate any parameter using sound wave (added "Anim By Sound" buttons in animation table)
+- AnimBySound: Added dialog window to load and setup AnimBySound feature
+- AnimBySound: Added views for waveform, fft and animation generated from sound
+- AnimBySound: there is possible to load wav, ogg, flac (all operating systems) and mp3 (actually only Linux)
+- AnimBySound: Added binary, decay and smooth filters for animation generated from sound
 - Settings: added description field for fractal settings
 - Added new fractal formulas:
   * Menger - Prism Shape2
   * Sierpinski 3D
   * Sierpinski 4D
   * Menger 4D
+  * Menger 4D Mod1
+  * Menger - Smooth
+  * Menger - Smooth Mod1
+  * Menger - Octo
+  * Abox 4D
   * Transform - Octo Fold
   * Transform - Spherical_Fold_VaryVCL
   * Transform - Add exp2(z)
@@ -24,20 +29,33 @@ v2.10
 - Shaders: in some cases there was wrong calculation of object colors in boolean mode
 - Shaders: fixed bug in DOF algorithm which could cause crashes
 - Animation: Improved gamepad integration for flight animations
+- Animation: Added image with gamepad keymap (tooltip)
+- Animation: there is displayed correct message when first frame was equal to last frame
+- Materials/Animation: fixed bug: program crashed when to animation there was added parameter from material which was previously loaded using "Load material" button
+- Materials/Animation: fixed bug: program crashed when to animation there was added parameter from material which was previously edited using dialog called by Edit Material button
 - UI: Image quality settings added to file selector for images
 - UI: Corrected resolution lock function
 - UI: auto-refresh is now disabled when brightness, gamma, contrast or HDR is changed
 - UI: added information in fractal formula information box about examples which shows usage of formula
 - UI: changed and added more keyboard shortcuts for camera navigation
+- UI: fixed bug: When the group box of primitives was saved and then loaded the group was always enabled
+- UI: when dark theme is used then text color in animation table is always black
+- UI: added Dutch language
+- UI: added options to store/restore different layouts (states) of docks
 - Voxel export: added automatic calculation of bounding box
-- Voxel export: Added ability to export meshes in *.ply format
+- Voxel export: Added ability to export 3D meshes in *.ply format
 - General: changed data folder from .mandelbulber (hidden) to mandelbulber (not hidden)
+- General: changed default folder for animation frames to ~/mandelbulber/animation
 - CLI: added stdin input for CLI arguments
+- CLI: added --benchmark option which calculates total time needed to render all examples in low resolution
 - Performance: fixed several memory leaks
 - Compilation: main window UI file divided onto several smaller which improved compilation performance
 - Compilation: used a lot of forward declarations to reduce compilation time
-- Compilation: code is now fully compatible with msvc++
+- Compilation: code is now fully compatible with msvc
+- Compilation: created solution file for msvc14 with all needed NuGet packages
 - Compilation: configured Appveyor to test msvc++ builds
+- Compilation: a lot of cleaning up of the code
+- Compilation: much improved populateUiInformation.php script
 
 v2.09-3
 - Settings: Fixed bug in function which adds missing material no. 1 during loading settings. When material no. 1 was default, this material was not created on parameter list.
