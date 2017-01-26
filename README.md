@@ -47,7 +47,7 @@ In render window:
   - <kbd>Shift</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd> / <kbd>Left</kbd> / <kbd>Right</kbd>): rotate camera
   - <kbd>Ctrl</kbd>+(<kbd>Left</kbd> / <kbd>Right</kbd>): roll camera left / right
 
-## Building and Deploying 
+## Building and Deploying
 
 Dowload latest stable version from [Releases] (https://github.com/buddhi1980/mandelbulber2/releases)
 
@@ -67,11 +67,34 @@ These scripts install all required packages, compile the program, and create sym
 
 [Prepare Ubuntu for Development] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_ubuntu.sh)
 
+### Arch Linux
+
+#### AUR
+
 [Arch Linux AUR Package (builds latest release)]
 (https://aur.archlinux.org/packages/mandelbulber2/)
 
 [Arch Linux AUR Package (builds latest git snapshot)]
 (https://aur.archlinux.org/packages/mandelbulber2-git/)
+
+#### Binary packages
+
+Add `http://jws.forteholding.ru/archi` to pacman repositories
+
+* /etc/pacman.conf:
+```INI
+[archi]
+Server = http://jws.forteholding.ru/archi
+SigLevel = Never
+```
+
+* Update index and install mandelbulber2:
+```ShellSession
+# pacman -Syy
+# pacman -S mandelbulber2
+```
+
+### VC++ 2015
 
 In addition there is prepared solution for VC++ 2015 located in root folder of git package. This solution includes all needed nugets to compile the program.
 
