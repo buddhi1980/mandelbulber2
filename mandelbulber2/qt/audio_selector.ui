@@ -21,7 +21,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_loadAudioFile">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load audio from file.&lt;/p&gt;&lt;p&gt;Parameter values can be animated in response to the input from audio files.&lt;/p&gt;&lt;p&gt;The change in parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;p&gt;The following formats are supported:&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - supported only under Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load audio from file.&lt;/p&gt;&lt;p&gt;Parameter values can be animated in response to the input from audio files.&lt;/p&gt;&lt;p&gt;The following formats are supported:&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - supported only under Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Select audio file</string>
@@ -91,7 +91,7 @@
        <item>
         <widget class="MyGroupBox" name="groupCheck_animsound_enable">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables animation by using digital data from audio files, to adjust parameter values.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables animation by using digital data from audio files, to adjust parameter values obtained from the keyframe table calculattions..&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="title">
           <string>Enable animation by so&amp;und</string>
@@ -352,7 +352,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_animsound_binaryfilter">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The change in value of the animated parameter will be triggered when the amplitude rises above the threshold and cease when the amplitude drops below the threshold, (unless the minimum peak length is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The change in value of the animated parameter will be triggered when the parameter value rises above the threshold and ceases when the value drops below the threshold, (unless the minimum peak length is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
              <string>&amp;Binary filter</string>
@@ -416,7 +416,7 @@
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Threshold for binary filter. &lt;/p&gt;&lt;p&gt;Above this threshold the animation of the parameter value  is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Threshold for binary filter. &lt;/p&gt;&lt;p&gt;Above this threshold then the calculation of the audio influence on the paramtere value  is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="prefix">
                   <string/>
@@ -609,7 +609,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_animsound_smoothfilter">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables  the smooth filter.&lt;/p&gt;&lt;p&gt;The value of the animated parameter will change in a smooth way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the smooth filter.&lt;/p&gt;&lt;p&gt;The value of the animated parameter will change in a smooth way.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
              <string>S&amp;mooth filter</string>
@@ -673,7 +673,7 @@
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A higher value will result in slower changes to the animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A higher value will result in a reduced audio influence on the animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="prefix">
                   <string/>
