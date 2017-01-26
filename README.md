@@ -90,8 +90,8 @@ SigLevel = Never
 
 * Update index and install mandelbulber2:
 ```ShellSession
-# pacman -Syy
-# pacman -S mandelbulber2
+pacman -Syy
+pacman -S mandelbulber2
 ```
 
 ### VC++ 2015
