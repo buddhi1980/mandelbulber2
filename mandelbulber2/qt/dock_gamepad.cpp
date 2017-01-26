@@ -42,11 +42,14 @@
 
 cDockGamepad::cDockGamepad(QWidget *parent) : QWidget(parent), ui(new Ui::cDockGamepad)
 {
+#ifdef USE_GAMEPAD
 	auto gamepads = QGamepadManager::instance()->connectedGamepads();
+	// TODO: Handle uninitialized case
 	if (!gamepads.isEmpty())
 	{
 		gamepad = new QGamepad(*gamepads.begin(), this);
 	}
+#endif // USE_GAMEPAD
 
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
@@ -64,6 +67,18 @@ void cDockGamepad::ConnectSignals() const
 #ifdef USE_GAMEPAD
 	connect(ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangeGamepadIndex(int)));
+
+	connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), gamepad,
+		SLOT(setConnected(bool)));
+
+	connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), this,
+		SLOT(slotGamePadDeviceConnected(int)));
+	connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), this,
+		SLOT(slotGamePadDeviceDisconnected(int)));
+	
+	// Return if gamepad is not allocated
+	if (!gamepad)
+		return;
 
 	// Left Joystick controls Look Angle
 	connect(gamepad, SIGNAL(&QGamepad::axisLeftYChanged(double)), this, SLOT(slotGamepadLook()));
@@ -88,13 +103,6 @@ void cDockGamepad::ConnectSignals() const
 	connect(gamepad, SIGNAL(&QGamepad::buttonAChanged(bool)), this, SLOT(slotGamepadSpeed()));
 	connect(gamepad, SIGNAL(&QGamepad::buttonBChanged(bool)), this, SLOT(slotGamepadSpeed()));
 
-	connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), gamepad,
-		SLOT(setConnected(bool)));
-
-	connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), this,
-		SLOT(slotGamePadDeviceConnected(int)));
-	connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), this,
-		SLOT(slotGamePadDeviceDisconnected(int)));
 #endif // USE_GAMEPAD
 }
 
