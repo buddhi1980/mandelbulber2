@@ -46,6 +46,7 @@ v2.10
 - UI: fixed bug: When the group box of primitives was saved and then loaded the group was always enabled
 - UI: when dark theme is used then text color in animation table is always black
 - UI: added Dutch language
+- UI: added options to store/restore different layouts (states) of docks
 - Voxel export: added automatic calculation of bounding box
 - Voxel export: Added ability to export 3D meshes in *.ply format
 - General: changed data folder from .mandelbulber (hidden) to mandelbulber (not hidden)
