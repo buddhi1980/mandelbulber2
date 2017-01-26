@@ -42,6 +42,12 @@
 
 cDockGamepad::cDockGamepad(QWidget *parent) : QWidget(parent), ui(new Ui::cDockGamepad)
 {
+	auto gamepads = QGamepadManager::instance()->connectedGamepads();
+	if (!gamepads.isEmpty())
+	{
+		gamepad = new QGamepad(*gamepads.begin(), this);
+	}
+
 	ui->setupUi(this);
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
@@ -60,29 +66,29 @@ void cDockGamepad::ConnectSignals() const
 		SLOT(slotChangeGamepadIndex(int)));
 
 	// Left Joystick controls Look Angle
-	connect(&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadLook()));
-	connect(&gamepad, SIGNAL(axisLeftXChanged(double)), this, SLOT(slotGamepadLook()));
+	connect(gamepad, SIGNAL(&QGamepad::axisLeftYChanged(double)), this, SLOT(slotGamepadLook()));
+	connect(gamepad, SIGNAL(&QGamepad::axisLeftXChanged(double)), this, SLOT(slotGamepadLook()));
 
 	// Right Joystick controls Movement Direction
-	connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadMove()));
-	connect(&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadMove()));
+	connect(gamepad, SIGNAL(&QGamepad::axisRightXChanged(double)), this, SLOT(slotGamepadMove()));
+	connect(gamepad, SIGNAL(&QGamepad::axisRightYChanged(double)), this, SLOT(slotGamepadMove()));
 
 	// Left and Right Triggers control Reverse and Accelerator
-	connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadMove()));
-	connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadMove()));
+	connect(gamepad, SIGNAL(&QGamepad::buttonL2Changed(double)), this, SLOT(slotGamepadMove()));
+	connect(gamepad, SIGNAL(&QGamepad::buttonR2Changed(double)), this, SLOT(slotGamepadMove()));
 
 	// Start Button will pause the flight
-	connect(&gamepad, SIGNAL(buttonStartChanged(bool)), this, SLOT(slotGamepadPause(bool)));
+	connect(gamepad, SIGNAL(&QGamepad::buttonStartChanged(bool)), this, SLOT(slotGamepadPause(bool)));
 
 	// Left and Right Shoulder Buttons control Roll Rotation
-	connect(&gamepad, SIGNAL(buttonL1Changed(bool)), this, SLOT(slotGamepadRoll()));
-	connect(&gamepad, SIGNAL(buttonR1Changed(bool)), this, SLOT(slotGamepadRoll()));
+	connect(gamepad, SIGNAL(&QGamepad::buttonL1Changed(bool)), this, SLOT(slotGamepadRoll()));
+	connect(gamepad, SIGNAL(&QGamepad::buttonR1Changed(bool)), this, SLOT(slotGamepadRoll()));
 
 	// A and B buttons control the Movement Speed
-	connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadSpeed()));
-	connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadSpeed()));
+	connect(gamepad, SIGNAL(&QGamepad::buttonAChanged(bool)), this, SLOT(slotGamepadSpeed()));
+	connect(gamepad, SIGNAL(&QGamepad::buttonBChanged(bool)), this, SLOT(slotGamepadSpeed()));
 
-	connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), &gamepad,
+	connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), gamepad,
 		SLOT(setConnected(bool)));
 
 	connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), this,
@@ -95,13 +101,13 @@ void cDockGamepad::ConnectSignals() const
 #ifdef USE_GAMEPAD
 void cDockGamepad::slotChangeGamepadIndex(int index)
 {
-	gamepad.setDeviceId(index);
+	gamepad->setDeviceId(index);
 	WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index), 2);
 }
 
 void cDockGamepad::slotGamePadDeviceConnected(int index) const
 {
-	QString deviceName = gamepad.name();
+	QString deviceName = gamepad->name();
 	if (deviceName == "") deviceName = "Device #" + QString::number(index);
 	WriteLog(
 		"Gamepad - device connected | index: " + QString::number(index) + ", name: " + deviceName, 2);
@@ -130,8 +136,8 @@ void cDockGamepad::slotGamePadDeviceDisconnected(int index) const
 void cDockGamepad::slotGamepadLook() const
 {
 	// Joystick Axis values vary from -1 to 0 to 1
-	double pitch = gamepad.axisLeftX();
-	double yaw = gamepad.axisLeftY();
+	double pitch = gamepad->axisLeftX();
+	double yaw = gamepad->axisLeftY();
 	WriteLog("Gamepad - slotGamepadLook-Yaw | value: " + QString::number(yaw), 3);
 	WriteLog("Gamepad - slotGamepadLook-Pitch | value: " + QString::number(pitch), 3);
 	ui->sl_gamepad_angle_yaw->setValue(100 * yaw);
@@ -147,15 +153,15 @@ void cDockGamepad::slotGamepadMove() const
 	// Joystick Axis values vary from -1 to 0 to 1
 	// -1 for down, and 1 for up, 0 for neutral
 	// Invert the Y Axis for right Joystick
-	double x = gamepad.axisRightX();
-	double y = gamepad.axisRightY() * -1.0;
+	double x = gamepad->axisRightX();
+	double y = gamepad->axisRightY() * -1.0;
 	CVector2<double> strafe(x, y);
 	double sensitivity = 5.0;
 	strafe = strafe.Deadband() * sensitivity;
 	bool joystick = fabs(strafe.x) > 0 || fabs(strafe.y) > 0;
 	// Trigger values vary from 0 to 1
-	double reverse = gamepad.buttonL2();
-	double forward = gamepad.buttonR2();
+	double reverse = gamepad->buttonL2();
+	double forward = gamepad->buttonR2();
 	double z = forward - reverse / 2.0;
 	bool trigger = fabs(z) > 0;
 	WriteLog("Gamepad - slotGamepadMove-X | value: " + QString::number(x), 3);
@@ -189,8 +195,8 @@ void cDockGamepad::slotGamepadRoll() const
 {
 	// Button values are either false to true
 	double value = 0;
-	if (gamepad.buttonL1()) value += 1;
-	if (gamepad.buttonR1()) value -= 1;
+	if (gamepad->buttonL1()) value += 1;
+	if (gamepad->buttonR1()) value -= 1;
 	WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value), 3);
 	ui->sl_gamepad_angle_roll->setValue(100 * value);
 	emit gMainInterface->renderedImage->RotationChanged(value);
@@ -200,13 +206,13 @@ void cDockGamepad::slotGamepadSpeed() const
 {
 	// Button values are either false to true
 	double value = 0;
-	if (gamepad.buttonA()) value += 1;
-	if (gamepad.buttonB()) value -= 1;
+	if (gamepad->buttonA()) value += 1;
+	if (gamepad->buttonB()) value -= 1;
 	WriteLog("Gamepad - slotGamepadSpeed | value: " + QString::number(value), 3);
 	ui->sl_gamepad_movement_z->setValue(100 * value);
-	if (gamepad.buttonA() != gamepad.buttonB())
+	if (gamepad->buttonA() != gamepad->buttonB())
 	{
-		if (gamepad.buttonA())
+		if (gamepad->buttonA())
 		{
 			emit gMainInterface->renderedImage->SpeedChanged(1.1);
 		}

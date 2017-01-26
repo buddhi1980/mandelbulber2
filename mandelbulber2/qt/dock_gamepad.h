@@ -77,7 +77,7 @@ private:
 	cAutomatedWidgets *automatedWidgets;
 
 #ifdef USE_GAMEPAD
-	QGamepad gamepad;
+	QGamepad *gamepad;
 #endif
 };
 
