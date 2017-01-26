@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>674</width>
-    <height>413</height>
+    <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#008000;&quot;&gt;Sphere&lt;/span&gt;&lt;span style=&quot; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; color:#008000;&quot;&gt;to&lt;/span&gt;&lt;span style=&quot; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; color:#008000;&quot;&gt;Cube&lt;/span&gt;&lt;span style=&quot; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; color:#008000;&quot;&gt;transform&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;Warps&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;a&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;sphere&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;to&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;a&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;cube;&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;transform&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;made&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;by&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;M.Benesi,&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;optimized&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;by Luca.&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;Scavenged&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;and&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;edited&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;from&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;code&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;optimized&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;by&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;Luca.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#008000;&quot;&gt;http://www.fractalforums.com/mathematics/circle2square/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string/>
      </property>
      <property name="text">
       <string>No parameters</string>
@@ -138,6 +138,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

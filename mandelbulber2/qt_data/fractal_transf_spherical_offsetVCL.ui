@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>880</width>
-    <height>2164</height>
+    <height>2282</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -245,7 +245,7 @@
      <item row="6" column="1">
       <widget class="QLabel" name="label_174">
        <property name="text">
-        <string>0</string>
+        <string notr="true">0</string>
        </property>
       </widget>
      </item>
@@ -280,7 +280,7 @@
      <item row="6" column="0">
       <widget class="QLabel" name="label_142">
        <property name="text">
-        <string>Iteration</string>
+        <string>Iteration:</string>
        </property>
       </widget>
      </item>
@@ -625,7 +625,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_100">
        <property name="text">
-        <string>Initial offset</string>
+        <string>Initial offset:</string>
        </property>
       </widget>
      </item>
@@ -788,7 +788,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_143">
        <property name="text">
-        <string>Post_scale vec(z):</string>
+        <string>Post Scale z:</string>
        </property>
       </widget>
      </item>
@@ -1110,16 +1110,49 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
   </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabled</tabstop>
+  <tabstop>checkBox_Cpara_enabledLinear</tabstop>
+  <tabstop>checkBox_Cpara_enabledCurves</tabstop>
+  <tabstop>slider_Cpara_para00</tabstop>
+  <tabstop>spinbox_Cpara_para00</tabstop>
+  <tabstop>spinboxInt_Cpara_iterA</tabstop>
+  <tabstop>slider_Cpara_paraA0</tabstop>
+  <tabstop>spinbox_Cpara_paraA0</tabstop>
+  <tabstop>spinboxInt_Cpara_iterB</tabstop>
+  <tabstop>slider_Cpara_paraB0</tabstop>
+  <tabstop>spinbox_Cpara_paraB0</tabstop>
+  <tabstop>spinboxInt_Cpara_iterC</tabstop>
+  <tabstop>slider_Cpara_paraC0</tabstop>
+  <tabstop>spinbox_Cpara_paraC0</tabstop>
+  <tabstop>checkBox_Cpara_enabledParab_false</tabstop>
+  <tabstop>slider_Cpara_parab_offset0</tabstop>
+  <tabstop>spinbox_Cpara_parab_offset0</tabstop>
+  <tabstop>slider_Cpara_parab_slope</tabstop>
+  <tabstop>spinbox_Cpara_parab_slope</tabstop>
+  <tabstop>slider_Cpara_parab_scale</tabstop>
+  <tabstop>spinbox_Cpara_parab_scale</tabstop>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>slider_transf_offset_0</tabstop>
+  <tabstop>spinbox_transf_offset_0</tabstop>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>slider_analyticDE_offset_0</tabstop>
+  <tabstop>spinbox_analyticDE_offset_0</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

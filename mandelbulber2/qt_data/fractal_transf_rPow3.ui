@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>709</width>
+    <width>781</width>
     <height>756</height>
    </rect>
   </property>
@@ -97,7 +97,7 @@
      <item row="3" column="0" colspan="2">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>Analytical Linear DE adjustment offset</string>
+        <string>Analytical Linear DE adjustment offset:</string>
        </property>
       </widget>
      </item>
@@ -217,6 +217,12 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>spinbox_analyticDE_offset_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

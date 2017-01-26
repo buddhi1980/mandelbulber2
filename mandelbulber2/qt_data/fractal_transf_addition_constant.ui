@@ -94,7 +94,7 @@
      <item row="3" column="1">
       <widget class="QLabel" name="label_256">
        <property name="text">
-        <string>Julia constant</string>
+        <string>Julia constant:</string>
        </property>
       </widget>
      </item>
@@ -411,6 +411,18 @@
    <header>my_line_edit.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>vect3_transf_addition_constant_x</tabstop>
+  <tabstop>vect3_transf_addition_constant_y</tabstop>
+  <tabstop>vect3_transf_addition_constant_z</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_x</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_y</tabstop>
+  <tabstop>slider3_transf_addition_constantA_000_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constantA_000_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

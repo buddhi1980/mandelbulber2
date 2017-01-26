@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>835</width>
+    <width>1095</width>
     <height>2587</height>
    </rect>
   </property>
@@ -1383,42 +1383,47 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>slider_mandelbox_folding_limit</tabstop>
+  <tabstop>spinbox_mandelbox_folding_limit</tabstop>
+  <tabstop>slider_mandelbox_folding_value</tabstop>
+  <tabstop>spinbox_mandelbox_folding_value</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_1_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_1_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_1_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_1_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_1_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_1_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_1_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_1_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_1_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_1_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_1_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_1_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_1_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_1_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_1_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_1_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_pos_1_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_2_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_2_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_2_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_2_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_2_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_2_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_2_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_2_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_2_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_2_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_2_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_2_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_2_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_pos_2_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_3_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_3_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_neg_3_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_z</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_3_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_3_x</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_3_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_3_y</tabstop>
   <tabstop>dial3_mandelbox_rotation_pos_3_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_3_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_3_y</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_neg_3_z</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_3_x</tabstop>
+  <tabstop>spinboxd3_mandelbox_rotation_pos_3_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_pos_3_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
  <connections/>

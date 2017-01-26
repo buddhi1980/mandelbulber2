@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
-    <height>539</height>
+    <width>808</width>
+    <height>1876</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -79,14 +79,14 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>scale z.x:</string>
+        <string>Scale z.x:</string>
        </property>
       </widget>
      </item>
      <item row="9" column="1">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>DE Tweak</string>
+        <string>DE Tweak:</string>
        </property>
       </widget>
      </item>
@@ -100,7 +100,7 @@
      <item row="0" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="text">
-        <string>enable exp2(z.x)</string>
+        <string notr="true">exp2(z.x)</string>
        </property>
       </widget>
      </item>
@@ -139,7 +139,7 @@
      <item row="3" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
        <property name="text">
-        <string>enable exp2(z.y)</string>
+        <string notr="true">exp2(z.y)</string>
        </property>
       </widget>
      </item>
@@ -231,21 +231,21 @@
      <item row="6" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
        <property name="text">
-        <string>enable exp2(z.z)</string>
+        <string notr="true">exp2(z.z)</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
       <widget class="QLabel" name="label_110">
        <property name="text">
-        <string>scale z.y:</string>
+        <string>Scale z.y:</string>
        </property>
       </widget>
      </item>
      <item row="7" column="1">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>scale z.z:</string>
+        <string>Scale z.z:</string>
        </property>
       </widget>
      </item>
@@ -435,7 +435,7 @@
      <item row="0" column="0">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
        <property name="text">
-        <string>enable exp2(z)</string>
+        <string notr="true">exp2(z)</string>
        </property>
       </widget>
      </item>
@@ -633,6 +633,31 @@
    <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy</tabstop>
+  <tabstop>checkBox_transf_function_enabledAy_false</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledz</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_000_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_000_z</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>checkBox_transf_function_enabledBz_false</tabstop>
+  <tabstop>checkBox_transf_function_enabled</tabstop>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>slider_transf_scale_0</tabstop>
+  <tabstop>spinbox_transf_scale_0</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

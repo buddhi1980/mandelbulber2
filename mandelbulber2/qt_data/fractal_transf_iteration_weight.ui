@@ -369,6 +369,17 @@
    <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>spinboxInt_transf_int_A</tabstop>
+  <tabstop>slider_transf_offset</tabstop>
+  <tabstop>spinbox_transf_offset</tabstop>
+  <tabstop>spinboxInt_transf_int_B</tabstop>
+  <tabstop>slider_transf_offset_0</tabstop>
+  <tabstop>spinbox_transf_offset_0</tabstop>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

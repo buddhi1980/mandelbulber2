@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>1565</height>
+    <height>1648</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_174">
        <property name="text">
-        <string>0</string>
+        <string notr="true">0</string>
        </property>
       </widget>
      </item>
@@ -73,7 +73,7 @@
      <item row="1" column="3">
       <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
        <property name="text">
-        <string>Curvi funtion ( disable to use linear slopes only)</string>
+        <string>Curvi function ( disable to use linear slopes only)</string>
        </property>
       </widget>
      </item>
@@ -739,6 +739,29 @@
    <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_Cpara_enabledLinear</tabstop>
+  <tabstop>checkBox_Cpara_enabledCurves</tabstop>
+  <tabstop>slider_Cpara_para0</tabstop>
+  <tabstop>spinbox_Cpara_para0</tabstop>
+  <tabstop>spinboxInt_Cpara_iterA</tabstop>
+  <tabstop>slider_Cpara_paraA</tabstop>
+  <tabstop>spinbox_Cpara_paraA</tabstop>
+  <tabstop>spinboxInt_Cpara_iterB</tabstop>
+  <tabstop>slider_Cpara_paraB</tabstop>
+  <tabstop>spinbox_Cpara_paraB</tabstop>
+  <tabstop>spinboxInt_Cpara_iterC</tabstop>
+  <tabstop>slider_Cpara_paraC</tabstop>
+  <tabstop>spinbox_Cpara_paraC</tabstop>
+  <tabstop>checkBox_Cpara_enabledParab_false</tabstop>
+  <tabstop>slider_Cpara_parab_offset</tabstop>
+  <tabstop>spinbox_Cpara_parab_offset</tabstop>
+  <tabstop>slider_Cpara_parab_slope</tabstop>
+  <tabstop>spinbox_Cpara_parab_slope</tabstop>
+  <tabstop>slider_Cpara_parab_scale</tabstop>
+  <tabstop>spinbox_Cpara_parab_scale</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

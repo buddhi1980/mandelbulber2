@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>899</height>
+    <height>948</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -151,7 +151,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_258">
        <property name="text">
-        <string>Scale</string>
+        <string>Scale:</string>
        </property>
       </widget>
      </item>
@@ -697,6 +697,28 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_scale3D_222_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_x</tabstop>
+  <tabstop>slider3_transf_scale3D_222_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_y</tabstop>
+  <tabstop>slider3_transf_scale3D_222_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_222_z</tabstop>
+  <tabstop>slider3_transf_addition_constant_222_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_222_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_222_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_222_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_222_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_222_z</tabstop>
+  <tabstop>groupCheck_transf_rotation_enabled</tabstop>
+  <tabstop>dial3_transf_rotation_x</tabstop>
+  <tabstop>dial3_transf_rotation_y</tabstop>
+  <tabstop>dial3_transf_rotation_z</tabstop>
+  <tabstop>spinboxd3_transf_rotation_x</tabstop>
+  <tabstop>spinboxd3_transf_rotation_y</tabstop>
+  <tabstop>spinboxd3_transf_rotation_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

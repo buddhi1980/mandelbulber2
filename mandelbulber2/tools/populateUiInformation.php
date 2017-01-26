@@ -81,7 +81,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 		'openclCode' => parseToOpenCL($code),
 		'type' => (strpos($internalName, 'transf_') !== false ? 'transf' : 'formula'),
 	);
-	// print_r($formulas); exit;
+	// print_r($formulas);
 }
 
 // information boxes in the ui
@@ -176,6 +176,11 @@ foreach($formulas as $index => $formula){
 		array('find' => '/<string>Offset<\/string>/', 'replace' => '<string>Offset:</string>'),
 		array('find' => '/Rotation;<\/string>/', 'replace' => 'Rotation</string>'),
 		array('find' => '/>Multiplier<\/string>/', 'replace' => '>Multiplier:</string>'),
+		array('find' => '/>Cpixel Multiplier<\/string>/', 'replace' => '>Cpixel Multiplier:</string>'),
+		array('find' => '/>Addition Constant<\/string>/', 'replace' => '>Addition Constant:</string>'),
+		array('find' => '/>DE Tweak<\/string>/', 'replace' => '>DE Tweak:</string>'),
+		array('find' => '/>Post_scale<\/string>/', 'replace' => '>Post Scale:</string>'),
+		array('find' => '/>Pre_scale<\/string>/', 'replace' => '>Pre Scale:</string>'),
 	);
 	foreach($replaceFormulaLookup as $item){
 	  $newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);

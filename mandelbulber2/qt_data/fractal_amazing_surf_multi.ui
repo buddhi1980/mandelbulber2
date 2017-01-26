@@ -2203,7 +2203,7 @@ offset:</string>
            <item row="1" column="0" rowspan="3">
             <widget class="QLabel" name="label_123">
              <property name="text">
-              <string>Cpixel Multiplier</string>
+              <string>Cpixel Multiplier:</string>
              </property>
             </widget>
            </item>

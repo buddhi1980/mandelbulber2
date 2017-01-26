@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>889</width>
-    <height>579</height>
+    <height>637</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -408,6 +408,17 @@ offset:</string>
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_minimum_radius_05</tabstop>
+  <tabstop>spinbox_transf_minimum_radius_05</tabstop>
+  <tabstop>slider3_mandelbox_offset_x</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_x</tabstop>
+  <tabstop>slider3_mandelbox_offset_y</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_y</tabstop>
+  <tabstop>slider3_mandelbox_offset_z</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

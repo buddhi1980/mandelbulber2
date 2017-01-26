@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
-    <height>607</height>
+    <width>898</width>
+    <height>811</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,16 +29,6 @@
    <property name="bottomMargin">
     <number>2</number>
    </property>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
    <item>
     <widget class="QLabel" name="label_133">
      <property name="text">
@@ -488,7 +478,7 @@
      <item row="13" column="0">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>DE Tweak</string>
+        <string>DE Tweak:</string>
        </property>
       </widget>
      </item>
@@ -607,6 +597,26 @@
    <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>slider3_transf_offset_111_x</tabstop>
+  <tabstop>spinbox3_transf_offset_111_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>slider3_transf_offset_111_y</tabstop>
+  <tabstop>spinbox3_transf_offset_111_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledz</tabstop>
+  <tabstop>slider3_transf_offset_111_z</tabstop>
+  <tabstop>spinbox3_transf_offset_111_z</tabstop>
+  <tabstop>slider3_transf_offset_000_x</tabstop>
+  <tabstop>spinbox3_transf_offset_000_x</tabstop>
+  <tabstop>slider3_transf_offset_000_y</tabstop>
+  <tabstop>spinbox3_transf_offset_000_y</tabstop>
+  <tabstop>slider3_transf_offset_000_z</tabstop>
+  <tabstop>spinbox3_transf_offset_000_z</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

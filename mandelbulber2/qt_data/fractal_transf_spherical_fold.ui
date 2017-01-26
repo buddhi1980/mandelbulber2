@@ -374,7 +374,7 @@ offset:</string>
      <item row="6" column="0">
       <widget class="QLabel" name="label_18">
        <property name="text">
-        <string>Pre_scale</string>
+        <string>Pre Scale:</string>
        </property>
       </widget>
      </item>
@@ -535,6 +535,21 @@ offset:</string>
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>slider_mandelbox_folding_min_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_min_radius</tabstop>
+  <tabstop>slider3_mandelbox_offset_x</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_x</tabstop>
+  <tabstop>slider3_mandelbox_offset_y</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_y</tabstop>
+  <tabstop>slider3_mandelbox_offset_z</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_z</tabstop>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -27,7 +27,7 @@
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="45"/>
         <source> z = SIGN(z) (offset  -  fabs(z)  +  fabs(z) * Slope)   4D</source>
-        <translation type="unfinished"></translation>
+        <translation> z = SIGN(z) (Offset  -  fabs(z)  +  fabs(z) * Steigung)   4D</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="195"/>
@@ -43,9 +43,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="209"/>
-        <source>Offset : </source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="358"/>
+        <source>Slope:</source>
+        <translation type="unfinished">Steigung:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="400"/>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="385"/>
+        <source>DE Tweak:</source>
+        <translation type="unfinished">DE Tweak:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="216"/>
@@ -61,7 +67,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="358"/>
         <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="522"/>
         <source>Slope :   </source>
         <translation type="unfinished"></translation>
@@ -70,12 +75,6 @@
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="393"/>
         <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="202"/>
         <source>z.z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="400"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="385"/>
-        <source>DE Tweak</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -636,8 +635,9 @@ Offset:</translation>
         <translation type="obsolete">Parabolisch</translation>
     </message>
     <message>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="209"/>
         <source>Offset:</source>
-        <translation type="obsolete">Offset:</translation>
+        <translation type="unfinished">Offset:</translation>
     </message>
     <message>
         <source>Parabolic scale:</source>
@@ -1115,34 +1115,24 @@ Offset:</translation>
         <translation type="vanished">Haupt 3D Rotation</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="455"/>
-        <source>two limit mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="462"/>
-        <source>one limit mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="476"/>
         <source>LimitB : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="579"/>
-        <source> z = SIGN(z) ((1.0/LimitA )   -    (1.0/(fabs(z) +LimitA))    +  (fabs(z) * Slope))</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="455"/>
+        <source>2 limit mode</source>
+        <translation type="unfinished">2 Grenzen Modus</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="462"/>
+        <source>1 limit mode</source>
+        <translation type="unfinished">1 Grenze Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="674"/>
-        <source>LimitA :   </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="709"/>
-        <source> z = SIGN(z) (LimitB   -   (1.0/(fabs(z) +LimitA))    +   (fabs(z) * Slope))</source>
-        <translation type="unfinished"></translation>
+        <source>LimitA:</source>
+        <translation type="unfinished">Limit A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="909"/>
@@ -1867,8 +1857,12 @@ Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="472"/>
-        <source>Cpixel Multiplier</source>
+        <source>Cpixel Multiplier:</source>
         <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
+        <source>Cpixel Multiplier</source>
+        <translation type="vanished">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="628"/>
@@ -2276,9 +2270,8 @@ Offset:</translation>
         <translation>Funktionsreihenfolge von c.x, c.y und c.z:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2206"/>
         <source>Cpixel Multiplier</source>
-        <translation>Cpixel Multiplikator:</translation>
+        <translation type="vanished">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2271"/>
@@ -2319,6 +2312,11 @@ Offset:</translation>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="902"/>
         <source>z.z Fold Limit:</source>
         <translation>z.z Faltungsgrenze:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2206"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2548"/>
@@ -3066,8 +3064,12 @@ Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="845"/>
-        <source>Cpixel Multiplier</source>
+        <source>Cpixel Multiplier:</source>
         <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
+        <source>Cpixel Multiplier</source>
+        <translation type="vanished">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="892"/>
@@ -3945,9 +3947,8 @@ Offset:</translation>
         <translation>Funktionsreihenfolge von c.x, c.y und c.z:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2761"/>
         <source>Cpixel Multiplier</source>
-        <translation>Cpixel Multiplikator:</translation>
+        <translation type="vanished">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2919"/>
@@ -3980,6 +3981,7 @@ Offset:</translation>
         <translation>addCpixel Achsen Tauschen mit konstantem Multiplikator für Menger Schwamm Iterationen</translation>
     </message>
     <message>
+        <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2761"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3875"/>
         <source>Cpixel Multiplier:</source>
         <translation>Cpixel Multiplikator:</translation>
@@ -4653,7 +4655,7 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_vary_powerV1.ui" line="139"/>
         <source>Finish varying at iteration:</source>
-        <translation>Starte Variation bei Iteration:</translation>
+        <translation>Stoppe Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_vary_powerV1.ui" line="146"/>
@@ -4673,7 +4675,7 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_vary_powerV1.ui" line="167"/>
         <source>Start varying at iteration:</source>
-        <translation>Stoppe Variation bei Iteration:</translation>
+        <translation>Starte Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_vary_powerV1.ui" line="336"/>
@@ -6241,6 +6243,11 @@ Offset:</translation>
         <translation>Analytisch-linearer DE Offset:</translation>
     </message>
     <message>
+        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="1447"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="1476"/>
         <source>Menger Sponge</source>
         <translation>Menger-Schwamm</translation>
@@ -6306,9 +6313,8 @@ Offset:</translation>
         <translation>Funktionsreihenfolge von c.x, c.y und c.z:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="1447"/>
         <source>Cpixel Multiplier</source>
-        <translation>Cpixel Multiplikator:</translation>
+        <translation type="vanished">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_menger_pwr2_poly.ui" line="1461"/>
@@ -8164,8 +8170,12 @@ min Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel.ui" line="230"/>
-        <source>Cpixel Multiplier</source>
+        <source>Cpixel Multiplier:</source>
         <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
+        <source>Cpixel Multiplier</source>
+        <translation type="vanished">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel.ui" line="239"/>
@@ -8187,23 +8197,31 @@ min Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_CxCy_axis_swap.ui" line="64"/>
+        <source>c.x c.y swap</source>
+        <translation>c.x c.y tauschen</translation>
+    </message>
+    <message>
         <source>c.x c.y swap enabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">c.x c.y Tauschen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_CxCy_axis_swap.ui" line="181"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_CxCy_axis_swap.ui" line="244"/>
         <source>alternate c.x c.y swap</source>
-        <translation type="unfinished"></translation>
+        <translation>alternierendes c.x c.y Tauschen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_CxCy_axis_swap.ui" line="253"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8211,63 +8229,71 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_axis_swap.ui" line="206"/>
         <source>function order of c.x, c.y and c.z:</source>
-        <translation type="unfinished">Funktionsreihenfolge von c.x, c.y und c.z:</translation>
+        <translation>Funktionsreihenfolge von c.x, c.y und c.z:</translation>
+    </message>
+    <message>
+        <source>Cpixel Multiplier</source>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_axis_swap.ui" line="257"/>
-        <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_axis_swap.ui" line="271"/>
         <source>alternate swap</source>
-        <translation type="unfinished">alternierendes Tauschen</translation>
+        <translation>alternierendes Tauschen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_axis_swap.ui" line="280"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_add_Cpixel_symmetrical</name>
     <message>
-        <location filename="../qt_data/fractal_transf_add_Cpixel_symmetrical.ui" line="47"/>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_add_Cpixel_symmetrical.ui" line="47"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_symmetrical.ui" line="250"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_add_Cpixel_varyV1</name>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_varyV1.ui" line="375"/>
-        <source>addCpixel multiplier</source>
-        <translation type="unfinished"></translation>
+        <source>addCpixel Multiplier:</source>
+        <translation>addCpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_varyV1.ui" line="430"/>
         <source>Finish varying at iteration:</source>
-        <translation type="unfinished">Starte Variation bei Iteration:</translation>
+        <translation>Stoppe Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_varyV1.ui" line="437"/>
         <source>Start varying at iteration:</source>
-        <translation type="unfinished">Stoppe Variation bei Iteration:</translation>
+        <translation>Starte Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_varyV1.ui" line="446"/>
-        <source>Variable</source>
-        <translation type="unfinished"></translation>
+        <source>Variable:</source>
+        <translation>Variabel:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_Cpixel_varyV1.ui" line="462"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8275,77 +8301,57 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="47"/>
         <source>negative fabs(z.z)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="82"/>
-        <source>scale z.x:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="89"/>
-        <source>DE Tweak</source>
-        <translation type="unfinished"></translation>
+        <translation>negatives fabs(z.z)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="96"/>
         <source>negative fabs(z.y)</source>
-        <translation type="unfinished"></translation>
+        <translation>negatives fabs(z.y)</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="103"/>
-        <source>enable exp2(z.x)</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="82"/>
+        <source>Scale z.x:</source>
+        <translation>Skalierung z.x:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="142"/>
-        <source>enable exp2(z.y)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="234"/>
-        <source>enable exp2(z.z)</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="89"/>
+        <source>DE Tweak:</source>
+        <translation>DE Tweak:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="241"/>
-        <source>scale z.y:</source>
-        <translation type="unfinished"></translation>
+        <source>Scale z.y:</source>
+        <translation>Skalierung z.y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="248"/>
-        <source>scale z.z:</source>
-        <translation type="unfinished"></translation>
+        <source>Scale z.z:</source>
+        <translation>Skalierung z.z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="325"/>
         <source>negative fabs(z.x)</source>
-        <translation type="unfinished"></translation>
+        <translation>negatives fabs(z.x)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="380"/>
         <source>Version with analytic DE calculation</source>
-        <translation type="unfinished"></translation>
+        <translation>Version mit Analytischer DE Berechnung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="389"/>
         <source>scale z:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalierung z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="396"/>
         <source>negative fabs(z)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="438"/>
-        <source>enable exp2(z)</source>
-        <translation type="unfinished"></translation>
+        <translation>negatives fabs(z)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_add_exp2_Z.ui" line="472"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8353,78 +8359,82 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant.ui" line="41"/>
         <source>Addition Constant 1 - Julia Constant</source>
-        <translation type="unfinished"></translation>
+        <translation>Addiere Konstante 1 - Julia Konstante</translation>
+    </message>
+    <message>
+        <source>Julia constant</source>
+        <translation type="obsolete">Julia Konstante</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant.ui" line="97"/>
-        <source>Julia constant</source>
-        <translation type="unfinished">Julia Konstante</translation>
+        <source>Julia constant:</source>
+        <translation>Julia Konstante:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant.ui" line="113"/>
         <source>Get Point Coodinates with mouse pointer, then use right mouse click copy /paste vector to enter Julia constant.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hole Punkt Koordinaten mit Mauszeiger, dann nutze Rehtsklick Kopieren/Einfügen Vektor um die Julia Konstante einzugeben.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant.ui" line="129"/>
         <source>Addition Constant 2 - Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Addiere Konstante 2 - Offset</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant.ui" line="191"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant.ui" line="321"/>
         <source>Offset. Use in normal mode or use to explore in Julia mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Offset zu benutzen im normalen Modus, oder zum Erforschen bei Julia Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant.ui" line="328"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_addition_constant_4D</name>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant_4D.ui" line="132"/>
-        <source>Addition Constant</source>
-        <translation type="unfinished"></translation>
+        <source>Addition Constant:</source>
+        <translation>Addiere Konstante:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant_4D.ui" line="284"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_addition_constant_varyV1</name>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant_varyV1.ui" line="375"/>
-        <source>Addition Constant</source>
-        <translation type="unfinished"></translation>
+        <source>Addition Constant:</source>
+        <translation>Addiere Konstante:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant_varyV1.ui" line="430"/>
         <source>Finish varying at iteration:</source>
-        <translation type="unfinished">Starte Variation bei Iteration:</translation>
+        <translation>Stoppe Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant_varyV1.ui" line="437"/>
         <source>Start varying at iteration:</source>
-        <translation type="unfinished">Stoppe Variation bei Iteration:</translation>
+        <translation>Starte Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant_varyV1.ui" line="446"/>
-        <source>Variable</source>
-        <translation type="unfinished"></translation>
+        <source>Variable:</source>
+        <translation>Variabel:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_addition_constant_varyV1.ui" line="462"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8432,45 +8442,53 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T1.ui" line="389"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation type="obsolete">Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T1.ui" line="396"/>
-        <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <source>Scale:</source>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T1.ui" line="405"/>
         <source>Mag Transform &amp;T1 Internal Rotation</source>
-        <translation type="unfinished">Mag Transform T1 Interne Rotation</translation>
+        <translation>Mag Transform T1 Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T1.ui" line="599"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_benesi_T1Mod</name>
     <message>
-        <location filename="../qt_data/fractal_transf_benesi_T1Mod.ui" line="119"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <translation type="obsolete">Skalierung</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_benesi_T1Mod.ui" line="119"/>
+        <source>Scale:</source>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T1Mod.ui" line="290"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T1Mod.ui" line="440"/>
         <source>Mag Transform &amp;T1Mod Internal Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Mag Transform T1Mod Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T1Mod.ui" line="627"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8478,68 +8496,80 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T2.ui" line="153"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation type="obsolete">Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T2.ui" line="160"/>
-        <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <source>Scale:</source>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T2.ui" line="412"/>
         <source>Mag Transform &amp;T2 Internal Rotation</source>
-        <translation type="unfinished">Mag Transform T1 Interne Rotation {2 ?}</translation>
+        <translation>Mag Transform T2 Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T2.ui" line="599"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_benesi_T3</name>
     <message>
-        <location filename="../qt_data/fractal_transf_benesi_T3.ui" line="154"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <translation type="obsolete">Skalierung</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_benesi_T3.ui" line="154"/>
+        <source>Scale:</source>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T3.ui" line="346"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T3.ui" line="412"/>
         <source>Mag Transform &amp;T3 Internal Rotation</source>
-        <translation type="unfinished">Mag Transform T1 Interne Rotation {3 ?}</translation>
+        <translation>Mag Transform T3 Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T3.ui" line="599"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_benesi_T4</name>
     <message>
-        <location filename="../qt_data/fractal_transf_benesi_T4.ui" line="169"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <translation type="obsolete">Skalierung</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_benesi_T4.ui" line="169"/>
+        <source>Scale:</source>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T4.ui" line="198"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T4.ui" line="412"/>
         <source>Mag Transform &amp;T4 Internal Rotation</source>
-        <translation type="unfinished">Mag Transform T1 Interne Rotation {4 ?}</translation>
+        <translation>Mag Transform T4 Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T4.ui" line="599"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8547,104 +8577,100 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T5b.ui" line="89"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation type="obsolete">Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T5b.ui" line="508"/>
-        <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <source>Scale:</source>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T5b.ui" line="608"/>
-        <source>Power A</source>
-        <translation type="unfinished"></translation>
+        <source>Power A:</source>
+        <translation>Potenz A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T5b.ui" line="622"/>
-        <source>Power B</source>
-        <translation type="unfinished"></translation>
+        <source>Power B:</source>
+        <translation>Potenz B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T5b.ui" line="669"/>
         <source>Mag Transform &amp;T5b Internal Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Mag Transform T5b Interne Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_T5b.ui" line="856"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_benesi_cube_sphere</name>
     <message>
-        <location filename="../qt_data/fractal_transf_benesi_cube_sphere.ui" line="35"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Cube to Sphere transform&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#000000;&quot;&gt;Description:Warpsacubetoasphere;transformmadebyM.Benesi,optimizedbyLuca&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#000000;&quot;&gt;http://www.fractalforums.com/mathematics/circle2square/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_transf_benesi_cube_sphere.ui" line="38"/>
         <source>No parameters</source>
-        <translation type="unfinished">Keine Parameter</translation>
+        <translation>Keine Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_cube_sphere.ui" line="45"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_benesi_mag_backward</name>
     <message>
-        <location filename="../qt_data/fractal_transf_benesi_mag_backward.ui" line="35"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#000000;&quot;&gt;//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_mag_backward.ui" line="38"/>
         <source>No parameters</source>
-        <translation type="unfinished">Keine Parameter</translation>
+        <translation>Keine Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_mag_backward.ui" line="45"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_benesi_mag_forward</name>
     <message>
-        <location filename="../qt_data/fractal_transf_benesi_mag_forward.ui" line="35"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#000000;&quot;&gt;//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_mag_forward.ui" line="38"/>
         <source>No parameters</source>
-        <translation type="unfinished">Keine Parameter</translation>
+        <translation>Keine Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_mag_forward.ui" line="45"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_benesi_sphere_cube</name>
     <message>
-        <location filename="../qt_data/fractal_transf_benesi_sphere_cube.ui" line="35"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#008000;&quot;&gt;Sphere&lt;/span&gt;&lt;span style=&quot; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; color:#008000;&quot;&gt;to&lt;/span&gt;&lt;span style=&quot; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; color:#008000;&quot;&gt;Cube&lt;/span&gt;&lt;span style=&quot; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; color:#008000;&quot;&gt;transform&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;Warps&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;a&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;sphere&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;to&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;a&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;cube;&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;transform&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;made&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;by&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;M.Benesi,&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;optimized&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;by Luca.&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;Scavenged&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;and&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;edited&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;from&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;code&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;optimized&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;by&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#c0c0c0;&quot;/&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;Luca.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:&apos;Courier New,courier&apos;; color:#008000;&quot;&gt;http://www.fractalforums.com/mathematics/circle2square/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_sphere_cube.ui" line="38"/>
         <source>No parameters</source>
-        <translation type="unfinished">Keine Parameter</translation>
+        <translation>Keine Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_benesi_sphere_cube.ui" line="45"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8652,22 +8678,22 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold.ui" line="40"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Box Faltungswert:</translation>
+        <translation>Box Faltungswert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold.ui" line="69"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Box Faltung Grenze:</translation>
+        <translation>Box Faltung Grenze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold.ui" line="206"/>
         <source>z.z scale:</source>
-        <translation type="unfinished">z.z Skalierung:</translation>
+        <translation>z.z Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold.ui" line="224"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8692,18 +8718,18 @@ min Radius:</translation>
     <name>transf_box_fold_XYZ</name>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_XYZ.ui" line="296"/>
-        <source>Folding Limit</source>
-        <translation type="unfinished"></translation>
+        <source>Folding Limit:</source>
+        <translation>Faltung Grenze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_XYZ.ui" line="303"/>
-        <source>Folding Value</source>
-        <translation type="unfinished"></translation>
+        <source>Folding Value:</source>
+        <translation>Faltungswert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_XYZ.ui" line="405"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8711,98 +8737,97 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_varyV1.ui" line="40"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Box Faltung Grenze:</translation>
+        <translation>Box Faltung Grenze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_varyV1.ui" line="121"/>
         <source>z.z scale:</source>
-        <translation type="unfinished">z.z Skalierung:</translation>
+        <translation>z.z Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_varyV1.ui" line="158"/>
         <source>Value/Limit Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert/Grenze Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_varyV1.ui" line="257"/>
-        <source>DE tweak</source>
-        <translation type="unfinished"></translation>
+        <source>DE Tweak:</source>
+        <translation>DE Tweak:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_varyV1.ui" line="264"/>
         <source>Vary Limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Variiere Grenze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_varyV1.ui" line="340"/>
         <source>Finish varying at iteration:</source>
-        <translation type="unfinished">Starte Variation bei Iteration:</translation>
+        <translation>Stoppe Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_varyV1.ui" line="347"/>
         <source>Start varying at iteration:</source>
-        <translation type="unfinished">Stoppe Variation bei Iteration:</translation>
+        <translation>Starte Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_fold_varyV1.ui" line="394"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_box_offset</name>
     <message>
         <location filename="../qt_data/fractal_transf_box_offset.ui" line="104"/>
-        <source>Box Offset</source>
-        <translation type="unfinished"></translation>
+        <source>Box Offset:</source>
+        <translation>Box Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_offset.ui" line="227"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Manchmal kann die Verwendung von analytischer DE die Render Qualität verbessern.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Manchmal kann die Verwendung von analytischer DE die Render Qualität verbessern.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_offset.ui" line="230"/>
         <source>Analytic DE calculation</source>
-        <translation type="unfinished">Analytische DE Berechnung</translation>
+        <translation>Analytische DE Berechnung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_box_offset.ui" line="239"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_fabs_add_conditional</name>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="35"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="45"/>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="35"/>
         <source>z = SIGN(z) (offset - fabs(z) + fabs(z) * Slope)</source>
-        <translation type="unfinished"></translation>
+        <translation>z = Vorzeichen(z) (Offset - fabs(z) + fabs(z) * Steigung)</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="64"/>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="54"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="219"/>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="209"/>
         <source>Slope:</source>
-        <translation type="unfinished"></translation>
+        <translation>Steigung:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="491"/>
-        <source>DE Tweak</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="481"/>
+        <source>DE Tweak:</source>
+        <translation>DE Tweak:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="507"/>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional.ui" line="497"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8810,22 +8835,22 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constant.ui" line="35"/>
         <source>fABS Add Constant z = fabs( z + constant)</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante z = fabs(z + Konstante)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constant.ui" line="47"/>
-        <source>fABS addition constant</source>
-        <translation type="unfinished"></translation>
+        <source>fABS addition constant:</source>
+        <translation>fABS Addiere Konstante:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constant.ui" line="402"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constant.ui" line="471"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8833,37 +8858,37 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2.ui" line="35"/>
         <source>fABS Add Constant V2 z = fabs( z + constant) - fabs( z - constant) - z;</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante V2 z = fabs( z + Konstante) - fabs( z - Konstante ) - z;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2.ui" line="193"/>
-        <source>fABS addition constant</source>
-        <translation type="unfinished"></translation>
+        <source>fABS addition constant:</source>
+        <translation>fABS Addiere Konstante:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2.ui" line="239"/>
-        <source>enable Tglad Tweak</source>
-        <translation type="unfinished"></translation>
+        <source>Tglad Tweak</source>
+        <translation>Tglad Tweak</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2.ui" line="246"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2.ui" line="253"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2.ui" line="327"/>
         <source>Tweak Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tweak Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2.ui" line="477"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8871,17 +8896,17 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2_4D.ui" line="35"/>
         <source>fABS Add Constant V2 4D z = fabs( z + constant) - fabs( z - constant) - z;</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante V2 4D z = fabs( z + Konstante) - fabs( z - Konstante ) - z;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2_4D.ui" line="121"/>
-        <source>fABS addition constant</source>
-        <translation type="unfinished"></translation>
+        <source>fABS addition constant:</source>
+        <translation>fABS Addiere Konstante:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constantV2_4D.ui" line="305"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8889,68 +8914,58 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constant_4D.ui" line="35"/>
         <source>fABS Add Constant 4D z = fabs( z + constant)</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante 4D z = fabs(z + Konstante)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constant_4D.ui" line="54"/>
-        <source>fABS addition constant</source>
-        <translation type="unfinished"></translation>
+        <source>fABS addition constant:</source>
+        <translation>fABS Addiere Konstante:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_constant_4D.ui" line="313"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_fabs_add_multi</name>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_multi.ui" line="195"/>
-        <source>Enable fABS(z - B)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_transf_fabs_add_multi.ui" line="41"/>
         <source>fABS Add Constant Multi z = fabs( z + const.A ) - fabs( z - const.B ) - ( z * const.C )</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_multi.ui" line="369"/>
-        <source>- ( z * C )</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_multi.ui" line="511"/>
-        <source>Enable fABS(z + A)</source>
-        <translation type="unfinished"></translation>
+        <translation>fABS Addiere Konstante Multi z = fabs( z + const.A ) - fabs( z - const.B )&amp; - ( z * const.C )</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_multi.ui" line="767"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_multi.ui" line="836"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_folding_tetra3D</name>
     <message>
         <location filename="../qt_data/fractal_transf_folding_tetra3D.ui" line="35"/>
-        <source>1st half tetrahedral symmetry planes:</source>
-        <translation type="unfinished"></translation>
+        <source>Tetrahedral symmetry planes</source>
+        <translation>Tetraedrische Symmetrieebenen</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_folding_tetra3D.ui" line="42"/>
-        <source>2nd half tetrahedral symmetry planes:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_transf_folding_tetra3D.ui" line="44"/>
+        <source>1st half</source>
+        <translation>1. Hälfte</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_folding_tetra3D.ui" line="49"/>
+        <location filename="../qt_data/fractal_transf_folding_tetra3D.ui" line="51"/>
+        <source>2nd half</source>
+        <translation>2. Hälfte</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_folding_tetra3D.ui" line="60"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -8958,42 +8973,32 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_inv_cylindrical.ui" line="47"/>
         <source>z scale:</source>
-        <translation type="unfinished">z Skalierung:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_inv_cylindrical.ui" line="54"/>
-        <source>Enable newZy = z.x * sin(z.y)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_inv_cylindrical.ui" line="61"/>
-        <source>Enable newZx = z.x * cos(z.y)</source>
-        <translation type="unfinished"></translation>
+        <translation>z Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_inv_cylindrical.ui" line="93"/>
         <source>z.y Multiplier:</source>
-        <translation type="unfinished">z.y Multiplikator:</translation>
+        <translation>z.y Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_inv_cylindrical.ui" line="188"/>
         <source>z.z scale:</source>
-        <translation type="unfinished">z.z Skalierung:</translation>
+        <translation>z.z Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_inv_cylindrical.ui" line="258"/>
         <source>Analytic DE Muliplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Analytischer DE Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_inv_cylindrical.ui" line="389"/>
         <source>Analytic DE Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Analytischer DE Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_inv_cylindrical.ui" line="405"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9001,42 +9006,42 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight.ui" line="35"/>
         <source>Iteration Weight.; z = ( z * const.Z) + ( zA * const.A) + ( zB * const.B)</source>
-        <translation type="unfinished"></translation>
+        <translation>Iterationsgewichtung.; z = ( z * const.Z) + ( zA * const.A) + ( zB * const.B)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight.ui" line="166"/>
         <source>Constant B:</source>
-        <translation type="unfinished">Konstante B:</translation>
+        <translation>Konstante B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight.ui" line="173"/>
         <source>zB after itr.:</source>
-        <translation type="unfinished">zB nach Itr.:</translation>
+        <translation>zB nach Itr.:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight.ui" line="202"/>
         <source>Constant A:</source>
-        <translation type="unfinished">Konstante A:</translation>
+        <translation>Konstante A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight.ui" line="209"/>
         <source>Constant Z:</source>
-        <translation type="unfinished">Konstante Z:</translation>
+        <translation>Konstante Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight.ui" line="216"/>
         <source>zA after itr.:</source>
-        <translation type="unfinished">zA nach Itr.:</translation>
+        <translation>zA nach Itr.:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight.ui" line="264"/>
         <source>Normal use : Constants A &amp; B are negative numbers, Constant Z remains at 1.0</source>
-        <translation type="unfinished">Normale Verwendung: Konstanten A &amp; B sind negativ, Konstante Z bleibt auf 1.0</translation>
+        <translation>Normale Verwendung: Konstanten A &amp; B sind negativ, Konstante Z bleibt auf 1.0</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight.ui" line="280"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9044,101 +9049,106 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight_4D.ui" line="35"/>
         <source>Iteration Weight 4D z = ( z * const.Z) + ( zA * const.A) + ( zB * const.B)</source>
-        <translation type="unfinished"></translation>
+        <translation>Iterationsgewichtung 4D z = ( z * const.Z) + ( zA * const.A) + ( zB * const.B)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight_4D.ui" line="166"/>
         <source>Constant B:</source>
-        <translation type="unfinished">Konstante B:</translation>
+        <translation>Konstante B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight_4D.ui" line="173"/>
         <source>zB after itr.:</source>
-        <translation type="unfinished">zB nach Itr.:</translation>
+        <translation>zB nach Itr.:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight_4D.ui" line="202"/>
         <source>Constant A:</source>
-        <translation type="unfinished">Konstante A:</translation>
+        <translation>Konstante A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight_4D.ui" line="209"/>
         <source>Constant Z:</source>
-        <translation type="unfinished">Konstante Z:</translation>
+        <translation>Konstante Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight_4D.ui" line="216"/>
         <source>zA after itr.:</source>
-        <translation type="unfinished">zA nach Itr.:</translation>
+        <translation>zA nach Itr.:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight_4D.ui" line="264"/>
         <source>Normal use : Constants A &amp; B are negative numbers, Constant Z remains at 1.0</source>
-        <translation type="unfinished">Normale Verwendung: Konstanten A &amp; B sind negativ, Konstante Z bleibt auf 1.0</translation>
+        <translation>Normale Verwendung: Konstanten A &amp; B sind negativ, Konstante Z bleibt auf 1.0</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_iteration_weight_4D.ui" line="280"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_lin_combine_Cxyz</name>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="341"/>
-        <source>CX Cpixel Multiplier</source>
-        <translation type="unfinished"></translation>
+        <source>CX Cpixel Multiplier:</source>
+        <translation>CX Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="527"/>
-        <source>CY Cpixel Multiplier</source>
-        <translation type="unfinished"></translation>
+        <source>CY Cpixel Multiplier:</source>
+        <translation>CY Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="534"/>
-        <source>CZ Cpixel Multiplier</source>
-        <translation type="unfinished"></translation>
+        <source>CZ Cpixel Multiplier:</source>
+        <translation>CZ Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="606"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt ein vertauschen der Komponenten von &amp;quot;CVector3 c&amp;quot; bevor diese mit den &amp;quot;CVector3 z&amp;quot; Komponenten multipliziert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt ein vertauschen der Komponenten von &amp;quot;CVector3 c&amp;quot; bevor diese mit den &amp;quot;CVector3 z&amp;quot; Komponenten multipliziert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="609"/>
         <source>addCpi&amp;xel Axis Swap ConstantMultiplier</source>
-        <translation type="unfinished">addCpixel Achsen Tauschen mit konstantem Multiplikator</translation>
+        <translation>addCpixel Achsen Tauschen mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="845"/>
         <source>function order of c.x, c.y and c.z:</source>
-        <translation type="unfinished">Funktionsreihenfolge von c.x, c.y und c.z:</translation>
+        <translation>Funktionsreihenfolge von c.x, c.y und c.z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="855"/>
-        <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="869"/>
-        <source>alternate swap</source>
-        <translation type="unfinished">alternierendes Tauschen</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="881"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="884"/>
         <source>Suggestion:
-=You can use it for example as a pre-transform for bulbs or boxes.</source>
-        <translation type="unfinished"></translation>
+You can use it for example as a pre-transform for bulbs or boxes.</source>
+        <translation>Vorschlag:
+Kann zum Beispiel als eine Vortransformation für Bulbs oder Boxen verwenden werden.</translation>
+    </message>
+    <message>
+        <source>Cpixel Multiplier</source>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="869"/>
+        <source>alternate swap</source>
+        <translation>alternierendes Tauschen</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="881"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_lin_combine_Cxyz.ui" line="892"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9146,47 +9156,51 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_menger_fold.ui" line="35"/>
         <source>&amp;Menger Sponge Start Function Fabs function z = fabs( z + const.A);</source>
-        <translation type="unfinished"></translation>
+        <translation>Menger Sponge Start Funktion Fabs function z = fabs( z + const.A);</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_menger_fold.ui" line="114"/>
         <source>Const.A y:</source>
-        <translation type="unfinished">Konstante A y:</translation>
+        <translation>Konstante A y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_menger_fold.ui" line="181"/>
         <source>Const.A x:</source>
-        <translation type="unfinished">Konstante A x:</translation>
+        <translation>Konstante A x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_menger_fold.ui" line="188"/>
         <source>Const.A z:</source>
-        <translation type="unfinished">Konstante A z:</translation>
+        <translation>Konstante A z:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_menger_fold.ui" line="251"/>
         <source>&amp;Menger Sponge End Function Apply Constants;</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Menger Schwamm Ende Funktion Konstanten anwenden</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_menger_fold.ui" line="515"/>
         <source>Conditional mode: if ( z.z &lt; limit ) z.z = z.z;</source>
-        <translation type="unfinished">Bedingter Modus: if ( z.z &lt; limit ) z.z = z.z;</translation>
+        <translation>Bedingter Modus: if ( z.z &lt; limit ) z.z = z.z;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_menger_fold.ui" line="380"/>
         <source>Menger Sponge scale:</source>
-        <translation type="unfinished">Menger Skalierungsfaktor:</translation>
+        <translation>Menger Skalierungsfaktor:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_menger_fold.ui" line="251"/>
+        <source>&amp;Menger Sponge End Function Apply Constants</source>
+        <translation>Menger Schwamm Ende Funktion Konstanten anwenden</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_menger_fold.ui" line="416"/>
         <source>Offset Multiplier:</source>
-        <translation type="unfinished">Offset Multiplikator:</translation>
+        <translation>Offset Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_menger_fold.ui" line="534"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9207,17 +9221,17 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_neg_fabs_add_constant.ui" line="35"/>
         <source>Neg fABS Add Constant z = - fabs( z + constant)</source>
-        <translation type="unfinished"></translation>
+        <translation>Negatives fABS Addiere Konstante z = - fabs(z + Konstante)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_neg_fabs_add_constant.ui" line="47"/>
-        <source>Addition constant</source>
-        <translation type="unfinished"></translation>
+        <source>Addition constant:</source>
+        <translation>Addiere Konstante:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_neg_fabs_add_constant.ui" line="252"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9243,17 +9257,17 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="136"/>
         <source>Pi Rotation:</source>
-        <translation type="unfinished">PI Rotation:</translation>
+        <translation>PI Rotation:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="264"/>
         <source>Analytic Linear DE offset:</source>
-        <translation type="unfinished">Analytisch-linearer DE Offset:</translation>
+        <translation>Analytisch-linearer DE Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="389"/>
         <source>Final Scale:</source>
-        <translation type="unfinished">Finale Skalierung:</translation>
+        <translation>Finale Skalierung:</translation>
     </message>
     <message>
         <source>fabs(z):</source>
@@ -9262,87 +9276,77 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="107"/>
         <source>fn(z) = Pi Rotation about Vector A</source>
-        <translation type="unfinished"></translation>
+        <translation>fn(z) = Pi Rotation um VektorA</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="382"/>
         <source>PART A = - (ScaleA * z + VectA) * fn(z)</source>
-        <translation type="unfinished">TEIL A = Skalierung A * z + VektorA) * fn(z)</translation>
+        <translation>TEIL A = Skalierung A * z + VektorA) * fn(z)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="438"/>
         <source>Power2 Polynomial Az^2 + Bz + C</source>
-        <translation type="unfinished">Power 2 Polynom Az^2 + Bz + C</translation>
+        <translation>Power 2 Polynom Az^2 + Bz + C</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="471"/>
         <source>Scale B:</source>
-        <translation type="unfinished">Skalierung B:</translation>
+        <translation>Skalierung B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="504"/>
         <source>Vector C:</source>
-        <translation type="unfinished">Vektor C:</translation>
+        <translation>Vektor C:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="511"/>
         <source>Analytic Linear DE multiplier:</source>
-        <translation type="unfinished">Analytisch-linearer DE Multiplikator:</translation>
+        <translation>Analytisch-linearer DE Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="532"/>
         <source>PART B = ScaleB * z + VectorC</source>
-        <translation type="unfinished">TEIL B = Skalierung B * z + VektorC</translation>
+        <translation>TEIL B = Skalierung B * z + VektorC</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="718"/>
         <source>fn(z) = Box Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>fn(z) = Box Offset</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="1039"/>
         <source>fn( z) options, (default = z;)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="1049"/>
-        <source>fn( z) = cos ( z * pi )</source>
-        <translation type="unfinished"></translation>
+        <translation>fn(z) Optionen, (Standard = z)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="621"/>
         <source>Scale A:</source>
-        <translation type="unfinished">Skalierung A:</translation>
+        <translation>Skalierung A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="635"/>
         <source>Power3</source>
-        <translation type="unfinished">Potenz 3</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="642"/>
-        <source>fabs(fn(z)):</source>
-        <translation type="unfinished"></translation>
+        <translation>Potenz 3</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="828"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="967"/>
         <source>Vector A:</source>
-        <translation type="unfinished">Vektor A:</translation>
+        <translation>Vektor A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="1078"/>
         <source>Pi Scale:</source>
-        <translation type="unfinished">PI Skalierung:</translation>
+        <translation>PI Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_pwr2_polynomial.ui" line="1145"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9350,52 +9354,56 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="35"/>
         <source>Enable Sca&amp;le and Offset controls; ( iterates only the quaternion fold when disabled.)</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert Skalierung und Offset Steuerung (Iteriert nur die quaternionsche Faltung, wenn aktiviert.)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="227"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="428"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="487"/>
         <source>DE Vector Influence:</source>
-        <translation type="unfinished">DE Vektor Einfluss:</translation>
+        <translation>DE Vektor Einfluss:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="499"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt ein vertauschen der Komponenten von &amp;quot;CVector3 c&amp;quot; bevor diese mit den &amp;quot;CVector3 z&amp;quot; Komponenten multipliziert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel ist ein CVector3 mit c = ( c.x, c.y, c.z). Dies ist immer der Startpunkt (Pixel) im 3D Raum von wo aus die Iteration gestartet wurde (c = original z for each point). Dies findet sich überwiegend in Funktionen der Art: z = f(z) + c.&lt;/p&gt;&lt;p&gt;Der Cpixel Multiplikator skaliert effektiv diesen Punkt &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;Diese Transformationen erlaubt ein vertauschen der Komponenten von &amp;quot;CVector3 c&amp;quot; bevor diese mit den &amp;quot;CVector3 z&amp;quot; Komponenten multipliziert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="502"/>
         <source>addCpi&amp;xel Axis Swap ConstantMultiplier</source>
-        <translation type="unfinished">addCpixel Achsen Tauschen mit konstantem Multiplikator</translation>
+        <translation>addCpixel Achsen Tauschen mit konstantem Multiplikator</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="738"/>
         <source>function order of c.x, c.y and c.z:</source>
-        <translation type="unfinished">Funktionsreihenfolge von c.x, c.y und c.z:</translation>
+        <translation>Funktionsreihenfolge von c.x, c.y und c.z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="748"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
+    </message>
+    <message>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="762"/>
         <source>alternate swap</source>
-        <translation type="unfinished">alternierendes Tauschen</translation>
+        <translation>alternierendes Tauschen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_quaternion_fold.ui" line="774"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9403,105 +9411,88 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_rPow3.ui" line="68"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rPow3.ui" line="100"/>
+        <source>Analytical Linear DE adjustment offset:</source>
+        <translation>Analytisch-linearer DE Anpassungsfaktor:</translation>
+    </message>
+    <message>
         <source>Analytical Linear DE adjustment offset</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Analytisch-linearer DE Anpassungsfaktor:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rPow3.ui" line="137"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_reciprocal3</name>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="35"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="106"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="96"/>
         <source>2 limit &amp; 2 mult. mode</source>
-        <translation type="unfinished"></translation>
+        <translation>2 Grenzen &amp; 2 mult. Modus</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="190"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="180"/>
         <source>LimitB:</source>
-        <translation type="unfinished"></translation>
+        <translation>GrenzeB:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="197"/>
-        <source>DE Tweak</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="274"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="264"/>
         <source>Slope:</source>
-        <translation type="unfinished"></translation>
+        <translation>Steigung:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="480"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="470"/>
         <source>3 limit &amp; 2 mult. mode</source>
-        <translation type="unfinished"></translation>
+        <translation>3 Grenzen &amp; 2 mult. Modus</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="639"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="629"/>
         <source>LimitA:</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit A:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="646"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="636"/>
         <source>MultiplierA:</source>
-        <translation type="unfinished"></translation>
+        <translation>MultiplikatorA:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="113"/>
-        <source>z = SIGN(z) ((1.0/LimitA ) - (1.0/(fabs(z) +LimitA)) + (fabs(z) * Slope))</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="187"/>
+        <source>DE Tweak:</source>
+        <translation>DE Tweak:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="127"/>
-        <source>z = SIGN(z) (LimitC - 1/(fabs(z*MultA)+LimA) -1/(z*z*MultB+ LimB) +(fabs(z) * Slope))</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="607"/>
-        <source>z = SIGN(z) ((1/LimA )+(1/LimB) - 1/(fabs(z*MultA)+LimA) -1/(z*z*MultB+ LimB) etc)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="660"/>
-        <source>z = SIGN(z) (LimitB - (1.0/(fabs(z) +LimitA)) + (fabs(z) * Slope))</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="741"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="731"/>
         <source>1 limit mode</source>
-        <translation type="unfinished"></translation>
+        <translation>1 Grenze Modus</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="748"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="738"/>
         <source>2 limit mode</source>
-        <translation type="unfinished"></translation>
+        <translation>2 Grenzen Modus</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="938"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="928"/>
         <source>LimitC:</source>
-        <translation type="unfinished"></translation>
+        <translation>GrenzeC:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="970"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="960"/>
         <source>MultiplierB:</source>
-        <translation type="unfinished"></translation>
+        <translation>MultiplikatorB:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="1078"/>
+        <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="1068"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9509,78 +9500,78 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="35"/>
         <source>Pre-Rotate , choose a fold, post-rotate back</source>
-        <translation type="unfinished"></translation>
+        <translation>Vor-Rotation, Faltungsauswahl, Nach-Rotation zurück</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="49"/>
         <source>Rotation Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotation Vorwärts</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="243"/>
         <source>fabs fold</source>
-        <translation type="unfinished"></translation>
+        <translation>fabs Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="250"/>
         <source>z = fabs(z + offset) - offset;</source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs(z + Offset) - Offset;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="451"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Box Faltungswert:</translation>
+        <translation>Box Faltungswert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="522"/>
         <source>Tglad Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Tglad Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="542"/>
         <source>z = fabs(z + offset) - fabs( z - offset ) - z;</source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs(z + Offset) - fabs( z - Offset ) - z;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="784"/>
         <source>z.z scale:</source>
-        <translation type="unfinished">z.z Skalierung:</translation>
+        <translation>z.z Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="856"/>
         <source>if ( z &gt;Limit) z = Value -z, else if( z &lt;Limit) z = - Value - z,</source>
-        <translation type="unfinished"></translation>
+        <translation>if ( z &gt;Limit) z = Value -z, else if( z &lt;Limit) z = - Value - z,</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="315"/>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="573"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="703"/>
         <source>MBox Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>MBox Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="793"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Box Faltung Grenze:</translation>
+        <translation>Box Faltung Grenze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="879"/>
         <source>Enable Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviere Achsen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="917"/>
         <source>Rotation Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotation Rückwärts</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotated_folding.ui" line="1084"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9588,7 +9579,7 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_rotation.ui" line="195"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9596,7 +9587,7 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_4D.ui" line="369"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9604,51 +9595,51 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="41"/>
         <source>Rotation of separate folding planes</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotation separater Faltungs-Ebenen</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="107"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Box Faltungswert:</translation>
+        <translation>Box Faltungswert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="142"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Box Faltung Grenze:</translation>
+        <translation>Box Faltung Grenze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="185"/>
         <source>X Axis</source>
-        <translation type="unfinished">X Achse</translation>
+        <translation>X Achse</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="251"/>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="615"/>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="1073"/>
         <source>Positive plane</source>
-        <translation type="unfinished">Positive Ebene</translation>
+        <translation>Positive Ebene</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="338"/>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="625"/>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="1083"/>
         <source>Negative plane</source>
-        <translation type="unfinished">Negative Ebene</translation>
+        <translation>Negative Ebene</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="554"/>
         <source>Y Axis</source>
-        <translation type="unfinished">Y Achse</translation>
+        <translation>Y Achse</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="923"/>
         <source>Z Axis</source>
-        <translation type="unfinished">Z Achse</translation>
+        <translation>Z Achse</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_folding_plane.ui" line="1279"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9656,22 +9647,22 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_varyV1.ui" line="248"/>
         <source>Finish varying at iteration:</source>
-        <translation type="unfinished">Starte Variation bei Iteration:</translation>
+        <translation>Stoppe Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_varyV1.ui" line="255"/>
         <source>Start varying at iteration:</source>
-        <translation type="unfinished">Stoppe Variation bei Iteration:</translation>
+        <translation>Starte Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_varyV1.ui" line="334"/>
-        <source>Variable</source>
-        <translation type="unfinished"></translation>
+        <source>Variable:</source>
+        <translation>Variabel:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rotation_varyV1.ui" line="444"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9679,12 +9670,12 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_rpower.ui" line="93"/>
         <source>Power:</source>
-        <translation type="unfinished">Stärke:</translation>
+        <translation>Stärke:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_rpower.ui" line="102"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9692,25 +9683,29 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_scale.ui" line="93"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale.ui" line="102"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_scale_3D</name>
     <message>
-        <location filename="../qt_data/fractal_transf_scale_3D.ui" line="220"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalierung</translation>
+        <translation type="vanished">Skalierung</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_scale_3D.ui" line="220"/>
+        <source>Scale:</source>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_3D.ui" line="229"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9718,143 +9713,133 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_scale_4D.ui" line="93"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_4D.ui" line="102"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_scale_varyV1</name>
     <message>
-        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="35"/>
-        <source>Scale_Vary_V1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="47"/>
+        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="40"/>
         <source>Finish varying at iteration:</source>
-        <translation type="unfinished">Starte Variation bei Iteration:</translation>
+        <translation>Stoppe Variation bei Iteration:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="170"/>
+        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="163"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="183"/>
+        <source>Scale Variable:</source>
+        <translation>Skalierung Variable:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="190"/>
-        <source>Scale Variable:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="197"/>
         <source>Start varying at iteration:</source>
-        <translation type="unfinished">Stoppe Variation bei Iteration:</translation>
+        <translation>Starte Variation bei Iteration:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="219"/>
+        <location filename="../qt_data/fractal_transf_scale_varyV1.ui" line="212"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_scale_varyVCL</name>
     <message>
-        <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="47"/>
-        <source>0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="35"/>
         <source>Scale_Vary_VCL Vary Curvilinear</source>
-        <translation type="unfinished"></translation>
+        <translation>Scale_Vary_VCL Variiere Curvilinear</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="76"/>
-        <source>Curvi funtion ( disable to use linear slopes only)</source>
-        <translation type="unfinished"></translation>
+        <source>Curvi function ( disable to use linear slopes only)</source>
+        <translation>Curvi Funktion (deaktivieren für lineare Steigung)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="149"/>
         <source>B Value:</source>
-        <translation type="unfinished">B Wert:</translation>
+        <translation>B Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="169"/>
         <source>C Value:</source>
-        <translation type="unfinished">C Wert:</translation>
+        <translation>C Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="229"/>
         <source>Iteration A:</source>
-        <translation type="unfinished">Iteration A:</translation>
+        <translation>Iteration A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="236"/>
         <source>Iteration C:</source>
-        <translation type="unfinished">Iteration C:</translation>
+        <translation>Iteration C:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="243"/>
         <source>Iteration:</source>
-        <translation type="unfinished">Iteration:</translation>
+        <translation>Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="250"/>
         <source>Intitial Value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialer Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="257"/>
         <source>Iteration B:</source>
-        <translation type="unfinished">Iteration B:</translation>
+        <translation>Iteration B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="292"/>
         <source>Curvilinear</source>
-        <translation type="unfinished">Curvilinear</translation>
+        <translation>Curvilinear</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="327"/>
         <source>A Value:</source>
-        <translation type="unfinished">A Wert:</translation>
+        <translation>A Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="375"/>
         <source>Note. Curvi Function requires the condition that B &gt; 2 * A</source>
-        <translation type="unfinished">Hinweis: Curvi Funktion setzt voraus, dass B&gt; 2 * A</translation>
+        <translation>Hinweis: Curvi Funktion setzt voraus, dass B&gt; 2 * A</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="549"/>
         <source>Parabolic</source>
-        <translation type="unfinished">Parabolisch</translation>
+        <translation>Parabolisch</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="556"/>
         <source>Initial Value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialer Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="563"/>
         <source>Parabolic scale:</source>
-        <translation type="unfinished">Parabolische Skalierung:</translation>
+        <translation>Parabolische Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="570"/>
         <source>The Curvilinear and Parabolic functions can be applied together</source>
-        <translation type="unfinished"></translation>
+        <translation>Die curvilinearen und parabolischen Funktionen können zusammen angewendet werden</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="577"/>
         <source>Axis Slope:</source>
-        <translation type="unfinished">Achsensteigung:</translation>
+        <translation>Achsensteigung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_scale_varyVCL.ui" line="593"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9862,120 +9847,115 @@ min Radius:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="35"/>
         <source>Spherical Fold - Iteration based varying minR2 parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Spherische Faltung - Iterationsbasierte Variation von minR2 Parameter</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="72"/>
         <source>Initial minR2:</source>
-        <translation type="unfinished">Initiales minR2:</translation>
+        <translation>Initiales minR2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="107"/>
         <source>Fixed maxR2:</source>
-        <translation type="unfinished">Fixes maxR2:</translation>
+        <translation>Fixes maxR2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="215"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Spherische Faltung
+        <translation>Spherische Faltung
 Offset:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="321"/>
-        <source>Post_scale</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="520"/>
         <source>Iteration B:</source>
-        <translation type="unfinished">Iteration B:</translation>
+        <translation>Iteration B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="555"/>
         <source>Curvilinear</source>
-        <translation type="unfinished">Curvilinear</translation>
+        <translation>Curvilinear</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="616"/>
         <source>A Value:</source>
-        <translation type="unfinished">A Wert:</translation>
+        <translation>A Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="455"/>
         <source>Parameters for varying minR2 in respect to iteration count</source>
-        <translation type="unfinished"></translation>
+        <translation>Parameter zum Variieren von minR2 im Bezug zur Iterationsschritt Zahl</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="321"/>
+        <source>Post Scale:</source>
+        <translation>Nachskalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="568"/>
         <source>Note. Curvi Function requires the condition that B &gt; 2 * A</source>
-        <translation type="unfinished">Hinweis: Curvi Funktion setzt voraus, dass B&gt; 2 * A</translation>
+        <translation>Hinweis: Curvi Funktion setzt voraus, dass B&gt; 2 * A</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="667"/>
-        <source>Curvi funtion ( disable to use linear slopes only)</source>
-        <translation type="unfinished"></translation>
+        <source>Curvi function ( disable to use linear slopes only)</source>
+        <translation>Curvi Funktion (deaktivieren für lineare Steigung)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="740"/>
         <source>B Value:</source>
-        <translation type="unfinished">B Wert:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="760"/>
-        <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>B Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="767"/>
         <source>C Value:</source>
-        <translation type="unfinished">C Wert:</translation>
+        <translation>C Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="774"/>
         <source>Iteration A:</source>
-        <translation type="unfinished">Iteration A:</translation>
+        <translation>Iteration A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="781"/>
         <source>Iteration C:</source>
-        <translation type="unfinished">Iteration C:</translation>
+        <translation>Iteration C:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="788"/>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="976"/>
         <source>Initial add:</source>
-        <translation type="unfinished">Initial addieren:</translation>
+        <translation>Initial addieren:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="795"/>
         <source>Iteration:</source>
-        <translation type="unfinished">Iteration:</translation>
+        <translation>Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="969"/>
         <source>Parabolic</source>
-        <translation type="unfinished">Parabolisch</translation>
+        <translation>Parabolisch</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="983"/>
         <source>Parabolic scale:</source>
-        <translation type="unfinished">Parabolische Skalierung:</translation>
+        <translation>Parabolische Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="990"/>
         <source>The Curvilinear and Parabolic functions can be applied together</source>
-        <translation type="unfinished"></translation>
+        <translation>Die curvilinearen und parabolischen Funktionen können zusammen angewendet werden</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="997"/>
         <source>Axis Slope:</source>
-        <translation type="unfinished">Achsensteigung:</translation>
+        <translation>Achsensteigung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherFold_varyVCL.ui" line="1006"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -9983,77 +9963,81 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="35"/>
         <source>SphereInv from M3D</source>
-        <translation type="unfinished"></translation>
+        <translation>SphereInv von M3D</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="103"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Spherische Faltung
+        <translation>Spherische Faltung
 Offset:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="231"/>
-        <source>Pre_scale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="313"/>
-        <source>Pre_dot(z,z)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="322"/>
         <source>No mode = unconditional spherical inversion z = z / r2;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Modus = unbedingte spherische Umkehrung z = z / r2;</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="472"/>
-        <source>let r2 = Radius2 (conformal - undo the inversion inside a sphere)</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="231"/>
+        <source>Pre Scale:</source>
+        <translation>Vor-Skalierung:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="313"/>
+        <source>Pre dot(z, z)</source>
+        <translation>Vor-Punktprodukt(z, z)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="338"/>
-        <source>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion)</source>
-        <translation type="unfinished"></translation>
+        <source>r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion)</source>
+        <translation>r2 = 2 * Radius2 - r2 (nicht konforme &quot;umgekehrte&quot; Umkehrung)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="373"/>
         <source>Mode Radius2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus Radius 2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="458"/>
         <source>Mode Radius1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus Radius 1:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="465"/>
         <source>Mode 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 1</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="472"/>
+        <source>r2 = Radius2 (conformal - undo the inversion inside a sphere)</source>
+        <translation>r2 = 2 * Radius2 - r2 (konform - Undo der Umkehrung innerhalb der Sphäre)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="479"/>
         <source>Mode 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus 2</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="500"/>
         <source>Adjust Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellung Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_inv.ui" line="687"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
     <name>transf_sphere_invC</name>
     <message>
-        <location filename="../qt_data/fractal_transf_sphere_invC.ui" line="213"/>
         <source>Cpixel Multiplier</source>
-        <translation type="unfinished">Cpixel Multiplikator:</translation>
+        <translation type="obsolete">Cpixel Multiplikator:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_sphere_invC.ui" line="213"/>
+        <source>Cpixel Multiplier:</source>
+        <translation>Cpixel Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_invC.ui" line="232"/>
@@ -10061,12 +10045,15 @@ Offset:</translation>
 Use as pre-transform for one iteration, 
 will invert the complete coord system.
 Cut off at Z=0 to see the inside.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschlag:
+Verwendung als eine Vor-Transformation für eine Iteration, 
+dies invertiert das komplette Koordinatensystem.
+An Z = 0 abschneiden, um das Innere zu sehen.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_sphere_invC.ui" line="242"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10074,34 +10061,34 @@ Cut off at Z=0 to see the inside.</source>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold.ui" line="35"/>
         <source>Spherical Fold - MBox</source>
-        <translation type="unfinished"></translation>
+        <translation>Spherische Faltung - Mbox</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold.ui" line="44"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished">Fixer Radius:</translation>
+        <translation>Fixer Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold.ui" line="51"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Minimaler Radius:</translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold.ui" line="193"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Spherische Faltung
+        <translation>Spherische Faltung
 Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold.ui" line="377"/>
-        <source>Pre_scale</source>
-        <translation type="unfinished"></translation>
+        <source>Pre Scale:</source>
+        <translation>Vor-Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold.ui" line="439"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10109,22 +10096,22 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_4D.ui" line="35"/>
         <source>Spherical Fold_4D</source>
-        <translation type="unfinished"></translation>
+        <translation>Spherische Faltung_4D</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_4D.ui" line="64"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished">Fixer Radius:</translation>
+        <translation>Fixer Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_4D.ui" line="71"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Minimaler Radius:</translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_4D.ui" line="196"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10132,24 +10119,24 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_abox.ui" line="35"/>
         <source>Spherical Fold - ABox/ASurf</source>
-        <translation type="unfinished"></translation>
+        <translation>Spherische Faltung - Abox/ASurf</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_abox.ui" line="72"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Minimaler Radius:</translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_abox.ui" line="108"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Spherische Faltung
+        <translation>Spherische Faltung
 Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_abox.ui" line="316"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10157,51 +10144,51 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="51"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished">Fixer Radius:</translation>
+        <translation>Fixer Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="118"/>
         <source>Fixed radius variable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixe Radius Variable:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="153"/>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="389"/>
         <source>Start varying at iteration:</source>
-        <translation type="unfinished">Stoppe Variation bei Iteration:</translation>
+        <translation>Starte Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="35"/>
         <source>Spherical Fold, Variable Radius Controls - MBox type</source>
-        <translation type="unfinished"></translation>
+        <translation>Sphärische Faltung, Variable Radius Kontrolle- MBox typ</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="186"/>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="350"/>
         <source>Finish varying at iteration:</source>
-        <translation type="unfinished">Starte Variation bei Iteration:</translation>
+        <translation>Stoppe Variation bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="242"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Minimaler Radius:</translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="382"/>
         <source>Minimum radius variable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimale Radius Variable:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="436"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Spherische Faltung
+        <translation>Spherische Faltung
 Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_fold_varyV1.ui" line="644"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10209,17 +10196,17 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offset.ui" line="68"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skalierung:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offset.ui" line="103"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Offset Radius:</translation>
+        <translation>Offset Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offset.ui" line="169"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10227,137 +10214,132 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="44"/>
         <source>Curvilinear Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Curvilinear Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="58"/>
         <source>Curvilinear slopes</source>
-        <translation type="unfinished"></translation>
+        <translation>Curvilinear Steigung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="35"/>
         <source>The Curvilinear, Parabolic &amp; Dot modes can be applied consecutively</source>
-        <translation type="unfinished"></translation>
+        <translation>Die curvilinearen, parabolischen und Punkt-Funktionen können nacheinander angewendet werden</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="51"/>
         <source>Curvi function</source>
-        <translation type="unfinished"></translation>
+        <translation>Curvi Funktion</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="84"/>
         <source>Note. Curvi Function requires the condition that B &gt; 2 *A</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinweis: Curvi Funktion setzt voraus, dass B&gt; 2 * A</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="106"/>
         <source>Parameters for tweaking value of radial offset in respect to iteration count</source>
-        <translation type="unfinished"></translation>
+        <translation>Parameter zum Variieren von dem radialen Offset im Bezug zur Iterationsschritt Zahl</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="118"/>
         <source>C Value:</source>
-        <translation type="unfinished">C Wert:</translation>
+        <translation>C Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="200"/>
         <source>A Value:</source>
-        <translation type="unfinished">A Wert:</translation>
+        <translation>A Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="207"/>
         <source>Iteration A:</source>
-        <translation type="unfinished">Iteration A:</translation>
+        <translation>Iteration A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="214"/>
         <source>Iteration B:</source>
-        <translation type="unfinished">Iteration B:</translation>
+        <translation>Iteration B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="234"/>
         <source>Iteration C:</source>
-        <translation type="unfinished">Iteration C:</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="248"/>
-        <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>Iteration C:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="283"/>
-        <source>Iteration</source>
-        <translation type="unfinished"></translation>
+        <source>Iteration:</source>
+        <translation>Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="350"/>
         <source>B Value:</source>
-        <translation type="unfinished">B Wert:</translation>
+        <translation>B Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="426"/>
         <source>Init. Value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialer Wert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="475"/>
         <source>Axis Slope:</source>
-        <translation type="unfinished">Achsensteigung:</translation>
+        <translation>Achsensteigung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="510"/>
         <source>Parabolic scale:</source>
-        <translation type="unfinished">Parabolische Skalierung:</translation>
+        <translation>Parabolische Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="593"/>
         <source>Parabolic Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Parabolische Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="628"/>
-        <source>Initial offset</source>
-        <translation type="unfinished"></translation>
+        <source>Initial offset:</source>
+        <translation>Initialer Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="646"/>
         <source>z *= 1.0 + offset/ -z.Dot(z);</source>
-        <translation type="unfinished"></translation>
+        <translation>z *= 1.0 + offset/ -z.Dot(z);</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="653"/>
         <source>Offset:</source>
-        <translation type="unfinished">Offset:</translation>
+        <translation>Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="660"/>
         <source>Dot Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkt Modus</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="791"/>
-        <source>Post_scale vec(z):</source>
-        <translation type="unfinished"></translation>
+        <source>Post Scale z:</source>
+        <translation>Nachskalierung z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="844"/>
         <source>Lin. DE Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lin. DE Offset:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="851"/>
         <source>Analytical DE tweaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Analytische DE Tweaks:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="939"/>
         <source>Lin. DE Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lin. DE Skalierung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_offsetVCL.ui" line="948"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10365,32 +10347,32 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_pwr_fold.ui" line="35"/>
         <source>Spherical Power Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Sphärische Potenz Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_pwr_fold.ui" line="120"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished">Fixer Radius:</translation>
+        <translation>Fixer Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_pwr_fold.ui" line="152"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Minimaler Radius:</translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_pwr_fold.ui" line="284"/>
-        <source>Power A</source>
-        <translation type="unfinished"></translation>
+        <source>Power A:</source>
+        <translation>Potenz A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_pwr_fold.ui" line="291"/>
-        <source>Power B</source>
-        <translation type="unfinished"></translation>
+        <source>Power B:</source>
+        <translation>Potenz B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_spherical_pwr_fold.ui" line="310"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10398,81 +10380,81 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="48"/>
         <source>Fold z.x</source>
-        <translation type="unfinished"></translation>
+        <translation>Faltung z.x</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="325"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="452"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="1062"/>
         <source>Type 4 Fold value:</source>
-        <translation type="unfinished">Typ 4 Faltungswert:</translation>
+        <translation>Typ 4 Faltungswert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="332"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="545"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="1076"/>
         <source>Type 3</source>
-        <translation type="unfinished">Typ 3</translation>
+        <translation>Typ 3</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="339"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="516"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="812"/>
         <source>Type 1</source>
-        <translation type="unfinished">Typ 1</translation>
+        <translation>Typ 1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="346"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="678"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="1069"/>
         <source>Type 4</source>
-        <translation type="unfinished">Typ 4</translation>
+        <translation>Typ 4</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="353"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="752"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="1131"/>
         <source>Type 2</source>
-        <translation type="unfinished">Typ 2</translation>
+        <translation>Typ 2</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="360"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="445"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="1124"/>
         <source>Type 5 Fold2 value:</source>
-        <translation type="unfinished">Typ 5 Faltungswert2:</translation>
+        <translation>Typ 5 Faltungswert2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="786"/>
         <source>Type 4 z.z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="1254"/>
+        <source>DE Tweak:</source>
+        <translation>DE Tweak:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="367"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="726"/>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="983"/>
         <source>Type 5</source>
-        <translation type="unfinished">Typ 5</translation>
+        <translation>Typ 5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="411"/>
         <source>Fold z.y</source>
-        <translation type="unfinished"></translation>
+        <translation>Faltung z.y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="774"/>
         <source>Fold z.z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="1254"/>
-        <source>DE Tweak</source>
-        <translation type="unfinished"></translation>
+        <translation>Faltung z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_box_fold.ui" line="1270"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10480,87 +10462,82 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="38"/>
         <source>FoldBox</source>
-        <translation type="unfinished"></translation>
+        <translation>Faltungsbox</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="67"/>
         <source>Fold z.y:</source>
-        <translation type="unfinished">Faltung z.y:</translation>
+        <translation>Faltung z.y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="96"/>
         <source>Fold z.x:</source>
-        <translation type="unfinished">Faltung z.x:</translation>
+        <translation>Faltung z.x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="110"/>
         <source>z = fold - fabs( fabs(z) - fold)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="35"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Based on amazing_surf_mod1 from Mandelbulb3D&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>z = Faltung - fabs( fabs(z) - Faltung)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="103"/>
         <source>if ( z &gt; Fold) z = Value -z, else if( z &lt;Fold) z = - Value - z,</source>
-        <translation type="unfinished"></translation>
+        <translation>if ( z &gt; Faltung) z = Value -z, else if( z &lt;Faltung) z = - Value - z,</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="117"/>
         <source>Type 4 Fold value:</source>
-        <translation type="unfinished">Typ 4 Faltungswert:</translation>
+        <translation>Typ 4 Faltungswert:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="143"/>
         <source>z = fabs(z + fold) - fabs(z - fold) -z</source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs(z + Faltung) - fabs(z - Faltung) -z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="150"/>
         <source>Type 3</source>
-        <translation type="unfinished">Typ 3</translation>
+        <translation>Typ 3</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="157"/>
         <source>Type 1</source>
-        <translation type="unfinished">Typ 1</translation>
+        <translation>Typ 1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="205"/>
         <source>z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)</source>
-        <translation type="unfinished"></translation>
+        <translation>z = Faltung2 - fabs( fabs(z + Faltung) - Faltung2) - fabs(Faltung)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="231"/>
         <source>Type 4</source>
-        <translation type="unfinished">Typ 4</translation>
+        <translation>Typ 4</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="238"/>
         <source>Type 2</source>
-        <translation type="unfinished">Typ 2</translation>
+        <translation>Typ 2</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="245"/>
         <source>z = fabs(z + fold)</source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs(z + Faltung)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="274"/>
         <source>Type 5 Fold2 value:</source>
-        <translation type="unfinished">Typ 5 Faltungswert2:</translation>
+        <translation>Typ 5 Faltungswert2:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="322"/>
         <source>Type 5</source>
-        <translation type="unfinished">Typ 5</translation>
+        <translation>Typ 5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_surf_fold_multi.ui" line="334"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>
@@ -10568,37 +10545,37 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_transf_zVector_axis_swap.ui" line="88"/>
         <source>swaps order each iteration</source>
-        <translation type="unfinished"></translation>
+        <translation>tauscht Reihenfolge bei jeder Iteration</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_zVector_axis_swap.ui" line="105"/>
         <source>function order of z.x, z.y and z.z:</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktionsreihenfolge von z.x, z.y und z.z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_zVector_axis_swap.ui" line="115"/>
         <source>reverse axis sign each iteration</source>
-        <translation type="unfinished"></translation>
+        <translation>drehe Achsen Vorzeichen jede Iteration um</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_zVector_axis_swap.ui" line="169"/>
         <source>enable 45 degree rotation of XY plane, for every iteration from start to stop</source>
-        <translation type="unfinished"></translation>
+        <translation>aktiviere 45 Grad Rotation der XY Ebene, für jede Iteration von Start bis Stop</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_zVector_axis_swap.ui" line="178"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Stoppe bei Iteration:</translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_zVector_axis_swap.ui" line="185"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Starte bei Iteration:</translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_zVector_axis_swap.ui" line="235"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
 </context>
 <context>

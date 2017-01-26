@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>487</width>
+    <width>799</width>
     <height>530</height>
    </rect>
   </property>
@@ -217,7 +217,7 @@
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Scale</string>
+        <string>Scale:</string>
        </property>
       </widget>
      </item>
@@ -308,6 +308,15 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_scale3D_111_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
+  <tabstop>slider3_transf_scale3D_111_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
+  <tabstop>slider3_transf_scale3D_111_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

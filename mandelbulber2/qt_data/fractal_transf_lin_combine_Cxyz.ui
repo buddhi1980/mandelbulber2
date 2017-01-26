@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>610</width>
-    <height>751</height>
+    <width>889</width>
+    <height>1478</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -338,7 +338,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>CX Cpixel Multiplier</string>
+        <string>CX Cpixel Multiplier:</string>
        </property>
       </widget>
      </item>
@@ -524,14 +524,14 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>CY Cpixel Multiplier</string>
+        <string>CY Cpixel Multiplier:</string>
        </property>
       </widget>
      </item>
      <item row="9" column="0">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>CZ Cpixel Multiplier</string>
+        <string>CZ Cpixel Multiplier:</string>
        </property>
       </widget>
      </item>
@@ -852,7 +852,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_114">
           <property name="text">
-           <string>Cpixel Multiplier</string>
+           <string>Cpixel Multiplier:</string>
           </property>
          </widget>
         </item>
@@ -882,7 +882,7 @@
      </property>
      <property name="text">
       <string>Suggestion:
-=You can use it for example as a pre-transform for bulbs or boxes.</string>
+You can use it for example as a pre-transform for bulbs or boxes.</string>
      </property>
     </widget>
    </item>
@@ -1009,6 +1009,36 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_constant_multiplier_100_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_100_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_100_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_100_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_100_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_100_z</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_010_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_010_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_010_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_010_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_010_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_010_z</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_001_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_001_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_001_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_001_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_001_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_001_z</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
+  <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
+  <tabstop>comboBox_mandelbulbMulti_order_of_xyz_C</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierC_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierC_111_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

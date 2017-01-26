@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>835</width>
-    <height>1324</height>
+    <height>2577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,16 +29,6 @@
    <property name="bottomMargin">
     <number>2</number>
    </property>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <property name="spacing">
@@ -110,7 +100,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_133">
        <property name="text">
-        <string>z = SIGN(z) ((1.0/LimitA ) - (1.0/(fabs(z) +LimitA)) + (fabs(z) * Slope))</string>
+        <string notr="true">z = SIGN(z) ((1.0/LimitA ) - (1.0/(fabs(z) +LimitA)) + (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -124,7 +114,7 @@
      <item row="3" column="2" colspan="3">
       <widget class="QLabel" name="label_135">
        <property name="text">
-        <string>z = SIGN(z) (LimitC - 1/(fabs(z*MultA)+LimA) -1/(z*z*MultB+ LimB) +(fabs(z) * Slope))</string>
+        <string notr="true">z = SIGN(z) (LimitC - 1/(fabs(z*MultA)+LimA) -1/(z*z*MultB+ LimB) +(fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -194,7 +184,7 @@
      <item row="30" column="0">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>DE Tweak</string>
+        <string>DE Tweak:</string>
        </property>
       </widget>
      </item>
@@ -604,7 +594,7 @@
      <item row="2" column="2" colspan="3">
       <widget class="QLabel" name="label_134">
        <property name="text">
-        <string>z = SIGN(z) ((1/LimA )+(1/LimB) - 1/(fabs(z*MultA)+LimA) -1/(z*z*MultB+ LimB) etc)</string>
+        <string notr="true">z = SIGN(z) ((1/LimA )+(1/LimB) - 1/(fabs(z*MultA)+LimA) -1/(z*z*MultB+ LimB) etc)</string>
        </property>
       </widget>
      </item>
@@ -657,7 +647,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_148">
        <property name="text">
-        <string>z = SIGN(z) (LimitB - (1.0/(fabs(z) +LimitA)) + (fabs(z) * Slope))</string>
+        <string notr="true">z = SIGN(z) (LimitB - (1.0/(fabs(z) +LimitA)) + (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -1258,6 +1248,46 @@
    <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledAx</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledBx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledCx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>slider3_transf_offset_111_x</tabstop>
+  <tabstop>spinbox3_transf_offset_111_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>slider3_transf_offset_111_y</tabstop>
+  <tabstop>spinbox3_transf_offset_111_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledz</tabstop>
+  <tabstop>slider3_transf_offset_111_z</tabstop>
+  <tabstop>spinbox3_transf_offset_111_z</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>slider3_transf_offsetA_111_x</tabstop>
+  <tabstop>spinbox3_transf_offsetA_111_x</tabstop>
+  <tabstop>slider3_transf_offsetA_111_y</tabstop>
+  <tabstop>spinbox3_transf_offsetA_111_y</tabstop>
+  <tabstop>slider3_transf_offsetA_111_z</tabstop>
+  <tabstop>spinbox3_transf_offsetA_111_z</tabstop>
+  <tabstop>slider_transf_scaleA_1</tabstop>
+  <tabstop>spinbox_transf_scaleA_1</tabstop>
+  <tabstop>slider3_transf_offsetB_111_x</tabstop>
+  <tabstop>spinbox3_transf_offsetB_111_x</tabstop>
+  <tabstop>slider3_transf_offsetB_111_y</tabstop>
+  <tabstop>spinbox3_transf_offsetB_111_y</tabstop>
+  <tabstop>slider3_transf_offsetB_111_z</tabstop>
+  <tabstop>spinbox3_transf_offsetB_111_z</tabstop>
+  <tabstop>slider3_transf_offset_000_x</tabstop>
+  <tabstop>spinbox3_transf_offset_000_x</tabstop>
+  <tabstop>slider3_transf_offset_000_y</tabstop>
+  <tabstop>spinbox3_transf_offset_000_y</tabstop>
+  <tabstop>slider3_transf_offset_000_z</tabstop>
+  <tabstop>spinbox3_transf_offset_000_z</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

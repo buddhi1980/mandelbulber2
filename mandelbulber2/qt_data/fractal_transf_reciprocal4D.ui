@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>835</width>
-    <height>1324</height>
+    <height>1538</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -382,7 +382,7 @@
      <item row="23" column="0">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>DE Tweak</string>
+        <string>DE Tweak:</string>
        </property>
       </widget>
      </item>
@@ -452,14 +452,14 @@
      <item row="1" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
        <property name="text">
-        <string>two limit mode</string>
+        <string>2 limit mode</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
        <property name="text">
-        <string>one limit mode</string>
+        <string>1 limit mode</string>
        </property>
       </widget>
      </item>
@@ -576,7 +576,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_133">
        <property name="text">
-        <string> z = SIGN(z) ((1.0/LimitA )   -    (1.0/(fabs(z) +LimitA))    +  (fabs(z) * Slope))</string>
+        <string notr="true"> z = SIGN(z) ((1.0/LimitA )   -    (1.0/(fabs(z) +LimitA))    +  (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -671,7 +671,7 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>LimitA :   </string>
+        <string>LimitA:</string>
        </property>
       </widget>
      </item>
@@ -706,7 +706,7 @@
      <item row="1" column="2">
       <widget class="QLabel" name="label_148">
        <property name="text">
-        <string> z = SIGN(z) (LimitB   -   (1.0/(fabs(z) +LimitA))    +   (fabs(z) * Slope))</string>
+        <string notr="true"> z = SIGN(z) (LimitB   -   (1.0/(fabs(z) +LimitA))    +   (fabs(z) * Slope))</string>
        </property>
       </widget>
      </item>
@@ -1036,6 +1036,41 @@
    <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledAx</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>slider4_transf_offset_1111_x</tabstop>
+  <tabstop>spinbox4_transf_offset_1111_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>slider4_transf_offset_1111_y</tabstop>
+  <tabstop>spinbox4_transf_offset_1111_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledz</tabstop>
+  <tabstop>slider4_transf_offset_1111_z</tabstop>
+  <tabstop>spinbox4_transf_offset_1111_z</tabstop>
+  <tabstop>checkBox_transf_function_enabledw</tabstop>
+  <tabstop>slider4_transf_offset_1111_w</tabstop>
+  <tabstop>spinbox4_transf_offset_1111_w</tabstop>
+  <tabstop>slider4_transf_offsetA_1111_x</tabstop>
+  <tabstop>spinbox4_transf_offsetA_1111_x</tabstop>
+  <tabstop>slider4_transf_offsetA_1111_y</tabstop>
+  <tabstop>spinbox4_transf_offsetA_1111_y</tabstop>
+  <tabstop>slider4_transf_offsetA_1111_z</tabstop>
+  <tabstop>spinbox4_transf_offsetA_1111_z</tabstop>
+  <tabstop>slider4_transf_offsetA_1111_w</tabstop>
+  <tabstop>spinbox4_transf_offsetA_1111_w</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_x</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_x</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_y</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_y</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_z</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_z</tabstop>
+  <tabstop>slider4_transf_addition_constant_0000_w</tabstop>
+  <tabstop>spinbox4_transf_addition_constant_0000_w</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

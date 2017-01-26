@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1249</width>
-    <height>1677</height>
+    <width>907</width>
+    <height>1678</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -639,7 +639,7 @@
      <item row="12" column="3">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
        <property name="text">
-        <string>fabs(fn(z)):</string>
+        <string notr="true">fabs(fn(z))</string>
        </property>
       </widget>
      </item>
@@ -1046,7 +1046,7 @@
         <string/>
        </property>
        <property name="title">
-        <string>fn( z) = cos ( z * pi )</string>
+        <string notr="true">fn( z) = cos ( z * pi )</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -1256,6 +1256,46 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>slider_transf_scale_2</tabstop>
+  <tabstop>spinbox_transf_scale_2</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>checkBox_transf_function_enabledx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
+  <tabstop>groupCheck_transf_function_enabledBx_false</tabstop>
+  <tabstop>slider_transf_scaleC_1</tabstop>
+  <tabstop>spinbox_transf_scaleC_1</tabstop>
+  <tabstop>groupCheck_transf_function_enabledy_false</tabstop>
+  <tabstop>slider_transf_scale_0</tabstop>
+  <tabstop>spinbox_transf_scale_0</tabstop>
+  <tabstop>groupCheck_transf_function_enabledz_false</tabstop>
+  <tabstop>slider3_transf_addition_constant_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
+  <tabstop>slider_transf_scale_4</tabstop>
+  <tabstop>spinbox_transf_scale_4</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplierB_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplierB_111_z</tabstop>
+  <tabstop>slider_transf_scale_025</tabstop>
+  <tabstop>spinbox_transf_scale_025</tabstop>
+  <tabstop>spinbox_analyticDE_scale_linear</tabstop>
+  <tabstop>spinbox_analyticDE_offset_linear</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

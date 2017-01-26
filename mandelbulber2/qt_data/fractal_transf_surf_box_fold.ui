@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>1391</height>
+    <width>916</width>
+    <height>2995</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1251,7 +1251,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_174">
        <property name="text">
-        <string>DE Tweak</string>
+        <string>DE Tweak:</string>
        </property>
       </widget>
      </item>
@@ -1451,6 +1451,70 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_surfBox_enabledX1</tabstop>
+  <tabstop>slider3_surfBox_offset1A_111_x</tabstop>
+  <tabstop>spinbox3_surfBox_offset1A_111_x</tabstop>
+  <tabstop>checkBox_surfBox_enabledX2_false</tabstop>
+  <tabstop>slider3_surfBox_offset1B_111_x</tabstop>
+  <tabstop>spinbox3_surfBox_offset1B_111_x</tabstop>
+  <tabstop>checkBox_surfBox_enabledX3_false</tabstop>
+  <tabstop>slider3_surfBox_offset2A_111_x</tabstop>
+  <tabstop>spinbox3_surfBox_offset2A_111_x</tabstop>
+  <tabstop>checkBox_surfBox_enabledX4_false</tabstop>
+  <tabstop>slider3_surfBox_offset2B_111_x</tabstop>
+  <tabstop>spinbox3_surfBox_offset2B_111_x</tabstop>
+  <tabstop>slider3_surfBox_offset1A_222_x</tabstop>
+  <tabstop>spinbox3_surfBox_offset1A_222_x</tabstop>
+  <tabstop>checkBox_surfBox_enabledX5_false</tabstop>
+  <tabstop>slider3_surfBox_offset3A_111_x</tabstop>
+  <tabstop>spinbox3_surfBox_offset3A_111_x</tabstop>
+  <tabstop>slider3_surfBox_offset1B_222_x</tabstop>
+  <tabstop>spinbox3_surfBox_offset1B_222_x</tabstop>
+  <tabstop>checkBox_surfBox_enabledY1</tabstop>
+  <tabstop>slider3_surfBox_offset1A_111_y</tabstop>
+  <tabstop>spinbox3_surfBox_offset1A_111_y</tabstop>
+  <tabstop>checkBox_surfBox_enabledY2_false</tabstop>
+  <tabstop>slider3_surfBox_offset1B_111_y</tabstop>
+  <tabstop>spinbox3_surfBox_offset1B_111_y</tabstop>
+  <tabstop>checkBox_surfBox_enabledY3_false</tabstop>
+  <tabstop>slider3_surfBox_offset2A_111_y</tabstop>
+  <tabstop>spinbox3_surfBox_offset2A_111_y</tabstop>
+  <tabstop>checkBox_surfBox_enabledY4_false</tabstop>
+  <tabstop>slider3_surfBox_offset2B_111_y</tabstop>
+  <tabstop>spinbox3_surfBox_offset2B_111_y</tabstop>
+  <tabstop>slider3_surfBox_offset1A_222_y</tabstop>
+  <tabstop>spinbox3_surfBox_offset1A_222_y</tabstop>
+  <tabstop>checkBox_surfBox_enabledY5_false</tabstop>
+  <tabstop>slider3_surfBox_offset3A_111_y</tabstop>
+  <tabstop>spinbox3_surfBox_offset3A_111_y</tabstop>
+  <tabstop>slider3_surfBox_offset1B_222_y</tabstop>
+  <tabstop>spinbox3_surfBox_offset1B_222_y</tabstop>
+  <tabstop>checkBox_surfBox_enabledZ1</tabstop>
+  <tabstop>slider3_surfBox_offset1A_111_z</tabstop>
+  <tabstop>spinbox3_surfBox_offset1A_111_z</tabstop>
+  <tabstop>checkBox_surfBox_enabledZ2_false</tabstop>
+  <tabstop>slider3_surfBox_offset1B_111_z</tabstop>
+  <tabstop>spinbox3_surfBox_offset1B_111_z</tabstop>
+  <tabstop>checkBox_surfBox_enabledZ3_false</tabstop>
+  <tabstop>slider3_surfBox_offset2A_111_z</tabstop>
+  <tabstop>spinbox3_surfBox_offset2A_111_z</tabstop>
+  <tabstop>checkBox_surfBox_enabledZ4_false</tabstop>
+  <tabstop>slider3_surfBox_offset2B_111_z</tabstop>
+  <tabstop>spinbox3_surfBox_offset2B_111_z</tabstop>
+  <tabstop>slider3_surfBox_offset1A_222_z</tabstop>
+  <tabstop>spinbox3_surfBox_offset1A_222_z</tabstop>
+  <tabstop>slider_surfBox_scale1Z1</tabstop>
+  <tabstop>spinbox_surfBox_scale1Z1</tabstop>
+  <tabstop>checkBox_surfBox_enabledZ5_false</tabstop>
+  <tabstop>slider3_surfBox_offset3A_111_z</tabstop>
+  <tabstop>spinbox3_surfBox_offset3A_111_z</tabstop>
+  <tabstop>slider3_surfBox_offset1B_222_z</tabstop>
+  <tabstop>spinbox3_surfBox_offset1B_222_z</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

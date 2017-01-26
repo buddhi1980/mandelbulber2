@@ -30,18 +30,29 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>1st half tetrahedral symmetry planes:</string>
+      <string>Tetrahedral symmetry planes</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
-     <property name="text">
-      <string>2nd half tetrahedral symmetry planes:</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+       <property name="text">
+        <string>1st half</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+       <property name="text">
+        <string>2nd half</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
@@ -149,6 +160,11 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

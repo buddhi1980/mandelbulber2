@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>853</width>
-    <height>987</height>
+    <height>1221</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -228,7 +228,7 @@ offset:</string>
      <item row="6" column="0">
       <widget class="QLabel" name="label_18">
        <property name="text">
-        <string>Pre_scale</string>
+        <string>Pre Scale:</string>
        </property>
       </widget>
      </item>
@@ -310,7 +310,7 @@ offset:</string>
      <item row="0" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
        <property name="text">
-        <string>Pre_dot(z,z)</string>
+        <string>Pre dot(z, z)</string>
        </property>
       </widget>
      </item>
@@ -335,7 +335,7 @@ offset:</string>
      <item row="1" column="1">
       <widget class="QLabel" name="label_48">
        <property name="text">
-        <string>let r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion)</string>
+        <string>r2 = 2 * Radius2 - r2 (non conformal &quot;reversal&quot; inversion)</string>
        </property>
       </widget>
      </item>
@@ -469,7 +469,7 @@ offset:</string>
      <item row="0" column="1">
       <widget class="QLabel" name="label_20">
        <property name="text">
-        <string>let r2 = Radius2 (conformal - undo the inversion inside a sphere)</string>
+        <string>r2 = Radius2 (conformal - undo the inversion inside a sphere)</string>
        </property>
       </widget>
      </item>
@@ -792,6 +792,30 @@ offset:</string>
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>checkBox_transf_function_enabledy_false</tabstop>
+  <tabstop>slider3_mandelbox_offset_x</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_x</tabstop>
+  <tabstop>slider3_mandelbox_offset_y</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_y</tabstop>
+  <tabstop>slider3_mandelbox_offset_z</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_z</tabstop>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledx_false</tabstop>
+  <tabstop>slider_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>slider_transf_minimum_radius_neg1</tabstop>
+  <tabstop>spinbox_transf_minimum_radius_neg1</tabstop>
+  <tabstop>slider3_transf_addition_constant_x</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
+  <tabstop>slider3_transf_addition_constant_y</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
+  <tabstop>slider3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

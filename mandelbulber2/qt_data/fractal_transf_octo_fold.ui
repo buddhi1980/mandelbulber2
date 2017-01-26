@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>781</width>
-    <height>300</height>
+    <width>808</width>
+    <height>597</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -379,6 +379,17 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_scale_2</tabstop>
+  <tabstop>spinbox_transf_scale_2</tabstop>
+  <tabstop>slider3_transf_offset_100_x</tabstop>
+  <tabstop>spinbox3_transf_offset_100_x</tabstop>
+  <tabstop>slider3_transf_offset_100_y</tabstop>
+  <tabstop>spinbox3_transf_offset_100_y</tabstop>
+  <tabstop>slider3_transf_offset_100_z</tabstop>
+  <tabstop>spinbox3_transf_offset_100_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

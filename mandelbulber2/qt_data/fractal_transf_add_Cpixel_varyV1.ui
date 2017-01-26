@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>880</width>
-    <height>746</height>
+    <height>799</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -372,7 +372,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_164">
        <property name="text">
-        <string>addCpixel multiplier</string>
+        <string>addCpixel Multiplier:</string>
        </property>
       </widget>
      </item>
@@ -443,7 +443,7 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_166">
        <property name="text">
-        <string>Variable</string>
+        <string>Variable:</string>
        </property>
       </widget>
      </item>
@@ -564,6 +564,23 @@
    <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_250</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations</tabstop>
+  <tabstop>slider3_transf_offset_000_x</tabstop>
+  <tabstop>spinbox3_transf_offset_000_x</tabstop>
+  <tabstop>slider3_transf_offset_000_y</tabstop>
+  <tabstop>spinbox3_transf_offset_000_y</tabstop>
+  <tabstop>slider3_transf_offset_000_z</tabstop>
+  <tabstop>spinbox3_transf_offset_000_z</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

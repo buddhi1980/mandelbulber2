@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>578</height>
+    <height>628</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,13 +29,6 @@
    <property name="bottomMargin">
     <number>2</number>
    </property>
-   <item>
-    <widget class="QLabel" name="label_93">
-     <property name="text">
-      <string>Scale_Vary_V1</string>
-     </property>
-    </widget>
-   </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_36">
      <property name="spacing">
@@ -319,6 +312,15 @@
    <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_250</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations</tabstop>
+  <tabstop>slider_transf_offset_0</tabstop>
+  <tabstop>spinbox_transf_offset_0</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

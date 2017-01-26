@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>723</height>
+    <height>740</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -281,14 +281,14 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_358">
           <property name="text">
-           <string>Power A</string>
+           <string>Power A:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_355">
           <property name="text">
-           <string>Power B</string>
+           <string>Power B:</string>
           </property>
          </widget>
         </item>
@@ -408,6 +408,17 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_pwr_4</tabstop>
+  <tabstop>spinbox_transf_pwr_4</tabstop>
+  <tabstop>slider_transf_pwr_05</tabstop>
+  <tabstop>spinbox_transf_pwr_05</tabstop>
+  <tabstop>slider_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_fixed_radius</tabstop>
+  <tabstop>slider_mandelbox_folding_min_radius</tabstop>
+  <tabstop>spinbox_mandelbox_folding_min_radius</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>853</width>
-    <height>2088</height>
+    <height>2216</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -318,7 +318,7 @@ offset:</string>
      <item row="6" column="0">
       <widget class="QLabel" name="label_18">
        <property name="text">
-        <string>Post_scale</string>
+        <string>Post Scale:</string>
        </property>
       </widget>
      </item>
@@ -664,7 +664,7 @@ offset:</string>
      <item row="1" column="3">
       <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
        <property name="text">
-        <string>Curvi funtion ( disable to use linear slopes only)</string>
+        <string>Curvi function ( disable to use linear slopes only)</string>
        </property>
       </widget>
      </item>
@@ -757,7 +757,7 @@ offset:</string>
      <item row="2" column="1">
       <widget class="QLabel" name="label_174">
        <property name="text">
-        <string>0</string>
+        <string notr="true">0</string>
        </property>
       </widget>
      </item>
@@ -1170,6 +1170,41 @@ offset:</string>
    <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_transf_maxR2_1</tabstop>
+  <tabstop>spinbox_transf_maxR2_1</tabstop>
+  <tabstop>slider_transf_minR2_p25</tabstop>
+  <tabstop>spinbox_transf_minR2_p25</tabstop>
+  <tabstop>slider3_mandelbox_offset_x</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_x</tabstop>
+  <tabstop>slider3_mandelbox_offset_y</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_y</tabstop>
+  <tabstop>slider3_mandelbox_offset_z</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_z</tabstop>
+  <tabstop>slider_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>checkBox_Cpara_enabledLinear</tabstop>
+  <tabstop>checkBox_Cpara_enabledCurves</tabstop>
+  <tabstop>slider_Cpara_para00</tabstop>
+  <tabstop>spinbox_Cpara_para00</tabstop>
+  <tabstop>spinboxInt_Cpara_iterA</tabstop>
+  <tabstop>slider_Cpara_paraA</tabstop>
+  <tabstop>spinbox_Cpara_paraA</tabstop>
+  <tabstop>spinboxInt_Cpara_iterB</tabstop>
+  <tabstop>slider_Cpara_paraB</tabstop>
+  <tabstop>spinbox_Cpara_paraB</tabstop>
+  <tabstop>spinboxInt_Cpara_iterC</tabstop>
+  <tabstop>slider_Cpara_paraC</tabstop>
+  <tabstop>spinbox_Cpara_paraC</tabstop>
+  <tabstop>checkBox_Cpara_enabledParab_false</tabstop>
+  <tabstop>slider_Cpara_parab_offset0</tabstop>
+  <tabstop>spinbox_Cpara_parab_offset0</tabstop>
+  <tabstop>slider_Cpara_parab_slope</tabstop>
+  <tabstop>spinbox_Cpara_parab_slope</tabstop>
+  <tabstop>slider_Cpara_parab_scale</tabstop>
+  <tabstop>spinbox_Cpara_parab_scale</tabstop>
+  <tabstop>groupCheck_info</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
