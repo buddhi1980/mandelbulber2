@@ -1,10 +1,10 @@
 Version history
 
 v2.10
-- AnimBySound: Added possibility to animate any parameter using sound wave (added "Anim By Sound" buttons in animation table)
+- AnimBySound: Added option to animate any parameter using sound wave (added "Anim By Sound" buttons in animation table)
 - AnimBySound: Added dialog window to load and setup AnimBySound feature
 - AnimBySound: Added views for waveform, fft and animation generated from sound
-- AnimBySound: there is possible to load wav, ogg, flac (all operating systems) and mp3 (Linux only)
+- AnimBySound: It is possible to load wav, ogg, flac (all operating systems) and mp3 (Linux only)
 - AnimBySound: Added binary, decay and smooth filters for animation generated from sound
 - Settings: added description field for fractal settings
 - Added new fractal formulas:
@@ -26,7 +26,7 @@ v2.10
 	* Transform - Reciprocal3
 	* Transform - Rotated Folding
 	* Transform - FabsAddConditional
-	* Transform - Reciproca l4D
+	* Transform - Reciprocal 4D
 	* Transform - FabsAddConditional 4D
 	* Transform - Spherical_OffsetVCL
 	* Transform - Rotation 4D
@@ -36,12 +36,12 @@ v2.10
 - Animation: Improved gamepad integration for flight animations
 - Animation: Added image with gamepad keymap (tooltip)
 - Animation: there is displayed correct message when first frame was equal to last frame
-- Materials/Animation: fixed bug: program crashed when to animation there was added parameter from material which was previously loaded using "Load material" button
-- Materials/Animation: fixed bug: program crashed when to animation there was added parameter from material which was previously edited using dialog called by Edit Material button
+- Materials/Animation: fixed bug: program crashed with animation, when there was an added parameter from material which was previously loaded using "Load material" button
+- Materials/Animation: fixed bug: program crashed with animation, when there was an added parameter from material which was previously edited using dialog called by Edit Material button
 - UI: Image quality settings added to file selector for images
 - UI: Corrected resolution lock function
 - UI: auto-refresh is now disabled when brightness, gamma, contrast or HDR is changed
-- UI: added information in fractal formula information box about examples which shows usage of formula
+- UI: added information in fractal formula information box about examples which use the formula
 - UI: changed and added more keyboard shortcuts for camera navigation
 - UI: fixed bug: When the group box of primitives was saved and then loaded the group was always enabled
 - UI: when dark theme is used then text color in animation table is always black
@@ -54,7 +54,7 @@ v2.10
 - CLI: added stdin input for CLI arguments
 - CLI: added --benchmark option which calculates total time needed to render all examples in low resolution
 - Performance: fixed several memory leaks
-- Compilation: main window UI file divided onto several smaller which improved compilation performance
+- Compilation: main window UI file divided onto several smaller UIs, this has improved compilation performance
 - Compilation: used a lot of forward declarations to reduce compilation time
 - Compilation: code is now fully compatible with msvc
 - Compilation: created solution file for msvc14 with all needed NuGet packages
