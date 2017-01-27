@@ -91,7 +91,7 @@
        <item>
         <widget class="MyGroupBox" name="groupCheck_animsound_enable">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables animation by using digital data from audio files, to adjust parameter values obtained from the keyframe table calculattions..&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables audio animation,  by using digital data from audio files to adjust parameter values obtained from the keyframe table calculations.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="title">
           <string>Enable animation by so&amp;und</string>
@@ -352,7 +352,7 @@
           <item>
            <widget class="MyGroupBox" name="groupCheck_animsound_binaryfilter">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The change in value of the animated parameter will be triggered when the parameter value rises above the threshold and ceases when the value drops below the threshold, (unless the minimum peak length is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The change in value of the animated parameter will be triggered when the sound rises above the threshold and ceases when the sound drops below the threshold, (unless the minimum duration  is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
              <string>&amp;Binary filter</string>
@@ -416,7 +416,7 @@
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Threshold for binary filter. &lt;/p&gt;&lt;p&gt;Above this threshold then the calculation of the audio influence on the paramtere value  is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Threshold for binary filter. &lt;/p&gt;&lt;p&gt;Above this threshold,  the calculation of the audio influence on the parameter value is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="prefix">
                   <string/>
@@ -444,7 +444,7 @@
                <item row="1" column="0">
                 <widget class="QLabel" name="label_142">
                  <property name="text">
-                  <string>Minimum peak length:</string>
+                  <string>Minimum duration:</string>
                  </property>
                 </widget>
                </item>
@@ -479,7 +479,7 @@
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum length of peak above the threshold, ( measured in frames.)&lt;/p&gt;&lt;p&gt;The length of the changed parameter value can be extended past the point where the sound drops below the threshold. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum length of audio influence on the parameter value. From the frame that trigers the audiogerspeak above the threshold, ( measured in frames.)&lt;/p&gt;&lt;p&gt;The length of the changed parameter value can be extended past the point where the sound drops below the threshold. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="prefix">
                   <string/>
@@ -817,7 +817,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays frequency spectrum of loaded sound file.&lt;/p&gt;&lt;p&gt;On the bottom of chart there are painted low frequences of the sound (bass). On the top there are high frequences (high tones).&lt;/p&gt;&lt;p&gt;Brighter pixels indicates lauder tones.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays frequency spectrum of loaded audio file.&lt;/p&gt;&lt;p&gt;The chart displays low frequencies of the sound (bass) at the bottom,  and  high frequencies (high tones)  at the top.&lt;/p&gt;&lt;p&gt;Brighter pixels indicates louder tones.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -855,7 +855,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animation chart showes how the sound will modify animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animation chart shows how the sound will modify the animated parameter. &lt;/p&gt;&lt;p&gt;The animated parameter value is the value calculated from the keyframe animation table, as modified by the inclusion of sound animation.&lt;/p&gt;&lt;p&gt;For instance, an object could be moving linearly in respect to the keyframe animation table calculation and at the same time also have this movement responding to the audio.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
