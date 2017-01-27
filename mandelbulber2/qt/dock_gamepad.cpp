@@ -68,9 +68,6 @@ void cDockGamepad::ConnectSignals() const
 	connect(ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangeGamepadIndex(int)));
 
-	connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), gamepad,
-		SLOT(setConnected(bool)));
-
 	connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), this,
 		SLOT(slotGamePadDeviceConnected(int)));
 	connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), this,
@@ -80,28 +77,31 @@ void cDockGamepad::ConnectSignals() const
 	if (!gamepad)
 		return;
 
+	connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), gamepad,
+		SLOT(setConnected(bool)));
+
 	// Left Joystick controls Look Angle
-	connect(gamepad, SIGNAL(&QGamepad::axisLeftYChanged(double)), this, SLOT(slotGamepadLook()));
-	connect(gamepad, SIGNAL(&QGamepad::axisLeftXChanged(double)), this, SLOT(slotGamepadLook()));
+	connect(gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadLook()));
+	connect(gamepad, SIGNAL(axisLeftXChanged(double)), this, SLOT(slotGamepadLook()));
 
 	// Right Joystick controls Movement Direction
-	connect(gamepad, SIGNAL(&QGamepad::axisRightXChanged(double)), this, SLOT(slotGamepadMove()));
-	connect(gamepad, SIGNAL(&QGamepad::axisRightYChanged(double)), this, SLOT(slotGamepadMove()));
+	connect(gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadMove()));
+	connect(gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadMove()));
 
 	// Left and Right Triggers control Reverse and Accelerator
-	connect(gamepad, SIGNAL(&QGamepad::buttonL2Changed(double)), this, SLOT(slotGamepadMove()));
-	connect(gamepad, SIGNAL(&QGamepad::buttonR2Changed(double)), this, SLOT(slotGamepadMove()));
+	connect(gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadMove()));
+	connect(gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadMove()));
 
 	// Start Button will pause the flight
-	connect(gamepad, SIGNAL(&QGamepad::buttonStartChanged(bool)), this, SLOT(slotGamepadPause(bool)));
+	connect(gamepad, SIGNAL(buttonStartChanged(bool)), this, SLOT(slotGamepadPause(bool)));
 
 	// Left and Right Shoulder Buttons control Roll Rotation
-	connect(gamepad, SIGNAL(&QGamepad::buttonL1Changed(bool)), this, SLOT(slotGamepadRoll()));
-	connect(gamepad, SIGNAL(&QGamepad::buttonR1Changed(bool)), this, SLOT(slotGamepadRoll()));
+	connect(gamepad, SIGNAL(buttonL1Changed(bool)), this, SLOT(slotGamepadRoll()));
+	connect(gamepad, SIGNAL(buttonR1Changed(bool)), this, SLOT(slotGamepadRoll()));
 
 	// A and B buttons control the Movement Speed
-	connect(gamepad, SIGNAL(&QGamepad::buttonAChanged(bool)), this, SLOT(slotGamepadSpeed()));
-	connect(gamepad, SIGNAL(&QGamepad::buttonBChanged(bool)), this, SLOT(slotGamepadSpeed()));
+	connect(gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadSpeed()));
+	connect(gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadSpeed()));
 
 #endif // USE_GAMEPAD
 }
