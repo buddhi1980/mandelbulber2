@@ -37,12 +37,11 @@
 
 #include <QWidget>
 
+#include "../src/automated_widgets.hpp"
+
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepad.h>
 #endif // USE_GAMEPAD
-
-// forward declarations
-class cAutomatedWidgets;
 
 namespace Ui
 {
@@ -53,31 +52,30 @@ class cDockGamepad : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockGamepad(QWidget *parent = nullptr);
+	explicit cDockGamepad(QWidget *parent = NULL);
 	~cDockGamepad();
 
 private slots:
 #ifdef USE_GAMEPAD
 	void slotChangeGamepadIndex(int index);
-	void slotGamePadDeviceConnected(int index) const;
-	void slotGamePadDeviceDisconnected(int index) const;
+	void slotGamePadDeviceConnected(int index);
+	void slotGamePadDeviceDisconnected(int index);
 
-	void slotGamepadLook() const;
-	void slotGamepadMove() const;
-	static void slotGamepadPause(bool value);
-	void slotGamepadRoll() const;
-	void slotGamepadSpeed() const;
+	void slotGamepadLook();
+	void slotGamepadMove();
+	void slotGamepadRoll();
+	void slotGamepadSpeed();
 #endif // USE_GAMEPAD
 
 private:
-	void ConnectSignals() const;
+	void ConnectSignals();
 
 	Ui::cDockGamepad *ui;
 
 	cAutomatedWidgets *automatedWidgets;
 
 #ifdef USE_GAMEPAD
-	QGamepad *gamepad;
+	QGamepad gamepad;
 #endif
 };
 
