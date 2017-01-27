@@ -63,6 +63,7 @@ private slots:
 
 	void slotGamepadLook();
 	void slotGamepadMove();
+	void slotGamepadPause(bool value);
 	void slotGamepadRoll();
 	void slotGamepadSpeed();
 #endif // USE_GAMEPAD
