@@ -521,6 +521,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfBoxFold4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
+		sFractalDescription("Transform - Fabs_Add_Conditional4D", "transf_fabs_add_conditional4D",
+			transfFabsAddConditional4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
+	fractalList->append(
 		sFractalDescription("Transform - Fabs_Add_Constant_4D", "transf_fabs_add_constant_4D",
 			transfFabsAddConstant4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
