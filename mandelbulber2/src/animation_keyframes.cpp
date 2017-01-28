@@ -50,6 +50,7 @@
 #include "cimage.hpp"
 #include "dock_animation.h"
 #include "dock_statistics.h"
+#include "dock_navigation.h"
 #include "files.h"
 #include "global_data.hpp"
 #include "headless.h"
@@ -547,6 +548,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		return false;
 	}
 
+	mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+
 	try
 	{
 		// updating parameters
@@ -638,6 +641,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			{
 				DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
 				delete renderJob;
+				mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 				return RenderKeyframes(stopRequest);
 			}
 			else
@@ -730,10 +734,12 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			resultStatus, progressText.getText(1.0), cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 		delete renderJob;
+		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 		return false;
 	}
 
 	delete renderJob;
+	mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 	return true;
 }
 

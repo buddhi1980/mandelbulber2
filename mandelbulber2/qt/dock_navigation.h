@@ -55,6 +55,8 @@ public:
 	void RenderButtonSetEnabled(bool enabled) const;
 	void AutoRefreshSetChecked(bool state) const;
 	bool AutoRefreshIsChecked() const;
+	void LockAllFunctions() const;
+	void UnlockAllFunctions() const;
 
 private slots:
 	static void slotStartRender();

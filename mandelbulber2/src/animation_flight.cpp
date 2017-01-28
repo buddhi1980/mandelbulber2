@@ -338,6 +338,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	recordPause = false;
 
+	mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+
 	mainInterface->progressBarAnimation->show();
 	while (!mainInterface->stopRequest)
 	{
@@ -478,6 +480,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 		index++;
 	}
+
+	mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 
 	// retrieve original click mode
 	QList<QVariant> item =
@@ -724,6 +728,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	cProgressText progressText;
 	progressText.ResetTimer();
 
+	mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+
 	try
 	{
 
@@ -778,6 +784,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			if (deletePreviousRender)
 			{
 				DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
+				mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
 				return RenderFlight(stopRequest);
 			}
 			else
@@ -861,9 +869,11 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			resultStatus, progressText.getText(1.0), cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 		delete renderJob;
+		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 		return false;
 	}
 
+	mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 	delete renderJob;
 	return true;
 }

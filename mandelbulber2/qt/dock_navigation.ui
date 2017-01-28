@@ -106,7 +106,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QScrollArea" name="scrollArea_4">
+    <widget class="QScrollArea" name="scrollArea_navi">
      <property name="horizontalScrollBarPolicy">
       <enum>Qt::ScrollBarAsNeeded</enum>
      </property>
@@ -1467,7 +1467,7 @@ to target:</string>
   <tabstop>pushButton_undo</tabstop>
   <tabstop>pushButton_redo</tabstop>
   <tabstop>checkBox_auto_refresh</tabstop>
-  <tabstop>scrollArea_4</tabstop>
+  <tabstop>scrollArea_navi</tabstop>
   <tabstop>vect3_camera_x</tabstop>
   <tabstop>vect3_camera_y</tabstop>
   <tabstop>vect3_camera_z</tabstop>

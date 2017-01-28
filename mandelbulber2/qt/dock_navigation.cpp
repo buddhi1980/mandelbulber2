@@ -168,3 +168,19 @@ void cDockNavigation::slotStopRender()
 {
 	gMainInterface->stopRequest = true;
 }
+
+void cDockNavigation::LockAllFunctions() const
+{
+	ui->scrollArea_navi->setEnabled(false);
+	ui->pushButton_render->setEnabled(false);
+	ui->pushButton_undo->setEnabled(false);
+	ui->pushButton_redo->setEnabled(false);
+}
+
+void cDockNavigation::UnlockAllFunctions() const
+{
+	ui->scrollArea_navi->setEnabled(true);
+	ui->pushButton_render->setEnabled(true);
+	ui->pushButton_undo->setEnabled(true);
+	ui->pushButton_redo->setEnabled(true);
+}
