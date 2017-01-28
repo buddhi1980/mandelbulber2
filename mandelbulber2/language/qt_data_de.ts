@@ -5,7 +5,6 @@
     <name>Form</name>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="14"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="14"/>
         <location filename="../qt_data/primitive_box.ui" line="14"/>
         <location filename="../qt_data/primitive_circle.ui" line="14"/>
         <location filename="../qt_data/primitive_cone.ui" line="14"/>
@@ -20,7 +19,6 @@
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="35"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="35"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -31,14 +29,11 @@
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="195"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="448"/>
         <source>z.y </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="202"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="469"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="515"/>
         <source>z.x:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -49,51 +44,36 @@
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="400"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="385"/>
         <source>DE Tweak:</source>
         <translation type="unfinished">DE Tweak:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="216"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="209"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="434"/>
         <source>z.z:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="351"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="135"/>
         <source>z.w</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="522"/>
-        <source>Slope :   </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="393"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="202"/>
         <source>z.z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="407"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="392"/>
         <source>z.x</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="470"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="103"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="508"/>
         <source>z.w:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="505"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="142"/>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="586"/>
         <source>z.y:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1115,88 +1095,20 @@ Offset:</translation>
         <translation type="vanished">Haupt 3D Rotation</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="476"/>
-        <source>LimitB : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="455"/>
         <source>2 limit mode</source>
-        <translation type="unfinished">2 Grenzen Modus</translation>
+        <translation type="obsolete">2 Grenzen Modus</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="462"/>
         <source>1 limit mode</source>
-        <translation type="unfinished">1 Grenze Modus</translation>
+        <translation type="obsolete">1 Grenze Modus</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="674"/>
         <source>LimitA:</source>
-        <translation type="unfinished">Limit A:</translation>
+        <translation type="obsolete">Limit A:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="909"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Information</translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="936"/>
-        <source>&lt;p&gt;Reciprocal3 from M3D, Darkbeam&apos;s code&lt;/p&gt;&lt;table&gt;
-&lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;
-&lt;body style=&quot;background-color:#202020&quot;&gt;
-&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:&apos;Courier New&apos;,monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;TransformReciprocal3Iteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
-  CVector3 tempZ &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-
-  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledx&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAx&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-      tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;= (&lt;/span&gt;&lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-                &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/ (&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;) +&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
-
-    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAxFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-      tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;= (&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offsetA111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-                &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/ (&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;) +&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
-
-    tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset000&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#d0d0a0&quot;&gt;// function slope&lt;/span&gt;
-    z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sign&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
-
-  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledy&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAx&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-      tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;= (&lt;/span&gt;&lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-                &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/ (&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;) +&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
-
-    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAxFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-      tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;= (&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offsetA111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-                &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/ (&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;) +&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
-
-    tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset000&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-    z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sign&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
-
-  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledz&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAx&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-      tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;= (&lt;/span&gt;&lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-                &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/ (&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;) +&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
-
-    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAxFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-      tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;= (&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offsetA111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-                &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/ (&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;) +&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
-
-    tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset000&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-    z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sign&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; tempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
-
-  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// aux.DE = aux.DE * l/L;&lt;/span&gt;
-  aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#d0d0a0&quot;&gt;// DE tweak&lt;/span&gt;
-&lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/body&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Information</translation>
     </message>
 </context>
 <context>
@@ -9491,6 +9403,49 @@ Kann zum Beispiel als eine Vortransformation für Bulbs oder Boxen verwenden wer
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_reciprocal3.ui" line="1068"/>
+        <source>I&amp;nformation</source>
+        <translation>Information</translation>
+    </message>
+</context>
+<context>
+    <name>transf_reciprocal4D</name>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="35"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="385"/>
+        <source>DE Tweak:</source>
+        <translation>DE Tweak:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="455"/>
+        <source>2 limit mode</source>
+        <translation>2 Grenzen Modus</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="462"/>
+        <source>1 limit mode</source>
+        <translation>1 Grenze Modus</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="476"/>
+        <source>LimitB:</source>
+        <translation>GrenzeB:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="522"/>
+        <source>Slope:</source>
+        <translation>Steigung:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="674"/>
+        <source>LimitA:</source>
+        <translation>Grenze A:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_reciprocal4D.ui" line="909"/>
         <source>I&amp;nformation</source>
         <translation>Information</translation>
     </message>
