@@ -366,7 +366,7 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 	QSignalMapper *mapCustomWindowLoad = new QSignalMapper(this);
 	QSignalMapper *mapCustomWindowRemove = new QSignalMapper(this);
 
-	QList<QAction *> actions = ui->menuView->actions();
+	QList<QAction *> actions = ui->menuSaved_window_layouts->actions();
 	QStringList customWindowActions;
 	for (int i = 0; i < actions.size(); i++)
 	{
@@ -375,7 +375,7 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 		if (!customWindowStateFiles.contains(action->objectName()) || completeRefresh)
 		{
 			// preset has been removed
-			ui->menuView->removeAction(action);
+			ui->menuSaved_window_layouts->removeAction(action);
 		}
 		else
 		{
@@ -395,11 +395,11 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 		QString filename =
 			systemData.GetCustomWindowStateFolder() + QDir::separator() + customWindowStateFile;
 
-		QWidgetAction *action = new QWidgetAction(this);
-		QPushButton *buttonLoad = new QPushButton;
-		QHBoxLayout *tooltipLayout = new QHBoxLayout;
-		QToolButton *buttonRemove = new QToolButton;
-		QLabel *label = new QLabel;
+		QWidgetAction *action = new QWidgetAction(ui->menuSaved_window_layouts);
+		QPushButton *buttonLoad = new QPushButton(ui->menuSaved_window_layouts);
+		QHBoxLayout *tooltipLayout = new QHBoxLayout(buttonLoad);
+		QToolButton *buttonRemove = new QToolButton(buttonLoad);
+		QLabel *label = new QLabel(buttonLoad);
 
 		buttonLoad->setStyleSheet("QPushButton{ border: none; margin: 2px; padding: 1px; }");
 		label->setText(QByteArray().fromBase64(QByteArray().append(customWindowStateFile)));
@@ -410,9 +410,11 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 		tooltipLayout->addWidget(buttonRemove);
 		tooltipLayout->addWidget(label);
 		buttonLoad->setLayout(tooltipLayout);
+		// FIXME - when minimum width is not specified the widget is very small
+		buttonLoad->setMinimumWidth(300);
 		action->setDefaultWidget(buttonLoad);
 		action->setObjectName("window_" + customWindowStateFile);
-		ui->menuView->addAction(action);
+		ui->menuSaved_window_layouts->addAction(action);
 
 		mapCustomWindowLoad->setMapping(buttonLoad, filename);
 		mapCustomWindowRemove->setMapping(buttonRemove, filename);

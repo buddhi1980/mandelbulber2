@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>877</width>
-           <height>571</height>
+           <width>837</width>
+           <height>551</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -287,11 +287,17 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
+    <widget class="QMenu" name="menuSaved_window_layouts">
+     <property name="title">
+      <string>Saved window layouts</string>
+     </property>
+    </widget>
     <addaction name="actionAdd_CustomWindowStateToMenu"/>
     <addaction name="actionSave_docks_positions"/>
     <addaction name="actionDefault_docks_positions"/>
     <addaction name="actionAnimation_docks_positions"/>
     <addaction name="actionStack_all_docks"/>
+    <addaction name="menuSaved_window_layouts"/>
     <addaction name="separator"/>
     <addaction name="actionShow_animation_dock"/>
     <addaction name="actionShow_info_dock"/>
@@ -379,8 +385,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>95</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -494,8 +500,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>96</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -561,8 +567,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>94</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -628,8 +634,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>96</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -797,8 +803,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>218</width>
-          <height>69</height>
+          <width>234</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -894,8 +900,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>95</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -973,8 +979,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>69</width>
-          <height>325</height>
+          <width>84</width>
+          <height>321</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1111,16 +1117,16 @@
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Save window state</string>
+    <string>Save window layout as default</string>
    </property>
   </action>
   <action name="actionDefault_docks_positions">
    <property name="icon">
-    <iconset theme="edit-undo" resource="icons.qrc">
+    <iconset theme="edit-undo">
      <normaloff>:/system/icons/edit-undo.svg</normaloff>:/system/icons/edit-undo.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Default docks positions</string>
+    <string>Default window layout</string>
    </property>
   </action>
   <action name="actionAnimation_docks_positions">
@@ -1129,7 +1135,7 @@
      <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Animation docks positions</string>
+    <string>Window layout for animation</string>
    </property>
   </action>
   <action name="actionAbout_Qt">
@@ -1207,7 +1213,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show &amp;animation dock</string>
+    <string>Show a&amp;nimation dock</string>
    </property>
    <property name="visible">
     <bool>true</bool>
@@ -1307,7 +1313,7 @@
      <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
    </property>
    <property name="text">
-    <string>Add current window settings</string>
+    <string>Add c&amp;urrent window settings</string>
    </property>
   </action>
   <action name="actionShow_measurement_dock">
@@ -1325,6 +1331,11 @@
    </property>
    <property name="text">
     <string>Export &amp;Mesh</string>
+   </property>
+  </action>
+  <action name="actionTest">
+   <property name="text">
+    <string>Test</string>
    </property>
   </action>
  </widget>

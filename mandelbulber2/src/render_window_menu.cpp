@@ -256,14 +256,7 @@ void RenderWindow::ResetDocksPositions()
 
 void RenderWindow::slotMenuResetDocksPositions()
 {
-	ResetDocksPositions();
-	ui->dockWidget_histogram->hide();
-	ui->dockWidget_info->hide();
-	ui->dockWidget_animation->hide();
-#ifdef USE_GAMEPAD
-	ui->dockWidget_gamepad_dock->hide();
-#endif
-	ui->dockWidget_queue_dock->hide();
+	restoreState(gMainInterface->mainWindow->settings.value("mainWindowState").toByteArray());
 }
 
 void RenderWindow::slotMenuAnimationtDocksPositions()
