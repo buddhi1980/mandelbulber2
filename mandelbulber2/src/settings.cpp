@@ -645,6 +645,7 @@ bool cSettings::CheckIfMaterialsAreDefined(cParameterContainer *par)
 	if (!matParameterFound)
 	{
 		InitMaterialParams(1, par);
+		par->Set("mat1_is_defined", true);
 	}
 	return matParameterFound;
 }
@@ -680,6 +681,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 			if (cMaterial::paramsList.indexOf(shortName) >= 0)
 			{
 				InitMaterialParams(matIndex, par);
+				par->Set(QString("mat%1_is_defined").arg(matIndex), true);
 			}
 			else
 			{

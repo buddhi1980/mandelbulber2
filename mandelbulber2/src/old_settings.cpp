@@ -948,6 +948,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	DeleteAllPrimitiveParams(par);
 	DeleteAllMaterialParams(par);
 	InitMaterialParams(1, par);
+	par->Set("mat1_is_defined", true);
 
 	par->Set("legacy_coordinate_system", true);
 
