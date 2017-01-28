@@ -548,7 +548,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		return false;
 	}
 
-	mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+	if (!systemData.noGui && image->IsMainImage())
+		mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
 
 	try
 	{
@@ -641,7 +642,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			{
 				DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
 				delete renderJob;
-				mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
+				if (!systemData.noGui && image->IsMainImage())
+					mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
 				return RenderKeyframes(stopRequest);
 			}
 			else
@@ -734,12 +738,18 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			resultStatus, progressText.getText(1.0), cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 		delete renderJob;
-		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
+		if (!systemData.noGui && image->IsMainImage())
+			mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
 		return false;
 	}
 
 	delete renderJob;
-	mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
+	if (!systemData.noGui && image->IsMainImage())
+		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
 	return true;
 }
 

@@ -481,7 +481,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		index++;
 	}
 
-	mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+	if (!systemData.noGui && image->IsMainImage())
+		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 
 	// retrieve original click mode
 	QList<QVariant> item =
@@ -728,7 +729,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	cProgressText progressText;
 	progressText.ResetTimer();
 
-	mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+	if (!systemData.noGui && image->IsMainImage())
+		mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
 
 	try
 	{
@@ -784,7 +786,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			if (deletePreviousRender)
 			{
 				DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
-				mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
+				if (!systemData.noGui && image->IsMainImage())
+					mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 
 				return RenderFlight(stopRequest);
 			}
@@ -869,11 +873,16 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			resultStatus, progressText.getText(1.0), cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 		delete renderJob;
-		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
+		if (!systemData.noGui && image->IsMainImage())
+			mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
 		return false;
 	}
 
-	mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+	if (!systemData.noGui && image->IsMainImage())
+		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+
 	delete renderJob;
 	return true;
 }
