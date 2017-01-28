@@ -9,7 +9,7 @@ v2.10
 - Settings: added description field for fractal settings
 - Added new fractal formulas:
   * Menger - Prism Shape2
-	* MixPinski 4D
+  * MixPinski 4D
   * Sierpinski 3D
   * Sierpinski 4D
   * Menger 4D
@@ -18,19 +18,21 @@ v2.10
   * Menger - Smooth Mod1
   * Menger - Octo
   * Abox 4D
-	* Transform - SurfBoxFold
-	* Transform - Octo Fold
-	* Transform - ScaleVaryVCL
-	* Transform - Spherical_Fold_VaryVCL
-	* Transform - Add exp2(z)
-	* Transform - Reciprocal3
-	* Transform - Rotated Folding
-	* Transform - FabsAddConditional
-	* Transform - Reciprocal 4D
-	* Transform - FabsAddConditional 4D
-	* Transform - Spherical_OffsetVCL
-	* Transform - Rotation 4D
+  * Transform - SurfBoxFold
+  * Transform - Octo Fold
+  * Transform - ScaleVaryVCL
+  * Transform - Spherical_Fold_VaryVCL
+  * Transform - Add exp2(z)
+  * Transform - Reciprocal3
+  * Transform - Reciprocal 4D
+  * Transform - Rotated Folding
+  * Transform - FabsAddConditional
+  * Transform - Reciprocal 4D
+  * Transform - FabsAddConditional 4D
+  * Transform - Spherical_OffsetVCL
+  * Transform - Rotation 4D
 - Various updates, fixes and enhancements to existing formulas and transforms
+- German translation for all formula UIs
 - Shaders: in some cases there was wrong calculation of object colors in boolean mode
 - Shaders: fixed bug in DOF algorithm which could cause crashes
 - Animation: Improved gamepad integration for flight animations
@@ -674,7 +676,7 @@ v1.06
 - Corrected ray-tracing algorithm. Fog and specular highlights weren't calculated properly in reflections.
 - Fixed problem in CalculateNormals() function. Sometimes when all deltas were zero, it produced NaN value. It caused white dots in raytraced reflections.
 - Added many simple formulas for hybryd sequence: x^2/(x + p); y^2/(y + p); z^2/(z + p); r^2/(r + p); 
-	spherical fold; x^p, y^p, z^p; x * p; y * p; z * p; x + p; y + p; z + p; 
+	spherical fold; x^p, y^p, z^p; x * p; y * p; z * p; x + p; y + p; z + p;
 	axis X angle multiply by p; axis Y angle multiply by p; axis Z angle multiply by p
 - Improved quality of raytraced reflections by adding binary searching in DE algorithm
 

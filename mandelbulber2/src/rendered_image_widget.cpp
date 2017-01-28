@@ -434,8 +434,8 @@ void RenderedImage::Draw3DBox(
 						// opacity = 1.0;
 					}
 
-					image->AntiAliasedLine(xxn1, yyn1, xxn2, yyn2, z - iz * boxDepth2, z - (iz + 1) * boxDepth2,
-						sRGB8(R, G, B), opacity, 1);
+					image->AntiAliasedLine(xxn1, yyn1, xxn2, yyn2, z - iz * boxDepth2,
+						z - (iz + 1) * boxDepth2, sRGB8(R, G, B), opacity, 1);
 				}
 			}
 		}

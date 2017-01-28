@@ -5758,7 +5758,8 @@ void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal)
 
 /**
  * benesi mag forward
- * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
  */
 void TransformBenesiMagForwardIteration(CVector3 &z)
 {
@@ -5769,7 +5770,8 @@ void TransformBenesiMagForwardIteration(CVector3 &z)
 
 /**
  * benesi mag backward
- * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
  */
 void TransformBenesiMagBackwardIteration(CVector3 &z)
 {

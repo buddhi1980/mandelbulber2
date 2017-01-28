@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_133">
      <property name="text">
-      <string>z = SIGN(z) (offset - fabs(z) + fabs(z) * Slope)  4D</string>
+      <string>z = SIGN(z) (offset - fabs(z) + fabs(z) * Slope) 4D</string>
      </property>
     </widget>
    </item>

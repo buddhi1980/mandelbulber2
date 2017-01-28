@@ -437,7 +437,7 @@ void cAudioTrack::binaryFilter(double thresh, int length)
 		count++;
 		if (animation[i] > thresh)
 		{
-			if(!counterWasReset)
+			if (!counterWasReset)
 			{
 				count = 0;
 				counterWasReset = true;

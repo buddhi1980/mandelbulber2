@@ -110,7 +110,8 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 void cFFTView::slotFreqChanged(double midFreq, double bandwidth)
 {
 	lowFreqY = int(double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq - bandwidth * 0.5));
-	highFreqY = int(double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq + bandwidth * 0.5));
+	highFreqY =
+		int(double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq + bandwidth * 0.5));
 	update();
 }
 
@@ -123,7 +124,8 @@ void cFFTView::paintEvent(QPaintEvent *event)
 	QBrush brush(QColor(255, 255, 255, 128));
 	painter.setBrush(brush);
 	painter.setPen(Qt::NoPen);
-	painter.drawRect(QRect(QPoint(0, height() - highFreqY -1), QPoint(width(), height() - lowFreqY - 1)));
+	painter.drawRect(
+		QRect(QPoint(0, height() - highFreqY - 1), QPoint(width(), height() - lowFreqY - 1)));
 
 	painter.setPen(Qt::red);
 	QFont font = QApplication::font();
