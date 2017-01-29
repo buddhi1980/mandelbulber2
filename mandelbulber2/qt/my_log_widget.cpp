@@ -43,7 +43,7 @@ MyLogWidget::MyLogWidget(QWidget *parent) : QPlainTextEdit(parent)
 	setReadOnly(true);
 	initializedFromLogFile = false;
 	reBasic = new QRegularExpression("^(PID:) ([0-9]+), (time:) ([0-9.]+), (.*)");
-	reInnerType = new QRegularExpression("^(Debug|Warning|Critical|Error|NetRender|Gamepad)(.*)");
+	reInnerType = new QRegularExpression("^(Info|Debug|Warning|Critical|Error|NetRender|Gamepad)(.*)");
 }
 
 MyLogWidget::~MyLogWidget()
@@ -90,6 +90,8 @@ QString MyLogWidget::formatLine(const QString &text) const
 		if (matchType.hasMatch())
 		{
 			QString color = "";
+			if (matchType.captured(1) == "Info")
+				color = "green";
 			if (matchType.captured(1) == "Debug")
 				color = "green";
 			else if (matchType.captured(1) == "Warning")
