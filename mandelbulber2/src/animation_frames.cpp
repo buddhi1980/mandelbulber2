@@ -61,11 +61,26 @@ void cAnimationFrames::AddFrame(
 	{
 		const cParameterContainer *container =
 			ContainerSelector(listOfParameters[i].containerName, &params, &fractal);
+
 		if (container)
 		{
 			QString parameterName = listOfParameters[i].parameterName;
-			frame.parameters.AddParamFromOneParameter(container->GetContainerName() + "_" + parameterName,
-				container->GetAsOneParameter(parameterName));
+			QString fullParameterName = container->GetContainerName() + "_" + parameterName;
+			cOneParameter oneParameter = container->GetAsOneParameter(parameterName);
+
+			//getting morph type from existing frame
+			parameterContainer::enumMorphType morphType;
+			if (frames.size() > 0)
+			{
+				morphType = frames[0].parameters.GetAsOneParameter(fullParameterName).GetMorphType();
+			}
+			else //if no frames yet
+			{
+				morphType = oneParameter.GetMorphType();
+			}
+
+			oneParameter.SetMorphType(morphType);
+			frame.parameters.AddParamFromOneParameter(fullParameterName, oneParameter);
 		}
 		else
 		{
