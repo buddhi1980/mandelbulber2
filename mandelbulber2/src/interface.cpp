@@ -378,6 +378,8 @@ void cInterface::ConnectSignals() const
 		mainWindow, SLOT(slotPresetAddToToolbar()));
 	QApplication::connect(mainWindow->ui->actionAdd_CustomWindowStateToMenu, SIGNAL(triggered()),
 		mainWindow, SLOT(slotCustomWindowStateAddToMenu()));
+	QApplication::connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()),
+		mainWindow, SLOT(slotCustomWindowRemovePopup()));
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksandToolbarbyView();

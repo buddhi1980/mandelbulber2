@@ -149,9 +149,10 @@ private slots:
 	void slotUpdateDocksandToolbarbyView() const;
 	void slotStackAllDocks();
 
-	// toolbar
+	// toolbar and custom window settings
 	void slotPresetAddToToolbar();
 	void slotCustomWindowStateAddToMenu();
+	void slotCustomWindowRemovePopup();
 
 	// rendered image widget
 	static void slotMouseMovedOnImage(int x, int y);

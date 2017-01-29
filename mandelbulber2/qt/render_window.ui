@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>837</width>
-           <height>551</height>
+           <width>867</width>
+           <height>559</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -249,7 +249,7 @@
      <x>0</x>
      <y>0</y>
      <width>1068</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -291,8 +291,10 @@
      <property name="title">
       <string>Saved window layouts</string>
      </property>
+     <addaction name="actionAdd_CustomWindowStateToMenu"/>
+     <addaction name="actionRemove_Window_settings"/>
+     <addaction name="separator"/>
     </widget>
-    <addaction name="actionAdd_CustomWindowStateToMenu"/>
     <addaction name="actionSave_docks_positions"/>
     <addaction name="actionDefault_docks_positions"/>
     <addaction name="actionAnimation_docks_positions"/>
@@ -385,8 +387,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>76</width>
+          <height>90</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -500,8 +502,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>76</width>
+          <height>90</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -567,8 +569,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>76</width>
+          <height>89</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -634,8 +636,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>76</width>
+          <height>90</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -803,8 +805,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>234</width>
-          <height>84</height>
+          <width>242</width>
+          <height>76</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -900,8 +902,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>84</height>
+          <width>76</width>
+          <height>90</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -979,8 +981,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>321</height>
+          <width>76</width>
+          <height>316</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1336,6 +1338,15 @@
   <action name="actionTest">
    <property name="text">
     <string>Test</string>
+   </property>
+  </action>
+  <action name="actionRemove_Window_settings">
+   <property name="icon">
+    <iconset theme="list-remove" resource="icons.qrc">
+     <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove Window settings...</string>
    </property>
   </action>
  </widget>

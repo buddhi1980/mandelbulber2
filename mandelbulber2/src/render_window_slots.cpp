@@ -367,7 +367,7 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 	QStringList customWindowStateFiles =
 		customWindowStateDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 	QSignalMapper *mapCustomWindowLoad = new QSignalMapper(this);
-	QSignalMapper *mapCustomWindowRemove = new QSignalMapper(this);
+	// QSignalMapper *mapCustomWindowRemove = new QSignalMapper(this);
 
 	QList<QAction *> actions = ui->menuSaved_window_layouts->actions();
 	QStringList customWindowActions;
@@ -398,13 +398,14 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 		QString filename =
 			systemData.GetCustomWindowStateFolder() + QDir::separator() + customWindowStateFile;
 
-		QWidgetAction *action = new QWidgetAction(ui->menuSaved_window_layouts);
-		QPushButton *buttonLoad = new QPushButton(ui->menuSaved_window_layouts);
-		QHBoxLayout *tooltipLayout = new QHBoxLayout(buttonLoad);
-		QToolButton *buttonRemove = new QToolButton(buttonLoad);
-		QLabel *label = new QLabel(buttonLoad);
+		/*
+		QWidgetAction *action = new QWidgetAction(this);
+		QLabel *buttonLoad = new QLabel;
+		QHBoxLayout *tooltipLayout = new QHBoxLayout;
+		QToolButton *buttonRemove = new QToolButton;
+		QLabel *label = new QLabel;
 
-		buttonLoad->setStyleSheet("QPushButton{ border: none; margin: 2px; padding: 1px; }");
+		buttonLoad->setStyleSheet("QLabel{ border: none; margin: 2px; padding: 1px; }");
 		label->setText(QByteArray().fromBase64(QByteArray().append(customWindowStateFile)));
 		tooltipLayout->setContentsMargins(5, 0, 0, 0);
 		QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
@@ -415,21 +416,23 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 		buttonLoad->setLayout(tooltipLayout);
 		// FIXME - when minimum width is not specified the widget is very small
 		buttonLoad->setMinimumWidth(300);
-		action->setDefaultWidget(buttonLoad);
+		action->setDefaultWidget(buttonLoad);*/
+
+		QAction *action = new QAction(this);
+		action->setText(QByteArray().fromBase64(QByteArray().append(customWindowStateFile)));
 		action->setObjectName("window_" + customWindowStateFile);
+
 		ui->menuSaved_window_layouts->addAction(action);
 
-		mapCustomWindowLoad->setMapping(buttonLoad, filename);
-		mapCustomWindowRemove->setMapping(buttonRemove, filename);
-		QApplication::connect(buttonLoad, SIGNAL(clicked()), mapCustomWindowLoad, SLOT(map()));
-		QApplication::connect(buttonRemove, SIGNAL(clicked()), mapCustomWindowRemove, SLOT(map()));
+		mapCustomWindowLoad->setMapping(action, filename);
+		QApplication::connect(action, SIGNAL(triggered()), mapCustomWindowLoad, SLOT(map()));
 		QApplication::processEvents();
 	}
 	QApplication::connect(mapCustomWindowLoad, SIGNAL(mapped(QString)), this,
 		SLOT(slotMenuLoadCustomWindowState(QString)));
 
-	QApplication::connect(mapCustomWindowRemove, SIGNAL(mapped(QString)), this,
-		SLOT(slotMenuRemoveCustomWindowState(QString)));
+	/*QApplication::connect(mapCustomWindowRemove, SIGNAL(mapped(QString)), this,
+		SLOT(slotMenuRemoveCustomWindowState(QString)));*/
 
 	WriteLog("cInterface::slotPopulateCustomWindowStates() finished", 2);
 }
@@ -475,6 +478,35 @@ void RenderWindow::slotMenuLoadCustomWindowState(QString filename)
 	}
 	// this->restoreGeometry(fileGeometry.readAll());
 	this->restoreState(fileState.readAll());
+}
+
+void RenderWindow::slotCustomWindowRemovePopup()
+{
+	QDir customWindowStateDir = QDir(systemData.GetCustomWindowStateFolder());
+	customWindowStateDir.setSorting(QDir::Time);
+	QStringList geometryFileExtension({"*.geometry"});
+	customWindowStateDir.setNameFilters(geometryFileExtension);
+	QStringList customWindowStateFiles =
+		customWindowStateDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+	QStringList itemsEscaped;
+	for (int i = 0; i < customWindowStateFiles.size(); i++)
+	{
+		QString customWindowStateFile = customWindowStateFiles[i].replace(".geometry", "");
+		itemsEscaped.append(QByteArray().fromBase64(QByteArray().append(customWindowStateFile)));
+	}
+	bool ok;
+
+	QString itemEscaped = QInputDialog::getItem(this, tr("Remove window settings"),
+		tr("Select window setting to remove"), itemsEscaped, 0, false, &ok);
+	if (!ok || itemEscaped.isEmpty())
+	{
+		qDebug() << "Cancelled window removing";
+		return;
+	}
+	int index = itemsEscaped.indexOf(itemEscaped);
+	QString filename =
+		systemData.GetCustomWindowStateFolder() + QDir::separator() + customWindowStateFiles.at(index);
+	slotMenuRemoveCustomWindowState(filename.replace(".geometry", ""));
 }
 
 void RenderWindow::slotMenuRemoveCustomWindowState(QString filename)
