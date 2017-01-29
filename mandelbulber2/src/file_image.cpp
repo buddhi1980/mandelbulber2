@@ -838,7 +838,7 @@ void ImageFileSaveEXR::SaveEXR(
 		{
 			for (int x = 0; x < width; x++)
 			{
-				uint64_t ptr = (x + y * width);
+				uint64_t ptr = (uint64_t(x) + uint64_t(y) * uint64_t(width));
 				if (imfQuality == Imf::FLOAT)
 				{
 					sRGB16 pixel = image->GetPixelImage16(x, y);

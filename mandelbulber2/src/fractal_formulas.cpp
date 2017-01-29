@@ -1172,7 +1172,7 @@ void AmazingSurfMultiIteration(
 					}
 					if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
 					{
-						z.y = sign(z.x) * fractal->mandelbox.foldingValue - z.y;
+						z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 						// aux.color += fractal->mandelbox.color.factor.y;
 					}
 					aux.color += fractal->mandelbox.color.factor.x;

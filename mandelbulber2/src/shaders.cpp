@@ -1020,16 +1020,10 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
 				nrCol = abs(nrCol) % (248 * 256);
 
 				int color_number;
-				if (nrCol >= 248 * 256)
-				{
-					color_number = nrCol;
-				}
-				else
-				{
-					color_number =
-						int(nrCol * input.material->coloring_speed + 256 * input.material->paletteOffset)
-						% 65536;
-				}
+
+				color_number =
+					int(nrCol * input.material->coloring_speed + 256 * input.material->paletteOffset) % 65536;
+
 				colour = input.material->palette.IndexToColour(color_number);
 			}
 			else
