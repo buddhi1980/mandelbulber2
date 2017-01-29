@@ -340,7 +340,7 @@ void cDockFractal::slotGroupCheckJuliaModeToggled(bool state)
 
 void cDockFractal::slotChangedJuliaPoint() const
 {
-	if (ui->groupCheck_julia_mode->isChecked() && gMainInterface->interfaceReady)
+	if (ui->groupCheck_julia_mode->isChecked() && gInterfaceReadyForSynchronization)
 	{
 		cParameterContainer params;
 		InitParams(&params);

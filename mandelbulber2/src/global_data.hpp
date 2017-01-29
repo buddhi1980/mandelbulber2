@@ -38,5 +38,6 @@
 #include <qapplication.h>
 
 extern QApplication *gApplication;
+extern bool gInterfaceReadyForSynchronization;
 
 #endif /* MANDELBULBER2_SRC_GLOBAL_DATA_HPP_ */

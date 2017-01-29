@@ -35,3 +35,4 @@
 #include "global_data.hpp"
 
 QApplication *gApplication = nullptr;
+bool gInterfaceReadyForSynchronization = false;

@@ -94,7 +94,6 @@ cInterface::cInterface()
 	systemTray = nullptr;
 	stopRequest = false;
 	repeatRequest = false;
-	interfaceReady = false;
 	autoRefreshLastState = false;
 	lockedDetailLevel = 1.0;
 }
@@ -393,7 +392,7 @@ void cInterface::SynchronizeInterface(
 		"enumReadWrite mode)",
 		2);
 
-	if (!interfaceReady && mode == qInterface::read) return;
+	if (!gInterfaceReadyForSynchronization && mode == qInterface::read) return;
 
 	WriteLog("cInterface::SynchronizeInterface: dockWidget_effects", 3);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
@@ -1178,30 +1177,36 @@ void cInterface::Undo()
 {
 	bool refreshFrames = false;
 	bool refreshKeyframes = false;
+	gInterfaceReadyForSynchronization = false;
 	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->materialListModel->Regenerate();
+		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender(true);
 	}
+	gInterfaceReadyForSynchronization = true;
 }
 
 void cInterface::Redo()
 {
 	bool refreshFrames = false;
 	bool refreshKeyframes = false;
+	gInterfaceReadyForSynchronization = false;
 	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->materialListModel->Regenerate();
+		gInterfaceReadyForSynchronization = true;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
 		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender(true);
 	}
+	gInterfaceReadyForSynchronization = true;
 }
 
 void cInterface::ResetView()
@@ -1709,10 +1714,12 @@ void cInterface::AutoRecovery() const
 		if (reply == QMessageBox::Yes)
 		{
 			cSettings parSettings(cSettings::formatFullText);
+			gInterfaceReadyForSynchronization = false;
 			parSettings.LoadFromFile(systemData.GetAutosaveFile());
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gMainInterface->RebuildPrimitives(gPar);
 			gMainInterface->materialListModel->Regenerate();
+			gInterfaceReadyForSynchronization = true;
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();

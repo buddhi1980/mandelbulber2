@@ -48,12 +48,15 @@
 #include <QtWidgets/QPlainTextEdit>
 #include "algebra.hpp"
 #include "parameters.hpp"
+#include "global_data.hpp"
 
 using namespace qInterface;
 
 // Reading ad writing parameters from/to selected widget to/from parameters container
 void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode)
 {
+	if(!gInterfaceReadyForSynchronization && mode == qInterface::read) return;
+
 	WriteLog("cInterface::SynchronizeInterface: QLineEdit", 3);
 	//----------- QLineEdit -------------------
 	{

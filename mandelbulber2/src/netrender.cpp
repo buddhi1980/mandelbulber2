@@ -554,11 +554,14 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					cSettings parSettings(cSettings::formatCondensedText);
 					parSettings.BeQuiet(true);
+
+					gInterfaceReadyForSynchronization = false;
 					parSettings.LoadFromString(settingsText);
 					parSettings.Decode(gPar, gParFractal);
 
 					WriteLog("NetRender - ProcessData(), command JOB, starting rendering", 2);
 
+					gInterfaceReadyForSynchronization = true;
 					if (!systemData.noGui)
 					{
 						gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);

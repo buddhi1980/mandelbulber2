@@ -163,10 +163,14 @@ void RenderWindow::slotMenuLoadExample()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
+
+		gInterfaceReadyForSynchronization = false;
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->materialListModel->Regenerate();
+		gInterfaceReadyForSynchronization = true;
+
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = systemData.GetSettingsFolder() + QFileInfo(filename).fileName();
@@ -198,10 +202,14 @@ void RenderWindow::slotMenuLoadSettings()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
+
+		gInterfaceReadyForSynchronization = false;
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->materialListModel->Regenerate();
+		gInterfaceReadyForSynchronization = true;
+
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
@@ -221,9 +229,11 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 
 	if (parSettings.LoadFromClipboard())
 	{
+		gInterfaceReadyForSynchronization = false;
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->materialListModel->Regenerate();
+		gInterfaceReadyForSynchronization = true;
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = "from clipboard";

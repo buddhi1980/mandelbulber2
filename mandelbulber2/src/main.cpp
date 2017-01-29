@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 		gMainInterface->InitPeriodicRefresh();
 	}
 
-	gMainInterface->interfaceReady = true;
+	gInterfaceReadyForSynchronization = true;
 
 	commandLineInterface.ProcessCLI();
 

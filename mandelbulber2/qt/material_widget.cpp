@@ -47,6 +47,7 @@
 #include "../src/settings.hpp"
 #include "../src/synchronize_interface.hpp"
 #include "../src/system.hpp"
+#include "../src/global_data.hpp"
 
 int cMaterialWidget::previewWidth = 80;
 int cMaterialWidget::previewHeight = 80;
