@@ -64,7 +64,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
-	bool isBoolean = generalPar->Get<bool>("boolean_operators");
+	isBoolean = generalPar->Get<bool>("boolean_operators");
 	double maxBailout = 0.0;
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
@@ -364,12 +364,19 @@ QString cNineFractals::GetDETypeString() const
 		text += "deltaDE";
 	}
 
-	switch (DEFunctionType[0])
+	if(isBoolean)
 	{
-		case fractal::logarithmicDEFunction: text += " logarithmic"; break;
-		case fractal::linearDEFunction: text += " linear"; break;
-		case fractal::pseudoKleinianDEFunction: text += " pseudo kleinian"; break;
-		default: text += "unknown"; break;
+		text = "different for each fractal";
+	}
+	else
+	{
+		switch (DEFunctionType[0])
+		{
+			case fractal::logarithmicDEFunction: text += " logarithmic"; break;
+			case fractal::linearDEFunction: text += " linear"; break;
+			case fractal::pseudoKleinianDEFunction: text += " pseudo kleinian"; break;
+			default: text += "unknown"; break;
+		}
 	}
 
 	return text;

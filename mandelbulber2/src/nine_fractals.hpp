@@ -78,6 +78,7 @@ public:
 private:
 	bool forceDeltaDE;
 	bool isHybrid;
+	bool isBoolean;
 	fractal::enumDEFunctionType optimizedDEType;
 	bool useOptimizedDE;
 	int maxFractalIndex;
