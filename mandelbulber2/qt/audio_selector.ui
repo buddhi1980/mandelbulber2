@@ -340,7 +340,7 @@
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the sound value is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the sound value is calculated as the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the sound value is calculated as the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the sound is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the sound is calculated from the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the sound  is calculated from the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string>Sound pitch mode</string>
