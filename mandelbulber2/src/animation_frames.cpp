@@ -526,7 +526,7 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 
 		if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSufix)))
 		{
-			newVal = oldVal - (oldVal * multFactor + addiitionFactor) * animSound;
+			newVal = oldVal / (1.0 + multFactor * animSound) +  addiitionFactor * animSound;
 		}
 		else
 		{
