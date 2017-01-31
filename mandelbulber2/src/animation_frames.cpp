@@ -518,7 +518,7 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 		params->Get<bool>(QString("animsound_enable_%1").arg(fullParameterNameWithSufix));
 	if (isEnabled)
 	{
-		double addiitionFactor =
+		double additionFactor =
 			params->Get<double>(QString("animsound_additionfactor_%1").arg(fullParameterNameWithSufix));
 		double multFactor =
 			params->Get<double>(QString("animsound_multfactor_%1").arg(fullParameterNameWithSufix));
@@ -526,11 +526,11 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 
 		if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSufix)))
 		{
-			newVal = oldVal / (1.0 + multFactor * animSound) +  addiitionFactor * animSound;
+			newVal = oldVal / (1.0 + multFactor * animSound) - additionFactor * animSound;
 		}
 		else
 		{
-			newVal = oldVal + (oldVal * multFactor + addiitionFactor) * animSound;
+			newVal = oldVal + (oldVal * multFactor + additionFactor) * animSound;
 		}
 	}
 	return newVal;
