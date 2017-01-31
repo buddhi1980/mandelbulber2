@@ -530,7 +530,7 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 		}
 		else
 		{
-			newVal = oldVal + (oldVal * multFactor + additionFactor) * animSound;
+			newVal = oldVal * (1.0 + multFactor * animSound) + additionFactor * animSound;
 		}
 	}
 	return newVal;
