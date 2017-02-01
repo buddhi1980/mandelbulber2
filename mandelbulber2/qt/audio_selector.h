@@ -65,6 +65,7 @@ private slots:
 	void slotDeleteAudioTrack();
 	void slotPlaybackStart();
 	void slotPlaybackStop();
+	void slotSeekTo(int position);
 	void slotPlayPositionChanged();
 	void slotPlaybackStateChanged(QAudio::State state);
 

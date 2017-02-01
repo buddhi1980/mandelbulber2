@@ -165,7 +165,9 @@ void cAudioSelector::ConnectSignals()
 	connect(this, SIGNAL(loadingProgress(QString)), ui->waveForm, SLOT(slotLoadingProgress(QString)));
 	connect(
 		this, SIGNAL(playPositionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
-};
+	connect(ui->audio_position_slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSeekTo(int)));
+	ui->audio_position_slider->setEnabled(false); // TODO connect seek
+}
 
 void cAudioSelector::RenameWidget(QWidget *widget)
 {
@@ -259,6 +261,11 @@ void cAudioSelector::slotPlaybackStop()
 	}
 }
 
+void cAudioSelector::slotSeekTo(int position)
+{
+	// TODO seek
+}
+
 QString cAudioSelector::FullParameterName(const QString &name)
 {
 	return QString("animsound_") + name + "_" + parameterName;
@@ -310,6 +317,12 @@ void cAudioSelector::slotPlayPositionChanged()
 	double percentRuntime = elapsedSecs / totalLengthSecs;
 	int x = width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent);
 	ui->scrollArea->horizontalScrollBar()->setValue(x);
+
+	// set text of current position and slider progress
+	QString elapsedString = QDateTime::fromTime_t(elapsedSecs).toUTC().toString("hh:mm:ss");
+	QString totalLengthString = QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
+		ui->label_time->setText(QObject::tr("%1 / %2").arg(elapsedString, totalLengthString));
+	ui->audio_position_slider->setValue(percentRuntime * 10000);
 
 	emit playPositionChanged(audioOutput->elapsedUSecs() / 1000);
 }
