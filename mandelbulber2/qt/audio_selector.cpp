@@ -244,9 +244,10 @@ void cAudioSelector::slotPlaybackStart()
 			reinterpret_cast<char *>(audio->getRawAudio()), audio->getLength() * sizeof(float));
 
 		if (playStream) delete playStream;
-		playStream = new QDataStream(&playBuffer, QIODevice::ReadOnly);
+		playStream = new QBuffer(&playBuffer);
+		playStream->open(QIODevice::ReadOnly);
 
-		audioOutput->start(playStream->device());
+		audioOutput->start(playStream);
 		SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
 	}
 }
@@ -264,6 +265,7 @@ void cAudioSelector::slotPlaybackStop()
 void cAudioSelector::slotSeekTo(int position)
 {
 	// TODO seek
+	//playStream->seek(1000000);
 }
 
 QString cAudioSelector::FullParameterName(const QString &name)

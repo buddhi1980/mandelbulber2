@@ -38,6 +38,7 @@
 #include <QWidget>
 #include <QMediaPlayer>
 #include <QAudioOutput>
+#include <QBuffer>
 
 // forward declarations
 class cAutomatedWidgets;
@@ -85,7 +86,7 @@ private:
 
 	QAudioOutput *audioOutput;
 	QByteArray playBuffer;
-	QDataStream *playStream;
+	QBuffer *playStream;
 
 signals:
 	void freqencyChanged(double midfreq, double bandwidth);
