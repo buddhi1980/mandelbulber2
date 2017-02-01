@@ -288,7 +288,7 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 			ui->fft->AssignAudioTrack(audio);
 			ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 			slotFreqChanged();
-			SetStartStopButtonsPlayingStatus(QAudio::IdleState);
+			SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
 		}
 	}
 }
