@@ -312,19 +312,19 @@ void cAudioSelector::slotPlayPositionChanged()
 	int viewInnerWidth = ui->scrollAreaWidgetContents->width();
 	double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
 	int width = ui->scrollArea->horizontalScrollBar()->maximum();
-	double elapsedSecs = audioOutput->elapsedUSecs() / 1000000.0;
+	double processedSecs = audioOutput->processedUSecs() / 1000000.0;
 	double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
-	double percentRuntime = elapsedSecs / totalLengthSecs;
+	double percentRuntime = processedSecs / totalLengthSecs;
 	int x = width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent);
 	ui->scrollArea->horizontalScrollBar()->setValue(x);
 
 	// set text of current position and slider progress
-	QString elapsedString = QDateTime::fromTime_t(elapsedSecs).toUTC().toString("hh:mm:ss");
+	QString processedString = QDateTime::fromTime_t(processedSecs).toUTC().toString("hh:mm:ss");
 	QString totalLengthString = QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
-		ui->label_time->setText(QObject::tr("%1 / %2").arg(elapsedString, totalLengthString));
+		ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
 	ui->audio_position_slider->setValue(percentRuntime * 10000);
 
-	emit playPositionChanged(audioOutput->elapsedUSecs() / 1000);
+	emit playPositionChanged(audioOutput->processedUSecs() / 1000);
 }
 
 void cAudioSelector::slotPlaybackStateChanged(QAudio::State state)
