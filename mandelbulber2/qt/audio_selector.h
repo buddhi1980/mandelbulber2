@@ -71,6 +71,7 @@ private slots:
 private:
 	void ConnectSignals();
 	void RenameWidget(QWidget *widget);
+	void SetStartStopButtonsPlayingStatus(QAudio::State state);
 	QString FullParameterName(const QString &parameterName);
 
 	Ui::cAudioSelector *ui;

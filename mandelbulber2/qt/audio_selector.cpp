@@ -56,9 +56,7 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	audio = nullptr;
 	animationFrames = nullptr;
 	setAttribute(Qt::WA_DeleteOnClose, true);
-
-	ui->pushButton_playback_start->setEnabled(false);
-	ui->pushButton_playback_stop->setEnabled(false);
+	SetStartStopButtonsPlayingStatus(QAudio::IdleState);
 }
 
 cAudioSelector::~cAudioSelector()
@@ -98,6 +96,7 @@ void cAudioSelector::slotLoadAudioFile()
 		ui->text_animsound_soundfile->setText(filename);
 
 		slotPlaybackStop();
+		SetStartStopButtonsPlayingStatus(QAudio::IdleState);
 
 		connect(audio, SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
 		audio->LoadAudio(filename);
@@ -112,10 +111,7 @@ void cAudioSelector::slotAudioLoaded()
 	ui->fft->AssignAudioTrack(audio);
 	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 	slotFreqChanged();
-
-	ui->pushButton_playback_start->setEnabled(true);
-	ui->pushButton_playback_stop->setEnabled(false);
-
+	SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
 	emit audioLoaded();
 }
 
@@ -212,6 +208,16 @@ void cAudioSelector::slotPlaybackStart()
 	{
 		if (audioOutput && audioOutput->state() == QAudio::ActiveState)
 		{
+			// pause
+			audioOutput->suspend();
+			SetStartStopButtonsPlayingStatus(QAudio::SuspendedState);
+			return;
+		}
+		else if (audioOutput && audioOutput->state() == QAudio::SuspendedState)
+		{
+			// resume
+			audioOutput->resume();
+			SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
 			return;
 		}
 
@@ -239,9 +245,7 @@ void cAudioSelector::slotPlaybackStart()
 		playStream = new QDataStream(&playBuffer, QIODevice::ReadOnly);
 
 		audioOutput->start(playStream->device());
-
-		ui->pushButton_playback_start->setEnabled(false);
-		ui->pushButton_playback_stop->setEnabled(true);
+		SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
 	}
 }
 
@@ -251,9 +255,7 @@ void cAudioSelector::slotPlaybackStop()
 	{
 		audioOutput->stop();
 		playBuffer.clear();
-
-		ui->pushButton_playback_start->setEnabled(true);
-		ui->pushButton_playback_stop->setEnabled(false);
+		SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
 	}
 }
 
@@ -279,9 +281,7 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 			ui->fft->AssignAudioTrack(audio);
 			ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 			slotFreqChanged();
-
-			ui->pushButton_playback_start->setEnabled(true);
-			ui->pushButton_playback_stop->setEnabled(false);
+			SetStartStopButtonsPlayingStatus(QAudio::IdleState);
 		}
 	}
 }
@@ -300,6 +300,17 @@ void cAudioSelector::slotDeleteAudioTrack()
 
 void cAudioSelector::slotPlayPositionChanged()
 {
+	// set scroll indicator to current position
+	int viewOuterWidth = ui->scrollArea->width();
+	int viewInnerWidth = ui->scrollAreaWidgetContents->width();
+	double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
+	int width = ui->scrollArea->horizontalScrollBar()->maximum();
+	double elapsedSecs = audioOutput->elapsedUSecs() / 1000000.0;
+	double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
+	double percentRuntime = elapsedSecs / totalLengthSecs;
+	int x = width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent);
+	ui->scrollArea->horizontalScrollBar()->setValue(x);
+
 	emit playPositionChanged(audioOutput->elapsedUSecs() / 1000);
 }
 
@@ -307,7 +318,23 @@ void cAudioSelector::slotPlaybackStateChanged(QAudio::State state)
 {
 	if (state == QAudio::StoppedState || state == QAudio::IdleState)
 	{
-		ui->pushButton_playback_start->setEnabled(true);
-		ui->pushButton_playback_stop->setEnabled(false);
+		SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
 	}
+}
+
+void cAudioSelector::SetStartStopButtonsPlayingStatus(QAudio::State state)
+{
+	if (state == QAudio::ActiveState)
+	{
+		ui->pushButton_playback_start->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+		ui->pushButton_playback_start->setText(tr("Pause Audio"));
+	}
+	else
+	{
+		ui->pushButton_playback_start->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+		ui->pushButton_playback_start->setText(tr("Play Audio"));
+	}
+	ui->pushButton_playback_start->setEnabled(state != QAudio::IdleState);
+	ui->pushButton_playback_stop->setEnabled(
+		state == QAudio::ActiveState || state == QAudio::SuspendedState);
 }
