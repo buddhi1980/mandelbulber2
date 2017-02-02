@@ -166,7 +166,6 @@ void cAudioSelector::ConnectSignals()
 	connect(
 		this, SIGNAL(playPositionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
 	connect(ui->audio_position_slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSeekTo(int)));
-	ui->audio_position_slider->setEnabled(false); // TODO connect seek
 }
 
 void cAudioSelector::RenameWidget(QWidget *widget)
@@ -264,8 +263,13 @@ void cAudioSelector::slotPlaybackStop()
 
 void cAudioSelector::slotSeekTo(int position)
 {
-	// TODO seek
-	//playStream->seek(1000000);
+	if(playStream != nullptr)
+	{
+		qint64 targetPos = position * playStream->size() / ui->audio_position_slider->maximum();
+		qint64 chunkSize = 1024; // seek can only be a multiple of chunkSize
+		targetPos = (targetPos / chunkSize) * chunkSize;
+		playStream->seek(targetPos);
+	}
 }
 
 QString cAudioSelector::FullParameterName(const QString &name)
@@ -314,8 +318,8 @@ void cAudioSelector::slotPlayPositionChanged()
 	int viewInnerWidth = ui->scrollAreaWidgetContents->width();
 	double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
 	int width = ui->scrollArea->horizontalScrollBar()->maximum();
-	double processedSecs = audioOutput->processedUSecs() / 1000000.0;
 	double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
+	double processedSecs = 1.0 * totalLengthSecs * playStream->pos() / playStream->size();
 	double percentRuntime = processedSecs / totalLengthSecs;
 	int x = width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent);
 	ui->scrollArea->horizontalScrollBar()->setValue(x);
@@ -324,9 +328,9 @@ void cAudioSelector::slotPlayPositionChanged()
 	QString processedString = QDateTime::fromTime_t(processedSecs).toUTC().toString("hh:mm:ss");
 	QString totalLengthString = QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
 		ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
-	ui->audio_position_slider->setValue(percentRuntime * 10000);
+	ui->audio_position_slider->setValue(percentRuntime * ui->audio_position_slider->maximum());
 
-	emit playPositionChanged(audioOutput->processedUSecs() / 1000);
+	emit playPositionChanged(processedSecs * 1000);
 }
 
 void cAudioSelector::slotPlaybackStateChanged(QAudio::State state)
@@ -349,6 +353,7 @@ void cAudioSelector::SetStartStopButtonsPlayingStatus(QAudio::State state)
 		ui->pushButton_playback_start->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 		ui->pushButton_playback_start->setText(tr("Play Audio"));
 	}
+
 	ui->pushButton_playback_start->setEnabled(state != QAudio::IdleState);
 	ui->pushButton_playback_stop->setEnabled(
 		state == QAudio::ActiveState || state == QAudio::SuspendedState);

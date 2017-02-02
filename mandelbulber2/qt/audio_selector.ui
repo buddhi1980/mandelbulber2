@@ -905,7 +905,7 @@
          <item>
           <widget class="QSlider" name="audio_position_slider">
            <property name="maximum">
-            <number>10000</number>
+            <number>1000000</number>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
