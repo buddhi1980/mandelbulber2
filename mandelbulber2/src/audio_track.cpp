@@ -237,13 +237,20 @@ float cAudioTrack::getSample(int sampleIndex) const
 
 float cAudioTrack::getAnimation(int frame) const
 {
-	if (frame < numberOfFrames)
+	if (numberOfFrames > 0)
 	{
-		return animation[frame];
+		if (frame < numberOfFrames)
+		{
+			return animation[frame];
+		}
+		else
+		{
+			return animation.last();
+		}
 	}
 	else
 	{
-		return animation.last();
+		return 0.0f;
 	}
 }
 
