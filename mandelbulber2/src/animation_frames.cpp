@@ -68,13 +68,13 @@ void cAnimationFrames::AddFrame(
 			QString fullParameterName = container->GetContainerName() + "_" + parameterName;
 			cOneParameter oneParameter = container->GetAsOneParameter(parameterName);
 
-			//getting morph type from existing frame
+			// getting morph type from existing frame
 			parameterContainer::enumMorphType morphType;
 			if (frames.size() > 0)
 			{
 				morphType = frames[0].parameters.GetAsOneParameter(fullParameterName).GetMorphType();
 			}
-			else //if no frames yet
+			else // if no frames yet
 			{
 				morphType = oneParameter.GetMorphType();
 			}

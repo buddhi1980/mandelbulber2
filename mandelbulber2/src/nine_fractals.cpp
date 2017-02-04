@@ -364,7 +364,7 @@ QString cNineFractals::GetDETypeString() const
 		text += "deltaDE";
 	}
 
-	if(isBoolean)
+	if (isBoolean)
 	{
 		text = "different for each fractal";
 	}
