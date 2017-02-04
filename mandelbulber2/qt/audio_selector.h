@@ -67,7 +67,7 @@ private slots:
 	void slotPlaybackStart();
 	void slotPlaybackStop();
 	void slotSeekTo(int position);
-	void slotPlayPositionChanged();
+	void slotPlayPositionChanged(bool updateSlider = true);
 	void slotPlaybackStateChanged(QAudio::State state);
 
 private:

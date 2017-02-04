@@ -489,7 +489,7 @@ void RenderWindow::slotCustomWindowRemovePopup()
 	QStringList customWindowStateFiles =
 		customWindowStateDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 	QStringList itemsEscaped;
-	if(customWindowStateFiles.size() == 0)
+	if (customWindowStateFiles.size() == 0)
 	{
 		qInfo() << "Nothing to remove";
 		return;

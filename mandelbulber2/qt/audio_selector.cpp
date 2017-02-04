@@ -109,7 +109,7 @@ void cAudioSelector::slotAudioLoaded()
 	audio->calculateFFT();
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
-	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
+	ui->timeRuler->SetParameters(audio, gPar->Get<int>("frames_per_keyframe"));
 	slotFreqChanged();
 	audioSetup();
 	SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
@@ -208,26 +208,24 @@ void cAudioSelector::slotPlaybackStart()
 {
 	if (audio->isLoaded() && audioOutput)
 	{
-		if (audioOutput->state() == QAudio::ActiveState)
+		switch (audioOutput->state())
 		{
-			// pause
-			audioOutput->suspend();
-			SetStartStopButtonsPlayingStatus(QAudio::SuspendedState);
-			return;
-		}
-		else if (audioOutput->state() == QAudio::SuspendedState)
-		{
-			// resume
-			audioOutput->resume();
-			SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
-			return;
-		}
-		else if (audioOutput->state() == QAudio::StoppedState)
-		{
-			// resume
-			audioOutput->start(playStream);
-			SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
-			return;
+			case QAudio::ActiveState:
+				// play -> pause
+				audioOutput->suspend();
+				SetStartStopButtonsPlayingStatus(QAudio::SuspendedState);
+				break;
+			case QAudio::SuspendedState:
+				// pause -> resume
+				audioOutput->resume();
+				SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
+				break;
+			case QAudio::StoppedState:
+				// stopped -> play
+				audioOutput->start(playStream);
+				SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
+				break;
+			case QAudio::IdleState: qWarning() << "audio not loaded yet!"; break;
 		}
 	}
 }
@@ -251,8 +249,8 @@ void cAudioSelector::audioSetup()
 	connect(audioOutput, SIGNAL(stateChanged(QAudio::State)), this,
 		SLOT(slotPlaybackStateChanged(QAudio::State)));
 
-	playBuffer = QByteArray(
-		reinterpret_cast<char *>(audio->getRawAudio()), audio->getLength() * sizeof(float));
+	playBuffer =
+		QByteArray(reinterpret_cast<char *>(audio->getRawAudio()), audio->getLength() * sizeof(float));
 
 	if (playStream) delete playStream;
 	playStream = new QBuffer(&playBuffer);
@@ -278,6 +276,7 @@ void cAudioSelector::slotSeekTo(int position)
 		qint64 chunkSize = 1024; // seek can only be a multiple of chunkSize
 		targetPos = (targetPos / chunkSize) * chunkSize;
 		playStream->seek(targetPos);
+		slotPlayPositionChanged(false);
 	}
 }
 
@@ -301,7 +300,7 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 			audio->calculateFFT();
 			ui->waveForm->AssignAudioTrack(audio);
 			ui->fft->AssignAudioTrack(audio);
-			ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
+			ui->timeRuler->SetParameters(audio, gPar->Get<int>("frames_per_keyframe"));
 			slotFreqChanged();
 			audioSetup();
 			SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
@@ -314,14 +313,14 @@ void cAudioSelector::slotDeleteAudioTrack()
 	audio->Clear();
 	ui->waveForm->AssignAudioTrack(audio);
 	ui->fft->AssignAudioTrack(audio);
-	ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
+	ui->timeRuler->SetParameters(audio, gPar->Get<int>("frames_per_keyframe"));
 	ui->text_animsound_soundfile->setText("");
 	slotFreqChanged();
 	slotPlaybackStop();
 	emit audioLoaded();
 }
 
-void cAudioSelector::slotPlayPositionChanged()
+void cAudioSelector::slotPlayPositionChanged(bool updateSlider)
 {
 	// set scroll indicator to current position
 	int viewOuterWidth = ui->scrollArea->width();
@@ -338,7 +337,8 @@ void cAudioSelector::slotPlayPositionChanged()
 	QString processedString = QDateTime::fromTime_t(processedSecs).toUTC().toString("hh:mm:ss");
 	QString totalLengthString = QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
 	ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
-	ui->audio_position_slider->setValue(percentRuntime * ui->audio_position_slider->maximum());
+	if (updateSlider)
+		ui->audio_position_slider->setValue(percentRuntime * ui->audio_position_slider->maximum());
 
 	emit playPositionChanged(processedSecs * 1000);
 }
