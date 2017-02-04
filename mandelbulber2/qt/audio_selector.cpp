@@ -278,7 +278,6 @@ void cAudioSelector::slotSeekTo(int position)
 		qint64 chunkSize = 1024; // seek can only be a multiple of chunkSize
 		targetPos = (targetPos / chunkSize) * chunkSize;
 		playStream->seek(targetPos);
-		slotPlayPositionChanged();
 	}
 }
 
@@ -304,6 +303,7 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 			ui->fft->AssignAudioTrack(audio);
 			ui->timeRuler->SetParameters(audio, gPar->Get<double>("frames_per_keyframe"));
 			slotFreqChanged();
+			audioSetup();
 			SetStartStopButtonsPlayingStatus(QAudio::StoppedState);
 		}
 	}
