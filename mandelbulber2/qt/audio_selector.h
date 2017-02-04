@@ -71,6 +71,7 @@ private slots:
 	void slotPlaybackStateChanged(QAudio::State state);
 
 private:
+	void audioSetup();
 	void ConnectSignals();
 	void RenameWidget(QWidget *widget);
 	void SetStartStopButtonsPlayingStatus(QAudio::State state);
