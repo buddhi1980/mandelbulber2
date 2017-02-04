@@ -142,6 +142,7 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	rotationDirection = 0;
 	recordPause = false;
 	orthogonalStrafe = false;
+	negativeFlightSpeed = false;
 }
 
 void cFlightAnimation::slotRecordFlight()
@@ -386,8 +387,9 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		// integrator for position
 		if (strafe.Length() == 0)
 		{
+			double goForward = (negativeFlightSpeed) ? -1.0 : 1.0;
 			cameraAcceleration =
-				(cameraTarget.GetForwardVector() * linearSpeed - cameraSpeed) / (inertia + 1.0);
+				(cameraTarget.GetForwardVector() * goForward * linearSpeed - cameraSpeed) / (inertia + 1.0);
 		}
 		else
 		{
@@ -996,7 +998,8 @@ void cFlightAnimation::slotFlightSetSpeed(double amount)
 {
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
-	linearSpeedSp = amount;
+	negativeFlightSpeed = (amount < 0) ? true : false;
+	linearSpeedSp = fabs(amount);
 	params->Set("flight_speed", linearSpeedSp);
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::write);

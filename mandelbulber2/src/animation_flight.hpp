@@ -131,6 +131,7 @@ private:
 	CVector2<double> yawAndPitch;
 	double rotationDirection;
 	bool orthogonalStrafe;
+	bool negativeFlightSpeed;
 	double linearSpeedSp;
 	// QList<cThumbnailWidget*> thumbnailWidgets;
 	bool recordPause;

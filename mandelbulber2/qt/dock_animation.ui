@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1427</width>
-    <height>490</height>
+    <width>1437</width>
+    <height>498</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_flight_animation">
       <property name="toolTip">
@@ -224,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>519</width>
-              <height>379</height>
+              <width>425</width>
+              <height>378</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -317,31 +317,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <widget class="MyDoubleSpinBox" name="spinbox_flight_speed">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>1</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls flight speed. &lt;/p&gt;&lt;p&gt;If you click left mouse button, speed will be increased&lt;/p&gt;&lt;p&gt;If you click right mouse button, speed will be decreased&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="decimals">
-                  <number>2</number>
-                 </property>
-                 <property name="minimum">
-                  <double>-1000.000000000000000</double>
-                 </property>
-                 <property name="maximum">
-                  <double>1000.000000000000000</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>0.010000000000000</double>
-                 </property>
-                </widget>
-               </item>
                <item row="6" column="2">
                 <widget class="QPushButton" name="button_selectAnimFlightImageDir">
                  <property name="sizePolicy">
@@ -352,31 +327,6 @@
                  </property>
                  <property name="text">
                   <string>Select folder</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QSlider" name="slider_flight_speed">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>2</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="sizeIncrement">
-                  <size>
-                   <width>0</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="minimum">
-                  <number>-100000</number>
-                 </property>
-                 <property name="maximum">
-                  <number>100000</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
                  </property>
                 </widget>
                </item>
@@ -728,20 +678,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="8" column="0">
-                <widget class="QLabel" name="label_218">
-                 <property name="text">
-                  <string>first frame to render:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="0">
-                <widget class="QLabel" name="label_220">
-                 <property name="text">
-                  <string>last frame to render:</string>
-                 </property>
-                </widget>
-               </item>
                <item row="7" column="1" colspan="2">
                 <widget class="QComboBox" name="comboBox_flight_animation_image_type">
                  <property name="sizePolicy">
@@ -773,6 +709,58 @@
                    <string>TIFF</string>
                   </property>
                  </item>
+                </widget>
+               </item>
+               <item row="8" column="0">
+                <widget class="QLabel" name="label_218">
+                 <property name="text">
+                  <string>first frame to render:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="0">
+                <widget class="QLabel" name="label_220">
+                 <property name="text">
+                  <string>last frame to render:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="MyLineEdit" name="logedit_flight_speed">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls flight speed. &lt;/p&gt;&lt;p&gt;If you click left mouse button, speed will be increased&lt;/p&gt;&lt;p&gt;If you click right mouse button, speed will be decreased&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSlider" name="logslider_flight_speed">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="sizeIncrement">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="minimum">
+                  <number>-1500</number>
+                 </property>
+                 <property name="maximum">
+                  <number>400</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -1071,8 +1059,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>455</width>
-              <height>351</height>
+              <width>239</width>
+              <height>288</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -1583,7 +1571,6 @@ keyframes</string>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>tabWidgetFlightKeyframe</tabstop>
   <tabstop>pushButton_render_flight</tabstop>
   <tabstop>pushButton_record_flight</tabstop>
   <tabstop>pushButton_continue_recording</tabstop>
@@ -1592,8 +1579,6 @@ keyframes</string>
   <tabstop>pushButton_flight_refresh_table</tabstop>
   <tabstop>pushButton_flight_to_keyframe_export</tabstop>
   <tabstop>scrollArea_flyght_animation_parameters</tabstop>
-  <tabstop>slider_flight_speed</tabstop>
-  <tabstop>spinbox_flight_speed</tabstop>
   <tabstop>slider_flight_inertia</tabstop>
   <tabstop>spinbox_flight_inertia</tabstop>
   <tabstop>slider_flight_rotation_speed</tabstop>
