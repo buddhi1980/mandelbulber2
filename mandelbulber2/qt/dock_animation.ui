@@ -224,8 +224,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>425</width>
-              <height>370</height>
+              <width>519</width>
+              <height>379</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -1071,8 +1071,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>380</width>
-              <height>341</height>
+              <width>455</width>
+              <height>351</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -1207,7 +1207,7 @@
                   <number>1</number>
                  </property>
                  <property name="maximum">
-                  <number>500</number>
+                  <number>10000</number>
                  </property>
                 </widget>
                </item>
@@ -1552,9 +1552,9 @@ keyframes</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyLineEdit</class>
@@ -1562,14 +1562,14 @@ keyframes</string>
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyTableWidgetAnim</class>
