@@ -50,11 +50,20 @@ cParameterContainer::~cParameterContainer()
 	myMap.clear();
 }
 
+cParameterContainer &cParameterContainer::operator=(const cParameterContainer &par)
+{
+	myMap = par.myMap;
+	containerName = par.containerName;
+	return *this;
+}
+
 // defining of params without limits
 template <class T>
 void cParameterContainer::addParam(
 	QString name, T defaultVal, enumMorphType morphType, enumParameterType parType)
 {
+	QMutexLocker lock(&m_lock);
+
 	cOneParameter newRecord;
 	newRecord.Set(defaultVal, valueDefault);
 	newRecord.Set(defaultVal, valueActual);
@@ -93,6 +102,8 @@ template <class T>
 void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVal,
 	enumMorphType morphType, enumParameterType parType)
 {
+	QMutexLocker lock(&m_lock);
+
 	cOneParameter newRecord;
 	newRecord.Set(defaultVal, valueDefault);
 	newRecord.Set(defaultVal, valueActual);
@@ -127,6 +138,8 @@ template <class T>
 void cParameterContainer::addParam(
 	QString name, int index, T defaultVal, enumMorphType morphType, enumParameterType parType)
 {
+	QMutexLocker lock(&m_lock);
+
 	if (index >= 0)
 	{
 		cOneParameter newRecord;
@@ -172,6 +185,8 @@ template <class T>
 void cParameterContainer::addParam(QString name, int index, T defaultVal, T minVal, T maxVal,
 	enumMorphType morphType, enumParameterType parType)
 {
+	QMutexLocker lock(&m_lock);
+
 	if (index >= 0)
 	{
 		cOneParameter newRecord;
@@ -214,6 +229,8 @@ template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB 
 template <class T>
 void cParameterContainer::Set(QString name, T val)
 {
+	QMutexLocker lock(&m_lock);
+
 	QMap<QString, cOneParameter>::iterator it;
 	it = myMap.find(name);
 	if (it != myMap.end())
@@ -238,6 +255,8 @@ template void cParameterContainer::Set<cColorPalette>(QString name, cColorPalett
 template <class T>
 void cParameterContainer::Set(QString name, int index, T val)
 {
+	QMutexLocker lock(&m_lock);
+
 	if (index >= 0)
 	{
 		QString indexName = nameWithIndex(&name, index);
@@ -269,6 +288,8 @@ template void cParameterContainer::Set<bool>(QString name, int index, bool val);
 template <class T>
 T cParameterContainer::Get(QString name) const
 {
+	QMutexLocker lock(&m_lock);
+
 	QMap<QString, cOneParameter>::const_iterator it;
 	it = myMap.find(name);
 	T val = T();
@@ -295,6 +316,8 @@ template cColorPalette cParameterContainer::Get<cColorPalette>(QString name) con
 template <class T>
 T cParameterContainer::Get(QString name, int index) const
 {
+	QMutexLocker lock(&m_lock);
+
 	T val = T();
 	if (index >= 0)
 	{
@@ -328,6 +351,8 @@ template bool cParameterContainer::Get<bool>(QString name, int index) const;
 template <class T>
 T cParameterContainer::GetDefault(QString name) const
 {
+	QMutexLocker lock(&m_lock);
+
 	QMap<QString, cOneParameter>::const_iterator it;
 	it = myMap.find(name);
 	T val = T();
@@ -354,6 +379,8 @@ template cColorPalette cParameterContainer::GetDefault<cColorPalette>(QString na
 template <class T>
 T cParameterContainer::GetDefault(QString name, int index) const
 {
+	QMutexLocker lock(&m_lock);
+
 	T val = T();
 	if (index >= 0)
 	{
@@ -392,6 +419,8 @@ QString cParameterContainer::nameWithIndex(QString *str, int index) const
 
 void cParameterContainer::Copy(QString name, const cParameterContainer *sourceContainer)
 {
+	QMutexLocker lock(&m_lock);
+
 	QMap<QString, cOneParameter>::const_iterator itSource;
 	QMap<QString, cOneParameter>::iterator itDest;
 	itDest = myMap.find(name);
@@ -415,6 +444,8 @@ void cParameterContainer::Copy(QString name, const cParameterContainer *sourceCo
 
 QList<QString> cParameterContainer::GetListOfParameters() const
 {
+	QMutexLocker lock(&m_lock);
+
 	QList<QString> list = myMap.keys();
 	std::sort(list.begin(), list.end(), compareStrings);
 	return list;
@@ -422,6 +453,8 @@ QList<QString> cParameterContainer::GetListOfParameters() const
 
 enumVarType cParameterContainer::GetVarType(QString name) const
 {
+	QMutexLocker lock(&m_lock);
+
 	enumVarType type = typeNull;
 
 	QMap<QString, cOneParameter>::const_iterator it;
@@ -439,6 +472,8 @@ enumVarType cParameterContainer::GetVarType(QString name) const
 
 enumParameterType cParameterContainer::GetParameterType(QString name) const
 {
+	QMutexLocker lock(&m_lock);
+
 	enumParameterType type = paramStandard;
 
 	QMap<QString, cOneParameter>::const_iterator it;
@@ -456,6 +491,8 @@ enumParameterType cParameterContainer::GetParameterType(QString name) const
 
 bool cParameterContainer::isDefaultValue(QString name) const
 {
+	QMutexLocker lock(&m_lock);
+
 	bool isDefault = true;
 
 	QMap<QString, cOneParameter>::const_iterator it;
@@ -474,6 +511,8 @@ bool cParameterContainer::isDefaultValue(QString name) const
 
 void cParameterContainer::ResetAllToDefault()
 {
+	QMutexLocker lock(&m_lock);
+
 	QMap<QString, cOneParameter>::iterator it = myMap.begin();
 	while (it != myMap.end())
 	{
@@ -500,6 +539,8 @@ bool cParameterContainer::IfExists(const QString &name) const
 
 void cParameterContainer::DeleteParameter(const QString &name)
 {
+	QMutexLocker lock(&m_lock);
+
 	QMap<QString, cOneParameter>::iterator it;
 	it = myMap.find(name);
 	if (it != myMap.end())
@@ -514,6 +555,8 @@ void cParameterContainer::DeleteParameter(const QString &name)
 
 cOneParameter cParameterContainer::GetAsOneParameter(QString name) const
 {
+	QMutexLocker lock(&m_lock);
+
 	QMap<QString, cOneParameter>::const_iterator it;
 	it = myMap.find(name);
 	cOneParameter val;
@@ -531,6 +574,8 @@ cOneParameter cParameterContainer::GetAsOneParameter(QString name) const
 
 void cParameterContainer::SetFromOneParameter(QString name, const cOneParameter &parameter)
 {
+	QMutexLocker lock(&m_lock);
+
 	QMap<QString, cOneParameter>::iterator it;
 	it = myMap.find(name);
 	if (it != myMap.end())
@@ -547,6 +592,8 @@ void cParameterContainer::SetFromOneParameter(QString name, const cOneParameter 
 
 void cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter &parameter)
 {
+	QMutexLocker lock(&m_lock);
+
 	if (myMap.find(name) != myMap.end())
 	{
 		qWarning() << "cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter "

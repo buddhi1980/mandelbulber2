@@ -43,6 +43,14 @@ class cParameterContainer
 {
 public:
 	cParameterContainer();
+
+	cParameterContainer(const cParameterContainer &par)
+			: myMap(par.myMap), containerName(par.containerName)
+	{
+	}
+
+	cParameterContainer &operator=(const cParameterContainer &par);
+
 	~cParameterContainer();
 
 	template <class T>
@@ -97,6 +105,8 @@ private:
 	// std::map contairer
 	QMap<QString, cOneParameter> myMap;
 	QString containerName;
+
+	mutable QMutex m_lock;
 };
 
 #endif /* MANDELBULBER2_SRC_PARAMETERS_HPP_ */
