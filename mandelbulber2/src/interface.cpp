@@ -858,54 +858,61 @@ void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
 
 void cInterface::RefreshMainImage()
 {
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	sImageAdjustments imageAdjustments;
-	imageAdjustments.brightness = gPar->Get<double>("brightness");
-	imageAdjustments.contrast = gPar->Get<double>("contrast");
-	imageAdjustments.imageGamma = gPar->Get<double>("gamma");
-	imageAdjustments.hdrEnabled = gPar->Get<bool>("hdr");
-
-	mainImage->SetImageParameters(imageAdjustments);
-	mainImage->CompileImage();
-
-	stopRequest = false;
-	bool ssaoUsed = false;
-	if (gPar->Get<bool>("ambient_occlusion_enabled")
-			&& gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
+	if(!mainImage->IsUsed())
 	{
-		cParamRender params(gPar);
-		sRenderData data;
-		// cRenderingConfiguration config;
-		data.stopRequest = &stopRequest;
-		cRenderSSAO rendererSSAO(&params, &data, mainImage);
-		QObject::connect(&rendererSSAO,
-			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-			gMainInterface->mainWindow,
-			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+		SynchronizeInterface(gPar, gParFractal, qInterface::read);
+		sImageAdjustments imageAdjustments;
+		imageAdjustments.brightness = gPar->Get<double>("brightness");
+		imageAdjustments.contrast = gPar->Get<double>("contrast");
+		imageAdjustments.imageGamma = gPar->Get<double>("gamma");
+		imageAdjustments.hdrEnabled = gPar->Get<bool>("hdr");
 
-		rendererSSAO.RenderSSAO();
-		ssaoUsed = true;
+		mainImage->SetImageParameters(imageAdjustments);
+		mainImage->CompileImage();
+
+		stopRequest = false;
+		bool ssaoUsed = false;
+		if (gPar->Get<bool>("ambient_occlusion_enabled")
+				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
+		{
+			cParamRender params(gPar);
+			sRenderData data;
+			// cRenderingConfiguration config;
+			data.stopRequest = &stopRequest;
+			cRenderSSAO rendererSSAO(&params, &data, mainImage);
+			QObject::connect(&rendererSSAO,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+				gMainInterface->mainWindow,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+
+			rendererSSAO.RenderSSAO();
+			ssaoUsed = true;
+		}
+
+		if (gPar->Get<bool>("DOF_enabled"))
+		{
+			cParamRender params(gPar);
+			// cRenderingConfiguration config;
+			cPostRenderingDOF dof(mainImage);
+			QObject::connect(&dof,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+				gMainInterface->mainWindow,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+			cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+			dof.Render(screenRegion,
+				params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
+				params.DOFFocus, !ssaoUsed && gPar->Get<bool>("DOF_HDR"), params.DOFNumberOfPasses,
+				params.DOFBlurOpacity, &stopRequest);
+		}
+
+		mainImage->ConvertTo8bit();
+		mainImage->UpdatePreview();
+		mainImage->GetImageWidget()->update();
 	}
-
-	if (gPar->Get<bool>("DOF_enabled"))
+	else
 	{
-		cParamRender params(gPar);
-		// cRenderingConfiguration config;
-		cPostRenderingDOF dof(mainImage);
-		QObject::connect(&dof,
-			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-			gMainInterface->mainWindow,
-			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-		cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-		dof.Render(screenRegion,
-			params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
-			params.DOFFocus, !ssaoUsed && gPar->Get<bool>("DOF_HDR"), params.DOFNumberOfPasses,
-			params.DOFBlurOpacity, &stopRequest);
+		cErrorMessage::showMessage(QObject::tr("You cannot apply changes during rendering. You will do this after rendering."), cErrorMessage::warningMessage, mainWindow);
 	}
-
-	mainImage->ConvertTo8bit();
-	mainImage->UpdatePreview();
-	mainImage->GetImageWidget()->update();
 }
 
 void cInterface::AutoFog() const
