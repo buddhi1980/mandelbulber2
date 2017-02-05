@@ -774,7 +774,7 @@ sferycznego:</translation>
         <location filename="../qt_data/primitive_torus.ui" line="415"/>
         <location filename="../qt_data/primitive_water.ui" line="447"/>
         <source>Material:</source>
-        <translation type="unfinished"></translation>
+        <translation>Materiał:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="450"/>
@@ -1156,42 +1156,42 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxMod1.ui" line="75"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Maksymalny promień:</translation>
+        <translation>Minimalny promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod1.ui" line="154"/>
         <source>FoldM z:</source>
-        <translation type="unfinished"></translation>
+        <translation>FoldM z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod1.ui" line="161"/>
         <source>Fold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod1.ui" line="250"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod1.ui" line="257"/>
         <source>Scale Vary:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmienna skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod1.ui" line="264"/>
         <source>FoldM y:</source>
-        <translation type="unfinished">ZawijanieM y:</translation>
+        <translation>ZawijanieM y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod1.ui" line="340"/>
         <source>FoldM x:</source>
-        <translation type="unfinished">ZawijanieM x:</translation>
+        <translation>ZawijanieM x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod1.ui" line="440"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1199,37 +1199,37 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxMod2.ui" line="65"/>
         <source>Fold x:</source>
-        <translation type="unfinished">Zawijanie x:</translation>
+        <translation>Zawijanie x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod2.ui" line="141"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Maksymalny promień:</translation>
+        <translation>Maksymalny promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod2.ui" line="240"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod2.ui" line="247"/>
         <source>Cylinder Half Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Średnica cylindra:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod2.ui" line="289"/>
         <source>Fold z:</source>
-        <translation type="unfinished">Zawijanie z:</translation>
+        <translation>Zawijanie z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod2.ui" line="371"/>
         <source>Fold y:</source>
-        <translation type="unfinished">Zawijanie y:</translation>
+        <translation>Zawijanie y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxMod2.ui" line="380"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1237,32 +1237,32 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxModKali.ui" line="141"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKali.ui" line="189"/>
         <source>Offset y:</source>
-        <translation type="unfinished">Przesunięcie y:</translation>
+        <translation>Przesunięcie y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKali.ui" line="290"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Maksymalny promień:</translation>
+        <translation>Minimalny promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKali.ui" line="297"/>
         <source>Offset z:</source>
-        <translation type="unfinished">Przesunięcie z:</translation>
+        <translation>Przesunięcie z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKali.ui" line="304"/>
         <source>Offset x:</source>
-        <translation type="unfinished">Przesunięcie x:</translation>
+        <translation>Przesunięcie x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKali.ui" line="313"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1270,105 +1270,105 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="155"/>
         <source>Box Fold offsets</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie zawijania sześciennego</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="191"/>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="724"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="207"/>
         <source>&amp;z.z box fold scale, for normal use set &quot;Offset z&quot; (above) to 0.00</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="255"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Start na iteracji:</translation>
+        <translation>Start na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="262"/>
         <source>Stop at Iteration:</source>
-        <translation type="unfinished">Stop na iteracji:</translation>
+        <translation>Stop na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="302"/>
         <source>z.z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>skala z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="444"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Granica zawijania
+        <translation>Granica zawijania
 sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="451"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Wartość zawijania 
+        <translation>Wartość zawijania 
 sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="490"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="564"/>
         <source>Swap z.x z.z</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamiana z.x z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="599"/>
         <source>Addition Constant - Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodanie stałej - przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="638"/>
         <source>Minimum Radius^2:</source>
-        <translation type="unfinished"></translation>
+        <translation>minimalny promień²</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="839"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="842"/>
         <source>addCpi&amp;xel Axis Swap ConstantMultiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="871"/>
         <source>alternate swap</source>
-        <translation type="unfinished"></translation>
+        <translation>alternatywna zamiana</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="937"/>
         <source>function order of c.x, c.y and c.z:</source>
-        <translation type="unfinished"></translation>
+        <translation>kolejność funkcji c.x, c.y i c.z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1121"/>
         <source>&amp;Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1163"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończ obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1571"/>
         <source>Scale component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik skali:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1762"/>
         <source>Orbit trap component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik pułapek orbit:</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -1377,7 +1377,7 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1049"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <source>Stop  Rotation at iteration:</source>
@@ -1386,67 +1386,67 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1196"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1408"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Składnik minimalnego promienia:</translation>
+        <translation>Składnik minimalnego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1435"/>
         <source>Fold component</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik zawijania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1442"/>
         <source>X plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny X:</translation>
+        <translation>Składnik płaszczyzny X:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1477"/>
         <source>Fold function components -group weight:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1578"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Składnik stałego promienia:</translation>
+        <translation>Składnik stałego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1635"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Y:</translation>
+        <translation>Składnik płaszczyzny Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1664"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Z:</translation>
+        <translation>Składnik płaszczyzny Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1705"/>
         <source>Initial Color Min:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1775"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hint: change coloring algorithm from Standard in the Material Editor&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="1806"/>
         <source>Absolute value of z component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość bezwzględna składnika z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="2004"/>
         <source>Coloring components (beta version only, does not work in hybrid mode)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxModKaliEiffie.ui" line="2013"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1454,7 +1454,7 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="40"/>
         <source>Scale Vary:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmienna skala:</translation>
     </message>
     <message>
         <source>Fold  x:</source>
@@ -1463,7 +1463,7 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="80"/>
         <source>Fold z:</source>
-        <translation type="unfinished">Zawijanie z:</translation>
+        <translation>Zawijanie z:</translation>
     </message>
     <message>
         <source>Fold  y:</source>
@@ -1472,52 +1472,52 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="66"/>
         <source>Fold x:</source>
-        <translation type="unfinished">Zawijanie x:</translation>
+        <translation>Zawijanie x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="165"/>
         <source>Fold y:</source>
-        <translation type="unfinished">Zawijanie y:</translation>
+        <translation>Zawijanie y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="329"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="417"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished">Stały promień:</translation>
+        <translation>Stały promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="424"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Maksymalny promień:</translation>
+        <translation>Maksymalny promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="431"/>
         <source>Enable internal addCpixel constant / Julia constant swap</source>
-        <translation type="unfinished"></translation>
+        <translation>Uaktywania wewnętrzne dodawanie stałej cPixel / zamianę osi stałej Julia</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="449"/>
         <source>Single Formula addCpixel Constant Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="549"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="656"/>
         <source>Single Formula Julia mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb Julia dla pojedyńczej formuły</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="738"/>
         <source>Julia constant:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała Julia</translation>
     </message>
     <message>
         <source>Enable   internal addCpixel  constant / Julia constant swap</source>
@@ -1534,7 +1534,7 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aboxVS_icen1.ui" line="875"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1542,77 +1542,78 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="193"/>
         <source>Parabolic</source>
-        <translation type="unfinished"></translation>
+        <translation>Paraboliczny</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="207"/>
         <source>Parabolic scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala paraboli:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="221"/>
         <source>Axis Slope:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachylenie osi:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="383"/>
         <source>Limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Granica:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="491"/>
         <source>Spherical Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sferyczne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="526"/>
         <source>R power:</source>
-        <translation type="unfinished">potęga R:</translation>
+        <translation>potęga R:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="200"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="961"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="987"/>
         <source>Rotat&amp;ion 6 planes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrót 6 płaszczyzn</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1029"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończ obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1036"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="561"/>
         <source>MaximumR2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="629"/>
         <source>Spherical Fold Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie zawijania 
+sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="854"/>
         <source>MinimumR2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1491"/>
         <source>Addition Constant:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodawanie stałej</translation>
     </message>
     <message>
         <source>Coloring parameters</source>
@@ -1621,12 +1622,12 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1669"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Składnik minimalnego promienia:</translation>
+        <translation>Składnik minimalnego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1896"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Y:</translation>
+        <translation>Składnik płaszczyzny Y:</translation>
     </message>
     <message>
         <source>Absolute value of z:</source>
@@ -1635,57 +1636,57 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1839"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Składnik stałego promienia:</translation>
+        <translation>Składnik stałego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1703"/>
         <source>X plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny X:</translation>
+        <translation>Składnik płaszczyzny X:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1696"/>
         <source>Fold component</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik zawijania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1738"/>
         <source>Fold function components -group weight:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1832"/>
         <source>Scale component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik skali:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1925"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Z:</translation>
+        <translation>Składnik płaszczyzny Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="1966"/>
         <source>Initial Color Min:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="2236"/>
         <source>Coloring components (beta version only)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="2249"/>
         <source>Absolute value of z component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość bezwzględna składnika z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="2262"/>
         <source>Orbit trap component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik pułapek orbit:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_abox_4D.ui" line="2271"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1693,12 +1694,12 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aexion.ui" line="90"/>
         <source>c add</source>
-        <translation type="unfinished">dodanie c</translation>
+        <translation>dodanie c</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aexion.ui" line="99"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1706,32 +1707,32 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="75"/>
         <source>Offset. Use in normal mode or use to fine tune in Julia mode</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="182"/>
         <source>Internal &amp;Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Wewnętrzny obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="404"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="568"/>
         <source>Sqr multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="580"/>
         <source>addCpi&amp;xel Symmetrical Constant Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="750"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <source>Offset</source>
@@ -1740,12 +1741,12 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="561"/>
         <source>XY multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>mnożnik XY:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="577"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -1754,7 +1755,7 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_aexion_octopus_mod.ui" line="822"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1762,52 +1763,52 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="40"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="47"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Maksymalny promień:</translation>
+        <translation>Maksymalny promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="136"/>
         <source>Fold y:</source>
-        <translation type="unfinished">Zawijanie y:</translation>
+        <translation>Zawijanie y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="199"/>
         <source>Fold x:</source>
-        <translation type="unfinished">Zawijanie x:</translation>
+        <translation>Zawijanie x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="375"/>
         <source>Scale and fold influence:</source>
-        <translation type="unfinished">Wpływ skali i zawijania:</translation>
+        <translation>Wpływ skali i zawijania:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="382"/>
         <source>Force Cylindrical Fold</source>
-        <translation type="unfinished">Wymuś zawijanie cylindruczne</translation>
+        <translation>Wymuś zawijanie cylindryczne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="389"/>
         <source>Scale Vary:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmienna skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="398"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="401"/>
         <source>addCpi&amp;xel ConstantMultiplier c.x c.y swap</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="472"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -1816,12 +1817,12 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="628"/>
         <source>Rotation</source>
-        <translation type="unfinished">Obrót</translation>
+        <translation>Obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf.ui" line="795"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1829,162 +1830,162 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="40"/>
         <source>Type 1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="47"/>
         <source>Fold z.x:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie z.x</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="61"/>
         <source>Type 2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="95"/>
         <source>Fold Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodzaj zawijania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="116"/>
         <source>Type 3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="164"/>
         <source>Type 5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="82"/>
         <source>Type 4 Fold value:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="102"/>
         <source>Type 5 Fold2 value:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="178"/>
         <source>Type 4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="252"/>
         <source>Fold z.y:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie z.y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="328"/>
         <source>Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Parametry</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="356"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="548"/>
         <source>Sqrt Minimum Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="608"/>
         <source>Scale and fold influence:</source>
-        <translation type="unfinished">Wpływ skali i zawijania:</translation>
+        <translation>Wpływ skali i zawijania:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="615"/>
         <source>Scale Vary:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmienna skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="675"/>
         <source>Force Cylindrical Fold</source>
-        <translation type="unfinished">Wymuś zawijanie cylindruczne</translation>
+        <translation>Wymuś zawijanie cylindryczne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="682"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="975"/>
         <source>Rotation</source>
-        <translation type="unfinished">Obrót</translation>
+        <translation>Obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1027"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Składnik minimalnego promienia:</translation>
+        <translation>Składnik minimalnego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1054"/>
         <source>Fold component</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik zawijania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1061"/>
         <source>X plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny X:</translation>
+        <translation>Składnik płaszczyzny X:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1096"/>
         <source>Fold function components -group weight:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1190"/>
         <source>Scale component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik skali:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1381"/>
         <source>Orbit trap component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik pułapek orbit:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1425"/>
         <source>Absolute value of z component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość bezwzględna składnika z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1197"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Składnik stałego promienia:</translation>
+        <translation>Składnik stałego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1254"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Y:</translation>
+        <translation>Składnik płaszczyzny Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1283"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Z:</translation>
+        <translation>Składnik płaszczyzny Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1324"/>
         <source>Initial Color Min:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1394"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hint: change coloring algorithm from Standard in the Material Editor&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1623"/>
         <source>Coloring components (beta version only, does not work in hybrid mode)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_mod1.ui" line="1632"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -1992,62 +1993,62 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="256"/>
         <source>Fold z.y:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie z.y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="282"/>
         <source>Fold z.x:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie z.x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="314"/>
         <source>Fold Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Parametry zawijania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="493"/>
         <source>Slot 4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="546"/>
         <source>Slot 3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="553"/>
         <source>Slot 5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="560"/>
         <source>Slot 2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="583"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Zatrzymaj na iteracji:</translation>
+        <translation>Zatrzymaj na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="718"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Start na iteracji:</translation>
+        <translation>Start na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="725"/>
         <source>Enable slot sequence:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktywacja sekwencji slotów:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="745"/>
         <source>Slot 1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="40"/>
         <source>Type 5 Fold2 value:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="47"/>
@@ -2057,7 +2058,7 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="470"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="523"/>
         <source>Type 2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="54"/>
@@ -2067,7 +2068,7 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="475"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="528"/>
         <source>Type 3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="61"/>
@@ -2077,17 +2078,17 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="480"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="533"/>
         <source>Type 4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="104"/>
         <source>Type 4 Fold value:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="235"/>
         <source>Fold Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Rodzaj zawijania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="249"/>
@@ -2097,7 +2098,7 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="465"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="518"/>
         <source>Type 1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="321"/>
@@ -2107,133 +2108,133 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="485"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="538"/>
         <source>Type 5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="500"/>
         <source>Order of Fold Types:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolejność rodzajów zawijania:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="738"/>
         <source>Slot, Fold Type and Iteration controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Sloty, Zawijania, Rodzaje i sterowanie iteracjami</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="775"/>
         <source>z.z Fold Value:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="782"/>
         <source>Enable z.z scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktywacja skali z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="902"/>
         <source>z.z Fold Limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit zawijania z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="923"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1117"/>
         <source>Standard &amp;Functions Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1181"/>
         <source>Force Cylindrical Fold</source>
-        <translation type="unfinished">Wymuś zawijanie cylindruczne</translation>
+        <translation>Wymuś zawijanie cylindryczne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1216"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1898"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1246"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1428"/>
         <source>Start Fold at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij zawijanie na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1260"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1382"/>
         <source>Stop Fold at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymaj zawijanie na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1280"/>
         <source>Abox spherical folding:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1342"/>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1494"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Maksymalny promień:</translation>
+        <translation>Minimalny promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1421"/>
         <source>Mbox spherical folding:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1465"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished">Stały promień:</translation>
+        <translation>Stały promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1587"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Przesunięcie zawijania
+        <translation>Przesunięcie zawijania
 sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1817"/>
         <source>Stop Scale at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymaj skalowanie na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1856"/>
         <source>Start Scale at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij skalowanie na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1980"/>
         <source>Scale and fold influence:</source>
-        <translation type="unfinished">Wpływ skali i zawijania:</translation>
+        <translation>Wpływ skali i zawijania:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1996"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="1999"/>
         <source>addCpi&amp;xel Axis Swap ConstantMultiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2028"/>
         <source>alternate swap</source>
-        <translation type="unfinished"></translation>
+        <translation>alternatywna zamiana</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2094"/>
         <source>function order of c.x, c.y and c.z:</source>
-        <translation type="unfinished"></translation>
+        <translation>kolejność funkcji c.x, c.y i c.z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2206"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -2242,17 +2243,17 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2271"/>
         <source>&amp;Main rotation</source>
-        <translation type="unfinished">Główny obrót</translation>
+        <translation>Główny obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2310"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończ obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2946"/>
         <source>Absolute value of z component</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość bezwzględna składnika z:</translation>
     </message>
     <message>
         <source>Stop  Rotation at iteration:</source>
@@ -2261,72 +2262,72 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2330"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2548"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Składnik minimalnego promienia:</translation>
+        <translation>Składnik minimalnego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2575"/>
         <source>Fold component</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik zawijania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2582"/>
         <source>X plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny X:</translation>
+        <translation>Składnik płaszczyzny X:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2617"/>
         <source>Fold function components -group weight:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2711"/>
         <source>Scale component</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik skali:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2718"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Składnik stałego promienia:</translation>
+        <translation>Składnik stałego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2775"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Y:</translation>
+        <translation>Składnik płaszczyzny Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2804"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Z:</translation>
+        <translation>Składnik płaszczyzny Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2845"/>
         <source>Initial Color Min:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2902"/>
         <source>Orbit trap component</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik pułapek orbit:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="2915"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hint: change coloring algorithm from Standard in the Material Editor&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="3144"/>
         <source>Coloring components (beta version only, does not work in hybrid mode)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_amazing_surf_multi.ui" line="3153"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2334,12 +2335,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi.ui" line="42"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2347,22 +2348,22 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="35"/>
         <source>This formula does not use the global addCpixel constant multiplier (on Options tab)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="52"/>
         <source>Mag Transform T&amp;1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="94"/>
         <source>Stop T1 at iteration:</source>
-        <translation type="unfinished">Zatrzymaj T1 na iteracji:</translation>
+        <translation>Zatrzymaj T1 na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="127"/>
         <source>Start T1 at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij T1 na iteracji:</translation>
     </message>
     <message>
         <source>Offset</source>
@@ -2376,22 +2377,22 @@ sferycznego:</translation>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="761"/>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1023"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;In this formula the c.y and c.z components of &amp;quot;CVector3 c&amp;quot; are swapped before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="806"/>
         <source>Stop PT at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymaj PT na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="839"/>
         <source>Start PT at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij PT na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="848"/>
         <source>alternate c.y c.z swap</source>
-        <translation type="unfinished"></translation>
+        <translation>naprzemienna zamiana c.y c.z</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -2401,69 +2402,69 @@ sferycznego:</translation>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1068"/>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1349"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Zatrzymaj na iteracji:</translation>
+        <translation>Zatrzymaj na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1101"/>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1382"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Start na iteracji:</translation>
+        <translation>Start na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1150"/>
         <source>z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalowanie z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1157"/>
         <source>z.z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>skala z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1307"/>
         <source>Post Off&amp;set</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="341"/>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1444"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="396"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="453"/>
         <source>Mag Transform &amp;T1 Internal Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="764"/>
         <source>Pine T&amp;ree addCpixel ConstantMultiplier (c.y c.z Swap)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="860"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1026"/>
         <source>In&amp;verse Cylindrical</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1143"/>
         <source>z.y Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik z.y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_T1_pine_tree.ui" line="1606"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2471,22 +2472,22 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="35"/>
         <source>This formula does not use the global addCpixel constant multiplier (on Options tab)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="45"/>
         <source>Mag Transform T&amp;1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="87"/>
         <source>Stop T1 at iteration:</source>
-        <translation type="unfinished">Zatrzymaj T1 na iteracji:</translation>
+        <translation>Zatrzymaj T1 na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="120"/>
         <source>Start T1 at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij T1 na iteracji:</translation>
     </message>
     <message>
         <source>Offset</source>
@@ -2499,22 +2500,22 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="563"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;In this formula the c.y and c.z components of &amp;quot;CVector3 c&amp;quot; are swapped before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="608"/>
         <source>Start PT at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij PT na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="628"/>
         <source>Stop PT at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymaj PT na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="648"/>
         <source>alternate swap</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprzemienna zamiana</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -2523,152 +2524,152 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="566"/>
         <source>Pine T&amp;ree addCpixel ConstantMultiplier ( c.y c.z Swap)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="818"/>
         <source>Mag Transform &amp;T1 Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1012"/>
         <source>Try both Linear and Logarithmic DelatDE distance estimation functions, to find which works best.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="334"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="389"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="806"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1188"/>
         <source>Slot 4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1232"/>
         <source>Transform:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przekształcenie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1249"/>
         <source>Slot 3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1256"/>
         <source>Slot 5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1263"/>
         <source>Slot 2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1286"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Zatrzymaj na iteracji:</translation>
+        <translation>Zatrzymaj na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1421"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Start na iteracji:</translation>
+        <translation>Start na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1428"/>
         <source>Enable slot sequence:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktywacja sekwencji slotów:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1435"/>
         <source>Slot 1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1448"/>
         <source>Slot, Mag Transform Type and Iteration controls for additional transforms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1470"/>
         <source>Mag Transform Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1510"/>
         <source>Offset z.z</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1896"/>
         <source>Scale z.y</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala z.y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="2084"/>
         <source>Offset z.x</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie z.x</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="2132"/>
         <source>Scale z.z</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="2198"/>
         <source>Scale z.x</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala z.x</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="2271"/>
         <source>Offset z.y</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie z.y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1555"/>
         <source>power B.z</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1565"/>
         <source>power B.x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1575"/>
         <source>power B.y</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1585"/>
         <source>power A.z</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="1990"/>
         <source>power A.x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="2122"/>
         <source>power A.y</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_mag_transforms.ui" line="2761"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2676,17 +2677,17 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_pine_tree.ui" line="41"/>
         <source>Pine Tree addCpixel ConstantMultiplier ( c.y c.z Swap)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pine_tree.ui" line="48"/>
         <source>This formula does not use the global addCpixel constant multiplier (on Options tab)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pine_tree.ui" line="231"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -2695,7 +2696,7 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_pine_tree.ui" line="247"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2703,56 +2704,56 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="35"/>
         <source>This formula does not use the global addCpixel constant multiplier (on Options tab)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="45"/>
         <source>Pr&amp;ism Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Kształt pryzmatu</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="87"/>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1760"/>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="2041"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Start na iteracji:</translation>
+        <translation>Start na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="126"/>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1727"/>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="2008"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Zatrzymaj na iteracji:</translation>
+        <translation>Zatrzymaj na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="133"/>
         <source>Note: Default = 1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="310"/>
         <source>Dot scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="368"/>
         <source>Shift/offset scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="456"/>
         <source>Mag Transform T&amp;1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="498"/>
         <source>Stop T1 at iteration:</source>
-        <translation type="unfinished">Zatrzymaj T1 na iteracji:</translation>
+        <translation>Zatrzymaj T1 na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="531"/>
         <source>Start T1 at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij T1 na iteracji:</translation>
     </message>
     <message>
         <source>Offset</source>
@@ -2765,45 +2766,45 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1168"/>
         <source>Benesi&amp; Pwr2 (Original) addCpixel ConstantMultiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1257"/>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1519"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1423"/>
         <source>Pine T&amp;ree Pwr2 addCpixel ConstantMultiplier ( c.y c.z Swap)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1165"/>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1420"/>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1682"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;In this formula the c.y and c.z components of &amp;quot;CVector3 c&amp;quot; are swapped before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="800"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="857"/>
         <source>Mag Transform &amp;T1 Internal Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1210"/>
         <source>Stop Pwr2 at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1243"/>
         <source>Start Pwr2 at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -2812,53 +2813,53 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1465"/>
         <source>Stop PT at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymaj PT na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1498"/>
         <source>Start PT at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij PT na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1507"/>
         <source>alternate c.y c.z swap</source>
-        <translation type="unfinished"></translation>
+        <translation>naprzemienna zamiana c.y c.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1809"/>
         <source>z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalowanie z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1816"/>
         <source>z.z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>skala z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1966"/>
         <source>Post Off&amp;set</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="745"/>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="2103"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1685"/>
         <source>In&amp;verse Cylindrical</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="1802"/>
         <source>z.y Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik z.y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi_pwr2s.ui" line="2265"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2866,17 +2867,17 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_boxfold_bulbpow2.ui" line="65"/>
         <source>Z scale:</source>
-        <translation type="unfinished">Skala osi z:</translation>
+        <translation>Skalowanie z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_boxfold_bulbpow2.ui" line="147"/>
         <source>Box fold:</source>
-        <translation type="unfinished">Zawijanie sześcienne:</translation>
+        <translation>Zawijanie sześcienne:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_boxfold_bulbpow2.ui" line="156"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2884,12 +2885,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_bristorbrot.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_bristorbrot.ui" line="42"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2897,12 +2898,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_bristorbrot4D.ui" line="35"/>
         <source>Offsets</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_bristorbrot4D.ui" line="291"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2910,17 +2911,17 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="37"/>
         <source>PreAbs(x)</source>
-        <translation type="unfinished">PreAbs(x)</translation>
+        <translation>PreAbs(x)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="44"/>
         <source>PreAbs(y)</source>
-        <translation type="unfinished">PreAbs(y)</translation>
+        <translation>PreAbs(y)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="51"/>
         <source>PreAbs(z)</source>
-        <translation type="unfinished"></translation>
+        <translation>PreAbs(z)</translation>
     </message>
     <message>
         <source>Abs(x)</source>
@@ -2937,12 +2938,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="87"/>
         <source>Positive Z component</source>
-        <translation type="unfinished">Dodatnia składowa Z</translation>
+        <translation>Dodatnia składowa Z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="94"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2950,12 +2951,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_collatz.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz.ui" line="42"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -2963,62 +2964,62 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="116"/>
         <source>Analytic Linear DE adjustment factor:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="184"/>
         <source>Final Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Końcowe skalowanie:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="339"/>
         <source>Scale A:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="406"/>
         <source>Vector B:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="413"/>
         <source>Scale B:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="427"/>
         <source>PI Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="467"/>
         <source>PART B</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="474"/>
         <source>PART A</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="576"/>
         <source>Vector A:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="668"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="671"/>
         <source>addCpi&amp;xel c.x c.z Swap ConstantMultiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="845"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -3027,7 +3028,7 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_collatz_mod.ui" line="892"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3035,32 +3036,32 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="161"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="168"/>
         <source>Offset Radius:</source>
-        <translation type="unfinished">Przesunięcie promienia:</translation>
+        <translation>Przesunięcie promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="393"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="441"/>
         <source>A&amp;nalytic Logarithmic DE adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="498"/>
         <source>Analytic Logarithmic DE multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="756"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <source>Offset</source>
@@ -3069,22 +3070,22 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="400"/>
         <source>Offset. Use in normal mode or use it to fine tune in Julia mode</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="429"/>
         <source>Y scale:</source>
-        <translation type="unfinished">Skala Y:</translation>
+        <translation>Skala Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="523"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="526"/>
         <source>addCpixel Symmetrical Constant Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -3093,7 +3094,7 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_eiffie_msltoe.ui" line="768"/>
         <source>I&amp;nformation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3104,72 +3105,72 @@ sferycznego:</translation>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1032"/>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1302"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Start na iteracji:</translation>
+        <translation>Start na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="86"/>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="999"/>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1335"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Zatrzymaj na iteracji:</translation>
+        <translation>Zatrzymaj na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="666"/>
         <source>&amp;Box Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sześcienne:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="721"/>
         <source>Stop at Iteration:</source>
-        <translation type="unfinished">Stop na iteracji:</translation>
+        <translation>Stop na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="761"/>
         <source>z.z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>skala z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="903"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Granica zawijania
+        <translation>Granica zawijania
 sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="910"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Wartość zawijania 
+        <translation>Wartość zawijania 
 sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="951"/>
         <source>Spherical Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sferyczne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1046"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished">Stały promień:</translation>
+        <translation>Stały promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1053"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Maksymalny promień:</translation>
+        <translation>Maksymalny promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1178"/>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1235"/>
         <source>Scale</source>
-        <translation type="unfinished">Skala</translation>
+        <translation>Skala</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1276"/>
         <source>&amp;Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_fold_box_mod1.ui" line="1520"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3177,133 +3178,133 @@ sześciennego:</translation>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="35"/>
         <source>Main parameters</source>
-        <translation type="unfinished">Główne parametry</translation>
+        <translation>Główne parametry</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="68"/>
         <source>Tetrahedron</source>
-        <translation type="unfinished">Czworościan</translation>
+        <translation>Czworościan</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="73"/>
         <source>Cube</source>
-        <translation type="unfinished">Sześcian</translation>
+        <translation>Sześcian</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="78"/>
         <source>Octahedron</source>
-        <translation type="unfinished">Ośmiościan</translation>
+        <translation>Ośmiościan</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="83"/>
         <source>Dodecahedron</source>
-        <translation type="unfinished">Dwunastościan</translation>
+        <translation>Dwunastościan</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="88"/>
         <source>OctCube</source>
-        <translation type="unfinished">OctCube</translation>
+        <translation>OctCube</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="93"/>
         <source>Icosahedron</source>
-        <translation type="unfinished">Dwudziestościan</translation>
+        <translation>Dwudziestościan</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="98"/>
         <source>Box6</source>
-        <translation type="unfinished">Sześcian 6</translation>
+        <translation>Sześcian 6</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="103"/>
         <source>Box5</source>
-        <translation type="unfinished">Sześcian 5</translation>
+        <translation>Sześcian 5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="139"/>
         <source>Spherical folding
 fixed radius:</source>
-        <translation type="unfinished">Stały promień
+        <translation>Stały promień
 zawijania sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="147"/>
         <source>Spherical folding
 min radius:</source>
-        <translation type="unfinished">Minimalny promień
+        <translation>Minimalny promień
 zawijania sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="243"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="303"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Przesunięcie zawijania
+        <translation>Przesunięcie zawijania
 sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="487"/>
         <source>Solid:</source>
-        <translation type="unfinished">Stały:</translation>
+        <translation>Stały:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="494"/>
         <source>Box type:</source>
-        <translation type="unfinished">Typ bryły:</translation>
+        <translation>Typ bryły:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="501"/>
         <source>Melt:</source>
-        <translation type="unfinished">Roztopiony:</translation>
+        <translation>Roztopiony:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="607"/>
         <source>&amp;Main rotation</source>
-        <translation type="unfinished">Główny obrót</translation>
+        <translation>Główny obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="794"/>
         <source>Coloring parameters</source>
-        <translation type="unfinished">Parametry kolorowania</translation>
+        <translation>Parametry kolorowania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="820"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Składnik minimalnego promienia:</translation>
+        <translation>Składnik minimalnego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="827"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Y:</translation>
+        <translation>Składnik płaszczyzny Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="934"/>
         <source>X plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny X:</translation>
+        <translation>Składnik płaszczyzny X:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="941"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Z:</translation>
+        <translation>Składnik płaszczyzny Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="1020"/>
         <source>Absolute value of z:</source>
-        <translation type="unfinished">Wartość bezwzględna z:</translation>
+        <translation>Wartość bezwzględna z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="1055"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Składnik stałego promienia:</translation>
+        <translation>Składnik stałego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="1167"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3311,12 +3312,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_hypercomplex.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_hypercomplex.ui" line="42"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3328,17 +3329,17 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_ides.ui" line="93"/>
         <source>Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ides.ui" line="264"/>
         <source>Sub Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ides.ui" line="361"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3350,17 +3351,17 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_ides2.ui" line="47"/>
         <source>Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ides2.ui" line="225"/>
         <source>Sub Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ides2.ui" line="361"/>
         <source>Infor&amp;mation</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3368,82 +3369,82 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="35"/>
         <source>Presets</source>
-        <translation type="unfinished">Predefiniowane</translation>
+        <translation>Predefiniowane</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="79"/>
         <source>Dodecahedron</source>
-        <translation type="unfinished">Dwunastościan</translation>
+        <translation>Dwunastościan</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="92"/>
         <source>Icosahedron</source>
-        <translation type="unfinished">Dwudziestościan</translation>
+        <translation>Dwudziestościan</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="105"/>
         <source>Octahedron</source>
-        <translation type="unfinished">Ośmiościan</translation>
+        <translation>Ośmiościan</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="118"/>
         <source>Menger Sponge</source>
-        <translation type="unfinished">Gąbka Mengera</translation>
+        <translation>Gąbka Mengera</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="131"/>
         <source>Reset</source>
-        <translation type="unfinished">Resetuj</translation>
+        <translation>Resetuj</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="143"/>
         <source>Main parameters</source>
-        <translation type="unfinished">Główne parametry</translation>
+        <translation>Główne parametry</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="223"/>
         <source>vector offset:</source>
-        <translation type="unfinished">Przesunięcie wektora:</translation>
+        <translation>Przesunięcie wektora:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="334"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="476"/>
         <source>Menger Sponge mode</source>
-        <translation type="unfinished">Tryb Gąbki Mengera</translation>
+        <translation>Tryb Gąbki Mengera</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="488"/>
         <source>&amp;Main rotation</source>
-        <translation type="unfinished">Główny obrót</translation>
+        <translation>Główny obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="675"/>
         <source>&amp;Box folding</source>
-        <translation type="unfinished">Zawijanie sześcienne</translation>
+        <translation>Zawijanie sześcienne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="886"/>
         <source>edge:</source>
-        <translation type="unfinished">Krawędź:</translation>
+        <translation>Krawędź:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="914"/>
         <source>Vectors</source>
-        <translation type="unfinished">Wektory</translation>
+        <translation>Wektory</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1169"/>
         <source>#4</source>
-        <translation type="unfinished">#4</translation>
+        <translation>#4</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1631"/>
         <source>#3</source>
-        <translation type="unfinished">#3</translation>
+        <translation>#3</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1852"/>
@@ -3456,17 +3457,17 @@ sferycznego:</translation>
         <location filename="../qt_data/fractal_ifs.ui" line="4943"/>
         <location filename="../qt_data/fractal_ifs.ui" line="5213"/>
         <source>intens.</source>
-        <translation type="unfinished">intens.</translation>
+        <translation>intens.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1928"/>
         <source>direction:</source>
-        <translation type="unfinished">kierunek:</translation>
+        <translation>kierunek:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2369"/>
         <source>#1</source>
-        <translation type="unfinished">#1</translation>
+        <translation>#1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2859"/>
@@ -3479,52 +3480,52 @@ sferycznego:</translation>
         <location filename="../qt_data/fractal_ifs.ui" line="5268"/>
         <location filename="../qt_data/fractal_ifs.ui" line="5479"/>
         <source>dist.</source>
-        <translation type="unfinished">dyst.</translation>
+        <translation>dyst.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2885"/>
         <source>#9</source>
-        <translation type="unfinished">#9</translation>
+        <translation>#9</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3053"/>
         <source>#7</source>
-        <translation type="unfinished">#7</translation>
+        <translation>#7</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3762"/>
         <source>Rotation</source>
-        <translation type="unfinished">Obrót</translation>
+        <translation>Obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3938"/>
         <source>#8</source>
-        <translation type="unfinished">#8</translation>
+        <translation>#8</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3973"/>
         <source>#6</source>
-        <translation type="unfinished">#6</translation>
+        <translation>#6</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="4120"/>
         <source>enable:</source>
-        <translation type="unfinished">aktywuj:</translation>
+        <translation>aktywuj:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="4448"/>
         <source>#2</source>
-        <translation type="unfinished">#2</translation>
+        <translation>#2</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="5086"/>
         <source>#5</source>
-        <translation type="unfinished">#5</translation>
+        <translation>#5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="5555"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3532,12 +3533,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_imagsca_power_2.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_imagsca_power_2.ui" line="42"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3545,17 +3546,17 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_iq_bulb.ui" line="40"/>
         <source>Power:</source>
-        <translation type="unfinished">Potęga:</translation>
+        <translation>Potęga:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_iq_bulb.ui" line="47"/>
         <source>zAngle Power:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_iq_bulb.ui" line="150"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3563,47 +3564,47 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="41"/>
         <source>Kalisets1 Mod</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="123"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="212"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="199"/>
         <source>Enable Limits (box) on Rendering Engine tab, and change bottom parameter z: 10 to z: 0, and try low bailout of 1 or 2.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="130"/>
         <source>KaliDucks minR:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="215"/>
         <source>Sing&amp;le Formula addCpixel Constant Multiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="332"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="543"/>
         <source>Julia constant:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała Julia</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="555"/>
         <source>Internal &amp;Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Wewnętrzny obrót</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -3612,7 +3613,7 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="436"/>
         <source>Single Formula Julia &amp;mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb Julia dla pojedyńczej formuły</translation>
     </message>
     <message>
         <source>Julia constant</source>
@@ -3621,7 +3622,7 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_kalisets1.ui" line="742"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3629,12 +3630,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_lkmitch.ui" line="32"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_lkmitch.ui" line="39"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3642,12 +3643,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_makin3d2.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_makin3d2.ui" line="42"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3655,124 +3656,124 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="35"/>
         <source>Main parameters</source>
-        <translation type="unfinished">Główne parametry</translation>
+        <translation>Główne parametry</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="61"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Wartość zawijania 
+        <translation>Wartość zawijania 
 sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="96"/>
         <source>Spherical folding
 fixed radius:</source>
-        <translation type="unfinished">Stały promień
+        <translation>Stały promień
 zawijania sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="136"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Granica zawijania
+        <translation>Granica zawijania
 sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="199"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="318"/>
         <source>Spherical folding
 min radius:</source>
-        <translation type="unfinished">Minimalny promień
+        <translation>Minimalny promień
 zawijania sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="326"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Przesunięcie zawijania
+        <translation>Przesunięcie zawijania
 sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="559"/>
         <source>&amp;Main rotation</source>
-        <translation type="unfinished">Główny obrót</translation>
+        <translation>Główny obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="746"/>
         <source>&amp;Rotation of separate planes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrót poszczególnych płaszczyzn</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="770"/>
         <source>X Axis</source>
-        <translation type="unfinished">Oś-X</translation>
+        <translation>Oś-X</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1108"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1240"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1620"/>
         <source>Positive plane</source>
-        <translation type="unfinished">Płaszczyzna dodatnia</translation>
+        <translation>Płaszczyzna dodatnia</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1118"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1250"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1630"/>
         <source>Negative plane</source>
-        <translation type="unfinished">Płaszczyzna ujemna</translation>
+        <translation>Płaszczyzna ujemna</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1140"/>
         <source>Y Axis</source>
-        <translation type="unfinished">Oś-Y</translation>
+        <translation>Oś-Y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1510"/>
         <source>Z Axis</source>
-        <translation type="unfinished">Oś-Z</translation>
+        <translation>Oś-Z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1883"/>
         <source>Coloring parameters</source>
-        <translation type="unfinished">Parametry kolorowania</translation>
+        <translation>Parametry kolorowania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1909"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Składnik minimalnego promienia:</translation>
+        <translation>Składnik minimalnego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1916"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Y:</translation>
+        <translation>Składnik płaszczyzny Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="2023"/>
         <source>X plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny X:</translation>
+        <translation>Składnik płaszczyzny X:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="2030"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Z:</translation>
+        <translation>Składnik płaszczyzny Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="2109"/>
         <source>Absolute value of z:</source>
-        <translation type="unfinished">Wartość bezwzględna z:</translation>
+        <translation>Wartość bezwzględna z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="2144"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Składnik stałego promienia:</translation>
+        <translation>Składnik stałego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="2256"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -3780,7 +3781,7 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="68"/>
         <source>Stop at Iteration:</source>
-        <translation type="unfinished">Stop na iteracji:</translation>
+        <translation>Stop na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="94"/>
@@ -3788,28 +3789,28 @@ sferycznego:</translation>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1082"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2932"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished">Start na iteracji:</translation>
+        <translation>Start na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="107"/>
         <source>Box Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sześcienne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="121"/>
         <source>z.z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>skala z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="156"/>
         <source>Box folding value:</source>
-        <translation type="unfinished">Wartość zawijania 
+        <translation>Wartość zawijania 
 sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="207"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished">Granica zawijania
+        <translation>Granica zawijania
 sześciennego:</translation>
     </message>
     <message>
@@ -3817,29 +3818,29 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1075"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2964"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished">Zatrzymaj na iteracji:</translation>
+        <translation>Zatrzymaj na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="376"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished">Przesunięcie zawijania
+        <translation>Przesunięcie zawijania
 sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="478"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished">Stały promień:</translation>
+        <translation>Stały promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="485"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished">Maksymalny promień:</translation>
+        <translation>Maksymalny promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="720"/>
         <source>&amp;Main rotation</source>
-        <translation type="unfinished">Główny obrót</translation>
+        <translation>Główny obrót</translation>
     </message>
     <message>
         <source>Stop  Rotation at iteration:</source>
@@ -3848,83 +3849,83 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="698"/>
         <source>Spherical Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sferyczne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="771"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończ obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="803"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1094"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1159"/>
         <source>Scale</source>
-        <translation type="unfinished">Skala</translation>
+        <translation>Skala</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1181"/>
         <source>&amp;Rotation of separate folding planes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrót poszczególnych płaszczyzn</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1591"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1799"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2132"/>
         <source>Positive plane</source>
-        <translation type="unfinished">Płaszczyzna dodatnia</translation>
+        <translation>Płaszczyzna dodatnia</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1607"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1666"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2447"/>
         <source>Negative plane</source>
-        <translation type="unfinished">Płaszczyzna ujemna</translation>
+        <translation>Płaszczyzna ujemna</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="1639"/>
         <source>X Axis</source>
-        <translation type="unfinished">Oś-X</translation>
+        <translation>Oś-X</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2089"/>
         <source>Y Axis</source>
-        <translation type="unfinished">Oś-Y</translation>
+        <translation>Oś-Y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2434"/>
         <source>Z Axis</source>
-        <translation type="unfinished">Oś-Z</translation>
+        <translation>Oś-Z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2551"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3578"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2554"/>
         <source>addCpi&amp;xel Axis Swap ConstantMultiplier for Mandelbox iterations</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2583"/>
         <source>alternate swap</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprzemienna zamiana</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2649"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3806"/>
         <source>function order of c.x, c.y and c.z:</source>
-        <translation type="unfinished"></translation>
+        <translation>kolejność funkcji c.x, c.y i c.z:</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -3933,108 +3934,108 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2849"/>
         <source>Men&amp;ger Sponge</source>
-        <translation type="unfinished"></translation>
+        <translation>Gąbka Mengera</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4106"/>
         <source>Scale component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik skali:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4523"/>
         <source>Absolute value of z component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość bezwzględna składnika z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4536"/>
         <source>Orbit trap component:</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik pułapek orbit:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2919"/>
         <source>Menger sub-loop Iterations</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3135"/>
         <source>Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3471"/>
         <source>Menger Scale Factor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Współczynnik skali gąbki</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3518"/>
         <source>Analytic Logrithmic DE multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3531"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3581"/>
         <source>addCpixe&amp;l Axis Swap ConstantMultiplier for Menger Sponge iterations</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="2761"/>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3875"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3943"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Składnik minimalnego promienia:</translation>
+        <translation>Składnik minimalnego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3970"/>
         <source>Fold component</source>
-        <translation type="unfinished"></translation>
+        <translation>Składnik zawijania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="3977"/>
         <source>X plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny X:</translation>
+        <translation>Składnik płaszczyzny X:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4012"/>
         <source>Fold function components -group weight:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4113"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Składnik stałego promienia:</translation>
+        <translation>Składnik stałego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4170"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Y:</translation>
+        <translation>Składnik płaszczyzny Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4199"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Z:</translation>
+        <translation>Składnik płaszczyzny Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4240"/>
         <source>Initial Color Min:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4510"/>
         <source>Coloring components (beta version only)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_menger.ui" line="4545"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -4042,22 +4043,22 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="362"/>
         <source>Box fold size:</source>
-        <translation type="unfinished">Wielkość sześcianu zawijania:</translation>
+        <translation>Wielkość sześcianu zawijania:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="242"/>
         <source>Vary scale:</source>
-        <translation type="unfinished">Zmienna skala:</translation>
+        <translation>Zmienna skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="200"/>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="299"/>
         <source>R power:</source>
-        <translation type="unfinished">potęga R:</translation>
+        <translation>potęga R:</translation>
     </message>
     <message>
         <source>w-axis constant:</source>
@@ -4066,82 +4067,82 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="513"/>
         <source>Spherical fold size:</source>
-        <translation type="unfinished">Promień zawijania sferycznego:</translation>
+        <translation>Promień zawijania sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="520"/>
         <source>Scale:</source>
-        <translation type="unfinished">Skala:</translation>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="939"/>
         <source>Coloring parameters</source>
-        <translation type="unfinished">Parametry kolorowania</translation>
+        <translation>Parametry kolorowania</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="965"/>
         <source>Min radius component:</source>
-        <translation type="unfinished">Składnik minimalnego promienia:</translation>
+        <translation>Składnik minimalnego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="1050"/>
         <source>Y plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Y:</translation>
+        <translation>Składnik płaszczyzny Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="1271"/>
         <source>X plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny X:</translation>
+        <translation>Składnik płaszczyzny X:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="1278"/>
         <source>Z plane component:</source>
-        <translation type="unfinished">Składnik płaszczyzny Z:</translation>
+        <translation>Składnik płaszczyzny Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="1207"/>
         <source>Absolute value of z:</source>
-        <translation type="unfinished">Wartość bezwzględna z:</translation>
+        <translation>Wartość bezwzględna z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="193"/>
         <source>Parabolic</source>
-        <translation type="unfinished"></translation>
+        <translation>Paraboliczny</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="207"/>
         <source>Parabolic scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala paraboli:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="221"/>
         <source>Axis Slope:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachylenie osi:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="532"/>
         <source>Rotat&amp;ion 6 planes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrót 6 płaszczyzn</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="574"/>
         <source>Stop Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończ obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="581"/>
         <source>Start Rotation at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zacznij obrót na iteracji:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="1242"/>
         <source>Fixed radius component:</source>
-        <translation type="unfinished">Składnik stałego promienia:</translation>
+        <translation>Składnik stałego promienia:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="1312"/>
         <source>&amp;Information</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -4149,22 +4150,22 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb.ui" line="68"/>
         <source>Alpha angle offset:</source>
-        <translation type="unfinished">Przesunięcie kąta alfa:</translation>
+        <translation>Przesunięcie kąta alfa:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb.ui" line="150"/>
         <source>Power:</source>
-        <translation type="unfinished">Potęga:</translation>
+        <translation>Potęga:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb.ui" line="157"/>
         <source>Beta angle offset:</source>
-        <translation type="unfinished">Przesunięcie kąta beta:</translation>
+        <translation>Przesunięcie kąta beta:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb.ui" line="192"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -4172,12 +4173,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb2.ui" line="35"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb2.ui" line="42"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -4185,12 +4186,12 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb3.ui" line="32"/>
         <source>No parameters</source>
-        <translation type="unfinished">Brak parametrów</translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb3.ui" line="39"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -4198,27 +4199,27 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="118"/>
         <source>Alpha angle offset:</source>
-        <translation type="unfinished">Przesunięcie kąta alfa:</translation>
+        <translation>Przesunięcie kąta alfa:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="200"/>
         <source>Power:</source>
-        <translation type="unfinished">Potęga:</translation>
+        <translation>Potęga:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="207"/>
         <source>Beta angle offset:</source>
-        <translation type="unfinished">Przesunięcie kąta beta:</translation>
+        <translation>Przesunięcie kąta beta:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="214"/>
         <source>Gamma angle offset:</source>
-        <translation type="unfinished">Przesunięcie kata gamma:</translation>
+        <translation>Przesunięcie kata gamma:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="276"/>
         <source>Informa&amp;tion</source>
-        <translation type="unfinished">Informacje</translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -4226,63 +4227,63 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="110"/>
         <source>Rotate about z axis:</source>
-        <translation type="unfinished"></translation>
+        <translation>obrót osi Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="145"/>
         <source>Beta angle offset1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie kąta beta:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="152"/>
         <source>Bulb Power:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="212"/>
         <source>Beta angle offset2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie kąta beta2 :</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="219"/>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="474"/>
         <source>Enable cos-tan mode (disable sin-tan2 mode)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="328"/>
         <source>Phi Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="335"/>
         <source>Theta Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="524"/>
         <source>Analytic &amp;Logrithmic DE adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="553"/>
         <source>Analytic Logrithmic DE offset1:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="560"/>
         <source>Analytic Logrithmic DE multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="664"/>
         <source>Analytic Logrithmic DE offset2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_bermarte.ui" line="676"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -4290,62 +4291,62 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="38"/>
         <source>fa&amp;bs() Controls</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="183"/>
         <source>Bulb Power:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="190"/>
         <source>Theta Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="285"/>
         <source>Rotate about z axis:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="336"/>
         <source>Beta angle offset2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="406"/>
         <source>Beta angle offset1:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="457"/>
         <source>Phi Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="469"/>
         <source>Analytic &amp;Logrithmic DE adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="498"/>
         <source>Analytic Logrithmic DE offset1:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="505"/>
         <source>Analytic Logrithmic DE multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="609"/>
         <source>Analytic Logrithmic DE offset2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali.ui" line="621"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
@@ -4353,101 +4354,101 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="38"/>
         <source>fa&amp;bs() Controls</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="120"/>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="365"/>
         <source>Enable sine mode (disable cosine mode)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="136"/>
         <source>Rotate about z axis:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="168"/>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="756"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="200"/>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="710"/>
         <source>function order of x, y and z:</source>
-        <translation type="unfinished"></translation>
+        <translation>kolejność osi x, y i z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="272"/>
         <source>ph0 function2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="282"/>
         <source>th0 function2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="543"/>
         <source>Beta angle offset2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="127"/>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="372"/>
         <source>Polar to Cartesian - Cosine Mode z.z = cos(th);</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="171"/>
         <source>Enable seperate &amp;trig control of second function</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="557"/>
         <source>Phi Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="583"/>
         <source>Bulb Power:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="590"/>
         <source>Beta angle offset1:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="622"/>
         <source>Theta Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="734"/>
         <source>th0 function:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="744"/>
         <source>ph0 function:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="759"/>
         <source>addCpi&amp;xel Axis Swap ConstantMultiplier</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="961"/>
         <source>function order of c.x, c.y and c.z:</source>
-        <translation type="unfinished"></translation>
+        <translation>kolejność funkcji c.x, c.y i c.z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="1005"/>
         <source>Cpixel Multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik cPixel</translation>
     </message>
     <message>
         <source>Cpixel Multiplier</source>
@@ -4456,32 +4457,32 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="1019"/>
         <source>alternate swap</source>
-        <translation type="unfinished"></translation>
+        <translation>Naprzemienna zamiana</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="1034"/>
         <source>Analytic &amp;Logrithmic DE adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="1063"/>
         <source>Analytic Logrithmic DE offset1:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="1070"/>
         <source>Analytic Logrithmic DE multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="1174"/>
         <source>Analytic Logrithmic DE offset2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb_kali_multi.ui" line="1186"/>
         <source>Info&amp;rmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
 </context>
 <context>
