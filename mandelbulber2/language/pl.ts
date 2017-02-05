@@ -23,37 +23,37 @@
         <translation>Wersja serwera: %1</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="915"/>
+        <location filename="../src/netrender.cpp" line="918"/>
         <source>DISABLED</source>
         <translation>WYŁĄCZONY</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="916"/>
+        <location filename="../src/netrender.cpp" line="919"/>
         <source>READY</source>
         <translation>GOTOWY</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="917"/>
+        <location filename="../src/netrender.cpp" line="920"/>
         <source>WORKING</source>
         <translation>PRACUJE</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="918"/>
+        <location filename="../src/netrender.cpp" line="921"/>
         <source>NEW</source>
         <translation>NOWY</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="919"/>
+        <location filename="../src/netrender.cpp" line="922"/>
         <source>(RE-)CONNECTING</source>
         <translation>ŁĄCZENIE</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="920"/>
+        <location filename="../src/netrender.cpp" line="923"/>
         <source>ERROR</source>
         <translation>BŁĄD</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="922"/>
+        <location filename="../src/netrender.cpp" line="925"/>
         <source>UNKNOWN</source>
         <translation>NIEZNANY</translation>
     </message>
@@ -509,7 +509,7 @@ Note: </source>
 </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1480"/>
+        <location filename="../src/interface.cpp" line="1487"/>
         <source>Can&apos;t open file </source>
         <translation>Nie można otworzyć pliku</translation>
     </message>
@@ -518,24 +518,24 @@ Note: </source>
         <translation type="vanished"> Plik ui nie może zostać załadowany</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="473"/>
+        <location filename="../src/interface.cpp" line="474"/>
         <source>Cannot init renderJob, see log output for more information.</source>
         <translation>Nie można zainicjować renderowania. Zobacz log aby uzyskać więcej informacji.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1233"/>
-        <location filename="../src/interface.cpp" line="1258"/>
+        <location filename="../src/interface.cpp" line="1240"/>
+        <location filename="../src/interface.cpp" line="1265"/>
         <source>Reseting view</source>
         <translation>Reset widoku</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1234"/>
+        <location filename="../src/interface.cpp" line="1241"/>
         <source>Fractal size calculation</source>
         <translation>Obliczanie wielkości fraktala</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1258"/>
-        <location filename="../src/interface.cpp" line="1366"/>
+        <location filename="../src/interface.cpp" line="1265"/>
+        <location filename="../src/interface.cpp" line="1373"/>
         <source>Done</source>
         <translation>Gotowe</translation>
     </message>
@@ -561,158 +561,158 @@ Note: </source>
         <translation>Nie dodawaj globalnej stałej C</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1298"/>
-        <location filename="../src/interface.cpp" line="1308"/>
-        <location filename="../src/interface.cpp" line="1318"/>
-        <location filename="../src/interface.cpp" line="1328"/>
-        <location filename="../src/interface.cpp" line="1338"/>
-        <location filename="../src/interface.cpp" line="1348"/>
-        <location filename="../src/interface.cpp" line="1366"/>
+        <location filename="../src/interface.cpp" line="1305"/>
+        <location filename="../src/interface.cpp" line="1315"/>
+        <location filename="../src/interface.cpp" line="1325"/>
+        <location filename="../src/interface.cpp" line="1335"/>
+        <location filename="../src/interface.cpp" line="1345"/>
+        <location filename="../src/interface.cpp" line="1355"/>
+        <location filename="../src/interface.cpp" line="1373"/>
         <source>bounding box as limit</source>
         <translation>Otaczający prostopadłościan jako ograniczenie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1298"/>
+        <location filename="../src/interface.cpp" line="1305"/>
         <source>Negative X Limit</source>
         <translation>Ograniczenie dla ujemnych X</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1308"/>
+        <location filename="../src/interface.cpp" line="1315"/>
         <source>Negative Y Limit</source>
         <translation>Ograniczenie dla ujemnych Y</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1318"/>
+        <location filename="../src/interface.cpp" line="1325"/>
         <source>Negative Z Limit</source>
         <translation>Ograniczenie dla ujemnych X</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1328"/>
+        <location filename="../src/interface.cpp" line="1335"/>
         <source>Positive X Limit</source>
         <translation>Ograniczenie dla dodatnich X</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1338"/>
+        <location filename="../src/interface.cpp" line="1345"/>
         <source>Positive Y Limit</source>
         <translation>Ograniczenie dla dodatnich Y</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1348"/>
+        <location filename="../src/interface.cpp" line="1355"/>
         <source>Positive Z Limit</source>
         <translation>Ograniczenie dla dodatnich Z</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1417"/>
+        <location filename="../src/interface.cpp" line="1424"/>
         <source>Set position of %1 # %2 by mouse pointer</source>
         <translation>Ustaw pozycję %1 # %2 wskaźnikiem myszy</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1423"/>
+        <location filename="../src/interface.cpp" line="1430"/>
         <source>Delete </source>
         <translation>Skasuj </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1481"/>
+        <location filename="../src/interface.cpp" line="1488"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation> Plik ui prymitywu nie może zostać załadowany</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1563"/>
+        <location filename="../src/interface.cpp" line="1570"/>
         <source>No action</source>
         <translation>Brak akcji</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1567"/>
+        <location filename="../src/interface.cpp" line="1574"/>
         <source>Move the camera</source>
         <translation>Przesuń kamerę</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1571"/>
+        <location filename="../src/interface.cpp" line="1578"/>
         <source>Set fog visibility</source>
         <translation>Ustaw widoczność mgły</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1575"/>
+        <location filename="../src/interface.cpp" line="1582"/>
         <source>Set DOF focus</source>
         <translation>Ustaw głębię ostrości</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1579"/>
+        <location filename="../src/interface.cpp" line="1586"/>
         <source>Get Julia constant</source>
         <translation>Pobierz stałą Julia</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1584"/>
+        <location filename="../src/interface.cpp" line="1591"/>
         <source>Place light #1</source>
         <translation>Umieść światło #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1589"/>
+        <location filename="../src/interface.cpp" line="1596"/>
         <source>Place light #2</source>
         <translation>Umieść światło #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1594"/>
+        <location filename="../src/interface.cpp" line="1601"/>
         <source>Place light #3</source>
         <translation>Umieść światło #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1599"/>
+        <location filename="../src/interface.cpp" line="1606"/>
         <source>Place light #4</source>
         <translation>Umieść światło #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1603"/>
+        <location filename="../src/interface.cpp" line="1610"/>
         <source>Place random light center</source>
         <translation>Umieść centrum losowych świateł</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1607"/>
+        <location filename="../src/interface.cpp" line="1614"/>
         <source>Get point coordinates</source>
         <translation>Pobierz współrzędne punktu</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1616"/>
+        <location filename="../src/interface.cpp" line="1623"/>
         <source>Place </source>
         <translation>Umieść </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1653"/>
+        <location filename="../src/interface.cpp" line="1660"/>
         <source>Yes, don&apos;t ask again</source>
         <translation>Tak, ale już więcej nie pytaj</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1737"/>
+        <location filename="../src/interface.cpp" line="1746"/>
         <source>In Mandelbulber 2.10 the default data structure changed for linux and MacOS:
 Instead of keeping all working folders/files in ~/.mandelbulber these are now split into&lt;ul&gt;&lt;li&gt;&lt;b&gt;.mandelbulber&lt;/b&gt; for program internal folders/files:&lt;br&gt;undo, toolbar, queue, thumbnails, mandelbulber.ini, miscellaneous meta files&lt;/li&gt;&lt;li&gt;&lt;b&gt;mandelbulber&lt;/b&gt; for user defined folders/files:&lt;br&gt;settings, images, materials, slices, animation, textures&lt;/li&gt;&lt;/ul&gt;
 Do you want to upgrade now to this new structure? Program will restart after upgrade.</source>
-        <translation type="unfinished">W Mandelbulber 2.10 nastąpiła zmiana domyślnej struktury plików z danymi:
-Instead of keeping all working folders/files in ~/.mandelbulber these are now split into&lt;ul&gt;&lt;li&gt;&lt;b&gt;.mandelbulber&lt;/b&gt; for program internal folders/files:&lt;br&gt;undo, toolbar, queue, thumbnails, mandelbulber.ini, miscellaneous meta files&lt;/li&gt;&lt;li&gt;&lt;b&gt;mandelbulber&lt;/b&gt; for user defined folders/files:&lt;br&gt;settings, images, materials, slices, animation, textures&lt;/li&gt;&lt;/ul&gt;
-Do you want to upgrade now to this new structure? Program will restart after upgrade.</translation>
+        <translation>W Mandelbulber 2.10 nastąpiła zmiana domyślnej struktury plików z danymi:
+Zamiast trzymać wszystkie pliki i foldery robocze w ~/.mandelbulber, są one teraz podzielone na &lt;ul&gt;&lt;li&gt;&lt;b&gt;.mandelbulber&lt;/b&gt; dla wewnętrznych plików/folderów programu:&lt;br&gt;undo, toolbar, queue, thumbnails, mandelbulber.ini&lt;/li&gt;&lt;li&gt;&lt;b&gt;mandelbulber&lt;/b&gt; dla folderów/plików użytkownika:&lt;br&gt;settings, images, materials, slices, animation, textures&lt;/li&gt;&lt;/ul&gt;
+Czy chcesz teraz zaktualizować na nową strukturę plików? Program zostanie zrestartowany po aktualizacji.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1747"/>
+        <location filename="../src/interface.cpp" line="1756"/>
         <source>Data folder upgrade</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacja folderów danych</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1752"/>
+        <location filename="../src/interface.cpp" line="1761"/>
         <source>No, don&apos;t ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie pytaj ponownie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1840"/>
-        <location filename="../src/interface.cpp" line="1885"/>
+        <location filename="../src/interface.cpp" line="1849"/>
+        <location filename="../src/interface.cpp" line="1894"/>
         <source>Looking for optimal DE factor</source>
         <translation>Poszukiwanie optymalnego współczynnika estymacji dystansu</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1886"/>
+        <location filename="../src/interface.cpp" line="1895"/>
         <source>Percentage of wrong distance estimations: %1</source>
         <translation>Procent nieprawidłowych estymacji dystansu: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1896"/>
+        <location filename="../src/interface.cpp" line="1905"/>
         <source>Optimal DE factor is: %1 which gives %2% of bad distance estimations</source>
         <translation>Optymalny współczynnik estymacji dystansu wynosi %1 i daje %2% nieprawidłowych estymacji</translation>
     </message>
@@ -722,27 +722,27 @@ Do you want to upgrade now to this new structure? Program will restart after upg
         <translation>Dodawaj globalną stałą C</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="298"/>
+        <location filename="../src/render_window_slots.cpp" line="299"/>
         <source>Toolbar settings: </source>
         <translation>Plik ustawień:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1646"/>
+        <location filename="../src/interface.cpp" line="1653"/>
         <source>Are you sure to close the application?</source>
         <translation>Czy jesteś pewny, że chcesz zamknąć aplikację?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1648"/>
+        <location filename="../src/interface.cpp" line="1655"/>
         <source>Quit?</source>
         <translation>Wyjść?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1704"/>
+        <location filename="../src/interface.cpp" line="1711"/>
         <source>Auto recovery</source>
         <translation>Auto odzyskiwanie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1705"/>
+        <location filename="../src/interface.cpp" line="1712"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
         <translation>Aplikacja nie została poprawnie zamknięta
@@ -803,7 +803,7 @@ Czy chcesz odzyskać swoją ostatnią pracę?</translation>
         <translation>Renderowanie</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1895"/>
+        <location filename="../src/interface.cpp" line="1904"/>
         <location filename="../src/render_image.cpp" line="420"/>
         <location filename="../src/render_ssao.cpp" line="202"/>
         <source>Idle</source>
@@ -980,7 +980,7 @@ Kontynuować?</translation>
         <location filename="../src/animation_flight.cpp" line="245"/>
         <location filename="../src/animation_flight.cpp" line="698"/>
         <location filename="../src/animation_keyframes.cpp" line="504"/>
-        <location filename="../src/interface.cpp" line="1788"/>
+        <location filename="../src/interface.cpp" line="1797"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
         <translation>Silnik renderowania jest zajęty. Zatrzymaj wcześniej uruchomione renderowanie zanim zaczniesz nowe</translation>
     </message>
@@ -1043,7 +1043,7 @@ Czy chcesz opróżnić folder z klatkami animacji?
         <location filename="../src/animation_flight.cpp" line="871"/>
         <location filename="../src/animation_keyframes.cpp" line="736"/>
         <source>Error occured, see log output</source>
-        <translation type="unfinished"></translation>
+        <translation>Wystąpił błąd. Sprawdź plik dziennika (mandelbulber_log.txt)</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="920"/>
@@ -1095,7 +1095,7 @@ Is there already a mandelbulber server instance running on this port?</source>
         <translation>NetRender - błąd serwera</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="667"/>
+        <location filename="../src/netrender.cpp" line="670"/>
         <source>NetRender - Client version mismatch!
  Client address:</source>
         <translation>NetRender - Nieprawidłowa wersja klienta!
@@ -1115,7 +1115,7 @@ Is there already a mandelbulber server instance running on this port?</source>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="544"/>
         <source>There is no frame to render: first frame to render and last frame to render are equals.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie ma klatek do zrenderowania. Numer pierwszej i ostatniej jest taki sam. </translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="586"/>
@@ -1189,12 +1189,12 @@ Czy usunąć istniejące klatki?</translation>
         <translation>OK, ale już więcej nie pytaj</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="500"/>
+        <location filename="../src/render_window_menu.cpp" line="503"/>
         <source>Settings saved to clipboard</source>
         <translation>Ustawienia zapisane w schowku</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="237"/>
+        <location filename="../src/render_window_menu.cpp" line="247"/>
         <source>Cannot load settings from clipboard!</source>
         <translation>Nie można wczytać ustawień ze schowka!</translation>
     </message>
@@ -1534,7 +1534,7 @@ allowed formats are: </source>
     <message>
         <location filename="../qt/mesh_export_dialog.cpp" line="176"/>
         <source>Mesh Export is busy. Stop unfinished rendering before closing the mesh export dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport siatki jest zajęty. Zatrzymaj rozpoczęte renerowanie zanim zamkniesz to okno.</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.cpp" line="188"/>
@@ -1553,68 +1553,91 @@ allowed formats are: </source>
         <source>Add to keyframe animation</source>
         <translation type="obsolete">Dodaj do animacji z klatkami kluczowymi</translation>
     </message>
+    <message>
+        <location filename="../qt/audio_selector.cpp" line="340"/>
+        <source>%1 / %2</source>
+        <translation>%1 / %2</translation>
+    </message>
 </context>
 <context>
     <name>RenderWindow</name>
     <message>
         <location filename="../qt/render_window.ui" line="20"/>
-        <location filename="../qt/ui_render_window.h" line="901"/>
+        <location filename="../qt/ui_render_window.h" line="914"/>
         <source>Mandelbulber</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="114"/>
-        <location filename="../qt/ui_render_window.h" line="942"/>
+        <location filename="../qt/ui_render_window.h" line="957"/>
         <source>Zoom:</source>
         <translation>Powiększenie:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="134"/>
-        <location filename="../qt/ui_render_window.h" line="945"/>
+        <location filename="../qt/ui_render_window.h" line="960"/>
         <source>Fit to window</source>
         <translation>Dopasuj do okna</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="139"/>
-        <location filename="../qt/ui_render_window.h" line="946"/>
+        <location filename="../qt/ui_render_window.h" line="961"/>
         <source>400%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="144"/>
-        <location filename="../qt/ui_render_window.h" line="947"/>
+        <location filename="../qt/ui_render_window.h" line="962"/>
         <source>200%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="149"/>
-        <location filename="../qt/ui_render_window.h" line="948"/>
+        <location filename="../qt/ui_render_window.h" line="963"/>
         <source>100%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="154"/>
-        <location filename="../qt/ui_render_window.h" line="949"/>
+        <location filename="../qt/ui_render_window.h" line="964"/>
         <source>50%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="159"/>
-        <location filename="../qt/ui_render_window.h" line="950"/>
+        <location filename="../qt/ui_render_window.h" line="965"/>
         <source>25%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="164"/>
-        <location filename="../qt/ui_render_window.h" line="951"/>
+        <location filename="../qt/ui_render_window.h" line="966"/>
         <source>10%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="185"/>
-        <location filename="../qt/ui_render_window.h" line="953"/>
+        <location filename="../qt/ui_render_window.h" line="968"/>
         <source>Show cursor</source>
         <translation>Pokaż kursor</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="1218"/>
+        <location filename="../qt/ui_render_window.h" line="942"/>
+        <source>Show a&amp;nimation dock</source>
+        <translation>Wyświetl dok z animacją</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="1340"/>
+        <location filename="../qt/ui_render_window.h" line="955"/>
+        <source>Test</source>
+        <translation>Test</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="1349"/>
+        <location filename="../qt/ui_render_window.h" line="956"/>
+        <source>Remove Window settings...</source>
+        <translation>Usuń ustawienia okna...</translation>
     </message>
     <message>
         <source>Image</source>
@@ -1622,7 +1645,7 @@ allowed formats are: </source>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="268"/>
-        <location filename="../qt/ui_render_window.h" line="964"/>
+        <location filename="../qt/ui_render_window.h" line="979"/>
         <source>File</source>
         <translation>Plik</translation>
     </message>
@@ -1635,8 +1658,8 @@ allowed formats are: </source>
         <translation type="vanished">O programie</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="315"/>
-        <location filename="../qt/ui_render_window.h" line="967"/>
+        <location filename="../qt/render_window.ui" line="323"/>
+        <location filename="../qt/ui_render_window.h" line="983"/>
         <source>Edit</source>
         <translation>Edycja</translation>
     </message>
@@ -1762,31 +1785,37 @@ allowed formats are: </source>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="218"/>
-        <location filename="../qt/ui_render_window.h" line="960"/>
+        <location filename="../qt/ui_render_window.h" line="975"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for action which will be executed after clicking on the image&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;No action - blocks functionality of mouse pointer&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Move the camera - moves the camera or target (depends on movement and rotation mode)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set fog visibility - sets visibility distance for basic fog effect&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set DOF focus - sets object which will appear in focus&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Get Julia constant - gets value of constant for Julia fractal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Place light #n - places light in selected place (mouse wheel controls distance from fractal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wybór działania jakie ma być wykonane po dwukrotnym kliknięciu na obrazie&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Brak akcji - blokuje funkcjonalność wskaźnika myszy&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Przemieść kamerę - przemieszcza kamerę lub cel (zależy od aktualnego trybu przemieszczania i rotacji)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ustaw widoczność mgły - ustawia zasięg widoczności dla podstawowego efektu mgły&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ustaw głębię ostrości - wybiera obiekt który ma być ostry&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pobierz stałą Julia - pobiera stałą Julia dla fraktali Julia&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Umieść światło #n - umieszcza światło we wskazanym miejscu (rolką myszy można ustawić odległość od fraktala) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="257"/>
-        <location filename="../qt/ui_render_window.h" line="963"/>
+        <location filename="../qt/ui_render_window.h" line="978"/>
         <source>I&amp;mage</source>
         <translation>Obraz</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="288"/>
-        <location filename="../qt/ui_render_window.h" line="965"/>
+        <location filename="../qt/ui_render_window.h" line="980"/>
         <source>&amp;View</source>
         <translation>View</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="307"/>
-        <location filename="../qt/ui_render_window.h" line="966"/>
+        <location filename="../qt/render_window.ui" line="292"/>
+        <location filename="../qt/ui_render_window.h" line="981"/>
+        <source>Saved window layouts</source>
+        <translation>Zapisane układy okna</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="315"/>
+        <location filename="../qt/ui_render_window.h" line="982"/>
         <source>A&amp;bout</source>
         <translation>O programie</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="344"/>
-        <location filename="../qt/ui_render_window.h" line="968"/>
+        <location filename="../qt/render_window.ui" line="352"/>
+        <location filename="../qt/ui_render_window.h" line="984"/>
         <source>&amp;Image adjustments</source>
         <translation>Ustawienia obrazu</translation>
     </message>
@@ -1799,14 +1828,14 @@ allowed formats are: </source>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Definiuje jak stereoskopowy obraz ma zostać zrederowany.&lt;/p&gt;&lt;p&gt;Lewa-prawa - Widok dla lewego oka będzie zrederowany po lewej stronie obrazu. Widok dla prawego oka będzie po prawej stronie.&lt;/p&gt;&lt;p&gt;Góra-dół - Widok dla lewego oka będzie zrederowany na górnej połowie obrazu. Widok dla prawego oka będzie na dolnej połowie.&lt;/p&gt;&lt;p&gt;Anaglif czerwono-turkusowy - Obraz będzie zrenderowany jako anaglif dedykowany dla czerwono-turkusowych okularów 3D. Używając ten tryb jest możliwa edycja fraktala z widokiem 3D w oknie aplikacji wykorzystując zwykły monitor. Są tylko potrzebne okulary 3D. Podczas eksplorowania fraktala nie jest rekomendowane używanie światła rozproszonego SSAO, gdyz jest renderowane dwuprzebiegowo (spróbuj używać &amp;quot;Szybkie&amp;quot; światło rozproszone).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="959"/>
-        <location filename="../qt/ui_render_window.h" line="985"/>
+        <location filename="../qt/render_window.ui" line="967"/>
+        <location filename="../qt/ui_render_window.h" line="1001"/>
         <source>&amp;Gamepad</source>
         <translation>Gamepad</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="417"/>
-        <location filename="../qt/ui_render_window.h" line="969"/>
+        <location filename="../qt/render_window.ui" line="425"/>
+        <location filename="../qt/ui_render_window.h" line="985"/>
         <source>&amp;Navigation</source>
         <translation>Nawigacja</translation>
     </message>
@@ -1950,25 +1979,25 @@ kamery od celu:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="199"/>
-        <location filename="../qt/ui_render_window.h" line="954"/>
+        <location filename="../qt/ui_render_window.h" line="969"/>
         <source>Mouse click function:</source>
         <translation>Funkcja przycisku myszy:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="222"/>
-        <location filename="../qt/ui_render_window.h" line="957"/>
+        <location filename="../qt/ui_render_window.h" line="972"/>
         <source>No action</source>
         <translation>Brak akcji</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="447"/>
-        <location filename="../qt/ui_render_window.h" line="970"/>
+        <location filename="../qt/render_window.ui" line="455"/>
+        <location filename="../qt/ui_render_window.h" line="986"/>
         <source>toolBar</source>
         <translation>pasek narzędzi</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="462"/>
-        <location filename="../qt/ui_render_window.h" line="971"/>
+        <location filename="../qt/render_window.ui" line="470"/>
+        <location filename="../qt/ui_render_window.h" line="987"/>
         <source>Effects</source>
         <translation>Efekty</translation>
     </message>
@@ -2885,8 +2914,8 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">Mnożnik stałej C:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="599"/>
-        <location filename="../qt/ui_render_window.h" line="973"/>
+        <location filename="../qt/render_window.ui" line="607"/>
+        <location filename="../qt/ui_render_window.h" line="989"/>
         <source>&amp;Rendering engine</source>
         <translation>Silnik renderowania</translation>
     </message>
@@ -2959,8 +2988,8 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rozpoczyna pracę Mandelbulbera jako serwer.&lt;/p&gt;&lt;p&gt;Po wciśnięciu tego przycisku, program zaczyna szukać klientów i łączyć się z nimi. &lt;/p&gt;&lt;p&gt;Jeśli połączenie z klientem jest ustanowione, wtedy jest on wyświetlany w tabeli poniżej &lt;/p&gt;&lt;p&gt;Aby połączyć się z klientem, po stronie klienta musi być wciśnięty przycisk &lt;i&gt;Połącz z serwerem&lt;/i&gt;.&lt;/p&gt;&lt;p&gt;Gdy wszystkie potrzebne komputery są już połączone, wtedy serwer jest gotowy do pracy. Gdy wciśniesz przycisk RENDERUJ, serwer i wszystkie klienty rozpoczną renderowanie tego samego obrazu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="699"/>
-        <location filename="../qt/ui_render_window.h" line="975"/>
+        <location filename="../qt/render_window.ui" line="707"/>
+        <location filename="../qt/ui_render_window.h" line="991"/>
         <source>&amp;Animation</source>
         <translation>Animacja</translation>
     </message>
@@ -3115,8 +3144,8 @@ od kamery dla
 wszystkich klatek</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="729"/>
-        <location filename="../qt/ui_render_window.h" line="976"/>
+        <location filename="../qt/render_window.ui" line="737"/>
+        <location filename="../qt/ui_render_window.h" line="992"/>
         <source>&amp;Statistics</source>
         <translation>Statystyki</translation>
     </message>
@@ -3157,14 +3186,14 @@ wszystkich klatek</translation>
         <translation type="vanished">0</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="762"/>
-        <location filename="../qt/ui_render_window.h" line="978"/>
+        <location filename="../qt/render_window.ui" line="770"/>
+        <location filename="../qt/ui_render_window.h" line="994"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Queue tool allows for rendering a collection of settings files in the background.&lt;/p&gt;&lt;p&gt;While the list of settings files is being rendered, you can continue to work in the main window and also add more settings to the queue.&lt;/p&gt;&lt;p&gt;Methods to manage queue:&lt;br/&gt;- by adding items using &lt;span style=&quot; font-style:italic;&quot;&gt;Add current settings&lt;/span&gt; button&lt;br/&gt;- by editing queue.fractlist file&lt;br/&gt;- by puting files into queue folder and use button &lt;span style=&quot; font-style:italic;&quot;&gt;Add orphaned&lt;br/&gt;&lt;/span&gt;- by adding single settings or lists using command line interface&lt;/p&gt;&lt;p&gt;Temporary settings files are stored in $HOME/.mandelbulber/queue folder and the list is in $HOME/.mandelbulber/queue.fractlist&lt;/p&gt;&lt;p&gt;The queue can be rendered in another instance of Mandelbulber program, as the queue is shared between applications. You can also launch another Mandelbulber from command line interface with -q option. Then this application will watch queue and render automatically all new items.&lt;/p&gt;&lt;p&gt;Result images are saved into $HOME/.mandelbulber/images directory (or another if it&apos;s specified in application preferences.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Narzędzie kolejki pozwala na renderowanie w tle kolekcji plików z ustawieniami.&lt;/p&gt;&lt;p&gt;Podczas gdy pliki z listy są renderowane, możesz kontynuować pracę w głównym oknie a także dodawać więcej ustawień do kolejki.&lt;/p&gt;&lt;p&gt;Metody zarządzania kolejką:&lt;br/&gt;- przez dodawanie elementów przy użyciu przycisku&lt;span style=&quot; font-style:italic;&quot;&gt;Dodaj aktualne ustawienia&lt;/span&gt;&lt;br/&gt;- przez edycję pliku queue.fractlist&lt;br/&gt;- przez umieszczanie plików w folderze queue i użycie przycisku &lt;span style=&quot; font-style:italic;&quot;&gt;Dodaj osierocone&lt;br/&gt;&lt;/span&gt;- przez dodawanie pojedynczych plików ustawień oraz list plików przy użyciu wiersza poleceń&lt;/p&gt;&lt;p&gt;Tymczasowe ustawienia są przechowywane w folderze $HOME/.mandelbulber/queue a lista jest w pliku $HOME/.mandelbulber/queue.fractlist&lt;/p&gt;&lt;p&gt;Kolejka może być renderowana w innej instancji Mandelbulbera, jako że kolejka jest udostępniana pomiędzy programami. Możesz także z wiersza poleceń uruchomić inny program Mandelbulber z opcją -q. Wtedy aplikacja będzie obserwowała kolejkę i automatycznie renderowała nowe elementy.&lt;/p&gt;&lt;p&gt;Wynikowe obrazy są zapisywane do katalogu $HOME/.mandelbulber/images (chyba, że jest inaczej ustawione w preferencjach programu)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="768"/>
-        <location filename="../qt/ui_render_window.h" line="981"/>
+        <location filename="../qt/render_window.ui" line="776"/>
+        <location filename="../qt/ui_render_window.h" line="997"/>
         <source>&amp;Queue</source>
         <translation>Kolejka</translation>
     </message>
@@ -3233,8 +3262,8 @@ wszystkich klatek</translation>
         <translation type="vanished">Podgląd</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="835"/>
-        <location filename="../qt/ui_render_window.h" line="982"/>
+        <location filename="../qt/render_window.ui" line="843"/>
+        <location filename="../qt/ui_render_window.h" line="998"/>
         <source>&amp;Measurement</source>
         <translation>Pomiar</translation>
     </message>
@@ -3251,178 +3280,172 @@ wszystkich klatek</translation>
         <translation type="vanished">Odległość od kamery:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1012"/>
-        <location filename="../qt/ui_render_window.h" line="902"/>
+        <location filename="../qt/render_window.ui" line="1020"/>
+        <location filename="../qt/ui_render_window.h" line="915"/>
         <source>&amp;Save as JPG...</source>
         <translation>Zapisz jako JPG...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1021"/>
-        <location filename="../qt/ui_render_window.h" line="903"/>
+        <location filename="../qt/render_window.ui" line="1029"/>
+        <location filename="../qt/ui_render_window.h" line="916"/>
         <source>Save &amp;as PNG...</source>
         <translation>Zapisz jako PNG...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1030"/>
-        <location filename="../qt/ui_render_window.h" line="904"/>
+        <location filename="../qt/render_window.ui" line="1038"/>
+        <location filename="../qt/ui_render_window.h" line="917"/>
         <source>Save as &amp;PNG 16 bit...</source>
         <translation>Zapisz jako PNG 16-bit...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1039"/>
-        <location filename="../qt/ui_render_window.h" line="905"/>
+        <location filename="../qt/render_window.ui" line="1047"/>
+        <location filename="../qt/ui_render_window.h" line="918"/>
         <source>Save as PNG &amp;16 bit with alpha channel</source>
         <translation>Zapisz jako PNG 16-bit z kanałem alfa</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1048"/>
-        <location filename="../qt/ui_render_window.h" line="906"/>
+        <location filename="../qt/render_window.ui" line="1056"/>
+        <location filename="../qt/ui_render_window.h" line="919"/>
         <source>&amp;Load settings...</source>
         <translation>Wczytaj ustawienia...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1057"/>
-        <location filename="../qt/ui_render_window.h" line="907"/>
+        <location filename="../qt/render_window.ui" line="1065"/>
+        <location filename="../qt/ui_render_window.h" line="920"/>
         <source>Load settings &amp;from clipboard...</source>
         <translation>Wczytaj ustawienia ze schowka...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1066"/>
-        <location filename="../qt/ui_render_window.h" line="908"/>
+        <location filename="../qt/render_window.ui" line="1074"/>
+        <location filename="../qt/ui_render_window.h" line="921"/>
         <source>&amp;Save settings</source>
         <translation>Zapisz ustawienia</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1075"/>
-        <location filename="../qt/ui_render_window.h" line="909"/>
+        <location filename="../qt/render_window.ui" line="1083"/>
+        <location filename="../qt/ui_render_window.h" line="922"/>
         <source>Save settings &amp;to clipboard</source>
         <translation>Zapisz ustawienia do schowka</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1096"/>
-        <location filename="../qt/ui_render_window.h" line="914"/>
+        <location filename="../qt/render_window.ui" line="1104"/>
+        <location filename="../qt/ui_render_window.h" line="927"/>
         <source>&amp;Program Settings</source>
         <translation>Ustawienia programu</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1105"/>
-        <location filename="../qt/ui_render_window.h" line="915"/>
+        <location filename="../qt/render_window.ui" line="1113"/>
+        <location filename="../qt/ui_render_window.h" line="928"/>
         <source>&amp;Quit</source>
         <translation>Wyjście</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1114"/>
-        <location filename="../qt/ui_render_window.h" line="916"/>
         <source>&amp;Save window state</source>
-        <translation>Zapisz układ okna</translation>
+        <translation type="vanished">Zapisz układ okna</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1123"/>
-        <location filename="../qt/ui_render_window.h" line="917"/>
         <source>&amp;Default docks positions</source>
-        <translation>Domyślne ustawienie doków</translation>
+        <translation type="vanished">Domyślne ustawienie doków</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1132"/>
-        <location filename="../qt/ui_render_window.h" line="918"/>
-        <source>&amp;Animation docks positions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="1137"/>
-        <location filename="../qt/ui_render_window.h" line="919"/>
+        <location filename="../qt/render_window.ui" line="1145"/>
+        <location filename="../qt/ui_render_window.h" line="932"/>
         <source>About &amp;Qt</source>
         <translation>O Qt...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1142"/>
-        <location filename="../qt/ui_render_window.h" line="920"/>
+        <location filename="../qt/render_window.ui" line="1150"/>
+        <location filename="../qt/ui_render_window.h" line="933"/>
         <source>About &amp;Third Party</source>
         <translation>O osobach trzecich...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1151"/>
-        <location filename="../qt/ui_render_window.h" line="921"/>
+        <location filename="../qt/render_window.ui" line="1159"/>
+        <location filename="../qt/ui_render_window.h" line="934"/>
         <source>&amp;About Mandelbulber</source>
         <translation>O Mandelbulber...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1160"/>
-        <location filename="../qt/ui_render_window.h" line="922"/>
+        <location filename="../qt/render_window.ui" line="1168"/>
+        <location filename="../qt/ui_render_window.h" line="935"/>
         <source>&amp;Undo</source>
         <translation>Cofnij</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1172"/>
-        <location filename="../qt/ui_render_window.h" line="924"/>
+        <location filename="../qt/render_window.ui" line="1180"/>
+        <location filename="../qt/ui_render_window.h" line="937"/>
         <source>&amp;Redo</source>
         <translation>Przywróć</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1184"/>
-        <location filename="../qt/ui_render_window.h" line="926"/>
+        <location filename="../qt/render_window.ui" line="1192"/>
+        <location filename="../qt/ui_render_window.h" line="939"/>
         <source>&amp;Import settings from old Mandelbulber (v1.21)...</source>
         <translation>Zaimportuj ustawienia ze starego Mandelbulber (v1.21)...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1202"/>
-        <location filename="../qt/ui_render_window.h" line="928"/>
+        <location filename="../qt/render_window.ui" line="1210"/>
+        <location filename="../qt/ui_render_window.h" line="941"/>
         <source>Load &amp;example...</source>
         <translation>Wczytaj przykład...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1210"/>
-        <location filename="../qt/ui_render_window.h" line="929"/>
         <source>Show &amp;animation dock</source>
-        <translation>Wyświetl dok z animacją</translation>
+        <translation type="vanished">Wyświetl dok z animacją</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1221"/>
-        <location filename="../qt/ui_render_window.h" line="930"/>
+        <location filename="../qt/render_window.ui" line="1229"/>
+        <location filename="../qt/ui_render_window.h" line="943"/>
         <source>Show &amp;gamepad dock</source>
         <translation>Wyświetl dok gamepadem</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1232"/>
-        <location filename="../qt/ui_render_window.h" line="931"/>
+        <location filename="../qt/render_window.ui" line="1240"/>
+        <location filename="../qt/ui_render_window.h" line="944"/>
         <source>Show &amp;queue dock</source>
         <translation>Pokaż dok z kolejką</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1243"/>
-        <location filename="../qt/ui_render_window.h" line="932"/>
+        <location filename="../qt/render_window.ui" line="1251"/>
+        <location filename="../qt/ui_render_window.h" line="945"/>
         <source>Show &amp;Info dock</source>
         <translation>Pokaż dok z informacjami</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1254"/>
-        <location filename="../qt/ui_render_window.h" line="933"/>
+        <location filename="../qt/render_window.ui" line="1262"/>
+        <location filename="../qt/ui_render_window.h" line="946"/>
         <source>Show &amp;toolbar</source>
         <translation>Pokaż pasek narzędzi</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1266"/>
-        <location filename="../qt/ui_render_window.h" line="934"/>
+        <location filename="../qt/render_window.ui" line="1274"/>
+        <location filename="../qt/ui_render_window.h" line="947"/>
         <source>Sta&amp;ck all docks</source>
         <translation>Ułóż wszystkie doki na stosie</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1274"/>
-        <location filename="../qt/ui_render_window.h" line="935"/>
+        <location filename="../qt/render_window.ui" line="1282"/>
+        <location filename="../qt/ui_render_window.h" line="948"/>
         <source>S&amp;how statistics</source>
         <translation>Pokaż statystyki</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1283"/>
-        <location filename="../qt/ui_render_window.h" line="936"/>
+        <location filename="../qt/render_window.ui" line="1291"/>
+        <location filename="../qt/ui_render_window.h" line="949"/>
         <source>Save as &amp;EXR</source>
         <translation>Zapisz jako EXR...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1327"/>
-        <location filename="../qt/ui_render_window.h" line="941"/>
+        <location filename="../qt/render_window.ui" line="1318"/>
+        <location filename="../qt/ui_render_window.h" line="952"/>
+        <source>Add c&amp;urrent window settings</source>
+        <translation>Dodaj aktualny układ okna</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="1335"/>
+        <location filename="../qt/ui_render_window.h" line="954"/>
         <source>Export &amp;Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportuj siatkę</translation>
     </message>
     <message>
         <source>X-axis rotation:</source>
@@ -3843,8 +3866,8 @@ płaszczyzny i wody):</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pozycja punktu pułapki orbity&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="532"/>
-        <location filename="../qt/ui_render_window.h" line="972"/>
+        <location filename="../qt/render_window.ui" line="540"/>
+        <location filename="../qt/ui_render_window.h" line="988"/>
         <source>Frac&amp;tal</source>
         <translation>Fraktal</translation>
     </message>
@@ -4159,32 +4182,44 @@ iteracji fraktala
         <translation type="vanished">Ograniczenia zasięgu widoczności</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="868"/>
-        <location filename="../qt/ui_render_window.h" line="983"/>
+        <location filename="../qt/render_window.ui" line="876"/>
+        <location filename="../qt/ui_render_window.h" line="999"/>
         <source>Material editor</source>
         <translation>Edytor materiałów</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="929"/>
-        <location filename="../qt/ui_render_window.h" line="984"/>
+        <location filename="../qt/render_window.ui" line="937"/>
+        <location filename="../qt/ui_render_window.h" line="1000"/>
         <source>Materials</source>
         <translation>Materiały</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1193"/>
-        <location filename="../qt/ui_render_window.h" line="927"/>
+        <location filename="../qt/render_window.ui" line="1122"/>
+        <location filename="../qt/ui_render_window.h" line="929"/>
+        <source>Save window layout as default</source>
+        <translation>Zapisz układ okna jako domyślny</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="1131"/>
+        <location filename="../qt/ui_render_window.h" line="930"/>
+        <source>Default window layout</source>
+        <translation>Domyślny układ okna</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="1140"/>
+        <location filename="../qt/ui_render_window.h" line="931"/>
+        <source>Window layout for animation</source>
+        <translation>Układ okna dla animacji</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="1201"/>
+        <location filename="../qt/ui_render_window.h" line="940"/>
         <source>Export &amp;Voxel Layers</source>
         <translation>Eksport warstw Voxeli</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1310"/>
-        <location filename="../qt/ui_render_window.h" line="939"/>
-        <source>Add current window settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="1318"/>
-        <location filename="../qt/ui_render_window.h" line="940"/>
+        <location filename="../qt/render_window.ui" line="1326"/>
+        <location filename="../qt/ui_render_window.h" line="953"/>
         <source>Show &amp;measurement dock</source>
         <translation>Pokaż dok z pomiarami</translation>
     </message>
@@ -4276,8 +4311,8 @@ iteracji fraktala
         <translation type="vanished">Lista podłączonych klientów</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="669"/>
-        <location filename="../qt/ui_render_window.h" line="974"/>
+        <location filename="../qt/render_window.ui" line="677"/>
+        <location filename="../qt/ui_render_window.h" line="990"/>
         <source>Info</source>
         <translation>Informacje</translation>
     </message>
@@ -4339,14 +4374,14 @@ klatek kluczowych</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wybór formatu zapisu obrazów (nie animacji)&lt;/p&gt;&lt;p&gt;Więcej szczegółowych ustawień formatu zapisu znajdziesz w &lt;span style=&quot; font-style:italic;&quot;&gt;Plik/Ustawienia programu&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1292"/>
-        <location filename="../qt/ui_render_window.h" line="937"/>
+        <location filename="../qt/render_window.ui" line="1300"/>
+        <location filename="../qt/ui_render_window.h" line="950"/>
         <source>Save as &amp;TIFF</source>
         <translation>Zapisz jako TIFF</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1301"/>
-        <location filename="../qt/ui_render_window.h" line="938"/>
+        <location filename="../qt/render_window.ui" line="1309"/>
+        <location filename="../qt/ui_render_window.h" line="951"/>
         <source>Add current settings to toolbar</source>
         <translation>Dodaj aktualne ustawienia do paska narzędzi</translation>
     </message>
@@ -4774,7 +4809,7 @@ iteracji fraktala:</translation>
         <translation type="vanished">Zapisz jako PNG 16-bit z kanałem alfa</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="195"/>
+        <location filename="../src/render_window_menu.cpp" line="199"/>
         <source>Load settings...</source>
         <translation>Wczytaj ustawienia...</translation>
     </message>
@@ -4783,14 +4818,14 @@ iteracji fraktala:</translation>
         <translation type="vanished">Zapisz ustawienia</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1084"/>
-        <location filename="../qt/ui_render_window.h" line="910"/>
+        <location filename="../qt/render_window.ui" line="1092"/>
+        <location filename="../qt/ui_render_window.h" line="923"/>
         <source>Save settings as...</source>
         <translation>Zapisz ustawienia jako...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1087"/>
-        <location filename="../qt/ui_render_window.h" line="912"/>
+        <location filename="../qt/render_window.ui" line="1095"/>
+        <location filename="../qt/ui_render_window.h" line="925"/>
         <source>Save settings in selected file</source>
         <translation>Zapis ustawień w wybranym pliku</translation>
     </message>
@@ -4823,8 +4858,8 @@ iteracji fraktala:</translation>
         <translation type="vanished">Wróć</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1163"/>
-        <location filename="../qt/ui_render_window.h" line="923"/>
+        <location filename="../qt/render_window.ui" line="1171"/>
+        <location filename="../qt/ui_render_window.h" line="936"/>
         <source>Ctrl+Z</source>
         <translation></translation>
     </message>
@@ -4833,8 +4868,8 @@ iteracji fraktala:</translation>
         <translation type="vanished">Powtórz</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1175"/>
-        <location filename="../qt/ui_render_window.h" line="925"/>
+        <location filename="../qt/render_window.ui" line="1183"/>
+        <location filename="../qt/ui_render_window.h" line="938"/>
         <source>Ctrl+Y</source>
         <translation></translation>
     </message>
@@ -4866,13 +4901,13 @@ iteracji fraktala:</translation>
     <message>
         <location filename="../src/render_window_menu.cpp" line="59"/>
         <location filename="../src/render_window_menu.cpp" line="155"/>
-        <location filename="../src/render_window_menu.cpp" line="190"/>
-        <location filename="../src/render_window_menu.cpp" line="469"/>
+        <location filename="../src/render_window_menu.cpp" line="194"/>
+        <location filename="../src/render_window_menu.cpp" line="472"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="381"/>
+        <location filename="../src/render_window_menu.cpp" line="384"/>
         <source>TIFF images (*.tiff)</source>
         <translation>Obrazy TIFF (*.tiff)</translation>
     </message>
@@ -4885,7 +4920,7 @@ iteracji fraktala:</translation>
         <translation type="vanished">Zapis obrazu TIFF zakończony</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="475"/>
+        <location filename="../src/render_window_menu.cpp" line="478"/>
         <source>Save settings...</source>
         <translation>Zapisz ustawienia...</translation>
     </message>
@@ -4895,48 +4930,48 @@ iteracji fraktala:</translation>
         <translation>Wczytaj przykładowe ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="302"/>
+        <location filename="../src/render_window_menu.cpp" line="305"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>Obrazy JPEG(*.jpg *.jpeg) </translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="307"/>
-        <location filename="../src/render_window_menu.cpp" line="335"/>
-        <location filename="../src/render_window_menu.cpp" line="360"/>
-        <location filename="../src/render_window_menu.cpp" line="386"/>
-        <location filename="../src/render_window_menu.cpp" line="411"/>
-        <location filename="../src/render_window_menu.cpp" line="440"/>
+        <location filename="../src/render_window_menu.cpp" line="310"/>
+        <location filename="../src/render_window_menu.cpp" line="338"/>
+        <location filename="../src/render_window_menu.cpp" line="363"/>
+        <location filename="../src/render_window_menu.cpp" line="389"/>
+        <location filename="../src/render_window_menu.cpp" line="414"/>
+        <location filename="../src/render_window_menu.cpp" line="443"/>
         <source>Save image to %1 file...</source>
         <translation>Zapisz obraz do pliku %1...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="314"/>
-        <location filename="../src/render_window_menu.cpp" line="319"/>
-        <location filename="../src/render_window_menu.cpp" line="418"/>
-        <location filename="../src/render_window_menu.cpp" line="424"/>
-        <location filename="../src/render_window_menu.cpp" line="447"/>
-        <location filename="../src/render_window_menu.cpp" line="453"/>
+        <location filename="../src/render_window_menu.cpp" line="317"/>
+        <location filename="../src/render_window_menu.cpp" line="322"/>
+        <location filename="../src/render_window_menu.cpp" line="421"/>
+        <location filename="../src/render_window_menu.cpp" line="427"/>
+        <location filename="../src/render_window_menu.cpp" line="450"/>
+        <location filename="../src/render_window_menu.cpp" line="456"/>
         <source>Saving %1 image</source>
         <translation>Zapis obrazu %1</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="314"/>
-        <location filename="../src/render_window_menu.cpp" line="419"/>
-        <location filename="../src/render_window_menu.cpp" line="448"/>
+        <location filename="../src/render_window_menu.cpp" line="317"/>
+        <location filename="../src/render_window_menu.cpp" line="422"/>
+        <location filename="../src/render_window_menu.cpp" line="451"/>
         <source>Saving image started</source>
         <translation>Rozpoczęte zapisywanie obrazu</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="319"/>
-        <location filename="../src/render_window_menu.cpp" line="425"/>
-        <location filename="../src/render_window_menu.cpp" line="454"/>
+        <location filename="../src/render_window_menu.cpp" line="322"/>
+        <location filename="../src/render_window_menu.cpp" line="428"/>
+        <location filename="../src/render_window_menu.cpp" line="457"/>
         <source>Saving image finished</source>
         <translation>Zapisywanie obrazu zakończone</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="330"/>
-        <location filename="../src/render_window_menu.cpp" line="406"/>
-        <location filename="../src/render_window_menu.cpp" line="435"/>
+        <location filename="../src/render_window_menu.cpp" line="333"/>
+        <location filename="../src/render_window_menu.cpp" line="409"/>
+        <location filename="../src/render_window_menu.cpp" line="438"/>
         <source>PNG images (*.png)</source>
         <translation>Obrazy PNG (*.png)</translation>
     </message>
@@ -4949,7 +4984,7 @@ iteracji fraktala:</translation>
         <translation type="vanished">Zapis obrazu PNG zakończony</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="355"/>
+        <location filename="../src/render_window_menu.cpp" line="358"/>
         <source>EXR images (*.exr)</source>
         <translation>Obrazy EXR (*.exr)</translation>
     </message>
@@ -5026,29 +5061,39 @@ iteracji fraktala:</translation>
         <translation type="vanished">Używany algorytm estymacji dystansu: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="152"/>
+        <location filename="../src/interface.cpp" line="151"/>
         <source>Info &amp;Qt</source>
         <translation>Informacje</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="154"/>
+        <location filename="../src/interface.cpp" line="153"/>
         <source>&amp;Info Mandelbulber</source>
         <translation>O Mandelbulber...</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="156"/>
+        <location filename="../src/interface.cpp" line="155"/>
         <source>Info &amp;Third Party</source>
         <translation>O osobach trzecich...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="435"/>
+        <location filename="../src/render_window_slots.cpp" line="443"/>
         <source>Add window settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj układ okna</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="436"/>
+        <location filename="../src/render_window_slots.cpp" line="444"/>
         <source>Enter a name for the new window settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj nazwę dla nowego układu okna</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window_slots.cpp" line="504"/>
+        <source>Remove window settings</source>
+        <translation>Usuń układ okna...</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window_slots.cpp" line="505"/>
+        <source>Select window setting to remove</source>
+        <translation>Wybierz układ okna do usunięcia</translation>
     </message>
 </context>
 <context>
@@ -5179,277 +5224,293 @@ oraz odległość</translation>
     <name>cAudioSelector</name>
     <message>
         <location filename="../qt/audio_selector.ui" line="14"/>
-        <location filename="../qt/ui_audio_selector.h" line="557"/>
+        <location filename="../qt/ui_audio_selector.h" line="583"/>
         <source>Form</source>
-        <translation type="unfinished">Formularz</translation>
+        <translation>Formularz</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="24"/>
-        <location filename="../qt/ui_audio_selector.h" line="559"/>
+        <location filename="../qt/ui_audio_selector.h" line="585"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load audio from file.&lt;/p&gt;&lt;p&gt;Parameter values can be animated in response to the input from audio files.&lt;/p&gt;&lt;p&gt;The following formats are supported:&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - supported only under Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wczytaj dźwięk z pliku.&lt;/p&gt;&lt;p&gt;Wartości parametrów mogą być animowane w odpowiedzi na zmiany dźwięku.&lt;/p&gt;&lt;p&gt;Obsługiwane są następujące formaty:&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - obsługiwany tylko na Linuksie&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="27"/>
-        <location filename="../qt/ui_audio_selector.h" line="561"/>
+        <location filename="../qt/ui_audio_selector.h" line="587"/>
         <source>Select audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybór pliku z dźwiękiem</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="38"/>
-        <location filename="../qt/ui_audio_selector.h" line="563"/>
+        <location filename="../qt/ui_audio_selector.h" line="589"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;path to audio file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ścieżka do pliku z dźwiękiem&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="50"/>
-        <location filename="../qt/ui_audio_selector.h" line="566"/>
+        <location filename="../qt/ui_audio_selector.h" line="592"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play loaded audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Odtwarzanie wczytanego pliku dźwiękowego&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="53"/>
-        <location filename="../qt/ui_audio_selector.h" line="568"/>
+        <location filename="../qt/ui_audio_selector.h" line="594"/>
         <source>Play sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Odtwórz dźwięk</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="64"/>
-        <location filename="../qt/ui_audio_selector.h" line="570"/>
+        <location filename="../qt/ui_audio_selector.h" line="596"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop playing audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zatrzymuje odtwarzanie dźwięku&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="67"/>
-        <location filename="../qt/ui_audio_selector.h" line="572"/>
+        <location filename="../qt/ui_audio_selector.h" line="598"/>
         <source>Stop</source>
-        <translation type="unfinished">Zatrzymaj</translation>
+        <translation>Zatrzymaj</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="80"/>
-        <location filename="../qt/ui_audio_selector.h" line="574"/>
+        <location filename="../qt/ui_audio_selector.h" line="600"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove audio track from animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Usuwa ścieżkę dźwiękową z animacji&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="83"/>
-        <location filename="../qt/ui_audio_selector.h" line="576"/>
+        <location filename="../qt/ui_audio_selector.h" line="602"/>
         <source>Delete audio track</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń ścieżkę dźwiękową</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="94"/>
-        <location filename="../qt/ui_audio_selector.h" line="578"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables audio animation,  by using digital data from audio files to adjust parameter values obtained from the keyframe table calculations.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../qt/ui_audio_selector.h" line="604"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Animation by Sound, which uses digital data from audio files to adjust parameter values obtained from the keyframe animation table.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;p&gt;There are two types of parameters in this program.   The first type can have negative values entered, the second type  cannot. &lt;span style=&quot; text-decoration: underline;&quot;&gt;It is important&lt;/span&gt; when animating a parameter of the second type, that the functions and settings used do not result in a negative number.&lt;/p&gt;&lt;p&gt;Animation by Sound can be used in combination with animation from the Keyframe table. &lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;An object can be moving in a linear direction in respect to the keyframe animation table calculation, and at the same time have this movement responding to the audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktywuje Animowanie Dzwiękiem, które używa cyfrowe pliki dźwiękowe do modyfikowania wartości otrzymywanych z tabeli animacji&lt;/p&gt;&lt;p&gt;Zmiana wartości parametru może być odpowiedzią na zmianę amplitudy lub wysokości dźwięku próbkowanego dla każdej klatki animacji (niezależnie od klatek kluczowych)&lt;/p&gt;&lt;p&gt;Animowanie Dźwiękiem może być użyte w połączeniu z animacją zdefiniowaną w tabeli animacji z klatkami kluczowymi. &lt;/p&gt;&lt;p&gt;Przykład:&lt;/p&gt;&lt;p&gt;Obiekt może poruszać się wzdłuż linii zdefiniowanej w tabeli klatek kluczowych i w tym samym czasie ten sam ruch może być modyfikowany przy użyciu dźwięku.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="199"/>
+        <location filename="../qt/ui_audio_selector.h" line="615"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of the band of frequencies used to calculate the sound value effect on an animation.&lt;/p&gt;&lt;p&gt;Selected bandwidth is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;p&gt;If the bandwidth is wide, then the sound value will be calculated from the average amplitude of the selected frequencies.&lt;/p&gt;&lt;p&gt;If the bandwidth is set to the maximum value, then the sound value will be calculated from the amplitude of the sound.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Szerokość pasma częstotliwości użytych do obliczenia wartości natężenia dźwięku wpływającego na animację.&lt;/p&gt;&lt;p&gt;Wybrane pasmo jest pokazane na wykresie &amp;quot;Spektrum częstotliwości&amp;quot;.&lt;/p&gt;&lt;p&gt;Jeśli pasmo jest szerokie, wtedy natężenie dźwięku jest obliczane jako średnia amplituda z wybranych częstotliwości.&lt;/p&gt;&lt;p&gt;Jeżeli pasmo jest ustawione na maksymalną szerokość, to wtedy natężenie dźwięku jest obliczane jako amplituda dźwięku.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="307"/>
+        <location filename="../qt/ui_audio_selector.h" line="622"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value + sound * addition factor &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;+ parameter_value * &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;multiplication_factor * sound&lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - effect of average amplitude or pitch of the selected range of sound frequencies. It is calculated as a value from 0 to 1, ( 0 = silent , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound has been applied.&lt;/p&gt;&lt;p&gt;To get subtraction of the sound value from parameter value, use &lt;span style=&quot; font-style:italic;&quot;&gt;Negative influence&lt;/span&gt; option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wartość animowanego parametru jest sumą &lt;span style=&quot; text-decoration: underline;&quot;&gt;natężenia dźwięku&lt;/span&gt; i &lt;span style=&quot; text-decoration: underline;&quot;&gt;wartości parametertu&lt;/span&gt; (z tabeli klatek kluczowych): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animacja = wartość_parametru + dźwięk * współczynnik_dodawania &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;+ wartość_parametru * &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;współczynnik_mnożenia * dźwięk&lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;gdzie:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;dźwięk&lt;/span&gt; - efekt wartości średniej amplitudy lub wysokości dźwięku z wybranego zakresu częstotliwości. Jest obliczany jako wartośc z zakresu od 0 do 1, ( 0 = cisza , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;wartość_parametru &lt;/span&gt;- obliczona z klatek kluczowych.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animacja&lt;/span&gt; - wartość parametru po uwzględnieniu wpływu dźwięku.&lt;/p&gt;&lt;p&gt;Aby uzyskać odejmowanie wartości pochodzącej z dźwięku od wartości z animacji, użyj opcję&lt;span style=&quot; font-style:italic;&quot;&gt;Odwrócony wpływ&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="314"/>
+        <location filename="../qt/ui_audio_selector.h" line="626"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation =&lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; parameter_value + parameter_value * multiplication_factor * sound&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; + &lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound * addition factor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude or pitch of the selected range of sound frequencies. It is calculated as a value from 0 to 1, ( 0 = silent , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound_value has been added.&lt;/p&gt;&lt;p&gt;Note: when only multiplication factor is used (i.e. addition_factor is close to zero), it is guaranteed that &lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; will not modify the sign of animated parameter value. &lt;/p&gt;&lt;p&gt;Note: multiplication_factor operates differently in Negative Influence mode function. There it is used as division instead of multiplication.      Negative Influence mode function:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation =&lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; parameter_value / (1.0 + multiplication_factor * sound)&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; + sound * addition factor;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wartość animowanego parametru jest sumą &lt;span style=&quot; text-decoration: underline;&quot;&gt;natężenia dźwięku&lt;/span&gt; i &lt;span style=&quot; text-decoration: underline;&quot;&gt;wartości parameteru&lt;/span&gt; (z tabeli klatek kluczowych): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animacja =&lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; wartość_parametru + wartość_parametru * współczynnik mnożenia * dźwięk&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; + &lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;dźwięk * współczynnik_dodawania&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;gdzie:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;dźwięk&lt;/span&gt; - efekt wartości średniej amplitudy lub wysokości dźwięku z wybranego zakresu częstotliwości. Jest obliczany jako wartośc z zakresu od 0 do 1, ( 0 = cisza , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;wartość_parametru &lt;/span&gt;- obliczona z klatek kluczowych.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animacja&lt;/span&gt; - wartość parametru po uwzględnieniu wpływu dźwięku.&lt;/p&gt;&lt;p&gt;Uwaga: kiedy jest używany tylko współczynnik mnożenia (np. gdy współczynnik_dodawania jest bliski zera), wtedy jest gwarancja, że &lt;span style=&quot; font-style:italic;&quot;&gt;dźwięk&lt;/span&gt; nie zmieni znaku vartości animowanego parametru na przeciwny. &lt;/p&gt;&lt;p&gt;Uwaga: współczynnik mnożenia operates działa inaczej gdy Odwrócony wpływ jest włączony. Wtedy jest używane dzielenie zamiast mnożenia. Wtedy animacja jest obliczana z następującego wzoru:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animacja =&lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; wartość_parametru / (1.0 + współczynnik_mnożenia * dźwięk)&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; + dźwięk * współczynnik_dodawania;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="327"/>
+        <location filename="../qt/ui_audio_selector.h" line="630"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of the sound value.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value / (1 + multiplication_factor * sound) - (addition_factor * sound);&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Note: multiplication_factor  scales the denominator in this function.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zmienia kierunek wpływu dzięku na animację.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animacja = wartość_parametru / (1 + współczynnik_mnożenia * dźwięk) - (współczynnik_dodawania * dźwięk);&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Uwaga: współcznynnik mnożenia skalue mianownik w tej funckji.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="343"/>
+        <location filename="../qt/ui_audio_selector.h" line="634"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the sound is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the sound is calculated from the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the sound  is calculated from the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zmienia sposób w jaki dzwięk jest przeliczany.&lt;/p&gt;&lt;p&gt;Jeżeli ten tryb jest nieaktywny, wtedy dźwięk jest obliczany jako średnia amplituda z wybranych częstotliwości dźwięku.&lt;/p&gt;&lt;p&gt;Kiedy jest aktywny, to dźwięk jest obliczany jako średnia wysokość dźwięku z wybranego zakresu częstotliwości.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="355"/>
+        <location filename="../qt/ui_audio_selector.h" line="638"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The addition of the sound value to the parameter value is triggered when the sound rises above the threshold and ceases when the sound drops below the threshold, (unless the minimum duration is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The addition of the sound value to the parameter value is triggered when the sound rises above the threshold and ceases when the sound drops below the threshold, (unless the minimum duration is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="419"/>
+        <location filename="../qt/ui_audio_selector.h" line="643"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Threshold for binary filter. &lt;/p&gt;&lt;p&gt;When sound is above the threshold, the sound value is calculated and added to the parameter value.  Calculation continues until the sound falls below the threshold or the minimum duration is exceeded.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="482"/>
+        <location filename="../qt/ui_audio_selector.h" line="649"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum duration for which the sound value will be calculated and added to the parameter value, from the frame where the sound first exceeded the threshold, ( measured in frames.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="515"/>
+        <location filename="../qt/ui_audio_selector.h" line="654"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the decay filter.&lt;/p&gt;&lt;p&gt;The sound value will rise fast, but decay slowly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="579"/>
+        <location filename="../qt/ui_audio_selector.h" line="659"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A higher value extends the decay of the sound value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="612"/>
+        <location filename="../qt/ui_audio_selector.h" line="664"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the smooth filter.&lt;/p&gt;&lt;p&gt;The sound value will change in a smooth way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="829"/>
+        <location filename="../qt/ui_audio_selector.h" line="681"/>
+        <source>Sound Animation chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="860"/>
+        <location filename="../qt/ui_audio_selector.h" line="683"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animation chart shows &lt;span style=&quot; font-weight:600;&quot;&gt;sound&lt;/span&gt;  that is used in the calculation of sound value. It ranges from silent at the bottom up to maximum of 1.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="901"/>
+        <location filename="../qt/ui_audio_selector.h" line="685"/>
+        <source>-- / --</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="97"/>
-        <location filename="../qt/ui_audio_selector.h" line="580"/>
+        <location filename="../qt/ui_audio_selector.h" line="606"/>
         <source>Enable animation by so&amp;und</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="123"/>
-        <location filename="../qt/ui_audio_selector.h" line="581"/>
+        <location filename="../qt/ui_audio_selector.h" line="607"/>
         <source>Frequency of interest:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="158"/>
-        <location filename="../qt/ui_audio_selector.h" line="583"/>
+        <location filename="../qt/ui_audio_selector.h" line="609"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Frequency of sound which will be used to calculate animation.&lt;/p&gt;&lt;p&gt;This frequency is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="186"/>
-        <location filename="../qt/ui_audio_selector.h" line="587"/>
+        <location filename="../qt/ui_audio_selector.h" line="613"/>
         <source>Bandwidth:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="199"/>
-        <location filename="../qt/ui_audio_selector.h" line="589"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of the band of frequencies used to calculate animation.&lt;/p&gt;&lt;p&gt;Selected bandwidth is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;p&gt;If the bandwidth is wide, then the animation will be calculated from the average amplitude of the selected frequencies.&lt;/p&gt;&lt;p&gt;If the bandwidth is set to the maximum value, then the animation will be calculated from the  amplitude of sound.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt/audio_selector.ui" line="249"/>
-        <location filename="../qt/ui_audio_selector.h" line="593"/>
+        <location filename="../qt/ui_audio_selector.h" line="619"/>
         <source>Addition factor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="256"/>
-        <location filename="../qt/ui_audio_selector.h" line="594"/>
+        <location filename="../qt/ui_audio_selector.h" line="620"/>
         <source>Multiplication factor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="307"/>
-        <location filename="../qt/ui_audio_selector.h" line="596"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default formula for calculating the audio induced change to a parameter value is: &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation = parameter_value * (1.0 + multiplication_factor * sound) + &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;addition_factor &lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;* sound;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter after the audio animation change has been applied.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- parameter value from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude of the selected range of sound frequencies&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Addition factor examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;If addition factor is close to zero, then value generated by sound will not be added to animated parameter value&lt;/p&gt;&lt;p&gt;If addition factor is close to 1.0, then animated parameter value is increased by range from 0 to 1.0 depending on sound amplitude&lt;/p&gt;&lt;p&gt;If addition factor is close to 10.0, then animated parameter value is increased by range from 0 to 10.0 depending on sound amplitude&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/audio_selector.ui" line="314"/>
-        <location filename="../qt/ui_audio_selector.h" line="600"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default formula for calculating the sound induced change to a parameter value is: &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation = parameter_value * (1.0 + sound *&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt; multiplication_factor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;) + addition_factor * sound&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; -  value of the parameter after the audio animation change has been applied.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;-  parameter value from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; -  average amplitude of the selected range of sound frequencies&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Multiplication factor examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;If multiplication factor is close to zero, then value generated by sound will not change to animated parameter value&lt;/p&gt;&lt;p&gt;If multiplication factor is close to 1.0, then when sound is silent, animated parameter will stay unchanged. When sound is loud then animated parameter value will be twice higher.&lt;/p&gt;&lt;p&gt;If multiplication factor is close to 10.0, then when sound is silent, animated parameter will stay unchanged. When sound is loud then animated parameter value will be about 10 times higher.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/audio_selector.ui" line="327"/>
-        <location filename="../qt/ui_audio_selector.h" line="604"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of animation generated by sound.&lt;/p&gt;&lt;p&gt;Addition factor will decrease animated value. Multiplication factor will divide animated value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt/audio_selector.ui" line="330"/>
-        <location filename="../qt/ui_audio_selector.h" line="606"/>
+        <location filename="../qt/ui_audio_selector.h" line="632"/>
         <source>Negative influence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/audio_selector.ui" line="343"/>
-        <location filename="../qt/ui_audio_selector.h" line="608"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the animation is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the animation is calculated as the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the animation is calculated as the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Odwrócony wpływ</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="346"/>
-        <location filename="../qt/ui_audio_selector.h" line="610"/>
+        <location filename="../qt/ui_audio_selector.h" line="636"/>
         <source>Sound pitch mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="355"/>
-        <location filename="../qt/ui_audio_selector.h" line="612"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The change in value of the animated parameter will be triggered when the sound rises above the threshold and ceases when the sound drops below the threshold, (unless the minimum duration  is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt/audio_selector.ui" line="358"/>
-        <location filename="../qt/ui_audio_selector.h" line="614"/>
+        <location filename="../qt/ui_audio_selector.h" line="640"/>
         <source>&amp;Binary filter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="384"/>
-        <location filename="../qt/ui_audio_selector.h" line="615"/>
+        <location filename="../qt/ui_audio_selector.h" line="641"/>
         <source>Threshold:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="419"/>
-        <location filename="../qt/ui_audio_selector.h" line="617"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Threshold for binary filter. &lt;/p&gt;&lt;p&gt;Above this threshold,  the calculation of the audio influence on the parameter value is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt/audio_selector.ui" line="447"/>
-        <location filename="../qt/ui_audio_selector.h" line="621"/>
+        <location filename="../qt/ui_audio_selector.h" line="647"/>
         <source>Minimum duration:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="482"/>
-        <location filename="../qt/ui_audio_selector.h" line="623"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum length of audio influence on the parameter value. From the frame that trigers the audiogerspeak above the threshold, ( measured in frames.)&lt;/p&gt;&lt;p&gt;The length of the changed parameter value can be extended past the point where the sound drops below the threshold. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/audio_selector.ui" line="515"/>
-        <location filename="../qt/ui_audio_selector.h" line="628"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the decay filter.&lt;/p&gt;&lt;p&gt;The value of the animated parameter will rise fast, but decay slowly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt/audio_selector.ui" line="518"/>
-        <location filename="../qt/ui_audio_selector.h" line="630"/>
+        <location filename="../qt/ui_audio_selector.h" line="656"/>
         <source>Decay fil&amp;ter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="544"/>
         <location filename="../qt/audio_selector.ui" line="641"/>
-        <location filename="../qt/ui_audio_selector.h" line="631"/>
-        <location filename="../qt/ui_audio_selector.h" line="641"/>
+        <location filename="../qt/ui_audio_selector.h" line="657"/>
+        <location filename="../qt/ui_audio_selector.h" line="667"/>
         <source>Strength:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="579"/>
-        <location filename="../qt/ui_audio_selector.h" line="633"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A higher value extends the decay o thef animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/audio_selector.ui" line="612"/>
-        <location filename="../qt/ui_audio_selector.h" line="638"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the smooth filter.&lt;/p&gt;&lt;p&gt;The value of the animated parameter will change in a smooth way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt/audio_selector.ui" line="615"/>
-        <location filename="../qt/ui_audio_selector.h" line="640"/>
+        <location filename="../qt/ui_audio_selector.h" line="666"/>
         <source>S&amp;mooth filter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="676"/>
-        <location filename="../qt/ui_audio_selector.h" line="643"/>
+        <location filename="../qt/ui_audio_selector.h" line="669"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A higher value will result in a reduced audio influence on the animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="763"/>
-        <location filename="../qt/ui_audio_selector.h" line="647"/>
+        <location filename="../qt/audio_selector.ui" line="765"/>
+        <location filename="../qt/ui_audio_selector.h" line="673"/>
         <source>Waveform</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="794"/>
-        <location filename="../qt/ui_audio_selector.h" line="649"/>
+        <location filename="../qt/audio_selector.ui" line="796"/>
+        <location filename="../qt/ui_audio_selector.h" line="675"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays waveform of loaded audio file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="801"/>
-        <location filename="../qt/ui_audio_selector.h" line="651"/>
+        <location filename="../qt/audio_selector.ui" line="803"/>
+        <location filename="../qt/ui_audio_selector.h" line="677"/>
         <source>Frequency spectrum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="820"/>
-        <location filename="../qt/ui_audio_selector.h" line="653"/>
+        <location filename="../qt/audio_selector.ui" line="822"/>
+        <location filename="../qt/ui_audio_selector.h" line="679"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays frequency spectrum of loaded audio file.&lt;/p&gt;&lt;p&gt;The chart displays low frequencies of the sound (bass) at the bottom,  and  high frequencies (high tones)  at the top.&lt;/p&gt;&lt;p&gt;Brighter pixels indicates louder tones.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="827"/>
-        <location filename="../qt/ui_audio_selector.h" line="655"/>
-        <source>Animation chart</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/audio_selector.ui" line="858"/>
-        <location filename="../qt/ui_audio_selector.h" line="657"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animation chart shows how the sound will modify the animated parameter. &lt;/p&gt;&lt;p&gt;The animated parameter value is the value calculated from the keyframe animation table, as modified by the inclusion of sound animation.&lt;/p&gt;&lt;p&gt;For instance, an object could be moving linearly in respect to the keyframe animation table calculation and at the same time also have this movement responding to the audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/audio_selector.cpp" line="82"/>
+        <location filename="../qt/audio_selector.cpp" line="80"/>
         <source>Audio files (*.wav *.mp3 *.flac *.ogg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.cpp" line="84"/>
+        <location filename="../qt/audio_selector.cpp" line="82"/>
         <source>Select audio file...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.cpp" line="126"/>
+        <location filename="../qt/audio_selector.cpp" line="123"/>
         <source>Set animation controlled by audio file for parameter %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.cpp" line="359"/>
+        <source>Pause Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.cpp" line="364"/>
+        <source>Play Audio</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5466,7 +5527,7 @@ oraz odległość</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/audio_track.cpp" line="262"/>
+        <location filename="../src/audio_track.cpp" line="269"/>
         <source>Calculationg FFT</source>
         <translation type="unfinished"></translation>
     </message>
