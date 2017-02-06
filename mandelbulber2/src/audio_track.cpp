@@ -349,12 +349,12 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pit
 
 			for (int i = first; i <= last; i++)
 			{
-				double weight = i - first;
-				double val = pow(fft.data[i], 2.0);
+				double val = i - first;
+				double weight = pow(fft.data[i], 5.0);
 				nominator += val * weight;
-				denominator += val;
+				denominator += weight;
 			}
-			value = nominator / denominator / (last - first);
+			value = nominator / (denominator + 0.1) / (last - first + 1);
 		}
 		else
 		{
@@ -400,8 +400,8 @@ void cAudioTrack::calculateAnimation(double midFreq, double bandwidth, bool pitc
 		if (i == 0)
 			value = getBand(i, midFreq, bandwidth, pitchMode);
 		else
-			value =
-				getBand(i, midFreq, bandwidth, pitchMode) + getBand(i - 1, midFreq, bandwidth, pitchMode);
+			value = 0.5f * (getBand(i, midFreq, bandwidth, pitchMode)
+											 + getBand(i - 1, midFreq, bandwidth, pitchMode));
 
 		animation.append(value);
 	}

@@ -179,24 +179,31 @@ void PlayerWidget::updateFrame()
 		return;
 	}
 	if (imageFiles.size() == 0) return;
-	QString fileName = dirPath + "/" + imageFiles.at(currentIndex);
-	QPixmap pix(fileName);
-	if (pix.isNull())
+	if (currentIndex < imageFiles.size())
 	{
-		qWarning() << "Image could not be loaded, " << fileName;
-		return;
-	}
-	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex + 1).arg(imageFiles.size()));
-	if ((1.0 * imageLabel->width() / imageLabel->height()) > (1.0 * pix.width() / pix.height()))
-	{
-		// imageLabel is relative wider than pix
-		imageLabel->setPixmap(
-			pix.scaled((imageLabel->height() * pix.width() / pix.height()), imageLabel->height()));
+		QString fileName = dirPath + "/" + imageFiles.at(currentIndex);
+		QPixmap pix(fileName);
+		if (pix.isNull())
+		{
+			qWarning() << "Image could not be loaded, " << fileName;
+			return;
+		}
+		infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex + 1).arg(imageFiles.size()));
+		if ((1.0 * imageLabel->width() / imageLabel->height()) > (1.0 * pix.width() / pix.height()))
+		{
+			// imageLabel is relative wider than pix
+			imageLabel->setPixmap(
+				pix.scaled((imageLabel->height() * pix.width() / pix.height()), imageLabel->height()));
+		}
+		else
+		{
+			imageLabel->setPixmap(
+				pix.scaled(imageLabel->width(), (imageLabel->width() * pix.height() / pix.width())));
+		}
 	}
 	else
 	{
-		imageLabel->setPixmap(
-			pix.scaled(imageLabel->width(), (imageLabel->width() * pix.height() / pix.width())));
+		qWarning() << "PlayerWidget::updateFrame() - File index out of range";
 	}
 }
 
