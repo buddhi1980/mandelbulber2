@@ -655,7 +655,7 @@ Notiz: </translation>
         <translation>Globale C Konstante nicht hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1485"/>
+        <location filename="../src/interface.cpp" line="1494"/>
         <source>Can&apos;t open file </source>
         <translation>Kann Datei nicht öffnen </translation>
     </message>
@@ -664,24 +664,29 @@ Notiz: </translation>
         <translation type="vanished">Fraktal UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="472"/>
+        <location filename="../src/interface.cpp" line="474"/>
         <source>Cannot init renderJob, see log output for more information.</source>
         <translation>renderJob kann nicht gestartet werden, siehe Log Output für weitere Informationen.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1238"/>
-        <location filename="../src/interface.cpp" line="1263"/>
+        <location filename="../src/interface.cpp" line="914"/>
+        <source>You cannot apply changes during rendering. You will do this after rendering.</source>
+        <translation>Die Änderungen können während der Renderns nicht angewendet werden. Dies geht erst nach dem Rendern.</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1247"/>
+        <location filename="../src/interface.cpp" line="1272"/>
         <source>Reseting view</source>
         <translation>Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1239"/>
+        <location filename="../src/interface.cpp" line="1248"/>
         <source>Fractal size calculation</source>
         <translation>Fraktalgröße berechnen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1263"/>
-        <location filename="../src/interface.cpp" line="1371"/>
+        <location filename="../src/interface.cpp" line="1272"/>
+        <location filename="../src/interface.cpp" line="1380"/>
         <source>Done</source>
         <translation>Fertig</translation>
     </message>
@@ -690,128 +695,128 @@ Notiz: </translation>
         <translation type="vanished">Setze Position von </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1303"/>
-        <location filename="../src/interface.cpp" line="1313"/>
-        <location filename="../src/interface.cpp" line="1323"/>
-        <location filename="../src/interface.cpp" line="1333"/>
-        <location filename="../src/interface.cpp" line="1343"/>
-        <location filename="../src/interface.cpp" line="1353"/>
-        <location filename="../src/interface.cpp" line="1371"/>
+        <location filename="../src/interface.cpp" line="1312"/>
+        <location filename="../src/interface.cpp" line="1322"/>
+        <location filename="../src/interface.cpp" line="1332"/>
+        <location filename="../src/interface.cpp" line="1342"/>
+        <location filename="../src/interface.cpp" line="1352"/>
+        <location filename="../src/interface.cpp" line="1362"/>
+        <location filename="../src/interface.cpp" line="1380"/>
         <source>bounding box as limit</source>
         <translation>Fraktalhülle als Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1303"/>
+        <location filename="../src/interface.cpp" line="1312"/>
         <source>Negative X Limit</source>
         <translation>Negative X Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1313"/>
+        <location filename="../src/interface.cpp" line="1322"/>
         <source>Negative Y Limit</source>
         <translation>Negative Y Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1323"/>
+        <location filename="../src/interface.cpp" line="1332"/>
         <source>Negative Z Limit</source>
         <translation>Negative Z Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1333"/>
+        <location filename="../src/interface.cpp" line="1342"/>
         <source>Positive X Limit</source>
         <translation>Positive X Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1343"/>
+        <location filename="../src/interface.cpp" line="1352"/>
         <source>Positive Y Limit</source>
         <translation>Positive Y Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1353"/>
+        <location filename="../src/interface.cpp" line="1362"/>
         <source>Positive Z Limit</source>
         <translation>Positive Z Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1422"/>
+        <location filename="../src/interface.cpp" line="1431"/>
         <source>Set position of %1 # %2 by mouse pointer</source>
         <translation>Setze Position von %1 # %2 per Mausklick</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1428"/>
+        <location filename="../src/interface.cpp" line="1437"/>
         <source>Delete </source>
         <translation>Lösche </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1486"/>
+        <location filename="../src/interface.cpp" line="1495"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation>Primitive Objekte UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1568"/>
+        <location filename="../src/interface.cpp" line="1577"/>
         <source>No action</source>
         <translation>Keine Aktion</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1572"/>
+        <location filename="../src/interface.cpp" line="1581"/>
         <source>Move the camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1576"/>
+        <location filename="../src/interface.cpp" line="1585"/>
         <source>Set fog visibility</source>
         <translation>Nebelsichtbarkeit setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1580"/>
+        <location filename="../src/interface.cpp" line="1589"/>
         <source>Set DOF focus</source>
         <translation>Tiefenschärfefokus setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1584"/>
+        <location filename="../src/interface.cpp" line="1593"/>
         <source>Get Julia constant</source>
         <translation>Julia Konstante holen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1589"/>
+        <location filename="../src/interface.cpp" line="1598"/>
         <source>Place light #1</source>
         <translation>Setze Licht #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1594"/>
+        <location filename="../src/interface.cpp" line="1603"/>
         <source>Place light #2</source>
         <translation>Setze Licht #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1599"/>
+        <location filename="../src/interface.cpp" line="1608"/>
         <source>Place light #3</source>
         <translation>Setze Licht #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1604"/>
+        <location filename="../src/interface.cpp" line="1613"/>
         <source>Place light #4</source>
         <translation>Setze Licht #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1608"/>
+        <location filename="../src/interface.cpp" line="1617"/>
         <source>Place random light center</source>
         <translation>Setze Zufallslichter</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1612"/>
+        <location filename="../src/interface.cpp" line="1621"/>
         <source>Get point coordinates</source>
         <translation>Hole Punktkoordinaten</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1621"/>
+        <location filename="../src/interface.cpp" line="1630"/>
         <source>Place </source>
         <translation>Setze </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1658"/>
+        <location filename="../src/interface.cpp" line="1667"/>
         <source>Yes, don&apos;t ask again</source>
         <translation>Ja, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1744"/>
+        <location filename="../src/interface.cpp" line="1753"/>
         <source>In Mandelbulber 2.10 the default data structure changed for linux and MacOS:
 Instead of keeping all working folders/files in ~/.mandelbulber these are now split into&lt;ul&gt;&lt;li&gt;&lt;b&gt;.mandelbulber&lt;/b&gt; for program internal folders/files:&lt;br&gt;undo, toolbar, queue, thumbnails, mandelbulber.ini, miscellaneous meta files&lt;/li&gt;&lt;li&gt;&lt;b&gt;mandelbulber&lt;/b&gt; for user defined folders/files:&lt;br&gt;settings, images, materials, slices, animation, textures&lt;/li&gt;&lt;/ul&gt;
 Do you want to upgrade now to this new structure? Program will restart after upgrade.</source>
@@ -820,28 +825,28 @@ Anstatt alle Arbeitsordner und -Dateien in ~/.mandelbulber zu halten, werden die
 Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet sich nach dem Upgrade neu.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1754"/>
+        <location filename="../src/interface.cpp" line="1763"/>
         <source>Data folder upgrade</source>
         <translation>Datenstruktur Upgrade</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1759"/>
+        <location filename="../src/interface.cpp" line="1768"/>
         <source>No, don&apos;t ask again</source>
         <translation>Nein, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1847"/>
-        <location filename="../src/interface.cpp" line="1892"/>
+        <location filename="../src/interface.cpp" line="1856"/>
+        <location filename="../src/interface.cpp" line="1901"/>
         <source>Looking for optimal DE factor</source>
         <translation>Suche nach optimalem DE Faktor</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1893"/>
+        <location filename="../src/interface.cpp" line="1902"/>
         <source>Percentage of wrong distance estimations: %1</source>
         <translation>Prozentsatz falscher Distanzermittlungen: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1903"/>
+        <location filename="../src/interface.cpp" line="1912"/>
         <source>Optimal DE factor is: %1 which gives %2% of bad distance estimations</source>
         <translation>Optimaler DE Faktor ist: %1, welcher %2% an falschen Distanzermittlungen liefert</translation>
     </message>
@@ -851,22 +856,22 @@ Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet si
         <translation>Toolbar Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1651"/>
+        <location filename="../src/interface.cpp" line="1660"/>
         <source>Are you sure to close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1653"/>
+        <location filename="../src/interface.cpp" line="1662"/>
         <source>Quit?</source>
         <translation>Beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1709"/>
+        <location filename="../src/interface.cpp" line="1718"/>
         <source>Auto recovery</source>
         <translation>Auto Recovery</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1710"/>
+        <location filename="../src/interface.cpp" line="1719"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
         <translation>Das Programm wurde beim letzten Mal nicht richtig geschlossen.
@@ -902,7 +907,7 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1902"/>
+        <location filename="../src/interface.cpp" line="1911"/>
         <location filename="../src/render_image.cpp" line="420"/>
         <location filename="../src/render_ssao.cpp" line="202"/>
         <source>Idle</source>
@@ -935,26 +940,26 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Rendere SSAO Effekt</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="183"/>
+        <location filename="../src/animation_flight.cpp" line="184"/>
         <location filename="../src/animation_keyframes.cpp" line="273"/>
         <source>No frames to render</source>
         <translation>Keine Frames zu Rendern</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="189"/>
+        <location filename="../src/animation_flight.cpp" line="190"/>
         <location filename="../src/animation_keyframes.cpp" line="279"/>
         <source>The folder %1 does not exist. Please specify a valid location.</source>
         <translation>Der Ordner %1 existiert nicht. Bitte einen validen Ordner angeben.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="218"/>
+        <location filename="../src/animation_flight.cpp" line="219"/>
         <source>Are you sure to start recording of new animation?</source>
         <translation>Eine neue Animation aufnehmen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="219"/>
-        <location filename="../src/animation_flight.cpp" line="762"/>
-        <location filename="../src/animation_flight.cpp" line="1117"/>
+        <location filename="../src/animation_flight.cpp" line="220"/>
+        <location filename="../src/animation_flight.cpp" line="764"/>
+        <location filename="../src/animation_flight.cpp" line="1120"/>
         <location filename="../src/animation_keyframes.cpp" line="617"/>
         <location filename="../src/animation_keyframes.cpp" line="957"/>
         <source>This will delete all images in the image folder.
@@ -963,39 +968,39 @@ Proceed?</source>
 Fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="236"/>
+        <location filename="../src/animation_flight.cpp" line="237"/>
         <source>No frames recorded before. Unable to continue.</source>
         <translation>Noch keine Frames aufgenommen. Kann nicht fortfahren.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="245"/>
-        <location filename="../src/animation_flight.cpp" line="698"/>
+        <location filename="../src/animation_flight.cpp" line="246"/>
+        <location filename="../src/animation_flight.cpp" line="700"/>
         <location filename="../src/animation_keyframes.cpp" line="504"/>
-        <location filename="../src/interface.cpp" line="1795"/>
+        <location filename="../src/interface.cpp" line="1804"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
         <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="258"/>
+        <location filename="../src/animation_flight.cpp" line="259"/>
         <source>Recordning flight path</source>
         <translation>Flug aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="346"/>
-        <location filename="../src/animation_flight.cpp" line="354"/>
+        <location filename="../src/animation_flight.cpp" line="347"/>
+        <location filename="../src/animation_flight.cpp" line="355"/>
         <source>Recording flight animation</source>
         <translation>Fluganimation aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="756"/>
-        <location filename="../src/animation_flight.cpp" line="1116"/>
+        <location filename="../src/animation_flight.cpp" line="758"/>
+        <location filename="../src/animation_flight.cpp" line="1119"/>
         <location filename="../src/animation_keyframes.cpp" line="612"/>
         <location filename="../src/animation_keyframes.cpp" line="956"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="758"/>
+        <location filename="../src/animation_flight.cpp" line="760"/>
         <location filename="../src/animation_keyframes.cpp" line="614"/>
         <source>The animation has already been rendered completely.
  Do you want to purge the output folder?
@@ -1004,62 +1009,62 @@ Fortsetzen?</translation>
 Soll der Bilderordner geleert werden?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="826"/>
+        <location filename="../src/animation_flight.cpp" line="828"/>
         <source>Animation start</source>
         <translation>Animationsstart</translation>
     </message>
     <message>
         <location filename="../qt/player_widget.cpp" line="189"/>
-        <location filename="../src/animation_flight.cpp" line="827"/>
+        <location filename="../src/animation_flight.cpp" line="829"/>
         <location filename="../src/animation_keyframes.cpp" line="686"/>
         <source>Frame %1 of %2</source>
         <translation>Frame %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="862"/>
-        <location filename="../src/animation_flight.cpp" line="865"/>
+        <location filename="../src/animation_flight.cpp" line="864"/>
+        <location filename="../src/animation_flight.cpp" line="867"/>
         <location filename="../src/animation_keyframes.cpp" line="727"/>
         <location filename="../src/animation_keyframes.cpp" line="731"/>
         <source>Animation finished</source>
         <translation>Animation beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="870"/>
+        <location filename="../src/animation_flight.cpp" line="872"/>
         <location filename="../src/animation_keyframes.cpp" line="735"/>
         <source>Rendering terminated</source>
         <translation>Rendern beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="871"/>
+        <location filename="../src/animation_flight.cpp" line="873"/>
         <location filename="../src/animation_keyframes.cpp" line="736"/>
         <source>Error occured, see log output</source>
         <translation>Ein Fehler ist aufgetreten, Log Output prüfen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="920"/>
+        <location filename="../src/animation_flight.cpp" line="922"/>
         <location filename="../src/animation_keyframes.cpp" line="786"/>
         <source>Refreshing animation</source>
         <translation>Animationsframes werden aktualisiert</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1019"/>
+        <location filename="../src/animation_flight.cpp" line="1022"/>
         <location filename="../src/animation_keyframes.cpp" line="858"/>
         <source>Animation Image Folder</source>
         <translation>Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1022"/>
+        <location filename="../src/animation_flight.cpp" line="1025"/>
         <location filename="../src/animation_keyframes.cpp" line="861"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wähle Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1273"/>
+        <location filename="../src/animation_flight.cpp" line="1276"/>
         <source>Export flight to keyframes</source>
         <translation>Flug zu Keyframe exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1274"/>
+        <location filename="../src/animation_flight.cpp" line="1277"/>
         <source>There are already captured keyframes present.
 Discard current keyframes?</source>
         <translation>Es sind bereits aufgenommene Keyframes vorhanden.
@@ -1584,66 +1589,71 @@ Erlaubte Formate sind: </translation>
         <source>Voxel Export is busy. Stop unfinished rendering before closing the voxel export dialog.</source>
         <translation>Der Voxelexport ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor der Voxelexport Dialog geschlossen werden kann.</translation>
     </message>
+    <message>
+        <location filename="../qt/audio_selector.cpp" line="339"/>
+        <source>%1 / %2</source>
+        <translation>%1 / %2</translation>
+    </message>
 </context>
 <context>
     <name>RenderWindow</name>
     <message>
         <location filename="../qt/render_window.ui" line="20"/>
-        <location filename="../qt/ui_render_window.h" line="908"/>
+        <location filename="../qt/ui_render_window.h" line="914"/>
         <source>Mandelbulber</source>
         <translation>Mandelbulber</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="114"/>
-        <location filename="../qt/ui_render_window.h" line="950"/>
+        <location filename="../qt/ui_render_window.h" line="957"/>
         <source>Zoom:</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="134"/>
-        <location filename="../qt/ui_render_window.h" line="953"/>
+        <location filename="../qt/ui_render_window.h" line="960"/>
         <source>Fit to window</source>
         <translation>An Bildschirmgröße anpassen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="139"/>
-        <location filename="../qt/ui_render_window.h" line="954"/>
+        <location filename="../qt/ui_render_window.h" line="961"/>
         <source>400%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="144"/>
-        <location filename="../qt/ui_render_window.h" line="955"/>
+        <location filename="../qt/ui_render_window.h" line="962"/>
         <source>200%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="149"/>
-        <location filename="../qt/ui_render_window.h" line="956"/>
+        <location filename="../qt/ui_render_window.h" line="963"/>
         <source>100%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="154"/>
-        <location filename="../qt/ui_render_window.h" line="957"/>
+        <location filename="../qt/ui_render_window.h" line="964"/>
         <source>50%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="159"/>
-        <location filename="../qt/ui_render_window.h" line="958"/>
+        <location filename="../qt/ui_render_window.h" line="965"/>
         <source>25%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="164"/>
-        <location filename="../qt/ui_render_window.h" line="959"/>
+        <location filename="../qt/ui_render_window.h" line="966"/>
         <source>10%</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="185"/>
-        <location filename="../qt/ui_render_window.h" line="961"/>
+        <location filename="../qt/ui_render_window.h" line="968"/>
         <source>Show cursor</source>
         <translation>Zeige Cursor</translation>
     </message>
@@ -1653,7 +1663,7 @@ Erlaubte Formate sind: </translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="268"/>
-        <location filename="../qt/ui_render_window.h" line="972"/>
+        <location filename="../qt/ui_render_window.h" line="979"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
@@ -1666,8 +1676,8 @@ Erlaubte Formate sind: </translation>
         <translation type="vanished">Über</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="321"/>
-        <location filename="../qt/ui_render_window.h" line="976"/>
+        <location filename="../qt/render_window.ui" line="323"/>
+        <location filename="../qt/ui_render_window.h" line="983"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
@@ -1805,49 +1815,49 @@ Erlaubte Formate sind: </translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="218"/>
-        <location filename="../qt/ui_render_window.h" line="968"/>
+        <location filename="../qt/ui_render_window.h" line="975"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for action which will be executed after clicking on the image&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;No action - blocks functionality of mouse pointer&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Move the camera - moves the camera or target (depends on movement and rotation mode)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set fog visibility - sets visibility distance for basic fog effect&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set DOF focus - sets object which will appear in focus&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Get Julia constant - gets value of constant for Julia fractal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Place light #n - places light in selected place (mouse wheel controls distance from fractal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl der Aktion die bei einem Klick auf das Bild ausgeführt wird&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Keine Aktion - Blockt die Funktionalität des Mausklicks&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Kamera bewegen - Bewegt die Kamera oder das Zie (hängt ab von Bewegungs- und Rotationsmodus)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Nebelsichtbarkeit setzen - Setzt die Sichtbarkeitsdistanz des Basisnebel Effektes&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Tiefenschärfefokus setzen - Setzt den Punkt der im Fokus liegt&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Julia Konstante holen - Holt den Wert der Konstante für das Julia Fraktal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Setze Licht #n - Platziert das Licht am selektierten Ort (Mausrad steuert die Distanz zum Fraktal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="257"/>
-        <location filename="../qt/ui_render_window.h" line="971"/>
+        <location filename="../qt/ui_render_window.h" line="978"/>
         <source>I&amp;mage</source>
         <translation>Bild</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="288"/>
-        <location filename="../qt/ui_render_window.h" line="973"/>
+        <location filename="../qt/ui_render_window.h" line="980"/>
         <source>&amp;View</source>
         <translation>Ansicht</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="292"/>
-        <location filename="../qt/ui_render_window.h" line="974"/>
+        <location filename="../qt/ui_render_window.h" line="981"/>
         <source>Saved window layouts</source>
         <translation>Gespeicherte Fensterlayouts</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="313"/>
-        <location filename="../qt/ui_render_window.h" line="975"/>
+        <location filename="../qt/render_window.ui" line="315"/>
+        <location filename="../qt/ui_render_window.h" line="982"/>
         <source>A&amp;bout</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="350"/>
-        <location filename="../qt/ui_render_window.h" line="977"/>
+        <location filename="../qt/render_window.ui" line="352"/>
+        <location filename="../qt/ui_render_window.h" line="984"/>
         <source>&amp;Image adjustments</source>
         <translation>Bild Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="965"/>
-        <location filename="../qt/ui_render_window.h" line="994"/>
+        <location filename="../qt/render_window.ui" line="967"/>
+        <location filename="../qt/ui_render_window.h" line="1001"/>
         <source>&amp;Gamepad</source>
         <translation>Gamepad</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="423"/>
-        <location filename="../qt/ui_render_window.h" line="978"/>
+        <location filename="../qt/render_window.ui" line="425"/>
+        <location filename="../qt/ui_render_window.h" line="985"/>
         <source>&amp;Navigation</source>
         <translation>Navigation</translation>
     </message>
@@ -1990,25 +2000,25 @@ to target:</source>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="199"/>
-        <location filename="../qt/ui_render_window.h" line="962"/>
+        <location filename="../qt/ui_render_window.h" line="969"/>
         <source>Mouse click function:</source>
         <translation>Mausklick Funktion:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="222"/>
-        <location filename="../qt/ui_render_window.h" line="965"/>
+        <location filename="../qt/ui_render_window.h" line="972"/>
         <source>No action</source>
         <translation>Keine Aktion</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="453"/>
-        <location filename="../qt/ui_render_window.h" line="979"/>
+        <location filename="../qt/render_window.ui" line="455"/>
+        <location filename="../qt/ui_render_window.h" line="986"/>
         <source>toolBar</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="468"/>
-        <location filename="../qt/ui_render_window.h" line="980"/>
+        <location filename="../qt/render_window.ui" line="470"/>
+        <location filename="../qt/ui_render_window.h" line="987"/>
         <source>Effects</source>
         <translation>Effekte</translation>
     </message>
@@ -3272,8 +3282,8 @@ von Fraktal Iterationen:</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wenn es nicht aktiviert ist, wird das Programm automatisch den Detailwert zu den entferntesten Regionen der Fraktale reduzieren. Wenn Sie näher an die Fraktaleoberfläche gehen, erhöht das Programm die Anzahl der Details. &lt;/p&gt;&lt;p&gt; Wenn es aber aktiviert ist, dann wird in jeder Region des Fraktals dieselbe Detailgröße verwendet werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1324"/>
-        <location filename="../qt/ui_render_window.h" line="947"/>
+        <location filename="../qt/render_window.ui" line="1326"/>
+        <location filename="../qt/ui_render_window.h" line="953"/>
         <source>Show &amp;measurement dock</source>
         <translation>Zeige Messungsdock</translation>
     </message>
@@ -3405,8 +3415,8 @@ von Fraktal Iterationen:</translation>
         <translation type="vanished">Distanz Ermittlungsalgorithmus</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="768"/>
-        <location filename="../qt/ui_render_window.h" line="987"/>
+        <location filename="../qt/render_window.ui" line="770"/>
+        <location filename="../qt/ui_render_window.h" line="994"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Queue tool allows for rendering a collection of settings files in the background.&lt;/p&gt;&lt;p&gt;While the list of settings files is being rendered, you can continue to work in the main window and also add more settings to the queue.&lt;/p&gt;&lt;p&gt;Methods to manage queue:&lt;br/&gt;- by adding items using &lt;span style=&quot; font-style:italic;&quot;&gt;Add current settings&lt;/span&gt; button&lt;br/&gt;- by editing queue.fractlist file&lt;br/&gt;- by puting files into queue folder and use button &lt;span style=&quot; font-style:italic;&quot;&gt;Add orphaned&lt;br/&gt;&lt;/span&gt;- by adding single settings or lists using command line interface&lt;/p&gt;&lt;p&gt;Temporary settings files are stored in $HOME/.mandelbulber/queue folder and the list is in $HOME/.mandelbulber/queue.fractlist&lt;/p&gt;&lt;p&gt;The queue can be rendered in another instance of Mandelbulber program, as the queue is shared between applications. You can also launch another Mandelbulber from command line interface with -q option. Then this application will watch queue and render automatically all new items.&lt;/p&gt;&lt;p&gt;Result images are saved into $HOME/.mandelbulber/images directory (or another if it&apos;s specified in application preferences.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Queue (Warteschlange) erlaubt das Rendern einer Sammlung von Einstellungsdateien im Hintergrund.&lt;/p&gt;&lt;p&gt;Während die Liste der Einstellungsdateien gerendert wird, können Sie auch weiterhin im Hauptfenster arbeiten und auch weitere Einstellungen der Queue hinzufügen.&lt;/p&gt;&lt;p&gt;Methoden um die Queue zu bearbeiten:&lt;br/&gt;- Elemente Hinzufügen mit &lt;span style=&quot; font-style:italic;&quot;&gt;Aktuelle Einstellungen hinzufügen&lt;/span&gt; Knopf&lt;br/&gt;- durch das editieren der Datei queue.fractlist&lt;br/&gt;- durch Hinzufügen von Dateien zum Queue Ordner und Klick auf den Button &lt;span style=&quot; font-style:italic;&quot;&gt;Verwaiste hinzufügen&lt;br/&gt;&lt;/span&gt;- durch Hinzufügen von einzelnen Einstellungen oder Listen über die Befehlszeilenschnittstelle&lt;/p&gt;&lt;p&gt;Temporäre Einstellungsdateien werden in $HOME/.mandelbulber/queue Ordner gespeichert und die Liste in $HOME/.mandelbulber/queue.fractlist&lt;/p&gt;&lt;p&gt;Die Queue kann in einer anderen Mandelbulber Instanz gerendert werden, da die Queue zwischen Anwendungen geteilt wird. Sie können auch eine andere Mandelbulber Instanz von der Kommandozeile starten mit Option -q. Dann wird diese Instanz die Queue beobachten und automatisch alle neuen Elemente verarbeiten.&lt;/p&gt;&lt;p&gt;Ergebnisbilder werden im $HOME/.mandelbulber/images Verzeichnis gespeichert (oder ein anderes, wenn es in den Programmeinstellungen festgelegt ist.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -3431,14 +3441,14 @@ von Fraktal Iterationen:</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Bilddateiformates für Einzelbilder.&lt;/p&gt;&lt;p&gt;Für weitere Bilddateiformat Optionen gehen Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Datei / Programm Einstellungen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1298"/>
-        <location filename="../qt/ui_render_window.h" line="944"/>
+        <location filename="../qt/render_window.ui" line="1300"/>
+        <location filename="../qt/ui_render_window.h" line="950"/>
         <source>Save as &amp;TIFF</source>
         <translation>TIFF speichern...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1307"/>
-        <location filename="../qt/ui_render_window.h" line="945"/>
+        <location filename="../qt/render_window.ui" line="1309"/>
+        <location filename="../qt/ui_render_window.h" line="951"/>
         <source>Add current settings to toolbar</source>
         <translation>Füge aktuelle Einstellungen zur Toolbar hinzu</translation>
     </message>
@@ -3580,8 +3590,8 @@ von Fraktal Iterationen:</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Position des Orbit Trap Punktes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="538"/>
-        <location filename="../qt/ui_render_window.h" line="981"/>
+        <location filename="../qt/render_window.ui" line="540"/>
+        <location filename="../qt/ui_render_window.h" line="988"/>
         <source>Frac&amp;tal</source>
         <translation>Fraktal</translation>
     </message>
@@ -3812,8 +3822,8 @@ Vorschau Distanz:</translation>
         <translation type="vanished">Liste der verbundenen Clients</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="675"/>
-        <location filename="../qt/ui_render_window.h" line="983"/>
+        <location filename="../qt/render_window.ui" line="677"/>
+        <location filename="../qt/ui_render_window.h" line="990"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
@@ -3898,8 +3908,8 @@ Vorschau Distanz:</translation>
         <translation type="vanished">Validiere vor dem Rendern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="735"/>
-        <location filename="../qt/ui_render_window.h" line="985"/>
+        <location filename="../qt/render_window.ui" line="737"/>
+        <location filename="../qt/ui_render_window.h" line="992"/>
         <source>&amp;Statistics</source>
         <translation>Statistik</translation>
     </message>
@@ -3992,8 +4002,8 @@ Vorschau Distanz:</translation>
         <translation type="vanished">Eine Beschreibung der Einstellung</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="605"/>
-        <location filename="../qt/ui_render_window.h" line="982"/>
+        <location filename="../qt/render_window.ui" line="607"/>
+        <location filename="../qt/ui_render_window.h" line="989"/>
         <source>&amp;Rendering engine</source>
         <translation>Rendering Engine</translation>
     </message>
@@ -4062,8 +4072,8 @@ Vorschau Distanz:</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet Mandelbulber als Server Instanz.&lt;/p&gt;&lt;p&gt;Nach Drücken dieser Taste beginnt die Anwendung auf Clients zu horchen und eine Verbindung zu ihnen aufzubauen. &lt;/p&gt;&lt;p&gt;Wenn eine Verbindung zum Client hergestellt wurde, dann wird dieser Client in der unterhalb stehenden Tabelle angezeigt&lt;/p&gt;&lt;p&gt;Um die Verbindung auf Client-Seite aufzubauen, muss auf diesem der Verbinden Knopf gedrückt werden.&lt;/p&gt;&lt;p&gt;Wenn alle benötigten Clients verbunden sind, ist der Server betriebsbereit. Wenn Sie den Render Knopf drücken werden der Server und alle verbundenen Clients das Rendern desselben Bildes beginnen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="705"/>
-        <location filename="../qt/ui_render_window.h" line="984"/>
+        <location filename="../qt/render_window.ui" line="707"/>
+        <location filename="../qt/ui_render_window.h" line="991"/>
         <source>&amp;Animation</source>
         <translation>Animation</translation>
     </message>
@@ -4226,8 +4236,8 @@ Distanz für alle
 Keyframes</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="774"/>
-        <location filename="../qt/ui_render_window.h" line="990"/>
+        <location filename="../qt/render_window.ui" line="776"/>
+        <location filename="../qt/ui_render_window.h" line="997"/>
         <source>&amp;Queue</source>
         <translation>&amp;Queue</translation>
     </message>
@@ -4276,8 +4286,8 @@ Keyframes</translation>
         <translation type="vanished">Vorschau</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="841"/>
-        <location filename="../qt/ui_render_window.h" line="991"/>
+        <location filename="../qt/render_window.ui" line="843"/>
+        <location filename="../qt/ui_render_window.h" line="998"/>
         <source>&amp;Measurement</source>
         <translation>Messung</translation>
     </message>
@@ -4294,112 +4304,118 @@ Keyframes</translation>
         <translation type="vanished">Distanz zur Kamera:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="874"/>
-        <location filename="../qt/ui_render_window.h" line="992"/>
+        <location filename="../qt/render_window.ui" line="876"/>
+        <location filename="../qt/ui_render_window.h" line="999"/>
         <source>Material editor</source>
         <translation>Material Editor</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="935"/>
-        <location filename="../qt/ui_render_window.h" line="993"/>
+        <location filename="../qt/render_window.ui" line="937"/>
+        <location filename="../qt/ui_render_window.h" line="1000"/>
         <source>Materials</source>
         <translation>Materialien</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1018"/>
-        <location filename="../qt/ui_render_window.h" line="909"/>
+        <location filename="../qt/render_window.ui" line="1020"/>
+        <location filename="../qt/ui_render_window.h" line="915"/>
         <source>&amp;Save as JPG...</source>
         <translation>JPG speichern...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1027"/>
-        <location filename="../qt/ui_render_window.h" line="910"/>
+        <location filename="../qt/render_window.ui" line="1029"/>
+        <location filename="../qt/ui_render_window.h" line="916"/>
         <source>Save &amp;as PNG...</source>
         <translation>PNG speichern...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1036"/>
-        <location filename="../qt/ui_render_window.h" line="911"/>
+        <location filename="../qt/render_window.ui" line="1038"/>
+        <location filename="../qt/ui_render_window.h" line="917"/>
         <source>Save as &amp;PNG 16 bit...</source>
         <translation>PNG 16 bit speichern...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1045"/>
-        <location filename="../qt/ui_render_window.h" line="912"/>
+        <location filename="../qt/render_window.ui" line="1047"/>
+        <location filename="../qt/ui_render_window.h" line="918"/>
         <source>Save as PNG &amp;16 bit with alpha channel</source>
         <translation>PNG 16 bit mit Alpha speichern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1054"/>
-        <location filename="../qt/ui_render_window.h" line="913"/>
+        <location filename="../qt/render_window.ui" line="1056"/>
+        <location filename="../qt/ui_render_window.h" line="919"/>
         <source>&amp;Load settings...</source>
         <translation>Lade Einstellungen...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1063"/>
-        <location filename="../qt/ui_render_window.h" line="914"/>
+        <location filename="../qt/render_window.ui" line="1065"/>
+        <location filename="../qt/ui_render_window.h" line="920"/>
         <source>Load settings &amp;from clipboard...</source>
         <translation>Lade Einstellungen aus Zwischenablage...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1072"/>
-        <location filename="../qt/ui_render_window.h" line="915"/>
+        <location filename="../qt/render_window.ui" line="1074"/>
+        <location filename="../qt/ui_render_window.h" line="921"/>
         <source>&amp;Save settings</source>
         <translation>Einstellungen speichern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1081"/>
-        <location filename="../qt/ui_render_window.h" line="916"/>
+        <location filename="../qt/render_window.ui" line="1083"/>
+        <location filename="../qt/ui_render_window.h" line="922"/>
         <source>Save settings &amp;to clipboard</source>
         <translation>Einstellungen in Zwischenablage speichern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1102"/>
-        <location filename="../qt/ui_render_window.h" line="921"/>
+        <location filename="../qt/render_window.ui" line="1104"/>
+        <location filename="../qt/ui_render_window.h" line="927"/>
         <source>&amp;Program Settings</source>
         <translation>Programm Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1111"/>
-        <location filename="../qt/ui_render_window.h" line="922"/>
+        <location filename="../qt/render_window.ui" line="1113"/>
+        <location filename="../qt/ui_render_window.h" line="928"/>
         <source>&amp;Quit</source>
         <translation>Schließen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1120"/>
-        <location filename="../qt/ui_render_window.h" line="923"/>
+        <location filename="../qt/render_window.ui" line="1122"/>
+        <location filename="../qt/ui_render_window.h" line="929"/>
         <source>Save window layout as default</source>
         <translation>Speichere Fensterlayout als Standard</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1129"/>
-        <location filename="../qt/ui_render_window.h" line="924"/>
+        <location filename="../qt/render_window.ui" line="1131"/>
+        <location filename="../qt/ui_render_window.h" line="930"/>
         <source>Default window layout</source>
         <translation>Standard Fensterlayout</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1138"/>
-        <location filename="../qt/ui_render_window.h" line="925"/>
+        <location filename="../qt/render_window.ui" line="1140"/>
+        <location filename="../qt/ui_render_window.h" line="931"/>
         <source>Window layout for animation</source>
         <translation>Fensterlayout für Animation</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1216"/>
-        <location filename="../qt/ui_render_window.h" line="936"/>
+        <location filename="../qt/render_window.ui" line="1218"/>
+        <location filename="../qt/ui_render_window.h" line="942"/>
         <source>Show a&amp;nimation dock</source>
         <translation>Zeige Animationsdock</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1316"/>
-        <location filename="../qt/ui_render_window.h" line="946"/>
+        <location filename="../qt/render_window.ui" line="1318"/>
+        <location filename="../qt/ui_render_window.h" line="952"/>
         <source>Add c&amp;urrent window settings</source>
         <translation>Aktuelle Fenstereinstellungen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1338"/>
-        <location filename="../qt/ui_render_window.h" line="949"/>
+        <location filename="../qt/render_window.ui" line="1340"/>
+        <location filename="../qt/ui_render_window.h" line="955"/>
         <source>Test</source>
         <translation>Test</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="1349"/>
+        <location filename="../qt/ui_render_window.h" line="956"/>
+        <source>Remove Window settings...</source>
+        <translation>Fenstereinstellungen löschen...</translation>
     </message>
     <message>
         <source>&amp;Save window state</source>
@@ -4414,50 +4430,50 @@ Keyframes</translation>
         <translation type="vanished">Animation Docks Positionen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1143"/>
-        <location filename="../qt/ui_render_window.h" line="926"/>
+        <location filename="../qt/render_window.ui" line="1145"/>
+        <location filename="../qt/ui_render_window.h" line="932"/>
         <source>About &amp;Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1148"/>
-        <location filename="../qt/ui_render_window.h" line="927"/>
+        <location filename="../qt/render_window.ui" line="1150"/>
+        <location filename="../qt/ui_render_window.h" line="933"/>
         <source>About &amp;Third Party</source>
         <translation>Über Drittanbieter</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1157"/>
-        <location filename="../qt/ui_render_window.h" line="928"/>
+        <location filename="../qt/render_window.ui" line="1159"/>
+        <location filename="../qt/ui_render_window.h" line="934"/>
         <source>&amp;About Mandelbulber</source>
         <translation>Über Mandelbulber</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1166"/>
-        <location filename="../qt/ui_render_window.h" line="929"/>
+        <location filename="../qt/render_window.ui" line="1168"/>
+        <location filename="../qt/ui_render_window.h" line="935"/>
         <source>&amp;Undo</source>
         <translation>Rückgängig</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1178"/>
-        <location filename="../qt/ui_render_window.h" line="931"/>
+        <location filename="../qt/render_window.ui" line="1180"/>
+        <location filename="../qt/ui_render_window.h" line="937"/>
         <source>&amp;Redo</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1190"/>
-        <location filename="../qt/ui_render_window.h" line="933"/>
+        <location filename="../qt/render_window.ui" line="1192"/>
+        <location filename="../qt/ui_render_window.h" line="939"/>
         <source>&amp;Import settings from old Mandelbulber (v1.21)...</source>
         <translation>Einstellungen von alten Mandelbulber Dateien (v1.21)...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1199"/>
-        <location filename="../qt/ui_render_window.h" line="934"/>
+        <location filename="../qt/render_window.ui" line="1201"/>
+        <location filename="../qt/ui_render_window.h" line="940"/>
         <source>Export &amp;Voxel Layers</source>
         <translation>Exportiere Voxelschichten</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1208"/>
-        <location filename="../qt/ui_render_window.h" line="935"/>
+        <location filename="../qt/render_window.ui" line="1210"/>
+        <location filename="../qt/ui_render_window.h" line="941"/>
         <source>Load &amp;example...</source>
         <translation>Lade Beispiel...</translation>
     </message>
@@ -4466,44 +4482,44 @@ Keyframes</translation>
         <translation type="vanished">Zeige Animationsdock</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1227"/>
-        <location filename="../qt/ui_render_window.h" line="937"/>
+        <location filename="../qt/render_window.ui" line="1229"/>
+        <location filename="../qt/ui_render_window.h" line="943"/>
         <source>Show &amp;gamepad dock</source>
         <translation>Zeige Gamepad Dock</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1238"/>
-        <location filename="../qt/ui_render_window.h" line="938"/>
+        <location filename="../qt/render_window.ui" line="1240"/>
+        <location filename="../qt/ui_render_window.h" line="944"/>
         <source>Show &amp;queue dock</source>
         <translation>Zeige Queuedock</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1249"/>
-        <location filename="../qt/ui_render_window.h" line="939"/>
+        <location filename="../qt/render_window.ui" line="1251"/>
+        <location filename="../qt/ui_render_window.h" line="945"/>
         <source>Show &amp;Info dock</source>
         <translation>Zeige Infodock</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1260"/>
-        <location filename="../qt/ui_render_window.h" line="940"/>
+        <location filename="../qt/render_window.ui" line="1262"/>
+        <location filename="../qt/ui_render_window.h" line="946"/>
         <source>Show &amp;toolbar</source>
         <translation>Zeige Toolbar</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1272"/>
-        <location filename="../qt/ui_render_window.h" line="941"/>
+        <location filename="../qt/render_window.ui" line="1274"/>
+        <location filename="../qt/ui_render_window.h" line="947"/>
         <source>Sta&amp;ck all docks</source>
         <translation>Alle Docks überlagern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1280"/>
-        <location filename="../qt/ui_render_window.h" line="942"/>
+        <location filename="../qt/render_window.ui" line="1282"/>
+        <location filename="../qt/ui_render_window.h" line="948"/>
         <source>S&amp;how statistics</source>
         <translation>Zeige Statistik</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1289"/>
-        <location filename="../qt/ui_render_window.h" line="943"/>
+        <location filename="../qt/render_window.ui" line="1291"/>
+        <location filename="../qt/ui_render_window.h" line="949"/>
         <source>Save as &amp;EXR</source>
         <translation>EXR speichern...</translation>
     </message>
@@ -4512,8 +4528,8 @@ Keyframes</translation>
         <translation type="vanished">Aktuelle Fenstereinstellungen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1333"/>
-        <location filename="../qt/ui_render_window.h" line="948"/>
+        <location filename="../qt/render_window.ui" line="1335"/>
+        <location filename="../qt/ui_render_window.h" line="954"/>
         <source>Export &amp;Mesh</source>
         <translation>Exportiere Mesh</translation>
     </message>
@@ -4542,8 +4558,8 @@ Keyframes</translation>
         <translation type="vanished">Rückgängig</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1169"/>
-        <location filename="../qt/ui_render_window.h" line="930"/>
+        <location filename="../qt/render_window.ui" line="1171"/>
+        <location filename="../qt/ui_render_window.h" line="936"/>
         <source>Ctrl+Z</source>
         <translation>Strg+Z</translation>
     </message>
@@ -4552,8 +4568,8 @@ Keyframes</translation>
         <translation type="vanished">Wiederholen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1181"/>
-        <location filename="../qt/ui_render_window.h" line="932"/>
+        <location filename="../qt/render_window.ui" line="1183"/>
+        <location filename="../qt/ui_render_window.h" line="938"/>
         <source>Ctrl+Y</source>
         <translation>Strg+Y</translation>
     </message>
@@ -4936,14 +4952,14 @@ und Wasser):</translation>
         <translation type="vanished">Einstellungen speichern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1090"/>
-        <location filename="../qt/ui_render_window.h" line="917"/>
+        <location filename="../qt/render_window.ui" line="1092"/>
+        <location filename="../qt/ui_render_window.h" line="923"/>
         <source>Save settings as...</source>
         <translation>Einstellungen speichern als...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="1093"/>
-        <location filename="../qt/ui_render_window.h" line="919"/>
+        <location filename="../qt/render_window.ui" line="1095"/>
+        <location filename="../qt/ui_render_window.h" line="925"/>
         <source>Save settings in selected file</source>
         <translation>Einstellungen in selektierter Datei speichern</translation>
     </message>
@@ -5149,14 +5165,24 @@ und Wasser):</translation>
         <translation>Info Drittanbieter</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="440"/>
+        <location filename="../src/render_window_slots.cpp" line="443"/>
         <source>Add window settings</source>
         <translation>Fenstereinstellungen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="441"/>
+        <location filename="../src/render_window_slots.cpp" line="444"/>
         <source>Enter a name for the new window settings</source>
         <translation>Geben Sie einen Namen für die neuen Fenstereinstellungen ein</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window_slots.cpp" line="504"/>
+        <source>Remove window settings</source>
+        <translation>Fenstereinstellungen löschen</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window_slots.cpp" line="505"/>
+        <source>Select window setting to remove</source>
+        <translation>Fenstereinstellungen zum Löschen auswählen</translation>
     </message>
 </context>
 <context>
@@ -5287,237 +5313,269 @@ und Distanz</translation>
     <name>cAudioSelector</name>
     <message>
         <location filename="../qt/audio_selector.ui" line="14"/>
-        <location filename="../qt/ui_audio_selector.h" line="557"/>
+        <location filename="../qt/ui_audio_selector.h" line="583"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="24"/>
-        <location filename="../qt/ui_audio_selector.h" line="559"/>
+        <location filename="../qt/ui_audio_selector.h" line="585"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load audio from file.&lt;/p&gt;&lt;p&gt;Parameter values can be animated in response to the input from audio files.&lt;/p&gt;&lt;p&gt;The following formats are supported:&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - supported only under Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Lade Audio von Datei.&lt;/p&gt;&lt;p&gt;Parameterwerte können durch den Input von Audio Dateien animiert werden.&lt;/p&gt;&lt;p&gt;Die folgenden Formate werden unterstützt:&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - nur unter Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="27"/>
-        <location filename="../qt/ui_audio_selector.h" line="561"/>
+        <location filename="../qt/ui_audio_selector.h" line="587"/>
         <source>Select audio file</source>
         <translation>Audio Datei auswählen</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="38"/>
-        <location filename="../qt/ui_audio_selector.h" line="563"/>
+        <location filename="../qt/ui_audio_selector.h" line="589"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;path to audio file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pfad zur Audio Datei&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="50"/>
-        <location filename="../qt/ui_audio_selector.h" line="566"/>
+        <location filename="../qt/ui_audio_selector.h" line="592"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play loaded audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Spielt die geladene Audio Datei ab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="53"/>
-        <location filename="../qt/ui_audio_selector.h" line="568"/>
+        <location filename="../qt/ui_audio_selector.h" line="594"/>
         <source>Play sound</source>
         <translation>Sound spielen</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="64"/>
-        <location filename="../qt/ui_audio_selector.h" line="570"/>
+        <location filename="../qt/ui_audio_selector.h" line="596"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop playing audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stoppt die Wiedergabe der geladenen Audio Datei&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="67"/>
-        <location filename="../qt/ui_audio_selector.h" line="572"/>
+        <location filename="../qt/ui_audio_selector.h" line="598"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="80"/>
-        <location filename="../qt/ui_audio_selector.h" line="574"/>
+        <location filename="../qt/ui_audio_selector.h" line="600"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove audio track from animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entferne den Audio Track von der Animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="83"/>
-        <location filename="../qt/ui_audio_selector.h" line="576"/>
+        <location filename="../qt/ui_audio_selector.h" line="602"/>
         <source>Delete audio track</source>
         <translation>Audio Track löschen</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="94"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Animation by Sound, which uses digital data from audio files to adjust parameter values obtained from the keyframe animation table.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;p&gt;Animation by Sound  can be used in combination with animation from the Keyframe table.  &lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;An object can be moving in a linear direction in respect to the keyframe animation table calculation, and at the same time have this movement responding to the audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert die Audioanimation, indem digitale Daten aus den Audiodateien verwendet werden, um die aus den Keyframe-Tabellenberechnungen gewonnenen Parameterwerte anzupassen.&lt;/p&gt;&lt;p&gt;Die Änderung eines Parameterwerts kann in Abhängigkeit von der Amplitude oder der Tonhöhe des an jedem Frame abgetasteten Tons (unabhängig von Keyframes) erfolgen.&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;Ein Objekt kann sich in einer linearen Richtung in Bezug auf die Berechnung der Keyframe-Animationstabelle bewegen und gleichzeitig bei dieser Bewegung auf den Audioinput reagieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../qt/audio_selector.ui" line="199"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of the band of frequencies used to calculate the sound value effect on an animation.&lt;/p&gt;&lt;p&gt;Selected bandwidth is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;p&gt;If the bandwidth is wide, then the sound value will be calculated from the average amplitude of the selected frequencies.&lt;/p&gt;&lt;p&gt;If the bandwidth is set to the maximum value, then the sound value will be calculated from the amplitude of the sound.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Breite des Frequenzbandes, die für die Berechnung der Animation verwendet werden.&lt;/p&gt;&lt;p&gt;Die selektierte Bandbreite wird im  &amp;quot;Frequenzspektrum&amp;quot;-Diagramm dargestellt.&lt;/p&gt;&lt;p&gt;Wenn die Bandbreite groß ist, dann wird die Animation aus dem Durchschnitt der Amplituden der ausgewählten Frequenzen berechnet.&lt;/p&gt;&lt;p&gt;Wenn die Bandbreite auf das Maximum gesetzt ist, wird die Animation aus der Sound Amplitude berechnet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <location filename="../qt/ui_audio_selector.h" line="604"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Animation by Sound, which uses digital data from audio files to adjust parameter values obtained from the keyframe animation table.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;p&gt;There are two types of parameters in this program.   The first type can have negative values entered, the second type  cannot. &lt;span style=&quot; text-decoration: underline;&quot;&gt;It is important&lt;/span&gt; when animating a parameter of the second type, that the functions and settings used do not result in a negative number.&lt;/p&gt;&lt;p&gt;Animation by Sound can be used in combination with animation from the Keyframe table. &lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;An object can be moving in a linear direction in respect to the keyframe animation table calculation, and at the same time have this movement responding to the audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert die Audioanimation, indem digitale Daten aus den Audiodateien verwendet werden, um die aus den Keyframe-Tabellenberechnungen gewonnenen Parameterwerte anzupassen.&lt;/p&gt;&lt;p&gt;Die Änderung eines Parameterwerts kann in Abhängigkeit von der Amplitude oder der Tonhöhe des an jedem Frame abgetasteten Tons (unabhängig von Keyframes) erfolgen.&lt;/p&gt;&lt;p&gt;Es gibt zwei Arten von Parametern in diesem Programm. Der erste Typ kann negative Werte annehmen, der zweite Typ nicht.&lt;span style=&quot;text-decoration: underline;&quot;&gt;Bei der Animation eines Parameters des zweiten Typs ist es wichtig&lt;/span&gt;, dass die verwendeten Funktionen und Einstellungen keine negative Zahl ergeben.&lt;/p&gt;&lt;p&gt;Animation von Sound kann in Kombination mit Animation aus der Keyframe-Tabelle verwendet werden.&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;Ein Objekt kann sich in einer linearen Richtung in Bezug auf die Berechnung der Keyframe-Animationstabelle bewegen und gleichzeitig bei dieser Bewegung auf den Audioinput reagieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="307"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value  + sound_value;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound_value =  (parameter_value  *&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;/&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;multiplication_factor + &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;addition_factor )&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;  * sound;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude or pitch of the selected range of sound frequencies&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;-  from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound_value has been added.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Addition factor examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;If addition factor is close to zero, then value generated by sound will not be added to animated parameter value&lt;/p&gt;&lt;p&gt;If addition factor is close to 1.0, then animated parameter value is increased by range from 0 to 1.0 depending on sound amplitude&lt;/p&gt;&lt;p&gt;If addition factor is close to 10.0, then animated parameter value is increased by range from 0 to 10.0 depending on sound amplitude&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../qt/ui_audio_selector.h" line="622"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value + sound * addition factor &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;+ parameter_value * &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;multiplication_factor * sound&lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - effect of average amplitude or pitch of the selected range of sound frequencies. It is calculated as a value from 0 to 1, ( 0 = silent , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound has been applied.&lt;/p&gt;&lt;p&gt;To get subtraction of the sound value from parameter value, use &lt;span style=&quot; font-style:italic;&quot;&gt;Negative influence&lt;/span&gt; option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="314"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value + sound_value;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound_value = (parameter_value *&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt; multiplication_factor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;+ addition_factor) * sound;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude or pitch of the selected range of sound frequencies&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound_value has been added.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Multiplication factor examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;If multiplication factor is close to zero, then value generated by sound will not change to animated parameter value&lt;/p&gt;&lt;p&gt;If multiplication factor is close to 1.0, then when sound is silent, animated parameter will stay unchanged. When sound is loud then animated parameter value will be twice higher.&lt;/p&gt;&lt;p&gt;If multiplication factor is close to 10.0, then when sound is silent, animated parameter will stay unchanged. When sound is loud then animated parameter value will be about 10 times higher.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../qt/ui_audio_selector.h" line="626"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation =&lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; parameter_value + parameter_value * multiplication_factor * sound&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; + &lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound * addition factor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude or pitch of the selected range of sound frequencies. It is calculated as a value from 0 to 1, ( 0 = silent , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound_value has been added.&lt;/p&gt;&lt;p&gt;Note: when only multiplication factor is used (i.e. addition_factor is close to zero), it is guaranteed that &lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; will not modify the sign of animated parameter value. &lt;/p&gt;&lt;p&gt;Note: multiplication_factor operates differently in Negative Influence mode function. There it is used as division instead of multiplication.      Negative Influence mode function:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation =&lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; parameter_value / (1.0 + multiplication_factor * sound)&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; + sound * addition factor;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="327"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of the sound value&lt;/p&gt;&lt;p&gt;Addition factor will decrease animated value. Multiplication factor will divide animated value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Richtung des Einflusses der durch den Klang erzeugten Animation.&lt;/p&gt;&lt;p&gt;Der Additionsfaktor verringert den animierten Wert. Der Multiplikationsfaktor dividiert animierten Wert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <location filename="../qt/ui_audio_selector.h" line="630"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of the sound value.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value / (1 + multiplication_factor * sound) - (addition_factor * sound);&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Note: multiplication_factor  scales the denominator in this function.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Einflussrichtung des Schallwertes.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Animation = Parameterwert / (1 + Multiplikationsfaktor * Sound) - (Additionsfaktor * Sound);&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Hinweis: Der Multiplikationsfaktor skaliert den Nenner in dieser Funktion.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="343"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the sound value is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the sound value is calculated as the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the sound value is calculated as the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../qt/ui_audio_selector.h" line="634"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the sound is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the sound is calculated from the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the sound  is calculated from the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Art der Animationsberechnung.&lt;/p&gt;&lt;p&gt;Wenn der Modus deaktiviert ist, wird die Animation als die durchschnittliche Amplitude der gewählten Klangfrequenzen berechnet.&lt;/p&gt;&lt;p&gt;Wenn sie aktiviert ist, wird die Animation als die durchschnittliche Tonhöhe der ausgewählten Klangfrequenzen berechnet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
+        <location filename="../qt/audio_selector.ui" line="829"/>
+        <location filename="../qt/ui_audio_selector.h" line="681"/>
+        <source>Sound Animation chart</source>
+        <translation>Audio Animationsdiagramm</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="860"/>
+        <location filename="../qt/ui_audio_selector.h" line="683"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animation chart shows &lt;span style=&quot; font-weight:600;&quot;&gt;sound&lt;/span&gt;  that is used in the calculation of sound value. It ranges from silent at the bottom up to maximum of 1.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Das Animationsdiagramm zeigt den &lt;span style=&quot; font-weight:600;&quot;&gt;Sound&lt;/span&gt;, der der bei der Berechnung des Soundwertes verwendet wird. Es reicht von still an der Unterseite bis maximal 1.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="901"/>
+        <location filename="../qt/ui_audio_selector.h" line="685"/>
+        <source>-- / --</source>
+        <translation>-- / --</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Animation by Sound, which uses digital data from audio files to adjust parameter values obtained from the keyframe animation table.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;p&gt;Animation by Sound  can be used in combination with animation from the Keyframe table.  &lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;An object can be moving in a linear direction in respect to the keyframe animation table calculation, and at the same time have this movement responding to the audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert die Audioanimation, indem digitale Daten aus den Audiodateien verwendet werden, um die aus den Keyframe-Tabellenberechnungen gewonnenen Parameterwerte anzupassen.&lt;/p&gt;&lt;p&gt;Die Änderung eines Parameterwerts kann in Abhängigkeit von der Amplitude oder der Tonhöhe des an jedem Frame abgetasteten Tons (unabhängig von Keyframes) erfolgen.&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;Ein Objekt kann sich in einer linearen Richtung in Bezug auf die Berechnung der Keyframe-Animationstabelle bewegen und gleichzeitig bei dieser Bewegung auf den Audioinput reagieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.ui" line="199"/>
+        <location filename="../qt/ui_audio_selector.h" line="615"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of the band of frequencies used to calculate the sound value effect on an animation.&lt;/p&gt;&lt;p&gt;Selected bandwidth is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;p&gt;If the bandwidth is wide, then the sound value will be calculated from the average amplitude of the selected frequencies.&lt;/p&gt;&lt;p&gt;If the bandwidth is set to the maximum value, then the sound value will be calculated from the amplitude of the sound.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Breite des Frequenzbandes, die für die Berechnung der Animation verwendet werden.&lt;/p&gt;&lt;p&gt;Die selektierte Bandbreite wird im  &amp;quot;Frequenzspektrum&amp;quot;-Diagramm dargestellt.&lt;/p&gt;&lt;p&gt;Wenn die Bandbreite groß ist, dann wird die Animation aus dem Durchschnitt der Amplituden der ausgewählten Frequenzen berechnet.&lt;/p&gt;&lt;p&gt;Wenn die Bandbreite auf das Maximum gesetzt ist, wird die Animation aus der Sound Amplitude berechnet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of the sound value&lt;/p&gt;&lt;p&gt;Addition factor will decrease animated value. Multiplication factor will divide animated value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Richtung des Einflusses der durch den Klang erzeugten Animation.&lt;/p&gt;&lt;p&gt;Der Additionsfaktor verringert den animierten Wert. Der Multiplikationsfaktor dividiert animierten Wert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the sound value is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the sound value is calculated as the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the sound value is calculated as the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Art der Animationsberechnung.&lt;/p&gt;&lt;p&gt;Wenn der Modus deaktiviert ist, wird die Animation als die durchschnittliche Amplitude der gewählten Klangfrequenzen berechnet.&lt;/p&gt;&lt;p&gt;Wenn sie aktiviert ist, wird die Animation als die durchschnittliche Tonhöhe der ausgewählten Klangfrequenzen berechnet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <location filename="../qt/audio_selector.ui" line="355"/>
+        <location filename="../qt/ui_audio_selector.h" line="638"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The addition of the sound value to the parameter value is triggered when the sound rises above the threshold and ceases when the sound drops below the threshold, (unless the minimum duration is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Binärfilter.&lt;/p&gt;&lt;p&gt;Die Wertänderung des animierten Parameters wird ausgelöst, wenn der Klang den Schwellwert überschreitet und bei Unterschreitung des Schwellwertes abgeschaltet (sofern die Mindestdauer diesen Framepunkt nicht überschreitet).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="419"/>
+        <location filename="../qt/ui_audio_selector.h" line="643"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Threshold for binary filter. &lt;/p&gt;&lt;p&gt;When sound is above the threshold, the sound value is calculated and added to the parameter value.  Calculation continues until the sound falls below the threshold or the minimum duration is exceeded.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Binärfilter.&lt;/p&gt;&lt;p&gt;Die Wertänderung des animierten Parameters wird ausgelöst, wenn der Klang den Schwellwert überschreitet und bei Unterschreitung des Schwellwertes abgeschaltet (sofern die Mindestdauer diesen Framepunkt nicht überschreitet).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="482"/>
+        <location filename="../qt/ui_audio_selector.h" line="649"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum duration for which the sound value will be calculated and added to the parameter value, from the frame where the sound first exceeded the threshold, ( measured in frames.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimale Länge des Einflusses auf den Parameterwert. Aus dem Frame, der die Audiospitze über dem Schwellenwert triggert (in Frames gemessen)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="515"/>
+        <location filename="../qt/ui_audio_selector.h" line="654"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the decay filter.&lt;/p&gt;&lt;p&gt;The sound value will rise fast, but decay slowly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Abkling-Filter.&lt;/p&gt;&lt;p&gt;Der Wert des animierten Parameters wird schnell ansteigen, aber langsam abklingen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="579"/>
+        <location filename="../qt/ui_audio_selector.h" line="659"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A higher value extends the decay of the sound value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ein höherer Wert verlängert das Abklingen des animierten Parameters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="612"/>
+        <location filename="../qt/ui_audio_selector.h" line="664"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the smooth filter.&lt;/p&gt;&lt;p&gt;The sound value will change in a smooth way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Glättungs-Filter.&lt;/p&gt;&lt;p&gt;Der Wert des animierten Parameters wird auf eine geglättete Art verändern.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="827"/>
         <source>Sound Value animation chart</source>
-        <translation>Sound Wert Animationsdiagramm</translation>
+        <translation type="vanished">Sound Wert Animationsdiagramm</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="858"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animation chart shows sound value.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Das Animationsdiagramm zeigt den Soundwert.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Das Animationsdiagramm zeigt den Soundwert.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="578"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables audio animation,  by using digital data from audio files to adjust parameter values obtained from the keyframe table calculations.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert die Audioanimation, indem digitale Daten aus den Audiodateien verwendet werden, um die aus den Keyframe-Tabellenberechnungen gewonnenen Parameterwerte anzupassen.&lt;/p&gt;&lt;p&gt;Die Änderung eines Parameterwerts kann in Abhängigkeit von der Amplitude oder der Tonhöhe des an jedem Frame abgetasteten Tons (unabhängig von Keyframes) erfolgen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert die Audioanimation, indem digitale Daten aus den Audiodateien verwendet werden, um die aus den Keyframe-Tabellenberechnungen gewonnenen Parameterwerte anzupassen.&lt;/p&gt;&lt;p&gt;Die Änderung eines Parameterwerts kann in Abhängigkeit von der Amplitude oder der Tonhöhe des an jedem Frame abgetasteten Tons (unabhängig von Keyframes) erfolgen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="97"/>
-        <location filename="../qt/ui_audio_selector.h" line="580"/>
+        <location filename="../qt/ui_audio_selector.h" line="606"/>
         <source>Enable animation by so&amp;und</source>
         <translation>Aktiviere Animation durch Sound</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="123"/>
-        <location filename="../qt/ui_audio_selector.h" line="581"/>
+        <location filename="../qt/ui_audio_selector.h" line="607"/>
         <source>Frequency of interest:</source>
         <translation>Frequenz von Interesse:</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="158"/>
-        <location filename="../qt/ui_audio_selector.h" line="583"/>
+        <location filename="../qt/ui_audio_selector.h" line="609"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Frequency of sound which will be used to calculate animation.&lt;/p&gt;&lt;p&gt;This frequency is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Frequenz des Sounds, der zur Berechnung der Animation verwendet wird.&lt;/p&gt;&lt;p&gt;Diese Frequenz wird im &amp;quot;Frequenzspektrum&amp;quot; Diagramm dargestellt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="186"/>
-        <location filename="../qt/ui_audio_selector.h" line="587"/>
+        <location filename="../qt/ui_audio_selector.h" line="613"/>
         <source>Bandwidth:</source>
         <translation>Bandbreite:</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="589"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of the band of frequencies used to calculate animation.&lt;/p&gt;&lt;p&gt;Selected bandwidth is shown on the &amp;quot;Frequency spectrum&amp;quot; chart.&lt;/p&gt;&lt;p&gt;If the bandwidth is wide, then the animation will be calculated from the average amplitude of the selected frequencies.&lt;/p&gt;&lt;p&gt;If the bandwidth is set to the maximum value, then the animation will be calculated from the  amplitude of sound.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Breite des Frequenzbandes, die für die Berechnung der Animation verwendet werden.&lt;/p&gt;&lt;p&gt;Die selektierte Bandbreite wird im  &amp;quot;Frequenzspektrum&amp;quot;-Diagramm dargestellt.&lt;/p&gt;&lt;p&gt;Wenn die Bandbreite groß ist, dann wird die Animation aus dem Durchschnitt der Amplituden der ausgewählten Frequenzen berechnet.&lt;/p&gt;&lt;p&gt;Wenn die Bandbreite auf das Maximum gesetzt ist, wird die Animation aus der Sound Amplitude berechnet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Breite des Frequenzbandes, die für die Berechnung der Animation verwendet werden.&lt;/p&gt;&lt;p&gt;Die selektierte Bandbreite wird im  &amp;quot;Frequenzspektrum&amp;quot;-Diagramm dargestellt.&lt;/p&gt;&lt;p&gt;Wenn die Bandbreite groß ist, dann wird die Animation aus dem Durchschnitt der Amplituden der ausgewählten Frequenzen berechnet.&lt;/p&gt;&lt;p&gt;Wenn die Bandbreite auf das Maximum gesetzt ist, wird die Animation aus der Sound Amplitude berechnet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="249"/>
-        <location filename="../qt/ui_audio_selector.h" line="593"/>
+        <location filename="../qt/ui_audio_selector.h" line="619"/>
         <source>Addition factor</source>
         <translation>Additionsfaktor</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="256"/>
-        <location filename="../qt/ui_audio_selector.h" line="594"/>
+        <location filename="../qt/ui_audio_selector.h" line="620"/>
         <source>Multiplication factor</source>
         <translation>Multiplikationsfaktor</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="596"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default formula for calculating the audio induced change to a parameter value is: &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation = parameter_value * (1.0 + multiplication_factor * sound) + &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;addition_factor &lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;* sound;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter after the audio animation change has been applied.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- parameter value from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude of the selected range of sound frequencies&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Addition factor examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;If addition factor is close to zero, then value generated by sound will not be added to animated parameter value&lt;/p&gt;&lt;p&gt;If addition factor is close to 1.0, then animated parameter value is increased by range from 0 to 1.0 depending on sound amplitude&lt;/p&gt;&lt;p&gt;If addition factor is close to 10.0, then animated parameter value is increased by range from 0 to 10.0 depending on sound amplitude&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Standardformel zur Berechnung der Audio-bedingten Änderung des Parameterwertes lautet: &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Animation = Parameterwert * (1.0 + Multiplikationsfaktor * Sound) + &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Additionsfaktor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;* Sound;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Wobei:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Animation&lt;/span&gt; - Wert des Parameters nach der Änderung durch die Audioanimation.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Parameterwert&lt;/span&gt;- Wert von der Berechnung der Keyframeanimation.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Sound&lt;/span&gt; - Durchschnittliche Amplitude der ausgewählten Frequenzbreite&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Additionsfaktor Beispiele:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Wenn der Additionsfaktor nahe an 0 ist, dann wird der vom Sound erzeugte Wert nicht dem animierten Parameterwert hinzugefügt.&lt;/p&gt;&lt;p&gt;Wenn der Additionsfaktor nahe bei 1,0 liegt, wird der animierte Parameterwert in Abhängigkeit von der Schallamplitude um einen Bereich von 0 bis 1,0 erhöht.&lt;/p&gt;&lt;p&gt;Wenn der Additionsfaktor nahe bei 10,0 liegt, wird der animierte Parameterwert in Abhängigkeit von der Schallamplitude um einen Bereich von 0 bis 10,0 erhöht.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Standardformel zur Berechnung der Audio-bedingten Änderung des Parameterwertes lautet: &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Animation = Parameterwert * (1.0 + Multiplikationsfaktor * Sound) + &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Additionsfaktor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;* Sound;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Wobei:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Animation&lt;/span&gt; - Wert des Parameters nach der Änderung durch die Audioanimation.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Parameterwert&lt;/span&gt;- Wert von der Berechnung der Keyframeanimation.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Sound&lt;/span&gt; - Durchschnittliche Amplitude der ausgewählten Frequenzbreite&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Additionsfaktor Beispiele:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Wenn der Additionsfaktor nahe an 0 ist, dann wird der vom Sound erzeugte Wert nicht dem animierten Parameterwert hinzugefügt.&lt;/p&gt;&lt;p&gt;Wenn der Additionsfaktor nahe bei 1,0 liegt, wird der animierte Parameterwert in Abhängigkeit von der Schallamplitude um einen Bereich von 0 bis 1,0 erhöht.&lt;/p&gt;&lt;p&gt;Wenn der Additionsfaktor nahe bei 10,0 liegt, wird der animierte Parameterwert in Abhängigkeit von der Schallamplitude um einen Bereich von 0 bis 10,0 erhöht.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="600"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default formula for calculating the sound induced change to a parameter value is: &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation = parameter_value * (1.0 + sound *&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt; multiplication_factor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;) + addition_factor * sound&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; -  value of the parameter after the audio animation change has been applied.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;-  parameter value from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; -  average amplitude of the selected range of sound frequencies&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Multiplication factor examples:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;If multiplication factor is close to zero, then value generated by sound will not change to animated parameter value&lt;/p&gt;&lt;p&gt;If multiplication factor is close to 1.0, then when sound is silent, animated parameter will stay unchanged. When sound is loud then animated parameter value will be twice higher.&lt;/p&gt;&lt;p&gt;If multiplication factor is close to 10.0, then when sound is silent, animated parameter will stay unchanged. When sound is loud then animated parameter value will be about 10 times higher.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Standardformel zur Berechnung der Audio-bedingten Änderung des Parameterwertes lautet: &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Animation = Parameterwert * (1.0 + Sound * &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt; Multiplikationsfaktor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;) + Additionsfaktor * Sound;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Wobei:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Animation&lt;/span&gt; - Wert des Parameters nach der Änderung durch die Audioanimation.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Parameterwert&lt;/span&gt;- Wert von der Berechnung der Keyframeanimation.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Sound&lt;/span&gt; - Durchschnittliche Amplitude der ausgewählten Frequenzbreite&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Multiplikationsfaktor Beispiele:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Wenn der Multiplikationsfaktor nahe bei 0,0 liegt, ändert sich der durch den Schall erzeugte Wert nicht im animierten Parameterwert.&lt;/p&gt;&lt;p&gt;Wenn der Multiplikationsfaktor nahe bei 1,0 liegt, bleibt der animierte Parameter, wenn der Ton still ist, unverändert. Wenn der Ton laut ist, ist der animierte Parameterwert doppelt so hoch.&lt;/p&gt;&lt;p&gt;Wenn der Multiplikationsfaktor nahe bei 10,0 liegt, bleibt der animierte Parameter, wenn der Ton still ist, unverändert. Wenn der Ton laut ist, wird der animierte Parameterwert etwa 10 mal höher sein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Standardformel zur Berechnung der Audio-bedingten Änderung des Parameterwertes lautet: &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Animation = Parameterwert * (1.0 + Sound * &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt; Multiplikationsfaktor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;) + Additionsfaktor * Sound;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Wobei:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Animation&lt;/span&gt; - Wert des Parameters nach der Änderung durch die Audioanimation.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Parameterwert&lt;/span&gt;- Wert von der Berechnung der Keyframeanimation.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Sound&lt;/span&gt; - Durchschnittliche Amplitude der ausgewählten Frequenzbreite&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Multiplikationsfaktor Beispiele:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Wenn der Multiplikationsfaktor nahe bei 0,0 liegt, ändert sich der durch den Schall erzeugte Wert nicht im animierten Parameterwert.&lt;/p&gt;&lt;p&gt;Wenn der Multiplikationsfaktor nahe bei 1,0 liegt, bleibt der animierte Parameter, wenn der Ton still ist, unverändert. Wenn der Ton laut ist, ist der animierte Parameterwert doppelt so hoch.&lt;/p&gt;&lt;p&gt;Wenn der Multiplikationsfaktor nahe bei 10,0 liegt, bleibt der animierte Parameter, wenn der Ton still ist, unverändert. Wenn der Ton laut ist, wird der animierte Parameterwert etwa 10 mal höher sein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="604"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of animation generated by sound.&lt;/p&gt;&lt;p&gt;Addition factor will decrease animated value. Multiplication factor will divide animated value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Richtung des Einflusses der durch den Klang erzeugten Animation.&lt;/p&gt;&lt;p&gt;Der Additionsfaktor verringert den animierten Wert. Der Multiplikationsfaktor dividiert animierten Wert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Richtung des Einflusses der durch den Klang erzeugten Animation.&lt;/p&gt;&lt;p&gt;Der Additionsfaktor verringert den animierten Wert. Der Multiplikationsfaktor dividiert animierten Wert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="330"/>
-        <location filename="../qt/ui_audio_selector.h" line="606"/>
+        <location filename="../qt/ui_audio_selector.h" line="632"/>
         <source>Negative influence</source>
         <translation>Negative Auswirkung</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="608"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the animation is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the animation is calculated as the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the animation is calculated as the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Art der Animationsberechnung.&lt;/p&gt;&lt;p&gt;Wenn der Modus deaktiviert ist, wird die Animation als die durchschnittliche Amplitude der gewählten Klangfrequenzen berechnet.&lt;/p&gt;&lt;p&gt;Wenn sie aktiviert ist, wird die Animation als die durchschnittliche Tonhöhe der ausgewählten Klangfrequenzen berechnet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ändert die Art der Animationsberechnung.&lt;/p&gt;&lt;p&gt;Wenn der Modus deaktiviert ist, wird die Animation als die durchschnittliche Amplitude der gewählten Klangfrequenzen berechnet.&lt;/p&gt;&lt;p&gt;Wenn sie aktiviert ist, wird die Animation als die durchschnittliche Tonhöhe der ausgewählten Klangfrequenzen berechnet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="346"/>
-        <location filename="../qt/ui_audio_selector.h" line="610"/>
+        <location filename="../qt/ui_audio_selector.h" line="636"/>
         <source>Sound pitch mode</source>
         <translation>Sound Pitch Modus</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="612"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the binary filter.&lt;/p&gt;&lt;p&gt;The change in value of the animated parameter will be triggered when the sound rises above the threshold and ceases when the sound drops below the threshold, (unless the minimum duration  is extended past that frame point.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Binärfilter.&lt;/p&gt;&lt;p&gt;Die Wertänderung des animierten Parameters wird ausgelöst, wenn der Klang den Schwellwert überschreitet und bei Unterschreitung des Schwellwertes abgeschaltet (sofern die Mindestdauer diesen Framepunkt nicht überschreitet).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Binärfilter.&lt;/p&gt;&lt;p&gt;Die Wertänderung des animierten Parameters wird ausgelöst, wenn der Klang den Schwellwert überschreitet und bei Unterschreitung des Schwellwertes abgeschaltet (sofern die Mindestdauer diesen Framepunkt nicht überschreitet).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="358"/>
-        <location filename="../qt/ui_audio_selector.h" line="614"/>
+        <location filename="../qt/ui_audio_selector.h" line="640"/>
         <source>&amp;Binary filter</source>
         <translation>Binärfilter</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="384"/>
-        <location filename="../qt/ui_audio_selector.h" line="615"/>
+        <location filename="../qt/ui_audio_selector.h" line="641"/>
         <source>Threshold:</source>
         <translation>Schwellwert:</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="617"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Threshold for binary filter. &lt;/p&gt;&lt;p&gt;Above this threshold,  the calculation of the audio influence on the parameter value is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Schwellwert für den Binärfilter.&lt;/p&gt;&lt;p&gt;Oberhalb dieser Schwelle wird die Berechnung des Einflusses auf den Parameterwert aktiviert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Schwellwert für den Binärfilter.&lt;/p&gt;&lt;p&gt;Oberhalb dieser Schwelle wird die Berechnung des Einflusses auf den Parameterwert aktiviert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="447"/>
-        <location filename="../qt/ui_audio_selector.h" line="621"/>
+        <location filename="../qt/ui_audio_selector.h" line="647"/>
         <source>Minimum duration:</source>
         <translation>Mindestdauer:</translation>
     </message>
@@ -5530,84 +5588,78 @@ und Distanz</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ein höherer Wert verlängert das Abklingen des animierten Parameters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="623"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum length of audio influence on the parameter value. From the frame that trigers the audiogerspeak above the threshold, ( measured in frames.)&lt;/p&gt;&lt;p&gt;The length of the changed parameter value can be extended past the point where the sound drops below the threshold. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimale Länge des Einflusses auf den Parameterwert. Aus dem Frame, der die Audiospitze über dem Schwellenwert triggert (in Frames gemessen)&lt;/p&gt;&lt;p&gt;Die Länge des geänderten Parameterwerts kann über den Punkt hinaus verlängert werden, an dem der Klang unter die Schwelle fällt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimale Länge des Einflusses auf den Parameterwert. Aus dem Frame, der die Audiospitze über dem Schwellenwert triggert (in Frames gemessen)&lt;/p&gt;&lt;p&gt;Die Länge des geänderten Parameterwerts kann über den Punkt hinaus verlängert werden, an dem der Klang unter die Schwelle fällt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="628"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the decay filter.&lt;/p&gt;&lt;p&gt;The value of the animated parameter will rise fast, but decay slowly.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Abkling-Filter.&lt;/p&gt;&lt;p&gt;Der Wert des animierten Parameters wird schnell ansteigen, aber langsam abklingen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Abkling-Filter.&lt;/p&gt;&lt;p&gt;Der Wert des animierten Parameters wird schnell ansteigen, aber langsam abklingen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="518"/>
-        <location filename="../qt/ui_audio_selector.h" line="630"/>
+        <location filename="../qt/ui_audio_selector.h" line="656"/>
         <source>Decay fil&amp;ter</source>
         <translation>Abkling-Filter</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="544"/>
         <location filename="../qt/audio_selector.ui" line="641"/>
-        <location filename="../qt/ui_audio_selector.h" line="631"/>
-        <location filename="../qt/ui_audio_selector.h" line="641"/>
+        <location filename="../qt/ui_audio_selector.h" line="657"/>
+        <location filename="../qt/ui_audio_selector.h" line="667"/>
         <source>Strength:</source>
         <translation>Stärke:</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="633"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A higher value extends the decay o thef animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ein höherer Wert verlängert das Abklingen des animierten Parameters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ein höherer Wert verlängert das Abklingen des animierten Parameters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="638"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the smooth filter.&lt;/p&gt;&lt;p&gt;The value of the animated parameter will change in a smooth way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Glättungs-Filter.&lt;/p&gt;&lt;p&gt;Der Wert des animierten Parameters wird auf eine geglättete Art verändern.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Option aktiviert den Glättungs-Filter.&lt;/p&gt;&lt;p&gt;Der Wert des animierten Parameters wird auf eine geglättete Art verändern.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="615"/>
-        <location filename="../qt/ui_audio_selector.h" line="640"/>
+        <location filename="../qt/ui_audio_selector.h" line="666"/>
         <source>S&amp;mooth filter</source>
         <translation>Glättungs-Filter</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="676"/>
-        <location filename="../qt/ui_audio_selector.h" line="643"/>
+        <location filename="../qt/ui_audio_selector.h" line="669"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A higher value will result in a reduced audio influence on the animated parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ein höherer Wert führt zu einem reduzierten Audio-Einfluss auf den animierten Parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="763"/>
-        <location filename="../qt/ui_audio_selector.h" line="647"/>
+        <location filename="../qt/audio_selector.ui" line="765"/>
+        <location filename="../qt/ui_audio_selector.h" line="673"/>
         <source>Waveform</source>
         <translation>Wellenform</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="794"/>
-        <location filename="../qt/ui_audio_selector.h" line="649"/>
+        <location filename="../qt/audio_selector.ui" line="796"/>
+        <location filename="../qt/ui_audio_selector.h" line="675"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays waveform of loaded audio file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zeigt die Wellenform der geladenen Audio Datei.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="801"/>
-        <location filename="../qt/ui_audio_selector.h" line="651"/>
+        <location filename="../qt/audio_selector.ui" line="803"/>
+        <location filename="../qt/ui_audio_selector.h" line="677"/>
         <source>Frequency spectrum</source>
         <translation>Frequenzspektrum</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.ui" line="820"/>
-        <location filename="../qt/ui_audio_selector.h" line="653"/>
+        <location filename="../qt/audio_selector.ui" line="822"/>
+        <location filename="../qt/ui_audio_selector.h" line="679"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Displays frequency spectrum of loaded audio file.&lt;/p&gt;&lt;p&gt;The chart displays low frequencies of the sound (bass) at the bottom,  and  high frequencies (high tones)  at the top.&lt;/p&gt;&lt;p&gt;Brighter pixels indicates louder tones.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zeigt das Frequenzspektrum der geladenen Audiodatei an.&lt;/p&gt;&lt;p&gt;Das Diagramm zeigt tiefe Frequenzen des Sounds (Bass) unten und hohe Frequenzen (hohe Töne) oben an.&lt;/p&gt;&lt;p&gt;Hellere Pixel zeigen lautere Töne an.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="655"/>
         <source>Animation chart</source>
-        <translation>Animationsdiagramm</translation>
+        <translation type="vanished">Animationsdiagramm</translation>
     </message>
     <message>
-        <location filename="../qt/ui_audio_selector.h" line="657"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animation chart shows how the sound will modify the animated parameter. &lt;/p&gt;&lt;p&gt;The animated parameter value is the value calculated from the keyframe animation table, as modified by the inclusion of sound animation.&lt;/p&gt;&lt;p&gt;For instance, an object could be moving linearly in respect to the keyframe animation table calculation and at the same time also have this movement responding to the audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animationstabelle zeigt, wie der Sound den animierten Parameter verändert.&lt;/p&gt;&lt;p&gt;Der animierte Parameterwert ist der aus der Keyframe-Animationstabelle errechnete Wert, der durch die Einfügung der Klanganimation modifiziert wurde.&lt;/p&gt;&lt;p&gt;Zum Beispiel könnte ein Objekt sich linear in Bezug auf die Keyframe-Animationstabelle Berechnung  bewegen und zur gleichen Zeit reagiert diese Bewegung auf den Audioinput.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Animationstabelle zeigt, wie der Sound den animierten Parameter verändert.&lt;/p&gt;&lt;p&gt;Der animierte Parameterwert ist der aus der Keyframe-Animationstabelle errechnete Wert, der durch die Einfügung der Klanganimation modifiziert wurde.&lt;/p&gt;&lt;p&gt;Zum Beispiel könnte ein Objekt sich linear in Bezug auf die Keyframe-Animationstabelle Berechnung  bewegen und zur gleichen Zeit reagiert diese Bewegung auf den Audioinput.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Audio files (*.wav *.mp3)</source>
@@ -5618,19 +5670,29 @@ und Distanz</translation>
         <translation type="vanished">Audio Dateien (*.wav *.mp3 *.flac)</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.cpp" line="82"/>
+        <location filename="../qt/audio_selector.cpp" line="80"/>
         <source>Audio files (*.wav *.mp3 *.flac *.ogg)</source>
         <translation>Audio Dateien (*.wav *.mp3 *.flac *.ogg)</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.cpp" line="84"/>
+        <location filename="../qt/audio_selector.cpp" line="82"/>
         <source>Select audio file...</source>
         <translation>Audio Datei auswählen...</translation>
     </message>
     <message>
-        <location filename="../qt/audio_selector.cpp" line="126"/>
+        <location filename="../qt/audio_selector.cpp" line="123"/>
         <source>Set animation controlled by audio file for parameter %1</source>
         <translation>Setze Animationskontrolle durch Audio Datei für Parameter %1</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.cpp" line="359"/>
+        <source>Pause Audio</source>
+        <translation>Pause Audio</translation>
+    </message>
+    <message>
+        <location filename="../qt/audio_selector.cpp" line="364"/>
+        <source>Play Audio</source>
+        <translation>Play Audio</translation>
     </message>
 </context>
 <context>
@@ -5650,7 +5712,7 @@ und Distanz</translation>
         <translation>Dekomprimiere Audio Datei</translation>
     </message>
     <message>
-        <location filename="../src/audio_track.cpp" line="262"/>
+        <location filename="../src/audio_track.cpp" line="269"/>
         <source>Calculationg FFT</source>
         <translation>Berechne FFT</translation>
     </message>
@@ -5659,491 +5721,491 @@ und Distanz</translation>
     <name>cDockAnimation</name>
     <message>
         <location filename="../qt/dock_animation.ui" line="14"/>
-        <location filename="../qt/ui_dock_animation.h" line="960"/>
+        <location filename="../qt/ui_dock_animation.h" line="947"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="36"/>
-        <location filename="../qt/ui_dock_animation.h" line="962"/>
+        <location filename="../qt/ui_dock_animation.h" line="949"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In record flight mode, the camera is operated like in a flight simulator game. Flight path is recorded. It recommended to use low image resolution for better recording performance. &lt;/p&gt;&lt;p&gt;Render animation button starts rendering of the recorded flight path. For final rendering you can select higher image resolution.&lt;/p&gt;&lt;p&gt;To add a parameter, right click on the selected parameter&apos;s edit field and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to flight animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;You can modify frame parameters directly in the animation table or by editing parameters in fractal or effects edit fields (double click keyframe preview or right click on a keyframe, and choose &lt;span style=&quot; font-style:italic;&quot;&gt;Render this keyframe&lt;/span&gt; , this updates parameters in window, then modify parameters and click &lt;span style=&quot; font-style:italic;&quot;&gt;Modify keyframe&lt;/span&gt; to get modified parameters into table)&lt;/p&gt;&lt;p&gt;You can click on &lt;span style=&quot; font-style:italic;&quot;&gt;Export to keyframes&lt;/span&gt; to continue editing animation in &lt;span style=&quot; font-style:italic;&quot;&gt;Keyframe animation&lt;/span&gt; editor&lt;/p&gt;&lt;p&gt;Animation is stored in a settings file in CSV format, therefore it is possible to edit animation with external tools (e.g spreadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Funktion ist für das Rendern des Flugs durch Animationen. &lt;/p&gt;&lt;p&gt; Im Flugaufnahme-Modus wird die Kamera wie in einem Flug-Simulator-Spiel betrieben. Es wird empfohlen eine niedrige Bildauflösung zu verwenden, um eine bessere Render Performace zu erreichen. Die Flugbahn wird währenddessen aufgenommen.&lt;/p&gt;&lt;p&gt;Der Render Animation Knopf startet das Rendern der aufgezeichneten Flugbahn. Zum Rendern können Sie eine höhere Bildauflösung zu wählen.&lt;/p&gt;&lt;p&gt;Es ist möglich, Parameter für die Animation (wie fraktale Power, Lichtposition, etc ...) hinzuzufügen und diese in der Tabellenansicht zu bearbeiten. Um Parameter als animierte Werte hinzuzufügen, müssen Sie einen Rechtsklick auf den gewünschten Parameter ausführen und aus dem Kontextmenü &lt;span style=&quot; font-style:italic;&quot;&gt;Zur Fluganimation hinzufügen&lt;/span&gt; auswählen.&lt;/p&gt;&lt;p&gt;Die Animation wird in der Einstellungsdatei im CSV Format gespeichert, dadurch ist es möglich die Animation mit externen Tools zu bearbeiten (z.B. Speadsheet Editor oder Text Editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="39"/>
-        <location filename="../qt/ui_dock_animation.h" line="1063"/>
+        <location filename="../qt/ui_dock_animation.h" line="1050"/>
         <source>Flight animation</source>
         <translation>Fluganimation</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="88"/>
-        <location filename="../qt/ui_dock_animation.h" line="966"/>
+        <location filename="../qt/ui_dock_animation.h" line="953"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts rendering of previously recorded flight path&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet das Rendern von einer vorher aufgenommenen Flugbahn&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="91"/>
-        <location filename="../qt/ui_dock_animation.h" line="968"/>
+        <location filename="../qt/ui_dock_animation.h" line="955"/>
         <source>Render flight animation</source>
         <translation>Fluganimation rendern</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="108"/>
-        <location filename="../qt/ui_dock_animation.h" line="970"/>
+        <location filename="../qt/ui_dock_animation.h" line="957"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts recording flight path. &lt;/p&gt;&lt;p&gt;It is recommended to decrease image resolution for better rendering performance.&lt;/p&gt;&lt;p&gt;The mouse pointer is used as the controller. &lt;br/&gt;Move the mouse pointer to change flight direction.&lt;br/&gt;Left mouse button increases flight speed. Right mouse button decreases speed.&lt;br/&gt;Arrow keys moves camera up, down, left and right (strafe)&lt;br/&gt;Z and X keys rotate the camera (roll)&lt;br/&gt;Spacebar pauses flight path recording . &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet die Aufnahme der Flugbahn. &lt;/p&gt;&lt;p&gt;Es wird empfohlen, die Bildauflösung während der Aufnahme zu verringern, um eine bessere Renderperformance zu erreichen.&lt;/p&gt;&lt;p&gt;Der Mauszeiger kann als Controller des Flugs verwendet werden. &lt;br/&gt;Mit der Bewegung des Mauszeigers über dem Bild kann die Flugrichtung geändert werden.&lt;br/&gt;Linke Maustaste erhöht Fluggeschwindigkeit. Rechte Maustaste verringert Fluggeschwindigkeit.&lt;br/&gt;Die Pfeil-Tasten bewegen die Kamera nach oben, unten, links und rechts (seitlich)&lt;br/&gt;Tasten Z und X drehen die Kamera (Rolle)&lt;br/&gt;Leertaste pausiert die Aufzeichnung des Fluges. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="111"/>
-        <location filename="../qt/ui_dock_animation.h" line="972"/>
+        <location filename="../qt/ui_dock_animation.h" line="959"/>
         <source>Record flight path</source>
         <translation>Flug aufzeichnen</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="128"/>
-        <location filename="../qt/ui_dock_animation.h" line="974"/>
+        <location filename="../qt/ui_dock_animation.h" line="961"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Deletes all already rendered image frames in selected folder (&lt;span style=&quot; font-style:italic;&quot;&gt;Path for images&lt;/span&gt;). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Alle gerenderten Frames im Flugordner löschen ( Auswahl von &lt;span style=&quot; font-style:italic;&quot;&gt;Pfad zu Flugframes&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="131"/>
-        <location filename="../qt/dock_animation.ui" line="1014"/>
-        <location filename="../qt/ui_dock_animation.h" line="976"/>
-        <location filename="../qt/ui_dock_animation.h" line="1099"/>
+        <location filename="../qt/dock_animation.ui" line="1002"/>
+        <location filename="../qt/ui_dock_animation.h" line="963"/>
+        <location filename="../qt/ui_dock_animation.h" line="1086"/>
         <source>Delete all images</source>
         <translation>Alle Bilder löschen</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="148"/>
-        <location filename="../qt/ui_dock_animation.h" line="978"/>
+        <location filename="../qt/ui_dock_animation.h" line="965"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Plays rendered animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gerenderte Animation abspielen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="151"/>
-        <location filename="../qt/dock_animation.ui" line="938"/>
-        <location filename="../qt/ui_dock_animation.h" line="980"/>
-        <location filename="../qt/ui_dock_animation.h" line="1083"/>
+        <location filename="../qt/dock_animation.ui" line="926"/>
+        <location filename="../qt/ui_dock_animation.h" line="967"/>
+        <location filename="../qt/ui_dock_animation.h" line="1070"/>
         <source>Show Animation</source>
         <translation>Zeige Animation</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="168"/>
-        <location filename="../qt/ui_dock_animation.h" line="982"/>
+        <location filename="../qt/ui_dock_animation.h" line="969"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Continues recording previously stopped rendering. The flight will start from the last point from the table, and will be continued with the latest direction and speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setzt die Aufzeichnung einer vorher pausiertes Aufnahme fort. Der Flug wird vom letzten Punkt aus der Tabelle beginnen und wird in aktueller Richtung und Geschwindigkeit fortgesetzt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="171"/>
-        <location filename="../qt/ui_dock_animation.h" line="984"/>
+        <location filename="../qt/ui_dock_animation.h" line="971"/>
         <source>Continue recording</source>
         <translation>Aufnahme fortsetzen</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="188"/>
-        <location filename="../qt/dock_animation.ui" line="1031"/>
-        <location filename="../qt/ui_dock_animation.h" line="986"/>
-        <location filename="../qt/ui_dock_animation.h" line="1101"/>
+        <location filename="../qt/dock_animation.ui" line="1019"/>
+        <location filename="../qt/ui_dock_animation.h" line="973"/>
+        <location filename="../qt/ui_dock_animation.h" line="1088"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Refreshes animation table and keyframe previews.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktualisiert die Animationstabelle und die Keyframe Vorschau.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="191"/>
-        <location filename="../qt/dock_animation.ui" line="1034"/>
-        <location filename="../qt/ui_dock_animation.h" line="988"/>
-        <location filename="../qt/ui_dock_animation.h" line="1103"/>
+        <location filename="../qt/dock_animation.ui" line="1022"/>
+        <location filename="../qt/ui_dock_animation.h" line="975"/>
+        <location filename="../qt/ui_dock_animation.h" line="1090"/>
         <source>Refresh table</source>
         <translation>Tabelle aktualisieren</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="208"/>
-        <location filename="../qt/ui_dock_animation.h" line="990"/>
+        <location filename="../qt/ui_dock_animation.h" line="977"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exports flight path to keyframe animation.  &lt;span style=&quot; font-style:italic;&quot;&gt;Keyframe animation/frames per keyframe&lt;/span&gt; parameter is used to determine how many frames will be exported as new keyframes. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Flugbahn zur &lt;span style=&quot; font-style:italic;&quot;&gt;Keyframeanimation&lt;/span&gt; exportieren. Es wird der&lt;span style=&quot; font-style:italic;&quot;&gt;Keyframe Animation / Frames pro Keyframe&lt;/span&gt; Parameter verwendet, um festzulegen welcher N-te Flugframe als Keyframe exportiert wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="211"/>
-        <location filename="../qt/ui_dock_animation.h" line="992"/>
+        <location filename="../qt/ui_dock_animation.h" line="979"/>
         <source>Export to Keyframes</source>
         <translation>Export zu Keyframes</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="252"/>
-        <location filename="../qt/dock_animation.ui" line="1138"/>
-        <location filename="../qt/ui_dock_animation.h" line="993"/>
-        <location filename="../qt/ui_dock_animation.h" line="1112"/>
+        <location filename="../qt/dock_animation.ui" line="1126"/>
+        <location filename="../qt/ui_dock_animation.h" line="980"/>
+        <location filename="../qt/ui_dock_animation.h" line="1099"/>
         <source>path for images:</source>
         <translation>Pfad für Bilder:</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="259"/>
-        <location filename="../qt/dock_animation.ui" line="1145"/>
-        <location filename="../qt/ui_dock_animation.h" line="994"/>
-        <location filename="../qt/ui_dock_animation.h" line="1113"/>
+        <location filename="../qt/dock_animation.ui" line="1133"/>
+        <location filename="../qt/ui_dock_animation.h" line="981"/>
+        <location filename="../qt/ui_dock_animation.h" line="1100"/>
         <source>image type:</source>
         <translation>Bildtyp:</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="266"/>
-        <location filename="../qt/ui_dock_animation.h" line="995"/>
+        <location filename="../qt/ui_dock_animation.h" line="982"/>
         <source>inertia:</source>
         <translation>Trägheit:</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="273"/>
-        <location filename="../qt/ui_dock_animation.h" line="996"/>
+        <location filename="../qt/ui_dock_animation.h" line="983"/>
         <source>speed:</source>
         <translation>Geschwindigkeit:</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="286"/>
-        <location filename="../qt/dock_animation.ui" line="1191"/>
-        <location filename="../qt/ui_dock_animation.h" line="998"/>
-        <location filename="../qt/ui_dock_animation.h" line="1125"/>
+        <location filename="../qt/dock_animation.ui" line="1179"/>
+        <location filename="../qt/ui_dock_animation.h" line="985"/>
+        <location filename="../qt/ui_dock_animation.h" line="1112"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pfad zu den gespeicherten Animationsframes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="299"/>
-        <location filename="../qt/ui_dock_animation.h" line="1006"/>
+        <location filename="../qt/ui_dock_animation.h" line="993"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determines how camera speed will be calculated.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Relative to distance&lt;/span&gt; mode, camera speed will decrease when camera is nearer to the fractal surface. This mode will help you to not collide with the fractal. In this mode you can still control speed by &lt;span style=&quot; font-style:italic;&quot;&gt;speed&lt;/span&gt; parameter and by mouse buttons.&lt;/p&gt;&lt;p&gt;In Constant mode, the camera speed is only controlled by &lt;span style=&quot; font-style:italic;&quot;&gt;speed&lt;/span&gt; parameter and mouse buttons&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Legt fest wie die Kamerageschwindigkeit berechnet wird.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Relativ zu Distanz&lt;/span&gt; Modus, nimmt die Geschwindigkeit der Kamera ab, wenn die Kamera näher an die Fraktaloberfläche geführt wird. Dieser Modus wird Ihnen helfen, nicht mit dem Fractal zu kollidieren. In diesem Modus können Sie immer noch die Geschwindigkeit über den &lt;span style=&quot; font-style:italic;&quot;&gt;Geschwindigkeit&lt;/span&gt; Parameter und die Mausknöpfe steuern.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Konstant&lt;/span&gt; Modus wird die Kamera Geschwindigkeit lediglich durch den &lt;span style=&quot; font-style:italic;&quot;&gt;Geschwindigkeit&lt;/span&gt; Parameter und die Mausknöpfe gesteuert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="303"/>
-        <location filename="../qt/ui_dock_animation.h" line="1002"/>
+        <location filename="../qt/ui_dock_animation.h" line="989"/>
         <source>Relative to distance</source>
         <translation>Relativ zur Distanz</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="308"/>
-        <location filename="../qt/ui_dock_animation.h" line="1003"/>
+        <location filename="../qt/ui_dock_animation.h" line="990"/>
         <source>Constant</source>
         <translation>Konstant</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="316"/>
-        <location filename="../qt/ui_dock_animation.h" line="1008"/>
+        <location filename="../qt/ui_dock_animation.h" line="995"/>
         <source>speed control:</source>
         <translation>Geschwindigkeitssteuerung:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="329"/>
-        <location filename="../qt/ui_dock_animation.h" line="1010"/>
+        <location filename="../qt/dock_animation.ui" line="737"/>
+        <location filename="../qt/ui_dock_animation.h" line="1048"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls flight speed. &lt;/p&gt;&lt;p&gt;If you click left mouse button, speed will be increased&lt;/p&gt;&lt;p&gt;If you click right mouse button, speed will be decreased&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrolliert die Fluggeschwindigkeit.&lt;/p&gt;&lt;p&gt;Wenn der linke Mausklick ausgeführt wird, dann wird die Geschwindigkeit erhöht.&lt;/p&gt;&lt;p&gt;Wenn der rechte Mausklick ausgeführt wird, dann wird die Geschwindigkeit verringert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="354"/>
-        <location filename="../qt/dock_animation.ui" line="1264"/>
-        <location filename="../qt/ui_dock_animation.h" line="1012"/>
-        <location filename="../qt/ui_dock_animation.h" line="1134"/>
+        <location filename="../qt/dock_animation.ui" line="329"/>
+        <location filename="../qt/dock_animation.ui" line="1252"/>
+        <location filename="../qt/ui_dock_animation.h" line="996"/>
+        <location filename="../qt/ui_dock_animation.h" line="1121"/>
         <source>Select folder</source>
         <translation>Ordner auswählen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="386"/>
-        <location filename="../qt/ui_dock_animation.h" line="1013"/>
+        <location filename="../qt/dock_animation.ui" line="336"/>
+        <location filename="../qt/ui_dock_animation.h" line="997"/>
         <source>seconds per frame:</source>
         <translation>Sekunden pro Frame:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="418"/>
-        <location filename="../qt/ui_dock_animation.h" line="1015"/>
+        <location filename="../qt/dock_animation.ui" line="368"/>
+        <location filename="../qt/ui_dock_animation.h" line="999"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Inertia of camera. &lt;/p&gt;&lt;p&gt;Higher inertia makes flight more smooth but more difficult to change speed or direction.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Trägheit der Kamera. &lt;/p&gt;&lt;p&gt;Eine höhere Trägheit macht den Flug geschmeidiger, aber Richtungs- und Geschwindigkeitsänderungen schwerer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="487"/>
-        <location filename="../qt/ui_dock_animation.h" line="1020"/>
+        <location filename="../qt/dock_animation.ui" line="437"/>
+        <location filename="../qt/ui_dock_animation.h" line="1004"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameters controls frame rate during flight path recording. Higher values give slower rendering but are more detailed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dieser Parameter steuert die Frame Rate während der Aufnahme der Flugbahn. Ein höherer Wert ergibt langsameres Rendering, aber mehr Details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="531"/>
-        <location filename="../qt/ui_dock_animation.h" line="1024"/>
+        <location filename="../qt/dock_animation.ui" line="481"/>
+        <location filename="../qt/ui_dock_animation.h" line="1008"/>
         <source>roll speed:</source>
         <translation>Roll Geschwindigkeit:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="544"/>
-        <location filename="../qt/ui_dock_animation.h" line="1026"/>
+        <location filename="../qt/dock_animation.ui" line="494"/>
+        <location filename="../qt/ui_dock_animation.h" line="1010"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation speed of camera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotationsgeschwindigkeit der Kamera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="572"/>
-        <location filename="../qt/ui_dock_animation.h" line="1031"/>
+        <location filename="../qt/dock_animation.ui" line="522"/>
+        <location filename="../qt/ui_dock_animation.h" line="1015"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of keyframe previews in animation table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert das Rendern von Vorschaubildern in der Animationstabelle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="575"/>
-        <location filename="../qt/ui_dock_animation.h" line="1033"/>
+        <location filename="../qt/dock_animation.ui" line="525"/>
+        <location filename="../qt/ui_dock_animation.h" line="1017"/>
         <source>Show thumbnails</source>
         <translation>Zeige Tumbnails</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="582"/>
-        <location filename="../qt/ui_dock_animation.h" line="1034"/>
+        <location filename="../qt/dock_animation.ui" line="532"/>
+        <location filename="../qt/ui_dock_animation.h" line="1018"/>
         <source>rotation speed:</source>
         <translation>Rotationsgeschwindigkeit:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="595"/>
-        <location filename="../qt/ui_dock_animation.h" line="1036"/>
+        <location filename="../qt/dock_animation.ui" line="545"/>
+        <location filename="../qt/ui_dock_animation.h" line="1020"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll speed of camera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rollgeschwindigkeit der Kamera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="623"/>
-        <location filename="../qt/ui_dock_animation.h" line="1041"/>
+        <location filename="../qt/dock_animation.ui" line="573"/>
+        <location filename="../qt/ui_dock_animation.h" line="1025"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable this parameter  if you want to record a flight path in parts. It allows the program to continue recording the flight with the same speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dieser Parameter muss aktiviert sein, um die Aufnahme des Flugs in mehreren Teilen zu machen. Es erlaubt eine angehaltene Aufnahme mit der gleichen Geschwindigkeit fortzusetzen, die beim letzten Frame verwendet wurde.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="626"/>
-        <location filename="../qt/ui_dock_animation.h" line="1043"/>
+        <location filename="../qt/dock_animation.ui" line="576"/>
+        <location filename="../qt/ui_dock_animation.h" line="1027"/>
         <source>Add flight and rotation speed to parameters
 (needed to continue recording animation)</source>
         <translation>Flug- und Drehgeschwindigkeit zu Parametern hinzufügen
 (nötig um die Aufnahme der Animation fortzusetzen)</translation>
     </message>
     <message>
+        <location filename="../qt/dock_animation.ui" line="615"/>
         <location filename="../qt/dock_animation.ui" line="665"/>
-        <location filename="../qt/dock_animation.ui" line="715"/>
-        <location filename="../qt/dock_animation.ui" line="1277"/>
-        <location filename="../qt/dock_animation.ui" line="1309"/>
-        <location filename="../qt/ui_dock_animation.h" line="1046"/>
-        <location filename="../qt/ui_dock_animation.h" line="1049"/>
-        <location filename="../qt/ui_dock_animation.h" line="1136"/>
-        <location filename="../qt/ui_dock_animation.h" line="1140"/>
+        <location filename="../qt/dock_animation.ui" line="1265"/>
+        <location filename="../qt/dock_animation.ui" line="1297"/>
+        <location filename="../qt/ui_dock_animation.h" line="1030"/>
+        <location filename="../qt/ui_dock_animation.h" line="1033"/>
+        <location filename="../qt/ui_dock_animation.h" line="1123"/>
+        <location filename="../qt/ui_dock_animation.h" line="1127"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of frames to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Legt die Grenzen fest, in denen die Frames gerendert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="734"/>
-        <location filename="../qt/dock_animation.ui" line="1296"/>
-        <location filename="../qt/ui_dock_animation.h" line="1051"/>
-        <location filename="../qt/ui_dock_animation.h" line="1138"/>
+        <location filename="../qt/dock_animation.ui" line="717"/>
+        <location filename="../qt/dock_animation.ui" line="1284"/>
+        <location filename="../qt/ui_dock_animation.h" line="1045"/>
+        <location filename="../qt/ui_dock_animation.h" line="1125"/>
         <source>first frame to render:</source>
         <translation>erster Renderframe:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="741"/>
-        <location filename="../qt/dock_animation.ui" line="1325"/>
-        <location filename="../qt/ui_dock_animation.h" line="1052"/>
-        <location filename="../qt/ui_dock_animation.h" line="1142"/>
+        <location filename="../qt/dock_animation.ui" line="724"/>
+        <location filename="../qt/dock_animation.ui" line="1313"/>
+        <location filename="../qt/ui_dock_animation.h" line="1046"/>
+        <location filename="../qt/ui_dock_animation.h" line="1129"/>
         <source>last frame to render:</source>
         <translation>letzter Renderframe:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="754"/>
-        <location filename="../qt/dock_animation.ui" line="1158"/>
-        <location filename="../qt/ui_dock_animation.h" line="1061"/>
-        <location filename="../qt/ui_dock_animation.h" line="1122"/>
+        <location filename="../qt/dock_animation.ui" line="690"/>
+        <location filename="../qt/dock_animation.ui" line="1146"/>
+        <location filename="../qt/ui_dock_animation.h" line="1043"/>
+        <location filename="../qt/ui_dock_animation.h" line="1109"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for image format for animation frames.&lt;/p&gt;&lt;p&gt;For more image format settings go to to &lt;span style=&quot; font-style:italic;&quot;&gt;File/Program settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Bilddateiformates für Animationsframes.&lt;/p&gt;&lt;p&gt;Für weitere Bilddateiformat Optionen gehen Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Datei / Programm Einstellungen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="758"/>
-        <location filename="../qt/dock_animation.ui" line="1162"/>
-        <location filename="../qt/ui_dock_animation.h" line="1055"/>
-        <location filename="../qt/ui_dock_animation.h" line="1116"/>
+        <location filename="../qt/dock_animation.ui" line="694"/>
+        <location filename="../qt/dock_animation.ui" line="1150"/>
+        <location filename="../qt/ui_dock_animation.h" line="1037"/>
+        <location filename="../qt/ui_dock_animation.h" line="1103"/>
         <source>PNG</source>
         <translation>PNG</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="763"/>
-        <location filename="../qt/dock_animation.ui" line="1167"/>
-        <location filename="../qt/ui_dock_animation.h" line="1056"/>
-        <location filename="../qt/ui_dock_animation.h" line="1117"/>
+        <location filename="../qt/dock_animation.ui" line="699"/>
+        <location filename="../qt/dock_animation.ui" line="1155"/>
+        <location filename="../qt/ui_dock_animation.h" line="1038"/>
+        <location filename="../qt/ui_dock_animation.h" line="1104"/>
         <source>JPG</source>
         <translation>JPG</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="768"/>
-        <location filename="../qt/dock_animation.ui" line="1172"/>
-        <location filename="../qt/ui_dock_animation.h" line="1057"/>
-        <location filename="../qt/ui_dock_animation.h" line="1118"/>
+        <location filename="../qt/dock_animation.ui" line="704"/>
+        <location filename="../qt/dock_animation.ui" line="1160"/>
+        <location filename="../qt/ui_dock_animation.h" line="1039"/>
+        <location filename="../qt/ui_dock_animation.h" line="1105"/>
         <source>EXR</source>
         <translation>EXR</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="773"/>
-        <location filename="../qt/dock_animation.ui" line="1177"/>
-        <location filename="../qt/ui_dock_animation.h" line="1058"/>
-        <location filename="../qt/ui_dock_animation.h" line="1119"/>
+        <location filename="../qt/dock_animation.ui" line="709"/>
+        <location filename="../qt/dock_animation.ui" line="1165"/>
+        <location filename="../qt/ui_dock_animation.h" line="1040"/>
+        <location filename="../qt/ui_dock_animation.h" line="1106"/>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="823"/>
-        <location filename="../qt/ui_dock_animation.h" line="1065"/>
+        <location filename="../qt/dock_animation.ui" line="811"/>
+        <location filename="../qt/ui_dock_animation.h" line="1052"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for rendering animations by interpolating between keyframes.&lt;/p&gt;&lt;p&gt;You can create multiple keyframes, each with different parameters (i.e.camera, fractal and environment parameters values). Intermediate frames will be calculated during rendering of the animation. &lt;/p&gt;&lt;p&gt;To add a keyframe to the animation table, click &lt;span style=&quot; font-style:italic;&quot;&gt;Add keyframe&lt;/span&gt;. &lt;/p&gt;&lt;p&gt;To add a parameter, right click on the selected parameter&apos;s edit field and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to keyframe animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Build an animation by adding, inserting and deleting keyframes. Modify parameters directly in the animation table, or in fractal or efects edit fields (double click keyframe preview or right click on a keyframe, and choose &lt;span style=&quot; font-style:italic;&quot;&gt;Render this keyframe&lt;/span&gt; , this updates parameters in window, then modify parameters and click &lt;span style=&quot; font-style:italic;&quot;&gt;Modify keyframe&lt;/span&gt; to refresh animation table.)&lt;/p&gt;&lt;p&gt;Each parameter can have assigned different type of interpolation (right click on animation parameter name.)&lt;/p&gt;&lt;p&gt;Animation is stored in a settings file in CSV format, therefore it is possible to edit animation with external tools (e.g spreadsheet editor or text editor).&lt;/p&gt;&lt;p&gt;Animation can be exported to Flight Animation, where it is possible to edit each frame.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Funktion ist für das Rendern von Animationen auf Basis von interpolierten Keyframes.&lt;/p&gt;&lt;p&gt;Sie können eine beliebige Anzahl von Keyframes einstellen, in denen sich die Kameraposition, Umgebungs-Parameterwerte oder fraktale Parameter im Verlauf der Keyframes ändern. Beim Rendern der Animation, werden die Zwischenframes berechnet, so dass kein Setup jedes einzelnen Frames notwendig ist.&lt;/p&gt;&lt;p&gt;Es ist möglich, Parameter für die Animation (wie fraktale Power, Lichtposition, etc ...) hinzuzufügen und diese in der Tabellenansicht zu bearbeiten. Um Parameter als animierte Werte hinzuzufügen, müssen Sie einen Rechtsklick auf den gewünschten Parameter ausführen und aus dem Kontextmenü &lt;span style=&quot; font-style:italic;&quot;&gt;Zur Keyframeanimation hinzufügen&lt;/span&gt; auswählen. &lt;/p&gt;&lt;p&gt;Sie können jedem Parameter einen eigenen Interpolationstyp zuordnen.&lt;/p&gt;&lt;p&gt;Die Animationswerte können durch Hinzufügen / Entfernen / Bearbeiten von Frames bearbeitet werden, aber auch direkt in den Zellen der Tabelle selbst.&lt;/p&gt;&lt;p&gt;Die Animation wird in der Einstellungsdatei im CSV Format gespeichert, dadurch ist es möglich die Animation mit externen Tools zu bearbeiten (z.B. Speadsheet Editor oder Text Editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="826"/>
-        <location filename="../qt/ui_dock_animation.h" line="1161"/>
+        <location filename="../qt/dock_animation.ui" line="814"/>
+        <location filename="../qt/ui_dock_animation.h" line="1148"/>
         <source>Keyframe animation</source>
         <translation>Keyframe Animation</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="875"/>
-        <location filename="../qt/ui_dock_animation.h" line="1069"/>
+        <location filename="../qt/dock_animation.ui" line="863"/>
+        <location filename="../qt/ui_dock_animation.h" line="1056"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert keyframe before selected keyframe&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Keyframe vor dem selektierten Keyframe einfügen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="878"/>
-        <location filename="../qt/ui_dock_animation.h" line="1071"/>
+        <location filename="../qt/dock_animation.ui" line="866"/>
+        <location filename="../qt/ui_dock_animation.h" line="1058"/>
         <source>Insert keyframe</source>
         <translation>Keyframe einfügen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="895"/>
-        <location filename="../qt/ui_dock_animation.h" line="1073"/>
+        <location filename="../qt/dock_animation.ui" line="883"/>
+        <location filename="../qt/ui_dock_animation.h" line="1060"/>
         <source>Delete selected keyframe</source>
         <translation>Selektierten Keyframe löschen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="898"/>
-        <location filename="../qt/ui_dock_animation.h" line="1075"/>
+        <location filename="../qt/dock_animation.ui" line="886"/>
+        <location filename="../qt/ui_dock_animation.h" line="1062"/>
         <source>Delete keyframe</source>
         <translation>Keyframe löschen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="915"/>
-        <location filename="../qt/ui_dock_animation.h" line="1077"/>
+        <location filename="../qt/dock_animation.ui" line="903"/>
+        <location filename="../qt/ui_dock_animation.h" line="1064"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add keyframe at the end&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Keyframe am Ende einfügen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="918"/>
-        <location filename="../qt/ui_dock_animation.h" line="1079"/>
+        <location filename="../qt/dock_animation.ui" line="906"/>
+        <location filename="../qt/ui_dock_animation.h" line="1066"/>
         <source>Add keyframe</source>
         <translation>Keyframe hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="935"/>
-        <location filename="../qt/ui_dock_animation.h" line="1081"/>
+        <location filename="../qt/dock_animation.ui" line="923"/>
+        <location filename="../qt/ui_dock_animation.h" line="1068"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play rendered animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gerenderte Animation abspielen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="955"/>
-        <location filename="../qt/ui_dock_animation.h" line="1085"/>
+        <location filename="../qt/dock_animation.ui" line="943"/>
+        <location filename="../qt/ui_dock_animation.h" line="1072"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts rendering of animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet das Rendern der Animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="958"/>
-        <location filename="../qt/ui_dock_animation.h" line="1087"/>
+        <location filename="../qt/dock_animation.ui" line="946"/>
+        <location filename="../qt/ui_dock_animation.h" line="1074"/>
         <source>Render animation</source>
         <translation>Animation rendern</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="975"/>
-        <location filename="../qt/ui_dock_animation.h" line="1089"/>
+        <location filename="../qt/dock_animation.ui" line="963"/>
+        <location filename="../qt/ui_dock_animation.h" line="1076"/>
         <source>Modify selected keyframe</source>
         <translation>Selektierten Keyframe ändern</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="978"/>
-        <location filename="../qt/ui_dock_animation.h" line="1091"/>
+        <location filename="../qt/dock_animation.ui" line="966"/>
+        <location filename="../qt/ui_dock_animation.h" line="1078"/>
         <source>Modify keyframe</source>
         <translation>Keyframe ändern</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="995"/>
-        <location filename="../qt/ui_dock_animation.h" line="1093"/>
+        <location filename="../qt/dock_animation.ui" line="983"/>
+        <location filename="../qt/ui_dock_animation.h" line="1080"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Export all keyframes to &lt;span style=&quot; font-style:italic;&quot;&gt;Flight animation&lt;/span&gt;. All keyframes will be interpolated. &lt;/p&gt;&lt;p&gt;This feature will allow editing of each animation frame separately in Flight animation editor (or external CSV editor) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Alle Keyframes zur &lt;span style=&quot; font-style:italic;&quot;&gt;Fluganimation&lt;/span&gt; exportieren. Alle Keyframes werden interpoliert. &lt;/p&gt;&lt;p&gt;Diese Funktion ermöglicht es, jeden Animationsframe separat unter Fluganimation zu editieren (oder mit einem externen CSV-Editor)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="998"/>
-        <location filename="../qt/ui_dock_animation.h" line="1095"/>
+        <location filename="../qt/dock_animation.ui" line="986"/>
+        <location filename="../qt/ui_dock_animation.h" line="1082"/>
         <source>Export to Flight</source>
         <translation>Export zu Flug</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1011"/>
-        <location filename="../qt/ui_dock_animation.h" line="1097"/>
+        <location filename="../qt/dock_animation.ui" line="999"/>
+        <location filename="../qt/ui_dock_animation.h" line="1084"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete all rendered frames in animation folder ( selected by &lt;span style=&quot; font-style:italic;&quot;&gt;path for images)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Alle gerenderten Frames im Animationsordner löschen ( Auswahl von &lt;span style=&quot; font-style:italic;&quot;&gt;Pfad zu Keyframes&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1051"/>
-        <location filename="../qt/ui_dock_animation.h" line="1105"/>
+        <location filename="../qt/dock_animation.ui" line="1039"/>
+        <location filename="../qt/ui_dock_animation.h" line="1092"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Checks if there is no collision between camera and fractal at all interpolated frames.&lt;/p&gt;&lt;p&gt;Collision is defined as event where distance of camera to fractal object is lower than &lt;span style=&quot; font-style:italic;&quot;&gt;collision distance&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prüft bei allen interpolierten Frames, ob es zu Kollisionen der Kamera mit der Fraktaloberfläche kommt.&lt;/p&gt;&lt;p&gt;Eine Kollision ist so definiert, dass die Distanz der Kamera zur Fraktaloberfläche kleiner ist als der &lt;span style=&quot; font-style:italic;&quot;&gt;Kollisionsdistanz&lt;/span&gt; Parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1054"/>
-        <location filename="../qt/ui_dock_animation.h" line="1107"/>
+        <location filename="../qt/dock_animation.ui" line="1042"/>
+        <location filename="../qt/ui_dock_animation.h" line="1094"/>
         <source>Validate</source>
         <translation>Validiere</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1124"/>
-        <location filename="../qt/ui_dock_animation.h" line="1110"/>
+        <location filename="../qt/dock_animation.ui" line="1112"/>
+        <location filename="../qt/ui_dock_animation.h" line="1097"/>
         <source>collision distance:</source>
         <translation>Kollisionsdistanz:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1131"/>
-        <location filename="../qt/ui_dock_animation.h" line="1111"/>
+        <location filename="../qt/dock_animation.ui" line="1119"/>
+        <location filename="../qt/ui_dock_animation.h" line="1098"/>
         <source>frames per keyframe:</source>
         <translation>Frames pro Keyframe:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1204"/>
-        <location filename="../qt/ui_dock_animation.h" line="1128"/>
+        <location filename="../qt/dock_animation.ui" line="1192"/>
+        <location filename="../qt/ui_dock_animation.h" line="1115"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It sets how many frames will be interpolated for each keyframe. &lt;/p&gt;&lt;p&gt;Total number of animation frames is &apos;number of keyframes&apos; multiplied by &apos;frames per keyframe&apos; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gibt an, wieviele Frames je Keyframe interpoliert werden. &lt;/p&gt;&lt;p&gt;Die Gesamtanzahl der Animationsframes ist &apos;Anzahl Keyframes&apos; multipliziert mit &apos;Frames pro Keyframe&apos; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1223"/>
-        <location filename="../qt/ui_dock_animation.h" line="1131"/>
+        <location filename="../qt/dock_animation.ui" line="1211"/>
+        <location filename="../qt/ui_dock_animation.h" line="1118"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of keyframe previews in the animation table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert das Rendern von Vorschaubildern in der Animationstabelle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1226"/>
-        <location filename="../qt/ui_dock_animation.h" line="1133"/>
+        <location filename="../qt/dock_animation.ui" line="1214"/>
+        <location filename="../qt/ui_dock_animation.h" line="1120"/>
         <source>Show keyframe preview thumbnails</source>
         <translation>Zeige Keyframe Vorschau Thumbnails</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1338"/>
-        <location filename="../qt/ui_dock_animation.h" line="1144"/>
+        <location filename="../qt/dock_animation.ui" line="1326"/>
+        <location filename="../qt/ui_dock_animation.h" line="1131"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum distance between camera and fractal which is allowed during &lt;span style=&quot; font-style:italic;&quot;&gt;Validate&lt;/span&gt; function (collision detection)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimale Distanz zwischen Kamera und Fraktal, die für &lt;span style=&quot; font-style:italic;&quot;&gt;Validiere&lt;/span&gt; Funktion erlaubt ist (Kollisionserkennung)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1401"/>
-        <location filename="../qt/ui_dock_animation.h" line="1147"/>
+        <location filename="../qt/dock_animation.ui" line="1389"/>
+        <location filename="../qt/ui_dock_animation.h" line="1134"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable checking for collisions before starting rendering of animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviere Prüfung auf Kollisionen vor dem Starten des Renderns der Animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1404"/>
-        <location filename="../qt/ui_dock_animation.h" line="1149"/>
+        <location filename="../qt/dock_animation.ui" line="1392"/>
+        <location filename="../qt/ui_dock_animation.h" line="1136"/>
         <source>Validate before render</source>
         <translation>Validiere vor dem Rendern</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1442"/>
-        <location filename="../qt/dock_animation.ui" line="1455"/>
-        <location filename="../qt/ui_dock_animation.h" line="1151"/>
-        <location filename="../qt/ui_dock_animation.h" line="1154"/>
+        <location filename="../qt/dock_animation.ui" line="1430"/>
+        <location filename="../qt/dock_animation.ui" line="1443"/>
+        <location filename="../qt/ui_dock_animation.h" line="1138"/>
+        <location filename="../qt/ui_dock_animation.h" line="1141"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the same distance between camera target and camera for all keyframes. It doesn&apos;t modify camera position and rotation, so it doesn&apos;t modify camera movement path. It makes camera rotation smooth through entire animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setzt den gleichen Abstand zwischen Kamera und Ziel für alle Keyframes. Dabei bleibt die Kameraposition und Drehung unverändert, sodass die Kamera Bewegungsbahn gleich bleibt. Es macht die Kameradrehung  durch die gesamte Animation hindurch geschmeidig.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1458"/>
-        <location filename="../qt/ui_dock_animation.h" line="1156"/>
+        <location filename="../qt/dock_animation.ui" line="1446"/>
+        <location filename="../qt/ui_dock_animation.h" line="1143"/>
         <source>Set the same
 camera target
 distance for all
@@ -6154,8 +6216,8 @@ Distanz für alle
 Keyframes</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="1493"/>
-        <location filename="../qt/ui_dock_animation.h" line="1160"/>
+        <location filename="../qt/dock_animation.ui" line="1481"/>
+        <location filename="../qt/ui_dock_animation.h" line="1147"/>
         <source>frames per second:</source>
         <translation>Frames pro Sekunde:</translation>
     </message>
@@ -9749,28 +9811,28 @@ von Fraktal Iterationen:</translation>
         <translation type="vanished">3 Sekunden warten</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="259"/>
+        <location filename="../src/animation_flight.cpp" line="260"/>
         <source>waiting %1 seconds</source>
         <translation>Warte %1 Sekunden</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="347"/>
+        <location filename="../src/animation_flight.cpp" line="348"/>
         <source>Recording flight animation. Frame: </source>
         <translation>Fluganimation aufzeichnen. Frame: </translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="355"/>
+        <location filename="../src/animation_flight.cpp" line="356"/>
         <source>Paused. Frame: </source>
         <translation>Pausiert. Frame: </translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="528"/>
         <location filename="../src/animation_flight.cpp" line="530"/>
+        <location filename="../src/animation_flight.cpp" line="532"/>
         <source>preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="921"/>
+        <location filename="../src/animation_flight.cpp" line="923"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
