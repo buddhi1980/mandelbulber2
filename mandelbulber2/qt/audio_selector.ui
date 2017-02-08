@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1279</width>
-    <height>652</height>
+    <height>738</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -742,8 +742,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>922</width>
-            <height>586</height>
+            <width>856</width>
+            <height>668</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -967,6 +967,37 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>pushButton_loadAudioFile</tabstop>
+  <tabstop>text_animsound_soundfile</tabstop>
+  <tabstop>pushButton_playback_start</tabstop>
+  <tabstop>pushButton_playback_stop</tabstop>
+  <tabstop>pushButton_delete_audiotrack</tabstop>
+  <tabstop>groupCheck_animsound_enable</tabstop>
+  <tabstop>slider_animsound_midfreq</tabstop>
+  <tabstop>spinbox_animsound_midfreq</tabstop>
+  <tabstop>slider_animsound_bandwidth</tabstop>
+  <tabstop>spinbox_animsound_bandwidth</tabstop>
+  <tabstop>logslider_animsound_additionfactor</tabstop>
+  <tabstop>logedit_animsound_additionfactor</tabstop>
+  <tabstop>logslider_animsound_multfactor</tabstop>
+  <tabstop>logedit_animsound_multfactor</tabstop>
+  <tabstop>checkBox_animsound_negative</tabstop>
+  <tabstop>checkBox_animsound_pitchmode</tabstop>
+  <tabstop>groupCheck_animsound_binaryfilter</tabstop>
+  <tabstop>slider_animsound_binarythresh</tabstop>
+  <tabstop>spinbox_animsound_binarythresh</tabstop>
+  <tabstop>slider_animsound_binarylength</tabstop>
+  <tabstop>spinbox_animsound_binarylength</tabstop>
+  <tabstop>groupCheck_animsound_decayfilter</tabstop>
+  <tabstop>slider_animsound_decaystrength</tabstop>
+  <tabstop>spinbox_animsound_decaystrength</tabstop>
+  <tabstop>groupCheck_animsound_smoothfilter</tabstop>
+  <tabstop>slider_animsound_smoothstrength</tabstop>
+  <tabstop>spinbox_animsound_smoothstrength</tabstop>
+  <tabstop>audio_position_slider</tabstop>
+  <tabstop>scrollArea</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>
