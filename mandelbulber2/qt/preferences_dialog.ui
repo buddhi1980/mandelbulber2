@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>483</width>
-    <height>545</height>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,8 +57,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>455</width>
-            <height>467</height>
+            <width>439</width>
+            <height>505</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -487,7 +487,7 @@
             <x>0</x>
             <y>0</y>
             <width>455</width>
-            <height>467</height>
+            <height>523</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -870,6 +870,10 @@ and will only be present after enabling and re-render.</string>
       </layout>
      </widget>
      <widget class="QWidget" name="tabGPU">
+      <attribute name="icon">
+       <iconset resource="icons.qrc">
+        <normaloff>:/system/icons/gpu.png</normaloff>:/system/icons/gpu.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>GPU</string>
       </attribute>
@@ -885,7 +889,7 @@ and will only be present after enabling and re-render.</string>
             <x>0</x>
             <y>0</y>
             <width>455</width>
-            <height>467</height>
+            <height>523</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_GPU">
@@ -906,14 +910,14 @@ and will only be present after enabling and re-render.</string>
            </property>
            <item>
             <widget class="MyGroupBox" name="groupCheck_gpu_enabled">
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TODO: add explanation for GPU.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
               <string>GPU enable</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_gpu_inner">
               <property name="spacing">
@@ -1109,8 +1113,59 @@ and will only be present after enabling and re-render.</string>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>scrollArea_general</tabstop>
+  <tabstop>text_default_image_path</tabstop>
+  <tabstop>pushButton_select_image_path</tabstop>
+  <tabstop>text_default_settings_path</tabstop>
+  <tabstop>pushButton_select_settings_path</tabstop>
+  <tabstop>text_default_textures_path</tabstop>
+  <tabstop>pushButton_select_textures_path</tabstop>
+  <tabstop>comboboxLanguage</tabstop>
+  <tabstop>comboBox_ui_style_type</tabstop>
+  <tabstop>comboBox_ui_skin</tabstop>
+  <tabstop>spinboxInt_ui_font_size</tabstop>
+  <tabstop>spinboxInt_toolbar_icon_size</tabstop>
+  <tabstop>sliderInt_limit_CPU_cores</tabstop>
+  <tabstop>spinboxInt_limit_CPU_cores</tabstop>
+  <tabstop>comboBox_threads_priority</tabstop>
+  <tabstop>spinboxInt_logging_verbosity</tabstop>
+  <tabstop>checkBox_quit_do_not_ask_again</tabstop>
+  <tabstop>checkBox_description_popup_do_not_show_again</tabstop>
+  <tabstop>pushButton_retrieve_toolbar</tabstop>
+  <tabstop>pushButton_retrieve_materials</tabstop>
+  <tabstop>scrollArea_image</tabstop>
+  <tabstop>checkBox_color_enabled</tabstop>
+  <tabstop>comboBox_color_quality</tabstop>
+  <tabstop>text_color_postfix</tabstop>
+  <tabstop>checkBox_alpha_enabled</tabstop>
+  <tabstop>comboBox_alpha_quality</tabstop>
+  <tabstop>text_alpha_postfix</tabstop>
+  <tabstop>checkBox_zbuffer_enabled</tabstop>
+  <tabstop>comboBox_zbuffer_quality</tabstop>
+  <tabstop>text_zbuffer_postfix</tabstop>
+  <tabstop>checkBox_normal_enabled</tabstop>
+  <tabstop>comboBox_normal_quality</tabstop>
+  <tabstop>text_normal_postfix</tabstop>
+  <tabstop>sliderInt_jpeg_quality</tabstop>
+  <tabstop>spinboxInt_jpeg_quality</tabstop>
+  <tabstop>checkBox_append_alpha_png</tabstop>
+  <tabstop>pushButton_clear_thumbnail_cache</tabstop>
+  <tabstop>pushButton_load_thumbnail_cache</tabstop>
+  <tabstop>pushButton_generate_thumbnail_cache</tabstop>
+  <tabstop>scrollArea_GPU</tabstop>
+  <tabstop>groupCheck_gpu_enabled</tabstop>
+  <tabstop>comboBox_gpu_precision</tabstop>
+  <tabstop>comboBox_gpu_mode</tabstop>
+  <tabstop>sliderInt_gpu_memory_limit</tabstop>
+  <tabstop>spinboxInt_gpu_memory_limit</tabstop>
+  <tabstop>logslider_gpu_cycle_time</tabstop>
+  <tabstop>logedit_gpu_cycle_time</tabstop>
+ </tabstops>
  <resources>
   <include location="icons.qrc"/>
  </resources>
