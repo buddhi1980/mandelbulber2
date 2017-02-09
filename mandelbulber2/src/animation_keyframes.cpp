@@ -187,8 +187,6 @@ void cKeyframeAnimation::NewKeyframe(int index)
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
 		UpdateLimitsForFrameRange();
-		ui->spinboxInt_keyframe_last_to_render->setValue(
-			keyframes->GetNumberOfFrames() * ui->spinboxInt_frames_per_keyframe->value());
 	}
 	else
 	{
@@ -1166,8 +1164,10 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange() const
 	ui->spinboxInt_keyframe_last_to_render->setMaximum(noOfFrames);
 	ui->sliderInt_keyframe_last_to_render->setMaximum(noOfFrames);
 
-	ui->spinboxInt_keyframe_first_to_render->setValue(params->Get<int>("keyframe_first_to_render"));
-	ui->spinboxInt_keyframe_last_to_render->setValue(params->Get<int>("keyframe_last_to_render"));
+	if(lastToRenderMax)
+	{
+		ui->spinboxInt_keyframe_last_to_render->setValue(noOfFrames);
+	}
 }
 
 void cKeyframeAnimation::slotMovedSliderFirstFrame(int value) const
@@ -1175,8 +1175,9 @@ void cKeyframeAnimation::slotMovedSliderFirstFrame(int value) const
 	if (value > ui->spinboxInt_keyframe_last_to_render->value())
 		ui->spinboxInt_keyframe_last_to_render->setValue(value);
 }
-void cKeyframeAnimation::slotMovedSliderLastFrame(int value) const
+void cKeyframeAnimation::slotMovedSliderLastFrame(int value)
 {
+	lastToRenderMax = (value == ui->spinboxInt_keyframe_last_to_render->maximum());
 	if (value < ui->spinboxInt_keyframe_first_to_render->value())
 		ui->spinboxInt_keyframe_first_to_render->setValue(value);
 }

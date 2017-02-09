@@ -100,7 +100,7 @@ private slots:
 	void slotRefreshTable();
 	void slotExportKeyframesToFlight();
 	void slotMovedSliderFirstFrame(int value) const;
-	void slotMovedSliderLastFrame(int value) const;
+	void slotMovedSliderLastFrame(int value);
 	void slotValidate();
 	void slotCellDoubleClicked(int row, int column) const;
 	void slotSetConstantTargetDistance();
@@ -128,6 +128,7 @@ private:
 	QVector<int> parameterRows; // position of parameter in table
 	QVector<int> rowParameter;	// index of parameter in row
 	MyTableWidgetKeyframes *table;
+	bool lastToRenderMax = false;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,
