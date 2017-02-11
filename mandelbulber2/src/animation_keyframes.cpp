@@ -567,7 +567,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			if (params->Get<bool>("keyframe_auto_validate"))
 			{
-				gKeyframes->ClearMorphCache();
+				keyframes->ClearMorphCache();
 
 				QList<int> listOfCollisions =
 					CheckForCollisions(params->Get<double>("keyframe_collision_thresh"), stopRequest);
@@ -655,7 +655,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		// total number of frames
 		int totalFrames = (keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
 
-		gKeyframes->ClearMorphCache();
+		keyframes->ClearMorphCache();
 
 		// main loop for rendering of frames
 		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
@@ -1130,7 +1130,9 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	}
 
 	gAnimFrames->ClearAll();
-	gAnimFrames->SetListOfParametersAndClear(gKeyframes->GetListOfParameters(), params);
+	gAnimFrames->SetListOfParametersAndClear(keyframes->GetListOfParameters(), params);
+
+	keyframes->ClearMorphCache();
 
 	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
@@ -1189,6 +1191,8 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 	cFractalContainer tempFractPar = *fractalParams;
 
 	*stopRequest = false;
+
+	keyframes->ClearMorphCache();
 
 	for (int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
