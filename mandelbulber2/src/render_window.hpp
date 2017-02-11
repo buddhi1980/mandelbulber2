@@ -108,7 +108,7 @@ private slots:
 	void slotMenuLoadCustomWindowState(QString filename);
 	void slotMenuRemoveCustomWindowState(QString filename);
 	static void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
-	void slotMenuProgramSettings();
+	void slotMenuProgramPreferences();
 	void slotExportVoxelLayers();
 	void slotExportMesh();
 	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,

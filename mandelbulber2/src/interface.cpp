@@ -331,8 +331,8 @@ void cInterface::ConnectSignals() const
 		mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
 	QApplication::connect(
 		mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
-	QApplication::connect(mainWindow->ui->actionProgramSettings, SIGNAL(triggered()), mainWindow,
-		SLOT(slotMenuProgramSettings()));
+	QApplication::connect(mainWindow->ui->actionProgramPreferences, SIGNAL(triggered()), mainWindow,
+		SLOT(slotMenuProgramPreferences()));
 
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));

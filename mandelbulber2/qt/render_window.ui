@@ -279,7 +279,7 @@
     <addaction name="actionExportVoxelLayers"/>
     <addaction name="actionExport_Mesh"/>
     <addaction name="separator"/>
-    <addaction name="actionProgramSettings"/>
+    <addaction name="actionProgramPreferences"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -1095,13 +1095,13 @@
     <string>Save settings in selected file</string>
    </property>
   </action>
-  <action name="actionProgramSettings">
+  <action name="actionProgramPreferences">
    <property name="icon">
     <iconset theme="preferences-system" resource="icons.qrc">
      <normaloff>:/system/icons/preferences-system.svg</normaloff>:/system/icons/preferences-system.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Program Settings</string>
+    <string>&amp;Program Preferences</string>
    </property>
   </action>
   <action name="actionQuit">

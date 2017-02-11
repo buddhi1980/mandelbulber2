@@ -607,7 +607,7 @@ void RenderWindow::slotUpdateProgressHide(cProgressText::enumProgressType progre
 	}
 }
 
-void RenderWindow::slotMenuProgramSettings()
+void RenderWindow::slotMenuProgramPreferences()
 {
 	if (!preferencesDialog)
 	{

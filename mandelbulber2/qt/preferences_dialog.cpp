@@ -29,7 +29,7 @@
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * cPreferencesDialog - dialog to configure program wide settings and program maintaining
+ * cPreferencesDialog - dialog to configure and maintain application Preferences
  */
 
 #include "preferences_dialog.h"
