@@ -141,6 +141,48 @@ if [ ! -d tiff-* ]; then
 	cd ..
 fi
 
+#ogg
+if [ ! -f libogg.tar.xz ]; then
+	wget -O libogg.tar.xz http://downloads.xiph.org/releases/ogg/libogg-1.3.2.tar.xz
+fi
+
+if [ ! -d libogg-* ]; then
+	tar xf libogg.tar.xz
+	cd libogg-*
+	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
+	make
+	sudo make install
+	cd ..
+fi
+
+#vorbis
+if [ ! -f libvorbis.tar.xz ]; then
+	wget -O libvorbis.tar.xz http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.xz
+fi
+
+if [ ! -d libvorbis-* ]; then
+	tar xf libvorbis.tar.xz
+	cd libvorbis-*
+	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX LDFLAGS=-L$MANDELBULBER_PREFIX/lib
+	make CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
+	sudo make CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include install
+	cd ..
+fi
+
+# flac
+if [ ! -f libflac.tar.xz ]; then
+	wget -O libflac.tar.xz http://downloads.xiph.org/releases/flac/flac-1.3.2.tar.xz
+fi
+
+if [ ! -d flac-* ]; then
+	tar xf libflac.tar.xz
+	cd flac-*
+	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
+	make
+	sudo make install
+	cd ..
+fi
+
 # sndfile
 if [ ! -f libsndfile.tar.gz ]; then
 	wget -O libsndfile.tar.gz http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.27.tar.gz
@@ -149,9 +191,9 @@ fi
 if [ ! -d libsndfile-* ]; then
 	tar xf libsndfile.tar.gz
 	cd libsndfile-*
-	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
-	make
-	sudo make install
+	./configure --enable-shared --disable-static --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX LDFLAGS=-L$MANDELBULBER_PREFIX/lib
+	make CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
+	sudo make CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include install
 	cd ..
 fi
 
