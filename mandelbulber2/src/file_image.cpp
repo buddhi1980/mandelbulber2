@@ -124,6 +124,18 @@ ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileE
 		return IMAGE_FILE_TYPE_JPG;
 }
 
+
+QString ImageFileSave::ImageNameWithoutExtension(QString path)
+{
+	QFileInfo fi(path);
+	QString fileName = fi.completeBaseName();
+	if(!QStringList({"jpg", "jpeg", "png", "exr"}).contains(fi.suffix()))
+	{
+		fileName += "." + fi.suffix();
+	}
+	return fi.path() + QDir::separator() + fileName;
+}
+
 void ImageFileSavePNG::SaveImage()
 {
 	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);

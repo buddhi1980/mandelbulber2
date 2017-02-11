@@ -325,8 +325,7 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cIma
 				contentType, ImageFileSave::structSaveImageChannel(contentType, channelQuality, postfix));
 		}
 	}
-	QFileInfo fi(filename);
-	QString fileWithoutExtension = fi.path() + QDir::separator() + fi.baseName();
+	QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
 	ImageFileSave *imageFileSave =
 		ImageFileSave::create(fileWithoutExtension, filetype, image, imageConfig);
 	if (updateReceiver != nullptr)
