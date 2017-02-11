@@ -83,7 +83,7 @@ void cAudioTrack::Clear()
 	fftAudio = nullptr;
 
 	animation.clear();
-	maxFftArray = cAudioFFTdata();
+	maxFftArray = cAudioFFTData();
 }
 
 void cAudioTrack::LoadAudio(const QString &filename)
@@ -92,7 +92,7 @@ void cAudioTrack::LoadAudio(const QString &filename)
 
 	Clear();
 
-	QString sufix = QFileInfo(filename).suffix();
+	QString suffix = QFileInfo(filename).suffix();
 	loaded = false;
 
 #ifdef USE_SNDFILE
@@ -264,49 +264,49 @@ void cAudioTrack::slotError(QAudioDecoder::Error error)
 
 void cAudioTrack::calculateFFT()
 {
-	if (loaded && !fftCalculated && length > cAudioFFTdata::fftSize)
+	if (loaded && !fftCalculated && length > cAudioFFTData::fftSize)
 	{
 		WriteLog("FFT calculation started", 2);
-		emit loadingProgress(tr("Calculationg FFT"));
+		emit loadingProgress(tr("Calculating FFT"));
 		QApplication::processEvents();
 
 		if (fftAudio) delete[] fftAudio;
-		fftAudio = new cAudioFFTdata[numberOfFrames];
+		fftAudio = new cAudioFFTData[numberOfFrames];
 
-		int oversample = sampleRate / framesPerSecond / cAudioFFTdata::fftSize + 2;
+		int overSample = sampleRate / framesPerSecond / cAudioFFTData::fftSize + 2;
 
 #pragma omp parallel for
 		for (int frame = 0; frame < numberOfFrames; ++frame)
 		{
-			cAudioFFTdata fftFrame;
+			cAudioFFTData fftFrame;
 
-			for (int ov = 0; ov < oversample; ov++)
+			for (int ov = 0; ov < overSample; ov++)
 			{
 				int sampleOffset =
-					int(qint64(frame * oversample + ov) * sampleRate / framesPerSecond / oversample);
+					int(qint64(frame * overSample + ov) * sampleRate / framesPerSecond / overSample);
 
 				// prepare complex data for fft transform
-				double fftData[cAudioFFTdata::fftSize * 2];
-				for (int i = 0; i < cAudioFFTdata::fftSize; i++)
+				double fftData[cAudioFFTData::fftSize * 2];
+				for (int i = 0; i < cAudioFFTData::fftSize; i++)
 				{
 					fftData[2 * i] =
 						getSample(i + sampleOffset) * 0.5
-						* (1.0 - cos((2 * M_PI * i) / (cAudioFFTdata::fftSize - 1))); // Hann window function
+						* (1.0 - cos((2 * M_PI * i) / (cAudioFFTData::fftSize - 1))); // Hann window function
 
 					fftData[2 * i + 1] = 0.0;
 				}
 
 				// do FFT
 				gsl_complex_packed_array data = fftData;
-				gsl_fft_complex_radix2_forward(data, 1, cAudioFFTdata::fftSize);
+				gsl_fft_complex_radix2_forward(data, 1, cAudioFFTData::fftSize);
 
 				// write ready FFT data to storage buffer
-				for (int i = 0; i < cAudioFFTdata::fftSize; i++)
+				for (int i = 0; i < cAudioFFTData::fftSize; i++)
 				{
 					float re = fftData[2 * i];
 					float im = fftData[2 * i + 1];
 					float absVal = sqrt(re * re + im * im);
-					fftFrame.data[i] += absVal / oversample;
+					fftFrame.data[i] += absVal / overSample;
 					maxFft = qMax(absVal, maxFft);
 					maxFftArray.data[i] = qMax(maxFftArray.data[i], absVal);
 				}
@@ -318,7 +318,7 @@ void cAudioTrack::calculateFFT()
 	}
 }
 
-cAudioFFTdata cAudioTrack::getFFTSample(int frame) const
+cAudioFFTData cAudioTrack::getFFTSample(int frame) const
 {
 	if (isLoaded() && frame < numberOfFrames)
 	{
@@ -326,7 +326,7 @@ cAudioFFTdata cAudioTrack::getFFTSample(int frame) const
 	}
 	else
 	{
-		return cAudioFFTdata();
+		return cAudioFFTData();
 	}
 }
 
@@ -334,12 +334,12 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pit
 {
 	if (isLoaded() && frame < numberOfFrames)
 	{
-		cAudioFFTdata fft = fftAudio[frame];
+		cAudioFFTData fft = fftAudio[frame];
 
 		int first = freq2FftPos(midFreq - 0.5 * bandwidth);
 		if (first < 0) first = 0;
 		int last = freq2FftPos(midFreq + 0.5 * bandwidth);
-		if (last > cAudioFFTdata::fftSize / 2) last = cAudioFFTdata::fftSize / 2;
+		if (last > cAudioFFTData::fftSize / 2) last = cAudioFFTData::fftSize / 2;
 
 		float value;
 
@@ -380,7 +380,7 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pit
 
 int cAudioTrack::freq2FftPos(double freq) const
 {
-	return int(double(cAudioFFTdata::fftSize) / double(sampleRate) * freq);
+	return int(double(cAudioFFTData::fftSize) / double(sampleRate) * freq);
 }
 
 void cAudioTrack::setFramesPerSecond(double _framesPerSecond)

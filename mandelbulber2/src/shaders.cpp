@@ -99,11 +99,11 @@ sRGBAfloat cRenderWorker::ObjectShader(
 	if (params->ambientOcclusionEnabled)
 	{
 		// fast mode
-		if (params->ambientOcclusionMode == params::AOmodeFast)
+		if (params->ambientOcclusionMode == params::AOModeFast)
 		{
 			ambient = FastAmbientOcclusion(input);
 		}
-		else if (params->ambientOcclusionMode == params::AOmodeMultipeRays)
+		else if (params->ambientOcclusionMode == params::AOModeMultipleRays)
 		{
 			ambient = AmbientOcclusion(input);
 		}
@@ -581,7 +581,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				}
 
 				if (params->ambientOcclusionEnabled
-						&& params->ambientOcclusionMode == params::AOmodeMultipeRays)
+						&& params->ambientOcclusionMode == params::AOModeMultipleRays)
 				{
 					sRGBAfloat AO = AmbientOcclusion(input2);
 					newColour.R += AO.R * params->ambientOcclusion;

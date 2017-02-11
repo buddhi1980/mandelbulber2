@@ -1032,11 +1032,11 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("ambient_occlusion_fast_tune", oldData->doubles.fastAoTune);
 	par->Set("ambient_occlusion_enabled", oldData->global_ilumination || oldData->SSAOEnabled);
 
-	params::enumAOMode AOmode = params::AOmodeMultipeRays;
-	if (oldData->SSAOEnabled) AOmode = params::AOmodeScreenSpace;
-	if (oldData->fastGlobalIllumination && !oldData->SSAOEnabled) AOmode = params::AOmodeFast;
+	params::enumAOMode AOmode = params::AOModeMultipleRays;
+	if (oldData->SSAOEnabled) AOmode = params::AOModeScreenSpace;
+	if (oldData->fastGlobalIllumination && !oldData->SSAOEnabled) AOmode = params::AOModeFast;
 	par->Set("ambient_occlusion_mode", int(AOmode));
-	if (AOmode == params::AOmodeScreenSpace)
+	if (AOmode == params::AOModeScreenSpace)
 		par->Set("ambient_occlusion_quality", sqrt(oldData->SSAOQuality));
 
 	par->Set("mat1_shading", oldData->doubles.imageAdjustments.shading);

@@ -34,7 +34,7 @@
  * cKeyframeAnimation contains all functionality for editing and rendering of
  * a keyframe animation. The class holds a cKeyframes to store
  * the parameters of the keyframes and a table to display the frames in a widget.
- * The class can render interpolated subframes and validate their path (check
+ * The class can render interpolated sub-frames and validate their path (check
  * for collision). It exposes slots to manipulate the keyframes.
  */
 
@@ -65,8 +65,8 @@ class cKeyframeAnimation : public QObject
 	Q_OBJECT
 
 public:
-	static const int reservedColums = 1;
-	static const int animSoundColum = 0;
+	static const int reservedColumns = 1;
+	static const int animSoundColumn = 0;
 
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image,
 		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,

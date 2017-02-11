@@ -873,7 +873,7 @@ void cInterface::RefreshMainImage()
 		stopRequest = false;
 		bool ssaoUsed = false;
 		if (gPar->Get<bool>("ambient_occlusion_enabled")
-				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
+				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
 		{
 			cParamRender params(gPar);
 			sRenderData data;
@@ -2024,7 +2024,7 @@ void cInterface::StartupDefaultSettings()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", true);
-	gPar->Set("ambient_occlusion_mode", int(params::AOmodeScreenSpace));
+	gPar->Set("ambient_occlusion_mode", int(params::AOModeScreenSpace));
 	gPar->Set("ambient_occlusion_quality", 4);
 	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);

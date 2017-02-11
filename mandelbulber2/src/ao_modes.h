@@ -39,9 +39,9 @@ namespace params
 {
 enum enumAOMode
 {
-	AOmodeFast = 0,
-	AOmodeMultipeRays = 1,
-	AOmodeScreenSpace = 2
+	AOModeFast = 0,
+	AOModeMultipleRays = 1,
+	AOModeScreenSpace = 2
 };
 }
 

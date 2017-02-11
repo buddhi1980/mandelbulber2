@@ -110,7 +110,7 @@ void cRenderWorker::doWork()
 
 	PrepareMainVectors();
 	PrepareReflectionBuffer();
-	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeMultipeRays)
+	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOModeMultipleRays)
 		PrepareAOVectors();
 
 	// init of scheduler

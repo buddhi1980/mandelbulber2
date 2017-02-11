@@ -56,7 +56,7 @@ public:
 	int getSampleRate() const { return sampleRate; }
 	float getSample(int sampleIndex) const;
 	void calculateFFT();
-	cAudioFFTdata getFFTSample(int frame) const;
+	cAudioFFTData getFFTSample(int frame) const;
 	float getBand(int frame, double midFreq, double bandwidth, bool pitchMode) const;
 	int getNumberOfFrames() const { return numberOfFrames; };
 	void setFramesPerSecond(double _framesPerSecond);
@@ -79,7 +79,7 @@ private slots:
 private:
 	QAudioDecoder *decoder;
 	QVector<float> rawAudio;
-	cAudioFFTdata *fftAudio;
+	cAudioFFTData *fftAudio;
 	QVector<float> animation;
 	bool memoryReserved;
 	int length;
@@ -93,7 +93,7 @@ private:
 
 	float maxVolume;
 	float maxFft;
-	cAudioFFTdata maxFftArray;
+	cAudioFFTData maxFftArray;
 
 signals:
 	void loadingFinished();

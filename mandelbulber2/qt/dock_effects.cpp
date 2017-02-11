@@ -185,9 +185,9 @@ void cDockEffects::slotChangedCheckBoxDOFHDR(int state) const
 
 void cDockEffects::slotChangedComboAmbientOcclusionMode(int index) const
 {
-	bool enabled = index == params::AOmodeMultipeRays ? true : false;
+	bool enabled = index == params::AOModeMultipleRays ? true : false;
 	ui->frame_lightmap_texture->setEnabled(enabled);
-	enabled = index == params::AOmodeFast ? true : false;
+	enabled = index == params::AOModeFast ? true : false;
 	ui->slider_ambient_occlusion_fast_tune->setEnabled(enabled);
 	ui->spinbox_ambient_occlusion_fast_tune->setEnabled(enabled);
 }

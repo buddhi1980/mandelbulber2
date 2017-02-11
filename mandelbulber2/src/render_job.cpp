@@ -260,7 +260,7 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 				gNetRender->GetTexture(paramsContainer->Get<QString>("file_envmap")),
 				cTexture::doNotUseMipmaps);
 
-		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays
+		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
 				&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
 			renderData->textures.lightmapTexture.FromQByteArray(
 				gNetRender->GetTexture(paramsContainer->Get<QString>("file_lightmap")),
@@ -277,7 +277,7 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"),
 				cTexture::doNotUseMipmaps, config.UseIgnoreErrors());
 
-		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays
+		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
 				&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
 			renderData->textures.lightmapTexture =
 				cTexture(paramsContainer->Get<QString>("file_lightmap"), cTexture::doNotUseMipmaps,
@@ -321,7 +321,7 @@ bool cRenderJob::Execute()
 	if (!gNetRender->IsClient() && paramsContainer->Get<bool>("stereo_enabled")
 			&& paramsContainer->Get<int>("stereo_mode") == cStereo::stereoRedCyan
 			&& ((paramsContainer->Get<bool>("ambient_occlusion_enabled")
-						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
+						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
 					 || (paramsContainer->Get<bool>("DOF_enabled")
 								&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
 	{

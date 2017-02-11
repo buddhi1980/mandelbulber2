@@ -290,7 +290,7 @@ void cDockImageAdjustments::slotQualityPresetNormal()
 {
 	gPar->Set("DE_factor", 1.0);
 	gPar->Set("ambient_occlusion_enabled", true);
-	gPar->Set("ambient_occlusion_mode", int(params::AOmodeScreenSpace));
+	gPar->Set("ambient_occlusion_mode", int(params::AOModeScreenSpace));
 	gPar->Set("ambient_occlusion_quality", 4);
 	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);
@@ -307,7 +307,7 @@ void cDockImageAdjustments::slotQualityPresetHigh()
 {
 	gPar->Set("DE_factor", 0.2);
 	gPar->Set("ambient_occlusion_enabled", true);
-	gPar->Set("ambient_occlusion_mode", int(params::AOmodeMultipeRays));
+	gPar->Set("ambient_occlusion_mode", int(params::AOModeMultipleRays));
 	gPar->Set("ambient_occlusion_quality", 4);
 	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);

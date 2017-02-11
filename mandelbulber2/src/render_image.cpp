@@ -210,7 +210,7 @@ bool cRenderer::RenderImage()
 						if (data->configuration.UseRenderTimeEffects())
 						{
 							if (params->ambientOcclusionEnabled
-									&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
+									&& params->ambientOcclusionMode == params::AOModeScreenSpace)
 							{
 								cRenderSSAO rendererSSAO(params, data, image);
 								rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
@@ -346,7 +346,7 @@ bool cRenderer::RenderImage()
 		{
 			bool ssaoUsed = false;
 			if (params->ambientOcclusionEnabled
-					&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
+					&& params->ambientOcclusionMode == params::AOModeScreenSpace)
 			{
 				cRenderSSAO rendererSSAO(params, data, image);
 				connect(&rendererSSAO,

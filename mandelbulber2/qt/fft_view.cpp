@@ -66,13 +66,13 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 		this->setFixedWidth(numberOfFrames);
 
-		const int height = cAudioFFTdata::fftSize / 2;
+		const int height = cAudioFFTData::fftSize / 2;
 
 		fftImage = QImage(QSize(numberOfFrames, height), QImage::Format_RGB32);
 
 		for (int x = 0; x < numberOfFrames; x++)
 		{
-			cAudioFFTdata fftFrame = audiotrack->getFFTSample(x);
+			cAudioFFTData fftFrame = audiotrack->getFFTSample(x);
 			for (int y = 0; y < height; y++)
 			{
 				int y2 = height - y - 1;
@@ -109,9 +109,9 @@ void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 void cFFTView::slotFreqChanged(double midFreq, double bandwidth)
 {
-	lowFreqY = int(double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq - bandwidth * 0.5));
+	lowFreqY = int(double(cAudioFFTData::fftSize) / double(sampleRate) * (midFreq - bandwidth * 0.5));
 	highFreqY =
-		int(double(cAudioFFTdata::fftSize) / double(sampleRate) * (midFreq + bandwidth * 0.5));
+		int(double(cAudioFFTData::fftSize) / double(sampleRate) * (midFreq + bandwidth * 0.5));
 	update();
 }
 
@@ -119,7 +119,7 @@ void cFFTView::paintEvent(QPaintEvent *event)
 {
 	Q_UNUSED(event);
 	QPainter painter(this);
-	painter.drawImage(0, height() - cAudioFFTdata::fftSize / 2, scaledFftImage);
+	painter.drawImage(0, height() - cAudioFFTData::fftSize / 2, scaledFftImage);
 
 	QBrush brush(QColor(255, 255, 255, 128));
 	painter.setBrush(brush);
@@ -132,8 +132,8 @@ void cFFTView::paintEvent(QPaintEvent *event)
 	font.setPixelSize(10);
 	painter.setFont(font);
 	painter.drawText(
-		3, 13, QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTdata::fftSize * height())));
+		3, 13, QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTData::fftSize * height())));
 	painter.drawText(3, height() / 2,
-		QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTdata::fftSize * height() * 0.5)));
+		QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTData::fftSize * height() * 0.5)));
 	painter.drawText(3, height() - 3, QString("%1 Hz").arg(0));
 }

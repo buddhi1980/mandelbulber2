@@ -441,61 +441,61 @@ cOneParameter cAnimationFrames::ApplyAudioAnimation(int frame, const cOneParamet
 	cOneParameter newValue = parameter;
 	QString fullParameterName = parameter.GetOriginalContainerName() + "_" + parameterName;
 	enumVarType paramType = parameter.GetValueType();
-	QString fullParameterNameWithSufix;
+	QString fullParameterNameWithSuffix;
 
 	switch (paramType)
 	{
 		case typeInt:
 		{
 			int value = parameter.Get<int>(valueActual);
-			fullParameterNameWithSufix = fullParameterName;
-			value = ApplyAudioAnimationOneComponent(frame, value, fullParameterNameWithSufix, params);
+			fullParameterNameWithSuffix = fullParameterName;
+			value = ApplyAudioAnimationOneComponent(frame, value, fullParameterNameWithSuffix, params);
 			newValue.Set(value, valueActual);
 			break;
 		}
 		case typeDouble:
 		{
 			double value = parameter.Get<double>(valueActual);
-			fullParameterNameWithSufix = fullParameterName;
-			value = ApplyAudioAnimationOneComponent(frame, value, fullParameterNameWithSufix, params);
+			fullParameterNameWithSuffix = fullParameterName;
+			value = ApplyAudioAnimationOneComponent(frame, value, fullParameterNameWithSuffix, params);
 			newValue.Set(value, valueActual);
 			break;
 		}
 		case typeVector3:
 		{
 			CVector3 value = parameter.Get<CVector3>(valueActual);
-			fullParameterNameWithSufix = fullParameterName + "_x";
-			value.x = ApplyAudioAnimationOneComponent(frame, value.x, fullParameterNameWithSufix, params);
-			fullParameterNameWithSufix = fullParameterName + "_y";
-			value.y = ApplyAudioAnimationOneComponent(frame, value.y, fullParameterNameWithSufix, params);
-			fullParameterNameWithSufix = fullParameterName + "_z";
-			value.z = ApplyAudioAnimationOneComponent(frame, value.z, fullParameterNameWithSufix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_x";
+			value.x = ApplyAudioAnimationOneComponent(frame, value.x, fullParameterNameWithSuffix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_y";
+			value.y = ApplyAudioAnimationOneComponent(frame, value.y, fullParameterNameWithSuffix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_z";
+			value.z = ApplyAudioAnimationOneComponent(frame, value.z, fullParameterNameWithSuffix, params);
 			newValue.Set(value, valueActual);
 			break;
 		}
 		case typeVector4:
 		{
 			CVector4 value = parameter.Get<CVector4>(valueActual);
-			fullParameterNameWithSufix = fullParameterName + "_x";
-			value.x = ApplyAudioAnimationOneComponent(frame, value.x, fullParameterNameWithSufix, params);
-			fullParameterNameWithSufix = fullParameterName + "_y";
-			value.y = ApplyAudioAnimationOneComponent(frame, value.y, fullParameterNameWithSufix, params);
-			fullParameterNameWithSufix = fullParameterName + "_z";
-			value.z = ApplyAudioAnimationOneComponent(frame, value.z, fullParameterNameWithSufix, params);
-			fullParameterNameWithSufix = fullParameterName + "_w";
-			value.w = ApplyAudioAnimationOneComponent(frame, value.w, fullParameterNameWithSufix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_x";
+			value.x = ApplyAudioAnimationOneComponent(frame, value.x, fullParameterNameWithSuffix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_y";
+			value.y = ApplyAudioAnimationOneComponent(frame, value.y, fullParameterNameWithSuffix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_z";
+			value.z = ApplyAudioAnimationOneComponent(frame, value.z, fullParameterNameWithSuffix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_w";
+			value.w = ApplyAudioAnimationOneComponent(frame, value.w, fullParameterNameWithSuffix, params);
 			newValue.Set(value, valueActual);
 			break;
 		}
 		case typeRgb:
 		{
 			sRGB value = parameter.Get<sRGB>(valueActual);
-			fullParameterNameWithSufix = fullParameterName + "_R";
-			value.R = ApplyAudioAnimationOneComponent(frame, value.R, fullParameterNameWithSufix, params);
-			fullParameterNameWithSufix = fullParameterName + "_G";
-			value.G = ApplyAudioAnimationOneComponent(frame, value.G, fullParameterNameWithSufix, params);
-			fullParameterNameWithSufix = fullParameterName + "_B";
-			value.B = ApplyAudioAnimationOneComponent(frame, value.B, fullParameterNameWithSufix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_R";
+			value.R = ApplyAudioAnimationOneComponent(frame, value.R, fullParameterNameWithSuffix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_G";
+			value.G = ApplyAudioAnimationOneComponent(frame, value.G, fullParameterNameWithSuffix, params);
+			fullParameterNameWithSuffix = fullParameterName + "_B";
+			value.B = ApplyAudioAnimationOneComponent(frame, value.B, fullParameterNameWithSuffix, params);
 			newValue.Set(value, valueActual);
 			break;
 		}
@@ -511,20 +511,20 @@ cOneParameter cAnimationFrames::ApplyAudioAnimation(int frame, const cOneParamet
 
 template <typename T>
 T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
-	const QString &fullParameterNameWithSufix, const cParameterContainer *params) const
+	const QString &fullParameterNameWithSuffix, const cParameterContainer *params) const
 {
 	T newVal = oldVal;
 	bool isEnabled =
-		params->Get<bool>(QString("animsound_enable_%1").arg(fullParameterNameWithSufix));
+		params->Get<bool>(QString("animsound_enable_%1").arg(fullParameterNameWithSuffix));
 	if (isEnabled)
 	{
 		double additionFactor =
-			params->Get<double>(QString("animsound_additionfactor_%1").arg(fullParameterNameWithSufix));
+			params->Get<double>(QString("animsound_additionfactor_%1").arg(fullParameterNameWithSuffix));
 		double multFactor =
-			params->Get<double>(QString("animsound_multfactor_%1").arg(fullParameterNameWithSufix));
-		float animSound = audioTracks.GetAudioTrackPtr(fullParameterNameWithSufix)->getAnimation(frame);
+			params->Get<double>(QString("animsound_multfactor_%1").arg(fullParameterNameWithSuffix));
+		float animSound = audioTracks.GetAudioTrackPtr(fullParameterNameWithSuffix)->getAnimation(frame);
 
-		if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSufix)))
+		if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSuffix)))
 		{
 			newVal = oldVal / (1.0 + multFactor * animSound) - additionFactor * animSound;
 		}
@@ -537,9 +537,9 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 }
 
 template int cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, int oldVal,
-	const QString &fullParameterNameWithSufix, const cParameterContainer *params) const;
+	const QString &fullParameterNameWithSuffix, const cParameterContainer *params) const;
 template double cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, double oldVal,
-	const QString &fullParameterNameWithSufix, const cParameterContainer *params) const;
+	const QString &fullParameterNameWithSuffix, const cParameterContainer *params) const;
 
 void cAnimationFrames::RemoveAllAudioParameters(cParameterContainer *params)
 {

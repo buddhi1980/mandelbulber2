@@ -128,7 +128,7 @@ public:
 		const QString &parameterName, const cParameterContainer *params) const;
 
 	template <typename T>
-	T ApplyAudioAnimationOneComponent(int frame, T oldVal, const QString &fullParameterNameWithSufix,
+	T ApplyAudioAnimationOneComponent(int frame, T oldVal, const QString &fullParameterNameWithSuffix,
 		const cParameterContainer *params) const;
 
 	void RegenerateAudioTracks(cParameterContainer *param);

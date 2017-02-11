@@ -68,13 +68,13 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 	QAction *actionRender = nullptr;
 	QAction *interpolateForward = nullptr;
 
-	if (row == 0 && column >= cKeyframeAnimation::reservedColums)
+	if (row == 0 && column >= cKeyframeAnimation::reservedColumns)
 	{
 		actionRender = menu->addAction(tr("Render this keyframe"));
 	}
 	else
 	{
-		if (column < columnCount() - 1 && column >= cKeyframeAnimation::reservedColums)
+		if (column < columnCount() - 1 && column >= cKeyframeAnimation::reservedColumns)
 		{
 			interpolateForward = menu->addAction(tr("Interpolate next keyframes"));
 		}
@@ -86,7 +86,7 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 	{
 		if (selectedItem == actionRender)
 		{
-			gKeyframeAnimation->RenderFrame(column - cKeyframeAnimation::reservedColums);
+			gKeyframeAnimation->RenderFrame(column - cKeyframeAnimation::reservedColumns);
 		}
 		else if (selectedItem == interpolateForward)
 		{
@@ -101,7 +101,7 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point) const
 {
 	int column = horizontalHeader()->logicalIndexAt(point);
 
-	if (column >= cKeyframeAnimation::reservedColums)
+	if (column >= cKeyframeAnimation::reservedColumns)
 	{
 		QMenu *menu = new QMenu;
 
@@ -121,19 +121,19 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point) const
 		{
 			if (selectedItem == actionRender)
 			{
-				gKeyframeAnimation->RenderFrame(column - cKeyframeAnimation::reservedColums);
+				gKeyframeAnimation->RenderFrame(column - cKeyframeAnimation::reservedColumns);
 			}
 			else if (selectedItem == actionDelete)
 			{
-				gKeyframeAnimation->DeleteKeyframe(column - cKeyframeAnimation::reservedColums);
+				gKeyframeAnimation->DeleteKeyframe(column - cKeyframeAnimation::reservedColumns);
 			}
 			else if (selectedItem == actionDeleteFrom)
 			{
-				gKeyframeAnimation->DeleteFramesFrom(column - cKeyframeAnimation::reservedColums);
+				gKeyframeAnimation->DeleteFramesFrom(column - cKeyframeAnimation::reservedColumns);
 			}
 			else if (selectedItem == actionDeleteTo)
 			{
-				gKeyframeAnimation->DeleteFramesTo(column - cKeyframeAnimation::reservedColums);
+				gKeyframeAnimation->DeleteFramesTo(column - cKeyframeAnimation::reservedColumns);
 			}
 		}
 

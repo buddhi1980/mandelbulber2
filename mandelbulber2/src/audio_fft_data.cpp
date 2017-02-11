@@ -29,12 +29,12 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cAudioFFTdata - class to hold fft data for an audio file
+ * cAudioFFTData - class to hold fft data for an audio file
  */
 
 #include "audio_fft_data.h"
 
-cAudioFFTdata::cAudioFFTdata()
+cAudioFFTData::cAudioFFTData()
 {
 	for (int i = 0; i < fftSize; i++)
 	{
@@ -42,7 +42,7 @@ cAudioFFTdata::cAudioFFTdata()
 	}
 }
 
-cAudioFFTdata::~cAudioFFTdata()
+cAudioFFTData::~cAudioFFTData()
 {
 	// nothing needed here
 }

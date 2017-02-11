@@ -373,7 +373,7 @@ void cAutomatedWidgets::slotLogSliderVect3Moved(int value) const
 	}
 	else
 	{
-		qWarning() << "slotLogSlidervect3Moved() error: lineEdit " << lineEditName << " doesn't exists"
+		qWarning() << "slotLogSliderVect3Moved() error: lineEdit " << lineEditName << " doesn't exists"
 							 << endl;
 	}
 }
@@ -437,8 +437,8 @@ void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 	}
 }
 
-// NOTE: there are used sliderMoved() signals instead of valueChangd(), because valueChanged()
-// caused problems with editing values in edit fields and spinboxes.
+// NOTE: there are used sliderMoved() signals instead of valueChanged(), because valueChanged()
+// caused problems with editing values in edit fields and SpinBoxes.
 
 // automatic setting of event slots for all sliders
 void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const

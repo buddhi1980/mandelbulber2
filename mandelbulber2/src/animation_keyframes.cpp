@@ -34,7 +34,7 @@
  * cKeyframeAnimation contains all functionality for editing and rendering of
  * a keyframe animation. The class holds a cKeyframes to store
  * the parameters of the keyframes and a table to display the frames in a widget.
- * The class can render interpolated subframes and validate their path (check
+ * The class can render interpolated sub-frames and validate their path (check
  * for collision). It exposes slots to manipulate the keyframes.
  */
 
@@ -157,7 +157,7 @@ void cKeyframeAnimation::slotAddKeyframe()
 
 void cKeyframeAnimation::slotInsertKeyframe()
 {
-	int index = table->currentColumn() - reservedColums;
+	int index = table->currentColumn() - reservedColumns;
 	if (index < 0) index = 0;
 
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
@@ -205,14 +205,14 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 	{
 		gUndo.Store(params, fractalParams, nullptr, keyframes);
 		keyframes->DeleteFrames(index, index);
-		table->removeColumn(index + reservedColums);
+		table->removeColumn(index + reservedColumns);
 		UpdateLimitsForFrameRange();
 	}
 }
 
 void cKeyframeAnimation::slotModifyKeyframe()
 {
-	int index = table->currentColumn() - reservedColums;
+	int index = table->currentColumn() - reservedColumns;
 	if (index < 0)
 	{
 		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage,
@@ -231,7 +231,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 			keyframes->AddFrame(*params, *fractalParams, index);
 
 			// add column to table
-			table->removeColumn(index + reservedColums);
+			table->removeColumn(index + reservedColumns);
 			int newColumn = AddColumn(keyframes->GetFrame(index), index);
 			table->selectColumn(newColumn);
 
@@ -252,7 +252,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 void cKeyframeAnimation::slotDeleteKeyframe() const
 {
-	int index = table->currentColumn() - reservedColums;
+	int index = table->currentColumn() - reservedColumns;
 	DeleteKeyframe(index);
 }
 
@@ -380,26 +380,26 @@ void cKeyframeAnimation::AddRow(int row, const QString &fullParameterName, int i
 	table->insertRow(row);
 	table->setVerticalHeaderItem(row, new QTableWidgetItem(fullParameterName));
 	rowParameter.append(index);
-	table->setCellWidget(row, animSoundColum, new cPushButtonAnimSound(table));
-	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColum))
+	table->setCellWidget(row, animSoundColumn, new cPushButtonAnimSound(table));
+	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
 		->AssignParameterName(fullParameterName);
-	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColum))
+	static_cast<cPushButtonAnimSound *>(table->cellWidget(row, animSoundColumn))
 		->AssignAnimation(keyframes);
 }
 
 int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index)
 {
 	table->blockSignals(true);
-	int newColumn = index + reservedColums;
+	int newColumn = index + reservedColumns;
 	if (index == -1) newColumn = table->columnCount();
 	table->insertColumn(newColumn);
 
 	double time = params->Get<double>("frames_per_keyframe")
-								/ params->Get<double>("keyframe_frames_per_second") * (newColumn - reservedColums);
+								/ params->Get<double>("keyframe_frames_per_second") * (newColumn - reservedColumns);
 	int minutes = int(time / 60);
 	int seconds = int(time) % 60;
 	QString columnHeader = QString("%1 (%2:%3)")
-													 .arg(newColumn - reservedColums)
+													 .arg(newColumn - reservedColumns)
 													 .arg(minutes)
 													 .arg(seconds, 2, 10, QChar('0'));
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(columnHeader));
@@ -661,15 +661,15 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 		{
 			//-------------- rendering of interpolated keyframes ----------------
-			for (int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 			{
 				// skip already rendered frame
-				if (keyframes->GetFrame(index).alreadyRenderedSubFrames[subindex])
+				if (keyframes->GetFrame(index).alreadyRenderedSubFrames[subIndex])
 				{
 					continue;
 				}
 
-				int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
+				int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 
 				double percentDoneFrame;
 				if (unrenderedTotal > 0)
@@ -714,7 +714,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				renderJob->UpdateParameters(params, fractalParams);
 				int result = renderJob->Execute();
 				if (!result) throw false;
-				QString filename = GetKeyframeFilename(index, subindex);
+				QString filename = GetKeyframeFilename(index, subIndex);
 				ImageFileSave::enumImageFileType fileType =
 					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
 				SaveImage(filename, fileType, image, gMainInterface->mainWindow);
@@ -835,7 +835,7 @@ void cKeyframeAnimation::DeleteFramesFrom(int index) const
 {
 	gUndo.Store(params, fractalParams, nullptr, keyframes);
 	for (int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--)
-		table->removeColumn(index + reservedColums);
+		table->removeColumn(index + reservedColumns);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
 	UpdateLimitsForFrameRange();
 }
@@ -844,7 +844,7 @@ void cKeyframeAnimation::DeleteFramesTo(int index) const
 {
 	gUndo.Store(params, fractalParams, nullptr, keyframes);
 	for (int i = 0; i <= index; i++)
-		table->removeColumn(reservedColums);
+		table->removeColumn(reservedColumns);
 	keyframes->DeleteFrames(0, index);
 	UpdateLimitsForFrameRange();
 }
@@ -858,12 +858,12 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir() const
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
 	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
 	dialog->setOption(QFileDialog::ShowDirsOnly);
-	QStringList filenames;
+	QStringList fileNames;
 
 	if (dialog->exec())
 	{
-		filenames = dialog->selectedFiles();
-		QString filename = QDir::toNativeSeparators(filenames.first() + QDir::separator());
+		fileNames = dialog->selectedFiles();
+		QString filename = QDir::toNativeSeparators(fileNames.first() + QDir::separator());
 		ui->text_anim_keyframe_dir->setText(filename);
 		params->Set("anim_keyframe_dir", filename);
 	}
@@ -877,7 +877,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		QTableWidgetItem *cell = table->item(row, column);
 		QString cellText = cell->text();
 
-		int index = column - reservedColums;
+		int index = column - reservedColumns;
 		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 
 		QString parameterName = GetParameterName(row);
@@ -988,7 +988,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 
 	QString parameterName = GetParameterName(row);
 
-	int index = column - reservedColums;
+	int index = column - reservedColumns;
 	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 
 	using namespace parameterContainer;
@@ -1074,7 +1074,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		{
 			newCellText = valueText;
 		}
-		QTableWidgetItem *newCell = table->item(row, i + reservedColums);
+		QTableWidgetItem *newCell = table->item(row, i + reservedColumns);
 		newCell->setText(newCellText);
 		newCell->setTextColor(Qt::black);
 	}
@@ -1136,9 +1136,9 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 
 	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
-		for (int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 		{
-			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
+			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 			gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex));
 		}
 		if (index % 10 == 0)
@@ -1196,15 +1196,15 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 
 	for (int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
-		updateProgressAndStatus(QObject::tr("Checking for collissions"),
-			QObject::tr("Checking for collissions on keyframe # %1").arg(key),
+		updateProgressAndStatus(QObject::tr("Checking for collisions"),
+			QObject::tr("Checking for collisions on keyframe # %1").arg(key),
 			double(key) / (keyframes->GetNumberOfFrames() - 1.0), cProgressText::progress_ANIMATION);
 
-		for (int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 		{
 			gApplication->processEvents();
 			if (*stopRequest) return listOfCollisions;
-			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subindex;
+			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subIndex;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, &tempPar, &tempFractPar);
 			tempPar.Set("frame_no", frameIndex);
 			CVector3 point = tempPar.Get<CVector3>("camera");
@@ -1216,7 +1216,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 		}
 	}
 
-	updateProgressAndStatus(QObject::tr("Checking for collissions"),
+	updateProgressAndStatus(QObject::tr("Checking for collisions"),
 		QObject::tr("Checking for collisions finished"), 1.0, cProgressText::progress_ANIMATION);
 
 	return listOfCollisions;
@@ -1255,7 +1255,7 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column) const
 {
 	if (row == 0)
 	{
-		RenderFrame(column - reservedColums);
+		RenderFrame(column - reservedColumns);
 	}
 }
 

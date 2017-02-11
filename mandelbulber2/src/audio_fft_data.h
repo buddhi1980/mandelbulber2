@@ -29,19 +29,19 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cAudioFFTdata - class to hold fft data for an audio file
+ * cAudioFFTData - class to hold fft data for an audio file
  */
 
 #ifndef MANDELBULBER2_SRC_AUDIO_FFT_DATA_H_
 #define MANDELBULBER2_SRC_AUDIO_FFT_DATA_H_
 
-class cAudioFFTdata
+class cAudioFFTData
 {
 public:
 	static const int fftSize = 2048;
 
-	cAudioFFTdata();
-	~cAudioFFTdata();
+	cAudioFFTData();
+	~cAudioFFTData();
 
 	float data[fftSize];
 };

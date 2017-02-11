@@ -502,10 +502,10 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 {
 	table->blockSignals(true);
-	QImage qimage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
+	QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
 		image->GetHeight(), image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
 	QPixmap pixmap;
-	pixmap.convertFromImage(qimage);
+	pixmap.convertFromImage(qImage);
 	QIcon icon(
 		pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
 	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
@@ -1024,12 +1024,12 @@ void cFlightAnimation::slotSelectAnimFlightImageDir() const
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
 	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
 	dialog->setOption(QFileDialog::ShowDirsOnly);
-	QStringList filenames;
+	QStringList fileNames;
 
 	if (dialog->exec())
 	{
-		filenames = dialog->selectedFiles();
-		QString filename = QDir::toNativeSeparators(filenames.first() + QDir::separator());
+		fileNames = dialog->selectedFiles();
+		QString filename = QDir::toNativeSeparators(fileNames.first() + QDir::separator());
 		ui->text_anim_flight_dir->setText(filename);
 		params->Set("anim_flight_dir", filename);
 	}
