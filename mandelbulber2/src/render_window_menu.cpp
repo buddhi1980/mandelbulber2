@@ -109,8 +109,7 @@ void RenderWindow::slotMenuAboutQt()
 
 void RenderWindow::slotMenuAboutManual()
 {
-	// TODO: Launch Manual from PDF
-	QMessageBox::aboutQt(this);
+	QDesktopServices::openUrl(QUrl::fromLocalFile("Mandelbulber.End.User.Manual.2.10.0.9.2.Pre-Release.pdf"));
 }
 
 void RenderWindow::slotMenuAboutThirdParty()
