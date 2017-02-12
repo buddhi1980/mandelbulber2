@@ -39,7 +39,7 @@
 class cCommandLineInterface
 {
 public:
-	cCommandLineInterface(QCoreApplication *qapplication);
+	cCommandLineInterface(QCoreApplication *qApplication);
 	~cCommandLineInterface();
 
 	enum cliTODOMode

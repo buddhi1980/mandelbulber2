@@ -406,7 +406,6 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 		try
 		{
 			// preprocessing (1-st phase)
-
 			for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 			{
 				if (*stopRequest) throw tr("DOF terminated");

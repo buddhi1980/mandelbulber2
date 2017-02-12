@@ -198,7 +198,7 @@ void ImageFileSaveJPG::SaveImage()
 				qWarning() << "JPG cannot save zbuffer (loss of precision to strong)";
 				break;
 			case IMAGE_CONTENT_NORMAL:
-				SaveJPEGQt(fullFilename, image->ConvertNormalto8Bit(), image->GetWidth(),
+				SaveJPEGQt(fullFilename, image->ConvertNormalTo8Bit(), image->GetWidth(),
 					image->GetHeight(), gPar->Get<int>("jpeg_quality"));
 				break;
 			default: qWarning() << "Unknown channel for JPG"; break;
@@ -463,13 +463,13 @@ void ImageFileSavePNG::SavePNG(
 						{
 							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 							{
-								if (x == 0 && y == 0) image->ConvertNormalto16Bit();
+								if (x == 0 && y == 0) image->ConvertNormalTo16Bit();
 								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
 								*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
 							}
 							else
 							{
-								if (x == 0 && y == 0) image->ConvertNormalto8Bit();
+								if (x == 0 && y == 0) image->ConvertNormalTo8Bit();
 								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 								*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
 							}
@@ -1206,13 +1206,13 @@ bool ImageFileSaveTIFF::SaveTIFF(
 					}
 					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
-						if (x == 0 && y == 0) image->ConvertNormalto16Bit();
+						if (x == 0 && y == 0) image->ConvertNormalTo16Bit();
 						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
 						*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
 					}
 					else
 					{
-						if (x == 0 && y == 0) image->ConvertNormalto8Bit();
+						if (x == 0 && y == 0) image->ConvertNormalTo8Bit();
 						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 						*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
 					}

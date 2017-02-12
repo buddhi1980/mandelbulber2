@@ -106,15 +106,15 @@ sRGB cColorPalette::IndexToColour(int index) const
 		else
 		{
 			col = (index / 256) % paletteSize;
-			int colplus1 = (col + 1) % paletteSize;
+			int colPlus1 = (col + 1) % paletteSize;
 			if (col < paletteSize)
 			{
 				R1 = palette[col].R;
 				G1 = palette[col].G;
 				B1 = palette[col].B;
-				R2 = palette[colplus1].R;
-				G2 = palette[colplus1].G;
-				B2 = palette[colplus1].B;
+				R2 = palette[colPlus1].R;
+				G2 = palette[colPlus1].G;
+				B2 = palette[colPlus1].B;
 				RK = (R2 - R1) / 256.0;
 				GK = (G2 - G1) / 256.0;
 				BK = (B2 - B1) / 256.0;

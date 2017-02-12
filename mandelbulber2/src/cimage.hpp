@@ -247,14 +247,14 @@ public:
 
 	quint8 *ConvertTo8bit(void) const;
 	quint8 *ConvertAlphaTo8bit(void) const;
-	quint8 *ConvertNormalto16Bit(void) const;
-	quint8 *ConvertNormalto8Bit(void) const;
+	quint8 *ConvertNormalTo16Bit(void) const;
+	quint8 *ConvertNormalTo8Bit(void) const;
 	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
 	quint8 *GetPreviewPtr(void) const;
 	quint8 *GetPreviewPrimaryPtr(void) const;
 	bool IsPreview(void) const;
-	void RedrawInWidget(QWidget *qwidget = nullptr);
+	void RedrawInWidget(QWidget *qWidget = nullptr);
 	double GetPreviewScale() const { return previewScale; }
 	void Squares(int y, int progressiveFactor);
 	void CalculateGammaTable(void);

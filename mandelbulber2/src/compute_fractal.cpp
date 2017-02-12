@@ -1351,7 +1351,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 
-					+ 1.0 * r2 * 5000.0 // for backwards compatability
+					+ 1.0 * r2 * 5000.0 // for backwards compatibility
 
 					+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
 					+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
@@ -1396,7 +1396,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-						+ extendedAux.scaleFactor * r2 * 5000.0							 // for backwards compatability
+						+ extendedAux.scaleFactor * r2 * 5000.0							 // for backwards compatibility
 						//+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i &
 						// r
 						+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)

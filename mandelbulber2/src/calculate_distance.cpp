@@ -340,7 +340,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 }
 
 double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals &fractals,
-	const CVector3 planePoint, const CVector3 direction, const CVector3 orthDdirection,
+	const CVector3 planePoint, const CVector3 direction, const CVector3 orthDirection,
 	bool *stopRequest)
 {
 	// the plane is defined by the 'planePoint' and the orthogogonal 'direction'
@@ -360,7 +360,7 @@ double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals
 		for (int i = 0; i <= transVectorAngles; i++)
 		{
 			double angle = (1.0 * i / transVectorAngles) * 2.0 * M_PI;
-			CVector3 transversalVect = orthDdirection;
+			CVector3 transversalVect = orthDirection;
 			transversalVect = transversalVect.RotateAroundVectorByAngle(rotationAxis, angle);
 			transversalVect.Normalize();
 			CVector3 pointNext = point + direction * distStep;

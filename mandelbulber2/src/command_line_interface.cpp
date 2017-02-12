@@ -48,7 +48,7 @@
 #include "system.hpp"
 #include "test.hpp"
 
-cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
+cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		: settingsSpecified(false)
 {
 	// text from http://sourceforge.net/projects/mandelbulber/
@@ -197,7 +197,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(helpExamplesOption);
 
 	// Process the actual command line arguments given by the user
-	parser.process(*qapplication);
+	parser.process(*qApplication);
 	args = parser.positionalArguments();
 	if (!args.empty() && args[0] == "-")
 	{

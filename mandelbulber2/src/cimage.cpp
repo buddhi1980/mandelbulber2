@@ -124,7 +124,7 @@ bool cImage::AllocMem()
 				width = 0;
 				height = 0;
 				FreeImage();
-				qCritical() << "bad_alloc caught in cimage: " << ba.what()
+				qCritical() << "bad_alloc caught in cImage: " << ba.what()
 										<< ", maybe required image dimension to big?";
 				return false;
 			}
@@ -344,7 +344,7 @@ quint8 *cImage::ConvertAlphaTo8bit() const
 	return alphaBuffer8;
 }
 
-quint8 *cImage::ConvertNormalto16Bit() const
+quint8 *cImage::ConvertNormalTo16Bit() const
 {
 	if (!opt.optionalNormal) return nullptr;
 	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
@@ -356,7 +356,7 @@ quint8 *cImage::ConvertNormalto16Bit() const
 	return reinterpret_cast<quint8 *>(normal16);
 }
 
-quint8 *cImage::ConvertNormalto8Bit() const
+quint8 *cImage::ConvertNormalTo8Bit() const
 {
 	if (!opt.optionalNormal) return nullptr;
 	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
@@ -492,11 +492,11 @@ void cImage::UpdatePreview(QList<int> *list)
 							}
 						} // next i
 					}		// next j
-					sRGB8 newpixel;
-					newpixel.R = quint8(R / factor);
-					newpixel.G = quint8(G / factor);
-					newpixel.B = quint8(B / factor);
-					preview[quint64(x) + quint64(y) * quint64(w)] = newpixel;
+					sRGB8 newPixel;
+					newPixel.R = quint8(R / factor);
+					newPixel.G = quint8(G / factor);
+					newPixel.B = quint8(B / factor);
+					preview[quint64(x) + quint64(y) * quint64(w)] = newPixel;
 				} // next x
 			}		// next y
 		}
@@ -545,7 +545,7 @@ bool cImage::IsPreview() const
 	}
 }
 
-void cImage::RedrawInWidget(QWidget *qwidget)
+void cImage::RedrawInWidget(QWidget *qWidget)
 {
 	if (IsPreview())
 	{
@@ -553,17 +553,17 @@ void cImage::RedrawInWidget(QWidget *qwidget)
 		previewMutex.lock();
 
 		QWidget *widget;
-		if (qwidget)
-			widget = qwidget;
+		if (qWidget)
+			widget = qWidget;
 		else
 			widget = imageWidget;
 
 		QPainter painter(widget);
 		painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
-		QImage qimage(GetPreviewPtr(), int(previewWidth), int(previewHeight),
+		QImage qImage(GetPreviewPtr(), int(previewWidth), int(previewHeight),
 			int(previewWidth * sizeof(sRGB8)), QImage::Format_RGB888);
-		painter.drawImage(QRect(0, 0, int(previewWidth), int(previewHeight)), qimage,
+		painter.drawImage(QRect(0, 0, int(previewWidth), int(previewHeight)), qImage,
 			QRect(0, 0, int(previewWidth), int(previewHeight)));
 		memcpy(preview2, preview, quint64(previewWidth) * quint64(previewHeight) * sizeof(sRGB8));
 		previewMutex.unlock();
