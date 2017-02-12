@@ -54,7 +54,7 @@ void mc_add_vertex(double x1, double y1, double z1, double c2, int axis, double 
 }
 
 template <typename coord_type, typename vector3, typename formula, typename progressFtor>
-void marching_cubes(const vector3 &lower, const vector3 &upper, int numx, int numy, int numz,
+void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, size_t numy, size_t numz,
 	formula f, double isovalue, std::vector<double> &vertices, std::vector<size_t> &polygons,
 	bool *stop, progressFtor progress, std::vector<double> &colorIndices)
 {
@@ -75,13 +75,13 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, int numx, int nu
 	const int z3 = numz * 3;
 	const int yz3 = numy * z3;
 
-	for (int i = 0; i < numx; ++i)
+	for (size_t i = 0; i < numx; ++i)
 	{
 		progress(i);
 
 		coord_type x = lower[0] + dx * i;
 		coord_type x_dx = lower[0] + dx * (i + 1);
-		for (int j = 0; j < numy; ++j)
+		for (size_t j = 0; j < numy; ++j)
 		{
 			if (*stop)
 			{
@@ -92,7 +92,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, int numx, int nu
 			coord_type y = lower[1] + dy * j;
 			coord_type y_dy = lower[1] + dy * (j + 1);
 
-			for (int k = 0; k < numz; ++k)
+			for (size_t k = 0; k < numz; ++k)
 			{
 				coord_type z = lower[2] + dz * k;
 				coord_type z_dz = lower[2] + dz * (k + 1);
