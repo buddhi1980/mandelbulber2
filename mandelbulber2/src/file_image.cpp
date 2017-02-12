@@ -31,7 +31,7 @@
  *
  * file image class to store different image file formats
  *
- * Each imagefiletype derives ImageFileSave and implements the SaveImage
+ * Each image file type derives ImageFileSave and implements the SaveImage
  * method to store the image data with the corresponding file format
  */
 
@@ -69,9 +69,9 @@ ImageFileSave::ImageFileSave(QString filename, cImage *image, ImageConfig imageC
 }
 
 ImageFileSave *ImageFileSave::create(
-	QString filename, enumImageFileType filetype, cImage *image, ImageConfig imageConfig)
+	QString filename, enumImageFileType fileType, cImage *image, ImageConfig imageConfig)
 {
-	switch (filetype)
+	switch (fileType)
 	{
 		case IMAGE_FILE_TYPE_PNG: return new ImageFileSavePNG(filename, image, imageConfig);
 		case IMAGE_FILE_TYPE_JPG: return new ImageFileSaveJPG(filename, image, imageConfig);
@@ -82,7 +82,7 @@ ImageFileSave *ImageFileSave::create(
 		case IMAGE_FILE_TYPE_EXR: return new ImageFileSaveEXR(filename, image, imageConfig);
 #endif /* USE_EXR */
 	}
-	qCritical() << "filetype " << ImageFileExtension(filetype) << " not supported!";
+	qCritical() << "fileType " << ImageFileExtension(fileType) << " not supported!";
 	return nullptr;
 }
 
@@ -727,18 +727,18 @@ bool ImageFileSaveJPG::SaveJPEGQt(
 		return false;
 	}
 
-	QImage *qimage = new QImage(width, height, QImage::Format_RGB888);
+	QImage *qImage = new QImage(width, height, QImage::Format_RGB888);
 
 	for (int line = 0; line < height; line++)
 	{
 		unsigned char *linePointer = &image[line * width * 3];
-		unsigned char *qScanLine = qimage->scanLine(line);
+		unsigned char *qScanLine = qImage->scanLine(line);
 		memcpy(qScanLine, linePointer, sizeof(unsigned char) * 3 * width);
 	}
 
 	QFile file(filename);
 	file.open(QIODevice::WriteOnly);
-	bool result = qimage->save(&file, "JPEG", quality);
+	bool result = qImage->save(&file, "JPEG", quality);
 	if (!result)
 	{
 		cErrorMessage::showMessage(
@@ -746,7 +746,7 @@ bool ImageFileSaveJPG::SaveJPEGQt(
 			cErrorMessage::errorMessage);
 	}
 	file.close();
-	delete qimage;
+	delete qImage;
 	return result;
 }
 
@@ -760,22 +760,22 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(
 								"If this is the case, just rerender the image with enabled channel(s).";
 		return false;
 	}
-	QImage *qimage = new QImage(width, height, QImage::Format_Indexed8);
+	QImage *qImage = new QImage(width, height, QImage::Format_Indexed8);
 	QVector<QRgb> my_table;
 	for (int i = 0; i < 256; i++)
 		my_table.push_back(qRgb(i, i, i));
-	qimage->setColorTable(my_table);
+	qImage->setColorTable(my_table);
 
 	for (int line = 0; line < height; line++)
 	{
 		unsigned char *linePointer = &image[line * width];
-		unsigned char *qScanLine = qimage->scanLine(line);
+		unsigned char *qScanLine = qImage->scanLine(line);
 		memcpy(qScanLine, linePointer, sizeof(unsigned char) * width);
 	}
 
 	QFile file(filename);
 	file.open(QIODevice::WriteOnly);
-	bool result = qimage->save(&file, "JPEG", quality);
+	bool result = qImage->save(&file, "JPEG", quality);
 	if (!result)
 	{
 		cErrorMessage::showMessage(
@@ -783,29 +783,29 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(
 			cErrorMessage::errorMessage);
 	}
 	file.close();
-	delete qimage;
+	delete qImage;
 	return result;
 }
 
 bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
 	QString filename, unsigned char *image, int width, int height)
 {
-	QImage *qimage = new QImage(width, height, QImage::Format_Mono);
+	QImage *qImage = new QImage(width, height, QImage::Format_Mono);
 	QVector<QRgb> my_table;
 	my_table.push_back(qRgb(0, 0, 0));
 	my_table.push_back(qRgb(255, 255, 255));
-	qimage->setColorTable(my_table);
+	qImage->setColorTable(my_table);
 
 	for (int i = 0; i < width; i++)
 	{
 		for (int j = 0; j < height; j++)
 		{
-			qimage->setPixel(i, j, image[i + j * width]);
+			qImage->setPixel(i, j, image[i + j * width]);
 		}
 	}
 	QFile file(filename);
 	file.open(QIODevice::WriteOnly);
-	bool result = qimage->save(&file, "PNG");
+	bool result = qImage->save(&file, "PNG");
 	if (!result)
 	{
 		cErrorMessage::showMessage(
@@ -813,7 +813,7 @@ bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
 			cErrorMessage::errorMessage);
 	}
 	file.close();
-	delete qimage;
+	delete qImage;
 	return result;
 }
 

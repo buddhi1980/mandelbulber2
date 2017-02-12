@@ -129,20 +129,20 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	// mandelbulb multi
 	mandelbulbMulti.acosOrasin =
-		sFractalMandelbulbMulti::multi_acosOrasin(container->Get<int>("mandelbulbMulti_acos_or_asin"));
-	mandelbulbMulti.atanOratan2 = sFractalMandelbulbMulti::multi_atanOratan2(
+		sFractalMandelbulbMulti::multi_acosOrAsin(container->Get<int>("mandelbulbMulti_acos_or_asin"));
+	mandelbulbMulti.atanOratan2 = sFractalMandelbulbMulti::multi_atanOrAtan2(
 		container->Get<int>("mandelbulbMulti_atan_or_atan2"));
 
-	mandelbulbMulti.acosOrasinA = sFractalMandelbulbMulti::multi_acosOrasin(
+	mandelbulbMulti.acosOrasinA = sFractalMandelbulbMulti::multi_acosOrAsin(
 		container->Get<int>("mandelbulbMulti_acos_or_asin_A"));
-	mandelbulbMulti.atanOratan2A = sFractalMandelbulbMulti::multi_atanOratan2(
+	mandelbulbMulti.atanOratan2A = sFractalMandelbulbMulti::multi_atanOrAtan2(
 		container->Get<int>("mandelbulbMulti_atan_or_atan2_A"));
 
 	mandelbulbMulti.orderOfxyz =
-		sFractalMandelbulbMulti::multi_OrderOfxyz(container->Get<int>("mandelbulbMulti_order_of_xyz"));
-	mandelbulbMulti.orderOfxyz2 = sFractalMandelbulbMulti::multi_OrderOfxyz(
+		sFractalMandelbulbMulti::multi_OrderOfXYZ(container->Get<int>("mandelbulbMulti_order_of_xyz"));
+	mandelbulbMulti.orderOfxyz2 = sFractalMandelbulbMulti::multi_OrderOfXYZ(
 		container->Get<int>("mandelbulbMulti_order_of_xyz_2"));
-	mandelbulbMulti.orderOfxyzC = sFractalMandelbulbMulti::multi_OrderOfxyz(
+	mandelbulbMulti.orderOfxyzC = sFractalMandelbulbMulti::multi_OrderOfXYZ(
 		container->Get<int>("mandelbulbMulti_order_of_xyz_C"));
 
 	// sinTan2Trig
@@ -191,7 +191,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	surfFolds.orderOfFolds5 =
 		sFractalSurfFolds::multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_5"));
 
-	// bensei mag transforms
+	// benesi mag transforms
 	magTransf.orderOfTransf1 =
 		sFractalMagTransforms::multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_1"));
 	magTransf.orderOfTransf2 =
@@ -203,7 +203,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	magTransf.orderOfTransf5 =
 		sFractalMagTransforms::multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_5"));
 
-	// basic combox
+	// basic comboBox
 	combo.modeA = sFractalCombo::combo(container->Get<int>("combo_mode_A"));
 
 	//	combo.mode1 = (sFractalCombo::combo)container->Get<int>("combo_mode_B");
@@ -499,7 +499,7 @@ void cFractal::RecalculateFractalParams()
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // hmmm??
 	transformCommon.maxMinR2factor = transformCommon.maxR2d1 / transformCommon.minR2p25;
 
-	// Generalized Fold Box precalculated vectors
+	// Generalized Fold Box pre calculated vectors
 	double sqrt_i3 = 1.0 / sqrt(3.0);
 	genFoldBox.Nv_tet[0] = CVector3(sqrt_i3, sqrt_i3, -sqrt_i3);
 	genFoldBox.Nv_tet[1] = CVector3(sqrt_i3, -sqrt_i3, sqrt_i3);

@@ -41,13 +41,13 @@ namespace fractal
 {
 enum enumDEMethod
 {
-	preferedDEMethod = 0,
+	preferredDEMethod = 0,
 	forceDeltaDEMethod = 1,
 };
 
 enum enumDEFunctionType
 {
-	preferedDEfunction = 0,
+	preferredDEFunction = 0,
 	linearDEFunction = 1,
 	logarithmicDEFunction = 2,
 	pseudoKleinianDEFunction = 3,

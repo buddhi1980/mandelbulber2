@@ -302,7 +302,7 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
  }
  */
 
-void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cImage *image,
+void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
 	QObject *updateReceiver)
 {
 	ImageFileSave::ImageConfig imageConfig;
@@ -327,7 +327,7 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cIma
 	}
 	QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
 	ImageFileSave *imageFileSave =
-		ImageFileSave::create(fileWithoutExtension, filetype, image, imageConfig);
+		ImageFileSave::create(fileWithoutExtension, fileType, image, imageConfig);
 	if (updateReceiver != nullptr)
 	{
 		QObject::connect(imageFileSave,
@@ -336,7 +336,7 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType filetype, cIma
 	}
 	imageFileSave->SaveImage();
 	delete imageFileSave;
-	// return SaveImage(fileWithoutExtension, filetype, image, imageConfig);
+	// return SaveImage(fileWithoutExtension, fileType, image, imageConfig);
 }
 
 sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)

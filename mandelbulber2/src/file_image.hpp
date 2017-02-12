@@ -31,7 +31,7 @@
  *
  * file image class to store different image file formats
  *
- * Each imagefiletype derives ImageFileSave and implements the SaveImage
+ * Each image file type derives ImageFileSave and implements the SaveImage
  * method to store the image data with the corresponding file format
  *
  */
@@ -117,7 +117,7 @@ public:
 	static QString ImageNameWithoutExtension(QString path);
 	static enumImageFileType ImageFileType(QString imageFileExtension);
 	static ImageFileSave *create(
-		QString filename, enumImageFileType filetype, cImage *image, ImageConfig imageConfig);
+		QString filename, enumImageFileType fileType, cImage *image, ImageConfig imageConfig);
 	virtual void SaveImage() = 0;
 	virtual QString getJobName() = 0;
 

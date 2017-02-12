@@ -29,7 +29,7 @@
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * cFileDownloader class - downloads specified filelist
+ * cFileDownloader class - downloads specified file list
  */
 
 #ifndef MANDELBULBER2_SRC_FILE_DOWNLOADER_HPP_
@@ -48,10 +48,10 @@ class cFileDownloader : public QObject
 public:
 	cFileDownloader(QString sourceBaseURL, QString targetDir);
 	~cFileDownloader();
-	void downloadFilelist();
+	void downloadFileList();
 
 private slots:
-	void filelistDownloaded();
+	void fileListDownloaded();
 	void fileDownloaded();
 
 signals:

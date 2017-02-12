@@ -169,7 +169,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	{
 		DEType[0] = fractal::deltaDEType;
 		if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
-				== fractal::preferedDEfunction)
+				== fractal::preferredDEFunction)
 		{
 			// finding preferred delta DE function
 
@@ -203,7 +203,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 					if ((optimizedDEType != DEFunction && DEFunction != fractal::withoutDEFunction)
 							|| fractalList[index].DEType == fractal::deltaDEType)
 					{
-						optimizedDEType = fractal::preferedDEfunction;
+						optimizedDEType = fractal::preferredDEFunction;
 					}
 				}
 			}
@@ -224,7 +224,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 
 		// if it's possible to use analyticDEType then use optimized settings
-		if (optimizedDEType > fractal::preferedDEfunction
+		if (optimizedDEType > fractal::preferredDEFunction
 				&& optimizedDEType <= fractal::numberOfDEFunctions)
 		{
 			DEType[0] = fractal::analyticDEType;

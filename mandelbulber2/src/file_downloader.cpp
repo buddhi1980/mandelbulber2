@@ -29,7 +29,7 @@
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * cFileDownloader class - downloads specified filelist
+ * cFileDownloader class - downloads specified file list
  */
 
 #include "file_downloader.hpp"
@@ -59,14 +59,14 @@ cFileDownloader::~cFileDownloader()
 	}
 }
 
-void cFileDownloader::downloadFilelist()
+void cFileDownloader::downloadFileList()
 {
-	emit updateProgressAndStatus(tr("File downloader"), tr("retrieving filelist"), 0.0);
+	emit updateProgressAndStatus(tr("File downloader"), tr("retrieving file list"), 0.0);
 
 	done = false;
 	currentFileFinished = false;
 	QNetworkReply *reply = network->get(QNetworkRequest(QUrl(sourceBaseURL + "/filelist.txt")));
-	connect(reply, SIGNAL(finished()), this, SLOT(filelistDownloaded()));
+	connect(reply, SIGNAL(finished()), this, SLOT(fileListDownloaded()));
 
 	while (!done)
 	{
@@ -78,9 +78,9 @@ void cFileDownloader::downloadFilelist()
 		tr("File downloader"), tr("finished, downloaded %1 files").arg(this->cntFilesDownloaded), 1.0);
 }
 
-void cFileDownloader::filelistDownloaded()
+void cFileDownloader::fileListDownloaded()
 {
-	// read filelist content and determine files to download
+	// read file list content and determine files to download
 	QNetworkReply *replyList = qobject_cast<QNetworkReply *>(sender());
 	QString fileListContent = replyList->readAll();
 	QStringList tempList = fileListContent.split("\n");

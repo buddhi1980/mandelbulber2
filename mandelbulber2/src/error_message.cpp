@@ -62,11 +62,11 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		WriteLog(messageText, 1);
 
 		if (messageType == warningMessage)
-			outErr << messageText + "\n" << flush;
+			outErr << messageText << "\n" << flush;
 		else if (messageType == errorMessage)
-			outErr << messageText + "\n" << flush;
+			outErr << messageText << "\n" << flush;
 		else if (messageType == infoMessage)
-			out << messageText + "\n";
+			out << messageText << "\n";
 
 		QMessageBox *messageBox = new QMessageBox(parent);
 		messageBox->setText(messageText);

@@ -61,7 +61,7 @@ enum enumGeneralizedFoldBoxType
 
 enum enumOCLDEMode
 {
-	ocl_DEcalculated = 0,
+	ocl_DECalculated = 0,
 	ocl_deltaDE = 1,
 	ocl_noDE = 2
 };
@@ -247,19 +247,19 @@ struct sFractalPlatonicSolid
 // mandelbulb multi
 struct sFractalMandelbulbMulti
 {
-	enum multi_acosOrasin
+	enum multi_acosOrAsin
 	{
 		acos,
 		asin
 	};
 
-	enum multi_atanOratan2
+	enum multi_atanOrAtan2
 	{
 		atan,
 		atan2
 	};
 
-	enum multi_OrderOfxyz
+	enum multi_OrderOfXYZ
 	{
 		xyz,
 		xzy,
@@ -269,14 +269,14 @@ struct sFractalMandelbulbMulti
 		zyx
 	};
 
-	multi_acosOrasin acosOrasin;
-	multi_acosOrasin acosOrasinA;
-	multi_atanOratan2 atanOratan2;
-	multi_atanOratan2 atanOratan2A;
+	multi_acosOrAsin acosOrasin;
+	multi_acosOrAsin acosOrasinA;
+	multi_atanOrAtan2 atanOratan2;
+	multi_atanOrAtan2 atanOratan2A;
 
-	multi_OrderOfxyz orderOfxyz;
-	multi_OrderOfxyz orderOfxyz2;
-	multi_OrderOfxyz orderOfxyzC;
+	multi_OrderOfXYZ orderOfxyz;
+	multi_OrderOfXYZ orderOfxyz2;
+	multi_OrderOfXYZ orderOfxyzC;
 };
 
 // sinTan2Trig
@@ -327,7 +327,7 @@ struct sFractalSurfFolds
 	multi_orderOfFolds orderOfFolds5;
 };
 
-// benesi mag transfroms
+// benesi mag transforms
 struct sFractalMagTransforms
 {
 	enum multi_orderOfTransf
