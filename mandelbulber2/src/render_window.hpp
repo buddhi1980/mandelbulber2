@@ -122,6 +122,7 @@ private slots:
 	void slotImportOldSettings();
 	void slotMenuAboutMandelbulber();
 	void slotMenuAboutQt();
+	void slotMenuAboutManual();
 	void slotMenuAboutThirdParty();
 	void showDescriptionPopup();
 	void slotMenuLoadExample();

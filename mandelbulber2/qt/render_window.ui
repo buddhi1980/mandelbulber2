@@ -315,6 +315,7 @@
      <string>A&amp;bout</string>
     </property>
     <addaction name="actionAbout_Mandelbulber"/>
+    <addaction name="actionAbout_Manual"/>
     <addaction name="actionAbout_Qt"/>
     <addaction name="actionAbout_ThirdParty"/>
    </widget>
@@ -1143,6 +1144,11 @@
   <action name="actionAbout_Qt">
    <property name="text">
     <string>About &amp;Qt</string>
+   </property>
+  </action>
+  <action name="actionAbout_Manual">
+   <property name="text">
+    <string>About &amp;User Manual</string>
    </property>
   </action>
   <action name="actionAbout_ThirdParty">

@@ -149,6 +149,7 @@ void cInterface::ShowUi()
 
 #ifdef __APPLE__
 	mainWindow->ui->actionAbout_Qt->setText(QApplication::translate("RenderWindow", "Info &Qt", 0));
+	mainWindow->ui->actionAbout_Manual->setText(QApplication::translate("RenderWindow", "About &User Manual", 0));
 	mainWindow->ui->actionAbout_Mandelbulber->setText(
 		QApplication::translate("RenderWindow", "&Info Mandelbulber", 0));
 	mainWindow->ui->actionAbout_ThirdParty->setText(
@@ -323,6 +324,8 @@ void cInterface::ConnectSignals() const
 
 	QApplication::connect(
 		mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
+	QApplication::connect(
+		mainWindow->ui->actionAbout_Manual, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutManual()));
 	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutMandelbulber()));
 	QApplication::connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow,

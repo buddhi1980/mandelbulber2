@@ -107,6 +107,12 @@ void RenderWindow::slotMenuAboutQt()
 	QMessageBox::aboutQt(this);
 }
 
+void RenderWindow::slotMenuAboutManual()
+{
+	// TODO: Launch Manual from PDF
+	QMessageBox::aboutQt(this);
+}
+
 void RenderWindow::slotMenuAboutThirdParty()
 {
 	QString text = "<h2>Third Party</h2>";
