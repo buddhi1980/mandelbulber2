@@ -6,7 +6,10 @@ v2.10
 - AnimBySound: Added views for waveform, fft and animation generated from sound
 - AnimBySound: It is possible to load wav, ogg, flac (all operating systems) and mp3 (Linux only)
 - AnimBySound: Added binary, decay and smooth filters for animation generated from sound
+- AnimBySound: Added sound player
 - Settings: added description field for fractal settings
+- Settings: fixed bug: there was not possible to load settings saved with CR+LF line terminations
+- Settings: material #1 was not saved properly to settings file when was previously loaded using "Load material..." option.
 - Added new fractal formulas:
   * Menger - Prism Shape2
   * MixPinski 4D
@@ -31,13 +34,17 @@ v2.10
   * Transform - FabsAddConditional 4D
   * Transform - Spherical_OffsetVCL
   * Transform - Rotation 4D
-- Various updates, fixes and enhancements to existing formulas and transforms
+- Fractals: Various updates, fixes and enhancements to existing formulas and transforms
+- Fractals: fixed bug: after swapping of formula slots, the Mandelbulb formula appeared on random slots.
 - German translation for all formula UIs
 - Shaders: in some cases there was wrong calculation of object colors in boolean mode
 - Shaders: fixed bug in DOF algorithm which could cause crashes
 - Animation: Improved gamepad integration for flight animations
 - Animation: Added image with gamepad keymap (tooltip)
 - Animation: there is displayed correct message when first frame was equal to last frame
+- Animation: increased maximum value in frames per keyframe spinbox to 10000
+- Animation: fixed bug: there was possible to get different interpolation type (random one) for each frame
+- Animation: fixed bug: check for collision showed false messages even if errors were already corrected
 - Materials/Animation: fixed bug: program crashed with animation, when there was an added parameter from material which was previously loaded using "Load material" button
 - Materials/Animation: fixed bug: program crashed with animation, when there was an added parameter from material which was previously edited using dialog called by Edit Material button
 - UI: Image quality settings added to file selector for images
@@ -49,13 +56,19 @@ v2.10
 - UI: when dark theme is used then text color in animation table is always black
 - UI: added Dutch language
 - UI: added options to store/restore different layouts (states) of docks
+- UI: navigation dock is locked when flight is being recorded
+- UI: fixed bug: When boolean mode was selected, the displayed DE type was displayed as "DE unknown"
+- UI: fixed bug: Refreshing of DOF and image adjustments now is blocked during rendering of image
 - Voxel export: added automatic calculation of bounding box
 - Voxel export: Added ability to export 3D meshes in *.ply format
 - General: changed data folder from .mandelbulber (hidden) to mandelbulber (not hidden)
 - General: changed default folder for animation frames to ~/mandelbulber/animation
+- General: fixed bug: Wrong file names when contained dot
 - CLI: added stdin input for CLI arguments
 - CLI: added --benchmark option which calculates total time needed to render all examples in low resolution
 - Performance: fixed several memory leaks
+- Performance: eliminated crash reason: added Added QMutexLocker() to all getters and setters for in cParameterContainer class.
+- Performance: Animation player widget caused crashes when frames were deleted from image folder
 - Compilation: main window UI file divided onto several smaller UIs, this has improved compilation performance
 - Compilation: used a lot of forward declarations to reduce compilation time
 - Compilation: code is now fully compatible with msvc
@@ -63,6 +76,7 @@ v2.10
 - Compilation: configured Appveyor to test msvc++ builds
 - Compilation: a lot of cleaning up of the code
 - Compilation: much improved populateUiInformation.php script
+- Compilation: added export CXXFLAGS="-march=native to install script
 
 v2.09-3
 - Settings: Fixed bug in function which adds missing material no. 1 during loading settings. When material no. 1 was default, this material was not created on parameter list.
