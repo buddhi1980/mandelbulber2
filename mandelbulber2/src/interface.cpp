@@ -880,8 +880,8 @@ void cInterface::RefreshMainImage()
 		{
 			cParamRender params(gPar);
 			sRenderData data;
-			// cRenderingConfiguration config;
 			data.stopRequest = &stopRequest;
+			data.screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
 			cRenderSSAO rendererSSAO(&params, &data, mainImage);
 			QObject::connect(&rendererSSAO,
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
