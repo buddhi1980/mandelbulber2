@@ -208,19 +208,13 @@ public:
 	}
 	inline double GetAlpha() const { return atan2(y, x); }
 	inline double GetBeta() const { return atan2(z, sqrt(x * x + y * y)); }
-	bool IsNotANumber() const
+	inline bool IsNotANumber() const
 	{
-		// Check x for NaN
-		if (!gsl_finite(x)) return true;
-
-		// Check y for NaN
-		if (!gsl_finite(y)) return true;
-
-		// Check z for NaN
-		if (!gsl_finite(z)) return true;
-
-		// Defined or representable value identified
-		return false;
+		// Check for NaN
+		// single "&" is intended: since "most of times" gsl_finite is true,
+		// always evaluating xyz at once allows cpu to perform faster
+		// than evaluating each dimension sequentially.
+		return !(gsl_finite(x) & gsl_finite(y) & gsl_finite(z));
 	}
 	CVector3 RotateAroundVectorByAngle(CVector3 axis, double angle) const;
 	QString Debug() const
