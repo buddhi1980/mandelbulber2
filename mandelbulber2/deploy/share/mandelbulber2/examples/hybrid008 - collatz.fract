@@ -1,0 +1,55 @@
+# Mandelbulber settings file
+# version 2.10
+# only modified parameters
+[description]
+Collatz Fractal works best modifying a Mandelbox or Menger Sponge type
+fractal. Here it is used briefly halfway through the iteration loop.
+
+Add_global_C_constant has been unchecked for the Mandelbox and only used
+for the short duration of the Collatz fractal. Uncheck
+add_global_C_constant, then uncheck the slot2-Collatz
+and you will see the subtle differences this tweak makes.
+[main_parameters]
+ambient_occlusion 0,7;
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 6;
+basic_fog_enabled true;
+camera 6,221524384665658 -9,747943921676985 7,680537981868451;
+camera_distance_to_target 0,004277254454791226;
+camera_rotation -88,99202982189112 -0,6939702726015058 55,58357186110734;
+camera_top 0,02135668261807388 -0,824703394705025 0,5651621031788655;
+DE_factor 2,5625;
+detail_level 8;
+dont_add_c_constant_1 true;
+dont_add_c_constant_2 true;
+flight_last_to_render 0;
+formula_1 8;
+formula_2 88;
+formula_start_iteration_2 25;
+formula_stop_iteration_2 26;
+hybrid_fractal_enable true;
+image_height 1080;
+image_width 1920;
+julia_c -1 0 0;
+keyframe_last_to_render 0;
+main_light_alpha -59,6;
+main_light_beta 45,78;
+mat1_coloring_palette_offset 7,92;
+mat1_coloring_random_seed 869227;
+mat1_is_defined true;
+mat1_specular 0,4;
+mat1_surface_color_palette 79547a c96617 8d9958 466900 96682b d4b169 ac4a3b;
+SSAO_random_mode true;
+target 6,225800663559653 -9,74786868391314 7,680486176746153;
+volumetric_fog_colour_1_distance 0,0001397822576954273;
+volumetric_fog_colour_2_distance 0,0002795645153908545;
+volumetric_fog_density 0,0724436;
+volumetric_fog_distance_factor 0,0002795645153908545;
+volumetric_fog_enabled true;
+[fractal_1]
+mandelbox_folding_min_radius 0,1;
+mandelbox_main_rotation_enabled true;
+mandelbox_rotation_main -10,44 4,33 14,04;
+mandelbox_scale -1,3;
+[fractal_2]
+transf_scale_1 0;
