@@ -391,8 +391,12 @@ public:
 		c.w = fabs(w);
 		return c;
 	}
-	inline CVector3 GetXYZ() const { return CVector3(x, y, z); }
-
+	inline void GetXYZWInto(CVector3 &v, double &w) const {
+		v.x = x;
+		v.y = y;
+		v.z = z;
+		w = w;
+	}
 	inline double Normalize()
 	{
 		double norm = 1.0 / Length();
