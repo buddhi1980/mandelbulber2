@@ -1,0 +1,49 @@
+# Mandelbulber settings file
+# version 2.10
+# only modified parameters
+[main_parameters]
+ambient_occlusion 0,73;
+ambient_occlusion_enabled true;
+aux_light_colour_1 e800 cb00 a800;
+aux_light_colour_3 b100 0b00 4500;
+aux_light_enabled_1 true;
+aux_light_enabled_2 true;
+aux_light_enabled_3 true;
+aux_light_intensity_1 2,29087e-06;
+aux_light_intensity_2 2,29087e-06;
+aux_light_intensity_3 3,46737e-05;
+aux_light_position_1 -0,2008081786309549 1,256689993979358 0,005372732785745501;
+aux_light_position_2 -0,2010026327517373 1,257028013364509 -0,005454262260249346;
+aux_light_position_3 -0,1920669060609525 1,24031757312951 0,0002857725636080265;
+camera -0,1865455248492524 1,281090693445138 -0,002086922900427747;
+camera_distance_to_target 0,02986465584562714;
+camera_rotation 160,2099329056715 4,075413258902246 87,21915547699345;
+camera_top -0,9386640378704291 0,3414204532876504 0,04839316155860218;
+DE_factor 0,870964;
+delta_DE_function 2;
+delta_DE_method 1;
+detail_level 1,20226;
+flight_last_to_render 0;
+formula_1 86;
+image_height 1080;
+image_width 1920;
+keyframe_last_to_render 0;
+main_light_alpha 1,25;
+main_light_intensity 0,63;
+mat1_coloring_palette_size 3;
+mat1_coloring_random_seed 825956;
+mat1_is_defined true;
+mat1_surface_color_palette 001704 75abd8 6b01a0;
+raytraced_reflections true;
+target -0,1966313767779356 1,253060916284846 3,554076116730987e-05;
+view_distance_max 12,63520598225663;
+[fractal_1]
+IFS_rotation_enabled true;
+transf_pwr_4 8,791209;
+transf_pwr_8 14,74359;
+[fractal_2]
+IFS_rotation_enabled true;
+[fractal_3]
+IFS_rotation_enabled true;
+[fractal_4]
+IFS_rotation_enabled true;
