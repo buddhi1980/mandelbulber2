@@ -69,6 +69,8 @@ v2.10
 - Performance: fixed several memory leaks
 - Performance: eliminated crash reason: added Added QMutexLocker() to all getters and setters for in cParameterContainer class.
 - Performance: Animation player widget caused crashes when frames were deleted from image folder
+- Documentation: Added help menu with user manual (beta version)
+- Examples: Added many example settings with most of new formulas.
 - Compilation: main window UI file divided onto several smaller UIs, this has improved compilation performance
 - Compilation: used a lot of forward declarations to reduce compilation time
 - Compilation: code is now fully compatible with msvc
