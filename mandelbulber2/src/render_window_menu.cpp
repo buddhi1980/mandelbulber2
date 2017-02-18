@@ -109,7 +109,7 @@ void RenderWindow::slotMenuAboutQt()
 
 void RenderWindow::slotMenuAboutManual()
 {
-	QString filename = systemData.sharedDir + "doc" + QDir::separator() + "Mandelbulber.End.User.Manual.2.10.0.9.2.Pre-Release.pdf";
+	QString filename = systemData.sharedDir + "doc" + QDir::separator() + "Mandelbulber_Manual.pdf";
 	QDesktopServices::openUrl(QUrl::fromLocalFile(filename));
 }
 

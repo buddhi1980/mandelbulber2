@@ -71,6 +71,7 @@ sudo ln -s ${PWD}/deploy/share/mandelbulber2/examples $MANDELBULBER_SHARE/exampl
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/icons $MANDELBULBER_SHARE/icons
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/textures $MANDELBULBER_SHARE/textures
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/toolbar $MANDELBULBER_SHARE/toolbar
+sudo ln -s ${PWD}/deploy/share/mandelbulber2/doc $MANDELBULBER_SHARE/doc
 
 echo "To start development of Mandelbulber you can open
 mandelbulber2/mandelbulber2/Release/mandelbulber.pro

@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>867</width>
-           <height>559</height>
+           <width>837</width>
+           <height>551</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -249,7 +249,7 @@
      <x>0</x>
      <y>0</y>
      <width>1068</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -289,7 +289,7 @@
     </property>
     <widget class="QMenu" name="menuSaved_window_layouts">
      <property name="title">
-      <string>Saved window layouts</string>
+      <string>Saved window &amp;layouts</string>
      </property>
      <addaction name="actionAdd_CustomWindowStateToMenu"/>
      <addaction name="actionRemove_Window_settings"/>
@@ -315,7 +315,6 @@
      <string>A&amp;bout</string>
     </property>
     <addaction name="actionAbout_Mandelbulber"/>
-    <addaction name="actionAbout_Manual"/>
     <addaction name="actionAbout_Qt"/>
     <addaction name="actionAbout_ThirdParty"/>
    </widget>
@@ -326,11 +325,18 @@
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionUser_Manual"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuImage"/>
    <addaction name="menuView"/>
    <addaction name="menuAbout"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="font">
@@ -388,8 +394,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>76</width>
-          <height>90</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -503,8 +509,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>76</width>
-          <height>90</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -570,8 +576,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>76</width>
-          <height>89</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -637,8 +643,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>76</width>
-          <height>90</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -806,8 +812,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>242</width>
-          <height>76</height>
+          <width>234</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -903,8 +909,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>76</width>
-          <height>90</height>
+          <width>84</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -982,8 +988,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>76</width>
-          <height>316</height>
+          <width>84</width>
+          <height>321</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1120,7 +1126,7 @@
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
-    <string>Save window layout as default</string>
+    <string>&amp;Save window layout as default</string>
    </property>
   </action>
   <action name="actionDefault_docks_positions">
@@ -1129,7 +1135,7 @@
      <normaloff>:/system/icons/edit-undo.svg</normaloff>:/system/icons/edit-undo.svg</iconset>
    </property>
    <property name="text">
-    <string>Default window layout</string>
+    <string>&amp;Default window layout</string>
    </property>
   </action>
   <action name="actionAnimation_docks_positions">
@@ -1138,7 +1144,7 @@
      <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
    </property>
    <property name="text">
-    <string>Window layout for animation</string>
+    <string>&amp;Window layout for animation</string>
    </property>
   </action>
   <action name="actionAbout_Qt">
@@ -1352,7 +1358,12 @@
      <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
    </property>
    <property name="text">
-    <string>Remove Window settings...</string>
+    <string>&amp;Remove Window settings...</string>
+   </property>
+  </action>
+  <action name="actionUser_Manual">
+   <property name="text">
+    <string>User Manual</string>
    </property>
   </action>
  </widget>

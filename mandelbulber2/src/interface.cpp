@@ -325,7 +325,7 @@ void cInterface::ConnectSignals() const
 	QApplication::connect(
 		mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
 	QApplication::connect(
-		mainWindow->ui->actionAbout_Manual, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutManual()));
+		mainWindow->ui->actionUser_Manual, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutManual()));
 	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutMandelbulber()));
 	QApplication::connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow,
