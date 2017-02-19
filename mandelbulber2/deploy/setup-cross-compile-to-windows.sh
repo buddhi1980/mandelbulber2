@@ -14,7 +14,7 @@ fi
 
 CXXFLAGS=""
 #MANDELBULBER_QT_URL="http://download.qt.io/archive/qt/5.6/5.6.1-1/single/qt-everywhere-opensource-src-5.6.1-1.tar.gz"
-MANDELBULBER_QT_URL="http://download.qt.io/official_releases/qt/5.7/5.7.0/single/qt-everywhere-opensource-src-5.7.0.tar.gz"
+MANDELBULBER_QT_URL="http://download.qt.io/archive/qt/5.7/5.7.1/single/qt-everywhere-opensource-src-5.7.1.tar.gz"
 MANDELBULBER_WIN_VERSION=$1
 
 if [ $MANDELBULBER_WIN_VERSION -eq "64" ]
@@ -33,11 +33,11 @@ sudo apt-get install mingw-w64
 mkdir -p $MANDELBULBER_PREFIX
 
 ### qt
-if [ ! -f qt-everywhere-opensource-src-5.7.0.tar.gz ]; then
+if [ ! -f qt-everywhere-opensource-src-5.7.1.tar.gz ]; then
 	wget $MANDELBULBER_QT_URL
 fi
 
-if [ ! -d qt-everywhere-opensource-src-5.7.0 ]; then
+if [ ! -d qt-everywhere-opensource-src-5.7.1 ]; then
 	tar xf qt-everywhere-*.tar.gz
 	cd qt-everywhere-*
 	yes | ./configure -release -xplatform win32-g++ -opengl desktop -nomake examples -device-option \
