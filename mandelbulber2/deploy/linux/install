@@ -10,7 +10,7 @@ else
   echo Do you want to compile program now? [y/n]
   read answer
   if [ "$answer" = "y" ] ; then
-  	export CXXFLAGS="-march=native
+  	export CXXFLAGS="-march=native"
     cd makefiles/
 		qmake mandelbulber.pro
 		make -j4
