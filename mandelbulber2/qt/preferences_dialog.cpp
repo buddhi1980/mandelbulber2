@@ -196,7 +196,7 @@ void cPreferencesDialog::on_pushButton_load_thumbnail_cache_clicked() const
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			gMainInterface->mainWindow,
 			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-        fileDownloader.downloadFileList();
+		fileDownloader.downloadFileList();
 	}
 	else
 	{

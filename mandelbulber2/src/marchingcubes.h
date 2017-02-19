@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -54,9 +54,10 @@ void mc_add_vertex(double x1, double y1, double z1, double c2, int axis, double 
 }
 
 template <typename coord_type, typename vector3, typename formula, typename progressFtor>
-void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, size_t numy, size_t numz,
-	formula f, double isovalue, std::vector<double> &vertices, std::vector<size_t> &polygons,
-	bool *stop, progressFtor progress, std::vector<double> &colorIndices)
+void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, size_t numy,
+	size_t numz, formula f, double isovalue, std::vector<double> &vertices,
+	std::vector<size_t> &polygons, bool *stop, progressFtor progress,
+	std::vector<double> &colorIndices)
 {
 	using namespace private_;
 

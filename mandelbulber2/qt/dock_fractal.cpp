@@ -241,21 +241,21 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 
 	for (int i = 0; i < gParFormulaSpecificFields.size(); i++)
 	{
-		//to keep original properties of parameters
+		// to keep original properties of parameters
 		cOneParameter formulaA =
 			gPar->GetAsOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapA + 1));
 		cOneParameter formulaB =
 			gPar->GetAsOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapB + 1));
 
-		//get only actual values and swap between slots
+		// get only actual values and swap between slots
 		cMultiVal multiA = formulaB.GetMultival(parameterContainer::valueActual);
 		cMultiVal multiB = formulaA.GetMultival(parameterContainer::valueActual);
 
-		//write values to OneParmaters
+		// write values to OneParmaters
 		formulaA.SetMultival(multiA, parameterContainer::valueActual);
 		formulaB.SetMultival(multiB, parameterContainer::valueActual);
 
-		//writing parameters to original containers
+		// writing parameters to original containers
 		gPar->SetFromOneParameter(
 			gParFormulaSpecificFields.at(i) + "_" + QString::number(swapA + 1), formulaA);
 		gPar->SetFromOneParameter(

@@ -149,7 +149,8 @@ void cInterface::ShowUi()
 
 #ifdef __APPLE__
 	mainWindow->ui->actionAbout_Qt->setText(QApplication::translate("RenderWindow", "Info &Qt", 0));
-	mainWindow->ui->actionAbout_Manual->setText(QApplication::translate("RenderWindow", "About &User Manual", 0));
+	mainWindow->ui->actionAbout_Manual->setText(
+		QApplication::translate("RenderWindow", "About &User Manual", 0));
 	mainWindow->ui->actionAbout_Mandelbulber->setText(
 		QApplication::translate("RenderWindow", "&Info Mandelbulber", 0));
 	mainWindow->ui->actionAbout_ThirdParty->setText(
@@ -324,8 +325,8 @@ void cInterface::ConnectSignals() const
 
 	QApplication::connect(
 		mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
-	QApplication::connect(
-		mainWindow->ui->actionUser_Manual, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutManual()));
+	QApplication::connect(mainWindow->ui->actionUser_Manual, SIGNAL(triggered()), mainWindow,
+		SLOT(slotMenuAboutManual()));
 	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutMandelbulber()));
 	QApplication::connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow,
@@ -861,7 +862,7 @@ void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
 
 void cInterface::RefreshMainImage()
 {
-	if(!mainImage->IsUsed())
+	if (!mainImage->IsUsed())
 	{
 		SynchronizeInterface(gPar, gParFractal, qInterface::read);
 		sImageAdjustments imageAdjustments;
@@ -914,7 +915,9 @@ void cInterface::RefreshMainImage()
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("You cannot apply changes during rendering. You will do this after rendering."), cErrorMessage::warningMessage, mainWindow);
+		cErrorMessage::showMessage(
+			QObject::tr("You cannot apply changes during rendering. You will do this after rendering."),
+			cErrorMessage::warningMessage, mainWindow);
 	}
 }
 

@@ -310,8 +310,7 @@ void RenderWindow::slotMenuSaveImageJPEG()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("JPEG images (*.jpg *.jpeg)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(
-		QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("JPEG"));
 	dialog.setDefaultSuffix("jpeg");
@@ -338,8 +337,7 @@ void RenderWindow::slotMenuSaveImagePNG()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(
-		QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("8-bit PNG"));
 	dialog.setDefaultSuffix("png");
@@ -363,8 +361,7 @@ void RenderWindow::slotMenuSaveImageEXR()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("EXR images (*.exr)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(
-		QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("EXR"));
 	dialog.setDefaultSuffix("exr");
@@ -389,8 +386,7 @@ void RenderWindow::slotMenuSaveImageTIFF()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("TIFF images (*.tiff)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(
-		QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("TIFF"));
 	dialog.setDefaultSuffix("tiff");
@@ -414,8 +410,7 @@ void RenderWindow::slotMenuSaveImagePNG16()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(
-		QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("16-bit PNG"));
 	dialog.setDefaultSuffix("png");
@@ -443,8 +438,7 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(
-		QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("16-bit PNG + alpha channel"));
 	dialog.setDefaultSuffix("png");

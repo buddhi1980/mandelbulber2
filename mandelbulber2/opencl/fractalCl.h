@@ -58,7 +58,7 @@ typedef enum {
 	foldBox5 = 7
 } eClenumGeneralizedFoldBoxType;
 
-typedef enum { ocl_DEcalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2 } eClenumOCLDEMode;
+typedef enum { ocl_DECalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2 } eClenumOCLDEMode;
 }
 
 // struct sMandelbulbAux
@@ -241,20 +241,20 @@ typedef struct
 // mandelbulb multi
 typedef struct
 {
-	typedef enum { acos, asin } eClmulti_acosOrasin;
+	typedef enum { acos, asin } eClmulti_acosOrAsin;
 
-	typedef enum { atan, atan2 } eClmulti_atanOratan2;
+	typedef enum { atan, atan2 } eClmulti_atanOrAtan2;
 
-	typedef enum { xyz, xzy, yxz, yzx, zxy, zyx } eClmulti_OrderOfxyz;
+	typedef enum { xyz, xzy, yxz, yzx, zxy, zyx } eClmulti_OrderOfXYZ;
 
-	multi_acosOrasin acosOrasin;
-	multi_acosOrasin acosOrasinA;
-	multi_atanOratan2 atanOratan2;
-	multi_atanOratan2 atanOratan2A;
+	multi_acosOrAsin acosOrasin;
+	multi_acosOrAsin acosOrasinA;
+	multi_atanOrAtan2 atanOratan2;
+	multi_atanOrAtan2 atanOratan2A;
 
-	multi_OrderOfxyz orderOfxyz;
-	multi_OrderOfxyz orderOfxyz2;
-	multi_OrderOfxyz orderOfxyzC;
+	multi_OrderOfXYZ orderOfxyz;
+	multi_OrderOfXYZ orderOfxyz2;
+	multi_OrderOfXYZ orderOfxyzC;
 } sClsFractalMandelbulbMulti;
 
 // sinTan2Trig
@@ -282,7 +282,7 @@ typedef struct
 	multi_orderOfFolds orderOfFolds5;
 } sClsFractalSurfFolds;
 
-// benesi mag transfroms
+// benesi mag transforms
 typedef struct
 {
 	typedef enum {

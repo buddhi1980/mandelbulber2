@@ -123,10 +123,11 @@ public:
 		QString imageBaseName = QFileInfo(lastImageFile).completeBaseName();
 
 		// if the last image file has been saved manually, this is the suggestion for the filename
-		if(!lastImageFile.endsWith("image.jpg")) return imageBaseName;
+		if (!lastImageFile.endsWith("image.jpg")) return imageBaseName;
 
-		// otherwise if the settings has been loaded from a proper .fract file, this fileName's basename is the suggestion
-		if(lastSettingsFile.endsWith(".fract")) return QFileInfo(lastSettingsFile).completeBaseName();
+		// otherwise if the settings has been loaded from a proper .fract file, this fileName's basename
+		// is the suggestion
+		if (lastSettingsFile.endsWith(".fract")) return QFileInfo(lastSettingsFile).completeBaseName();
 
 		// maybe loaded by clipboard, no better suggestion, than the default lastImageFile's baseName
 		return imageBaseName;

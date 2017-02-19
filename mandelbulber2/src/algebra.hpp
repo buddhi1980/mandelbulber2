@@ -391,7 +391,8 @@ public:
 		c.w = fabs(w);
 		return c;
 	}
-	inline void GetXYZWInto(CVector3 &v, double &w) const {
+	inline void GetXYZWInto(CVector3 &v, double &w) const
+	{
 		v.x = x;
 		v.y = y;
 		v.z = z;

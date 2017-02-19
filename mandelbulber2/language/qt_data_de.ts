@@ -8666,9 +8666,13 @@ min Radius:</translation>
         <translation type="vanished">z = SIGN(z) (Offset - fabs(z) + fabs(z) * Steigung)   4D</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="35"/>
         <source>z = SIGN(z) (offset - fabs(z) + fabs(z) * Slope)   4D</source>
-        <translation>z = SIGN(z) (Offset - fabs(z) + fabs(z) * Steigung)   4D</translation>
+        <translation type="vanished">z = SIGN(z) (Offset - fabs(z) + fabs(z) * Steigung)   4D</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="35"/>
+        <source>z = SIGN(z) (offset - fabs(z) + fabs(z) * Slope) 4D</source>
+        <translation>z = SIGN(z) (Offset - fabs(z) + fabs(z) * Steigung) 4D</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_transf_fabs_add_conditional4D.ui" line="199"/>
