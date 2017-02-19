@@ -8,12 +8,10 @@ QT       += core gui uitools widgets network testlib multimedia
 
 macx:QT += svg
 
-!win32 {
-  qtHaveModule(gamepad){
-    QT += gamepad
-    DEFINES += USE_GAMEPAD
-    message("Use QtGamepad module")
-  }
+qtHaveModule(gamepad){
+  QT += gamepad
+  DEFINES += USE_GAMEPAD
+  message("Use QtGamepad module")
 }
 
 CONFIG += link_pkgconfig
