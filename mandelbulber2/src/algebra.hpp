@@ -395,8 +395,10 @@ public:
 		v.x = x;
 		v.y = y;
 		v.z = z;
-		w = w;
+		w = this->w;
 	}
+	inline CVector3 GetXYZ() const { return CVector3(x, y, z); }
+
 	inline double Normalize()
 	{
 		double norm = 1.0 / Length();
