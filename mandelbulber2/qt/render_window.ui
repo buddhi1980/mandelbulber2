@@ -1132,7 +1132,7 @@
   <action name="actionDefault_docks_positions">
    <property name="icon">
     <iconset theme="edit-undo">
-     <normaloff>:/system/icons/edit-undo.svg</normaloff>:/system/icons/edit-undo.svg</iconset>
+     <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Default window layout</string>
