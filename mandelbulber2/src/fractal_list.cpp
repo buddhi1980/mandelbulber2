@@ -51,19 +51,16 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription(
 		"None", "", none, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 1));
 
-	fractalList->append(sFractalDescription("AboxMod1", "aboxMod1", aboxMod1, analyticDEType,
+	// Abox formulas
+	fractalList->append(sFractalDescription("Abox - Mod 1", "abox_mod1", aboxMod1, analyticDEType,
 		linearDEFunction, cpixelEnabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("AboxMod2", "aboxMod2", aboxMod2, analyticDEType,
+	fractalList->append(sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2, analyticDEType,
 		linearDEFunction, cpixelEnabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("AboxModKali", "aboxModKali", aboxModKali, analyticDEType,
+	fractalList->append(sFractalDescription("Abox - Mod Kali", "abox_mod_kali", aboxModKali, analyticDEType,
 		linearDEFunction, cpixelEnabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("AboxModKaliEiffie", "aboxModKaliEiffie",
+	fractalList->append(sFractalDescription("Abox - Mod Kali-Eiffie", "abox_mod_kali_eiffie",
 		aboxModKaliEiffie, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("AboxVS icen1", "aboxVS_icen1", aboxVSIcen1,
+	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription(

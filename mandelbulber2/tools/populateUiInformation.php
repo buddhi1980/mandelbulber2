@@ -38,6 +38,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 	if(count($matches) < 4) die('could not read index for formula : ' . $formulaMatch);
 	$index = trim($matches[3]);
 	$internalName = trim($matches[2]);
+	$internalNameNew = from_camel_case($index);
 	$name = trim($matches[1]);
 
 	// find associated functions
@@ -49,6 +50,25 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 		// die('could not read function name for index: ' . $index);
 	}
 	$functionName = trim($matchFunctionName[1]);
+	$functionNameNew = ucfirst($index) . 'Iteration';
+
+  // check for automatic renaming to fit naming convention
+	if($internalNameNew != $internalName){
+	  if(!isDryRun()){
+		  upgradeInternalName($internalName, $internalNameNew);
+		}
+		echo noticeString('internal name upgrade from ' . $internalName . ' to ' . $internalNameNew) . PHP_EOL;
+		$internalName = $internalNameNew;
+		exit;
+	}
+	if($functionName != $functionNameNew){
+	  if(!isDryRun()){
+		  upgradeFunctionName($functionName, $functionNameNew);
+		}
+		echo noticeString('function name upgrade from ' . $functionName . ' to ' . $functionNameNew) . PHP_EOL;
+		$functionNameNew = $functionName;
+		exit;
+	}
 
 	// read function contents
 	$functionContentMatchString = '/(\/\*\*[\s\S]+?\*\/)[\s\S]*(void ' . $functionName . '\([\s\S]*)/';
@@ -467,6 +487,7 @@ function parseToOpenCL($code){
 			array('find' => "/($var)\.Length\(\)/", 'replace' => 'length($1)'),       // CVector3 Length() to built in length
 			array('find' => "/($var)\.Dot\(/", 'replace' => 'dot($1, '),              // CVector3 Dot() to built in dot
 			array('find' => "/($var)\.Cross\(/", 'replace' => 'cross($1, '),          // CVector3 Cross() to built in cross
+			array('find' => "/($var)\.RotateVector\(/", 'replace' => 'Matrix33MulFloat3($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ float temp = $1; $2 = $1; $1 = temp; }'),// swap vals
 			array('find' => "/($s|\()(\d+)f($s|;)/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
 			array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x)
@@ -490,8 +511,10 @@ function parseToOpenCL($code){
 			// formula specific replacements
 			array('find' => "/^void(\s)/", 'replace' => 'inline void$1'), // mark void with inline void
 			array('find' => "/float3 &z/", 'replace' => 'global float3 *z'), // no passing by reference
-			array('find' => "/sExtendedAux &aux/", 'replace' => 'global sExtendedAux *aux'), // no passing by reference
 			array('find' => "/z\./", 'replace' => 'z->'),
+			array('find' => "/float4 &z4D/", 'replace' => 'global float4 *z4D'), // no passing by reference
+			array('find' => "/z4D\./", 'replace' => 'z4D->'),
+			array('find' => "/sExtendedAux &aux/", 'replace' => 'global sExtendedAux *aux'), // no passing by reference
 			array('find' => "/aux\./", 'replace' => 'aux->'),
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			// TODO more replacements
@@ -585,6 +608,48 @@ transf_scale_2 1,079812;';
         echo PHP_EOL . $cmd . PHP_EOL;
         shell_exec($cmd);
         shell_exec("convert '" . $imgPath . "' -depth 8 '" . $imgPath . "'"); // save disk space with 8-bit png
+}
+
+function upgradeInternalName($internalName, $internalNameNew){
+  shell_exec('git mv'
+	   . ' \'' . PROJECT_PATH . 'qt_data/fractal_' . $internalName . '.ui\''
+		 . ' \'' . PROJECT_PATH . 'qt_data/fractal_' . $internalNameNew . '.ui\''
+	);
+	shell_exec('git mv'
+	  . ' \'' . PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalName . '.png\''
+		. ' \'' . PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalNameNew . '.png\''
+	);
+	if(file_exists(PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalName . '.fract')){
+	  shell_exec('git mv'
+		  . ' \'' . PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalName . '.fract\''
+			. ' \'' . PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalNameNew . '.fract\''
+		);
+	}
+	$fractal_list_content = file_get_contents(PROJECT_PATH .'src/fractal_list.cpp');
+	$fractal_list_content = str_replace ('"' . $internalName . '"', '"' . $internalNameNew . '"', $fractal_list_content);
+	file_put_contents(PROJECT_PATH .'src/fractal_list.cpp', $fractal_list_content);
+}
+
+function upgradeFunctionName($functionName, $functionNameNew){
+  $replaceInFiles = array(
+	  PROJECT_PATH .'src/compute_fractal.cpp',
+		PROJECT_PATH .'src/fractal_formulas.cpp',
+		PROJECT_PATH .'src/fractal_formulas.hpp',
+	);
+	foreach($replaceInFiles as $replaceInFile){
+	  $fileContent = file_get_contents($replaceInFile);
+		$fileContent = str_replace ($functionName, $functionNameNew, $fileContent);
+		file_put_contents($replaceInFile, $fileContent);
+	}
+}
+
+function from_camel_case($input) {
+	preg_match_all('@([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)@', $input, $matches);
+	$ret = $matches[0];
+	foreach ($ret as &$match) {
+		$match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+	}
+	return implode('_', $ret);
 }
 
 ?>
