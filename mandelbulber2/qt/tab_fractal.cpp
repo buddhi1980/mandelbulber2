@@ -110,18 +110,32 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	// set headings and separator of formulas and transforms
 	QFont fontHeading;
 	fontHeading.setBold(true);
-	ui->comboBox_formula->insertItem(0, QObject::tr("Formulas"));
-	ui->comboBox_formula->setItemData(0, fontHeading, Qt::FontRole);
-	ui->comboBox_formula->setItemData(0, Qt::AlignCenter, Qt::TextAlignmentRole);
-	qobject_cast<QStandardItemModel *>(ui->comboBox_formula->model())->item(0)->setEnabled(false);
-	int indexBeforeTransforms = ui->comboBox_formula->findText("Transform - Addition Constant");
-	ui->comboBox_formula->insertItem(indexBeforeTransforms, QObject::tr("Transforms"));
-	ui->comboBox_formula->setItemData(indexBeforeTransforms, fontHeading, Qt::FontRole);
-	ui->comboBox_formula->setItemData(indexBeforeTransforms, Qt::AlignCenter, Qt::TextAlignmentRole);
-	qobject_cast<QStandardItemModel *>(ui->comboBox_formula->model())
-		->item(indexBeforeTransforms)
-		->setEnabled(false);
-	ui->comboBox_formula->insertSeparator(indexBeforeTransforms);
+	QList<QPair<int, QString>/*non empty*/> insertHeader;
+	insertHeader << QPair<int, QString>(fractal::aboxMod1, QObject::tr("Formulas"));
+	insertHeader << QPair<int, QString>(fractal::abox4D, QObject::tr("Formulas 4d"));
+	insertHeader << QPair<int, QString>(fractal::transfAdditionConstant, QObject::tr("Transforms"));
+	insertHeader << QPair<int, QString>(fractal::transfAdditionConstant4D, QObject::tr("Transforms 4d"));
+
+	for(int hIndex = 0; hIndex < insertHeader.size(); hIndex++){
+		QPair<int, QString> header = insertHeader.at(hIndex);
+		int comboIndex = -1;
+		for(int fIndex = 0; fIndex < fractalList.size(); fIndex++){
+			if(fractalList.at(fIndex).internalID == header.first){
+				// should be fIndex, but every new header inserts two new items, which have to be added
+				comboIndex = fIndex + 2 * hIndex;
+			}
+		}
+		if(comboIndex == -1){
+			qCritical() << "Cannot insert combobox Header!";
+		}
+		else{
+			ui->comboBox_formula->insertItem(comboIndex, header.second);
+			ui->comboBox_formula->setItemData(comboIndex, fontHeading, Qt::FontRole);
+			ui->comboBox_formula->setItemData(comboIndex, Qt::AlignCenter, Qt::TextAlignmentRole);
+			qobject_cast<QStandardItemModel *>(ui->comboBox_formula->model())->item(comboIndex)->setEnabled(false);
+			ui->comboBox_formula->insertSeparator(comboIndex);
+		}
+	}
 
 	connect(ui->comboBox_formula, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboFractal(int)));
@@ -151,8 +165,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 	if (fractalList[index].internalID > 0)
 	{
 		QString formulaName = fractalList[index].internalName;
-		QString uiFilename =
-			systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_" + formulaName + ".ui";
+		QString uiFilename = fractalList[index].getUiFilename();
 
 		if (fractalWidget) delete fractalWidget;
 		fractalWidget = nullptr;

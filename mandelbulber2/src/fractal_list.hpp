@@ -267,6 +267,10 @@ struct sFractalDescription
 		return systemData.sharedDir + "qt_data" + QDir::separator() + "formula_and_transform_images"
 					 + QDir::separator() + internalName + ".png";
 	}
+	QString getUiFilename() const
+	{
+		return systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_" + internalName + ".ui";
+	}
 };
 
 extern QList<sFractalDescription> fractalList;
