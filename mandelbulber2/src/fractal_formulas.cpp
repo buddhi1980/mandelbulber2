@@ -1642,7 +1642,7 @@ void BenesiMagTransformsIteration(
  * http://www.fractalforums.com/new-theories-and-research/
  * do-m3d-formula-have-to-be-distance-estimation-formulas/
  */
-void BenesiPwr2sIteration(
+void BenesiPwr2MandelbulbIteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	{
@@ -1893,7 +1893,7 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
  * IQ-Bulb from Mandelbulb 3D and Inigo Quilez
  * @reference http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
  */
-void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void IqBulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	// extract polar coordinates
 	double wr = aux.r;

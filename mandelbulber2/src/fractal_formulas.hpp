@@ -61,7 +61,7 @@ void BenesiT1PineTreeIteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void BenesiMagTransformsIteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
-void BenesiPwr2sIteration(
+void BenesiPwr2MandelbulbIteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux);
@@ -76,7 +76,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtended
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void Ides2Iteration(CVector3 &z, const cFractal *fractal);
 void IdesIteration(CVector3 &z, const cFractal *fractal);
-void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void IqBulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Kalisets1Iteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector3 &z);

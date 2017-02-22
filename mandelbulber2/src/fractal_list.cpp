@@ -63,37 +63,33 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 
+	// Aexion formulas
 	fractalList->append(sFractalDescription(
 		"Aexion", "aexion", aexion, deltaDEType, logarithmicDEFunction, cpixelAlreadyHas, 10000));
-
-	fractalList->append(sFractalDescription("Aexion_Octopus_Mod", "aexion_octopus_mod",
+	fractalList->append(sFractalDescription("Aexion Octopus Mod", "aexion_octopus_mod",
 		aexionOctopusMod, deltaDEType, logarithmicDEFunction, cpixelAlreadyHas, 10));
 
-	fractalList->append(sFractalDescription("Amazing_Surf", "amazing_surf", amazingSurf,
+	// Amazing Surf formulas
+	fractalList->append(sFractalDescription("Amazing Surf", "amazing_surf", amazingSurf,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("Amazing_Surf_Mod1", "amazing_surf_mod1", amazingSurfMod1,
+	fractalList->append(sFractalDescription("Amazing Surf - Mod 1", "amazing_surf_mod1", amazingSurfMod1,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("Amazing_Surf_Multi", "amazing_surf_multi",
+	fractalList->append(sFractalDescription("Amazing Surf - Multi", "amazing_surf_multi",
 		amazingSurfMulti, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
+	// Benesi formulas
 	fractalList->append(sFractalDescription("Benesi", "benesi", benesi, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("Benesi_Pine_Tree", "benesi_pine_tree", benesiPineTree,
+	fractalList->append(sFractalDescription("Benesi - Pine Tree", "benesi_pine_tree", benesiPineTree,
 		analyticDEType, logarithmicDEFunction, cpixelAlreadyHas, 10));
-
-	fractalList->append(sFractalDescription("Benesi_T1_Pine_Tree", "benesi_T1_pine_tree",
+	fractalList->append(sFractalDescription("Benesi - T1 Pine Tree", "benesi_t1_pine_tree",
 		benesiT1PineTree, analyticDEType, logarithmicDEFunction, cpixelAlreadyHas, 10));
-
-	fractalList->append(sFractalDescription("Benesi Mag Transforms", "benesi_mag_transforms",
+	fractalList->append(sFractalDescription("Benesi - Mag Transforms", "benesi_mag_transforms",
 		benesiMagTransforms, deltaDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Benesi Pwr2 Mandelbulbs", "benesi_pwr2s", benesiPwr2s,
+	fractalList->append(sFractalDescription("Benesi - Pwr2 Mandelbulb", "benesi_pwr2_mandelbulb", benesiPwr2Mandelbulb,
 		analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "boxfold_bulbpow2",
+	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "box_fold_bulb_pow2",
 		boxFoldBulbPow2, deltaDEType, linearDEFunction, cpixelEnabledByDefault, 10000));
 
 	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot, analyticDEType,
@@ -102,13 +98,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Buffalo", "buffalo", buffalo, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Collatz Fractal", "collatz", collatz, analyticDEType,
+	// Collatz formulas
+	fractalList->append(sFractalDescription("Collatz", "collatz", collatz, analyticDEType,
 		linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Collatz Fractal Mod ", "collatz_mod", collatzMod,
+	fractalList->append(sFractalDescription("Collatz - Mod ", "collatz_mod", collatzMod,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Fold_Box_Mod1", "fold_box_mod1", foldBoxMod1,
+	fractalList->append(sFractalDescription("Fold Box - Mod 1", "fold_box_mod1", foldBoxMod1,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Generalized Fold Box", "generalized_fold_box",
@@ -117,13 +113,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Hypercomplex", "hypercomplex", hypercomplex,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
+	// Ides formulas
 	fractalList->append(sFractalDescription(
 		"Ides", "ides", ides, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
 	fractalList->append(sFractalDescription(
 		"Ides 2", "ides2", ides2, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("IQ-Bulb", "iq_bulb", iqBulb, analyticDEType,
+	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
 	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "ifs", kaleidoscopicIFS,
