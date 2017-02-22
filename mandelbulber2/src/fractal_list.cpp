@@ -122,7 +122,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "ifs", kaleidoscopicIFS,
+	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "kaleidoscopic_ifs", kaleidoscopicIFS,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Kalisets1 Mod", "kalisets1", kalisets1, analyticDEType,
@@ -134,146 +134,121 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Makin3D-2", "makin3d2", makin3d2, deltaDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
+	// Mandelbox formulas
 	fractalList->append(sFractalDescription("Mandelbox", "mandelbox", mandelbox, analyticDEType,
 		linearDEFunction, cpixelEnabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Mandelbox Menger", "mandelbox_menger", mandelboxMenger,
+	fractalList->append(sFractalDescription("Mandelbox - Menger", "mandelbox_menger", mandelboxMenger,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
+	// Mandelbulb formulas
 	fractalList->append(sFractalDescription("Mandelbulb", "mandelbulb", mandelbulb, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Mandelbulb 2", "mandelbulb2", mandelbulb2,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Mandelbulb 3", "mandelbulb3", mandelbulb3,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Mandelbulb 4", "mandelbulb4", mandelbulb4,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Mandelbulb_Bermarte", "mandelbulb_bermarte",
+	fractalList->append(sFractalDescription("Mandelbulb - Bermarte", "mandelbulb_bermarte",
 		mandelbulbBermarte, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Mandelbulb Classic Power 2", "mandelbulb_power_2",
-		fast_mandelbulb_power2, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Mandelbulb_Kali", "mandelbulb_kali", mandelbulbKali,
+	fractalList->append(sFractalDescription("Mandelbulb - Power 2", "mandelbulb_power2",
+		mandelbulbPower2, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
+	fractalList->append(sFractalDescription("Mandelbulb - Kali", "mandelbulb_kali", mandelbulbKali,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Mandelbulb_Kali_Multi", "mandelbulb_kali_multi",
+	fractalList->append(sFractalDescription("Mandelbulb - Kali Multi", "mandelbulb_kali_multi",
 		mandelbulbKaliMulti, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Mandelbulb_Multi", "mandelbulb_multi", mandelbulbMulti,
+	fractalList->append(sFractalDescription("Mandelbulb - Multi", "mandelbulb_multi", mandelbulbMulti,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Mandelbulb_Vary_PowerV1", "mandelbulb_vary_powerV1",
+	fractalList->append(sFractalDescription("Mandelbulb - Vary Power V1", "mandelbulb_vary_power_v1",
 		mandelbulbVaryPowerV1, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", menger_sponge,
+	// Menger formulas
+	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", mengerSponge,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Menger Cross KIFS", "menger_cross_kifs", mengerCrossKIFS,
+	fractalList->append(sFractalDescription("Menger - Cross KIFS", "menger_cross_kifs", mengerCrossKIFS,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Menger Cross Mod1", "menger_cross_mod1", mengerCrossMod1,
+	fractalList->append(sFractalDescription("Menger - Cross Mod1", "menger_cross_mod1", mengerCrossMod1,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Menger Pwr2 Polynomial", "menger_pwr2_poly",
+	fractalList->append(sFractalDescription("Menger - Pwr2 Polynomial", "menger_pwr2_poly",
 		mengerPwr2Poly, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Menger-Mod1", "menger_mod1", mengerMod1, analyticDEType,
+	fractalList->append(sFractalDescription("Menger - Mod 1", "menger_mod1", mengerMod1, analyticDEType,
 		linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Menger Middle Mod", "menger_middle_mod", mengerMiddleMod,
+	fractalList->append(sFractalDescription("Menger - Middle Mod", "menger_middle_mod", mengerMiddleMod,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Menger - Octo", "menger_octo", mengerOcto,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Menger - Prism Shape", "menger_prism_shape",
 		mengerPrismShape, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Menger - Prism Shape2", "menger_prism_shape2",
 		mengerPrismShape2, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Menger - Smooth", "menger_smooth", mengerSmooth,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
 	fractalList->append(sFractalDescription("Menger - Smooth Mod1", "menger_smooth_mod1",
 		mengerSmoothMod1, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Msltoe Donut", "msltoe_donut", msltoeDonut, deltaDEType,
+	// Msltoe formulas
+	fractalList->append(sFractalDescription("Msltoe - Donut", "msltoe_donut", msltoeDonut, deltaDEType,
 		linearDEFunction, cpixelDisabledByDefault, 4));
-
-	fractalList->append(sFractalDescription("MsltoeSym2_Mod", "msltoesym2_mod", msltoesym2Mod,
+	fractalList->append(sFractalDescription("Msltoe - Sym2 Mod", "msltoe_sym2_mod", msltoeSym2Mod,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("MsltoeSym3_Mod", "msltoesym3_mod", msltoesym3Mod,
+	fractalList->append(sFractalDescription("Msltoe - Sym3 Mod", "msltoe_sym3_mod", msltoeSym3Mod,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Msltoe_Julia_Bulb_Eiffie", "eiffie_msltoe", eiffieMsltoe,
+	fractalList->append(sFractalDescription("Msltoe - Julia Bulb Eiffie", "eiffie_msltoe", eiffieMsltoe,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Msltoe_Julia_Bulb_Mod2", "msltoesym3_mod2",
-		msltoesym3Mod2, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Msltoe_Julia_Bulb_Mod3", "msltoesym3_mod3",
-		msltoesym3Mod3, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("MsltoeSym4_Mod", "msltoesym4_mod", msltoesym4Mod,
+	fractalList->append(sFractalDescription("Msltoe - Julia Bulb Mod2", "msltoe_sym3_mod2",
+		msltoeSym3Mod2, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
+	fractalList->append(sFractalDescription("Msltoe - Julia Bulb Mod3", "msltoe_sym3_mod3",
+		msltoeSym3Mod3, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
+	fractalList->append(sFractalDescription("Msltoe - Sym4 Mod", "msltoe_sym4_mod", msltoeSym4Mod,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Msltoe Toroidal Bulb", "msltoe_toroidal", msltoeToroidal,
+	fractalList->append(sFractalDescription("Msltoe - Toroidal Bulb", "msltoe_toroidal", msltoeToroidal,
 		analyticDEType, // TODO fix??
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
 	fractalList->append(
-		sFractalDescription("Msltoe Toroidal Multi", "msltoe_toroidal_multi", msltoeToroidalMulti,
+		sFractalDescription("Msltoe - Toroidal Multi", "msltoe_toroidal_multi", msltoeToroidalMulti,
 			analyticDEType, // TODO fix??
 			logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Pseudo Kleinian stdDE", "pseudo_kleinian1",
+	// Pseudo Kleinian formulas
+	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian1",
 		pseudoKleinian1, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
-
 	fractalList->append(sFractalDescription("Pseudo Kleinian", "pseudo_kleinian2", pseudoKleinian2,
 		analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("Pseudo Kleinian Mod1", "pseudo_kleinian3",
+	fractalList->append(sFractalDescription("Pseudo Kleinian - Mod 1", "pseudo_kleinian3",
 		pseudoKleinian3, analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
 
+	// Quaternion formulas
 	fractalList->append(sFractalDescription("Quaternion", "quaternion", quaternion, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Quaternion3DE", "quaternion3D", quaternion3D,
+	fractalList->append(sFractalDescription("Quaternion3D", "quaternion3d", quaternion3d,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Quick-Dudley", "quickdudley", quickdudley, deltaDEType,
+	// Quick Dudley formulas
+	fractalList->append(sFractalDescription("Quick Dudley", "quick_dudley", quickDudley, deltaDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Quick-Dudley Mod", "quick_dudley_mod", quickDudleyMod,
+	fractalList->append(sFractalDescription("Quick Dudley - Mod", "quick_dudley_mod", quickDudleyMod,
 		deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Riemann Sphere Msltoe", "riemann_sphere_msltoe",
+	// Riemann formulas
+	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe", "riemann_sphere_msltoe",
 		riemannSphereMsltoe, deltaDEType, logarithmicDEFunction, cpixelDisabledByDefault, 1.5));
-
-	fractalList->append(sFractalDescription("Riemann Sphere Msltoe V1", "riemann_sphere_msltoeV1",
+	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe V1", "riemann_sphere_msltoe_v1",
 		riemannSphereMsltoeV1, deltaDEType, logarithmicDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Riemann Bulb Msltoe Mod2", "riemann_bulb_msltoe_mod2",
+	fractalList->append(sFractalDescription("Riemann - Bulb Msltoe Mod2", "riemann_bulb_msltoe_mod2",
 		riemannBulbMsltoeMod2, deltaDEType, logarithmicDEFunction, cpixelDisabledByDefault, 1.5));
 
-	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski_3D", sierpinski3D,
+	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski3d", sierpinski3d,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
 	fractalList->append(sFractalDescription("Smooth Mandelbox", "smooth_mandelbox", smoothMandelbox,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Xenodreambuie's formula", "xenodreambuie", xenodreambuie,
+	fractalList->append(sFractalDescription("Xenodreambuie", "xenodreambuie", xenodreambuie,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Imaginary scator Power 2", "imagsca_power_2",
-		fastImagscaPower2, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
+	fractalList->append(sFractalDescription("Imaginary scator Power 2", "imaginary_scator_power2",
+		imaginaryScatorPower2, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
 	// ------------------ 4D -----------------------
 

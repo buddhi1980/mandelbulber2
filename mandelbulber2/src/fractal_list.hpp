@@ -44,13 +44,13 @@ namespace fractal
 enum enumFractalFormula
 {
 	none = 0,
-	fast_mandelbulb = 1,
+	fastMandelbulb = 1,
 	mandelbulb = 2,
-	fast_mandelbulb_power2 = 3,
+	mandelbulbPower2 = 3,
 	hypercomplex = 4,
 	quaternion = 5,
-	minus_fast_trig = 6,
-	menger_sponge = 7,
+	minusFastTrig = 6,
+	mengerSponge = 7,
 	mandelbox = 8,
 	kaleidoscopicIFS = 10,
 	xenodreambuie = 11,
@@ -80,14 +80,14 @@ enum enumFractalFormula
 	angleMultiplyY = 35,
 	angleMultiplyZ = 36,
 	generalizedFoldBox = 37,
-	ocl_custom = 38,
+	oclCustom = 38,
 	ides = 39,
 	ides2 = 40,
 	buffalo = 41,
-	quickdudley = 48,
+	quickDudley = 48,
 	lkmitch = 49,
 	makin3d2 = 50,
-	msltoesym2Mod = 51,
+	msltoeSym2Mod = 51,
 	// mandelbulb5 = 52,
 	// mandelbox103 = 53,
 	// quaternion104 = 54,
@@ -98,14 +98,14 @@ enum enumFractalFormula
 	foldBoxMod1 = 59,
 	aboxModKali = 60,
 	mengerMod1 = 61, // fix V2.10
-	quaternion3D = 62,
+	quaternion3d = 62,
 	aexionOctopusMod = 63,
 	aboxMod1 = 64,
 	mandelbulbMulti = 65, // updated V2.08
 	benesiPineTree = 66,
 	benesiT1PineTree = 67, // updated V2.09
-	msltoesym3Mod = 68,
-	msltoesym4Mod = 69,
+	msltoeSym3Mod = 68,
+	msltoeSym4Mod = 69,
 	eiffieMsltoe = 70, // updated V2.08
 	riemannSphereMsltoeV1 = 71,
 	riemannSphereMsltoe = 72,
@@ -116,8 +116,8 @@ enum enumFractalFormula
 	amazingSurfMod1 = 77, // updated V2.08
 	mandelbulbVaryPowerV1 = 78,
 	quaternion4D = 79, // updated V2.10
-	msltoesym3Mod2 = 80,
-	msltoesym3Mod3 = 81,
+	msltoeSym3Mod2 = 80,
+	msltoeSym3Mod3 = 81,
 	msltoeDonut = 82,
 	iqBulb = 83,
 	quickDudleyMod = 84,
@@ -149,7 +149,7 @@ enum enumFractalFormula
 	mengerPrismShape2 = 107,
 	mixPinski4D = 108,
 	sierpinski4D = 109,
-	sierpinski3D = 110,
+	sierpinski3d = 110,
 	menger4D = 111,
 	menger4Dmod1 = 112,
 	mengerSmooth = 113,
@@ -158,7 +158,7 @@ enum enumFractalFormula
 	abox4D = 116,
 
 	// 152 to 172 reserved for scator
-	fastImagscaPower2 = 152,
+	imaginaryScatorPower2 = 152,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

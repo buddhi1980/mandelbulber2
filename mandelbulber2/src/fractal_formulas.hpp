@@ -71,7 +71,7 @@ void CollatzModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExte
 void CrossMengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void EiffieMsltoeIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux);
-void FastImagscaPower2Iteration(CVector3 &z);
+void ImaginaryScatorPower2Iteration(CVector3 &z);
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void Ides2Iteration(CVector3 &z, const cFractal *fractal);
@@ -80,7 +80,7 @@ void IqBulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Kalisets1Iteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector3 &z);
-void Makin3D2Iteration(CVector3 &z);
+void Makin3d2Iteration(CVector3 &z);
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelboxMengerIteration(
 	CVector3 &z, CVector3 c, int &i, const cFractal *fractal, sExtendedAux &aux);
@@ -121,14 +121,14 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
 void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
-void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void Quaternion3dIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void QuickDudleyIteration(CVector3 &z);
 void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal);
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal);
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal);
 void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal);
-void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void Sierpinski3dIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector3 &z, sExtendedAux &aux);

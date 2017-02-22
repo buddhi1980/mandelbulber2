@@ -674,7 +674,7 @@ void LkmitchIteration(CVector3 &z)
  * Makin3D-2 found through the another shot at the holy grail topic at ff
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
  */
-void Makin3D2Iteration(CVector3 &z)
+void Makin3d2Iteration(CVector3 &z)
 {
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
@@ -4796,7 +4796,7 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
  * @reference http://www.fractalforums.com/3d-fractal-generation
  * /true-3d-mandlebrot-type-fractal/
  */
-void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void Quaternion3dIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
@@ -4940,7 +4940,7 @@ void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal)
  * Sierpinski3D. made from Darkbeams Sierpinski code from M3D
 
  */
-void Sierpinski3DIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void Sierpinski3dIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 
 	CVector3 temp = z;
@@ -5303,7 +5303,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
  *            http://luz.izt.uam.mx/index.html/?q=node/95&language=en
  * @author Manuel Fernandez-Guasti
  */
-void FastImagscaPower2Iteration(CVector3 &z)
+void ImaginaryScatorPower2Iteration(CVector3 &z)
 {
 	double x2 = z.x * z.x; //+ 1e-061
 	double y2 = z.y * z.y;

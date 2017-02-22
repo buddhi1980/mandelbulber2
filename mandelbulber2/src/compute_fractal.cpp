@@ -178,7 +178,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					Mandelbulb4Iteration(z, fractal, extendedAux);
 					break;
 				}
-				case fast_mandelbulb_power2:
+				case mandelbulbPower2:
 				{
 					MandelbulbPower2Iteration(z, extendedAux);
 					break;
@@ -203,7 +203,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					BoxFoldBulbPow2Iteration(z, fractal);
 					break;
 				}
-				case menger_sponge:
+				case mengerSponge:
 				{
 					MengerSpongeIteration(z, extendedAux);
 					break;
@@ -253,7 +253,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					BuffaloIteration(z, fractal, extendedAux);
 					break;
 				}
-				case quickdudley:
+				case quickDudley:
 				{
 					QuickDudleyIteration(z);
 					break;
@@ -270,7 +270,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case makin3d2:
 				{
-					Makin3D2Iteration(z);
+					Makin3d2Iteration(z);
 					break;
 				}
 				case msltoeDonut:
@@ -278,27 +278,27 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MsltoeDonutIteration(z, fractal, extendedAux);
 					break;
 				}
-				case msltoesym2Mod:
+				case msltoeSym2Mod:
 				{
 					MsltoeSym2ModIteration(z, c, fractal, extendedAux);
 					break;
 				}
-				case msltoesym3Mod:
+				case msltoeSym3Mod:
 				{
 					MsltoeSym3ModIteration(z, c, i, fractal, extendedAux);
 					break;
 				}
-				case msltoesym3Mod2:
+				case msltoeSym3Mod2:
 				{
 					MsltoeSym3Mod2Iteration(z, c, fractal, extendedAux);
 					break;
 				}
-				case msltoesym3Mod3:
+				case msltoeSym3Mod3:
 				{
 					MsltoeSym3Mod3Iteration(z, c, i, fractal, extendedAux);
 					break;
 				}
-				case msltoesym4Mod:
+				case msltoeSym4Mod:
 				{
 					MsltoeSym4ModIteration(z, c, fractal, extendedAux);
 					break;
@@ -509,9 +509,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					PseudoKleinian3Iteration(z, i, fractal, extendedAux);
 					break;
 				}
-				case quaternion3D:
+				case quaternion3d:
 				{
-					Quaternion3DIteration(z, fractal, extendedAux);
+					Quaternion3dIteration(z, fractal, extendedAux);
 					break;
 				}
 				case riemannSphereMsltoe:
@@ -529,14 +529,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					RiemannBulbMsltoeMod2Iteration(z, fractal);
 					break;
 				}
-				case sierpinski3D:
+				case sierpinski3d:
 				{
-					Sierpinski3DIteration(z, i, fractal, extendedAux);
+					Sierpinski3dIteration(z, i, fractal, extendedAux);
 					break;
 				}
-				case fastImagscaPower2:
+				case imaginaryScatorPower2:
 				{
-					FastImagscaPower2Iteration(z);
+					ImaginaryScatorPower2Iteration(z);
 					break;
 				}
 
@@ -1026,7 +1026,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 		switch (fractal->formula)
 		{
-			case fastImagscaPower2:
+			case imaginaryScatorPower2:
 			{
 				CVector3 z2 = z * z;
 				r = sqrt(z2.x + z2.y + z2.z) + (z2.y * z2.z) / (z2.x);
@@ -1206,7 +1206,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case bristorbrot4D:
 				case buffalo:
 				case eiffieMsltoe:
-				case fast_mandelbulb_power2:
+				case mandelbulbPower2:
 				case hypercomplex:
 				case iqBulb:
 				case mandelbulb:
@@ -1218,16 +1218,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulbKaliMulti:
 				case mandelbulbMulti:
 				case mandelbulbVaryPowerV1:
-				case msltoesym2Mod:
-				case msltoesym3Mod:
-				case msltoesym3Mod2:
-				case msltoesym3Mod3:
-				case msltoesym4Mod:
+				case msltoeSym2Mod:
+				case msltoeSym3Mod:
+				case msltoeSym3Mod2:
+				case msltoeSym3Mod3:
+				case msltoeSym4Mod:
 				case msltoeToroidal:			// TODO fix??
 				case msltoeToroidalMulti: // TODO fix??
 				case quaternion:
 				case transfQuaternionFold: // hmmm, this issue again
-				case quaternion3D:
+				case quaternion3d:
 				case xenodreambuie:
 				{
 					if (extendedAux.r_dz > 0)
@@ -1264,7 +1264,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						break;
 					}
 				case kaleidoscopicIFS:
-				case menger_sponge:
+				case mengerSponge:
 				case mengerCrossKIFS:
 				case mengerCrossMod1:
 				case mengerPrismShape:
@@ -1277,7 +1277,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerPwr2Poly:
 				// case mixPinski4D:
 				case sierpinski4D:
-				case sierpinski3D:
+				case sierpinski3d:
 				case menger4D:
 				case menger4Dmod1:
 				case mengerSmooth:
@@ -1361,7 +1361,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMod1:
 				case aboxModKali:
 				case aboxMod1:
-				case menger_sponge:
+				case mengerSponge:
 				case collatz:
 				case collatzMod:
 				case kaleidoscopicIFS:
