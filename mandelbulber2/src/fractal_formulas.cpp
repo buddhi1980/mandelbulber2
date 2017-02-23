@@ -7849,9 +7849,7 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 			z4D.z = -z4D.w;
 			z4D.w = -temp;
 		}
-		z4D = z4D * fractal->transformCommon.scale1;
-		z4D.x = z4D.x - (fractal->transformCommon.scale1 - 1.0); // ?
-
+		z4D *= fractal->transformCommon.scale1;
 		aux.DE *= fractal->transformCommon.scale1;
 	}
 
@@ -7909,17 +7907,20 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 			z4D.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
 		}
 	}
-
-	double scaleM = fractal->transformCommon.scale2;
-	CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
-	z4D.x = scaleM * z4D.x - offsetM.x * (scaleM - 1.0);
-	z4D.y = scaleM * z4D.y - offsetM.y * (scaleM - 1.0);
-	z4D.w = scaleM * z4D.w - offsetM.w * (scaleM - 1.0);
-	z4D.z -= 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
-	z4D.z = -fabs(-z4D.z);
-	z4D.z += 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
-	z4D.z = scaleM * z4D.z;
-	aux.DE *= scaleM * fractal->analyticDE.scale1;
+	if (i >= fractal->transformCommon.startIterationsM
+			&& i < fractal->transformCommon.stopIterationsM)
+	{
+		double scaleM = fractal->transformCommon.scale2;
+		CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
+		z4D.x = scaleM * z4D.x - offsetM.x * (scaleM - 1.0);
+		z4D.y = scaleM * z4D.y - offsetM.y * (scaleM - 1.0);
+		z4D.w = scaleM * z4D.w - offsetM.w * (scaleM - 1.0);
+		z4D.z -= 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
+		z4D.z = -fabs(-z4D.z);
+		z4D.z += 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
+		z4D.z = scaleM * z4D.z;
+		aux.DE *= scaleM * fractal->analyticDE.scale1;
+	}
 }
 
 /**
