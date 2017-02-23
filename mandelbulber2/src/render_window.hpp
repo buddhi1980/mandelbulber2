@@ -162,6 +162,8 @@ private slots:
 	static void slotKeyReleaseOnImage(QKeyEvent *event);
 	void slotMouseWheelRotatedOnImage(int delta) const;
 
+	void slotTestDetach();
+
 private:
 	Ui::RenderWindow *ui;
 	QDialog *preferencesDialog;

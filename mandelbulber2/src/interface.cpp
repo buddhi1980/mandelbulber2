@@ -385,6 +385,9 @@ void cInterface::ConnectSignals() const
 	QApplication::connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()),
 		mainWindow, SLOT(slotCustomWindowRemovePopup()));
 
+	QApplication::connect(mainWindow->ui->pushButton_testDetach, SIGNAL(clicked()),
+		mainWindow, SLOT(slotTestDetach()));
+
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksandToolbarbyView();
 }
