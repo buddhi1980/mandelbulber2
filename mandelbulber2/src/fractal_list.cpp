@@ -253,60 +253,56 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	// ------------------ 4D -----------------------
 
 	fractalList->append(sFractalDescription(
-		"Abox 4D", "abox_4D", abox4D, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
+		"Abox 4D", "abox4d", abox4d, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Bristorbrot4D", "bristorbrot4D", bristorbrot4D,
+	fractalList->append(sFractalDescription("Bristorbrot 4D", "bristorbrot4d", bristorbrot4d,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Quaternion_4D", "quaternion_4D", quaternion4D,
+	fractalList->append(sFractalDescription("Quaternion 4D", "quaternion4d", quaternion4d,
 		deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale_4d",
-		mandelboxVaryScale4D, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
+	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale4d",
+		mandelboxVaryScale4d, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("Menger 4D", "menger_4D", menger4D, analyticDEType,
+	// Menger 4D formulas
+	fractalList->append(sFractalDescription("Menger 4D", "menger4d", menger4d, analyticDEType,
 		linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Menger 4D Mod1", "menger_4D_mod1", menger4Dmod1,
+	fractalList->append(sFractalDescription("Menger 4D Mod1", "menger4d_mod1", menger4dMod1,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("MixPinski 4D", "mixPinski_4D", mixPinski4D,
+	fractalList->append(sFractalDescription("Mix Pinski 4D", "mix_pinski4d", mixPinski4d,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("Sierpinski 4D", "sierpinski_4D", sierpinski4D,
+	fractalList->append(sFractalDescription("Sierpinski 4D", "sierpinski4d", sierpinski4d,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
 	//-------------------------- transforms -----------------------------------
-	fractalList->append(
-		sFractalDescription("T>Addition Constant", "transf_addition_constant",
-			transfAdditionConstant, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("T>Addition Constant VaryV1",
-		"transf_addition_constant_varyV1", transfAdditionConstantVaryV1, analyticDEType,
+	// Add Transforms
+	fractalList->append(
+		sFractalDescription("T>Add Constant", "transf_add_constant",
+			transfAddConstant, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(sFractalDescription("T>Add Constant VaryV1",
+		"transf_add_constant_vary_v1", transfAddConstantVaryV1, analyticDEType,
 		withoutDEFunction, cpixelDisabledByDefault, 100));
-
-	fractalList->append(sFractalDescription("T>Add Cpixel", "transf_add_Cpixel",
+	fractalList->append(sFractalDescription("T>Add Cpixel", "transf_add_cpixel",
 		transfAddCpixel, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
-
 	fractalList->append(
-		sFractalDescription("T>Add Cpixel_Axis_Swap", "transf_add_Cpixel_axis_swap",
+		sFractalDescription("T>Add Cpixel - Axis Swap", "transf_add_cpixel_axis_swap",
 			transfAddCpixelAxisSwap, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
-
 	fractalList->append(
-		sFractalDescription("T>Add Cpixel_CxCy_Axis_Swap", "transf_add_Cpixel_CxCy_axis_swap",
+		sFractalDescription("T>Add Cpixel - CxCy Axis Swap", "transf_add_cpixel_cx_cy_axis_swap",
 			transfAddCpixelCxCyAxisSwap, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
-
 	fractalList->append(
-		sFractalDescription("T>Add Cpixel_Symmetrical", "transf_add_Cpixel_symmetrical",
-			transfAddCpixelPosNeg, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
-
+		sFractalDescription("T>Add Cpixel - Symmetrical", "transf_add_cpixel_symmetrical",
+			transfAddCpixelSymmetrical, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
 	fractalList->append(
-		sFractalDescription("T>Add Cpixel_VaryV1", "transf_add_Cpixel_varyV1",
+		sFractalDescription("T>Add Cpixel - VaryV1", "transf_add_cpixel_vary_v1",
 			transfAddCpixelVaryV1, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100));
-
-	fractalList->append(sFractalDescription("T>Add exp2(z)", "transf_add_exp2_Z",
+	fractalList->append(sFractalDescription("T>Add exp2(z)", "transf_add_exp2_z",
 		transfAddExp2Z, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
+	// Benesi Transforms
 	fractalList->append(sFractalDescription("T>Benesi_T1", "transf_benesi_T1",
 		transfBenesiT1, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
@@ -359,7 +355,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(
 		sFractalDescription("T>Fabs_Add_Tglad fold", "transf_fabs_add_constantV2",
-			transfFabsAddConstantV2, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+			transfFabsAddTgladFold, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
 		sFractalDescription("T>Fabs_Add_Conditional", "transf_fabs_add_conditional",
@@ -483,7 +479,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	// 4D
 	fractalList->append(
 		sFractalDescription("T>Addition Constant_4D", "transf_addition_constant_4D",
-			transfAdditionConstant4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+			transfAddConstant4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("T>Box_Fold_4D", "transf_box_fold_4D",
 		transfBoxFold4D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
@@ -498,7 +494,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(
 		sFractalDescription("T>Fabs_Add_Tglad fold_4D", "transf_fabs_add_constantV2_4D",
-			transfFabsAddConstantV24D, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+			transfFabsAddTgladFold4d, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(
 		sFractalDescription("T>Iteration Weight_4D", "transf_iteration_weight_4D",

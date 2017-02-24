@@ -5323,7 +5323,7 @@ void ImaginaryScatorPower2Iteration(CVector3 &z)
 /**
  * Adds c constant to z vector
  */
-void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
+void TransfAddConstantIteration(CVector3 &z, const cFractal *fractal)
 {
 	z += fractal->transformCommon.additionConstant000;
 	z += fractal->transformCommon.additionConstantA000;
@@ -5332,7 +5332,7 @@ void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
 /**
  * Adds c constant to z vector. C addition constant varies based on iteration parameters.
  */
-void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
+void TransfAddConstantVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
 {
 	CVector3 tempVC = fractal->transformCommon.additionConstant000; // constant to be varied
 	if (i < fractal->transformCommon.startIterations250)
@@ -5360,7 +5360,7 @@ void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal
 /**
  * Adds Cpixel constant to z vector
  */
-void TransformAddCpixelIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
+void TransfAddCpixelIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 {
 	z += c * fractal->transformCommon.constantMultiplier111;
 }
@@ -5369,7 +5369,7 @@ void TransformAddCpixelIteration(CVector3 &z, CVector3 c, const cFractal *fracta
  * Adds Cpixel constant to z vector, swapping the Cpixel vector x and y axes
  * disable swap for normal mode
  */
-void TransformAddCpixelCxCyAxisSwapIteration(
+void TransfAddCpixelCxCyAxisSwapIteration(
 	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 tempC = c;
@@ -5392,7 +5392,7 @@ void TransformAddCpixelCxCyAxisSwapIteration(
 /**
  * Adds Cpixel constant to z vector. Possible to swap Cpixel vector axes.
  */
-void TransformAddCpixelAxisSwapIteration(
+void TransfAddCpixelAxisSwapIteration(
 	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 tempC = c;
@@ -5430,7 +5430,7 @@ void TransformAddCpixelAxisSwapIteration(
 /**
  * Adds Cpixel constant to z vector, with symmetry
  */
-void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
+void TransfAddCpixelSymmetricalIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 {
 	CVector3 tempFAB = c;
 	if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
@@ -5447,7 +5447,7 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 c, const cFractal *
 /**
  * Adds Cpixel constant to z, Cpixel scaled  based on variable iteration parameters.
  */
-void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal)
+void TransfAddCpixelVaryV1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal)
 {
 	CVector3 tempVC = fractal->transformCommon.constantMultiplier111; // constant to be varied
 	if (i < fractal->transformCommon.startIterations250)
@@ -5475,7 +5475,7 @@ void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 c, int i, const cFr
 /**
  * Add exp2(z)
  */
-void TransformAddExp2ZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void TransfAddExp2ZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 tempZ = z;
 
@@ -7403,7 +7403,7 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fract
 /**
  * Formula based on Mandelbox (ABox). Extended to 4 dimensions
  */
-void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+void Abox4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 { // parabolic = paraOffset + iter *slope + (iter *iter *scale)
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
@@ -7512,7 +7512,7 @@ void Abox4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
  * @reference https://code.google.com/archive/p/fractaldimension/
  * by Doug Bristor
  */
-void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
+void Bristorbrot4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	double newx = z4D.x * z4D.x - z4D.y * z4D.y - z4D.z * z4D.z - z4D.w * z4D.w;
@@ -7530,7 +7530,7 @@ void Bristorbrot4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux
 /**
  * from Syntopia & Darkbeams Menger4 code from M3D
  */
-void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+void Menger4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	if (i >= fractal->transformCommon.startIterationsC
 			&& i < fractal->transformCommon.stopIterationsC)
@@ -7646,7 +7646,7 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 /**
  * Menger4D MOD1   from Syntopia & Darkbeams Menger4 code from M3D
  */
-void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+void Menger4dMod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
@@ -7791,7 +7791,7 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
  *A strange but intriguing fractal, that mixes Sierpinski and Menger folds.
  *The amazing thing is that in 3D it does not work so well! LUCA GN 2011
  */
-void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+void MixPinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	if (i >= fractal->transformCommon.startIterationsS
 			&& i < fractal->transformCommon.stopIterationsS)
@@ -7916,7 +7916,7 @@ void MixPinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
  * Sierpinski4D.from Syntopia & Darkbeams code
 
  */
-void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+void Sierpinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 
 	double temp;
@@ -8026,7 +8026,7 @@ void Sierpinski4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 /**
  * Quaternion4D
  */
-void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
+void Quaternion4dIteration(CVector4 &z4D, int i, const cFractal *fractal)
 {
 	z4D = CVector4(z4D.x * z4D.x - z4D.y * z4D.y - z4D.z * z4D.z - z4D.w * z4D.w, z4D.x * z4D.y,
 		z4D.x * z4D.z, z4D.w);
@@ -8087,7 +8087,7 @@ void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 /**
  * Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
  */
-void MandelboxVaryScale4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
+void MandelboxVaryScale4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)

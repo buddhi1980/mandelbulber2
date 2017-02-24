@@ -541,44 +541,44 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 
 				// transforms  ------------------------------------------------------------------
-				case transfAdditionConstant:
+				case transfAddConstant:
 				{
-					TransformAdditionConstantIteration(z, fractal);
+					TransfAddConstantIteration(z, fractal);
 					break;
 				}
-				case transfAdditionConstantVaryV1:
+				case transfAddConstantVaryV1:
 				{
-					TransformAdditionConstantVaryV1Iteration(z, i, fractal);
+					TransfAddConstantVaryV1Iteration(z, i, fractal);
 					break;
 				}
 				case transfAddCpixel:
 				{
-					TransformAddCpixelIteration(z, c, fractal);
+					TransfAddCpixelIteration(z, c, fractal);
 					break;
 				}
 				case transfAddCpixelAxisSwap:
 				{
-					TransformAddCpixelAxisSwapIteration(z, c, fractal, extendedAux);
+					TransfAddCpixelAxisSwapIteration(z, c, fractal, extendedAux);
 					break;
 				}
 				case transfAddCpixelCxCyAxisSwap:
 				{
-					TransformAddCpixelCxCyAxisSwapIteration(z, c, fractal, extendedAux);
+					TransfAddCpixelCxCyAxisSwapIteration(z, c, fractal, extendedAux);
 					break;
 				}
-				case transfAddCpixelPosNeg:
+				case transfAddCpixelSymmetrical:
 				{
-					TransformAddCpixelPosNegIteration(z, c, fractal);
+					TransfAddCpixelSymmetricalIteration(z, c, fractal);
 					break;
 				}
 				case transfAddCpixelVaryV1:
 				{
-					TransformAddCpixelVaryV1Iteration(z, c, i, fractal);
+					TransfAddCpixelVaryV1Iteration(z, c, i, fractal);
 					break;
 				}
 				case transfAddExp2Z:
 				{
-					TransformAddExp2ZIteration(z, fractal, extendedAux);
+					TransfAddExp2ZIteration(z, fractal, extendedAux);
 					break;
 				}
 
@@ -657,7 +657,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformFabsAddConstantIteration(z, fractal);
 					break;
 				}
-				case transfFabsAddConstantV2:
+				case transfFabsAddTgladFold:
 				{
 					TransformFabsAddConstantV2Iteration(z, i, fractal);
 					break;
@@ -844,65 +844,65 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 
 				// 4D  ---------------------------------------------------------------------------
-				case abox4D:
+				case abox4d:
 				{
 					CVector4 z4D(z, w);
-					Abox4DIteration(z4D, i, fractal, extendedAux);
+					Abox4dIteration(z4D, i, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
 
-				case quaternion4D:
+				case quaternion4d:
 				{
 					CVector4 z4D(z, w);
-					Quaternion4DIteration(z4D, i, fractal);
+					Quaternion4dIteration(z4D, i, fractal);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case mandelboxVaryScale4D:
+				case mandelboxVaryScale4d:
 				{
 					CVector4 z4D(z, w);
-					MandelboxVaryScale4DIteration(z4D, i, fractal, extendedAux);
+					MandelboxVaryScale4dIteration(z4D, i, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case bristorbrot4D:
+				case bristorbrot4d:
 				{
 					CVector4 z4D(z, w);
-					Bristorbrot4DIteration(z4D, fractal, extendedAux);
+					Bristorbrot4dIteration(z4D, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case menger4D:
+				case menger4d:
 				{
 					CVector4 z4D(z, w);
-					Menger4DIteration(z4D, i, fractal, extendedAux);
+					Menger4dIteration(z4D, i, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case menger4Dmod1:
+				case menger4dMod1:
 				{
 					CVector4 z4D(z, w);
-					Menger4Dmod1Iteration(z4D, i, fractal, extendedAux);
+					Menger4dMod1Iteration(z4D, i, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
 
-				case mixPinski4D:
+				case mixPinski4d:
 				{
 					CVector4 z4D(z, w);
-					MixPinski4DIteration(z4D, i, fractal, extendedAux);
+					MixPinski4dIteration(z4D, i, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case sierpinski4D:
+				case sierpinski4d:
 				{
 					CVector4 z4D(z, w);
-					Sierpinski4DIteration(z4D, i, fractal, extendedAux);
+					Sierpinski4dIteration(z4D, i, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfAdditionConstant4D:
+				case transfAddConstant4D:
 				{
 					CVector4 z4D(z, w);
 					TransformAdditionConstant4DIteration(z4D, fractal);
@@ -923,7 +923,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfFabsAddConstantV24D:
+				case transfFabsAddTgladFold4d:
 				{
 					CVector4 z4D(z, w);
 					TransformFabsAddConstantV24DIteration(z4D, fractal);
@@ -1203,7 +1203,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case benesiT1PineTree:
 				case benesiPwr2Mandelbulb:
 				case bristorbrot:
-				case bristorbrot4D:
+				case bristorbrot4d:
 				case buffalo:
 				case eiffieMsltoe:
 				case mandelbulbPower2:
@@ -1239,7 +1239,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbox:
 				case mandelboxMenger:
 				case smoothMandelbox:
-				case mandelboxVaryScale4D:
+				case mandelboxVaryScale4d:
 				case generalizedFoldBox:
 				case foldBoxMod1:
 				case aboxModKali:
@@ -1252,8 +1252,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kalisets1:
 				case aboxVSIcen1:
 				case pseudoKleinian1:
-				case mixPinski4D:
-				case abox4D:
+				case mixPinski4d:
+				case abox4d:
 					// case mengerSmooth:
 					// case mengerSmoothMod1:
 					{
@@ -1276,10 +1276,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case transfMengerFold: // hmmm, this issue again
 				case mengerPwr2Poly:
 				// case mixPinski4D:
-				case sierpinski4D:
+				case sierpinski4d:
 				case sierpinski3d:
-				case menger4D:
-				case menger4Dmod1:
+				case menger4d:
+				case menger4dMod1:
 				case mengerSmooth:
 				case mengerSmoothMod1:
 				case mengerOcto:
@@ -1346,7 +1346,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				case mandelbox:
 				case smoothMandelbox:
-				case mandelboxVaryScale4D:
+				case mandelboxVaryScale4d:
 				case generalizedFoldBox:
 
 				case foldBoxMod1:
@@ -1374,7 +1374,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelboxMenger:
 				case amazingSurfMod1:
 				case aboxModKaliEiffie:
-				case abox4D:
+				case abox4d:
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part

@@ -60,7 +60,7 @@ enum enumFractalFormula
 	mandelbulb4 = 15,
 	boxFoldBulbPow2 = 16,
 	smoothMandelbox = 17,
-	mandelboxVaryScale4D = 18, // updated V2.10
+	mandelboxVaryScale4d = 18, // updated V2.10
 	aexion = 19,
 	benesi = 20,
 	bristorbrot = 21,
@@ -115,7 +115,7 @@ enum enumFractalFormula
 	aboxVSIcen1 = 76,
 	amazingSurfMod1 = 77, // updated V2.08
 	mandelbulbVaryPowerV1 = 78,
-	quaternion4D = 79, // updated V2.10
+	quaternion4d = 79, // updated V2.10
 	msltoeSym3Mod2 = 80,
 	msltoeSym3Mod3 = 81,
 	msltoeDonut = 82,
@@ -140,27 +140,27 @@ enum enumFractalFormula
 	mengerPrismShape = 99, // fix T1 T1M V2.10
 	benesiMagTransforms = 100,
 	pseudoKleinian1 = 101, // fix T1 T1M V2.10
-	bristorbrot4D = 102,
+	bristorbrot4d = 102,
 	pseudoKleinian2 = 103, // fix DE V2.10
 	pseudoKleinian3 = 104, // fix T1 T1M V2.10 & DE
 	benesiPwr2Mandelbulb = 105,
 	mengerCrossMod1 = 106,
 	// V2.10
 	mengerPrismShape2 = 107,
-	mixPinski4D = 108,
-	sierpinski4D = 109,
+	mixPinski4d = 108,
+	sierpinski4d = 109,
 	sierpinski3d = 110,
-	menger4D = 111,
-	menger4Dmod1 = 112,
+	menger4d = 111,
+	menger4dMod1 = 112,
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
 	mengerOcto = 115,
-	abox4D = 116,
+	abox4d = 116,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
 
-	transfAdditionConstant = 1001,
+	transfAddConstant = 1001,
 	transfRotation = 1002,
 	transfScale = 1003,
 	transfScale3D = 1004,
@@ -178,13 +178,13 @@ enum enumFractalFormula
 	transfBenesiMagBackward = 1016,
 	transfBenesiCubeSphere = 1017,
 	transfBenesiSphereCube = 1018,
-	transfAddCpixelPosNeg = 1019,
+	transfAddCpixelSymmetrical = 1019,
 	transfBoxFold = 1020,
 	transfSphericalFold = 1021,
 	transfZvectorAxisSwap = 1022,
 	transfFabsAddConstant = 1023,
 	transfNegFabsAddConstant = 1024,
-	transfFabsAddConstantV2 = 1025,
+	transfFabsAddTgladFold = 1025,
 	transfMultipleAngle = 1026,
 	transfRPower = 1027,
 	transfIterationWeight = 1028, // fixed V2.10
@@ -192,19 +192,19 @@ enum enumFractalFormula
 	transfSphericalPwrFold = 1030,
 	transfAddCpixelVaryV1 = 1031,
 	transfScaleVaryV1 = 1032,
-	transfAdditionConstantVaryV1 = 1033,
+	transfAddConstantVaryV1 = 1033,
 	transfBoxFoldXYZ = 1034,
 	transfAddCpixelCxCyAxisSwap = 1035, // fixed V2.09
 	transfRotationVaryV1 = 1036,
 	transfLinCombineCxyz = 1037,
 	transfSphereInvC = 1038,
-	transfAdditionConstant4D = 1039,
+	transfAddConstant4D = 1039,
 	transfBoxFold4D = 1040,
 	transfIterationWeight4D = 1041, // fixed V2.10
 	transfSphericalFold4D = 1042,
 	transfScale4D = 1043,
 	transfFabsAddConstant4D = 1044,
-	transfFabsAddConstantV24D = 1045,
+	transfFabsAddTgladFold4d = 1045,
 	// v2.08
 	transfSurfFoldMulti = 1046,
 	transfPwr2Polynomial = 1047,
