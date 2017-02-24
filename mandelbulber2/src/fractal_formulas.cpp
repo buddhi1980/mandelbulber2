@@ -7614,7 +7614,7 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 		double r2 = z4D.Dot(z4D);
 		// if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
 
-		if (r2 < fractal->mandelbox.mR2)
+		if (r2 < fractal->transformCommon.minR2p25)
 		{
 			z4D *= fractal->transformCommon.maxMinR2factor;
 			aux.DE *= fractal->transformCommon.maxMinR2factor;
@@ -7624,17 +7624,6 @@ void Menger4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 		{
 			double tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
 			z4D *= tglad_factor2;
-			double scaleM = fractal->transformCommon.scale2;
-			CVector4 offsetM = fractal->transformCommon.additionConstant111d5;
-			z4D.x = scaleM * z4D.x - offsetM.x * (scaleM - 1.0);
-			z4D.y = scaleM * z4D.y - offsetM.y * (scaleM - 1.0);
-			z4D.w = scaleM * z4D.w - offsetM.w * (scaleM - 1.0);
-			z4D.z -= 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
-			z4D.z = -fabs(-z4D.z);
-			z4D.z += 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
-			z4D.z = scaleM * z4D.z;
-			aux.DE *= scaleM * fractal->analyticDE.scale1;
-
 			aux.DE *= tglad_factor2;
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
@@ -7769,7 +7758,7 @@ void Menger4Dmod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 		}
 		// if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
 
-		if (r2 < fractal->mandelbox.mR2)
+		if (r2 < fractal->transformCommon.minR2p25)
 		{
 			z4D *= fractal->transformCommon.maxMinR2factor;
 			aux.DE *= fractal->transformCommon.maxMinR2factor;
