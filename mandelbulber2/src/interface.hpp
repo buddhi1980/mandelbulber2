@@ -126,6 +126,8 @@ public:
 
 	bool QuitApplicationDialog();
 
+	QSettings settings;
+
 	RenderWindow *mainWindow;
 	cDetachedWindow *detachedWindow;
 	cHeadless *headless;

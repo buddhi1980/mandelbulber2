@@ -272,7 +272,7 @@ void RenderWindow::ResetDocksPositions()
 
 void RenderWindow::slotMenuResetDocksPositions()
 {
-	restoreState(gMainInterface->mainWindow->settings.value("mainWindowState").toByteArray());
+	restoreState(gMainInterface->settings.value("mainWindowState").toByteArray());
 }
 
 void RenderWindow::slotMenuAnimationtDocksPositions()
@@ -298,8 +298,8 @@ void RenderWindow::slotMenuAnimationtDocksPositions()
 
 void RenderWindow::slotMenuSaveDocksPositions()
 {
-	settings.setValue("mainWindowGeometry", saveGeometry());
-	settings.setValue("mainWindowState", saveState());
+	gMainInterface->settings.setValue("mainWindowGeometry", saveGeometry());
+	gMainInterface->settings.setValue("mainWindowState", saveState());
 	// qDebug() << "settings saved";
 }
 

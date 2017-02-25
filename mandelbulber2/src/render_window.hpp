@@ -171,7 +171,6 @@ private:
 	QDialog *meshExportDialog;
 	cAutomatedWidgets *automatedWidgets;
 
-	QSettings settings;
 	QByteArray defaultGeometry;
 	QByteArray defaultState;
 

@@ -124,11 +124,17 @@ void cInterface::ShowUi()
 
 	WriteLog("Restoring window geometry", 2);
 
-	mainWindow->restoreGeometry(mainWindow->settings.value("mainWindowGeometry").toByteArray());
+	if (gPar->Get<bool>("image_detached"))
+	{
+		DetachMainImageWidget();
+		mainWindow->ui->actionDetach_image_from_main_window->setChecked(true);
+	}
+
+	mainWindow->restoreGeometry(settings.value("mainWindowGeometry").toByteArray());
 
 	WriteLog("Restoring window state", 2);
 
-	if (!mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray()))
+	if (!mainWindow->restoreState(settings.value("mainWindowState").toByteArray()))
 	{
 		mainWindow->tabifyDockWidget(
 			mainWindow->ui->dockWidget_materialEditor, mainWindow->ui->dockWidget_effects);
@@ -179,12 +185,6 @@ void cInterface::ShowUi()
 		gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
 	renderedImage->AssignImage(gMainInterface->mainImage);
 	renderedImage->AssignParameters(gPar);
-
-	if (gPar->Get<bool>("image_detached"))
-	{
-		DetachMainImageWidget();
-		mainWindow->ui->actionDetach_image_from_main_window->setChecked(true);
-	}
 
 	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();
@@ -1723,6 +1723,11 @@ bool cInterface::QuitApplicationDialog()
 
 			QFile::remove(systemData.GetAutosaveFile());
 
+			if(detachedWindow)
+			{
+				settings.setValue("detachedWindowGeometry", detachedWindow->saveGeometry());
+			}
+
 			gApplication->quit();
 			quit = true;
 			break;
@@ -2110,7 +2115,9 @@ void cInterface::DetachMainImageWidget()
 	if(!detachedWindow) detachedWindow = new cDetachedWindow;
 	mainWindow->ui->verticalLayout->removeWidget(mainWindow->ui->widgetWithImage);
 	detachedWindow->InstallImageWidget(mainWindow->ui->widgetWithImage);
+	detachedWindow->restoreGeometry(settings.value("detachedWindowGeometry").toByteArray());
 	detachedWindow->show();
+	mainWindow->centralWidget()->hide();
 	gPar->Set("image_detached", true);
 }
 
@@ -2120,6 +2127,8 @@ void cInterface::AttachMainImageWidget()
 	{
 		detachedWindow->RemoveImageWidget(mainWindow->ui->widgetWithImage);
 		mainWindow->ui->verticalLayout->addWidget(mainWindow->ui->widgetWithImage);
+		settings.setValue("detachedWindowGeometry", detachedWindow->saveGeometry());
+		mainWindow->centralWidget()->show();
 		gPar->Set("image_detached", false);
 	}
 }
