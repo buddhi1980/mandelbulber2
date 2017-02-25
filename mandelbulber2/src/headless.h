@@ -66,7 +66,7 @@ public:
 	void RenderKeyframeAnimation() const;
 	static void RenderingProgressOutput(
 		const QString &header, const QString &progressTxt, double percentDone);
-	static QString colorize(QString text, ansiColor foregroundcolor,
+	static QString colorize(QString text, ansiColor foregroundColor,
 		ansiColor backgroundColor = noExplicitColor, bool bold = false);
 	static QString formatLine(const QString &text);
 	static bool ConfirmMessage(QString message);

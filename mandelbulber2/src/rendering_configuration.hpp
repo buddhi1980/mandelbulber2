@@ -45,7 +45,7 @@ public:
 	void EnableNetRender() { enableNetRender = true; }
 	void DisableNetRender() { enableNetRender = false; }
 	void DisableMultiThread() { enableMultiThread = false; }
-	void EnableIgnoreErros() { enableIgnoreErrors = true; }
+	void EnableIgnoreErrors() { enableIgnoreErrors = true; }
 	void SetMaxRenderTime(double _maxRenderTime) { maxRenderTime = _maxRenderTime; }
 
 	bool UseNetRender() const;

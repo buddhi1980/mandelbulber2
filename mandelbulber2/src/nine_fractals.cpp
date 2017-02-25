@@ -76,7 +76,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			fractals[i]->formula = fractal::none;
 		}
 		formulaWeight[i] = generalPar->Get<double>("formula_weight", i + 1);
-		formulaStartIteriation[i] = generalPar->Get<int>("formula_start_iteration", i + 1);
+		formulaStartIteration[i] = generalPar->Get<int>("formula_start_iteration", i + 1);
 		formulaStopIteration[i] = generalPar->Get<int>("formula_stop_iteration", i + 1);
 		DEType[i] = fractal::deltaDEType;
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
@@ -102,7 +102,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 		addCConstant[i] = addc;
 
-		// defualt bailout or global one
+		// default bailout or global one
 
 		if (useDefaultBailout)
 		{
@@ -286,7 +286,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 			counter++;
 
 			int repeatCount = 0;
-			while ((fractals[fractalNo]->formula == fractal::none || i < formulaStartIteriation[fractalNo]
+			while ((fractals[fractalNo]->formula == fractal::none || i < formulaStartIteration[fractalNo]
 							 || i > formulaStopIteration[fractalNo])
 						 && repeatCount < NUMBER_OF_FRACTALS)
 			{

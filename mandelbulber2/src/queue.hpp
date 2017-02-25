@@ -106,7 +106,7 @@ public:
 	QStringList GetListFromFileSystem() const { return queueListFileSystem; }
 	QString GetQueueFolder() const { return queueFolder; }
 
-	// get the queue type enum from qstring value
+	// get the queue type enum from QString value
 	static enumRenderType GetTypeEnum(const QString &queueText);
 	// get the queue type QString from enum value
 	static QString GetTypeText(enumRenderType queueType);

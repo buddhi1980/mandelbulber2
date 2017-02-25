@@ -73,7 +73,7 @@ class cOneParameter
 public:
 	cOneParameter();
 	~cOneParameter();
-	enumVarType GetValueType() const { return defaultVal.GetDefaultype(); }
+	enumVarType GetValueType() const { return defaultVal.GetDefaultType(); }
 	enumParameterType GetParameterType() const { return parType; }
 	enumMorphType GetMorphType() const { return morphType; }
 	QString GetOriginalContainerName() const { return originalContainer; }
@@ -81,8 +81,8 @@ public:
 	void SetMorphType(enumMorphType _morphType) { morphType = _morphType; }
 	void SetOriginalContainerName(const QString &containerName) { originalContainer = containerName; }
 	bool isDefaultValue() const;
-	cMultiVal GetMultival(enumValueSelection selection) const;
-	void SetMultival(cMultiVal multi, enumValueSelection selection);
+	cMultiVal GetMultiVal(enumValueSelection selection) const;
+	void SetMultiVal(cMultiVal multi, enumValueSelection selection);
 	bool IsEmpty() const { return isEmpty; }
 
 	template <class T>

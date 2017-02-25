@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cSSAOWorker class - worker for multithread SSAO effect
+ * cSSAOWorker class - worker for multi thread SSAO effect
  *
  * SSAO shades inner edges and corners. For each pixel the surrounding
  * z-buffer (depth from camera) is scanned and based on the angle of the surface
@@ -121,7 +121,7 @@ void cSSAOWorker::doWork()
 			{
 				// printf("SSAO point on object\n");
 
-				// FIXME to correct pespective according to region data
+				// FIXME to correct perspective according to region data
 				double x2, y2;
 				if (perspectiveType == params::perspFishEye)
 				{

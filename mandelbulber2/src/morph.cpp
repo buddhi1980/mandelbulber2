@@ -146,16 +146,16 @@ cOneParameter cMorph::Linear(const int key, const double factor, const bool angu
 		case typeInt:
 		{
 			double v1, v2;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
 			val.Store(LinearInterpolate(factor, v1, v2, angular));
 			break;
 		}
 		case typeRgb:
 		{
 			sRGB v1, v2;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
 			val.Store(sRGB(int(LinearInterpolate(factor, v1.R, v2.R, angular)),
 				int(LinearInterpolate(factor, v1.G, v2.G, angular)),
 				int(LinearInterpolate(factor, v1.B, v2.B, angular))));
@@ -164,8 +164,8 @@ cOneParameter cMorph::Linear(const int key, const double factor, const bool angu
 		case typeVector3:
 		{
 			CVector3 v1, v2;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
 			val.Store(CVector3(LinearInterpolate(factor, v1.x, v2.x, angular),
 				LinearInterpolate(factor, v1.y, v2.y, angular),
 				LinearInterpolate(factor, v1.z, v2.z, angular)));
@@ -174,8 +174,8 @@ cOneParameter cMorph::Linear(const int key, const double factor, const bool angu
 		case typeVector4:
 		{
 			CVector4 v1, v2;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
 			val.Store(CVector4(LinearInterpolate(factor, v1.x, v2.x, angular),
 				LinearInterpolate(factor, v1.y, v2.y, angular),
 				LinearInterpolate(factor, v1.z, v2.z, angular),
@@ -186,8 +186,8 @@ cOneParameter cMorph::Linear(const int key, const double factor, const bool angu
 		{
 			cColorPalette v1, v2;
 			cColorPalette out;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
 			for (int i = 0; i < v1.GetSize(); i++)
 			{
 				out.AppendColor(
@@ -200,7 +200,7 @@ cOneParameter cMorph::Linear(const int key, const double factor, const bool angu
 		}
 	}
 
-	interpolated.SetMultival(val, valueActual);
+	interpolated.SetMultiVal(val, valueActual);
 	return interpolated;
 }
 
@@ -241,20 +241,20 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 		case typeInt:
 		{
 			double v1, v2, v3, v4;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
 			val.Store(CatmullRomInterpolate(factor, v1, v2, v3, v4, angular));
 			break;
 		}
 		case typeRgb:
 		{
 			sRGB v1, v2, v3, v4;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
 			val.Store(sRGB(int(CatmullRomInterpolate(factor, v1.R, v2.R, v3.R, v4.R, angular)),
 				int(CatmullRomInterpolate(factor, v1.G, v2.G, v3.G, v4.G, angular)),
 				int(CatmullRomInterpolate(factor, v1.B, v2.B, v3.B, v4.B, angular))));
@@ -263,10 +263,10 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 		case typeVector3:
 		{
 			CVector3 v1, v2, v3, v4;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
 			val.Store(CVector3(CatmullRomInterpolate(factor, v1.x, v2.x, v3.x, v4.x, angular),
 				CatmullRomInterpolate(factor, v1.y, v2.y, v3.y, v4.y, angular),
 				CatmullRomInterpolate(factor, v1.z, v2.z, v3.z, v4.z, angular)));
@@ -275,10 +275,10 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 		case typeVector4:
 		{
 			CVector4 v1, v2, v3, v4;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
 			val.Store(CVector4(CatmullRomInterpolate(factor, v1.x, v2.x, v3.x, v4.x, angular),
 				CatmullRomInterpolate(factor, v1.y, v2.y, v3.y, v4.y, angular),
 				CatmullRomInterpolate(factor, v1.z, v2.z, v3.z, v4.z, angular),
@@ -289,10 +289,10 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 		{
 			cColorPalette v1, v2, v3, v4;
 			cColorPalette out;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
 			for (int i = 0; i < v1.GetSize(); i++)
 			{
 				out.AppendColor(sRGB(int(CatmullRomInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R,
@@ -307,7 +307,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 		}
 	}
 
-	interpolated.SetMultival(val, valueActual);
+	interpolated.SetMultiVal(val, valueActual);
 	return interpolated;
 }
 
@@ -355,24 +355,24 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 		case typeInt:
 		{
 			double v1, v2, v3, v4, v5, v6;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
-			dataSets[k5].parameter.GetMultival(valueActual).Get(v5);
-			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
+			dataSets[k5].parameter.GetMultiVal(valueActual).Get(v5);
+			dataSets[k6].parameter.GetMultiVal(valueActual).Get(v6);
 			val.Store(AkimaInterpolate(factor, v1, v2, v3, v4, v5, v6, angular));
 			break;
 		}
 		case typeRgb:
 		{
 			sRGB v1, v2, v3, v4, v5, v6;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
-			dataSets[k5].parameter.GetMultival(valueActual).Get(v5);
-			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
+			dataSets[k5].parameter.GetMultiVal(valueActual).Get(v5);
+			dataSets[k6].parameter.GetMultiVal(valueActual).Get(v6);
 			val.Store(sRGB(int(AkimaInterpolate(factor, v1.R, v2.R, v3.R, v4.R, v5.R, v6.R, angular)),
 				int(AkimaInterpolate(factor, v1.G, v2.G, v3.G, v4.G, v5.G, v6.G, angular)),
 				int(AkimaInterpolate(factor, v1.B, v2.B, v3.B, v4.B, v5.B, v6.B, angular))));
@@ -381,12 +381,12 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 		case typeVector3:
 		{
 			CVector3 v1, v2, v3, v4, v5, v6;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
-			dataSets[k5].parameter.GetMultival(valueActual).Get(v5);
-			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
+			dataSets[k5].parameter.GetMultiVal(valueActual).Get(v5);
+			dataSets[k6].parameter.GetMultiVal(valueActual).Get(v6);
 			val.Store(CVector3(AkimaInterpolate(factor, v1.x, v2.x, v3.x, v4.x, v5.x, v6.x, angular),
 				AkimaInterpolate(factor, v1.y, v2.y, v3.y, v4.y, v5.y, v6.y, angular),
 				AkimaInterpolate(factor, v1.z, v2.z, v3.z, v4.z, v5.z, v6.z, angular)));
@@ -395,12 +395,12 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 		case typeVector4:
 		{
 			CVector4 v1, v2, v3, v4, v5, v6;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
-			dataSets[k5].parameter.GetMultival(valueActual).Get(v5);
-			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
+			dataSets[k5].parameter.GetMultiVal(valueActual).Get(v5);
+			dataSets[k6].parameter.GetMultiVal(valueActual).Get(v6);
 			val.Store(CVector4(AkimaInterpolate(factor, v1.x, v2.x, v3.x, v4.x, v5.x, v6.x, angular),
 				AkimaInterpolate(factor, v1.y, v2.y, v3.y, v4.y, v5.y, v6.y, angular),
 				AkimaInterpolate(factor, v1.z, v2.z, v3.z, v4.z, v5.z, v6.z, angular),
@@ -411,12 +411,12 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 		{
 			cColorPalette v1, v2, v3, v4, v5, v6;
 			cColorPalette out;
-			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
-			dataSets[k5].parameter.GetMultival(valueActual).Get(v5);
-			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
+			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
+			dataSets[k5].parameter.GetMultiVal(valueActual).Get(v5);
+			dataSets[k6].parameter.GetMultiVal(valueActual).Get(v6);
 			for (int i = 0; i < v1.GetSize(); i++)
 			{
 				out.AppendColor(
@@ -432,7 +432,7 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 		}
 	}
 
-	interpolated.SetMultival(val, valueActual);
+	interpolated.SetMultiVal(val, valueActual);
 	return interpolated;
 }
 

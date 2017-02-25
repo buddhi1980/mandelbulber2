@@ -102,7 +102,7 @@ private:
 		return QString::compare(p1, p2, Qt::CaseInsensitive) < 0;
 	}
 
-	// std::map contairer
+	// std::map container
 	QMap<QString, cOneParameter> myMap;
 	QString containerName;
 

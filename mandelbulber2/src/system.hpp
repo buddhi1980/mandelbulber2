@@ -133,7 +133,7 @@ public:
 		return imageBaseName;
 	}
 
-	QString homedir;
+	QString homeDir;
 	QString sharedDir;
 	QString logfileName;
 	QString lastSettingsFile;

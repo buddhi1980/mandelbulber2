@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cRegion class - definition and translation between screen and offscreen region
+ * cRegion class - definition and translation between screen and off-screen region
  */
 
 #ifndef MANDELBULBER2_SRC_REGION_HPP_

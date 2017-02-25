@@ -31,7 +31,7 @@
  *
  * RenderWindow class - main program window
  *
- * This file contains implementation of the miscellanious slots in RenderWindow class.
+ * This file contains implementation of the miscellaneous slots in RenderWindow class.
  * See also header render_window.hpp and whole implementation of class
  * spread over render_window_*.cpp
  */
@@ -450,9 +450,9 @@ void RenderWindow::slotCustomWindowStateAddToMenu()
 	QString textEncoded = QByteArray().append(text).toBase64();
 	QString basePath = systemData.GetCustomWindowStateFolder() + QDir::separator();
 	QString filename = basePath + textEncoded;
-	QString filenamGeometry = filename + ".geometry";
+	QString filenameGeometry = filename + ".geometry";
 	QString filenameState = filename + ".state";
-	QFile fileGeometry(filenamGeometry);
+	QFile fileGeometry(filenameGeometry);
 	QFile fileState(filenameState);
 	if (!fileGeometry.open(QIODevice::WriteOnly) || !fileState.open(QIODevice::WriteOnly))
 	{
@@ -664,4 +664,3 @@ void RenderWindow::slotMaterialEdited()
 {
 	SynchronizeInterfaceWindow(gMainInterface->materialEditor, gPar, qInterface::write);
 }
-

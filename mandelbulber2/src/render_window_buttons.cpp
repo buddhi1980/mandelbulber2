@@ -31,7 +31,7 @@
  *
  * RenderWindow class - main program window
  *
- * This file contains implementation of the buttton callbacks in RenderWindow class.
+ * This file contains implementation of the button callbacks in RenderWindow class.
  * See also header render_window.hpp and whole implementation of class
  * spread over render_window_*.cpp
  */

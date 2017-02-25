@@ -128,7 +128,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 			CVector3 position;
 
 			gApplication->processEvents();
-			// try random positioning of light, until distance to surface suffies
+			// try random positioning of light, until distance to surface satisfies
 			while (distance <= 0
 						 || distance >= params->auxLightRandomMaxDistanceFromFractal * radiusMultiplier)
 			{

@@ -83,9 +83,9 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (className == QString("MyLineEdit"))
 				{
-					MyLineEdit *mylineedit = static_cast<MyLineEdit *>(*it);
-					mylineedit->AssignParameterContainer(par);
-					mylineedit->AssignParameterName(parameterName);
+					MyLineEdit *myLineEdit = static_cast<MyLineEdit *>(*it);
+					myLineEdit->AssignParameterContainer(par);
+					myLineEdit->AssignParameterName(parameterName);
 				}
 
 				//----- get vectors ------------
@@ -118,22 +118,22 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 					else if (mode == write)
 					{
 						CVector3 vect = par->Get<CVector3>(nameVect);
-						QString qtext;
+						QString qText;
 
 						switch (lastChar)
 						{
-							case 'x': qtext = QString("%L1").arg(vect.x, 0, 'g', 16); break;
+							case 'x': qText = QString("%L1").arg(vect.x, 0, 'g', 16); break;
 
-							case 'y': qtext = QString("%L1").arg(vect.y, 0, 'g', 16); break;
+							case 'y': qText = QString("%L1").arg(vect.y, 0, 'g', 16); break;
 
-							case 'z': qtext = QString("%L1").arg(vect.z, 0, 'g', 16); break;
+							case 'z': qText = QString("%L1").arg(vect.z, 0, 'g', 16); break;
 
 							default:
 								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
 													 << " has wrong axis name (is " << lastChar << ")" << endl;
 								break;
 						}
-						lineEdit->setText(qtext);
+						lineEdit->setText(qText);
 						lineEdit->setCursorPosition(0);
 					}
 				}
@@ -170,24 +170,24 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 					else if (mode == write)
 					{
 						CVector4 vect = par->Get<CVector4>(nameVect);
-						QString qtext;
+						QString qText;
 
 						switch (lastChar)
 						{
-							case 'x': qtext = QString("%L1").arg(vect.x, 0, 'g', 16); break;
+							case 'x': qText = QString("%L1").arg(vect.x, 0, 'g', 16); break;
 
-							case 'y': qtext = QString("%L1").arg(vect.y, 0, 'g', 16); break;
+							case 'y': qText = QString("%L1").arg(vect.y, 0, 'g', 16); break;
 
-							case 'z': qtext = QString("%L1").arg(vect.z, 0, 'g', 16); break;
+							case 'z': qText = QString("%L1").arg(vect.z, 0, 'g', 16); break;
 
-							case 'w': qtext = QString("%L1").arg(vect.w, 0, 'g', 16); break;
+							case 'w': qText = QString("%L1").arg(vect.w, 0, 'g', 16); break;
 
 							default:
 								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
 													 << " has wrong axis name (is " << lastChar << ")" << endl;
 								break;
 						}
-						lineEdit->setText(qtext);
+						lineEdit->setText(qText);
 						lineEdit->setCursorPosition(0);
 					}
 				}
@@ -247,9 +247,9 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (className == QString("MyDoubleSpinBox"))
 				{
-					MyDoubleSpinBox *mydoublespinbox = static_cast<MyDoubleSpinBox *>(*it);
-					mydoublespinbox->AssignParameterContainer(par);
-					mydoublespinbox->AssignParameterName(parameterName);
+					MyDoubleSpinBox *myDoubleSpinBox = static_cast<MyDoubleSpinBox *>(*it);
+					myDoubleSpinBox->AssignParameterContainer(par);
+					myDoubleSpinBox->AssignParameterName(parameterName);
 				}
 
 				if (type == QString("spinbox") || type == QString("spinboxd"))
@@ -383,9 +383,9 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (className == QString("MySpinBox"))
 				{
-					MySpinBox *myspinbox = static_cast<MySpinBox *>(*it);
-					myspinbox->AssignParameterContainer(par);
-					myspinbox->AssignParameterName(parameterName);
+					MySpinBox *mySpinBox = static_cast<MySpinBox *>(*it);
+					mySpinBox->AssignParameterContainer(par);
+					mySpinBox->AssignParameterName(parameterName);
 				}
 
 				if (type == QString("spinboxInt"))
@@ -426,9 +426,9 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (className == QString("MyCheckBox"))
 				{
-					MyCheckBox *mycheckbox = static_cast<MyCheckBox *>(*it);
-					mycheckbox->AssignParameterContainer(par);
-					mycheckbox->AssignParameterName(parameterName);
+					MyCheckBox *myCheckBox = static_cast<MyCheckBox *>(*it);
+					myCheckBox->AssignParameterContainer(par);
+					myCheckBox->AssignParameterName(parameterName);
 				}
 
 				if (type == QString("checkBox"))
@@ -462,29 +462,29 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 			if (name.length() > 1
 					&& (className == QString("QGroupBox") || className == QString("MyGroupBox")))
 			{
-				QGroupBox *groupbox = *it;
+				QGroupBox *groupBbox = *it;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 
 				if (className == QString("MyGroupBox"))
 				{
-					MyGroupBox *mygroupbox = static_cast<MyGroupBox *>(*it);
-					mygroupbox->AssignParameterContainer(par);
-					mygroupbox->AssignParameterName(parameterName);
+					MyGroupBox *myGroupBox = static_cast<MyGroupBox *>(*it);
+					myGroupBox->AssignParameterContainer(par);
+					myGroupBox->AssignParameterName(parameterName);
 				}
 
 				if (type == QString("groupCheck"))
 				{
 					if (mode == read)
 					{
-						bool value = groupbox->isChecked();
+						bool value = groupBbox->isChecked();
 						par->Set(parameterName, value);
 					}
 					else if (mode == write)
 					{
 						bool value = par->Get<bool>(parameterName);
-						groupbox->setChecked(value);
+                        groupBbox->setChecked(value);
 					}
 				}
 			}

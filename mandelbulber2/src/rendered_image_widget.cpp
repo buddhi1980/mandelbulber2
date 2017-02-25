@@ -441,21 +441,21 @@ void RenderedImage::Draw3DBox(
 		}
 		if (iz == 0)
 		{
-			CVector2<double> spoint((p.x / aspectRatio + 0.5) * sw, (p.y + 0.5) * sh);
-			image->AntiAliasedLine(spoint.x - sw * 0.3, spoint.y, spoint.x + sw * 0.3, spoint.y, z, z,
+			CVector2<double> sPoint((p.x / aspectRatio + 0.5) * sw, (p.y + 0.5) * sh);
+			image->AntiAliasedLine(sPoint.x - sw * 0.3, sPoint.y, sPoint.x + sw * 0.3, sPoint.y, z, z,
 				sRGB8(255, 255, 255), opacity, 1);
-			image->AntiAliasedLine(spoint.x, spoint.y - sh * 0.3, spoint.x, spoint.y + sh * 0.3, z, z,
+			image->AntiAliasedLine(sPoint.x, sPoint.y - sh * 0.3, sPoint.x, sPoint.y + sh * 0.3, z, z,
 				sRGB8(255, 255, 255), opacity, 1);
 			if (anaglyphMode)
 			{
-				image->AntiAliasedLine(spoint.x - sw * 0.05, spoint.y - sh * 0.05, spoint.x + sw * 0.05,
-					spoint.y - sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
-				image->AntiAliasedLine(spoint.x + sw * 0.05, spoint.y - sh * 0.05, spoint.x + sw * 0.05,
-					spoint.y + sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
-				image->AntiAliasedLine(spoint.x + sw * 0.05, spoint.y + sh * 0.05, spoint.x - sw * 0.05,
-					spoint.y + sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
-				image->AntiAliasedLine(spoint.x - sw * 0.05, spoint.y + sh * 0.05, spoint.x - sw * 0.05,
-					spoint.y - sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(sPoint.x - sw * 0.05, sPoint.y - sh * 0.05, sPoint.x + sw * 0.05,
+					sPoint.y - sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(sPoint.x + sw * 0.05, sPoint.y - sh * 0.05, sPoint.x + sw * 0.05,
+					sPoint.y + sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(sPoint.x + sw * 0.05, sPoint.y + sh * 0.05, sPoint.x - sw * 0.05,
+					sPoint.y + sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
+				image->AntiAliasedLine(sPoint.x - sw * 0.05, sPoint.y + sh * 0.05, sPoint.x - sw * 0.05,
+					sPoint.y - sh * 0.05, z, z, sRGB8(0, 0, 0), opacity, 1);
 			}
 
 			if (clickMode == clickPlaceLight)
@@ -463,7 +463,7 @@ void RenderedImage::Draw3DBox(
 				double r = 1.5 * (boxWidth * n / aspectRatio);
 				if (r > 1.0) r = 1.0;
 				image->CircleBorder(
-					spoint.x, spoint.y, z, r * sw, sRGB8(0, 100, 255), r * 0.1 * sw, opacity, 1);
+					sPoint.x, sPoint.y, z, r * sw, sRGB8(0, 100, 255), r * 0.1 * sw, opacity, 1);
 			}
 		}
 	}

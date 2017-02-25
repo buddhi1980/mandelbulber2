@@ -673,7 +673,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					clients.removeAt(index);
 					emit ClientsChanged();
-					return; // to avoid reseting already deleted message buffer
+					return; // to avoid resetting already deleted message buffer
 				}
 				case netRender_WORKER:
 				{
