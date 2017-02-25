@@ -48,7 +48,7 @@ double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRender
 			textureCoordinates =
 				TextureMapping(point, CVector3(0.0, 0.0, 1.0), data->objectData[objectId], mat)
 				+ CVector2<double>(0.5, 0.5);
-			sRGBfloat bump3 = mat->displacementTexture.Pixel(textureCoordinates);
+			sRGBFloat bump3 = mat->displacementTexture.Pixel(textureCoordinates);
 			double bump = bump3.R;
 			distance -= bump * mat->displacementTextureHeight;
 			if (distance < 0.0) distance = 0.0;

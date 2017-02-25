@@ -35,7 +35,7 @@
 #ifndef MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 #define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 
-#include "commonparams.hpp"
+#include "common_params.hpp"
 #include "image_adjustments.h"
 #include "primitives.h"
 #include "projection_3d.hpp"

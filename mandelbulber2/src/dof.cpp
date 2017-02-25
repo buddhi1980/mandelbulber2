@@ -56,7 +56,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 	if (floatVersion)
 	{
-		sRGBfloat *temp_image = new sRGBfloat[quint64(imageWidth) * quint64(imageHeight)];
+		sRGBFloat *temp_image = new sRGBFloat[quint64(imageWidth) * quint64(imageHeight)];
 		unsigned short *temp_alpha = new unsigned short[quint64(imageWidth) * quint64(imageHeight)];
 		quint64 sortBufferSize = quint64(screenRegion.height) * quint64(screenRegion.width);
 		sSortZ<float> *temp_sort = new sSortZ<float>[sortBufferSize];
@@ -116,7 +116,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 					int yStop = min(y + size, screenRegion.y2 - 1);
 
 					float totalWeight = 0.0f;
-					sRGBfloat tempPixel;
+					sRGBFloat tempPixel;
 					for (int yy = yStart; yy <= yStop; yy++)
 					{
 						for (int xx = xStart; xx <= xStop; xx++)
@@ -151,7 +151,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 							totalWeight += weight;
 							if (weight > 0.0f)
 							{
-								sRGBfloat pix = image->GetPixelImage(xx, yy);
+								sRGBFloat pix = image->GetPixelImage(xx, yy);
 								tempPixel.R += pix.R * weight;
 								tempPixel.G += pix.G * weight;
 								tempPixel.B += pix.B * weight;
@@ -159,10 +159,10 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 						}
 					}
 
-					sRGBfloat newPixel;
+					sRGBFloat newPixel;
 					if (totalWeight > 0.0f)
 					{
-						newPixel = sRGBfloat(
+						newPixel = sRGBFloat(
 							tempPixel.R / totalWeight, tempPixel.G / totalWeight, tempPixel.B / totalWeight);
 					}
 					else
@@ -294,7 +294,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 						float blur = fabs(z - neutral) / z * deep + 1.0f;
 						if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
 						int size = int(blur);
-						sRGBfloat center = temp_image[x + y * imageWidth];
+						sRGBFloat center = temp_image[x + y * imageWidth];
 						unsigned short center_alpha = temp_alpha[x + y * imageWidth];
 						float blur_2 = blur * blur;
 						float factor = (float(M_PI) * (blur_2 - blur) + 1.0f) / blurOpacity;
@@ -423,7 +423,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 					int yStop = min(y + size, screenRegion.y2 - 1);
 
 					float totalWeight = 0;
-					sRGBfloat tempPixel;
+					sRGBFloat tempPixel;
 					for (int yy = yStart; yy <= yStop; yy++)
 					{
 						for (int xx = xStart; xx <= xStop; xx++)

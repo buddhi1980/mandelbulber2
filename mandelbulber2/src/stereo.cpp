@@ -78,9 +78,9 @@ CVector3 cStereo::CalcEyePosition(
 	return eyePosition;
 }
 
-sRGBfloat cStereo::MixColorsRedCyan(sRGBfloat left, sRGBfloat right)
+sRGBFloat cStereo::MixColorsRedCyan(sRGBFloat left, sRGBFloat right)
 {
-	sRGBfloat color(right.R, left.G, left.B);
+	sRGBFloat color(right.R, left.G, left.B);
 	return color;
 }
 

@@ -195,7 +195,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 											+ offset;
 				double texY = 0.5 * texHeight
 											+ sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
-				sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
+				sRGBFloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
 				pixel2.R = pixel.R;
 				pixel2.G = pixel.G;
 				pixel2.B = pixel.B;
@@ -209,7 +209,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 				if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
 				double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture.Width();
 				double texY = (betaTexture / M_PI + 0.5) * data->textures.backgroundTexture.Height();
-				sRGBfloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
+				sRGBFloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
 				pixel2.R = pixel.R;
 				pixel2.G = pixel.G;
 				pixel2.B = pixel.B;
@@ -233,7 +233,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 				texX = texX + 0.5;
 				texY = texY + 0.5;
 
-				sRGBfloat pixel = data->textures.backgroundTexture.Pixel(CVector2<double>(texX, texY));
+				sRGBFloat pixel = data->textures.backgroundTexture.Pixel(CVector2<double>(texX, texY));
 				pixel2.R = pixel.R;
 				pixel2.G = pixel.G;
 				pixel2.B = pixel.B;
@@ -1296,7 +1296,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	return fakeLights;
 }
 
-sRGBfloat cRenderWorker::TextureShader(
+sRGBFloat cRenderWorker::TextureShader(
 	const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
@@ -1325,7 +1325,7 @@ sRGBfloat cRenderWorker::TextureShader(
 
 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
-	sRGBfloat tex;
+	sRGBFloat tex;
 	switch (texSelect)
 	{
 		case texture::texColor:
@@ -1350,7 +1350,7 @@ sRGBfloat cRenderWorker::TextureShader(
 		}
 	}
 
-	return sRGBfloat(tex.R, tex.G, tex.B);
+	return sRGBFloat(tex.R, tex.G, tex.B);
 }
 
 CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input) const

@@ -256,7 +256,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			emit updateProgressHide();
 			return;
 		}
-		emit updateProgressAndStatus(QObject::tr("Recordning flight path"),
+		emit updateProgressAndStatus(QObject::tr("Recording flight path"),
 			tr("waiting %1 seconds").arg(QString::number(3.0 - 0.1 * i)), 0.0,
 			cProgressText::progress_ANIMATION);
 		gApplication->processEvents();

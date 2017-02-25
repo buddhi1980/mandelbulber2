@@ -312,10 +312,10 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		// draw small cross
 		image->AntiAliasedLine(screenPoint.x - 20, screenPoint.y - 20, screenPoint.x + 20,
 			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255),
-			sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
 		image->AntiAliasedLine(screenPoint.x + 20, screenPoint.y - 20, screenPoint.x - 20,
 			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255),
-			sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
 	}
 	lastDepth = z;
 }
@@ -336,12 +336,12 @@ void RenderedImage::Draw3DBox(
 
 	double n = 3.0;
 
-	sRGBfloat opacity;
+	sRGBFloat opacity;
 	switch (eye)
 	{
-		case cStereo::eyeNone: opacity = sRGBfloat(float(0.8), float(0.8), float(0.8)); break;
-		case cStereo::eyeLeft: opacity = sRGBfloat(float(0.8), float(0.0), float(0.0)); break;
-		case cStereo::eyeRight: opacity = sRGBfloat(float(0.0), float(0.8), float(0.8)); break;
+		case cStereo::eyeNone: opacity = sRGBFloat(float(0.8), float(0.8), float(0.8)); break;
+		case cStereo::eyeLeft: opacity = sRGBFloat(float(0.8), float(0.0), float(0.0)); break;
+		case cStereo::eyeRight: opacity = sRGBFloat(float(0.0), float(0.8), float(0.8)); break;
 	}
 
 	unsigned char R, G, B;
@@ -739,18 +739,18 @@ void RenderedImage::DisplayCrosshair() const
 			&& params->Get<bool>("stereo_mode") == cStereo::stereoLeftRight)
 	{
 		image->AntiAliasedLine(crossCenter.x / 2, 0, crossCenter.x / 2, sh, -1, -1,
-			sRGB8(255, 255, 255), sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGB8(255, 255, 255), sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
 		image->AntiAliasedLine(crossCenter.x * 1.5, 0, crossCenter.x * 1.5, sh, -1, -1,
-			sRGB8(255, 255, 255), sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGB8(255, 255, 255), sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
 		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
-			sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
 	}
 	else
 	{
 		image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255),
-			sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
 		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
-			sRGBfloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
 	}
 }
 
@@ -785,7 +785,7 @@ void RenderedImage::DrawHud(CVector3 rotation) const
 		circlePoint3[i].z = sin(angle);
 	}
 
-	sRGBfloat opacity(0.5, 0.5, 0.5);
+	sRGBFloat opacity(0.5, 0.5, 0.5);
 
 	for (int i = 0; i < steps; i++)
 	{

@@ -80,7 +80,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	genFoldBox.type =
 		fractal::enumGeneralizedFoldBoxType(container->Get<int>("mandelbox_generalized_fold_type"));
 
-	foldingIntPow.foldfactor = container->Get<double>("boxfold_bulbpow2_folding_factor");
+	foldingIntPow.foldFactor = container->Get<double>("boxfold_bulbpow2_folding_factor");
 	foldingIntPow.zFactor = container->Get<double>("boxfold_bulbpow2_z_factor");
 
 	IFS.scale = container->Get<double>("IFS_scale");
@@ -128,30 +128,30 @@ cFractal::cFractal(const cParameterContainer *container)
 	platonicSolid.rhoMul = container->Get<double>("platonic_solid_rhoMul");
 
 	// mandelbulb multi
-	mandelbulbMulti.acosOrasin =
+	mandelbulbMulti.acosOrAsin =
 		sFractalMandelbulbMulti::multi_acosOrAsin(container->Get<int>("mandelbulbMulti_acos_or_asin"));
-	mandelbulbMulti.atanOratan2 = sFractalMandelbulbMulti::multi_atanOrAtan2(
+	mandelbulbMulti.atanOrAtan2 = sFractalMandelbulbMulti::multi_atanOrAtan2(
 		container->Get<int>("mandelbulbMulti_atan_or_atan2"));
 
-	mandelbulbMulti.acosOrasinA = sFractalMandelbulbMulti::multi_acosOrAsin(
+	mandelbulbMulti.acosOrAsinA = sFractalMandelbulbMulti::multi_acosOrAsin(
 		container->Get<int>("mandelbulbMulti_acos_or_asin_A"));
-	mandelbulbMulti.atanOratan2A = sFractalMandelbulbMulti::multi_atanOrAtan2(
+	mandelbulbMulti.atanOrAtan2A = sFractalMandelbulbMulti::multi_atanOrAtan2(
 		container->Get<int>("mandelbulbMulti_atan_or_atan2_A"));
 
-	mandelbulbMulti.orderOfxyz =
+	mandelbulbMulti.orderOfXYZ =
 		sFractalMandelbulbMulti::multi_OrderOfXYZ(container->Get<int>("mandelbulbMulti_order_of_xyz"));
-	mandelbulbMulti.orderOfxyz2 = sFractalMandelbulbMulti::multi_OrderOfXYZ(
+	mandelbulbMulti.orderOfXYZ2 = sFractalMandelbulbMulti::multi_OrderOfXYZ(
 		container->Get<int>("mandelbulbMulti_order_of_xyz_2"));
-	mandelbulbMulti.orderOfxyzC = sFractalMandelbulbMulti::multi_OrderOfXYZ(
+	mandelbulbMulti.orderOfXYZC = sFractalMandelbulbMulti::multi_OrderOfXYZ(
 		container->Get<int>("mandelbulbMulti_order_of_xyz_C"));
 
 	// sinTan2Trig
-	sinTan2Trig.asinOracos =
-		sFractalSinTan2Trig::multi_asinOracos(container->Get<int>("sinTan2Trig_asin_or_acos"));
-	sinTan2Trig.atan2Oratan =
-		sFractalSinTan2Trig::multi_atan2Oratan(container->Get<int>("sinTan2Trig_atan2_or_atan"));
-	sinTan2Trig.orderOfzyx =
-		sFractalSinTan2Trig::multi_OrderOfzyx(container->Get<int>("sinTan2Trig_order_of_zyx"));
+	sinTan2Trig.asinOrAcos =
+		sFractalSinTan2Trig::multi_asinOrAcos(container->Get<int>("sinTan2Trig_asin_or_acos"));
+	sinTan2Trig.atan2OrAtan =
+		sFractalSinTan2Trig::multi_atan2OrAtan(container->Get<int>("sinTan2Trig_atan2_or_atan"));
+	sinTan2Trig.orderOfZYX =
+		sFractalSinTan2Trig::multi_OrderOfZYX(container->Get<int>("sinTan2Trig_order_of_zyx"));
 
 	// surfBox
 	surfBox.enabledX1 = container->Get<bool>("surfBox_enabledX1");
@@ -252,7 +252,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.foldingValue = container->Get<double>("transf_folding_value");
 	transformCommon.foldingLimit = container->Get<double>("transf_folding_limit");
 	transformCommon.multiplication = container->Get<double>("transf_multiplication");
-	transformCommon.minRneg1 = container->Get<double>("transf_minimum_radius_neg1");
+	transformCommon.minRNeg1 = container->Get<double>("transf_minimum_radius_neg1");
 	transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
 	transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
 	transformCommon.minR2p25 = container->Get<double>("transf_minR2_p25");
@@ -493,7 +493,7 @@ void cFractal::RecalculateFractalParams()
 		transformCommon.rotation44b * (M_PI / 180.0)); // ...............................
 	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
 	transformCommon.rotationMatrix2.SetRotation2(transformCommon.rotation2 * (M_PI / 180.0));
-	transformCommon.tempRotmatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
+	transformCommon.tempRotMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
 
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // hmmm??

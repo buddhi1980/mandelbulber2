@@ -32,8 +32,8 @@
  * data structure common for main parameters and fractal parameters
  */
 
-#ifndef MANDELBULBER2_SRC_COMMONPARAMS_HPP_
-#define MANDELBULBER2_SRC_COMMONPARAMS_HPP_
+#ifndef MANDELBULBER2_SRC_COMMON_PARAMS_HPP_
+#define MANDELBULBER2_SRC_COMMON_PARAMS_HPP_
 
 #include "algebra.hpp"
 
@@ -63,4 +63,4 @@ struct sCommonParams
 	sFractalFoldings foldings;
 };
 
-#endif /* MANDELBULBER2_SRC_COMMONPARAMS_HPP_ */
+#endif /* MANDELBULBER2_SRC_COMMON_PARAMS_HPP_ */

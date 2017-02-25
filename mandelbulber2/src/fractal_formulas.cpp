@@ -35,7 +35,7 @@
 
 #include "fractal_formulas.hpp"
 #include "common_math.h"
-#include "commonparams.hpp"
+#include "common_params.hpp"
 #include "fractal.h"
 
 #define SQRT_1_3 0.57735026918962576450914878050196
@@ -358,12 +358,12 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
  */
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)
 {
-	if (fabs(z.x) > fractal->foldingIntPow.foldfactor)
-		z.x = sign(z.x) * fractal->foldingIntPow.foldfactor * 2.0 - z.x;
-	if (fabs(z.y) > fractal->foldingIntPow.foldfactor)
-		z.y = sign(z.y) * fractal->foldingIntPow.foldfactor * 2.0 - z.y;
-	if (fabs(z.z) > fractal->foldingIntPow.foldfactor)
-		z.z = sign(z.z) * fractal->foldingIntPow.foldfactor * 2.0 - z.z;
+	if (fabs(z.x) > fractal->foldingIntPow.foldFactor)
+		z.x = sign(z.x) * fractal->foldingIntPow.foldFactor * 2.0 - z.x;
+	if (fabs(z.y) > fractal->foldingIntPow.foldFactor)
+		z.y = sign(z.y) * fractal->foldingIntPow.foldFactor * 2.0 - z.y;
+	if (fabs(z.z) > fractal->foldingIntPow.foldFactor)
+		z.z = sign(z.z) * fractal->foldingIntPow.foldFactor * 2.0 - z.z;
 
 	double fR2_2 = 1.0;
 	double mR2_2 = 0.25;
@@ -461,23 +461,23 @@ void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sEx
 		aux.c.y = cy;
 		aux.c.z = cz;
 		aux.cw = cw;
-		double tempx = fabs(z.x + z.y + z.z) + fractal->aexion.cadd;
-		double tempy = fabs(-z.x - z.y + z.z) + fractal->aexion.cadd;
-		double tempz = fabs(-z.x + z.y - z.z) + fractal->aexion.cadd;
-		double tempw = fabs(z.x - z.y - z.z) + fractal->aexion.cadd;
-		z.x = tempx;
-		z.y = tempy;
-		z.z = tempz;
-		w = tempw;
+		double tempX = fabs(z.x + z.y + z.z) + fractal->aexion.cadd;
+		double tempY = fabs(-z.x - z.y + z.z) + fractal->aexion.cadd;
+		double tempZ = fabs(-z.x + z.y - z.z) + fractal->aexion.cadd;
+		double tempW = fabs(z.x - z.y - z.z) + fractal->aexion.cadd;
+		z.x = tempX;
+		z.y = tempY;
+		z.z = tempZ;
+		w = tempW;
 	}
-	double tempx = z.x * z.x - z.y * z.y + 2.0 * w * z.z + aux.c.x;
-	double tempy = z.y * z.y - z.x * z.x + 2.0 * w * z.z + aux.c.y;
-	double tempz = z.z * z.z - w * w + 2.0 * z.x * z.y + aux.c.z;
-	double tempw = w * w - z.z * z.z + 2.0 * z.x * z.y + aux.cw;
-	z.x = tempx;
-	z.y = tempy;
-	z.z = tempz;
-	w = tempw;
+	double tempX = z.x * z.x - z.y * z.y + 2.0 * w * z.z + aux.c.x;
+	double tempY = z.y * z.y - z.x * z.x + 2.0 * w * z.z + aux.c.y;
+	double tempZ = z.z * z.z - w * w + 2.0 * z.x * z.y + aux.c.z;
+	double tempW = w * w - z.z * z.z + 2.0 * z.x * z.y + aux.cw;
+	z.x = tempX;
+	z.y = tempY;
+	z.z = tempZ;
+	w = tempW;
 }
 
 /**
@@ -832,7 +832,7 @@ void AboxModKaliEiffieIteration(
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfxyz)
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -846,7 +846,7 @@ void AboxModKaliEiffieIteration(
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfxyz)
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -1272,7 +1272,7 @@ void AmazingSurfMultiIteration(
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfxyz)
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -1286,7 +1286,7 @@ void AmazingSurfMultiIteration(
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfxyz)
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -1637,7 +1637,7 @@ void BenesiMagTransformsIteration(
 }
 
 /**
- * benesiPwr2 mandelbulbs
+ * benesiPwr2 mandelbulb
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/
  * do-m3d-formula-have-to-be-distance-estimation-formulas/
@@ -1702,7 +1702,7 @@ void BenesiPwr2MandelbulbIteration(
 
 	if (fractal->transformCommon.addCpixelEnabled && i >= fractal->transformCommon.startIterationsF
 			&& i < fractal->transformCommon.stopIterationsF)
-	{											// Bensei origional pwr2
+	{											// Benesi original pwr2
 		aux.r = z.Length(); // needed when alternating pwr2s
 		aux.r_dz = aux.r_dz * 2.0 * aux.r;
 		double r1 = z.y * z.y + z.z * z.z;
@@ -1922,7 +1922,7 @@ void IqBulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
  * features added by Darkbeam.
  *
  * <b>M3D notes:</b>
- * Try out julias and low R_bailout values of 2 down to 1!
+ * Try out julia and low R_bailout values of 2 down to 1!
  * You might have to cutoff at z=0 or so, to see something.
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns
@@ -2051,7 +2051,7 @@ void MandelboxMengerIteration(
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfxyz)
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -2065,7 +2065,7 @@ void MandelboxMengerIteration(
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfxyz)
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -2099,7 +2099,7 @@ void MandelboxMengerIteration(
 
 			if (fractal->transformCommon.functionEnabledxFalse) // addCpixel options
 			{
-				switch (fractal->mandelbulbMulti.orderOfxyzC)
+				switch (fractal->mandelbulbMulti.orderOfXYZC)
 				{
 					case sFractalMandelbulbMulti::xyz:
 					default: c = CVector3(c.x, c.y, c.z); break;
@@ -2256,7 +2256,7 @@ void MandelbulbKaliMultiIteration(
 	double th0 = fractal->bulb.betaAngleOffset + 1e-061; // MUST keep exception catch
 	double ph0 = fractal->bulb.alphaAngleOffset;
 	CVector3 v;
-	switch (fractal->mandelbulbMulti.orderOfxyz)
+	switch (fractal->mandelbulbMulti.orderOfXYZ)
 	{
 		case sFractalMandelbulbMulti::xyz:
 		default: v = CVector3(z.x, z.y, z.z); break;
@@ -2267,11 +2267,11 @@ void MandelbulbKaliMultiIteration(
 		case sFractalMandelbulbMulti::zyx: v = CVector3(z.z, z.y, z.x); break;
 	}
 
-	if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
+	if (fractal->mandelbulbMulti.acosOrAsin == sFractalMandelbulbMulti::acos)
 		th0 += acos(v.x / aux.r);
 	else
 		th0 += asin(v.x / aux.r);
-	if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
+	if (fractal->mandelbulbMulti.atanOrAtan2 == sFractalMandelbulbMulti::atan)
 		ph0 += atan(v.y / v.z);
 	else
 		ph0 += atan2(v.y, v.z);
@@ -2291,7 +2291,7 @@ void MandelbulbKaliMultiIteration(
 
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
-		switch (fractal->mandelbulbMulti.orderOfxyz2)
+		switch (fractal->mandelbulbMulti.orderOfXYZ2)
 		{
 			case sFractalMandelbulbMulti::xyz:
 			default: v = CVector3(z.x, z.y, z.z); break;
@@ -2301,21 +2301,21 @@ void MandelbulbKaliMultiIteration(
 			case sFractalMandelbulbMulti::zxy: v = CVector3(z.z, z.x, z.y); break;
 			case sFractalMandelbulbMulti::zyx: v = CVector3(z.z, z.y, z.x); break;
 		}
-		if (fractal->mandelbulbMulti.acosOrasinA == sFractalMandelbulbMulti::acos)
+		if (fractal->mandelbulbMulti.acosOrAsinA == sFractalMandelbulbMulti::acos)
 			th0 = acos(v.x / aux.r) + fractal->transformCommon.betaAngleOffset
 						+ 1e-061; // MUST keep exception catch
 		else
 			th0 += asin(v.x / aux.r) + fractal->transformCommon.betaAngleOffset
 						 + 1e-061; // MUST keep exception catch;
 
-		if (fractal->mandelbulbMulti.atanOratan2A == sFractalMandelbulbMulti::atan)
+		if (fractal->mandelbulbMulti.atanOrAtan2A == sFractalMandelbulbMulti::atan)
 			ph0 += atan(v.y / v.z);
 		else
 			ph0 += atan2(v.y, v.z);
 	}
 	else
 	{
-		switch (fractal->mandelbulbMulti.orderOfxyz)
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
 		{
 			case sFractalMandelbulbMulti::xyz:
 			default: v = CVector3(z.x, z.y, z.z); break;
@@ -2326,14 +2326,14 @@ void MandelbulbKaliMultiIteration(
 			case sFractalMandelbulbMulti::zyx: v = CVector3(z.z, z.y, z.x); break;
 		}
 
-		if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
+		if (fractal->mandelbulbMulti.acosOrAsin == sFractalMandelbulbMulti::acos)
 			th0 = acos(v.x / aux.r) + fractal->transformCommon.betaAngleOffset
 						+ 1e-061; // MUST keep exception catch ??;
 		else
 			th0 += asin(v.x / aux.r) + fractal->transformCommon.betaAngleOffset
 						 + 1e-061; // MUST keep exception catch ??;
 
-		if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
+		if (fractal->mandelbulbMulti.atanOrAtan2 == sFractalMandelbulbMulti::atan)
 			ph0 += atan(v.y / v.z);
 		else
 			ph0 += atan2(v.y, v.z);
@@ -2371,7 +2371,7 @@ void MandelbulbKaliMultiIteration(
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfxyzC)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -2385,7 +2385,7 @@ void MandelbulbKaliMultiIteration(
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfxyzC)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -2417,7 +2417,7 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
 	double ph0 = fractal->bulb.alphaAngleOffset;
 	CVector3 v;
 
-	switch (fractal->mandelbulbMulti.orderOfxyz)
+	switch (fractal->mandelbulbMulti.orderOfXYZ)
 	{
 		case sFractalMandelbulbMulti::xyz:
 		default: v = CVector3(z.x, z.y, z.z); break;
@@ -2432,12 +2432,12 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
 	// if (v3 < 1e-21 && v3 > -1e-21)
 	//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
 
-	if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
+	if (fractal->mandelbulbMulti.acosOrAsin == sFractalMandelbulbMulti::acos)
 		th0 += acos(v.x / aux.r);
 	else
 		th0 += asin(v.x / aux.r);
 
-	if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
+	if (fractal->mandelbulbMulti.atanOrAtan2 == sFractalMandelbulbMulti::atan)
 		ph0 += atan(v.y / v.z);
 	else
 		ph0 += atan2(v.y, v.z);
@@ -2470,7 +2470,7 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfxyzC)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -2484,7 +2484,7 @@ void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfxyzC)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -2892,7 +2892,7 @@ void MengerMiddleModIteration(
 
 	if (fractal->transformCommon.addCpixelEnabledFalse) // addCpixel options
 	{
-		switch (fractal->mandelbulbMulti.orderOfxyzC)
+		switch (fractal->mandelbulbMulti.orderOfXYZC)
 		{
 			case sFractalMandelbulbMulti::xyz:
 			default: c = CVector3(c.x, c.y, c.z); break;
@@ -3131,7 +3131,7 @@ void MengerPwr2PolyIteration(
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfxyz)
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -3145,7 +3145,7 @@ void MengerPwr2PolyIteration(
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfxyz)
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -4191,7 +4191,7 @@ void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 		aux.r_dz *= z.Length() / aux.r;
 		aux.DE = aux.DE * z.Length() / aux.r + 1.0;
 	}
-	// Torioidal bulb
+	// Toroidal bulb
 	double r1 = fractal->transformCommon.minR05; // default 0.5
 	double theta = atan2(z.y, z.x);
 	double x1 = r1 * cos(theta);
@@ -4245,11 +4245,11 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
 		aux.r_dz *= z.Length() / aux.r;
 		aux.DE = aux.DE * z.Length() / aux.r + 1.0;
 	}
-	// Torioidal bulb multi
+	// Toroidal bulb multi
 	double th0 = fractal->bulb.betaAngleOffset;
 	double ph0 = fractal->bulb.alphaAngleOffset;
 	double v1, v2, v3;
-	switch (fractal->sinTan2Trig.orderOfzyx)
+	switch (fractal->sinTan2Trig.orderOfZYX)
 	{
 		case sFractalSinTan2Trig::zyx:
 		default:
@@ -4284,7 +4284,7 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
 			break;
 	}
 
-	if (fractal->sinTan2Trig.atan2Oratan == sFractalSinTan2Trig::atan2)
+	if (fractal->sinTan2Trig.atan2OrAtan == sFractalSinTan2Trig::atan2)
 	{
 		ph0 += atan2(v2, v3);
 	}
@@ -4300,11 +4300,11 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
 	aux.r = (z.x - x1) * (z.x - x1) + (z.y - y1) * (z.y - y1) + z.z * z.z; //+ 1e-061
 
 	double sqrT = aux.r;
-	if (fractal->transformCommon.functionEnabledAy) // sqrts
+	if (fractal->transformCommon.functionEnabledAy) // sqrt
 	{
 		sqrT = sqrt(aux.r);
 	}
-	if (fractal->sinTan2Trig.asinOracos == sFractalSinTan2Trig::asin)
+	if (fractal->sinTan2Trig.asinOrAcos == sFractalSinTan2Trig::asin)
 	{
 		th0 += asin(v1 / sqrT);
 	}
@@ -4414,14 +4414,14 @@ void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		}
 	}
 
-	CVector3 Csize = fractal->transformCommon.additionConstant0777;
+	CVector3 cSize = fractal->transformCommon.additionConstant0777;
 	CVector3 tempZ = z; //  correct c++ version.
-	if (z.x > Csize.x) tempZ.x = Csize.x;
-	if (z.x < -Csize.x) tempZ.x = -Csize.x;
-	if (z.y > Csize.y) tempZ.y = Csize.y;
-	if (z.y < -Csize.y) tempZ.y = -Csize.y;
-	if (z.z > Csize.z) tempZ.z = Csize.z;
-	if (z.z < -Csize.z) tempZ.z = -Csize.z;
+	if (z.x > cSize.x) tempZ.x = cSize.x;
+	if (z.x < -cSize.x) tempZ.x = -cSize.x;
+	if (z.y > cSize.y) tempZ.y = cSize.y;
+	if (z.y < -cSize.y) tempZ.y = -cSize.y;
+	if (z.z > cSize.z) tempZ.z = cSize.z;
+	if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
 	z = tempZ * 2.0 - z;
 	double k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
@@ -4557,18 +4557,18 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
 	double k;
 	// Pseudo kleinian
-	CVector3 Csize = fractal->transformCommon.additionConstant0777;
+	CVector3 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy && i >= fractal->transformCommon.startIterationsC
 			&& i < fractal->transformCommon.stopIterationsC)
 	{
 		CVector3 tempZ = z; //  correct c++ version.
 
-		if (z.x > Csize.x) tempZ.x = Csize.x;
-		if (z.x < -Csize.x) tempZ.x = -Csize.x;
-		if (z.y > Csize.y) tempZ.y = Csize.y;
-		if (z.y < -Csize.y) tempZ.y = -Csize.y;
-		if (z.z > Csize.z) tempZ.z = Csize.z;
-		if (z.z < -Csize.z) tempZ.z = -Csize.z;
+		if (z.x > cSize.x) tempZ.x = cSize.x;
+		if (z.x < -cSize.x) tempZ.x = -cSize.x;
+		if (z.y > cSize.y) tempZ.y = cSize.y;
+		if (z.y < -cSize.y) tempZ.y = -cSize.y;
+		if (z.z > cSize.z) tempZ.z = cSize.z;
+		if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
 		z.z *= fractal->transformCommon.scaleB1;
 
@@ -4582,13 +4582,13 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			&& i >= fractal->transformCommon.startIterationsB
 			&& i < fractal->transformCommon.stopIterationsB)
 	{
-		if (z.x > Csize.x) //  variation from openCL
-			z.x = Csize.x * 2.0 - z.x;
-		if (z.x < -Csize.x) z.x = -Csize.x * 2.0 - z.x;
-		if (z.y > Csize.y) z.y = Csize.y * 2.0 - z.y;
-		if (z.y < -Csize.y) z.y = -Csize.y * 2.0 - z.y;
-		if (z.z > Csize.z) z.z = Csize.z * 2.0 - z.z;
-		if (z.z < -Csize.z) z.z = -Csize.z * 2.0 - z.z;
+        //  variation from openCL
+		if (z.x > cSize.x) z.x = cSize.x * 2.0 - z.x;
+		if (z.x < -cSize.x) z.x = -cSize.x * 2.0 - z.x;
+		if (z.y > cSize.y) z.y = cSize.y * 2.0 - z.y;
+		if (z.y < -cSize.y) z.y = -cSize.y * 2.0 - z.y;
+		if (z.z > cSize.z) z.z = cSize.z * 2.0 - z.z;
+		if (z.z < -cSize.z) z.z = -cSize.z * 2.0 - z.z;
 
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 		z *= k;
@@ -4750,18 +4750,18 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	aux.DE *= fractal->transformCommon.scaleB1; // not needed but interesting??
 	double k;
 	// Pseudo kleinian
-	CVector3 Csize = fractal->transformCommon.additionConstant0777;
+	CVector3 cSize = fractal->transformCommon.additionConstant0777;
 	if (fractal->transformCommon.functionEnabledAy && i >= fractal->transformCommon.startIterationsC
 			&& i < fractal->transformCommon.stopIterationsC)
 	{
 		CVector3 tempZ = z; //  correct c++ version.
 
-		if (z.x > Csize.x) tempZ.x = Csize.x;
-		if (z.x < -Csize.x) tempZ.x = -Csize.x;
-		if (z.y > Csize.y) tempZ.y = Csize.y;
-		if (z.y < -Csize.y) tempZ.y = -Csize.y;
-		if (z.z > Csize.z) tempZ.z = Csize.z;
-		if (z.z < -Csize.z) tempZ.z = -Csize.z;
+		if (z.x > cSize.x) tempZ.x = cSize.x;
+		if (z.x < -cSize.x) tempZ.x = -cSize.x;
+		if (z.y > cSize.y) tempZ.y = cSize.y;
+		if (z.y < -cSize.y) tempZ.y = -cSize.y;
+		if (z.z > cSize.z) tempZ.z = cSize.z;
+		if (z.z < -cSize.z) tempZ.z = -cSize.z;
 
 		z *= fractal->transformCommon.scaleB1;
 		z = tempZ * 2.0 - z;
@@ -4775,13 +4775,13 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			&& i >= fractal->transformCommon.startIterationsB
 			&& i < fractal->transformCommon.stopIterationsB)
 	{
-		if (z.x > Csize.x) //  variation from openCL
-			z.x = Csize.x * 2.0 - z.x;
-		if (z.x < -Csize.x) z.x = -Csize.x * 2.0 - z.x;
-		if (z.y > Csize.y) z.y = Csize.y * 2.0 - z.y;
-		if (z.y < -Csize.y) z.y = -Csize.y * 2.0 - z.y;
-		if (z.z > Csize.z) z.z = Csize.z * 2.0 - z.z;
-		if (z.z < -Csize.z) z.z = -Csize.z * 2.0 - z.z;
+        //  variation from openCL
+		if (z.x > cSize.x) z.x = cSize.x * 2.0 - z.x;
+		if (z.x < -cSize.x) z.x = -cSize.x * 2.0 - z.x;
+		if (z.y > cSize.y) z.y = cSize.y * 2.0 - z.y;
+		if (z.y < -cSize.y) z.y = -cSize.y * 2.0 - z.y;
+		if (z.z > cSize.z) z.z = cSize.z * 2.0 - z.z;
+		if (z.z < -cSize.z) z.z = -cSize.z * 2.0 - z.z;
 		k = max(fractal->transformCommon.minR05 / z.Dot(z), 1.0);
 		z *= k;
 		aux.DE *= k + fractal->analyticDE.tweak005;
@@ -4937,7 +4937,7 @@ void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
- * Sierpinski3D. made from Darkbeams Sierpinski code from M3D
+ * Sierpinski3D. made from Darkbeam's Sierpinski code from M3D
 
  */
 void Sierpinski3dIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
@@ -5159,7 +5159,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtended
 				{
 					b = solid - Y.Dot(Nv[i]);
 					c = L.Dot(Nv[i]);
-					// A bit subtile here. a must be positive and I want to avoid divide by zero.
+					// A bit subtle here. a must be positive and I want to avoid divide by zero.
 					if ((c > 0.0) && ((a * c) > b))
 					{
 						side = i;
@@ -5399,7 +5399,7 @@ void TransfAddCpixelAxisSwapIteration(
 	if (fractal->transformCommon.alternateEnabledFalse) // alternate
 	{
 		tempC = aux.c;
-		switch (fractal->mandelbulbMulti.orderOfxyz)
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
 		{
 			case sFractalMandelbulbMulti::xyz:
 			default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -5413,7 +5413,7 @@ void TransfAddCpixelAxisSwapIteration(
 	}
 	else
 	{
-		switch (fractal->mandelbulbMulti.orderOfxyz)
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
 		{
 			case sFractalMandelbulbMulti::xyz:
 			default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -6165,7 +6165,7 @@ void TransfIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal,
 }
 
 /**
- * Inverse cylindrical coords, very easy transform
+ * Inverse cylindrical coordinates, very easy transform
  * Formula by Luca GN 2011
  */
 void TransfInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -6206,7 +6206,7 @@ void TransfLinCombineCXYZIteration(
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfxyzC)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -6220,7 +6220,7 @@ void TransfLinCombineCXYZIteration(
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfxyzC)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -6397,7 +6397,7 @@ void TransfQuaternionFoldIteration(
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfxyzC)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
@@ -6411,7 +6411,7 @@ void TransfQuaternionFoldIteration(
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfxyzC)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case sFractalMandelbulbMulti::xyz:
 				default: tempC = CVector3(c.x, c.y, c.z); break;
@@ -6815,19 +6815,19 @@ void TransfSphericalInvIteration(CVector3 &z, const cFractal *fractal, sExtended
 	double mode = r2;
 	if (fractal->transformCommon.functionEnabledFalse) // Mode 1
 	{
-		if (r2 > fractal->transformCommon.minRneg1) mode = 1.0f;
-		if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRneg1)
-			mode = fractal->transformCommon.minRneg1;
-		if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRneg1)
-			mode = fractal->transformCommon.minRneg1;
+		if (r2 > fractal->transformCommon.minRNeg1) mode = 1.0f;
+		if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRNeg1)
+			mode = fractal->transformCommon.minRNeg1;
+		if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRNeg1)
+			mode = fractal->transformCommon.minRNeg1;
 	}
 	if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
 	{
-		if (r2 > fractal->transformCommon.minRneg1) mode = 1.0f;
-		if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRneg1)
-			mode = fractal->transformCommon.minRneg1;
-		if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRneg1)
-			mode = 2.0 * fractal->transformCommon.minRneg1 - r2;
+		if (r2 > fractal->transformCommon.minRNeg1) mode = 1.0f;
+		if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRNeg1)
+			mode = fractal->transformCommon.minRNeg1;
+		if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRNeg1)
+			mode = 2.0 * fractal->transformCommon.minRNeg1 - r2;
 	}
 	mode = 1.0 / mode;
 	z *= mode;
@@ -7375,7 +7375,7 @@ void TransfSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
  */
 void TransfZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fractal)
 {
-	switch (fractal->mandelbulbMulti.orderOfxyz)
+	switch (fractal->mandelbulbMulti.orderOfXYZ)
 	{
 		case sFractalMandelbulbMulti::xyz:
 		default: z = CVector3(z.x, z.y, z.z); break;
@@ -7392,9 +7392,9 @@ void TransfZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fractal)
 	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations)
 	{
-		double xtemp = SQRT_1_2 * (z.x - z.y);
+		double xTemp = SQRT_1_2 * (z.x - z.y);
 		z.y = SQRT_1_2 * (z.y + z.x);
-		z.x = xtemp;
+		z.x = xTemp;
 	}
 }
 
@@ -7414,7 +7414,7 @@ void Abox4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 		z4D.w += paraAddP0;
 	}
 
-	CVector4 oldz = z4D;
+	CVector4 oldZ = z4D;
 	z4D.x = fabs(z4D.x + fractal->transformCommon.offset1111.x)
 					- fabs(z4D.x - fractal->transformCommon.offset1111.x) - z4D.x;
 	z4D.y = fabs(z4D.y + fractal->transformCommon.offset1111.y)
@@ -7424,10 +7424,10 @@ void Abox4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 	z4D.w = fabs(z4D.w + fractal->transformCommon.offset1111.w)
 					- fabs(z4D.w - fractal->transformCommon.offset1111.w) - z4D.w;
 
-	if (z4D.x != oldz.x) aux.color += fractal->mandelbox.color.factor4D.x;
-	if (z4D.y != oldz.y) aux.color += fractal->mandelbox.color.factor4D.y;
-	if (z4D.z != oldz.z) aux.color += fractal->mandelbox.color.factor4D.z;
-	if (z4D.w != oldz.w) aux.color += fractal->mandelbox.color.factor4D.w;
+	if (z4D.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
+	if (z4D.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
+	if (z4D.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
+	if (z4D.w != oldZ.w) aux.color += fractal->mandelbox.color.factor4D.w;
 
 	double rr = z4D.Dot(z4D);
 	if (fractal->mandelboxVary4D.rPower != 1.0) rr = pow(rr, fractal->mandelboxVary4D.rPower);
@@ -7528,7 +7528,7 @@ void Bristorbrot4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux
 }
 
 /**
- * from Syntopia & Darkbeams Menger4 code from M3D
+ * from Syntopia & Darkbeam's Menger4 code from M3D
  */
 void Menger4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -7644,7 +7644,7 @@ void Menger4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 }
 
 /**
- * Menger4D MOD1   from Syntopia & Darkbeams Menger4 code from M3D
+ * Menger4D MOD1   from Syntopia & Darkbeam's Menger4 code from M3D
  */
 void Menger4dMod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -7787,7 +7787,7 @@ void Menger4dMod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 }
 
 /**
- * Darkbeams MixPinski4 from M3D
+ * Darkbeam's MixPinski4 from M3D
  *A strange but intriguing fractal, that mixes Sierpinski and Menger folds.
  *The amazing thing is that in 3D it does not work so well! LUCA GN 2011
  */
@@ -7913,8 +7913,7 @@ void MixPinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 }
 
 /**
- * Sierpinski4D.from Syntopia & Darkbeams code
-
+ * Sierpinski4D.from Syntopia & Darkbeam's code
  */
 void Sierpinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -8099,7 +8098,7 @@ void MandelboxVaryScale4dIteration(CVector4 &z4D, int i, const cFractal *fractal
 
 	aux.actualScale =
 		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
-	CVector4 oldz = z4D;
+	CVector4 oldZ = z4D;
 	z4D.x = fabs(z4D.x + fractal->mandelboxVary4D.fold) - fabs(z4D.x - fractal->mandelboxVary4D.fold)
 					- z4D.x;
 	z4D.y = fabs(z4D.y + fractal->mandelboxVary4D.fold) - fabs(z4D.y - fractal->mandelboxVary4D.fold)
@@ -8109,10 +8108,10 @@ void MandelboxVaryScale4dIteration(CVector4 &z4D, int i, const cFractal *fractal
 	z4D.w = fabs(z4D.w + fractal->mandelboxVary4D.fold) - fabs(z4D.w - fractal->mandelboxVary4D.fold)
 					- z4D.w;
 
-	if (z4D.x != oldz.x) aux.color += fractal->mandelbox.color.factor4D.x;
-	if (z4D.y != oldz.y) aux.color += fractal->mandelbox.color.factor4D.y;
-	if (z4D.z != oldz.z) aux.color += fractal->mandelbox.color.factor4D.z;
-	if (z4D.w != oldz.w) aux.color += fractal->mandelbox.color.factor4D.w;
+	if (z4D.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
+	if (z4D.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
+	if (z4D.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
+	if (z4D.w != oldZ.w) aux.color += fractal->mandelbox.color.factor4D.w;
 
 	double rr = pow(
 		z4D.x * z4D.x + z4D.y * z4D.y + z4D.z * z4D.z + z4D.w * z4D.w, fractal->mandelboxVary4D.rPower);

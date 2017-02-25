@@ -163,9 +163,9 @@ private:
 		int objectId;
 		bool invertMode;
 		cMaterial *material;
-		sRGBfloat texDiffuse;
-		sRGBfloat texColor;
-		sRGBfloat texLuminosity;
+		sRGBFloat texDiffuse;
+		sRGBFloat texColor;
+		sRGBFloat texLuminosity;
 	};
 
 	// functions
@@ -199,7 +199,7 @@ private:
 	sRGBAfloat VolumetricShader(
 		const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut) const;
 
-	sRGBfloat TextureShader(
+	sRGBFloat TextureShader(
 		const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const;
 	CVector3 NormalMapShader(const sShaderInputData &input) const;
 

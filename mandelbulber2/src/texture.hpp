@@ -65,8 +65,8 @@ public:
 	~cTexture();
 	int Height() const { return height; }
 	int Width() const { return width; }
-	sRGBfloat Pixel(double x, double y, double pixelSize = 0.0) const;
-	sRGBfloat Pixel(CVector2<double> point, double pixelSize = 0.0) const;
+	sRGBFloat Pixel(double x, double y, double pixelSize = 0.0) const;
+	sRGBFloat Pixel(CVector2<double> point, double pixelSize = 0.0) const;
 	sRGBA16 FastPixel(int x, int y) const;
 	bool IsLoaded() const { return loaded; }
 	QString GetFileName() const { return originalFileName; }
@@ -77,8 +77,8 @@ public:
 
 private:
 	sRGBA16 LinearInterpolation(double x, double y) const;
-	static sRGBfloat BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h);
-	sRGBfloat MipMap(double x, double y, double pixelSize) const;
+	static sRGBFloat BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h);
+	sRGBFloat MipMap(double x, double y, double pixelSize) const;
 	void CreateMipMaps();
 	static int WrapInt(int a, int size) { return (a + size) % size; }
 	sRGBA16 *bitmap;

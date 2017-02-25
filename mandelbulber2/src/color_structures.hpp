@@ -96,7 +96,7 @@ inline tsRGBA<float>::tsRGBA()
 
 typedef tsRGB<quint8> sRGB8;
 typedef tsRGB<quint16> sRGB16;
-typedef tsRGB<float> sRGBfloat;
+typedef tsRGB<float> sRGBFloat;
 typedef tsRGB<qint32> sRGB;
 
 typedef tsRGBA<quint8> sRGBA8;

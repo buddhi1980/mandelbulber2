@@ -71,7 +71,7 @@ public:
 	void ViewVectorCorrection(double correction, const CRotationMatrix &mRot,
 		const CRotationMatrix &mRotInv, enumEye eye, params::enumPerspectiveType perspType,
 		CVector3 *viewVector) const;
-	static sRGBfloat MixColorsRedCyan(sRGBfloat left, sRGBfloat right);
+	static sRGBFloat MixColorsRedCyan(sRGBFloat left, sRGBFloat right);
 	static sRGB16 MixColorsRedCyan16(sRGB16 left, sRGB16 right);
 	CVector2<int> ModifyImageResolution(CVector2<int> resolution) const;
 	enumEye WhichEye(CVector2<double> imagePoint) const;

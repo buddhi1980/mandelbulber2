@@ -171,18 +171,18 @@ void cRenderWorker::doWork()
 			// Ray marching
 			int repeats = data->stereo.GetNumberOfRepeats();
 
-			sRGBfloat finallPixel;
-			sRGBfloat pixelLeftEye;
-			sRGBfloat pixelRightEye;
+			sRGBFloat finallPixel;
+			sRGBFloat pixelLeftEye;
+			sRGBFloat pixelRightEye;
 			sRGB8 colour;
 			unsigned short alpha = 65535;
 			unsigned short opacity16 = 65535;
-			sRGBfloat normalFloat;
+			sRGBFloat normalFloat;
 			double depth = 1e20;
 
 			if (monteCarloDOF) repeats = params->DOFSamples;
 
-			sRGBfloat finalPixelDOF;
+			sRGBFloat finalPixelDOF;
 
 			for (int repeat = 0; repeat < repeats; repeat++)
 			{
@@ -712,8 +712,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 	sRGBAfloat transparentShader = in.resultShader;
 	double transparent = shaderInputData.material->transparencyOfSurface;
-	sRGBfloat transparentColor =
-		sRGBfloat(shaderInputData.material->transparencyInteriorColor.R / 65536.0,
+	sRGBFloat transparentColor =
+		sRGBFloat(shaderInputData.material->transparencyInteriorColor.R / 65536.0,
 			shaderInputData.material->transparencyInteriorColor.G / 65536.0,
 			shaderInputData.material->transparencyInteriorColor.B / 65536.0);
 	resultShader.R = transparentColor.R;
@@ -734,19 +734,19 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			shaderInputData.texColor =
 				TextureShader(shaderInputData, texture::texColor, shaderInputData.material);
 		else
-			shaderInputData.texColor = sRGBfloat(1.0, 1.0, 1.0);
+			shaderInputData.texColor = sRGBFloat(1.0, 1.0, 1.0);
 
 		if (shaderInputData.material->luminosityTexture.IsLoaded())
 			shaderInputData.texLuminosity =
 				TextureShader(shaderInputData, texture::texLuminosity, shaderInputData.material);
 		else
-			shaderInputData.texLuminosity = sRGBfloat(0.0, 0.0, 0.0);
+			shaderInputData.texLuminosity = sRGBFloat(0.0, 0.0, 0.0);
 
 		if (shaderInputData.material->diffusionTexture.IsLoaded())
 			shaderInputData.texDiffuse =
 				TextureShader(shaderInputData, texture::texDiffuse, shaderInputData.material);
 		else
-			shaderInputData.texDiffuse = sRGBfloat(1.0, 1.0, 1.0);
+			shaderInputData.texDiffuse = sRGBFloat(1.0, 1.0, 1.0);
 
 		if (shaderInputData.material->normalMapTexture.IsLoaded())
 		{
@@ -876,7 +876,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 		if (reflectionsMax > 0)
 		{
-			sRGBfloat reflectDiffused;
+			sRGBFloat reflectDiffused;
 			double diffIntes = shaderInputData.material->diffussionTextureIntensity;
 			double diffIntesN = 1.0 - diffIntes;
 			reflectDiffused.R = reflect * shaderInputData.texDiffuse.R * diffIntes + reflect * diffIntesN;

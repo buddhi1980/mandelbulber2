@@ -351,7 +351,7 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pit
 			for (int i = first; i <= last; i++)
 			{
 				double val = i - first;
-				double weight = pow(fft.data[i], 5.0);
+				double weight = pow(double(fft.data[i]), 5.0);
 				nominator += val * weight;
 				denominator += weight;
 			}

@@ -103,7 +103,7 @@ bool cImage::AllocMem()
 		{
 			try
 			{
-				imageFloat = new sRGBfloat[quint64(width) * quint64(height)];
+				imageFloat = new sRGBFloat[quint64(width) * quint64(height)];
 				image16 = new sRGB16[quint64(width) * quint64(height)];
 				image8 = new sRGB8[quint64(width) * quint64(height)];
 				zBuffer = new float[quint64(width) * quint64(height)];
@@ -113,7 +113,7 @@ bool cImage::AllocMem()
 				colourBuffer = new sRGB8[quint64(width) * quint64(height)];
 				if (opt.optionalNormal)
 				{
-					normalFloat = new sRGBfloat[quint64(width) * quint64(height)];
+					normalFloat = new sRGBFloat[quint64(width) * quint64(height)];
 					normal16 = new sRGB16[quint64(width) * quint64(height)];
 					normal8 = new sRGB8[quint64(width) * quint64(height)];
 				}
@@ -167,7 +167,7 @@ bool cImage::ChangeSize(int w, int h, sImageOptional optional)
 
 void cImage::ClearImage() const
 {
-	memset(imageFloat, 0, sizeof(sRGBfloat) * quint64(width) * quint64(height));
+	memset(imageFloat, 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
 	memset(image16, 0, sizeof(sRGB16) * quint64(width) * quint64(height));
 	memset(image8, 0, sizeof(sRGB8) * quint64(width) * quint64(height));
 	memset(alphaBuffer8, 0, sizeof(quint8) * quint64(width) * quint64(height));
@@ -176,7 +176,7 @@ void cImage::ClearImage() const
 	memset(colourBuffer, 0, sizeof(sRGB8) * quint64(width) * quint64(height));
 	if (opt.optionalNormal)
 	{
-		if (normalFloat) memset(normalFloat, 0, sizeof(sRGBfloat) * quint64(width) * quint64(height));
+		if (normalFloat) memset(normalFloat, 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
 		if (normal16) memset(normal16, 0, sizeof(sRGB16) * quint64(width) * quint64(height));
 		if (normal8) memset(normal8, 0, sizeof(sRGB8) * quint64(width) * quint64(height));
 	}
@@ -215,7 +215,7 @@ void cImage::FreeImage()
 	gammaTablePrepared = false;
 }
 
-sRGB16 cImage::CalculatePixel(sRGBfloat pixel)
+sRGB16 cImage::CalculatePixel(sRGBFloat pixel)
 {
 	CalculateGammaTable();
 	float R = pixel.R * adj.brightness;
@@ -284,7 +284,7 @@ void cImage::CompileImage(QList<int> *list)
 		for (int x = 0; x < width; x++)
 		{
 			qint64 address = qint64(x) + qint64(y) * width;
-			sRGBfloat pixel = imageFloat[address];
+			sRGBFloat pixel = imageFloat[address];
 			sRGB16 newPixel16 = CalculatePixel(pixel);
 			image16[address] = newPixel16;
 		}
@@ -298,7 +298,7 @@ int cImage::GetUsedMB() const
 	quint64 zBufferSize = quint64(width) * quint64(height) * sizeof(float);
 	quint64 alphaSize16 = quint64(width) * quint64(height) * sizeof(quint16);
 	quint64 alphaSize8 = quint64(width) * quint64(height) * sizeof(quint8);
-	quint64 imageFloatSize = quint64(width) * quint64(height) * sizeof(sRGBfloat);
+	quint64 imageFloatSize = quint64(width) * quint64(height) * sizeof(sRGBFloat);
 	quint64 image16Size = quint64(width) * quint64(height) * sizeof(sRGB16);
 	quint64 image8Size = quint64(width) * quint64(height) * sizeof(sRGB8);
 	quint64 colorSize = quint64(width) * quint64(height) * sizeof(sRGB8);
@@ -306,7 +306,7 @@ int cImage::GetUsedMB() const
 	quint64 optionalSize = 0;
 	if (opt.optionalNormal)
 	{
-		optionalSize += quint64(width) * quint64(height) * sizeof(sRGBfloat);
+		optionalSize += quint64(width) * quint64(height) * sizeof(sRGBFloat);
 		optionalSize += quint64(width) * quint64(height) * sizeof(sRGB16);
 		optionalSize += quint64(width) * quint64(height) * sizeof(sRGB8);
 	}
@@ -576,7 +576,7 @@ void cImage::Squares(int y, int pFactor)
 	for (int x = 0; x <= width - pFactor; x += pFactor)
 	{
 		quint64 ptr = quint64(x) + quint64(y) * quint64(width);
-		sRGBfloat pixelTemp = imageFloat[ptr];
+		sRGBFloat pixelTemp = imageFloat[ptr];
 		float zBufferTemp = zBuffer[ptr];
 		sRGB8 colourTemp = colourBuffer[ptr];
 		quint16 alphaTemp = alphaBuffer16[ptr];
@@ -598,7 +598,7 @@ void cImage::Squares(int y, int pFactor)
 	}
 }
 
-void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity, int layer) const
+void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBFloat opacity, int layer) const
 {
 	if (x >= 0 && x < previewWidth && y >= 0 && y < previewHeight)
 	{
@@ -630,7 +630,7 @@ void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity,
 }
 
 void cImage::AntiAliasedPoint(
-	double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer) const
+	double x, double y, float z, sRGB8 color, sRGBFloat opacity, int layer) const
 {
 	double deltaX = x - int(x);
 	double deltaY = y - int(y);
@@ -641,7 +641,7 @@ void cImage::AntiAliasedPoint(
 	double intensity4 = (deltaX) * (deltaY);
 	double sum = intensity1 + intensity2 + intensity3 + intensity4;
 
-	sRGBfloat opacity2;
+	sRGBFloat opacity2;
 
 	opacity2.R = opacity.R * intensity1 / sum;
 	opacity2.G = opacity.G * intensity1 / sum;
@@ -665,7 +665,7 @@ void cImage::AntiAliasedPoint(
 }
 
 void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2,
-	sRGB8 color, sRGBfloat opacity, int layer) const
+	sRGB8 color, sRGBFloat opacity, int layer) const
 {
 	if ((x1 >= 0 && x1 < previewWidth && y1 >= 0 && y1 < previewHeight)
 			|| (x2 >= 0 && x2 < previewWidth && y2 >= 0 && y2 < previewHeight))
@@ -736,7 +736,7 @@ void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z
 						{
 							opacity2 = ((xx2 - x)) * (1.0 - distance);
 						}
-						sRGBfloat opacity3;
+						sRGBFloat opacity3;
 						opacity3.R = opacity2 * opacity.R;
 						opacity3.G = opacity2 * opacity.G;
 						opacity3.B = opacity2 * opacity.B;
@@ -786,7 +786,7 @@ void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z
 						{
 							opacity2 = ((yy2 - (y))) * (1.0 - distance);
 						}
-						sRGBfloat opacity3;
+						sRGBFloat opacity3;
 						opacity3.R = opacity2 * opacity.R;
 						opacity3.G = opacity2 * opacity.G;
 						opacity3.B = opacity2 * opacity.B;
@@ -799,7 +799,7 @@ void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z
 }
 
 void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
-	sRGBfloat opacity, int layer) const
+	sRGBFloat opacity, int layer) const
 {
 	if (borderWidth > 0 && r > 0)
 	{
@@ -836,7 +836,7 @@ void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, d
 					double deltaR = fabs(rr - r);
 					if (deltaR > borderWidth) deltaR = borderWidth;
 					double opacity2 = wspJ * (borderWidth - deltaR);
-					sRGBfloat opacity3;
+					sRGBFloat opacity3;
 					opacity3.R = opacity2 * opacity.R;
 					opacity3.G = opacity2 * opacity.G;
 					opacity3.B = opacity2 * opacity.B;

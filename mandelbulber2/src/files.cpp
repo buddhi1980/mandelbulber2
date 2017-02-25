@@ -48,13 +48,11 @@ using namespace std;
 string logfileName;
 
 //***************************** Index filename *************************
-// funkcja numerująca pliki
-// we:	filename - nazwa pliku bez rozszerzenia
-//		extension - rozszerzenie
-//		number - numer do dodania
-// wy:	fullname - nazwa pliku z numerem i rozszerzeniem
-//		return - ilość znaków
-
+// function for numerating file names
+// in:	filename - file name without extension
+//		extension
+//		number - number to apply
+// out:	fullname - file name with added number
 std::string IndexFilename(const char *filename, const char *extension, int number)
 {
 	char tmp[10];
@@ -233,7 +231,7 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
  for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].auxSpecular.R; buffer16[i].G =
  ci[i].auxSpecular.G; buffer16[i].B = ci[i].auxSpecular.B;}
  BufferNormalize16(buffer16, size);
- SavePNG16((file+"_auxlightsSpec.png").c_str(), 100, width, height, buffer16);
+ SavePNG16((file+"_aux_lights_spec.png").c_str(), 100, width, height, buffer16);
 
  for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].backgroundBuf16.R; buffer16[i].G =
  ci[i].backgroundBuf16.G; buffer16[i].B = ci[i].backgroundBuf16.B;}
@@ -243,7 +241,7 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
  for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].reflectBuf16.R; buffer16[i].G =
  ci[i].reflectBuf16.G; buffer16[i].B = ci[i].reflectBuf16.B;}
  BufferNormalize16(buffer16, size);
- SavePNG16((file+"_refl.png").c_str(), 100, width, height, buffer16);
+ SavePNG16((file+"_reflection.png").c_str(), 100, width, height, buffer16);
 
  for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].volumetricLight.R; buffer16[i].G =
  ci[i].volumetricLight.G; buffer16[i].B = ci[i].volumetricLight.B;}

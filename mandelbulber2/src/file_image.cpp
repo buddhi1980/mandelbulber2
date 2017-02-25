@@ -972,7 +972,7 @@ void ImageFileSaveEXR::SaveEXR(
 			for (int x = 0; x < width; x++)
 			{
 				uint64_t ptr = (x + y * width);
-				sRGBfloat pixel = image->GetPixelNormal(x, y);
+				sRGBFloat pixel = image->GetPixelNormal(x, y);
 				if (imfQuality == Imf::FLOAT)
 				{
 					floatPointer[ptr] = pixel;
@@ -1106,7 +1106,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 						}
 						else
 						{
-							sRGBfloat *typedColorPtr = reinterpret_cast<sRGBfloat *>(&colorPtr[ptr]);
+							sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
 							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
 							typedColorPtr->R = rgbPointer.R / 65536.0;
 							typedColorPtr->G = rgbPointer.G / 65536.0;
@@ -1200,8 +1200,8 @@ bool ImageFileSaveTIFF::SaveTIFF(
 				{
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 					{
-						sRGBfloat *typedColorPtr = reinterpret_cast<sRGBfloat *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGBfloat(image->GetPixelNormal(x, y));
+						sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGBFloat(image->GetPixelNormal(x, y));
 					}
 					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{

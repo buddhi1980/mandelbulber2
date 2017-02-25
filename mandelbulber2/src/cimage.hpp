@@ -54,10 +54,10 @@ struct sImageOptional
 
 struct sAllImageData
 {
-	sRGBfloat imageFloat;
+	sRGBFloat imageFloat;
 	quint16 alphaBuffer;
 	quint16 opacityBuffer;
-	sRGBfloat normalFloat;
+	sRGBFloat normalFloat;
 	sRGB8 colourBuffer;
 	float zBuffer;
 };
@@ -80,7 +80,7 @@ public:
 	void SetAsMainImage() { isMainImage = true; }
 	bool IsMainImage() const { return isMainImage; }
 
-	inline void PutPixelImage(qint64 x, qint64 y, sRGBfloat pixel)
+	inline void PutPixelImage(qint64 x, qint64 y, sRGBFloat pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			imageFloat[qint64(x) + qint64(y) * qint64(width)] = pixel;
@@ -110,12 +110,12 @@ public:
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			opacityBuffer[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelNormal(int x, int y, sRGBfloat normal)
+	inline void PutPixelNormal(int x, int y, sRGBFloat normal)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			normalFloat[qint64(x) + qint64(y) * qint64(width)] = normal;
 	}
-	inline sRGBfloat GetPixelImage(int x, int y) const
+	inline sRGBFloat GetPixelImage(int x, int y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return imageFloat[qint64(x) + qint64(y) * qint64(width)];
@@ -171,7 +171,7 @@ public:
 		else
 			return float(1e20);
 	}
-	inline sRGBfloat GetPixelNormal(int x, int y) const
+	inline sRGBFloat GetPixelNormal(int x, int y) const
 	{
 		if (!opt.optionalNormal) return BlackFloat();
 		if (x >= 0 && x < width && y >= 0 && y < height)
@@ -203,7 +203,7 @@ public:
 			quint16(image16[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor);
 	}
 
-	inline void BlendPixelImage(int x, int y, float factor, sRGBfloat other)
+	inline void BlendPixelImage(int x, int y, float factor, sRGBFloat other)
 	{
 		float factorN = 1.0f - factor;
 		imageFloat[qint64(x) + qint64(y) * qint64(width)].R =
@@ -258,15 +258,15 @@ public:
 	double GetPreviewScale() const { return previewScale; }
 	void Squares(int y, int progressiveFactor);
 	void CalculateGammaTable(void);
-	sRGB16 CalculatePixel(sRGBfloat pixel);
+	sRGB16 CalculatePixel(sRGBFloat pixel);
 
-	void PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBfloat opacity, int layer) const;
+	void PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBFloat opacity, int layer) const;
 	void AntiAliasedPoint(
-		double x, double y, float z, sRGB8 color, sRGBfloat opacity, int layer) const;
+		double x, double y, float z, sRGB8 color, sRGBFloat opacity, int layer) const;
 	void AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2, sRGB8 color,
-		sRGBfloat opacity, int layer) const;
+		sRGBFloat opacity, int layer) const;
 	void CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
-		sRGBfloat opacity, int layer) const;
+		sRGBFloat opacity, int layer) const;
 
 	int progressiveFactor;
 
@@ -277,11 +277,11 @@ private:
 	void FreeImage(void);
 	inline sRGB16 Black16(void) const { return sRGB16(0, 0, 0); }
 	inline sRGB8 Black8(void) const { return sRGB8(0, 0, 0); }
-	inline sRGBfloat BlackFloat(void) const { return sRGBfloat(0, 0, 0); }
+	inline sRGBFloat BlackFloat(void) const { return sRGBFloat(0, 0, 0); }
 
 	sRGB8 *image8;
 	sRGB16 *image16;
-	sRGBfloat *imageFloat;
+	sRGBFloat *imageFloat;
 
 	quint8 *alphaBuffer8;
 	quint16 *alphaBuffer16;
@@ -290,7 +290,7 @@ private:
 	float *zBuffer;
 
 	// optional image buffers
-	sRGBfloat *normalFloat;
+	sRGBFloat *normalFloat;
 	sRGB8 *normal8;
 	sRGB16 *normal16;
 

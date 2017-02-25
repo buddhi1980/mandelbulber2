@@ -201,7 +201,7 @@ struct sFractalMandelbox
 struct sFractalBoxFoldBulbPow2
 {
 	double zFactor;
-	double foldfactor;
+	double foldFactor;
 };
 
 struct sFractalMandelbulb
@@ -269,32 +269,32 @@ struct sFractalMandelbulbMulti
 		zyx
 	};
 
-	multi_acosOrAsin acosOrasin;
-	multi_acosOrAsin acosOrasinA;
-	multi_atanOrAtan2 atanOratan2;
-	multi_atanOrAtan2 atanOratan2A;
+	multi_acosOrAsin acosOrAsin;
+	multi_acosOrAsin acosOrAsinA;
+	multi_atanOrAtan2 atanOrAtan2;
+	multi_atanOrAtan2 atanOrAtan2A;
 
-	multi_OrderOfXYZ orderOfxyz;
-	multi_OrderOfXYZ orderOfxyz2;
-	multi_OrderOfXYZ orderOfxyzC;
+	multi_OrderOfXYZ orderOfXYZ;
+	multi_OrderOfXYZ orderOfXYZ2;
+	multi_OrderOfXYZ orderOfXYZC;
 };
 
 // sinTan2Trig
 struct sFractalSinTan2Trig
 {
-	enum multi_asinOracos
+	enum multi_asinOrAcos
 	{
 		asin,
 		acos
 	};
 
-	enum multi_atan2Oratan
+	enum multi_atan2OrAtan
 	{
 		atan2,
 		atan
 	};
 
-	enum multi_OrderOfzyx
+	enum multi_OrderOfZYX
 	{
 		zyx,
 		zxy,
@@ -304,9 +304,9 @@ struct sFractalSinTan2Trig
 		xyz
 	};
 
-	multi_asinOracos asinOracos;
-	multi_atan2Oratan atan2Oratan;
-	multi_OrderOfzyx orderOfzyx;
+	multi_asinOrAcos asinOrAcos;
+	multi_atan2OrAtan atan2OrAtan;
+	multi_OrderOfZYX orderOfZYX;
 };
 
 // surf fold box
@@ -449,7 +449,7 @@ struct sFractalTransformCommon
 	double offset105;
 	double offset2;
 	double multiplication;
-	double minRneg1;
+	double minRNeg1;
 	double minR0;
 	double minR05;
 	double minR06;
@@ -581,7 +581,7 @@ struct sFractalTransformCommon
 	CRotationMatrix rotationMatrix;
 	CRotationMatrix rotationMatrix2;
 	CRotationMatrix44 rotationMatrix44; //....................
-	CRotationMatrix tempRotmatrix;
+	CRotationMatrix tempRotMatrix;
 
 	bool addCpixelEnabled;
 	bool addCpixelEnabledFalse;

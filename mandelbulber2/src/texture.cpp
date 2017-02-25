@@ -232,7 +232,7 @@ cTexture::~cTexture()
 }
 
 // read pixel
-sRGBfloat cTexture::Pixel(double x, double y, double pixelSize) const
+sRGBFloat cTexture::Pixel(double x, double y, double pixelSize) const
 {
 	if (x >= 0 && x < width && y >= 0 && y < height - 1.0)
 	{
@@ -240,11 +240,11 @@ sRGBfloat cTexture::Pixel(double x, double y, double pixelSize) const
 	}
 	else
 	{
-		return sRGBfloat(0.0, 0.0, 0.0);
+		return sRGBFloat(0.0, 0.0, 0.0);
 	}
 }
 
-sRGBfloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
+sRGBFloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
 {
 	if (point.x > 0)
 		point.x = fmod(point.x, 1.0);
@@ -281,7 +281,7 @@ sRGBA16 cTexture::LinearInterpolation(double x, double y) const
 	return color;
 }
 
-sRGBfloat cTexture::BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h)
+sRGBFloat cTexture::BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h)
 {
 	int ix = int(x);
 	int iy = int(y);
@@ -316,7 +316,7 @@ sRGBfloat cTexture::BicubicInterpolation(double x, double y, const sRGBA16 *bitm
 	if (dB < 0) dB = 0;
 	if (dB > 65535) dB = 65535;
 
-	return sRGBfloat(float(dR / 65536.0), float(dG / 65536.0), float(dB / 65536.0));
+	return sRGBFloat(float(dR / 65536.0), float(dG / 65536.0), float(dB / 65536.0));
 }
 
 sRGBA16 cTexture::FastPixel(int x, int y) const
@@ -357,7 +357,7 @@ CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSi
 	point.y = point.y - intY;
 	if (point.x < 0.0) point.x += 1.0;
 	if (point.y < 0.0) point.y += 1.0;
-	sRGBfloat normalPixel = MipMap(point.x * width, point.y * height, pixelSize);
+	sRGBFloat normalPixel = MipMap(point.x * width, point.y * height, pixelSize);
 	CVector3 normal(normalPixel.R * 2.0 - 1.0, normalPixel.G * 2.0 - 1.0, normalPixel.B);
 	normal.x *= -bump;
 	normal.y *= -bump;
@@ -367,7 +367,7 @@ CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSi
 	return normal;
 }
 
-sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
+sRGBFloat cTexture::MipMap(double x, double y, double pixelSize) const
 {
 	pixelSize /= double(max(width, height));
 	if (mipmaps.size() > 0 && pixelSize > 0)
@@ -404,12 +404,12 @@ sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 				bigBitmapSize = mipmapSizes[layerBig - 1];
 				smallBitmapSize = mipmapSizes[layerSmall - 1];
 			}
-			sRGBfloat pixelFromBig = BicubicInterpolation(
+			sRGBFloat pixelFromBig = BicubicInterpolation(
 				x / sizeMultipBig, y / sizeMultipBig, bigBitmap, bigBitmapSize.x, bigBitmapSize.y);
-			sRGBfloat pixelFromSmall = BicubicInterpolation(x / sizeMultipSmall, y / sizeMultipSmall,
+			sRGBFloat pixelFromSmall = BicubicInterpolation(x / sizeMultipSmall, y / sizeMultipSmall,
 				smallBitmap, smallBitmapSize.x, smallBitmapSize.y);
 
-			sRGBfloat pixel;
+			sRGBFloat pixel;
 			pixel.R = float(pixelFromSmall.R * trans + pixelFromBig.R * transN);
 			pixel.G = float(pixelFromSmall.G * trans + pixelFromBig.G * transN);
 			pixel.B = float(pixelFromSmall.B * trans + pixelFromBig.B * transN);
@@ -417,7 +417,7 @@ sRGBfloat cTexture::MipMap(double x, double y, double pixelSize) const
 		}
 		else
 		{
-			return sRGBfloat();
+			return sRGBFloat();
 		}
 	}
 	else
