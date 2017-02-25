@@ -665,12 +665,3 @@ void RenderWindow::slotMaterialEdited()
 	SynchronizeInterfaceWindow(gMainInterface->materialEditor, gPar, qInterface::write);
 }
 
-void RenderWindow::slotTestDetach()
-{
-	QWidget *window = new QWidget;
-	QVBoxLayout *layout = new QVBoxLayout(window);
-	window->setLayout(layout);
-	window->show();
-	ui->verticalLayout->removeWidget(ui->widgetWithImage);
-	layout->addWidget(ui->widgetWithImage);
-}

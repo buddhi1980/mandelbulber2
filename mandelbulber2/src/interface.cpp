@@ -65,6 +65,7 @@
 #include "render_data.hpp"
 #include "rendering_configuration.hpp"
 #include "ui_render_window.h"
+#include "detached_window.h"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
@@ -76,6 +77,7 @@ cInterface *gMainInterface = nullptr;
 cInterface::cInterface()
 {
 	mainWindow = nullptr;
+	detachedWindow = nullptr;
 	headless = nullptr;
 	qimage = nullptr;
 	renderedImage = nullptr;
@@ -337,6 +339,9 @@ void cInterface::ConnectSignals() const
 		mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
 	QApplication::connect(mainWindow->ui->actionProgramPreferences, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuProgramPreferences()));
+	QApplication::connect(mainWindow->ui->actionDetach_image_from_main_window, SIGNAL(triggered()),
+		mainWindow, SLOT(slotDetachMainImage()));
+
 
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));
@@ -384,9 +389,6 @@ void cInterface::ConnectSignals() const
 		mainWindow, SLOT(slotCustomWindowStateAddToMenu()));
 	QApplication::connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()),
 		mainWindow, SLOT(slotCustomWindowRemovePopup()));
-
-	QApplication::connect(mainWindow->ui->pushButton_testDetach, SIGNAL(clicked()),
-		mainWindow, SLOT(slotTestDetach()));
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksandToolbarbyView();
@@ -2088,4 +2090,20 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 	QIcon icon(pix);
 	pushbutton->setIcon(icon);
 	pushbutton->setIconSize(QSize(w, h));
+}
+
+void cInterface::DetachMainImageWidget()
+{
+	if(!detachedWindow) detachedWindow = new cDetachedWindow;
+	mainWindow->ui->verticalLayout->removeWidget(mainWindow->ui->widgetWithImage);
+	detachedWindow->InstallImageWidget(mainWindow->ui->widgetWithImage);
+	detachedWindow->show();
+}
+
+void cInterface::StoreDetachImageState()
+{
+}
+
+void cInterface::RestoreDetachImageState()
+{
 }

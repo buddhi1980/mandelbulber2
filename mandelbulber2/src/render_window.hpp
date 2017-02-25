@@ -150,6 +150,8 @@ private slots:
 	void slotUpdateDocksandToolbarbyView() const;
 	void slotStackAllDocks();
 
+	void slotDetachMainImage();
+
 	// toolbar and custom window settings
 	void slotPresetAddToToolbar();
 	void slotCustomWindowStateAddToMenu();
@@ -161,8 +163,6 @@ private slots:
 	static void slotKeyPressOnImage(QKeyEvent *event);
 	static void slotKeyReleaseOnImage(QKeyEvent *event);
 	void slotMouseWheelRotatedOnImage(int delta) const;
-
-	void slotTestDetach();
 
 private:
 	Ui::RenderWindow *ui;

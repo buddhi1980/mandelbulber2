@@ -51,6 +51,7 @@ class cMaterialItemModel;
 class cMaterialEditor;
 class cSystemTray;
 class cImage;
+class cDetachedWindow;
 
 class cInterface
 {
@@ -118,10 +119,14 @@ public:
 	void MaterialSelected(int matIndex);
 	static void StartupDefaultSettings();
 	void DisableJuliaPointMode() const;
+	void DetachMainImageWidget();
+	void StoreDetachImageState();
+	void RestoreDetachImageState();
 
 	bool QuitApplicationDialog();
 
 	RenderWindow *mainWindow;
+	cDetachedWindow *detachedWindow;
 	cHeadless *headless;
 	QImage *qimage;
 	RenderedImage *renderedImage;

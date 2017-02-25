@@ -659,3 +659,11 @@ void RenderWindow::slotStackAllDocks()
 	tabifyDockWidget(ui->dockWidget_fractal, ui->dockWidget_histogram);
 	tabifyDockWidget(ui->dockWidget_histogram, ui->dockWidget_info);
 }
+
+void RenderWindow::slotDetachMainImage()
+{
+	if (ui->actionDetach_image_from_main_window->isChecked())
+	{
+		gMainInterface->DetachMainImageWidget();
+	}
+}
