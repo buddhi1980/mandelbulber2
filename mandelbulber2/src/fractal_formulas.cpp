@@ -4582,7 +4582,7 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			&& i >= fractal->transformCommon.startIterationsB
 			&& i < fractal->transformCommon.stopIterationsB)
 	{
-        //  variation from openCL
+		//  variation from openCL
 		if (z.x > cSize.x) z.x = cSize.x * 2.0 - z.x;
 		if (z.x < -cSize.x) z.x = -cSize.x * 2.0 - z.x;
 		if (z.y > cSize.y) z.y = cSize.y * 2.0 - z.y;
@@ -4775,7 +4775,7 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			&& i >= fractal->transformCommon.startIterationsB
 			&& i < fractal->transformCommon.stopIterationsB)
 	{
-        //  variation from openCL
+		//  variation from openCL
 		if (z.x > cSize.x) z.x = cSize.x * 2.0 - z.x;
 		if (z.x < -cSize.x) z.x = -cSize.x * 2.0 - z.x;
 		if (z.y > cSize.y) z.y = cSize.y * 2.0 - z.y;

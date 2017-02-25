@@ -348,7 +348,6 @@ void cInterface::ConnectSignals() const
 	QApplication::connect(mainWindow->ui->actionDetach_image_from_main_window, SIGNAL(triggered()),
 		mainWindow, SLOT(slotDetachMainImage()));
 
-
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));
 	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale,
@@ -395,7 +394,6 @@ void cInterface::ConnectSignals() const
 		mainWindow, SLOT(slotCustomWindowStateAddToMenu()));
 	QApplication::connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()),
 		mainWindow, SLOT(slotCustomWindowRemovePopup()));
-
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksandToolbarbyView();
@@ -2112,7 +2110,7 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 
 void cInterface::DetachMainImageWidget()
 {
-	if(!detachedWindow) detachedWindow = new cDetachedWindow;
+	if (!detachedWindow) detachedWindow = new cDetachedWindow;
 	mainWindow->ui->verticalLayout->removeWidget(mainWindow->ui->widgetWithImage);
 	detachedWindow->InstallImageWidget(mainWindow->ui->widgetWithImage);
 	detachedWindow->restoreGeometry(settings.value("detachedWindowGeometry").toByteArray());
