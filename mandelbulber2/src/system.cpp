@@ -82,7 +82,7 @@ bool InitSystem()
 
 // logfile
 #ifdef WIN32 /* WINDOWS */
-	systemData.logfileName = systemData.homedir + "mandelbulber_log.txt";
+	systemData.logfileName = systemData.homeDir + "mandelbulber_log.txt";
 #else
 	systemData.logfileName = systemData.homeDir + ".mandelbulber_log.txt";
 #endif
@@ -105,8 +105,8 @@ bool InitSystem()
 
 // data directory location
 #ifdef WIN32 /* WINDOWS */
-	systemData.SetDataDirectoryHidden(systemData.homedir + "mandelbulber" + QDir::separator());
-	systemData.SetDataDirectoryPublic(systemData.homedir + "mandelbulber" + QDir::separator());
+	systemData.SetDataDirectoryHidden(systemData.homeDir + "mandelbulber" + QDir::separator());
+	systemData.SetDataDirectoryPublic(systemData.homeDir + "mandelbulber" + QDir::separator());
 #else
 	systemData.SetDataDirectoryHidden(
 		QDir::toNativeSeparators(systemData.homeDir + ".mandelbulber" + QDir::separator()));
