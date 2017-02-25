@@ -6153,8 +6153,7 @@ void TransfFoldingTetra3dIteration(CVector3 &z, const cFractal *fractal)
  * iteration weight. Influence fractal based on the weight of
  * Z values after different iterations
  */
-void TransfIterationWeightIteration(
-	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void TransfIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 zA = (i == fractal->transformCommon.intA) ? z : CVector3();
 	CVector3 zB = (i == fractal->transformCommon.intB) ? z : CVector3();
@@ -6190,7 +6189,8 @@ void TransfInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtend
  * Linear Combine transform from Mandelbulb3D.
  * Can create multiple combination for the addition of Cpixel
  */
-void TransfLinCombineCXYZIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
+void TransfLinCombineCXYZIteration(
+	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 temp = c;
 	CVector3 mulX = fractal->transformCommon.constantMultiplier100;
@@ -8260,8 +8260,7 @@ void TransfFabsAddTgladFold4dIteration(CVector4 &z4D, const cFractal *fractal)
 /**
 * fabs add conditional4D
 */
-void TransfFabsAddConditional4dIteration(
-	CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
+void TransfFabsAddConditional4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{

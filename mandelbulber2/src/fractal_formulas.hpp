@@ -159,8 +159,7 @@ void TransfBenesiT3Iteration(CVector3 &z, const cFractal *fractal);
 void TransfBenesiT4Iteration(CVector3 &z, const cFractal *fractal);
 void TransfBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
 void TransfBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void TransfBoxFoldVaryV1Iteration(
-	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void TransfBoxFoldVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransfBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
@@ -169,11 +168,11 @@ void TransfFabsAddConditionalIteration(CVector3 &z, const cFractal *fractal, sEx
 void TransfNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransfFabsAddMultiIteration(CVector3 &z, const cFractal *fractal);
 void TransfFoldingTetra3dIteration(CVector3 &z, const cFractal *fractal);
-void TransfIterationWeightIteration(
-	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void TransfIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 
 void TransfInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void TransfLinCombineCXYZIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
+void TransfLinCombineCXYZIteration(
+	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void TransfMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfMultipleAngleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfOctoFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
@@ -223,8 +222,7 @@ void TransfAddConstant4dIteration(CVector4 &z4D, const cFractal *fractal);
 void TransfBoxFold4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransfFabsAddConstant4dIteration(CVector4 &z4D, const cFractal *fractal);
 void TransfFabsAddTgladFold4dIteration(CVector4 &z4D, const cFractal *fractal);
-void TransfFabsAddConditional4dIteration(
-	CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
+void TransfFabsAddConditional4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
 void TransfIterationWeight4dIteration(
 	CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransfReciprocal4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux);
