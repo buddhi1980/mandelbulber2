@@ -53,7 +53,14 @@ public:
 	void RemoveImageWidget(QWidget *widget);
 
 private:
+	void ConnectSignals();
 	Ui::cDetachedWindow *ui;
+
+private slots:
+	void FullScreenToggle();
+
+signals:
+	void ReturnToOrigin();
 };
 
 #endif /* MANDELBULBER2_QT_DETACHED_WINDOW_H_ */

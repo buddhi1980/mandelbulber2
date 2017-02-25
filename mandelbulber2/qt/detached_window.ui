@@ -49,12 +49,12 @@
   </widget>
   <action name="actionReturn_to_main_window">
    <property name="text">
-    <string>Return to main window</string>
+    <string>Attach to main window</string>
    </property>
   </action>
   <action name="actionFull_screen">
    <property name="text">
-    <string>Full screen</string>
+    <string>Toggle full screen</string>
    </property>
    <property name="shortcut">
     <string>F11</string>

@@ -39,6 +39,7 @@ cDetachedWindow::cDetachedWindow(QWidget *parent) : QMainWindow(parent), ui(new 
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint);
+	ConnectSignals();
 }
 
 cDetachedWindow::~cDetachedWindow()
@@ -55,4 +56,22 @@ void cDetachedWindow::RemoveImageWidget(QWidget *widget)
 {
 	ui->verticalLayout->removeWidget(widget);
 	hide();
+}
+
+void cDetachedWindow::ConnectSignals()
+{
+	connect(ui->actionReturn_to_main_window, SIGNAL(triggered()), this, SIGNAL(ReturnToOrigin()));
+	connect(ui->actionFull_screen, SIGNAL(triggered()), this, SLOT(FullScreenToggle()));
+}
+
+void cDetachedWindow::FullScreenToggle()
+{
+	if(windowState() & Qt::WindowFullScreen)
+	{
+		showNormal();
+	}
+	else
+	{
+		showFullScreen();
+	}
 }

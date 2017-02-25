@@ -2110,7 +2110,12 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 
 void cInterface::DetachMainImageWidget()
 {
-	if (!detachedWindow) detachedWindow = new cDetachedWindow;
+	if (!detachedWindow)
+	{
+		detachedWindow = new cDetachedWindow;
+		connect(detachedWindow, SIGNAL(ReturnToOrigin()), mainWindow->ui->actionDetach_image_from_main_window, SLOT(toggle()));
+		connect(detachedWindow, SIGNAL(ReturnToOrigin()), mainWindow, SLOT(slotDetachMainImage()));
+	}
 	mainWindow->ui->verticalLayout->removeWidget(mainWindow->ui->widgetWithImage);
 	detachedWindow->InstallImageWidget(mainWindow->ui->widgetWithImage);
 	detachedWindow->restoreGeometry(settings.value("detachedWindowGeometry").toByteArray());
