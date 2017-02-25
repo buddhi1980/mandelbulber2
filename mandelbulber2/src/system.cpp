@@ -72,7 +72,7 @@ bool InitSystem()
 
 	systemData.globalTimer.start();
 
-	systemData.homedir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
+	systemData.homeDir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
 
 #ifdef WIN32 /* WINDOWS */
 	systemData.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());
@@ -84,7 +84,7 @@ bool InitSystem()
 #ifdef WIN32 /* WINDOWS */
 	systemData.logfileName = systemData.homedir + "mandelbulber_log.txt";
 #else
-	systemData.logfileName = systemData.homedir + ".mandelbulber_log.txt";
+	systemData.logfileName = systemData.homeDir + ".mandelbulber_log.txt";
 #endif
 	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "w");
 	fclose(logfile);
@@ -109,9 +109,9 @@ bool InitSystem()
 	systemData.SetDataDirectoryPublic(systemData.homedir + "mandelbulber" + QDir::separator());
 #else
 	systemData.SetDataDirectoryHidden(
-		QDir::toNativeSeparators(systemData.homedir + ".mandelbulber" + QDir::separator()));
+		QDir::toNativeSeparators(systemData.homeDir + ".mandelbulber" + QDir::separator()));
 	systemData.SetDataDirectoryPublic(
-		QDir::toNativeSeparators(systemData.homedir + "mandelbulber" + QDir::separator()));
+		QDir::toNativeSeparators(systemData.homeDir + "mandelbulber" + QDir::separator()));
 #endif
 	out << "Default data hidden directory: " << systemData.GetDataDirectoryHidden() << endl;
 	WriteLogString("Default data hidden directory", systemData.GetDataDirectoryHidden(), 1);
@@ -179,25 +179,25 @@ void WriteLog(QString text, int verbosityLevel)
 	{
 		FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
 #ifdef WIN32
-		QString logtext = QString("PID: %1, time: %2, %3\n")
+		QString logText = QString("PID: %1, time: %2, %3\n")
 												.arg(QCoreApplication::applicationPid())
 												.arg(QString::number(clock() / 1.0e3, 'f', 3))
 												.arg(text);
 #else
-		QString logtext =
+		QString logText =
 			QString("PID: %1, time: %2, %3\n")
 				.arg(QCoreApplication::applicationPid())
 				.arg(QString::number((systemData.globalTimer.nsecsElapsed()) / 1.0e9, 'f', 9))
 				.arg(text);
 #endif
 
-		fputs(logtext.toLocal8Bit().constData(), logfile);
+		fputs(logText.toLocal8Bit().constData(), logfile);
 		fclose(logfile);
 
 		// write to log in window
 		if (gMainInterface && gMainInterface->mainWindow != nullptr)
 		{
-			gMainInterface->mainWindow->AppendToLog(logtext);
+			gMainInterface->mainWindow->AppendToLog(logText);
 		}
 	}
 }
@@ -269,24 +269,24 @@ bool CreateDefaultFolders()
 	return result;
 }
 
-bool CreateFolder(QString qname)
+bool CreateFolder(QString qName)
 {
-	if (QDir(qname).exists())
+	if (QDir(qName).exists())
 	{
-		WriteLogString("Directory already exists", qname, 1);
+		WriteLogString("Directory already exists", qName, 1);
 		return true;
 	}
 	else
 	{
-		if (QDir().mkdir(qname))
+		if (QDir().mkdir(qName))
 		{
-			WriteLogString("Directory created", qname, 2);
+			WriteLogString("Directory created", qName, 2);
 			return true;
 		}
 		else
 		{
-			WriteLogString("Directory can't be created", qname, 1);
-			qCritical() << "error: directory " << qname << " cannot be created" << endl;
+			WriteLogString("Directory can't be created", qName, 1);
+			qCritical() << "error: directory " << qName << " cannot be created" << endl;
 			return false;
 		}
 	}

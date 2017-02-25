@@ -85,7 +85,7 @@ QPixmap cThumbnail::Render()
 		config.DisableProgressiveRender();
 		config.DisableRefresh();
 		config.DisableProgressiveRender();
-		config.EnableIgnoreErros();
+		config.EnableIgnoreErrors();
 
 		renderJob->Init(cRenderJob::still, config);
 		renderJob->Execute();

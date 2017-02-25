@@ -211,7 +211,7 @@ private:
 	cImage *image;
 
 	// internal variables
-	int maxraymarchingSteps;
+	int maxRaymarchingSteps;
 	CRotationMatrix mRot;
 	CRotationMatrix mRotInv;
 	CVector3 baseX;
@@ -219,14 +219,14 @@ private:
 	CVector3 baseZ;
 	CVector3 viewAngle;
 	CVector3 shadowVector;
-	int AOvectorsCount;
+	int AOVectorsCount;
 	int reflectionsMax;
 	bool stopRequest;
 
 	// allocated objects
 	cCameraTarget *cameraTarget;
 	sRayBuffer *rayBuffer;
-	sVectorsAround *AOvectorsAround;
+	sVectorsAround *AOVectorsAround;
 
 public slots:
 	void doWork();

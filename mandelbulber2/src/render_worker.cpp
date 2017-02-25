@@ -59,12 +59,12 @@ cRenderWorker::cRenderWorker(const cParamRender *_params, const cNineFractals *_
 	threadData = _threadData;
 	cameraTarget = nullptr;
 	rayBuffer = nullptr;
-	AOvectorsAround = nullptr;
-	AOvectorsCount = 0;
+	AOVectorsAround = nullptr;
+	AOVectorsCount = 0;
 	baseX = CVector3(1.0, 0.0, 0.0);
 	baseY = CVector3(0.0, 1.0, 0.0);
 	baseZ = CVector3(0.0, 0.0, 1.0);
-	maxraymarchingSteps = 10000;
+	maxRaymarchingSteps = 10000;
 	reflectionsMax = 0;
 	stopRequest = false;
 }
@@ -86,10 +86,10 @@ cRenderWorker::~cRenderWorker()
 		delete[] rayBuffer;
 	}
 
-	if (AOvectorsAround)
+	if (AOVectorsAround)
 	{
-		delete[] AOvectorsAround;
-		AOvectorsAround = nullptr;
+		delete[] AOVectorsAround;
+		AOVectorsAround = nullptr;
 	}
 }
 
@@ -424,7 +424,7 @@ void cRenderWorker::PrepareReflectionBuffer()
 	for (int i = 0; i < reflectionsMax + 3; i++)
 	{
 		// rayMarching buffers
-		rayBuffer[i].stepBuff = new sStep[maxraymarchingSteps + 2];
+		rayBuffer[i].stepBuff = new sStep[maxRaymarchingSteps + 2];
 		rayBuffer[i].buffCount = 0;
 	}
 }
@@ -432,8 +432,8 @@ void cRenderWorker::PrepareReflectionBuffer()
 // calculating vectors for AmbientOcclusion
 void cRenderWorker::PrepareAOVectors()
 {
-	AOvectorsAround = new sVectorsAround[10000];
-	AOvectorsCount = 0;
+	AOVectorsAround = new sVectorsAround[10000];
+	AOVectorsCount = 0;
 	int counter = 0;
 	int lightMapWidth = data->textures.lightmapTexture.Width();
 	int lightMapHeight = data->textures.lightmapTexture.Height();
@@ -445,16 +445,16 @@ void cRenderWorker::PrepareAOVectors()
 			d.x = cos(a + b) * cos(b);
 			d.y = sin(a + b) * cos(b);
 			d.z = sin(b);
-			AOvectorsAround[counter].alpha = a;
-			AOvectorsAround[counter].beta = b;
-			AOvectorsAround[counter].v = d;
+			AOVectorsAround[counter].alpha = a;
+			AOVectorsAround[counter].beta = b;
+			AOVectorsAround[counter].v = d;
 			int X = int((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
 			int Y = int(b / (M_PI)*lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
-			AOvectorsAround[counter].R = data->textures.lightmapTexture.FastPixel(X, Y).R;
-			AOvectorsAround[counter].G = data->textures.lightmapTexture.FastPixel(X, Y).G;
-			AOvectorsAround[counter].B = data->textures.lightmapTexture.FastPixel(X, Y).B;
-			if (AOvectorsAround[counter].R > 10 || AOvectorsAround[counter].G > 10
-					|| AOvectorsAround[counter].B > 10)
+			AOVectorsAround[counter].R = data->textures.lightmapTexture.FastPixel(X, Y).R;
+			AOVectorsAround[counter].G = data->textures.lightmapTexture.FastPixel(X, Y).G;
+			AOVectorsAround[counter].B = data->textures.lightmapTexture.FastPixel(X, Y).B;
+			if (AOVectorsAround[counter].R > 10 || AOVectorsAround[counter].G > 10
+					|| AOVectorsAround[counter].B > 10)
 			{
 				counter++;
 			}
@@ -465,16 +465,16 @@ void cRenderWorker::PrepareAOVectors()
 	if (counter == 0)
 	{
 		counter = 1;
-		AOvectorsAround[0].alpha = 0;
-		AOvectorsAround[0].beta = 0;
-		AOvectorsAround[0].v.x = 0;
-		AOvectorsAround[0].v.y = 0;
-		AOvectorsAround[0].v.z = 0;
-		AOvectorsAround[0].R = 0;
-		AOvectorsAround[0].G = 0;
-		AOvectorsAround[0].B = 0;
+		AOVectorsAround[0].alpha = 0;
+		AOVectorsAround[0].beta = 0;
+		AOVectorsAround[0].v.x = 0;
+		AOVectorsAround[0].v.y = 0;
+		AOVectorsAround[0].v.z = 0;
+		AOVectorsAround[0].R = 0;
+		AOVectorsAround[0].G = 0;
+		AOVectorsAround[0].B = 0;
 	}
-	AOvectorsCount = counter;
+	AOVectorsCount = counter;
 }
 
 // calculation of distance where ray-marching stops
@@ -877,11 +877,11 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 		if (reflectionsMax > 0)
 		{
 			sRGBFloat reflectDiffused;
-			double diffIntes = shaderInputData.material->diffusionTextureIntensity;
-			double diffIntesN = 1.0 - diffIntes;
-			reflectDiffused.R = reflect * shaderInputData.texDiffuse.R * diffIntes + reflect * diffIntesN;
-			reflectDiffused.G = reflect * shaderInputData.texDiffuse.G * diffIntes + reflect * diffIntesN;
-			reflectDiffused.B = reflect * shaderInputData.texDiffuse.B * diffIntes + reflect * diffIntesN;
+			double diffusionIntensity = shaderInputData.material->diffusionTextureIntensity;
+			double diffusionIntensityN = 1.0 - diffusionIntensity;
+			reflectDiffused.R = reflect * shaderInputData.texDiffuse.R * diffusionIntensity + reflect * diffusionIntensityN;
+			reflectDiffused.G = reflect * shaderInputData.texDiffuse.G * diffusionIntensity + reflect * diffusionIntensityN;
+			reflectDiffused.B = reflect * shaderInputData.texDiffuse.B * diffusionIntensity + reflect * diffusionIntensityN;
 
 			resultShader.R = transparentShader.R * transparent * reflectanceN
 											 + (1.0 - transparent * reflectanceN) * resultShader.R;

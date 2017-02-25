@@ -241,7 +241,7 @@ void cThumbnailWidget::slotRender()
 
 		cRenderingConfiguration config;
 		if (useOneCPUCore) config.DisableMultiThread();
-		config.EnableIgnoreErros();
+		config.EnableIgnoreErrors();
 		config.DisableNetRender();
 
 		renderJob->Init(cRenderJob::still, config);

@@ -55,17 +55,17 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 	// if not try to use Qt image loader
 	if (!bitmap)
 	{
-		QImage qimage;
-		qimage.load(filename);
-		qimage = qimage.convertToFormat(QImage::Format_RGB888);
-		if (!qimage.isNull())
+		QImage qImage;
+		qImage.load(filename);
+		qImage = qImage.convertToFormat(QImage::Format_RGB888);
+		if (!qImage.isNull())
 		{
-			width = qimage.width();
-			height = qimage.height();
+			width = qImage.width();
+			height = qImage.height();
 			bitmap = new sRGBA16[width * height];
 			for (int y = 0; y < height; y++)
 			{
-				sRGB8 *line = reinterpret_cast<sRGB8 *>(qimage.scanLine(y));
+				sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
 				for (int x = 0; x < width; x++)
 				{
 					sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256,
@@ -79,17 +79,17 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 
 	if (bitmap)
 	{
-		// width = qimage.width();
-		// height = qimage.height();
+		// width = qImage.width();
+		// height = qImage.height();
 		// bitmap = new sRGB8[width * height];
 
 		// for (int y = 0; y < height; y++)
 		//{
-		//	memcpy(&bitmap[y * width], qimage.scanLine(y), sizeof(sRGB8) * width);
+		//	memcpy(&bitmap[y * width], qImage.scanLine(y), sizeof(sRGB8) * width);
 		//}
 
 		// qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): "
-		// 				 << "(sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
+		// 				 << "(sRGB8*)(qImage.bits());:" << width * height * sizeof(sRGB8);
 		loaded = true;
 		originalFileName = filename;
 		if (mode == useMipmaps)
@@ -163,18 +163,18 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 	}
 
 	bitmap = nullptr;
-	QImage qimage(*buffer);
-	qimage.loadFromData(*buffer);
-	qimage = qimage.convertToFormat(QImage::Format_RGB888);
+	QImage qImage(*buffer);
+	qImage.loadFromData(*buffer);
+	qImage = qImage.convertToFormat(QImage::Format_RGB888);
 
-	if (!qimage.isNull())
+	if (!qImage.isNull())
 	{
-		width = qimage.width();
-		height = qimage.height();
+		width = qImage.width();
+		height = qImage.height();
 		bitmap = new sRGBA16[width * height];
 		for (int y = 0; y < height; y++)
 		{
-			sRGB8 *line = reinterpret_cast<sRGB8 *>(qimage.scanLine(y));
+			sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
 			for (int x = 0; x < width; x++)
 			{
 				sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256,
@@ -379,8 +379,8 @@ sRGBFloat cTexture::MipMap(double x, double y, double pixelSize) const
 
 		int layerBig = int(dMipLayer);
 		int layerSmall = int(dMipLayer + 1);
-		double sizeMultipBig = pow(2.0, double(layerBig));
-		double sizeMultipSmall = pow(2.0, double(layerSmall));
+		double sizeMultipleBig = pow(2.0, double(layerBig));
+		double sizeMultipleSmall = pow(2.0, double(layerSmall));
 		double trans = dMipLayer - layerBig;
 		double transN = 1.0 - trans;
 
@@ -405,8 +405,8 @@ sRGBFloat cTexture::MipMap(double x, double y, double pixelSize) const
 				smallBitmapSize = mipmapSizes[layerSmall - 1];
 			}
 			sRGBFloat pixelFromBig = BicubicInterpolation(
-				x / sizeMultipBig, y / sizeMultipBig, bigBitmap, bigBitmapSize.x, bigBitmapSize.y);
-			sRGBFloat pixelFromSmall = BicubicInterpolation(x / sizeMultipSmall, y / sizeMultipSmall,
+				x / sizeMultipleBig, y / sizeMultipleBig, bigBitmap, bigBitmapSize.x, bigBitmapSize.y);
+			sRGBFloat pixelFromSmall = BicubicInterpolation(x / sizeMultipleSmall, y / sizeMultipleSmall,
 				smallBitmap, smallBitmapSize.x, smallBitmapSize.y);
 
 			sRGBFloat pixel;

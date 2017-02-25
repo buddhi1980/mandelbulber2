@@ -450,9 +450,9 @@ void RenderWindow::slotCustomWindowStateAddToMenu()
 	QString textEncoded = QByteArray().append(text).toBase64();
 	QString basePath = systemData.GetCustomWindowStateFolder() + QDir::separator();
 	QString filename = basePath + textEncoded;
-	QString filenamGeometry = filename + ".geometry";
+	QString filenameGeometry = filename + ".geometry";
 	QString filenameState = filename + ".state";
-	QFile fileGeometry(filenamGeometry);
+	QFile fileGeometry(filenameGeometry);
 	QFile fileState(filenameState);
 	if (!fileGeometry.open(QIODevice::WriteOnly) || !fileState.open(QIODevice::WriteOnly))
 	{

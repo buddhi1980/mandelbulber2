@@ -281,19 +281,19 @@ QString cSettings::CreateOneLine(const cParameterContainer *par, QString name) c
 bool cSettings::SaveToFile(QString filename) const
 {
 	WriteLogString("Saving settings started", filename, 2);
-	QFile qfile(filename);
-	if (qfile.open(QIODevice::WriteOnly))
+	QFile qFile(filename);
+	if (qFile.open(QIODevice::WriteOnly))
 	{
-		QTextStream outstream(&qfile);
-		outstream << settingsText;
-		outstream.flush();
-		qfile.close();
+		QTextStream outStream(&qFile);
+		outStream << settingsText;
+		outStream.flush();
+		qFile.close();
 		return true;
 	}
 	else
 	{
 		cErrorMessage::showMessage(
-			QString("Settings file not saved!\n") + filename + "\n" + qfile.errorString(),
+			QString("Settings file not saved!\n") + filename + "\n" + qFile.errorString(),
 			cErrorMessage::errorMessage);
 		return false;
 	}
@@ -311,12 +311,12 @@ bool cSettings::LoadFromFile(QString filename)
 	settingsText.clear();
 	textPrepared = false;
 	WriteLogString("Loading settings started", filename, 2);
-	QFile qfile(filename);
-	if (qfile.open(QIODevice::ReadOnly))
+	QFile qFile(filename);
+	if (qFile.open(QIODevice::ReadOnly))
 	{
-		QTextStream instream(&qfile);
-		settingsText.append(instream.readAll());
-		qfile.close();
+		QTextStream inStream(&qFile);
+		settingsText.append(inStream.readAll());
+		qFile.close();
 		textPrepared = true;
 
 		// hash code will be needed for generating thumbnails
@@ -334,7 +334,7 @@ bool cSettings::LoadFromFile(QString filename)
 		if (!quiet)
 		{
 			cErrorMessage::showMessage(
-				QString("Settings file not loaded!\n") + filename + "\n" + qfile.errorString(),
+				QString("Settings file not loaded!\n") + filename + "\n" + qFile.errorString(),
 				cErrorMessage::errorMessage);
 		}
 		return false;
@@ -477,7 +477,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			}
 			else if (section == QString("description"))
 			{
-				// concat multiline description
+				// concat multi-line description
 				QString description = "";
 				if (par->IfExists("description")) description = par->Get<QString>("description");
 				if (description != "") description += "\n";
@@ -580,7 +580,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			CheckIfMaterialsAreDefined(par);
 		}
 
-		// now when anim sound parameters are already prepeared by animation, all animsound parameters
+		// now when anim sound parameters are already prepared by animation, all animsound parameters
 		// can be processed
 		if (keyframes && linesWithSoundParameters.length() > 0)
 		{
