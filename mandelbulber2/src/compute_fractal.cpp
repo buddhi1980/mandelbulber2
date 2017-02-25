@@ -584,262 +584,262 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				case transfBenesiT1:
 				{
-					TransformBenesiT1Iteration(z, fractal, extendedAux);
+					TransfBenesiT1Iteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfBenesiT1Mod:
 				{
-					TransformBenesiT1ModIteration(z, fractal, extendedAux);
+					TransfBenesiT1ModIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfBenesiT2:
 				{
-					TransformBenesiT2Iteration(z, fractal, extendedAux);
+					TransfBenesiT2Iteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfBenesiT3:
 				{
-					TransformBenesiT3Iteration(z, fractal);
+					TransfBenesiT3Iteration(z, fractal);
 					break;
 				}
 				case transfBenesiT4:
 				{
-					TransformBenesiT4Iteration(z, fractal);
+					TransfBenesiT4Iteration(z, fractal);
 					break;
 				}
 				case transfBenesiT5b:
 				{
-					TransformBenesiT5bIteration(z, fractal);
+					TransfBenesiT5bIteration(z, fractal);
 					break;
 				}
 				case transfBenesiMagForward:
 				{
-					TransformBenesiMagForwardIteration(z);
+					TransfBenesiMagForwardIteration(z);
 					break;
 				}
 				case transfBenesiMagBackward:
 				{
-					TransformBenesiMagBackwardIteration(z);
+					TransfBenesiMagBackwardIteration(z);
 					break;
 				}
 				case transfBenesiCubeSphere:
 				{
-					TransformBenesiCubeSphereIteration(z);
+					TransfBenesiCubeSphereIteration(z);
 					break;
 				}
 				case transfBenesiSphereCube:
 				{
-					TransformBenesiSphereCubeIteration(z);
+					TransfBenesiSphereCubeIteration(z);
 					break;
 				}
 				case transfBoxFold:
 				{
-					TransformBoxFoldIteration(z, fractal, extendedAux);
+					TransfBoxFoldIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfBoxFoldVaryV1:
 				{
-					TransformBoxFoldVaryV1Iteration(z, i, fractal, extendedAux);
+					TransfBoxFoldVaryV1Iteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfBoxFoldXYZ:
 				{
-					TransformBoxFoldXYZIteration(z, fractal, extendedAux);
+					TransfBoxFoldXYZIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfBoxOffset:
 				{
-					TransformBoxOffsetIteration(z, fractal, extendedAux);
+					TransfBoxOffsetIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfFabsAddConstant:
 				{
-					TransformFabsAddConstantIteration(z, fractal);
+					TransfFabsAddConstantIteration(z, fractal);
 					break;
 				}
 				case transfFabsAddTgladFold:
 				{
-					TransformFabsAddConstantV2Iteration(z, i, fractal);
+					TransfFabsAddTgladFoldIteration(z, i, fractal);
 					break;
 				}
 				case transfFabsAddConditional:
 				{
-					TransformFabsAddConditionalIteration(z, fractal, extendedAux);
+					TransfFabsAddConditionalIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfFabsAddMulti:
 				{
-					TransformFabsAddMultiIteration(z, fractal);
+					TransfFabsAddMultiIteration(z, fractal);
 					break;
 				}
-				case transfFoldingTetra3D:
+				case transfFoldingTetra3d:
 				{
-					TransformFoldingTetra3DIteration(z, fractal);
+					TransfFoldingTetra3dIteration(z, fractal);
 					break;
 				}
 				case transfIterationWeight:
 				{
-					TransformIterationWeightIteration(z, i, fractal, extendedAux);
+					TransfIterationWeightIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfInvCylindrical:
 				{
-					TransformInvCylindricalIteration(z, fractal, extendedAux);
+					TransfInvCylindricalIteration(z, fractal, extendedAux);
 					break;
 				}
-				case transfLinCombineCxyz:
+				case transfLinCombineCXYZ:
 				{
-					TransformLinCombineCxyz(z, c, fractal, extendedAux);
+					TransfLinCombineCXYZIteration(z, c, fractal, extendedAux);
 					break;
 				}
 				case transfMultipleAngle:
 				{
-					TransformMultipleAngle(z, fractal, extendedAux);
+					TransfMultipleAngleIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfNegFabsAddConstant:
 				{
-					TransformNegFabsAddConstantIteration(z, fractal);
+					TransfNegFabsAddConstantIteration(z, fractal);
 					break;
 				}
 				case transfOctoFold:
 				{
-					TransformOctoFoldIteration(z, fractal, extendedAux);
+					TransfOctoFoldIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfPwr2Polynomial:
 				{
-					TransformPwr2PolynomialIteration(z, fractal, extendedAux);
+					TransfPwr2PolynomialIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfRotation:
 				{
-					TransformRotationIteration(z, fractal);
+					TransfRotationIteration(z, fractal);
 					break;
 				}
 				case transfRotationVaryV1:
 				{
-					TransformRotationVaryV1Iteration(z, i, fractal);
+					TransfRotationVaryV1Iteration(z, i, fractal);
 					break;
 				}
-				case transfRotatedFolding:
+				case transfRotationFolding:
 				{
-					TransformRotatedFoldingIteration(z, fractal);
+					TransfRotationFoldingIteration(z, fractal);
 					break;
 				}
 				case transfRpow3:
 				{
-					TransformRpow3Iteration(z, fractal, extendedAux);
+					TransfRpow3Iteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfScale:
 				{
-					TransformScaleIteration(z, fractal, extendedAux);
+					TransfScaleIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfScaleVaryVCL:
 				{
-					TransformScaleVaryVCLIteration(z, i, fractal, extendedAux);
+					TransfScaleVaryVCLIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfScaleVaryV1:
 				{
-					TransformScaleVaryV1Iteration(z, i, fractal, extendedAux);
+					TransfScaleVaryV1Iteration(z, i, fractal, extendedAux);
 					break;
 				}
-				case transfScale3D:
+				case transfScale3d:
 				{
-					TransformScale3DIteration(z, fractal, extendedAux);
+					TransfScale3dIteration(z, fractal, extendedAux);
 					break;
 				}
-				case platonicSolid:
+				case transfPlatonicSolid:
 				{
-					TransformPlatonicSolidIteration(z, fractal);
+					TransfPlatonicSolidIteration(z, fractal);
 					break;
 				}
 				case transfRPower:
 				{
-					TransformPowerR(z, fractal, extendedAux);
+					TransfRPowerIteration(z, fractal, extendedAux);
 					break;
 				}
-				case transfSphereInvC:
+				case transfSphericalInvC:
 				{
-					TransformSphereInvCIteration(z, c, fractal);
+					TransfSphericalInvCIteration(z, c, fractal);
 					break;
 				}
-				case transfSphereInv:
+				case transfSphericalInv:
 				{
-					TransformSphereInvIteration(z, fractal, extendedAux);
+					TransfSphericalInvIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalOffset:
 				{
-					TransformSphericalOffsetIteration(z, fractal, extendedAux);
+					TransfSphericalOffsetIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalOffsetVCL:
 				{
-					TransformSphericalOffsetVCLIteration(z, i, fractal, extendedAux);
+					TransfSphericalOffsetVCLIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalFold:
 				{
-					TransformSphericalFoldIteration(z, fractal, extendedAux);
+					TransfSphericalFoldIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalFoldAbox:
 				{
-					TransformSphericalFoldAboxIteration(z, fractal, extendedAux);
+					TransfSphericalFoldAboxIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalFoldVaryV1:
 				{
-					TransformSphericalFoldVaryV1Iteration(z, i, fractal, extendedAux);
+					TransfSphericalFoldVaryV1Iteration(z, i, fractal, extendedAux);
 					break;
 				}
-				case transfSpherFoldVaryVCL:
+				case transfSphericalFoldVaryVCL:
 				{
-					TransformSpherFoldVaryVCLIteration(z, i, fractal, extendedAux);
+					TransfSphericalFoldVaryVCLIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalPwrFold:
 				{
-					TransformSphericalPwrFoldIteration(z, fractal, extendedAux);
+					TransfSphericalPwrFoldIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfSurfBoxFold:
 				{
-					TransformSurfBoxFoldIteration(z, fractal, extendedAux);
+					TransfSurfBoxFoldIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfSurfFoldMulti:
 				{
-					TransformSurfFoldMultiIteration(z, fractal, extendedAux);
+					TransfSurfFoldMultiIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfZvectorAxisSwap:
 				{
-					TransformZvectorAxisSwapIteration(z, i, fractal);
+					TransfZvectorAxisSwapIteration(z, i, fractal);
 					break;
 				}
 				case transfRotationFoldingPlane:
 				{
-					TransformRotationFoldingPlane(z, fractal, extendedAux);
+					TransfRotationFoldingPlaneIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfQuaternionFold:
 				{
-					TransformQuaternionFoldIteration(z, c, fractal, extendedAux);
+					TransfQuaternionFoldIteration(z, c, fractal, extendedAux);
 					break;
 				}
 				case transfMengerFold:
 				{
-					TransformMengerFoldIteration(z, fractal, extendedAux);
+					TransfMengerFoldIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfReciprocal3:
 				{
-					TransformReciprocal3Iteration(z, fractal, extendedAux);
+					TransfReciprocal3Iteration(z, fractal, extendedAux);
 					break;
 				}
 
@@ -902,73 +902,73 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfAddConstant4D:
+				case transfAddConstant4d:
 				{
 					CVector4 z4D(z, w);
-					TransformAdditionConstant4DIteration(z4D, fractal);
+					TransfAddConstant4dIteration(z4D, fractal);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfBoxFold4D:
+				case transfBoxFold4d:
 				{
 					CVector4 z4D(z, w);
-					TransformBoxFold4DIteration(z4D, fractal, extendedAux);
+					TransfBoxFold4dIteration(z4D, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfFabsAddConstant4D:
+				case transfFabsAddConstant4d:
 				{
 					CVector4 z4D(z, w);
-					TransformFabsAddConstant4DIteration(z4D, fractal);
+					TransfFabsAddConstant4dIteration(z4D, fractal);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
 				case transfFabsAddTgladFold4d:
 				{
 					CVector4 z4D(z, w);
-					TransformFabsAddConstantV24DIteration(z4D, fractal);
+					TransfFabsAddTgladFold4dIteration(z4D, fractal);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfFabsAddConditional4D:
+				case transfFabsAddConditional4d:
 				{
 					CVector4 z4D(z, w);
-					TransformFabsAddConditional4DIteration(z4D, fractal, extendedAux);
+					TransfFabsAddConditional4dIteration(z4D, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfIterationWeight4D:
+				case transfIterationWeight4d:
 				{
 					CVector4 z4D(z, w);
-					TransformIterationWeight4DIteration(z4D, i, fractal, extendedAux);
+					TransfIterationWeight4dIteration(z4D, i, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfReciprocal4D:
+				case transfReciprocal4d:
 				{
 					CVector4 z4D(z, w);
-					TransformReciprocal4DIteration(z4D, fractal, extendedAux);
+					TransfReciprocal4dIteration(z4D, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfRotation4D:
+				case transfRotation4d:
 				{
 					CVector4 z4D(z, w);
-					TransformRotation4DIteration(z4D, fractal);
+					TransfRotation4dIteration(z4D, fractal);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfScale4D:
+				case transfScale4d:
 				{
 					CVector4 z4D(z, w);
-					TransformScale4DIteration(z4D, fractal, extendedAux);
+					TransfScale4dIteration(z4D, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
-				case transfSphericalFold4D:
+				case transfSphericalFold4d:
 				{
 					CVector4 z4D(z, w);
-					TransformSphericalFold4DIteration(z4D, fractal, extendedAux);
+					TransfSphericalFold4dIteration(z4D, fractal, extendedAux);
 					z4D.GetXYZWInto(z, w);
 					break;
 				}
