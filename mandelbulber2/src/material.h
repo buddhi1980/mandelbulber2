@@ -74,7 +74,7 @@ public:
 	double paletteOffset;
 	double coloring_speed;
 	double colorTextureIntensity;
-	double diffussionTextureIntensity;
+	double diffusionTextureIntensity;
 	double luminosityTextureIntensity;
 	double displacementTextureHeight;
 	double normalMapTextureHeight;

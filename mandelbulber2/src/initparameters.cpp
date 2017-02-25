@@ -370,7 +370,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("file_lightmap", QDir::toNativeSeparators(systemData.sharedDir + "textures"
 																													+ QDir::separator() + "lightmap.jpg"),
 		morphNone, paramStandard);
-	/* unused in Mandebulber v2
+	/* unused in Mandelbulber v2
 	par->addParam("file_animation_path",
 		QDir::toNativeSeparators(systemData.dataDirectory + "paths" + QDir::separator() + "path.txt"),
 		morphNone, paramStandard);
@@ -904,8 +904,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("platonic_solid_amplitude", 1.0, morphAkima, paramStandard);
 	par->addParam("platonic_solid_rhoMul", 1.0, morphAkima, paramStandard);
 
-	par->addParam("info", false, morphNone, paramStandard); // dummy parameter for information
-																													// groupbox
+	// dummy parameter for information group box
+	par->addParam("info", false, morphNone, paramStandard);
 
 	WriteLog("Fractal parameters initialization finished", 3);
 }

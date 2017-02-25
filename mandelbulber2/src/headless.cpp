@@ -262,7 +262,7 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 void cHeadless::slotUpdateStatistics(const cStatistics &stat) const
 {
 	if (!systemData.statsOnCLI) return;
-	/*ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
+	/*ui->label_histogram_de->SetBarColor(QColor(0, 255, 0));
 	 ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
 	 ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
 	 */
@@ -295,7 +295,7 @@ void cHeadless::RenderingProgressOutput(
 	const QString &header, const QString &progressTxt, double percentDone)
 {
 	QTextStream out(stdout);
-	QString formatedText = formatLine(progressTxt) + " ";
+	QString formattedText = formatLine(progressTxt) + " ";
 	QString useHeader = header;
 	QString text;
 	if (systemData.terminalWidth > 0)
@@ -305,7 +305,7 @@ void cHeadless::RenderingProgressOutput(
 		int intProgress = freeWidth * percentDone;
 		text = "\r";
 		text += colorize(useHeader, ansiYellow, noExplicitColor, true);
-		text += formatedText;
+		text += formattedText;
 		text += colorize("[", ansiBlue, noExplicitColor, true);
 		text += colorize(QString(intProgress, '#'), ansiMagenta, noExplicitColor, true);
 		text += QString(freeWidth - intProgress, ' ');
@@ -321,7 +321,7 @@ void cHeadless::RenderingProgressOutput(
 }
 
 QString cHeadless::colorize(
-	QString text, ansiColor foregroundcolor, ansiColor backgroundColor, bool bold)
+	QString text, ansiColor foregroundColor, ansiColor backgroundColor, bool bold)
 {
 // more information on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
 #ifdef WIN32 /* WINDOWS */
@@ -330,7 +330,7 @@ QString cHeadless::colorize(
 	if (!systemData.useColor) return text;
 
 	QStringList ansiSequence;
-	if (foregroundcolor != noExplicitColor) ansiSequence << QString::number(foregroundcolor + 30);
+	if (foregroundColor != noExplicitColor) ansiSequence << QString::number(foregroundColor + 30);
 	if (backgroundColor != noExplicitColor) ansiSequence << QString::number(backgroundColor + 40);
 	if (bold) ansiSequence << "1";
 

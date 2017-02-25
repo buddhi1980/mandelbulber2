@@ -518,7 +518,7 @@ void cParameterContainer::ResetAllToDefault()
 	{
 		cOneParameter record = it.value();
 		if (record.GetParameterType() != paramApp)
-			it.value().SetMultival(record.GetMultival(valueDefault), valueActual);
+			it.value().SetMultiVal(record.GetMultiVal(valueDefault), valueActual);
 		++it;
 	}
 }

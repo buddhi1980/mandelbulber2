@@ -72,7 +72,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	DOFEnabled = container->Get<bool>("DOF_enabled");
 	DOFFocus = container->Get<double>("DOF_focus");
 	DOFRadius = container->Get<double>("DOF_radius");
-	DOFHDRmode = container->Get<bool>("DOF_HDR");
+	DOFHDRMode = container->Get<bool>("DOF_HDR");
 	DOFMonteCarlo = container->Get<bool>("DOF_monte_carlo");
 	DOFNumberOfPasses = container->Get<int>("DOF_number_of_passes");
 	DOFSamples = container->Get<int>("DOF_samples");

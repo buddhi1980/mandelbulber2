@@ -275,7 +275,7 @@ void RenderWindow::slotMenuResetDocksPositions()
 	restoreState(gMainInterface->settings.value("mainWindowState").toByteArray());
 }
 
-void RenderWindow::slotMenuAnimationtDocksPositions()
+void RenderWindow::slotMenuAnimationDocksPositions()
 {
 	ResetDocksPositions();
 	ui->dockWidget_histogram->hide();
@@ -508,7 +508,7 @@ void RenderWindow::slotMenuUndo()
 	gMainInterface->Undo();
 }
 
-void RenderWindow::slotUpdateDocksandToolbarbyAction()
+void RenderWindow::slotUpdateDocksAndToolbarByAction()
 {
 	// Animation dock
 	if (ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())
@@ -603,7 +603,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	}
 }
 
-void RenderWindow::slotUpdateDocksandToolbarbyView() const
+void RenderWindow::slotUpdateDocksAndToolbarByView() const
 {
 	// Animation dock
 	if (ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())

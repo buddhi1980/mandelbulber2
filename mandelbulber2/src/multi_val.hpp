@@ -80,7 +80,7 @@ public:
 	enumVarType Get(sRGB &val) const;
 	enumVarType Get(bool &val) const;
 	enumVarType Get(cColorPalette &val) const;
-	enumVarType GetDefaultype() const { return type; }
+	enumVarType GetDefaultType() const { return type; }
 	bool operator==(const cMultiVal &m) const;
 
 private:

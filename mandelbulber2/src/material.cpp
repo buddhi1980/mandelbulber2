@@ -59,7 +59,7 @@ cMaterial::cMaterial()
 	useNormalMapTexture = false;
 	textureMappingType = texture::mappingPlanar;
 	colorTextureIntensity = 0.0;
-	diffussionTextureIntensity = 0.0;
+	diffusionTextureIntensity = 0.0;
 	luminosityTextureIntensity = 0.0;
 	displacementTextureHeight = 0.0;
 	normalMapTextureFromBumpmap = false;
@@ -135,7 +135,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<bool>(Name("normal_map_texture_from_bumpmap", id));
 
 	colorTextureIntensity = materialParam->Get<double>(Name("color_texture_intensity", id));
-	diffussionTextureIntensity = materialParam->Get<double>(Name("diffusion_texture_intensity", id));
+	diffusionTextureIntensity = materialParam->Get<double>(Name("diffusion_texture_intensity", id));
 	luminosityTextureIntensity = materialParam->Get<double>(Name("luminosity_texture_intensity", id));
 	displacementTextureHeight = materialParam->Get<double>(Name("displacement_texture_height", id));
 	normalMapTextureHeight = materialParam->Get<double>(Name("normal_map_texture_height", id));

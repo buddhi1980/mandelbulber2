@@ -71,7 +71,7 @@ public:
 	QThread workerThread;
 
 private:
-	// raymarching step data
+	// ray-marching step data
 	struct sStep
 	{
 		double distance;

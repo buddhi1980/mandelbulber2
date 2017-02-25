@@ -103,7 +103,7 @@ public:
 	bool booleanOperatorsEnabled;
 	bool constantDEThreshold;
 	bool DOFEnabled;
-	bool DOFHDRmode;
+	bool DOFHDRMode;
 	bool DOFMonteCarlo;
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
@@ -121,7 +121,7 @@ public:
 	bool shadow;			// enable shadows
 	bool slowShading; // enable fake gradient calculation for shading
 	bool SSAO_random_mode;
-	bool texturedBackground; // enable testured background
+	bool texturedBackground; // enable textured background
 	bool useDefaultBailout;
 	bool volumetricLightEnabled[5];
 	bool volumetricLightAnyEnabled;

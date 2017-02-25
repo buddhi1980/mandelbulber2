@@ -131,7 +131,7 @@ public:
 	RenderWindow *mainWindow;
 	cDetachedWindow *detachedWindow;
 	cHeadless *headless;
-	QImage *qimage;
+	QImage *qImage;
 	RenderedImage *renderedImage;
 	PlayerWidget *imageSequencePlayer;
 	MyProgressBar *progressBar;

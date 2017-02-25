@@ -48,7 +48,7 @@
 #include "system.hpp"
 
 cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
-	cImage *_image, bool *_stopRequest, QWidget *_qwidget)
+	cImage *_image, bool *_stopRequest, QWidget *_qWidget)
 		: QObject()
 {
 	WriteLog("cRenderJob::cRenderJob", 2);
@@ -66,9 +66,9 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	mode = still;
 	ready = false;
 	inProgress = false;
-	if (_qwidget)
+	if (_qWidget)
 	{
-		imageWidget = _qwidget;
+		imageWidget = _qWidget;
 		hasQWidget = true;
 		connect(this, SIGNAL(SetMinimumWidgetSize(int, int)), imageWidget,
 			SLOT(slotSetMinimumSize(int, int)));

@@ -160,7 +160,7 @@ void cRenderWorker::doWork()
 			}
 			imagePoint.x *= aspectRatio;
 
-			// full dome shemisphere cut
+			// full dome hemisphere cut
 			bool hemisphereCut = false;
 			if (params->perspectiveType == params::perspFishEyeCut
 					&& imagePoint.Length() > 0.5 / params->fov)
@@ -171,7 +171,7 @@ void cRenderWorker::doWork()
 			// Ray marching
 			int repeats = data->stereo.GetNumberOfRepeats();
 
-			sRGBFloat finallPixel;
+			sRGBFloat finalPixel;
 			sRGBFloat pixelLeftEye;
 			sRGBFloat pixelRightEye;
 			sRGB8 colour;
@@ -242,7 +242,7 @@ void cRenderWorker::doWork()
 				double opacity = 1.0;
 				depth = 1e20;
 
-				// raymarching loop (reflections)
+				// ray-marching loop (reflections)
 
 				if (!hemisphereCut) // in fulldome mode, will not render pixels out of the fulldome
 				{
@@ -279,23 +279,23 @@ void cRenderWorker::doWork()
 					normal = recursionOut.normal;
 				}
 
-				finallPixel.R = resultShader.R;
-				finallPixel.G = resultShader.G;
-				finallPixel.B = resultShader.B;
+				finalPixel.R = resultShader.R;
+				finalPixel.G = resultShader.G;
+				finalPixel.B = resultShader.B;
 
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 				{
 					if (stereoEye == cStereo::eyeLeft)
 					{
-						pixelLeftEye.R += finallPixel.R;
-						pixelLeftEye.G += finallPixel.G;
-						pixelLeftEye.B += finallPixel.B;
+						pixelLeftEye.R += finalPixel.R;
+						pixelLeftEye.G += finalPixel.G;
+						pixelLeftEye.B += finalPixel.B;
 					}
 					else if (stereoEye == cStereo::eyeRight)
 					{
-						pixelRightEye.R += finallPixel.R;
-						pixelRightEye.G += finallPixel.G;
-						pixelRightEye.B += finallPixel.B;
+						pixelRightEye.R += finalPixel.R;
+						pixelRightEye.G += finalPixel.G;
+						pixelRightEye.B += finalPixel.B;
 					}
 				}
 
@@ -314,9 +314,9 @@ void cRenderWorker::doWork()
 					normalFloat.B = 1.0 - normalRotated.y;
 				}
 
-				finalPixelDOF.R += finallPixel.R;
-				finalPixelDOF.G += finallPixel.G;
-				finalPixelDOF.B += finallPixel.B;
+				finalPixelDOF.R += finalPixel.R;
+				finalPixelDOF.G += finalPixel.G;
+				finalPixelDOF.B += finalPixel.B;
 
 			} // next repeat
 
@@ -324,21 +324,21 @@ void cRenderWorker::doWork()
 			{
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 				{
-					finallPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
-					finallPixel.R = finallPixel.R / repeats * 2.0;
-					finallPixel.G = finallPixel.G / repeats * 2.0;
-					finallPixel.B = finallPixel.B / repeats * 2.0;
+					finalPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
+					finalPixel.R = finalPixel.R / repeats * 2.0;
+					finalPixel.G = finalPixel.G / repeats * 2.0;
+					finalPixel.B = finalPixel.B / repeats * 2.0;
 				}
 				else
 				{
-					finallPixel.R = finalPixelDOF.R / repeats;
-					finallPixel.G = finalPixelDOF.G / repeats;
-					finallPixel.B = finalPixelDOF.B / repeats;
+					finalPixel.R = finalPixelDOF.R / repeats;
+					finalPixel.G = finalPixelDOF.G / repeats;
+					finalPixel.B = finalPixelDOF.B / repeats;
 				}
 			}
 			else if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 			{
-				finallPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
+				finalPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
 			}
 
 			for (int yy = 0; yy < scheduler->GetProgressiveStep(); ++yy)
@@ -351,7 +351,7 @@ void cRenderWorker::doWork()
 						int xxx = screenPoint.x + xx;
 						if (xxx < data->screenRegion.x2)
 						{
-							image->PutPixelImage(xxx, yyy, finallPixel);
+							image->PutPixelImage(xxx, yyy, finalPixel);
 							image->PutPixelColour(xxx, yyy, colour);
 							image->PutPixelAlpha(xxx, yyy, alpha);
 							image->PutPixelZBuffer(xxx, yyy, float(depth));
@@ -877,7 +877,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 		if (reflectionsMax > 0)
 		{
 			sRGBFloat reflectDiffused;
-			double diffIntes = shaderInputData.material->diffussionTextureIntensity;
+			double diffIntes = shaderInputData.material->diffusionTextureIntensity;
 			double diffIntesN = 1.0 - diffIntes;
 			reflectDiffused.R = reflect * shaderInputData.texDiffuse.R * diffIntes + reflect * diffIntesN;
 			reflectDiffused.G = reflect * shaderInputData.texDiffuse.G * diffIntes + reflect * diffIntesN;

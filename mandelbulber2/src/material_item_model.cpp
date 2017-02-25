@@ -153,7 +153,7 @@ bool cMaterialItemModel::insertRows(int position, int rows, const QModelIndex &p
 
 	for (int r = 0; r < rows; r++)
 	{
-		// look for first free material indes
+		// look for first free material index
 		int matIndex = FindFreeIndex();
 		materialIndexes.insert(position + r, matIndex);
 		InitMaterialParams(matIndex, container);

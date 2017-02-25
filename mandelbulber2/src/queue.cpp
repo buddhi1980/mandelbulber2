@@ -739,7 +739,7 @@ void cQueue::slotQueueListUpdate(int i, int j)
 		case 3:
 		{
 			QFrame *frame = new QFrame;
-			QGridLayout *gridlayout = new QGridLayout;
+			QGridLayout *gridLayout = new QGridLayout;
 			QToolButton *actionDelete = new QToolButton;
 			QToolButton *actionMoveUp = new QToolButton;
 			QToolButton *actionMoveDown = new QToolButton;
@@ -756,14 +756,14 @@ void cQueue::slotQueueListUpdate(int i, int j)
 			QObject::connect(actionMoveUp, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemUp()));
 			QObject::connect(actionMoveDown, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemDown()));
 
-			gridlayout->addWidget(actionMoveUp, 0, 0);
-			gridlayout->addWidget(actionMoveDown, 1, 0);
-			gridlayout->addWidget(actionDelete, 0, 1);
-			gridlayout->setSpacing(0);
+			gridLayout->addWidget(actionMoveUp, 0, 0);
+			gridLayout->addWidget(actionMoveDown, 1, 0);
+			gridLayout->addWidget(actionDelete, 0, 1);
+			gridLayout->setSpacing(0);
 
 			if (i == 0) actionMoveUp->setEnabled(false);
 			if (i == queueList.size() - 1) actionMoveDown->setEnabled(false);
-			frame->setLayout(gridlayout);
+			frame->setLayout(gridLayout);
 			table->setCellWidget(i, j, frame);
 			break;
 		}

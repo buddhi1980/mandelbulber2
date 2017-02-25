@@ -31,7 +31,7 @@
  *
  * RenderWindow class - main program window
  *
- * This file contains implementation of the miscellanious slots in RenderWindow class.
+ * This file contains implementation of the miscellaneous slots in RenderWindow class.
  * See also header render_window.hpp and whole implementation of class
  * spread over render_window_*.cpp
  */

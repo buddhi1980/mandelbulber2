@@ -29,7 +29,7 @@
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * cRandom class - crossplatform deterministic random generator based on GSL library
+ * cRandom class - cross-platform deterministic random generator based on GSL library
  */
 
 #include "random.hpp"

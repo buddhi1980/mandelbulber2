@@ -334,8 +334,8 @@ double sPrimitiveCircle::PrimitiveDistance(CVector3 _point) const
 {
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
-	CVector2<double> circTemp(point.x, point.y);
-	double distTemp = circTemp.Length() - radius;
+	CVector2<double> circleTemp(point.x, point.y);
+	double distTemp = circleTemp.Length() - radius;
 	distTemp = max(fabs(point.z), distTemp);
 	return distTemp;
 }
@@ -367,8 +367,8 @@ double sPrimitiveWater::PrimitiveDistance(CVector3 _point) const
 	{
 		double phase = animSpeed * animFrame * 0.1;
 		double k = 0.23;
-		double waveXtemp;
-		double waveYtemp;
+		double waveXTemp;
+		double waveYTemp;
 		double waveX = 0;
 		double waveY = 0;
 		double p = 1.0;
@@ -377,14 +377,14 @@ double sPrimitiveWater::PrimitiveDistance(CVector3 _point) const
 		{
 			float p3 = p * p2;
 			double shift = phase / (i / 3.0 + 1.0);
-			waveXtemp =
+			waveXTemp =
 				sin(i + 0.4 * (waveX)*p3 + sin(k * point.y / length * p3) + point.x / length * p3 + shift)
 				/ p;
-			waveYtemp = cos(i + 0.4 * (waveY)*p3 + sin(point.x / length * p3) + k * point.y / length * p3
+			waveYTemp = cos(i + 0.4 * (waveY)*p3 + sin(point.x / length * p3) + k * point.y / length * p3
 											+ shift * 0.23)
 									/ p;
-			waveX += waveXtemp;
-			waveY += waveYtemp;
+			waveX += waveXTemp;
+			waveY += waveYTemp;
 			p2 = p2 + (1.0 - p2) * 0.7;
 			p *= 1.872;
 		}

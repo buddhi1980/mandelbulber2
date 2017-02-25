@@ -901,7 +901,7 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input) const
 	if (shade2 < 0.0) shade2 = 0.0;
 	double diffuse =
 		10.0 * (1.1
-						 - input.material->diffussionTextureIntensity
+						 - input.material->diffusionTextureIntensity
 								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
 	shade2 = pow(shade2, 30.0 / input.material->specularWidth / diffuse) / diffuse;
 	if (shade2 > 15.0) shade2 = 15.0;
@@ -1096,7 +1096,7 @@ sRGBAfloat cRenderWorker::LightShading(
 
 	double diffuse =
 		10.0 * (1.1
-						 - input.material->diffussionTextureIntensity
+						 - input.material->diffusionTextureIntensity
 								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
 
 	shade2 = pow(shade2, 30.0 / input.material->specularWidth / diffuse) / diffuse;
@@ -1284,7 +1284,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	if (fakeSpecular < 0.0) fakeSpecular = 0.0;
 	double diffuse =
 		10.0 * (1.1
-						 - input.material->diffussionTextureIntensity
+						 - input.material->diffusionTextureIntensity
 								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
 	fakeSpecular = pow(fakeSpecular, 30.0 / input.material->specularWidth / diffuse) / diffuse;
 	if (fakeSpecular > 15.0) fakeSpecular = 15.0;

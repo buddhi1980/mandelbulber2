@@ -110,7 +110,7 @@ bool cRenderer::RenderImage()
 				else
 				{
 					threadData[i].startLine = data->screenRegion.y1;
-					qCritical() << "NetRender - Mising starting positions data";
+					qCritical() << "NetRender - Missing starting positions data";
 				}
 			}
 			else
@@ -385,19 +385,19 @@ bool cRenderer::RenderImage()
 					region = data->stereo.GetRegion(
 						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-						params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
+						params->DOFFocus, !ssaoUsed && params->DOFHDRMode, params->DOFNumberOfPasses,
 						params->DOFBlurOpacity, data->stopRequest);
 					region = data->stereo.GetRegion(
 						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-						params->DOFFocus, !ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses,
+						params->DOFFocus, !ssaoUsed && params->DOFHDRMode, params->DOFNumberOfPasses,
 						params->DOFBlurOpacity, data->stopRequest);
 				}
 				else
 				{
 					dof.Render(data->screenRegion,
 						params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus,
-						!ssaoUsed && params->DOFHDRmode, params->DOFNumberOfPasses, params->DOFBlurOpacity,
+						!ssaoUsed && params->DOFHDRMode, params->DOFNumberOfPasses, params->DOFBlurOpacity,
 						data->stopRequest);
 				}
 			}

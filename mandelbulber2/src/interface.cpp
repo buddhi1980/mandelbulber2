@@ -79,7 +79,7 @@ cInterface::cInterface()
 	mainWindow = nullptr;
 	detachedWindow = nullptr;
 	headless = nullptr;
-	qimage = nullptr;
+	qImage = nullptr;
 	renderedImage = nullptr;
 	imageSequencePlayer = nullptr;
 	mainImage = nullptr;
@@ -110,7 +110,7 @@ cInterface::~cInterface()
 	if (progressBarQueueAnimation) delete progressBarQueueAnimation;
 	if (progressBarFrame) delete progressBarFrame;
 	if (progressBarLayout) delete progressBarLayout;
-	if (qimage) delete qimage;
+	if (qImage) delete qImage;
 	if (mainImage) delete mainImage;
 	if (headless) delete headless;
 	if (mainWindow) delete mainWindow;
@@ -245,7 +245,7 @@ void cInterface::ShowUi()
 	InitMaterialsUi();
 	scrollAreaMaterialEditor = mainWindow->ui->scrollArea_material;
 
-	// change sone default settings with keeping compatibility with older versions
+	// change some default settings with keeping compatibility with older versions
 	StartupDefaultSettings();
 
 	ComboMouseClickUpdate();
@@ -280,23 +280,23 @@ void cInterface::ConnectSignals() const
 	QApplication::connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()),
 		mainWindow, SLOT(slotMenuResetDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionAnimation_docks_positions, SIGNAL(triggered()),
-		mainWindow, SLOT(slotMenuAnimationtDocksPositions()));
+		mainWindow, SLOT(slotMenuAnimationDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow,
 		SLOT(slotStackAllDocks()));
 	QApplication::connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksandToolbarbyAction()));
+		SLOT(slotUpdateDocksAndToolbarByAction()));
 	QApplication::connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksandToolbarbyAction()));
+		SLOT(slotUpdateDocksAndToolbarByAction()));
 	QApplication::connect(mainWindow->ui->actionShow_info_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksandToolbarbyAction()));
+		SLOT(slotUpdateDocksAndToolbarByAction()));
 	QApplication::connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksandToolbarbyAction()));
+		SLOT(slotUpdateDocksAndToolbarByAction()));
 	QApplication::connect(mainWindow->ui->actionShow_gamepad_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksandToolbarbyAction()));
+		SLOT(slotUpdateDocksAndToolbarByAction()));
 	QApplication::connect(mainWindow->ui->actionShow_queue_dock, SIGNAL(triggered()), mainWindow,
-		SLOT(slotUpdateDocksandToolbarbyAction()));
+		SLOT(slotUpdateDocksAndToolbarByAction()));
 	QApplication::connect(mainWindow->ui->actionShow_measurement_dock, SIGNAL(triggered()),
-		mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
+		mainWindow, SLOT(slotUpdateDocksAndToolbarByAction()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveSettings()));
 	QApplication::connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()),
@@ -372,21 +372,21 @@ void cInterface::ConnectSignals() const
 	// DockWidgets and Toolbar
 
 	QApplication::connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow,
-		SLOT(slotUpdateDocksandToolbarbyView()));
+		SLOT(slotUpdateDocksAndToolbarByView()));
 	QApplication::connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 	QApplication::connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 	QApplication::connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 #ifdef USE_GAMEPAD
 	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 #endif
 	QApplication::connect(mainWindow->ui->dockWidget_queue_dock, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 	QApplication::connect(mainWindow->ui->dockWidget_measurement, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 
 	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()),
 		mainWindow, SLOT(slotPresetAddToToolbar()));
@@ -396,7 +396,7 @@ void cInterface::ConnectSignals() const
 		mainWindow, SLOT(slotCustomWindowRemovePopup()));
 
 	//------------------------------------------------
-	mainWindow->slotUpdateDocksandToolbarbyView();
+	mainWindow->slotUpdateDocksAndToolbarByView();
 }
 
 // Reading ad writing parameters from/to ui to/from parameters container
@@ -1173,7 +1173,7 @@ void cInterface::SetByMouse(
 					if (!mainWindow->ui->actionShow_measurement_dock->isChecked())
 					{
 						mainWindow->ui->actionShow_measurement_dock->setChecked(true);
-						mainWindow->slotUpdateDocksandToolbarbyAction();
+						mainWindow->slotUpdateDocksAndToolbarByAction();
 					}
 					ReEnablePeriodicRefresh();
 					break;
@@ -1252,7 +1252,7 @@ void cInterface::ResetView()
 	double fov = gPar->Get<double>("fov");
 	params::enumPerspectiveType perspType =
 		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
-	double DEactor = gPar->Get<double>("DE_factor");
+	double DEFactor = gPar->Get<double>("DE_factor");
 
 	cParameterContainer parTemp = *gPar;
 	parTemp.Set("limits_enabled", false);
@@ -1266,7 +1266,7 @@ void cInterface::ResetView()
 
 	for (int i = 0; i < 50; i++)
 	{
-		cProgressText::ProgressStatusText(QObject::tr("Reseting view"),
+		cProgressText::ProgressStatusText(QObject::tr("Resetting view"),
 			QObject::tr("Fractal size calculation"), i / 50.0, cProgressText::progress_IMAGE);
 		CVector3 direction(
 			Random(1000) / 500.0 - 1.0, Random(1000) / 500.0 - 1.0, Random(1000) / 500.0 - 1.0);
@@ -1284,14 +1284,14 @@ void cInterface::ResetView()
 			{
 				break;
 			}
-			distStep = dist * DEactor * 0.5;
+			distStep = dist * DEFactor * 0.5;
 			if (distStep > 5.0) distStep = 5.0;
 			// qDebug() << "i" << i << "scan" << scan << "direction" << direction.Debug();
 		}
 		if (scan > maxDist) maxDist = scan;
 	}
 	cProgressText::ProgressStatusText(
-		QObject::tr("Reseting view"), QObject::tr("Done"), 1.0, cProgressText::progress_IMAGE);
+		QObject::tr("Resetting view"), QObject::tr("Done"), 1.0, cProgressText::progress_IMAGE);
 	delete params;
 	delete fractals;
 
@@ -1739,7 +1739,7 @@ void cInterface::AutoRecovery() const
 {
 	if (QFile::exists(systemData.GetAutosaveFile()))
 	{
-		// autorecovery dialog
+		// auto recovery dialog
 		QMessageBox::StandardButton reply;
 		reply = QMessageBox::question(
 			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
@@ -1864,7 +1864,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	tempParam.Set("detail_level", 4.0);
 
 	int scanCount = 0;
-	double DEfactor = 1.0;
+	double DEFactor = 1.0;
 	double step = 1.0;
 
 	cRenderJob *renderJob =
@@ -1892,9 +1892,9 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	{
 		if (stopRequest) return;
 		scanCount++;
-		tempParam.Set("DE_factor", DEfactor);
+		tempParam.Set("DE_factor", DEFactor);
 
-		gPar->Set("DE_factor", DEfactor);
+		gPar->Set("DE_factor", DEFactor);
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 
 		renderJob->UpdateParameters(&tempParam, &tempFractal);
@@ -1907,7 +1907,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 			{
 				if (step < 10000)
 				{
-					DEfactor = DEfactor * 2.0;
+					DEFactor = DEFactor * 2.0;
 					step = step * 2.0;
 					scanCount = 0;
 					continue;
@@ -1919,8 +1919,8 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 			}
 			else
 			{
-				if (step < 0.05 * DEfactor) break;
-				DEfactor += step;
+				if (step < 0.05 * DEFactor) break;
+				DEFactor += step;
 			}
 		}
 
@@ -1930,14 +1930,14 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 			cProgressText::progress_IMAGE);
 
 		step /= 2.0;
-		DEfactor -= step;
+		DEFactor -= step;
 	}
 
-	gPar->Set("DE_factor", DEfactor);
+	gPar->Set("DE_factor", DEFactor);
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 	cProgressText::ProgressStatusText(QObject::tr("Idle"),
 		QObject::tr("Optimal DE factor is: %1 which gives %2% of bad distance estimations")
-			.arg(DEfactor)
+			.arg(DEFactor)
 			.arg(missedDE),
 		1.0, cProgressText::progress_IMAGE);
 

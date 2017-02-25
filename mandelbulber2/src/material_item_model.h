@@ -54,7 +54,7 @@ public:
 	void AssignContainer(cParameterContainer *_parameterContainer);
 	cParameterContainer *GetContainer() { return container; };
 
-	// regenerate model from parametr container data
+	// regenerate model from parameter container data
 	void Regenerate();
 
 	// will return number of material items

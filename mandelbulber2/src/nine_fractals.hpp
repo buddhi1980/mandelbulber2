@@ -90,7 +90,7 @@ private:
 	fractal::enumDEFunctionType DEFunctionType[NUMBER_OF_FRACTALS];
 	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
 	int counts[NUMBER_OF_FRACTALS];
-	int formulaStartIteriation[NUMBER_OF_FRACTALS];
+	int formulaStartIteration[NUMBER_OF_FRACTALS];
 	int formulaStopIteration[NUMBER_OF_FRACTALS];
 	bool addCConstant[NUMBER_OF_FRACTALS];
 	bool checkForBailout[NUMBER_OF_FRACTALS];

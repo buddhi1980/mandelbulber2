@@ -34,7 +34,7 @@
  * Handles the 2D matrix of the list of parameters / list of frames
  * and exposes functions to modify this matrix. This functionality is
  * derived from the cAnimationFrames class. Additionally this class
- * interpolates subframes with the help of the cMorph class.
+ * interpolates sub-frames with the help of the cMorph class.
  */
 
 #ifndef MANDELBULBER2_SRC_KEYFRAMES_HPP_
