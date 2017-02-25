@@ -114,7 +114,7 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::aboxMod1, QObject::tr("Formulas"));
 	insertHeader << QPair<int, QString>(fractal::abox4d, QObject::tr("Formulas 4d"));
 	insertHeader << QPair<int, QString>(fractal::transfAddConstant, QObject::tr("Transforms"));
-	insertHeader << QPair<int, QString>(fractal::transfAddConstant4D, QObject::tr("Transforms 4d"));
+	insertHeader << QPair<int, QString>(fractal::transfAddConstant4d, QObject::tr("Transforms 4d"));
 
 	for(int hIndex = 0; hIndex < insertHeader.size(); hIndex++){
 		QPair<int, QString> header = insertHeader.at(hIndex);
