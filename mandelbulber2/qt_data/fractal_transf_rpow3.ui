@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_rPow3</class>
+ <class>transf_rpow3</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">transf_rPow3</string>
+   <string notr="true">transf_rpow3</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -165,7 +165,7 @@
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
-&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;TransformRpow3Iteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;TransfRpow3Iteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; sqrRout &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;Dot&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
 

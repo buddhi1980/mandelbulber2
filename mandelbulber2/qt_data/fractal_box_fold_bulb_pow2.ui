@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>boxfold_bulbpow2</class>
+ <class>box_fold_bulb_pow2</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">boxfold_bulbpow2</string>
+   <string notr="true">box_fold_bulb_pow2</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">

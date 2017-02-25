@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb_vary_powerV1</class>
+ <class>mandelbulb_vary_power_v1</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">mandelbulb_vary_powerV1</string>
+   <string notr="true">mandelbulb_vary_power_v1</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">

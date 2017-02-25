@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>platonic_solid</class>
+ <class>transf_platonic_solid</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">platonic_solid</string>
+   <string notr="true">transf_platonic_solid</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -234,7 +234,7 @@
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
-&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;TransformPlatonicSolidIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;TransfPlatonicSolidIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; rho &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;Length&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;());&lt;/span&gt; &lt;span style=&quot;color:#d0d0a0&quot;&gt;// the radius&lt;/span&gt;
   &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; theta &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt;

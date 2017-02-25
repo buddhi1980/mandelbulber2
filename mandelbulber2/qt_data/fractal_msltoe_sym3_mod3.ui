@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>msltoesym3_mod3</class>
+ <class>msltoe_sym3_mod3</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">msltoesym3_mod3</string>
+   <string notr="true">msltoe_sym3_mod3</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">

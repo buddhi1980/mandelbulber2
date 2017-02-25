@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>benesi_T1_pine_tree</class>
+ <class>benesi_t1_pine_tree</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">benesi_T1_pine_tree</string>
+   <string notr="true">benesi_t1_pine_tree</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">

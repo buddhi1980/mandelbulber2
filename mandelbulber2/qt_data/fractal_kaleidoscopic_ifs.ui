@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ifs</class>
+ <class>kaleidoscopic_ifs</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">ifs</string>
+   <string notr="true">kaleidoscopic_ifs</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
