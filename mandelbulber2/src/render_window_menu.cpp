@@ -666,4 +666,8 @@ void RenderWindow::slotDetachMainImage()
 	{
 		gMainInterface->DetachMainImageWidget();
 	}
+	else
+	{
+		gMainInterface->AttachMainImageWidget();
+	}
 }

@@ -120,6 +120,7 @@ public:
 	static void StartupDefaultSettings();
 	void DisableJuliaPointMode() const;
 	void DetachMainImageWidget();
+	void AttachMainImageWidget();
 	void StoreDetachImageState();
 	void RestoreDetachImageState();
 

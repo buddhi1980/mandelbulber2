@@ -180,6 +180,12 @@ void cInterface::ShowUi()
 	renderedImage->AssignImage(gMainInterface->mainImage);
 	renderedImage->AssignParameters(gPar);
 
+	if (gPar->Get<bool>("image_detached"))
+	{
+		DetachMainImageWidget();
+		mainWindow->ui->actionDetach_image_from_main_window->setChecked(true);
+	}
+
 	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();
 	progressBarLayout->setSpacing(0);
@@ -424,6 +430,12 @@ void cInterface::SynchronizeInterface(
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, par, mode);
 	WriteLog("cInterface::SynchronizeInterface: materialEditor", 3);
 	SynchronizeInterfaceWindow(materialEditor, par, mode);
+
+	if(detachedWindow)
+	{
+		WriteLog("cInterface::SynchronizeInterface: materialEditor", 3);
+		SynchronizeInterfaceWindow(detachedWindow, par, mode);
+	}
 
 	mainWindow->ui->widgetDockFractal->SynchronizeInterfaceFractals(par, parFractal, mode);
 }
@@ -2099,6 +2111,17 @@ void cInterface::DetachMainImageWidget()
 	mainWindow->ui->verticalLayout->removeWidget(mainWindow->ui->widgetWithImage);
 	detachedWindow->InstallImageWidget(mainWindow->ui->widgetWithImage);
 	detachedWindow->show();
+	gPar->Set("image_detached", true);
+}
+
+void cInterface::AttachMainImageWidget()
+{
+	if(detachedWindow)
+	{
+		detachedWindow->RemoveImageWidget(mainWindow->ui->widgetWithImage);
+		mainWindow->ui->verticalLayout->addWidget(mainWindow->ui->widgetWithImage);
+		gPar->Set("image_detached", false);
+	}
 }
 
 void cInterface::StoreDetachImageState()

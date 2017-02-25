@@ -421,6 +421,8 @@ void InitParams(cParameterContainer *par)
 
 	par->addParam("julia_preview_distance", 3.0, 1e-10, 1000.0, morphNone, paramApp);
 
+	par->addParam("image_detached", false, morphNone, paramApp);
+
 	// measurement
 	par->addParam("meas_point", CVector3(0.0, 0.0, 0.0), morphNone, paramNoSave);
 	par->addParam("meas_distance_from_last", 0.0, morphNone, paramNoSave);

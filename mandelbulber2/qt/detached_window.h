@@ -23,6 +23,7 @@ public:
 	~cDetachedWindow();
 
 	void InstallImageWidget(QWidget *widget);
+	void RemoveImageWidget(QWidget *widget);
 
 private:
 	Ui::cDetachedWindow *ui;

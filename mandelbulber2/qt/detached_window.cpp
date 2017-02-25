@@ -12,7 +12,6 @@ cDetachedWindow::cDetachedWindow(QWidget *parent) : QMainWindow(parent), ui(new 
 {
 	ui->setupUi(this);
 	setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint);
-	statusBar()->hide();
 }
 
 cDetachedWindow::~cDetachedWindow()
@@ -23,4 +22,10 @@ cDetachedWindow::~cDetachedWindow()
 void cDetachedWindow::InstallImageWidget(QWidget *widget)
 {
 	ui->verticalLayout->addWidget(widget);
+}
+
+void cDetachedWindow::RemoveImageWidget(QWidget *widget)
+{
+	ui->verticalLayout->removeWidget(widget);
+	hide();
 }
