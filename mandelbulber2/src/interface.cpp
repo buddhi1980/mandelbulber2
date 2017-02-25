@@ -74,7 +74,7 @@
 cInterface *gMainInterface = nullptr;
 
 // constructor of interface (loading of ui files)
-cInterface::cInterface()
+cInterface::cInterface(QObject *parent) : QObject(parent)
 {
 	mainWindow = nullptr;
 	detachedWindow = nullptr;

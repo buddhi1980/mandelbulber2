@@ -62,9 +62,6 @@ int main(int argc, char *argv[])
 	// configure debug output
 	qInstallMessageHandler(myMessageOutput);
 
-	// class for interface windows
-	gMainInterface = new cInterface;
-
 	WriteLog("Prepare QApplication", 2);
 	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
 	gCoreApplication->setOrganizationName("Mandelbulber");
@@ -103,6 +100,9 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<QMessageBox::StandardButtons>("QMessageBox::StandardButtons");
 	qRegisterMetaType<QMessageBox::StandardButtons *>("QMessageBox::StandardButtons*");
 	qRegisterMetaType<cErrorMessage::enumMessageType>("cErrorMessage::enumMessageType");
+
+	// class for interface windows
+	gMainInterface = new cInterface;
 
 	gErrorMessage = new cErrorMessage;
 

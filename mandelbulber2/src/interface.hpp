@@ -53,8 +53,10 @@ class cSystemTray;
 class cImage;
 class cDetachedWindow;
 
-class cInterface
+class cInterface : public QObject
 {
+	Q_OBJECT
+
 public:
 	enum enumCameraMovementStepMode
 	{
@@ -73,7 +75,7 @@ public:
 		rotateAroundTarget
 	};
 
-	cInterface();
+	cInterface(QObject *parent = nullptr);
 	~cInterface();
 	void ShowUi();
 	void ConnectSignals() const;
