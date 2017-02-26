@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>982</width>
-    <height>929</height>
+    <width>1030</width>
+    <height>1008</height>
    </rect>
   </property>
   <property name="font">
@@ -77,8 +77,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>753</width>
-            <height>677</height>
+            <width>801</width>
+            <height>756</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -107,7 +107,7 @@
           <number>2</number>
          </property>
          <item>
-          <layout class="QHBoxLayout" name="hl_zoom" stretch="0,0,0,0,0,0,0,0">
+          <layout class="QHBoxLayout" name="hl_zoom" stretch="0,0,0,0,0,0,0,0,0,0">
            <property name="spacing">
             <number>2</number>
            </property>
@@ -240,6 +240,32 @@
             </widget>
            </item>
            <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Grid:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_grid_type">
+             <item>
+              <property name="text">
+               <string>Crosshair</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Thirds grid</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Golden ratio</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
             <spacer name="horizontalSpacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -266,7 +292,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>982</width>
+     <width>1030</width>
      <height>21</height>
     </rect>
    </property>
@@ -415,7 +441,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>110</height>
+          <height>131</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -530,7 +556,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>110</height>
+          <height>126</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -597,7 +623,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>110</height>
+          <height>114</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -664,7 +690,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>110</height>
+          <height>127</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -832,7 +858,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>214</width>
+          <width>233</width>
           <height>84</height>
          </rect>
         </property>
@@ -930,7 +956,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>110</height>
+          <height>131</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1009,7 +1035,7 @@
           <x>0</x>
           <y>0</y>
           <width>84</width>
-          <height>401</height>
+          <height>441</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1391,7 +1417,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Detach image from main window</string>
+    <string>Detach image &amp;from main window</string>
    </property>
   </action>
  </widget>

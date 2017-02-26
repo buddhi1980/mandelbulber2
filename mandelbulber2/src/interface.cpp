@@ -263,136 +263,139 @@ void cInterface::ConnectSignals() const
 {
 	// other
 
-	QApplication::connect(mainWindow->ui->checkBox_show_cursor, SIGNAL(stateChanged(int)), mainWindow,
+	connect(mainWindow->ui->checkBox_show_cursor, SIGNAL(stateChanged(int)), mainWindow,
 		SLOT(slotChangedCheckBoxCursorVisibility(int)));
 
-	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
+	connect(mainWindow->ui->comboBox_mouse_click_function,
 		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
 
-	QApplication::connect(mainWindow, SIGNAL(AppendToLog(const QString &)), mainWindow->ui->log_text,
+	connect(mainWindow->ui->comboBox_grid_type,
+		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboGridType(int)));
+
+	connect(mainWindow, SIGNAL(AppendToLog(const QString &)), mainWindow->ui->log_text,
 		SLOT(appendMessage(const QString &)));
 
 	// menu actions
-	QApplication::connect(
+	connect(
 		mainWindow->ui->actionQuit, SIGNAL(triggered()), mainWindow, SLOT(slotQuit()));
-	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveDocksPositions()));
-	QApplication::connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()),
 		mainWindow, SLOT(slotMenuResetDocksPositions()));
-	QApplication::connect(mainWindow->ui->actionAnimation_docks_positions, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionAnimation_docks_positions, SIGNAL(triggered()),
 		mainWindow, SLOT(slotMenuAnimationDocksPositions()));
-	QApplication::connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow,
 		SLOT(slotStackAllDocks()));
-	QApplication::connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByAction()));
-	QApplication::connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByAction()));
-	QApplication::connect(mainWindow->ui->actionShow_info_dock, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionShow_info_dock, SIGNAL(triggered()), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByAction()));
-	QApplication::connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByAction()));
-	QApplication::connect(mainWindow->ui->actionShow_gamepad_dock, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionShow_gamepad_dock, SIGNAL(triggered()), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByAction()));
-	QApplication::connect(mainWindow->ui->actionShow_queue_dock, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionShow_queue_dock, SIGNAL(triggered()), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByAction()));
-	QApplication::connect(mainWindow->ui->actionShow_measurement_dock, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionShow_measurement_dock, SIGNAL(triggered()),
 		mainWindow, SLOT(slotUpdateDocksAndToolbarByAction()));
-	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveSettings()));
-	QApplication::connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()),
 		mainWindow, SLOT(slotMenuSaveSettingsToClipboard()));
-	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuLoadSettings()));
-	QApplication::connect(mainWindow->ui->actionLoad_settings_from_clipboard, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionLoad_settings_from_clipboard, SIGNAL(triggered()),
 		mainWindow, SLOT(slotMenuLoadSettingsFromClipboard()));
-	QApplication::connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuLoadExample()));
-	QApplication::connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber,
+	connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber,
 		SIGNAL(triggered()), mainWindow, SLOT(slotImportOldSettings()));
-	QApplication::connect(mainWindow->ui->actionExportVoxelLayers, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionExportVoxelLayers, SIGNAL(triggered()), mainWindow,
 		SLOT(slotExportVoxelLayers()));
-	QApplication::connect(
+	connect(
 		mainWindow->ui->actionExport_Mesh, SIGNAL(triggered()), mainWindow, SLOT(slotExportMesh()));
-	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImageJPEG()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImagePNG()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImagePNG16()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel,
+	connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel,
 		SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
 #ifdef USE_EXR
-	QApplication::connect(mainWindow->ui->actionSave_as_EXR, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionSave_as_EXR, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImageEXR()));
 #endif // USE_EXR
 
 #ifdef USE_TIFF
-	QApplication::connect(mainWindow->ui->actionSave_as_TIFF, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionSave_as_TIFF, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImageTIFF()));
 #endif // USE_TIFF
 
-	QApplication::connect(
+	connect(
 		mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
-	QApplication::connect(mainWindow->ui->actionUser_Manual, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionUser_Manual, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutManual()));
-	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutMandelbulber()));
-	QApplication::connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutThirdParty()));
-	QApplication::connect(
+	connect(
 		mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
-	QApplication::connect(
+	connect(
 		mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
-	QApplication::connect(mainWindow->ui->actionProgramPreferences, SIGNAL(triggered()), mainWindow,
+	connect(mainWindow->ui->actionProgramPreferences, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuProgramPreferences()));
-	QApplication::connect(mainWindow->ui->actionDetach_image_from_main_window, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionDetach_image_from_main_window, SIGNAL(triggered()),
 		mainWindow, SLOT(slotDetachMainImage()));
 
-	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
+	connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));
-	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale,
+	connect(mainWindow->ui->comboBox_image_preview_scale,
 		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageScale(int)));
 
 	// rendered image widget
-	QApplication::connect(
+	connect(
 		renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
-	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow,
+	connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow,
 		SLOT(slotMouseClickOnImage(int, int, Qt::MouseButton)));
-	QApplication::connect(renderedImage, SIGNAL(keyPress(QKeyEvent *)), mainWindow,
+	connect(renderedImage, SIGNAL(keyPress(QKeyEvent *)), mainWindow,
 		SLOT(slotKeyPressOnImage(QKeyEvent *)));
-	QApplication::connect(renderedImage, SIGNAL(keyRelease(QKeyEvent *)), mainWindow,
+	connect(renderedImage, SIGNAL(keyRelease(QKeyEvent *)), mainWindow,
 		SLOT(slotKeyReleaseOnImage(QKeyEvent *)));
-	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow,
+	connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow,
 		SLOT(slotMouseWheelRotatedOnImage(int)));
 
-	QApplication::connect(mainWindow->ui->widgetDockRenderingEngine,
+	connect(mainWindow->ui->widgetDockRenderingEngine,
 		SIGNAL(stateChangedConnectDetailLevel(int)),
 		gMainInterface->mainWindow->ui->widgetImageAjustments, SLOT(slotCheckedDetailLevelLock(int)));
 
 	// DockWidgets and Toolbar
 
-	QApplication::connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow,
+	connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByView()));
-	QApplication::connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)),
+	connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)),
 		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
-	QApplication::connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)),
+	connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)),
 		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
-	QApplication::connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)),
+	connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)),
 		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 #ifdef USE_GAMEPAD
-	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)),
+	connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)),
 		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 #endif
-	QApplication::connect(mainWindow->ui->dockWidget_queue_dock, SIGNAL(visibilityChanged(bool)),
+	connect(mainWindow->ui->dockWidget_queue_dock, SIGNAL(visibilityChanged(bool)),
 		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
-	QApplication::connect(mainWindow->ui->dockWidget_measurement, SIGNAL(visibilityChanged(bool)),
+	connect(mainWindow->ui->dockWidget_measurement, SIGNAL(visibilityChanged(bool)),
 		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
 
-	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()),
 		mainWindow, SLOT(slotPresetAddToToolbar()));
-	QApplication::connect(mainWindow->ui->actionAdd_CustomWindowStateToMenu, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionAdd_CustomWindowStateToMenu, SIGNAL(triggered()),
 		mainWindow, SLOT(slotCustomWindowStateAddToMenu()));
-	QApplication::connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()),
+	connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()),
 		mainWindow, SLOT(slotCustomWindowRemovePopup()));
 
 	//------------------------------------------------
@@ -1494,9 +1497,9 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 			listOfWidgets[i]->setObjectName(newName);
 		}
 
-		QApplication::connect(
+		connect(
 			deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
-		QApplication::connect(setPositionButton, SIGNAL(clicked()), mainWindow,
+		connect(setPositionButton, SIGNAL(clicked()), mainWindow,
 			SLOT(slotPressedButtonSetPositionPrimitive()));
 
 		// adding parameters
@@ -2015,7 +2018,7 @@ void cInterface::InitPeriodicRefresh()
 {
 	autoRefreshTimer = new QTimer(mainWindow);
 	autoRefreshTimer->setSingleShot(true);
-	QApplication::connect(autoRefreshTimer, SIGNAL(timeout()), mainWindow, SLOT(slotAutoRefresh()));
+	connect(autoRefreshTimer, SIGNAL(timeout()), mainWindow, SLOT(slotAutoRefresh()));
 	autoRefreshTimer->start(2000);
 }
 
@@ -2038,13 +2041,13 @@ void cInterface::InitMaterialsUi()
 	}
 
 	materialEditor->AssignMaterial(gPar, 1);
-	QApplication::connect(materialEditor, SIGNAL(materialChanged(int)), materialListModel,
+	connect(materialEditor, SIGNAL(materialChanged(int)), materialListModel,
 		SLOT(slotMaterialChanged(int)));
 
-	QApplication::connect(mainWindow->ui->widget_material_list_view, SIGNAL(materialSelected(int)),
+	connect(mainWindow->ui->widget_material_list_view, SIGNAL(materialSelected(int)),
 		mainWindow, SLOT(slotMaterialSelected(int)));
 
-	QApplication::connect(mainWindow->ui->widget_material_list_view, SIGNAL(materialEdited()),
+	connect(mainWindow->ui->widget_material_list_view, SIGNAL(materialEdited()),
 		mainWindow, SLOT(slotMaterialEdited()));
 }
 
@@ -2056,7 +2059,7 @@ void cInterface::MaterialSelected(int matIndex)
 		materialEditor = new cMaterialEditor(mainWindow->ui->scrollArea_material);
 		mainWindow->ui->verticalLayout_materials->addWidget(materialEditor);
 		materialEditor->AssignMaterial(gPar, matIndex);
-		QApplication::connect(materialEditor, SIGNAL(materialChanged(int)), materialListModel,
+		connect(materialEditor, SIGNAL(materialChanged(int)), materialListModel,
 			SLOT(slotMaterialChanged(int)));
 	}
 }

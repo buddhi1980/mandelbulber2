@@ -99,6 +99,8 @@ private slots:
 	static void slotChangedCheckBoxCursorVisibility(int state);
 	void slotChangedComboImageScale(int index) const;
 	void slotChangedComboMouseClickFunction(int index) const;
+	void slotChangedComboGridType(int index);
+
 	void slotPressedButtonDeletePrimitive() const;
 
 	void slotPressedButtonSetPositionPrimitive() const;

@@ -423,6 +423,8 @@ void InitParams(cParameterContainer *par)
 
 	par->addParam("image_detached", false, morphNone, paramApp);
 
+	par->addParam("grid_type", 0, morphNone, paramApp);
+
 	// measurement
 	par->addParam("meas_point", CVector3(0.0, 0.0, 0.0), morphNone, paramNoSave);
 	par->addParam("meas_distance_from_last", 0.0, morphNone, paramNoSave);

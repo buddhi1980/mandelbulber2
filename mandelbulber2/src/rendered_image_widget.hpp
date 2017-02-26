@@ -65,6 +65,13 @@ public:
 		clickGetPoint = 9
 	};
 
+	enum enumGridType
+	{
+		gridTypeCrosshair = 0,
+		gridTypeThirds = 1,
+		gridTypeGolden = 2
+	};
+
 	struct sFlightData
 	{
 		// numbers
@@ -88,6 +95,7 @@ public:
 	void setClickMode(QList<QVariant> _clickMode);
 	void SetFrontDist(double dist) { frontDist = dist; }
 	void SetCursorVisibility(bool enable) { cursorVisible = enable; }
+	void SetGridType(enumGridType gridType);
 	void SetFlightData(const sFlightData &fData) { flightData = fData; }
 	// CVector2<double> GetLastMousePositionScaled();
 
@@ -126,6 +134,7 @@ private:
 	cImage *image;
 	QList<QVariant> clickModeData;
 	enumClickMode clickMode;
+	enumGridType gridType;
 	cParameterContainer *params;
 	bool cursorVisible;
 	double smoothLastZMouse;

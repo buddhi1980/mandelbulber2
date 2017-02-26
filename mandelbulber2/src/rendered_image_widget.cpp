@@ -65,6 +65,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	flightRotationDirection = 0;
 	clickMode = clickDoNothing;
 	anaglyphMode = false;
+	gridType = gridTypeCrosshair;
 
 	QList<QVariant> mode;
 	mode.append(int(RenderedImage::clickDoNothing));
@@ -82,7 +83,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 
 	if (image)
 	{
-		if (cursorVisible && isFocus)
+		if (cursorVisible && (isFocus || gridType != gridTypeCrosshair))
 		{
 			CVector2<int> point = lastMousePosition / image->GetPreviewScale();
 			double z = image->GetPixelZBuffer(point.x, point.y);
@@ -311,11 +312,9 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		// draw small cross
 		image->AntiAliasedLine(screenPoint.x - 20, screenPoint.y - 20, screenPoint.x + 20,
-			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255),
-			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
+			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1);
 		image->AntiAliasedLine(screenPoint.x + 20, screenPoint.y - 20, screenPoint.x - 20,
-			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255),
-			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
+			screenPoint.y + 20, -1, -1, sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1);
 	}
 	lastDepth = z;
 }
@@ -339,9 +338,9 @@ void RenderedImage::Draw3DBox(
 	sRGBFloat opacity;
 	switch (eye)
 	{
-		case cStereo::eyeNone: opacity = sRGBFloat(float(0.8), float(0.8), float(0.8)); break;
-		case cStereo::eyeLeft: opacity = sRGBFloat(float(0.8), float(0.0), float(0.0)); break;
-		case cStereo::eyeRight: opacity = sRGBFloat(float(0.0), float(0.8), float(0.8)); break;
+		case cStereo::eyeNone: opacity = sRGBFloat(0.8f, 0.8f, 0.8f); break;
+		case cStereo::eyeLeft: opacity = sRGBFloat(0.8f, 0.0f, 0.0f); break;
+		case cStereo::eyeRight: opacity = sRGBFloat(0.0f, 0.8f, 0.8f); break;
 	}
 
 	unsigned char R, G, B;
@@ -739,18 +738,48 @@ void RenderedImage::DisplayCrosshair() const
 			&& params->Get<bool>("stereo_mode") == cStereo::stereoLeftRight)
 	{
 		image->AntiAliasedLine(crossCenter.x / 2, 0, crossCenter.x / 2, sh, -1, -1,
-			sRGB8(255, 255, 255), sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1);
 		image->AntiAliasedLine(crossCenter.x * 1.5, 0, crossCenter.x * 1.5, sh, -1, -1,
-			sRGB8(255, 255, 255), sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGB8(255, 255, 255), sRGBFloat(0.3f, 0.3f, 0.3f), 1);
 		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
-			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
+			sRGBFloat(0.3f, 0.3f, 0.3f), 1);
 	}
 	else
 	{
-		image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255),
-			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
-		image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
-			sRGBFloat(float(0.3), float(0.3), float(0.3)), 1);
+		switch (gridType)
+		{
+			case gridTypeCrosshair:
+				image->AntiAliasedLine(crossCenter.x, 0, crossCenter.x, sh, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				image->AntiAliasedLine(0, crossCenter.y, sw, crossCenter.y, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				break;
+
+			case gridTypeThirds:
+				image->AntiAliasedLine(sw * 0.3333, 0, sw * 0.3333, sh, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				image->AntiAliasedLine(sw * 0.6666, 0, sw * 0.6666, sh, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				image->AntiAliasedLine(0, sh * 0.3333, sw, sh * 0.3333, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				image->AntiAliasedLine(0, sh * 0.6666, sw, sh * 0.6666, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				break;
+
+			case gridTypeGolden:
+				double goldenRatio = (1.0 + sqrt(5.0)) / 2.0;
+				double ratio1 = goldenRatio - 1.0;
+				double ratio2 = 1.0 - ratio1;
+				image->AntiAliasedLine(sw * ratio1, 0, sw * ratio1, sh, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				image->AntiAliasedLine(sw * ratio2, 0, sw * ratio2, sh, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				image->AntiAliasedLine(0, sh * ratio1, sw, sh * ratio1, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				image->AntiAliasedLine(0, sh * ratio2, sw, sh * ratio2, -1, -1, sRGB8(255, 255, 255),
+					sRGBFloat(0.3f, 0.3f, 0.3f), 1);
+				break;
+		}
 	}
 }
 
@@ -907,4 +936,10 @@ void RenderedImage::setClickMode(QList<QVariant> _clickMode)
 void RenderedImage::slotSetMinimumSize(int width, int height)
 {
 	setMinimumSize(width, height);
+}
+
+void RenderedImage::SetGridType(enumGridType _gridType)
+{
+	gridType = _gridType;
+	update();
 }

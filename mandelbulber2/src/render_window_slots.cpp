@@ -664,3 +664,8 @@ void RenderWindow::slotMaterialEdited()
 {
 	SynchronizeInterfaceWindow(gMainInterface->materialEditor, gPar, qInterface::write);
 }
+
+void RenderWindow::slotChangedComboGridType(int index)
+{
+	gMainInterface->renderedImage->SetGridType(RenderedImage::enumGridType(index));
+}
