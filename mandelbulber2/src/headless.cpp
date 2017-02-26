@@ -47,6 +47,7 @@
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "voxel_export.hpp"
+#include "mesh_export.hpp"
 
 cHeadless::cHeadless() : QObject()
 {
@@ -125,7 +126,7 @@ void cHeadless::RenderQueue()
 	}
 }
 
-void cHeadless::RenderVoxel()
+void cHeadless::RenderVoxel(QString voxelFormat)
 {
 	CVector3 limitMin;
 	CVector3 limitMax;
@@ -140,19 +141,33 @@ void cHeadless::RenderVoxel()
 		limitMax = gPar->Get<CVector3>("limit_max");
 	}
 	int maxIter = gPar->Get<int>("voxel_max_iter");
-	QString folderString = gPar->Get<QString>("voxel_image_path");
 	int samplesX = gPar->Get<int>("voxel_samples_x");
 	int samplesY = gPar->Get<int>("voxel_samples_y");
 	int samplesZ = gPar->Get<int>("voxel_samples_z");
-	QDir folder(folderString);
 
-	cVoxelExport *voxelExport =
-		new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
-	QObject::connect(voxelExport,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-	voxelExport->ProcessVolume();
-	delete voxelExport;
+	if(voxelFormat == "slice")
+	{
+		QString folderString = gPar->Get<QString>("voxel_image_path");
+		QDir folder(folderString);
+		cVoxelExport *voxelExport =
+			new cVoxelExport(samplesX, samplesY, samplesZ, limitMin, limitMax, folder, maxIter);
+		QObject::connect(voxelExport,
+			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+		voxelExport->ProcessVolume();
+		delete voxelExport;
+	}
+	else if(voxelFormat == "ply")
+	{
+		QString fileString = gPar->Get<QString>("mesh_output_filename");
+		cMeshExport *meshExport =
+			new cMeshExport(samplesX, samplesY, samplesZ, limitMin, limitMax, fileString, maxIter);
+		QObject::connect(meshExport,
+			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+		meshExport->ProcessVolume();
+		delete meshExport;
+	}
 	emit finished();
 }
 

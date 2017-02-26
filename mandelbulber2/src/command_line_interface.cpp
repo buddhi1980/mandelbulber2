@@ -153,7 +153,10 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 			"main", "Resaves a settings file (can be used to update a settings file)"));
 
 	QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
-		QCoreApplication::translate("main", "Renders the voxel volume in a stack of images."));
+		QCoreApplication::translate("main", "Renders the voxel volume. Output formats are:\n"
+																				"  slice - stack of PNG images into one folder (default)\n"
+																				"  ply - Polygon File Format (single 3d file)\n"),
+		QCoreApplication::translate("main", "FORMAT"));
 
 	QCommandLineOption statsOption(QStringList({"stats"}),
 		QCoreApplication::translate("main", "Shows statistics while rendering in CLI mode."));
@@ -224,6 +227,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	cliData.listParameters = parser.isSet(listOption);
 	cliData.queue = parser.isSet(queueOption);
 	cliData.voxel = parser.isSet(voxelOption);
+	cliData.voxelFormat = parser.value(voxelOption);
 	cliData.test = parser.isSet(testOption);
 	cliData.benchmark = parser.isSet(benchmarkOption);
 	cliData.touch = parser.isSet(touchOption);
@@ -381,7 +385,7 @@ void cCommandLineInterface::ProcessCLI() const
 		case modeVoxel:
 		{
 			gMainInterface->headless = new cHeadless();
-			gMainInterface->headless->RenderVoxel();
+			gMainInterface->headless->RenderVoxel(cliData.voxelFormat);
 			break;
 		}
 		case modeBootOnly:
@@ -912,6 +916,18 @@ void cCommandLineInterface::handleEndFrame()
 
 void cCommandLineInterface::handleVoxel()
 {
+	QStringList allowedVoxelFormat({"ply", "slice"});
+	qDebug() << "cliData.voxelFormat. " << cliData.voxelFormat;
+	if (!allowedVoxelFormat.contains(cliData.voxelFormat))
+	{
+		cErrorMessage::showMessage(QObject::tr("Specified voxel format is not valid\n"
+																					 "allowed formats are: ")
+																 + allowedVoxelFormat.join(", "),
+			cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorVoxelOutputFormatInvalid);
+	}
+
+
 	QString folderString = gPar->Get<QString>("voxel_image_path");
 	QDir folder(folderString);
 	if (!folder.exists())

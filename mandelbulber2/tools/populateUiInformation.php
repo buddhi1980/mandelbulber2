@@ -47,7 +47,6 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 	if(count($matchFunctionName) < 2){
 		echo errorString('Warning, could not read function name for index: ' . $index) . PHP_EOL;		
 		continue;
-		// die('could not read function name for index: ' . $index);
 	}
 	$functionName = trim($matchFunctionName[1]);
 	$functionNameNew = ucfirst($index) . 'Iteration';
@@ -59,7 +58,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 		}
 		echo noticeString('internal name upgrade from ' . $internalName . ' to ' . $internalNameNew) . PHP_EOL;
 		$internalName = $internalNameNew;
-		exit;
+		if(!isDryRun()) die('Changes have been written, check changes and run script again for more changes.');
 	}
 	if($functionName != $functionNameNew){
 	  if(!isDryRun()){
@@ -67,7 +66,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 		}
 		echo noticeString('function name upgrade from ' . $functionName . ' to ' . $functionNameNew) . PHP_EOL;
 		$functionNameNew = $functionName;
-		exit;
+		if(!isDryRun()) die('Changes have been written, check changes and run script again for more changes.');
 	}
 
 	// read function contents
