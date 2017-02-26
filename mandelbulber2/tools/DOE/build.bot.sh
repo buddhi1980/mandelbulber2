@@ -27,22 +27,23 @@ cd $BUILDTREE \
 CXXFLAGS="-03 -g -fPIC -mmic -wd39,10006" \
 CFLAGS="-03 -g -fPIC -mmic -wd39,10006" \
 cmake3 \
--DCMAKE_PREFIX_PATH=$KNC_LIB/qt5/build-mic/qtbase/lib/cmake \
--DQt5UiTools_DIR=$KNC_LIB/qt5/build-mic/qttools/lib/cmake/Qt5UiTools \
--DQt5Multimedia_DIR=$KNC_LIB/qt5/build-mic/qtmultimedia/lib/cmake/Qt5Multimedia \
+-DCMAKE_PREFIX_PATH=$KNC_LIB/install-mic/QT5/lib/cmake \
+-DQt5UiTools_DIR=$KNC_LIB/install-mic/QT5/lib/cmake/Qt5UiTools \
+-DQt5Multimedia_DIR=$KNC_LIB/install-mic/QT5/lib/cmake/Qt5Multimedia \
+-DQt5Widgets_DIR==$KNC_LIB/install-mic/QT5/lib/cmake/Qt5Multimedia \
 -DCMAKE_SYSTEM_NAME=Linux \
 -DCMAKE_SYSTEM_PROCESSOR=k1om \
 -DCMAKE_FIND_ROOT_PATH=$MPSSDIR \
 -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER \
 -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY \
 -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY \
--DPNG_LIBRARY=$KNC_LIB/libpng/install-mic/lib/libpng15.so.15.27.0 \
--DPNG_PNG_INCLUDE_DIR=$KNC_LIB/libpng/install-mic/include \
--DJPEG_LIBRARY=$KNC_LIB/libjpeg/build-mic/libjpeg.a \
--DJPEG_INCLUDE_DIR=$KNC_LIB/libjpeg \
--DGSL_INCLUDE_DIR=$KNC_LIB/gsl/install-mic/include \
--DGSL_LIBRARY=$KNC_LIB/gsl/install-mic/lib/libgsl.a \
--DGSL_CBLAS_LIBRARY=$KNC_LIB/gsl/install-mic/lib/libgslcblas.a \
+-DPNG_LIBRARY=$KNC_LIB/install-mic/libpng/lib/libpng15.so.15.27.0 \
+-DPNG_PNG_INCLUDE_DIR=$KNC_LIB/install-mic/libpng/include \
+-DJPEG_LIBRARY=$KNC_LIB/install-mic/libjpeg/lib/libjpeg.a \
+-DJPEG_INCLUDE_DIR=$KNC_LIB/install-mic/libjpeg/include \
+-DGSL_INCLUDE_DIR=$KNC_LIB/install-mic/gsl/include \
+-DGSL_LIBRARY=$KNC_LIB/install-mic/gsl/lib/libgsl.a \
+-DGSL_CBLAS_LIBRARY=$KNC_LIB/install-mic/gsl/lib/libgslcblas.a \
 -DCMAKE_INSTALL_PREFIX=$SRC/install-mic \
 -G "Eclipse CDT4 - Unix Makefiles" \
 $SRC/mandelbulber2/cmake/

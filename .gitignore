@@ -4,6 +4,7 @@ render/
 render2/
 
 # Build Directories
+mandelbulber2/deploy/share/mandelbulber2/mandelbulber2
 build/
 build-mic/
 build-win/
