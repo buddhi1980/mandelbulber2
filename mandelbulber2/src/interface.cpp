@@ -429,7 +429,7 @@ void cInterface::SynchronizeInterface(
 	WriteLog("cInterface::SynchronizeInterface: materialEditor", 3);
 	SynchronizeInterfaceWindow(materialEditor, par, mode);
 
-	if(detachedWindow)
+	if (detachedWindow)
 	{
 		WriteLog("cInterface::SynchronizeInterface: materialEditor", 3);
 		SynchronizeInterfaceWindow(detachedWindow, par, mode);
@@ -1721,7 +1721,7 @@ bool cInterface::QuitApplicationDialog()
 
 			QFile::remove(systemData.GetAutosaveFile());
 
-			if(detachedWindow)
+			if (detachedWindow)
 			{
 				settings.setValue("detachedWindowGeometry", detachedWindow->saveGeometry());
 			}
@@ -1952,6 +1952,20 @@ void cInterface::ResetFormula(int fractalNumber) const
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	cParameterContainer *fractal = &gParFractal->at(fractalNumber);
 	fractal->ResetAllToDefault();
+
+	QStringList listToReset = {"formula_iterations", "formula_weight", "formula_start_iteration",
+		"formula_stop_iteration", "julia_mode", "julia_c", "fractal_constant_factor", "initial_waxis",
+		"formula_position", "formula_rotation", "formula_repeat", "formula_scale",
+		"dont_add_c_constant", "check_for_bailout"};
+
+	for (int i = 0; i < listToReset.size(); i++)
+	{
+		cOneParameter oneParameter =
+			gPar->GetAsOneParameter(listToReset[i] + QString("_%1").arg(fractalNumber + 1));
+		oneParameter.SetMultiVal(oneParameter.GetMultiVal(valueDefault), valueActual);
+		gPar->SetFromOneParameter(listToReset[i] + QString("_%1").arg(fractalNumber + 1), oneParameter);
+	}
+
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
@@ -2113,7 +2127,8 @@ void cInterface::DetachMainImageWidget()
 	if (!detachedWindow)
 	{
 		detachedWindow = new cDetachedWindow;
-		connect(detachedWindow, SIGNAL(ReturnToOrigin()), mainWindow->ui->actionDetach_image_from_main_window, SLOT(toggle()));
+		connect(detachedWindow, SIGNAL(ReturnToOrigin()),
+			mainWindow->ui->actionDetach_image_from_main_window, SLOT(toggle()));
 		connect(detachedWindow, SIGNAL(ReturnToOrigin()), mainWindow, SLOT(slotDetachMainImage()));
 	}
 	mainWindow->ui->verticalLayout->removeWidget(mainWindow->ui->widgetWithImage);
@@ -2126,7 +2141,7 @@ void cInterface::DetachMainImageWidget()
 
 void cInterface::AttachMainImageWidget()
 {
-	if(detachedWindow)
+	if (detachedWindow)
 	{
 		detachedWindow->RemoveImageWidget(mainWindow->ui->widgetWithImage);
 		mainWindow->ui->verticalLayout->addWidget(mainWindow->ui->widgetWithImage);
