@@ -73,7 +73,8 @@ public:
 		cliErrorKeyframeEndFrameSmallerStartFrame = -42,
 		cliErrorKeyframeEndFrameOutOfRange = -43,
 
-		cliErrorVoxelOutputFolderDoesNotExists = -50
+		cliErrorVoxelOutputFolderDoesNotExists = -50,
+		cliErrorVoxelOutputFormatInvalid = -51
 	};
 
 	void ReadCLI();
@@ -128,6 +129,7 @@ private:
 		QString host;
 		QString portText;
 		QString outputText;
+		QString voxelFormat;
 	} cliData;
 
 	QCommandLineParser parser;
