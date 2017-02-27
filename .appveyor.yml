@@ -137,8 +137,8 @@ init:
 #      configuration: Release
 
 # build cache to preserve files/folders between builds
-cache:
-  - '%LocalAppData%\NuGet\Cache'
+#cache:
+#  - '%LocalAppData%\NuGet\Cache'
 # preserve "packages" directory in the root of build folder 
 # will reset it if packages.config is modified
 #  - packages -> **\packages.config
