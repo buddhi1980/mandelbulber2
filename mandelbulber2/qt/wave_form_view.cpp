@@ -60,7 +60,7 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		inProgress = false;
 		failed = false;
 
-		int numberOfSampels = audiotrack->getLength();
+		int numberOfSamples = audiotrack->getLength();
 		int sampleRate = audiotrack->getSampleRate();
 		numberOfFrames = audiotrack->getNumberOfFrames();
 		framesPerSecond = audiotrack->getFramesPerSecond();
@@ -68,7 +68,7 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 		this->setFixedWidth(numberOfFrames);
 
-		for (int i = 0; i < numberOfSampels; i++)
+		for (int i = 0; i < numberOfSamples; i++)
 		{
 			int frameNo = i * framesPerSecond / sampleRate;
 			float sample = audiotrack->getSample(i) / audiotrack->getMaxVolume();
@@ -83,17 +83,17 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		waveImage = QImage(QSize(numberOfFrames, height), QImage::Format_RGB32);
 		waveImage.fill(Qt::black);
 		QPainter painter(&waveImage);
-		double hscale = 0.5 * height;
+		double hScale = 0.5 * height;
 		int center = height / 2;
 
 		painter.setPen(Qt::green);
 		for (int x = 0; x < numberOfFrames; x++)
 		{
 			// painter.drawLine(
-			//	x, center + hscale * audioBuffer[x].min, x, center + hscale * audioBuffer[x].max);
-			int yStart = center + hscale * audioBuffer[x].min;
+			//	x, center + hScale * audioBuffer[x].min, x, center + hScale * audioBuffer[x].max);
+			int yStart = center + hScale * audioBuffer[x].min;
 			if (yStart < 0) yStart = 0;
-			int yStop = center + hscale * audioBuffer[x].max;
+			int yStop = center + hScale * audioBuffer[x].max;
 			if (yStop > height - 1) yStop = height - 1;
 			QRgb pixel = qRgba(0, 255, 0, 255);
 			for (int y = yStart; y < yStop; y++)

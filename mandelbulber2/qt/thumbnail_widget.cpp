@@ -32,7 +32,7 @@
  * cThumbnailWidget - promoted QWidget for displaying of fractals in an auto-rendering thumbnail
  *
  * This class holds an cImage and fractal settings can be assigned with AssignParameters().
- * The class then asynchroniously renders the fractal as a thumbnail and displays it.
+ * The class then asynchronously renders the fractal as a thumbnail and displays it.
  * The fractal thumbnails can also be cached in filesystem for faster loading.
  * Signals for progress and render finish can be connected, see also usage in PreviewFileDialog.
  */
@@ -182,16 +182,16 @@ void cThumbnailWidget::AssignParameters(
 				QPixmap pixmap;
 				pixmap.load(thumbnailFileName);
 				pixmap = pixmap.scaled(tWidth, tHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-				QImage qimage = pixmap.toImage();
-				qimage = qimage.convertToFormat(QImage::Format_RGB888);
+				QImage qImage = pixmap.toImage();
+				qImage = qImage.convertToFormat(QImage::Format_RGB888);
 				sRGB8 *bitmap;
-				bitmap = reinterpret_cast<sRGB8 *>(qimage.bits());
-				int bwidth = qimage.width();
-				int bheight = qimage.height();
+				bitmap = reinterpret_cast<sRGB8 *>(qImage.bits());
+				int bWidth = qImage.width();
+				int bHeight = qImage.height();
 				sRGB8 *previewPointer = reinterpret_cast<sRGB8 *>(image->GetPreviewPrimaryPtr());
 				sRGB8 *preview2Pointer = reinterpret_cast<sRGB8 *>(image->GetPreviewPtr());
-				memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
-				memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
+				memcpy(previewPointer, bitmap, sizeof(sRGB8) * bWidth * bHeight);
+				memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bWidth * bHeight);
 				delete params;
 				params = nullptr;
 				delete fractal;

@@ -251,7 +251,7 @@ void cDockFractal::slotFractalSwap(int swapA, int swapB) const
 		cMultiVal multiA = formulaB.GetMultiVal(parameterContainer::valueActual);
 		cMultiVal multiB = formulaA.GetMultiVal(parameterContainer::valueActual);
 
-		// write values to OneParmaters
+		// write values to OneParameters
 		formulaA.SetMultiVal(multiA, parameterContainer::valueActual);
 		formulaB.SetMultiVal(multiB, parameterContainer::valueActual);
 

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cAudioSelector - This is a file selector widget for aufio files.
+ * cAudioSelector - This is a file selector widget for audio files.
  */
 
 #ifndef MANDELBULBER2_QT_AUDIO_SELECTOR_H_
@@ -90,10 +90,10 @@ private:
 	QBuffer *playStream;
 
 signals:
-	void freqencyChanged(double midfreq, double bandwidth);
+	void frequencyChanged(double midfreq, double bandwidth);
 	void audioLoaded();
 	void loadingProgress(QString progressText);
-	void playPositionChanged(qint64 miliseconds);
+	void playPositionChanged(qint64 milliseconds);
 };
 
 #endif /* MANDELBULBER2_QT_AUDIO_SELECTOR_H_ */

@@ -63,7 +63,7 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 {
 	// get max Element
 	long maxH = 1; // 1 to prevent division by zero
-	int extrIndex = 0;
+	int extremeIndex = 0;
 	int minIndex = 0;
 	int maxIndex = 0;
 
@@ -76,7 +76,7 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 		if (histData.GetHist(i) > maxH)
 		{
 			maxH = histData.GetHist(i);
-			extrIndex = i;
+			extremeIndex = i;
 		}
 		sum += histData.GetHist(i);
 		double prob = double(sum) / histData.GetCount();
@@ -114,9 +114,9 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 		painter.setPen(QPen(maxColor));
 		painter.setBrush(QBrush(maxColor));
 
-		painter.drawText(fmin(legendWidthP1 + (extrIndex * drawWidth / size) + 20, width() - 100), 20,
+		painter.drawText(fmin(legendWidthP1 + (extremeIndex * drawWidth / size) + 20, width() - 100), 20,
 			QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
-				+ GetShortNumberDisplay(extrIndex) + QString(", max: ") + GetShortNumberDisplay(maxIndex)
+				+ GetShortNumberDisplay(extremeIndex) + QString(", max: ") + GetShortNumberDisplay(maxIndex)
 				+ QString(", avg: ") + QString::number(average));
 	}
 }

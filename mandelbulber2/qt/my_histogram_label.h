@@ -48,17 +48,17 @@ public:
 	MyHistogramLabel(QWidget *parent = nullptr);
 	~MyHistogramLabel();
 
-	void SetBarcolor(const QColor &c) { barColor = c; }
-	QColor GetBarcolor() const { return barColor; }
+	void SetBarColor(const QColor &c) { barColor = c; }
+	QColor GetBarColor() const { return barColor; }
 
-	void SetBackgroundcolor(const QColor &c) { backgroundColor = c; }
-	QColor GetBackgroundcolor() const { return backgroundColor; }
+	void SetBackgroundColor(const QColor &c) { backgroundColor = c; }
+	QColor GetBackgroundColor() const { return backgroundColor; }
 
-	void SetLegendcolor(const QColor &c) { legendColor = c; }
-	QColor GetLegendcolor() const { return legendColor; }
+	void SetLegendColor(const QColor &c) { legendColor = c; }
+	QColor GetLegendColor() const { return legendColor; }
 
-	void SetMaxcolor(const QColor &c) { maxColor = c; }
-	QColor GetMaxcolor() const { return maxColor; }
+	void SetMaxColor(const QColor &c) { maxColor = c; }
+	QColor GetMaxColor() const { return maxColor; }
 
 	void UpdateHistogram(const cHistogram &histData);
 

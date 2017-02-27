@@ -31,7 +31,7 @@
  *
  * cSystemTray class - class for system tray
  *
- * This class notifies the user about events and listenes for simple actions.
+ * This class notifies the user about events and listens for simple actions.
  */
 
 #include "system_tray.hpp"

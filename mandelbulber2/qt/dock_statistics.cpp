@@ -59,7 +59,7 @@ void cDockStatistics::UpdateDistanceToFractal(double distance) const
 
 void cDockStatistics::slotUpdateStatistics(cStatistics stat) const
 {
-	ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
+	ui->label_histogram_de->SetBarColor(QColor(0, 255, 0));
 	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
 	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
 

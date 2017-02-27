@@ -90,9 +90,9 @@ void cDockImageAdjustments::ConnectSignals() const
 	connect(ui->pushButton_resolution_preset_720, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
 	connect(ui->pushButton_imagesize_increase, SIGNAL(clicked()), this,
-		SLOT(slotPressedImagesizeIncrease()));
+		SLOT(slotPressedImageSizeIncrease()));
 	connect(ui->pushButton_imagesize_decrease, SIGNAL(clicked()), this,
-		SLOT(slotPressedImagesizeDecrease()));
+		SLOT(slotPressedImageSizeDecrease()));
 	connect(ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), this,
 		SLOT(slotImageHeightChanged(int)));
 	connect(ui->checkBox_connect_detail_level, SIGNAL(stateChanged(int)), this,
@@ -325,7 +325,7 @@ void cDockImageAdjustments::slotPressedButtonImageApply()
 	gMainInterface->RefreshMainImage();
 }
 
-void cDockImageAdjustments::slotPressedImagesizeIncrease() const
+void cDockImageAdjustments::slotPressedImageSizeIncrease() const
 {
 	int width = ui->spinboxInt_image_width->value();
 	int height = ui->spinboxInt_image_height->value();
@@ -335,7 +335,7 @@ void cDockImageAdjustments::slotPressedImagesizeIncrease() const
 	ui->spinboxInt_image_height->setValue(height);
 }
 
-void cDockImageAdjustments::slotPressedImagesizeDecrease() const
+void cDockImageAdjustments::slotPressedImageSizeDecrease() const
 {
 	int width = ui->spinboxInt_image_width->value();
 	int height = ui->spinboxInt_image_height->value();

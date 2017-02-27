@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cAudioSelector - This is a file selector widget for aufio files.
+ * cAudioSelector - This is a file selector widget for audio files.
  */
 
 #include <QtWidgets/QtWidgets>
@@ -160,7 +160,7 @@ void cAudioSelector::ConnectSignals()
 	connect(ui->spinbox_animsound_binarylength, SIGNAL(valueChanged(double)), this,
 		SLOT(slotFreqChanged()));
 	connect(
-		this, SIGNAL(freqencyChanged(double, double)), ui->fft, SLOT(slotFreqChanged(double, double)));
+		this, SIGNAL(frequencyChanged(double, double)), ui->fft, SLOT(slotFreqChanged(double, double)));
 	connect(ui->pushButton_playback_start, SIGNAL(clicked()), this, SLOT(slotPlaybackStart()));
 	connect(ui->pushButton_playback_stop, SIGNAL(clicked()), this, SLOT(slotPlaybackStop()));
 	connect(this, SIGNAL(loadingProgress(QString)), ui->waveForm, SLOT(slotLoadingProgress(QString)));
@@ -200,7 +200,7 @@ void cAudioSelector::slotFreqChanged()
 		}
 
 		ui->animAudioView->UpdateChart(audio);
-		emit freqencyChanged(midFreq, bandwidth);
+		emit frequencyChanged(midFreq, bandwidth);
 	}
 }
 

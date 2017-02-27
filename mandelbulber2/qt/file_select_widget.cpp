@@ -147,7 +147,7 @@ void FileSelectWidget::slotChangedFile()
 
 		if (pixmap.isNull())
 		{
-			labelImage->setText(QObject::tr("filepath invalid"));
+			labelImage->setText(QObject::tr("file path invalid"));
 		}
 		else
 		{

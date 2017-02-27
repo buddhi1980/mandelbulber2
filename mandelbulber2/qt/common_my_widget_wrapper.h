@@ -36,7 +36,7 @@
  * assignment:    assignment of parameterContainer / parameterName
  * toolTipText:   puts additional information to tooltip
  * In order to use this class inherit it and override the pure virtual methods
- * See also example mycheckbox.*
+ * See also example my_check_box.*
  */
 
 #ifndef MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_

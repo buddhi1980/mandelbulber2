@@ -48,12 +48,12 @@ cAnimAudioView::~cAnimAudioView()
 {
 }
 
-void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack)
+void cAnimAudioView::UpdateChart(const cAudioTrack *audioTrack)
 {
-	if (audiotrack && audiotrack->isLoaded())
+	if (audioTrack && audioTrack->isLoaded())
 	{
-		int numberOfFrames = audiotrack->getNumberOfFrames();
-		framesPerSecond = audiotrack->getFramesPerSecond();
+		int numberOfFrames = audioTrack->getNumberOfFrames();
+		framesPerSecond = audioTrack->getFramesPerSecond();
 		this->setFixedWidth(numberOfFrames);
 
 		animAudioImage = QImage(QSize(numberOfFrames, height()), QImage::Format_RGB32);
@@ -69,7 +69,7 @@ void cAnimAudioView::UpdateChart(const cAudioTrack *audiotrack)
 
 		for (int frame = 0; frame < numberOfFrames; frame++)
 		{
-			QPoint point(frame, maxY - audiotrack->getAnimation(frame) * maxY);
+			QPoint point(frame, maxY - audioTrack->getAnimation(frame) * maxY);
 			painter.drawLine(prevPoint, point);
 			prevPoint = point;
 		}

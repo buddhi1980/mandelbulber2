@@ -31,7 +31,7 @@
  *
  * cSystemTray class - class for system tray
  *
- * This class notifies the user about events and listenes for simple actions.
+ * This class notifies the user about events and listens for simple actions.
  */
 
 #ifndef MANDELBULBER2_QT_SYSTEM_TRAY_HPP_

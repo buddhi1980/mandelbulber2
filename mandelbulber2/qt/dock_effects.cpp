@@ -106,7 +106,7 @@ void cDockEffects::SynchronizeInterfaceLights(cParameterContainer *par) const
 	SynchronizeInterfaceWindow(ui->groupBox_Lights, par, qInterface::write);
 }
 
-void cDockEffects::SynchronizeInterfacerandomLights(cParameterContainer *par) const
+void cDockEffects::SynchronizeInterfaceRandomLights(cParameterContainer *par) const
 {
 	SynchronizeInterfaceWindow(ui->groupCheck_random_lights_group, par, qInterface::write);
 }

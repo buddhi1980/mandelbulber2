@@ -60,7 +60,7 @@ protected slots:
 	void slotHideProgressBar() const;
 
 private:
-	QVBoxLayout *vboxlayout;
+	QVBoxLayout *vBoxLayout;
 	QCheckBox *checkbox;
 	MyProgressBar *progressBar;
 	QPushButton *presetAddButton;

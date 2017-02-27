@@ -32,7 +32,7 @@
  * cThumbnailWidget - promoted QWidget for displaying of fractals in an auto-rendering thumbnail
  *
  * This class holds an cImage and fractal settings can be assigned with AssignParameters().
- * The class then asynchroniously renders the fractal as a thumbnail and displays it.
+ * The class then asynchronously renders the fractal as a thumbnail and displays it.
  * The fractal thumbnails can also be cached in filesystem for faster loading.
  * Signals for progress and render finish can be connected, see also usage in PreviewFileDialog.
  */

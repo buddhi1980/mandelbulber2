@@ -29,7 +29,7 @@
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * cVoxelExportDialog class - class for handling the voxelexport dialog
+ * cVoxelExportDialog class - class for handling the voxel export dialog
  */
 
 #include "voxel_export_dialog.h"

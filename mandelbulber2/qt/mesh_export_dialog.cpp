@@ -79,12 +79,12 @@ void cMeshExportDialog::on_pushButton_start_render_layers_clicked()
 			limitMax = gPar->Get<CVector3>("limit_max");
 		}
 		int maxIter = gPar->Get<int>("voxel_max_iter");
-		QString outFname = gPar->Get<QString>("mesh_output_filename");
+		QString outputFileName = gPar->Get<QString>("mesh_output_filename");
 		int samplesX = gPar->Get<int>("voxel_samples_x");
 		int samplesY = gPar->Get<int>("voxel_samples_y");
 		int samplesZ = gPar->Get<int>("voxel_samples_z");
 
-		QFileInfo fi(outFname);
+		QFileInfo fi(outputFileName);
 		if (fi.exists())
 		{
 			if (QMessageBox::question(
@@ -138,12 +138,12 @@ void cMeshExportDialog::on_pushButton_stop_render_layers_clicked() const
 
 void cMeshExportDialog::on_pushButton_select_image_path_clicked()
 {
-	QString fname = QFileDialog::getSaveFileName(
+	QString outputFileName = QFileDialog::getSaveFileName(
 		this, tr("Select path for mesh output"), ui->text_mesh_output_filename->text());
 
-	if (!fname.isEmpty())
+	if (!outputFileName.isEmpty())
 	{
-		ui->text_mesh_output_filename->setText(fname);
+		ui->text_mesh_output_filename->setText(outputFileName);
 	}
 }
 

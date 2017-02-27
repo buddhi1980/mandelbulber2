@@ -57,7 +57,7 @@ public:
 	void SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const;
 	void SynchronizeInterfaceDOFEnabled(cParameterContainer *par) const;
 	void SynchronizeInterfaceLights(cParameterContainer *par) const;
-	void SynchronizeInterfacerandomLights(cParameterContainer *par) const;
+	void SynchronizeInterfaceRandomLights(cParameterContainer *par) const;
 
 	double GetAuxLightManualPlacementDistance() const;
 	void SetAuxLightManualPlacementDistance(double dist) const;

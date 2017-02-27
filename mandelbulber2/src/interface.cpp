@@ -1157,7 +1157,7 @@ void cInterface::SetByMouse(
 					gPar->Set("random_lights_distribution_center", point);
 					gPar->Set("random_lights_distribution_radius", 0.5 * distanceCameraToCenter);
 					gPar->Set("random_lights_max_distance_from_fractal", 0.1 * distanceCameraToCenter);
-					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfacerandomLights(gPar);
+					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceRandomLights(gPar);
 					StartRender();
 					break;
 				}

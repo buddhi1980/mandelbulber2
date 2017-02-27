@@ -49,7 +49,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	setOption(QFileDialog::DontUseNativeDialog);
 
 	preview = nullptr;
-	vboxlayout = new QVBoxLayout();
+	vBoxLayout = new QVBoxLayout();
 
 	checkbox = new QCheckBox(tr("Preview"));
 	checkbox->setChecked(true);
@@ -76,21 +76,21 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	queueAddButton = new QPushButton;
 	queueAddButton->setText(tr("Add to queue"));
 
-	vboxlayout->addWidget(checkbox);
-	vboxlayout->addWidget(preview);
-	vboxlayout->addWidget(thumbWidget);
-	vboxlayout->addWidget(description);
-	vboxlayout->addWidget(progressBar);
-	vboxlayout->addWidget(info);
-	vboxlayout->addWidget(presetAddButton);
-	vboxlayout->addWidget(queueAddButton);
+	vBoxLayout->addWidget(checkbox);
+	vBoxLayout->addWidget(preview);
+	vBoxLayout->addWidget(thumbWidget);
+	vBoxLayout->addWidget(description);
+	vBoxLayout->addWidget(progressBar);
+	vBoxLayout->addWidget(info);
+	vBoxLayout->addWidget(presetAddButton);
+	vBoxLayout->addWidget(queueAddButton);
 
 	thumbWidget->show();
-	vboxlayout->addStretch();
+	vBoxLayout->addStretch();
 
 	// add to existing layout
 	QGridLayout *gridLayout = static_cast<QGridLayout *>(this->layout());
-	gridLayout->addLayout(vboxlayout, 1, 3, 3, 1);
+	gridLayout->addLayout(vBoxLayout, 1, 3, 3, 1);
 
 	connect(
 		this, SIGNAL(currentChanged(const QString &)), this, SLOT(OnCurrentChanged(const QString &)));
@@ -103,7 +103,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 
 PreviewFileDialog::~PreviewFileDialog()
 {
-	delete vboxlayout;
+	delete vBoxLayout;
 	delete preview;
 	delete info;
 	delete progressBar;

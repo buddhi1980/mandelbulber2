@@ -76,8 +76,8 @@ private slots:
 	// resolution
 	void slotChangedComboImageProportion(int index) const;
 	void slotPressedResolutionPreset() const;
-	void slotPressedImagesizeIncrease() const;
-	void slotPressedImagesizeDecrease() const;
+	void slotPressedImageSizeIncrease() const;
+	void slotPressedImageSizeDecrease() const;
 	void slotImageHeightChanged(int value) const;
 
 	// Quality presets
