@@ -292,7 +292,8 @@ void CNetRender::TryServerConnect()
 		{
 			reconnectTimer->stop();
 		}
-		else if (clientSocket->state() == QAbstractSocket::ConnectingState)
+		else if (clientSocket->state() == QAbstractSocket::ConnectingState
+						 || clientSocket->state() == QAbstractSocket::HostLookupState)
 		{
 			return; // wait for result
 		}
