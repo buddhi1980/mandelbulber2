@@ -132,7 +132,7 @@
          </widget>
         </item>
         <item row="0" column="0" colspan="3">
-         <widget class="QComboBox" name="comboBox_formula">
+         <widget class="cFormulaComboBox" name="comboBox_formula">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1208,6 +1208,12 @@ for 4D fractals</string>
    <class>cMaterialSelector</class>
    <extends>QWidget</extends>
    <header>material_selector.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cFormulaComboBox</class>
+   <extends>QComboBox</extends>
+   <header>formula_combo_box.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

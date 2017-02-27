@@ -27,51 +27,43 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * cDetachedWindow - class to make the center image widget detachable from the main window
+ * cFormulaComboBox - Formula Combobox for the selection of the used formula
+ * This is a combobox with icons and autocomplete for fast formula access
+ * The item list gets populated with the populateItemsFromFractalList()
+ *
+ * autocomplete adopted from here:
+ * http://stackoverflow.com/questions/4827207/how-do-i-filter-the-pyqt-qcombobox-items-based-on-the-text-input
  */
 
-#include "detached_window.h"
-#include "ui_detached_window.h"
+#ifndef MANDELBULBER2_QT_FORMULA_COMBO_BOX_H_
+#define MANDELBULBER2_QT_FORMULA_COMBO_BOX_H_
 
-cDetachedWindow::cDetachedWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::cDetachedWindow)
-{
-	ui->setupUi(this);
-	setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint);
-	ConnectSignals();
-}
+#include <QComboBox>
+#include <QSortFilterProxyModel>
+#include <QCompleter>
+#include "../src/fractal_list.hpp"
 
-cDetachedWindow::~cDetachedWindow()
+class cFormulaComboBox : public QComboBox
 {
-	delete ui;
-}
+	Q_OBJECT
 
-void cDetachedWindow::InstallImageWidget(QWidget *widget)
-{
-	ui->verticalLayout->addWidget(widget);
-}
+public:
+	explicit cFormulaComboBox(QWidget *parent = nullptr);
+	~cFormulaComboBox();
+	void setModel(QAbstractItemModel *model);
+	void setModelColumn(int visibleColumn);
+	void populateItemsFromFractalList(
+		QList<sFractalDescription> fractalList, QList<QPair<int, QString> /* */> insertHeader);
+	void keyPressEvent(QEvent *event);
 
-void cDetachedWindow::RemoveImageWidget(QWidget *widget)
-{
-	ui->verticalLayout->removeWidget(widget);
-	hide();
-}
+private slots:
+	void onCompleterActivated(QString text);
 
-void cDetachedWindow::ConnectSignals()
-{
-	connect(ui->actionReturn_to_main_window, SIGNAL(triggered()), this, SIGNAL(ReturnToOrigin()));
-	connect(ui->actionFull_screen, SIGNAL(triggered()), this, SLOT(FullScreenToggle()));
-}
+private:
+	QSortFilterProxyModel *pFilterModel;
+	QCompleter *completer;
+};
 
-void cDetachedWindow::FullScreenToggle()
-{
-	if (windowState() & Qt::WindowFullScreen)
-	{
-		showNormal();
-	}
-	else
-	{
-		showFullScreen();
-	}
-}
+#endif /* MANDELBULBER2_QT_FORMULA_COMBO_BOX_H_ */

@@ -459,8 +459,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Reciprocal 4D", "transf_reciprocal4d",
 		transfReciprocal4d, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
-	fractalList->append(sFractalDescription("T>Rotation 4D", "transf_rotation4d",
-		transfRotation4d, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(sFractalDescription("T>Rotation 4D", "transf_rotation4d", transfRotation4d,
+		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("T>Scale 4D", "transf_scale4d", transfScale4d,
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

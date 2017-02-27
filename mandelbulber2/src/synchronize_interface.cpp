@@ -484,7 +484,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 					else if (mode == write)
 					{
 						bool value = par->Get<bool>(parameterName);
-                        groupBbox->setChecked(value);
+						groupBbox->setChecked(value);
 					}
 				}
 			}
@@ -600,7 +600,10 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 			QString name = (*it)->objectName();
 			// qDebug() << "QComboBox:" << (*it)->objectName() << " Type:" <<
 			// (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QComboBox"))
+
+			if (name.length() > 1
+					&& ((*it)->metaObject()->className() == QString("QComboBox")
+							 || (*it)->metaObject()->className() == QString("cFormulaComboBox")))
 			{
 				QComboBox *comboBox = *it;
 

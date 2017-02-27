@@ -97,16 +97,6 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 
 	InitWidgetNames();
 
-	ui->comboBox_formula->clear();
-	ui->comboBox_formula->setIconSize(QSize(32, 32));
-	ui->comboBox_formula->setFixedHeight(32);
-
-	for (int f = 0; f < fractalList.size(); f++)
-	{
-		ui->comboBox_formula->addItem(
-			QIcon(fractalList[f].getIconName()), fractalList[f].nameInComboBox, f);
-	}
-
 	// set headings and separator of formulas and transforms
 	QFont fontHeading;
 	fontHeading.setBold(true);
@@ -116,33 +106,7 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 	insertHeader << QPair<int, QString>(fractal::transfAddConstant, QObject::tr("Transforms"));
 	insertHeader << QPair<int, QString>(fractal::transfAddConstant4d, QObject::tr("Transforms 4d"));
 
-	for (int hIndex = 0; hIndex < insertHeader.size(); hIndex++)
-	{
-		QPair<int, QString> header = insertHeader.at(hIndex);
-		int comboIndex = -1;
-		for (int fIndex = 0; fIndex < fractalList.size(); fIndex++)
-		{
-			if (fractalList.at(fIndex).internalID == header.first)
-			{
-				// should be fIndex, but every new header inserts two new items, which have to be added
-				comboIndex = fIndex + 2 * hIndex;
-			}
-		}
-		if (comboIndex == -1)
-		{
-			qCritical() << "Cannot insert combobox Header!";
-		}
-		else
-		{
-			ui->comboBox_formula->insertItem(comboIndex, header.second);
-			ui->comboBox_formula->setItemData(comboIndex, fontHeading, Qt::FontRole);
-			ui->comboBox_formula->setItemData(comboIndex, Qt::AlignCenter, Qt::TextAlignmentRole);
-			qobject_cast<QStandardItemModel *>(ui->comboBox_formula->model())
-				->item(comboIndex)
-				->setEnabled(false);
-			ui->comboBox_formula->insertSeparator(comboIndex);
-		}
-	}
+	ui->comboBox_formula->populateItemsFromFractalList(fractalList, insertHeader);
 
 	connect(ui->comboBox_formula, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboFractal(int)));

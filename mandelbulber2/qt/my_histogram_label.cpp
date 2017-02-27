@@ -114,10 +114,10 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 		painter.setPen(QPen(maxColor));
 		painter.setBrush(QBrush(maxColor));
 
-		painter.drawText(fmin(legendWidthP1 + (extremeIndex * drawWidth / size) + 20, width() - 100), 20,
-			QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
-				+ GetShortNumberDisplay(extremeIndex) + QString(", max: ") + GetShortNumberDisplay(maxIndex)
-				+ QString(", avg: ") + QString::number(average));
+		painter.drawText(fmin(legendWidthP1 + (extremeIndex * drawWidth / size) + 20, width() - 100),
+			20, QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
+						+ GetShortNumberDisplay(extremeIndex) + QString(", max: ")
+						+ GetShortNumberDisplay(maxIndex) + QString(", avg: ") + QString::number(average));
 	}
 }
 

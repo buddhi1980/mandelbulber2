@@ -266,24 +266,23 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->checkBox_show_cursor, SIGNAL(stateChanged(int)), mainWindow,
 		SLOT(slotChangedCheckBoxCursorVisibility(int)));
 
-	connect(mainWindow->ui->comboBox_mouse_click_function,
-		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
+	connect(mainWindow->ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)),
+		mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
 
-	connect(mainWindow->ui->comboBox_grid_type,
-		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboGridType(int)));
+	connect(mainWindow->ui->comboBox_grid_type, SIGNAL(currentIndexChanged(int)), mainWindow,
+		SLOT(slotChangedComboGridType(int)));
 
 	connect(mainWindow, SIGNAL(AppendToLog(const QString &)), mainWindow->ui->log_text,
 		SLOT(appendMessage(const QString &)));
 
 	// menu actions
-	connect(
-		mainWindow->ui->actionQuit, SIGNAL(triggered()), mainWindow, SLOT(slotQuit()));
+	connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), mainWindow, SLOT(slotQuit()));
 	connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveDocksPositions()));
-	connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()),
-		mainWindow, SLOT(slotMenuResetDocksPositions()));
-	connect(mainWindow->ui->actionAnimation_docks_positions, SIGNAL(triggered()),
-		mainWindow, SLOT(slotMenuAnimationDocksPositions()));
+	connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()), mainWindow,
+		SLOT(slotMenuResetDocksPositions()));
+	connect(mainWindow->ui->actionAnimation_docks_positions, SIGNAL(triggered()), mainWindow,
+		SLOT(slotMenuAnimationDocksPositions()));
 	connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow,
 		SLOT(slotStackAllDocks()));
 	connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow,
@@ -298,20 +297,20 @@ void cInterface::ConnectSignals() const
 		SLOT(slotUpdateDocksAndToolbarByAction()));
 	connect(mainWindow->ui->actionShow_queue_dock, SIGNAL(triggered()), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByAction()));
-	connect(mainWindow->ui->actionShow_measurement_dock, SIGNAL(triggered()),
-		mainWindow, SLOT(slotUpdateDocksAndToolbarByAction()));
+	connect(mainWindow->ui->actionShow_measurement_dock, SIGNAL(triggered()), mainWindow,
+		SLOT(slotUpdateDocksAndToolbarByAction()));
 	connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveSettings()));
-	connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()),
-		mainWindow, SLOT(slotMenuSaveSettingsToClipboard()));
+	connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()), mainWindow,
+		SLOT(slotMenuSaveSettingsToClipboard()));
 	connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuLoadSettings()));
-	connect(mainWindow->ui->actionLoad_settings_from_clipboard, SIGNAL(triggered()),
-		mainWindow, SLOT(slotMenuLoadSettingsFromClipboard()));
+	connect(mainWindow->ui->actionLoad_settings_from_clipboard, SIGNAL(triggered()), mainWindow,
+		SLOT(slotMenuLoadSettingsFromClipboard()));
 	connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuLoadExample()));
-	connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber,
-		SIGNAL(triggered()), mainWindow, SLOT(slotImportOldSettings()));
+	connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber, SIGNAL(triggered()),
+		mainWindow, SLOT(slotImportOldSettings()));
 	connect(mainWindow->ui->actionExportVoxelLayers, SIGNAL(triggered()), mainWindow,
 		SLOT(slotExportVoxelLayers()));
 	connect(
@@ -322,8 +321,8 @@ void cInterface::ConnectSignals() const
 		SLOT(slotMenuSaveImagePNG()));
 	connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImagePNG16()));
-	connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel,
-		SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
+	connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()),
+		mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
 #ifdef USE_EXR
 	connect(mainWindow->ui->actionSave_as_EXR, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuSaveImageEXR()));
@@ -334,27 +333,24 @@ void cInterface::ConnectSignals() const
 		SLOT(slotMenuSaveImageTIFF()));
 #endif // USE_TIFF
 
-	connect(
-		mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
+	connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
 	connect(mainWindow->ui->actionUser_Manual, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutManual()));
 	connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutMandelbulber()));
 	connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutThirdParty()));
-	connect(
-		mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
-	connect(
-		mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
+	connect(mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
+	connect(mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
 	connect(mainWindow->ui->actionProgramPreferences, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuProgramPreferences()));
-	connect(mainWindow->ui->actionDetach_image_from_main_window, SIGNAL(triggered()),
-		mainWindow, SLOT(slotDetachMainImage()));
+	connect(mainWindow->ui->actionDetach_image_from_main_window, SIGNAL(triggered()), mainWindow,
+		SLOT(slotDetachMainImage()));
 
 	connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow,
 		SLOT(slotResizedScrolledAreaImage(int, int)));
-	connect(mainWindow->ui->comboBox_image_preview_scale,
-		SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageScale(int)));
+	connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)),
+		mainWindow, SLOT(slotChangedComboImageScale(int)));
 
 	// rendered image widget
 	connect(
@@ -368,35 +364,34 @@ void cInterface::ConnectSignals() const
 	connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow,
 		SLOT(slotMouseWheelRotatedOnImage(int)));
 
-	connect(mainWindow->ui->widgetDockRenderingEngine,
-		SIGNAL(stateChangedConnectDetailLevel(int)),
+	connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
 		gMainInterface->mainWindow->ui->widgetImageAjustments, SLOT(slotCheckedDetailLevelLock(int)));
 
 	// DockWidgets and Toolbar
 
 	connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow,
 		SLOT(slotUpdateDocksAndToolbarByView()));
-	connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
-	connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
-	connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
+	connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)), mainWindow,
+		SLOT(slotUpdateDocksAndToolbarByView()));
+	connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)), mainWindow,
+		SLOT(slotUpdateDocksAndToolbarByView()));
+	connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)), mainWindow,
+		SLOT(slotUpdateDocksAndToolbarByView()));
 #ifdef USE_GAMEPAD
-	connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
+	connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)), mainWindow,
+		SLOT(slotUpdateDocksAndToolbarByView()));
 #endif
-	connect(mainWindow->ui->dockWidget_queue_dock, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
-	connect(mainWindow->ui->dockWidget_measurement, SIGNAL(visibilityChanged(bool)),
-		mainWindow, SLOT(slotUpdateDocksAndToolbarByView()));
+	connect(mainWindow->ui->dockWidget_queue_dock, SIGNAL(visibilityChanged(bool)), mainWindow,
+		SLOT(slotUpdateDocksAndToolbarByView()));
+	connect(mainWindow->ui->dockWidget_measurement, SIGNAL(visibilityChanged(bool)), mainWindow,
+		SLOT(slotUpdateDocksAndToolbarByView()));
 
-	connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()),
-		mainWindow, SLOT(slotPresetAddToToolbar()));
-	connect(mainWindow->ui->actionAdd_CustomWindowStateToMenu, SIGNAL(triggered()),
-		mainWindow, SLOT(slotCustomWindowStateAddToMenu()));
-	connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()),
-		mainWindow, SLOT(slotCustomWindowRemovePopup()));
+	connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()), mainWindow,
+		SLOT(slotPresetAddToToolbar()));
+	connect(mainWindow->ui->actionAdd_CustomWindowStateToMenu, SIGNAL(triggered()), mainWindow,
+		SLOT(slotCustomWindowStateAddToMenu()));
+	connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()), mainWindow,
+		SLOT(slotCustomWindowRemovePopup()));
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksAndToolbarByView();
@@ -1497,8 +1492,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 			listOfWidgets[i]->setObjectName(newName);
 		}
 
-		connect(
-			deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
+		connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
 		connect(setPositionButton, SIGNAL(clicked()), mainWindow,
 			SLOT(slotPressedButtonSetPositionPrimitive()));
 
@@ -2044,11 +2038,11 @@ void cInterface::InitMaterialsUi()
 	connect(materialEditor, SIGNAL(materialChanged(int)), materialListModel,
 		SLOT(slotMaterialChanged(int)));
 
-	connect(mainWindow->ui->widget_material_list_view, SIGNAL(materialSelected(int)),
-		mainWindow, SLOT(slotMaterialSelected(int)));
+	connect(mainWindow->ui->widget_material_list_view, SIGNAL(materialSelected(int)), mainWindow,
+		SLOT(slotMaterialSelected(int)));
 
-	connect(mainWindow->ui->widget_material_list_view, SIGNAL(materialEdited()),
-		mainWindow, SLOT(slotMaterialEdited()));
+	connect(mainWindow->ui->widget_material_list_view, SIGNAL(materialEdited()), mainWindow,
+		SLOT(slotMaterialEdited()));
 }
 
 void cInterface::MaterialSelected(int matIndex)

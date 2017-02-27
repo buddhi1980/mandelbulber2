@@ -145,7 +145,7 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 	int samplesY = gPar->Get<int>("voxel_samples_y");
 	int samplesZ = gPar->Get<int>("voxel_samples_z");
 
-	if(voxelFormat == "slice")
+	if (voxelFormat == "slice")
 	{
 		QString folderString = gPar->Get<QString>("voxel_image_path");
 		QDir folder(folderString);
@@ -157,7 +157,7 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 		voxelExport->ProcessVolume();
 		delete voxelExport;
 	}
-	else if(voxelFormat == "ply")
+	else if (voxelFormat == "ply")
 	{
 		QString fileString = gPar->Get<QString>("mesh_output_filename");
 		cMeshExport *meshExport =

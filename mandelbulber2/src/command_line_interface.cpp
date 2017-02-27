@@ -153,9 +153,10 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 			"main", "Resaves a settings file (can be used to update a settings file)"));
 
 	QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
-		QCoreApplication::translate("main", "Renders the voxel volume. Output formats are:\n"
-																				"  slice - stack of PNG images into one folder (default)\n"
-																				"  ply - Polygon File Format (single 3d file)\n"),
+		QCoreApplication::translate("main",
+																	 "Renders the voxel volume. Output formats are:\n"
+																	 "  slice - stack of PNG images into one folder (default)\n"
+																	 "  ply - Polygon File Format (single 3d file)\n"),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	QCommandLineOption statsOption(QStringList({"stats"}),
@@ -926,7 +927,6 @@ void cCommandLineInterface::handleVoxel()
 			cErrorMessage::errorMessage);
 		parser.showHelp(cliErrorVoxelOutputFormatInvalid);
 	}
-
 
 	QString folderString = gPar->Get<QString>("voxel_image_path");
 	QDir folder(folderString);
