@@ -83,13 +83,16 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 
 	if (image)
 	{
-		if (cursorVisible && (isFocus || gridType != gridTypeCrosshair))
+		CVector2<int> point = lastMousePosition / image->GetPreviewScale();
+		double z = image->GetPixelZBuffer(point.x, point.y);
+
+		if (isFocus || gridType != gridTypeCrosshair)
 		{
-			CVector2<int> point = lastMousePosition / image->GetPreviewScale();
-			double z = image->GetPixelZBuffer(point.x, point.y);
-
 			if (!anaglyphMode) DisplayCrosshair();
+		}
 
+		if (cursorVisible && isFocus)
+		{
 			if (z < 1e10 || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 			{
 				redrawed = false;
