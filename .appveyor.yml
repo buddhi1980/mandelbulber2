@@ -206,6 +206,7 @@ cache:
 platform:
   - Win32
   - x64
+  - k1om
 # add several configurations to build matrix:
 configuration:
   - Release
