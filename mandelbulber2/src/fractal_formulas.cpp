@@ -312,7 +312,7 @@ void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux)
  * Smooth Mandelbox created by Buddhi
  * @reference http://www.fractalforums.com/3d-fractal-generation/mandelbox-with-'smooth'-conditions/
  */
-void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void MandelboxSmoothIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	double sm = fractal->mandelbox.sharpness;
 

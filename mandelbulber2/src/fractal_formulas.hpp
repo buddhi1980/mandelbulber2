@@ -129,7 +129,7 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal);
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal);
 void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal);
 void Sierpinski3dIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
-void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void MandelboxSmoothIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector3 &z, sExtendedAux &aux);
 void CollatzModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);

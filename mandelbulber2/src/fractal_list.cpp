@@ -137,8 +137,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	// Mandelbox formulas
 	fractalList->append(sFractalDescription("Mandelbox", "mandelbox", mandelbox, analyticDEType,
 		linearDEFunction, cpixelEnabledByDefault, 100));
-
 	fractalList->append(sFractalDescription("Mandelbox - Menger", "mandelbox_menger", mandelboxMenger,
+		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
+	fractalList->append(sFractalDescription("Mandelbox - Smooth", "mandelbox_smooth", mandelboxSmooth,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
 	// Mandelbulb formulas
@@ -241,9 +242,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski3d", sierpinski3d,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
-
-	fractalList->append(sFractalDescription("Smooth Mandelbox", "smooth_mandelbox", smoothMandelbox,
-		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Xenodreambuie", "xenodreambuie", xenodreambuie,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));

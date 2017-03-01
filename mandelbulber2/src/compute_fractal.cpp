@@ -193,9 +193,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MandelboxIteration(z, fractal, extendedAux);
 					break;
 				}
-				case smoothMandelbox:
+				case mandelboxSmooth:
 				{
-					SmoothMandelboxIteration(z, fractal, extendedAux);
+					MandelboxSmoothIteration(z, fractal, extendedAux);
 					break;
 				}
 				case boxFoldBulbPow2:
@@ -1238,7 +1238,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mandelbox:
 				case mandelboxMenger:
-				case smoothMandelbox:
+				case mandelboxSmooth:
 				case mandelboxVaryScale4d:
 				case generalizedFoldBox:
 				case foldBoxMod1:
@@ -1345,7 +1345,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			switch (formula)
 			{
 				case mandelbox:
-				case smoothMandelbox:
+				case mandelboxSmooth:
 				case mandelboxVaryScale4d:
 				case generalizedFoldBox:
 

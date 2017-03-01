@@ -59,7 +59,7 @@ enum enumFractalFormula
 	mandelbulb3 = 14,
 	mandelbulb4 = 15,
 	boxFoldBulbPow2 = 16,
-	smoothMandelbox = 17,
+	mandelboxSmooth = 17,
 	mandelboxVaryScale4d = 18, // updated V2.10
 	aexion = 19,
 	benesi = 20,
