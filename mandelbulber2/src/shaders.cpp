@@ -178,8 +178,12 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 		{
 			case params::mapDoubleHemisphere:
 			{
-				double alphaTexture = input.viewVector.GetAlpha();
-				double betaTexture = input.viewVector.GetBeta();
+				CRotationMatrix rotMatrix;
+				rotMatrix.SetRotation(params->backgroundRotation * M_PI / 180.0);
+				CVector3 rotatedViewVector = rotMatrix.RotateVector(input.viewVector);
+
+				double alphaTexture = rotatedViewVector.GetAlpha();
+				double betaTexture = rotatedViewVector.GetBeta();
 				int texWidth = data->textures.backgroundTexture.Width() * 0.5;
 				int texHeight = data->textures.backgroundTexture.Height();
 				int offset = 0;
