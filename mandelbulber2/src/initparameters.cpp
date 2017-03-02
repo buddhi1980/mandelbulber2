@@ -234,6 +234,10 @@ void InitParams(cParameterContainer *par)
 	par->addParam(
 		"textured_background_map_type", int(params::mapEquirectangular), morphNone, paramStandard);
 	par->addParam("background_brightness", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
+	par->addParam("background_h_scale", 1.0, 0.001, 1000.0, morphLinear, paramStandard);
+	par->addParam("background_v_scale", 1.0, 0.001, 1000.0, morphLinear, paramStandard);
+	par->addParam("background_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+
 	par->addParam("shadows_enabled", true, morphLinear, paramStandard);
 	par->addParam("penetrating_lights", true, morphLinear, paramStandard);
 	par->addParam("raytraced_reflections", false, morphLinear, paramStandard);

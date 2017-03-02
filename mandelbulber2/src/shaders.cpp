@@ -203,13 +203,19 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 			}
 			case params::mapEquirectangular:
 			{
-				double alphaTexture = fmod(-input.viewVector.GetAlpha() + 3.5 * M_PI, 2 * M_PI);
-				double betaTexture = -input.viewVector.GetBeta();
+				CRotationMatrix rotMatrix;
+				rotMatrix.SetRotation(params->backgroundRotation * M_PI / 180.0);
+				CVector3 rotatedViewVector = rotMatrix.RotateVector(input.viewVector);
+
+				double alphaTexture = fmod(-rotatedViewVector.GetAlpha() + 3.5 * M_PI, 2 * M_PI);
+				double betaTexture = -rotatedViewVector.GetBeta();
 				if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
 				if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
-				double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture.Width();
-				double texY = (betaTexture / M_PI + 0.5) * data->textures.backgroundTexture.Height();
-				sRGBFloat pixel = data->textures.backgroundTexture.Pixel(texX, texY);
+
+				CVector2<double> tex(alphaTexture / (2.0 * M_PI) / params->backgroundHScale,
+					(betaTexture / M_PI + 0.5) / params->backgroundVScale);
+
+				sRGBFloat pixel = data->textures.backgroundTexture.Pixel(tex);
 				pixel2.R = pixel.R;
 				pixel2.G = pixel.G;
 				pixel2.B = pixel.B;
@@ -218,6 +224,9 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 			case params::mapFlat:
 			{
 				CVector3 vect = mRotInv.RotateVector(input.viewVector);
+				CRotationMatrix rotMatrix;
+				rotMatrix.SetRotation(params->backgroundRotation * M_PI / 180.0);
+				vect = rotMatrix.RotateVector(vect);
 				double texX, texY;
 				if (fabs(vect.y) > 1e-20)
 				{
@@ -230,8 +239,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 					texY = vect.z > 0.0 ? -1.0 : 1.0;
 				}
 
-				texX = texX + 0.5;
-				texY = texY + 0.5;
+				texX = (texX / params->backgroundHScale) + 0.5;
+				texY = (texY / params->backgroundVScale) + 0.5;
 
 				sRGBFloat pixel = data->textures.backgroundTexture.Pixel(CVector2<double>(texX, texY));
 				pixel2.R = pixel.R;

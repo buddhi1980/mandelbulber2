@@ -59,6 +59,9 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	background_color2 = container->Get<sRGB>("background_color", 2);
 	background_color3 = container->Get<sRGB>("background_color", 3);
 	background_brightness = container->Get<double>("background_brightness");
+	backgroundHScale = container->Get<double>("background_h_scale");
+	backgroundVScale = container->Get<double>("background_v_scale");
+	backgroundRotation = container->Get<CVector3>("background_rotation");
 	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
 	camera = container->Get<CVector3>("camera");
 	cameraDistanceToTarget = container->Get<double>("camera_distance_to_target");

@@ -155,6 +155,8 @@ public:
 	double auxLightRandomMaxDistanceFromFractal;
 	double auxLightRandomIntensity;
 	double background_brightness;
+	double backgroundHScale;
+	double backgroundVScale;
 	double cameraDistanceToTarget; // zoom
 	double constantFactor;
 	double DEFactor;		// factor for distance estimation steps
@@ -198,6 +200,7 @@ public:
 
 	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
+	CVector3 backgroundRotation;
 	CVector3 formulaPosition[NUMBER_OF_FRACTALS];
 	CVector3 formulaRotation[NUMBER_OF_FRACTALS];
 	CVector3 formulaRepeat[NUMBER_OF_FRACTALS];
