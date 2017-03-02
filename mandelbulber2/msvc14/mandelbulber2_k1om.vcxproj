@@ -269,4 +269,42 @@
     <Exec Command="ECHO K1OM BUILD &gt; $(IntDir)k1om" />
     <Exec Command="ECHO K1OM BUILD" />
   </Target>
+  <PropertyGroup>
+    <KNCLIB>$(SolutionDir)\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.4\build\native\</KNCLIB>
+    <MPSSDIR>C:/MPSS/k1om-mpss-linux/</MPSSDIR>
+	<ICCFLAGS>"-03 -g -fPIC -mmic -wd39,10006"</ICCFLAGS>
+	<CMAKEGEN>"Eclipse CDT4 - Unix Makefiles"</CMAKEGEN>
+  </PropertyGroup>
+  <Target Name="Build-Release" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)'=='Release|k1om'">
+    <Exec Command="ECHO BUILD K1OM-RELEASE" />
+	<Exec Command="
+cd $(IntDir)
+CC=icc CXX=icpc ^
+CXXFLAGS=$(ICCFLAGS) ^
+CFLAGS=$(ICCFLAGS) ^
+cmake3 ^
+-DCMAKE_PREFIX_PATH=$(KNCLIB)/lib/cmake ^
+-DQt5UiTools_DIR=$(KNCLIB)/lib/cmake/Qt5UiTools ^
+-DQt5Multimedia_DIR=$(KNCLIB)/lib/cmake/Qt5Multimedia ^
+-DQt5Widgets_DIR==$(KNCLIB)/lib/cmake/Qt5Multimedia ^
+-DCMAKE_SYSTEM_NAME=Linux ^
+-DCMAKE_SYSTEM_PROCESSOR=k1om ^
+-DCMAKE_FIND_ROOT_PATH=$(MPSSDIR) ^
+-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER ^
+-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY ^
+-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY ^
+-DPNG_LIBRARY=$(KNCLIB)/lib/libpng15.so.15.27.0 ^
+-DPNG_PNG_INCLUDE_DIR=$(KNCLIB)/include ^
+-DJPEG_LIBRARY=$(KNCLIB)/lib/libjpeg.a ^
+-DJPEG_INCLUDE_DIR=$(KNCLIB)/include ^
+-DGSL_INCLUDE_DIR=$(KNCLIB)/include ^
+-DGSL_LIBRARY=$(KNCLIB)/lib/libgsl.a ^
+-DGSL_CBLAS_LIBRARY=$(KNCLIB)/lib/libgslcblas.a ^
+-DCMAKE_INSTALL_PREFIX=$(OutDir) ^
+-G $(CMAKEGEN) ^
+$SRC/mandelbulber2/cmake/
+cmake --build . --config Release --target install
+exit 0
+      "/>
+  </Target>
 </Project>

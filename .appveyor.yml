@@ -161,6 +161,12 @@ init:
 #  - mongodb             # start MongoDB
 
 # scripts that run after cloning repository
+install:
+- ps: If ($env:PLATFORM -eq "k1om") { iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/mancoast/ci/master/scripts/enable-icc.ps1')) }
+- if "%PLATFORM%"=="k1om" mklink "C:/compilers_and_libraries" "%PROGRAMFILES(X86)%/IntelSWTools/compilers_and_libraries"
+- if "%PLATFORM%"=="k1om" mklink "C:/MPSS" "%PROGRAMFILES%/Intel/MPSS"
+- if "%PLATFORM%"=="k1om" SET "PATH=C:/msys64/mingw32/bin;%PATH%"
+- if "%PLATFORM%"=="k1om" SET "PATH=C:/compilers_and_libraries/windows/bin/intel64_mic;%PATH%"
 #install:
 # by default, all script lines are interpreted as batch
 #  - echo This is batch
@@ -204,24 +210,30 @@ init:
 
 # add several platforms to build matrix:
 platform:
+  - k1om
   - Win32
   - x64
-  - k1om
 # add several configurations to build matrix:
 configuration:
   - Release
   - Debug
   - AnalysisRelease
-
+matrix:
+  allow_failures:
+    - platform: k1om
+    - configuration: AnalysisRelease
 # use custom build_script
 #build: false
+build_script:
+- ECHO BUILD %CONFIGURATION% %PLATFORM%
+- msbuild mandelbulber2.sln /m /p:Configuration=%CONFIGURATION% /p:Platform=%PLATFORM%
 
 # use automatic builds
-build:
+#build:
 # enable MSBuild parallel builds
-  parallel: true
+#  parallel: true
 # path to Visual Studio solution or project
-  project: mandelbulber2.sln
+#  project: mandelbulber2.sln
 #  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
 #  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
 #  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
