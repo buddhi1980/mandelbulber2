@@ -61,6 +61,9 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	background_brightness = container->Get<double>("background_brightness");
 	backgroundHScale = container->Get<double>("background_h_scale");
 	backgroundVScale = container->Get<double>("background_v_scale");
+	backgroundTextureOffsetX = container->Get<double>("background_texture_offset_x");
+	backgroundTextureOffsetY = container->Get<double>("background_texture_offset_y");
+	backgroundVScale = container->Get<double>("background_v_scale");
 	backgroundRotation = container->Get<CVector3>("background_rotation");
 	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
 	camera = container->Get<CVector3>("camera");
@@ -159,6 +162,8 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	volFogEnabled = container->Get<bool>("volumetric_fog_enabled");
 	volumetricLightEnabled[0] = container->Get<bool>("main_light_volumetric_enabled");
 	volumetricLightIntensity[0] = container->Get<double>("main_light_volumetric_intensity");
+
+	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);
 
 	for (int i = 0; i < 4; ++i)
 	{

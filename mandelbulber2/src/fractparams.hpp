@@ -157,6 +157,8 @@ public:
 	double background_brightness;
 	double backgroundHScale;
 	double backgroundVScale;
+	double backgroundTextureOffsetX;
+	double backgroundTextureOffsetY;
 	double cameraDistanceToTarget; // zoom
 	double constantFactor;
 	double DEFactor;		// factor for distance estimation steps
@@ -213,6 +215,7 @@ public:
 	CVector3 topVector;
 
 	CRotationMatrix mRotFormulaRotation[NUMBER_OF_FRACTALS];
+	CRotationMatrix mRotBackgroundRotation;
 
 	cPrimitives primitives;
 

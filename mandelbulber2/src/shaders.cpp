@@ -178,10 +178,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 		{
 			case params::mapDoubleHemisphere:
 			{
-				CRotationMatrix rotMatrix;
-				rotMatrix.SetRotation(params->backgroundRotation * M_PI / 180.0);
-				CVector3 rotatedViewVector = rotMatrix.RotateVector(input.viewVector);
-
+				CVector3 rotatedViewVector = params->mRotBackgroundRotation.RotateVector(input.viewVector);
 				double alphaTexture = rotatedViewVector.GetAlpha();
 				double betaTexture = rotatedViewVector.GetBeta();
 				int texWidth = data->textures.backgroundTexture.Width() * 0.5;
@@ -207,17 +204,15 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 			}
 			case params::mapEquirectangular:
 			{
-				CRotationMatrix rotMatrix;
-				rotMatrix.SetRotation(params->backgroundRotation * M_PI / 180.0);
-				CVector3 rotatedViewVector = rotMatrix.RotateVector(input.viewVector);
-
+				CVector3 rotatedViewVector = params->mRotBackgroundRotation.RotateVector(input.viewVector);
 				double alphaTexture = fmod(-rotatedViewVector.GetAlpha() + 3.5 * M_PI, 2 * M_PI);
 				double betaTexture = -rotatedViewVector.GetBeta();
 				if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
 				if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
 
-				CVector2<double> tex(alphaTexture / (2.0 * M_PI) / params->backgroundHScale,
-					(betaTexture / M_PI + 0.5) / params->backgroundVScale);
+				CVector2<double> tex(
+					alphaTexture / (2.0 * M_PI) / params->backgroundHScale + params->backgroundTextureOffsetX,
+					(betaTexture / M_PI + 0.5) / params->backgroundVScale + params->backgroundTextureOffsetY);
 
 				sRGBFloat pixel = data->textures.backgroundTexture.Pixel(tex);
 				pixel2.R = pixel.R;
@@ -228,9 +223,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 			case params::mapFlat:
 			{
 				CVector3 vect = mRotInv.RotateVector(input.viewVector);
-				CRotationMatrix rotMatrix;
-				rotMatrix.SetRotation(params->backgroundRotation * M_PI / 180.0);
-				vect = rotMatrix.RotateVector(vect);
+				vect = params->mRotBackgroundRotation.RotateVector(vect);
 				double texX, texY;
 				if (fabs(vect.y) > 1e-20)
 				{
@@ -243,8 +236,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 					texY = vect.z > 0.0 ? -1.0 : 1.0;
 				}
 
-				texX = (texX / params->backgroundHScale) + 0.5;
-				texY = (texY / params->backgroundVScale) + 0.5;
+				texX = (texX / params->backgroundHScale) + 0.5 + params->backgroundTextureOffsetX;
+				texY = (texY / params->backgroundVScale) + 0.5 + params->backgroundTextureOffsetY;
 
 				sRGBFloat pixel = data->textures.backgroundTexture.Pixel(CVector2<double>(texX, texY));
 				pixel2.R = pixel.R;
