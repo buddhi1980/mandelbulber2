@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -970,8 +970,8 @@ Disables 'Update image' options)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>525</width>
-            <height>1516</height>
+            <width>223</width>
+            <height>544</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2493,8 +2493,8 @@ Disables 'Update image' options)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>525</width>
-            <height>1516</height>
+            <width>325</width>
+            <height>1515</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">

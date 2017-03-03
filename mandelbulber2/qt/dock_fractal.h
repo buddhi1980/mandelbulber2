@@ -81,6 +81,7 @@ private slots:
 	void slotChangedCheckBoxJuliaMode(bool state) const;
 	void slotToggledFractalEnable(int fractalIndex, bool enabled) const;
 	void slotFractalSwap(int swapA, int swapB) const;
+	void slotChangedFractalTab(int index);
 
 private:
 	void ConnectSignals() const;

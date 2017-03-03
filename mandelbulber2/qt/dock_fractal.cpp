@@ -187,6 +187,8 @@ void cDockFractal::ConnectSignals() const
 		SLOT(slotChangedCheckBoxJuliaMode(bool)));
 	connect(ui->tabWidget_fractals->tabBar(), SIGNAL(toggledEnable(int, bool)), this,
 		SLOT(slotToggledFractalEnable(int, bool)));
+	connect(ui->tabWidget_fractals->tabBar(), SIGNAL(currentChanged(int)), this,
+		SLOT(slotChangedFractalTab(int)));
 
 	connect(
 		ui->tabWidget_fractals, SIGNAL(swapTabs(int, int)), this, SLOT(slotFractalSwap(int, int)));
@@ -392,4 +394,41 @@ void cDockFractal::slotPressedButtonNewPrimitive() const
 	QString buttonName = this->sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
 	gMainInterface->NewPrimitive(primitiveName);
+}
+
+void cDockFractal::slotChangedFractalTab(int index)
+{
+	if (index > 0)
+	{
+		if (!ui->checkBox_hybrid_fractal_enable->isChecked()
+				&& !ui->groupCheck_boolean_operators->isChecked())
+		{
+			QMessageBox *message = new QMessageBox(this);
+
+			QPushButton *buttonHybrid =
+				message->addButton(tr("Enable hybrid fractals"), QMessageBox::AcceptRole);
+			QPushButton *buttonBoolean =
+				message->addButton(tr("Enable boolean mode"), QMessageBox::AcceptRole);
+			QPushButton *buttonCancel = message->addButton(QMessageBox::Cancel);
+
+			message->setText(tr(
+				"You have selected next fractal formula.\nDo you want to enable hybrid fractals or boolean "
+				"mode?"));
+			message->setWindowTitle(tr("More fractals..."));
+			message->setIcon(QMessageBox::Question);
+			message->exec();
+
+			if(message->clickedButton() != buttonCancel)
+			{
+				if(message->clickedButton() == buttonHybrid)
+				{
+					ui->checkBox_hybrid_fractal_enable->setChecked(true);
+				}
+				else if(message->clickedButton() == buttonBoolean)
+				{
+					ui->groupCheck_boolean_operators->setChecked(true);
+				}
+			}
+		}
+	}
 }
