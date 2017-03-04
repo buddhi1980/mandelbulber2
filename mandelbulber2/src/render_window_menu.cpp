@@ -126,7 +126,12 @@ void RenderWindow::slotMenuAboutThirdParty()
 	text +=
 		"		<a "
 		"href=\"http://www.andre-simon.de/doku/highlight/highlight.php\">highlight</a><br>thanks to "
-		"André Simon</li>";
+		"André Simon</li><br>";
+	text += " <li><b>Export Mesh </b><br>generated with<br>";
+	text +=
+		"		<a "
+		"href=\"http://algoholic.eu/export-meshes-from-mandelbulber/\">PyMCubes</a><br>thanks to "
+		"Stanislaw Adaszewski</li>";
 	text += "</ul>";
 	QMessageBox::about(this, "About Third Party", text);
 }
