@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Stanislaw Adaszewski (http://algoholic.eu)
+ * Authors: Stanislaw Adaszewski
  *
  * cMeshExportDialog -a dialog for exporting the fractal volume in ply format.
  */

@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Stanislaw Adaszewski (http://algoholic.eu)
+ * Authors: Stanislaw Adaszewski
  *
  * cMeshExport - exports the fractal volume in ply format.
  */

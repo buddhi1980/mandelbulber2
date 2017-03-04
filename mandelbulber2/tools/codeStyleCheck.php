@@ -321,7 +321,7 @@ function lookUpAuthor($authorName){
 	if(strpos($authorName, 'Krzysztof Marczak') !== false) return 'Krzysztof Marczak (buddhi1980@gmail.com)';
 	if(strpos($authorName, 'Graeme McLaren') !== false) return 'Graeme McLaren';
 	if(strpos($authorName, 'pmneila') !== false) return 'pmneila';
-	if(strpos($authorName, 'Stanislaw Adaszewski') !== false) return 'Stanislaw Adaszewski (http://algoholic.eu)';
+	if(strpos($authorName, 'Stanislaw Adaszewski') !== false) return 'Stanislaw Adaszewski';
 	if(strpos($authorName, 'Rayan Hitchman') !== false) return 'Rayan Hitchman';
 	if(strpos($authorName, 'Robert Pancoast') !== false) return 'Robert Pancoast (RobertPancoast77@gmail.com)';
 	if(strpos($authorName, 'Sebastian Jennen') !== false) return 'Sebastian Jennen (jenzebas@gmail.com)';
