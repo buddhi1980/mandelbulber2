@@ -311,9 +311,19 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuRecent_Settings_list">
+    <property name="icon">
+     <iconset theme="document-open" resource="icons.qrc">
+      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
+    </property>
+    <property name="title">
+     <string>Recent settings...</string>
+    </property>
+    </widget>
     <addaction name="actionLoad_settings"/>
     <addaction name="actionLoad_settings_from_clipboard"/>
     <addaction name="actionLoad_example"/>
+    <addaction name="menuRecent_Settings_list"/>
     <addaction name="separator"/>
     <addaction name="actionSave_settings"/>
     <addaction name="actionSave_settings_to_clipboard"/>

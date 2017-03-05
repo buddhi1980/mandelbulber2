@@ -109,6 +109,9 @@ private slots:
 	void slotMenuRemovePreset(QString filename);
 	void slotMenuLoadCustomWindowState(QString filename);
 	void slotMenuRemoveCustomWindowState(QString filename);
+	void slotPopulateRecentSettings(bool completeRefresh = false);
+	void SaveSettingsToRecent(QString fileName);
+
 	static void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotMenuProgramPreferences();
 	void slotExportVoxelLayers();
@@ -129,6 +132,7 @@ private slots:
 	void showDescriptionPopup();
 	void slotMenuLoadExample();
 	void slotMenuLoadSettings();
+	void slotMenuLoadSettingsFromFile(QString fileName);
 	void slotMenuLoadSettingsFromClipboard();
 	static void slotMenuRedo();
 	void slotMenuResetDocksPositions();

@@ -161,10 +161,34 @@ void RenderWindow::showDescriptionPopup()
 	}
 }
 
+void RenderWindow::SaveSettingsToRecent(QString fileName)
+{
+	QFile recentFilesFile(systemData.GetRecentFilesListFile());
+	QStringList recentFiles;
+	if (recentFilesFile.open(QFile::ReadOnly | QFile::Text))
+	{
+		QTextStream in(&recentFilesFile);
+		QString recentFilesFileContent = in.readAll();
+		recentFilesFile.close();
+		recentFiles =
+			recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
+		recentFiles.removeOne(fileName);
+	}
+	recentFiles.prepend(fileName);
+	if(recentFiles.size() > 3) recentFiles.removeLast();
+	if (!recentFilesFile.open(QFile::WriteOnly | QFile::Text))
+	{
+		qDebug() << "Cannot open file to save recents!";
+		return;
+	}
+	QTextStream out(&recentFilesFile);
+	out << recentFiles.join("\n");
+	recentFilesFile.close();
+	slotPopulateRecentSettings();
+}
+
 void RenderWindow::slotMenuLoadExample()
 {
-	cSettings parSettings(cSettings::formatFullText);
-
 	PreviewFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
@@ -179,21 +203,7 @@ void RenderWindow::slotMenuLoadExample()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
-
-		gInterfaceReadyForSynchronization = false;
-		parSettings.LoadFromFile(filename);
-		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-		gMainInterface->RebuildPrimitives(gPar);
-		gMainInterface->materialListModel->Regenerate();
-		gInterfaceReadyForSynchronization = true;
-
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-		gMainInterface->ComboMouseClickUpdate();
-		systemData.lastSettingsFile = systemData.GetSettingsFolder() + QFileInfo(filename).fileName();
-		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
-		gFlightAnimation->RefreshTable();
-		gKeyframeAnimation->RefreshTable();
-		showDescriptionPopup();
+		slotMenuLoadSettingsFromFile(filename);
 	}
 }
 
@@ -201,8 +211,6 @@ void RenderWindow::slotMenuLoadSettings()
 {
 	gMainInterface->SynchronizeInterface(
 		gPar, gParFractal, qInterface::read); // update appParam before loading new settings
-
-	cSettings parSettings(cSettings::formatFullText);
 
 	PreviewFileDialog dialog(this);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
@@ -218,22 +226,28 @@ void RenderWindow::slotMenuLoadSettings()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
-
-		gInterfaceReadyForSynchronization = false;
-		parSettings.LoadFromFile(filename);
-		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-		gMainInterface->RebuildPrimitives(gPar);
-		gMainInterface->materialListModel->Regenerate();
-		gInterfaceReadyForSynchronization = true;
-
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-		gMainInterface->ComboMouseClickUpdate();
-		systemData.lastSettingsFile = filename;
-		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
-		gFlightAnimation->RefreshTable();
-		gKeyframeAnimation->RefreshTable();
-		showDescriptionPopup();
+		slotMenuLoadSettingsFromFile(filename);
 	}
+}
+
+void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
+{
+	cSettings parSettings(cSettings::formatFullText);
+	gInterfaceReadyForSynchronization = false;
+	parSettings.LoadFromFile(fileName);
+	parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+	gMainInterface->RebuildPrimitives(gPar);
+	gMainInterface->materialListModel->Regenerate();
+	gInterfaceReadyForSynchronization = true;
+
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	gMainInterface->ComboMouseClickUpdate();
+	systemData.lastSettingsFile = fileName;
+	SaveSettingsToRecent(fileName);
+	this->setWindowTitle(QString("Mandelbulber (") + fileName + ")");
+	gFlightAnimation->RefreshTable();
+	gKeyframeAnimation->RefreshTable();
+	showDescriptionPopup();
 }
 
 void RenderWindow::slotMenuLoadSettingsFromClipboard()
