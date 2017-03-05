@@ -76,6 +76,7 @@ private slots:
 	static void slotPressedButtonSetLight4ByMouse();
 	static void slotPressedButtonDOFUpdate();
 	static void slotPressedButtonPlaceRandomLightsByMouse();
+	void slotChangedPlaceLightBehindObjects(int state);
 
 private:
 	void ConnectSignals() const;

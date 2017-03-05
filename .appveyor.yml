@@ -165,6 +165,7 @@ install:
 - ps: If ($env:PLATFORM -eq "k1om") { iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/mancoast/ci/master/scripts/enable-icc.ps1')) }
 - if "%PLATFORM%"=="k1om" mklink "C:/compilers_and_libraries" "%PROGRAMFILES(X86)%/IntelSWTools/compilers_and_libraries"
 - if "%PLATFORM%"=="k1om" mklink "C:/MPSS" "%PROGRAMFILES%/Intel/MPSS"
+- if "%PLATFORM%"=="k1om" mklink "C:/msvc" "%PROGRAMFILES%/Microsoft Visual Studio 14.0/VC/bin"
 - if "%PLATFORM%"=="k1om" SET "PATH=C:/msys64/mingw32/bin;%PATH%"
 - if "%PLATFORM%"=="k1om" SET "PATH=C:/compilers_and_libraries/windows/bin/intel64_mic;%PATH%"
 #install:
@@ -364,6 +365,7 @@ on_failure:
 
 # after build failure or success
 on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 # https://www.appveyor.com/docs/environment-variables/
 # Environment variables that are set by AppVeyor for every build:
 # APPVEYOR - True if build runs in AppVeyor environment;

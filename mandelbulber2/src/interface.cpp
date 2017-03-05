@@ -66,6 +66,7 @@
 #include "rendering_configuration.hpp"
 #include "ui_render_window.h"
 #include "detached_window.h"
+#include "trace_behind.h"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
@@ -184,7 +185,7 @@ void cInterface::ShowUi()
 	renderedImage->setMinimumSize(
 		gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
 	renderedImage->AssignImage(gMainInterface->mainImage);
-	renderedImage->AssignParameters(gPar);
+	renderedImage->AssignParameters(gPar, gParFractal);
 
 	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();
@@ -1115,7 +1116,18 @@ void cInterface::SetByMouse(
 				case RenderedImage::clickPlaceLight:
 				{
 					double frontDist = gPar->Get<double>("aux_light_manual_placement_dist");
-					CVector3 pointCorrected = point - viewVector * frontDist;
+					bool placeBehind = gPar->Get<bool>("aux_light_place_behind");
+					CVector3 pointCorrected;
+					if (!placeBehind)
+					{
+						pointCorrected = point - viewVector * frontDist;
+					}
+					else
+					{
+						double distanceBehind = traceBehindFractal(
+							gPar, gParFractal, frontDist, viewVector, depth, 1.0 / mainImage->GetHeight());
+						pointCorrected = point + viewVector * distanceBehind;
+					}
 					double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
 					double intensity = estDistance * estDistance;
 					int lightNumber = mode.at(1).toInt();
