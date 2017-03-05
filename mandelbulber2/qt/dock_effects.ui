@@ -970,8 +970,8 @@ Disables 'Update image' options)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>223</width>
-            <height>544</height>
+            <width>525</width>
+            <height>1516</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2493,8 +2493,8 @@ Disables 'Update image' options)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>325</width>
-            <height>1515</height>
+            <width>507</width>
+            <height>1535</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3767,6 +3767,32 @@ Disables 'Update image' options)</string>
                    <property name="spacing">
                     <number>2</number>
                    </property>
+                   <item row="2" column="2">
+                    <widget class="MyLineEdit" name="logedit_aux_light_visibility_size">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines size of visible light sources. When it's higher then lights appear bigger.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QSlider" name="logslider_aux_light_manual_placement_dist">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimum">
+                      <number>-1500</number>
+                     </property>
+                     <property name="maximum">
+                      <number>300</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="2" column="0">
                     <widget class="QLabel" name="label_38">
                      <property name="text">
@@ -3819,13 +3845,6 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="2">
-                    <widget class="MyLineEdit" name="logedit_aux_light_visibility_size">
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines size of visible light sources. When it's higher then lights appear bigger.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_39">
                      <property name="text">
@@ -3841,29 +3860,23 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
-                    <widget class="QSlider" name="logslider_aux_light_manual_placement_dist">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>300</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="3" column="2">
                     <widget class="MyLineEdit" name="logedit_aux_light_manual_placement_dist">
                      <property name="toolTip">
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance from fractal surface where light will be placed with mouse pointer. When it's zero, the light will be set on fractal surface. Higher value moves the light towards the camera.&lt;/p&gt;&lt;p&gt;This parameter can be controlled with mouse scroll.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0" colspan="3">
+                    <widget class="MyCheckBox" name="checkBox_aux_light_place_behind">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Place light behind the object</string>
                      </property>
                     </widget>
                    </item>

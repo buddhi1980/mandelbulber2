@@ -89,6 +89,9 @@ void cDockEffects::ConnectSignals() const
 		SLOT(slotPressedButtonSetFogByMouse()));
 	connect(ui->pushButton_place_random_lights_by_mouse, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonPlaceRandomLightsByMouse()));
+
+	connect(ui->checkBox_aux_light_place_behind, SIGNAL(stateChanged(int)), this,
+		SLOT(slotChangedPlaceLightBehindObjects(int)));
 }
 
 void cDockEffects::SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const
@@ -171,6 +174,11 @@ void cDockEffects::slotEditedLineEditManualLightPlacementDistance(const QString 
 void cDockEffects::slotSliderMovedEditManualLightPlacementDistance(int value) const
 {
 	gMainInterface->renderedImage->SetFrontDist(pow(10.0, value / 100.0));
+}
+
+void cDockEffects::slotChangedPlaceLightBehindObjects(int state)
+{
+	gMainInterface->renderedImage->SetPlaceBehindObjects(state);
 }
 
 void cDockEffects::slotChangedCheckBoxDOFHDR(int state) const

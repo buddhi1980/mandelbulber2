@@ -35,7 +35,6 @@
 
 #include "rendered_image_widget.hpp"
 #include "common_math.h"
-#include "initparameters.hpp"
 #include "primitives.h"
 #include <QApplication>
 #include <QKeyEvent>
@@ -43,7 +42,11 @@
 #include <QPainter>
 #include <QtCore>
 #include <QVariant>
+#include "parameters.hpp"
 #include "cimage.hpp"
+#include "fractparams.hpp"
+#include "nine_fractals.hpp"
+#include "trace_behind.h"
 
 using namespace Qt;
 
@@ -55,6 +58,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 
 	image = nullptr;
 	params = nullptr;
+	fractals = nullptr;
 	cursorVisible = true;
 	smoothLastZMouse = 0.0;
 	redrawed = true;
@@ -66,6 +70,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	clickMode = clickDoNothing;
 	anaglyphMode = false;
 	gridType = gridTypeCrosshair;
+	placeLightBehind = false;
 
 	QList<QVariant> mode;
 	mode.append(int(RenderedImage::clickDoNothing));
@@ -223,7 +228,10 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 	clickMode = enumClickMode(clickModeData.at(0).toInt());
 	if (clickMode == clickPlaceLight)
 	{
-		z -= frontDist;
+		if (!placeLightBehind)
+		{
+			z -= frontDist;
+		}
 	}
 
 	double diff = z - smoothLastZMouse;
@@ -241,7 +249,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 	{
 		if (smoothLastZMouse < 0.0) smoothLastZMouse = 0.0;
 
-		bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+		bool legacyCoordinateSystem = params->Get<bool>("legacy_coordinate_system");
 		double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
 		// preparing rotation matrix
@@ -285,6 +293,17 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		pTemp.y *= -1.0 * reverse;
 		CVector3 viewVector = CalculateViewVector(pTemp, fov, perspType, mRot);
 		CVector3 point = camera + viewVector * z;
+
+		if (clickMode == clickPlaceLight)
+		{
+			if (placeLightBehind)
+			{
+				double distanceBehind =
+					traceBehindFractal(params, fractals, frontDist, viewVector, z, 1.0 / image->GetHeight());
+				z += distanceBehind;
+			}
+		}
+
 		lastCoordinates = point;
 
 		if (anaglyphMode)

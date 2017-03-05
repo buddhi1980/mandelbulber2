@@ -45,6 +45,7 @@
 // forward declarations
 class cImage;
 class cParameterContainer;
+class cFractalContainer;
 
 class RenderedImage : public QWidget
 {
@@ -90,13 +91,18 @@ public:
 
 	RenderedImage(QWidget *parent = nullptr);
 	void AssignImage(cImage *_image) { image = _image; }
-	void AssignParameters(cParameterContainer *_mainParams) { params = _mainParams; }
+	void AssignParameters(cParameterContainer *_mainParams, cFractalContainer *_fractals)
+	{
+		params = _mainParams;
+		fractals = _fractals;
+	}
 	void setNewZ(double z) { smoothLastZMouse = z; }
 	void setClickMode(QList<QVariant> _clickMode);
 	void SetFrontDist(double dist) { frontDist = dist; }
 	void SetCursorVisibility(bool enable) { cursorVisible = enable; }
 	void SetGridType(enumGridType gridType);
 	void SetFlightData(const sFlightData &fData) { flightData = fData; }
+	void SetPlaceBehindObjects(bool behind) { placeLightBehind = behind; }
 	// CVector2<double> GetLastMousePositionScaled();
 
 public slots:
@@ -136,6 +142,7 @@ private:
 	enumClickMode clickMode;
 	enumGridType gridType;
 	cParameterContainer *params;
+	cFractalContainer *fractals;
 	bool cursorVisible;
 	double smoothLastZMouse;
 	bool redrawed;
@@ -150,6 +157,7 @@ private:
 	double flightRotationDirection;
 	QTimer *timerRefreshImage;
 	bool anaglyphMode;
+	bool placeLightBehind;
 
 signals:
 	void mouseMoved(int x, int y);
