@@ -418,13 +418,13 @@ void cDockFractal::slotChangedFractalTab(int index)
 			message->setIcon(QMessageBox::Question);
 			message->exec();
 
-			if(message->clickedButton() != buttonCancel)
+			if (message->clickedButton() != buttonCancel)
 			{
-				if(message->clickedButton() == buttonHybrid)
+				if (message->clickedButton() == buttonHybrid)
 				{
 					ui->checkBox_hybrid_fractal_enable->setChecked(true);
 				}
-				else if(message->clickedButton() == buttonBoolean)
+				else if (message->clickedButton() == buttonBoolean)
 				{
 					ui->groupCheck_boolean_operators->setChecked(true);
 				}

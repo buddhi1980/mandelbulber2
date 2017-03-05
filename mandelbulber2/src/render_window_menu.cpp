@@ -135,7 +135,8 @@ void RenderWindow::slotMenuAboutThirdParty()
 	text += " <li><b>Export Mesh </b><br>Designed with<br>";
 	text +=
 		"		<a "
-		"href=\"http://algoholic.eu/export-meshes-from-mandelbulber/\">Stanford (PLY) mesh format Support</a><br>thanks to "
+		"href=\"http://algoholic.eu/export-meshes-from-mandelbulber/\">Stanford (PLY) mesh format "
+		"Support</a><br>thanks to "
 		"Stanislaw Adaszewski</li>";
 	text += "</ul>";
 	QMessageBox::about(this, "About Third Party", text);
@@ -170,12 +171,11 @@ void RenderWindow::SaveSettingsToRecent(QString fileName)
 		QTextStream in(&recentFilesFile);
 		QString recentFilesFileContent = in.readAll();
 		recentFilesFile.close();
-		recentFiles =
-			recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
+		recentFiles = recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
 		recentFiles.removeOne(fileName);
 	}
 	recentFiles.prepend(fileName);
-	if(recentFiles.size() > 15) recentFiles.removeLast();
+	if (recentFiles.size() > 15) recentFiles.removeLast();
 	if (!recentFilesFile.open(QFile::WriteOnly | QFile::Text))
 	{
 		qDebug() << "Cannot open file to save recents!";

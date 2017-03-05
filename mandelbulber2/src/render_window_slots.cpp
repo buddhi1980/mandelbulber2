@@ -572,8 +572,8 @@ void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 		QApplication::connect(action, SIGNAL(triggered()), mapRecentFileLoad, SLOT(map()));
 		QApplication::processEvents();
 	}
-	QApplication::connect(mapRecentFileLoad, SIGNAL(mapped(QString)), this,
-		SLOT(slotMenuLoadSettingsFromFile(QString)));
+	QApplication::connect(
+		mapRecentFileLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadSettingsFromFile(QString)));
 
 	WriteLog("cInterface::slotPopulateRecentSettings() finished", 2);
 }

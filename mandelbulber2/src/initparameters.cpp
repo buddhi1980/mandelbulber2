@@ -320,7 +320,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("aux_light_colour", 4, sRGB(52704, 62492, 45654), morphLinear, paramStandard);
 	par->addParam("aux_light_place_behind", false, morphNone, paramStandard);
 
-
 	for (int i = 1; i <= 4; i++)
 	{
 		par->addParam("aux_light_volumetric_intensity", i, 1.0, 0.0, 1e15, morphLinear, paramStandard);

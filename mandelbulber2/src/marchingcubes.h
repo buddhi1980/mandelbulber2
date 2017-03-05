@@ -29,7 +29,7 @@
  *
  * Authors: pmneila
  *
- * Re-licensed with the written authorization of P. M. Neila 
+ * Re-licensed with the written authorization of P. M. Neila
  * for use with Mandelbulber.
  */
 
