@@ -29,7 +29,8 @@
  *
  * Authors: pmneila
  *
- * From Python Marching Cubes (https://github.com/pmneila/PyMCubes/tree/master/mcubes/src)
+ * Re-licensed with the written authorization of P. M. Neila 
+ * for use with Mandelbulber.
  */
 
 #ifndef MANDELBULBER2_SRC_MARCHINGCUBES_H_
