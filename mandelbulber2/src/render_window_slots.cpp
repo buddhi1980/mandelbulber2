@@ -521,6 +521,63 @@ void RenderWindow::slotMenuRemoveCustomWindowState(QString filename)
 	slotPopulateCustomWindowStates();
 }
 
+void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
+{
+	WriteLog("cInterface::slotPopulateRecentSettings() started", 2);
+	QFile recentFilesFile(systemData.GetRecentFilesListFile());
+	if (!recentFilesFile.open(QFile::ReadOnly | QFile::Text))
+	{
+		// qDebug() << "cannot open recent file";
+		return;
+	}
+	QTextStream in(&recentFilesFile);
+	QString recentFilesFileContent = in.readAll();
+	QStringList recentFiles =
+		recentFilesFileContent.split(QRegExp("\n|\r\n|\r"), QString::KeepEmptyParts);
+
+	QSignalMapper *mapRecentFileLoad = new QSignalMapper(this);
+	QList<QAction *> actions = ui->menuRecent_Settings_list->actions();
+	QStringList recentFileInActions;
+	for (int i = 0; i < actions.size(); i++)
+	{
+		QAction *action = actions.at(i);
+		if (!action->objectName().startsWith("recent_")) continue;
+		if (!recentFileInActions.contains(action->objectName()) || completeRefresh)
+		{
+			// preset has been removed
+			ui->menuRecent_Settings_list->removeAction(action);
+		}
+		else
+		{
+			recentFileInActions << action->objectName();
+		}
+	}
+
+	for (int i = 0; i < recentFiles.size(); i++)
+	{
+		QString settingsFile = recentFiles.at(i);
+		if (recentFileInActions.contains("recent_" + settingsFile))
+		{
+			// already present
+			continue;
+		}
+
+		QAction *action = new QAction(this);
+		action->setText(QFileInfo(settingsFile).baseName());
+		action->setObjectName("recent_" + settingsFile);
+
+		ui->menuRecent_Settings_list->addAction(action);
+
+		mapRecentFileLoad->setMapping(action, settingsFile);
+		QApplication::connect(action, SIGNAL(triggered()), mapRecentFileLoad, SLOT(map()));
+		QApplication::processEvents();
+	}
+	QApplication::connect(mapRecentFileLoad, SIGNAL(mapped(QString)), this,
+		SLOT(slotMenuLoadSettingsFromFile(QString)));
+
+	WriteLog("cInterface::slotPopulateRecentSettings() finished", 2);
+}
+
 void RenderWindow::slotQuit()
 {
 	gMainInterface->QuitApplicationDialog();

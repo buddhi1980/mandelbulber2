@@ -251,6 +251,7 @@ void cInterface::ShowUi()
 
 	ComboMouseClickUpdate();
 
+	mainWindow->slotPopulateRecentSettings();
 	mainWindow->slotPopulateToolbar();
 	mainWindow->slotPopulateCustomWindowStates();
 	systemTray = new cSystemTray(mainImage, mainWindow);

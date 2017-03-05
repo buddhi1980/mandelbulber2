@@ -88,4 +88,6 @@ title: Mandelbulber2 Bibliography
 
 <http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/>
 
-<http://algoholic.eu>
+<http://algoholic.eu/export-meshes-from-mandelbulber/>
+
+<https://github.com/pmneila/PyMCubes/tree/master/mcubes/src>

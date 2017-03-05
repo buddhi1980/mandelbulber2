@@ -542,7 +542,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Powered by PyMCubes.</string>
+          <string>Computer Aided Manufacturing of Mandelbrot Fractals.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
