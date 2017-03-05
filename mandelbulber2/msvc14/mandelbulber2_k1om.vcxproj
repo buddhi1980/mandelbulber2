@@ -273,13 +273,13 @@
     <INTELMIC>$(INTELROOT)/windows/bin/intel64_mic/</INTELMIC>
     <KNCLIB>$(SolutionDir)packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\</KNCLIB>
     <QtDir>$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\</QtDir>
+    <JomDir>$(SolutionDir)packages\jom-nug.1.1.2.777\build\native\</JomDir>
     <MPSSDIR>$(MPSSROOT)/k1om-mpss-linux/</MPSSDIR>
   </PropertyGroup>
   <Target Name="Build">
     <Exec Command="IF NOT EXIST $(MSVCBIN) MKLINK $(MSVCBIN) $(MSVCSW)" />
     <Exec Command="IF NOT EXIST $(INTELROOT) MKLINK $(INTELBIN) $(INTELSW)" />
     <Exec Command="IF NOT EXIST $(MPSSROOT) MKLINK $(MPSSBIN) $(MPSSSW)" />
-    <Exec Command="IF NOT EXIST $(OutDir) MKDIR $(OutDir)" />
     <Exec Command="IF EXIST $(QtDir)bin\moc DEL /F /Q $(QtDir)bin\moc" />
     <Exec Command="IF NOT EXIST $(QtDir)bin\moc MKLINK $(QtDir)bin\moc $(QtDir)bin\moc.exe" />
     <Exec Command="IF EXIST $(QtDir)bin\qmake DEL /F /Q $(QtDir)bin\qmake" />
@@ -290,6 +290,7 @@
     <Exec Command="IF NOT EXIST $(QtDir)bin\uic MKLINK $(QtDir)bin\uic $(QtDir)bin\uic.exe" />
     <Exec Command="IF EXIST $(KNCLIB)bin RMDIR /s /q $(KNCLIB)bin" />
     <Exec Command="IF NOT EXIST $(KNCLIB)bin MKLINK $(KNCLIB)bin $(QtDir)bin" />
+    <Exec Command="IF NOT EXIST $(OutDir) MKDIR $(OutDir)" />
     <Exec Command="ECHO K1OM BUILD &gt; $(OutDir)k1om" />
     <Exec Command="IF NOT EXIST $(IntDir) MKDIR $(IntDir)" />
     <Exec Command="ECHO K1OM BUILD &gt; $(IntDir)k1om" />
@@ -297,9 +298,9 @@
   </Target>
   <PropertyGroup>
 	<ICCFLAGS>"-03 -g -fPIC -mmic -wd39,10006"</ICCFLAGS>
-	<CMAKEGEN>"NMake Makefiles"</CMAKEGEN>
+	<CMAKEGEN>"NMake Makefiles JOM"</CMAKEGEN>
 	<CMAKECMD>-G $(CMAKEGEN) $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_MAKE_PROGRAM=$(MSVCROOT)/nmake.exe $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_MAKE_PROGRAM=$(JomDir)jom.exe $(CMAKECMD)</CMAKECMD>
 	<CMAKECMD>-DCMAKE_C_COMPILER=$(INTELMIC)icc.exe $(CMAKECMD)</CMAKECMD>
 	<CMAKECMD>-DCMAKE_C_FLAGS=$(ICCFLAGS) $(CMAKECMD)</CMAKECMD>
 	<CMAKECMD>-DCMAKE_C_LINK_EXECUTABLE=$(INTELMIC)icpc.exe $(CMAKECMD)</CMAKECMD>
@@ -320,7 +321,7 @@
 	<CMAKECMD>-DCMAKE_PREFIX_PATH=$(KNCLIB)/lib/cmake $(CMAKECMD)</CMAKECMD>
 	<CMAKECMD>-DQt5UiTools_DIR=$(KNCLIB)/lib/cmake/Qt5UiTools $(CMAKECMD)</CMAKECMD>
 	<CMAKECMD>-DQt5Multimedia_DIR=$(KNCLIB)/lib/cmake/Qt5Multimedia $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DQt5Widgets_DIR==$(KNCLIB)/lib/cmake/Qt5Multimedia $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DQt5Widgets_DIR=$(KNCLIB)/lib/cmake/Qt5Multimedia $(CMAKECMD)</CMAKECMD>
 	<CMAKECMD>-DPNG_LIBRARY=$(KNCLIB)/lib/libpng15.so.15.27.0 $(CMAKECMD)</CMAKECMD>
 	<CMAKECMD>-DPNG_PNG_INCLUDE_DIR=$(KNCLIB)/include $(CMAKECMD)</CMAKECMD>
 	<CMAKECMD>-DJPEG_LIBRARY=$(KNCLIB)/lib/libjpeg.a $(CMAKECMD)</CMAKECMD>
@@ -334,6 +335,11 @@
     <Exec Command="ECHO BUILD K1OM-RELEASE" />
     <Exec Command="IF EXIST $(IntDir)CMakeCache.txt del /F /Q $(IntDir)CMakeCache.txt" />
     <Exec Command="cd $(IntDir) &amp;&amp; cmake $(CMAKECMD)" />
-    <Exec Command="cd $(IntDir) &amp;&amp; cmake --build . --config Release --target all" />
+    <Exec Command="cd $(IntDir) &amp;&amp; $(JomDir)jom.exe -j12" />
+  </Target>
+    <Target Name="Cleanup" AfterTargets="Clean">
+    <Exec Command="rd /s /q $(IntDir)" />
+    <Exec Command="del /F /Q $(GenDir)\*.h" />
+    <Exec Command="del /F /Q $(GenDir)\*.cpp" />
   </Target>
 </Project>
