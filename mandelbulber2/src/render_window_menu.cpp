@@ -130,7 +130,12 @@ void RenderWindow::slotMenuAboutThirdParty()
 	text += " <li><b>Export Mesh </b><br>generated with<br>";
 	text +=
 		"		<a "
-		"href=\"http://algoholic.eu/export-meshes-from-mandelbulber/\">PyMCubes</a><br>thanks to "
+		"href=\"https://github.com/pmneila/PyMCubes/\">PyMCubes</a><br>thanks to "
+		"P. M. Neila</li><br>";
+	text += " <li><b>Export Mesh </b><br>Designed with<br>";
+	text +=
+		"		<a "
+		"href=\"http://algoholic.eu/export-meshes-from-mandelbulber/\">Stanford (PLY) mesh format Support</a><br>thanks to "
 		"Stanislaw Adaszewski</li>";
 	text += "</ul>";
 	QMessageBox::about(this, "About Third Party", text);
