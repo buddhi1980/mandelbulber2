@@ -41,27 +41,27 @@ The possibilities are literally **infinite**!
 
 In render window:
 
-  - <kbd>Up</kbd> / <kbd>Down</kbd>: move camera forward / backward
-  - <kbd>Left</kbd> / <kbd>Right</kbd>: move camera left / right
-  - <kbd>Ctrl</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd>): move camera up / down
-  - <kbd>Shift</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd> / <kbd>Left</kbd> / <kbd>Right</kbd>): rotate camera
-  - <kbd>Ctrl</kbd>+(<kbd>Left</kbd> / <kbd>Right</kbd>): roll camera left / right
+  - <kbd>Up</kbd> / <kbd>Down</kbd>: Move Camera Forward / Backward
+  - <kbd>Left</kbd> / <kbd>Right</kbd>: Move Camera Left / Right
+  - <kbd>Ctrl</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd>): Move Camera Up / Down
+  - <kbd>Shift</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd> / <kbd>Left</kbd> / <kbd>Right</kbd>): Rotate Camera
+  - <kbd>Ctrl</kbd>+(<kbd>Left</kbd> / <kbd>Right</kbd>): Roll Camera Left / Right
 
 ## Building and Deploying 
 
-Dowload latest stable version from [Releases] (https://github.com/buddhi1980/mandelbulber2/releases)
+Download latest stable version from [Releases] (https://github.com/buddhi1980/mandelbulber2/releases)
 
-Unpack dowloaded file and follow instructions from README file
+After downloading, Unpack the file and follow our instructions from README file.
 Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
 
 ## Easy Preparation for Development
 
-Thre program is natively developed using Qt Creator under Linux (Debian or Ubuntu)
+The software is natively developed using Qt Creator for Linux (Debian or Ubuntu).
 
-The file [mandelbulber2/Release/mandelbulber.pro] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/Release/mandelbulber.pro) provides all needed configuration for Qt Creator. But to be able to compile the program, the system has to be prepared.
+The file [mandelbulber2/Release/mandelbulber.pro] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/Release/mandelbulber.pro) specifies the build system configuration for Qt Creator, But to be able to compile the program, the host operating system requires preparation.
 
 Use the following scripts to prepare your Linux environment for development.
-These scripts install all required packages, compile the program, and create symbolic links in /usr/share/mandelbulber to your working directory.
+These scripts install all dependencies, compile the program, and create symbolic links in /usr/share/mandelbulber to your working directory.
 
 [Prepare Debian for Development] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_debian_testing.sh)
 
@@ -73,7 +73,7 @@ These scripts install all required packages, compile the program, and create sym
 [Arch Linux AUR Package (builds latest git snapshot)]
 (https://aur.archlinux.org/packages/mandelbulber2-git/)
 
-In addition there is prepared solution for VC++ 2015 located in root folder of git package. This solution includes all needed nugets to compile the program.
+In addition, there exists an MSBuild System Solution located in root folder of git package. This solution accommodates all dependencies with NUGET for autonomous compilation.
 
 ## Resources
 
