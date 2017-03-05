@@ -924,7 +924,7 @@
     <Import Project="$(SolutionDir)packages\gsl-msvc14-x86.2.3.0.2778\build\native\gsl-msvc14-x86.targets" Condition="Exists('$(SolutionDir)packages\gsl-msvc14-x86.2.3.0.2778\build\native\gsl-msvc14-x86.targets')" />
     <Import Project="$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\bulbqt-msvc14-x86.targets" Condition="Exists('$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\bulbqt-msvc14-x86.targets')" />
     <Import Project="$(SolutionDir)packages\openexr-msvc14-x86.2.2.0.7782\build\native\OpenEXR-msvc14-x86.targets" Condition="Exists('$(SolutionDir)packages\openexr-msvc14-x86.2.2.0.7782\build\native\OpenEXR-msvc14-x86.targets')" />
-    <Import Project="..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.4\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets" Condition="Exists('..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.4\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets')" />
+    <Import Project="..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets" Condition="Exists('..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -947,7 +947,7 @@
     <Error Condition="!Exists('$(SolutionDir)packages\gsl-msvc14-x86.2.3.0.2778\build\native\gsl-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\gsl-msvc14-x86.2.3.0.2778\build\native\gsl-msvc14-x86.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\bulbqt-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\bulbqt-msvc14-x86.targets'))" />
     <Error Condition="!Exists('$(SolutionDir)packages\openexr-msvc14-x86.2.2.0.7782\build\native\OpenEXR-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\openexr-msvc14-x86.2.2.0.7782\build\native\OpenEXR-msvc14-x86.targets'))" />
-    <Error Condition="!Exists('..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.4\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.4\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets'))" />
+    <Error Condition="!Exists('..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets'))" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q $(IntDir)" />

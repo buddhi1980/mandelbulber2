@@ -261,50 +261,79 @@
     <SourceDir>$(SolutionDir)</SourceDir>
     <CppDir>$(SourceDir)mandelbulber2</CppDir>
     <GenDir>$(SourceDir)build-win</GenDir>
+    <MSVCROOT>C:/msvc</MSVCROOT>
+    <MPSSROOT>C:/MPSS</MPSSROOT>
+    <INTELROOT>C:/compilers_and_libraries</INTELROOT>
+    <INTELSW>"%PROGRAMFILES%/IntelSWTools/compilers_and_libraries"</INTELSW>
+    <MSVCSW>"%PROGRAMFILES%/Microsoft Visual Studio 14.0/VC/bin"</MSVCSW>
+    <MPSSSW>"%PROGRAMFILES%/Intel/MPSS"</MPSSSW>
+    <MSVCBIN>"$(MSVCROOT)"</MSVCBIN>
+    <MPSSBIN>"$(MPSSROOT)"</MPSSBIN>
+    <INTELBIN>"$(INTELROOT)"</INTELBIN>
+    <INTELMIC>$(INTELROOT)/windows/bin/intel64_mic/</INTELMIC>
+    <KNCLIB>$(SolutionDir)packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\</KNCLIB>
+    <QtDir>$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\</QtDir>
+    <MPSSDIR>$(MPSSROOT)/k1om-mpss-linux/</MPSSDIR>
   </PropertyGroup>
   <Target Name="Build">
+    <Exec Command="IF NOT EXIST $(MSVCBIN) MKLINK $(MSVCBIN) $(MSVCSW)" />
+    <Exec Command="IF NOT EXIST $(INTELROOT) MKLINK $(INTELBIN) $(INTELSW)" />
+    <Exec Command="IF NOT EXIST $(MPSSROOT) MKLINK $(MPSSBIN) $(MPSSSW)" />
     <Exec Command="IF NOT EXIST $(OutDir) MKDIR $(OutDir)" />
+    <Exec Command="IF EXIST $(QtDir)bin\moc DEL /F /Q $(QtDir)bin\moc" />
+    <Exec Command="IF NOT EXIST $(QtDir)bin\moc MKLINK $(QtDir)bin\moc $(QtDir)bin\moc.exe" />
+    <Exec Command="IF EXIST $(QtDir)bin\qmake DEL /F /Q $(QtDir)bin\qmake" />
+    <Exec Command="IF NOT EXIST $(QtDir)bin\qmake MKLINK $(QtDir)bin\qmake $(QtDir)bin\qmake.exe" />
+    <Exec Command="IF EXIST $(QtDir)bin\rcc DEL /F /Q $(QtDir)bin\rcc" />
+    <Exec Command="IF NOT EXIST $(QtDir)bin\rcc MKLINK $(QtDir)bin\rcc $(QtDir)bin\rcc.exe" />
+    <Exec Command="IF EXIST $(QtDir)bin\uic DEL /F /Q $(QtDir)bin\uic" />
+    <Exec Command="IF NOT EXIST $(QtDir)bin\uic MKLINK $(QtDir)bin\uic $(QtDir)bin\uic.exe" />
+    <Exec Command="IF EXIST $(KNCLIB)bin RMDIR /s /q $(KNCLIB)bin" />
+    <Exec Command="IF NOT EXIST $(KNCLIB)bin MKLINK $(KNCLIB)bin $(QtDir)bin" />
     <Exec Command="ECHO K1OM BUILD &gt; $(OutDir)k1om" />
     <Exec Command="IF NOT EXIST $(IntDir) MKDIR $(IntDir)" />
     <Exec Command="ECHO K1OM BUILD &gt; $(IntDir)k1om" />
     <Exec Command="ECHO K1OM BUILD" />
   </Target>
   <PropertyGroup>
-    <KNCLIB>$(SolutionDir)\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.4\build\native\</KNCLIB>
-    <MPSSDIR>C:/MPSS/k1om-mpss-linux/</MPSSDIR>
 	<ICCFLAGS>"-03 -g -fPIC -mmic -wd39,10006"</ICCFLAGS>
-	<CMAKEGEN>"Eclipse CDT4 - Unix Makefiles"</CMAKEGEN>
+	<CMAKEGEN>"NMake Makefiles"</CMAKEGEN>
+	<CMAKECMD>-G $(CMAKEGEN) $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_MAKE_PROGRAM=$(MSVCROOT)/nmake.exe $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_C_COMPILER=$(INTELMIC)icc.exe $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_C_FLAGS=$(ICCFLAGS) $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_C_LINK_EXECUTABLE=$(INTELMIC)icpc.exe $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_CXX_COMPILER=$(INTELMIC)icpc.exe $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_CXX_FLAGS=$(ICCFLAGS) $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_CXX_LINK_EXECUTABLE=$(INTELMIC)icpc.exe $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_AR=$(INTELMIC)xiar.exe $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_EXE_LINKER_FLAGS=$(ICCFLAGS) $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_VERBOSE_MAKEFILE=TRUE $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_SYSTEM_NAME=Linux $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_SYSTEM_PROCESSOR=k1om $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_FIND_ROOT_PATH=$(MPSSDIR) $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_INSTALL_PREFIX=$(OutDir) $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_BUILD_TYPE=Release $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DCMAKE_PREFIX_PATH=$(KNCLIB)/lib/cmake $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DQt5UiTools_DIR=$(KNCLIB)/lib/cmake/Qt5UiTools $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DQt5Multimedia_DIR=$(KNCLIB)/lib/cmake/Qt5Multimedia $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DQt5Widgets_DIR==$(KNCLIB)/lib/cmake/Qt5Multimedia $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DPNG_LIBRARY=$(KNCLIB)/lib/libpng15.so.15.27.0 $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DPNG_PNG_INCLUDE_DIR=$(KNCLIB)/include $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DJPEG_LIBRARY=$(KNCLIB)/lib/libjpeg.a $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DJPEG_INCLUDE_DIR=$(KNCLIB)/include $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DGSL_INCLUDE_DIR=$(KNCLIB)/include $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DGSL_LIBRARY=$(KNCLIB)/lib/libgsl.a $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>-DGSL_CBLAS_LIBRARY=$(KNCLIB)/lib/libgslcblas.a $(CMAKECMD)</CMAKECMD>
+	<CMAKECMD>$(SolutionDir)/mandelbulber2/cmake/ $(CMAKECMD)</CMAKECMD>
   </PropertyGroup>
-  <Target Name="Build-Release" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)'=='Release|k1om'">
+  <Target Name="Build-Release" AfterTargets="Build" Condition="'$(Configuration)'=='Release'">
     <Exec Command="ECHO BUILD K1OM-RELEASE" />
-	<Exec Command="
-cd $(IntDir)
-CC=icc CXX=icpc ^
-CXXFLAGS=$(ICCFLAGS) ^
-CFLAGS=$(ICCFLAGS) ^
-cmake3 ^
--DCMAKE_PREFIX_PATH=$(KNCLIB)/lib/cmake ^
--DQt5UiTools_DIR=$(KNCLIB)/lib/cmake/Qt5UiTools ^
--DQt5Multimedia_DIR=$(KNCLIB)/lib/cmake/Qt5Multimedia ^
--DQt5Widgets_DIR==$(KNCLIB)/lib/cmake/Qt5Multimedia ^
--DCMAKE_SYSTEM_NAME=Linux ^
--DCMAKE_SYSTEM_PROCESSOR=k1om ^
--DCMAKE_FIND_ROOT_PATH=$(MPSSDIR) ^
--DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER ^
--DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY ^
--DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY ^
--DPNG_LIBRARY=$(KNCLIB)/lib/libpng15.so.15.27.0 ^
--DPNG_PNG_INCLUDE_DIR=$(KNCLIB)/include ^
--DJPEG_LIBRARY=$(KNCLIB)/lib/libjpeg.a ^
--DJPEG_INCLUDE_DIR=$(KNCLIB)/include ^
--DGSL_INCLUDE_DIR=$(KNCLIB)/include ^
--DGSL_LIBRARY=$(KNCLIB)/lib/libgsl.a ^
--DGSL_CBLAS_LIBRARY=$(KNCLIB)/lib/libgslcblas.a ^
--DCMAKE_INSTALL_PREFIX=$(OutDir) ^
--G $(CMAKEGEN) ^
-$SRC/mandelbulber2/cmake/
-cmake --build . --config Release --target install
-exit 0
-      "/>
+    <Exec Command="IF EXIST $(IntDir)CMakeCache.txt del /F /Q $(IntDir)CMakeCache.txt" />
+    <Exec Command="cd $(IntDir) &amp;&amp; cmake $(CMAKECMD)" />
+    <Exec Command="cd $(IntDir) &amp;&amp; cmake --build . --config Release --target all" />
   </Target>
 </Project>
