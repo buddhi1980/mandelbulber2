@@ -175,7 +175,7 @@ void RenderWindow::SaveSettingsToRecent(QString fileName)
 		recentFiles.removeOne(fileName);
 	}
 	recentFiles.prepend(fileName);
-	if(recentFiles.size() > 3) recentFiles.removeLast();
+	if(recentFiles.size() > 15) recentFiles.removeLast();
 	if (!recentFilesFile.open(QFile::WriteOnly | QFile::Text))
 	{
 		qDebug() << "Cannot open file to save recents!";
