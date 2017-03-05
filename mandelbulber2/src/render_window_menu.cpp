@@ -508,6 +508,7 @@ void RenderWindow::slotMenuSaveSettings()
 		QString filename = QDir::toNativeSeparators(filenames.first());
 		parSettings.SaveToFile(filename);
 		systemData.lastSettingsFile = filename;
+		SaveSettingsToRecent(filename);
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 
 		// QString hash = parSettings.GetHashCode();
