@@ -931,11 +931,11 @@ QString CNetRender::GetStatusColor(netRenderStatus displayStatus)
 	switch (displayStatus)
 	{
 		case CNetRender::netRender_DISABLED: return "darkgrey";
-		case CNetRender::netRender_READY: return "green";
+		case CNetRender::netRender_READY: return "darkgreen";
 		case CNetRender::netRender_WORKING: return "darkblue";
-		case CNetRender::netRender_NEW: return "purple";
-		case CNetRender::netRender_CONNECTING: return "orange";
-		case CNetRender::netRender_ERROR: return "red";
+		case CNetRender::netRender_NEW: return "darkpurple";
+		case CNetRender::netRender_CONNECTING: return "darkorange";
+		case CNetRender::netRender_ERROR: return "darkred";
 	}
 	return "red";
 }

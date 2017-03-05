@@ -197,9 +197,7 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate(int i, int j) const
 
 			cell->setText(text);
 			cell->setTextColor(color);
-			// ui->label_netrender_client_status->setStyleSheet("QLabel { background-color: " + color + ";
-			// }");
-			// cell->setBackgroundColor(QColor(255, 0, 0));
+			cell->setBackgroundColor(Qt::white);
 			break;
 		}
 		case 4: cell->setText(QString::number(gNetRender->GetClient(i).linesRendered)); break;
@@ -213,7 +211,8 @@ void cDockRenderingEngine::slotNetRenderStatusServerUpdate() const
 	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
 	ui->label_netrender_server_status->setText(text);
 	ui->label_netrender_server_status->setStyleSheet(
-		"QLabel { color: " + color + "; font-weight: bold; }");
+				"QLabel { color: " + color + "; font-weight: bold; border: 2px solid darkgray; border-radius: 3px;"
+						"background: white; text-align: center; qproperty-alignment: AlignCenter;}");
 
 	ui->bu_netrender_start_server->setEnabled(!gNetRender->IsServer());
 	ui->bu_netrender_stop_server->setEnabled(gNetRender->IsServer());
@@ -225,7 +224,8 @@ void cDockRenderingEngine::slotNetRenderStatusClientUpdate() const
 	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
 	ui->label_netrender_client_status->setText(text);
 	ui->label_netrender_client_status->setStyleSheet(
-		"QLabel { color: " + color + "; font-weight: bold; }");
+		"QLabel { color: " + color + "; font-weight: bold; border: 2px solid darkgray; border-radius: 3px;"
+				"background: white; text-align: center; qproperty-alignment: AlignCenter;}");
 
 	ui->bu_netrender_connect->setEnabled(!gNetRender->IsClient());
 	ui->bu_netrender_disconnect->setEnabled(gNetRender->IsClient());
