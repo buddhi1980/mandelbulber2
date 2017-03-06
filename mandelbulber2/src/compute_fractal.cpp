@@ -1186,7 +1186,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
 				{
 					double rxy = sqrt(z.x * z.x + z.y * z.y);
-					out->distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (extendedAux.DE);
+					out->distance = max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 				}
 			}
 			else
