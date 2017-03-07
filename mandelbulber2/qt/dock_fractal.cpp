@@ -416,7 +416,8 @@ void cDockFractal::slotChangedFractalTab(int index)
 				"mode?"));
 			message->setWindowTitle(tr("More fractals..."));
 			message->setIcon(QMessageBox::Question);
-			message->exec();
+			int result = message->exec();
+			Q_UNUSED(result);
 
 			if (message->clickedButton() != buttonCancel)
 			{
@@ -429,6 +430,7 @@ void cDockFractal::slotChangedFractalTab(int index)
 					ui->groupCheck_boolean_operators->setChecked(true);
 				}
 			}
+
 		}
 	}
 }

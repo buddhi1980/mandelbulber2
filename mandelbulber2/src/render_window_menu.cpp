@@ -155,7 +155,8 @@ void RenderWindow::showDescriptionPopup()
 	QAbstractButton *btnOkDoNotShowAgain =
 		messageBox->addButton(QObject::tr("Ok, don't show again"), QMessageBox::YesRole);
 	messageBox->setDefaultButton(QMessageBox::Ok);
-	messageBox->exec();
+	int result = messageBox->exec();
+	Q_UNUSED(result);
 	if (messageBox->clickedButton() == btnOkDoNotShowAgain)
 	{
 		gPar->Set("description_popup_do_not_show_again", true);

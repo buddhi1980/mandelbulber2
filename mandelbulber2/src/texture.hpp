@@ -61,6 +61,7 @@ public:
 	cTexture();
 	cTexture(const cTexture &tex);
 	cTexture &operator=(const cTexture &tex);
+	cTexture &operator=(cTexture &&tex);
 
 	~cTexture();
 	int Height() const { return height; }

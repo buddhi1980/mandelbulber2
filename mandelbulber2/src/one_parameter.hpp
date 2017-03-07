@@ -73,6 +73,11 @@ class cOneParameter
 public:
 	cOneParameter();
 	~cOneParameter();
+	cOneParameter(const cOneParameter &other);
+	cOneParameter(cOneParameter &&other);
+	cOneParameter &operator=(const cOneParameter &other);
+	cOneParameter &operator=(cOneParameter &&other);
+
 	enumVarType GetValueType() const { return defaultVal.GetDefaultType(); }
 	enumParameterType GetParameterType() const { return parType; }
 	enumMorphType GetMorphType() const { return morphType; }
@@ -92,6 +97,9 @@ public:
 	void LimitValue(cMultiVal &multi) const;
 
 private:
+	void copy(const cOneParameter &other);
+	void copyNotMovable(const cOneParameter &other);
+
 	// parameter data
 	enumMorphType morphType;
 	enumParameterType parType;

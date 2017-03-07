@@ -86,7 +86,8 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 			messageBox->setWindowTitle(QObject::tr("Mandelbulber information"));
 			messageBox->setIcon(QMessageBox::Information);
 		}
-		messageBox->exec();
+		int result = messageBox->exec();
+		Q_UNUSED(result);
 		delete messageBox;
 	}
 	else

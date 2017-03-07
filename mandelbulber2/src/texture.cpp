@@ -79,17 +79,6 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 
 	if (bitmap)
 	{
-		// width = qImage.width();
-		// height = qImage.height();
-		// bitmap = new sRGB8[width * height];
-
-		// for (int y = 0; y < height; y++)
-		//{
-		//	memcpy(&bitmap[y * width], qImage.scanLine(y), sizeof(sRGB8) * width);
-		//}
-
-		// qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): "
-		// 				 << "(sRGB8*)(qImage.bits());:" << width * height * sizeof(sRGB8);
 		loaded = true;
 		originalFileName = filename;
 		if (mode == useMipmaps)
@@ -107,8 +96,6 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 		loaded = false;
 		bitmap = new sRGBA16[100 * 100];
 		memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
-		// qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): "
-		// 				 << "new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
 	}
 	invertGreen = false;
 }
@@ -121,8 +108,6 @@ cTexture::cTexture(const cTexture &tex)
 	loaded = tex.loaded;
 	originalFileName = tex.originalFileName;
 	bitmap = new sRGBA16[width * height];
-	// qDebug() << "cTexture::cTexture(const cTexture &tex): "
-	// 				 << "new sRGB8[width * height]:" << width * height * sizeof(sRGB8);
 	memcpy(bitmap, tex.bitmap, sizeof(sRGBA16) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
@@ -135,16 +120,12 @@ cTexture &cTexture::operator=(const cTexture &tex)
 	{
 		delete[] bitmap;
 		bitmap = nullptr;
-		// qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): "
-		// 				 << "delete[] bitmap;:" << width * height * sizeof(sRGB8);
 	}
 	width = tex.width;
 	height = tex.height;
 	loaded = tex.loaded;
 	originalFileName = tex.originalFileName;
 	bitmap = new sRGBA16[width * height];
-	// qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): "
-	// 				 << "new sRGB8[width * height];:" << width * height * sizeof(sRGB8);
 	memcpy(bitmap, tex.bitmap, sizeof(sRGBA16) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
@@ -153,12 +134,33 @@ cTexture &cTexture::operator=(const cTexture &tex)
 	return *this;
 }
 
+cTexture &cTexture::operator=(cTexture &&tex)
+{
+	if (bitmap)
+	{
+		delete[] bitmap;
+		bitmap = nullptr;
+	}
+	width = tex.width;
+	height = tex.height;
+	loaded = tex.loaded;
+	originalFileName = tex.originalFileName;
+	mipmaps = tex.mipmaps;
+	mipmapSizes = tex.mipmapSizes;
+	invertGreen = tex.invertGreen;
+
+	//move
+	bitmap = tex.bitmap;
+	tex.bitmap = nullptr;
+	tex.loaded = false;
+
+	return *this;
+}
+
 void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 {
 	if (bitmap)
 	{
-		// qDebug() << "void cTexture::FromQByteArray(QByteArray buffer):"
-		// 				 << "delete[] bitmap;:" << width * height * sizeof(sRGB8);
 		delete[] bitmap;
 	}
 
@@ -210,8 +212,6 @@ cTexture::cTexture()
 	loaded = false;
 	bitmap = new sRGBA16[100 * 100];
 	memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
-	// qDebug() << "cTexture::cTexture(void):"
-	// 				 << "new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
 	invertGreen = false;
 }
 
@@ -222,12 +222,6 @@ cTexture::~cTexture()
 	{
 		delete[] bitmap;
 		bitmap = nullptr;
-		// qDebug() << "cTexture::~cTexture(void):"
-		// 				 << "delete[] bitmap:" << width * height * sizeof(sRGB8);
-	}
-	else
-	{
-		qCritical() << "cTexture::~cTexture(void): bitmap was not allocated before";
 	}
 }
 

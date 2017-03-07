@@ -48,6 +48,57 @@ cOneParameter::~cOneParameter()
 {
 }
 
+void cOneParameter::copy(const cOneParameter &other)
+{
+	morphType = other.morphType;
+	parType = other.parType;
+	limitsDefined = other.limitsDefined;
+	isEmpty = other.isEmpty;
+}
+
+void cOneParameter::copyNotMovable(const cOneParameter &other)
+{
+	actualVal = other.actualVal;
+	defaultVal = other.defaultVal;
+	minVal = other.minVal;
+	maxVal = other.maxVal;
+	originalContainer = other.originalContainer;
+}
+
+cOneParameter::cOneParameter(const cOneParameter &other)
+{
+	copy(other);
+	copyNotMovable(other);
+}
+
+cOneParameter::cOneParameter(cOneParameter &&other)
+{
+	copy(other);
+	actualVal = std::move(other.actualVal);
+	defaultVal = std::move(other.defaultVal);
+	minVal = std::move(other.minVal);
+	maxVal = std::move(other.maxVal);
+	originalContainer = std::move(other.originalContainer);
+}
+
+cOneParameter &cOneParameter::operator=(const cOneParameter &other)
+{
+	copy(other);
+	copyNotMovable(other);
+	return *this;
+}
+
+cOneParameter &cOneParameter::operator=(cOneParameter &&other)
+{
+	copy(other);
+	actualVal = std::move(other.actualVal);
+	defaultVal = std::move(other.defaultVal);
+	minVal = std::move(other.minVal);
+	maxVal = std::move(other.maxVal);
+	originalContainer = std::move(other.originalContainer);
+	return *this;
+}
+
 // set parameter value
 template <class T>
 void cOneParameter::Set(T val, enumValueSelection selection)

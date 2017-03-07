@@ -195,7 +195,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "perspective"))
 		params->doubles.persp = atof2(str2);
 	else if (!strcmp(str1, "formula"))
-		params->fractal.formula = enumFractalFormula(atoi(str2));
+		params->fractal.formula = enumOldFractalFormula(atoi(str2));
 	else if (!strcmp(str1, "power"))
 		params->fractal.doubles.power = atof2(str2);
 	else if (!strcmp(str1, "N"))
@@ -908,7 +908,7 @@ bool cOldSettings::LoadOneSetting(const char *str1, const char *str2, sParamRend
 			sprintf(buf, "hybrid_formula_%d", i);
 			if (!strcmp(str1, buf))
 			{
-				params->fractal.hybridFormula[i - 1] = enumFractalFormula(atoi(str2));
+				params->fractal.hybridFormula[i - 1] = enumOldFractalFormula(atoi(str2));
 				matched = true;
 				break;
 			}
@@ -1325,12 +1325,12 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		{
 			for (int i = 0; i < fractalsListTemp.size(); i++)
 			{
-				oldSettings::enumFractalFormula formula =
+				oldSettings::enumOldFractalFormula formula =
 					oldData->fractal.hybridFormula[fractalsListTemp.at(i)];
 				bool found = false;
 				for (int l = 0; l < fractalList.size(); l++)
 				{
-					if (formula == oldSettings::enumFractalFormula(fractalList.at(l).internalID))
+					if (formula == oldSettings::enumOldFractalFormula(fractalList.at(l).internalID))
 					{
 						found = true;
 						break;

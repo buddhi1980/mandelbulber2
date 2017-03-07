@@ -347,7 +347,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		totalStep = 0.0;
 
 		//------------------- glow
-		if (params->glowEnabled)
+		if (params->glowEnabled && input.stepCount > 0)
 		{
 			double glowOpacity = glow / input.stepCount;
 			if (glowOpacity > 1.0) glowOpacity = 1.0;

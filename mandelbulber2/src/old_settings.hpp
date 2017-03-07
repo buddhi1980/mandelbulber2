@@ -59,7 +59,7 @@ enum enumPerspectiveType
 	fishEyeCut = 3
 };
 
-enum enumFractalFormula
+enum enumOldFractalFormula
 {
 	none = 0,
 	trig_DE = 1,
@@ -306,12 +306,12 @@ struct sFractal
 	bool useCustomOCLFormula;
 	bool normalCalculationMode;
 
-	enumFractalFormula formula;
+	enumOldFractalFormula formula;
 
 	int hybridIters[HYBRID_COUNT];
-	enumFractalFormula hybridFormula[HYBRID_COUNT];
+	enumOldFractalFormula hybridFormula[HYBRID_COUNT];
 
-	std::vector<enumFractalFormula> formulaSequence;
+	std::vector<enumOldFractalFormula> formulaSequence;
 	std::vector<double> hybridPowerSequence;
 	char customOCLFormulaName[100];
 	enumOCLDEMode customOCLFormulaDEMode;
@@ -487,7 +487,7 @@ struct sParamRender
 	char file_path[1000];
 	char file_keyframes[1000];
 
-	std::vector<enumFractalFormula> formulaSequence;
+	std::vector<enumOldFractalFormula> formulaSequence;
 	std::vector<double> hybridPowerSequence;
 
 	double settingsVersion;
