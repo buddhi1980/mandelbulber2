@@ -78,9 +78,6 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 	const int z3 = numz * 3;
 	const int yz3 = numy * z3;
 
-	omp_lock_t writelock;
-	omp_init_lock(&writelock);
-
 	for (size_t i = 0; i < numx; ++i)
 	{
 		progress(i);
@@ -101,7 +98,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 			coord_type y = lower[1] + dy * j;
 			coord_type y_dy = lower[1] + dy * (j + 1);
 
-#pragma omp parallel for
+#pragma omp parallel for ordered schedule( static, 1 )
 			for (size_t k = 0; k < numz; ++k)
 			{
 				coord_type z = lower[2] + dz * k;
@@ -118,8 +115,11 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				v[6] = f(x_dx, y_dy, z_dz, &colorIndex[6]);
 				v[7] = f(x, y_dy, z_dz, &colorIndex[7]);
 
-				omp_set_lock(&writelock);
+
 				unsigned int cubeindex = 0;
+
+				#pragma omp ordered
+
 				for (int m = 0; m < 8; ++m)
 					if (v[m] <= isovalue) cubeindex |= 1 << m;
 
@@ -253,12 +253,10 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				int *triangle_table_ptr = triangle_table[cubeindex];
 				for (int m = 0; tri = triangle_table_ptr[m], tri != -1; ++m)
 					polygons.push_back(indices[tri]);
-				omp_unset_lock(&writelock);
 			}
 
 		}
 	}
-	omp_destroy_lock(&writelock);
 
 bailout:
 
