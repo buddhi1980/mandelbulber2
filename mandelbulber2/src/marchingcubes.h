@@ -73,7 +73,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 	coord_type dy = (upper[1] - lower[1]) / static_cast<coord_type>(numy);
 	coord_type dz = (upper[2] - lower[2]) / static_cast<coord_type>(numz);
 
-	size_t *shared_indices = new size_t[numx * numy * numz * 3];
+	size_t *shared_indices = new size_t[2 * numy * numz * 3];
 	const int z3 = numz * 3;
 	const int yz3 = numy * z3;
 
@@ -83,6 +83,9 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 
 		coord_type x = lower[0] + dx * i;
 		coord_type x_dx = lower[0] + dx * (i + 1);
+		const int i_mod_2 = i % 2;
+		const int i_mod_2_inv = (i_mod_2 ? 0 : 1);
+
 		for (size_t j = 0; j < numy; ++j)
 		{
 			if (*stop)
@@ -121,21 +124,21 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				if (edges & 0x040)
 				{
 					indices[6] = vertices.size() / 3;
-					shared_indices[i * yz3 + j * z3 + k * 3 + 0] = indices[6];
+					shared_indices[i_mod_2 * yz3 + j * z3 + k * 3 + 0] = indices[6];
 					mc_add_vertex(x_dx, y_dy, z_dz, x, 0, v[6], v[7], isovalue, &vertices, colorIndex[7],
 						colorIndex[7], &colorIndices);
 				}
 				if (edges & 0x020)
 				{
 					indices[5] = vertices.size() / 3;
-					shared_indices[i * yz3 + j * z3 + k * 3 + 1] = indices[5];
+					shared_indices[i_mod_2 * yz3 + j * z3 + k * 3 + 1] = indices[5];
 					mc_add_vertex(x_dx, y, z_dz, y_dy, 1, v[5], v[6], isovalue, &vertices, colorIndex[5],
 						colorIndex[6], &colorIndices);
 				}
 				if (edges & 0x400)
 				{
 					indices[10] = vertices.size() / 3;
-					shared_indices[i * yz3 + j * z3 + k * 3 + 2] = indices[10];
+					shared_indices[i_mod_2 * yz3 + j * z3 + k * 3 + 2] = indices[10];
 					mc_add_vertex(x_dx, y + dx, z, z_dz, 2, v[2], v[6], isovalue, &vertices, colorIndex[2],
 						colorIndex[6], &colorIndices);
 				}
@@ -149,7 +152,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[1], &colorIndices);
 					}
 					else
-						indices[0] = shared_indices[i * yz3 + (j - 1) * z3 + (k - 1) * 3 + 0];
+						indices[0] = shared_indices[i_mod_2 * yz3 + (j - 1) * z3 + (k - 1) * 3 + 0];
 				}
 				if (edges & 0x002)
 				{
@@ -160,7 +163,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[2], &colorIndices);
 					}
 					else
-						indices[1] = shared_indices[i * yz3 + j * z3 + (k - 1) * 3 + 1];
+						indices[1] = shared_indices[i_mod_2 * yz3 + j * z3 + (k - 1) * 3 + 1];
 				}
 				if (edges & 0x004)
 				{
@@ -171,7 +174,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[3], &colorIndices);
 					}
 					else
-						indices[2] = shared_indices[i * yz3 + j * z3 + (k - 1) * 3 + 0];
+						indices[2] = shared_indices[i_mod_2 * yz3 + j * z3 + (k - 1) * 3 + 0];
 				}
 				if (edges & 0x008)
 				{
@@ -182,7 +185,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[0], &colorIndices);
 					}
 					else
-						indices[3] = shared_indices[(i - 1) * yz3 + j * z3 + (k - 1) * 3 + 1];
+						indices[3] = shared_indices[i_mod_2_inv * yz3 + j * z3 + (k - 1) * 3 + 1];
 				}
 				if (edges & 0x010)
 				{
@@ -193,7 +196,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[5], &colorIndices);
 					}
 					else
-						indices[4] = shared_indices[i * yz3 + (j - 1) * z3 + k * 3 + 0];
+						indices[4] = shared_indices[i_mod_2 * yz3 + (j - 1) * z3 + k * 3 + 0];
 				}
 				if (edges & 0x080)
 				{
@@ -204,7 +207,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[4], &colorIndices);
 					}
 					else
-						indices[7] = shared_indices[(i - 1) * yz3 + j * z3 + k * 3 + 1];
+						indices[7] = shared_indices[i_mod_2_inv * yz3 + j * z3 + k * 3 + 1];
 				}
 				if (edges & 0x100)
 				{
@@ -215,7 +218,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[4], &colorIndices);
 					}
 					else
-						indices[8] = shared_indices[(i - 1) * yz3 + (j - 1) * z3 + k * 3 + 2];
+						indices[8] = shared_indices[i_mod_2_inv * yz3 + (j - 1) * z3 + k * 3 + 2];
 				}
 				if (edges & 0x200)
 				{
@@ -226,7 +229,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[3], &colorIndices);
 					}
 					else
-						indices[9] = shared_indices[i * yz3 + (j - 1) * z3 + k * 3 + 2];
+						indices[9] = shared_indices[i_mod_2 * yz3 + (j - 1) * z3 + k * 3 + 2];
 				}
 				if (edges & 0x800)
 				{
@@ -237,7 +240,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 							colorIndex[7], &colorIndices);
 					}
 					else
-						indices[11] = shared_indices[(i - 1) * yz3 + j * z3 + k * 3 + 2];
+						indices[11] = shared_indices[i_mod_2_inv * yz3 + j * z3 + k * 3 + 2];
 				}
 
 				int tri;
