@@ -238,9 +238,9 @@ void cMeshExport::ProcessVolume()
 		// f.write((char*) &polygons[i], 3 * sizeof(int));
 
 		f.write(QString("3 %1 %2 %3\n")
-							.arg(polygons[i])
-							.arg(polygons[i + 1])
 							.arg(polygons[i + 2])
+							.arg(polygons[i + 1])
+							.arg(polygons[i + 0])
 							.toLatin1());
 
 		// f.write(QString("6 %1 %1 %2 %2 %3 %3\n").arg(colorIndices[polygons[i]])
