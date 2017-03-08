@@ -38,6 +38,7 @@
 
 #include <stddef.h>
 #include <vector>
+#include <omp.h>
 
 namespace mc
 {
@@ -74,13 +75,17 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 	coord_type dz = (upper[2] - lower[2]) / static_cast<coord_type>(numz);
 
 	size_t *shared_indices = new size_t[2 * numy * numz * 3];
-	double *shared_v = new double[2 * (numy + 1) * (numz + 1)];
-	double *shared_colorIndex = new double[2 * (numy + 1) * (numz + 1)];
+
+	size_t numyb = numy + 1;
+	size_t numzb = numz + 1;
+	size_t numyzb = numyb * numzb;
+	double *voxelBuffer = new double[2 * numyzb];
+	double *colorBuffer = new double[2 * numyzb];
 
 	const int z3 = numz * 3;
 	const int yz3 = numy * z3;
 
-	for (signed long long i = -1; i < (signed long long) numx; ++i)
+	for (size_t i = 0; i < numx; ++i)
 	{
 		progress(i);
 
@@ -89,7 +94,46 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 		const int i_mod_2 = i % 2;
 		const int i_mod_2_inv = (i_mod_2 ? 0 : 1);
 
-		for (signed long long j = -1; j < (signed long long) numy; ++j)
+		// shift voxel planes
+		if (i > 0)
+		{
+			for (size_t jk = 0; jk < numz * numy; ++jk)
+			{
+				size_t ptr = jk;
+				size_t ptr2 = ptr + numyzb;
+				voxelBuffer[ptr] = voxelBuffer[ptr2];
+				colorBuffer[ptr] = colorBuffer[ptr2];
+			}
+		}
+
+		// calculate voxel plane
+		size_t start = (i == 0) ? 0 : 1;
+		for (size_t ii = start; ii < 2; ++ii)
+		{
+			coord_type xx = lower[0] + dx * (ii + i);
+
+			for (size_t jj = 0; jj < numyb; ++jj)
+			{
+				if (*stop)
+				{
+					progress(-1);
+					goto bailout;
+				}
+
+				coord_type yy = lower[1] + dy * jj;
+
+#pragma omp parallel for schedule(dynamic, 1)
+				for (size_t kk = 0; kk < numzb; ++kk)
+				{
+					size_t ptr = ii * numyzb + jj * numzb + kk;
+
+					coord_type zz = lower[2] + dz * kk;
+					voxelBuffer[ptr] = f(xx, yy, zz, &colorBuffer[ptr]);
+				}
+			}
+		}
+
+		for (size_t j = 0; j < numy; ++j)
 		{
 			if (*stop)
 			{
@@ -100,51 +144,33 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 			coord_type y = lower[1] + dy * j;
 			coord_type y_dy = lower[1] + dy * (j + 1);
 
-/* #pragma omp parallel for ordered schedule( static, 1 ) TODO: fix broken */
-			for (signed long long k = -1; k < (signed long long) numz; ++k)
+			for (size_t k = 0; k < numz; ++k)
 			{
 				coord_type z = lower[2] + dz * k;
 				coord_type z_dz = lower[2] + dz * (k + 1);
 
-				int v111 = i_mod_2_inv * (numz * numy) + (j + 1) * numz + (k + 1);
-
-				shared_v[v111] = f(x, y, z, &shared_colorIndex[v111]);
-
-				if(i == -1 || j == -1 || k == -1) continue;
-
-
-				int v110 = i_mod_2_inv * (numz * numy) + (j + 1) * numz + k;
-				int v101 = i_mod_2_inv * (numz * numy) + j * numz + (k + 1);
-				int v100 = i_mod_2_inv * (numz * numy) + j * numz + k;
-				int v011 = i_mod_2 * (numz * numy) + (j + 1) * numz + (k + 1);
-				int v010 = i_mod_2 * (numz * numy) + (j + 1) * numz + k;
-				int v001 = i_mod_2 * (numz * numy) + j * numz + (k + 1);
-				int v000 = i_mod_2 * (numz * numy) + j * numz + k;
-
-
 				double v[8];
 				double colorIndex[8];
+				v[0] = voxelBuffer[j * numzb + k];
+				v[1] = voxelBuffer[numyzb + j * numzb + k];
+				v[2] = voxelBuffer[numyzb + (j + 1) * numzb + k];
+				v[3] = voxelBuffer[(j + 1) * numzb + k];
+				v[4] = voxelBuffer[j * numzb + k + 1];
+				v[5] = voxelBuffer[numyzb + j * numzb + k + 1];
+				v[6] = voxelBuffer[numyzb + (j + 1) * numzb + k + 1];
+				v[7] = voxelBuffer[(j + 1) * numzb + k + 1];
 
-				v[0] = shared_v[v000];
-				colorIndex[0] = shared_colorIndex[v000];
-				v[1] = shared_v[v100];
-				colorIndex[1] = shared_colorIndex[v100];
-				v[2] = shared_v[v110];
-				colorIndex[2] = shared_colorIndex[v110];
-				v[3] = shared_v[v010];
-				colorIndex[3] = shared_colorIndex[v010];
-				v[4] = shared_v[v001];
-				colorIndex[4] = shared_colorIndex[v001];
-				v[5] = shared_v[v101];
-				colorIndex[5] = shared_colorIndex[v101];
-				v[6] = shared_v[v111];
-				colorIndex[6] = shared_colorIndex[v111];
-				v[7] = shared_v[v011];
-				colorIndex[7] = shared_colorIndex[v011];
+				colorIndex[0] = colorBuffer[j * numzb + k];
+				colorIndex[1] = colorBuffer[numyzb + j * numzb + k];
+				colorIndex[2] = colorBuffer[numyzb + j * (numzb + 1) + k];
+				colorIndex[3] = colorBuffer[j * (numzb + 1) + k];
+				colorIndex[4] = colorBuffer[j * numzb + k + 1];
+				colorIndex[5] = colorBuffer[numyzb + j * numzb + k + 1];
+				colorIndex[6] = colorBuffer[numyzb + (j + 1) * numzb + k + 1];
+				colorIndex[7] = colorBuffer[(j + 1) * numzb + k + 1];
 
 				unsigned int cubeindex = 0;
 
-/* #pragma omp ordered TODO: fix broken */
 				for (int m = 0; m < 8; ++m)
 					if (v[m] <= isovalue) cubeindex |= 1 << m;
 
@@ -279,14 +305,14 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				for (int m = 0; tri = triangle_table_ptr[m], tri != -1; ++m)
 					polygons.push_back(indices[tri]);
 			}
-
 		}
 	}
 
 bailout:
+
 	delete[] shared_indices;
-	delete[] shared_v;
-	delete[] shared_colorIndex;
+	delete[] voxelBuffer;
+	delete[] colorBuffer;
 }
 }
 
