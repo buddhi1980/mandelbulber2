@@ -97,7 +97,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 		// shift voxel planes
 		if (i > 0)
 		{
-			for (size_t jk = 0; jk < numz * numy; ++jk)
+			for (size_t jk = 0; jk < numyzb; ++jk)
 			{
 				size_t ptr = jk;
 				size_t ptr2 = ptr + numyzb;
