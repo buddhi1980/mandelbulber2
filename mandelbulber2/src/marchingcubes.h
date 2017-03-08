@@ -99,7 +99,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 			coord_type y_dy = lower[1] + dy * (j + 1);
 
 #pragma omp parallel for ordered schedule( static, 1 )
-			for (size_t k = 0; k < numz; ++k)
+			for (signed long long k = 0; k < numz; ++k)
 			{
 				coord_type z = lower[2] + dz * k;
 				coord_type z_dz = lower[2] + dz * (k + 1);
