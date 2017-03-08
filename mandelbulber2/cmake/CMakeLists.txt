@@ -27,6 +27,7 @@ find_package(TIFF)
 find_package(JPEG)
 find_package(ZLIB)
 find_package(ECM NO_MODULE)
+find_package(OpenCL)
 
 IF(ECM_FOUND)
     set(CMAKE_MODULE_PATH ${ECM_FIND_MODULE_DIR})
@@ -94,6 +95,14 @@ ENDIF()
 IF(JPEG_FOUND)
     include_directories(${JPEG_INCLUDE_DIR})
     target_link_libraries(mandelbulber2 ${JPEG_LIBRARY})
+ENDIF()
+
+IF(OpenCL_FOUND)
+    MESSAGE(STATUS "Found OpenCL ${OpenCL_VERSION_STRING}")
+    include_directories(${OpenCL_INCLUDE_DIRS})
+    add_definitions(-DUSE_OPENCL=1)
+ELSE()
+    MESSAGE("OpenCL not found!")
 ENDIF()
 
 # generate proper GUI program on specified platform
