@@ -123,7 +123,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				coord_type yy = lower[1] + dy * jj;
 
 #pragma omp parallel for schedule(dynamic, 1)
-				for (size_t kk = 0; kk < numzb; ++kk)
+				for (signed long long kk = 0; kk < numzb; ++kk)
 				{
 					size_t ptr = ii * numyzb + jj * numzb + kk;
 
