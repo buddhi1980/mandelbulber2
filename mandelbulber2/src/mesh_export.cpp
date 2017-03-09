@@ -42,6 +42,7 @@
 #include "nine_fractals.hpp"
 #include "marchingcubes.h"
 #include "compute_fractal.hpp"
+#include "file_mesh.hpp"
 
 cMeshExport::cMeshExport(
 	int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString outputFileName, int maxIter)
@@ -167,86 +168,15 @@ void cMeshExport::ProcessVolume()
 		colorIndices[i] /= maxColorIndex;
 	}
 
-	qDebug() << "Opening..." << outputFileName;
-
-	QFile f(outputFileName);
-	if (!f.open(QFile::WriteOnly))
-	{
-		QString statusText = tr("Mesh Export - Failed to open output file!");
-		emit updateProgressAndStatus(statusText, progressText.getText(1.0), 1.0);
-		emit finished();
-		return;
-	}
-	f.write(QString("ply\n").toLatin1());
-	f.write(QString("format ascii 1.0\n").toLatin1());
-	f.write(QString("comment Mandelbulber Exported Mesh\n").toLatin1());
-	f.write(QString("element vertex %1\n").arg(vertices.size() / 3).toLatin1());
-	f.write(QString("property float x\n").toLatin1());
-	f.write(QString("property float y\n").toLatin1());
-	f.write(QString("property float z\n").toLatin1());
-	f.write(QString("property float s\n").toLatin1());
-	f.write(QString("property float t\n").toLatin1());
-	// f.write(QString("property float red\n").toLatin1());
-	// f.write(QString("property float green\n").toLatin1());
-	// f.write(QString("property float blue\n").toLatin1());
-	f.write(QString("element face %1\n").arg(polygons.size() / 3).toLatin1());
-	f.write(QString("property list uchar int vertex_indices\n").toLatin1());
-	// f.write(QString("property list uchar float texcoord\n").toLatin1());
-	f.write(QString("end_header\n").toLatin1());
-	for (unsigned int i = 0; i < vertices.size() / 3; i++)
-	{
-
-		// float v[] = {(float) vertices[i * 3], (float) vertices[i * 3 + 1],
-		//(float) vertices[i * 3 + 2]};
-
-		// f.write((char*) &v[0], sizeof(float) * 3);
-		f.write(QString("%1 %2 %3 ")
-							.arg(vertices[i * 3])
-							.arg(vertices[i * 3 + 1])
-							.arg(vertices[i * 3 + 2])
-							.toLatin1());
-		f.write(QString("%1 %1\n").arg(colorIndices[i]).toLatin1());
-
-		/* double colorIndex = colorIndices[i];
-		int nrCol = floor(colorIndex);
-		nrCol = abs(nrCol) % (248 * 256);
-
-
-		int color_number;
-		if (nrCol >= 248 * 256)
-		{
-						color_number = nrCol;
-		}
-		else
-		{
-						color_number =
-										(int)(nrCol * input.material->coloring_speed + 256 *
-		input.material->paletteOffset)
-										% 65536;
-		}
-		colour = input.material->palette.IndexToColour(color_number);
-
-
-		uchar rgb[3] = {color, color, color};
-		f.write((char*) &rgb[0], sizeof(char) * 3); */
-	}
-	for (unsigned int i = 0; i < polygons.size(); i += 3)
-	{
-		// uchar n = 3;
-		// int p[] = {polygons[i], polygons[i + 1], polygons[i + 2]};
-		// f.write((char*) &n, sizeof(uchar));
-		// f.write((char*) &polygons[i], 3 * sizeof(int));
-
-		f.write(QString("3 %1 %2 %3\n")
-							.arg(polygons[i + 2])
-							.arg(polygons[i + 1])
-							.arg(polygons[i + 0])
-							.toLatin1());
-
-		// f.write(QString("6 %1 %1 %2 %2 %3 %3\n").arg(colorIndices[polygons[i]])
-		// .arg(colorIndices[polygons[i + 1]]).arg(colorIndices[polygons[i + 2]]).toLatin1());
-	}
-	f.close();
+	// Save to file
+	MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY,
+		QList<MeshFileSave::enumMeshContentType>({MeshFileSave::MESH_CONTENT_GEOMETRY}), MeshFileSave::MESH_ASCII);
+	MeshFileSave::structSaveMeshData meshData(vertices, polygons, colorIndices);
+	MeshFileSave *meshFileSave = MeshFileSave::create(outputFileName, meshConfig, meshData);
+	QObject::connect(meshFileSave,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	meshFileSave->SaveMesh();
 
 	QString statusText;
 	if (stop)
