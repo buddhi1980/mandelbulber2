@@ -430,7 +430,6 @@ void cDockFractal::slotChangedFractalTab(int index)
 					ui->groupCheck_boolean_operators->setChecked(true);
 				}
 			}
-
 		}
 	}
 }

@@ -160,8 +160,13 @@ void cHeadless::RenderVoxel(QString voxelFormat)
 	else if (voxelFormat == "ply")
 	{
 		QString fileString = gPar->Get<QString>("mesh_output_filename");
-		cMeshExport *meshExport =
-			new cMeshExport(samplesX, samplesY, samplesZ, limitMin, limitMax, fileString, maxIter);
+		QList<MeshFileSave::enumMeshContentType> meshContent({MeshFileSave::MESH_CONTENT_GEOMETRY});
+		if (gPar->Get<bool>("mesh_color")) meshContent << MeshFileSave::MESH_CONTENT_COLOR;
+		MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY, meshContent,
+			(MeshFileSave::enumMeshFileModeType)gPar->Get<int>("mesh_file_mode"));
+
+		cMeshExport *meshExport = new cMeshExport(
+			samplesX, samplesY, samplesZ, limitMin, limitMax, fileString, maxIter, meshConfig);
 		QObject::connect(meshExport,
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));

@@ -368,4 +368,3 @@ bool cMultiVal::operator==(const cMultiVal &m) const
 {
 	return isEqual(m);
 }
-

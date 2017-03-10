@@ -37,6 +37,7 @@
 
 #include "algebra.hpp"
 #include "progress_text.hpp"
+#include "file_mesh.hpp"
 #include <QtCore>
 
 class cMeshExport : public QObject
@@ -44,8 +45,8 @@ class cMeshExport : public QObject
 	Q_OBJECT
 
 public:
-	cMeshExport(
-		int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString outputFileName, int maxIter);
+	cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString outputFileName,
+		int maxIter, MeshFileSave::structSaveMeshConfig meshConfig);
 	~cMeshExport();
 
 	void updateProgressAndStatus(int i);
@@ -66,6 +67,7 @@ private:
 	int maxIter;
 	bool stop;
 	cProgressText progressText;
+	MeshFileSave::structSaveMeshConfig meshConfig;
 };
 
 #endif /* MANDELBULBER2_SRC_MESH_EXPORT_HPP_ */

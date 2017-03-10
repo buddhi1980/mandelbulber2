@@ -41,6 +41,7 @@
 #include "../src/interface.hpp"
 #include "../src/system.hpp"
 #include "../src/mesh_export.hpp"
+#include "../src/file_mesh.hpp"
 #include "ui_mesh_export_dialog.h"
 
 cMeshExportDialog::cMeshExportDialog(QWidget *parent)
@@ -98,10 +99,14 @@ void cMeshExportDialog::on_pushButton_start_render_layers_clicked()
 				return;
 			}
 		}
+		QList<MeshFileSave::enumMeshContentType> meshContent({MeshFileSave::MESH_CONTENT_GEOMETRY});
+		if (gPar->Get<bool>("mesh_color")) meshContent << MeshFileSave::MESH_CONTENT_COLOR;
+		MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY, meshContent,
+			(MeshFileSave::enumMeshFileModeType)gPar->Get<int>("mesh_file_mode"));
 
 		slicerBusy = true;
 		meshExport = new cMeshExport(
-			samplesX, samplesY, samplesZ, limitMin, limitMax, fi.absoluteFilePath(), maxIter);
+			samplesX, samplesY, samplesZ, limitMin, limitMax, fi.absoluteFilePath(), maxIter, meshConfig);
 		QObject::connect(meshExport,
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
