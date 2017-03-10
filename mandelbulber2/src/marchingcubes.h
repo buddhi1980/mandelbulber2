@@ -38,7 +38,6 @@
 
 #include <stddef.h>
 #include <vector>
-#include <omp.h>
 
 namespace mc
 {
