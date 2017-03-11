@@ -78,7 +78,9 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 	size_t numyb = numy + 1;
 	size_t numzb = numz + 1;
 	size_t numyzb = numyb * numzb;
+__declspec(target(mic))
 	double *voxelBuffer = new double[2 * numyzb];
+__declspec(target(mic))
 	double *colorBuffer = new double[2 * numyzb];
 
 	const int z3 = numz * 3;
@@ -120,7 +122,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				}
 
 				coord_type yy = lower[1] + dy * jj;
-
+#pragma offload target(mic) inout(voxelBuffer) inout(colorBuffer) nocopy(f)
 #pragma omp parallel for schedule(dynamic, 1)
 				for (signed long long kk = 0; kk < numzb; ++kk)
 				{

@@ -77,7 +77,6 @@ struct FormulaFtor
 	double dist_thresh;
 	cParamRender *params;
 	const cNineFractals *fractals;
-
 	FormulaFtor(double dist_thresh, cParamRender *params, const cNineFractals *fractals)
 	{
 
@@ -86,6 +85,7 @@ struct FormulaFtor
 		this->fractals = fractals;
 	}
 
+__declspec(target(mic))
 	double operator()(double x, double y, double z, double *colorIndex) const
 	{
 		CVector3 point;
