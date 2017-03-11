@@ -8,6 +8,38 @@ cd $SRC && git rev-parse HEAD
 # Incremental Build #
 INCREMENTDISABLE=TRUE
 
+# XEON x64 Build #
+BUILDTREE=$BUILD/mandelbulber2
+
+# Clean Build Tree #
+if test ${INCREMENTDISABLE+defined}; then
+echo "Incremental Build disabled"
+rm -rf $BUILDTREE
+else
+echo "Incremental Build enabled"
+fi
+mkdir -p $BUILDTREE
+
+# Build x64 #
+cd $BUILDTREE \
+&& CC=icc CXX=icpc \
+CXXFLAGS="-03 -g -fPIC -wd39,10006" \
+CFLAGS="-03 -g -fPIC -wd39,10006" \
+cmake3 \
+-DCMAKE_PREFIX_PATH=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake \
+-DQt5UiTools_DIR=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake/Qt5UiTools \
+-DUSE_GAMEPAD=1 \
+-G "Eclipse CDT4 - Unix Makefiles" \
+$SRC/mandelbulber2/cmake/
+cd $BUILDTREE && make -j12 VERBOSE=1
+# error using icc w/ cmake # call make twice
+cd $BUILDTREE && make -j12 VERBOSE=1
+
+# Deploy support 
+ln -s $SRC/mandelbulber2/deploy/share/mandelbulber2 /usr/share/mandelbulber2
+
+exit
+
 # XEON PHI Build #
 echo "XEON PHI Build"
 BUILDTREE=$BUILDMIC/mandelbulber2
@@ -48,36 +80,6 @@ cmake3 \
 -G "Eclipse CDT4 - Unix Makefiles" \
 $SRC/mandelbulber2/cmake/
 cd $BUILDTREE && make -j12 VERBOSE=1
-
-# XEON x64 Build #
-BUILDTREE=$BUILD/mandelbulber2
-
-# Clean Build Tree #
-if test ${INCREMENTDISABLE+defined}; then
-echo "Incremental Build disabled"
-rm -rf $BUILDTREE
-else
-echo "Incremental Build enabled"
-fi
-mkdir -p $BUILDTREE
-
-# Build x64 #
-cd $BUILDTREE \
-&& CC=icc CXX=icpc \
-CXXFLAGS="-03 -g -fPIC -wd39,10006" \
-CFLAGS="-03 -g -fPIC -wd39,10006" \
-cmake3 \
--DCMAKE_PREFIX_PATH=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake \
--DQt5UiTools_DIR=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake/Qt5UiTools \
--DUSE_GAMEPAD=1 \
--G "Eclipse CDT4 - Unix Makefiles" \
-$SRC/mandelbulber2/cmake/
-cd $BUILDTREE && make -j12 VERBOSE=1
-# error using icc w/ cmake # call make twice
-cd $BUILDTREE && make -j12 VERBOSE=1
-
-# Deploy support 
-ln -s $SRC/mandelbulber2/deploy/share/mandelbulber2 /usr/share/mandelbulber2
 
 exit
 
