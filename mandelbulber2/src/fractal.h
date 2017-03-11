@@ -562,6 +562,7 @@ struct sFractalTransformCommon
 	CVector3 rotation2;
 	CVector3 rotation44a; //.........................
 	CVector3 rotation44b; //..........................
+	CVector3 scale3D000;
 	CVector3 scale3D111;
 	CVector3 scale3D222;
 	CVector3 scale3Da222;

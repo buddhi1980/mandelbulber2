@@ -149,7 +149,7 @@ cTexture &cTexture::operator=(cTexture &&tex)
 	mipmapSizes = tex.mipmapSizes;
 	invertGreen = tex.invertGreen;
 
-	//move
+	// move
 	bitmap = tex.bitmap;
 	tex.bitmap = nullptr;
 	tex.loaded = false;

@@ -147,15 +147,17 @@ enum enumFractalFormula
 	mengerCrossMod1 = 106,
 	// V2.10
 	mengerPrismShape2 = 107,
-	mixPinski4d = 108,
+	mixPinski4d = 108, // fixed V2.11
 	sierpinski4d = 109,
 	sierpinski3d = 110,
-	menger4d = 111,
-	menger4dMod1 = 112,
+	menger4d = 111, // fixed V2.11
+	menger4dMod1 = 112, // fixed V2.11
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
 	mengerOcto = 115,
 	abox4d = 116,
+	// V2.11
+	pseudoKleinianMod2 = 117,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,

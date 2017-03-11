@@ -44,6 +44,7 @@
 #include "system.hpp"
 #include <QtCore>
 #include "texture_enums.hpp"
+#include "file_mesh.hpp"
 
 cParameterContainer *gPar = nullptr;
 
@@ -206,6 +207,8 @@ void InitParams(cParameterContainer *par)
 	// mesh export
 	par->addParam("mesh_output_filename",
 		systemData.GetSlicesFolder() + QDir::separator() + "output.ply", morphNone, paramStandard);
+	par->addParam("mesh_color", true, morphNone, paramApp);
+	par->addParam("mesh_file_mode", int(MeshFileSave::MESH_BINARY), morphNone, paramApp);
 
 	// foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);
@@ -844,6 +847,7 @@ void InitFractalParams(cParameterContainer *par)
 		paramStandard); // ......................
 	par->addParam("transf_rotation44b", CVector3(0.0, 0.0, 0.0), morphAkimaAngle,
 		paramStandard); // .........................
+	par->addParam("transf_scale3D_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3Da_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);

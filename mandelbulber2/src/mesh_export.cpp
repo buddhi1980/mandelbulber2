@@ -44,8 +44,8 @@
 #include "compute_fractal.hpp"
 #include "file_mesh.hpp"
 
-cMeshExport::cMeshExport(
-	int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString outputFileName, int maxIter)
+cMeshExport::cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax,
+	QString outputFileName, int maxIter, MeshFileSave::structSaveMeshConfig meshConfig)
 		: QObject()
 {
 	this->w = w;
@@ -55,6 +55,7 @@ cMeshExport::cMeshExport(
 	this->limitMax = limitMax;
 	this->outputFileName = outputFileName;
 	this->maxIter = maxIter;
+	this->meshConfig = meshConfig;
 	stop = false;
 }
 
@@ -169,8 +170,6 @@ void cMeshExport::ProcessVolume()
 	}
 
 	// Save to file
-	MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY,
-		QList<MeshFileSave::enumMeshContentType>({MeshFileSave::MESH_CONTENT_GEOMETRY}), MeshFileSave::MESH_ASCII);
 	MeshFileSave::structSaveMeshData meshData(vertices, polygons, colorIndices);
 	MeshFileSave *meshFileSave = MeshFileSave::create(outputFileName, meshConfig, meshData);
 	QObject::connect(meshFileSave,

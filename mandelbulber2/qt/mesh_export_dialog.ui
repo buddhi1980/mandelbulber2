@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
-    <height>451</height>
+    <width>543</width>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,9 +42,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>513</width>
-        <height>445</height>
+        <y>-63</y>
+        <width>637</width>
+        <height>735</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -107,6 +107,49 @@
              <widget class="QLabel" name="label">
               <property name="text">
                <string>Output file name</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>File mode:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox_mesh_file_mode">
+              <item>
+               <property name="text">
+                <string>binary</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>ascii</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Append to mesh:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="checkBox_mesh_color">
+              <property name="text">
+               <string>Color</string>
               </property>
              </widget>
             </item>

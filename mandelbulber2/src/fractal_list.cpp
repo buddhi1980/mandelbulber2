@@ -219,6 +219,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
 	fractalList->append(sFractalDescription("Pseudo Kleinian - Mod 1", "pseudo_kleinian3",
 		pseudoKleinian3, analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(sFractalDescription("Pseudo Kleinian - Mod 2", "pseudo_kleinian_mod2",
+		pseudoKleinianMod2, analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
 
 	// Quaternion formulas
 	fractalList->append(sFractalDescription("Quaternion", "quaternion", quaternion, analyticDEType,

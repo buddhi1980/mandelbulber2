@@ -509,6 +509,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					PseudoKleinian3Iteration(z, i, fractal, extendedAux);
 					break;
 				}
+				case pseudoKleinianMod2:
+				{
+					PseudoKleinianMod2Iteration(z, i, fractal, extendedAux);
+					break;
+				}
 				case quaternion3d:
 				{
 					Quaternion3dIteration(z, fractal, extendedAux);
@@ -1186,7 +1191,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
 				{
 					double rxy = sqrt(z.x * z.x + z.y * z.y);
-					out->distance = max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
+					out->distance =
+						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 				}
 			}
 			else
@@ -1292,6 +1298,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case pseudoKleinian2:
 				case pseudoKleinian3:
+				case pseudoKleinianMod2:
 				{
 					if (extendedAux.DE > 0)
 					{

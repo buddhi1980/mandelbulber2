@@ -389,6 +389,7 @@ cFractal::cFractal(const cParameterContainer *container)
 		container->Get<CVector3>("transf_rotation44a"); //...........................
 	transformCommon.rotation44b =
 		container->Get<CVector3>("transf_rotation44b"); //...........................
+	transformCommon.scale3D000 = container->Get<CVector3>("transf_scale3D_000");
 	transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
 	transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
 	transformCommon.scale3Da222 = container->Get<CVector3>("transf_scale3Da_222");
