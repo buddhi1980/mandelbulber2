@@ -109,6 +109,7 @@ public:
 	bool fakeLightsEnabled;
 	bool fogEnabled;
 	bool glowEnabled;
+	bool hdrBlurEnabled;
 	bool hybridFractalEnable;
 	bool interiorMode;
 	bool iterFogEnabled;
@@ -174,6 +175,8 @@ public:
 	double formulaScale[NUMBER_OF_FRACTALS];
 	double fov; // perspective factor
 	double glowIntensity;
+	double hdrBlurIntensity;
+	double hdrBlurRadius;
 	double iterFogColor1Maxiter;
 	double iterFogColor2Maxiter;
 	double iterFogOpacity;

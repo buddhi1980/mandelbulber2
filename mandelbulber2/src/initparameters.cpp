@@ -271,6 +271,10 @@ void InitParams(cParameterContainer *par)
 	par->addParam("iteration_fog_color", 2, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("iteration_fog_color", 3, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 
+	par->addParam("hdr_blur_enabled", false, morphLinear, paramStandard);
+	par->addParam("hdr_blur_radius", 10.0, 0.1, 1000.0, morphLinear, paramStandard);
+	par->addParam("hdr_blur_intensity", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
+
 	// fog
 	par->addParam("basic_fog_enabled", false, morphLinear, paramStandard);
 	par->addParam("basic_fog_visibility", 20.0, 0.0, 1e15, morphLinear, paramStandard);

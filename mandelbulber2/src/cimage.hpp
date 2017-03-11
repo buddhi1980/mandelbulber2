@@ -221,6 +221,7 @@ public:
 			quint16(alphaBuffer16[qint64(x) + qint64(y) * qint64(width)] * factorN + other * factor);
 	}
 
+	sRGBFloat *GetImageFloatPtr(void) { return imageFloat; }
 	sRGB16 *GetImage16Ptr(void) { return image16; }
 	sRGB8 *GetImage8Ptr(void) { return image8; }
 	quint16 *GetAlphaBufPtr(void) { return alphaBuffer16; }

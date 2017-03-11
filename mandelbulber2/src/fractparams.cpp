@@ -97,6 +97,9 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	glowColor2 = container->Get<sRGB>("glow_color", 2);
 	glowEnabled = container->Get<bool>("glow_enabled");
 	glowIntensity = container->Get<double>("glow_intensity");
+	hdrBlurEnabled = container->Get<bool>("hdr_blur_enabled");
+	hdrBlurRadius = container->Get<double>("hdr_blur_radius");
+	hdrBlurIntensity = container->Get<double>("hdr_blur_intensity");
 	hybridFractalEnable = container->Get<bool>("hybrid_fractal_enable");
 	imageAdjustments.brightness = container->Get<double>("brightness");
 	imageAdjustments.contrast = container->Get<double>("contrast");

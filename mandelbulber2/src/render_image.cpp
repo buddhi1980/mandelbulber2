@@ -44,6 +44,7 @@
 #include "render_worker.hpp"
 #include "global_data.hpp"
 #include "netrender.hpp"
+#include "post_effect_hdr_blur.h"
 #include "render_data.hpp"
 #include "render_ssao.h"
 #include "scheduler.hpp"
@@ -338,6 +339,15 @@ bool cRenderer::RenderImage()
 				emit StopAllClients();
 			}
 		}
+
+		if(params->hdrBlurEnabled)
+		{
+			cPostEffectHdrBlur *hdrBlur = new cPostEffectHdrBlur(image);
+			hdrBlur->SetParameters(params->hdrBlurRadius, params->hdrBlurIntensity);
+			hdrBlur->Render();
+			delete hdrBlur;
+		}
+
 		// refresh image at end
 		WriteLog("image->CompileImage()", 2);
 		image->CompileImage();
