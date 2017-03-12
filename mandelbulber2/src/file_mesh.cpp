@@ -152,7 +152,7 @@ void MeshFileSavePLY::SavePLY()
 							.arg(meshData.vertices[i * 3 + 1])
 							.arg(meshData.vertices[i * 3 + 2])
 							.toLatin1();
-			oT << QString(" %1 %2").arg(meshData.colorIndices[i]).arg(alpha).toLatin1();
+			oT << QString(" %1 %2").arg(meshData.colorIndices[i].R).arg(alpha).toLatin1();
 		}
 
 		if (withColor)
@@ -175,7 +175,7 @@ void MeshFileSavePLY::SavePLY()
 			}
 			// sRGB colour = input.material->palette.IndexToColour(color_number);
 			*/
-			sRGB colour(255, 0, 0);
+			sRGB8 colour = meshData.colorIndices[i];
 
 			if (isBinary)
 			{

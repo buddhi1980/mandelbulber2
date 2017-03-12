@@ -40,6 +40,7 @@
 #define MANDELBULBER2_SRC_FILE_MESH_HPP_
 
 #include <QtCore>
+#include "color_structures.hpp"
 
 class MeshFileSave : public QObject
 {
@@ -88,13 +89,13 @@ public:
 	{
 		structSaveMeshData() {}
 		structSaveMeshData(std::vector<double> &_vertices, std::vector<size_t> &_polygons,
-			std::vector<double> &_colorIndices)
+			std::vector<sRGB8> &_colorIndices)
 				: vertices(_vertices), polygons(_polygons), colorIndices(_colorIndices)
 		{
 		}
 		std::vector<double> vertices;
 		std::vector<size_t> polygons;
-		std::vector<double> colorIndices;
+		std::vector<sRGB8> colorIndices;
 	};
 
 	static QString MeshFileExtension(enumMeshFileType meshFileType);

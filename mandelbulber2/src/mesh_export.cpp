@@ -159,18 +159,18 @@ void cMeshExport::ProcessVolume()
 
 	qDebug() << "Marching cubes done.";
 
-	double maxColorIndex = -1.0;
+	cColorPalette palette = gPar->Get<cColorPalette>("mat1_surface_color_palette");
+	std::vector<sRGB8> colorsRGB;
+
 	for (unsigned int i = 0; i < colorIndices.size(); i++)
 	{
-		maxColorIndex = qMax(maxColorIndex, colorIndices[i]);
-	}
-	for (unsigned int i = 0; i < colorIndices.size(); i++)
-	{
-		colorIndices[i] /= maxColorIndex;
+		sRGB color = palette.IndexToColour(colorIndices[i]);
+		sRGB8 color8(color.R, color.G, color.B);
+		colorsRGB.push_back(color8);
 	}
 
 	// Save to file
-	MeshFileSave::structSaveMeshData meshData(vertices, polygons, colorIndices);
+	MeshFileSave::structSaveMeshData meshData(vertices, polygons, colorsRGB);
 	MeshFileSave *meshFileSave = MeshFileSave::create(outputFileName, meshConfig, meshData);
 	QObject::connect(meshFileSave,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,

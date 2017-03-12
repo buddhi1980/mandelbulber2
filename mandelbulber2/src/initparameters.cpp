@@ -276,7 +276,7 @@ void InitParams(cParameterContainer *par)
 
 	par->addParam("hdr_blur_enabled", false, morphLinear, paramStandard);
 	par->addParam("hdr_blur_radius", 10.0, 0.1, 1000.0, morphLinear, paramStandard);
-	par->addParam("hdr_blur_intensity", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
+	par->addParam("hdr_blur_intensity", 0.5, 0.0, 1000.0, morphLinear, paramStandard);
 
 	// fog
 	par->addParam("basic_fog_enabled", false, morphLinear, paramStandard);
