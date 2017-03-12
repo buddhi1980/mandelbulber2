@@ -40,100 +40,21 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{97FB6016-F52F-4B90-B4A9-D72C6CBD1A4F}</ProjectGuid>
-    <RootNamespace>mandelbulber2_autogen</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>mandelbulber2_k1om</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+  <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>Intel C++ Compiler 17.0</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -141,202 +62,895 @@
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir>$(SolutionDir)build-win\$(Configuration)\k1om\</OutDir>
     <IntDir>$(SolutionDir)build-win\mandelbulber2.dir\$(Configuration)\k1om\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
-  <PropertyGroup>
     <SourceDir>$(SolutionDir)</SourceDir>
     <CppDir>$(SourceDir)mandelbulber2</CppDir>
     <GenDir>$(SourceDir)build-win</GenDir>
-    <MSVCROOT>C:/msvc</MSVCROOT>
-    <MPSSROOT>C:/MPSS</MPSSROOT>
-    <INTELROOT>C:/compilers_and_libraries</INTELROOT>
-    <INTELSW>"%PROGRAMFILES%/IntelSWTools/compilers_and_libraries"</INTELSW>
-    <MSVCSW>"%PROGRAMFILES%/Microsoft Visual Studio 14.0/VC/bin"</MSVCSW>
-    <MPSSSW>"%PROGRAMFILES%/Intel/MPSS"</MPSSSW>
-    <MSVCBIN>"$(MSVCROOT)"</MSVCBIN>
-    <MPSSBIN>"$(MPSSROOT)"</MPSSBIN>
-    <INTELBIN>"$(INTELROOT)"</INTELBIN>
-    <INTELMIC>$(INTELROOT)/windows/bin/intel64_mic/</INTELMIC>
-    <KNCLIB>$(SolutionDir)packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\</KNCLIB>
-    <QtDir>$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\</QtDir>
-    <JomDir>$(SolutionDir)packages\jom-nug.1.1.2.777\build\native\</JomDir>
-    <MPSSDIR>$(MPSSROOT)/k1om-mpss-linux/</MPSSDIR>
+    <TargetName>mandelbulber2</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <GenerateManifest>true</GenerateManifest>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'">false</LinkIncremental>
   </PropertyGroup>
-  <Target Name="Build">
-    <Exec Command="IF NOT EXIST $(MSVCBIN) MKLINK $(MSVCBIN) $(MSVCSW)" />
-    <Exec Command="IF NOT EXIST $(INTELROOT) MKLINK $(INTELBIN) $(INTELSW)" />
-    <Exec Command="IF NOT EXIST $(MPSSROOT) MKLINK $(MPSSBIN) $(MPSSSW)" />
-    <Exec Command="IF EXIST $(QtDir)bin\moc DEL /F /Q $(QtDir)bin\moc" />
-    <Exec Command="IF NOT EXIST $(QtDir)bin\moc MKLINK $(QtDir)bin\moc $(QtDir)bin\moc.exe" />
-    <Exec Command="IF EXIST $(QtDir)bin\qmake DEL /F /Q $(QtDir)bin\qmake" />
-    <Exec Command="IF NOT EXIST $(QtDir)bin\qmake MKLINK $(QtDir)bin\qmake $(QtDir)bin\qmake.exe" />
-    <Exec Command="IF EXIST $(QtDir)bin\rcc DEL /F /Q $(QtDir)bin\rcc" />
-    <Exec Command="IF NOT EXIST $(QtDir)bin\rcc MKLINK $(QtDir)bin\rcc $(QtDir)bin\rcc.exe" />
-    <Exec Command="IF EXIST $(QtDir)bin\uic DEL /F /Q $(QtDir)bin\uic" />
-    <Exec Command="IF NOT EXIST $(QtDir)bin\uic MKLINK $(QtDir)bin\uic $(QtDir)bin\uic.exe" />
-    <Exec Command="IF EXIST $(KNCLIB)bin RMDIR /s /q $(KNCLIB)bin" />
-    <Exec Command="IF NOT EXIST $(KNCLIB)bin MKLINK $(KNCLIB)bin $(QtDir)bin" />
-    <Exec Command="IF NOT EXIST $(OutDir) MKDIR $(OutDir)" />
-    <Exec Command="ECHO K1OM BUILD &gt; $(OutDir)k1om" />
-    <Exec Command="IF NOT EXIST $(IntDir) MKDIR $(IntDir)" />
-    <Exec Command="ECHO K1OM BUILD &gt; $(IntDir)k1om" />
-    <Exec Command="ECHO K1OM BUILD" />
-  </Target>
   <PropertyGroup>
-	<ICCFLAGS>"-03 -g -fPIC -mmic -wd39,10006"</ICCFLAGS>
-	<CMAKEGEN>"NMake Makefiles JOM"</CMAKEGEN>
-	<CMAKECMD>-G $(CMAKEGEN) $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_MAKE_PROGRAM=$(JomDir)jom.exe $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_C_COMPILER=$(INTELMIC)icc.exe $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_C_FLAGS=$(ICCFLAGS) $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_C_LINK_EXECUTABLE=$(INTELMIC)xild.exe $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_CXX_COMPILER=$(INTELMIC)icpc.exe $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_CXX_FLAGS=$(ICCFLAGS) $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_CXX_LINK_EXECUTABLE=$(INTELMIC)xild.exe $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_AR=$(INTELMIC)xiar.exe $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_VERBOSE_MAKEFILE=TRUE $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_SYSTEM_NAME=Linux $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_SYSTEM_PROCESSOR=k1om $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_FIND_ROOT_PATH=$(MPSSDIR) $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=ONLY $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_INSTALL_PREFIX=$(OutDir) $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_BUILD_TYPE=Release $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DCMAKE_PREFIX_PATH=$(KNCLIB)/lib/cmake $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DQt5UiTools_DIR=$(KNCLIB)/lib/cmake/Qt5UiTools $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DQt5Multimedia_DIR=$(KNCLIB)/lib/cmake/Qt5Multimedia $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DQt5Widgets_DIR=$(KNCLIB)/lib/cmake/Qt5Multimedia $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DPNG_LIBRARY=$(KNCLIB)/lib/libpng15.so.15.27.0 $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DPNG_PNG_INCLUDE_DIR=$(KNCLIB)/include $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DJPEG_LIBRARY=$(KNCLIB)/lib/libjpeg.a $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DJPEG_INCLUDE_DIR=$(KNCLIB)/include $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DGSL_INCLUDE_DIR=$(KNCLIB)/include $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DGSL_LIBRARY=$(KNCLIB)/lib/libgsl.a $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>-DGSL_CBLAS_LIBRARY=$(KNCLIB)/lib/libgslcblas.a $(CMAKECMD)</CMAKECMD>
-	<CMAKECMD>$(SolutionDir)/mandelbulber2/cmake/ $(CMAKECMD)</CMAKECMD>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
-  <Target Name="Build-Release" AfterTargets="Build" Condition="'$(Configuration)'=='Release'">
-    <Exec Command="ECHO BUILD K1OM-RELEASE" />
-    <Exec Command="IF EXIST $(IntDir)CMakeCache.txt del /F /Q $(IntDir)CMakeCache.txt" />
-    <Exec Command="cd $(IntDir) &amp;&amp; cmake $(CMAKECMD)" />
-    <Exec Command="cd $(IntDir) &amp;&amp; $(JomDir)jom.exe -j12" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='AnalysisRelease'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">
+    <EnableExperimentalCppCoreCheck>true</EnableExperimentalCppCoreCheck>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <OpenMPSupport>true</OpenMPSupport>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:arm %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <OpenMPSupport>true</OpenMPSupport>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <OpenMPSupport>true</OpenMPSupport>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <EnablePREfast>true</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:arm %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:arm %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup Condition="( $(Configuration.ToLower().IndexOf('analysis')) &gt; -1 )">
+    <ClCompile Include="$(SolutionDir)build-win\*.cpp" Exclude="$(SolutionDir)build-win\qrc_icons.cpp" />
+  </ItemGroup>
+  <ItemGroup Condition="( $(Configuration.ToLower().IndexOf('analysis')) == -1 )">
+    <ClCompile Include="$(SolutionDir)build-win\*.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)build-win\*.h" />
+    <ClInclude Include="$(SolutionDir)mandelbulber2\src\*.h" />
+    <ClInclude Include="$(SolutionDir)mandelbulber2\src\*.hpp" />
+    <ClInclude Include="$(SolutionDir)mandelbulber2\qt\*.h" />
+    <ClInclude Include="$(SolutionDir)mandelbulber2\qt\*.hpp" />
+    <ClCompile Include="$(SolutionDir)mandelbulber2\src\*.cpp" />
+    <ClCompile Include="$(SolutionDir)mandelbulber2\qt\*.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(ProjectDir)packages.config" />
+    <None Include="$(SolutionDir)build-win\qrc_icons.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_anim_audio_view.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_animation_flight.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_animation_keyframes.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_audio_selector.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_audio_track.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_automated_widgets.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_color_palette_widget.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_animation.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_effects.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_fractal.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_gamepad.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_image_adjustmnets.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_measurements.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_navigation.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_queue.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_rendering_engine.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dock_statistics.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_dof.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_error_message.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_fft_view.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_file_downloader.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_file_image.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_file_select_widget.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_headless.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_image_save_dialog.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_lights.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_material_editor.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_material_item_model.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_material_item_view.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_material_manager_view.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_material_selector.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_material_widget.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_mesh_export.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_mesh_export_dialog.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_check_box.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_color_button.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_double_spin_box.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_group_box.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_histogram_label.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_line_edit.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_log_widget.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_progress_bar.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_scrolled_area.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_spin_box.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_tab_bar.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_tab_widget.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_table_widget_anim.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_table_widget_keyframes.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_my_ui_loader.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_netrender.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_player_widget.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_preferences_dialog.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_preview_file_dialog.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_pushbutton_anim_sound.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_queue.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_render_image.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_render_job.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_render_queue.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_render_ssao.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_render_window.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_render_worker.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_rendered_image_widget.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_ssao_worker.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_system_tray.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_tab_fractal.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_test.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_thumbnail_widget.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_time_ruler.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_voxel_export.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_voxel_export_dialog.cpp" />
+    <None Include="$(SolutionDir)build-win\moc_wave_form_view.cpp" />
+    <None Include="$(SolutionDir)build-win\ui_audio_selector.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_animation.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_effects.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_fractal.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_gamepad.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_image_adjustments.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_measurements.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_navigation.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_queue.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_rendering_engine.h" />
+    <None Include="$(SolutionDir)build-win\ui_dock_statistics.h" />
+    <None Include="$(SolutionDir)build-win\ui_image_save_dialog.h" />
+    <None Include="$(SolutionDir)build-win\ui_material_editor.h" />
+    <None Include="$(SolutionDir)build-win\ui_material_manager_view.h" />
+    <None Include="$(SolutionDir)build-win\ui_mesh_export_dialog.h" />
+    <None Include="$(SolutionDir)build-win\ui_preferences_dialog.h" />
+    <None Include="$(SolutionDir)build-win\ui_render_window.h" />
+    <None Include="$(SolutionDir)build-win\ui_tab_fractal.h" />
+    <None Include="$(SolutionDir)build-win\ui_voxel_export_dialog.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\anim_audio_view.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\anim_audio_view.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\audio_selector.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\audio_selector.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\color_palette_widget.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\color_palette_widget.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\common_my_widget_wrapper.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\common_my_widget_wrapper.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_animation.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_animation.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_effects.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_effects.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_fractal.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_fractal.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_gamepad.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_gamepad.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_image_adjustments.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_image_adjustments.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_measurements.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_measurements.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_navigation.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_navigation.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_queue.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_queue.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_rendering_engine.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_rendering_engine.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_statistics.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\dock_statistics.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\fft_view.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\fft_view.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\file_select_widget.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\file_select_widget.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\icons.qrc" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\image_save_dialog.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\image_save_dialog.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\material_editor.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\material_editor.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\material_manager_view.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\material_manager_view.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\material_selector.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\material_selector.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\material_widget.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\material_widget.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\mesh_export_dialog.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\mesh_export_dialog.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_check_box.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_check_box.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_color_button.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_color_button.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_double_spin_box.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_double_spin_box.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_group_box.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_group_box.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_histogram_label.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_histogram_label.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_line_edit.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_line_edit.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_log_widget.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_log_widget.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_progress_bar.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_progress_bar.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_scrolled_area.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_spin_box.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_spin_box.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_tab_bar.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_tab_bar.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_tab_widget.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_tab_widget.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_table_widget_anim.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_table_widget_anim.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_table_widget_keyframes.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\my_table_widget_keyframes.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\player_widget.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\player_widget.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\preferences_dialog.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\preferences_dialog.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\preview_file_dialog.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\preview_file_dialog.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\pushbutton_anim_sound.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\pushbutton_anim_sound.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\system_tray.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\system_tray.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\tab_fractal.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\tab_fractal.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\thumbnail_widget.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\thumbnail_widget.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\time_ruler.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\time_ruler.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\voxel_export_dialog.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\voxel_export_dialog.h" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\wave_form_view.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\qt\wave_form_view.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\algebra.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\algebra.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\animation_flight.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\animation_flight.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\animation_frames.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\animation_frames.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\animation_keyframes.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\animation_keyframes.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\ao_modes.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\audio_fft_data.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\audio_fft_data.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\audio_track.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\audio_track.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\audio_track_collection.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\audio_track_collection.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\automated_widgets.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\automated_widgets.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\calculate_distance.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\calculate_distance.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\calculation_mode.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\camera_target.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\camera_target.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\cimage.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\cimage.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\color_palette.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\color_palette.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\color_structures.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\command_line_interface.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\command_line_interface.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\common_math.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\common_math.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\commonparams.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\compute_fractal.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\compute_fractal.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\displacement_map.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\displacement_map.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\dof.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\dof.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\error_message.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\error_message.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\file_downloader.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\file_downloader.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\file_image.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\file_image.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\files.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\files.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal_coloring.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal_container.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal_container.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal_enums.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal_formulas.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal_formulas.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal_list.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractal_list.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractparams.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\fractparams.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\global_data.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\global_data.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\headless.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\headless.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\histogram.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\histogram.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\image_adjustments.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\image_scale.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\image_scale.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\initparameters.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\initparameters.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\interface.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\interface.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\keyframes.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\keyframes.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\lights.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\lights.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\main.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\main.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\marchingcubes.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\marchingcubes.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\material.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\material.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\material_item_model.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\material_item_model.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\material_item_view.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\material_item_view.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\mesh_export.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\mesh_export.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\morph.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\morph.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\multi_val.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\multi_val.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\my_ui_loader.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\my_ui_loader.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\netrender.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\netrender.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\nine_fractals.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\nine_fractals.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\object_data.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\object_types.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\old_settings.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\old_settings.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\one_parameter.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\one_parameter.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\parameters.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\parameters.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\primitives.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\primitives.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\progress_text.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\progress_text.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\projection_3d.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\projection_3d.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\queue.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\queue.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\random.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\random.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\region.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_data.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_image.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_image.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_job.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_job.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_queue.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_queue.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_ssao.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_ssao.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_window.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_window.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_window_buttons.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_window_menu.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_window_slots.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_worker.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\render_worker.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\rendered_image_widget.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\rendered_image_widget.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\rendering_configuration.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\rendering_configuration.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\scheduler.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\scheduler.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\settings.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\settings.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\shaders.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\ssao_worker.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\ssao_worker.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\statistics.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\statistics.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\stereo.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\stereo.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\synchronize_interface.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\synchronize_interface.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\system.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\system.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\test.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\test.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\texture.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\texture.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\texture_enums.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\texture_mapping.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\texture_mapping.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\thumbnail.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\thumbnail.hpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\undo.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\undo.h" />
+    <None Include="$(SolutionDir)mandelbulber2\src\voxel_export.cpp" />
+    <None Include="$(SolutionDir)mandelbulber2\src\voxel_export.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="mandelbulber2_autogen.vcxproj">
+      <Project>{a4b9bf4a-39ad-43e0-b1a1-3e39ab811a7c}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <IncludePath>$(SolutionDir)build-win;$(SolutionDir)packages;$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <!-- <PropertyGroup>
+    <CAExcludePath>$(SolutionDir)build-win;$(SolutionDir)packages;$(WindowsSDK_IncludePath);$(CAExcludePath)</CAExcludePath>
+  </PropertyGroup> -->
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+    <Import Project="$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
+    <Import Project="$(SolutionDir)packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets" Condition="Exists('$(SolutionDir)packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets')" />
+    <Import Project="$(SolutionDir)packages\libpng.1.6.26.1\build\native\libpng.targets" Condition="Exists('$(SolutionDir)packages\libpng.1.6.26.1\build\native\libpng.targets')" />
+    <Import Project="$(SolutionDir)packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets" Condition="Exists('$(SolutionDir)packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" />
+    <Import Project="$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets" Condition="Exists('$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets')" />
+    <Import Project="$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets" Condition="Exists('$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" />
+    <Import Project="$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets" Condition="Exists('$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" />
+    <Import Project="$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.1.10779\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.1.10779\build\native\bulbqt-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7782\build\native\OpenEXR-msvc14-x64.targets" Condition="Exists('$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7782\build\native\OpenEXR-msvc14-x64.targets')" />
+    <Import Project="$(SolutionDir)packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets" Condition="Exists('$(SolutionDir)packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets')" />
+    <Import Project="$(SolutionDir)packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.targets" Condition="Exists('$(SolutionDir)packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.targets')" />
+    <Import Project="$(SolutionDir)packages\gsl-msvc14-x86.2.3.0.2778\build\native\gsl-msvc14-x86.targets" Condition="Exists('$(SolutionDir)packages\gsl-msvc14-x86.2.3.0.2778\build\native\gsl-msvc14-x86.targets')" />
+    <Import Project="$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\bulbqt-msvc14-x86.targets" Condition="Exists('$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\bulbqt-msvc14-x86.targets')" />
+    <Import Project="$(SolutionDir)packages\openexr-msvc14-x86.2.2.0.7782\build\native\OpenEXR-msvc14-x86.targets" Condition="Exists('$(SolutionDir)packages\openexr-msvc14-x86.2.2.0.7782\build\native\OpenEXR-msvc14-x86.targets')" />
+    <Import Project="..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets" Condition="Exists('..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets')" />
+    <Import Project="..\..\packages\jom-nug.1.1.2.777\build\native\jom-nug.targets" Condition="Exists('..\..\packages\jom-nug.1.1.2.777\build\native\jom-nug.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libpng.1.6.26.1\build\native\libpng.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libpng.1.6.26.1\build\native\libpng.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libtiff.4.0.6.2\build\native\libtiff.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libjpeg.redist.9.2.0.1\build\native\libjpeg.redist.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\libjpeg.9.2.0.1\build\native\libjpeg.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\gsl-msvc14-x64.2.3.0.2778\build\native\gsl-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.1.10779\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\bulbqt-msvc14-x64.5.7.1.10779\build\native\bulbqt-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7782\build\native\OpenEXR-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\openexr-msvc14-x64.2.2.0.7782\build\native\OpenEXR-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.props')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.props'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\gsl-msvc14-x86.2.3.0.2778\build\native\gsl-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\gsl-msvc14-x86.2.3.0.2778\build\native\gsl-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\bulbqt-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\bulbqt-msvc14-x86.5.7.1.10779\build\native\bulbqt-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\openexr-msvc14-x86.2.2.0.7782\build\native\OpenEXR-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\openexr-msvc14-x86.2.2.0.7782\build\native\OpenEXR-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\KNC-Nug-icc171-k1om-mpss38-1.0.777.5\build\native\KNC-Nug-icc171-k1om-mpss38-1.targets'))" />
+    <Error Condition="!Exists('..\..\packages\jom-nug.1.1.2.777\build\native\jom-nug.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\jom-nug.1.1.2.777\build\native\jom-nug.targets'))" />
   </Target>
-    <Target Name="Cleanup" AfterTargets="Clean">
+  <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q $(IntDir)" />
     <Exec Command="del /F /Q $(GenDir)\*.h" />
     <Exec Command="del /F /Q $(GenDir)\*.cpp" />
