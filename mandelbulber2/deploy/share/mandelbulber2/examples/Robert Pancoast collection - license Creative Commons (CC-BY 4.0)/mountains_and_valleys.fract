@@ -1,0 +1,52 @@
+# Mandelbulber settings file
+# version 2.10
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_color_1 0000 0000 0000;
+background_color_2 0000 0000 0000;
+camera 0.9087591126211386 -0.9385556989519385 0.5966647350055583;
+camera_distance_to_target 0.8027395009994506;
+camera_rotation 1.319943767324768 -19.46455593242712 75.00000000000001;
+camera_top 0.9636828462069889 0.1084721625565104 0.2440269695683473;
+formula_2 1030;
+formula_3 1061;
+formula_4 1036;
+formula_start_iteration_4 2;
+hybrid_fractal_enable true;
+keyframe_last_to_render 0;
+mat1_coloring_palette_offset 0.63;
+mat1_coloring_palette_size 4;
+mat1_coloring_random_seed 736275;
+mat1_is_defined true;
+mat1_surface_color_palette 68bd1d 607a49 aa94b9 319429;
+raytraced_reflections true;
+target 0.8913245678531744 -0.1818953512075572 0.32917293837446;
+view_distance_max 13.64485800766025;
+[fractal_2]
+mandelbox_folding_fixed_radius 0.8;
+mandelbox_folding_min_radius 0.7;
+transf_pwr_05 0.3;
+transf_pwr_4 4.2;
+[fractal_3]
+Cpara_para00 0.2;
+Cpara_paraA 0.8;
+Cpara_paraB 1.2;
+Cpara_parab_offset0 0.1;
+Cpara_parab_scale 0.2;
+Cpara_parab_slope 0.2;
+Cpara_paraC 0.8;
+mandelbox_offset 0.1 0.2 -0.4;
+transf_maxR2_1 0.8;
+transf_minR2_p25 0.45;
+transf_scale 1.3;
+[fractal_4]
+analyticDE_offset_1 1.387778780781446e-16;
+mandelbox_folding_limit 1.1;
+mandelbox_folding_value 1.9;
+transf_constant_multiplier_111 0.8 1 1;
+transf_offset_000 0.2 -0.4 0.2;
+transf_offset_111 0.8 1.2 1.1;
+transf_rotation 0 1 0;
+transf_rotation2 4 -2 69.15000000000001;
+transf_scale_1 1.2;
