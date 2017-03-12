@@ -1804,6 +1804,7 @@ void CollatzModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExte
 		c = CVector3(c.z, c.y, c.x);
 		z += c * fractal->transformCommon.constantMultiplierA111;
 	}
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -2904,6 +2905,7 @@ void MengerMiddleModIteration(
 		}
 		z += c * fractal->transformCommon.constantMultiplierC111;
 	}
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**

@@ -235,6 +235,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	analyticDE.offset0 = container->Get<double>("analyticDE_offset_0");
 	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
+	analyticDE.factor2 = container->Get<double>("analyticDE_factor_2");
 	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
 	analyticDE.enabledAuxR2False = container->Get<bool>("analyticDE_enabled_auxR2_false");
 	analyticDE.scaleLin = container->Get<double>("analyticDE_scale_linear");
