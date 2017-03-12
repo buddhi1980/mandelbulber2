@@ -181,7 +181,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				{
 					indices[6] = vertices.size() / 3;
 					shared_indices[i_mod_2 * yz3 + j * z3 + k * 3 + 0] = indices[6];
-					mc_add_vertex(x_dx, y_dy, z_dz, x, 0, v[6], v[7], isovalue, &vertices, colorIndex[7],
+					mc_add_vertex(x_dx, y_dy, z_dz, x, 0, v[6], v[7], isovalue, &vertices, colorIndex[6],
 						colorIndex[7], &colorIndices);
 				}
 				if (edges & 0x020)
