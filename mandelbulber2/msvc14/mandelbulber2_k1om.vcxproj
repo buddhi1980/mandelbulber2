@@ -49,7 +49,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 17.0</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -60,8 +60,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir>$(SolutionDir)build-win\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)build-win\mandelbulber2.dir\$(Configuration)\$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)build-win\$(Configuration)\k1om\</OutDir>
+    <IntDir>$(SolutionDir)build-win\mandelbulber2.dir\$(Configuration)\k1om\</IntDir>
     <SourceDir>$(SolutionDir)</SourceDir>
     <CppDir>$(SourceDir)mandelbulber2</CppDir>
     <GenDir>$(SourceDir)build-win</GenDir>
