@@ -24,7 +24,7 @@ cPostEffectHdrBlur::~cPostEffectHdrBlur()
 void cPostEffectHdrBlur::Render()
 {
 
-	memcpy(tempImage, image->GetImageFloatPtr(),
+	memcpy(tempImage, image->GetPostImageFloatPtr(),
 		image->GetHeight() * image->GetWidth() * sizeof(sRGBFloat));
 
 	const double blurSize = radius;
@@ -71,7 +71,7 @@ void cPostEffectHdrBlur::Render()
 				newPixel.G /= weight;
 				newPixel.B /= weight;
 			}
-			image->PutPixelImage(x, y, newPixel);
+			image->PutPixelPostImage(x, y, newPixel);
 		}
 	}
 }

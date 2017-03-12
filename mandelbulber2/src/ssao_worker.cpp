@@ -231,12 +231,12 @@ void cSSAOWorker::doWork()
 			{
 				if (xx >= endX - 1) break;
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
-				sRGB16 pixel = image->GetPixelImage16(x + xx, y);
-				double shadeFactor = 65535.0 / 256.0 * total_ambient * intensity * (1.0 - opacity);
-				pixel.R = quint16(std::min(pixel.R + int(colour.R * shadeFactor), 65535));
-				pixel.G = quint16(std::min(pixel.G + int(colour.G * shadeFactor), 65535));
-				pixel.B = quint16(std::min(pixel.B + int(colour.B * shadeFactor), 65535));
-				image->PutPixelImage16(x + xx, y, pixel);
+				sRGBFloat pixel = image->GetPixelPostImage(x + xx, y);
+				double shadeFactor = 1.0 / 256.0 * total_ambient * intensity * (1.0 - opacity);
+				pixel.R = pixel.R + colour.R * shadeFactor;
+				pixel.G = pixel.G + colour.G * shadeFactor;
+				pixel.B = pixel.B + colour.B * shadeFactor;
+				image->PutPixelPostImage(x + xx, y, pixel);
 			}
 		}
 

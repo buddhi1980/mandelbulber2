@@ -206,7 +206,7 @@ bool cRenderer::RenderImage()
 						qSort(listToRefresh);
 						listToSend += listToRefresh;
 
-						image->CompileImage(&listToRefresh);
+						image->NullPostEffect(&listToRefresh);
 
 						if (data->configuration.UseRenderTimeEffects())
 						{
@@ -218,6 +218,8 @@ bool cRenderer::RenderImage()
 								rendererSSAO.RenderSSAO(&listToRefresh);
 							}
 						}
+
+						image->CompileImage(&listToRefresh);
 
 						image->ConvertTo8bit();
 
@@ -340,17 +342,7 @@ bool cRenderer::RenderImage()
 			}
 		}
 
-		if(params->hdrBlurEnabled)
-		{
-			cPostEffectHdrBlur *hdrBlur = new cPostEffectHdrBlur(image);
-			hdrBlur->SetParameters(params->hdrBlurRadius, params->hdrBlurIntensity);
-			hdrBlur->Render();
-			delete hdrBlur;
-		}
-
-		// refresh image at end
-		WriteLog("image->CompileImage()", 2);
-		image->CompileImage();
+		image->NullPostEffect();
 
 		if (!(gNetRender->IsClient() && data->configuration.UseNetRender()))
 		{
@@ -411,7 +403,19 @@ bool cRenderer::RenderImage()
 						data->stopRequest);
 				}
 			}
+
+			if(params->hdrBlurEnabled)
+			{
+				cPostEffectHdrBlur *hdrBlur = new cPostEffectHdrBlur(image);
+				hdrBlur->SetParameters(params->hdrBlurRadius, params->hdrBlurIntensity);
+				hdrBlur->Render();
+				delete hdrBlur;
+			}
 		}
+
+		// refresh image at end
+		WriteLog("image->CompileImage()", 2);
+		image->CompileImage();
 
 		if (image->IsPreview())
 		{

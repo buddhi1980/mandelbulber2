@@ -85,6 +85,11 @@ public:
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			imageFloat[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
+	inline void PutPixelPostImage(qint64 x, qint64 y, sRGBFloat pixel)
+	{
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			postImageFloat[qint64(x) + qint64(y) * qint64(width)] = pixel;
+	}
 	inline void PutPixelImage16(int x, int y, sRGB16 pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
@@ -119,6 +124,13 @@ public:
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return imageFloat[qint64(x) + qint64(y) * qint64(width)];
+		else
+			return BlackFloat();
+	}
+	inline sRGBFloat GetPixelPostImage(int x, int y) const
+	{
+		if (x >= 0 && x < width && y >= 0 && y < height)
+			return postImageFloat[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return BlackFloat();
 	}
@@ -203,15 +215,15 @@ public:
 			quint16(image16[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor);
 	}
 
-	inline void BlendPixelImage(int x, int y, float factor, sRGBFloat other)
+	inline void BlendPixelPostImage(int x, int y, float factor, sRGBFloat other)
 	{
 		float factorN = 1.0f - factor;
-		imageFloat[qint64(x) + qint64(y) * qint64(width)].R =
-			imageFloat[qint64(x) + qint64(y) * qint64(width)].R * factorN + other.R * factor;
-		imageFloat[qint64(x) + qint64(y) * qint64(width)].G =
-			imageFloat[qint64(x) + qint64(y) * qint64(width)].G * factorN + other.G * factor;
-		imageFloat[qint64(x) + qint64(y) * qint64(width)].B =
-			imageFloat[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor;
+		postImageFloat[qint64(x) + qint64(y) * qint64(width)].R =
+				postImageFloat[qint64(x) + qint64(y) * qint64(width)].R * factorN + other.R * factor;
+		postImageFloat[qint64(x) + qint64(y) * qint64(width)].G =
+				postImageFloat[qint64(x) + qint64(y) * qint64(width)].G * factorN + other.G * factor;
+		postImageFloat[qint64(x) + qint64(y) * qint64(width)].B =
+				postImageFloat[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor;
 	}
 
 	inline void BlendPixelAlpha(int x, int y, float factor, quint16 other)
@@ -222,6 +234,7 @@ public:
 	}
 
 	sRGBFloat *GetImageFloatPtr(void) { return imageFloat; }
+	sRGBFloat *GetPostImageFloatPtr(void) { return postImageFloat; }
 	sRGB16 *GetImage16Ptr(void) { return image16; }
 	sRGB8 *GetImage8Ptr(void) { return image8; }
 	quint16 *GetAlphaBufPtr(void) { return alphaBuffer16; }
@@ -233,6 +246,7 @@ public:
 	QWidget *GetImageWidget(void) { return imageWidget; }
 
 	void CompileImage(QList<int> *list = nullptr);
+	void NullPostEffect(QList<int> *list = nullptr);
 
 	int GetWidth(void) const { return width; }
 	int GetHeight(void) const { return height; }
@@ -283,6 +297,7 @@ private:
 	sRGB8 *image8;
 	sRGB16 *image16;
 	sRGBFloat *imageFloat;
+	sRGBFloat *postImageFloat;
 
 	quint8 *alphaBuffer8;
 	quint16 *alphaBuffer16;

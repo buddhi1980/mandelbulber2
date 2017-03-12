@@ -51,6 +51,7 @@ void cImage::construct()
 	image8 = nullptr;
 	image16 = nullptr;
 	imageFloat = nullptr;
+	postImageFloat = nullptr;
 	alphaBuffer8 = nullptr;
 	alphaBuffer16 = nullptr;
 	opacityBuffer = nullptr;
@@ -104,6 +105,7 @@ bool cImage::AllocMem()
 			try
 			{
 				imageFloat = new sRGBFloat[quint64(width) * quint64(height)];
+				postImageFloat = new sRGBFloat[quint64(width) * quint64(height)];
 				image16 = new sRGB16[quint64(width) * quint64(height)];
 				image8 = new sRGB8[quint64(width) * quint64(height)];
 				zBuffer = new float[quint64(width) * quint64(height)];
@@ -168,6 +170,7 @@ bool cImage::ChangeSize(int w, int h, sImageOptional optional)
 void cImage::ClearImage() const
 {
 	memset(imageFloat, 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
+	memset(postImageFloat, 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
 	memset(image16, 0, sizeof(sRGB16) * quint64(width) * quint64(height));
 	memset(image8, 0, sizeof(sRGB8) * quint64(width) * quint64(height));
 	memset(alphaBuffer8, 0, sizeof(quint8) * quint64(width) * quint64(height));
@@ -190,6 +193,8 @@ void cImage::FreeImage()
 	// qDebug() << "void cImage::FreeImage(void)";
 	if (imageFloat) delete[] imageFloat;
 	imageFloat = nullptr;
+	if (postImageFloat) delete[] postImageFloat;
+	postImageFloat = nullptr;
 	if (image16) delete[] image16;
 	image16 = nullptr;
 	if (image8) delete[] image8;
@@ -284,7 +289,7 @@ void cImage::CompileImage(QList<int> *list)
 		for (int x = 0; x < width; x++)
 		{
 			qint64 address = qint64(x) + qint64(y) * width;
-			sRGBFloat pixel = imageFloat[address];
+			sRGBFloat pixel = postImageFloat[address];
 			sRGB16 newPixel16 = CalculatePixel(pixel);
 			image16[address] = newPixel16;
 		}
@@ -310,7 +315,7 @@ int cImage::GetUsedMB() const
 		optionalSize += quint64(width) * quint64(height) * sizeof(sRGB16);
 		optionalSize += quint64(width) * quint64(height) * sizeof(sRGB8);
 	}
-	mb = (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size + imageFloatSize
+	mb = (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size + imageFloatSize * 2
 				 + colorSize + opacitySize + optionalSize)
 			 / 1024 / 1024;
 
@@ -577,6 +582,7 @@ void cImage::Squares(int y, int pFactor)
 	{
 		quint64 ptr = quint64(x) + quint64(y) * quint64(width);
 		sRGBFloat pixelTemp = imageFloat[ptr];
+		sRGBFloat postPixelTemp = postImageFloat[ptr];
 		float zBufferTemp = zBuffer[ptr];
 		sRGB8 colourTemp = colourBuffer[ptr];
 		quint16 alphaTemp = alphaBuffer16[ptr];
@@ -589,6 +595,7 @@ void cImage::Squares(int y, int pFactor)
 				if (xx == 0 && yy == 0) continue;
 				quint64 ptr2 = quint64(x + xx) + quint64(y + yy) * quint64(width);
 				imageFloat[ptr2] = pixelTemp;
+				postImageFloat[ptr2] = postPixelTemp;
 				zBuffer[ptr2] = zBufferTemp;
 				colourBuffer[ptr2] = colourTemp;
 				alphaBuffer16[ptr2] = alphaTemp;
@@ -842,6 +849,32 @@ void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, d
 					opacity3.B = opacity2 * opacity.B;
 					PutPixelAlfa(xx, yy, z, border, opacity3, layer);
 				}
+			}
+		}
+	}
+}
+
+void cImage::NullPostEffect(QList<int> *list)
+{
+	if(imageFloat && postImageFloat)
+	{
+		if(!list)
+		{
+			memcpy(postImageFloat, imageFloat, 	sizeof(sRGBFloat) * quint64(width) * quint64(height));
+		}
+		else
+		{
+			int listIndex = 0;
+			for (int y = 0; y < height; y++)
+			{
+				if (list)
+				{
+					if (listIndex >= list->size()) break;
+					y = list->at(listIndex);
+					listIndex++;
+				}
+
+				memcpy(&postImageFloat[y * width], &imageFloat[y * width], sizeof(sRGBFloat) * quint64(width));
 			}
 		}
 	}
