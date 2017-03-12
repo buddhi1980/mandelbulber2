@@ -62,8 +62,6 @@ void cDockEffects::ConnectSignals() const
 {
 	connect(ui->button_calculateFog, SIGNAL(clicked()), this, SLOT(slotPressedButtonAutoFog()));
 
-	connect(
-		ui->checkBox_DOF_HDR, SIGNAL(stateChanged(int)), this, SLOT(slotChangedCheckBoxDOFHDR(int)));
 	connect(ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboAmbientOcclusionMode(int)));
 
@@ -179,16 +177,6 @@ void cDockEffects::slotSliderMovedEditManualLightPlacementDistance(int value) co
 void cDockEffects::slotChangedPlaceLightBehindObjects(int state)
 {
 	gMainInterface->renderedImage->SetPlaceBehindObjects(state);
-}
-
-void cDockEffects::slotChangedCheckBoxDOFHDR(int state) const
-{
-	ui->pushButton_DOF_update->setEnabled(!state);
-	gMainInterface->mainWindow->GetWidgetDockImageAdjustments()->ApplyImageChangesSetEnabled(!state);
-	if (ui->comboBox_ambient_occlusion_mode->currentIndex() == 2 && !state)
-	{
-		ui->comboBox_ambient_occlusion_mode->setCurrentIndex(0);
-	}
 }
 
 void cDockEffects::slotChangedComboAmbientOcclusionMode(int index) const

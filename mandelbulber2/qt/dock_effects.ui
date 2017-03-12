@@ -312,24 +312,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0" colspan="3">
-                 <widget class="MyCheckBox" name="checkBox_DOF_HDR">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use DOF algorithm based on floating point image buffer.&lt;/p&gt;&lt;p&gt;This mode cannot be used together with SSAO effect.&lt;/p&gt;&lt;p&gt;When effect is already rendered there is no possibility to adjust image brightness, contrast and gamma.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text">
-                   <string>Use HDR version of DOF effect
-(not possible to use together with SSAO.
-Disables 'Update image' options)</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_349">
                   <property name="text">
@@ -970,8 +952,8 @@ Disables 'Update image' options)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>525</width>
-            <height>1516</height>
+            <width>223</width>
+            <height>544</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1768,8 +1750,8 @@ Disables 'Update image' options)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>525</width>
-            <height>1516</height>
+            <width>296</width>
+            <height>422</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2492,8 +2474,8 @@ Disables 'Update image' options)</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-19</y>
-            <width>507</width>
+            <y>0</y>
+            <width>325</width>
             <height>1535</height>
            </rect>
           </property>
@@ -4759,8 +4741,8 @@ Disables 'Update image' options)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>525</width>
-            <height>1512</height>
+            <width>176</width>
+            <height>107</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -5021,7 +5003,6 @@ Disables 'Update image' options)</string>
   <tabstop>spinboxInt_DOF_number_of_passes</tabstop>
   <tabstop>slider_DOF_blur_opacity</tabstop>
   <tabstop>spinbox_DOF_blur_opacity</tabstop>
-  <tabstop>checkBox_DOF_HDR</tabstop>
   <tabstop>groupCheck_DOF_monte_carlo</tabstop>
   <tabstop>sliderInt_DOF_samples</tabstop>
   <tabstop>spinboxInt_DOF_samples</tabstop>

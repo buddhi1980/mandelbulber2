@@ -64,7 +64,6 @@ public:
 
 private slots:
 	static void slotPressedButtonAutoFog();
-	void slotChangedCheckBoxDOFHDR(int state) const;
 	void slotChangedComboAmbientOcclusionMode(int index) const;
 	static void slotEditedLineEditManualLightPlacementDistance(const QString &text);
 	void slotSliderMovedEditManualLightPlacementDistance(int value) const;
