@@ -12,7 +12,6 @@ camera_rotation -0.0943139551660403 1.768365317086406 0;
 camera_top -5.079647008810897e-05 -0.03085885557851574 0.9995237508194105;
 DE_factor 0.5;
 detail_level 2;
-file_background /home/graeme/mandel textures/IMG_1163 32a.png;
 flight_last_to_render 0;
 formula_1 109;
 fractal_rotation 0 135 0;
