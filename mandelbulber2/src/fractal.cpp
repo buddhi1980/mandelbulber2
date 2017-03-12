@@ -498,6 +498,7 @@ void cFractal::RecalculateFractalParams()
 
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // hmmm??
+
 	transformCommon.maxMinR2factor = transformCommon.maxR2d1 / transformCommon.minR2p25;
 
 	// Generalized Fold Box pre calculated vectors
