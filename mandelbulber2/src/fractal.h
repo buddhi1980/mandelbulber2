@@ -103,6 +103,7 @@ struct sExtendedAux
 	// double orbitTraps;
 	// double axisBias;
 	double pseudoKleinianDE;
+	double linearDE;
 	double cw;
 	double foldFactor;
 	double minRFactor;
@@ -427,6 +428,7 @@ struct sFractalAnalyticDE
 	double offset0;
 	double offset1;
 	double offset2;
+	double factor2;
 	double scaleLin;
 	double offsetLin;
 };

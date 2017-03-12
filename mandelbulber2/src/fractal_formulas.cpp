@@ -1804,6 +1804,7 @@ void CollatzModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExte
 		c = CVector3(c.z, c.y, c.x);
 		z += c * fractal->transformCommon.constantMultiplierA111;
 	}
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -2904,6 +2905,7 @@ void MengerMiddleModIteration(
 		}
 		z += c * fractal->transformCommon.constantMultiplierC111;
 	}
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -8686,21 +8688,26 @@ void TransfScale4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux
 void TransfSphericalFold4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
 	// double r2 = z4D.Dot(z4D);
-	double r2 = z4D.x * z4D.x + z4D.y * z4D.y;
+	//double r2 = z4D.x * z4D.x + z4D.y * z4D.y;
 	// if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
-	r2 += z4D.z * z4D.z;
-	r2 += z4D.w * z4D.w;
-	if (r2 < fractal->mandelbox.mR2)
+	//r2 += z4D.z * z4D.z;
+	double rr = z4D.Dot(z4D);
+	z4D += fractal->transformCommon.offset0000;
+	if (rr < fractal->transformCommon.minR2p25)
 	{
-		z4D *= fractal->mandelbox.mboxFactor1;
-		aux.DE *= fractal->mandelbox.mboxFactor1;
+		z4D *= fractal->transformCommon.maxMinR2factor;
+		aux.DE *= fractal->transformCommon.maxMinR2factor;
 		aux.color += fractal->mandelbox.color.factorSp1;
 	}
-	else if (r2 < fractal->mandelbox.fR2)
+	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
-		z4D *= tglad_factor2;
-		aux.DE *= tglad_factor2;
+		z4D *= fractal->transformCommon.maxR2d1 / rr;
+		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
+	z4D -= fractal->transformCommon.offset0000;
+
+
+
+
 }

@@ -235,6 +235,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	analyticDE.offset0 = container->Get<double>("analyticDE_offset_0");
 	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
+	analyticDE.factor2 = container->Get<double>("analyticDE_factor_2");
 	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
 	analyticDE.enabledAuxR2False = container->Get<bool>("analyticDE_enabled_auxR2_false");
 	analyticDE.scaleLin = container->Get<double>("analyticDE_scale_linear");
@@ -498,6 +499,7 @@ void cFractal::RecalculateFractalParams()
 
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // hmmm??
+
 	transformCommon.maxMinR2factor = transformCommon.maxR2d1 / transformCommon.minR2p25;
 
 	// Generalized Fold Box pre calculated vectors

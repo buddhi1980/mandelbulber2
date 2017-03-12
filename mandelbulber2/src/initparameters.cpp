@@ -682,6 +682,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("analyticDE_offset_0", 0.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_2", 1.0, morphAkima, paramStandard);
+	par->addParam("analyticDE_factor_2", 2.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_scale_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("analyticDE_enabled_auxR2_false", false, morphLinear, paramStandard);
