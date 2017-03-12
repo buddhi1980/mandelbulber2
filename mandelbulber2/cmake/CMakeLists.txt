@@ -105,6 +105,10 @@ ELSE()
     MESSAGE("OpenCL not found!")
 ENDIF()
 
+IF(USE_OFFLOAD)
+    add_definitions(-DUSE_OFFLOAD=1)
+ENDIF()
+
 # generate proper GUI program on specified platform
 IF(WIN32 AND MSVC) # Check if we are using the Visual Studio compiler on windows
 	add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
