@@ -66,6 +66,7 @@
 #include "rendering_configuration.hpp"
 #include "ui_render_window.h"
 #include "detached_window.h"
+#include "post_effect_hdr_blur.h"
 #include "trace_behind.h"
 
 #ifdef USE_GAMEPAD
@@ -902,6 +903,80 @@ void cInterface::RefreshMainImage()
 	}
 }
 
+void cInterface::RefreshPostEffects()
+{
+	if (!mainImage->IsUsed())
+	{
+		mainImage->NullPostEffect();
+		RefreshMainImage();
+
+		stopRequest = false;
+		bool ssaoUsed = false;
+		if (gPar->Get<bool>("ambient_occlusion_enabled")
+				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
+		{
+			cParamRender params(gPar);
+			sRenderData data;
+			data.stopRequest = &stopRequest;
+			data.screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+			cRenderSSAO rendererSSAO(&params, &data, mainImage);
+			QObject::connect(&rendererSSAO,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+				gMainInterface->mainWindow,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+
+			rendererSSAO.RenderSSAO();
+			ssaoUsed = true;
+
+			mainImage->CompileImage();
+			mainImage->ConvertTo8bit();
+			mainImage->UpdatePreview();
+			mainImage->GetImageWidget()->update();
+		}
+
+		if (gPar->Get<bool>("DOF_enabled"))
+		{
+			cParamRender params(gPar);
+			// cRenderingConfiguration config;
+			cPostRenderingDOF dof(mainImage);
+			QObject::connect(&dof,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+				gMainInterface->mainWindow,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+			cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+			dof.Render(screenRegion,
+				params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
+				params.DOFFocus, !ssaoUsed && gPar->Get<bool>("DOF_HDR"), params.DOFNumberOfPasses,
+				params.DOFBlurOpacity, &stopRequest);
+		}
+
+		if (gPar->Get<bool>("hdr_blur_enabled"))
+		{
+			cPostEffectHdrBlur *hdrBlur = new cPostEffectHdrBlur(mainImage);
+			double blurRadius = gPar->Get<double>("hdr_blur_radius");
+			double blurIntensity = gPar->Get<double>("hdr_blur_intensity");
+			hdrBlur->SetParameters(blurRadius, blurIntensity);
+			connect(hdrBlur, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+				gMainInterface->mainWindow,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+			hdrBlur->Render(&stopRequest);
+			delete hdrBlur;
+		}
+
+		mainImage->CompileImage();
+
+		mainImage->ConvertTo8bit();
+		mainImage->UpdatePreview();
+		mainImage->GetImageWidget()->update();
+	}
+	else
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("You cannot apply changes during rendering. You will do this after rendering."),
+			cErrorMessage::warningMessage, mainWindow);
+	}
+}
+
 void cInterface::AutoFog() const
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
@@ -1074,7 +1149,7 @@ void cInterface::SetByMouse(
 					gPar->Set("DOF_focus", DOF);
 					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceDOFEnabled(gPar);
 					gUndo.Store(gPar, gParFractal);
-					RefreshMainImage();
+					RefreshPostEffects();
 					ReEnablePeriodicRefresh();
 					break;
 				}

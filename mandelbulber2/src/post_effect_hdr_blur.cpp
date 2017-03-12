@@ -5,11 +5,14 @@
  *      Author: krzysztof
  */
 
-#include "post_effect_hdr_blur.h"
-#include "cimage.hpp"
 #include <QtCore>
 
-cPostEffectHdrBlur::cPostEffectHdrBlur(cImage *_image) : image(_image)
+#include "post_effect_hdr_blur.h"
+#include "cimage.hpp"
+#include "progress_text.hpp"
+#include "global_data.hpp"
+
+cPostEffectHdrBlur::cPostEffectHdrBlur(cImage *_image) : QObject(), image(_image)
 {
 	tempImage = new sRGBFloat[image->GetHeight() * image->GetWidth()];
 	radius = 0;
@@ -21,20 +24,32 @@ cPostEffectHdrBlur::~cPostEffectHdrBlur()
 	delete[] tempImage;
 }
 
-void cPostEffectHdrBlur::Render()
+void cPostEffectHdrBlur::Render(bool *stopRequest)
 {
 
 	memcpy(tempImage, image->GetPostImageFloatPtr(),
 		image->GetHeight() * image->GetWidth() * sizeof(sRGBFloat));
 
-	const double blurSize = radius;
+	const double blurSize = radius * (image->GetWidth() + image->GetHeight()) * 0.001;
 	const double blurSize2 = blurSize * blurSize;
 	const int intBlurSize = blurSize + 1;
 	const double limiter = intensity;
 
-#pragma omp parallel for
+	QString statusText = QObject::tr("Rendering HDR Blur effect");
+	QString progressTxt;
+
+	cProgressText progressText;
+	progressText.ResetTimer();
+	float percentDone = 0.0;
+
+	QElapsedTimer timerRefreshProgressBar;
+	timerRefreshProgressBar.start();
+
 	for (int y = 0; y < image->GetHeight(); y++)
 	{
+		if(*stopRequest) break;
+
+#pragma omp parallel for
 		for (int x = 0; x < image->GetWidth(); x++)
 		{
 			double weight = 0;
@@ -73,7 +88,20 @@ void cPostEffectHdrBlur::Render()
 			}
 			image->PutPixelPostImage(x, y, newPixel);
 		}
+
+		if (timerRefreshProgressBar.elapsed() > 100)
+		{
+			timerRefreshProgressBar.restart();
+
+			percentDone = float(y) / float(image->GetHeight());
+			progressTxt = progressText.getText(percentDone);
+
+			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+			gApplication->processEvents();
+		}
 	}
+
+	emit updateProgressAndStatus(statusText, progressText.getText(1.0), 1.0);
 }
 
 void cPostEffectHdrBlur::SetParameters(double _radius, double _intensity)

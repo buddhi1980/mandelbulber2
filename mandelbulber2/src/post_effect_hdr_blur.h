@@ -13,19 +13,24 @@
 // forward declarations
 class cImage;
 
-class cPostEffectHdrBlur
+class cPostEffectHdrBlur : public QObject
 {
+	Q_OBJECT
+
 public:
 	cPostEffectHdrBlur(cImage *_image);
 	~cPostEffectHdrBlur();
 	void SetParameters(double _radius, double _intensity);
 
-	void Render();
+	void Render(bool *stopRequest);
 
 	cImage *image;
 	sRGBFloat *tempImage;
 	double radius;
 	double intensity;
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
 
 #endif /* MANDELBULBER2_SRC_POST_EFFECT_HDR_BLUR_H_ */

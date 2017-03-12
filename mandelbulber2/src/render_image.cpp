@@ -408,7 +408,9 @@ bool cRenderer::RenderImage()
 			{
 				cPostEffectHdrBlur *hdrBlur = new cPostEffectHdrBlur(image);
 				hdrBlur->SetParameters(params->hdrBlurRadius, params->hdrBlurIntensity);
-				hdrBlur->Render();
+				connect(hdrBlur, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+					this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+				hdrBlur->Render(data->stopRequest);
 				delete hdrBlur;
 			}
 		}

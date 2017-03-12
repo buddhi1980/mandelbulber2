@@ -94,6 +94,7 @@ public:
 	static void IFSDefaultsMengerSponge(cParameterContainer *parFractal);
 	static void IFSDefaultsReset(cParameterContainer *parFractal);
 	void RefreshMainImage();
+	void RefreshPostEffects();
 	void AutoFog() const;
 	double GetDistanceForPoint(CVector3 point) const;
 	static double GetDistanceForPoint(

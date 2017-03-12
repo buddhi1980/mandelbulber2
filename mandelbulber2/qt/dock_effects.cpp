@@ -72,7 +72,10 @@ void cDockEffects::ConnectSignals() const
 		SLOT(slotSliderMovedEditManualLightPlacementDistance(int)));
 	connect(
 		ui->pushButton_DOF_set_focus, SIGNAL(clicked()), this, SLOT(slotPressedButtonSetDOFByMouse()));
-	connect(ui->pushButton_DOF_update, SIGNAL(clicked()), this, SLOT(slotPressedButtonDOFUpdate()));
+	connect(
+		ui->pushButton_DOF_update, SIGNAL(clicked()), this, SLOT(slotPressedButtonUpdatePostEffects()));
+	connect(ui->pushButton_hdr_blur_update, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonUpdatePostEffects()));
 
 	connect(ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetLight1ByMouse()));
@@ -193,9 +196,9 @@ void cDockEffects::slotPressedButtonAutoFog()
 	gMainInterface->AutoFog();
 }
 
-void cDockEffects::slotPressedButtonDOFUpdate()
+void cDockEffects::slotPressedButtonUpdatePostEffects()
 {
-	gMainInterface->RefreshMainImage();
+	gMainInterface->RefreshPostEffects();
 }
 
 void cDockEffects::slotPressedButtonSetDOFByMouse()
