@@ -157,29 +157,10 @@ void MeshFileSavePLY::SavePLY()
 
 		if (withColor)
 		{
-			// TODO: get correct color
-			/*
-			double colorIndex = meshData.colorIndices[i];
-			int nrCol = floor(colorIndex);
-			nrCol = abs(nrCol) % (248 * 256);
-
-			int color_number;
-			if (nrCol >= 248 * 256)
-			{
-				color_number = nrCol;
-			}
-			else
-			{
-								color_number = (int)(nrCol * input.material->coloring_speed + 256 *
-								input.material->paletteOffset) % 65536;
-			}
-			// sRGB colour = input.material->palette.IndexToColour(color_number);
-			*/
 			sRGB8 colour = meshData.colorIndices[i];
-
 			if (isBinary)
 			{
-				oB.writeRawData((char *)&colour, sizeof(char) * 3);
+				oB.writeRawData((char *)&colour, sizeof(sRGB8));
 			}
 			else
 			{

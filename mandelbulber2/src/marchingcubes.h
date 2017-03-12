@@ -162,7 +162,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				colorIndex[0] = colorBuffer[j * numzb + k];
 				colorIndex[1] = colorBuffer[numyzb + j * numzb + k];
 				colorIndex[2] = colorBuffer[numyzb + (j + 1) * numzb + k];
-				colorIndex[3] = colorBuffer[j * (numzb + 1) + k];
+				colorIndex[3] = colorBuffer[(j + 1) * numzb + k];
 				colorIndex[4] = colorBuffer[j * numzb + k + 1];
 				colorIndex[5] = colorBuffer[numyzb + j * numzb + k + 1];
 				colorIndex[6] = colorBuffer[numyzb + (j + 1) * numzb + k + 1];
