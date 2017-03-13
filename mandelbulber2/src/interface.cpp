@@ -956,9 +956,10 @@ void cInterface::RefreshPostEffects()
 			double blurRadius = gPar->Get<double>("hdr_blur_radius");
 			double blurIntensity = gPar->Get<double>("hdr_blur_intensity");
 			hdrBlur->SetParameters(blurRadius, blurIntensity);
-			connect(hdrBlur, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+			QObject::connect(hdrBlur,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 				gMainInterface->mainWindow,
-				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			hdrBlur->Render(&stopRequest);
 			delete hdrBlur;
 		}
