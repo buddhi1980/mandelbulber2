@@ -47,6 +47,7 @@
 #include "animation_keyframes.hpp"
 #include "ao_modes.h"
 #include "calculate_distance.hpp"
+#include "camera_movement_modes.h"
 #include "camera_target.hpp"
 #include "common_math.h"
 #include "dof.hpp"
@@ -513,6 +514,8 @@ void cInterface::StartRender(bool noUndo)
 
 void cInterface::MoveCamera(QString buttonName)
 {
+	using namespace cameraMovementEnums;
+
 	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName, 2);
 	// get data from interface
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
@@ -634,6 +637,8 @@ void cInterface::CameraOrTargetEdited() const
 
 void cInterface::RotateCamera(QString buttonName)
 {
+	using namespace cameraMovementEnums;
+
 	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName, 2);
 
 	// get data from interface
@@ -727,6 +732,8 @@ void cInterface::RotateCamera(QString buttonName)
 
 void cInterface::RotationEdited() const
 {
+	using namespace cameraMovementEnums;
+
 	WriteLog("cInterface::RotationEdited(void)", 2);
 	// get data from interface before synchronization
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
@@ -762,6 +769,8 @@ void cInterface::RotationEdited() const
 
 void cInterface::CameraDistanceEdited() const
 {
+	using namespace cameraMovementEnums;
+
 	WriteLog("cInterface::CameraDistanceEdited()", 2);
 
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, qInterface::read);
@@ -1016,6 +1025,8 @@ double cInterface::GetDistanceForPoint(CVector3 point) const
 void cInterface::SetByMouse(
 	CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode)
 {
+	using namespace cameraMovementEnums;
+
 	WriteLog(
 		QString("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: ")
 			+ button,
@@ -1237,6 +1248,8 @@ void cInterface::SetByMouse(
 
 void cInterface::MovementStepModeChanged(int mode) const
 {
+	using namespace cameraMovementEnums;
+
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	enumCameraMovementStepMode stepMode = enumCameraMovementStepMode(mode);
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
@@ -2202,10 +2215,7 @@ void cInterface::AttachMainImageWidget()
 	}
 }
 
-void cInterface::StoreDetachImageState()
+void cInterface::CameraMovementModeChanged(int index)
 {
-}
-
-void cInterface::RestoreDetachImageState()
-{
+	renderedImage->SetCameraMovementMode(index);
 }

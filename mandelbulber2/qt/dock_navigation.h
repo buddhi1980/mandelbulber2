@@ -69,6 +69,7 @@ private slots:
 	static void slotCameraDistanceEdited();
 	static void slotCameraDistanceSlider(int value);
 	static void slotMovementStepModeChanged(int index);
+	static void slotCameraMovementModeChanged(int index);
 	static void slotUndo();
 	static void slotRedo();
 	static void slotPressedButtonResetView();

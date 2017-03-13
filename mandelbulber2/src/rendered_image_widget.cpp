@@ -47,6 +47,7 @@
 #include "fractparams.hpp"
 #include "nine_fractals.hpp"
 #include "trace_behind.h"
+#include "camera_movement_modes.h"
 
 using namespace Qt;
 
@@ -147,7 +148,22 @@ void RenderedImage::DisplayCoordinates()
 	enumClickMode clickMode = enumClickMode(clickModeData.at(0).toInt());
 	switch (clickMode)
 	{
-		case clickMoveCamera: text = tr("Move camera"); break;
+		case clickMoveCamera:
+		{
+			switch(cameraMovementEnums::enumCameraMovementMode(cameraMovementMode))
+			{
+				case cameraMovementEnums::fixedDistance:
+					text = tr("Move camera and target");
+					break;
+				case cameraMovementEnums::moveCamera:
+					text = tr("Move camera");
+					break;
+				case cameraMovementEnums::moveTarget:
+					text = tr("Move target");
+					break;
+			}
+			break;
+		}
 		case clickFogVisibility: text = tr("Change fog visibility"); break;
 		case clickDOFFocus: text = tr("Change DOF focus"); break;
 		case clickPlaceLight:

@@ -108,6 +108,8 @@ void cDockNavigation::ConnectSignals() const
 		SLOT(slotCameraDistanceSlider(int)));
 	connect(ui->comboBox_camera_absolute_distance_mode, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotMovementStepModeChanged(int)));
+	connect(ui->comboBox_camera_movement_mode, SIGNAL(currentIndexChanged(int)), this,
+		SLOT(slotCameraMovementModeChanged(int)));
 	connect(ui->pushButton_undo, SIGNAL(clicked()), this, SLOT(slotUndo()));
 	connect(ui->pushButton_redo, SIGNAL(clicked()), this, SLOT(slotRedo()));
 	connect(ui->pushButton_render, SIGNAL(clicked()), this, SLOT(slotStartRender()));
@@ -184,3 +186,9 @@ void cDockNavigation::UnlockAllFunctions() const
 	ui->pushButton_undo->setEnabled(true);
 	ui->pushButton_redo->setEnabled(true);
 }
+
+void cDockNavigation::slotCameraMovementModeChanged(int index)
+{
+	gMainInterface->CameraMovementModeChanged(index);
+}
+

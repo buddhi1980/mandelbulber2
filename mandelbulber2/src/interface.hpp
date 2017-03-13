@@ -58,23 +58,6 @@ class cInterface : public QObject
 	Q_OBJECT
 
 public:
-	enum enumCameraMovementStepMode
-	{
-		relative,
-		absolute
-	};
-	enum enumCameraMovementMode
-	{
-		fixedDistance,
-		moveCamera,
-		moveTarget
-	};
-	enum enumCameraRotationMode
-	{
-		rotateCamera,
-		rotateAroundTarget
-	};
-
 	cInterface(QObject *parent = nullptr);
 	~cInterface();
 	void ShowUi();
@@ -102,6 +85,7 @@ public:
 	void SetByMouse(
 		CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
 	void MovementStepModeChanged(int mode) const;
+	void CameraMovementModeChanged(int index);
 	void Undo();
 	void Redo();
 	void ResetView();
@@ -124,8 +108,6 @@ public:
 	void DisableJuliaPointMode() const;
 	void DetachMainImageWidget();
 	void AttachMainImageWidget();
-	void StoreDetachImageState();
-	void RestoreDetachImageState();
 
 	bool QuitApplicationDialog();
 

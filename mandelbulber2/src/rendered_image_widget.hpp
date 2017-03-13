@@ -103,6 +103,7 @@ public:
 	void SetGridType(enumGridType gridType);
 	void SetFlightData(const sFlightData &fData) { flightData = fData; }
 	void SetPlaceBehindObjects(bool behind) { placeLightBehind = behind; }
+	void SetCameraMovementMode(int index) { cameraMovementMode = index; }
 	// CVector2<double> GetLastMousePositionScaled();
 
 public slots:
@@ -137,27 +138,28 @@ private:
 		double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye) const;
 	static CVector3 CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
 
-	cImage *image;
-	QList<QVariant> clickModeData;
-	enumClickMode clickMode;
-	enumGridType gridType;
-	cParameterContainer *params;
-	cFractalContainer *fractals;
+	bool anaglyphMode;
 	bool cursorVisible;
-	double smoothLastZMouse;
-	bool redrawed;
-	CVector2<int> lastMousePosition;
-	CVector3 lastCoordinates;
-	double lastDepth;
 	bool isFocus;
 	bool isOnObject;
-	double frontDist;
-	sFlightData flightData;
-	CVector2<double> keyArrows;
-	double flightRotationDirection;
-	QTimer *timerRefreshImage;
-	bool anaglyphMode;
 	bool placeLightBehind;
+	bool redrawed;
+	cFractalContainer *fractals;
+	cImage *image;
+	cParameterContainer *params;
+	CVector2<double> keyArrows;
+	CVector2<int> lastMousePosition;
+	CVector3 lastCoordinates;
+	double flightRotationDirection;
+	double frontDist;
+	double lastDepth;
+	double smoothLastZMouse;
+	enumClickMode clickMode;
+	enumGridType gridType;
+	int cameraMovementMode;
+	QList<QVariant> clickModeData;
+	QTimer *timerRefreshImage;
+	sFlightData flightData;
 
 signals:
 	void mouseMoved(int x, int y);
