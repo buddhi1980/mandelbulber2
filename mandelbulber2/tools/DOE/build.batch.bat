@@ -14,11 +14,12 @@ SET tbs_arch=x64
 SET vcvar_arg=x86_amd64
 SET ms_build_suffix=Bin\amd64
 SET cmake_platform="Visual Studio 14 2015 Win64"
-set QTDIR=%SRC%\packages\bulbqt-msvc14-x64.5.7.1.10779\build\native
+SET cmake_platform_tool="Intel C++ Compiler 17.0"
 set PATH=%QTDIR%\bin;C:\Program Files (x86)\MSBuild\14.0\%ms_build_suffix%;%SRC%;%PATH%
 
-REM # VC Vars #
+REM # Vars #
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall" %vcvar_arg%
+call "C:\Program Files (x86)\IntelSWTools\compilers_and_libraries\windows\bin\iclvars.bat" intel64
 @echo on
 
 REM # Clean Build Tree #
@@ -52,6 +53,8 @@ REM # build_script #
 set GSLDIR=%BUILDTREE%\..\packages\gsl-msvc14-x64.2.2.1.2577
 cd %BUILDTREE%
 cmake -G %cmake_platform% ^
+-T%cmake_platform_tool% ^
+-DCMAKE_CXX_STANDARD=11 ^
 -DPNG_LIBRARY=%BUILDTREE%\deps\png.lib -DPNG_PNG_INCLUDE_DIR=%BUILDTREE%\deps ^
 -DZLIB_LIBRARY=%BUILDTREE%\deps\zlib.lib -DZLIB_INCLUDE_DIR=%BUILDTREE%\deps ^
 -DTIFF_LIBRARY=%BUILDTREE%\deps\tiff.lib -DTIFF_INCLUDE_DIR=%BUILDTREE%\deps ^
@@ -60,7 +63,7 @@ cmake -G %cmake_platform% ^
 -DGSL_LIBRARY=%GSLDIR%\static\gsl.lib ^
 -DGSL_INCLUDE_DIR=%GSLDIR% ^
 -DUSE_GAMEPAD=1 ^
--DCMAKE_BUILD_TYPE=Release %SRC%\mandelbulber2\cmake\
+%SRC%\mandelbulber2\cmake\
 
 msbuild mandelbulber2.sln /p:Configuration=Release /m
 
