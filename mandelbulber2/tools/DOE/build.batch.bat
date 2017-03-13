@@ -15,6 +15,7 @@ SET vcvar_arg=x86_amd64
 SET ms_build_suffix=Bin\amd64
 SET cmake_platform="Visual Studio 14 2015 Win64"
 SET cmake_platform_tool="Intel C++ Compiler 17.0"
+set QTDIR=%SRC%\packages\bulbqt-msvc14-x64.5.8.0.10780\build\native
 set PATH=%QTDIR%\bin;C:\Program Files (x86)\MSBuild\14.0\%ms_build_suffix%;%SRC%;%PATH%
 
 REM # Vars #
