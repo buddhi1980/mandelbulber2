@@ -2612,32 +2612,9 @@ void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		CVector3 edge = fractal->transformCommon.offset222;
 		if (fractal->transformCommon.functionEnabledxFalse)
 		{
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				z.x = edge.x - fabs(edge.x - z.x);
-			}
-			else
-			{
-				z.x = edge.x - z.x;
-			}
-
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				z.y = edge.y - fabs(edge.y - z.y);
-			}
-			else
-			{
-				z.y = edge.y - z.y;
-			}
-
-			if (fractal->transformCommon.functionEnabledAzFalse)
-			{
-				z.z = edge.z - fabs(edge.z - z.z);
-			}
-			else
-			{
-				z.z = edge.z - z.z;
-			}
+			z.x = edge.x - z.x;
+			z.y = edge.y - z.y;
+			z.z = edge.z - z.z;
 		}
 
 		z *= fractal->transformCommon.scale3;
@@ -2656,6 +2633,7 @@ void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
 	}
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
