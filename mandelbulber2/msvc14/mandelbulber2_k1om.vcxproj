@@ -119,6 +119,8 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>false</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -262,6 +264,8 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>false</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -314,6 +318,8 @@
       <EnablePREfast>true</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4127</DisableSpecificWarnings>
+      <Cpp0xSupport>true</Cpp0xSupport>
+      <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
