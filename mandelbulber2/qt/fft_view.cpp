@@ -48,6 +48,7 @@ cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
 	lowFreqY = 0;
 	highFreqY = 0;
 	sampleRate = 0;
+	firstClickedFreqValue = 0.0;
 }
 
 cFFTView::~cFFTView()
@@ -136,4 +137,36 @@ void cFFTView::paintEvent(QPaintEvent *event)
 	painter.drawText(3, height() / 2,
 		QString("%1 Hz").arg(int(double(sampleRate) / cAudioFFTData::fftSize * height() * 0.5)));
 	painter.drawText(3, height() - 3, QString("%1 Hz").arg(0));
+}
+
+void cFFTView::mousePressEvent(QMouseEvent *event)
+{
+	firstClickedFreqValue = double(height() - event->y()) * double(sampleRate) / double(cAudioFFTData::fftSize);
+}
+
+void cFFTView::mouseReleaseEvent(QMouseEvent *event)
+{
+	double secondClickedFreqValue =
+		double(height() - event->y()) * double(sampleRate) / double(cAudioFFTData::fftSize);
+
+	emitNewFrequencyBand(firstClickedFreqValue, secondClickedFreqValue);
+}
+
+void cFFTView::mouseMoveEvent(QMouseEvent *event)
+{
+	double secondClickedFreqValue =
+		double(height() - event->y()) * double(sampleRate) / double(cAudioFFTData::fftSize);
+
+	emitNewFrequencyBand(firstClickedFreqValue, secondClickedFreqValue);
+}
+
+void cFFTView::emitNewFrequencyBand(double freq1, double freq2)
+{
+	freq1 = qBound(0.0, freq1, double(sampleRate));
+	freq2 = qBound(0.0, freq2, double(sampleRate));
+
+	double bandWidth = fabs(freq2 - freq1);
+	double midFreq = (freq1 + freq2) * 0.5;
+
+	emit newFrequencySelected(midFreq, bandWidth);
 }

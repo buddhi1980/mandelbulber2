@@ -55,6 +55,11 @@ public slots:
 
 private:
 	void paintEvent(QPaintEvent *event) override;
+	void mousePressEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
+
+	void emitNewFrequencyBand(double freq1, double freq2);
 
 	QImage fftImage;
 	QImage scaledFftImage;
@@ -64,7 +69,10 @@ private:
 
 	int lowFreqY;
 	int highFreqY;
-	;
+
+	double firstClickedFreqValue;
+signals:
+	void newFrequencySelected(double mid, double width);
 };
 
 #endif /* MANDELBULBER2_QT_FFT_VIEW_H_ */

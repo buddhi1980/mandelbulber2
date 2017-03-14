@@ -167,6 +167,8 @@ void cAudioSelector::ConnectSignals()
 	connect(
 		this, SIGNAL(playPositionChanged(qint64)), ui->animAudioView, SLOT(positionChanged(qint64)));
 	connect(ui->audio_position_slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSeekTo(int)));
+	connect(ui->fft, SIGNAL(newFrequencySelected(double, double)), this,
+		SLOT(slotChangedFrequncyBand(double, double)));
 }
 
 void cAudioSelector::RenameWidget(QWidget *widget)
@@ -367,4 +369,10 @@ void cAudioSelector::SetStartStopButtonsPlayingStatus(QAudio::State state)
 	ui->pushButton_playback_start->setEnabled(state != QAudio::IdleState);
 	ui->pushButton_playback_stop->setEnabled(
 		state == QAudio::ActiveState || state == QAudio::SuspendedState);
+}
+
+void cAudioSelector::slotChangedFrequncyBand(double midFreq, double bandWidth)
+{
+	ui->spinbox_animsound_midfreq->setValue(midFreq);
+	ui->spinbox_animsound_bandwidth->setValue(bandWidth);
 }
