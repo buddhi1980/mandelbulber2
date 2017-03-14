@@ -977,13 +977,11 @@
     <Exec Command="del /F /Q $(GenDir)\*.h" />
     <Exec Command="del /F /Q $(GenDir)\*.cpp" />
   </Target>
-  <PropertyGroup>
-    <SourceDir>$(SolutionDir)</SourceDir>
-    <CppDir>$(SourceDir)mandelbulber2</CppDir>
-    <GenDir>$(SourceDir)build-win</GenDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='x64'">
     <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.8.0.10782\build\native\</QtDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='Win32'">
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x86.5.8.0.10782\build\native\</QtDir>
   </PropertyGroup>
   <PropertyGroup>
     <Moc>$(QtDir)/bin/moc.exe</Moc>
