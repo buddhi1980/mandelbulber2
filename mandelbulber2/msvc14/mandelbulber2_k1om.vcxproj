@@ -112,7 +112,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <OpenMPSupport>true</OpenMPSupport>
@@ -123,7 +123,7 @@
       <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -165,11 +165,11 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -211,11 +211,11 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -255,7 +255,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -268,7 +268,7 @@
       <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -362,13 +362,13 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -455,13 +455,13 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_EXR;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;USE_TIFF;USE_GAMEPAD=1;QT_NO_DEBUG;QT_TESTCASE_BUILDDIR=\"../../build-win\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)build-win;$(SolutionDir)mandelbulber2\qt;$(SolutionDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
