@@ -43,6 +43,7 @@
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>mandelbulber2_k1om</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
@@ -114,11 +115,13 @@
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;USE_TIFF;USE_GAMEPAD=1;QT_TESTCASE_BUILDDIR="../../build-win";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <EnforceTypeConversionRules>
+      </EnforceTypeConversionRules>
       <OpenMPSupport>true</OpenMPSupport>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>false</EnablePREfast>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>
+      </MultiProcessorCompilation>
       <Cpp0xSupport>true</Cpp0xSupport>
       <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
@@ -259,11 +262,13 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <EnforceTypeConversionRules>
+      </EnforceTypeConversionRules>
       <OpenMPSupport>true</OpenMPSupport>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>false</EnablePREfast>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>
+      </MultiProcessorCompilation>
       <Cpp0xSupport>true</Cpp0xSupport>
       <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
@@ -312,11 +317,13 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+      <EnforceTypeConversionRules>
+      </EnforceTypeConversionRules>
       <OpenMPSupport>true</OpenMPSupport>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>true</EnablePREfast>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>
+      </MultiProcessorCompilation>
       <DisableSpecificWarnings>4127</DisableSpecificWarnings>
       <Cpp0xSupport>true</Cpp0xSupport>
       <OpenMP>GenerateParallelCode</OpenMP>
@@ -901,9 +908,6 @@
     <None Include="$(SolutionDir)mandelbulber2\src\voxel_export.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="mandelbulber2_autogen.vcxproj">
-      <Project>{a4b9bf4a-39ad-43e0-b1a1-3e39ab811a7c}</Project>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <IncludePath>$(SolutionDir)build-win;$(SolutionDir)packages;$(WindowsSDK_IncludePath);$(IncludePath)</IncludePath>
@@ -960,5 +964,98 @@
     <Exec Command="rd /s /q $(IntDir)" />
     <Exec Command="del /F /Q $(GenDir)\*.h" />
     <Exec Command="del /F /Q $(GenDir)\*.cpp" />
+  </Target>
+  <PropertyGroup>
+    <SourceDir>$(SolutionDir)</SourceDir>
+    <CppDir>$(SourceDir)mandelbulber2</CppDir>
+    <GenDir>$(SourceDir)build-win</GenDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.8.0.10781\build\native\</QtDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Moc>$(QtDir)/bin/moc.exe</Moc>
+    <Uic>$(QtDir)/bin/uic.exe</Uic>
+    <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MocFlags>-DUSE_TIFF</MocFlags>
+  </PropertyGroup>
+  <ItemGroup>
+    <QtIncludes Include="$(CppDir)/qt/*.hpp" />
+    <QtIncludes Include="$(CppDir)/qt/*.h" />
+    <QtIncludes Include="$(CppDir)/src/*.hpp" />
+    <QtIncludes Include="$(CppDir)/src/*.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtuiInclude Include="$(CppDir)/qt/*.ui" />
+    <QtuiInclude Include="$(CppDir)/src/*.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtrcInclude Include="$(CppDir)/qt/*.qrc" />
+    <QtrcInclude Include="$(CppDir)/src/*.qrc" />
+  </ItemGroup>
+  <Target Name="EnsureBuildQT" BeforeTargets="PrepareForBuild">
+    <MakeDir Directories="$(GenDir)" />
+  </Target>
+  <Target Inputs="@(QtIncludes)" Name="Moc" AfterTargets="EnsureBuildQT" Outputs="@(QtIncludes->'$(GenDir)/moc_%(Filename).cpp')">
+    <Exec Command="$(Moc) %(QtIncludes.identity) -nw -o $(GenDir)/moc_%(Filename).cpp $(MocFlags)" />
+  </Target>
+  <Target Inputs="@(QtuiInclude)" Name="Uic" AfterTargets="EnsureBuildQT" Outputs="@(QtuiInclude->'$(GenDir)/ui_%(Filename).h')">
+    <Exec Command="$(Uic) %(QtuiInclude.identity) -o $(GenDir)/ui_%(Filename).h" />
+  </Target>
+  <Target Inputs="@(QtrcInclude)" Name="Rcc" AfterTargets="EnsureBuildQT" Outputs="@(QtrcInclude->'$(GenDir)/qrc_%(Filename).cpp')">
+    <Exec Command="$(Rcc) %(QtrcInclude.identity) -o $(GenDir)/qrc_%(Filename).cpp" />
+  </Target>
+  <Target Name="Build-Package" AfterTargets="Build">
+    <MakeDir Directories="$(OutDir)" />
+    <MakeDir Directories="$(IntDir)" />
+    <Exec Command="rd /s /q $(OutDir)" />
+    <Exec Command="xcopy /Y /Q /I /S $(SourceDir)mandelbulber2\deploy\share\mandelbulber2 $(OutDir)" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\gamepads $(OutDir)gamepads" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\iconengines $(OutDir)iconengines" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\imageformats $(OutDir)imageformats" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\platforms $(OutDir)platforms" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\audio $(OutDir)audio" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\mediaservice $(OutDir)mediaservice" />
+    <Exec Command="del /F /Q $(OutDir)language" />
+    <Exec Command="del /F /Q $(OutDir)qt_data" />
+    <Exec Command="del /F /Q $(OutDir)data" />
+    <Exec Command="xcopy /Y /Q /I $(SourceDir)\mandelbulber2\language $(OutDir)language" />
+    <Exec Command="xcopy /Y /Q /I /S $(SourceDir)\mandelbulber2\qt_data $(OutDir)qt_data" />
+    <Exec Command="xcopy /Y /Q /I $(SourceDir)\mandelbulber2\data $(OutDir)data" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\README-win32.txt $(OutDir)README.txt" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\NEWS $(OutDir)NEWS.txt" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\COPYING $(OutDir)COPYING.txt" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\win32\mandelbulber2.ico $(OutDir)mandelbulber2.ico" />
+    <Exec Command="mkdir $(OutDir)source" />
+    <Exec Command="xcopy /Y /Q /I  $(SourceDir)\mandelbulber2\src $(OutDir)source\src" />
+    <Exec Command="xcopy /Y /Q /I  $(SourceDir)\mandelbulber2\qt $(OutDir)source\qt" />
+    <Exec Command="mkdir $(OutDir)makefiles" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\Release\mandelbulber.pro $(OutDir)makefiles\mandelbulber.pro" />
+  </Target>
+  <Target Name="Copy-QTLIBS-Release" AfterTargets="Build-Package" Condition="( $(Configuration.ToLower().IndexOf('debug')) == -1 ) ">
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Core.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Gamepad.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Gui.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Multimedia.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5MultimediaQuick_p.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5MultimediaWidgets.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Network.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Svg.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Test.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Widgets.dll $(OutDir)" />
+  </Target>
+  <Target Name="Copy-QTLIBS-Debug" AfterTargets="Build-Package" Condition="( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) ">
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Cored.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Gamepadd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Guid.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Multimediad.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5MultimediaQuick_pd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5MultimediaWidgetsd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Networkd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Svgd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Testd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Widgetsd.dll $(OutDir)" />
   </Target>
 </Project>
