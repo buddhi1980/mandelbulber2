@@ -1259,7 +1259,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kalisets1:
 				case aboxVSIcen1:
 				case pseudoKleinian1:
-				case mixPinski4d:
+				//case mixPinski4d:
 				case abox4d:
 					// case mengerSmooth:
 					// case mengerSmoothMod1:
@@ -1282,7 +1282,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMiddleMod:
 				case transfMengerFold: // hmmm, this issue again
 				case mengerPwr2Poly:
-				// case mixPinski4D:
+				case mixPinski4d:
 				case sierpinski4d:
 				case sierpinski3d:
 				case menger4d:

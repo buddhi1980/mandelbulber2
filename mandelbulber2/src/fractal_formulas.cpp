@@ -7620,7 +7620,7 @@ void TransfZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fractal)
 	if (fractal->transformCommon.functionEnabledyFalse) z.y = -z.y;
 	if (fractal->transformCommon.functionEnabledzFalse) z.z = -z.z;
 
-	if (fractal->transformCommon.functionEnabled && i >= fractal->transformCommon.startIterations
+	if (fractal->transformCommon.functionEnabledFalse && i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations)
 	{
 		double xTemp = SQRT_1_2 * (z.x - z.y);
@@ -8141,6 +8141,7 @@ void MixPinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 		z4D.z = scaleM * z4D.z;
 		aux.DE *= scaleM * fractal->analyticDE.scale1;
 	}
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**

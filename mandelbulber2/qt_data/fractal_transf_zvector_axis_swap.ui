@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_zvector_axis_swap</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -164,7 +164,7 @@
    <item>
     <layout class="QGridLayout" name="gridLayout_15">
      <item row="1" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="text">
         <string>enable 45 degree rotation of XY plane, for every iteration from start to stop</string>
        </property>
@@ -327,14 +327,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -342,7 +342,7 @@
   <tabstop>checkBox_transf_function_enabledx_false</tabstop>
   <tabstop>checkBox_transf_function_enabledy_false</tabstop>
   <tabstop>checkBox_transf_function_enabledz_false</tabstop>
-  <tabstop>checkBox_transf_function_enabled</tabstop>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations</tabstop>
   <tabstop>groupCheck_info</tabstop>
