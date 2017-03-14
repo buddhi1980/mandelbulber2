@@ -76,6 +76,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	QList<QVariant> mode;
 	mode.append(int(RenderedImage::clickDoNothing));
 	clickModeData = mode;
+	cameraMovementMode = cameraMovementEnums::fixedDistance;
 
 	// timer to refresh image
 	timerRefreshImage = new QTimer(this);

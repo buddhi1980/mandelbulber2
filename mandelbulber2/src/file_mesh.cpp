@@ -91,7 +91,7 @@ QString MeshFileSave::MeshNameWithoutExtension(QString path)
 void MeshFileSavePLY::SaveMesh()
 {
 	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
-	return SavePLY();
+	SavePLY();
 	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
 }
 
