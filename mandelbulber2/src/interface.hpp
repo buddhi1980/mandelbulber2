@@ -137,6 +137,7 @@ public:
 
 	CVector2<int> lockedImageResolution;
 	double lockedDetailLevel;
+	int lastSelectedMaterial;
 
 	bool stopRequest;
 	bool repeatRequest; // request to repeat start loop

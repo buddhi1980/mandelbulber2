@@ -101,6 +101,7 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 	repeatRequest = false;
 	autoRefreshLastState = false;
 	lockedDetailLevel = 1.0;
+	lastSelectedMaterial = 1;
 }
 
 cInterface::~cInterface()
@@ -2122,6 +2123,12 @@ void cInterface::MaterialSelected(int matIndex)
 		materialEditor->AssignMaterial(gPar, matIndex);
 		connect(materialEditor, SIGNAL(materialChanged(int)), materialListModel,
 			SLOT(slotMaterialChanged(int)));
+
+		if(matIndex != lastSelectedMaterial)
+		{
+			mainWindow->ui->dockWidget_materialEditor->raise();
+			lastSelectedMaterial = matIndex;
+		}
 	}
 }
 

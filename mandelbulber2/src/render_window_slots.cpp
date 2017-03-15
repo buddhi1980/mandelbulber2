@@ -714,7 +714,6 @@ void RenderWindow::slotAutoRefresh()
 void RenderWindow::slotMaterialSelected(int matIndex) const
 {
 	gMainInterface->MaterialSelected(matIndex);
-	ui->dockWidget_materialEditor->raise();
 }
 
 void RenderWindow::slotMaterialEdited()
