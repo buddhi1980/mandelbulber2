@@ -914,8 +914,6 @@
     <CAExcludePath>$(SolutionDir)build-win;$(SolutionDir)packages;$(WindowsSDK_IncludePath);$(CAExcludePath)</CAExcludePath>
   </PropertyGroup> -->
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\..\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\..\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="..\..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
     <Import Project="..\..\packages\libpng.redist.1.6.28.1\build\native\libpng.redist.targets" Condition="Exists('..\..\packages\libpng.redist.1.6.28.1\build\native\libpng.redist.targets')" />
     <Import Project="..\..\packages\libpng.1.6.28.1\build\native\libpng.targets" Condition="Exists('..\..\packages\libpng.1.6.28.1\build\native\libpng.targets')" />
     <Import Project="..\..\packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets" Condition="Exists('..\..\packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" />
@@ -938,13 +936,13 @@
     <Import Project="..\..\packages\vorbis-msvc14-x86.1.3.5.7783\build\native\vorbis-msvc14-x86.targets" Condition="Exists('..\..\packages\vorbis-msvc14-x86.1.3.5.7783\build\native\vorbis-msvc14-x86.targets')" />
     <Import Project="..\..\packages\ogg-msvc14-x64.1.3.2.7783\build\native\ogg-msvc14-x64.targets" Condition="Exists('..\..\packages\ogg-msvc14-x64.1.3.2.7783\build\native\ogg-msvc14-x64.targets')" />
     <Import Project="..\..\packages\ogg-msvc14-x86.1.3.2.7783\build\native\ogg-msvc14-x86.targets" Condition="Exists('..\..\packages\ogg-msvc14-x86.1.3.2.7783\build\native\ogg-msvc14-x86.targets')" />
+    <Import Project="..\..\packages\zlib-msvc14-x64.1.2.11.7795\build\native\zlib-msvc14-x64.targets" Condition="Exists('..\..\packages\zlib-msvc14-x64.1.2.11.7795\build\native\zlib-msvc14-x64.targets')" />
+    <Import Project="..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets" Condition="Exists('..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
-    <Error Condition="!Exists('..\..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
     <Error Condition="!Exists('..\..\packages\libpng.redist.1.6.28.1\build\native\libpng.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libpng.redist.1.6.28.1\build\native\libpng.redist.targets'))" />
     <Error Condition="!Exists('..\..\packages\libpng.1.6.28.1\build\native\libpng.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libpng.1.6.28.1\build\native\libpng.targets'))" />
     <Error Condition="!Exists('..\..\packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets'))" />
@@ -968,6 +966,8 @@
     <Error Condition="!Exists('..\..\packages\vorbis-msvc14-x86.1.3.5.7783\build\native\vorbis-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\vorbis-msvc14-x86.1.3.5.7783\build\native\vorbis-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\ogg-msvc14-x64.1.3.2.7783\build\native\ogg-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ogg-msvc14-x64.1.3.2.7783\build\native\ogg-msvc14-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\ogg-msvc14-x86.1.3.2.7783\build\native\ogg-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ogg-msvc14-x86.1.3.2.7783\build\native\ogg-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\zlib-msvc14-x64.1.2.11.7795\build\native\zlib-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\zlib-msvc14-x64.1.2.11.7795\build\native\zlib-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets'))" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q $(IntDir)" />
