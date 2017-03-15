@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="AnalysisRelease|ARM">
+      <Configuration>AnalysisRelease</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="AnalysisRelease|Win32">
+      <Configuration>AnalysisRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="AnalysisRelease|x64">
+      <Configuration>AnalysisRelease</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}</ProjectGuid>
+    <RootNamespace>mandelbulber2_autogen</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir>$(SolutionDir)build-win\$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)build-win\mandelbulber2.dir\$(Configuration)\$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <PropertyGroup>
+    <SourceDir>$(SolutionDir)</SourceDir>
+    <CppDir>$(SourceDir)mandelbulber2</CppDir>
+    <GenDir>$(SourceDir)build-win</GenDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x64.5.8.0.10781\build\native\</QtDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='Win32'">
+    <QtDir>$(SolutionDir)\packages\bulbqt-msvc14-x86.5.8.0.10781\build\native\</QtDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Moc>$(QtDir)/bin/moc.exe</Moc>
+    <Uic>$(QtDir)/bin/uic.exe</Uic>
+    <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'!='AnalysisRelease'">
+    <MocFlags>-DUSE_TIFF -DUSE_EXR</MocFlags>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='AnalysisRelease'">
+    <MocFlags>-DUSE_TIFF</MocFlags>
+  </PropertyGroup>
+  <ItemGroup>
+    <QtIncludes Include="$(CppDir)/qt/*.hpp" />
+    <QtIncludes Include="$(CppDir)/qt/*.h" />
+    <QtIncludes Include="$(CppDir)/src/*.hpp" />
+    <QtIncludes Include="$(CppDir)/src/*.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtuiInclude Include="$(CppDir)/qt/*.ui" />
+    <QtuiInclude Include="$(CppDir)/src/*.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtrcInclude Include="$(CppDir)/qt/*.qrc" />
+    <QtrcInclude Include="$(CppDir)/src/*.qrc" />
+  </ItemGroup>
+  <Target Name="Build">
+    <MakeDir Directories="$(GenDir)" />
+  </Target>
+  <Target Inputs="@(QtIncludes)" Name="Moc" AfterTargets="Build" Outputs="@(QtIncludes->'$(GenDir)/moc_%(Filename).cpp')">
+    <Exec Command="$(Moc) %(QtIncludes.identity) -nw -o $(GenDir)/moc_%(Filename).cpp $(MocFlags)" />
+  </Target>
+  <Target Inputs="@(QtuiInclude)" Name="Uic" AfterTargets="Build" Outputs="@(QtuiInclude->'$(GenDir)/ui_%(Filename).h')">
+    <Exec Command="$(Uic) %(QtuiInclude.identity) -o $(GenDir)/ui_%(Filename).h" />
+  </Target>
+  <Target Inputs="@(QtrcInclude)" Name="Rcc" AfterTargets="Build" Outputs="@(QtrcInclude->'$(GenDir)/qrc_%(Filename).cpp')">
+    <Exec Command="$(Rcc) %(QtrcInclude.identity) -o $(GenDir)/qrc_%(Filename).cpp" />
+  </Target>
+  <Target Name="Build-Package" AfterTargets="Build">
+    <MakeDir Directories="$(OutDir)" />
+    <MakeDir Directories="$(IntDir)" />
+    <Exec Command="rd /s /q $(OutDir)" />
+    <Exec Command="xcopy /Y /Q /I /S $(SourceDir)mandelbulber2\deploy\share\mandelbulber2 $(OutDir)" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\gamepads $(OutDir)gamepads" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\iconengines $(OutDir)iconengines" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\imageformats $(OutDir)imageformats" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\platforms $(OutDir)platforms" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\audio $(OutDir)audio" />
+    <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\mediaservice $(OutDir)mediaservice" />
+    <Exec Command="del /F /Q $(OutDir)language" />
+    <Exec Command="del /F /Q $(OutDir)qt_data" />
+    <Exec Command="del /F /Q $(OutDir)data" />
+    <Exec Command="xcopy /Y /Q /I $(SourceDir)\mandelbulber2\language $(OutDir)language" />
+    <Exec Command="xcopy /Y /Q /I /S $(SourceDir)\mandelbulber2\qt_data $(OutDir)qt_data" />
+    <Exec Command="xcopy /Y /Q /I $(SourceDir)\mandelbulber2\data $(OutDir)data" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\README-win32.txt $(OutDir)README.txt" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\NEWS $(OutDir)NEWS.txt" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\COPYING $(OutDir)COPYING.txt" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\win32\mandelbulber2.ico $(OutDir)mandelbulber2.ico" />
+    <Exec Command="mkdir $(OutDir)source" />
+    <Exec Command="xcopy /Y /Q /I  $(SourceDir)\mandelbulber2\src $(OutDir)source\src" />
+    <Exec Command="xcopy /Y /Q /I  $(SourceDir)\mandelbulber2\qt $(OutDir)source\qt" />
+    <Exec Command="mkdir $(OutDir)makefiles" />
+    <Exec Command="copy /Y $(SourceDir)\mandelbulber2\Release\mandelbulber.pro $(OutDir)makefiles\mandelbulber.pro" />
+  </Target>
+  <Target Name="Copy-QTLIBS-Release" AfterTargets="Build-Package" Condition="( $(Configuration.ToLower().IndexOf('debug')) == -1 ) ">
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Core.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Gamepad.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Gui.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Multimedia.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5MultimediaQuick_p.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5MultimediaWidgets.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Network.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Svg.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Test.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Widgets.dll $(OutDir)" />
+  </Target>
+  <Target Name="Copy-QTLIBS-Debug" AfterTargets="Build-Package" Condition="( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) ">
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Cored.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Gamepadd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Guid.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Multimediad.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5MultimediaQuick_pd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5MultimediaWidgetsd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Networkd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Svgd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Testd.dll $(OutDir)" />
+    <Exec Command="xcopy /Y /Q $(QtDir)\bin\Qt5Widgetsd.dll $(OutDir)" />
+  </Target>
+</Project>
