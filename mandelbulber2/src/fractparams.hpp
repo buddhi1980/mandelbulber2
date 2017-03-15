@@ -147,7 +147,7 @@ public:
 	sRGB volFogColour2;
 	sRGB volFogColour3;
 
-	double ambientOcclusion;
+	float ambientOcclusion;
 	double ambientOcclusionFastTune;
 	double auxLightPreIntensity[4];
 	double auxLightVisibility;
@@ -174,16 +174,16 @@ public:
 	double fogVisibility;
 	double formulaScale[NUMBER_OF_FRACTALS];
 	double fov; // perspective factor
-	double glowIntensity;
+	float glowIntensity;
 	double hdrBlurIntensity;
 	double hdrBlurRadius;
-	double iterFogColor1Maxiter;
-	double iterFogColor2Maxiter;
+	float iterFogColor1Maxiter;
+	float iterFogColor2Maxiter;
 	double iterFogOpacity;
-	double iterFogOpacityTrim;
+	float iterFogOpacityTrim;
 	double mainLightAlpha;
 	double mainLightBeta;
-	double mainLightIntensity;
+	float mainLightIntensity;
 	double mainLightVisibility;
 	double mainLightVisibilitySize;
 	double resolution; // resolution of image in fractal coordinates
@@ -197,7 +197,7 @@ public:
 	double viewDistanceMin;
 	double volFogColour1Distance;
 	double volFogColour2Distance;
-	double volFogDensity;
+	float volFogDensity;
 	double volFogDistanceFactor;
 	double volumetricLightIntensity[5];
 

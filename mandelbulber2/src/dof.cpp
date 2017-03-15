@@ -49,7 +49,7 @@ cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image)
 }
 
 void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neutral,
-	bool floatVersion, int numberOfPasses, float blurOpacity, bool *stopRequest)
+	int numberOfPasses, float blurOpacity, bool *stopRequest)
 {
 	int imageWidth = image->GetWidth();
 	int imageHeight = image->GetHeight();

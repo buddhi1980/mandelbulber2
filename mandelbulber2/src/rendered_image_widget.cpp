@@ -200,7 +200,7 @@ void RenderedImage::DisplayCoordinates()
 
 	if (clickMode != clickDoNothing)
 	{
-		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, text);
+		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, text);
 		textRect.setHeight(textRect.height() + 2);
 		textRect.moveBottomLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 3));
 
@@ -208,7 +208,7 @@ void RenderedImage::DisplayCoordinates()
 		painter.setPen(penWhite);
 		painter.setBrush(brushBrown);
 		painter.drawRoundedRect(textRect, 3, 3);
-		painter.drawText(textRect, Qt::AlignTop || Qt::AlignLeft, text);
+		painter.drawText(textRect, Qt::AlignTop | Qt::AlignLeft, text);
 	}
 
 	QString textCoordinates;
@@ -230,14 +230,14 @@ void RenderedImage::DisplayCoordinates()
 		textCoordinates += "\nspeed set: " + QString::number(flightData.speedSp);
 	}
 
-	QRect textRect2 = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, textCoordinates);
+	QRect textRect2 = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, textCoordinates);
 	textRect2.setHeight(textRect2.height() + 2);
 	textRect2.moveTopLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y + 3));
 	painter.setOpacity(0.8);
 	painter.setPen(penWhite);
 	painter.setBrush(brushDarkBlue);
 	painter.drawRoundedRect(textRect2, 3, 3);
-	painter.drawText(textRect2, Qt::AlignTop || Qt::AlignLeft, textCoordinates);
+	painter.drawText(textRect2, Qt::AlignTop | Qt::AlignLeft, textCoordinates);
 }
 
 void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)

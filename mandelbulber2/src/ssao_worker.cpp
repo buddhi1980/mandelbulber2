@@ -86,7 +86,7 @@ void cSSAOWorker::doWork()
 
 	double fov = params->fov;
 
-	double intensity = params->ambientOcclusion;
+	float intensity = params->ambientOcclusion;
 
 	int listIndex = 0;
 
@@ -114,8 +114,8 @@ void cSSAOWorker::doWork()
 		{
 			double z = double(image->GetPixelZBuffer(x, y));
 			unsigned short opacity16 = image->GetPixelOpacity(x, y);
-			double opacity = opacity16 / 65535.0;
-			double total_ambient = 0;
+			float opacity = opacity16 / 65535.0f;
+			float total_ambient = 0.0f;
 
 			if (z < 1e19)
 			{
@@ -149,7 +149,7 @@ void cSSAOWorker::doWork()
 					y2 = y2 * z * fov;
 				}
 
-				double ambient = 0;
+				float ambient = 0.0f;
 				double angleStep = M_PI * 2.0 / double(quality);
 				int maxRandom = 62831 / quality;
 				double rRandom = 1.0;
@@ -232,7 +232,7 @@ void cSSAOWorker::doWork()
 				if (xx >= endX - 1) break;
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGBFloat pixel = image->GetPixelPostImage(x + xx, y);
-				double shadeFactor = 1.0 / 256.0 * total_ambient * intensity * (1.0 - opacity);
+				float shadeFactor = 1.0f / 256.0f * total_ambient * intensity * (1.0f - opacity);
 				pixel.R = pixel.R + colour.R * shadeFactor;
 				pixel.G = pixel.G + colour.G * shadeFactor;
 				pixel.B = pixel.B + colour.B * shadeFactor;

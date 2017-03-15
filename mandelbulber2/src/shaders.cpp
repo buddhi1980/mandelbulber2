@@ -57,18 +57,18 @@ sRGBAfloat cRenderWorker::ObjectShader(
 
 	// main light
 	sRGBAfloat mainLight;
-	mainLight.R = params->mainLightIntensity * params->mainLightColour.R / 65536.0;
-	mainLight.G = params->mainLightIntensity * params->mainLightColour.G / 65536.0;
-	mainLight.B = params->mainLightIntensity * params->mainLightColour.B / 65536.0;
+	mainLight.R = params->mainLightIntensity * params->mainLightColour.R / 65536.0f;
+	mainLight.G = params->mainLightIntensity * params->mainLightColour.G / 65536.0f;
+	mainLight.B = params->mainLightIntensity * params->mainLightColour.B / 65536.0f;
 
 	// calculate shading based on angle of incidence
 	sRGBAfloat shade;
 	if (params->mainLightEnable)
 	{
 		shade = MainShading(input);
-		shade.R = params->mainLightIntensity * (1.0 - mat->shading + mat->shading * shade.R);
-		shade.G = params->mainLightIntensity * (1.0 - mat->shading + mat->shading * shade.G);
-		shade.B = params->mainLightIntensity * (1.0 - mat->shading + mat->shading * shade.B);
+		shade.R = params->mainLightIntensity * (1.0f - mat->shading + mat->shading * shade.R);
+		shade.G = params->mainLightIntensity * (1.0f - mat->shading + mat->shading * shade.G);
+		shade.B = params->mainLightIntensity * (1.0f - mat->shading + mat->shading * shade.B);
 	}
 
 	// calculate shadow
@@ -87,8 +87,8 @@ sRGBAfloat cRenderWorker::ObjectShader(
 
 	// calculate surface colour
 	sRGBAfloat colour = SurfaceColour(input);
-	double texColInt = mat->colorTextureIntensity;
-	double texColIntN = 1.0 - mat->colorTextureIntensity;
+	float texColInt = mat->colorTextureIntensity;
+	float texColIntN = 1.0f - mat->colorTextureIntensity;
 	colour.R *= input.texColor.R * texColInt + texColIntN;
 	colour.G *= input.texColor.G * texColInt + texColIntN;
 	colour.B *= input.texColor.B * texColInt + texColIntN;
@@ -139,11 +139,11 @@ sRGBAfloat cRenderWorker::ObjectShader(
 	// luminosity
 	sRGBAfloat luminosity;
 	luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.R / 65536.0;
+								 + mat->luminosity * mat->luminosityColor.R / 65536.0f;
 	luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.G / 65536.0;
+								 + mat->luminosity * mat->luminosityColor.G / 65536.0f;
 	luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.B / 65536.0;
+								 + mat->luminosity * mat->luminosityColor.B / 65536.0f;
 
 	// total shader
 	output.R = envMapping.R + (ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
@@ -181,7 +181,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 				CVector3 rotatedViewVector = params->mRotBackgroundRotation.RotateVector(input.viewVector);
 				double alphaTexture = rotatedViewVector.GetAlpha();
 				double betaTexture = rotatedViewVector.GetBeta();
-				int texWidth = data->textures.backgroundTexture.Width() * 0.5;
+				int texWidth = data->textures.backgroundTexture.Width() / 2;
 				int texHeight = data->textures.backgroundTexture.Height();
 				int offset = 0;
 
@@ -261,22 +261,22 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 		if (grad < 1)
 		{
 			double gradN = 1.0 - grad;
-			pixel.R = params->background_color3.R * gradN + params->background_color2.R * grad;
-			pixel.G = params->background_color3.G * gradN + params->background_color2.G * grad;
-			pixel.B = params->background_color3.B * gradN + params->background_color2.B * grad;
+			pixel.R = quint16(params->background_color3.R * gradN + params->background_color2.R * grad);
+			pixel.G = quint16(params->background_color3.G * gradN + params->background_color2.G * grad);
+			pixel.B = quint16(params->background_color3.B * gradN + params->background_color2.B * grad);
 		}
 		else
 		{
 			grad = grad - 1;
 			double gradN = 1.0 - grad;
-			pixel.R = params->background_color2.R * gradN + params->background_color1.R * grad;
-			pixel.G = params->background_color2.G * gradN + params->background_color1.G * grad;
-			pixel.B = params->background_color2.B * gradN + params->background_color1.B * grad;
+			pixel.R = quint16(params->background_color2.R * gradN + params->background_color1.R * grad);
+			pixel.G = quint16(params->background_color2.G * gradN + params->background_color1.G * grad);
+			pixel.B = quint16(params->background_color2.B * gradN + params->background_color1.B * grad);
 		}
 
-		pixel2.R = pixel.R / 65536.0;
-		pixel2.G = pixel.G / 65536.0;
-		pixel2.B = pixel.B / 65536.0;
+		pixel2.R = pixel.R / 65536.0f;
+		pixel2.G = pixel.G / 65536.0f;
+		pixel2.B = pixel.B / 65536.0f;
 		pixel2.A = 0.0;
 	}
 
@@ -307,19 +307,19 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 	double colourThresh = params->volFogColour1Distance;
 	double colourThresh2 = params->volFogColour2Distance;
 	double fogReduce = params->volFogDistanceFactor;
-	double fogIntensity = params->volFogDensity;
+	float fogIntensity = params->volFogDensity;
 
 	// visible lights init
 	int numberOfLights = data->lights.GetNumberOfLights();
 	if (numberOfLights < 4) numberOfLights = 4;
 
 	// glow init
-	double glow = input.stepCount * params->glowIntensity / 512.0 * params->DEFactor;
-	double glowN = 1.0 - glow;
-	if (glowN < 0.0) glowN = 0.0;
-	double glowR = (params->glowColor1.R * glowN + params->glowColor2.R * glow) / 65536.0;
-	double glowG = (params->glowColor1.G * glowN + params->glowColor2.G * glow) / 65536.0;
-	double glowB = (params->glowColor1.B * glowN + params->glowColor2.B * glow) / 65536.0;
+	float glow = input.stepCount * params->glowIntensity / 512.0f * float(params->DEFactor);
+	float glowN = 1.0f - glow;
+	if (glowN < 0.0f) glowN = 0.0f;
+	float glowR = (params->glowColor1.R * glowN + params->glowColor2.R * glow) / 65536.0f;
+	float glowG = (params->glowColor1.G * glowN + params->glowColor2.G * glow) / 65536.0f;
+	float glowB = (params->glowColor1.B * glowN + params->glowColor2.B * glow) / 65536.0f;
 
 	double totalStep = 0.0;
 
@@ -349,11 +349,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		//------------------- glow
 		if (params->glowEnabled && input.stepCount > 0)
 		{
-			double glowOpacity = glow / input.stepCount;
-			if (glowOpacity > 1.0) glowOpacity = 1.0;
-			output.R = glowOpacity * glowR + (1.0 - glowOpacity) * output.R;
-			output.G = glowOpacity * glowG + (1.0 - glowOpacity) * output.G;
-			output.B = glowOpacity * glowB + (1.0 - glowOpacity) * output.B;
+			float glowOpacity = glow / input.stepCount;
+			if (glowOpacity > 1.0f) glowOpacity = 1.0f;
+			output.R = glowOpacity * glowR + (1.0f - glowOpacity) * output.R;
+			output.G = glowOpacity * glowG + (1.0f - glowOpacity) * output.G;
+			output.B = glowOpacity * glowB + (1.0f - glowOpacity) * output.B;
 			output.A += glowOpacity;
 		}
 		// qDebug() << "step" << step;
@@ -429,7 +429,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			sFractalOut fractOut;
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
-			r = sqrt(1.0f / (r + 1.0e-30f));
+			r = sqrt(1.0 / (r + 1.0e-30));
 			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
 																	 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
 																 + 1e-100);
@@ -479,74 +479,74 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		//----------------------- basic fog
 		if (params->fogEnabled)
 		{
-			double fogDensity = step / params->fogVisibility;
-			if (fogDensity > 1.0) fogDensity = 1.0;
-			output.R = fogDensity * params->fogColor.R / 65536.0 + (1.0 - fogDensity) * output.R;
-			output.G = fogDensity * params->fogColor.G / 65536.0 + (1.0 - fogDensity) * output.G;
-			output.B = fogDensity * params->fogColor.B / 65536.0 + (1.0 - fogDensity) * output.B;
-			totalOpacity = fogDensity + (1.0 - fogDensity) * totalOpacity;
-			output.A = fogDensity + (1.0 - fogDensity) * output.A;
+			float fogDensity = step / params->fogVisibility;
+			if (fogDensity > 1.0f) fogDensity = 1.0f;
+			output.R = fogDensity * params->fogColor.R / 65536.0f + (1.0f - fogDensity) * output.R;
+			output.G = fogDensity * params->fogColor.G / 65536.0f + (1.0f - fogDensity) * output.G;
+			output.B = fogDensity * params->fogColor.B / 65536.0f + (1.0f - fogDensity) * output.B;
+			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
+			output.A = fogDensity + (1.0f - fogDensity) * output.A;
 		}
 
 		//-------------------- volumetric fog
-		if (fogIntensity > 0.0 && params->volFogEnabled)
+		if (fogIntensity > 0.0f && params->volFogEnabled)
 		{
-			double densityTemp = step * fogReduce / (distance * distance + fogReduce * fogReduce);
+			float densityTemp = step * fogReduce / (distance * distance + fogReduce * fogReduce);
 
-			double k = distance / colourThresh;
-			if (k > 1) k = 1.0;
-			double kn = 1.0 - k;
-			double fogTempR = params->volFogColour1.R * kn + params->volFogColour2.R * k;
-			double fogTempG = params->volFogColour1.G * kn + params->volFogColour2.G * k;
-			double fogTempB = params->volFogColour1.B * kn + params->volFogColour2.B * k;
+			float k = distance / colourThresh;
+			if (k > 1) k = 1.0f;
+			float kn = 1.0f - k;
+			float fogTempR = params->volFogColour1.R * kn + params->volFogColour2.R * k;
+			float fogTempG = params->volFogColour1.G * kn + params->volFogColour2.G * k;
+			float fogTempB = params->volFogColour1.B * kn + params->volFogColour2.B * k;
 
-			double k2 = distance / colourThresh2 * k;
+			float k2 = distance / colourThresh2 * k;
 			if (k2 > 1) k2 = 1.0;
-			kn = 1.0 - k2;
+			kn = 1.0f - k2;
 			fogTempR = fogTempR * kn + params->volFogColour3.R * k2;
 			fogTempG = fogTempG * kn + params->volFogColour3.G * k2;
 			fogTempB = fogTempB * kn + params->volFogColour3.B * k2;
 
-			double fogDensity = 0.3 * fogIntensity * densityTemp / (1.0 + fogIntensity * densityTemp);
+			float fogDensity = 0.3f * fogIntensity * densityTemp / (1.0f + fogIntensity * densityTemp);
 			if (fogDensity > 1) fogDensity = 1.0;
 
-			output.R = fogDensity * fogTempR / 65536.0 + (1.0 - fogDensity) * output.R;
-			output.G = fogDensity * fogTempG / 65536.0 + (1.0 - fogDensity) * output.G;
-			output.B = fogDensity * fogTempB / 65536.0 + (1.0 - fogDensity) * output.B;
+			output.R = fogDensity * fogTempR / 65536.0f + (1.0f - fogDensity) * output.R;
+			output.G = fogDensity * fogTempG / 65536.0f + (1.0f - fogDensity) * output.G;
+			output.B = fogDensity * fogTempB / 65536.0f + (1.0f - fogDensity) * output.B;
 			// qDebug() << "densityTemp " << densityTemp << "k" << k << "k2" << k2 << "fogTempR" <<
 			// fogTempR << "fogDensity" << fogDensity << "output.R" << output.R;
 
-			totalOpacity = fogDensity + (1.0 - fogDensity) * totalOpacity;
-			output.A = fogDensity + (1.0 - fogDensity) * output.A;
+			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
+			output.A = fogDensity + (1.0f - fogDensity) * output.A;
 		}
 
 		// iter fog
 		if (params->iterFogEnabled)
 		{
 			int L = input.stepBuff[index].iters;
-			double opacity =
+			float opacity =
 				IterOpacity(step, L, params->N, params->iterFogOpacityTrim, params->iterFogOpacity);
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			if (opacity > 0)
 			{
 				// fog colour
-				double iterFactor1 = (L - params->iterFogOpacityTrim)
-														 / (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
-				double k = iterFactor1;
-				if (k > 1.0) k = 1.0;
-				if (k < 0.0) k = 0.0;
-				double kn = 1.0 - k;
-				double fogColR = params->iterFogColour1.R * kn + params->iterFogColour2.R * k;
-				double fogColG = params->iterFogColour1.G * kn + params->iterFogColour2.G * k;
-				double fogColB = params->iterFogColour1.B * kn + params->iterFogColour2.B * k;
+				float iterFactor1 = (L - params->iterFogOpacityTrim)
+														/ (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
+				float k = iterFactor1;
+				if (k > 1.0f) k = 1.0f;
+				if (k < 0.0f) k = 0.0f;
+				float kn = 1.0f - k;
+				float fogColR = params->iterFogColour1.R * kn + params->iterFogColour2.R * k;
+				float fogColG = params->iterFogColour1.G * kn + params->iterFogColour2.G * k;
+				float fogColB = params->iterFogColour1.B * kn + params->iterFogColour2.B * k;
 
-				double iterFactor2 = (L - params->iterFogColor1Maxiter)
-														 / (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
-				double k2 = iterFactor2;
-				if (k2 < 0.0) k2 = 0.0;
-				if (k2 > 1.0) k2 = 1.0;
-				kn = 1.0 - k2;
+				float iterFactor2 = (L - params->iterFogColor1Maxiter)
+														/ (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
+				float k2 = iterFactor2;
+				if (k2 < 0.0f) k2 = 0.0;
+				if (k2 > 1.0f) k2 = 1.0;
+				kn = 1.0f - k2;
 				fogColR = fogColR * kn + params->iterFogColour3.R * k2;
 				fogColG = fogColG * kn + params->iterFogColour3.G * k2;
 				fogColB = fogColB * kn + params->iterFogColour3.B * k2;
@@ -556,14 +556,14 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				{
 					if (i == 0)
 					{
-						if (params->mainLightEnable && params->mainLightIntensity > 0.0)
+						if (params->mainLightEnable && params->mainLightIntensity > 0.0f)
 						{
 							sRGBAfloat shadowOutputTemp = MainShadow(input2);
-							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0
+							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0f
 														 * params->mainLightIntensity;
-							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0
+							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0f
 														 * params->mainLightIntensity;
-							newColour.B += shadowOutputTemp.B * params->mainLightColour.B / 65536.0
+							newColour.B += shadowOutputTemp.B * params->mainLightColour.B / 65536.0f
 														 * params->mainLightIntensity;
 						}
 					}
@@ -595,18 +595,18 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					newColour.B += AO.B * params->ambientOcclusion;
 				}
 
-				if (opacity > 1.0) opacity = 1.0;
+				if (opacity > 1.0f) opacity = 1.0f;
 
-				output.R = output.R * (1.0 - opacity) + newColour.R * opacity * fogColR / 65536.0;
-				output.G = output.G * (1.0 - opacity) + newColour.G * opacity * fogColG / 65536.0;
-				output.B = output.B * (1.0 - opacity) + newColour.B * opacity * fogColB / 65536.0;
-				totalOpacity = opacity + (1.0 - opacity) * totalOpacity;
-				output.A = opacity + (1.0 - opacity) * output.A;
+				output.R = output.R * (1.0f - opacity) + newColour.R * opacity * fogColR / 65536.0f;
+				output.G = output.G * (1.0f - opacity) + newColour.G * opacity * fogColG / 65536.0f;
+				output.B = output.B * (1.0f - opacity) + newColour.B * opacity * fogColB / 65536.0f;
+				totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
+				output.A = opacity + (1.0f - opacity) * output.A;
 			}
 		}
 
-		if (totalOpacity > 1.0) totalOpacity = 1.0;
-		if (output.A > 1.0) output.A = 1.0;
+		if (totalOpacity > 1.0f) totalOpacity = 1.0f;
+		if (output.A > 1.0f) output.A = 1.0f;
 		(*opacityOut).R = totalOpacity;
 		(*opacityOut).G = totalOpacity;
 		(*opacityOut).B = totalOpacity;
@@ -647,7 +647,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	{
 		point2 = input.point + input.lightVect * i;
 
-		float dist_thresh;
+		double dist_thresh;
 		if (params->iterFogEnabled || params->volumetricLightEnabled[0])
 		{
 			dist_thresh = CalcDistThresh(point2);
@@ -710,7 +710,7 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input) co
 	// reference Iñigo Quilez –iq/rgba:
 	// http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf
 	double delta = input.distThresh;
-	double aoTemp = 0;
+	float aoTemp = 0;
 	double quality = params->ambientOcclusionQuality;
 	double lastDist = 1e20;
 	for (int i = 1; i < quality * quality; i++)
@@ -727,9 +727,9 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input) co
 		aoTemp +=
 			1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist) / input.distThresh;
 	}
-	double ao = 1.0 - 0.2 * aoTemp;
+	float ao = 1.0f - 0.2f * aoTemp;
 	if (ao < 0) ao = 0;
-	sRGBAfloat output(ao, ao, ao, 1.0);
+	sRGBAfloat output(ao, ao, ao, 1.0f);
 	return output;
 }
 
@@ -866,7 +866,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 		}
 	}
 
-	if (normal.x == 0 && normal.y == 0 && normal.z == 0)
+	if (qFuzzyIsNull(normal.x) && qFuzzyIsNull(normal.y) && qFuzzyIsNull(normal.z))
 	{
 		normal = CVector3(1.0, 0.0, 0.0);
 	}
@@ -903,20 +903,20 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input) const
 	sRGBAfloat specular;
 	CVector3 half = input.lightVect - input.viewVector;
 	half.Normalize();
-	double shade2 = input.normal.Dot(half);
-	if (shade2 < 0.0) shade2 = 0.0;
-	double diffuse =
-		10.0 * (1.1
-						 - input.material->diffusionTextureIntensity
-								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
-	shade2 = pow(shade2, 30.0 / input.material->specularWidth / diffuse) / diffuse;
-	if (shade2 > 15.0) shade2 = 15.0;
+	float shade2 = input.normal.Dot(half);
+	if (shade2 < 0.0f) shade2 = 0.0f;
+	float diffuse =
+		10.0f * (1.1f
+							- input.material->diffusionTextureIntensity
+									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
+	shade2 = pow(shade2, 30.0f / input.material->specularWidth / diffuse) / diffuse;
+	if (shade2 > 15.0f) shade2 = 15.0f;
 	specular.R =
-		shade2 * input.material->specularColor.R / 65536.0 * (input.texDiffuse.R * 0.5 + 0.5);
+		shade2 * input.material->specularColor.R / 65536.0f * (input.texDiffuse.R * 0.5f + 0.5f);
 	specular.G =
-		shade2 * input.material->specularColor.G / 65536.0 * (input.texDiffuse.G * 0.5 + 0.5);
+		shade2 * input.material->specularColor.G / 65536.0f * (input.texDiffuse.G * 0.5f + 0.5f);
 	specular.B =
-		shade2 * input.material->specularColor.B / 65536.0 * (input.texDiffuse.B * 0.5 + 0.5);
+		shade2 * input.material->specularColor.B / 65536.0f * (input.texDiffuse.B * 0.5f + 0.5f);
 	return specular;
 }
 
@@ -943,14 +943,14 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input) const
 	if (dtx < 0) dtx = 0;
 	if (dty < 0) dty = 0;
 
-	double reflectance = 1.0;
+	float reflectance = 1.0f;
 	if (input.material->fresnelReflectance)
 	{
 		double n1 = 1.0;
 		double n2 = input.material->transparencyIndexOfRefraction;
 		reflectance = Reflectance(input.normal, input.viewVector, n1, n2);
-		if (reflectance < 0.0) reflectance = 0.0;
-		if (reflectance > 1.0) reflectance = 1.0;
+		if (reflectance < 0.0f) reflectance = 0.0f;
+		if (reflectance > 1.0f) reflectance = 1.0f;
 	}
 
 	envReflect.R = data->textures.envmapTexture.Pixel(dtx, dty).R * reflectance;
@@ -1039,9 +1039,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
 				colour.B = input.material->color.B / 256.0;
 			}
 
-			out.R = colour.R / 256.0;
-			out.G = colour.G / 256.0;
-			out.B = colour.B / 256.0;
+			out.R = colour.R / 256.0f;
+			out.G = colour.G / 256.0f;
+			out.B = colour.B / 256.0f;
 			break;
 		}
 
@@ -1055,9 +1055,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
 		case fractal::objTorus:
 		case fractal::objCylinder:
 		{
-			out.R = input.material->color.R / 65536.0;
-			out.G = input.material->color.G / 65536.0;
-			out.B = input.material->color.B / 65536.0;
+			out.R = input.material->color.R / 65536.0f;
+			out.G = input.material->color.G / 65536.0f;
+			out.B = input.material->color.B / 65536.0f;
 			break;
 		}
 		case fractal::objNone:
@@ -1078,7 +1078,7 @@ sRGBAfloat cRenderWorker::LightShading(
 
 	CVector3 d = light->position - input.point;
 
-	double distance = d.Length();
+	float distance = d.Length();
 
 	// angle of incidence
 	CVector3 lightVector = d;
@@ -1086,31 +1086,31 @@ sRGBAfloat cRenderWorker::LightShading(
 
 	// intensity of lights is divided by 6 because of backward compatibility. There was an error
 	// where number of light was always 24
-	double intensity = 100.0 * light->intensity / (distance * distance) / number / 6;
-	double shade = input.normal.Dot(lightVector);
+	float intensity = 100.0f * light->intensity / (distance * distance) / number / 6;
+	float shade = input.normal.Dot(lightVector);
 	if (shade < 0) shade = 0;
-	shade = 1.0 - input.material->shading + shade * input.material->shading;
+	shade = 1.0f - input.material->shading + shade * input.material->shading;
 
 	shade = shade * intensity;
-	if (shade > 500.0) shade = 500.0;
+	if (shade > 500.0f) shade = 500.0f;
 
 	// specular
 	CVector3 half = lightVector - input.viewVector;
 	half.Normalize();
-	double shade2 = input.normal.Dot(half);
-	if (shade2 < 0.0) shade2 = 0.0;
+	float shade2 = input.normal.Dot(half);
+	if (shade2 < 0.0f) shade2 = 0.0f;
 
-	double diffuse =
-		10.0 * (1.1
-						 - input.material->diffusionTextureIntensity
-								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
+	float diffuse =
+		10.0f * (1.1f
+							- input.material->diffusionTextureIntensity
+									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
 
-	shade2 = pow(shade2, 30.0 / input.material->specularWidth / diffuse) / diffuse;
+	shade2 = pow(shade2, 30.0f / input.material->specularWidth / diffuse) / diffuse;
 	shade2 *= intensity * input.material->specular;
-	if (shade2 > 15.0) shade2 = 15.0;
+	if (shade2 > 15.0f) shade2 = 15.0f;
 
 	// calculate shadow
-	if ((shade > 0.01 || shade2 > 0.01) && params->shadow)
+	if ((shade > 0.01f || shade2 > 0.01f) && params->shadow)
 	{
 		double auxShadow = AuxShadow(input, distance, lightVector);
 		shade *= auxShadow;
@@ -1125,13 +1125,13 @@ sRGBAfloat cRenderWorker::LightShading(
 		}
 	}
 
-	shading.R = shade * light->colour.R / 65536.0;
-	shading.G = shade * light->colour.G / 65536.0;
-	shading.B = shade * light->colour.B / 65536.0;
+	shading.R = shade * light->colour.R / 65536.0f;
+	shading.G = shade * light->colour.G / 65536.0f;
+	shading.B = shade * light->colour.B / 65536.0f;
 
-	outSpecular->R = shade2 * light->colour.R / 65536.0;
-	outSpecular->G = shade2 * light->colour.G / 65536.0;
-	outSpecular->B = shade2 * light->colour.B / 65536.0;
+	outSpecular->R = shade2 * light->colour.R / 65536.0f;
+	outSpecular->G = shade2 * light->colour.G / 65536.0f;
+	outSpecular->B = shade2 * light->colour.B / 65536.0f;
 
 	return shading;
 }
@@ -1269,7 +1269,8 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	fakeLightNormal.y = r - ry;
 	fakeLightNormal.z = r - rz;
 
-	if (fakeLightNormal.x == 0 && fakeLightNormal.y == 0 && fakeLightNormal.z == 0)
+	if (qFuzzyIsNull(fakeLightNormal.x) && qFuzzyIsNull(fakeLightNormal.y)
+			&& qFuzzyIsNull(fakeLightNormal.z))
 	{
 		fakeLightNormal.x = 0.0;
 	}
@@ -1277,7 +1278,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	{
 		fakeLightNormal.Normalize();
 	}
-	double fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
+	float fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
 	if (fakeLight2 < 0) fakeLight2 = 0;
 
 	fakeLights.R = fakeLight2;
@@ -1286,14 +1287,14 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 
 	CVector3 half = fakeLightNormal - input.viewVector;
 	half.Normalize();
-	double fakeSpecular = input.normal.Dot(half);
-	if (fakeSpecular < 0.0) fakeSpecular = 0.0;
-	double diffuse =
-		10.0 * (1.1
-						 - input.material->diffusionTextureIntensity
-								 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0);
-	fakeSpecular = pow(fakeSpecular, 30.0 / input.material->specularWidth / diffuse) / diffuse;
-	if (fakeSpecular > 15.0) fakeSpecular = 15.0;
+	float fakeSpecular = input.normal.Dot(half);
+	if (fakeSpecular < 0.0f) fakeSpecular = 0.0f;
+	float diffuse =
+		10.0f * (1.1f
+							- input.material->diffusionTextureIntensity
+									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
+	fakeSpecular = pow(fakeSpecular, 30.0f / input.material->specularWidth / diffuse) / diffuse;
+	if (fakeSpecular > 15.0f) fakeSpecular = 15.0f;
 	fakeSpec->R = fakeSpecular;
 	fakeSpec->G = fakeSpecular;
 	fakeSpec->B = fakeSpecular;

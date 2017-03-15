@@ -56,7 +56,6 @@ public:
 	void setModelColumn(int visibleColumn);
 	void populateItemsFromFractalList(
 		QList<sFractalDescription> fractalList, QList<QPair<int, QString> /* */> insertHeader);
-	void keyPressEvent(QEvent *event);
 
 private slots:
 	void onCompleterActivated(QString text);

@@ -956,7 +956,7 @@ void cInterface::RefreshPostEffects()
 			cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
 			dof.Render(screenRegion,
 				params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
-				params.DOFFocus, !ssaoUsed && gPar->Get<bool>("DOF_HDR"), params.DOFNumberOfPasses,
+				params.DOFFocus, params.DOFNumberOfPasses,
 				params.DOFBlurOpacity, &stopRequest);
 		}
 

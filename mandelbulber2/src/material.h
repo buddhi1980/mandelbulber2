@@ -63,19 +63,19 @@ public:
 
 	int id;
 
-	double shading;
-	double specular;
-	double specularWidth;
-	double reflectance;
-	double luminosity;
+	float shading;
+	float specular;
+	float specularWidth;
+	float reflectance;
+	float luminosity;
 	double transparencyIndexOfRefraction;
 	double transparencyOfInterior;
 	double transparencyOfSurface;
 	double paletteOffset;
 	double coloring_speed;
-	double colorTextureIntensity;
-	double diffusionTextureIntensity;
-	double luminosityTextureIntensity;
+	float colorTextureIntensity;
+	float diffusionTextureIntensity;
+	float luminosityTextureIntensity;
 	double displacementTextureHeight;
 	double normalMapTextureHeight;
 

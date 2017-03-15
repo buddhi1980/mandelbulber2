@@ -387,19 +387,18 @@ bool cRenderer::RenderImage()
 					region = data->stereo.GetRegion(
 						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-						params->DOFFocus, !ssaoUsed && params->DOFHDRMode, params->DOFNumberOfPasses,
+						params->DOFFocus, params->DOFNumberOfPasses,
 						params->DOFBlurOpacity, data->stopRequest);
 					region = data->stereo.GetRegion(
 						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-						params->DOFFocus, !ssaoUsed && params->DOFHDRMode, params->DOFNumberOfPasses,
+						params->DOFFocus, params->DOFNumberOfPasses,
 						params->DOFBlurOpacity, data->stopRequest);
 				}
 				else
 				{
 					dof.Render(data->screenRegion,
-						params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus,
-						!ssaoUsed && params->DOFHDRMode, params->DOFNumberOfPasses, params->DOFBlurOpacity,
+						params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, params->DOFNumberOfPasses, params->DOFBlurOpacity,
 						data->stopRequest);
 				}
 			}

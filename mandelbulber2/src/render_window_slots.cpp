@@ -362,7 +362,7 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 	WriteLog("cInterface::slotPopulateCustomWindowStates() started", 2);
 	QDir customWindowStateDir = QDir(systemData.GetCustomWindowStateFolder());
 	customWindowStateDir.setSorting(QDir::Time);
-	QStringList geometryFileExtension({"*.geometry"});
+	QStringList geometryFileExtension("*.geometry");
 	customWindowStateDir.setNameFilters(geometryFileExtension);
 	QStringList customWindowStateFiles =
 		customWindowStateDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
@@ -484,7 +484,7 @@ void RenderWindow::slotCustomWindowRemovePopup()
 {
 	QDir customWindowStateDir = QDir(systemData.GetCustomWindowStateFolder());
 	customWindowStateDir.setSorting(QDir::Time);
-	QStringList geometryFileExtension({"*.geometry"});
+	QStringList geometryFileExtension("*.geometry");
 	customWindowStateDir.setNameFilters(geometryFileExtension);
 	QStringList customWindowStateFiles =
 		customWindowStateDir.entryList(QDir::NoDotAndDotDot | QDir::Files);

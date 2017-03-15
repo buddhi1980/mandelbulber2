@@ -47,7 +47,7 @@ struct sLight
 {
 	CVector3 position;
 	sRGB colour;
-	double intensity;
+	float intensity;
 	bool enabled;
 	sLight() : position(), colour(), intensity(), enabled() {}
 };
