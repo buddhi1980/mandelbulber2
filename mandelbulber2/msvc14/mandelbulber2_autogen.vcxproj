@@ -273,9 +273,6 @@
     <Uic>$(QtDir)/bin/uic.exe</Uic>
     <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
   </PropertyGroup>
-  <!-- <PropertyGroup>
-    TODO: INSERT LOGIC to detect k1om build: disable EXR
-  </PropertyGroup> -->
   <PropertyGroup Condition="'$(Configuration)'!='AnalysisRelease'">
     <MocFlags>-DUSE_TIFF -DUSE_EXR</MocFlags>
   </PropertyGroup>
