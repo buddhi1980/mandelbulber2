@@ -3446,6 +3446,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 			dz = 1.5;
 		}
 		else if (z.z < z.y)
+		//else if ((z.y - 1.5) * (z.y - 1.5) + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
 		{
 			dy = 1.5;
 		}
@@ -3609,6 +3610,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -5246,6 +5248,7 @@ void Sierpinski3dIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -8252,6 +8255,7 @@ void Sierpinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 		}
 	}
 	aux.DE *= fractal->analyticDE.scale1;
+	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
