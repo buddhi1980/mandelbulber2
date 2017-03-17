@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<QMessageBox::StandardButtons *>("QMessageBox::StandardButtons*");
 	qRegisterMetaType<cErrorMessage::enumMessageType>("cErrorMessage::enumMessageType");
 
-	CalcPrefferedFontSize();
+	CalcPrefferedFontSize(commandLineInterface.isNoGUI());
 
 	// class for interface windows
 	gMainInterface = new cInterface;

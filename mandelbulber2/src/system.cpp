@@ -600,9 +600,9 @@ QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority)
 	}
 }
 
-void CalcPrefferedFontSize()
+void CalcPrefferedFontSize(bool noGui)
 {
-	if (!systemData.noGui)
+	if (!noGui)
 	{
 		QRect rect = QApplication::desktop()->screenGeometry();
 		int screenHeight = rect.height();

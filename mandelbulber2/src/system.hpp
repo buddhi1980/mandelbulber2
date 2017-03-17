@@ -195,6 +195,6 @@ void UpdateLanguage(QCoreApplication *app);
 void RetrieveToolbarPresets(bool force);
 void RetrieveExampleMaterials(bool force);
 QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority);
-void CalcPrefferedFontSize();
+void CalcPrefferedFontSize(bool noGui);
 
 #endif /* MANDELBULBER2_SRC_SYSTEM_HPP_ */
