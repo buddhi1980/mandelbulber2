@@ -134,6 +134,9 @@ public:
 		return imageBaseName;
 	}
 
+	int GetPreferredFontSize() const { return preferredFontSize; }
+	void SetPreferredFontSize(int preferredFontSize) { this->preferredFontSize = preferredFontSize; }
+
 	QString homeDir;
 	QString sharedDir;
 	QString logfileName;
@@ -154,6 +157,7 @@ public:
 	QElapsedTimer globalTimer;
 	bool globalStopRequest;
 	enumRenderingThreadPriority threadsPriority;
+	int preferredFontSize;
 };
 
 struct sActualFileNames
@@ -185,5 +189,6 @@ void UpdateLanguage(QCoreApplication *app);
 void RetrieveToolbarPresets(bool force);
 void RetrieveExampleMaterials(bool force);
 QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority);
+void CalcPrefferedFontSize();
 
 #endif /* MANDELBULBER2_SRC_SYSTEM_HPP_ */

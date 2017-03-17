@@ -599,3 +599,14 @@ QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority)
 		default: return QThread::NormalPriority;
 	}
 }
+
+void CalcPrefferedFontSize()
+{
+	QRect rect = QApplication::desktop()->screenGeometry();
+	int screenHeight = rect.height();
+	int dpiY = qApp->desktop()->logicalDpiX();
+	int fontSize = screenHeight * dpiY / 10000;
+	if(fontSize < 8) fontSize = 8;
+	qDebug() << fontSize;
+	systemData.SetPreferredFontSize(fontSize);
+}
