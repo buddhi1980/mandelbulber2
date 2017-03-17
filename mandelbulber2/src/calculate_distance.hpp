@@ -46,6 +46,10 @@ class cNineFractals;
 class cParamRender;
 struct sRenderData;
 
+#ifdef USE_OFFLOAD
+__declspec(target(mic))
+#endif // USE_OFFLOAD
+
 struct sDistanceIn
 {
 	CVector3 point;
@@ -56,6 +60,10 @@ struct sDistanceIn
 	{
 	}
 };
+
+#ifdef USE_OFFLOAD
+__declspec(target(mic))
+#endif // USE_OFFLOAD
 
 struct sDistanceOut
 {

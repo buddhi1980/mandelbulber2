@@ -50,6 +50,10 @@
 
 using namespace std;
 
+#ifdef USE_OFFLOAD
+__declspec(target(mic))
+#endif // USE_OFFLOAD
+
 double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
