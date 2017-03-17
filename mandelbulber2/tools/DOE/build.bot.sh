@@ -33,8 +33,6 @@ cmake3 \
 -G "Eclipse CDT4 - Unix Makefiles" \
 $SRC/mandelbulber2/cmake/
 cd $BUILDTREE && make -j12 VERBOSE=1
-# error using icc w/ cmake # call make twice
-cd $BUILDTREE && make -j12 VERBOSE=1
 
 # Deploy support 
 ln -s $SRC/mandelbulber2/deploy/share/mandelbulber2 /usr/share/mandelbulber2
