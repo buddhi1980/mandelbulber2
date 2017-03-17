@@ -29,6 +29,7 @@ cmake3 \
 -DCMAKE_PREFIX_PATH=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake \
 -DQt5UiTools_DIR=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake/Qt5UiTools \
 -DUSE_GAMEPAD=1 \
+-DUSE_OFFLOAD=1 \
 -G "Eclipse CDT4 - Unix Makefiles" \
 $SRC/mandelbulber2/cmake/
 cd $BUILDTREE && make -j12 VERBOSE=1
