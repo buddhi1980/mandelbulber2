@@ -602,11 +602,23 @@ QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority)
 
 void CalcPrefferedFontSize()
 {
-	QRect rect = QApplication::desktop()->screenGeometry();
-	int screenHeight = rect.height();
-	int dpiY = qApp->desktop()->logicalDpiX();
-	int fontSize = screenHeight * dpiY / 10000;
-	if(fontSize < 8) fontSize = 8;
-	qDebug() << fontSize;
-	systemData.SetPreferredFontSize(fontSize);
+	if (!systemData.noGui)
+	{
+		QRect rect = QApplication::desktop()->screenGeometry();
+		int screenHeight = rect.height();
+		int dpiY = qApp->desktop()->logicalDpiX();
+		int fontSize = screenHeight * dpiY / 10000;
+		if (fontSize < 8) fontSize = 8;
+		int thumbnailSize = (fontSize * 7);
+		thumbnailSize /= 4;
+		thumbnailSize *= 4;
+
+		systemData.SetPreferredFontSize(fontSize);
+		systemData.SetPreferredThumbnailSize(thumbnailSize);
+	}
+	else
+	{
+		systemData.SetPreferredFontSize(10);
+		systemData.SetPreferredThumbnailSize(80);
+	}
 }

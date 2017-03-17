@@ -39,6 +39,7 @@
 #include "material_manager_view.h"
 #include "../src/interface.hpp"
 #include "../src/material_item_model.h"
+#include "../src/system.hpp"
 
 cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {
@@ -55,7 +56,7 @@ cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonM
 	defaultValue = 0;
 	actualValue = 0;
 
-	setMinimumHeight(cMaterialWidget::previewHeight);
+	setMinimumHeight(systemData.GetPreferredThumbnailSize());
 
 	connect(
 		materialWidget, SIGNAL(clicked(Qt::MouseButton)), this, SLOT(slotClicked(Qt::MouseButton)));

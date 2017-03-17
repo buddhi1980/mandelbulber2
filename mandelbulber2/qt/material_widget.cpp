@@ -49,11 +49,9 @@
 #include "../src/system.hpp"
 #include "../src/global_data.hpp"
 
-int cMaterialWidget::previewWidth = 80;
-int cMaterialWidget::previewHeight = 80;
-
 cMaterialWidget::cMaterialWidget(QWidget *parent)
-		: cThumbnailWidget(previewWidth, previewHeight, 2, parent)
+		: cThumbnailWidget(
+				systemData.GetPreferredThumbnailSize(), systemData.GetPreferredThumbnailSize(), 2, parent)
 {
 	Init();
 }
@@ -69,6 +67,9 @@ void cMaterialWidget::Init()
 	paramsHandle = nullptr;
 	// DisableThumbnailCache();
 	DisableTimer();
+
+	previewWidth = systemData.GetPreferredThumbnailSize();
+	previewHeight = systemData.GetPreferredThumbnailSize();
 
 	timerPeriodicRefresh = new QTimer(parent());
 	timerPeriodicRefresh->setSingleShot(true);

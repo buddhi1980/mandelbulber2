@@ -48,11 +48,12 @@ cMaterialItemView::cMaterialItemView(QWidget *parent) : QAbstractItemView(parent
 {
 	updateNameHeight();
 	iconMargin = 10;
+	previewSize = systemData.GetPreferredThumbnailSize();
 	if (horizontalScrollBar()->isVisible())
-		viewHeight = cMaterialWidget::previewHeight + horizontalScrollBar()->height() + iconMargin * 2
+		viewHeight = previewSize + horizontalScrollBar()->height() + iconMargin * 2
 								 + maxNameHeight;
 	else
-		viewHeight = cMaterialWidget::previewHeight + iconMargin * 2 + maxNameHeight;
+		viewHeight = previewSize + iconMargin * 2 + maxNameHeight;
 
 	setMinimumHeight(viewHeight);
 	setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -66,7 +67,7 @@ cMaterialItemView::~cMaterialItemView()
 QModelIndex cMaterialItemView::indexAt(const QPoint &point) const
 {
 	int r =
-		(point.x() + horizontalOffset() - iconMargin) / (cMaterialWidget::previewWidth + iconMargin);
+		(point.x() + horizontalOffset() - iconMargin) / (previewSize + iconMargin);
 	return QModelIndex(model()->index(r, 0, QModelIndex()));
 }
 
@@ -80,7 +81,7 @@ void cMaterialItemView::scrollTo(const QModelIndex &index, ScrollHint hint)
 {
 	Q_UNUSED(hint);
 	horizontalScrollBar()->setValue(
-		iconMargin + index.row() * (cMaterialWidget::previewWidth + iconMargin));
+		iconMargin + index.row() * (previewSize + iconMargin));
 }
 
 int cMaterialItemView::verticalOffset() const
@@ -127,8 +128,8 @@ QModelIndex cMaterialItemView::moveCursor(
 QRect cMaterialItemView::visualRect(const QModelIndex &index) const
 {
 	return QRect(
-		iconMargin + index.row() * (cMaterialWidget::previewWidth + iconMargin) - horizontalOffset(),
-		iconMargin, cMaterialWidget::previewWidth, cMaterialWidget::previewHeight + maxNameHeight);
+		iconMargin + index.row() * (previewSize + iconMargin) - horizontalOffset(),
+		iconMargin, previewSize, previewSize + maxNameHeight);
 }
 
 bool cMaterialItemView::isIndexHidden(const QModelIndex &index) const
@@ -184,10 +185,10 @@ void cMaterialItemView::resizeEvent(QResizeEvent *event)
 
 	updateNameHeight();
 	if (horizontalScrollBar()->isVisible())
-		viewHeight = cMaterialWidget::previewHeight + horizontalScrollBar()->height() + iconMargin * 2
+		viewHeight = previewSize + horizontalScrollBar()->height() + iconMargin * 2
 								 + maxNameHeight;
 	else
-		viewHeight = cMaterialWidget::previewHeight + iconMargin * 2 + maxNameHeight;
+		viewHeight = previewSize + iconMargin * 2 + maxNameHeight;
 	setMinimumHeight(viewHeight);
 }
 
@@ -217,10 +218,10 @@ void cMaterialItemView::paintEvent(QPaintEvent *event)
 		for (int r = 0; r < model()->rowCount(); r++)
 		{
 			QString name = model()->headerData(r, Qt::Horizontal).toString();
-			int x = r * (cMaterialWidget::previewWidth + iconMargin) + iconMargin - horizontalOffset();
+			int x = r * (previewSize + iconMargin) + iconMargin - horizontalOffset();
 
-			painter.drawText(QRect(x, cMaterialWidget::previewHeight + iconMargin,
-												 cMaterialWidget::previewWidth, maxNameHeight),
+			painter.drawText(QRect(x, previewSize + iconMargin,
+														 previewSize, maxNameHeight),
 				Qt::AlignHCenter | Qt::TextWordWrap, name);
 		}
 	}
@@ -229,7 +230,7 @@ void cMaterialItemView::paintEvent(QPaintEvent *event)
 void cMaterialItemView::updateScrollBar() const
 {
 	horizontalScrollBar()->setRange(
-		0, model()->rowCount() * (cMaterialWidget::previewWidth + iconMargin) - width());
+		0, model()->rowCount() * (previewSize + iconMargin) - width());
 }
 
 void cMaterialItemView::currentChanged(const QModelIndex &current, const QModelIndex &previous)

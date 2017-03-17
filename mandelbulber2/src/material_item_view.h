@@ -68,6 +68,7 @@ private:
 	int viewHeight;
 	int iconMargin;
 	int maxNameHeight;
+	int previewSize;
 
 protected slots:
 	void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,

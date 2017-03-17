@@ -136,6 +136,11 @@ public:
 
 	int GetPreferredFontSize() const { return preferredFontSize; }
 	void SetPreferredFontSize(int preferredFontSize) { this->preferredFontSize = preferredFontSize; }
+	int GetPreferredThumbnailSize() const { return preferredThumbnailSize; }
+	void SetPreferredThumbnailSize(int preferredThumbnailSize)
+	{
+		this->preferredThumbnailSize = preferredThumbnailSize;
+	}
 
 	QString homeDir;
 	QString sharedDir;
@@ -158,6 +163,7 @@ public:
 	bool globalStopRequest;
 	enumRenderingThreadPriority threadsPriority;
 	int preferredFontSize;
+	int preferredThumbnailSize;
 };
 
 struct sActualFileNames

@@ -80,8 +80,8 @@ public slots:
 	void slotMaterialChanged();
 
 public:
-	static int previewWidth;
-	static int previewHeight;
+	int previewWidth;
+	int previewHeight;
 
 signals:
 	void materialChanged(int matIndex);
