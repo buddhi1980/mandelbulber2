@@ -279,6 +279,7 @@ double sPrimitiveBox::PrimitiveDistance(CVector3 _point) const
 	CVector3 point = _point - position;
 	point = rotationMatrix.RotateVector(point);
 	point = point.mod(repeat);
+
 	if (empty)
 	{
 		double boxDist = -1e10;
@@ -422,31 +423,7 @@ double cPrimitives::TotalDistance(
 			const sPrimitiveBasic *primitive = allPrimitives.at(i);
 			if (primitive->enable)
 			{
-				double distTemp = 0;
-				switch (primitive->objectType)
-				{
-					case objPlane: distTemp = ((sPrimitivePlane *)primitive)->PrimitiveDistance(point); break;
-					case objBox: distTemp = ((sPrimitiveBox *)primitive)->PrimitiveDistance(point); break;
-					case objSphere:
-						distTemp = ((sPrimitiveSphere *)primitive)->PrimitiveDistance(point);
-						break;
-					case objWater: distTemp = ((sPrimitiveWater *)primitive)->PrimitiveDistance(point); break;
-					case objCone: distTemp = ((sPrimitiveCone *)primitive)->PrimitiveDistance(point); break;
-					case objCylinder:
-						distTemp = ((sPrimitiveCylinder *)primitive)->PrimitiveDistance(point);
-						break;
-					case objTorus: distTemp = ((sPrimitiveTorus *)primitive)->PrimitiveDistance(point); break;
-					case objCircle:
-						distTemp = ((sPrimitiveCircle *)primitive)->PrimitiveDistance(point);
-						break;
-					case objRectangle:
-						distTemp = ((sPrimitiveRectangle *)primitive)->PrimitiveDistance(point);
-						break;
-					default:
-						qCritical() << "cannot handle " << PrimitiveNames(primitive->objectType)
-												<< " in cPrimitives::TotalDistance()";
-						break;
-				}
+				double distTemp = primitive->PrimitiveDistance(point);
 				distTemp = DisplacementMap(distTemp, point, primitive->objectId, data);
 				if (distTemp < distance)
 				{

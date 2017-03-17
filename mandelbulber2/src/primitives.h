@@ -61,13 +61,13 @@ struct sPrimitiveBasic : cObjectData
 {
 	bool enable;
 	int objectId;
-	double PrimitiveDistance(CVector3 _point) const;
+	virtual double PrimitiveDistance(CVector3 _point) const = 0;
 };
 
 struct sPrimitivePlane : sPrimitiveBasic
 {
 	bool empty;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveBox : sPrimitiveBasic
@@ -75,7 +75,7 @@ struct sPrimitiveBox : sPrimitiveBasic
 	bool empty;
 	double rounding;
 	CVector3 repeat;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveSphere : sPrimitiveBasic
@@ -83,7 +83,7 @@ struct sPrimitiveSphere : sPrimitiveBasic
 	bool empty;
 	double radius;
 	CVector3 repeat;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveWater : sPrimitiveBasic
@@ -94,7 +94,7 @@ struct sPrimitiveWater : sPrimitiveBasic
 	double length;
 	int iterations;
 	int animFrame;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveCone : sPrimitiveBasic
@@ -105,7 +105,7 @@ struct sPrimitiveCone : sPrimitiveBasic
 	double height;
 	CVector2<double> wallNormal;
 	CVector3 repeat;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveCylinder : sPrimitiveBasic
@@ -115,7 +115,7 @@ struct sPrimitiveCylinder : sPrimitiveBasic
 	double radius;
 	double height;
 	CVector3 repeat;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveTorus : sPrimitiveBasic
@@ -124,20 +124,20 @@ struct sPrimitiveTorus : sPrimitiveBasic
 	double radius;
 	double tube_radius;
 	CVector3 repeat;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveCircle : sPrimitiveBasic
 {
 	double radius;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 struct sPrimitiveRectangle : sPrimitiveBasic
 {
 	double height;
 	double width;
-	double PrimitiveDistance(CVector3 _point) const;
+	double PrimitiveDistance(CVector3 _point) const override;
 };
 
 QString PrimitiveNames(fractal::enumObjectType primitiveType);
