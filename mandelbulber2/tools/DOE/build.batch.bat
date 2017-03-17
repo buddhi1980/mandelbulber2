@@ -64,6 +64,7 @@ cmake -G %cmake_platform% ^
 -DGSL_LIBRARY=%GSLDIR%\static\gsl.lib ^
 -DGSL_INCLUDE_DIR=%GSLDIR% ^
 -DUSE_GAMEPAD=1 ^
+-DCMAKE_CXX_FLAGS="/Qstd=c++11 /Qopenmp /EHsc" ^
 %SRC%\mandelbulber2\cmake\
 
 msbuild mandelbulber2.sln /p:Configuration=Release /m

@@ -214,6 +214,7 @@ platform:
   - k1om
   - Win32
   - x64
+  - ARM
 # add several configurations to build matrix:
 configuration:
   - Release
@@ -222,12 +223,14 @@ configuration:
 matrix:
   allow_failures:
     - platform: k1om
+    - platform: ARM
     - configuration: AnalysisRelease
 # use custom build_script
 #build: false
 build_script:
 - ECHO BUILD %CONFIGURATION% %PLATFORM%
-- msbuild mandelbulber2.sln /m /p:Configuration=%CONFIGURATION% /p:Platform=%PLATFORM%
+- ps: If ($env:PLATFORM -ne "k1om") { msbuild mandelbulber2.sln /m /p:Configuration=$env:CONFIGURATION /p:Platform=$env:PLATFORM } 
+- if "%PLATFORM%"=="k1om" %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\DOE\build.batch.bat
 
 # use automatic builds
 #build:
