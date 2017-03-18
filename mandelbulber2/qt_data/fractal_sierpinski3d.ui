@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>sierpinski3d</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -659,7 +659,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>DE tweak :</string>
+        <string>DE tweak:</string>
        </property>
       </widget>
      </item>
@@ -723,7 +723,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_180">
        <property name="text">
-        <string>Hybrid mode.  Linear DE &quot;r&quot; factor:    dist =  (r - factor)/DE</string>
+        <string>Hybrid mode. Linear DE &quot;r&quot; factor:    dist =  (r - factor)/DE</string>
        </property>
       </widget>
      </item>
@@ -819,7 +819,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;Sierpinski3D. made from Darkbeams Sierpinski code from M3D&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Sierpinski3D. made from Darkbeam's Sierpinski code from M3D&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;sierpinski 3D 001.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
@@ -898,6 +898,7 @@
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 
   aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;linearDE &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;factor2&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#d0d0a0&quot;&gt;// hybrid linear r factor DE&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>menger_prism_shape2</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -4700,7 +4700,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_180">
        <property name="text">
-        <string>Hybrid mode.  Linear DE &quot;r&quot; factor:    dist =  (r - factor)/DE</string>
+        <string>Hybrid mode. Linear DE &quot;r&quot; factor:    dist =  (r - factor)/DE</string>
        </property>
       </widget>
      </item>
@@ -4943,6 +4943,7 @@
       dz &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.5&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
     &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;else if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color:#d0d0a0&quot;&gt;// else if ((z.y - 1.5) * (z.y - 1.5) + z.z * z.z &amp;lt; z.y * z.y + (z.z - 1.5) * (z.z - 1.5))&lt;/span&gt;
     &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
       dy &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.5&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
@@ -5106,6 +5107,7 @@
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 
   aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;linearDE &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;factor2&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#d0d0a0&quot;&gt;// hybrid linear r factor DE&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>

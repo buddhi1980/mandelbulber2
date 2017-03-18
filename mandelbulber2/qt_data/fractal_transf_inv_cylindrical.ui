@@ -429,7 +429,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;Inverse cylindrical coords, very easy transform&lt;br&gt;Formula by Luca GN 2011&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Inverse cylindrical coordinates, very easy transform&lt;br&gt;Formula by Luca GN 2011&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;

@@ -1669,7 +1669,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;from Syntopia &amp; Darkbeams Menger4 code from M3D&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;from Syntopia &amp; Darkbeam's Menger4 code from M3D&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;menger 4D 001.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;

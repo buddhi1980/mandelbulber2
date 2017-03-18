@@ -97,6 +97,7 @@ typedef struct
 	// cl_float orbitTraps;
 	// cl_float axisBias;
 	cl_float pseudoKleinianDE;
+	cl_float linearDE;
 	cl_float cw;
 	cl_float foldFactor;
 	cl_float minRFactor;
@@ -195,7 +196,7 @@ typedef struct
 typedef struct
 {
 	cl_float zFactor;
-	cl_float foldfactor;
+	cl_float foldFactor;
 } sClsFractalBoxFoldBulbPow2;
 
 typedef struct
@@ -247,28 +248,28 @@ typedef struct
 
 	typedef enum { xyz, xzy, yxz, yzx, zxy, zyx } eClmulti_OrderOfXYZ;
 
-	multi_acosOrAsin acosOrasin;
-	multi_acosOrAsin acosOrasinA;
-	multi_atanOrAtan2 atanOratan2;
-	multi_atanOrAtan2 atanOratan2A;
+	multi_acosOrAsin acosOrAsin;
+	multi_acosOrAsin acosOrAsinA;
+	multi_atanOrAtan2 atanOrAtan2;
+	multi_atanOrAtan2 atanOrAtan2A;
 
-	multi_OrderOfXYZ orderOfxyz;
-	multi_OrderOfXYZ orderOfxyz2;
-	multi_OrderOfXYZ orderOfxyzC;
+	multi_OrderOfXYZ orderOfXYZ;
+	multi_OrderOfXYZ orderOfXYZ2;
+	multi_OrderOfXYZ orderOfXYZC;
 } sClsFractalMandelbulbMulti;
 
 // sinTan2Trig
 typedef struct
 {
-	typedef enum { asin, acos } eClmulti_asinOracos;
+	typedef enum { asin, acos } eClmulti_asinOrAcos;
 
-	typedef enum { atan2, atan } eClmulti_atan2Oratan;
+	typedef enum { atan2, atan } eClmulti_atan2OrAtan;
 
-	typedef enum { zyx, zxy, yzx, yxz, xzy, xyz } eClmulti_OrderOfzyx;
+	typedef enum { zyx, zxy, yzx, yxz, xzy, xyz } eClmulti_OrderOfZYX;
 
-	multi_asinOracos asinOracos;
-	multi_atan2Oratan atan2Oratan;
-	multi_OrderOfzyx orderOfzyx;
+	multi_asinOrAcos asinOrAcos;
+	multi_atan2OrAtan atan2OrAtan;
+	multi_OrderOfZYX orderOfZYX;
 } sClsFractalSinTan2Trig;
 
 // surf fold box
@@ -380,6 +381,7 @@ typedef struct
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
+	cl_float factor2;
 	cl_float scaleLin;
 	cl_float offsetLin;
 } sClsFractalAnalyticDE;
@@ -402,7 +404,7 @@ typedef struct
 	cl_float offset105;
 	cl_float offset2;
 	cl_float multiplication;
-	cl_float minRneg1;
+	cl_float minRNeg1;
 	cl_float minR0;
 	cl_float minR05;
 	cl_float minR06;
@@ -515,6 +517,7 @@ typedef struct
 	cl_float3 rotation2;
 	cl_float3 rotation44a; //.........................
 	cl_float3 rotation44b; //..........................
+	cl_float3 scale3D000;
 	cl_float3 scale3D111;
 	cl_float3 scale3D222;
 	cl_float3 scale3Da222;
@@ -534,7 +537,7 @@ typedef struct
 	matrix33 rotationMatrix;
 	matrix33 rotationMatrix2;
 	CRotationMatrix44 rotationMatrix44; //....................
-	matrix33 tempRotmatrix;
+	matrix33 tempRotMatrix;
 
 	cl_int addCpixelEnabled;
 	cl_int addCpixelEnabledFalse;

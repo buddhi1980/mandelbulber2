@@ -2289,7 +2289,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;benesiPwr2 mandelbulbs&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;benesiPwr2 mandelbulb&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/&lt;br&gt;
 &lt;a href=&quot;do-m3d-formula-have-to-be-distance-estimation-formulas/&quot;&gt;do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
@@ -2356,7 +2356,7 @@
 
   &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;addCpixelEnabled &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;startIterationsF
       &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;stopIterationsF&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;                      &lt;span style=&quot;color:#d0d0a0&quot;&gt;// Bensei origional pwr2&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;                      &lt;span style=&quot;color:#d0d0a0&quot;&gt;// Benesi original pwr2&lt;/span&gt;
     aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;Length&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;();&lt;/span&gt; &lt;span style=&quot;color:#d0d0a0&quot;&gt;// needed when alternating pwr2s&lt;/span&gt;
     aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;2.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; r1 &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
