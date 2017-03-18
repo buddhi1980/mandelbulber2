@@ -607,9 +607,9 @@ void CalcPrefferedFontSize(bool noGui)
 		QRect rect = QApplication::desktop()->screenGeometry();
 		int screenHeight = rect.height();
 		int dpiY = qApp->desktop()->logicalDpiX();
-		int fontSize = screenHeight * dpiY / 10000;
+		int fontSize = screenHeight * dpiY / 11000;
 		if (fontSize < 8) fontSize = 8;
-		int thumbnailSize = (fontSize * 7);
+		int thumbnailSize = (fontSize * 10);
 		thumbnailSize /= 4;
 		thumbnailSize *= 4;
 

@@ -77,6 +77,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	{
 		ui = mainInterface->mainWindow->GetWidgetDockAnimation()->GetUi();
 
+		previewSize.setWidth(systemData.GetPreferredThumbnailSize());
+		previewSize.setHeight(systemData.GetPreferredThumbnailSize() * 3 / 4);
+
 		// connect keyframe control buttons
 		QApplication::connect(
 			ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
@@ -181,7 +184,8 @@ void cKeyframeAnimation::NewKeyframe(int index)
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+			cThumbnailWidget *thumbWidget =
+				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 			thumbWidget->UseOneCPUCore(false);
 			thumbWidget->AssignParameters(*params, *fractalParams);
 			table->setCellWidget(0, newColumn, thumbWidget);
@@ -237,7 +241,8 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 			if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 			{
-				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+				cThumbnailWidget *thumbWidget =
+					new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 				thumbWidget->UseOneCPUCore(false);
 				thumbWidget->AssignParameters(*params, *fractalParams);
 				table->setCellWidget(0, newColumn, thumbWidget);
@@ -304,10 +309,10 @@ void cKeyframeAnimation::PrepareTable()
 void cKeyframeAnimation::CreateRowsInTable()
 {
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
-	table->setIconSize(QSize(100, 70));
+	table->setIconSize(previewSize);
 	table->insertRow(0);
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("Keyframe\npreviews")));
-	table->setRowHeight(0, 70);
+	table->setRowHeight(0, previewSize.height());
 	tableRowNames.append(tr("Keyframe\npreviews"));
 
 	rowParameter.clear();
@@ -393,6 +398,7 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	int newColumn = index + reservedColumns;
 	if (index == -1) newColumn = table->columnCount();
 	table->insertColumn(newColumn);
+	table->setColumnWidth(newColumn, previewSize.width());
 
 	double time = params->Get<double>("frames_per_keyframe")
 								/ params->Get<double>("keyframe_frames_per_second") * (newColumn - reservedColumns);
@@ -772,7 +778,8 @@ void cKeyframeAnimation::RefreshTable()
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+			cThumbnailWidget *thumbWidget =
+				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 			thumbWidget->UseOneCPUCore(true);
 			keyframes->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 			tempPar.Set("frame_no", keyframes->GetFramesPerKeyframe() * i);
@@ -929,7 +936,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 			if (!thumbWidget)
 			{
-				thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+				thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 				thumbWidget->UseOneCPUCore(true);
 				thumbWidget->AssignParameters(tempPar, tempFract);
 				table->setCellWidget(0, column, thumbWidget);

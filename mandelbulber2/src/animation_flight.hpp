@@ -135,6 +135,7 @@ private:
 	double linearSpeedSp;
 	// QList<cThumbnailWidget*> thumbnailWidgets;
 	bool recordPause;
+	QSize previewSize;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,

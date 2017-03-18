@@ -75,6 +75,9 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	{
 		ui = mainInterface->mainWindow->GetWidgetDockAnimation()->GetUi();
 
+		previewSize.setWidth(systemData.GetPreferredThumbnailSize());
+		previewSize.setHeight(systemData.GetPreferredThumbnailSize() * 3 / 4);
+
 		// connect flight control buttons
 		connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
 		connect(
@@ -507,7 +510,7 @@ void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 	QPixmap pixmap;
 	pixmap.convertFromImage(qImage);
 	QIcon icon(
-		pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+		pixmap.scaled(previewSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
 	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
 	table->blockSignals(false);
 }
@@ -525,10 +528,10 @@ void cFlightAnimation::PrepareTable()
 void cFlightAnimation::CreateRowsInTable()
 {
 	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
-	table->setIconSize(QSize(100, 70));
+	table->setIconSize(previewSize);
 	table->insertRow(0);
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
-	table->setRowHeight(0, 70);
+	table->setRowHeight(0, previewSize.height());
 	tableRowNames.append(tr("preview"));
 
 	rowParameter.clear();
@@ -643,6 +646,8 @@ int cFlightAnimation::AddColumn(
 		newColumn = table->columnCount();
 		table->insertColumn(newColumn);
 	}
+
+	table->setColumnWidth(newColumn, previewSize.width());
 
 	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
 
@@ -911,7 +916,7 @@ void cFlightAnimation::RefreshTable()
 
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 			thumbWidget->UseOneCPUCore(true);
 			frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 			thumbWidget->AssignParameters(tempPar, tempFract);
@@ -1094,7 +1099,7 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 			if (!thumbWidget)
 			{
-				thumbWidget = new cThumbnailWidget(100, 70, 1, table);
+				thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 				thumbWidget->UseOneCPUCore(true);
 				thumbWidget->AssignParameters(tempPar, tempFract);
 				table->setCellWidget(0, column, thumbWidget);

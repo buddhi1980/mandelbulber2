@@ -129,6 +129,7 @@ private:
 	QVector<int> rowParameter;	// index of parameter in row
 	MyTableWidgetKeyframes *table;
 	bool lastToRenderMax = false;
+	QSize previewSize;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,
