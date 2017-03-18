@@ -61,6 +61,7 @@ struct sPrimitiveBasic : cObjectData
 {
 	bool enable;
 	int objectId;
+	virtual ~sPrimitiveBasic() {}
 	virtual double PrimitiveDistance(CVector3 _point) const = 0;
 };
 
