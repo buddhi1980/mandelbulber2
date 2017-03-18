@@ -404,10 +404,14 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 								/ params->Get<double>("keyframe_frames_per_second") * (newColumn - reservedColumns);
 	int minutes = int(time / 60);
 	int seconds = int(time) % 60;
-	QString columnHeader = QString("%1 (%2:%3)")
+	int miliseconds = int(time * 1000.0) % 1000;
+	int frameNo = (newColumn - reservedColumns) * params->Get<int>("frames_per_keyframe");
+	QString columnHeader = QString("%1 (%2)\n(%3:%4.%5)")
 													 .arg(newColumn - reservedColumns)
+													 .arg(frameNo)
 													 .arg(minutes)
-													 .arg(seconds, 2, 10, QChar('0'));
+													 .arg(seconds, 2, 10, QChar('0'))
+													 .arg(miliseconds, 3, 10, QChar('0'));
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(columnHeader));
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
@@ -687,7 +691,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				QString progressTxt = progressText.getText(percentDoneFrame);
 
 				emit updateProgressAndStatus(QObject::tr("Rendering animation"),
-					QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
+					QObject::tr("Frame %1 of %2 (key %3)").arg(frameIndex).arg(totalFrames).arg(index) + " " + progressTxt,
 					percentDoneFrame, cProgressText::progress_ANIMATION);
 
 				if (*stopRequest) throw false;
