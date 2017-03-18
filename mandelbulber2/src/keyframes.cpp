@@ -75,7 +75,8 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 	return *this;
 }
 
-cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index)
+cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(
+	int index, cParameterContainer *params, cFractalContainer *fractal)
 {
 	int keyframe = index / framesPerKeyframe;
 	int subIndex = index % framesPerKeyframe;
@@ -87,9 +88,12 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index)
 	//}
 
 	sAnimationFrame interpolated;
-	QList<QString> parameterList = frames.at(keyframe).parameters.GetListOfParameters();
-	for (int i = 0; i < parameterList.size(); i++)
+
+	for (int i = 0; i < listOfParameters.size(); i++)
 	{
+		QString fullParameterName =
+			listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName;
+
 		// prepare interpolator
 		if (morph.size() <= i)
 		{
@@ -99,12 +103,18 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index)
 		{
 			if (morph[i]->findInMorph(k) == -1)
 			{
-				morph[i]->AddData(k, frames.at(k).parameters.GetAsOneParameter(parameterList.at(i)));
+				morph[i]->AddData(k, frames.at(k).parameters.GetAsOneParameter(fullParameterName));
 			}
 		}
-		// interpolate each parameter and write back
-		interpolated.parameters.AddParamFromOneParameter(
-			parameterList.at(i), morph[i]->Interpolate(keyframe, 1.0 * subIndex / framesPerKeyframe));
+		// interpolate each parameter
+		cOneParameter oneParameter =
+			morph[i]->Interpolate(keyframe, 1.0 * subIndex / framesPerKeyframe);
+
+		// apply audio animation
+
+		oneParameter =
+			ApplyAudioAnimation(index, oneParameter, listOfParameters[i].parameterName, params);
+		interpolated.parameters.AddParamFromOneParameter(fullParameterName, oneParameter);
 	}
 	return interpolated;
 }
@@ -114,7 +124,7 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(
 {
 	if (index >= 0 && index < frames.count() * framesPerKeyframe)
 	{
-		sAnimationFrame frame = GetInterpolatedFrame(index);
+		sAnimationFrame frame = GetInterpolatedFrame(index, params, fractal);
 
 		for (int i = 0; i < listOfParameters.size(); ++i)
 		{
@@ -123,8 +133,6 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(
 			QString parameterName = listOfParameters[i].parameterName;
 			cOneParameter oneParameter =
 				frame.parameters.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
-
-			oneParameter = ApplyAudioAnimation(index, oneParameter, parameterName, params);
 
 			container->SetFromOneParameter(parameterName, oneParameter);
 		}

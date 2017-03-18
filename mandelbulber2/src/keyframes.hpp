@@ -54,7 +54,8 @@ public:
 	~cKeyframes();
 	cKeyframes(const cKeyframes &source);
 	cKeyframes &operator=(const cKeyframes &source);
-	sAnimationFrame GetInterpolatedFrame(int index);
+	sAnimationFrame GetInterpolatedFrame(
+		int index, cParameterContainer *params, cFractalContainer *fractal);
 	void GetInterpolatedFrameAndConsolidate(
 		int index, cParameterContainer *params, cFractalContainer *fractal);
 	void SetFramesPerKeyframe(int frPerKey) { framesPerKeyframe = frPerKey; }

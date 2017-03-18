@@ -1150,7 +1150,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 		{
 			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
-			gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex));
+			gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex, params, fractalParams));
 		}
 		if (index % 10 == 0)
 		{
