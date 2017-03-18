@@ -73,6 +73,7 @@ private slots:
 	static void slotUndo();
 	static void slotRedo();
 	static void slotPressedButtonResetView();
+	void SetIconSizes();
 
 private:
 	void ConnectSignals() const;

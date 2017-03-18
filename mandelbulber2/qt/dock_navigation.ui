@@ -516,18 +516,6 @@ to target:</string>
               </property>
               <item row="2" column="3">
                <widget class="QPushButton" name="bu_move_right">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the right by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -535,7 +523,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="go-next" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -548,18 +536,6 @@ to target:</string>
               </item>
               <item row="2" column="1">
                <widget class="QPushButton" name="bu_move_left">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the left by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -567,7 +543,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="go-previous" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -580,24 +556,6 @@ to target:</string>
               </item>
               <item row="1" column="2">
                <widget class="QPushButton" name="bu_move_up">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target up by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -605,7 +563,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="go-up" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -618,30 +576,6 @@ to target:</string>
               </item>
               <item row="1" column="0">
                <widget class="QPushButton" name="bu_move_forward">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
-                <property name="baseSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target forward by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -649,7 +583,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="arrow-up-double" resource="icons.qrc">
                   <normaloff>:/navigation/icons/arrow-up-double.png</normaloff>:/navigation/icons/arrow-up-double.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -662,18 +596,6 @@ to target:</string>
               </item>
               <item row="2" column="0">
                <widget class="QPushButton" name="bu_move_backward">
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
-                <property name="baseSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target backwards by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -681,7 +603,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="arrow-down-double" resource="icons.qrc">
                   <normaloff>:/navigation/icons/arrow-down-double.png</normaloff>:/navigation/icons/arrow-down-double.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -694,18 +616,6 @@ to target:</string>
               </item>
               <item row="2" column="2">
                <widget class="QPushButton" name="bu_move_down">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target down by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -713,7 +623,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="go-down" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -868,12 +778,6 @@ to target:</string>
                   <height>0</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw left&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -881,7 +785,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="go-previous" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -894,22 +798,10 @@ to target:</string>
               </item>
               <item row="2" column="2">
                <widget class="QPushButton" name="bu_rotate_up">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
                   <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
                  </size>
                 </property>
                 <property name="toolTip">
@@ -919,7 +811,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="go-up" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -938,12 +830,6 @@ to target:</string>
                   <height>0</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -951,7 +837,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="go-next" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -970,12 +856,6 @@ to target:</string>
                   <height>0</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -983,7 +863,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="object-rotate-right" resource="icons.qrc">
                   <normaloff>:/navigation/icons/object-rotate-right.png</normaloff>:/navigation/icons/object-rotate-right.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1002,12 +882,6 @@ to target:</string>
                   <height>0</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll left&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -1015,7 +889,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="object-rotate-left" resource="icons.qrc">
                   <normaloff>:/navigation/icons/object-rotate-left.png</normaloff>:/navigation/icons/object-rotate-left.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1034,12 +908,6 @@ to target:</string>
                   <height>0</height>
                  </size>
                 </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>40</width>
-                  <height>40</height>
-                 </size>
-                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pitch down&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -1047,7 +915,7 @@ to target:</string>
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset theme="go-down" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                 </property>
                 <property name="iconSize">

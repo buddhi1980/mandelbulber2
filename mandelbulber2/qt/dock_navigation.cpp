@@ -37,6 +37,7 @@
 #include "../src/automated_widgets.hpp"
 #include "../src/interface.hpp"
 #include "ui_dock_navigation.h"
+#include "../src/system.hpp"
 
 cDockNavigation::cDockNavigation(QWidget *parent) : QWidget(parent), ui(new Ui::cDockNavigation)
 {
@@ -44,6 +45,7 @@ cDockNavigation::cDockNavigation(QWidget *parent) : QWidget(parent), ui(new Ui::
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
+	SetIconSizes();
 }
 
 cDockNavigation::~cDockNavigation()
@@ -74,6 +76,23 @@ void cDockNavigation::slotUndo()
 void cDockNavigation::slotRedo()
 {
 	gMainInterface->Redo();
+}
+
+void cDockNavigation::SetIconSizes()
+{
+	QSize iconSize(systemData.GetPreferredFontSize() * 3, systemData.GetPreferredFontSize() * 3);
+	ui->bu_move_backward->setIconSize(iconSize);
+	ui->bu_move_down->setIconSize(iconSize);
+	ui->bu_move_forward->setIconSize(iconSize);
+	ui->bu_move_left->setIconSize(iconSize);
+	ui->bu_move_right->setIconSize(iconSize);
+	ui->bu_move_up->setIconSize(iconSize);
+	ui->bu_rotate_down->setIconSize(iconSize);
+	ui->bu_rotate_left->setIconSize(iconSize);
+	ui->bu_rotate_right->setIconSize(iconSize);
+	ui->bu_rotate_roll_left->setIconSize(iconSize);
+	ui->bu_rotate_roll_right->setIconSize(iconSize);
+	ui->bu_rotate_up->setIconSize(iconSize);
 }
 
 void cDockNavigation::ConnectSignals() const

@@ -509,8 +509,7 @@ void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 		image->GetHeight(), image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qImage);
-	QIcon icon(
-		pixmap.scaled(previewSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+	QIcon icon(pixmap.scaled(previewSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
 	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
 	table->blockSignals(false);
 }
@@ -916,7 +915,8 @@ void cFlightAnimation::RefreshTable()
 
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
+			cThumbnailWidget *thumbWidget =
+				new cThumbnailWidget(previewSize.width(), previewSize.height(), 1, table);
 			thumbWidget->UseOneCPUCore(true);
 			frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 			thumbWidget->AssignParameters(tempPar, tempFract);
