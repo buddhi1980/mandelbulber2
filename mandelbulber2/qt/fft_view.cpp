@@ -141,7 +141,8 @@ void cFFTView::paintEvent(QPaintEvent *event)
 
 void cFFTView::mousePressEvent(QMouseEvent *event)
 {
-	firstClickedFreqValue = double(height() - event->y()) * double(sampleRate) / double(cAudioFFTData::fftSize);
+	firstClickedFreqValue =
+		double(height() - event->y()) * double(sampleRate) / double(cAudioFFTData::fftSize);
 }
 
 void cFFTView::mouseReleaseEvent(QMouseEvent *event)

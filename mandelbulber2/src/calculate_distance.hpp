@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-16 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -50,7 +50,7 @@ struct sRenderData;
 __declspec(target(mic))
 #endif // USE_OFFLOAD
 
-struct sDistanceIn
+	struct sDistanceIn
 {
 	CVector3 point;
 	double detailSize;
@@ -65,7 +65,7 @@ struct sDistanceIn
 __declspec(target(mic))
 #endif // USE_OFFLOAD
 
-struct sDistanceOut
+	struct sDistanceOut
 {
 	double distance;
 	double colorIndex;

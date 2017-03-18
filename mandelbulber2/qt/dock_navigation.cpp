@@ -210,4 +210,3 @@ void cDockNavigation::slotCameraMovementModeChanged(int index)
 {
 	gMainInterface->CameraMovementModeChanged(index);
 }
-

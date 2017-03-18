@@ -1183,7 +1183,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
-					out->distance = (r - extendedAux.linearDE)/ fabs(extendedAux.DE);
+					out->distance = (r - extendedAux.linearDE) / fabs(extendedAux.DE);
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
 				{
@@ -1259,7 +1259,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kalisets1:
 				case aboxVSIcen1:
 				case pseudoKleinian1:
-				//case mixPinski4d:
+				// case mixPinski4d:
 				case abox4d:
 					// case mengerSmooth:
 					// case mengerSmoothMod1:

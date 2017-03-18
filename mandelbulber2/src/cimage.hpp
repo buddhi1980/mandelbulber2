@@ -219,11 +219,11 @@ public:
 	{
 		float factorN = 1.0f - factor;
 		postImageFloat[qint64(x) + qint64(y) * qint64(width)].R =
-				postImageFloat[qint64(x) + qint64(y) * qint64(width)].R * factorN + other.R * factor;
+			postImageFloat[qint64(x) + qint64(y) * qint64(width)].R * factorN + other.R * factor;
 		postImageFloat[qint64(x) + qint64(y) * qint64(width)].G =
-				postImageFloat[qint64(x) + qint64(y) * qint64(width)].G * factorN + other.G * factor;
+			postImageFloat[qint64(x) + qint64(y) * qint64(width)].G * factorN + other.G * factor;
 		postImageFloat[qint64(x) + qint64(y) * qint64(width)].B =
-				postImageFloat[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor;
+			postImageFloat[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor;
 	}
 
 	inline void BlendPixelAlpha(int x, int y, float factor, quint16 other)

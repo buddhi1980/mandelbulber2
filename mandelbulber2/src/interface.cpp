@@ -956,8 +956,7 @@ void cInterface::RefreshPostEffects()
 			cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
 			dof.Render(screenRegion,
 				params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
-				params.DOFFocus, params.DOFNumberOfPasses,
-				params.DOFBlurOpacity, &stopRequest);
+				params.DOFFocus, params.DOFNumberOfPasses, params.DOFBlurOpacity, &stopRequest);
 		}
 
 		if (gPar->Get<bool>("hdr_blur_enabled"))
@@ -2124,7 +2123,7 @@ void cInterface::MaterialSelected(int matIndex)
 		connect(materialEditor, SIGNAL(materialChanged(int)), materialListModel,
 			SLOT(slotMaterialChanged(int)));
 
-		if(matIndex != lastSelectedMaterial)
+		if (matIndex != lastSelectedMaterial)
 		{
 			mainWindow->ui->dockWidget_materialEditor->raise();
 			lastSelectedMaterial = matIndex;

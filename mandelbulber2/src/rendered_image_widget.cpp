@@ -151,17 +151,11 @@ void RenderedImage::DisplayCoordinates()
 	{
 		case clickMoveCamera:
 		{
-			switch(cameraMovementEnums::enumCameraMovementMode(cameraMovementMode))
+			switch (cameraMovementEnums::enumCameraMovementMode(cameraMovementMode))
 			{
-				case cameraMovementEnums::fixedDistance:
-					text = tr("Move camera and target");
-					break;
-				case cameraMovementEnums::moveCamera:
-					text = tr("Move camera");
-					break;
-				case cameraMovementEnums::moveTarget:
-					text = tr("Move target");
-					break;
+				case cameraMovementEnums::fixedDistance: text = tr("Move camera and target"); break;
+				case cameraMovementEnums::moveCamera: text = tr("Move camera"); break;
+				case cameraMovementEnums::moveTarget: text = tr("Move target"); break;
 			}
 			break;
 		}

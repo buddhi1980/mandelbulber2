@@ -80,16 +80,16 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 	size_t numyzb = numyb * numzb;
 
 #ifdef USE_OFFLOAD
-__declspec(target(mic))
+	__declspec(target(mic))
 #endif // USE_OFFLOAD
 
-	double *voxelBuffer = new double[2 * numyzb];
+		double *voxelBuffer = new double[2 * numyzb];
 
 #ifdef USE_OFFLOAD
-__declspec(target(mic))
+	__declspec(target(mic))
 #endif // USE_OFFLOAD
 
-	double *colorBuffer = new double[2 * numyzb];
+		double *colorBuffer = new double[2 * numyzb];
 
 	const int z3 = numz * 3;
 	const int yz3 = numy * z3;

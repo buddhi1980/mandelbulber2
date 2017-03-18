@@ -856,11 +856,11 @@ void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, d
 
 void cImage::NullPostEffect(QList<int> *list)
 {
-	if(imageFloat && postImageFloat)
+	if (imageFloat && postImageFloat)
 	{
-		if(!list)
+		if (!list)
 		{
-			memcpy(postImageFloat, imageFloat, 	sizeof(sRGBFloat) * quint64(width) * quint64(height));
+			memcpy(postImageFloat, imageFloat, sizeof(sRGBFloat) * quint64(width) * quint64(height));
 		}
 		else
 		{
@@ -874,7 +874,8 @@ void cImage::NullPostEffect(QList<int> *list)
 					listIndex++;
 				}
 
-				memcpy(&postImageFloat[y * width], &imageFloat[y * width], sizeof(sRGBFloat) * quint64(width));
+				memcpy(
+					&postImageFloat[y * width], &imageFloat[y * width], sizeof(sRGBFloat) * quint64(width));
 			}
 		}
 	}

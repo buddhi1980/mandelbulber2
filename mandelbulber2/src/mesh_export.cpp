@@ -85,12 +85,12 @@ struct FormulaFtor
 		this->fractals = fractals;
 	}
 
-
 #ifdef USE_OFFLOAD
-__declspec(target(mic))
+	__declspec(target(mic))
 #endif // USE_OFFLOAD
 
-	double operator()(double x, double y, double z, double *colorIndex) const
+		double
+		operator()(double x, double y, double z, double *colorIndex) const
 	{
 		CVector3 point;
 		point.x = x;

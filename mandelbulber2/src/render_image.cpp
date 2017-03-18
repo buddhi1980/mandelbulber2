@@ -387,23 +387,21 @@ bool cRenderer::RenderImage()
 					region = data->stereo.GetRegion(
 						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
 					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-						params->DOFFocus, params->DOFNumberOfPasses,
-						params->DOFBlurOpacity, data->stopRequest);
+						params->DOFFocus, params->DOFNumberOfPasses, params->DOFBlurOpacity, data->stopRequest);
 					region = data->stereo.GetRegion(
 						CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
 					dof.Render(region, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
-						params->DOFFocus, params->DOFNumberOfPasses,
-						params->DOFBlurOpacity, data->stopRequest);
+						params->DOFFocus, params->DOFNumberOfPasses, params->DOFBlurOpacity, data->stopRequest);
 				}
 				else
 				{
 					dof.Render(data->screenRegion,
-						params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, params->DOFNumberOfPasses, params->DOFBlurOpacity,
-						data->stopRequest);
+						params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus,
+						params->DOFNumberOfPasses, params->DOFBlurOpacity, data->stopRequest);
 				}
 			}
 
-			if(params->hdrBlurEnabled)
+			if (params->hdrBlurEnabled)
 			{
 				cPostEffectHdrBlur *hdrBlur = new cPostEffectHdrBlur(image);
 				hdrBlur->SetParameters(params->hdrBlurRadius, params->hdrBlurIntensity);

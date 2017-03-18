@@ -691,7 +691,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				QString progressTxt = progressText.getText(percentDoneFrame);
 
 				emit updateProgressAndStatus(QObject::tr("Rendering animation"),
-					QObject::tr("Frame %1 of %2 (key %3)").arg(frameIndex).arg(totalFrames).arg(index) + " " + progressTxt,
+					QObject::tr("Frame %1 of %2 (key %3)").arg(frameIndex).arg(totalFrames).arg(index) + " "
+						+ progressTxt,
 					percentDoneFrame, cProgressText::progress_ANIMATION);
 
 				if (*stopRequest) throw false;

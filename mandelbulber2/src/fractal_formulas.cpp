@@ -3446,7 +3446,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 			dz = 1.5;
 		}
 		else if (z.z < z.y)
-		//else if ((z.y - 1.5) * (z.y - 1.5) + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
+		// else if ((z.y - 1.5) * (z.y - 1.5) + z.z * z.z < z.y * z.y + (z.z - 1.5) * (z.z - 1.5))
 		{
 			dy = 1.5;
 		}
@@ -4697,9 +4697,7 @@ void PseudoKleinianMod2Iteration(CVector3 &z, int i, const cFractal *fractal, sE
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale08) + 1.0;
 	}
 
-
-
-	//CVector3 gap = fractal->transformCommon.constantMultiplier000;
+	// CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& i >= fractal->transformCommon.startIterationsP
 			&& i < fractal->transformCommon.stopIterationsP1)
@@ -4728,7 +4726,8 @@ void PseudoKleinianMod2Iteration(CVector3 &z, int i, const cFractal *fractal, sE
 			&& i < fractal->transformCommon.stopIterationsR)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-	if (fractal->transformCommon.benesiT1EnabledFalse && i >= fractal->transformCommon.startIterationsT
+	if (fractal->transformCommon.benesiT1EnabledFalse
+			&& i >= fractal->transformCommon.startIterationsT
 			&& i < fractal->transformCommon.stopIterationsT1)
 	{
 		double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -8671,9 +8670,9 @@ void TransfScale4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux
 void TransfSphericalFold4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
 	// double r2 = z4D.Dot(z4D);
-	//double r2 = z4D.x * z4D.x + z4D.y * z4D.y;
+	// double r2 = z4D.x * z4D.x + z4D.y * z4D.y;
 	// if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
-	//r2 += z4D.z * z4D.z;
+	// r2 += z4D.z * z4D.z;
 	double rr = z4D.Dot(z4D);
 	z4D += fractal->transformCommon.offset0000;
 	if (rr < fractal->transformCommon.minR2p25)
@@ -8689,8 +8688,4 @@ void TransfSphericalFold4dIteration(CVector4 &z4D, const cFractal *fractal, sExt
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z4D -= fractal->transformCommon.offset0000;
-
-
-
-
 }
