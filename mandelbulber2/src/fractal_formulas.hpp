@@ -93,6 +93,7 @@ void MandelbulbKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 void MandelbulbKaliMultiIteration(
 	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbMultiIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+void MandelbulbMulti2Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux);
 void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
