@@ -61,6 +61,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("tiles", 1, 1, 64, morphNone, paramStandard);
 	par->addParam("tile_number", 0, morphNone, paramStandard);
 	par->addParam("image_proportion", 0, morphNone, paramNoSave);
+	par->addParam("antialiasing_enabled", false, morphNone, paramStandard);
+	par->addParam("antialiasing_size", 2, 1, 10, morphNone, paramStandard);
 
 	// flight animation
 	par->addParam("flight_first_to_render", 0, 0, 99999, morphNone, paramStandard);

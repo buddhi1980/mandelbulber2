@@ -39,6 +39,8 @@
 cParamRender::cParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData)
 		: primitives(container, objectData)
 {
+	antialiasingEnabled = container->Get<bool>("antialiasing_enabled");
+	antialiasingSize = container->Get<int>("antialiasing_size");
 	ambientOcclusion = container->Get<double>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");

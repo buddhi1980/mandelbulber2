@@ -104,6 +104,8 @@ void cRenderWorker::doWork()
 	if (params->perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
 
 	bool monteCarloDOF = params->DOFMonteCarlo && params->DOFEnabled;
+	bool antiAliasing = params->antialiasingEnabled;
+	int antiAliasingSize = params->antialiasingSize;
 
 	if (data->stereo.isEnabled() && (params->perspectiveType != params::perspEquirectangular))
 		aspectRatio = data->stereo.ModifyAspectRatio(aspectRatio);
@@ -166,8 +168,6 @@ void cRenderWorker::doWork()
 					&& imagePoint.Length() > 0.5 / params->fov)
 				hemisphereCut = true;
 
-			//---------------- 1us -------------
-
 			// Ray marching
 			int repeats = data->stereo.GetNumberOfRepeats();
 
@@ -181,14 +181,30 @@ void cRenderWorker::doWork()
 			double depth = 1e20;
 
 			if (monteCarloDOF) repeats = params->DOFSamples;
+			if (antiAliasing) repeats *= antiAliasingSize * antiAliasingSize;
 
 			sRGBFloat finalPixelDOF;
+			unsigned int finalAlphaDOF = 0;
+			unsigned int finalOpacityDOF = 0;
+			sRGB finalColourDOF;
+
+			CVector2<double> originalImagePoint = imagePoint;
 
 			for (int repeat = 0; repeat < repeats; repeat++)
 			{
 
 				CVector3 viewVector;
 				CVector3 startRay;
+
+				if(antiAliasing)
+				{
+					int xStep = repeat / antiAliasingSize;
+					int yStep = repeat % antiAliasingSize;
+					double xOffset = double(xStep) / antiAliasingSize / image->GetWidth();
+					double yOffset = double(yStep) / antiAliasingSize / image->GetHeight();
+					imagePoint.x = originalImagePoint.x + xOffset;
+					imagePoint.y = originalImagePoint.y + yOffset;
+				}
 
 				if (monteCarloDOF)
 				{
@@ -317,10 +333,15 @@ void cRenderWorker::doWork()
 				finalPixelDOF.R += finalPixel.R;
 				finalPixelDOF.G += finalPixel.G;
 				finalPixelDOF.B += finalPixel.B;
+				finalAlphaDOF += alpha;
+				finalOpacityDOF += opacity16;
+				finalColourDOF.R += colour.R;
+				finalColourDOF.G += colour.G;
+				finalColourDOF.B += colour.B;
 
 			} // next repeat
 
-			if (monteCarloDOF)
+			if (monteCarloDOF || antiAliasing)
 			{
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 				{
@@ -334,6 +355,11 @@ void cRenderWorker::doWork()
 					finalPixel.R = finalPixelDOF.R / repeats;
 					finalPixel.G = finalPixelDOF.G / repeats;
 					finalPixel.B = finalPixelDOF.B / repeats;
+					alpha = finalAlphaDOF / repeats;
+					opacity16 = finalOpacityDOF / repeats;
+					colour.R = finalColourDOF.R / repeats;
+					colour.G = finalColourDOF.G / repeats;
+					colour.B = finalColourDOF.B / repeats;
 				}
 			}
 			else if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)

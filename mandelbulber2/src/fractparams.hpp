@@ -69,6 +69,7 @@ public:
 	// constructor with init
 	cParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = nullptr);
 
+	int antialiasingSize;
 	int ambientOcclusionQuality; // ambient occlusion quality
 	int auxLightNumber;
 	int auxLightRandomNumber;
@@ -97,6 +98,7 @@ public:
 	fractal::enumDEMethod delta_DE_method;
 	fractal::enumDEFunctionType delta_DE_function;
 
+	bool antialiasingEnabled;
 	bool ambientOcclusionEnabled; // enable global illumination
 	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;
