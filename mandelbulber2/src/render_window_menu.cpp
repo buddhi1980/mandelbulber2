@@ -315,8 +315,8 @@ void RenderWindow::slotMenuAnimationDocksPositions()
 	tabifyDockWidget(ui->dockWidget_materialEditor, ui->dockWidget_effects);
 	tabifyDockWidget(ui->dockWidget_effects, ui->dockWidget_image_adjustments);
 	tabifyDockWidget(ui->dockWidget_image_adjustments, ui->dockWidget_rendering_engine);
-	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_fractal);
-	tabifyDockWidget(ui->dockWidget_fractal, ui->dockWidget_histogram);
+	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_objects);
+	tabifyDockWidget(ui->dockWidget_objects, ui->dockWidget_histogram);
 
 	addDockWidget(Qt::LeftDockWidgetArea, ui->dockWidget_Materials);
 }
@@ -681,8 +681,8 @@ void RenderWindow::slotStackAllDocks()
 	tabifyDockWidget(ui->dockWidget_materialEditor, ui->dockWidget_effects);
 	tabifyDockWidget(ui->dockWidget_effects, ui->dockWidget_image_adjustments);
 	tabifyDockWidget(ui->dockWidget_image_adjustments, ui->dockWidget_rendering_engine);
-	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_fractal);
-	tabifyDockWidget(ui->dockWidget_fractal, ui->dockWidget_histogram);
+	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_objects);
+	tabifyDockWidget(ui->dockWidget_objects, ui->dockWidget_histogram);
 	tabifyDockWidget(ui->dockWidget_histogram, ui->dockWidget_info);
 }
 

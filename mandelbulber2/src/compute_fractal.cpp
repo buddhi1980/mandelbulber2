@@ -440,6 +440,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MandelbulbMultiIteration(z, c, fractal, extendedAux);
 					break;
 				}
+				case mandelbulbMulti2:
+				{
+					MandelbulbMulti2Iteration(z, c, i, fractal, extendedAux);
+					break;
+				}
 				case mandelbulbVaryPowerV1:
 				{
 					MandelbulbVaryPowerV1Iteration(z, i, fractal, extendedAux);
@@ -1224,6 +1229,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulbKali:
 				case mandelbulbKaliMulti:
 				case mandelbulbMulti:
+				case mandelbulbMulti2:
 				case mandelbulbVaryPowerV1:
 				case msltoeSym2Mod:
 				case msltoeSym3Mod:

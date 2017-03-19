@@ -161,6 +161,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		mandelbulbKaliMulti, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 	fractalList->append(sFractalDescription("Mandelbulb - Multi", "mandelbulb_multi", mandelbulbMulti,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
+	fractalList->append(sFractalDescription("Mandelbulb - Multi2", "mandelbulb_multi2", mandelbulbMulti2,
+		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 	fractalList->append(sFractalDescription("Mandelbulb - Vary Power V1", "mandelbulb_vary_power_v1",
 		mandelbulbVaryPowerV1, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 

@@ -781,6 +781,12 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_1", 1, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterationsT_1", 1, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterationsTM_1", 1, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_X", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_X", 250, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_Y", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_Y", 250, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_Z", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_Z", 250, morphLinear, paramStandard);
 
 	par->addParam(
 		"transf_addition_constant_0555", CVector3(0.5, 0.5, 0.5), morphAkima, paramStandard);
@@ -906,6 +912,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledCx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCz_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledD_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledE_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledF_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledK_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledM", true, morphLinear, paramStandard);

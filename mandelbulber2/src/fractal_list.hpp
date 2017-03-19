@@ -158,6 +158,8 @@ enum enumFractalFormula
 	abox4d = 116,
 	// V2.11
 	pseudoKleinianMod2 = 117,
+	mandelbulbMulti2 = 118,
+
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
