@@ -48,6 +48,7 @@
 #ifdef USE_SNDFILE
 #include <sndfile.h>
 #endif
+#include "files.h"
 
 cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 {
@@ -86,8 +87,10 @@ void cAudioTrack::Clear()
 	maxFftArray = cAudioFFTData();
 }
 
-void cAudioTrack::LoadAudio(const QString &filename)
+void cAudioTrack::LoadAudio(const QString &_filename)
 {
+	QString filename = FilePathHelperSounds(_filename);
+
 	WriteLogString("Loading audio started", filename, 2);
 
 	Clear();

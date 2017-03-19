@@ -492,3 +492,81 @@ sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
 
 	return image;
 }
+
+bool FileExists(const QString &path)
+{
+	QFileInfo check_file(path);
+	return check_file.exists() && check_file.isFile();
+}
+
+QString FilePathHelper(const QString &path, const QStringList &pathList)
+{
+	QString newPath;
+
+	if (!FileExists(path))
+	{
+		qInfo() << "File" << path << "not found. Looking for the file in another locations";
+		QString pathChecked;
+		bool found = false;
+
+		foreach (QString path, pathList)
+		{
+			qInfo() << "Looking for the file at" << path;
+			if (FileExists((path)))
+			{
+				newPath = path;
+				qInfo() << "File found at" << path;
+				found = true;
+				break;
+			}
+		}
+
+		if (found)
+		{
+			return newPath;
+		}
+		else
+		{
+			qWarning() << "File not found anywhere";
+			return path;
+		}
+	}
+	else
+	{
+		return path;
+	}
+}
+
+QString FilePathHelperTextures(const QString &path)
+{
+	QString nativePath = path;
+	nativePath = nativePath.replace(QChar('\\'), QChar('/'));
+	nativePath = QDir::toNativeSeparators(nativePath);
+	QFileInfo fi(nativePath);
+	QString fileName = fi.fileName();
+
+	QStringList pathList = {fileName,
+		systemData.sharedDir + "textures" + QDir::separator() + fileName,
+		systemData.GetDataDirectoryUsed() + "textures" + QDir::separator() + fileName,
+		systemData.GetDataDirectoryUsed() + fileName,
+		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};
+
+	return FilePathHelper(nativePath, pathList);
+}
+
+QString FilePathHelperSounds(const QString &path)
+{
+	QString nativePath = path;
+	nativePath = nativePath.replace(QChar('\\'), QChar('/'));
+	nativePath = QDir::toNativeSeparators(nativePath);
+	QFileInfo fi(nativePath);
+	QString fileName = fi.fileName();
+
+	QStringList pathList = {fileName,
+		systemData.sharedDir + "sounds" + QDir::separator() + fileName,
+		systemData.GetDataDirectoryUsed() + "sounds" + QDir::separator() + fileName,
+		systemData.GetDataDirectoryUsed() + fileName,
+		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};
+
+	return FilePathHelper(nativePath, pathList);
+}

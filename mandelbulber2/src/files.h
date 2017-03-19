@@ -55,4 +55,10 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 	QObject *updateReceiver = nullptr);
 sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight);
 
+
+bool FileExists(const QString &path);
+QString FilePathHelper(const QString &path, const QStringList &pathList);
+QString FilePathHelperTextures(const QString &path);
+QString FilePathHelperSounds(const QString &path);
+
 #endif /* MANDELBULBER2_SRC_FILES_H_ */

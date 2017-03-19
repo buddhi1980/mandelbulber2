@@ -49,6 +49,8 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 {
 	bitmap = nullptr;
 
+	filename = FilePathHelperTextures(filename);
+
 	// try to load image if it's PNG format (this one supports 16-bit depth images)
 	bitmap = LoadPNG(filename, width, height);
 

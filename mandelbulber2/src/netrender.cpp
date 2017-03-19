@@ -707,6 +707,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					{
 						SendData(clients[index].socket, msgCurrentJob);
 						clients[index].linesRendered = 0;
+						qDebug() << "Send data at reconnect";
 					}
 					break;
 				}
