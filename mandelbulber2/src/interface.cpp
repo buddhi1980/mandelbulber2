@@ -147,7 +147,7 @@ void cInterface::ShowUi()
 		mainWindow->tabifyDockWidget(
 			mainWindow->ui->dockWidget_image_adjustments, mainWindow->ui->dockWidget_rendering_engine);
 		mainWindow->tabifyDockWidget(
-			mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_fractal);
+			mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_objects);
 		mainWindow->ui->dockWidget_animation->hide();
 		mainWindow->ui->dockWidget_info->hide();
 		mainWindow->ui->dockWidget_gamepad_dock->hide();

@@ -77,8 +77,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>801</width>
-            <height>756</height>
+            <width>810</width>
+            <height>735</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -293,7 +293,7 @@
      <x>0</x>
      <y>0</y>
      <width>1030</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -312,13 +312,13 @@
      <string>File</string>
     </property>
     <widget class="QMenu" name="menuRecent_Settings_list">
-    <property name="icon">
-     <iconset theme="document-open" resource="icons.qrc">
-      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
-    </property>
-    <property name="title">
-     <string>Recent settings...</string>
-    </property>
+     <property name="title">
+      <string>Recent settings...</string>
+     </property>
+     <property name="icon">
+      <iconset theme="document-open" resource="icons.qrc">
+       <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
+     </property>
     </widget>
     <addaction name="actionLoad_settings"/>
     <addaction name="actionLoad_settings_from_clipboard"/>
@@ -450,8 +450,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>131</height>
+          <width>66</width>
+          <height>114</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -565,8 +565,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>126</height>
+          <width>66</width>
+          <height>114</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -595,12 +595,12 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_fractal">
+  <widget class="QDockWidget" name="dockWidget_objects">
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
-    <string>Frac&amp;tal</string>
+    <string>Objects</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -632,8 +632,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>114</height>
+          <width>66</width>
+          <height>112</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -699,8 +699,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>127</height>
+          <width>66</width>
+          <height>114</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -868,8 +868,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>233</width>
-          <height>84</height>
+          <width>197</width>
+          <height>70</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -965,8 +965,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>131</height>
+          <width>66</width>
+          <height>114</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1044,8 +1044,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>84</width>
-          <height>441</height>
+          <width>78</width>
+          <height>374</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">

@@ -42,7 +42,7 @@
      </property>
      <widget class="QWidget" name="tabWidget_fractal_formulas">
       <attribute name="title">
-       <string>Formulas</string>
+       <string>Fractals</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_21">
        <property name="spacing">
