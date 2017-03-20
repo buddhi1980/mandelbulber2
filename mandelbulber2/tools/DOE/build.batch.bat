@@ -44,8 +44,8 @@ nuget restore %SRC%\mandelbulber2.sln
 REM # build_script #
 set ZLIBDIR=%SRC%\packages\zlib-msvc14-x64.1.2.11.7795\build\native
 set ZLIBDIST=%ZLIBDIR%\bin_release
-set PNGDIR=%SRC%\packages\libpng.1.6.28.1\build\native
-set PNGDIST=%SRC%\packages\libpng.redist.1.6.28.1\build\native\bin\x64\v140\dynamic\Release
+set PNGDIR=%SRC%\packages\libpng-msvc14-x64.1.6.29.7800\build\native
+set PNGDIST=%PNGDIR%\bin_release
 set TIFFDIR=%SRC%\packages\libtiff-msvc14-x64.4.0.7.7799\build\native
 set JPEGDIR=%SRC%\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native
 set GSLDIR=%SRC%\packages\gsl-msvc14-x64.2.3.0.2779\build\native
@@ -65,7 +65,7 @@ cmake -G %cmake_platform% ^
 -DCMAKE_INSTALL_PREFIX=%OutDir% ^
 -DZLIB_LIBRARY=%ZLIBDIR%\lib_release\zlibstatic.lib ^
 -DZLIB_INCLUDE_DIR=%ZLIBDIR%\include ^
--DPNG_LIBRARY=%PNGDIR%\lib\x64\v140\dynamic\Release\libpng16.lib ^
+-DPNG_LIBRARY=%PNGDIR%\lib_release\libpng16_static.lib ^
 -DPNG_PNG_INCLUDE_DIR=%PNGDIR%\include ^
 -DTIFF_LIBRARY=%TIFFDIR%\lib_release\tiff.lib ^
 -DTIFF_INCLUDE_DIR=%TIFFDIR%\include ^
@@ -100,8 +100,8 @@ del /F /Q %BINDIR%data
 xcopy /Q /C /Y /I %SRC%\mandelbulber2\language %BINDIR%language
 xcopy /Q /C /Y /I %SRC%\mandelbulber2\qt_data %BINDIR%qt_data
 xcopy /Q /C /Y /I %SRC%\mandelbulber2\data %BINDIR%data
-xcopy /Q /C /Y %ZLIBDIST%\*.dll %BINDIR%
 xcopy /Q /C /Y %PNGDIST%\*.dll %BINDIR%
+xcopy /Q /C /Y %ZLIBDIST%\*.dll %BINDIR%
 
 REM --- exit ----
 GOTO:eof
