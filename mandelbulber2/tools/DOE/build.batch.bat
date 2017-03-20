@@ -46,10 +46,8 @@ set ZLIBDIR=%SRC%\packages\zlib-msvc14-x64.1.2.11.7795\build\native
 set ZLIBDIST=%ZLIBDIR%\bin_release
 set PNGDIR=%SRC%\packages\libpng.1.6.28.1\build\native
 set PNGDIST=%SRC%\packages\libpng.redist.1.6.28.1\build\native\bin\x64\v140\dynamic\Release
-set TIFFDIR=%SRC%\packages\libtiff.4.0.6.2\build\native
-set TIFFDIST=%SRC%\packages\libtiff.redist.4.0.6.2\build\native\bin\Release\x64\v140
-set JPEGDIR=%SRC%\packages\libjpeg.9.2.0.1\build\native
-set JPEGDIST=%SRC%\packages\libjpeg.redist.9.2.0.1\build\native\bin\v140\x64\Release\dynamic\cdecl
+set TIFFDIR=%SRC%\packages\libtiff-msvc14-x64.4.0.7.7799\build\native
+set JPEGDIR=%SRC%\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native
 set GSLDIR=%SRC%\packages\gsl-msvc14-x64.2.3.0.2779\build\native
 
 cd %BUILDTREE%
@@ -69,9 +67,9 @@ cmake -G %cmake_platform% ^
 -DZLIB_INCLUDE_DIR=%ZLIBDIR%\include ^
 -DPNG_LIBRARY=%PNGDIR%\lib\x64\v140\dynamic\Release\libpng16.lib ^
 -DPNG_PNG_INCLUDE_DIR=%PNGDIR%\include ^
--DTIFF_LIBRARY=%TIFFDIR%\lib\Release\x64\v140\libtiff.lib ^
+-DTIFF_LIBRARY=%TIFFDIR%\lib_release\tiff.lib ^
 -DTIFF_INCLUDE_DIR=%TIFFDIR%\include ^
--DJPEG_LIBRARY=%JPEGDIR%\lib\v140\x64\Release\static\cdecl\jpeg.lib ^
+-DJPEG_LIBRARY=%JPEGDIR%\lib_release\jpeg.lib ^
 -DJPEG_INCLUDE_DIR=%JPEGDIR%\include ^
 -DGSL_CBLAS_LIBRARY=%GSLDIR%\static\gslcblas.lib ^
 -DGSL_LIBRARY=%GSLDIR%\static\gsl.lib ^
@@ -104,8 +102,6 @@ xcopy /Q /C /Y /I %SRC%\mandelbulber2\qt_data %BINDIR%qt_data
 xcopy /Q /C /Y /I %SRC%\mandelbulber2\data %BINDIR%data
 xcopy /Q /C /Y %ZLIBDIST%\*.dll %BINDIR%
 xcopy /Q /C /Y %PNGDIST%\*.dll %BINDIR%
-xcopy /Q /C /Y %TIFFDIST%\*.dll %BINDIR%
-xcopy /Q /C /Y %JPEGDIST%\*.dll %BINDIR%
 
 REM --- exit ----
 GOTO:eof
