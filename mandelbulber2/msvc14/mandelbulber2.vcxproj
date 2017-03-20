@@ -916,8 +916,6 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\..\packages\libpng.redist.1.6.28.1\build\native\libpng.redist.targets" Condition="Exists('..\..\packages\libpng.redist.1.6.28.1\build\native\libpng.redist.targets')" />
     <Import Project="..\..\packages\libpng.1.6.28.1\build\native\libpng.targets" Condition="Exists('..\..\packages\libpng.1.6.28.1\build\native\libpng.targets')" />
-    <Import Project="..\..\packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets" Condition="Exists('..\..\packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" />
-    <Import Project="..\..\packages\libtiff.4.0.6.2\build\native\libtiff.targets" Condition="Exists('..\..\packages\libtiff.4.0.6.2\build\native\libtiff.targets')" />
     <Import Project="..\..\packages\gsl-msvc14-x64.2.3.0.2779\build\native\gsl-msvc14-x64.targets" Condition="Exists('..\..\packages\gsl-msvc14-x64.2.3.0.2779\build\native\gsl-msvc14-x64.targets')" />
     <Import Project="..\..\packages\bulbqt-msvc14-x64.5.8.0.10782\build\native\bulbqt-msvc14-x64.targets" Condition="Exists('..\..\packages\bulbqt-msvc14-x64.5.8.0.10782\build\native\bulbqt-msvc14-x64.targets')" />
     <Import Project="..\..\packages\openexr-msvc14-x64.2.2.0.7783\build\native\OpenEXR-msvc14-x64.targets" Condition="Exists('..\..\packages\openexr-msvc14-x64.2.2.0.7783\build\native\OpenEXR-msvc14-x64.targets')" />
@@ -938,6 +936,8 @@
     <Import Project="..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets" Condition="Exists('..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets')" />
     <Import Project="..\..\packages\libjpeg-msvc14-x86.9.1.0.7796\build\native\libjpeg-msvc14-x86.targets" Condition="Exists('..\..\packages\libjpeg-msvc14-x86.9.1.0.7796\build\native\libjpeg-msvc14-x86.targets')" />
     <Import Project="..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets" Condition="Exists('..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets')" />
+    <Import Project="..\..\packages\libtiff-msvc14-x86.4.0.7.7799\build\native\libtiff-msvc14-x86.targets" Condition="Exists('..\..\packages\libtiff-msvc14-x86.4.0.7.7799\build\native\libtiff-msvc14-x86.targets')" />
+    <Import Project="..\..\packages\libtiff-msvc14-x64.4.0.7.7799\build\native\libtiff-msvc14-x64.targets" Condition="Exists('..\..\packages\libtiff-msvc14-x64.4.0.7.7799\build\native\libtiff-msvc14-x64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -945,8 +945,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\libpng.redist.1.6.28.1\build\native\libpng.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libpng.redist.1.6.28.1\build\native\libpng.redist.targets'))" />
     <Error Condition="!Exists('..\..\packages\libpng.1.6.28.1\build\native\libpng.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libpng.1.6.28.1\build\native\libpng.targets'))" />
-    <Error Condition="!Exists('..\..\packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libtiff.redist.4.0.6.2\build\native\libtiff.redist.targets'))" />
-    <Error Condition="!Exists('..\..\packages\libtiff.4.0.6.2\build\native\libtiff.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libtiff.4.0.6.2\build\native\libtiff.targets'))" />
     <Error Condition="!Exists('..\..\packages\gsl-msvc14-x64.2.3.0.2779\build\native\gsl-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\gsl-msvc14-x64.2.3.0.2779\build\native\gsl-msvc14-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\bulbqt-msvc14-x64.5.8.0.10782\build\native\bulbqt-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\bulbqt-msvc14-x64.5.8.0.10782\build\native\bulbqt-msvc14-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\openexr-msvc14-x64.2.2.0.7783\build\native\OpenEXR-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\openexr-msvc14-x64.2.2.0.7783\build\native\OpenEXR-msvc14-x64.targets'))" />
@@ -968,6 +966,8 @@
     <Error Condition="!Exists('..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\libjpeg-msvc14-x86.9.1.0.7796\build\native\libjpeg-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libjpeg-msvc14-x86.9.1.0.7796\build\native\libjpeg-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('..\..\packages\libtiff-msvc14-x86.4.0.7.7799\build\native\libtiff-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libtiff-msvc14-x86.4.0.7.7799\build\native\libtiff-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\libtiff-msvc14-x64.4.0.7.7799\build\native\libtiff-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libtiff-msvc14-x64.4.0.7.7799\build\native\libtiff-msvc14-x64.targets'))" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q $(IntDir)" />
