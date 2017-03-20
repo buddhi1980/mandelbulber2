@@ -941,8 +941,8 @@
     <Import Project="..\..\packages\ogg-msvc14-x86.1.3.2.7783\build\native\ogg-msvc14-x86.targets" Condition="Exists('..\..\packages\ogg-msvc14-x86.1.3.2.7783\build\native\ogg-msvc14-x86.targets')" />
     <Import Project="..\..\packages\zlib-msvc14-x64.1.2.11.7795\build\native\zlib-msvc14-x64.targets" Condition="Exists('..\..\packages\zlib-msvc14-x64.1.2.11.7795\build\native\zlib-msvc14-x64.targets')" />
     <Import Project="..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets" Condition="Exists('..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets')" />
-    <Import Project="..\..\packages\libjpeg-msvc14-x86.9.1.0.7795\build\native\libjpeg-msvc14-x86.targets" Condition="Exists('..\..\packages\libjpeg-msvc14-x86.9.1.0.7795\build\native\libjpeg-msvc14-x86.targets')" />
-    <Import Project="..\..\packages\libjpeg-msvc14-x64.9.1.0.7795\build\native\libjpeg-msvc14-x64.targets" Condition="Exists('..\..\packages\libjpeg-msvc14-x64.9.1.0.7795\build\native\libjpeg-msvc14-x64.targets')" />
+    <Import Project="..\..\packages\libjpeg-msvc14-x86.9.1.0.7796\build\native\libjpeg-msvc14-x86.targets" Condition="Exists('..\..\packages\libjpeg-msvc14-x86.9.1.0.7796\build\native\libjpeg-msvc14-x86.targets')" />
+    <Import Project="..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets" Condition="Exists('..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -971,8 +971,8 @@
     <Error Condition="!Exists('..\..\packages\ogg-msvc14-x86.1.3.2.7783\build\native\ogg-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ogg-msvc14-x86.1.3.2.7783\build\native\ogg-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\zlib-msvc14-x64.1.2.11.7795\build\native\zlib-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\zlib-msvc14-x64.1.2.11.7795\build\native\zlib-msvc14-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\zlib-msvc14-x86.1.2.11.7795\build\native\zlib-msvc14-x86.targets'))" />
-    <Error Condition="!Exists('..\..\packages\libjpeg-msvc14-x86.9.1.0.7795\build\native\libjpeg-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libjpeg-msvc14-x86.9.1.0.7795\build\native\libjpeg-msvc14-x86.targets'))" />
-    <Error Condition="!Exists('..\..\packages\libjpeg-msvc14-x64.9.1.0.7795\build\native\libjpeg-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libjpeg-msvc14-x64.9.1.0.7795\build\native\libjpeg-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('..\..\packages\libjpeg-msvc14-x86.9.1.0.7796\build\native\libjpeg-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libjpeg-msvc14-x86.9.1.0.7796\build\native\libjpeg-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets'))" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q $(IntDir)" />
