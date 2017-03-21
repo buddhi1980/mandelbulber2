@@ -46,11 +46,7 @@ class cNineFractals;
 class cParamRender;
 struct sRenderData;
 
-#ifdef USE_OFFLOAD
-__declspec(target(mic))
-#endif // USE_OFFLOAD
-
-	struct sDistanceIn
+struct sDistanceIn
 {
 	CVector3 point;
 	double detailSize;
@@ -61,11 +57,7 @@ __declspec(target(mic))
 	}
 };
 
-#ifdef USE_OFFLOAD
-__declspec(target(mic))
-#endif // USE_OFFLOAD
-
-	struct sDistanceOut
+struct sDistanceOut
 {
 	double distance;
 	double colorIndex;
