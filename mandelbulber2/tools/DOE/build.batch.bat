@@ -60,6 +60,7 @@ cmake -G %cmake_platform% ^
 -DCMAKE_MAKE_PROGRAM=%JomDir%\jom.exe ^
 -DCMAKE_VERBOSE_MAKEFILE=%VERBOSE_MAKEFILE% ^
 -DUSE_GAMEPAD=1 ^
+-DUSE_OFFLOAD=1 ^
 -DCMAKE_CXX_FLAGS="/Qstd=c++11 /Qopenmp /EHsc /nologo" ^
 -DCMAKE_BUILD_TYPE=Release ^
 -DCMAKE_INSTALL_PREFIX=%OutDir% ^
