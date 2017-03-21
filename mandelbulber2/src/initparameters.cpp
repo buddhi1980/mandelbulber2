@@ -292,6 +292,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("DOF_blur_opacity", 4.0, 0.01, 10.0, morphLinear, paramStandard);
 	par->addParam("DOF_monte_carlo", false, morphLinear, paramStandard);
 	par->addParam("DOF_samples", 100, morphLinear, paramStandard);
+	par->addParam("DOF_min_samples", 10, morphLinear, paramStandard);
+	par->addParam("DOF_max_noise", 1.0, 0.00001, 100.0, morphLinear, paramStandard);
 
 	// main light
 	par->addParam("main_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);

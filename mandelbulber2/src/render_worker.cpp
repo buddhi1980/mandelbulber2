@@ -188,6 +188,8 @@ void cRenderWorker::doWork()
 			unsigned int finalOpacityDOF = 0;
 			sRGB finalColourDOF;
 
+			sRGBFloat monteCarloDOFStdDevSum;
+
 			CVector2<double> originalImagePoint = imagePoint;
 
 			for (int repeat = 0; repeat < repeats; repeat++)
@@ -196,7 +198,7 @@ void cRenderWorker::doWork()
 				CVector3 viewVector;
 				CVector3 startRay;
 
-				if(antiAliasing)
+				if (antiAliasing)
 				{
 					int xStep = repeat / antiAliasingSize;
 					int yStep = repeat % antiAliasingSize;
@@ -338,6 +340,40 @@ void cRenderWorker::doWork()
 				finalColourDOF.R += colour.R;
 				finalColourDOF.G += colour.G;
 				finalColourDOF.B += colour.B;
+
+				// noise estimation
+				if (monteCarloDOF)
+				{
+					sRGBFloat monteCarloDOFAvg;
+					monteCarloDOFAvg.R = finalPixelDOF.R / (repeat + 1);
+					monteCarloDOFAvg.G = finalPixelDOF.G / (repeat + 1);
+					monteCarloDOFAvg.B = finalPixelDOF.B / (repeat + 1);
+
+					sRGBFloat monteCarloDOFSquareDiff;
+					monteCarloDOFSquareDiff.R =
+						(finalPixel.R - monteCarloDOFAvg.R) * (finalPixel.R - monteCarloDOFAvg.R);
+					monteCarloDOFSquareDiff.G =
+						(finalPixel.G - monteCarloDOFAvg.G) * (finalPixel.G - monteCarloDOFAvg.G);
+					monteCarloDOFSquareDiff.B =
+						(finalPixel.B - monteCarloDOFAvg.B) * (finalPixel.B - monteCarloDOFAvg.B);
+
+					monteCarloDOFStdDevSum.R += monteCarloDOFSquareDiff.R;
+					monteCarloDOFStdDevSum.G += monteCarloDOFSquareDiff.G;
+					monteCarloDOFStdDevSum.B += monteCarloDOFSquareDiff.B;
+
+					sRGBFloat monteCarloDOFStdDev;
+					double totalStdDev =
+						sqrt((monteCarloDOFStdDevSum.R + monteCarloDOFStdDevSum.G + monteCarloDOFStdDevSum.B)
+								 / (repeat + 1));
+
+					double noise = totalStdDev / sqrt(repeat + 1);
+
+					if (repeat > params->DOFMinSamples && noise < params->DOFMaxNoise * 0.01)
+					{
+						repeats = repeat + 1;
+						break;
+					}
+				}
 
 			} // next repeat
 

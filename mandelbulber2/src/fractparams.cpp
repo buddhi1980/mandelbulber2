@@ -84,7 +84,9 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	DOFMonteCarlo = container->Get<bool>("DOF_monte_carlo");
 	DOFNumberOfPasses = container->Get<int>("DOF_number_of_passes");
 	DOFSamples = container->Get<int>("DOF_samples");
+	DOFMinSamples = container->Get<int>("DOF_min_samples");
 	DOFBlurOpacity = container->Get<double>("DOF_blur_opacity");
+	DOFMaxNoise = container->Get<double>("DOF_max_noise");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
 	fakeLightsEnabled = container->Get<bool>("fake_lights_enabled");
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");

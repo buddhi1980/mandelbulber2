@@ -84,6 +84,7 @@ public:
 	int repeatFrom;
 	int DOFNumberOfPasses;
 	int DOFSamples;
+	int DOFMinSamples;
 
 #ifdef CLSUPPORT
 	int OpenCLDOFMethod;
@@ -170,6 +171,7 @@ public:
 	double DOFFocus;
 	double DOFRadius;
 	double DOFBlurOpacity;
+	double DOFMaxNoise;
 	double fakeLightsIntensity;
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;
