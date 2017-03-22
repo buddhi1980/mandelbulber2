@@ -227,3 +227,8 @@ void cDockEffects::slotPressedButtonPlaceRandomLightsByMouse()
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
 }
+
+void cDockEffects::UpdateLabelAverageDOFSamples(const QString &avg)
+{
+	ui->label_average_DOF_samples->setText(avg);
+}

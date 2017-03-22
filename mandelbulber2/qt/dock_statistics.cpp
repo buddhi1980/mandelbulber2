@@ -38,6 +38,7 @@
 #include "../src/interface.hpp"
 #include "../src/render_window.hpp"
 #include "dock_rendering_engine.h"
+#include "dock_effects.h"
 #include "ui_dock_statistics.h"
 
 cDockStatistics::cDockStatistics(QWidget *parent) : QWidget(parent), ui(new Ui::cDockStatistics)
@@ -75,4 +76,6 @@ void cDockStatistics::slotUpdateStatistics(cStatistics stat) const
 		tr("Percentage of wrong distance estimations: %1").arg(stat.GetMissedDEPercentage()));
 	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->UpdateLabelUsedDistanceEstimation(
 		tr("Used distance estimation algorithm: %1").arg(stat.GetDETypeString()));
+	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelAverageDOFSamples(
+		tr("Average number of DOF samples: %1").arg(stat.GetAverageDOFSamples()));
 }

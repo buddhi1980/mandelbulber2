@@ -40,6 +40,7 @@ cStatistics::cStatistics()
 	missedDE = 0;
 	numberOfRaymarchings = 0;
 	numberOfRenderedPixels = 0;
+	totalNumberOfDOFRepeats = 0;
 	time = 0.0;
 }
 
@@ -53,6 +54,7 @@ void cStatistics::Reset()
 	missedDE = 0;
 	numberOfRaymarchings = 0;
 	numberOfRenderedPixels = 0;
+	totalNumberOfDOFRepeats = 0;
 	time = 0.0;
 	histogramIterations.Clear();
 	histogramStepCount.Clear();

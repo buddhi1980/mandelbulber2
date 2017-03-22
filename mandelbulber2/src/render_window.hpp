@@ -56,6 +56,7 @@ class cDockQueue;
 class cDockImageAdjustments;
 class cDockRenderingEngine;
 class cDockFractal;
+class cDockEffects;
 
 namespace Ui
 {
@@ -78,6 +79,7 @@ public:
 	cDockImageAdjustments *GetWidgetDockImageAdjustments() const;
 	cDockRenderingEngine *GetWidgetDockRenderingEngine() const;
 	cDockFractal *GetWidgetDockFractal() const;
+	cDockEffects *GetWidgetDockEffects() const;
 
 	QWidget *GetCentralWidget() const;
 	QComboBox *GetComboBoxMouseClickFunction() const;

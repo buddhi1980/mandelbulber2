@@ -344,29 +344,8 @@ void cRenderWorker::doWork()
 				// noise estimation
 				if (monteCarloDOF)
 				{
-					sRGBFloat monteCarloDOFAvg;
-					monteCarloDOFAvg.R = finalPixelDOF.R / (repeat + 1);
-					monteCarloDOFAvg.G = finalPixelDOF.G / (repeat + 1);
-					monteCarloDOFAvg.B = finalPixelDOF.B / (repeat + 1);
-
-					sRGBFloat monteCarloDOFSquareDiff;
-					monteCarloDOFSquareDiff.R =
-						(finalPixel.R - monteCarloDOFAvg.R) * (finalPixel.R - monteCarloDOFAvg.R);
-					monteCarloDOFSquareDiff.G =
-						(finalPixel.G - monteCarloDOFAvg.G) * (finalPixel.G - monteCarloDOFAvg.G);
-					monteCarloDOFSquareDiff.B =
-						(finalPixel.B - monteCarloDOFAvg.B) * (finalPixel.B - monteCarloDOFAvg.B);
-
-					monteCarloDOFStdDevSum.R += monteCarloDOFSquareDiff.R;
-					monteCarloDOFStdDevSum.G += monteCarloDOFSquareDiff.G;
-					monteCarloDOFStdDevSum.B += monteCarloDOFSquareDiff.B;
-
-					sRGBFloat monteCarloDOFStdDev;
-					double totalStdDev =
-						sqrt((monteCarloDOFStdDevSum.R + monteCarloDOFStdDevSum.G + monteCarloDOFStdDevSum.B)
-								 / (repeat + 1));
-
-					double noise = totalStdDev / sqrt(repeat + 1);
+					double noise =
+						MonteCarloDOFNoiseEstimation(finalPixel, repeat, finalPixelDOF, monteCarloDOFStdDevSum);
 
 					if (repeat > params->DOFMinSamples && noise < params->DOFMaxNoise * 0.01)
 					{
@@ -397,6 +376,7 @@ void cRenderWorker::doWork()
 					colour.G = finalColourDOF.G / repeats;
 					colour.B = finalColourDOF.B / repeats;
 				}
+				data->statistics.totalNumberOfDOFRepeats += repeats;
 			}
 			else if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 			{
@@ -1050,4 +1030,28 @@ void cRenderWorker::MonteCarloDOF(
 		*viewVector = viewVectorTemp;
 		*startRay = params->camera + randVectorRot;
 	}
+}
+
+double cRenderWorker::MonteCarloDOFNoiseEstimation(
+	sRGBFloat pixel, int repeat, sRGBFloat pixelSum, sRGBFloat &StdDevSum)
+{
+	sRGBFloat monteCarloDOFAvg;
+	monteCarloDOFAvg.R = pixelSum.R / (repeat + 1);
+	monteCarloDOFAvg.G = pixelSum.G / (repeat + 1);
+	monteCarloDOFAvg.B = pixelSum.B / (repeat + 1);
+
+	sRGBFloat monteCarloDOFSquareDiff;
+	monteCarloDOFSquareDiff.R = (pixel.R - monteCarloDOFAvg.R) * (pixel.R - monteCarloDOFAvg.R);
+	monteCarloDOFSquareDiff.G = (pixel.G - monteCarloDOFAvg.G) * (pixel.G - monteCarloDOFAvg.G);
+	monteCarloDOFSquareDiff.B = (pixel.B - monteCarloDOFAvg.B) * (pixel.B - monteCarloDOFAvg.B);
+
+	StdDevSum.R += monteCarloDOFSquareDiff.R;
+	StdDevSum.G += monteCarloDOFSquareDiff.G;
+	StdDevSum.B += monteCarloDOFSquareDiff.B;
+
+	sRGBFloat monteCarloDOFStdDev;
+	double totalStdDev = sqrt((StdDevSum.R + StdDevSum.G + StdDevSum.B) / (repeat + 1));
+
+	// noise value
+	return totalStdDev / sqrt(repeat + 1);
 }

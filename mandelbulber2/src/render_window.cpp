@@ -105,6 +105,11 @@ cDockFractal *RenderWindow::GetWidgetDockFractal() const
 	return ui->widgetDockFractal;
 }
 
+cDockEffects *RenderWindow::GetWidgetDockEffects() const
+{
+	return ui->widgetEffects;
+}
+
 QComboBox *RenderWindow::GetComboBoxMouseClickFunction() const
 {
 	return ui->comboBox_mouse_click_function;
