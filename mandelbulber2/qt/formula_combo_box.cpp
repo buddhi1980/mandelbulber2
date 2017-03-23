@@ -40,6 +40,8 @@
 #include "formula_combo_box.h"
 #include <QStandardItemModel>
 
+QMap<QString, QIcon> cFormulaComboBox::iconCache;
+
 cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent)
 {
 	setIconSize(QSize(32, 32));
@@ -104,7 +106,7 @@ void cFormulaComboBox::populateItemsFromFractalList(
 	clear();
 	for (int f = 0; f < fractalList.size(); f++)
 	{
-		addItem(QIcon(fractalList[f].getIconName()), fractalList[f].nameInComboBox, f);
+		addItem(GetIconFromCache(fractalList[f].getIconName()), fractalList[f].nameInComboBox, f);
 	}
 
 	// set headings and separator of formulas and transforms
@@ -135,5 +137,19 @@ void cFormulaComboBox::populateItemsFromFractalList(
 			qobject_cast<QStandardItemModel *>(model())->item(comboIndex)->setEnabled(false);
 			insertSeparator(comboIndex);
 		}
+	}
+}
+
+QIcon cFormulaComboBox::GetIconFromCache(const QString &filename)
+{
+	if (iconCache.contains(filename))
+	{
+		return iconCache[filename];
+	}
+	else
+	{
+		QIcon icon(filename);
+		iconCache.insert(filename, icon);
+		return icon;
 	}
 }

@@ -61,8 +61,12 @@ private slots:
 	void onCompleterActivated(QString text);
 
 private:
+	QIcon GetIconFromCache(const QString &filename);
+
 	QSortFilterProxyModel *pFilterModel;
 	QCompleter *completer;
+
+	static QMap<QString, QIcon> iconCache;
 };
 
 #endif /* MANDELBULBER2_QT_FORMULA_COMBO_BOX_H_ */
