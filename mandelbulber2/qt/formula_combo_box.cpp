@@ -44,8 +44,9 @@ QMap<QString, QIcon> cFormulaComboBox::iconCache;
 
 cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent)
 {
-	setIconSize(QSize(32, 32));
-	setFixedHeight(32);
+	int iconSize = systemData.GetPreferredFontSize() * 4;
+	setIconSize(QSize(iconSize, iconSize));
+	setFixedHeight(iconSize);
 
 	setFocusPolicy(Qt::StrongFocus);
 	setEditable(true);
