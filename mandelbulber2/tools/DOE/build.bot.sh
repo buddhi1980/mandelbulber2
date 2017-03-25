@@ -21,6 +21,7 @@ fi
 mkdir -p $BUILDTREE
 
 # Build x64 #
+# XEON PHI Offload Application Build #
 cd $BUILDTREE \
 && CC=icc CXX=icpc \
 CXXFLAGS="-03 -g -fPIC -wd39,10006" \
@@ -37,9 +38,7 @@ cd $BUILDTREE && make -j12 VERBOSE=1
 # Deploy support 
 ln -s $SRC/mandelbulber2/deploy/share/mandelbulber2 /usr/share/mandelbulber2
 
-exit
-
-# XEON PHI Build #
+# XEON PHI Native Application Build #
 echo "XEON PHI Build"
 BUILDTREE=$BUILDMIC/mandelbulber2
 
@@ -62,6 +61,7 @@ cmake3 \
 -DQt5UiTools_DIR=$KNC_LIB/install-mic/QT5/lib/cmake/Qt5UiTools \
 -DQt5Multimedia_DIR=$KNC_LIB/install-mic/QT5/lib/cmake/Qt5Multimedia \
 -DQt5Widgets_DIR==$KNC_LIB/install-mic/QT5/lib/cmake/Qt5Multimedia \
+-DCMAKE_CXX_STANDARD=11 \
 -DCMAKE_SYSTEM_NAME=Linux \
 -DCMAKE_SYSTEM_PROCESSOR=k1om \
 -DCMAKE_FIND_ROOT_PATH=$MPSSDIR \

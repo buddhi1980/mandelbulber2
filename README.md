@@ -8,7 +8,9 @@
 
 ## Universal Idea
 
-In summary, Mandelbulber generates 3-dimensional fractals.
+In summary, Mandelbulber generates three-dimensional fractals.
+
+The algorithm computes voxels in Euclidean space available for manufacturing from mesh.
 
 Explore trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals.
 
@@ -49,7 +51,7 @@ In render window:
 
 ## Building and Deploying 
 
-Download latest stable version from [Releases] (https://github.com/buddhi1980/mandelbulber2/releases)
+Download latest stable version from [Releases](https://github.com/buddhi1980/mandelbulber2/releases)
 
 After downloading, Unpack the file and follow our instructions from README file.
 Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
@@ -58,29 +60,27 @@ Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
 
 The software is natively developed using Qt Creator for Linux (Debian or Ubuntu).
 
-The file [mandelbulber2/Release/mandelbulber.pro] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/Release/mandelbulber.pro) specifies the build system configuration for Qt Creator, But to be able to compile the program, the host operating system requires preparation.
+The file [mandelbulber2/Release/mandelbulber.pro](https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/Release/mandelbulber.pro) specifies the build system configuration for Qt Creator, But to be able to compile the program, the host operating system requires preparation.
 
 Use the following scripts to prepare your Linux environment for development.
 These scripts install all dependencies, compile the program, and create symbolic links in /usr/share/mandelbulber to your working directory.
 
-[Prepare Debian for Development] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_debian_testing.sh)
+[Prepare Debian for Development](https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_debian_testing.sh)
 
-[Prepare Ubuntu for Development] (https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_ubuntu.sh)
+[Prepare Ubuntu for Development](https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_ubuntu.sh)
 
-[Arch Linux AUR Package (builds latest release)]
-(https://aur.archlinux.org/packages/mandelbulber2/)
+[Arch Linux AUR Package (Current release)](https://aur.archlinux.org/packages/mandelbulber2/)
 
-[Arch Linux AUR Package (builds latest git snapshot)]
-(https://aur.archlinux.org/packages/mandelbulber2-git/)
+[Arch Linux AUR Package (Current git snapshot)](https://aur.archlinux.org/packages/mandelbulber2-git/)
 
 In addition, there exists an MSBuild System Solution located in root folder of git package. This solution accommodates all dependencies with NUGET for autonomous compilation.
 
 ## Resources
 
-[Image Gallery] (http://krzysztofmarczak.deviantart.com/gallery/)
+[Image Gallery](http://krzysztofmarczak.deviantart.com/gallery/)
 
-[Forum] (http://www.fractalforums.com/mandelbulber/)
-[Forum Gallery] (http://www.fractalforums.com/index.php?action=gallery;cat=51)
+[Forum](http://www.fractalforums.com/mandelbulber/)
+[Forum Gallery](http://www.fractalforums.com/index.php?action=gallery;cat=51)
 
 [Compiled Binaries](http://sourceforge.net/projects/mandelbulber/)
 

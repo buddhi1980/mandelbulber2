@@ -505,17 +505,18 @@ QString FilePathHelper(const QString &path, const QStringList &pathList)
 
 	if (!FileExists(path))
 	{
-		qInfo() << "File" << path << "not found. Looking for the file in another locations";
+		//TODO:Enable qInfo for headless operation.
+		//qInfo() << "File" << path << "not found. Looking for the file in another locations";
 		QString pathChecked;
 		bool found = false;
 
 		foreach (QString path, pathList)
 		{
-			qInfo() << "Looking for the file at" << path;
+			//qInfo() << "Looking for the file at" << path;
 			if (FileExists((path)))
 			{
 				newPath = path;
-				qInfo() << "File found at" << path;
+				//qInfo() << "File found at" << path;
 				found = true;
 				break;
 			}

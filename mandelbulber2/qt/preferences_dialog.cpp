@@ -89,7 +89,17 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	}
 
 #ifdef USE_OPENCL
-// TODO
+	QList<QPair<int, QString>> devices = GetGPUDevices();
+	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
+	for (int i = 0; i < devices.size(); i++)
+	{
+		QPair<int, QString> device = devices.at(i);
+		QListWidgetItem *item = new QListWidgetItem(device.second);
+		item->setData(1, device.first);
+		bool selected = selectedDevices.contains(QString::number(device.first));
+		ui->listWidget_gpu_device_list->addItem(item);
+		item->setSelected(selected);
+	}
 #else	// USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
@@ -118,6 +128,15 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	gMainInterface->mainWindow->slotPopulateToolbar(true);
 
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
+
+	QList<QListWidgetItem *> selectedDevicesItems = ui->listWidget_gpu_device_list->selectedItems();
+	QList<QPair<int, QString>> devices = GetGPUDevices();
+	QStringList activeDevices;
+	for (int i = 0; i < selectedDevicesItems.size(); i++)
+	{
+		activeDevices.append(selectedDevicesItems.at(i)->data(1).toString());
+	}
+	gPar->Set("gpu_device_list", activeDevices.join("|"));
 }
 
 void cPreferencesDialog::on_pushButton_select_image_path_clicked()
@@ -336,4 +355,16 @@ void cPreferencesDialog::on_pushButton_retrieve_materials_clicked() const
 	{
 		RetrieveExampleMaterials(true);
 	}
+}
+
+QList<QPair<int, QString>> cPreferencesDialog::GetGPUDevices()
+{
+	// TODO get from opencl
+	QList<QPair<int, QString>> devices;
+#ifdef USE_OPENCL
+	devices << QPair<int, QString>(123456, "AMD    - RX4 80");
+	devices << QPair<int, QString>(654321, "nVidia - GTX 640");
+	devices << QPair<int, QString>(424242, "nVidia - GTX 1080 Ti");
+#endif // USE_OPENCL
+	return devices;
 }

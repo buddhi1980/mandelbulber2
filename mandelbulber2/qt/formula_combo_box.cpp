@@ -64,7 +64,7 @@ cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent)
 	setCompleter(completer);
 
 	// connect signals
-	connect(this, SIGNAL(editTextChanged(const QString &)), pFilterModel,
+	connect((const QObject*) this->lineEdit(), SIGNAL(textEdited(const QString &)), pFilterModel,
 		SLOT(setFilterFixedString(const QString &)));
 	connect(completer, SIGNAL(activated(QString)), this, SLOT(onCompleterActivated(QString)));
 }
@@ -143,14 +143,9 @@ void cFormulaComboBox::populateItemsFromFractalList(
 
 QIcon cFormulaComboBox::GetIconFromCache(const QString &filename)
 {
-	if (iconCache.contains(filename))
+	if (!iconCache.contains(filename))
 	{
-		return iconCache[filename];
+		iconCache.insert(filename, QIcon(filename));
 	}
-	else
-	{
-		QIcon icon(filename);
-		iconCache.insert(filename, icon);
-		return icon;
-	}
+	return iconCache[filename];
 }
