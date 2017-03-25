@@ -36,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -57,8 +57,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>439</width>
-            <height>505</height>
+            <width>437</width>
+            <height>678</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -486,8 +486,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>455</width>
-            <height>523</height>
+            <width>437</width>
+            <height>488</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -888,8 +888,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>455</width>
-            <height>523</height>
+            <width>451</width>
+            <height>477</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_GPU">
@@ -947,14 +947,14 @@ and will only be present after enabling and re-render.</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="0">
+                <item row="1" column="0">
                  <widget class="QLabel" name="label_precision">
                   <property name="text">
                    <string>Precision</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1" colspan="2">
+                <item row="1" column="1" colspan="2">
                  <widget class="QComboBox" name="comboBox_gpu_precision">
                   <item>
                    <property name="text">
@@ -968,14 +968,14 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </widget>
                 </item>
-                <item row="1" column="0">
+                <item row="2" column="0">
                  <widget class="QLabel" name="label_mode">
                   <property name="text">
                    <string>Mode</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1" colspan="2">
+                <item row="2" column="1" colspan="2">
                  <widget class="QComboBox" name="comboBox_gpu_mode">
                   <item>
                    <property name="text">
@@ -989,14 +989,14 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </widget>
                 </item>
-                <item row="2" column="0">
+                <item row="3" column="0">
                  <widget class="QLabel" name="label_gpu_memory_limit">
                   <property name="text">
                    <string>Memory Limit:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
+                <item row="3" column="1">
                  <widget class="QSlider" name="sliderInt_gpu_memory_limit">
                   <property name="minimum">
                    <number>1</number>
@@ -1015,7 +1015,7 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
+                <item row="3" column="2">
                  <widget class="MySpinBox" name="spinboxInt_gpu_memory_limit">
                   <property name="minimum">
                    <number>-10000</number>
@@ -1025,14 +1025,14 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_gpu_cycle_time">
                   <property name="text">
                    <string>Cycle time:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <widget class="QSlider" name="logslider_gpu_cycle_time">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1057,8 +1057,51 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
+                <item row="4" column="2">
                  <widget class="MyLineEdit" name="logedit_gpu_cycle_time"/>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_gpu_device">
+                  <property name="text">
+                   <string>Device</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1" colspan="2">
+                 <layout class="QVBoxLayout" name="verticalLayout_gpu_device">
+                  <item>
+                   <widget class="QComboBox" name="comboBox_gpu_device_type">
+                    <item>
+                     <property name="text">
+                      <string>All non CPU devices</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>All devices</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Custom devices</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QListWidget" name="listWidget_gpu_device_list">
+                    <property name="selectionMode">
+                     <enum>QAbstractItemView::ExtendedSelection</enum>
+                    </property>
+                    <property name="layoutMode">
+                     <enum>QListView::SinglePass</enum>
+                    </property>
+                    <property name="viewMode">
+                     <enum>QListView::ListMode</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>

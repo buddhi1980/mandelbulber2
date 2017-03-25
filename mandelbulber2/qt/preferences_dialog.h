@@ -70,6 +70,7 @@ private:
 	Ui::cPreferencesDialog *ui;
 	cAutomatedWidgets *automatedWidgets;
 	bool initFinished;
+	QList<QPair<int, QString>> GetGPUDevices();
 };
 
 #endif /* MANDELBULBER2_QT_PREFERENCES_DIALOG_H_ */
