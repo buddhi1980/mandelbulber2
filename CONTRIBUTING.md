@@ -1,4 +1,4 @@
-Request for contributions
+Request for Contributions
 =========================
 
 Please contribute to this repository if any of the following is true: - You have
@@ -6,7 +6,7 @@ ability in community development, communication, or education - You want the
 open source communities to be more collaborative and inclusive - You want to
 help lower the burden to first time contributors
 
-How to contribute
+How to Contribute
 =================
 
 Prerequisites:
@@ -15,7 +15,7 @@ Prerequisites:
     requests](https://help.github.com/articles/using-pull-requests) and
     [issues](https://guides.github.com/features/issues/).
 
--   Knowledge of Machine Language for editing source code documents.
+-   Knowledge of Machine Language if editing source code documents.
 
 This community seeks the following types of contributions:
 
