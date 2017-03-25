@@ -13,7 +13,7 @@ import time
 RP = "Robert Pancoast collection - license Creative Commons (CC-BY 4.0)"
 settings_file = \
 RP + os.sep \
-+ "IFS31_anim.fract"
++ "icoastahedron.fract"
 
 # Options for Render #
 start = 0
@@ -82,7 +82,7 @@ class Worker(multiprocessing.Process):
 			+ "\"" \
 			+ " --output " \
 			+ output_dir \
-			+ " --keyframe" \
+			+ " --flight" \
 			+ " --start " \
 			+ start \
 			+ " --end " \
@@ -142,9 +142,9 @@ if __name__ == "__main__":
 	try:
 		#render(" --res 50x50")
 		#render(" --res 85x64")
-		#render(" --res 320x240")
+		render(" --res 320x240")
 		#render(" --res 1920x1080")
-		render(" --res 3840x2160")
+		#render(" --res 3840x2160")
 		#render(" --res 7680x4320")
 	except KeyboardInterrupt:
 		print("KeyboardInterrupt Detected")
