@@ -69,11 +69,9 @@ These scripts install all dependencies, compile the program, and create symbolic
 
 [Prepare Ubuntu for Development](https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/tools/prepare_for_dev_ubuntu.sh)
 
-[Arch Linux AUR Package (builds latest release)]
-(https://aur.archlinux.org/packages/mandelbulber2/)
+[Arch Linux AUR Package (Current release)](https://aur.archlinux.org/packages/mandelbulber2/)
 
-[Arch Linux AUR Package (builds latest git snapshot)]
-(https://aur.archlinux.org/packages/mandelbulber2-git/)
+[Arch Linux AUR Package (Current git snapshot)](https://aur.archlinux.org/packages/mandelbulber2-git/)
 
 In addition, there exists an MSBuild System Solution located in root folder of git package. This solution accommodates all dependencies with NUGET for autonomous compilation.
 
