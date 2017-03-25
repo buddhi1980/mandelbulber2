@@ -1146,6 +1146,8 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 
 	keyframes->ClearMorphCache();
 
+	keyframes->RefreshAllAudioTracks(params);
+
 	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
 		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
