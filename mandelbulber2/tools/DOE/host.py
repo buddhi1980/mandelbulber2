@@ -17,8 +17,8 @@ RP + os.sep \
 
 # Options for Render #
 start = 0
-total_frames = 25020
-RenderSets = 10
+total_frames = 4700
+RenderSets = 100
 totalIterations = total_frames/RenderSets
 
 # Tested on CentOS7 #
