@@ -24,6 +24,7 @@ totalIterations = total_frames/RenderSets
 # Tested on CentOS7 #
 WorkersCount = 8
 spacer = "\'"
+perspective = " --override perspective_type=3#sweet_spot_vertical_angle=60"
 
 # Script Directory #
 DOE=os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -73,6 +74,7 @@ class Worker(multiprocessing.Process):
 			cmd = str(self.prefix) \
 			+ spacer \
 			+ self.bin_path \
+			+ perspective \
 			+ " --never-delete" \
 			+ " --nogui" \
 			+ " --format png16alpha" \
