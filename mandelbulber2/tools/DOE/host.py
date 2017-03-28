@@ -146,7 +146,8 @@ if __name__ == "__main__":
 		#render(" --res 85x64")
 		#render(" --res 320x240")
 		#render(" --res 1920x1080")
-		render(" --res 3840x2160")
+		#render(" --res 3840x2160")
+		render(" --res 2560x2560")
 		#render(" --res 7680x4320")
 	except KeyboardInterrupt:
 		print("KeyboardInterrupt Detected")
