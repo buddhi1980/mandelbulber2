@@ -279,7 +279,7 @@ void CNetRender::ServerDisconnected()
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("Connection lost"), cErrorMessage::errorMessage);
+		qCritical() << "Connection lost";
 	}
 }
 
@@ -347,8 +347,14 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg) const
 	}
 
 	// write to socket
-	socket->write(byteArray);
-	// socket->waitForBytesWritten();
+	if(socket->isOpen() && socket->state() == QAbstractSocket::ConnectedState)
+	{
+		socket->write(byteArray);
+	}
+	else
+	{
+		qCritical() << "CNetRender::SendData(QTcpSocket *socket, sMessage msg): socket closed!";
+	}
 
 	return true;
 }
