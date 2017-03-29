@@ -617,6 +617,7 @@ void CalcPrefferedFontSize(bool noGui)
 		systemData.SetPreferredThumbnailSize(thumbnailSize);
 
 		qInfo() << "Screen resolution" << rect << "Screen DPI" << dpiX;
+		qInfo() << "physical DPI" << qApp->desktop()->physicalDpiX();
 	}
 	else
 	{
