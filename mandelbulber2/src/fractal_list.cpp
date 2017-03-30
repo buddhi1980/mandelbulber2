@@ -56,12 +56,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		linearDEFunction, cpixelEnabledByDefault, 100));
 	fractalList->append(sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2, analyticDEType,
 		linearDEFunction, cpixelEnabledByDefault, 100));
+	fractalList->append(sFractalDescription("Abox - Mod 11", "abox_mod11", aboxMod11, analyticDEType,
+		linearDEFunction, cpixelEnabledByDefault, 100));
 	fractalList->append(sFractalDescription("Abox - Mod Kali", "abox_mod_kali", aboxModKali,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100));
 	fractalList->append(sFractalDescription("Abox - Mod Kali-Eiffie", "abox_mod_kali_eiffie",
 		aboxModKaliEiffie, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
+
 
 	// Aexion formulas
 	fractalList->append(sFractalDescription(
@@ -366,6 +369,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Octo Fold", "transf_octo_fold", transfOctoFold,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
+	fractalList->append(sFractalDescription("T>Parab Fold", "transf_parab_fold",
+		transfParabFold, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
 	fractalList->append(sFractalDescription("T>Platonic Solid", "transf_platonic_solid",
 		transfPlatonicSolid, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
@@ -432,6 +438,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfSurfBoxFold, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 	fractalList->append(sFractalDescription("T>Surf Fold Multi", "transf_surf_fold_multi",
 		transfSurfFoldMulti, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+
 
 	fractalList->append(sFractalDescription("T>Zvector Axis Swap", "transf_zvector_axis_swap",
 		transfZvectorAxisSwap, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

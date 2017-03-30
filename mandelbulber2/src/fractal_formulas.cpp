@@ -722,6 +722,211 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	z *= m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
 }
+/**
+ * ABoxModK11, modified  formula from Mandelbulb3D
+ * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+ */
+void AboxMod11Iteration(
+	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	// tglad fold
+	if (i >= fractal->transformCommon.startIterationsB
+		&& i < fractal->transformCommon.stopIterationsB)
+	{
+		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+
+		aux.color += fractal->mandelbox.color.factor.x;
+		aux.color += fractal->mandelbox.color.factor.y;
+		aux.color += fractal->mandelbox.color.factor.z;
+	}
+	if (fractal->transformCommon.functionEnabledFalse
+			&& i >= fractal->transformCommon.startIterationsD
+			&& i < fractal->transformCommon.stopIterationsD1)
+	{
+		CVector3 limit = fractal->transformCommon.additionConstant111;
+		CVector3 length = 2.0 * limit;
+		CVector3 tgladS = 1.0 / length;
+		CVector3 Add;
+		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+		Add *= fractal->transformCommon.scale3D000;
+		z.x = (z.x - (sign(z.x) * (Add.x)));
+		z.y = (z.y - (sign(z.y) * (Add.y)));
+		z.z = (z.z - (sign(z.z) * (Add.z)));
+	}
+
+
+// swap maybe
+	if (fractal->transformCommon.functionEnabledSwFalse)
+	{
+		z = CVector3(z.z, z.y, z.x); // swap
+	}
+
+
+	//if (z.y > z.x) z = CVector3(z.y, z.x, z.z); // conditional
+
+
+
+
+	// spherical fold
+	if (i >= fractal->transformCommon.startIterationsS
+			&& i < fractal->transformCommon.stopIterationsS)
+	{
+		double para = 0.0;
+		double paraAddP0 = 0.0;
+		if (fractal->transformCommon.functionEnabledyFalse)
+		{
+			// para += paraAddP0 + fractal->transformCommon.minR2p25;
+			if (fractal->Cpara.enabledLinear)
+			{
+				para = fractal->Cpara.para00; // parameter value at iter 0
+				double temp0 = para;
+				double tempA = fractal->Cpara.paraA;
+				double tempB = fractal->Cpara.paraB;
+				double tempC = fractal->Cpara.paraC;
+				double lengthAB = fractal->Cpara.iterB - fractal->Cpara.iterA;
+				double lengthBC = fractal->Cpara.iterC - fractal->Cpara.iterB;
+				double grade1 = (tempA - temp0) / fractal->Cpara.iterA;
+				double grade2 = (tempB - tempA) / lengthAB;
+				double grade3 = (tempC - tempB) / lengthBC;
+
+				// slopes
+				if (i < fractal->Cpara.iterA)
+				{
+					para = temp0 + (i * grade1);
+				}
+				if (i < fractal->Cpara.iterB && i >= fractal->Cpara.iterA)
+				{
+					para = tempA + (i - fractal->Cpara.iterA) * grade2;
+				}
+				if (i >= fractal->Cpara.iterB)
+				{
+					para = tempB + (i - fractal->Cpara.iterB) * grade3;
+				}
+
+				// Curvi part on "true"
+				if (fractal->Cpara.enabledCurves)
+				{
+					double paraAdd = 0.0;
+					double paraIt;
+					if (lengthAB > 2.0 * fractal->Cpara.iterA) // stop  error, todo fix.
+					{
+						double curve1 = (grade2 - grade1) / (4.0 * fractal->Cpara.iterA);
+						double tempL = lengthAB - fractal->Cpara.iterA;
+						double curve2 = (grade3 - grade2) / (4.0 * tempL);
+						if (i < 2 * fractal->Cpara.iterA)
+						{
+							paraIt = tempA - fabs(tempA - i);
+							paraAdd = paraIt * paraIt * curve1;
+						}
+						if (i >= 2 * fractal->Cpara.iterA && i < fractal->Cpara.iterB + tempL)
+						{
+							paraIt = tempB - fabs(tempB * i);
+							paraAdd = paraIt * paraIt * curve2;
+						}
+						para += paraAdd;
+					}
+				}
+			}
+			paraAddP0 = 0.0;
+			if (fractal->Cpara.enabledParabFalse)
+			{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+				paraAddP0 = fractal->Cpara.parabOffset0 + (i * fractal->Cpara.parabSlope)
+										+ (i * i * 0.001 * fractal->Cpara.parabScale);
+			}
+		}
+		para += paraAddP0 + fractal->transformCommon.minR2p25;
+		// spherical fold
+		double rr = z.Dot(z);
+
+		z += fractal->mandelbox.offset;
+
+		// if (r2 < 1e-21) r2 = 1e-21;
+		if (rr < para)
+		{
+			double tglad_factor1 = fractal->transformCommon.maxR2d1 / para;
+			z *= tglad_factor1;
+			aux.DE *= tglad_factor1;
+			//aux.color += fractal->mandelbox.color.factorSp1;
+		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+			z *= tglad_factor2;
+			aux.DE *= tglad_factor2;
+			//aux.color += fractal->mandelbox.color.factorSp2;
+		}
+		z -= fractal->mandelbox.offset;
+	}
+	// scale
+	if (i >= fractal->transformCommon.startIterationsA
+			&& i < fractal->transformCommon.stopIterationsA)
+	{
+		z *= fractal->mandelbox.scale;
+		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+	}
+	z += fractal->transformCommon.additionConstant000;
+
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& i >= fractal->transformCommon.startIterationsE
+			&& i < fractal->transformCommon.stopIterationsE)
+	{
+		CVector3 tempC = c;
+		if (fractal->transformCommon.functionEnabledw) // alternate
+		{
+			tempC = aux.c;
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case sFractalMandelbulbMulti::xyz:
+				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
+				case sFractalMandelbulbMulti::xzy: tempC = CVector3(tempC.x, tempC.z, tempC.y); break;
+				case sFractalMandelbulbMulti::yxz: tempC = CVector3(tempC.y, tempC.x, tempC.z); break;
+				case sFractalMandelbulbMulti::yzx: tempC = CVector3(tempC.y, tempC.z, tempC.x); break;
+				case sFractalMandelbulbMulti::zxy: tempC = CVector3(tempC.z, tempC.x, tempC.y); break;
+				case sFractalMandelbulbMulti::zyx: tempC = CVector3(tempC.z, tempC.y, tempC.x); break;
+			}
+			aux.c = tempC;
+		}
+		else
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case sFractalMandelbulbMulti::xyz:
+				default: tempC = CVector3(c.x, c.y, c.z); break;
+				case sFractalMandelbulbMulti::xzy: tempC = CVector3(c.x, c.z, c.y); break;
+				case sFractalMandelbulbMulti::yxz: tempC = CVector3(c.y, c.x, c.z); break;
+				case sFractalMandelbulbMulti::yzx: tempC = CVector3(c.y, c.z, c.x); break;
+				case sFractalMandelbulbMulti::zxy: tempC = CVector3(c.z, c.x, c.y); break;
+				case sFractalMandelbulbMulti::zyx: tempC = CVector3(c.z, c.y, c.x); break;
+			}
+		}
+		z += tempC * fractal->transformCommon.constantMultiplier111;
+	}
+	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
+	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
+
+	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
+	// scaleColor += fabs(fractal->mandelbox.scale);
+	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
+}
 
 /**
  * ABoxMod2, Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at
@@ -826,7 +1031,7 @@ void AboxModKaliEiffieIteration(
 
 	z += fractal->transformCommon.additionConstant000;
 
-	if (fractal->transformCommon.addCpixelEnabled)
+	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
 		CVector3 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
@@ -2578,7 +2783,7 @@ void MandelbulbMulti2Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *
 		if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;
 		if (fractal->transformCommon.functionEnabledBzFalse) z.z = -z.z;
 	}
-
+	z += fractal->transformCommon.additionConstant000;
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
 		CVector3 tempC = c;
@@ -3120,29 +3325,28 @@ void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 		}
 		para += paraAddP0 + fractal->transformCommon.minR2p25;
 		// spherical fold
-		double r2 = z.Dot(z);
+		double rr = z.Dot(z);
 
 		z += fractal->mandelbox.offset;
 
-		// transformCommon.maxMinR2factor = transformCommon.maxR2d1 / ;
-
 		// if (r2 < 1e-21) r2 = 1e-21;
-		if (r2 < para)
+		if (rr < para)
 		{
-			z *= fractal->transformCommon.maxR2d1 / para;
-			aux.DE *= fractal->transformCommon.maxR2d1 / para;
+			double tglad_factor1 = fractal->transformCommon.maxR2d1 / para;
+			z *= tglad_factor1;
+			aux.DE *= tglad_factor1;
 			aux.color += fractal->mandelbox.color.factorSp1;
 		}
-		else if (r2 < fractal->mandelbox.fR2)
+		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			double tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 		z -= fractal->mandelbox.offset;
 		z *= fractal->transformCommon.scale08;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale08) + 1.0;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale08);
 	}
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -4722,7 +4926,7 @@ void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
  */
-void PseudoKleinianMod2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void PseudoKleinianMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	// spherical fold
 	if (fractal->transformCommon.functionEnabledSFalse
@@ -4733,7 +4937,6 @@ void PseudoKleinianMod2Iteration(CVector3 &z, int i, const cFractal *fractal, sE
 		double paraAddP0 = 0.0;
 		if (fractal->transformCommon.functionEnabledyFalse)
 		{
-			// para += paraAddP0 + fractal->transformCommon.minR2p25;
 			if (fractal->Cpara.enabledLinear)
 			{
 				para = fractal->Cpara.para00; // parameter value at iter 0
@@ -4793,31 +4996,38 @@ void PseudoKleinianMod2Iteration(CVector3 &z, int i, const cFractal *fractal, sE
 			}
 		}
 		para += paraAddP0 + fractal->transformCommon.minR2p25;
+
 		// spherical fold
-		double r2 = z.Dot(z);
+		double rr = z.Dot(z);
 
 		z += fractal->mandelbox.offset;
 
-		// if (r2 < 1e-21) r2 = 1e-21;
-		if (r2 < para)
+		// if (rr < 1e-21) rr = 1e-21;
+		if (rr < para)
 		{
-			z *= fractal->transformCommon.maxR2d1 / para;
-			aux.DE *= fractal->transformCommon.maxR2d1 / para;
-			aux.color += fractal->mandelbox.color.factorSp1;
+			double tglad_factor1 = fractal->transformCommon.maxR2d1 / para;
+			z *= tglad_factor1;
+			aux.DE *= tglad_factor1;
+			//aux.color += fractal->mandelbox.color.factorSp1;
 		}
-		else if (r2 < fractal->mandelbox.fR2)
+		else if (rr < fractal->transformCommon.maxR2d1)//fractal->mandelbox.fR2
 		{
-			double tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
-			aux.color += fractal->mandelbox.color.factorSp2;
+			//aux.color += fractal->mandelbox.color.factorSp2;
 		}
 		z -= fractal->mandelbox.offset;
-		z *= fractal->transformCommon.scale08;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale08) + 1.0;
+		z *= fractal->transformCommon.scale1;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale1)
+				+ fractal->analyticDE.offset0;
 	}
 
-	// CVector3 gap = fractal->transformCommon.constantMultiplier000;
+
+
+
+
+
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& i >= fractal->transformCommon.startIterationsP
 			&& i < fractal->transformCommon.stopIterationsP1)
@@ -4964,6 +5174,19 @@ void PseudoKleinianMod2Iteration(CVector3 &z, int i, const cFractal *fractal, sE
 			z.z = (z.z - (sign(z.z) * (Add.z)));
 		}
 	}
+	if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
+	{
+		CVector3 tempFAB = c;
+		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
+		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
+		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
+
+		tempFAB *= fractal->transformCommon.offsetF000;
+		z.x += sign(z.x) * tempFAB.x;
+		z.y += sign(z.y) * tempFAB.y;
+		z.z += sign(z.z) * tempFAB.z;
+	}
+
 	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 }
 
@@ -6323,6 +6546,7 @@ void TransfBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 
 /**
  * Box Offset, set different offset for each axis, added symmetrically about the origin
+ * will cause cuts along axis
  */
 void TransfBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -6330,6 +6554,7 @@ void TransfBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 	z.x = sign(z.x) * fractal->transformCommon.additionConstant000.x + z.x;
 	z.y = sign(z.y) * fractal->transformCommon.additionConstant000.y + z.y;
 	z.z = sign(z.z) * fractal->transformCommon.additionConstant000.z + z.z;
+
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -6655,6 +6880,123 @@ void TransfOctoFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 			- fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0);
 
 	aux.DE *= fractal->transformCommon.scale2;
+}
+
+/**
+ * Parabolic Fold by mclarekin
+ */
+void TransfParabFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	CVector3 temp = z;
+
+	CVector3 slope2 = fractal->transformCommon.constantMultiplier111;
+	CVector3 length = fractal->transformCommon.additionConstant000;
+	CVector3 factorP;
+
+	factorP.x = -slope2.x/ (length.x * 2.0);
+	factorP.y = -slope2.y/ (length.y * 2.0);
+	factorP.z = -slope2.z/ (length.z * 2.0);
+
+	if (temp.x > 0)
+	{
+		if (temp.x < length.x)
+		{
+			z.x = z.x * z.x * factorP.x;
+		}
+		else
+		{
+			z.x = (z.x - length.x / 2.0 ) * slope2.x;
+		}
+	}
+	if (temp.y > 0)
+	{
+		if (temp.y < length.y)
+		{
+			z.y = z.y * z.y * factorP.y;
+		}
+		else
+		{
+			z.y = (z.y - length.y / 2.0 ) * slope2.y;
+		}
+	}
+	if (temp.z > 0)
+	{
+		if (temp.z < length.z)
+		{
+			z.z = z.z * z.z * factorP.z;
+		}
+		else
+		{
+			z.z = (z.z - length.z / 2.0 ) * slope2.z;
+		}
+	}
+
+	if (temp.x < 0)
+	{
+		if (temp.x > -length.x)
+		{
+				z.x = z.x * z.x * -factorP.x;
+		}
+		else
+		{
+				z.x = (z.x + length.x / 2.0 ) * slope2.x;
+		}
+	}
+	if (temp.y < 0)
+	{
+		if (temp.y > -length.y)
+		{
+				z.y = z.y * z.y * -factorP.y;
+		}
+		else
+		{
+				z.y = (z.y + length.y / 2.0 ) * slope2.y;
+		}
+	}
+
+	if (temp.z < 0)
+	{
+
+		if (temp.z > -length.z)
+		{
+				z.z = z.z * z.z * -factorP.z;
+		}
+		else
+		{
+				z.z = (z.z + length.z / 2.0 ) * slope2.z;
+		}
+	}
+
+	//z.x = sign(temp.x) * z.x;
+	//z.y = sign(temp.y) * z.y;
+	//z.z = sign(temp.z) * z.z;
+
+	if (fractal->transformCommon.functionEnabledxFalse)
+	{
+		z = (z - temp) * fractal->transformCommon.scale3D111;
+	}
+	if (fractal->transformCommon.functionEnabledyFalse)
+	{
+		z = (z - temp) * temp * fractal->transformCommon.scale3D111;
+
+		z.x = sign(temp.x) * z.x;
+		z.y = sign(temp.y) * z.y;
+		z.z = sign(temp.z) * z.z;
+	}
+	if (fractal->transformCommon.functionEnabledzFalse)
+	{
+		z = (z - temp) * temp * fractal->transformCommon.scale3D111;
+	}
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		double tempL = temp.Length();
+		// if (tempL < 1e-21) tempL = 1e-21;
+		double avgScale = z.Length() / tempL;
+		aux.r_dz *= avgScale;
+		aux.DE = aux.DE * avgScale;
+	}
+	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**

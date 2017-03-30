@@ -312,6 +312,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.stopIterationsC = container->Get<int>("transf_stop_iterations_C");
 	transformCommon.startIterationsD = container->Get<int>("transf_start_iterations_D");
 	transformCommon.stopIterationsD = container->Get<int>("transf_stop_iterations_D");
+	transformCommon.stopIterationsD1 = container->Get<int>("transf_stop_iterations_D1");
 	transformCommon.startIterationsE = container->Get<int>("transf_start_iterations_E");
 	transformCommon.stopIterationsE = container->Get<int>("transf_stop_iterations_E");
 	transformCommon.startIterationsF = container->Get<int>("transf_start_iterations_F");

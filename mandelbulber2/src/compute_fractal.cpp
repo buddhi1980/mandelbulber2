@@ -329,6 +329,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					AboxMod2Iteration(z, fractal, extendedAux);
 					break;
 				}
+				case aboxMod11:
+				{
+					AboxMod11Iteration(z, c, i, fractal, extendedAux);
+					break;
+				}
 				case aboxModKali:
 				{
 					AboxModKaliIteration(z, fractal, extendedAux);
@@ -517,7 +522,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case pseudoKleinianMod2:
 				{
-					PseudoKleinianMod2Iteration(z, i, fractal, extendedAux);
+					PseudoKleinianMod2Iteration(z, c, i, fractal, extendedAux);
 					break;
 				}
 				case quaternion3d:
@@ -826,6 +831,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case transfSurfFoldMulti:
 				{
 					TransfSurfFoldMultiIteration(z, fractal, extendedAux);
+					break;
+				}
+				case transfParabFold:
+				{
+					TransfParabFoldIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfZvectorAxisSwap:
@@ -1259,6 +1269,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case aboxModKaliEiffie:
 				case aboxMod1:
 				case aboxMod2:
+				case aboxMod11:
 				case amazingSurf:
 				case amazingSurfMod1:
 				case amazingSurfMulti:
@@ -1389,6 +1400,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case amazingSurfMod1:
 				case aboxModKaliEiffie:
 				case abox4d:
+				case aboxMod11:
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part

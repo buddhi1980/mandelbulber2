@@ -159,7 +159,7 @@ enum enumFractalFormula
 	// V2.11
 	pseudoKleinianMod2 = 117,
 	mandelbulbMulti2 = 118,
-
+	aboxMod11 = 119,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
@@ -236,6 +236,8 @@ enum enumFractalFormula
 	transfFabsAddConditional4d = 1067,
 	transfSphericalOffsetVCL = 1068,
 	transfRotation4d = 1069,
+	// 2.11
+	transfParabFold = 1070,
 };
 }
 

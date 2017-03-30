@@ -45,6 +45,7 @@ struct sFractalFoldings;
 
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void AboxMod11Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AboxModKaliEiffieIteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
@@ -122,7 +123,7 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
 void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
-void PseudoKleinianMod2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
+void PseudoKleinianMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion3dIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void QuickDudleyIteration(CVector3 &z);
@@ -178,6 +179,7 @@ void TransfLinCombineCXYZIteration(
 void TransfMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfMultipleAngleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfOctoFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransfParabFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransfRPowerIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfPwr2PolynomialIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
