@@ -141,6 +141,11 @@ public:
 	{
 		this->preferredThumbnailSize = preferredThumbnailSize;
 	}
+	int GetPreferredFontPointSize() const { return preferredFontPointSize; }
+	void SetPreferredFontPointSize(int preferredFontPointSize)
+	{
+		this->preferredFontPointSize = preferredFontPointSize;
+	}
 
 	QString homeDir;
 	QString sharedDir;
@@ -163,6 +168,7 @@ public:
 	bool globalStopRequest;
 	enumRenderingThreadPriority threadsPriority;
 	int preferredFontSize;
+	int preferredFontPointSize;
 	int preferredThumbnailSize;
 };
 

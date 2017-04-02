@@ -80,7 +80,9 @@ void cDockNavigation::slotRedo()
 
 void cDockNavigation::SetIconSizes()
 {
-	QSize iconSize(systemData.GetPreferredFontSize() * 3, systemData.GetPreferredFontSize() * 3);
+	QFontMetrics fm(font());
+	int pixelFontSize = fm.height();
+	QSize iconSize(pixelFontSize * 3, pixelFontSize * 3);
 	ui->bu_move_backward->setIconSize(iconSize);
 	ui->bu_move_down->setIconSize(iconSize);
 	ui->bu_move_forward->setIconSize(iconSize);

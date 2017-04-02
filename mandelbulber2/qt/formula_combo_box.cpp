@@ -44,7 +44,9 @@ QMap<QString, QIcon> cFormulaComboBox::iconCache;
 
 cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent)
 {
-	int iconSize = systemData.GetPreferredFontSize() * 3;
+	QFontMetrics fm(font());
+	int pixelFontSize = fm.height();
+	int iconSize = pixelFontSize * 3;
 	setIconSize(QSize(iconSize, iconSize));
 	setFixedHeight(iconSize);
 

@@ -124,6 +124,20 @@ void cInterface::ShowUi()
 {
 	WriteLog("Prepare RenderWindow class", 2);
 
+	QFont font = gApplication->font();
+	font.setPointSizeF(gPar->Get<int>("ui_font_size"));
+	gApplication->setFont(font);
+
+	QFontMetrics fm(gApplication->font());
+	int pixelFontSize = fm.height();
+
+	int thumbnailSize = (pixelFontSize * 8);
+	thumbnailSize /= 4;
+	thumbnailSize *= 4;
+
+	systemData.SetPreferredFontSize(pixelFontSize);
+	systemData.SetPreferredThumbnailSize(thumbnailSize);
+
 	mainWindow = new RenderWindow;
 
 	WriteLog("Restoring window geometry", 2);
@@ -155,8 +169,6 @@ void cInterface::ShowUi()
 		mainWindow->ui->dockWidget_queue_dock->hide();
 	}
 
-	QFont font = mainWindow->font();
-	font.setPointSizeF(gPar->Get<int>("ui_font_size"));
 	mainWindow->setFont(font);
 
 #ifdef __APPLE__

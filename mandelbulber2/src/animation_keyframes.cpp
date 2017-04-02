@@ -77,8 +77,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	{
 		ui = mainInterface->mainWindow->GetWidgetDockAnimation()->GetUi();
 
-		previewSize.setWidth(systemData.GetPreferredThumbnailSize());
-		previewSize.setHeight(systemData.GetPreferredThumbnailSize() * 3 / 4);
+		previewSize.setWidth(systemData.GetPreferredThumbnailSize() * 5 / 4);
+		previewSize.setHeight(previewSize.width() * 3 / 4);
 
 		// connect keyframe control buttons
 		QApplication::connect(
