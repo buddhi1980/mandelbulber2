@@ -156,7 +156,7 @@ void cInterface::ShowUi()
 	}
 
 	QFont font = mainWindow->font();
-	font.setPixelSize(gPar->Get<int>("ui_font_size"));
+	font.setPointSizeF(gPar->Get<int>("ui_font_size"));
 	mainWindow->setFont(font);
 
 #ifdef __APPLE__

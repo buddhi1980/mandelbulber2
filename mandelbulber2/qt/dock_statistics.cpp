@@ -44,8 +44,10 @@
 cDockStatistics::cDockStatistics(QWidget *parent) : QWidget(parent), ui(new Ui::cDockStatistics)
 {
 	ui->setupUi(this);
+
+	QFontMetrics fm(font());
 	ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(
-		gPar->Get<int>("ui_font_size") + 6);
+		fm.height() + 6);
 }
 
 cDockStatistics::~cDockStatistics()

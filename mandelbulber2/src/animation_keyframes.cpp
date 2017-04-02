@@ -301,7 +301,8 @@ void cKeyframeAnimation::PrepareTable()
 	table->setColumnCount(0);
 	table->clear();
 	tableRowNames.clear();
-	table->verticalHeader()->setDefaultSectionSize(params->Get<int>("ui_font_size") + 6);
+	QFontMetrics fm(mainInterface->mainWindow->font());
+	table->verticalHeader()->setDefaultSectionSize(fm.height() + 6);
 	AddAnimSoundColumn();
 	CreateRowsInTable();
 }

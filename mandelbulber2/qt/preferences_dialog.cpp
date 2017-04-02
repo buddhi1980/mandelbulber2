@@ -117,7 +117,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	SynchronizeInterfaceWindow(this, gPar, qInterface::read);
 
 	QFont font = gMainInterface->mainWindow->font();
-	font.setPixelSize(gPar->Get<int>("ui_font_size"));
+	font.setPointSizeF(gPar->Get<int>("ui_font_size"));
 	gMainInterface->mainWindow->setFont(font);
 
 	QString value = ui->comboboxLanguage->currentText();
