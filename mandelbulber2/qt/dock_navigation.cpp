@@ -82,7 +82,7 @@ void cDockNavigation::SetIconSizes()
 {
 	QFontMetrics fm(font());
 	int pixelFontSize = fm.height();
-	QSize iconSize(pixelFontSize * 3, pixelFontSize * 3);
+	QSize iconSize(pixelFontSize * 2.5, pixelFontSize * 2.5);
 	ui->bu_move_backward->setIconSize(iconSize);
 	ui->bu_move_down->setIconSize(iconSize);
 	ui->bu_move_forward->setIconSize(iconSize);
