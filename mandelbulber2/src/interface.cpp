@@ -132,8 +132,6 @@ void cInterface::ShowUi()
 	int pixelFontSize = fm.height();
 
 	int thumbnailSize = (pixelFontSize * 8);
-	thumbnailSize /= 4;
-	thumbnailSize *= 4;
 
 	systemData.SetPreferredFontSize(pixelFontSize);
 	systemData.SetPreferredThumbnailSize(thumbnailSize);

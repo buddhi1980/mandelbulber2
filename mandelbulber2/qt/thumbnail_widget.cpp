@@ -184,14 +184,29 @@ void cThumbnailWidget::AssignParameters(
 				pixmap = pixmap.scaled(tWidth, tHeight, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 				QImage qImage = pixmap.toImage();
 				qImage = qImage.convertToFormat(QImage::Format_RGB888);
-				sRGB8 *bitmap;
-				bitmap = reinterpret_cast<sRGB8 *>(qImage.bits());
-				int bWidth = qImage.width();
-				int bHeight = qImage.height();
+
 				sRGB8 *previewPointer = reinterpret_cast<sRGB8 *>(image->GetPreviewPrimaryPtr());
 				sRGB8 *preview2Pointer = reinterpret_cast<sRGB8 *>(image->GetPreviewPtr());
-				memcpy(previewPointer, bitmap, sizeof(sRGB8) * bWidth * bHeight);
-				memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bWidth * bHeight);
+
+				int bWidth = qImage.width();
+				int bHeight = qImage.height();
+
+				if (!qImage.isNull())
+				{
+					for (int y = 0; y < bHeight; y++)
+					{
+						sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
+						for (int x = 0; x < bWidth; x++)
+						{
+							sRGB8 pixel(static_cast<unsigned short>(line[x].R),
+								static_cast<unsigned short>(line[x].G),
+								static_cast<unsigned short>(line[x].B));
+							previewPointer[x + y * bWidth] = pixel;
+							preview2Pointer[x + y * bWidth] = pixel;
+						}
+					}
+				}
+
 				delete params;
 				params = nullptr;
 				delete fractal;

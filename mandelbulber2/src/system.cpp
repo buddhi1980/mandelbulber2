@@ -611,8 +611,6 @@ void CalcPrefferedFontSize(bool noGui)
 		int pixelFontSize = fm.height();
 
 		int thumbnailSize = (pixelFontSize * 8);
-		thumbnailSize /= 4;
-		thumbnailSize *= 4;
 		systemData.SetPreferredThumbnailSize(thumbnailSize);
 	}
 	else
