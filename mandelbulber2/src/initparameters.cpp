@@ -454,7 +454,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
 	par->addParam("ui_skin", -1, morphNone, paramApp);
 	par->addParam("ui_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
-	par->addParam("toolbar_icon_size", systemData.GetPreferredThumbnailSize() / 8 * 4, 20, 200,
+	par->addParam("toolbar_icon_size", systemData.GetPreferredThumbnailSize() / 2, 20, 400,
 		morphNone, paramApp);
 	par->addParam("limit_CPU_cores", get_cpu_count(), 1, get_cpu_count(), morphNone, paramApp);
 
