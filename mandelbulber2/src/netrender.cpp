@@ -45,6 +45,7 @@
 #include <QHostInfo>
 #include "render_window.hpp"
 #include "texture.hpp"
+#include "lzo_compression.h"
 
 CNetRender *gNetRender = nullptr;
 
@@ -325,6 +326,10 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg) const
 	QByteArray byteArray;
 	QDataStream socketWriteStream(&byteArray, QIODevice::ReadWrite);
 
+#ifdef HAVE_LIBLZO2
+	msg.payload = lzoCompress(msg.payload);
+#endif /* HAVE_LIBLZO2 */
+
 	msg.size = msg.payload.size();
 	msg.id = actualId;
 
@@ -426,6 +431,10 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 
 				return;
 			}
+#ifdef HAVE_LIBLZO2
+			msg->payload = lzoUncompress(msg->payload);
+#endif /* HAVE_LIBLZO2 */
+
 			msg->size = msg->payload.size();
 		}
 		ProcessData(socket, msg);
