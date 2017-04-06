@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>6687</height>
+    <height>6973</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -4994,6 +4994,44 @@ offset:</string>
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>groupCheck_transf_function_enabledS_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_S</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_S</tabstop>
+  <tabstop>slider_transf_maxR2_1</tabstop>
+  <tabstop>spinbox_transf_maxR2_1</tabstop>
+  <tabstop>slider_transf_minR2_p25</tabstop>
+  <tabstop>spinbox_transf_minR2_p25</tabstop>
+  <tabstop>slider3_mandelbox_offset_x</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_x</tabstop>
+  <tabstop>slider3_mandelbox_offset_y</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_y</tabstop>
+  <tabstop>slider3_mandelbox_offset_z</tabstop>
+  <tabstop>spinbox3_mandelbox_offset_z</tabstop>
+  <tabstop>slider_transf_scale_1</tabstop>
+  <tabstop>spinbox_transf_scale_1</tabstop>
+  <tabstop>slider_analyticDE_offset_0</tabstop>
+  <tabstop>spinbox_analyticDE_offset_0</tabstop>
+  <tabstop>groupCheck_transf_function_enabledy_false</tabstop>
+  <tabstop>checkBox_Cpara_enabledLinear</tabstop>
+  <tabstop>checkBox_Cpara_enabledCurves</tabstop>
+  <tabstop>slider_Cpara_para00</tabstop>
+  <tabstop>spinbox_Cpara_para00</tabstop>
+  <tabstop>spinboxInt_Cpara_iterA</tabstop>
+  <tabstop>slider_Cpara_paraA</tabstop>
+  <tabstop>spinbox_Cpara_paraA</tabstop>
+  <tabstop>spinboxInt_Cpara_iterB</tabstop>
+  <tabstop>slider_Cpara_paraB</tabstop>
+  <tabstop>spinbox_Cpara_paraB</tabstop>
+  <tabstop>spinboxInt_Cpara_iterC</tabstop>
+  <tabstop>slider_Cpara_paraC</tabstop>
+  <tabstop>spinbox_Cpara_paraC</tabstop>
+  <tabstop>checkBox_Cpara_enabledParab_false</tabstop>
+  <tabstop>slider_Cpara_parab_offset0</tabstop>
+  <tabstop>spinbox_Cpara_parab_offset0</tabstop>
+  <tabstop>slider_Cpara_parab_slope</tabstop>
+  <tabstop>spinbox_Cpara_parab_slope</tabstop>
+  <tabstop>slider_Cpara_parab_scale</tabstop>
+  <tabstop>spinbox_Cpara_parab_scale</tabstop>
   <tabstop>groupCheck_transf_function_enabledP_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_P</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_P1</tabstop>
@@ -5071,6 +5109,31 @@ offset:</string>
   <tabstop>groupCheck_transf_function_enabledF_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_F</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_F</tabstop>
+  <tabstop>slider3_transf_offsetA_000_x</tabstop>
+  <tabstop>spinbox3_transf_offsetA_000_x</tabstop>
+  <tabstop>slider3_transf_offsetA_000_y</tabstop>
+  <tabstop>spinbox3_transf_offsetA_000_y</tabstop>
+  <tabstop>slider3_transf_offsetA_000_z</tabstop>
+  <tabstop>spinbox3_transf_offsetA_000_z</tabstop>
+  <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
+  <tabstop>spinboxInt_transf_stop_iterations_A</tabstop>
+  <tabstop>slider3_transf_scale3D_000_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_000_x</tabstop>
+  <tabstop>slider3_transf_scale3D_000_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_000_y</tabstop>
+  <tabstop>slider3_transf_scale3D_000_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_000_z</tabstop>
+  <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledx</tabstop>
+  <tabstop>slider3_transf_offsetF_000_x</tabstop>
+  <tabstop>spinbox3_transf_offsetF_000_x</tabstop>
+  <tabstop>checkBox_transf_function_enabledy</tabstop>
+  <tabstop>slider3_transf_offsetF_000_y</tabstop>
+  <tabstop>spinbox3_transf_offsetF_000_y</tabstop>
+  <tabstop>checkBox_transf_function_enabledz</tabstop>
+  <tabstop>slider3_transf_offsetF_000_z</tabstop>
+  <tabstop>spinbox3_transf_offsetF_000_z</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
