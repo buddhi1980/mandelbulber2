@@ -352,7 +352,7 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg) const
 	}
 
 	// write to socket
-	if(socket->isOpen() && socket->state() == QAbstractSocket::ConnectedState)
+	if (socket->isOpen() && socket->state() == QAbstractSocket::ConnectedState)
 	{
 		socket->write(byteArray);
 	}

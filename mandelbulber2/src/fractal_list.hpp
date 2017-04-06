@@ -100,7 +100,7 @@ enum enumFractalFormula
 	mengerMod1 = 61, // fix V2.10
 	quaternion3d = 62,
 	aexionOctopusMod = 63,
-	aboxMod1 = 64, // fix scale v2.11
+	aboxMod1 = 64,				// fix scale v2.11
 	mandelbulbMulti = 65, // updated V2.08
 	benesiPineTree = 66,
 	benesiT1PineTree = 67, // updated V2.09
@@ -111,7 +111,7 @@ enum enumFractalFormula
 	riemannSphereMsltoe = 72,
 	amazingSurf = 73,
 	kalisets1 = 74,
-	aboxMod2 = 75,// fix scale v2.11
+	aboxMod2 = 75, // fix scale v2.11
 	aboxVSIcen1 = 76,
 	amazingSurfMod1 = 77, // updated V2.08
 	mandelbulbVaryPowerV1 = 78,

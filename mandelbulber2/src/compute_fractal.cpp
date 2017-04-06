@@ -1277,13 +1277,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case aboxVSIcen1:
 				case pseudoKleinian1:
 				case abox4d:
-					{
-						if (extendedAux.DE > 0)
-							out->distance = r / fabs(extendedAux.DE);
-						else
-							out->distance = r;
-						break;
-					}
+				{
+					if (extendedAux.DE > 0)
+						out->distance = r / fabs(extendedAux.DE);
+					else
+						out->distance = r;
+					break;
+				}
 				case kaleidoscopicIFS:
 				case mengerSponge:
 				case mengerCrossKIFS:

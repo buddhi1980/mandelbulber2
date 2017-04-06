@@ -66,7 +66,7 @@ cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent)
 	setCompleter(completer);
 
 	// connect signals
-	connect((const QObject*) this->lineEdit(), SIGNAL(textEdited(const QString &)), pFilterModel,
+	connect((const QObject *)this->lineEdit(), SIGNAL(textEdited(const QString &)), pFilterModel,
 		SLOT(setFilterFixedString(const QString &)));
 	connect(completer, SIGNAL(activated(QString)), this, SLOT(onCompleterActivated(QString)));
 }

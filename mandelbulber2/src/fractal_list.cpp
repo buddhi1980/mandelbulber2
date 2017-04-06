@@ -65,7 +65,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 
-
 	// Aexion formulas
 	fractalList->append(sFractalDescription(
 		"Aexion", "aexion", aexion, deltaDEType, logarithmicDEFunction, cpixelAlreadyHas, 10000));
@@ -164,8 +163,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		mandelbulbKaliMulti, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 	fractalList->append(sFractalDescription("Mandelbulb - Multi", "mandelbulb_multi", mandelbulbMulti,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
-	fractalList->append(sFractalDescription("Mandelbulb - Multi2", "mandelbulb_multi2", mandelbulbMulti2,
-		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
+	fractalList->append(sFractalDescription("Mandelbulb - Multi2", "mandelbulb_multi2",
+		mandelbulbMulti2, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 	fractalList->append(sFractalDescription("Mandelbulb - Vary Power V1", "mandelbulb_vary_power_v1",
 		mandelbulbVaryPowerV1, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
@@ -369,8 +368,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Octo Fold", "transf_octo_fold", transfOctoFold,
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10));
 
-	fractalList->append(sFractalDescription("T>Parab Fold", "transf_parab_fold",
-		transfParabFold, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(sFractalDescription("T>Parab Fold", "transf_parab_fold", transfParabFold,
+		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("T>Platonic Solid", "transf_platonic_solid",
 		transfPlatonicSolid, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
@@ -438,7 +437,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfSurfBoxFold, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
 	fractalList->append(sFractalDescription("T>Surf Fold Multi", "transf_surf_fold_multi",
 		transfSurfFoldMulti, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));
-
 
 	fractalList->append(sFractalDescription("T>Zvector Axis Swap", "transf_zvector_axis_swap",
 		transfZvectorAxisSwap, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100));

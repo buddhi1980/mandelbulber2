@@ -30,7 +30,8 @@
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
  * compression / uncompression of a QByteArray with lzo
- * lzo compression gives a high throughput rate (~250MBps) with a moderate compression result of ~30-35%
+ * lzo compression gives a high throughput rate (~250MBps) with a moderate compression result of
+ * ~30-35%
  * based on https://github.com/tex/fusecompress/blob/master/src/boost/iostreams/filter/lzo.hpp
  */
 
@@ -54,7 +55,8 @@
 
 QByteArray lzoCompress(QByteArray data)
 {
-	QTime time; time.start();
+	QTime time;
+	time.start();
 	void *wrkmem = malloc(LZO1X_1_MEM_COMPRESS);
 
 	size_t len = data.size() + data.size() / 16 + 64 + 3;
@@ -66,8 +68,11 @@ QByteArray lzoCompress(QByteArray data)
 	assert(ret == LZO_E_OK);
 
 	qDebug() << QString("lzo: %1 bytes compressed into %2 bytes, ratio: %3, in %4 seconds, %5 mBps\n")
-			.arg(data.size()).arg((unsigned long)len).arg(1.0 * len / data.size()).arg(time.elapsed() / 1000.0)
-							.arg((data.size() / 1000000.0) / (time.elapsed() / 1000.0));
+								.arg(data.size())
+								.arg((unsigned long)len)
+								.arg(1.0 * len / data.size())
+								.arg(time.elapsed() / 1000.0)
+								.arg((data.size() / 1000000.0) / (time.elapsed() / 1000.0));
 
 	QByteArray arr;
 	arr.append((char *)out, len);
@@ -78,7 +83,8 @@ QByteArray lzoCompress(QByteArray data)
 
 QByteArray lzoUncompress(QByteArray data)
 {
-	QTime time; time.start();
+	QTime time;
+	time.start();
 	lzo_uint len;
 	void *tmp = nullptr;
 	int decompressionFactor = 10;
@@ -98,9 +104,13 @@ QByteArray lzoUncompress(QByteArray data)
 		break;
 	}
 
-	qDebug() << QString("lzo: %1 bytes uncompressed into %2 bytes, ratio: %3, in %4 seconds, %5 mBps\n")
-			.arg(data.size()).arg((unsigned long)len).arg(1.0 * len / data.size()).arg(time.elapsed() / 1000.0)
-							.arg((data.size() / 1000000.0) / (time.elapsed() / 1000.0));
+	qDebug() << QString(
+								"lzo: %1 bytes uncompressed into %2 bytes, ratio: %3, in %4 seconds, %5 mBps\n")
+								.arg(data.size())
+								.arg((unsigned long)len)
+								.arg(1.0 * len / data.size())
+								.arg(time.elapsed() / 1000.0)
+								.arg((data.size() / 1000000.0) / (time.elapsed() / 1000.0));
 
 	QByteArray arr;
 	arr.append((char *)tmp, len);

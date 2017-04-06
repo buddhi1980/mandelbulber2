@@ -505,18 +505,18 @@ QString FilePathHelper(const QString &path, const QStringList &pathList)
 
 	if (!FileExists(path))
 	{
-		//TODO:Enable qInfo for headless operation.
-		//qInfo() << "File" << path << "not found. Looking for the file in another locations";
+		// TODO:Enable qInfo for headless operation.
+		// qInfo() << "File" << path << "not found. Looking for the file in another locations";
 		QString pathChecked;
 		bool found = false;
 
 		foreach (QString path, pathList)
 		{
-			//qInfo() << "Looking for the file at" << path;
+			// qInfo() << "Looking for the file at" << path;
 			if (FileExists((path)))
 			{
 				newPath = path;
-				//qInfo() << "File found at" << path;
+				// qInfo() << "File found at" << path;
 				found = true;
 				break;
 			}
@@ -563,8 +563,7 @@ QString FilePathHelperSounds(const QString &path)
 	QFileInfo fi(nativePath);
 	QString fileName = fi.fileName();
 
-	QStringList pathList = {fileName,
-		systemData.sharedDir + "sounds" + QDir::separator() + fileName,
+	QStringList pathList = {fileName, systemData.sharedDir + "sounds" + QDir::separator() + fileName,
 		systemData.GetDataDirectoryUsed() + "sounds" + QDir::separator() + fileName,
 		systemData.GetDataDirectoryUsed() + fileName,
 		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};

@@ -51,7 +51,7 @@
 using namespace std;
 
 double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
-		const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
+	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
 	double distance;
 	out->objectId = 0;

@@ -199,8 +199,7 @@ void cThumbnailWidget::AssignParameters(
 						for (int x = 0; x < bWidth; x++)
 						{
 							sRGB8 pixel(static_cast<unsigned short>(line[x].R),
-								static_cast<unsigned short>(line[x].G),
-								static_cast<unsigned short>(line[x].B));
+								static_cast<unsigned short>(line[x].G), static_cast<unsigned short>(line[x].B));
 							previewPointer[x + y * bWidth] = pixel;
 							preview2Pointer[x + y * bWidth] = pixel;
 						}
