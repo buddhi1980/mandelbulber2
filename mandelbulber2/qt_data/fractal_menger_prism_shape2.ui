@@ -4700,7 +4700,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_180">
        <property name="text">
-        <string>Hybrid mode. Linear DE &quot;r&quot; factor:    dist =  (r - factor)/DE</string>
+        <string>Hybrid mode. Linear DE &quot;r&quot; factor: dist = (r - factor)/DE</string>
        </property>
       </widget>
      </item>

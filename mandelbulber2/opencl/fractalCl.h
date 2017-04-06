@@ -450,6 +450,7 @@ typedef struct
 	cl_int stopIterationsC;
 	cl_int startIterationsD;
 	cl_int stopIterationsD;
+	cl_int stopIterationsD1;
 	cl_int startIterationsE;
 	cl_int stopIterationsE;
 	cl_int startIterationsF;
@@ -467,6 +468,12 @@ typedef struct
 	cl_int stopIterations1;
 	cl_int stopIterationsT1;
 	cl_int stopIterationsTM1;
+	cl_int startIterationsX;
+	cl_int stopIterationsX;
+	cl_int startIterationsY;
+	cl_int stopIterationsY;
+	cl_int startIterationsZ;
+	cl_int stopIterationsZ;
 	cl_int intA;
 	cl_int intB;
 	cl_int int1;
@@ -574,6 +581,8 @@ typedef struct
 	cl_int functionEnabledCxFalse;
 	cl_int functionEnabledCyFalse;
 	cl_int functionEnabledCzFalse;
+	cl_int functionEnabledDFalse;
+	cl_int functionEnabledEFalse;
 	cl_int functionEnabledFFalse;
 	cl_int functionEnabledKFalse;
 	cl_int functionEnabledM;

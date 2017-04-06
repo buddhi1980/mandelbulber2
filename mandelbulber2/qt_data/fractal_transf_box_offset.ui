@@ -263,7 +263,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;Box Offset, set different offset for each axis, added symmetrically about the origin&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Box Offset, set different offset for each axis, added symmetrically about the origin&lt;br&gt;will cause cuts along axis&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
