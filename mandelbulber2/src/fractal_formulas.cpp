@@ -700,7 +700,7 @@ void Makin3d2Iteration(CVector3 &z)
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	aux.actualScale =
-		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
 	z.x = fractal->mandelbox.foldingValue
 				- fabs(fabs(z.x + fractal->transformCommon.additionConstant000.x)
@@ -722,9 +722,47 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	z *= m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
 }
+
 /**
- * ABoxModK11, modified  formula from Mandelbulb3D
- * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+ * ABoxMod2, Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at
+ * Fractal Forums
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/
+ * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+ */
+void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	//aux.actualScale =
+		//aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
+	aux.actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
+	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
+	double temp = fabs(z.z) - fractal->transformCommon.offset05;
+
+	double rr;
+	if (temp > 0.0)
+		rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl
+	else
+		rr = z.x * z.x + z.y * z.y; // on cyl body
+
+	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
+	double dividend = rr < sqrtMinR ? sqrtMinR : min(rr, 1.0);
+	double m = aux.actualScale / dividend;
+	z *= m;
+	aux.DE = aux.DE * fabs(m) + 1.0;
+}
+
+/**
+ * ABoxModK11,
+ * @reference  http://www.fractalforums.com/new-theories-and-research/
+ * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
 void AboxMod11Iteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
@@ -766,19 +804,11 @@ void AboxMod11Iteration(
 		z.y = (z.y - (sign(z.y) * (Add.y)));
 		z.z = (z.z - (sign(z.z) * (Add.z)));
 	}
-
-
-// swap maybe
+	// swap
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		z = CVector3(z.z, z.y, z.x); // swap
+		z = CVector3(z.z, z.y, z.x);
 	}
-
-
-	//if (z.y > z.x) z = CVector3(z.y, z.x, z.z); // conditional
-
-
-
 
 	// spherical fold
 	if (i >= fractal->transformCommon.startIterationsS
@@ -859,14 +889,14 @@ void AboxMod11Iteration(
 			double tglad_factor1 = fractal->transformCommon.maxR2d1 / para;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
-			//aux.color += fractal->mandelbox.color.factorSp1;
+			aux.color += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
-			//aux.color += fractal->mandelbox.color.factorSp2;
+			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -919,7 +949,7 @@ void AboxMod11Iteration(
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-
+	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
 	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
 
@@ -928,35 +958,7 @@ void AboxMod11Iteration(
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
 
-/**
- * ABoxMod2, Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at
- * Fractal Forums
- * @reference
- * http://www.fractalforums.com/new-theories-and-research/
- * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
- */
-void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
-	double temp = fabs(z.z) - fractal->transformCommon.offset05;
 
-	double rr;
-	if (temp > 0.0)
-		rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl
-	else
-		rr = z.x * z.x + z.y * z.y; // on cyl body
-
-	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-	double dividend = rr < sqrtMinR ? sqrtMinR : min(rr, 1.0);
-	double m = aux.actualScale / dividend;
-	z *= m;
-	aux.DE = aux.DE * fabs(m) + 1.0;
-}
 
 /**
  * ABoxModKali, a formula from Mandelbulb3D
@@ -8795,7 +8797,7 @@ void MandelboxVaryScale4dIteration(CVector4 &z4D, int i, const cFractal *fractal
 	}
 
 	aux.actualScale =
-		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector4 oldZ = z4D;
 	z4D.x = fabs(z4D.x + fractal->mandelboxVary4D.fold) - fabs(z4D.x - fractal->mandelboxVary4D.fold)
 					- z4D.x;

@@ -1276,10 +1276,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kalisets1:
 				case aboxVSIcen1:
 				case pseudoKleinian1:
-				// case mixPinski4d:
 				case abox4d:
-					// case mengerSmooth:
-					// case mengerSmoothMod1:
 					{
 						if (extendedAux.DE > 0)
 							out->distance = r / fabs(extendedAux.DE);
