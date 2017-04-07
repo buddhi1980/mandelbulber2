@@ -696,7 +696,7 @@ void Makin3d2Iteration(CVector3 &z)
  * This formula has a c.x c.y SWAP (in compute_fractals.cpp)
  * In V2.11 minimum radius is MinimumR2, for settings made in
  * older versions, you need to use the square root of the old parameter.
- * @reference
+ * @reference DarkBeam M3D
  * http://www.fractalforums.com/new-theories-and-research/
  * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
@@ -725,7 +725,7 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 	}
 
 
-	double minRR = (fractal->transformCommon.minR0);
+	double minRR = fractal->transformCommon.minR0;
 //	double m = aux.actualScale;
 //	if (rr < sqrtMinR)  m = aux.actualScale/sqrtMinR;
 //	else if (rr < 1.0) m = aux.actualScale/rr; // else m = Scale
@@ -780,7 +780,7 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 /**
  * ABoxMod2, Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at
  * Fractal Forums
- * @reference
+ * @reference DarkBeam M3D
  * http://www.fractalforums.com/new-theories-and-research/
  * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
