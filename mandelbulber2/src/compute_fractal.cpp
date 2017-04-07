@@ -321,7 +321,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case aboxMod1:
 				{
-					AboxMod1Iteration(z, fractal, extendedAux);
+					AboxMod1Iteration(z, c, i, fractal, extendedAux);
 					break;
 				}
 				case aboxMod2:
