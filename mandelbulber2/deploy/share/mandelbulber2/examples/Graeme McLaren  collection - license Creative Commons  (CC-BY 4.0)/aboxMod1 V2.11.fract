@@ -6,7 +6,7 @@ This setting file is to demonstrate swapping axis of the original point "c".
 
 Suggestion : explore the different combination of axis swaps with, and without, the alterenate function enabled.
 
-rPower will produce more  surface texture. rPower set above 1.0 may require reducing the ray marching step multiplier.
+rPower will effect the surface texture. rPower set above 1.0 may require reducing the ray marching step multiplier.
 [main_parameters]
 ambient_occlusion_enabled true;
 camera 0 -10.2 -4.99600361081321e-16;

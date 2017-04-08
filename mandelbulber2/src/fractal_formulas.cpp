@@ -713,10 +713,16 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 				- fabs(fabs(z.y + fractal->transformCommon.additionConstant000.y)
 							 - fractal->mandelbox.foldingValue)
 				- fabs(fractal->transformCommon.additionConstant000.y);
-	z.z = fractal->mandelbox.foldingValue
-				- fabs(fabs(z.z + fractal->transformCommon.additionConstant000.z)
-							 - fractal->mandelbox.foldingValue)
-				- fabs(fractal->transformCommon.additionConstant000.z);
+
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		z.z = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1
+					- fabs(fabs(z.z + fractal->transformCommon.additionConstant000.z)
+								 - fractal->mandelbox.foldingValue * fractal->transformCommon.scale1)
+					- fabs(fractal->transformCommon.additionConstant000.z);
+	}
+
+
 
 	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	if (fractal->transformCommon.functionEnabledFalse)
@@ -784,7 +790,7 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
  * http://www.fractalforums.com/new-theories-and-research/
  * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
-void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	// aux.actualScale =
 	// aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
@@ -805,12 +811,58 @@ void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 		rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl
 	else
 		rr = z.x * z.x + z.y * z.y; // on cyl body
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		rr = pow(rr,fractal->mandelboxVary4D.rPower);
+	}
 
-	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-	double dividend = rr < sqrtMinR ? sqrtMinR : min(rr, 1.0);
+	double minRR = fractal->transformCommon.minR2p25;
+	double dividend = rr < minRR ? minRR : min(rr, 1.0);
 	double m = aux.actualScale / dividend;
 	z *= m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& i >= fractal->transformCommon.startIterationsE
+			&& i < fractal->transformCommon.stopIterationsE)
+	{
+		CVector3 tempC = c;
+		if (fractal->transformCommon.functionEnabledw) // alternate
+		{
+			tempC = aux.c;
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case sFractalMandelbulbMulti::xyz:
+				default: tempC = CVector3(tempC.x, tempC.y, tempC.z); break;
+				case sFractalMandelbulbMulti::xzy: tempC = CVector3(tempC.x, tempC.z, tempC.y); break;
+				case sFractalMandelbulbMulti::yxz: tempC = CVector3(tempC.y, tempC.x, tempC.z); break;
+				case sFractalMandelbulbMulti::yzx: tempC = CVector3(tempC.y, tempC.z, tempC.x); break;
+				case sFractalMandelbulbMulti::zxy: tempC = CVector3(tempC.z, tempC.x, tempC.y); break;
+				case sFractalMandelbulbMulti::zyx: tempC = CVector3(tempC.z, tempC.y, tempC.x); break;
+			}
+			aux.c = tempC;
+		}
+		else
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case sFractalMandelbulbMulti::xyz:
+				default: tempC = CVector3(c.x, c.y, c.z); break;
+				case sFractalMandelbulbMulti::xzy: tempC = CVector3(c.x, c.z, c.y); break;
+				case sFractalMandelbulbMulti::yxz: tempC = CVector3(c.y, c.x, c.z); break;
+				case sFractalMandelbulbMulti::yzx: tempC = CVector3(c.y, c.z, c.x); break;
+				case sFractalMandelbulbMulti::zxy: tempC = CVector3(c.z, c.x, c.y); break;
+				case sFractalMandelbulbMulti::zyx: tempC = CVector3(c.z, c.y, c.x); break;
+			}
+		}
+		z += tempC * fractal->transformCommon.constantMultiplier111;
+	}
+
+	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
+			&& i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
 }
 
 /**
