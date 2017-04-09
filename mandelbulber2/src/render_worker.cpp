@@ -556,7 +556,7 @@ CVector3 cRenderWorker::RayMarching(
 	bool found = false;
 	double scan = in.minScan;
 	double dist = 0;
-	double search_accuracy = 0.01 * params->detailLevel;
+	double search_accuracy = 0.001 * params->detailLevel;
 	double search_limit = 1.0 - search_accuracy;
 	int counter = 0;
 	double step = 0.0;
