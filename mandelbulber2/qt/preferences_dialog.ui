@@ -486,8 +486,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>355</width>
-            <height>348</height>
+            <width>459</width>
+            <height>508</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -781,6 +781,14 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="2" column="0" colspan="3">
+                 <widget class="QCheckBox" name="checkBox_stereoscopic_in_separate_files">
+                  <property name="text">
+                   <string>Save stereoscopic left and right images in separate files
+(stereoscopic mode has to be &quot;left-right&quot;)</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
@@ -888,8 +896,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>267</width>
-            <height>275</height>
+            <width>242</width>
+            <height>265</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_GPU">
