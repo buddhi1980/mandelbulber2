@@ -37,7 +37,7 @@ foreach($sourceFiles as $sourceFilePath) {
 	$sourceContent = file_get_contents($sourceFilePath);
 	if(checkFileHeader($sourceFilePath, $sourceContent, $status)){
 		if(checkClang($sourceFilePath, $sourceContent, $status)){
-			if(!isDryRun()){
+		    if(!isDryRun() && count($status) > 0){
 				file_put_contents($sourceFilePath, $sourceContent);
 			}
 			$success = true;
@@ -56,7 +56,7 @@ foreach($headerFiles as $headerFilePath) {
 	if(checkFileHeader($headerFilePath, $headerContent, $status)) {
 		if(checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)){
 			if(checkClang($headerFilePath, $headerContent, $status)){
-				if(!isDryRun()){
+			    if(!isDryRun() && count($status) > 0){
 					file_put_contents($headerFilePath, $headerContent);
 				}
 				$success = true;
@@ -310,7 +310,8 @@ function formatAuthorLine($authorLine){
 		if($name == '') continue;
 		$author = lookUpAuthor($name);
 		if(strlen($out) > 0) $out .= ', ';
-		if(strlen($out) - strrpos($out, PHP_EOL) + strlen($author) > 90) $out .= PHP_EOL . ' *  ';
+		if(strlen($out) - strrpos($out, PHP_EOL) + strlen($author) > 90)
+		    $out = substr($out, 0, -1) . PHP_EOL . ' *  ';
 		$out .=	$author; 
 	}
 	return $out;
