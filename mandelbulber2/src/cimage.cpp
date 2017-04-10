@@ -76,6 +76,7 @@ void cImage::construct()
 
 	gammaTablePrepared = false;
 
+	isStereoLeftRight = false;
 	isMainImage = false;
 }
 
@@ -876,6 +877,65 @@ void cImage::NullPostEffect(QList<int> *list)
 
 				memcpy(
 					&postImageFloat[y * width], &imageFloat[y * width], sizeof(sRGBFloat) * quint64(width));
+			}
+		}
+	}
+}
+
+void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
+{
+	if(isStereoLeftRight && left && right)
+	{
+		int halfWidth = width / 2;
+		left->ChangeSize(halfWidth, height, opt);
+		right->ChangeSize(halfWidth, height, opt);
+
+		for(qint64 y = 0; y < height; y++)
+		{
+			for(qint64 x = 0; x < halfWidth; x++)
+			{
+				qint64 ptrNew = x + y * halfWidth;
+				qint64 ptrLeft = x + y * width;
+				qint64 ptrRight = (x + halfWidth) + y * width;
+
+				left->image8[ptrNew] = image8[ptrLeft];
+				right->image8[ptrNew] = image8[ptrRight];
+
+				left->image16[ptrNew] = image16[ptrLeft];
+				right->image16[ptrNew] = image16[ptrRight];
+
+				left->imageFloat[ptrNew] = imageFloat[ptrLeft];
+				right->imageFloat[ptrNew] = imageFloat[ptrRight];
+
+				left->postImageFloat[ptrNew] = postImageFloat[ptrLeft];
+				right->postImageFloat[ptrNew] = postImageFloat[ptrRight];
+
+				left->alphaBuffer8[ptrNew] = alphaBuffer8[ptrLeft];
+				right->alphaBuffer8[ptrNew] = alphaBuffer8[ptrRight];
+
+				left->alphaBuffer16[ptrNew] = alphaBuffer16[ptrLeft];
+				right->alphaBuffer16[ptrNew] = alphaBuffer16[ptrRight];
+
+				left->opacityBuffer[ptrNew] = opacityBuffer[ptrLeft];
+				right->opacityBuffer[ptrNew] = opacityBuffer[ptrRight];
+
+				left->colourBuffer[ptrNew] = colourBuffer[ptrLeft];
+				right->colourBuffer[ptrNew] = colourBuffer[ptrRight];
+
+				left->zBuffer[ptrNew] = zBuffer[ptrLeft];
+				right->zBuffer[ptrNew] = zBuffer[ptrRight];
+
+				if(opt.optionalNormal)
+				{
+					left->normalFloat[ptrNew] = normalFloat[ptrLeft];
+					right->normalFloat[ptrNew] = normalFloat[ptrRight];
+
+					left->normal8[ptrNew] = normal8[ptrLeft];
+					right->normal8[ptrNew] = normal8[ptrRight];
+
+					left->normal16[ptrNew] = normal16[ptrLeft];
+					right->normal16[ptrNew] = normal16[ptrRight];
+				}
 			}
 		}
 	}

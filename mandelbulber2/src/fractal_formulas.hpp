@@ -43,8 +43,8 @@ class cFractal;
 struct sExtendedAux;
 struct sFractalFoldings;
 
-void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
+void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void AboxMod11Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux);
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AboxModKaliEiffieIteration(

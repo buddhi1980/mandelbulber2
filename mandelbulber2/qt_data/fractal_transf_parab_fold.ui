@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>817</width>
-    <height>743</height>
+    <height>2427</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -992,7 +992,26 @@
   <tabstop>spinbox3_transf_addition_constant_y</tabstop>
   <tabstop>slider3_transf_addition_constant_z</tabstop>
   <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
+  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
+  <tabstop>checkBox_transf_function_enabledx_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledy_false</tabstop>
+  <tabstop>checkBox_transf_function_enabledz_false</tabstop>
+  <tabstop>slider3_transf_scale3D_111_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
+  <tabstop>slider3_transf_scale3D_111_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
+  <tabstop>slider3_transf_scale3D_111_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_111_z</tabstop>
   <tabstop>checkBox_transf_function_enabled_false</tabstop>
+  <tabstop>slider_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>slider_analyticDE_offset_0</tabstop>
+  <tabstop>spinbox_analyticDE_offset_0</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>

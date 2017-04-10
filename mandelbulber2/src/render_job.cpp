@@ -150,6 +150,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 		return false;
 	}
 
+	image->SetStereoLeftRight(stereo.GetMode() == cStereo::stereoLeftRight);
+
 	if (image->IsMainImage())
 	{
 		// clear image before start rendering

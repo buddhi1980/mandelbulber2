@@ -283,6 +283,10 @@ public:
 	void CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
 		sRGBFloat opacity, int layer) const;
 
+	bool IsStereoLeftRight() const { return isStereoLeftRight; }
+	void SetStereoLeftRight(bool isStereoLeftRight) { this->isStereoLeftRight = isStereoLeftRight; }
+	void GetStereoLeftRightImages(cImage *left, cImage *right);
+
 	int progressiveFactor;
 
 private:
@@ -328,6 +332,7 @@ private:
 	bool isMainImage;
 	bool gammaTablePrepared;
 	bool allocLater;
+	bool isStereoLeftRight;
 
 	QMutex previewMutex;
 

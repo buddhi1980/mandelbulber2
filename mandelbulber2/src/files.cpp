@@ -38,6 +38,7 @@
 #include "error_message.hpp"
 #include "files.h"
 #include "initparameters.hpp"
+#include "cimage.hpp"
 
 extern "C" {
 #include <png.h>
@@ -323,17 +324,57 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 				contentType, ImageFileSave::structSaveImageChannel(contentType, channelQuality, postfix));
 		}
 	}
-	QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
-	ImageFileSave *imageFileSave =
-		ImageFileSave::create(fileWithoutExtension, fileType, image, imageConfig);
-	if (updateReceiver != nullptr)
+
+	if(image->IsStereoLeftRight() && gPar->Get<bool>("stereoscopic_in_separate_files"))
 	{
-		QObject::connect(imageFileSave,
-			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
-			SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+		cImage *leftImage = new cImage(1, 1, true);
+		cImage *rightImage = new cImage(1, 1, true);
+		image->GetStereoLeftRightImages(leftImage, rightImage);
+
+		//save left
+		{
+			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename) + "_left";
+			ImageFileSave *imageFileSave =
+				ImageFileSave::create(fileWithoutExtension, fileType, leftImage, imageConfig);
+			if (updateReceiver != nullptr)
+			{
+				QObject::connect(imageFileSave,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
+					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+			}
+			imageFileSave->SaveImage();
+			delete imageFileSave;
+		}
+
+		//save right
+		{
+			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename) + "_right";
+			ImageFileSave *imageFileSave =
+				ImageFileSave::create(fileWithoutExtension, fileType, rightImage, imageConfig);
+			if (updateReceiver != nullptr)
+			{
+				QObject::connect(imageFileSave,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
+					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+			}
+			imageFileSave->SaveImage();
+			delete imageFileSave;
+		}
 	}
-	imageFileSave->SaveImage();
-	delete imageFileSave;
+	else
+	{
+		QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename);
+		ImageFileSave *imageFileSave =
+			ImageFileSave::create(fileWithoutExtension, fileType, image, imageConfig);
+		if (updateReceiver != nullptr)
+		{
+			QObject::connect(imageFileSave,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
+				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+		}
+		imageFileSave->SaveImage();
+		delete imageFileSave;
+	}
 	// return SaveImage(fileWithoutExtension, fileType, image, imageConfig);
 }
 
