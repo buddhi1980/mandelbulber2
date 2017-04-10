@@ -733,8 +733,8 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 
 	double minRR = fractal->transformCommon.minR0;
 //	double m = aux.actualScale;
-//	if (rr < sqrtMinR)  m = aux.actualScale/sqrtMinR;
-//	else if (rr < 1.0) m = aux.actualScale/rr; // else m = Scale
+//	if (rr < minRR)  m = aux.actualScale/minRR;
+//	else if (rr < 1.0) m = aux.actualScale/rr;
 	double dividend = rr < minRR ? minRR : min(rr, 1.0);
 	double m = aux.actualScale / dividend;
 	z *= m;
@@ -786,6 +786,8 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 /**
  * ABoxMod2, Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at
  * Fractal Forums
+ * In V2.11 minimum radius is MinimumR2, for settings made in
+ * older versions, you need to use the square root of the old parameter.
  * @reference DarkBeam M3D
  * http://www.fractalforums.com/new-theories-and-research/
  * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
@@ -804,13 +806,21 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
-	double temp = fabs(z.z) - fractal->transformCommon.offset05;
 
-	double rr;
-	if (temp > 0.0)
+	double tempZ = fabs(z.z) - fractal->transformCommon.offset05;
+//	double rr;
+
+/*	if (temp > 0.0)
 		rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl
 	else
-		rr = z.x * z.x + z.y * z.y; // on cyl body
+		rr = z.x * z.x + z.y * z.y; // on cyl body*/
+
+	double rr = z.x * z.x + z.y * z.y;
+
+	if (tempZ > 0.0) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
+
+
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		rr = pow(rr,fractal->mandelboxVary4D.rPower);
@@ -821,6 +831,7 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 	double m = aux.actualScale / dividend;
 	z *= m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
+
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& i >= fractal->transformCommon.startIterationsE
 			&& i < fractal->transformCommon.stopIterationsE)
