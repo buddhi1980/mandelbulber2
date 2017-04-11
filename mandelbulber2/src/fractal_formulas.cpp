@@ -722,30 +722,36 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 					- fabs(fractal->transformCommon.additionConstant000.z);
 	}
 
-
-
 	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		rr = pow(rr,fractal->mandelboxVary4D.rPower);
 	}
 
+	if (rr < fractal->transformCommon.minR0)
+	{
+		double tglad_factor1 =  fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+		z *= tglad_factor1;
+		aux.DE *= tglad_factor1;
+		aux.color += fractal->mandelbox.color.factorSp1;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		z *= tglad_factor2;
+		aux.DE *= tglad_factor2;
+		aux.color += fractal->mandelbox.color.factorSp2;
+	}
 
-	double minRR = fractal->transformCommon.minR0;
-//	double m = aux.actualScale;
-//	if (rr < minRR)  m = aux.actualScale/minRR;
-//	else if (rr < 1.0) m = aux.actualScale/rr;
-	double dividend = rr < minRR ? minRR : min(rr, 1.0);
-	double m = aux.actualScale / dividend;
-	z *= m;
-	aux.DE = aux.DE * fabs(m) + 1.0;
+	z *= aux.actualScale;
+	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& i >= fractal->transformCommon.startIterationsE
 			&& i < fractal->transformCommon.stopIterationsE)
 	{
 		CVector3 tempC = c;
-		if (fractal->transformCommon.functionEnabledw) // alternate
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
 			switch (fractal->mandelbulbMulti.orderOfXYZ)
@@ -788,7 +794,7 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
  * Fractal Forums
  * In V2.11 minimum radius is MinimumR2, for settings made in
  * older versions, you need to use the square root of the old parameter.
- * @reference DarkBeam M3D
+ * @reference code by DarkBeam M3D
  * http://www.fractalforums.com/new-theories-and-research/
  * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
@@ -826,18 +832,29 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 		rr = pow(rr,fractal->mandelboxVary4D.rPower);
 	}
 
-	double minRR = fractal->transformCommon.minR2p25;
-	double dividend = rr < minRR ? minRR : min(rr, 1.0);
-	double m = aux.actualScale / dividend;
-	z *= m;
-	aux.DE = aux.DE * fabs(m) + 1.0;
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		z *= fractal->transformCommon.maxMinR2factor;
+		aux.DE *= fractal->transformCommon.maxMinR2factor;
+		aux.color += fractal->mandelbox.color.factorSp1;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		z *= tglad_factor2;
+		aux.DE *= tglad_factor2;
+		aux.color += fractal->mandelbox.color.factorSp2;
+	}
+
+	z *= aux.actualScale;
+	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& i >= fractal->transformCommon.startIterationsE
 			&& i < fractal->transformCommon.stopIterationsE)
 	{
 		CVector3 tempC = c;
-		if (fractal->transformCommon.functionEnabledw) // alternate
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
 			switch (fractal->mandelbulbMulti.orderOfXYZ)
@@ -1030,7 +1047,7 @@ void AboxMod11Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal,
 			&& i < fractal->transformCommon.stopIterationsE)
 	{
 		CVector3 tempC = c;
-		if (fractal->transformCommon.functionEnabledw) // alternate
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
 			switch (fractal->mandelbulbMulti.orderOfXYZ)

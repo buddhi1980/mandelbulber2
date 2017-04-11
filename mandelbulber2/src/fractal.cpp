@@ -431,6 +431,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledxFalse = container->Get<bool>("transf_function_enabledx_false");
 	transformCommon.functionEnabledyFalse = container->Get<bool>("transf_function_enabledy_false");
 	transformCommon.functionEnabledzFalse = container->Get<bool>("transf_function_enabledz_false");
+	transformCommon.functionEnabledwFalse = container->Get<bool>("transf_function_enabledw_false");
 	transformCommon.functionEnabledAx = container->Get<bool>("transf_function_enabledAx");
 	transformCommon.functionEnabledAy = container->Get<bool>("transf_function_enabledAy");
 	transformCommon.functionEnabledAz = container->Get<bool>("transf_function_enabledAz");

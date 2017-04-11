@@ -608,6 +608,7 @@ struct sFractalTransformCommon
 	bool functionEnabledxFalse;
 	bool functionEnabledyFalse;
 	bool functionEnabledzFalse;
+	bool functionEnabledwFalse;
 	bool functionEnabledAx;
 	bool functionEnabledAy;
 	bool functionEnabledAz;

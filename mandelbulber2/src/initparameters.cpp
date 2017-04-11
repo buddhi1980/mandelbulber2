@@ -900,6 +900,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledz_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledw_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAx", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAy", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledAz", true, morphLinear, paramStandard);
