@@ -325,13 +325,13 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 		}
 	}
 
-	if(image->IsStereoLeftRight() && gPar->Get<bool>("stereoscopic_in_separate_files"))
+	if (image->IsStereoLeftRight() && gPar->Get<bool>("stereoscopic_in_separate_files"))
 	{
 		cImage *leftImage = new cImage(1, 1, true);
 		cImage *rightImage = new cImage(1, 1, true);
 		image->GetStereoLeftRightImages(leftImage, rightImage);
 
-		//save left
+		// save left
 		{
 			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename) + "_left";
 			ImageFileSave *imageFileSave =
@@ -346,7 +346,7 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 			delete imageFileSave;
 		}
 
-		//save right
+		// save right
 		{
 			QString fileWithoutExtension = ImageFileSave::ImageNameWithoutExtension(filename) + "_right";
 			ImageFileSave *imageFileSave =

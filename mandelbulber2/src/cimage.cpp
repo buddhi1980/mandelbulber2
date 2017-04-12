@@ -884,15 +884,15 @@ void cImage::NullPostEffect(QList<int> *list)
 
 void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
 {
-	if(isStereoLeftRight && left && right)
+	if (isStereoLeftRight && left && right)
 	{
 		int halfWidth = width / 2;
 		left->ChangeSize(halfWidth, height, opt);
 		right->ChangeSize(halfWidth, height, opt);
 
-		for(qint64 y = 0; y < height; y++)
+		for (qint64 y = 0; y < height; y++)
 		{
-			for(qint64 x = 0; x < halfWidth; x++)
+			for (qint64 x = 0; x < halfWidth; x++)
 			{
 				qint64 ptrNew = x + y * halfWidth;
 				qint64 ptrLeft = x + y * width;
@@ -925,7 +925,7 @@ void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
 				left->zBuffer[ptrNew] = zBuffer[ptrLeft];
 				right->zBuffer[ptrNew] = zBuffer[ptrRight];
 
-				if(opt.optionalNormal)
+				if (opt.optionalNormal)
 				{
 					left->normalFloat[ptrNew] = normalFloat[ptrLeft];
 					right->normalFloat[ptrNew] = normalFloat[ptrRight];

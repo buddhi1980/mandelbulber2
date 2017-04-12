@@ -1434,7 +1434,9 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;Darkbeam's MixPinski4 from M3D&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Darkbeam's MixPinski4 from M3D&lt;br&gt;A strange but intriguing fractal, that mixes Sierpinski and Menger folds.&lt;br&gt;The amazing thing is that in 3D it does not work so well! LUCA GN 2011&lt;/p&gt;&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&quot;&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;
+&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/Mix Pinski 4D hybrid.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;

@@ -85,6 +85,8 @@
        <widget class="QLabel" name="label_code_content">
         <property name="text">
          <string notr="true">&lt;p&gt;folding tetra3D from M3D (Luca GN 2011):&lt;br&gt;Code taken from the forums, KIFS original thread&lt;br&gt;side note - if you disable the 1st half, 2nd half will be&lt;br&gt;done even if you disable it... (to avoid a NOP transform)&lt;/p&gt;&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&quot;&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;
+&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;

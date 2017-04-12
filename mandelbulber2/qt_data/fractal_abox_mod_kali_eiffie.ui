@@ -2037,7 +2037,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;ABoxModKaliEiffie, modified  formula from Mandelbulb3D&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;ABoxModKaliEiffie, modified formula from Mandelbulb3D&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;

@@ -690,15 +690,18 @@ void Makin3d2Iteration(CVector3 &z)
 // NEW FORMULAS-----------------------------------------------------------------
 
 /**
- * aBoxMod1, a variation of Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
- * Variation by DarkBeam
- * @reference DarkBeam's Mandelbulb3D code, and
- * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * aBoxMod1, a variation of Mandelbox fractal known as AmazingBox or ABox,
+ * invented by Tom Lowe in 2010, the variation by DarkBeam
  *
  * This formula has a different box fold to the standard Tglad fold
  * This formula has a c.x c.y SWAP (in compute_fractals.cpp)
  * In V2.11 minimum radius is MinimumR2, for settings made in
  * older versions, you need to use the square root of the old parameter.
+ *
+ * based on DarkBeam's Mandelbulb3D code
+ *
+ * @reference
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
 void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -725,12 +728,12 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		rr = pow(rr,fractal->mandelboxVary4D.rPower);
+		rr = pow(rr, fractal->mandelboxVary4D.rPower);
 	}
 
 	if (rr < fractal->transformCommon.minR0)
 	{
-		double tglad_factor1 =  fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
+		double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 		z *= tglad_factor1;
 		aux.DE *= tglad_factor1;
 		aux.color += fractal->mandelbox.color.factorSp1;
@@ -791,12 +794,16 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 
 /**
  * aBoxMod2, a variation of the Mandelbox fractal known as AmazingBox or ABox,
- * invented by Tom Lowe in 2010V, the variation by DarkBeam
- * @reference DarkBeam's Mandelbulb3D code, and
- * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * invented by Tom Lowe in 2010, the variation by DarkBeam
+ *
  * The formula Cylinder Half Size transform changes the spherical fold
  * In V2.11 minimum radius is MinimumR2, for settings made in
  * older versions, you need to use the square root of the old parameter.
+ *
+ * based on DarkBeam's Mandelbulb3D code
+ *
+ * @reference
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
 void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 { // Tglad Fold
@@ -807,19 +814,19 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
 
-/*	double rr;
-	if (temp > 0.0)
-		rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl. z.z should be tempZ
-	else
-		rr = z.x * z.x + z.y * z.y; // on cyl body*/
-// cylinder half size
+	/*	double rr;
+		if (temp > 0.0)
+			rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl. z.z should be tempZ
+		else
+			rr = z.x * z.x + z.y * z.y; // on cyl body*/
+	// cylinder half size
 	double tempZ = fabs(z.z) - fractal->transformCommon.offset05;
 	double rr = z.x * z.x + z.y * z.y;
 	if (tempZ > 0.0) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
 	// rPower
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		rr = pow(rr,fractal->mandelboxVary4D.rPower);
+		rr = pow(rr, fractal->mandelboxVary4D.rPower);
 	}
 	// Spherical Fold
 	if (rr < fractal->transformCommon.minR2p25)
@@ -882,14 +889,16 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-
 }
 
 /**
  * ABoxModK11,
  * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
  * Variations by DarkBeam, Buddhi, Eiffie and mclarekin
- * @reference DarkBeam's Mandelbulb3D code, and
+ *
+ * based on DarkBeam's Mandelbulb3D code
+ *
+ * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
 void AboxMod11Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
@@ -1083,7 +1092,7 @@ void AboxMod11Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal,
 	// color
 	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	aux.foldFactor = fractal->foldColor.compFold; // fold group weight
-	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
+	aux.minRFactor = fractal->foldColor.compMinR; // orbit trap weight
 
 	double scaleColor = fractal->foldColor.colorMin + fabs(aux.actualScale);
 	// scaleColor += fabs(fractal->mandelbox.scale);
@@ -1106,7 +1115,7 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 }
 
 /**
- * ABoxModKaliEiffie, modified  formula from Mandelbulb3D
+ * ABoxModKaliEiffie, modified formula from Mandelbulb3D
  * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
  */
 void AboxModKaliEiffieIteration(
@@ -1212,11 +1221,10 @@ void AboxModKaliEiffieIteration(
 }
 
 /**
- * ABoxVS_icen1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at
- * Fractal Forums
+ * ABoxVS_icen1, a formula from Mandelbulb3D.
+ * Inspired from a 2D formula proposed by Kali at Fractal Forums
  * @reference
- * http://www.fractalforums.com/new-theories-and-research/
- * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+ * http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
 void AboxVSIcen1Iteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1309,9 +1317,11 @@ void AexionOctopusModIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 
 /**
  * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
+ *
+ * This formula has a c.x c.y SWAP
+ *
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
- * This formula has a c.x c.y SWAP
  */
 void AmazingSurfIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1453,7 +1463,7 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 /**
  * Amazing Surface Multi
  * Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali,
- *  with features added by Darkbeam
+ * with features added by Darkbeam
  */
 void AmazingSurfMultiIteration(
 	CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
@@ -1651,7 +1661,7 @@ void AmazingSurfMultiIteration(
 }
 
 /**
- * benesiFastPwr2PineTree  3D
+ * benesiFastPwr2PineTree 3D
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/
  * do-m3d-formula-have-to-be-distance-estimation-formulas/

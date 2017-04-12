@@ -238,7 +238,7 @@ enum enumFractalFormula
 	transfRotation4d = 1069,
 	// 2.11
 	transfParabFold = 1070,
-	//transfScaleVaryABox = 1071,
+	// transfScaleVaryABox = 1071,
 };
 }
 

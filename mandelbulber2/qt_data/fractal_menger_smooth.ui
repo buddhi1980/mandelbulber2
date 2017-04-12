@@ -891,7 +891,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;Menger Smooth&lt;br&gt;// http://www.fractalforums.com/fragmentarium/help-t22583/&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Menger Smooth&lt;br&gt;http://www.fractalforums.com/fragmentarium/help-t22583/&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;menger smooth 001.fract&lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;

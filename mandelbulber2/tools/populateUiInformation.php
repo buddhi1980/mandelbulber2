@@ -401,7 +401,7 @@ function parseComment($c){
 	$tag = 'description';
 	foreach($lines as $l){
 		$line = trim($l);
-		if(in_array($line, array('/**', '*', '*/'))) continue;
+		if(in_array($line, array('/**', '*/'))) continue;
 		if (preg_match("/\*[\s]+@([\S]+)[\s]*(.*)/", $line, $match)) {
 			$tag = $match[1];
 			if(!array_key_exists($tag, $out)) $out[$tag] = array();
@@ -411,6 +411,8 @@ function parseComment($c){
 			}
 		}else if (preg_match("/\*[\s]+(.*)/", $line, $match)) {
 			$out[$tag][] = $match[1];
+		}else {
+			$out[$tag][] = '';
 		}
 	}
 	return $out;
@@ -603,7 +605,7 @@ transf_scale_2 1,079812;';
         if(!file_exists($tempFractPath)){ // allow manual override
             file_put_contents($tempFractPath, $settings);
         }
-        $cmd = PROJECT_PATH ."Debug/mandelbulber2 -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
+				$cmd = PROJECT_PATH ."Debug/mandelbulber2 -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
         echo PHP_EOL . $cmd . PHP_EOL;
         shell_exec($cmd);
         shell_exec("convert '" . $imgPath . "' -depth 8 '" . $imgPath . "'"); // save disk space with 8-bit png

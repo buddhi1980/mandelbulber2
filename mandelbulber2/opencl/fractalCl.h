@@ -561,6 +561,7 @@ typedef struct
 	cl_int functionEnabledxFalse;
 	cl_int functionEnabledyFalse;
 	cl_int functionEnabledzFalse;
+	cl_int functionEnabledwFalse;
 	cl_int functionEnabledAx;
 	cl_int functionEnabledAy;
 	cl_int functionEnabledAz;

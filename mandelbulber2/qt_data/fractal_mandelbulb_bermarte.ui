@@ -700,7 +700,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;mandelbulbBermarte&lt;br&gt;abs() version of Mandelbulb Kali modified by visual.bermarte&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;mandelbulbBermarte&lt;br&gt;&lt;br&gt;abs() version of Mandelbulb Kali modified by visual.bermarte&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/theory/mandelbulb-variant/&quot;&gt;http://www.fractalforums.com/theory/mandelbulb-variant/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
