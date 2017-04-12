@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>988</width>
-    <height>5199</height>
+    <height>5230</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1020,13 +1020,6 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_Cpara_enabledLinear">
-          <property name="text">
-           <string>Curvilinear</string>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_176">
           <property name="text">
@@ -1342,6 +1335,13 @@ offset:</string>
           </property>
          </widget>
         </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QCheckBox" name="checkBox_Cpara_enabledLinear">
+          <property name="text">
+           <string>Linear slopes</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -1622,13 +1622,6 @@ offset:</string>
        <property name="spacing">
         <number>2</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_140">
-         <property name="text">
-          <string>Scale:</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QSlider" name="slider_mandelbox_scale">
          <property name="sizePolicy">
@@ -1648,6 +1641,13 @@ offset:</string>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_140">
+         <property name="text">
+          <string>Scale:</string>
          </property>
         </widget>
        </item>
@@ -1676,6 +1676,66 @@ offset:</string>
          </property>
          <property name="singleStep">
           <double>0.100000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_scale_vary">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="prefix">
+          <string/>
+         </property>
+         <property name="suffix">
+          <string/>
+         </property>
+         <property name="decimals">
+          <number>6</number>
+         </property>
+         <property name="minimum">
+          <double>-100000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>100000.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QSlider" name="slider_mandelbox_vary_scale_vary">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimum">
+          <number>-1000000</number>
+         </property>
+         <property name="maximum">
+          <number>1000000</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="sliderPosition">
+          <number>0</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_142">
+         <property name="text">
+          <string>Scale Vary:</string>
          </property>
         </widget>
        </item>
@@ -2682,20 +2742,6 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="13" column="0" colspan="3">
-      <widget class="Line" name="line_9">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0" colspan="3">
-      <widget class="Line" name="line_8">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_58">
        <property name="font">
@@ -2705,7 +2751,7 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Fold component</string>
+        <string>Fold component weight:</string>
        </property>
       </widget>
      </item>
@@ -2735,22 +2781,6 @@ offset:</string>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_57">
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Fold function components -group weight:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -2991,7 +3021,7 @@ offset:</string>
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>1000</number>
+        <number>10000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -3081,7 +3111,7 @@ offset:</string>
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_fold0">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_fold">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -3186,13 +3216,6 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="11" column="0" colspan="3">
-      <widget class="Line" name="line_11">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="9" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_scale">
        <property name="sizePolicy">
@@ -3233,7 +3256,7 @@ offset:</string>
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>1000</number>
+        <number>10000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -3274,7 +3297,50 @@ offset:</string>
         </font>
        </property>
        <property name="text">
-        <string>Coloring components (beta version only, does not work in hybrid mode)</string>
+        <string>Coloring components ( only partly works in hybrid mode)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QSlider" name="slider_fold_color_comp_fold">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-500</number>
+       </property>
+       <property name="maximum">
+        <number>500</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1" colspan="2">
+      <widget class="Line" name="line_8">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1" colspan="2">
+      <widget class="Line" name="line_11">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="1" colspan="2">
+      <widget class="Line" name="line_9">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -3645,7 +3711,7 @@ offset:</string>
   <tabstop>spinbox_analyticDE_scale_1</tabstop>
   <tabstop>slider_analyticDE_offset_0</tabstop>
   <tabstop>spinbox_analyticDE_offset_0</tabstop>
-  <tabstop>spinbox_fold_color_comp_fold0</tabstop>
+  <tabstop>spinbox_fold_color_comp_fold</tabstop>
   <tabstop>slider3_mandelbox_color_x</tabstop>
   <tabstop>spinbox3_mandelbox_color_x</tabstop>
   <tabstop>slider3_mandelbox_color_y</tabstop>

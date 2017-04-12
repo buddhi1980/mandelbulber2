@@ -690,15 +690,15 @@ void Makin3d2Iteration(CVector3 &z)
 // NEW FORMULAS-----------------------------------------------------------------
 
 /**
- * ABoxMod1, a formula from Mandelbulb3D.
- * Inspired from a 2D formula proposed by Kali at Fractal Forums
+ * aBoxMod1, a variation of Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
+ * Variation by DarkBeam
+ * @reference DarkBeam's Mandelbulb3D code, and
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ *
  * This formula has a different box fold to the standard Tglad fold
  * This formula has a c.x c.y SWAP (in compute_fractals.cpp)
  * In V2.11 minimum radius is MinimumR2, for settings made in
  * older versions, you need to use the square root of the old parameter.
- * @reference DarkBeam M3D
- * http://www.fractalforums.com/new-theories-and-research/
- * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
 void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -790,22 +790,16 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 }
 
 /**
- * ABoxMod2, Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at
- * Fractal Forums
+ * aBoxMod2, a variation of the Mandelbox fractal known as AmazingBox or ABox,
+ * invented by Tom Lowe in 2010V, the variation by DarkBeam
+ * @reference DarkBeam's Mandelbulb3D code, and
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * The formula Cylinder Half Size transform changes the spherical fold
  * In V2.11 minimum radius is MinimumR2, for settings made in
  * older versions, you need to use the square root of the old parameter.
- * @reference code by DarkBeam M3D
- * http://www.fractalforums.com/new-theories-and-research/
- * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
  */
 void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
-{
-	// aux.actualScale =
-	// aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
-
-	aux.actualScale =
-		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
-
+{ // Tglad Fold
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -813,25 +807,21 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
 
-	double tempZ = fabs(z.z) - fractal->transformCommon.offset05;
-//	double rr;
-
-/*	if (temp > 0.0)
-		rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl
+/*	double rr;
+	if (temp > 0.0)
+		rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl. z.z should be tempZ
 	else
 		rr = z.x * z.x + z.y * z.y; // on cyl body*/
-
+// cylinder half size
+	double tempZ = fabs(z.z) - fractal->transformCommon.offset05;
 	double rr = z.x * z.x + z.y * z.y;
-
 	if (tempZ > 0.0) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
-
-
-
+	// rPower
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		rr = pow(rr,fractal->mandelboxVary4D.rPower);
 	}
-
+	// Spherical Fold
 	if (rr < fractal->transformCommon.minR2p25)
 	{
 		z *= fractal->transformCommon.maxMinR2factor;
@@ -845,10 +835,12 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 		aux.DE *= tglad_factor2;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
-
+	// Scale
+	aux.actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	z *= aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
-
+	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& i >= fractal->transformCommon.startIterationsE
 			&& i < fractal->transformCommon.stopIterationsE)
@@ -884,7 +876,7 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 		}
 		z += tempC * fractal->transformCommon.constantMultiplier111;
 	}
-
+	// rotation
 	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
@@ -895,8 +887,10 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 
 /**
  * ABoxModK11,
- * @reference  http://www.fractalforums.com/new-theories-and-research/
- * kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+ * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
+ * Variations by DarkBeam, Buddhi, Eiffie and mclarekin
+ * @reference DarkBeam's Mandelbulb3D code, and
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
 void AboxMod11Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1033,15 +1027,18 @@ void AboxMod11Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal,
 		}
 		z -= fractal->mandelbox.offset;
 	}
-	// scale
+	// scale, incl DarkBeams Scale vary
 	if (i >= fractal->transformCommon.startIterationsA
 			&& i < fractal->transformCommon.stopIterationsA)
 	{
-		z *= fractal->mandelbox.scale;
-		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+		aux.actualScale =
+			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+		z *= aux.actualScale;
+		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 	}
+	// offset
 	z += fractal->transformCommon.additionConstant000;
-
+	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& i >= fractal->transformCommon.startIterationsE
 			&& i < fractal->transformCommon.stopIterationsE)
@@ -1077,16 +1074,18 @@ void AboxMod11Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal,
 		}
 		z += tempC * fractal->transformCommon.constantMultiplier111;
 	}
+	// rotation
 	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+	// color
 	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-	aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
+	aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
 
-	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
+	double scaleColor = fractal->foldColor.colorMin + fabs(aux.actualScale);
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
@@ -1310,7 +1309,8 @@ void AexionOctopusModIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 
 /**
  * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
- * @reference ????
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  * This formula has a c.x c.y SWAP
  */
 void AmazingSurfIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
@@ -1343,7 +1343,8 @@ void AmazingSurfIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExt
 /**
  * Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali,
  * with features added by Darkbeam
- * @reference ????
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -4083,7 +4084,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 
 /**
  * Menger Smooth
- * // http://www.fractalforums.com/fragmentarium/help-t22583/
+ * http://www.fractalforums.com/fragmentarium/help-t22583/
  */
 void MengerSmoothIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -4144,7 +4145,7 @@ void MengerSmoothIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 
 /**
  * Menger Smooth Mod1, based on :
- * // http://www.fractalforums.com/fragmentarium/help-t22583/
+ * http://www.fractalforums.com/fragmentarium/help-t22583/
  */
 void MengerSmoothMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -5652,7 +5653,8 @@ void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal)
 
 /**
  * Sierpinski3D. made from Darkbeam's Sierpinski code from M3D
-
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void Sierpinski3dIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -6832,6 +6834,8 @@ void TransfFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
  * Code taken from the forums, KIFS original thread
  * side note - if you disable the 1st half, 2nd half will be
  * done even if you disable it... (to avoid a NOP transform)
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfFoldingTetra3dIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -6884,6 +6888,8 @@ void TransfIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal,
 /**
  * Inverse cylindrical coordinates, very easy transform
  * Formula by Luca GN 2011
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -6905,6 +6911,8 @@ void TransfInvCylindricalIteration(CVector3 &z, const cFractal *fractal, sExtend
 /**
  * Linear Combine transform from Mandelbulb3D.
  * Can create multiple combination for the addition of Cpixel
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfLinCombineCXYZIteration(
 	CVector3 &z, CVector3 c, const cFractal *fractal, sExtendedAux &aux)
@@ -7262,6 +7270,8 @@ void TransfQuaternionFoldIteration(
 
 /**
  * Reciprocal3  based on Darkbeam's code from M3D,
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfReciprocal3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -7411,6 +7421,8 @@ void TransfRotationFoldingPlaneIteration(CVector3 &z, const cFractal *fractal, s
 /**
  * Rpow3 from M3D.
  * Does a power of 3 on the current length of the  vector.
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfRpow3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -7455,6 +7467,8 @@ void TransfRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
  * - Rotate by the given angles
  *- fold
  *- RotateBack by the given angles
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 
 void TransfRotationFoldingIteration(CVector3 &z, const cFractal *fractal)
@@ -7636,6 +7650,8 @@ void TransfScale3dIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &
 /**
  * spherical invert
  * from M3D. Formula by Luca GN 2011, updated May 2012.
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfSphericalInvIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -7672,7 +7688,8 @@ void TransfSphericalInvIteration(CVector3 &z, const cFractal *fractal, sExtended
 
 /**
  * inverted sphere z & c- A transform from M3D
- *
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfSphericalInvCIteration(CVector3 &z, CVector3 c, const cFractal *fractal)
 {
@@ -7718,6 +7735,8 @@ void TransfSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtende
 /**
  * spherical fold ABox
  * from Fractal Forums and M3D
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfSphericalFoldAboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -8206,6 +8225,8 @@ void TransfSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
 
 /**
  * z vector - axis swap
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfZvectorAxisSwapIteration(CVector3 &z, int i, const cFractal *fractal)
 {
@@ -8280,9 +8301,10 @@ void Abox4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z4D -= fractal->transformCommon.offset0000;
-
-	z4D *= fractal->mandelbox.scale;
-	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+	aux.actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	z4D *= aux.actualScale;
+	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& i >= fractal->transformCommon.startIterationsR
@@ -8336,7 +8358,7 @@ void Abox4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux
 
 	aux.foldFactor = fractal->foldColor.compFold;
 	aux.minRFactor = fractal->foldColor.compMinR;
-	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
+	double scaleColor = fractal->foldColor.colorMin + fabs(aux.actualScale);
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
@@ -8363,6 +8385,8 @@ void Bristorbrot4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux
 
 /**
  * from Syntopia & Darkbeam's Menger4 code from M3D
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void Menger4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -8479,6 +8503,8 @@ void Menger4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 
 /**
  * Menger4D MOD1   from Syntopia & Darkbeam's Menger4 code from M3D
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void Menger4dMod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -8622,8 +8648,10 @@ void Menger4dMod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 
 /**
  * Darkbeam's MixPinski4 from M3D
- *A strange but intriguing fractal, that mixes Sierpinski and Menger folds.
- *The amazing thing is that in 3D it does not work so well! LUCA GN 2011
+ * A strange but intriguing fractal, that mixes Sierpinski and Menger folds.
+ * The amazing thing is that in 3D it does not work so well! LUCA GN 2011
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void MixPinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -8749,6 +8777,8 @@ void MixPinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 
 /**
  * Sierpinski4D.from Syntopia & Darkbeam's code
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void Sierpinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -9140,6 +9170,8 @@ void TransfIterationWeight4dIteration(
 
 /**
  * Reciprocal4D from M3D, Darkbeam's code
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
 void TransfReciprocal4dIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
