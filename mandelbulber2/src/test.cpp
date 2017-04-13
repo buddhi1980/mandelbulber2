@@ -116,8 +116,8 @@ void Test::renderExamples()
 		parSettings.BeQuiet(true);
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-		testPar->Set("image_width", IsBenchmarking() ? 10 : 5);
-		testPar->Set("image_height", IsBenchmarking() ? 10 : 5);
+		testPar->Set("image_width", IsBenchmarking() ? difficulty * 2 : 5);
+		testPar->Set("image_height", IsBenchmarking() ? difficulty * 2 : 5);
 		cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 		renderJob->Init(cRenderJob::still, config);
 
@@ -205,8 +205,8 @@ void Test::testFlight()
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromFile(exampleFlightFile);
 	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-	testPar->Set("image_width", IsBenchmarking() ? 20 : 5);
-	testPar->Set("image_height", IsBenchmarking() ? 20 : 5);
+	testPar->Set("image_width", IsBenchmarking() ? 4 * difficulty : 5);
+	testPar->Set("image_height", IsBenchmarking() ? 4 * difficulty : 5);
 	testPar->Set("flight_first_to_render", 50);
 	testPar->Set("flight_last_to_render", IsBenchmarking() ? 100 : 55);
 	testPar->Set("anim_flight_dir", testFolder() + QDir::separator());
@@ -270,8 +270,8 @@ void Test::testKeyframe()
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromFile(exampleKeyframeFile);
 	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-	testPar->Set("image_width", IsBenchmarking() ? 20 : 5);
-	testPar->Set("image_height", IsBenchmarking() ? 20 : 5);
+	testPar->Set("image_width", IsBenchmarking() ? 4 * difficulty : 5);
+	testPar->Set("image_height", IsBenchmarking() ? 4 * difficulty : 5);
 	testPar->Set("keyframe_first_to_render", 50);
 	testPar->Set("keyframe_last_to_render", IsBenchmarking() ? 100 : 55);
 	testPar->Set("anim_keyframe_dir", testFolder() + QDir::separator());
@@ -338,8 +338,8 @@ void Test::renderSimple()
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromFile(simpleExampleFileName);
 	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-	testPar->Set("image_width", IsBenchmarking() ? 250 : 100);
-	testPar->Set("image_height", IsBenchmarking() ? 250 : 100);
+	testPar->Set("image_width", IsBenchmarking() ? 20 * difficulty : 100);
+	testPar->Set("image_height", IsBenchmarking() ? 20 * difficulty : 100);
 	cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 	renderJob->Init(cRenderJob::still, config);
 

@@ -145,7 +145,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
 
 	QCommandLineOption benchmarkOption(QStringList({"b", "benchmark"}),
-		QCoreApplication::translate("main", "Runs benchmarks on the mandelbulber instance"));
+		QCoreApplication::translate("main", "Runs benchmarks on the mandelbulber instance, specify optional"
+																" parameter dificulty (1 -> very easy, > 20 -> very hard, 10 -> default)"));
 
 	QCommandLineOption touchOption(
 		QStringList({"T", "touch"}),
@@ -509,6 +510,7 @@ void cCommandLineInterface::printParametersAndExit()
 
 void cCommandLineInterface::runTestCasesAndExit() const
 {
+	systemData.noGui = true;
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--test"));
 	arguments.removeOne(QString("-t"));
@@ -521,12 +523,31 @@ void cCommandLineInterface::runTestCasesAndExit() const
 
 void cCommandLineInterface::runBenchmarksAndExit() const
 {
+	systemData.noGui = true;
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--benchmark"));
 	arguments.removeOne(QString("-b"));
+	int difficulty = 10;
+	if (args.size() > 0)
+	{
+		if (args[0] != "")
+		{
+			bool checkParse = false;
+			int difficultyTemp = args[0].toInt(&checkParse);
+			if (checkParse && difficultyTemp > 0)
+			{
+				difficulty = difficultyTemp;
+			}
+		}
+		arguments.removeLast();
+	}
 
 	int status = 0;
+	QTextStream out(stdout);
+	out << QObject::tr("Starting benchmark with difficulty %1").arg(difficulty) << "\n";
+	out.flush();
 	Test test(Test::benchmarkTestMode);
+	test.setDifficulty(difficulty);
 	status |= QTest::qExec(&test, arguments);
 	exit(status);
 }
