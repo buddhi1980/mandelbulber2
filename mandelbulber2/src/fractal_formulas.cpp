@@ -7551,6 +7551,33 @@ void TransfScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 }
 
 /**
+ * scale vary Abox- DarkBeams
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
+void TransfScaleVaryAboxIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	if (i >= fractal->transformCommon.startIterations
+		&& i < fractal->transformCommon.stopIterations)
+	{
+		aux.actualScale =
+			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+		z *= aux.actualScale;
+		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+		aux.r_dz *= fabs(aux.actualScale);
+	}
+	else
+	{
+		z *= fractal->mandelbox.scale;
+		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+		aux.r_dz *= fabs(fractal->mandelbox.scale);
+	}
+}
+
+
+
+
+/**
  * scale variation v1. Scale varies based on iteration parameters.
  */
 void TransfScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)

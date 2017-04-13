@@ -753,6 +753,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransfScaleIteration(z, fractal, extendedAux);
 					break;
 				}
+				case transfScaleVaryAbox:
+				{
+					TransfScaleVaryAboxIteration(z, i, fractal, extendedAux);
+					break;
+				}
 				case transfScaleVaryVCL:
 				{
 					TransfScaleVaryVCLIteration(z, i, fractal, extendedAux);

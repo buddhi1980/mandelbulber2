@@ -194,6 +194,7 @@ void TransfRotationFoldingPlaneIteration(CVector3 &z, const cFractal *fractal, s
 void TransfRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal);
 void TransfRotationFoldingIteration(CVector3 &z, const cFractal *fractal);
 void TransfScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransfScaleVaryAboxIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransfScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransfScaleVaryVCLIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransfScale3dIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
