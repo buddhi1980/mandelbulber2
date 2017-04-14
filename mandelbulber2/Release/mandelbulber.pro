@@ -92,9 +92,9 @@ clang:QMAKE_CXXFLAGS -= -fopenmp
 # test hardcoded lib path for gsl in travis container 
 QMAKE_CXXFLAGS += -I/usr/include/gsl
 
-unix:!mac:LIBS += -lpng -lgsl -lgslcblas -fopenmp
-macx:LIBS += -lpng -lgsl -lgslcblas -openmp
-win32:LIBS += -lz -lpng -lgsl -lgslcblas -fopenmp
+unix:!mac:LIBS += -lpng -lgsl -lgslcblas -fopenmp -llzo2
+macx:LIBS += -lpng -lgsl -lgslcblas -openmp -llzo2
+win32:LIBS += -lz -lpng -lgsl -lgslcblas -fopenmp -llzo2
 clang:LIBS -= -fopenmp
 #win32:LIBS -= +fopenmp
 

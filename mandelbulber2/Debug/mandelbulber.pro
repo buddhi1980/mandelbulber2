@@ -81,7 +81,7 @@ QMAKE_CXXFLAGS += -ffast-math -fopenmp -std=c++11
 # test hardcoded lib path for gsl in travis container 
 QMAKE_CXXFLAGS += -I/usr/include/gsl
 
-LIBS += -lpng -lgsl -lgslcblas -fopenmp
+LIBS += -lpng -lgsl -lgslcblas -fopenmp -llzo2
 win32:LIBS += -lz
 
 # rh: ugly absolute paths for libpng and libjpeg on my windows system

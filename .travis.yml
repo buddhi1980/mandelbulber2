@@ -22,7 +22,7 @@ install:
       && sudo apt-get -qq update
       && sudo apt-get -qq install g++-6 libc6-i386
       && sudo apt-get install -y qt57base qt57tools qt57multimedia
-      && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1
+      && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1 liblzo2-2 liblzo2-dev
       && sudo apt-get install -y libtiff5
       && sudo apt-get install -y libsndfile1-dev
       && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 100
@@ -34,7 +34,7 @@ install:
       ;
     else
          brew update > /dev/null
-      && brew install qt5 gsl llvm
+      && brew install qt5 gsl llvm lzo
       && export CC=/usr/local/opt/llvm/bin/clang
       && export CXX=/usr/local/opt/llvm/bin/clang++
       && export LDFLAGS="-L/usr/local/opt/llvm/lib $LDFLAGS"

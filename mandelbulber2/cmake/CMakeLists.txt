@@ -41,6 +41,7 @@ find_package(Qt5Multimedia)
 # Find other required libraries.
 find_package(PNG REQUIRED)
 find_package(GSL REQUIRED)
+find_package(LZO REQUIRED)
 
 # Find other optional libraries.
 find_package(TIFF)
@@ -88,8 +89,8 @@ qt5_use_modules(mandelbulber2 Core Widgets Network
     Gui UiTools Test Multimedia)
 
 # Link other required libraries.
-include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS})
-target_link_libraries(mandelbulber2 ${PNG_LIBRARY} ${GSL_LIBRARIES})
+include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS} ${LZO_INCLUDE_DIRS})
+target_link_libraries(mandelbulber2 ${PNG_LIBRARY} ${GSL_LIBRARIES} ${LZO_LIBRARIES})
 
 # Link other optional libraries and set corresponding flag definitions .
 IF(TIFF_FOUND)
