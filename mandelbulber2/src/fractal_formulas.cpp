@@ -794,7 +794,7 @@ void AboxMod1Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 
 /**
  * aBoxMod2, a variation of the Mandelbox fractal known as AmazingBox or ABox,
- * invented by Tom Lowe in 2010, the variation by DarkBeam
+ * invented by Tom Lowe in 2010, this variation by DarkBeam
  *
  * The formula Cylinder Half Size transform changes the spherical fold
  * In V2.11 minimum radius is MinimumR2, for settings made in
@@ -7768,6 +7768,48 @@ void TransfSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtende
 	}
 	z -= fractal->mandelbox.offset;
 }
+
+/**
+ * spherical fold CHS Cylinder Half Size. Darkbeams code from M3D
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
+void TransfSphericalFoldCHSIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	double tempZ = fabs(z.z) - fractal->transformCommon.offset05;
+	double rr;
+	if (i >= fractal->transformCommon.startIterations
+		&& i < fractal->transformCommon.stopIterations)
+	{
+		rr = z.x * z.x + z.y * z.y;
+		if (tempZ > 0.0) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
+	}
+	else
+	{
+		rr = z.Dot(z);
+	}
+
+	z += fractal->mandelbox.offset;
+	z *= fractal->transformCommon.scale;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+
+	// Spherical Fold
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		z *= fractal->transformCommon.maxMinR2factor;
+		aux.DE *= fractal->transformCommon.maxMinR2factor;
+		aux.color += fractal->mandelbox.color.factorSp1;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		z *= tglad_factor2;
+		aux.DE *= tglad_factor2;
+		aux.color += fractal->mandelbox.color.factorSp2;
+	}
+	z -= fractal->mandelbox.offset;
+}
+
 
 /**
  * spherical fold ABox

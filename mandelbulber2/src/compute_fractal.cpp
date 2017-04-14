@@ -808,6 +808,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransfSphericalFoldIteration(z, fractal, extendedAux);
 					break;
 				}
+
+				case transfSphericalFoldCHS:
+				{
+					TransfSphericalFoldCHSIteration(z, i, fractal, extendedAux);
+					break;
+				}
+
 				case transfSphericalFoldAbox:
 				{
 					TransfSphericalFoldAboxIteration(z, fractal, extendedAux);
