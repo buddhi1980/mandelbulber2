@@ -24,6 +24,10 @@ endif()
 # Find includes in corresponding build directories.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+# set module find scripts
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/")
+message(STATUS "${PROJECT_SOURCE_DIR}/modules/")
+
 # Qt intermediate build config and setup.
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
