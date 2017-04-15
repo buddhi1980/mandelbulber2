@@ -197,6 +197,15 @@ if [ ! -d libsndfile-* ]; then
 	cd ..
 fi
 
+# lzo
+if [ ! -d liblzo2-* ]; then
+	apt-get source liblzo2-2
+	cd liblzo2-*
+	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
+	make
+	sudo make install
+	cd ..
+fi
 
 echo Finished
 ## clean up
