@@ -48,14 +48,14 @@
 #ifdef HAVE_LIBLZO2
 
 #include <QByteArray>
-#include <QTime>
+#include <QElapsedTimer>
 #include <lzo/lzoconf.h>
 #include <lzo/lzo1x.h>
 #include <assert.h>
 
 QByteArray lzoCompress(QByteArray data)
 {
-	QTime time;
+	QElapsedTimer time;
 	time.start();
 	void *wrkmem = malloc(LZO1X_1_MEM_COMPRESS);
 
@@ -67,12 +67,12 @@ QByteArray lzoCompress(QByteArray data)
 
 	assert(ret == LZO_E_OK);
 
-	qDebug() << QString("lzo: %1 bytes compressed into %2 bytes, ratio: %3, in %4 seconds, %5 mBps\n")
+	qDebug() << QString("lzo: %1 bytes compressed into %2 bytes, ratio: %3, in %4 seconds, %5 mBps")
 								.arg(data.size())
 								.arg((unsigned long)len)
 								.arg(1.0 * len / data.size())
-								.arg(time.elapsed() / 1000.0)
-								.arg((data.size() / 1000000.0) / (time.elapsed() / 1000.0));
+								.arg(time.nsecsElapsed() / 1000.0)
+								.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9));
 
 	QByteArray arr;
 	arr.append((char *)out, len);
@@ -83,7 +83,7 @@ QByteArray lzoCompress(QByteArray data)
 
 QByteArray lzoUncompress(QByteArray data)
 {
-	QTime time;
+	QElapsedTimer time;
 	time.start();
 	lzo_uint len;
 	void *tmp = nullptr;
@@ -105,12 +105,12 @@ QByteArray lzoUncompress(QByteArray data)
 	}
 
 	qDebug() << QString(
-								"lzo: %1 bytes uncompressed into %2 bytes, ratio: %3, in %4 seconds, %5 mBps\n")
+								"lzo: %1 bytes uncompressed into %2 bytes, ratio: %3, in %4 micro seconds, %5 MBps")
 								.arg(data.size())
 								.arg((unsigned long)len)
 								.arg(1.0 * len / data.size())
-								.arg(time.elapsed() / 1000.0)
-								.arg((data.size() / 1000000.0) / (time.elapsed() / 1000.0));
+								.arg(time.nsecsElapsed() / 1000.0)
+								.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9));
 
 	QByteArray arr;
 	arr.append((char *)tmp, len);
