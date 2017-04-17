@@ -936,10 +936,12 @@
     <Import Project="..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets" Condition="Exists('..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets')" />
     <Import Project="..\..\packages\libtiff-msvc14-x86.4.0.7.7799\build\native\libtiff-msvc14-x86.targets" Condition="Exists('..\..\packages\libtiff-msvc14-x86.4.0.7.7799\build\native\libtiff-msvc14-x86.targets')" />
     <Import Project="..\..\packages\libtiff-msvc14-x64.4.0.7.7799\build\native\libtiff-msvc14-x64.targets" Condition="Exists('..\..\packages\libtiff-msvc14-x64.4.0.7.7799\build\native\libtiff-msvc14-x64.targets')" />
-    <Import Project="..\..\packages\libpng-msvc14-x86.1.6.29.7800\build\native\libpng-msvc14-x86.targets" Condition="Exists('..\..\packages\libpng-msvc14-x86.1.6.29.7800\build\native\libpng-msvc14-x86.targets')" />
-    <Import Project="..\..\packages\libpng-msvc14-x64.1.6.29.7800\build\native\libpng-msvc14-x64.targets" Condition="Exists('..\..\packages\libpng-msvc14-x64.1.6.29.7800\build\native\libpng-msvc14-x64.targets')" />
+    <Import Project="..\..\packages\libpng-msvc14-x86.1.6.29.7801\build\native\libpng-msvc14-x86.targets" Condition="Exists('..\..\packages\libpng-msvc14-x86.1.6.29.7801\build\native\libpng-msvc14-x86.targets')" />
+    <Import Project="..\..\packages\libpng-msvc14-x64.1.6.29.7801\build\native\libpng-msvc14-x64.targets" Condition="Exists('..\..\packages\libpng-msvc14-x64.1.6.29.7801\build\native\libpng-msvc14-x64.targets')" />
     <Import Project="..\..\packages\libsndfile-msvc14-x64.1.0.27.7787\build\native\libsndfile-msvc14-x64.targets" Condition="Exists('..\..\packages\libsndfile-msvc14-x64.1.0.27.7787\build\native\libsndfile-msvc14-x64.targets')" />
     <Import Project="..\..\packages\libsndfile-msvc14-x86.1.0.27.7787\build\native\libsndfile-msvc14-x86.targets" Condition="Exists('..\..\packages\libsndfile-msvc14-x86.1.0.27.7787\build\native\libsndfile-msvc14-x86.targets')" />
+    <Import Project="..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets" Condition="Exists('..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets')" />
+    <Import Project="..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets" Condition="Exists('..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -968,10 +970,12 @@
     <Error Condition="!Exists('..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native\libjpeg-msvc14-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\libtiff-msvc14-x86.4.0.7.7799\build\native\libtiff-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libtiff-msvc14-x86.4.0.7.7799\build\native\libtiff-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\libtiff-msvc14-x64.4.0.7.7799\build\native\libtiff-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libtiff-msvc14-x64.4.0.7.7799\build\native\libtiff-msvc14-x64.targets'))" />
-    <Error Condition="!Exists('..\..\packages\libpng-msvc14-x86.1.6.29.7800\build\native\libpng-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libpng-msvc14-x86.1.6.29.7800\build\native\libpng-msvc14-x86.targets'))" />
-    <Error Condition="!Exists('..\..\packages\libpng-msvc14-x64.1.6.29.7800\build\native\libpng-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libpng-msvc14-x64.1.6.29.7800\build\native\libpng-msvc14-x64.targets'))" />
+    <Error Condition="!Exists('..\..\packages\libpng-msvc14-x86.1.6.29.7801\build\native\libpng-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libpng-msvc14-x86.1.6.29.7801\build\native\libpng-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\libpng-msvc14-x64.1.6.29.7801\build\native\libpng-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libpng-msvc14-x64.1.6.29.7801\build\native\libpng-msvc14-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\libsndfile-msvc14-x64.1.0.27.7787\build\native\libsndfile-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libsndfile-msvc14-x64.1.0.27.7787\build\native\libsndfile-msvc14-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\libsndfile-msvc14-x86.1.0.27.7787\build\native\libsndfile-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libsndfile-msvc14-x86.1.0.27.7787\build\native\libsndfile-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets'))" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q $(IntDir)" />
