@@ -202,6 +202,7 @@ void TransfSphericalInvCIteration(CVector3 &z, CVector3 c, const cFractal *fract
 void TransfSphericalInvIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldAboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransfSphericalFoldParabIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldCHSIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldVaryV1Iteration(
 	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);

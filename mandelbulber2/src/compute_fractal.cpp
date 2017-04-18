@@ -808,16 +808,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransfSphericalFoldIteration(z, fractal, extendedAux);
 					break;
 				}
-
+				case transfSphericalFoldAbox:
+				{
+					TransfSphericalFoldAboxIteration(z, fractal, extendedAux);
+					break;
+				}
 				case transfSphericalFoldCHS:
 				{
 					TransfSphericalFoldCHSIteration(z, i, fractal, extendedAux);
 					break;
 				}
-
-				case transfSphericalFoldAbox:
+				case transfSphericalFoldParab:
 				{
-					TransfSphericalFoldAboxIteration(z, fractal, extendedAux);
+					TransfSphericalFoldParabIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalFoldVaryV1:
@@ -1318,7 +1321,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerOcto:
 				{
 					if (extendedAux.DE > 0)
-						out->distance = (r - extendedAux.linearDE) / (extendedAux.DE);
+						out->distance = (r - 2.0) / (extendedAux.DE);
 					else
 						out->distance = r;
 					break;

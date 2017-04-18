@@ -240,6 +240,8 @@ enum enumFractalFormula
 	transfParabFold = 1070,
 	transfScaleVaryAbox = 1071,
 	transfSphericalFoldCHS = 1072,
+	transfSphericalFoldParab = 1073,
+
 };
 }
 

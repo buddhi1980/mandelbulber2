@@ -306,7 +306,6 @@ void MengerSpongeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 	if (z.z > 1.0) z.z -= 2.0;
 
 	aux.DE *= 3.0;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -442,9 +441,7 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 	{
 		z -= fractal->IFS.offset * (fractal->IFS.scale - 1.0);
 	}
-
 	aux.DE *= fractal->IFS.scale;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -2131,7 +2128,6 @@ void CollatzIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	z = xV + 4.0 * z - CVector3(xV + 2.0 * z) * z.RotateAroundVectorByAngle(xV, M_PI);
 	z /= 4.0;
 	aux.DE = aux.DE * 4.0 + 1.0;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -2156,7 +2152,6 @@ void CollatzModIteration(CVector3 &z, CVector3 c, const cFractal *fractal, sExte
 		c = CVector3(c.z, c.y, c.x);
 		z += c * fractal->transformCommon.constantMultiplierA111;
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -3116,7 +3111,6 @@ void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -3212,7 +3206,6 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 			z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 		}
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -3266,7 +3259,6 @@ void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 				+ (zB * fractal->transformCommon.offset0);
 		aux.DE *= fractal->transformCommon.scale1;
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -3367,7 +3359,6 @@ void MengerMiddleModIteration(
 		}
 		z += c * fractal->transformCommon.constantMultiplierC111;
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -3539,7 +3530,6 @@ void MengerOctoIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedA
 				+ (zB * fractal->transformCommon.offsetB0);
 		aux.DE *= fractal->transformCommon.scale1;
 		aux.r_dz *= fractal->transformCommon.scale1;
-		aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 	}
 }
 
@@ -3645,7 +3635,6 @@ void MengerPwr2PolyIteration(
 		}
 		z += fractal->transformCommon.additionConstantA000;
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -3780,7 +3769,6 @@ void MengerPrismShapeIteration(CVector3 &z, int i, const cFractal *fractal, sExt
 	}
 
 	aux.DE *= fractal->transformCommon.scaleB1;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -4095,7 +4083,6 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z += fractal->transformCommon.additionConstantA000;
 	}
 	aux.DE *= fractal->analyticDE.scale1;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -4156,7 +4143,6 @@ void MengerSmoothIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 				+ (zB * fractal->transformCommon.offsetB0);
 		aux.DE *= fractal->transformCommon.scale1;
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -4233,7 +4219,6 @@ void MengerSmoothMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExt
 				+ (zB * fractal->transformCommon.offsetB0);
 		aux.DE *= fractal->transformCommon.scale1;
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -5747,7 +5732,6 @@ void Sierpinski3dIteration(CVector3 &z, int i, const cFractal *fractal, sExtende
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -7006,7 +6990,6 @@ void TransfMengerFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 		}
 		aux.DE *= fractal->transformCommon.scale3;
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -7777,48 +7760,6 @@ void TransfSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtende
 }
 
 /**
- * spherical fold CHS Cylinder Half Size. Darkbeams code from M3D
- * @reference
- * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
- */
-void TransfSphericalFoldCHSIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
-{
-	double tempZ = fabs(z.z) - fractal->transformCommon.offset05;
-	double rr;
-	if (i >= fractal->transformCommon.startIterations
-		&& i < fractal->transformCommon.stopIterations)
-	{
-		rr = z.x * z.x + z.y * z.y;
-		if (tempZ > 0.0) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
-	}
-	else
-	{
-		rr = z.Dot(z);
-	}
-
-	z += fractal->mandelbox.offset;
-	z *= fractal->transformCommon.scale;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-
-	// Spherical Fold
-	if (rr < fractal->transformCommon.minR2p25)
-	{
-		z *= fractal->transformCommon.maxMinR2factor;
-		aux.DE *= fractal->transformCommon.maxMinR2factor;
-		aux.color += fractal->mandelbox.color.factorSp1;
-	}
-	else if (rr < fractal->transformCommon.maxR2d1)
-	{
-		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
-		z *= tglad_factor2;
-		aux.DE *= tglad_factor2;
-		aux.color += fractal->mandelbox.color.factorSp2;
-	}
-	z -= fractal->mandelbox.offset;
-}
-
-
-/**
  * spherical fold ABox
  * from Fractal Forums and M3D
  * @reference
@@ -7900,6 +7841,82 @@ void TransfSphericalFoldVaryV1Iteration(
 	}
 	z -= fractal->mandelbox.offset;
 }
+
+/**
+ * spherical fold Parab, coded by mclarekin
+ * @reference
+ * http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/smooth-spherical-fold/msg101051/#new
+ */
+void TransfSphericalFoldParabIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	double rr = z.Dot(z);
+	z += fractal->mandelbox.offset;
+	z *= fractal->transformCommon.scale;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+	double maxScale = fractal->transformCommon.scale4;
+	double midPoint = (maxScale - 1.0) * 0.5;
+	rr += fractal->transformCommon.offset0;
+	double maxR2 = fractal->transformCommon.maxR2d1;
+	double halfMax = maxR2 * 0.5;
+	double factor = midPoint / (halfMax * halfMax);
+	double m;
+	if (rr < halfMax)
+	{
+		m = maxScale - (rr * rr) * factor;
+		z *= m;
+		aux.DE *= m;
+	}
+	else if (rr < maxR2)
+	{
+		m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
+		z *= m;
+		aux.DE *= m;
+	}
+	z -= fractal->mandelbox.offset;
+}
+
+/**
+ * spherical fold CHS Cylinder Half Size. Darkbeams code from M3D
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
+void TransfSphericalFoldCHSIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+	double tempZ = fabs(z.z) - fractal->transformCommon.offset05;
+	double rr;
+	if (i >= fractal->transformCommon.startIterations
+		&& i < fractal->transformCommon.stopIterations)
+	{
+		rr = z.x * z.x + z.y * z.y;
+		if (tempZ > 0.0) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
+	}
+	else
+	{
+		rr = z.Dot(z);
+	}
+
+	z += fractal->mandelbox.offset;
+	z *= fractal->transformCommon.scale;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+
+	// Spherical Fold
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		z *= fractal->transformCommon.maxMinR2factor;
+		aux.DE *= fractal->transformCommon.maxMinR2factor;
+		aux.color += fractal->mandelbox.color.factorSp1;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		z *= tglad_factor2;
+		aux.DE *= tglad_factor2;
+		aux.color += fractal->mandelbox.color.factorSp2;
+	}
+	z -= fractal->mandelbox.offset;
+}
+
+
 
 /**
  * spherical fold varyVCL MBox type
@@ -8585,7 +8602,6 @@ void Menger4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedA
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -8731,7 +8747,6 @@ void Menger4dMod1Iteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -8860,7 +8875,6 @@ void MixPinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtend
 		z4D.z = scaleM * z4D.z;
 		aux.DE *= scaleM * fractal->analyticDE.scale1;
 	}
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
@@ -8973,7 +8987,6 @@ void Sierpinski4dIteration(CVector4 &z4D, int i, const cFractal *fractal, sExten
 		}
 	}
 	aux.DE *= fractal->analyticDE.scale1;
-	aux.linearDE = fractal->analyticDE.factor2; // hybrid linear r factor DE
 }
 
 /**
