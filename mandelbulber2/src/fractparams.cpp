@@ -239,6 +239,7 @@ cParamRender::cParamRender(const cParameterContainer *container, QVector<cObject
 	common.mRotFractalRotation.SetRotation2(common.fractalRotation / 180.0 * M_PI);
 	common.repeat = container->Get<CVector3>("repeat");
 	common.iterThreshMode = container->Get<bool>("iteration_threshold_mode");
+	common.linearDEOffset = container->Get<double>("linear_DE_offset");
 
 	// formula = Get<int>("tile_number");
 }

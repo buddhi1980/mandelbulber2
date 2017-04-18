@@ -54,6 +54,8 @@ struct sCommonParams
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
 
+	double linearDEOffset;
+
 	CVector3 fakeLightsOrbitTrap;
 	CVector3 fractalPosition;
 	CVector3 fractalRotation;

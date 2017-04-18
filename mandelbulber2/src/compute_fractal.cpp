@@ -108,7 +108,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// extendedAux.axisBias = 1e+20;
 	// extendedAux.orbitTraps = 1e+20;
 	extendedAux.pseudoKleinianDE = 1.0;
-	extendedAux.linearDE = 0.0;
 
 	// main iteration loop
 	int i;
@@ -1213,7 +1212,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
-					out->distance = (r - extendedAux.linearDE) / fabs(extendedAux.DE);
+					out->distance = (r - in.common.linearDEOffset) / fabs(extendedAux.DE);
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
 				{

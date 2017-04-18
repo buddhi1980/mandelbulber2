@@ -184,6 +184,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("delta_DE_method", int(fractal::preferredDEMethod), 0, 1, morphNone, paramStandard);
 	par->addParam("use_default_bailout", true, morphNone, paramStandard);
 	par->addParam("initial_waxis", 0.0, morphAkima, paramStandard);
+	par->addParam("linear_DE_offset", 0.0, morphLinear, paramStandard);
 
 	// stereoscopic
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
