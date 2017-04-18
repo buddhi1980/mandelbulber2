@@ -136,7 +136,7 @@ if [ ! -d tiff-* ]; then
 	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX \
 	    --with-zlib-include-dir=$MANDELBULBER_PREFIX/include \
 	    --with-zlib-lib-dir=$MANDELBULBER_PREFIX/lib
-	make
+	make -j8
 	sudo make install
 	cd ..
 fi
@@ -150,7 +150,7 @@ if [ ! -d libogg-* ]; then
 	tar xf libogg.tar.xz
 	cd libogg-*
 	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
-	make
+	make -j8
 	sudo make install
 	cd ..
 fi
@@ -164,7 +164,7 @@ if [ ! -d libvorbis-* ]; then
 	tar xf libvorbis.tar.xz
 	cd libvorbis-*
 	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX LDFLAGS=-L$MANDELBULBER_PREFIX/lib
-	make CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
+	make -j8 CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
 	sudo make CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include install
 	cd ..
 fi
@@ -178,7 +178,7 @@ if [ ! -d flac-* ]; then
 	tar xf libflac.tar.xz
 	cd flac-*
 	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
-	make
+	make -j8
 	sudo make install
 	cd ..
 fi
@@ -192,17 +192,17 @@ if [ ! -d libsndfile-* ]; then
 	tar xf libsndfile.tar.gz
 	cd libsndfile-*
 	./configure --enable-shared --disable-static --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX LDFLAGS=-L$MANDELBULBER_PREFIX/lib
-	make CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
+	make -j8 CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
 	sudo make CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include install
 	cd ..
 fi
 
 # lzo
-if [ ! -d liblzo2-* ]; then
+if [ ! -d lzo2-* ]; then
 	apt-get source liblzo2-2
-	cd liblzo2-*
-	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
-	make
+	cd lzo2-*
+	./configure --enable-shared --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
+	make -j8
 	sudo make install
 	cd ..
 fi
