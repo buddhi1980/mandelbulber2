@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>sierpinski4d</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1034,7 +1034,6 @@
     &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
   aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-  aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;linearDE &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;factor2&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#d0d0a0&quot;&gt;// hybrid linear r factor DE&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>

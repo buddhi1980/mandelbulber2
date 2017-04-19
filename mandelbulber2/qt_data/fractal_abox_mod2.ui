@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>abox_mod2</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1278,7 +1278,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string notr="true">&lt;p&gt;aBoxMod2, a variation of the Mandelbox fractal known as AmazingBox or ABox,&lt;br&gt;invented by Tom Lowe in 2010, the variation by DarkBeam&lt;br&gt;&lt;br&gt;The formula Cylinder Half Size transform changes the spherical fold&lt;br&gt;In V2.11 minimum radius is MinimumR2, for settings made in&lt;br&gt;older versions, you need to use the square root of the old parameter.&lt;br&gt;&lt;br&gt;based on DarkBeam's Mandelbulb3D code&lt;br&gt;&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;aBoxMod2, a variation of the Mandelbox fractal known as AmazingBox or ABox,&lt;br&gt;invented by Tom Lowe in 2010, this variation by DarkBeam&lt;br&gt;&lt;br&gt;The formula Cylinder Half Size transform changes the spherical fold&lt;br&gt;In V2.11 minimum radius is MinimumR2, for settings made in&lt;br&gt;older versions, you need to use the square root of the old parameter.&lt;br&gt;&lt;br&gt;based on DarkBeam's Mandelbulb3D code&lt;br&gt;&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&quot;&gt;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;

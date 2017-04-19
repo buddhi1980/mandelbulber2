@@ -421,8 +421,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfSphericalFold, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 	fractalList->append(sFractalDescription("T>Spherical Fold ABox", "transf_spherical_fold_abox",
 		transfSphericalFoldAbox, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
-	fractalList->append(
-	sFractalDescription("T>Spherical Fold CHS", "transf_spherical_fold_chs",
+	fractalList->append(sFractalDescription("T>Spherical Fold CHS", "transf_spherical_fold_chs",
 		transfSphericalFoldCHS, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 	fractalList->append(sFractalDescription("T>Spherical Fold Parab", "transf_spherical_fold_parab",
 		transfSphericalFoldParab, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));

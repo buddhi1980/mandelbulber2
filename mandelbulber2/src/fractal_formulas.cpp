@@ -7547,8 +7547,7 @@ void TransfScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
  */
 void TransfScaleVaryAboxIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	if (i >= fractal->transformCommon.startIterations
-		&& i < fractal->transformCommon.stopIterations)
+	if (i >= fractal->transformCommon.startIterations && i < fractal->transformCommon.stopIterations)
 	{
 		aux.actualScale =
 			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
@@ -7563,9 +7562,6 @@ void TransfScaleVaryAboxIteration(CVector3 &z, int i, const cFractal *fractal, s
 		aux.r_dz *= fabs(fractal->mandelbox.scale);
 	}
 }
-
-
-
 
 /**
  * scale variation v1. Scale varies based on iteration parameters.
@@ -7847,7 +7843,8 @@ void TransfSphericalFoldVaryV1Iteration(
  * @reference
  * http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/smooth-spherical-fold/msg101051/#new
  */
-void TransfSphericalFoldParabIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void TransfSphericalFoldParabIteration(
+	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 
 	double rr;
@@ -7909,8 +7906,7 @@ void TransfSphericalFoldCHSIteration(CVector3 &z, int i, const cFractal *fractal
 {
 	double tempZ = fabs(z.z) - fractal->transformCommon.offset05;
 	double rr;
-	if (i >= fractal->transformCommon.startIterations
-		&& i < fractal->transformCommon.stopIterations)
+	if (i >= fractal->transformCommon.startIterations && i < fractal->transformCommon.stopIterations)
 	{
 		rr = z.x * z.x + z.y * z.y;
 		if (tempZ > 0.0) rr = rr + (tempZ * tempZ * fractal->transformCommon.scale1);
@@ -7940,8 +7936,6 @@ void TransfSphericalFoldCHSIteration(CVector3 &z, int i, const cFractal *fractal
 	}
 	z -= fractal->mandelbox.offset;
 }
-
-
 
 /**
  * spherical fold varyVCL MBox type

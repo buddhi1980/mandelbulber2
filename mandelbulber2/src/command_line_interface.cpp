@@ -144,9 +144,11 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	QCommandLineOption testOption(QStringList({"t", "test"}),
 		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
 
-	QCommandLineOption benchmarkOption(QStringList({"b", "benchmark"}),
-		QCoreApplication::translate("main", "Runs benchmarks on the mandelbulber instance, specify optional"
-																" parameter dificulty (1 -> very easy, > 20 -> very hard, 10 -> default)"));
+	QCommandLineOption benchmarkOption(
+		QStringList({"b", "benchmark"}),
+		QCoreApplication::translate("main",
+			"Runs benchmarks on the mandelbulber instance, specify optional"
+			" parameter dificulty (1 -> very easy, > 20 -> very hard, 10 -> default)"));
 
 	QCommandLineOption touchOption(
 		QStringList({"T", "touch"}),

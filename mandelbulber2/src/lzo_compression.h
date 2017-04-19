@@ -67,12 +67,14 @@ QByteArray lzoCompress(QByteArray data)
 
 	assert(ret == LZO_E_OK);
 
-	WriteLog(QString("lzo: %1 bytes compressed into %2 bytes, ratio: %3, in %4 micro seconds, %5 mBps")
-								.arg(data.size())
-								.arg((unsigned long)len)
-								.arg(1.0 * len / data.size())
-								.arg(time.nsecsElapsed() / 1000.0)
-								.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9)), 3);
+	WriteLog(
+		QString("lzo: %1 bytes compressed into %2 bytes, ratio: %3, in %4 micro seconds, %5 mBps")
+			.arg(data.size())
+			.arg((unsigned long)len)
+			.arg(1.0 * len / data.size())
+			.arg(time.nsecsElapsed() / 1000.0)
+			.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9)),
+		3);
 
 	QByteArray arr;
 	arr.append((char *)out, len);
@@ -104,13 +106,14 @@ QByteArray lzoUncompress(QByteArray data)
 		break;
 	}
 
-	WriteLog(QString(
-								"lzo: %1 bytes uncompressed into %2 bytes, ratio: %3, in %4 micro seconds, %5 MBps")
-								.arg(data.size())
-								.arg((unsigned long)len)
-								.arg(1.0 * len / data.size())
-								.arg(time.nsecsElapsed() / 1000.0)
-								.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9)), 3);
+	WriteLog(
+		QString("lzo: %1 bytes uncompressed into %2 bytes, ratio: %3, in %4 micro seconds, %5 MBps")
+			.arg(data.size())
+			.arg((unsigned long)len)
+			.arg(1.0 * len / data.size())
+			.arg(time.nsecsElapsed() / 1000.0)
+			.arg((data.size() / 1000000.0) / (time.nsecsElapsed() / 1e9)),
+		3);
 
 	QByteArray arr;
 	arr.append((char *)tmp, len);
