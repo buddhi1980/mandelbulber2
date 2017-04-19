@@ -31,9 +31,8 @@
  *
  * file mesh class to store different mesh file formats
  *
- * Each mesh file type derives MeshFileSave and implements the Savemesh
+ * Each mesh file type derives MeshFileSave and implements the SaveMesh
  * method to store the mesh data with the corresponding file format
- *
  */
 
 #ifndef MANDELBULBER2_SRC_FILE_MESH_HPP_

@@ -600,7 +600,7 @@ QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority)
 	}
 }
 
-void CalcPrefferedFontSize(bool noGui)
+void CalcPreferredFontSize(bool noGui)
 {
 	if (!noGui)
 	{

@@ -29,10 +29,10 @@
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * file image class to store different image file formats
+ * file mesh class to store different mesh file formats
  *
- * Each image file type derives ImageFileSave and implements the SaveImage
- * method to store the image data with the corresponding file format
+ * Each mesh file type derives MeshFileSave and implements the SaveMesh
+ * method to store the mesh data with the corresponding file format
  */
 
 #include "file_mesh.hpp"

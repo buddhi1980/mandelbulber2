@@ -48,9 +48,9 @@ cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContain
 		: params(_params), fractal(_fractal), width(_width), height(_height), hash(_hash)
 {
 	image = nullptr;
-	qwidget = nullptr;
+	qWidget = nullptr;
 	image = new cImage(width, height);
-	// image->CreatePreview(1.0, width, height, qwidget);
+	// image->CreatePreview(1.0, width, height, qWidget);
 }
 
 cThumbnail::~cThumbnail()
@@ -78,7 +78,7 @@ QPixmap cThumbnail::Render()
 	else
 	{
 		bool stopRequest = false;
-		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, qwidget);
+		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, qWidget);
 		renderJob->UseSizeFromImage(true);
 
 		cRenderingConfiguration config;
@@ -89,9 +89,9 @@ QPixmap cThumbnail::Render()
 
 		renderJob->Init(cRenderJob::still, config);
 		renderJob->Execute();
-		QImage qimage(static_cast<const uchar *>(image->ConvertTo8bit()), width, height,
+		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), width, height,
 			width * sizeof(sRGB8), QImage::Format_RGB888);
-		pixmap.convertFromImage(qimage);
+		pixmap.convertFromImage(qImage);
 		delete renderJob;
 		pixmap.save(thumbnailFileName, "PNG");
 	}

@@ -7898,7 +7898,7 @@ void TransfSphericalFoldParabIteration(
 }
 
 /**
- * spherical fold CHS Cylinder Half Size. Darkbeams code from M3D
+ * spherical fold CHS Cylinder Half Size. Darkbeam s code from M3D
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
