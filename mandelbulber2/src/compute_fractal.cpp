@@ -205,7 +205,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mengerSponge:
 				{
-					MengerSpongeIteration(z, fractal, extendedAux);
+					MengerSpongeIteration(z, extendedAux);
 					break;
 				}
 				case kaleidoscopicIFS:
@@ -390,7 +390,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case collatz:
 				{
-					CollatzIteration(z, fractal, extendedAux);
+					CollatzIteration(z, extendedAux);
 					break;
 				}
 				case collatzMod:

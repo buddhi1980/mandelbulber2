@@ -289,7 +289,7 @@ void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
  */
-void MengerSpongeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux)
 {
 	z.x = fabs(z.x);
 	z.y = fabs(z.y);
@@ -2121,7 +2121,7 @@ void BenesiPwr2MandelbulbIteration(
  * @reference https://mathr.co.uk/blog/2016-04-10_collatz_fractal.html
  *            https://en.wikipedia.org/wiki/Collatz_conjecture#Iterating_on_real_or_complex_numbers
  */
-void CollatzIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void CollatzIteration(CVector3 &z, sExtendedAux &aux)
 {
 
 	CVector3 xV(1.0, 1.0, 1.0);
@@ -7849,14 +7849,39 @@ void TransfSphericalFoldVaryV1Iteration(
  */
 void TransfSphericalFoldParabIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	double rr = z.Dot(z);
+
+	double rr;
+	// spherical fold
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& i >= fractal->transformCommon.startIterationsS
+			&& i < fractal->transformCommon.stopIterationsS)
+	{
+		rr = z.Dot(z);
+
+		// if (r2 < 1e-21) r2 = 1e-21;
+		if (rr < fractal->mandelbox.mR2)
+		{
+			z *= fractal->mandelbox.mboxFactor1;
+			aux.DE *= fractal->mandelbox.mboxFactor1;
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
+		else if (rr < fractal->mandelbox.fR2)
+		{
+			double tglad_factor2 = fractal->mandelbox.fR2 / rr;
+			z *= tglad_factor2;
+			aux.DE *= tglad_factor2;
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
+	}
+
+	rr = z.Dot(z);
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	double maxScale = fractal->transformCommon.scale4;
 	double midPoint = (maxScale - 1.0) * 0.5;
 	rr += fractal->transformCommon.offset0;
-	double maxR2 = fractal->transformCommon.maxR2d1;
+	double maxR2 = fractal->transformCommon.scale1;
 	double halfMax = maxR2 * 0.5;
 	double factor = midPoint / (halfMax * halfMax);
 	double m;
