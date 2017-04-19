@@ -674,7 +674,7 @@ Notiz: </translation>
         <translation>Globale C Konstante nicht hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1590"/>
+        <location filename="../src/interface.cpp" line="1588"/>
         <source>Can&apos;t open file </source>
         <translation>Kann Datei nicht öffnen </translation>
     </message>
@@ -689,7 +689,7 @@ Notiz: </translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="921"/>
-        <location filename="../src/interface.cpp" line="995"/>
+        <location filename="../src/interface.cpp" line="993"/>
         <source>You cannot apply changes during rendering. You will do this after rendering.</source>
         <translation>Die Änderungen können während der Renderns nicht angewendet werden. Dies geht erst nach dem Rendern.</translation>
     </message>
@@ -698,13 +698,13 @@ Notiz: </translation>
         <translation type="vanished">Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1345"/>
+        <location filename="../src/interface.cpp" line="1343"/>
         <source>Fractal size calculation</source>
         <translation>Fraktalgröße berechnen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1369"/>
-        <location filename="../src/interface.cpp" line="1477"/>
+        <location filename="../src/interface.cpp" line="1367"/>
+        <location filename="../src/interface.cpp" line="1475"/>
         <source>Done</source>
         <translation>Fertig</translation>
     </message>
@@ -713,134 +713,134 @@ Notiz: </translation>
         <translation type="vanished">Setze Position von </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1344"/>
-        <location filename="../src/interface.cpp" line="1369"/>
+        <location filename="../src/interface.cpp" line="1342"/>
+        <location filename="../src/interface.cpp" line="1367"/>
         <source>Resetting view</source>
         <translation>Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1409"/>
-        <location filename="../src/interface.cpp" line="1419"/>
-        <location filename="../src/interface.cpp" line="1429"/>
-        <location filename="../src/interface.cpp" line="1439"/>
-        <location filename="../src/interface.cpp" line="1449"/>
-        <location filename="../src/interface.cpp" line="1459"/>
-        <location filename="../src/interface.cpp" line="1477"/>
+        <location filename="../src/interface.cpp" line="1407"/>
+        <location filename="../src/interface.cpp" line="1417"/>
+        <location filename="../src/interface.cpp" line="1427"/>
+        <location filename="../src/interface.cpp" line="1437"/>
+        <location filename="../src/interface.cpp" line="1447"/>
+        <location filename="../src/interface.cpp" line="1457"/>
+        <location filename="../src/interface.cpp" line="1475"/>
         <source>bounding box as limit</source>
         <translation>Fraktalhülle als Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1409"/>
+        <location filename="../src/interface.cpp" line="1407"/>
         <source>Negative X Limit</source>
         <translation>Negative X Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1419"/>
+        <location filename="../src/interface.cpp" line="1417"/>
         <source>Negative Y Limit</source>
         <translation>Negative Y Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1429"/>
+        <location filename="../src/interface.cpp" line="1427"/>
         <source>Negative Z Limit</source>
         <translation>Negative Z Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1439"/>
+        <location filename="../src/interface.cpp" line="1437"/>
         <source>Positive X Limit</source>
         <translation>Positive X Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1449"/>
+        <location filename="../src/interface.cpp" line="1447"/>
         <source>Positive Y Limit</source>
         <translation>Positive Y Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1459"/>
+        <location filename="../src/interface.cpp" line="1457"/>
         <source>Positive Z Limit</source>
         <translation>Positive Z Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1528"/>
+        <location filename="../src/interface.cpp" line="1526"/>
         <source>Set position of %1 # %2 by mouse pointer</source>
         <translation>Setze Position von %1 # %2 per Mausklick</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1534"/>
+        <location filename="../src/interface.cpp" line="1532"/>
         <source>Delete </source>
         <translation>Lösche </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1591"/>
+        <location filename="../src/interface.cpp" line="1589"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation>Primitive Objekte UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1673"/>
+        <location filename="../src/interface.cpp" line="1671"/>
         <source>No action</source>
         <translation>Keine Aktion</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1677"/>
+        <location filename="../src/interface.cpp" line="1675"/>
         <source>Move the camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1681"/>
+        <location filename="../src/interface.cpp" line="1679"/>
         <source>Set fog visibility</source>
         <translation>Nebelsichtbarkeit setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1685"/>
+        <location filename="../src/interface.cpp" line="1683"/>
         <source>Set DOF focus</source>
         <translation>Tiefenschärfefokus setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1689"/>
+        <location filename="../src/interface.cpp" line="1687"/>
         <source>Get Julia constant</source>
         <translation>Julia Konstante holen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1694"/>
+        <location filename="../src/interface.cpp" line="1692"/>
         <source>Place light #1</source>
         <translation>Setze Licht #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1699"/>
+        <location filename="../src/interface.cpp" line="1697"/>
         <source>Place light #2</source>
         <translation>Setze Licht #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1704"/>
+        <location filename="../src/interface.cpp" line="1702"/>
         <source>Place light #3</source>
         <translation>Setze Licht #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1709"/>
+        <location filename="../src/interface.cpp" line="1707"/>
         <source>Place light #4</source>
         <translation>Setze Licht #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1713"/>
+        <location filename="../src/interface.cpp" line="1711"/>
         <source>Place random light center</source>
         <translation>Setze Zufallslichter</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1717"/>
+        <location filename="../src/interface.cpp" line="1715"/>
         <source>Get point coordinates</source>
         <translation>Hole Punktkoordinaten</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1726"/>
+        <location filename="../src/interface.cpp" line="1724"/>
         <source>Place </source>
         <translation>Setze </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1763"/>
+        <location filename="../src/interface.cpp" line="1761"/>
         <source>Yes, don&apos;t ask again</source>
         <translation>Ja, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1854"/>
+        <location filename="../src/interface.cpp" line="1852"/>
         <source>In Mandelbulber 2.10 the default data structure changed for linux and MacOS:
 Instead of keeping all working folders/files in ~/.mandelbulber these are now split into&lt;ul&gt;&lt;li&gt;&lt;b&gt;.mandelbulber&lt;/b&gt; for program internal folders/files:&lt;br&gt;undo, toolbar, queue, thumbnails, mandelbulber.ini, miscellaneous meta files&lt;/li&gt;&lt;li&gt;&lt;b&gt;mandelbulber&lt;/b&gt; for user defined folders/files:&lt;br&gt;settings, images, materials, slices, animation, textures&lt;/li&gt;&lt;/ul&gt;
 Do you want to upgrade now to this new structure? Program will restart after upgrade.</source>
@@ -849,28 +849,28 @@ Anstatt alle Arbeitsordner und -Dateien in ~/.mandelbulber zu halten, werden die
 Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet sich nach dem Upgrade neu.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1864"/>
+        <location filename="../src/interface.cpp" line="1862"/>
         <source>Data folder upgrade</source>
         <translation>Datenstruktur Upgrade</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1869"/>
+        <location filename="../src/interface.cpp" line="1867"/>
         <source>No, don&apos;t ask again</source>
         <translation>Nein, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1957"/>
-        <location filename="../src/interface.cpp" line="2002"/>
+        <location filename="../src/interface.cpp" line="1955"/>
+        <location filename="../src/interface.cpp" line="2000"/>
         <source>Looking for optimal DE factor</source>
         <translation>Suche nach optimalem DE Faktor</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2003"/>
+        <location filename="../src/interface.cpp" line="2001"/>
         <source>Percentage of wrong distance estimations: %1</source>
         <translation>Prozentsatz falscher Distanzermittlungen: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2013"/>
+        <location filename="../src/interface.cpp" line="2011"/>
         <source>Optimal DE factor is: %1 which gives %2% of bad distance estimations</source>
         <translation>Optimaler DE Faktor ist: %1, welcher %2% an falschen Distanzermittlungen liefert</translation>
     </message>
@@ -880,22 +880,22 @@ Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet si
         <translation>Toolbar Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1756"/>
+        <location filename="../src/interface.cpp" line="1754"/>
         <source>Are you sure to close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1758"/>
+        <location filename="../src/interface.cpp" line="1756"/>
         <source>Quit?</source>
         <translation>Beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1819"/>
+        <location filename="../src/interface.cpp" line="1817"/>
         <source>Auto recovery</source>
         <translation>Auto Recovery</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1820"/>
+        <location filename="../src/interface.cpp" line="1818"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
         <translation>Das Programm wurde beim letzten Mal nicht richtig geschlossen.
@@ -926,20 +926,20 @@ Den letzten Stand wiederherstellen?</translation>
     </message>
     <message>
         <location filename="../src/render_image.cpp" line="182"/>
-        <location filename="../src/render_job.cpp" line="335"/>
+        <location filename="../src/render_job.cpp" line="337"/>
         <source>Rendering image</source>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2012"/>
-        <location filename="../src/render_image.cpp" line="433"/>
+        <location filename="../src/interface.cpp" line="2010"/>
+        <location filename="../src/render_image.cpp" line="431"/>
         <location filename="../src/render_ssao.cpp" line="202"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
         <location filename="../src/render_job.cpp" line="144"/>
-        <location filename="../src/render_job.cpp" line="247"/>
+        <location filename="../src/render_job.cpp" line="249"/>
         <source>Initialization</source>
         <translation>Initialisierung</translation>
     </message>
@@ -949,12 +949,12 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Bildpuffer einrichten</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="247"/>
+        <location filename="../src/render_job.cpp" line="249"/>
         <source>Loading textures</source>
         <translation>Lade Texturen</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="335"/>
+        <location filename="../src/render_job.cpp" line="337"/>
         <source>Starting rendering of image</source>
         <translation>Starte Rendern des Bildes</translation>
     </message>
@@ -1000,7 +1000,7 @@ Fortsetzen?</translation>
         <location filename="../src/animation_flight.cpp" line="249"/>
         <location filename="../src/animation_flight.cpp" line="705"/>
         <location filename="../src/animation_keyframes.cpp" line="513"/>
-        <location filename="../src/interface.cpp" line="1905"/>
+        <location filename="../src/interface.cpp" line="1903"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
         <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können</translation>
     </message>
@@ -1312,22 +1312,22 @@ Fortfahren?</translation>
 Jetzt löschen?</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="403"/>
+        <location filename="../src/command_line_interface.cpp" line="406"/>
         <source>Some useful example commands:</source>
         <translation>Einige hilfreiche Beispielbefehle:</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="406"/>
+        <location filename="../src/command_line_interface.cpp" line="409"/>
         <source>Simple render</source>
         <translation>Einfaches Rendern</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="409"/>
+        <location filename="../src/command_line_interface.cpp" line="412"/>
         <source>Renders the file on the cli (no window required).</source>
         <translation>Rendert die Datei in der Befehlszeile (Kein Fenster notwendig).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="411"/>
+        <location filename="../src/command_line_interface.cpp" line="414"/>
         <source>Animation render</source>
         <translation>Animation Rendern</translation>
     </message>
@@ -1336,7 +1336,7 @@ Jetzt löschen?</translation>
         <translation type="vanished">Rendert die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="420"/>
+        <location filename="../src/command_line_interface.cpp" line="423"/>
         <source>Network render</source>
         <translation>Netzwerk Rendern</translation>
     </message>
@@ -1351,7 +1351,7 @@ Auf dem Server führe (2) aus mit den Einstellungen für das Rendering und zusä
 Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden haben. Dann startet der Verbund gemeinsam das Rendern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="435"/>
+        <location filename="../src/command_line_interface.cpp" line="438"/>
         <source>Voxel volume render</source>
         <translation>Voxelvolumen Rendern</translation>
     </message>
@@ -1362,7 +1362,7 @@ Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden hab
 Dies produziert 10 Scheiben (z) mit einer Auflösung von 10(x) mal 10(y) und speichert sie als schwarz-weiß Bilder in den slices Ordner.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="448"/>
+        <location filename="../src/command_line_interface.cpp" line="451"/>
         <source>Queue render</source>
         <translation>Queue Rendern</translation>
     </message>
@@ -1377,12 +1377,12 @@ Der Output wird in /tmp/queue.log geschrieben.
 (Dies funktioniert unter Umständen nur auf einem Unix System)</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="415"/>
+        <location filename="../src/command_line_interface.cpp" line="418"/>
         <source>Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.</source>
         <translation>Rendert die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="426"/>
+        <location filename="../src/command_line_interface.cpp" line="429"/>
         <source>In a network you can render on multiple machines. One is a server (2) and multiple clients (1) can connect to help rendering.
 On each client run (1), 192.168.100.1 should be substituted with the IP address of the server.
 On the server run (2) with the settings required for the render and additionally &apos;--server&apos;.
@@ -1393,7 +1393,7 @@ Auf dem Server führe (2) aus mit den Einstellungen für das Rendering und zusä
 Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden haben. Dann startet der Verbund gemeinsam das Rendern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="442"/>
+        <location filename="../src/command_line_interface.cpp" line="445"/>
         <source>Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] with a resolution of 10x10x10.
 This will produce 10 slices (z) with a resolution of 10(x) times 10(y) and save as black and white images to working folder/slices.</source>
         <translation>Rendert das Voxel Volumen in dem Quader mit den Grenzen [x(-1 - 1); y(-1 - 1); z(-1 - 1)] mit einer Auflösung von 10x10x10.
@@ -1410,7 +1410,7 @@ Der Output wird in /tmp/queue.log geschrieben.
 (Dies funktioniert unter Umständen nur auf einem Unix System)</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="452"/>
+        <location filename="../src/command_line_interface.cpp" line="455"/>
         <source>Runs the mandelbulber instance in queue mode and daemonizes it.
 Mandelbulber runs in background and waits for jobs.
 The output will be written to /tmp/queue.log.
@@ -1435,7 +1435,7 @@ Ordner - Wenn das angegebene Argument ein Ordner ist, so werden alle .fract Date
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="466"/>
+        <location filename="../src/command_line_interface.cpp" line="469"/>
         <source>Mandelbulber also accepts an arbitrary number of input files
 These files can be of type:
   .fract File - An ordinary fractal file
@@ -1452,7 +1452,7 @@ Sie könne auch &quot;-&quot; angeben um zu signalisieren, dass der Dateiname, o
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="496"/>
+        <location filename="../src/command_line_interface.cpp" line="499"/>
         <source>
 List of fractal parameters:
 </source>
@@ -1461,106 +1461,111 @@ Liste der Fraktalparameter:
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="544"/>
+        <location filename="../src/command_line_interface.cpp" line="549"/>
+        <source>Starting benchmark with difficulty %1</source>
+        <translation>Starte Benchmark mit der Schwierigkeit %1</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="567"/>
         <source>Specified server port is invalid
 </source>
         <translation>Der angegebene Serverport ist ungültig
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="557"/>
+        <location filename="../src/command_line_interface.cpp" line="580"/>
         <source>NetRender - Waiting for clients
 </source>
         <translation>NetRender - Warte auf Clients
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="577"/>
+        <location filename="../src/command_line_interface.cpp" line="600"/>
         <source>Specified client port is invalid
 </source>
         <translation>Der angegebene Clientport ist ungültig
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="601"/>
-        <location filename="../src/command_line_interface.cpp" line="665"/>
+        <location filename="../src/command_line_interface.cpp" line="624"/>
+        <location filename="../src/command_line_interface.cpp" line="688"/>
         <location filename="../src/main.cpp" line="182"/>
         <source>Cannot init queue: </source>
         <translation>Kann Queue nicht initialisieren: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="646"/>
+        <location filename="../src/command_line_interface.cpp" line="669"/>
         <source>Cannot load file!
 </source>
         <translation>Kann Datei nicht laden!
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="734"/>
+        <location filename="../src/command_line_interface.cpp" line="757"/>
         <source>Specified resolution not valid
 both dimensions need to be &gt; 0</source>
         <translation>Die angegebene Auflösung ist ungültig
 beide Dimensionen müssen&gt; 0 sein</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="744"/>
+        <location filename="../src/command_line_interface.cpp" line="767"/>
         <source>Specified resolution not valid
 resolution has to be in the form WIDTHxHEIGHT</source>
         <translation>Die angegebene Auflösung ist ungültig
 Dimensionen müssen in der Form BREITExHOEHE angegeben werden</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="757"/>
+        <location filename="../src/command_line_interface.cpp" line="780"/>
         <source>Specified frames per key not valid
 need to be &gt; 0</source>
         <translation>Die angegebenen Auflösung ist ungültig
 beide Dimensionen müssen&gt; 0 sein</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="770"/>
+        <location filename="../src/command_line_interface.cpp" line="793"/>
         <source>Specified imageFileFormat is not valid
 allowed formats are: </source>
         <translation>Das angegebene Bilddateiformat ist ungültig
 Erlaubte Formate sind: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="789"/>
+        <location filename="../src/command_line_interface.cpp" line="812"/>
         <source>There are no flight animation frames in specified settings file</source>
         <translation>Es sind keine Fluganimationsframes in der angegebenen Einstellungsdatei</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="800"/>
+        <location filename="../src/command_line_interface.cpp" line="823"/>
         <source>You cannot render keyframe animation at the same time as flight animation</source>
         <translation>Sie können die Keyframe-Animation nicht gleichzeitig mit der Flug-Animation rendern</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="813"/>
+        <location filename="../src/command_line_interface.cpp" line="836"/>
         <source>There are no keyframes in specified settings file</source>
         <translation>Es sind keine Keyframes in der angegebenen Einstellungsdatei</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="833"/>
-        <location filename="../src/command_line_interface.cpp" line="851"/>
-        <location filename="../src/command_line_interface.cpp" line="882"/>
-        <location filename="../src/command_line_interface.cpp" line="911"/>
+        <location filename="../src/command_line_interface.cpp" line="856"/>
+        <location filename="../src/command_line_interface.cpp" line="874"/>
+        <location filename="../src/command_line_interface.cpp" line="905"/>
+        <location filename="../src/command_line_interface.cpp" line="934"/>
         <source>Animation has only %1 frames</source>
         <translation>Die Animation hat nur %1 Frames</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="873"/>
-        <location filename="../src/command_line_interface.cpp" line="903"/>
+        <location filename="../src/command_line_interface.cpp" line="896"/>
+        <location filename="../src/command_line_interface.cpp" line="926"/>
         <source>End frame has to be greater than start frame which is %1</source>
         <translation>Der Endframe muss größer als der Startframe sein, Startframe ist %1</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="924"/>
+        <location filename="../src/command_line_interface.cpp" line="947"/>
         <source>Specified voxel format is not valid
 allowed formats are: </source>
         <translation>Das angegebene Voxelformat ist ungültig
 Erlaubte Formate sind: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="332"/>
+        <location filename="../src/command_line_interface.cpp" line="335"/>
         <source>You have to specify a settings file, for this configuration!</source>
         <translation>Du musst eine Einstellungsdatei für diese Konfiguration angeben!</translation>
     </message>
@@ -1615,7 +1620,7 @@ Erlaubte Formate sind: </translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.cpp" line="113"/>
-        <location filename="../src/command_line_interface.cpp" line="936"/>
+        <location filename="../src/command_line_interface.cpp" line="959"/>
         <source>Cannot start voxel export. Specified folder (%1) does not exist.</source>
         <translation>Voxel Export kann nicht gestartet werden. Der angegebene Ordner (%1) existiert nicht.</translation>
     </message>
@@ -7810,7 +7815,7 @@ Keine &apos;Bild updaten&apos; Option)</translation>
     <name>cDockFractal</name>
     <message>
         <location filename="../qt/dock_fractal.ui" line="14"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1672"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1702"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
@@ -7820,98 +7825,102 @@ Keine &apos;Bild updaten&apos; Option)</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="45"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1687"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1717"/>
         <source>Fractals</source>
         <translation>Fraktale</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="66"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1673"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1703"/>
         <source>Remark: Julia mode is enabled</source>
         <translation>Anmerkung: Julia Modus ist aktiviert</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="76"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1675"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1705"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for fractal formula. Fractal formula defines shape of fractal.&lt;/p&gt;&lt;p&gt;Algorithm (code) for selected formula is visible in Information box.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Auswahl für die fraktale Formel. Diese definiert die Form des Fraktals.&lt;/p&gt;&lt;p&gt;Der Algorithmus (Code) für die ausgewählte Formel kann in der &apos;Information&apos; Box eingesehen werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="83"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1678"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1708"/>
         <source>Formula #1</source>
         <translation>Formel #1</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="137"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1677"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1707"/>
         <source>Remark: to unlock more fractal tabs, enable &quot;hybrid fractals&quot; or &quot;boolean operators&quot;</source>
         <translation>Anmerkung: um mehr Fraktal Tabs zu entsperren, aktivieren Sie &apos;Hybrid-Fraktale&apos; oder &apos;Boolesche Operatoren&apos;</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="152"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1679"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1709"/>
         <source>Formula #2</source>
         <translation>Formel #2</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="211"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1680"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1710"/>
         <source>Formula #3</source>
         <translation>Formel #3</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="270"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1681"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1711"/>
         <source>Formula #4</source>
         <translation>Formel #4</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="329"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1682"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1712"/>
         <source>Formula #5</source>
         <translation>Formel #5</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="388"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1683"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1713"/>
         <source>Formula #6</source>
         <translation>Formel #6</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="447"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1684"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1714"/>
         <source>Formula #7</source>
         <translation>Formel #7</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="506"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1685"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1715"/>
         <source>Formula #8</source>
         <translation>Formel #8</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="565"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1686"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1716"/>
         <source>Formula #9</source>
         <translation>Formel #9</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="628"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1746"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1776"/>
         <source>Global parameters</source>
         <translation>Globale Parameter</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="679"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1689"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1719"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of fractal in the same way as Julia Set.&lt;/p&gt;&lt;p&gt;When it&apos;s enabled then:&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;0&lt;/span&gt; = p&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = f(z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;) + c&lt;/p&gt;&lt;p&gt;where:&lt;br/&gt;p - coordinates of point&lt;br/&gt;c - Julia constant&lt;/p&gt;&lt;p&gt;to compare, regular fractals are calculated in following way:&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;0&lt;/span&gt; = p&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = f(z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;) + p&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert die Berechnung des Fraktals in der gleichen Weise, wie ein Julia Set berechnet wird.&lt;/p&gt;&lt;p&gt;Wenn aktiviert, so ist:&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;0&lt;/span&gt; = p&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = f(z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;) + c&lt;/p&gt;&lt;p&gt;wobei:&lt;br/&gt;p - Koordinate des Punktes&lt;br/&gt;c - Julia Konstante&lt;/p&gt;&lt;p&gt;zum Vergleich, reguläre Fraktale werden auf folgende Art berechnet:&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;0&lt;/span&gt; = p&lt;br/&gt;z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = f(z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;) + p&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="682"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1691"/>
         <source>J&amp;ulia mode</source>
+        <translation type="vanished">Julia Modus</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_fractal.ui" line="682"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1721"/>
+        <source>Julia &amp;mode</source>
         <translation>Julia Modus</translation>
     </message>
     <message>
@@ -7919,18 +7928,18 @@ Keine &apos;Bild updaten&apos; Option)</translation>
         <location filename="../qt/dock_fractal.ui" line="1120"/>
         <location filename="../qt/dock_fractal.ui" line="1288"/>
         <location filename="../qt/dock_fractal.ui" line="1475"/>
-        <location filename="../qt/dock_fractal.ui" line="2617"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1692"/>
+        <location filename="../qt/dock_fractal.ui" line="2676"/>
         <location filename="../qt/ui_dock_fractal.h" line="1722"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1733"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1743"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1855"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1752"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1763"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1773"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1890"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="727"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1693"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1723"/>
         <source>Julia constant (c):</source>
         <translation>Julia Konstante (c):</translation>
     </message>
@@ -7939,12 +7948,12 @@ Keine &apos;Bild updaten&apos; Option)</translation>
         <location filename="../qt/dock_fractal.ui" line="1136"/>
         <location filename="../qt/dock_fractal.ui" line="1222"/>
         <location filename="../qt/dock_fractal.ui" line="1485"/>
-        <location filename="../qt/dock_fractal.ui" line="2558"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1694"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1723"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1729"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1744"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1852"/>
+        <location filename="../qt/dock_fractal.ui" line="2617"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1724"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1753"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1759"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1774"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1887"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
@@ -7953,30 +7962,30 @@ Keine &apos;Bild updaten&apos; Option)</translation>
         <location filename="../qt/dock_fractal.ui" line="1104"/>
         <location filename="../qt/dock_fractal.ui" line="1238"/>
         <location filename="../qt/dock_fractal.ui" line="1465"/>
-        <location filename="../qt/dock_fractal.ui" line="2574"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1695"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1721"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1730"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1742"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1853"/>
+        <location filename="../qt/dock_fractal.ui" line="2633"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1725"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1751"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1760"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1772"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1888"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="804"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1697"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1727"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Julia constant can be grabbed from image.&lt;/p&gt;&lt;p&gt;When Julia mode is disabled, select part of fractal which has interesting features. After enabling Julia mode, entire fractal will have shapes similar to previously selected place.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Julia Konstante kann von Bild genommen werden.&lt;/p&gt;&lt;p&gt;Wenn Julia-Modus deaktiviert ist, so kann man einen Teil des Fraktals auswählen, der interessante Eigenschaften hat. Nach der Aktivierung des Julia-Modus wird das ganze Fraktal ähnliche Formen ausbilden, wie zuvor am ausgewählten Ort.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="807"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1699"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1729"/>
         <source>Get Julia constant by mouse pointer</source>
         <translation>Hole Julia Konstante von Maus Zeiger</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="847"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1700"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1730"/>
         <source>Julia mode
 preview distance:</source>
         <translation>Julia Modus
@@ -7984,13 +7993,13 @@ Vorschau Distanz:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="879"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1702"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1732"/>
         <source>Material for fractal</source>
         <translation>Material für Fraktal</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="924"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1703"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1733"/>
         <source>Initial w-axis value
 for 4D fractals</source>
         <translation>Initialer w-Achsen Wert
@@ -8001,64 +8010,64 @@ für 4D Fraktale</translation>
         <location filename="../qt/dock_fractal.ui" line="1013"/>
         <location filename="../qt/dock_fractal.ui" line="1044"/>
         <location filename="../qt/dock_fractal.ui" line="1174"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1706"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1711"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1716"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1725"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1736"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1741"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1746"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1755"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiplies fractal c constant by this value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multipliziert die fraktale c Konstante mit diesem Wert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1091"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1720"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1750"/>
         <source>Constant multiplier:</source>
         <translation>Konstanter Multiplikator:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1258"/>
-        <location filename="../qt/dock_fractal.ui" line="2604"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1731"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1854"/>
+        <location filename="../qt/dock_fractal.ui" line="2663"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1761"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1889"/>
         <source>X-axis rotation:</source>
         <translation>X-Achsen Rotation:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1275"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1732"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1762"/>
         <source>Fractal position:</source>
         <translation>Position des Fraktals:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1421"/>
-        <location filename="../qt/dock_fractal.ui" line="2709"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1740"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1860"/>
+        <location filename="../qt/dock_fractal.ui" line="2768"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1770"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1895"/>
         <source>Z-axis rotation:</source>
         <translation>Z-Achsen Rotation:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1428"/>
-        <location filename="../qt/dock_fractal.ui" line="2532"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1741"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1851"/>
+        <location filename="../qt/dock_fractal.ui" line="2591"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1771"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1886"/>
         <source>Y-axis rotation:</source>
         <translation>Y-Achsen Rotation:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1495"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1745"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1775"/>
         <source>Repeat</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1522"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1839"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1874"/>
         <source>Hybrid</source>
         <translation>Hybrid</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1548"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1747"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1777"/>
         <source>Repeat sequence
 from fractal #:</source>
         <translation>Wiederhole Sequenz
@@ -8066,234 +8075,244 @@ von Fraktal #:</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1562"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1750"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1780"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sequence of fractals is repeated from fractal tab (slot) defined by this parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Sequenz der Fraktale wird vom Fraktal-Tab wiederholt (Slot), der durch diesen Parameter festgelegt wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1590"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1753"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1783"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls from which fractal component will be repeated hybrid formula sequence&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Steuert von welcher fraktalen Komponente die Hybrid-Formel-Sequenz wiederholt wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1609"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1756"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1786"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables hybrid fractals.&lt;/p&gt;&lt;p&gt;Hybrid fractals are calculated by multiplexing between different fractal formulas. In 9 fractal tabs (slots) you can define a set of fractal formulas each with their own parameters.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert hybride Fraktale.&lt;/p&gt;&lt;p&gt;Hybride Fraktale werden durch Multiplexen zwischen verschiedenen fraktalen Formeln berechnet. In 9 Fraktal-Tabs (Slots) kann eine Gruppe von fraktalen Formeln mit eigenen Parametern definiert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_fractal.ui" line="1612"/>
         <location filename="../qt/dock_fractal.cpp" line="409"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1758"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1788"/>
         <source>Enable hybrid fractals</source>
         <translation>Hybrid Fraktale aktivieren</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1624"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1760"/>
+        <location filename="../qt/dock_fractal.ui" line="1619"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1789"/>
+        <source>Linear DE offset
+(fine tuning of IFS
+distance estimation)</source>
+        <translation>Linearer DE Offset
+(Feintuning der IFS
+Distanzermittlung)</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_fractal.ui" line="1683"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1795"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Boolean operators between fractal shapes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Boolsche Operatoren zwischen den Fraktalen Formen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1627"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1762"/>
+        <location filename="../qt/dock_fractal.ui" line="1686"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1797"/>
         <source>Boo&amp;lean operators</source>
         <translation>Boolsche Operatoren</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1666"/>
-        <location filename="../qt/dock_fractal.ui" line="1698"/>
-        <location filename="../qt/dock_fractal.ui" line="1723"/>
-        <location filename="../qt/dock_fractal.ui" line="1797"/>
-        <location filename="../qt/dock_fractal.ui" line="1822"/>
-        <location filename="../qt/dock_fractal.ui" line="1847"/>
-        <location filename="../qt/dock_fractal.ui" line="1872"/>
-        <location filename="../qt/dock_fractal.ui" line="1897"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1765"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1772"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1778"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1791"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1797"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1803"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1809"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1815"/>
+        <location filename="../qt/dock_fractal.ui" line="1725"/>
+        <location filename="../qt/dock_fractal.ui" line="1757"/>
+        <location filename="../qt/dock_fractal.ui" line="1782"/>
+        <location filename="../qt/dock_fractal.ui" line="1856"/>
+        <location filename="../qt/dock_fractal.ui" line="1881"/>
+        <location filename="../qt/dock_fractal.ui" line="1906"/>
+        <location filename="../qt/dock_fractal.ui" line="1931"/>
+        <location filename="../qt/dock_fractal.ui" line="1956"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1800"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1807"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1813"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1826"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1832"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1838"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1844"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1850"/>
         <source>Intersection (AND)</source>
         <translation>Schnittmenge (AND)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1671"/>
-        <location filename="../qt/dock_fractal.ui" line="1703"/>
-        <location filename="../qt/dock_fractal.ui" line="1728"/>
-        <location filename="../qt/dock_fractal.ui" line="1802"/>
-        <location filename="../qt/dock_fractal.ui" line="1827"/>
-        <location filename="../qt/dock_fractal.ui" line="1852"/>
-        <location filename="../qt/dock_fractal.ui" line="1877"/>
-        <location filename="../qt/dock_fractal.ui" line="1902"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1766"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1773"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1779"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1792"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1798"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1804"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1810"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1816"/>
+        <location filename="../qt/dock_fractal.ui" line="1730"/>
+        <location filename="../qt/dock_fractal.ui" line="1762"/>
+        <location filename="../qt/dock_fractal.ui" line="1787"/>
+        <location filename="../qt/dock_fractal.ui" line="1861"/>
+        <location filename="../qt/dock_fractal.ui" line="1886"/>
+        <location filename="../qt/dock_fractal.ui" line="1911"/>
+        <location filename="../qt/dock_fractal.ui" line="1936"/>
+        <location filename="../qt/dock_fractal.ui" line="1961"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1801"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1808"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1814"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1827"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1833"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1839"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1845"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1851"/>
         <source>Union (OR)</source>
         <translation>Vereinigung (OR)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1676"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1767"/>
+        <location filename="../qt/dock_fractal.ui" line="1735"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1802"/>
         <source>Complement (1st minus 2nd)</source>
         <translation>Komplement (1. minus 2.)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1684"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1769"/>
+        <location filename="../qt/dock_fractal.ui" line="1743"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1804"/>
         <source>1st &lt;-&gt; 2nd formula:</source>
         <translation>1. &lt;-&gt; 2. Formel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1708"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1774"/>
+        <location filename="../qt/dock_fractal.ui" line="1767"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1809"/>
         <source>Complement (2nd minus 3rd)</source>
         <translation>Komplement (2. minus 3.)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1733"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1780"/>
+        <location filename="../qt/dock_fractal.ui" line="1792"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1815"/>
         <source>Complement (3rd minus 4th)</source>
         <translation>Komplement (3. minus 4.)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1741"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1782"/>
+        <location filename="../qt/dock_fractal.ui" line="1800"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1817"/>
         <source>2st &lt;-&gt; 3rd formula:</source>
         <translation>2. &lt;-&gt; 3. Formel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1748"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1783"/>
+        <location filename="../qt/dock_fractal.ui" line="1807"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1818"/>
         <source>3rd &lt;-&gt; 4th formula:</source>
         <translation>3. &lt;-&gt; 4. Formel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1755"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1784"/>
+        <location filename="../qt/dock_fractal.ui" line="1814"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1819"/>
         <source>5rd &lt;-&gt; 6th formula:</source>
         <translation>5. &lt;-&gt; 6. Formel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1762"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1785"/>
+        <location filename="../qt/dock_fractal.ui" line="1821"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1820"/>
         <source>6rd &lt;-&gt; 7th formula:</source>
         <translation>6. &lt;-&gt; 7. Formel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1769"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1786"/>
+        <location filename="../qt/dock_fractal.ui" line="1828"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1821"/>
         <source>7rd &lt;-&gt; 8th formula:</source>
         <translation>7. &lt;-&gt; 8. Formel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1776"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1787"/>
+        <location filename="../qt/dock_fractal.ui" line="1835"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1822"/>
         <source>4rd &lt;-&gt; 5th formula:</source>
         <translation>8. &lt;-&gt; 9. Formel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1783"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1788"/>
+        <location filename="../qt/dock_fractal.ui" line="1842"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1823"/>
         <source>8rd &lt;-&gt; 9th formula:</source>
         <translation>8. &lt;-&gt; 9. Formel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1807"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1793"/>
+        <location filename="../qt/dock_fractal.ui" line="1866"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1828"/>
         <source>Complement (4th minus 5th)</source>
         <translation>Komplement (4. minus 3.)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1832"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1799"/>
+        <location filename="../qt/dock_fractal.ui" line="1891"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1834"/>
         <source>Complement (5th minus 6th)</source>
         <translation>Komplement (5. minus 6.)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1857"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1805"/>
+        <location filename="../qt/dock_fractal.ui" line="1916"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1840"/>
         <source>Complement (6th minus 7th)</source>
         <translation>Komplement (6. minus 7.)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1882"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1811"/>
+        <location filename="../qt/dock_fractal.ui" line="1941"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1846"/>
         <source>Complement (7th minus 8th)</source>
         <translation>Komplement (7. minus 8.)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1907"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1817"/>
+        <location filename="../qt/dock_fractal.ui" line="1966"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1852"/>
         <source>Complement (8th minus 9th)</source>
         <translation>Komplement (8. minus 9.)</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1923"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1820"/>
+        <location filename="../qt/dock_fractal.ui" line="1982"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1855"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables box folding like is used in Mandelbox formula.&lt;/p&gt;&lt;p&gt;(It&apos;s to keep compatibility with Mandelbulber 1.21)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ermöglicht die Box Faltung, wie sie in der Mandelbox Formel verwendet wird.&lt;/p&gt;&lt;p&gt;(Notwendig für die Kompatibilität mit Mandelbulber 1.21)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1926"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1822"/>
+        <location filename="../qt/dock_fractal.ui" line="1985"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1857"/>
         <source>Bo&amp;x Folding</source>
         <translation>Box Faltung</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="1958"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1823"/>
+        <location filename="../qt/dock_fractal.ui" line="2017"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1858"/>
         <source>Folding limit:</source>
         <translation>Faltungsgrenze:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2009"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1826"/>
+        <location filename="../qt/dock_fractal.ui" line="2068"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1861"/>
         <source>Folding value:</source>
         <translation>Faltungswert:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2068"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1830"/>
+        <location filename="../qt/dock_fractal.ui" line="2127"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1865"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables spherical folding like is used in Mandelbox formula.&lt;/p&gt;&lt;p&gt;(It&apos;s to keep compatibility with Mandelbulber 1.21)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ermöglicht die spherische Faltung, wie sie in der Mandelbox Formel verwendet wird.&lt;/p&gt;&lt;p&gt;(Notwendig für die Kompatibilität mit Mandelbulber 1.21)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2071"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1832"/>
+        <location filename="../qt/dock_fractal.ui" line="2130"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1867"/>
         <source>Spherical Folding</source>
         <translation>Sphärische Faltung</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2103"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1833"/>
+        <location filename="../qt/dock_fractal.ui" line="2162"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1868"/>
         <source>Other radius:</source>
         <translation>Anderer Radius:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2154"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1836"/>
+        <location filename="../qt/dock_fractal.ui" line="2213"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1871"/>
         <source>Inner radius:</source>
         <translation>Innenradius:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2224"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1865"/>
+        <location filename="../qt/dock_fractal.ui" line="2283"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1900"/>
         <source>Primitives</source>
         <translation>Primitive</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2716"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1861"/>
+        <location filename="../qt/dock_fractal.ui" line="2775"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1896"/>
         <source>all primitives
 position
 (except plane
@@ -8304,20 +8323,20 @@ Positionen
 und Wasser):</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2753"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1870"/>
+        <location filename="../qt/dock_fractal.ui" line="2812"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1905"/>
         <source>Description</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2785"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1867"/>
+        <location filename="../qt/dock_fractal.ui" line="2844"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1902"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;An explanation of the setting&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;Eine Beschreibung der Einstellung.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_fractal.ui" line="2788"/>
-        <location filename="../qt/ui_dock_fractal.h" line="1869"/>
+        <location filename="../qt/dock_fractal.ui" line="2847"/>
+        <location filename="../qt/ui_dock_fractal.h" line="1904"/>
         <source>An explanation of the setting</source>
         <translation>Eine Beschreibung der Einstellung</translation>
     </message>
@@ -11504,25 +11523,25 @@ Objektgröße)</translation>
     <name>cPreferencesDialog</name>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="83"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="857"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="863"/>
         <source>Default file paths</source>
         <translation>Standard Dateipfade</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="123"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="859"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="865"/>
         <source>Settings:</source>
         <translation>Einstellungen:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="141"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="861"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="867"/>
         <source>Images:</source>
         <translation>Bilder:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="151"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="862"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="868"/>
         <source>Textures:</source>
         <translation>Texturen:</translation>
     </message>
@@ -11532,13 +11551,13 @@ Objektgröße)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="203"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="865"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="871"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="210"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="867"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="873"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprache der Programmtexte.&lt;/p&gt;&lt;p&gt;Sie müssen die Anwendung neu starten, um die Änderungen zu übernehmen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -11548,7 +11567,7 @@ Objektgröße)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="515"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="899"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="905"/>
         <source>Image Settings</source>
         <translation>Bildeinstellungen</translation>
     </message>
@@ -11561,25 +11580,25 @@ und das Speichern der Animationsframes.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="270"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="878"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="884"/>
         <source>Toolbar icon size (pixels)</source>
         <translation>Toolbar Icongröße (Pixel)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="476"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="946"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="954"/>
         <source>Image</source>
         <translation>Bild</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="512"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="896"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="902"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert wird ignoriert, da JPG nur 8-Bit-Genauigkeit unterstützt.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit oder 16-Bit einnehmen (32-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG und TIFF)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit, 16-Bit, oder 32 bit einnehmen.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG und TIFF)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 16-Bit oder 32-Bit einnehmen (8-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Der Postfix wird ignoriert, da alle Bildkanäle in einer Datei gespeichert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="536"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="900"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="906"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
  and saving animation frames.</source>
         <translation>Diese Einstellungen beeinflussen 
@@ -11588,7 +11607,7 @@ und das Speichern der Animationsframes.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="639"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="921"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="927"/>
         <source>Z Buffer</source>
         <translation>Z Buffer</translation>
     </message>
@@ -11597,10 +11616,10 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferences_dialog.ui" line="614"/>
         <location filename="../qt/preferences_dialog.ui" line="647"/>
         <location filename="../qt/preferences_dialog.ui" line="688"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="908"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="916"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="924"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="934"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="914"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="922"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="930"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="940"/>
         <source>8 bit</source>
         <translation>8 bit</translation>
     </message>
@@ -11609,10 +11628,10 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferences_dialog.ui" line="619"/>
         <location filename="../qt/preferences_dialog.ui" line="652"/>
         <location filename="../qt/preferences_dialog.ui" line="693"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="909"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="917"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="925"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="935"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="915"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="923"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="931"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="941"/>
         <source>16 bit</source>
         <translation>16 bit</translation>
     </message>
@@ -11621,124 +11640,124 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferences_dialog.ui" line="624"/>
         <location filename="../qt/preferences_dialog.ui" line="657"/>
         <location filename="../qt/preferences_dialog.ui" line="698"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="910"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="918"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="926"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="936"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="916"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="924"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="932"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="942"/>
         <source>32 bit</source>
         <translation>32 bit</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="606"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="913"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="919"/>
         <source>Alpha</source>
         <translation>Alpha</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="556"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="903"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="909"/>
         <source>Quality</source>
         <translation>Qualität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="563"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="904"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="910"/>
         <source>Postfix</source>
         <translation>Postfix</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="549"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="902"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="908"/>
         <source>Image Channel</source>
         <translation>Bildkanal</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="14"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="856"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="862"/>
         <source>Program Preferences</source>
         <translation>Programm Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="253"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="877"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="883"/>
         <source>UI font size (points)</source>
         <translation>UI Schriftgröße (Punkte)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="295"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="879"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="885"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="324"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="880"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="886"/>
         <source>Max. number of CPU cores to use</source>
         <translation>Max. Anzahl zu nutzender CPU Kerne</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="367"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="881"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="887"/>
         <source>Logging verbosity level</source>
         <translation>Logging Level</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="391"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="884"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="890"/>
         <source>Lowest priority</source>
         <translation>Geringste Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="396"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="885"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="891"/>
         <source>Low prioriry</source>
         <translation>Geringe Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="401"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="886"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="892"/>
         <source>Normal priority</source>
         <translation>Normale Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="406"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="887"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="893"/>
         <source>High priority</source>
         <translation>Hohe Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="414"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="889"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="895"/>
         <source>Rendering threads priority</source>
         <translation>Renderthreads Priorität</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="433"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="891"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="897"/>
         <source>Do not show description on settings load</source>
         <translation>Beschreibung beim Laden nicht zeigen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="440"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="892"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="898"/>
         <source>Retrieve default toolbar presets</source>
         <translation>Hole Standard Toolbar Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="447"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="893"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="899"/>
         <source>Retrieve default materials in material folder</source>
         <translation>Hole Standard Materialien in Materialordner</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="570"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="905"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="911"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="672"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="929"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="935"/>
         <source>Following channels are only rendered on demand
 and will only be present after enabling and re-render.</source>
         <translation>Die folgenden Bildkanäle werden nur auf Abruf gerendert
@@ -11746,85 +11765,93 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="680"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="931"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="937"/>
         <source>Surface Normal</source>
         <translation>Oberflächennormale</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="718"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="939"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="945"/>
         <source>Misc Image Settings</source>
         <translation>Diverse Bildeinstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="780"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="941"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="947"/>
         <source>Append alpha to image (only PNG and TIFF)</source>
         <translation>Alpha an das Bild anhängen (nur bei PNG und TIFF)</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="792"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="942"/>
+        <location filename="../qt/preferences_dialog.ui" line="787"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="948"/>
+        <source>Save stereoscopic left and right images in separate files
+(stereoscopic mode has to be &quot;left-right&quot;)</source>
+        <translation>Speichere stereoskopische links und rechts Bilder in separaten Dateien
+(Stereoskoper Modus muss dafür auf &quot;links-rechts&quot; stehen)</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="800"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="950"/>
         <source>Thumbnail options</source>
         <translation>Thumbnail Optionen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="818"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="943"/>
+        <location filename="../qt/preferences_dialog.ui" line="826"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="951"/>
         <source>Clear</source>
         <translation>Leeren</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="829"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="944"/>
+        <location filename="../qt/preferences_dialog.ui" line="837"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="952"/>
         <source>Load</source>
         <translation>Laden</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="840"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="945"/>
+        <location filename="../qt/preferences_dialog.ui" line="848"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="953"/>
         <source>Generate</source>
         <translation>Generieren</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="878"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="973"/>
+        <location filename="../qt/preferences_dialog.ui" line="886"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="981"/>
         <source>GPU</source>
         <translation>GPU</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="914"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="948"/>
+        <location filename="../qt/preferences_dialog.ui" line="922"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="956"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TODO: add explanation for GPU.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TODO: add explanation for GPU.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="917"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="950"/>
+        <location filename="../qt/preferences_dialog.ui" line="925"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="958"/>
         <source>GPU ena&amp;ble</source>
         <translation>GPU aktivieren</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1066"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="966"/>
+        <location filename="../qt/preferences_dialog.ui" line="1074"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="974"/>
         <source>Device</source>
         <translation>Gerät</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1076"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="969"/>
+        <location filename="../qt/preferences_dialog.ui" line="1084"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="977"/>
         <source>All non CPU devices</source>
         <translation>Alle nicht CPU Geräte</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1081"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="970"/>
+        <location filename="../qt/preferences_dialog.ui" line="1089"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="978"/>
         <source>All devices</source>
         <translation>Alle Geräte</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1086"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="971"/>
+        <location filename="../qt/preferences_dialog.ui" line="1094"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="979"/>
         <source>Custom devices</source>
         <translation>benutzerdefinierte Geräte</translation>
     </message>
@@ -11833,56 +11860,56 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">GPU aktivieren</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="941"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="951"/>
+        <location filename="../qt/preferences_dialog.ui" line="949"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="959"/>
         <source>This will offload the rendering to the GPU.</source>
         <translation>Dies lagert das Rendering auf die GPU aus.</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="953"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="952"/>
+        <location filename="../qt/preferences_dialog.ui" line="961"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="960"/>
         <source>Precision</source>
         <translation>Genauigkeit</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="961"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="955"/>
+        <location filename="../qt/preferences_dialog.ui" line="969"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="963"/>
         <source>single</source>
         <translation>einfach</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="966"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="956"/>
+        <location filename="../qt/preferences_dialog.ui" line="974"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="964"/>
         <source>double</source>
         <translation>doppelt</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="974"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="958"/>
+        <location filename="../qt/preferences_dialog.ui" line="982"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="966"/>
         <source>Mode</source>
         <translation>Modus</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="982"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="961"/>
+        <location filename="../qt/preferences_dialog.ui" line="990"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="969"/>
         <source>full</source>
         <translation>voll</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="987"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="962"/>
+        <location filename="../qt/preferences_dialog.ui" line="995"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="970"/>
         <source>fast</source>
         <translation>schnell</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="995"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="964"/>
+        <location filename="../qt/preferences_dialog.ui" line="1003"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="972"/>
         <source>Memory Limit:</source>
         <translation>Memory Limit:</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1031"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="965"/>
+        <location filename="../qt/preferences_dialog.ui" line="1039"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="973"/>
         <source>Cycle time:</source>
         <translation>Taktzeit:</translation>
     </message>
@@ -11896,7 +11923,7 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="426"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="890"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="896"/>
         <source>Do not ask for quit confirmation</source>
         <translation>Bei Beenden keine Bestätigung erfragen</translation>
     </message>
@@ -11906,13 +11933,13 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="744"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="940"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="946"/>
         <source>JPEG quality:</source>
         <translation>JPEG Qualität:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="177"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="864"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="870"/>
         <source>System Look and Feel</source>
         <translation>Darstellung</translation>
     </message>
@@ -11922,37 +11949,37 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="47"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="894"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="900"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="217"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="869"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="875"/>
         <source>UI Style type</source>
         <translation>Oberfläche</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="227"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="870"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="876"/>
         <source>UI Skin</source>
         <translation>Skin</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="235"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="873"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="879"/>
         <source>normal</source>
         <translation>Normal</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="240"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="874"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="880"/>
         <source>dark</source>
         <translation>Dunkel</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="245"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="875"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="881"/>
         <source>light</source>
         <translation>Hell</translation>
     </message>
@@ -12046,12 +12073,12 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
 <context>
     <name>cRenderJob</name>
     <message>
-        <location filename="../src/render_job.cpp" line="493"/>
+        <location filename="../src/render_job.cpp" line="495"/>
         <source>Finished Render</source>
         <translation>Rendern abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="493"/>
+        <location filename="../src/render_job.cpp" line="495"/>
         <source>The image has been rendered completely.</source>
         <translation>Das Bild wurde komplett gerendert.</translation>
     </message>
@@ -12670,7 +12697,7 @@ tiff - TIFF Format</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="107"/>
-        <location filename="../src/command_line_interface.cpp" line="160"/>
+        <location filename="../src/command_line_interface.cpp" line="163"/>
         <source>FORMAT</source>
         <translation>FORMAT</translation>
     </message>
@@ -12760,17 +12787,21 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
         <translation>Führt Testfälle mit der Mandelbulber Instanz durch.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="148"/>
-        <source>Runs benchmarks on the mandelbulber instance</source>
-        <translation>Führt einen Benchmark mit der Mandelbulber Instanz durch.</translation>
+        <location filename="../src/command_line_interface.cpp" line="149"/>
+        <source>Runs benchmarks on the mandelbulber instance, specify optional parameter dificulty (1 -&gt; very easy, &gt; 20 -&gt; very hard, 10 -&gt; default)</source>
+        <translation>Führt einen Benchmark mit der Mandelbulber Instanz durch, es kann eine optionale &apos;Schwierigkeit&apos; angegeben werden (1 -&gt; sehr leicht, &gt; 20 sehr schwer, 10 -&gt; Standardwert)</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="152"/>
+        <source>Runs benchmarks on the mandelbulber instance</source>
+        <translation type="vanished">Führt einen Benchmark mit der Mandelbulber Instanz durch.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="155"/>
         <source>Resaves a settings file (can be used to update a settings file)</source>
         <translation>Überschreibt die Einstellungsdatei (kann genutzt werden, um Einstellungsdatei upzudaten).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="156"/>
+        <location filename="../src/command_line_interface.cpp" line="159"/>
         <source>Renders the voxel volume. Output formats are:
   slice - stack of PNG images into one folder (default)
   ply - Polygon File Format (single 3d file)
@@ -12798,17 +12829,17 @@ Fortsetzen?</translation>
         <translation type="vanished">Rendert das Voxel Volumen in einem Stapel aus Bildern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="163"/>
+        <location filename="../src/command_line_interface.cpp" line="166"/>
         <source>Shows statistics while rendering in CLI mode.</source>
         <translation>Zeigt Statistiken während des Renderns in Konsolenmodus an.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="166"/>
+        <location filename="../src/command_line_interface.cpp" line="169"/>
         <source>Shows help about input.</source>
         <translation>Zeigt Hilfe über Input.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="168"/>
+        <location filename="../src/command_line_interface.cpp" line="171"/>
         <source>Shows example commands.</source>
         <translation>Zeigt Beispielbefehle.</translation>
     </message>
@@ -12857,7 +12888,7 @@ Fortsetzen?</translation>
         <translation type="vanished">Zeige Hilfe über Input.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="172"/>
+        <location filename="../src/command_line_interface.cpp" line="175"/>
         <source>file with fractal settings (program also tries
 to find file in ./mandelbulber/settings directory)
 When settings_file is put as a command line argument then program will start in noGUI mode&lt;settings_file&gt; can also be specified as a list, see all options with --help-input</source>
