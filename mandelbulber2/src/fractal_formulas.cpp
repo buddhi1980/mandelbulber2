@@ -89,28 +89,28 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 	if (fractal->mandelbox.rotationsEnabled)
 	{
 		CVector3 zRot;
-		for (int i = 0; i < 3; i++)
+		for (int dim = 0; dim < 3; dim++)
 		{
 			// handle each dimension x, y and z sequentially in pointer var dim
-			double *dim = (i == 0) ? &zRot.x : ((i == 1) ? &zRot.y : &zRot.z);
-			const double *colorFactor = (i == 0) ? &fractal->mandelbox.color.factor.x
-																					 : ((i == 1) ? &fractal->mandelbox.color.factor.y
+			double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
+			const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
+																					 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
 																											 : &fractal->mandelbox.color.factor.z);
 
-			zRot = fractal->mandelbox.rot[0][i].RotateVector(z);
-			if (*dim > fractal->mandelbox.foldingLimit)
+			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
+			if (*rotDim > fractal->mandelbox.foldingLimit)
 			{
-				*dim = fractal->mandelbox.foldingValue - *dim;
-				z = fractal->mandelbox.rotinv[0][i].RotateVector(zRot);
+				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
+				z = fractal->mandelbox.rotinv[0][dim].RotateVector(zRot);
 				aux.color += *colorFactor;
 			}
 			else
 			{
-				zRot = fractal->mandelbox.rot[1][i].RotateVector(z);
-				if (*dim < -fractal->mandelbox.foldingLimit)
+				zRot = fractal->mandelbox.rot[1][dim].RotateVector(z);
+				if (*rotDim < -fractal->mandelbox.foldingLimit)
 				{
-					*dim = -fractal->mandelbox.foldingValue - *dim;
-					z = fractal->mandelbox.rotinv[1][i].RotateVector(zRot);
+					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
+					z = fractal->mandelbox.rotinv[1][dim].RotateVector(zRot);
 					aux.color += *colorFactor;
 				}
 			}
@@ -2310,28 +2310,28 @@ void MandelboxMengerIteration(
 	if (fractal->mandelbox.rotationsEnabled)
 	{
 		CVector3 zRot;
-		for (int i = 0; i < 3; i++)
+		for (int dim = 0; dim < 3; dim++)
 		{
 			// handle each dimension x, y and z sequentially in pointer var dim
-			double *dim = (i == 0) ? &zRot.x : ((i == 1) ? &zRot.y : &zRot.z);
-			const double *colorFactor = (i == 0) ? &fractal->mandelbox.color.factor.x
-																					 : ((i == 1) ? &fractal->mandelbox.color.factor.y
+			double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
+			const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
+																					 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
 																											 : &fractal->mandelbox.color.factor.z);
 
-			zRot = fractal->mandelbox.rot[0][i].RotateVector(z);
-			if (*dim > fractal->mandelbox.foldingLimit)
+			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
+			if (*rotDim > fractal->mandelbox.foldingLimit)
 			{
-				*dim = fractal->mandelbox.foldingValue - *dim;
-				z = fractal->mandelbox.rotinv[0][i].RotateVector(zRot);
+				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
+				z = fractal->mandelbox.rotinv[0][dim].RotateVector(zRot);
 				aux.color += *colorFactor;
 			}
 			else
 			{
-				zRot = fractal->mandelbox.rot[1][i].RotateVector(z);
-				if (*dim < -fractal->mandelbox.foldingLimit)
+				zRot = fractal->mandelbox.rot[1][dim].RotateVector(z);
+				if (*rotDim < -fractal->mandelbox.foldingLimit)
 				{
-					*dim = -fractal->mandelbox.foldingValue - *dim;
-					z = fractal->mandelbox.rotinv[1][i].RotateVector(zRot);
+					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
+					z = fractal->mandelbox.rotinv[1][dim].RotateVector(zRot);
 					aux.color += *colorFactor;
 				}
 			}
@@ -3122,16 +3122,15 @@ void MengerCrossKIFSIteration(CVector3 &z, int i, const cFractal *fractal, sExte
 void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
-	double t;
-	double dot1;
+
 	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterations
 			&& i < fractal->transformCommon.stopIterations1)
 	{
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledFFalse) z.x = fabs(z.x);
-		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
-		t = max(0.0, dot1);
+		double dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+		double t = max(0.0, dot1);
 		z.x -= t * -SQRT_3 - (0.5 * SQRT_3_4);
 
 		z.y = fabs(z.y - t);
@@ -3160,7 +3159,7 @@ void MengerCrossMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 		z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledzFalse) z.x = fabs(z.x);
 
-		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5);
+		double dot1 = (z.x * -SQRT_3_4 + z.y * 0.5);
 		double t = 1.0 * max(0.0, dot1);
 		z.x -= t * -SQRT_3;
 		if (fractal->transformCommon.functionEnabledXFalse)
@@ -3784,11 +3783,12 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		z = CVector3{-z.z, z.x, z.y};
 	}
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
-	double t;
-	double dot1;
+
 	if (fractal->transformCommon.functionEnabledx && i >= fractal->transformCommon.startIterationsP
 			&& i < fractal->transformCommon.stopIterationsP1)
 	{
+		double t;
+		double dot1;
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
 			z.x = fabs(z.x);
@@ -3900,7 +3900,7 @@ void MengerPrismShape2Iteration(CVector3 &z, int i, const cFractal *fractal, sEx
 		{
 			z.x = fabs(z.x);
 		}
-		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scaleD1;
+		double dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scaleD1;
 		double t = max(0.0, dot1);
 		z.x -= t * -SQRT_3;
 		if (fractal->transformCommon.functionEnabledBzFalse)
@@ -7390,28 +7390,28 @@ void TransfRotationIteration(CVector3 &z, const cFractal *fractal)
 void TransfRotationFoldingPlaneIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 zRot;
-	for (int i = 0; i < 3; i++)
+	for (int dim = 0; dim < 3; dim++)
 	{
 		// handle each dimension x, y and z sequentially in pointer var dim
-		double *dim = (i == 0) ? &zRot.x : ((i == 1) ? &zRot.y : &zRot.z);
-		const double *colorFactor = (i == 0) ? &fractal->mandelbox.color.factor.x
-																				 : ((i == 1) ? &fractal->mandelbox.color.factor.y
+		double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
+		const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
+																				 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
 																										 : &fractal->mandelbox.color.factor.z);
 
-		zRot = fractal->mandelbox.rot[0][i].RotateVector(z);
-		if (*dim > fractal->mandelbox.foldingLimit)
+		zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
+		if (*rotDim > fractal->mandelbox.foldingLimit)
 		{
-			*dim = fractal->mandelbox.foldingValue - *dim;
-			z = fractal->mandelbox.rotinv[0][i].RotateVector(zRot);
+			*rotDim = fractal->mandelbox.foldingValue - *rotDim;
+			z = fractal->mandelbox.rotinv[0][dim].RotateVector(zRot);
 			aux.color += *colorFactor;
 		}
 		else
 		{
-			zRot = fractal->mandelbox.rot[1][i].RotateVector(z);
-			if (*dim < -fractal->mandelbox.foldingLimit)
+			zRot = fractal->mandelbox.rot[1][dim].RotateVector(z);
+			if (*rotDim < -fractal->mandelbox.foldingLimit)
 			{
-				*dim = -fractal->mandelbox.foldingValue - *dim;
-				z = fractal->mandelbox.rotinv[1][i].RotateVector(zRot);
+				*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
+				z = fractal->mandelbox.rotinv[1][dim].RotateVector(zRot);
 				aux.color += *colorFactor;
 			}
 		}
