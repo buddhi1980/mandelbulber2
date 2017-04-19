@@ -78,6 +78,7 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(
 	int index, cParameterContainer *params, cFractalContainer *fractal)
 {
+	Q_UNUSED(fractal);
 	int keyframe = index / framesPerKeyframe;
 	int subIndex = index % framesPerKeyframe;
 

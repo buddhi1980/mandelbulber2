@@ -136,7 +136,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 #endif // USE_OFFLOAD
 
 #pragma omp parallel for schedule(dynamic, 1)
-				for (signed long long kk = 0; kk < numzb; ++kk)
+				for (size_t kk = 0; kk < numzb; ++kk)
 				{
 					size_t ptr = ii * numyzb + jj * numzb + kk;
 

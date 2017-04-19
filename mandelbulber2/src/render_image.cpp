@@ -346,7 +346,6 @@ bool cRenderer::RenderImage()
 
 		if (!(gNetRender->IsClient() && data->configuration.UseNetRender()))
 		{
-			bool ssaoUsed = false;
 			if (params->ambientOcclusionEnabled
 					&& params->ambientOcclusionMode == params::AOModeScreenSpace)
 			{
@@ -372,7 +371,6 @@ bool cRenderer::RenderImage()
 				{
 					rendererSSAO.RenderSSAO();
 				}
-				ssaoUsed = true;
 			}
 			if (params->DOFEnabled && !*data->stopRequest && !params->DOFMonteCarlo)
 			{

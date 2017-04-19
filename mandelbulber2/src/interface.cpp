@@ -931,7 +931,6 @@ void cInterface::RefreshPostEffects()
 		RefreshMainImage();
 
 		stopRequest = false;
-		bool ssaoUsed = false;
 		if (gPar->Get<bool>("ambient_occlusion_enabled")
 				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
 		{
@@ -946,7 +945,6 @@ void cInterface::RefreshPostEffects()
 				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
 			rendererSSAO.RenderSSAO();
-			ssaoUsed = true;
 
 			mainImage->CompileImage();
 			mainImage->ConvertTo8bit();
