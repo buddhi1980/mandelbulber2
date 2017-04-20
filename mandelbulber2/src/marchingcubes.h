@@ -55,9 +55,9 @@ void mc_add_vertex(double x1, double y1, double z1, double c2, int axis, double 
 }
 
 template <typename coord_type, typename vector3, typename formula, typename progressFtor>
-void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, size_t numy,
-	size_t numz, formula f, double isovalue, std::vector<double> &vertices,
-	std::vector<size_t> &polygons, bool *stop, progressFtor progress,
+void marching_cubes(const vector3 &lower, const vector3 &upper, long long numx, long long numy,
+	long long numz, formula f, double isovalue, std::vector<double> &vertices,
+	std::vector<long long> &polygons, bool *stop, progressFtor progress,
 	std::vector<double> &colorIndices)
 {
 	using namespace private_;
@@ -73,11 +73,11 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 	coord_type dy = (upper[1] - lower[1]) / static_cast<coord_type>(numy);
 	coord_type dz = (upper[2] - lower[2]) / static_cast<coord_type>(numz);
 
-	size_t *shared_indices = new size_t[2 * numy * numz * 3];
+	long long *shared_indices = new long long[2 * numy * numz * 3];
 
-	size_t numyb = numy + 1;
-	size_t numzb = numz + 1;
-	size_t numyzb = numyb * numzb;
+	long long numyb = numy + 1;
+	long long numzb = numz + 1;
+	long long numyzb = numyb * numzb;
 
 #ifdef USE_OFFLOAD
 	__declspec(target(mic))
@@ -94,7 +94,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 	const int z3 = numz * 3;
 	const int yz3 = numy * z3;
 
-	for (size_t i = 0; i < numx; ++i)
+	for (long long i = 0; i < numx; ++i)
 	{
 		progress(i);
 
@@ -106,22 +106,22 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 		// shift voxel planes
 		if (i > 0)
 		{
-			for (size_t jk = 0; jk < numyzb; ++jk)
+			for (long long jk = 0; jk < numyzb; ++jk)
 			{
-				size_t ptr = jk;
-				size_t ptr2 = ptr + numyzb;
+				long long ptr = jk;
+				long long ptr2 = ptr + numyzb;
 				voxelBuffer[ptr] = voxelBuffer[ptr2];
 				colorBuffer[ptr] = colorBuffer[ptr2];
 			}
 		}
 
 		// calculate voxel plane
-		size_t start = (i == 0) ? 0 : 1;
-		for (size_t ii = start; ii < 2; ++ii)
+		long long start = (i == 0) ? 0 : 1;
+		for (long long ii = start; ii < 2; ++ii)
 		{
 			coord_type xx = lower[0] + dx * (ii + i);
 
-			for (size_t jj = 0; jj < numyb; ++jj)
+			for (long long jj = 0; jj < numyb; ++jj)
 			{
 				if (*stop)
 				{
@@ -136,9 +136,9 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 #endif // USE_OFFLOAD
 
 #pragma omp parallel for schedule(dynamic, 1)
-				for (size_t kk = 0; kk < numzb; ++kk)
+				for (long long kk = 0; kk < numzb; ++kk)
 				{
-					size_t ptr = ii * numyzb + jj * numzb + kk;
+					long long ptr = ii * numyzb + jj * numzb + kk;
 
 					coord_type zz = lower[2] + dz * kk;
 					voxelBuffer[ptr] = f(xx, yy, zz, &colorBuffer[ptr]);
@@ -146,7 +146,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 			}
 		}
 
-		for (size_t j = 0; j < numy; ++j)
+		for (long long j = 0; j < numy; ++j)
 		{
 			if (*stop)
 			{
@@ -157,7 +157,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 			coord_type y = lower[1] + dy * j;
 			coord_type y_dy = lower[1] + dy * (j + 1);
 
-			for (size_t k = 0; k < numz; ++k)
+			for (long long k = 0; k < numz; ++k)
 			{
 				coord_type z = lower[2] + dz * k;
 				coord_type z_dz = lower[2] + dz * (k + 1);
@@ -190,7 +190,7 @@ void marching_cubes(const vector3 &lower, const vector3 &upper, size_t numx, siz
 				// Generate vertices AVOIDING DUPLICATES.
 
 				int edges = edge_table[cubeindex];
-				std::vector<size_t> indices(12, -1);
+				std::vector<long long> indices(12, -1);
 				if (edges & 0x040)
 				{
 					indices[6] = vertices.size() / 3;

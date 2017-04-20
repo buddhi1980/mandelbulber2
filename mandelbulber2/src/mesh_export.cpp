@@ -150,7 +150,7 @@ void cMeshExport::ProcessVolume()
 	double lower[] = {limitMin.x, limitMin.y, limitMin.z};
 	double upper[] = {limitMax.x, limitMax.x, limitMax.z};
 	vector<double> vertices;
-	vector<size_t> polygons;
+	vector<long long> polygons;
 	vector<double> colorIndices;
 
 	ProgressFtor progressFtor(this);

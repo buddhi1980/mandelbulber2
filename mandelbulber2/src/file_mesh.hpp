@@ -87,13 +87,13 @@ public:
 	struct structSaveMeshData
 	{
 		structSaveMeshData() {}
-		structSaveMeshData(std::vector<double> &_vertices, std::vector<size_t> &_polygons,
+		structSaveMeshData(std::vector<double> &_vertices, std::vector<long long> &_polygons,
 			std::vector<sRGB8> &_colorIndices)
 				: vertices(_vertices), polygons(_polygons), colorIndices(_colorIndices)
 		{
 		}
 		std::vector<double> vertices;
-		std::vector<size_t> polygons;
+		std::vector<long long> polygons;
 		std::vector<sRGB8> colorIndices;
 	};
 
