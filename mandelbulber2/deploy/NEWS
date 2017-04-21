@@ -1,5 +1,74 @@
 Version history
 
+v2.11
+- Fractals: cleaned up names of fractal formulas
+- Fractals: corrected MixPinski code
+- Fractals: corrected Menger4D code
+- Fractals: reset button on fractal tab resets additionally iteration range, Julia constant, formula position and rotation
+- Fractals: Updated final calculation for pseudo klienian hybrid mode
+- Fractals: Updated transform Spherical fold 4D
+- Fractals: Updated Menger Cross KIFS
+- Fractals: Added linear_DE_offset parameter for fine tuning of distance estimation of IFS-like formulas
+- Fractals: new formulas:
+  * Pseudo Kleinian - Mod 2
+  * Mandelbulb - Multi2
+  * Abox - Mod 11
+  * T>Parab Fold
+- Shaders: added rotation and scale of background texture
+- Shaders: added background texture offset sliders
+- Shaders: added HDR blur post-effect. This is soft blur which can improve quality of Monte Carlo DOF effect or can be used as standalone effect.
+- Shaders: now all effects (including SSAO) are rendered using floating point image buffers (better HDR quality)
+- Shaders: image brightness, contrast and gamma can be corrected without re-rendering of SSAO and DOF
+- Shaders: Removed no longer needed HDR DOF option (now DOF is always rendered as HDR)
+- Shaders: Optimized Monte Carlo DOF algorithm (50% faster). Now it uses statistical noise estimation to determine number of needed samples.
+- Image: Added full screen Antialiasing to rendering algorithm
+- Image: Added possibility to save stereoscopic left and righ eye in separate image files.
+- Image: Improved quality of ray-marching without visible impact on rendering time. Now distance threshold is calculated 10 times more accurate.
+- UI: added possibility to detach rendered image from main window. It allows to use problem with two displays.
+- UI: font sizes and widget sizes adapts to screen DPI and size. User interface looks properly on 4K high DPI displays.
+- UI: Added dialog box for hybrid/boolean fractals. When there is selected any tab with index > 1, then appears message with question if user want to enable hybrid or boolean fractals.
+- UI: detached rendered image can be displayed in full screen mode
+- UI: added option to display thirds and golden ratio grid
+- UI: formulas can be searched in formula combobox
+- UI: added recent settings in File menu
+- UI: Added option to place light source behind the object
+- UI: corrected colors in list of connected NetRender machines. Will be properly displayed with dark skin.
+- UI: Cursor now displays correct camera movement modes.
+- UI: Material tab only appears when another material is selected.
+- UI: Fractal tab renamed to Objects
+- UI: There was memory alignment problem which caused damaged toolbar icons (when width was not multiply of 4)
+- CLI: added CLI support for mesh export
+- NetRender: added lzo compression (saves about ~30-40% of network bandwidth)
+- NetRender: fixed reconnection issue while lookup of host (mostly with very fast Ethernet connection or localhost)
+- NetRender: Program (client) crashed when connection was lost.
+- Voxel export: Mesh export uses much less memory.
+- Voxel export: Parallelized mesh export. Now it uses all CPU cores, so it's much faster
+- Voxel export: Optimized mesh export. Voxels are pre-calculated before meshes are calculated. Calculation speed is 8 times faster.
+- Voxel export: Inverted orientation of faces. Now orientation of mesh export points outwards of the object
+- Voxel export: implemented binary format 
+- Voxel export: implemented color save for ply meshes
+- Voxel export: size of meshes now is not limited (only limit is available RAM memory)
+- AnimBySound:  Frequency band can be selected using mouse pointer
+- AnimBySound: there is possible to export keyframe animation with AnimBySound to Flight animation, where is possible to edit every frame and save all frames to settings file.
+- AnimBySound: added accept button to AnimBySound dialogue 
+- Animation: fixed bug: There was observed the problem where check for collisions ("Validate") showed collision even after there were eliminated.
+- Animation: corrected frame numbering on progress bar
+- Animation: added frame number by keyframe number in animation table
+- Examples: Added several example settings
+- General: Corrected saving of window state. It was saved as "Unknown organization"
+- General: Added FilePathHelper to look for missing textures or sounds in several predefined paths
+- Performance: Added icon cache in FormulaComboBox. Starting of application is faster
+- Performance: fixed many issues showed by CoverityScan
+- Compilation: Fixed many warnings showed by clang
+- Documentation: added section about processing of iteration loop
+- Documentation: added section about hybrid fractals
+- Documentation: added section about interpolation
+- Documentation: added section about flight animation
+- Documentation: corrected section about camera movement
+- Documentation: edited chapter about NetRender
+- Documentation: corrected styles and cleaned up document structure
+- Documentation: added index
+
 v2.10
 - AnimBySound: Added option to animate any parameter using sound wave (added "Anim By Sound" buttons in animation table)
 - AnimBySound: Added dialog window to load and setup AnimBySound feature
