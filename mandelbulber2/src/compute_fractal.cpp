@@ -108,6 +108,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// extendedAux.axisBias = 1e+20;
 	// extendedAux.orbitTraps = 1e+20;
 	extendedAux.pseudoKleinianDE = 1.0;
+	//extendedAux.pseudoKleinianZZ = 1.0;
+
 
 	// main iteration loop
 	int i;
@@ -504,19 +506,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MengerSmoothMod1Iteration(z, i, fractal, extendedAux);
 					break;
 				}
-				case pseudoKleinian1:
+				case pseudoKleinianStdDE:
 				{
-					PseudoKleinian1Iteration(z, i, fractal, extendedAux);
+					PseudoKleinianStdDEIteration(z, i, fractal, extendedAux);
 					break;
 				}
-				case pseudoKleinian2:
+				case pseudoKleinian:
 				{
-					PseudoKleinian2Iteration(z, i, fractal, extendedAux);
+					PseudoKleinianIteration(z, i, fractal, extendedAux);
 					break;
 				}
-				case pseudoKleinian3:
+				case pseudoKleinianMod1:
 				{
-					PseudoKleinian3Iteration(z, i, fractal, extendedAux);
+					PseudoKleinianMod1Iteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case pseudoKleinianMod2:
@@ -1070,8 +1072,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			// scator magnitudes
 			// magnitude in imaginary scator algebra
 
-			case pseudoKleinian1:
+			case pseudoKleinianStdDE:
+			//case pseudoKleinian:
+			//case pseudoKleinianMod1:
+			//case pseudoKleinianMod2:
 			{
+
+				//r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z * extendedAux.pseudoKleinianZZ);
 				r = sqrt(z.x * z.x + z.y * z.y);
 				break;
 			}
@@ -1289,7 +1296,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case amazingSurfMulti:
 				case kalisets1:
 				case aboxVSIcen1:
-				case pseudoKleinian1:
+				case pseudoKleinianStdDE:
 				case abox4d:
 				{
 					if (extendedAux.DE > 0)
@@ -1325,8 +1332,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
-				case pseudoKleinian2:
-				case pseudoKleinian3:
+				case pseudoKleinian:
+				case pseudoKleinianMod1:
 				case pseudoKleinianMod2:
 				{
 					if (extendedAux.DE > 0)

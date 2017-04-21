@@ -139,10 +139,10 @@ enum enumFractalFormula
 	mengerCrossKIFS = 98,
 	mengerPrismShape = 99, // fix T1 T1M V2.10
 	benesiMagTransforms = 100,
-	pseudoKleinian1 = 101, // fix T1 T1M V2.10
+	pseudoKleinianStdDE = 101, // fix T1 T1M V2.10
 	bristorbrot4d = 102,
-	pseudoKleinian2 = 103, // fix DE V2.10
-	pseudoKleinian3 = 104, // fix T1 T1M V2.10 & DE
+	pseudoKleinian = 103, // fix DE V2.10
+	pseudoKleinianMod1 = 104, // fix T1 T1M V2.10 & DE
 	benesiPwr2Mandelbulb = 105,
 	mengerCrossMod1 = 106,
 	// V2.10

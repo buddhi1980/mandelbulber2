@@ -4815,7 +4815,7 @@ void MsltoeToroidalMultiIteration(CVector3 &z, const cFractal *fractal, sExtende
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
  */
-void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void PseudoKleinianIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
@@ -4896,7 +4896,7 @@ void PseudoKleinian2Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
  */
-void PseudoKleinian3Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void PseudoKleinianMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 
@@ -5327,8 +5327,8 @@ void PseudoKleinianMod2Iteration(
 		z.y += sign(z.y) * tempFAB.y;
 		z.z += sign(z.z) * tempFAB.z;
 	}
-
 	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
+	//aux.pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
 }
 
 /**
@@ -5336,7 +5336,7 @@ void PseudoKleinianMod2Iteration(
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
  */
-void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+void PseudoKleinianStdDEIteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
@@ -5504,7 +5504,7 @@ void PseudoKleinian1Iteration(CVector3 &z, int i, const cFractal *fractal, sExte
 	}
 
 	z += fractal->transformCommon.additionConstant000;
-	// no bailout
+	//aux.pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
 }
 
 /**

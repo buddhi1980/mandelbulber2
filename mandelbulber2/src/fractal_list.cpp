@@ -218,11 +218,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// Pseudo Kleinian formulas
 	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian1",
-		pseudoKleinian1, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
-	fractalList->append(sFractalDescription("Pseudo Kleinian", "pseudo_kleinian2", pseudoKleinian2,
+		pseudoKleinianStdDE, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
+	fractalList->append(sFractalDescription("Pseudo Kleinian", "pseudo_kleinian2", pseudoKleinian,
 		analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
 	fractalList->append(sFractalDescription("Pseudo Kleinian - Mod 1", "pseudo_kleinian3",
-		pseudoKleinian3, analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
+		pseudoKleinianMod1, analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
 	fractalList->append(sFractalDescription("Pseudo Kleinian - Mod 2", "pseudo_kleinian_mod2",
 		pseudoKleinianMod2, analyticDEType, pseudoKleinianDEFunction, cpixelDisabledByDefault, 100));
 
