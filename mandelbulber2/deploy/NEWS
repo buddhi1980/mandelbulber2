@@ -5,28 +5,28 @@ v2.11
 - Fractals: corrected MixPinski code
 - Fractals: corrected Menger4D and Menger4D Mod1 code
 - Fractals: corrected Abox - Mod1 and Abox - Mod2 code
-- Fractals: upgraded the reset button on fractal tab. It now also resets  iteration number and range, weight, add global C constant and check for bailout conditions
-- Fractals: Updated final calculation for pseudo klienian hybrid mode
+- Fractals: upgraded the reset button on fractal tab. It now also resets iteration number and range, weight, add global C constant and check for bailout conditions
+- Fractals: Updated final calculation for pseudo kleinian hybrid mode
 - Fractals: Updated transform Spherical fold 4D
 - Fractals: Updated Menger Cross KIFS
 - Fractals: Added linear_DE_offset parameter for fine tuning of distance estimation of IFS-like formulas
 - Fractals: new formulas:
-	* Pseudo Kleinian - Mod 2
-	* Mandelbulb - Multi2
-	* Abox - Mod 11
-	* T>Parab Fold
-		* T>Parab Fold
-	* T>Scale Vary Abox
-	* T>Spherical Fold CHS
-	* T>Spherical Fold Parab
+  * Pseudo Kleinian - Mod 2
+  * Mandelbulb - Multi2
+  * Abox - Mod 11
+  * T>Parab Fold
+  * T>Parab Fold
+  * T>Scale Vary Abox
+  * T>Spherical Fold CHS
+  * T>Spherical Fold Parab
 - Shaders: added rotation and scale of background texture
 - Shaders: added background texture offset sliders
-- Shaders: added HDR blur post-effect. This is soft blur which can improve quality of Monte Carlo DOF effect or can be used as a standalone effect.
+- Shaders: added HDR blur post-effect. This is a soft blur which can improve quality of Monte Carlo DOF effect or can be used as a standalone effect.
 - Shaders: now all effects (including SSAO) are rendered using floating point image buffers (better HDR quality)
 - Shaders: image brightness, contrast and gamma can be corrected without re-rendering of SSAO and DOF
 - Shaders: Removed redundant HDR DOF option (now DOF is always rendered as HDR)
 - Shaders: Optimized Monte Carlo DOF algorithm (50% faster). Now it uses statistical noise estimation to determine the number of needed samples.
-- Image: Added full screen Antialiasing to the rendering algorithm
+- Image: Added full screen antialiasing to the rendering algorithm
 - Image: Added the option to save stereoscopic left and right eye, in separate image files.
 - Image: Improved quality of ray-marching without any noticeable impact on rendering time. Now the distance threshold is calculated 10 times more accurately.
 - UI: added the option to detach rendered image from main window. It allows for the use of two displays.
@@ -43,7 +43,7 @@ v2.11
 - UI: Fractal tab renamed to Objects
 - UI: There was a memory alignment problem which caused damaged toolbar icons (when width was not a multiple of 4)
 - CLI: added CLI support for mesh export
-- NetRender: added lzo compression (saves about ~30-40% of network bandwidth)
+- NetRender: added lzo compression (saves about ~60-70% of network bandwidth)
 - NetRender: fixed reconnection issue while lookup of host (mostly with very fast Ethernet connection or localhost)
 - NetRender: Program (client) crashed when connection was lost.
 - Voxel export: Mesh export uses much less memory.
