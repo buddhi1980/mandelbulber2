@@ -108,8 +108,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// extendedAux.axisBias = 1e+20;
 	// extendedAux.orbitTraps = 1e+20;
 	extendedAux.pseudoKleinianDE = 1.0;
-	//extendedAux.pseudoKleinianZZ = 1.0;
-
+	// extendedAux.pseudoKleinianZZ = 1.0;
 
 	// main iteration loop
 	int i;
@@ -1073,15 +1072,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			// magnitude in imaginary scator algebra
 
 			case pseudoKleinianStdDE:
-			//case pseudoKleinian:
-			//case pseudoKleinianMod1:
-			//case pseudoKleinianMod2:
-			{
+				// case pseudoKleinian:
+				// case pseudoKleinianMod1:
+				// case pseudoKleinianMod2:
+				{
 
-				//r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z * extendedAux.pseudoKleinianZZ);
-				r = sqrt(z.x * z.x + z.y * z.y);
-				break;
-			}
+					// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z * extendedAux.pseudoKleinianZZ);
+					r = sqrt(z.x * z.x + z.y * z.y);
+					break;
+				}
 
 			default:
 			{

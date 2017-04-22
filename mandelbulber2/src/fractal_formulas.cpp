@@ -94,8 +94,8 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 			// handle each dimension x, y and z sequentially in pointer var dim
 			double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
 			const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
-																					 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
-																											 : &fractal->mandelbox.color.factor.z);
+																						 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
+																													 : &fractal->mandelbox.color.factor.z);
 
 			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
 			if (*rotDim > fractal->mandelbox.foldingLimit)
@@ -2315,8 +2315,8 @@ void MandelboxMengerIteration(
 			// handle each dimension x, y and z sequentially in pointer var dim
 			double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
 			const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
-																					 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
-																											 : &fractal->mandelbox.color.factor.z);
+																						 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
+																													 : &fractal->mandelbox.color.factor.z);
 
 			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
 			if (*rotDim > fractal->mandelbox.foldingLimit)
@@ -5328,7 +5328,7 @@ void PseudoKleinianMod2Iteration(
 		z.z += sign(z.z) * tempFAB.z;
 	}
 	aux.pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
-	//aux.pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
+	// aux.pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
 }
 
 /**
@@ -5504,7 +5504,7 @@ void PseudoKleinianStdDEIteration(CVector3 &z, int i, const cFractal *fractal, s
 	}
 
 	z += fractal->transformCommon.additionConstant000;
-	//aux.pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
+	// aux.pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
 }
 
 /**
@@ -7395,8 +7395,8 @@ void TransfRotationFoldingPlaneIteration(CVector3 &z, const cFractal *fractal, s
 		// handle each dimension x, y and z sequentially in pointer var dim
 		double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
 		const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
-																				 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
-																										 : &fractal->mandelbox.color.factor.z);
+																					 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
+																												 : &fractal->mandelbox.color.factor.z);
 
 		zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
 		if (*rotDim > fractal->mandelbox.foldingLimit)

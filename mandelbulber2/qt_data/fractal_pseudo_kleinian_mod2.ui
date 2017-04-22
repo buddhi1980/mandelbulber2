@@ -4940,8 +4940,8 @@ offset:</string>
     z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sign&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
     z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sign&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
-
   aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;pseudoKleinianDE &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#d0d0a0&quot;&gt;// pK DE&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// aux.pseudoKleinianZZ = fractal-&amp;gt;transformCommon.scale0; // pK z.z * z.z * scale0&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>

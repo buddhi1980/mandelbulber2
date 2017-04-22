@@ -57,7 +57,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 	sRGBFloat *temp_image = new sRGBFloat[quint64(imageWidth) * quint64(imageHeight)];
 	unsigned short *temp_alpha = new unsigned short[quint64(imageWidth) * quint64(imageHeight)];
 	quint64 sortBufferSize = quint64(screenRegion.height) * quint64(screenRegion.width);
-	sSortZ<float> *temp_sort = new sSortZ<float>[sortBufferSize];
+	sSortZ<float> *temp_sort = new sSortZ<float>[ sortBufferSize ];
 
 	{
 		quint64 index = 0;

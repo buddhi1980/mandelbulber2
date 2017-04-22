@@ -97,6 +97,7 @@ typedef struct
 	// cl_float orbitTraps;
 	// cl_float axisBias;
 	cl_float pseudoKleinianDE;
+	//	cl_float pseudoKleinianZZ;
 	cl_float linearDE;
 	cl_float cw;
 	cl_float foldFactor;
