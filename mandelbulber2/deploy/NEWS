@@ -26,6 +26,7 @@ v2.11
 - Shaders: image brightness, contrast and gamma can be corrected without re-rendering of SSAO and DOF
 - Shaders: Removed redundant HDR DOF option (now DOF is always rendered as HDR)
 - Shaders: Optimized Monte Carlo DOF algorithm (50% faster). Now it uses statistical noise estimation to determine the number of needed samples.
+- Shaders: Fixed bug in algorithm for reflection calculation
 - Image: Added full screen antialiasing to the rendering algorithm
 - Image: Added the option to save stereoscopic left and right eye, in separate image files.
 - Image: Improved quality of ray-marching without any noticeable impact on rendering time. Now the distance threshold is calculated 10 times more accurately.
