@@ -128,7 +128,7 @@ QString ImageFileSave::ImageNameWithoutExtension(QString path)
 {
 	QFileInfo fi(path);
 	QString fileName = fi.completeBaseName();
-	if (!QStringList({"jpg", "jpeg", "png", "exr"}).contains(fi.suffix()))
+	if (!QStringList({"jpg", "jpeg", "png", "exr", "tiff", "tif"}).contains(fi.suffix()))
 	{
 		fileName += "." + fi.suffix();
 	}
