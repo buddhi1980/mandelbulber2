@@ -81,8 +81,6 @@ cmake -G %cmake_platform% ^
 %SRC%\mandelbulber2\cmake\
 cmake --build . --config Release --target install
 
-GOTO:eof
-
 :copy_files
 set BINDIR=%OutDir%
 echo %BINDIR%	
