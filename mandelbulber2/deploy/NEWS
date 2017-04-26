@@ -53,6 +53,7 @@ v2.11
 - Voxel export: Inverted orientation of faces. Now orientation of mesh export points outwards of the object
 - Voxel export: implemented binary format 
 - Voxel export: implemented color save for ply meshes
+- Voxel export: Initialize k1om Offload feature (preview)
 - Voxel export: size of meshes now is not limited (only limit is available RAM memory)
 - AnimBySound:  Frequency band can be selected using mouse pointer
 - AnimBySound: added the option to export keyframe animation with AnimBySound to Flight animation, where it is possible to edit every frame and save all frames to settings file.
@@ -61,11 +62,13 @@ v2.11
 - Animation: corrected frame numbering on progress bar
 - Animation: added frame number by keyframe number in animation table
 - Examples: Added several example settings
+- Examples: Added example flight animation with audio synchronization
 - General: Corrected saving of window state. It was saved as "Unknown organization"
 - General: Added FilePathHelper to look for missing texture or sound files in several predefined paths
 - Performance: Added icon cache in FormulaComboBox. Starting of application is faster
 - Performance: fixed many issues showed by CoverityScan
 - Compilation: Fixed many warnings showed by clang
+- Compilation: Update MSBuild Solution and NUGETS for Native Windows Build
 - Documentation: added section about processing of iteration loop
 - Documentation: added section about hybrid fractals
 - Documentation: added section about interpolation
