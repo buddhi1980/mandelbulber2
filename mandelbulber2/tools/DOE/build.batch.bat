@@ -44,11 +44,12 @@ nuget restore %SRC%\mandelbulber2.sln
 REM # build_script #
 set ZLIBDIR=%SRC%\packages\zlib-msvc14-x64.1.2.11.7795\build\native
 set ZLIBDIST=%ZLIBDIR%\bin_release
-set PNGDIR=%SRC%\packages\libpng-msvc14-x64.1.6.29.7800\build\native
+set PNGDIR=%SRC%\packages\libpng-msvc14-x64.1.6.29.7801\build\native
 set PNGDIST=%PNGDIR%\bin_release
 set TIFFDIR=%SRC%\packages\libtiff-msvc14-x64.4.0.7.7799\build\native
 set JPEGDIR=%SRC%\packages\libjpeg-msvc14-x64.9.1.0.7796\build\native
 set GSLDIR=%SRC%\packages\gsl-msvc14-x64.2.3.0.2779\build\native
+set LZODIR=%SRC%\packages\lzo-msvc14-x64.2.10.0.7802\build\native
 
 cd %BUILDTREE%
 cmake -G %cmake_platform% ^
@@ -75,9 +76,12 @@ cmake -G %cmake_platform% ^
 -DGSL_CBLAS_LIBRARY=%GSLDIR%\static\gslcblas.lib ^
 -DGSL_LIBRARY=%GSLDIR%\static\gsl.lib ^
 -DGSL_INCLUDE_DIR=%GSLDIR%\ ^
+-DLZO_INCLUDE_DIR=%LZODIR%\ ^
+-DLZO_LIBRARIES=%LZODIR%\lib_release\lzo2.lib ^
 %SRC%\mandelbulber2\cmake\
-
 cmake --build . --config Release --target install
+
+GOTO:eof
 
 :copy_files
 set BINDIR=%OutDir%
