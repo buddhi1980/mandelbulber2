@@ -9,6 +9,7 @@ build/
 build-mic/
 build-win/
 build-*/
+build*.txt
 
 # Visual Studio
 *.user
