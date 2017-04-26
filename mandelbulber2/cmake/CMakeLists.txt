@@ -93,7 +93,7 @@ qt5_use_modules(mandelbulber2 Core Widgets Network
     Gui UiTools Test Multimedia)
 
 # Link other required libraries.
-include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS} ${LZO_INCLUDE_DIRS})
+include_directories(${PNG_INCLUDE_DIR} ${GSL_INCLUDE_DIRS} ${LZO_INCLUDE_DIR})
 target_link_libraries(mandelbulber2 ${PNG_LIBRARY} ${GSL_LIBRARIES} ${LZO_LIBRARIES})
 
 # Link other optional libraries and set corresponding flag definitions .

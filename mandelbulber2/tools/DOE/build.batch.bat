@@ -76,7 +76,7 @@ cmake -G %cmake_platform% ^
 -DGSL_CBLAS_LIBRARY=%GSLDIR%\static\gslcblas.lib ^
 -DGSL_LIBRARY=%GSLDIR%\static\gsl.lib ^
 -DGSL_INCLUDE_DIR=%GSLDIR%\ ^
--DLZO_INCLUDE_DIR=%LZODIR%\ ^
+-DLZO_INCLUDE_DIR=%LZODIR%\include ^
 -DLZO_LIBRARIES=%LZODIR%\lib_release\lzo2.lib ^
 %SRC%\mandelbulber2\cmake\
 cmake --build . --config Release --target install
