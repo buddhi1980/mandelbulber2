@@ -102,6 +102,15 @@ then
 	cp -vu "$sourceDir/build-mandelbulber-MinGwQt-Release/release/mandelbulber2.exe" "$destNameWin"
 	cp -vu "$sourceDir/build-mandelbulber-MinGw64Qt-Release/release/mandelbulber2.exe" "$destNameWin64"
 	
+	DOCFILE="$(curl -s https://api.github.com/repos/buddhi1980/mandelbulber_doc/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4)"
+	
+	echo $DOCFILE
+	
+	wget -O "$destNameLinux/usr/share/mandelbulber2/doc/Mandelbulber_Manual.pdf" $DOCFILE
+	cp -v "$destNameLinux/usr/share/mandelbulber2/doc/Mandelbulber_Manual.pdf" "$destNameWin/doc/"
+	cp -v "$destNameLinux/usr/share/mandelbulber2/doc/Mandelbulber_Manual.pdf" "$destNameWin64/doc/" 
+	
+	
 	cd "$releaseDir"
 	
 	#delete temporary svn files
