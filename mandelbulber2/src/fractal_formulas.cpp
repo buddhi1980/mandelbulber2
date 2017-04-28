@@ -2128,6 +2128,7 @@ void CollatzIteration(CVector3 &z, sExtendedAux &aux)
 	z = xV + 4.0 * z - CVector3(xV + 2.0 * z) * z.RotateAroundVectorByAngle(xV, M_PI);
 	z /= 4.0;
 	aux.DE = aux.DE * 4.0 + 1.0;
+	aux.r_dz = aux.r_dz * 4.0;
 }
 
 /**
