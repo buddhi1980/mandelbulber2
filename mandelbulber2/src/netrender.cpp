@@ -179,7 +179,12 @@ void CNetRender::HandleNewConnection()
 		// tell mandelbulber version to client
 		sMessage msg;
 		msg.command = netRender_VERSION;
-		msg.payload.append(reinterpret_cast<char *>(&version), sizeof(qint32));
+
+		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+		stream << qint32(version);
+		QString machineName = QHostInfo::localHostName();
+		stream << qint32(machineName.toUtf8().size());
+		stream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
 		SendData(client.socket, msg);
 		emit ClientsChanged();
 	}
@@ -456,7 +461,16 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			case netRender_VERSION:
 			{
 				sMessage outMsg;
-				qint32 serverVersion = *reinterpret_cast<qint32 *>(inMsg->payload.data());
+				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+				qint32 serverVersion;
+				stream >> serverVersion;
+				QByteArray buffer;
+				qint32 size;
+				stream >> size;
+				buffer.resize(size);
+				stream.readRawData(buffer.data(), size);
+				// TODO show server name in client somewhere
+				qDebug() << "Server name is: " << QString::fromUtf8(buffer.data(), buffer.size());
 
 				if (CompareMajorVersion(serverVersion, version))
 				{
