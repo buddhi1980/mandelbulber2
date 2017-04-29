@@ -351,6 +351,8 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
 	connect(mainWindow->ui->actionUser_Manual, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutManual()));
+	connect(
+		mainWindow->ui->actionUser_News, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutNews()));
 	connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow,
 		SLOT(slotMenuAboutMandelbulber()));
 	connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow,

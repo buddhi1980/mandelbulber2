@@ -113,6 +113,37 @@ void RenderWindow::slotMenuAboutManual()
 	QDesktopServices::openUrl(QUrl::fromLocalFile(filename));
 }
 
+void RenderWindow::slotMenuAboutNews()
+{
+	// TODO load from proper file location
+	QString filename = "/home/sebastian/mandelbulber2/mandelbulber2/deploy/NEWS";
+	QDesktopServices::openUrl(QUrl::fromLocalFile(filename));
+
+	QFile f(filename);
+	QString text = "";
+	if (f.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		text = f.readAll();
+	}
+
+	QLabel *label = new QLabel;
+	label->setText(text);
+	label->setWordWrap(true);
+	label->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+
+	QScrollArea *scroll = new QScrollArea();
+	scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+	scroll->setWidget(label);
+	scroll->setWidgetResizable(true);
+
+	QHBoxLayout *layout = new QHBoxLayout();
+	layout->addWidget(scroll);
+	QDialog *dialog = new QDialog();
+	dialog->setLayout(layout);
+	dialog->setWindowTitle(QObject::tr("News"));
+	dialog->show();
+}
+
 void RenderWindow::slotMenuAboutThirdParty()
 {
 	QString text = "<h2>Third Party</h2>";

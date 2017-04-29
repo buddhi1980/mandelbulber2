@@ -386,6 +386,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionUser_Manual"/>
+    <addaction name="actionUser_News"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1420,6 +1421,11 @@
   <action name="actionUser_Manual">
    <property name="text">
     <string>&amp;User Manual</string>
+   </property>
+  </action>
+  <action name="actionUser_News">
+   <property name="text">
+    <string>News</string>
    </property>
   </action>
   <action name="actionDetach_image_from_main_window">

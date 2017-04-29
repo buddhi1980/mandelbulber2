@@ -130,6 +130,7 @@ private slots:
 	void slotMenuAboutMandelbulber();
 	void slotMenuAboutQt();
 	void slotMenuAboutManual();
+	void slotMenuAboutNews();
 	void slotMenuAboutThirdParty();
 	void showDescriptionPopup();
 	void slotMenuLoadExample();
