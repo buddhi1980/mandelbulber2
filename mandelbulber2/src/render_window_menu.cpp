@@ -116,7 +116,7 @@ void RenderWindow::slotMenuAboutManual()
 void RenderWindow::slotMenuAboutNews()
 {
 	// TODO load from proper file location
-	QString filename = "/home/sebastian/mandelbulber2/mandelbulber2/deploy/NEWS";
+	QString filename = systemData.sharedDir + "doc" + QDir::separator() + "NEWS";
 	QDesktopServices::openUrl(QUrl::fromLocalFile(filename));
 
 	QFile f(filename);

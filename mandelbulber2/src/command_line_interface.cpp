@@ -541,8 +541,7 @@ void cCommandLineInterface::runBenchmarksAndExit() const
 	QTextStream out(stdout);
 	out << QObject::tr("Starting benchmark with difficulty %1").arg(difficulty) << "\n";
 	out.flush();
-	Test test(Test::benchmarkTestMode);
-	test.setDifficulty(difficulty);
+	Test test(Test::benchmarkTestMode, difficulty);
 	status |= QTest::qExec(&test, arguments);
 	exit(status);
 }

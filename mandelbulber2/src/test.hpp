@@ -47,9 +47,12 @@ public:
 		simpleTestMode,
 		benchmarkTestMode
 	};
-	Test(enumTestMode _testMode) { testMode = _testMode; }
+	Test(enumTestMode _testMode, int _difficulty = 10)
+	{
+		testMode = _testMode;
+		difficulty = _difficulty;
+	}
 	bool IsBenchmarking() const { return testMode == enumTestMode::benchmarkTestMode; }
-	void setDifficulty(int _difficulty) { difficulty = _difficulty; }
 private:
 	static QString testFolder();
 	enumTestMode testMode;
