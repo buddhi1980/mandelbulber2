@@ -7857,15 +7857,15 @@ void TransfSphericalFoldParabIteration(
 		rr = z.Dot(z);
 
 		// if (r2 < 1e-21) r2 = 1e-21;
-		if (rr < fractal->mandelbox.mR2)
+		if (rr < fractal->transformCommon.minR2p25)
 		{
-			z *= fractal->mandelbox.mboxFactor1;
-			aux.DE *= fractal->mandelbox.mboxFactor1;
+			z *= fractal->transformCommon.maxMinR2factor;
+			aux.DE *= fractal->transformCommon.maxMinR2factor;
 			aux.color += fractal->mandelbox.color.factorSp1;
 		}
-		else if (rr < fractal->mandelbox.fR2)
+		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			double tglad_factor2 = fractal->mandelbox.fR2 / rr;
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
 			aux.color += fractal->mandelbox.color.factorSp2;
