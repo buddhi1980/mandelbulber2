@@ -106,10 +106,14 @@ then
 	
 	echo $DOCFILE
 	
+	#copying documentation files
 	wget -O "$destNameLinux/usr/share/mandelbulber2/doc/Mandelbulber_Manual.pdf" $DOCFILE
 	cp -v "$destNameLinux/usr/share/mandelbulber2/doc/Mandelbulber_Manual.pdf" "$destNameWin/doc/"
-	cp -v "$destNameLinux/usr/share/mandelbulber2/doc/Mandelbulber_Manual.pdf" "$destNameWin64/doc/" 
-	
+	cp -v "$destNameLinux/usr/share/mandelbulber2/doc/Mandelbulber_Manual.pdf" "$destNameWin64/doc/"
+        
+        cp -vu "$sourceDir/deploy/NEWS" "$destNameLinux/usr/share/mandelbulber2/doc"
+        cp -vu "$sourceDir/deploy/NEWS" "$destNameWin/doc/"
+        cp -vu "$sourceDir/deploy/NEWS" "$destNameWin64/doc/"
 	
 	cd "$releaseDir"
 	
