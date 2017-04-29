@@ -360,6 +360,9 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 			imageFileSave->SaveImage();
 			delete imageFileSave;
 		}
+
+		delete leftImage;
+		delete rightImage;
 	}
 	else
 	{
