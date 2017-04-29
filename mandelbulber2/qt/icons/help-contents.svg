@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+	<linearGradient id="c">
+		<stop stop-color="#fff" offset="0"/>
+		<stop stop-color="#fff" stop-opacity="0" offset="1"/>
+	</linearGradient>
+	<linearGradient id="h" x1="15.929" xlink:href="#c" gradientUnits="userSpaceOnUse" x2="51.53" y1="9.07" y2="64.25"/>
+	<linearGradient id="b" x1="27.427" xlink:href="#c" gradientUnits="userSpaceOnUse" x2="15.76" y1="30.842" y2="13.171"/>
+	<radialGradient id="e" gradientUnits="userSpaceOnUse" cy="26.961" cx="25.842" r="10.421">
+		<stop stop-color="#fff" stop-opacity="0" offset="0"/>
+		<stop stop-opacity=".349" offset="1"/>
+	</radialGradient>
+	<radialGradient id="i" gradientUnits="userSpaceOnUse" cy="13" cx="13" r="7.6">
+		<stop stop-color="#3c3c3c" offset="0"/>
+		<stop stop-color="#3e3e3e" offset=".363"/>
+		<stop stop-color="#454545" offset=".494"/>
+		<stop stop-color="#505050" offset=".588"/>
+		<stop stop-color="#616161" offset=".663"/>
+		<stop stop-color="#777" offset=".728"/>
+		<stop stop-color="#939393" offset=".785"/>
+		<stop stop-color="#b2b2b2" offset=".835"/>
+		<stop stop-color="#d2d2d2" offset=".876"/>
+		<stop stop-color="#cecece" offset=".9"/>
+		<stop stop-color="#c3c3c3" offset=".922"/>
+		<stop stop-color="#afafaf" offset=".945"/>
+		<stop stop-color="#949494" offset=".967"/>
+		<stop stop-color="#717171" offset=".988"/>
+		<stop stop-color="#5b5b5b" offset="1"/>
+	</radialGradient>
+	<radialGradient id="g" gradientUnits="userSpaceOnUse" cy="23.357" cx="22.81" r="25.59">
+		<stop stop-color="#210101" offset="0"/>
+		<stop stop-color="#ff747e" offset=".5"/>
+		<stop stop-color="#830000" offset="1"/>
+	</radialGradient>
+	<radialGradient id="l" gradientUnits="userSpaceOnUse" cy="3.756" cx="8.824" gradientTransform="matrix(.9683 0 0 1.0328 1.354-1.354)" r="37.752">
+		<stop stop-color="#a3a3a3" offset="0"/>
+		<stop stop-color="#4c4c4c" offset="1"/>
+	</radialGradient>
+	<radialGradient id="d" gradientUnits="userSpaceOnUse" cy="42.08" cx="24.307" gradientTransform="matrix(1 0 0 .2849-2.275 29.14)" r="15.822">
+		<stop offset="0"/>
+		<stop stop-opacity="0" offset="1"/>
+	</radialGradient>
+	<radialGradient id="k" gradientUnits="userSpaceOnUse" cy="35.737" cx="33.967" gradientTransform="matrix(.9605 0 0 1.0411-2-2)" r="86.71">
+		<stop stop-color="#fafafa" offset="0"/>
+		<stop stop-color="#bbb" offset="1"/>
+	</radialGradient>
+	<radialGradient id="f" gradientUnits="userSpaceOnUse" cy="23.1" cx="22.904" r="19.828">
+		<stop stop-color="#c5c5c5" offset="0"/>
+		<stop stop-color="#c8c8c8" offset=".237"/>
+		<stop stop-color="#d1d1d1" offset=".408"/>
+		<stop stop-color="#e1e1e1" offset=".559"/>
+		<stop stop-color="#f7f7f7" offset=".696"/>
+		<stop stop-color="#fff" offset=".736"/>
+		<stop stop-color="#fcfcfc" offset=".819"/>
+		<stop stop-color="#f2f2f2" offset=".881"/>
+		<stop stop-color="#e2e2e2" offset=".936"/>
+		<stop stop-color="#ccc" offset=".988"/>
+		<stop stop-color="#c5c5c5" offset="1"/>
+	</radialGradient>
+	<radialGradient id="j" gradientUnits="userSpaceOnUse" cy="7.268" cx="8.144" gradientTransform="matrix(.9683 0 0 1.0328 1.354-1.354)" r="38.16">
+		<stop stop-color="#fff" offset="0"/>
+		<stop stop-color="#f8f8f8" offset="1"/>
+	</radialGradient>
+</defs>
+<ellipse id="m" opacity=".75" rx="15.822" ry="4.5" cy="41.1" cx="22" fill="url(#d)"/>
+<use opacity=".75" xlink:href="#m" x="8" y="2.36"/>
+<g stroke-linejoin="round" stroke-linecap="round" >
+	<rect rx="1.149" height="40.92" width="34.875" stroke="url(#l)" y="1.646" x="4.604" fill="url(#k)"/>
+	<rect rx=".149" height="38.946" width="32.776" stroke="url(#j)" y="2.584" x="5.666" fill="none"/>
+</g>
+<g fill-opacity=".55" transform="matrix(.9091 0 0 1 .364-2)" fill="#9b9b9b">
+	<rect rx=".152" ry=".065" height="1" width="22" y="9" x="15"/>
+	<rect rx=".152" ry=".065" height="1" width="22" y="13" x="15"/>
+	<rect rx=".152" ry=".065" height="1" width="22" y="17" x="15"/>
+	<rect rx=".152" ry=".065" height="1" width="22" y="21" x="15"/>
+	<rect rx=".068" ry=".065" height="1" width="9.9" y="25" x="15"/>
+</g>
+<g transform="matrix(.8595 0 0 .8595 9.08 8.03)" fill="none">
+	<circle id="a" cx="13.417" cy="13.246" stroke="url(#i)" r="7" stroke-width="1.7"/>
+	<use xlink:href="#a" y=".1" x="21"/>
+	<use y="21.5" xlink:href="#a"/>
+	<use xlink:href="#a" y="21.5" x="21.1"/>
+	<circle r="13.22" cy="24" stroke="url(#f)" cx="24" stroke-width="11"/>
+	<path d="m15.1 7.56l5.388 9.379c-1.796 0.998-2.594 1.733-3.486 3.361l-9.685-4.558c1.197-2.993 4.989-6.984 7.783-8.181m25.17 7.571l-9.287 5.335c-1.019-1.716-1.872-2.444-3.359-3.359l4.545-9.682c2.964 1.186 6.916 4.94 8.101 7.706m-7.379 25.26l-5.423-9.426c1.631-0.916 2.47-1.786 3.466-3.463l9.837 4.612c-1.212 3.03-5.253 7.07-7.879 8.277m-25.372-7.6l9.347-5.388c0.998 1.796 1.733 2.438 3.392 3.486l-4.558 9.684c-2.993-1.197-6.984-5.188-8.181-7.782" fill="url(#g)"/>
+	<circle stroke="url(#b)" cx="24" r="8.3" cy="24"/>
+	<circle stroke="url(#h)" cx="24" r="18.1" cy="24"/>
+	<g stroke="#606060" stroke-width=".88">
+		<circle cy="24" cx="24" r="7.5" fill="url(#e)"/>
+		<circle cy="24" cx="24" r="19"/>
+	</g>
+</g>
+</svg>

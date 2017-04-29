@@ -25,6 +25,8 @@
     <file>icons/folder.svg</file>
     <file>icons/list-add.svg</file>
     <file>icons/list-remove.svg</file>
+    <file>icons/dialog-information.svg</file>
+    <file>icons/help-contents.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
     <file>tooltips_images/normal_map_texture_g_inv.jpg</file>

@@ -1419,11 +1419,19 @@
    </property>
   </action>
   <action name="actionUser_Manual">
+   <property name="icon">
+    <iconset theme="help-contents" resource="icons.qrc">
+     <normaloff>:/system/icons/help-contents.svg</normaloff>:/system/icons/help-contents.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;User Manual</string>
    </property>
   </action>
   <action name="actionUser_News">
+   <property name="icon">
+    <iconset theme="dialog-information" resource="icons.qrc">
+     <normaloff>:/system/icons/dialog-information.svg</normaloff>:/system/icons/dialog-information.svg</iconset>
+   </property>
    <property name="text">
     <string>News</string>
    </property>
