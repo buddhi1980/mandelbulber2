@@ -325,8 +325,8 @@ file_put_contents(PROJECT_PATH . 'opencl/fractalCl.h', $fractalHContent);
 
 // formula icons
 foreach($formulas as $index => $formula){
-	// autogenerate missing formula_and_transform_images
-        $imgPath = PROJECT_PATH .'qt_data/formula_and_transform_images/' . $formula['internalName'] . '.png';
+	// autogenerate missing formula and transform images
+        $imgPath = PROJECT_PATH .'formula/img/' . $formula['internalName'] . '.png';
         if(file_exists($imgPath)){
             if(isVerbose()){
                     echo noticeString('image ' . $imgPath . ' already exists.') . PHP_EOL;
@@ -600,7 +600,7 @@ transf_offset_0 0,8;
 transf_scale_0 0,034722;
 transf_scale_2 1,079812;';
 	}
-        $tempFractPath = PROJECT_PATH .'qt_data/formula_and_transform_images/' . $formula['internalName'] . '.fract';
+        $tempFractPath = PROJECT_PATH .'formula/img/' . $formula['internalName'] . '.fract';
         
         if(!file_exists($tempFractPath)){ // allow manual override
             file_put_contents($tempFractPath, $settings);
@@ -617,13 +617,13 @@ function upgradeInternalName($internalName, $internalNameNew){
 		 . ' \'' . PROJECT_PATH . 'qt_data/fractal_' . $internalNameNew . '.ui\''
 	);
 	shell_exec('git mv'
-	  . ' \'' . PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalName . '.png\''
-		. ' \'' . PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalNameNew . '.png\''
+	  . ' \'' . PROJECT_PATH .'formula/img/' . $internalName . '.png\''
+		. ' \'' . PROJECT_PATH .'formula/img/' . $internalNameNew . '.png\''
 	);
-	if(file_exists(PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalName . '.fract')){
+	if(file_exists(PROJECT_PATH .'formula/img/' . $internalName . '.fract')){
 	  shell_exec('git mv'
-		  . ' \'' . PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalName . '.fract\''
-			. ' \'' . PROJECT_PATH .'qt_data/formula_and_transform_images/' . $internalNameNew . '.fract\''
+		  . ' \'' . PROJECT_PATH .'formula/img/' . $internalName . '.fract\''
+			. ' \'' . PROJECT_PATH .'formula/img/' . $internalNameNew . '.fract\''
 		);
 	}
 	$fractal_list_content = file_get_contents(PROJECT_PATH .'src/fractal_list.cpp');

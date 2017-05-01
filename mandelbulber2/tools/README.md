@@ -51,7 +51,7 @@ Each entry has a small thumbnail image, to give a hint, what the formula does.
 steps to take for adding new thumbnails:
 - 1. For each new formula create a "descent" new image, which shows the most striking property of the new formula
   When the formula is a transform, it should base on the menger sponge to be comparable with other transforms
-- 2. Save the image as 256x256 png16alpha to the folder mandelbulber2/qt_data/formula_and_transform_images
+- 2. Save the image as 256x256 png16alpha to the folder mandelbulber2/formula/img
   the filename should equal the formula name
 - 3. Test if application shows the new thumbnail in the formula dropdown
 - 4. Resave the image with gimp (this reduces the filesize)

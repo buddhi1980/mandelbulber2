@@ -274,7 +274,7 @@ struct sFractalDescription
 		{
 			return QString(":system/icons/list-remove.svg");
 		}
-		return systemData.sharedDir + "qt_data" + QDir::separator() + "formula_and_transform_images"
+		return systemData.sharedDir + "formula" + QDir::separator() + "img"
 					 + QDir::separator() + internalName + ".png";
 	}
 	QString getUiFilename() const
