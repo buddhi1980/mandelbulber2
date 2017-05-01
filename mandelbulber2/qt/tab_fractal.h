@@ -32,7 +32,7 @@
  * cTabFractal - contains ui logic for the fractal and transform tabs
  * tab_fractal.ui is the layout ui for the outer ui.
  * The formula specific ui is loaded dynamically in slotChangedComboFractal()
- * and reads the corresponding ui from qt_data/fractal_<FORMULA_NAME>.ui
+ * and reads the corresponding ui from formula/ui/fractal_<FORMULA_NAME>.ui
  */
 
 #ifndef MANDELBULBER2_QT_TAB_FRACTAL_H_

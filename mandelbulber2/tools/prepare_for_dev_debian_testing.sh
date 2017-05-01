@@ -54,7 +54,7 @@ installing the program
 sudo install mandelbulber2 /usr/bin
 
 echo "
-creating links to files from qt_data and deploy 
+creating links to files from formula and deploy 
 folders in /usr/share/mandelbulber2 directory
 if you change anything in that folder you will
 not need to reinstall the program
@@ -64,7 +64,7 @@ You have to remember to not delete mandelbulber2 folder located here
 sudo rm -f -r $MANDELBULBER_SHARE
 sudo mkdir $MANDELBULBER_SHARE
 cd ..
-sudo ln -s ${PWD}/qt_data $MANDELBULBER_SHARE/qt_data
+sudo ln -s ${PWD}/formula $MANDELBULBER_SHARE/formula
 sudo ln -s ${PWD}/data $MANDELBULBER_SHARE/data
 sudo ln -s ${PWD}/language $MANDELBULBER_SHARE/language
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/materials $MANDELBULBER_SHARE/materials

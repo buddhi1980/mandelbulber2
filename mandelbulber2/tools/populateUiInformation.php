@@ -88,7 +88,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 	}
 	
 	$formulas[$index] = array(
-		'uiFile' => PROJECT_PATH . 'qt_data/fractal_' . $internalName . '.ui',
+		'uiFile' => PROJECT_PATH . 'formula/ui/fractal_' . $internalName . '.ui',
 		'name' => $name,
 		'internalName' => $internalName,
 		'functionName' => $functionName,
@@ -613,8 +613,8 @@ transf_scale_2 1,079812;';
 
 function upgradeInternalName($internalName, $internalNameNew){
   shell_exec('git mv'
-	   . ' \'' . PROJECT_PATH . 'qt_data/fractal_' . $internalName . '.ui\''
-		 . ' \'' . PROJECT_PATH . 'qt_data/fractal_' . $internalNameNew . '.ui\''
+	   . ' \'' . PROJECT_PATH . 'formula/ui/fractal_' . $internalName . '.ui\''
+		 . ' \'' . PROJECT_PATH . 'formula/ui/fractal_' . $internalNameNew . '.ui\''
 	);
 	shell_exec('git mv'
 	  . ' \'' . PROJECT_PATH .'formula/img/' . $internalName . '.png\''

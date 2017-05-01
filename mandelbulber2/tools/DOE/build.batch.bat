@@ -98,10 +98,10 @@ xcopy /Q /C /Y %QTDIR%\bin\Qt5Widgets*.dll %BINDIR%
 xcopy /Q /C /Y %QTDIR%\bin\Qt5Core*.dll %BINDIR%
 xcopy /Q /C /Y %QTDIR%\bin\Qt5Multimedia*.dll %BINDIR%
 del /F /Q %BINDIR%language
-del /F /Q %BINDIR%qt_data
+del /F /Q %BINDIR%formula
 del /F /Q %BINDIR%data
 xcopy /Q /C /Y /I %SRC%\mandelbulber2\language %BINDIR%language
-xcopy /Q /C /Y /I %SRC%\mandelbulber2\qt_data %BINDIR%qt_data
+xcopy /Q /C /Y /I %SRC%\mandelbulber2\formula %BINDIR%formula
 xcopy /Q /C /Y /I %SRC%\mandelbulber2\data %BINDIR%data
 xcopy /Q /C /Y %PNGDIST%\*.dll %BINDIR%
 xcopy /Q /C /Y %ZLIBDIST%\*.dll %BINDIR%
