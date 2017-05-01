@@ -1015,7 +1015,9 @@ void InitPrimitiveParams(
 			break;
 		case fractal::objTorus:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_radius_lpow", 1, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_tube_radius", 0.2, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_tube_radius_lpow", 1	, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			par->addParam(
 				QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
@@ -1178,7 +1180,9 @@ void DeletePrimitiveParams(
 			break;
 		case fractal::objTorus:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
+			par->DeleteParameter(QString(primitiveName) + "_radius_lpow");
 			par->DeleteParameter(QString(primitiveName) + "_tube_radius");
+			par->DeleteParameter(QString(primitiveName) + "_tube_radius_lpow");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
 			par->DeleteParameter(QString(primitiveName) + "_repeat");
 			break;

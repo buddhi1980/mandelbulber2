@@ -178,6 +178,7 @@ public:
 		return x == vector.x && y == vector.y && z == vector.z;
 	}
 	inline double Length() const { return sqrt(x * x + y * y + z * z); }
+	inline double LengthPow(double p) const { return pow(pow(x, p) + pow(y, p) + pow(z, p), 1.0 / p); }
 	inline double Dot(const CVector3 &vector) const
 	{
 		return x * vector.x + y * vector.y + z * vector.z;
@@ -503,6 +504,7 @@ public:
 		return *this;
 	}
 	inline double Length() const { return sqrt(x * x + y * y); }
+	inline double LengthPow(double p) const { return pow(pow(x, p) + pow(y, p), 1.0 / p); }
 	inline CVector2 Deadband() const
 	{
 		CVector2 c;

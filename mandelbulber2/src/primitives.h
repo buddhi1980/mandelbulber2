@@ -123,7 +123,9 @@ struct sPrimitiveTorus : sPrimitiveBasic
 {
 	bool empty;
 	double radius;
+	double radius_lpow;
 	double tube_radius;
+	double tube_radius_lpow;
 	CVector3 repeat;
 	double PrimitiveDistance(CVector3 _point) const override;
 };
