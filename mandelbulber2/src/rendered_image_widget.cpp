@@ -93,7 +93,7 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		CVector2<int> point = lastMousePosition / image->GetPreviewScale();
 		double z = image->GetPixelZBuffer(point.x, point.y);
 
-		if (isFocus || gridType != gridTypeCrosshair)
+		if ((cursorVisible && isFocus) || gridType != gridTypeCrosshair)
 		{
 			if (!anaglyphMode) DisplayCrosshair();
 		}
