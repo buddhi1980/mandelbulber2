@@ -93,40 +93,46 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		CVector2<int> point = lastMousePosition / image->GetPreviewScale();
 		double z = image->GetPixelZBuffer(point.x, point.y);
 
-		if (isFocus || gridType != gridTypeCrosshair)
+		if (params)
 		{
-			if (!anaglyphMode) DisplayCrosshair();
-		}
-
-		if (cursorVisible && isFocus)
-		{
-			if (z < 1e10 || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
+			if ((cursorVisible && isFocus) || gridType != gridTypeCrosshair)
 			{
-				redrawed = false;
-				if (!isOnObject)
-				{
-					QApplication::setOverrideCursor(Qt::BlankCursor);
-				}
-				isOnObject = true;
-
-				Display3DCursor(lastMousePosition, z);
+				if (!anaglyphMode) DisplayCrosshair();
 			}
-			else
+
+			if (cursorVisible && isFocus)
 			{
-				if (isOnObject)
+				if (z < 1e10 || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 				{
-					QApplication::restoreOverrideCursor();
+					redrawed = false;
+					if (!isOnObject)
+					{
+						QApplication::setOverrideCursor(Qt::BlankCursor);
+					}
+					isOnObject = true;
+
+					Display3DCursor(lastMousePosition, z);
 				}
-				isOnObject = false;
+				else
+				{
+					if (isOnObject)
+					{
+						QApplication::restoreOverrideCursor();
+					}
+					isOnObject = false;
+				}
 			}
 		}
 
 		image->RedrawInWidget();
 
-		if (cursorVisible && isFocus && !anaglyphMode
-				&& (isOnObject || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl))
+		if (params)
 		{
-			DisplayCoordinates();
+			if (cursorVisible && isFocus && !anaglyphMode
+					&& (isOnObject || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl))
+			{
+				DisplayCoordinates();
+			}
 		}
 		redrawed = true;
 	}
