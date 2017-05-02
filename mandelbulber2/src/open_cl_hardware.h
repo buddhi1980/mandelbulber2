@@ -19,14 +19,15 @@ class cOpenClHardware : public QObject
 	Q_OBJECT
 
 public:
-	cOpenClHardware(QObject *parent);
+	cOpenClHardware(QObject *parent = nullptr);
 	~cOpenClHardware();
 
 #ifdef USE_OPENCL
+	bool checkErr(cl_int err, QString fuctionName);
 	void ListOpenClPlatforms();
 	QStringList GetPlatformNames();
 
-	QList<cl::Platform> clPlatforms;
+	std::vector<cl::Platform> clPlatforms;
 #endif
 
 	bool openClAvailable;

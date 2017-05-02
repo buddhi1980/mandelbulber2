@@ -44,6 +44,7 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "netrender.hpp"
+#include "open_cl_hardware.h"
 #include "queue.hpp"
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
@@ -102,6 +103,12 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<cErrorMessage::enumMessageType>("cErrorMessage::enumMessageType");
 
 	CalcPreferredFontSize(commandLineInterface.isNoGUI());
+
+#ifdef USE_OPENCL
+	//just for testing
+	cOpenClHardware *openClHardware = new cOpenClHardware();
+	openClHardware->ListOpenClPlatforms();
+#endif
 
 	// class for interface windows
 	gMainInterface = new cInterface;

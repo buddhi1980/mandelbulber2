@@ -30,11 +30,11 @@ packages needed to compile: build-essential, qt5-default, libpng-dev, qttools5-d
 
 On Ubuntu, Debian stable (jessie) or Mint: 
 sudo apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng-dev qttools5-dev qttools5-dev-tools \
-	libgomp1 libgsl-dev libsndfile1-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
+	libgomp1 libgsl-dev libsndfile1-dev qtmultimedia5-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
 
 On Debian testing (stretch)
 sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools \
-	libgomp1 libgsl-dev qtmultimedia5-dev libsndfile1-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
+	libgomp1 libgsl-dev libsndfile1-dev qtmultimedia5-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
 
 
 Then:
@@ -53,6 +53,12 @@ note: compilation with cmake is only beta and not feature complete
 in order to compile OpenEXR with cmake the ECM should be present
 to install on debian/ubuntu:
 sudo apt-get install extra-cmake-modules
+
+2.2 Optional packages
+
+TIFF: install libtiff5-dev to have TIFF format support
+
+EXR: install libopenexr-dev to have EXR format support
 
 3. INSTALLATION
 ---------------
