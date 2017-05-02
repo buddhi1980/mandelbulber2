@@ -317,10 +317,10 @@
     <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\audio $(OutDir)audio" />
     <Exec Command="xcopy /Y /Q /I $(QtDir)\plugins\mediaservice $(OutDir)mediaservice" />
     <Exec Command="del /F /Q $(OutDir)language" />
-    <Exec Command="del /F /Q $(OutDir)qt_data" />
+    <Exec Command="del /F /Q $(OutDir)formula" />
     <Exec Command="del /F /Q $(OutDir)data" />
     <Exec Command="xcopy /Y /Q /I $(SourceDir)\mandelbulber2\language $(OutDir)language" />
-    <Exec Command="xcopy /Y /Q /I /S $(SourceDir)\mandelbulber2\qt_data $(OutDir)qt_data" />
+    <Exec Command="xcopy /Y /Q /I /S $(SourceDir)\mandelbulber2\formula $(OutDir)formula" />
     <Exec Command="xcopy /Y /Q /I $(SourceDir)\mandelbulber2\data $(OutDir)data" />
     <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\README-win32.txt $(OutDir)README.txt" />
     <Exec Command="copy /Y $(SourceDir)\mandelbulber2\deploy\NEWS $(OutDir)NEWS.txt" />
