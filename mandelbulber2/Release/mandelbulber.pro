@@ -42,10 +42,11 @@ win32|packagesExist(sndfile) {
   message("Use sndfile library for WAV files")
 }
 
-#TODO: conditional enabling of OpenCl
-
-#DEFINES += USE_OPENCL
-#LIBS += -lOpenCL
+opencl {
+	DEFINES += USE_OPENCL
+	LIBS += -lOpenCL
+	message("Use OpenCL library")
+}
 
 DEFINES += QT_MESSAGELOGCONTEXT
 

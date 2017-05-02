@@ -41,6 +41,12 @@ win32|packagesExist(sndfile) {
   message("Use sndfile library for WAV files")
 }
 
+opencl {
+	DEFINES += USE_OPENCL
+	LIBS += -lOpenCL
+	message("Use OpenCL library")
+}
+
 TARGET = mandelbulber2 
 TEMPLATE = app
 
