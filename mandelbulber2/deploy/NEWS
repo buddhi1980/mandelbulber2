@@ -1,5 +1,8 @@
 Version history
 
+v2.11-1
+- Queue: fixed bug: program crashed when mouse cursor was over preview widget in queue dock.
+
 v2.11
 - Fractals: cleaned up names of fractal formulas
 - Fractals: corrected MixPinski code

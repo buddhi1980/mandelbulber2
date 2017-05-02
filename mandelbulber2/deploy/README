@@ -1,5 +1,5 @@
 
-MANDELBULBER 2.11
+MANDELBULBER 2.11-1
 -----------------
 
 project leader: Krzysztof Marczak
