@@ -96,7 +96,7 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 		'comment' => $comment,
 		'rawComment' => $rawComment,
 		'id' => $indexIdLookup[$index],
-		'openclFile' => PROJECT_PATH . 'opencl/formula/fractal_' . $internalName . '.cl',
+		'openclFile' => PROJECT_PATH . 'formula/opencl/' . $internalName . '.cl',
 		'openclCode' => parseToOpenCL($code),
 		'type' => (strpos($internalName, 'transf_') !== false ? 'transf' : 'formula'),
 	);
