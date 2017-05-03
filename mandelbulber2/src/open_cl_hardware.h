@@ -19,15 +19,38 @@ class cOpenClHardware : public QObject
 	Q_OBJECT
 
 public:
+	enum enumOpenClDeviceType
+	{
+		openClDeviceTypeCPU,
+		openClDeviceTypeGPU
+	};
+
+	struct sPlatformInformation
+	{
+		QString name;
+		QString vendor;
+		QString version;
+		QString profile;
+	};
+
 	cOpenClHardware(QObject *parent = nullptr);
 	~cOpenClHardware();
 
 #ifdef USE_OPENCL
 	bool checkErr(cl_int err, QString fuctionName);
 	void ListOpenClPlatforms();
-	QStringList GetPlatformNames();
+	void CreateContext(int platformIndex, enumOpenClDeviceType deviceType);
+
+	const QList<sPlatformInformation> &getPlatformsInformation() const
+	{
+		return platformsInformation;
+	}
 
 	std::vector<cl::Platform> clPlatforms;
+	cl::Context *context;
+
+	QList<sPlatformInformation> platformsInformation;
+
 #endif
 
 	bool openClAvailable;

@@ -108,6 +108,7 @@ int main(int argc, char *argv[])
 	//just for testing
 	cOpenClHardware *openClHardware = new cOpenClHardware();
 	openClHardware->ListOpenClPlatforms();
+	openClHardware->CreateContext(0, cOpenClHardware::openClDeviceTypeGPU);
 #endif
 
 	// class for interface windows
