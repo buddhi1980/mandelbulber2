@@ -109,6 +109,7 @@ int main(int argc, char *argv[])
 	cOpenClHardware *openClHardware = new cOpenClHardware();
 	openClHardware->ListOpenClPlatforms();
 	openClHardware->CreateContext(0, cOpenClHardware::openClDeviceTypeGPU);
+	delete openClHardware;
 #endif
 
 	// class for interface windows
