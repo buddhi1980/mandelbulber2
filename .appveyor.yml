@@ -8,58 +8,6 @@
 # version format
 version: 1.0.1.0.0.7.{build}-{branch}
 
-# you can use {branch} name in version format too
-# version: 1.0.{build}-{branch}
-
-# branches to build
-#branches:
-#  whitelist
-#  only:
-#    - master
-#    - production
-
-#   blacklist
-#  except:
-#    - gh-pages
-
-# Do not build on tags (GitHub and BitBucket)
-#skip_tags: true
-
-# Start builds on tags only (GitHub and BitBucket)
-#skip_non_tags: true
-
-# Skipping commits with particular message or from specific user
-#skip_commits:
-# Regex for matching commit message
-#  message: /Created.*\.(png|jpg|jpeg|bmp|gif)/
-# Commit author's username, name, email or regexp maching one of these.
-#  author: John
-
-# Including commits with particular message or from specific user
-#only_commits:
-# Start a new build if message contains 'build'
-#  message: /build/
-# Start a new build for commit of user with email jack@company.com
-#  author: jack@company.com
-
-# Skipping commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
-#skip_commits:
-#  files:
-#    - docs/*
-#    - '**/*.html'
-
-# Including commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
-#only_commits:
-#  files:
-#    - Project-A/
-#    - Project-B/
-
-# Do not build feature branch with open Pull Requests
-#skip_branch_with_pr: true
-
-# Maximum number of concurrent jobs for the project
-#max_jobs: 1
-
 #---------------------------------#
 #    environment configuration    #
 #---------------------------------#
@@ -69,96 +17,6 @@ image: Visual Studio 2015
 # Enable Global[Internet] Windows RDP Client Access to Build Worker
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-# scripts that are called at very beginning, before repo cloning
-#init:
-#  - git config --global core.autocrlf input
-
-# clone directory
-#clone_folder: c:\projects\myproject
-
-# fetch repository as zip archive
-# default is "false"
-#shallow_clone: true
-
-# set clone depth
-# clone entire repository history if not defined
-#clone_depth: 5
-
-# setting up etc\hosts file
-#hosts:
-#  queue-server: 127.0.0.1
-#  db.server.com: 127.0.0.2
-
-# environment variables
-#environment:
-#  my_var1: value1
-#  my_var2: value2
-# this is how to set encrypted variable.
-# Go to "Encrypt data" page in account menu to encrypt data.
-#  my_secure_var1:
-#    secure: FW3tJ3fMncxvs58/ifSP7w==
-
-# environment:
-#  matrix:
-#    - tbs_platform: "x64"
-#      tbs_config: "Release"
-#    - tbs_platform: "x64"
-#      tbs_config: "Debug"
-#    - tbs_platform: "x64"
-#      tbs_config: "AnalysisRelease"
-#    - tbs_platform: "Win32"
-#      tbs_config: "Release"
-#    - tbs_platform: "Win32"
-#      tbs_config: "Debug"
-#    - tbs_platform: "Win32"
-#      tbs_config: "AnalysisRelease"
-
-# environment:
-#  global:
-#    connection_string: server=12;password=13;
-#    service_url: https://127.0.0.1:8090
-#
-#  matrix:
-#  - db: mysql
-#    provider: mysql
-#
-#  - db: mssql
-#    provider: mssql
-#    password:
-#      secure: $#(JFDA)jQ@#$
-
-# this is how to allow failing jobs in the matrix
-#matrix:
-#  fast_finish: true     # set this flag to immediately finish build once one of the jobs fails.
-#  allow_failures:
-#    - platform: x86
-#      configuration: Debug
-#    - platform: x64
-#      configuration: Release
-
-# build cache to preserve files/folders between builds
-#cache:
-#  - '%LocalAppData%\NuGet\Cache'
-# preserve "packages" directory in the root of build folder 
-# will reset it if packages.config is modified
-#  - packages -> **\packages.config
-#  - projectA\libs
-# local npm modules
-#  - node_modules
-
-# enable service required for build/tests
-#services:
-#  - mssql2014           # start SQL Server 2014 Express
-#  - mssql2014rs         # start SQL Server 2014 Express and Reporting Services
-#  - mssql2012sp1        # start SQL Server 2012 SP1 Express
-#  - mssql2012sp1rs      # start SQL Server 2012 SP1 Express and Reporting Services
-#  - mssql2008r2sp2      # start SQL Server 2008 R2 SP2 Express
-#  - mssql2008r2sp2rs    # start SQL Server 2008 R2 SP2 Express and Reporting Services
-#  - mysql               # start MySQL 5.6 service
-#  - postgresql          # start PostgreSQL 9.5 service
-#  - iis                 # start IIS
-#  - msmq                # start Queuing services
-#  - mongodb             # start MongoDB
 
 # scripts that run after cloning repository
 install:
@@ -168,46 +26,10 @@ install:
 - if "%PLATFORM%"=="k1om" mklink "C:/msvc" "%PROGRAMFILES%/Microsoft Visual Studio 14.0/VC/bin"
 - if "%PLATFORM%"=="k1om" SET "PATH=C:/msys64/mingw32/bin;%PATH%"
 - if "%PLATFORM%"=="k1om" SET "PATH=C:/compilers_and_libraries/windows/bin/intel64_mic;%PATH%"
-#install:
-# by default, all script lines are interpreted as batch
-#  - echo This is batch
-# to run script as a PowerShell command prepend it with ps:
-#  - ps: Write-Host 'This is PowerShell'
-# batch commands start from cmd:
-#  - cmd: echo This is batch again
-#  - cmd: set MY_VAR=12345
-#install:
-#  - ps: if($env:tbs_platform -eq 'x64') { $env:vcvar_arg = 'x86_amd64'; } else { $env:vcvar_arg = 'x86'; }
-#  - ps: if($env:tbs_platform -eq 'x64') { $env:setenv_arg = 'x64'; } else { $env:setenv_arg = 'x86'; }
-#  - ps: if($env:tbs_platform -eq 'x64') { $env:ms_build_suffix = 'Bin\amd64'; } else { $env:ms_build_suffix = 'Bin'; }
-#  - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall" %vcvar_arg%'
-#  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /%setenv_arg%'
-#  - set PATH=C:\Program Files (x86)\MSBuild\14.0\%ms_build_suffix%;%PATH%
-
-# enable patching of AssemblyInfo.* files
-#assembly_info:
-#  patch: true
-#  file: AssemblyInfo.*
-#  assembly_version: "2.2.{build}"
-#  assembly_file_version: "{version}"
-#  assembly_informational_version: "{version}"
-
-# Automatically register private account and/or project AppVeyor NuGet feeds.
-#nuget:
-#  account_feed: true
-#  project_feed: true
-#  disable_publish_on_pr: true
-# disable publishing of .nupkg artifacts to
-# account/project feeds for pull request builds
 
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
-
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-#platform: Any CPU
-# build Configuration, i.e. Debug, Release, etc.
-#configuration: Release
 
 # add several platforms to build matrix:
 platform:
@@ -225,37 +47,17 @@ matrix:
     - platform: k1om
     - platform: ARM
     - configuration: AnalysisRelease
-# use custom build_script
-#build: false
-build_script:
-- ECHO BUILD %CONFIGURATION% %PLATFORM%
-- ps: If ($env:PLATFORM -ne "k1om") { msbuild mandelbulber2.sln /m /p:Configuration=$env:CONFIGURATION /p:Platform=$env:PLATFORM } 
-- if "%PLATFORM%"=="k1om" %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\DOE\build.batch.bat
-
-# use automatic builds
-#build:
-# enable MSBuild parallel builds
-#  parallel: true
-# path to Visual Studio solution or project
-#  project: mandelbulber2.sln
-#  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
-#  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
-#  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-#  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-#  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-#  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-
-# MSBuild verbosity level
-#  verbosity: quiet|minimal|normal|detailed
-#  verbosity: Diagnostic
 
 # scripts to run before build
 before_build:
 # packages from nuget
-  - nuget restore mandelbulber2.sln
+  - nuget restore %APPVEYOR_BUILD_FOLDER%\mandelbulber2\msvc\mandelbulber2.sln
 
-# scripts to run *after* solution is built and *before* automatic packaging occurs (web apps, NuGet packages, Azure Cloud Services)
-#before_package:
+# use custom build_script
+build_script:
+- ECHO BUILD %CONFIGURATION% %PLATFORM%
+- ps: If ($env:PLATFORM -ne "k1om") { msbuild %APPVEYOR_BUILD_FOLDER%\mandelbulber2\msvc\mandelbulber2.sln /m /p:Configuration=$env:CONFIGURATION /p:Platform=$env:PLATFORM } 
+- if "%PLATFORM%"=="k1om" %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\DOE\build.batch.bat
 
 # scripts to run after build
 after_build:
@@ -264,42 +66,9 @@ after_build:
   # zip the archive
   - 7z a mandelbulber-%CONFIGURATION%-%PLATFORM%-%APPVEYOR_REPO_COMMIT%.zip build-win\%CONFIGURATION%\%PLATFORM%
 
-# to run your custom scripts instead of automatic MSBuild
-#build_script:
-#  - msbuild mandelbulber2.sln /p:Configuration=%tbs_config% /p:Platform=%tbs_platform%
-
-# to disable automatic builds
-#build: off
-
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
-
-#test:
-#  assemblies:
-#    - asm1.dll
-
-#  categories:
-#    - UI
-
-# to run tests from different categories as separate jobs in parallel
-#test:
-#  categories:
-#    - A            # A category common for all jobs
-#    - [UI]         # 1st job
-#    - [DAL, BL]    # 2nd job
-
-# scripts to run before tests
-#before_test:
-#  - echo script1
-#  - ps: Write-Host "script1"
-
-# scripts to run after tests
-#after_test:
-
-# to run your custom scripts instead of automatic tests
-#test_script:
-#  - echo This is my custom test script
 
 # to disable automatic tests
 test: off
@@ -313,43 +82,9 @@ artifacts:
   - path: mandelbulber-%CONFIGURATION%-%PLATFORM%-%APPVEYOR_REPO_COMMIT%.zip
     name: Mandelbulber-%CONFIGURATION%-%PLATFORM%
 
-# pushing a single file
-#  - path: test.zip
-
-# pushing a single file with environment variable in path and "Deployment name" specified
-#  - path: MyProject\bin\$(configuration)
-#    name: myapp
-
-# pushing entire folder as a zip archive
-#  - path: logs
-
-# pushing all *.nupkg files in build directory recursively
-#  - path: '**\*.nupkg'
-
 #---------------------------------#
 #     deployment configuration    #
 #---------------------------------#
-# TODO: see here for instructions: https://www.appveyor.com/docs/deployment/github
-# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
-# provider names are case-sensitive!
-#deploy:
-# Deploy to GitHub Releases
-#  - provider: GitHub
-#    artifact: /.*\.nupkg/           # upload all NuGet packages to release assets
-#    draft: false
-#    prerelease: false
-#    on:
-#      branch: master                # release from master branch only
-#      appveyor_repo_tag: true       # deploy on tag push only
-
-# scripts to run before deployment
-#before_deploy:
-
-# scripts to run after deployment
-#after_deploy:
-
-# to run your custom scripts instead of provider deployments
-#deploy_script:
 
 # to disable deployment
 deploy: off
@@ -447,8 +182,5 @@ notifications:
       - buddhi1980@gmail.com
       - sebastian.jennen@gmx.de
       - RobertPancoast77@gmail.com
-#    subject: 'Build {{status}}'                  # optional
-#    message: "{{message}}, {{commitId}}, ..."    # optional
-#    on_build_status_changed: true
 
 
