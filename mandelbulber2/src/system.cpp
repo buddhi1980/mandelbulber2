@@ -532,7 +532,7 @@ void UpdateLanguage(QCoreApplication *app)
 	WriteLogString("locale", locale, 2);
 	mandelbulberMainTranslator.load(locale, systemData.sharedDir + QDir::separator() + "language");
 	mandelbulberFractalUiTranslator.load(
-		"qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
+		"formula_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
 	WriteLog("Installing translator", 2);
 	app->installTranslator(&mandelbulberMainTranslator);

@@ -35,7 +35,7 @@ from here on only working on the tag:
 The language system requires language tools of qt.
 
 Updating of ts files (first step before editing language entries)
-`lupdate mandelbulber2/formula/ui/*.ui -ts mandelbulber2/language/qt_data_*.ts`
+`lupdate mandelbulber2/formula/ui/*.ui -ts mandelbulber2/language/formula_*.ts`
 `lupdate mandelbulber2/Debug/mandelbulber.pro`
 
 Modify language files
