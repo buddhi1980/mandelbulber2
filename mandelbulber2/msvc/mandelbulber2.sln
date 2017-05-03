@@ -2,14 +2,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mandelbulber2", "mandelbulber2\msvc14\mandelbulber2.vcxproj", "{9E956454-2841-3284-B807-12E6244099E3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mandelbulber2", "mandelbulber2.vcxproj", "{9E956454-2841-3284-B807-12E6244099E3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C} = {A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mandelbulber2_autogen", "mandelbulber2\msvc14\mandelbulber2_autogen.vcxproj", "{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mandelbulber2_autogen", "mandelbulber2_autogen.vcxproj", "{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mandelbulber2_k1om", "mandelbulber2\msvc14\mandelbulber2_k1om.vcxproj", "{97FB6016-F52F-4B90-B4A9-D72C6CBD1A4F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mandelbulber2_k1om", "mandelbulber2_k1om.vcxproj", "{97FB6016-F52F-4B90-B4A9-D72C6CBD1A4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
