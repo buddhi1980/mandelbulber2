@@ -5,8 +5,8 @@
  *      Author: krzysztof
  */
 
-#ifndef MANDELBULBER2_SRC_OPEN_CL_HARDWARE_H_
-#define MANDELBULBER2_SRC_OPEN_CL_HARDWARE_H_
+#ifndef MANDELBULBER2_SRC_OPENCL_HARDWARE_H_
+#define MANDELBULBER2_SRC_OPENCL_HARDWARE_H_
 
 #include <QtCore>
 
@@ -59,28 +59,35 @@ public:
 	~cOpenClHardware();
 
 #ifdef USE_OPENCL
-	bool checkErr(cl_int err, QString fuctionName);
+public:
 	void ListOpenClPlatforms();
-	void ListOpenClDevices();
 	void CreateContext(int platformIndex, enumOpenClDeviceType deviceType);
-
 	const QList<sPlatformInformation> &getPlatformsInformation() const
 	{
 		return platformsInformation;
 	}
+	const QList<sDeviceInformation> &getDevicesInformation() const { return devicesInformation; }
 
-	std::vector<cl::Platform> clPlatforms;
+protected:
+	bool checkErr(cl_int err, QString fuctionName);
+
+private:
+	void ListOpenClDevices();
+
+protected:
 	std::vector<cl::Device> clDevices;
-	cl::Context *context;
-
 	QList<sPlatformInformation> platformsInformation;
 	QList<sDeviceInformation> devicesInformation;
 
+private:
+	std::vector<cl::Platform> clPlatforms;
+	cl::Context *context;
+
 #endif
 
+protected:
 	bool openClAvailable;
 	bool contextReady;
-	bool openClReady;
 };
 
 #endif /* MANDELBULBER2_SRC_OPEN_CL_HARDWARE_H_ */

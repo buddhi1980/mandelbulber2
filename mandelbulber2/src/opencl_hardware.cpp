@@ -1,15 +1,14 @@
 /*
- * open_cl_engine.cpp
+ * opencl_hardware.cpp
  *
  *  Created on: 2 maj 2017
  *      Author: krzysztof
  */
 
-#include "open_cl_hardware.h"
+#include "opencl_hardware.h"
 
 cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
-	openClReady = false;
 	openClAvailable = false;
 	contextReady = false;
 
@@ -20,7 +19,9 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 
 cOpenClHardware::~cOpenClHardware()
 {
-	if(context) delete context;
+#ifdef USE_OPENCL
+	if (context) delete context;
+#endif
 }
 
 #ifdef USE_OPENCL
@@ -70,6 +71,9 @@ void cOpenClHardware::CreateContext(int platformIndex, enumOpenClDeviceType devi
 {
 	if (openClAvailable)
 	{
+		devicesInformation.clear();
+		clDevices.clear();
+
 		cl_context_properties cprops[3] = {
 			CL_CONTEXT_PLATFORM, (cl_context_properties)(clPlatforms[platformIndex])(), 0};
 
@@ -97,15 +101,18 @@ void cOpenClHardware::CreateContext(int platformIndex, enumOpenClDeviceType devi
 	else
 	{
 		qCritical() << "OpenCl is not available";
+		contextReady = false;
 	}
 }
 
 void cOpenClHardware::ListOpenClDevices()
 {
+	devicesInformation.clear();
+	clDevices.clear();
+
 	if (contextReady)
 	{
 		clDevices = context->getInfo<CL_CONTEXT_DEVICES>();
-		devicesInformation.clear();
 
 		if (clDevices.size() > 0)
 		{
@@ -123,7 +130,8 @@ void cOpenClHardware::ListOpenClDevices()
 				clDevices[i].getInfo(CL_DEVICE_LOCAL_MEM_SIZE, &deviceInformation.localMemSize);
 				clDevices[i].getInfo(CL_DEVICE_MAX_CLOCK_FREQUENCY, &deviceInformation.maxClockFrequency);
 				clDevices[i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.maxComputeUnits);
-				clDevices[i].getInfo(CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, &deviceInformation.maxConstantBufferSize);
+				clDevices[i].getInfo(
+					CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, &deviceInformation.maxConstantBufferSize);
 				clDevices[i].getInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE, &deviceInformation.maxMemAllocSize);
 				clDevices[i].getInfo(CL_DEVICE_MAX_PARAMETER_SIZE, &deviceInformation.maxParameterSize);
 				clDevices[i].getInfo(CL_DEVICE_MAX_WORK_GROUP_SIZE, &deviceInformation.maxWorkGroupSize);
@@ -145,7 +153,8 @@ void cOpenClHardware::ListOpenClDevices()
 				qDebug() << "CL_DEVICE_COMPILER_AVAILABLE" << deviceInformation.compilerAvailable;
 				qDebug() << "CL_DEVICE_DOUBLE_FP_CONFIG" << deviceInformation.doubleFpConfig;
 				qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE" << deviceInformation.globalMemCacheSize;
-				qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE" << deviceInformation.globalMemCachelineSize;
+				qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE"
+								 << deviceInformation.globalMemCachelineSize;
 				qDebug() << "CL_DEVICE_GLOBAL_MEM_SIZE" << deviceInformation.globalMemSize;
 				qDebug() << "CL_DEVICE_LOCAL_MEM_SIZE" << deviceInformation.localMemSize;
 				qDebug() << "CL_DEVICE_MAX_CLOCK_FREQUENCY" << deviceInformation.maxClockFrequency;
