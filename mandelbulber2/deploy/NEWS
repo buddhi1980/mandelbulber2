@@ -1,6 +1,9 @@
 Version history
 
-v2.11
+v2.11-1 (May 2017)
+- Queue: fixed bug: program crashed when mouse cursor was over preview widget in queue dock
+
+v2.11 (April 2017)
 - Fractals: cleaned up names of fractal formulas
 - Fractals: corrected MixPinski code
 - Fractals: corrected Menger4D and Menger4D Mod1 code
@@ -77,7 +80,7 @@ v2.11
 - Documentation: corrected styles and cleaned up document structure
 - Documentation: added index
 
-v2.10
+v2.10 (Februar 2017)
 - AnimBySound: Added option to animate any parameter using sound wave (added "Anim By Sound" buttons in animation table)
 - AnimBySound: Added dialog window to load and setup AnimBySound feature
 - AnimBySound: Added views for waveform, fft and animation generated from sound
@@ -157,20 +160,20 @@ v2.10
 - Compilation: much improved populateUiInformation.php script
 - Compilation: added export CXXFLAGS="-march=native to install script
 
-v2.09-3
+v2.09-3 (November 2016)
 - Settings: Fixed bug in function which adds missing material no. 1 during loading settings. When material no. 1 was default, this material was not created on parameter list.
 - Image: fixed bug: when output image was bigger than 2GB, then saving of PNG and TIFF images was corrupted
 
-v2.09-2
+v2.09-2 (October 2016)
 - Corrected calculation of stereoscopic effect for equirectangular projection. There was wrong perception of depth for farthest objects located on the rear of the camera.
 
-v2.09-1
+v2.09-1 (October 2016)
 - Image: fixed bug: in stereoscopic top-bottom mode there were swapped left and right eye
 - Image: fixed bug: in stereoscopic top-bottom mode first line of image was incorrect
 - Shaders: fixed bug: corrected calculation of flat background. There was possibility of division by zero.
 - UI: fixed bug: when stereoscopic mode was enabled, then thumbnails size was incorrect. 
 
-v2.09
+v2.09 (October 2016)
 - Image: Added stereoscopic rendering for all perspective types including equirectangular and fulldome
 - Image: Added support for red/cyan glasses (anaglyphs), so now it's possible to explore fractals with 3D glasses.
 - Added new fractal formulas:
@@ -207,10 +210,10 @@ after rendering is finished
 - General: Fixed bug which probably caused crashes of the program. There was possible situation where image was being updated by rendering thread and at the same time preview was resized (free and alloc) by main thread (resize of window). There is added QMutex to prevent from this kind of situation.
 - Examples: Added examples for Pseudo Kleinian fractals and stereoscopic images
 
-v2.08-3
+v2.08-3 (August 2016)
 - Shaders: Fixed bug: image was black when intensity of any light source was zero.
 
-v2.08-2
+v2.08-2 (August 2016)
 - Settings: fixed bug: importing of old settings didn't worked properly when rotations in IFS fractals were used.
 - Settings: fixed bug: loading old animations (lack of material conversion)
 - UI: Fixed bug: Some sliders are jumping under Win 10. There is changed size policy for edit fields.
@@ -225,10 +228,10 @@ v2.08-2
 - OSX: fixed problem with missing text on progress bar
 - Voxel export: fixed bug: slices was saved in parent folder of indicated folder.
 
-v2.08-1
+v2.08-1 (July 2016)
 - CLI: fixed bug: program crashed when rendering of animation was started from command line
 
-v2.08
+v2.08 (July 2016)
 - Materials: Added editor for materials as a separate dock
 - Materials: Added real-time preview for edited material
 - Materials: Added Material Manager dock which can be used to select, add, remove, load and save materials
@@ -314,10 +317,10 @@ v2.08
 - Compilation: program prepared for compilation with MSVC
 - Compilation: switched to Qt 5.6.1
 
-v2.07-1
+v2.07-1 (March 2016)
 - Fixed bug: program crashed on win64/win32 if any sub-menu in "View" was de-selected
 
-v2.07
+v2.07 (March 2016)
 - Added new fractal formulas:
   * AboxModKali
   * FoldBoxMod1
@@ -446,7 +449,7 @@ v2.07
 - Fixed bug: Default text color in dark skin was unreadable in Info window
 - Fixed bug: program crashed when at first program start there was used language different than English
 
-v2.06
+v2.06 (November 2015)
 - Added Command Line Interface, which allows application to run on headless systems. From simple terminal (e.g. ssh session) it is possible to render still images and animations and also launch NetRender client or server. Full list of available options can be listed using --help option.
 - Added Queue feature to manage collection of settings which can be rendered automatically in background.
 - Added Italian language (thanks to bermarte)
@@ -473,8 +476,7 @@ v2.06
 - Fixed bug: memory leak in cTexture class
 - Fixed bug: eliminated SEGFAULTs at application quit
 
-
-v2.05
+v2.05 (September 2015)
 - added keyframe animation feature. There is possible to define keyframes and interpolate different parameters between them.
 - added UI for keyframe animation with table where is possible to edit each parameter.
 - implemented different interpolation types for animation: Akima, Catmull-Rom, Linear. Prepared interpolation for angular parameters.
@@ -530,7 +532,7 @@ v2.05
 - fixed bug: if camera and target had the same coordinates, it produced NaN values for camera angles and top vector
 - fixed bug: default value of color was repeated many times in MyColorButton tooltip
 
-v2.04
+v2.04 (May 2015)
 - added ray-traced transparency and Fresnel's refraction
 - added NetRender - rendering of the same image or animation on multiple machines over the TCP/IP network (Internet, local LAN).
 - shading of DOF parallelized via OpenMP (leverages shading time roughly about 1/3 on an 8 core CPU), 
@@ -547,10 +549,10 @@ v2.04
 - source code repository moved to http://github.com/buddhi1980/mandelbulber2
 - fixed bug: corrected calculation of coordinates of 3D cursor when there was used 3-point perspective
 
-v2.03-1
+v2.03-1 (Februar 2015)
 fixed bug: improper loading of "old settings" when system used comma as decimal separator
 
-v2.03
+v2.03 (Februar 2015)
 - Added recording and rendering of flight animation. All frames are displayed in the table with previews. 
   There is possible to edit values in the table and interpolate them in selected range of frames
   All frames can be edited in any spreadsheet editor. CSV format is used in settings file to store animation frames
@@ -570,7 +572,7 @@ v2.03
 - fixed bug: there was double slash in paths for files
 - fixed bug: after application quit rendering was not terminated
 
-v2.02
+v2.02 (November 2014)
 - added importing of settings from old Mandelbulber (v1.21). It works in 95% cases.
 - added 'legacy_coordinate_system' parameter to provide compatibility with old coordinate system (upside down)
 - added primitive objects: box, sphere, plane, cylinder, torus, circle, rectangle, water. There is no limit for number of objects. All objects can be rotated around 3 axes and placed using mouse pointer
@@ -585,18 +587,18 @@ v2.02
 - fixed bug: there was wrong calculation of distance if "Iteration threshold mode" was enabled.
 - fixed bug: preview was displayed even if settings weren't loaded successfully
 
-v2.01
+v2.01 (October 2014)
 - migrated to Qt 5 - program in 99% rewriten from scratch
 remarks: program still under development. Not available yet: NetRender, animation, OpenCL, and many other small features
 
-v1.21-2
+v1.21-2 (August 2014)
 - fixed bug: OpenCL - name of variable 'half' was restricted and caused compiler errors
 
-v1.21-1
+v1.21-1 (Februar 2014)
 - fixed bug: OpenCL - SSAO kernel coudn't be compiled on nVidia
 - fixed bug: OpenCL - there was error -54 during rendering of SSAO and DOF (caused by not matched localWorkSize with GlobalWorkSize)
 
-v1.21
+v1.21 (Februar 2014)
 - Added color palette editor
 - Added function to convert flight path into keyframes
 - improved water algorithm - less visible pattern
@@ -616,7 +618,7 @@ v1.21
 - fixed bug: corrected calculation of viewVector and z value for 3-point perspective
 - fixed bug: sometimes 3D cursor was jerky. Added temporary disabling for event handler during rendering of cursor
 
-v1.20
+v1.20 (December 2013)
 - OpenCL - added NoDE rendering engine
 - OpenCL - added "limits" feature to rendering engine
 - OpenCL - added "interior mode"
@@ -629,7 +631,7 @@ v1.20
 - fixed problem with visibility of 3D cursor during flight path recording
 - fixed resource leaks
 
-v1.19
+v1.19 (November 2013)
 - OpenCL - added management for user defined formulas
 - added showing of light animation paths in image window
 - improved algorithm for fake lights based on orbit traps
@@ -643,7 +645,7 @@ v1.19
 - fixed bug: when in NetRender the client was enabled there was not possible to close the program
 - fixed bug: applied patches for memory leaks
 
-v1.18
+v1.18 (October 2013)
 - added 3D pointer in image preview window
 - added showing of animation path in image preview window
 - OpenCL - improved rendering performance of DOF - iteration loop moved out of OpenCL kernel
@@ -655,24 +657,24 @@ v1.18
 - fixed bug: OpenCL - wrong calculation of focus point for DOF
 - fixed bug: OpenCL - reduced noise on depth zooms - linited "delta" from very small values
 
-v1.17.2
+v1.17.2 (September 2013)
 - fixed bug: OpenCL - include path compatible with nVidia-win32 driver requirements
 - fixed bug: OpenCL - changed all M_PI to M_PI_F - there were problems with compilation kernel code on some machines
 - fixed bug: OpenCL - some frames of animation were incomplete
 - fixed bug: OpenCL - removed #pragma OPENCL EXTENSION cl_khr_byte_addressable_store : enable
 - fixed bug: on Arch Linux there was problem with missing system includes
 
-v1.17.1
+v1.17.1 (September 2013)
 - release for Win32
 
-v1.17
+v1.17 (September 2013)
 - OpenCL - rewritten most of OpenCL kernel. Implemented almost all shaders including ray-traced reflections and volumetric effects
 - animation record mode works now like flight simulator. There is also recorded camera gamma angle.
 - added HDR filter
 - fixed bug: there was visible different detail level between 3-point perspective and fish-eye
 - fixed bug: Netrender didn't work with number of tiles > 1
 
-v1.16
+v1.16 (June 2013)
 - all shaders and rendering engine rewritten from the beginning
 - light sources are rendered as a volumetric objects
 - introduced soft shadows
@@ -689,33 +691,33 @@ v1.16
 - fixed bug: animated water wasn't rendered properly with NetRender
 - remark: some shaders settings are not compatible with older setting files (fog and DOF distance, reflection factor)
 
-v1.15
+v1.15 (April 2013)
 - added light sources based on orbit traps
 - added NetRender client in noGUI mode
 
 v1.14 - not released
 - trial to activate again OpenCL rendering - a lot of stability problems
 
-v1.13-1
+v1.13-1 (December 2012)
 - NetRender works also under Windows
 - improved CRC checking in NetRender message frame
 
-v1.13
+v1.13 (November 2012)
 - added NetRender (possible to create render farms)
 - fixed bug: program crashed when in lowMem mode "iter fog" was used
 - fixed bug: program crashed when DOF was used on very big images
 - fixed memoryleaks
 
-v1.12-1
+v1.12-1 (June 2012)
 - fixed bug: background texture was not seamless
 - fixed bug: some of shadows in volumatric iteration fog weren't calculated properly
 
-v1.12
+v1.12 (April 2012)
 - added saving of all image layers in separate PNG 16-bit files
 - improved fish eye perspective projection - now is compatible with full-dome projectors
 - added "fish eye 180 degree cut" mode to limit rendering area to hemisphere
 
-v1.11
+v1.11 (Februar 2012)
 - added iteration fog effect (fog which density depends on iteration count). This fog cast shadows on fractal surface and on itself. Can be also illuminated by auxiliary lights and ambient occlusion.
 - improved water animation effect
 - disabling of SSAO and DOF when tile rendering is enabled
@@ -729,19 +731,17 @@ v1.11
 - fixed bug: weird colour gradients (http://www.fractalforums.com/index.php?topic=10305.msg41172#msg41172)
 - added few example files for "iteration fog" effect
 
-
-v1.10
+v1.10 (December 2011)
 - added tile renderig (without any image resolution limitations)
 - fixed bug: water animation worked only in flight mode
 
-v1.09
-
+v1.09 (December 2011)
 - Implemented OpenCL support (now only under linux) for image preview. Works only for few formulas.
 - Added formula General Fold Box (reference: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/msg36503/#msg36503)
 - Fixed rotation problems in animations. Patch by mintaka (http://www.fractalforums.com/mandelbulber/mandelbulber-1-06-patch/)
 - Added animation effect for water
 
-v1.08
+v1.08 (August 2011)
 - Implemented primitive objects like plane, box, sphere and water
 - Improved raytraced reflections algorithm - better reflections with ambient occlusion
 - Added fast ambient occlusion effect. Reference: http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf (Iñigo Quilez – iq/rgba)
@@ -749,7 +749,7 @@ v1.08
 - Added function for auto-calculate of fog parameters
 - Added coordinates and distance measurement tool
 
-v1.07
+v1.07 (August 2011)
 - Added reset button on IFS tab
 - Removed some further limitations for image size
 - Image brightness adjustment affects now on all image layers
@@ -758,13 +758,13 @@ v1.07
 - Corrected displaying of image size in MegaBytes when size is greater than 2GB
 - Changed shaders sequence. Glow looks better when fog (from post-processing) is enabled.
 
-v1.061
+v1.061 (August 2011)
 - Created 64-bit version for Windows (based on experimental versio of GTK+ libraries)
 - Fixed bug: Removed many uninitialised variables (found using valgrind)
 - Fixed problem with -lowmem mode (reported on http://www.fractalforums.com/mandelbulber/(1-06)-lowmem-switch-causes-segfaults-when-increasing-resolution/msg34210/#msg34210)
 - Fixed bug: overflow in UpdatePreviewSettingsDialog()
 
-v1.06
+v1.06 (July 2011)
 - Added possibility to render MengerKoch formula. It is added as an option for IFS formula (Menger Sponge mode; edge x,y,z)
 - Corrected ray-tracing algorithm. Fog and specular highlights weren't calculated properly in reflections.
 - Fixed problem in CalculateNormals() function. Sometimes when all deltas were zero, it produced NaN value. It caused white dots in raytraced reflections.
