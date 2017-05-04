@@ -983,8 +983,8 @@
     <Error Condition="!Exists('..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets'))" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
-    <Exec Command="rd /s /q $(IntDir)" />
-    <Exec Command="del /F /Q $(GenDir)\*.h" />
-    <Exec Command="del /F /Q $(GenDir)\*.cpp" />
+    <Exec Command="rd /s /q &quot;$(IntDir)&quot;" />
+    <Exec Command="del /F /Q &quot;$(GenDir)\*.h&quot;" />
+    <Exec Command="del /F /Q &quot;$(GenDir)\*.cpp&quot;" />
   </Target>
 </Project>
