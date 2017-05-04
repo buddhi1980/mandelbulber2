@@ -66,7 +66,7 @@ script:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
       cd ..
       && mkdir package
-      && /make-package.sh test package
+      && ./make-package.sh test package
       && cp ../build/mandelbulber2 package/mandelbulber2-test/usr/bin/mandelbulber2
       && cd package/mandelbulber2-test
       && ./install
