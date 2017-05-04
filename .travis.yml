@@ -67,7 +67,7 @@ script:
       cd ..
       && mkdir package
       && ./make-package.sh test package
-      && cp ../build/mandelbulber2 package/mandelbulber2-test/usr/bin/mandelbulber2
+      && cp build/mandelbulber2 package/mandelbulber2-test/usr/bin/mandelbulber2
       && cd package/mandelbulber2-test
       && ./install
       && mandelbulber2 --test
