@@ -90,9 +90,12 @@ then
 	mkdir -vp "$destNameWin/source/makefiles"
 	mkdir -vp "$destNameWin64/source/makefiles"
 	
-	cp -vu "$sourceDir/Release/mandelbulber.pro" "$destNameLinux/makefiles/"
-	cp -vu "$sourceDir/Release/mandelbulber.pro" "$destNameWin/source/makefiles/"
-	cp -vu "$sourceDir/Release/mandelbulber.pro" "$destNameWin64/source/makefiles/"
+	cp -vu "$sourceDir/qmake/mandelbulber.pro" "$destNameLinux/makefiles/"
+	cp -vu "$sourceDir/qmake/common.pri" "$destNameLinux/makefiles/"
+	cp -vu "$sourceDir/qmake/mandelbulber.pro" "$destNameWin/source/makefiles/"
+	cp -vu "$sourceDir/qmake/common.pri" "$destNameWin/source/makefiles/"
+	cp -vu "$sourceDir/qmake/mandelbulber.pro" "$destNameWin64/source/makefiles/"
+	cp -vu "$sourceDir/qmake/common.pri" "$destNameWin64/source/makefiles/"
 
 	#copying DLL files
 	cp -vur "$sourceDir/deploy/win32/dll/"* "$destNameWin"

@@ -52,7 +52,7 @@ make install
 ln -s libtiff-4.0.6 /usr/local/libtiff
 //download source from https://github.com/buddhi1980/mandelbulber2
 //Build mandelbulber
-cd Release
+cd qmake
 qmake -spec macx-g++
 //xcode can also be used
 //qmake -spec macx-xcode mandelbulber.pro

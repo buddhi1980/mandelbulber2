@@ -61,7 +61,7 @@ Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
 
 The software is natively developed using Qt Creator for Linux (Debian or Ubuntu).
 
-The file [mandelbulber2/Release/mandelbulber.pro](https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/Release/mandelbulber.pro) specifies the build system configuration for Qt Creator, But to be able to compile the program, the host operating system requires preparation.
+The file [mandelbulber2/qmake/mandelbulber.pro](https://github.com/buddhi1980/mandelbulber2/blob/master/mandelbulber2/qmake/mandelbulber.pro) specifies the build system configuration for Qt Creator. To be able to compile the program, the host operating system requires preparation:
 
 Use the following scripts to prepare your Linux environment for development.
 These scripts install all dependencies, compile the program, and create symbolic links in /usr/share/mandelbulber to your working directory.

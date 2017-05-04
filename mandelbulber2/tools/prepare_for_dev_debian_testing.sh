@@ -42,7 +42,7 @@ compiling the program
 
 "
 
-cd Release
+cd qmake
 qmake mandelbulber.pro
 make -j4
 
@@ -76,11 +76,11 @@ sudo ln -s ${PWD}/deploy/share/mandelbulber2/doc $MANDELBULBER_SHARE/doc
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/sounds $MANDELBULBER_SHARE/sounds
 
 echo "To start development of Mandelbulber you can open
-mandelbulber2/mandelbulber2/Release/mandelbulber.pro
+mandelbulber2/mandelbulber2/qmake/mandelbulber.pro
 with QtCreator which is already in your system"
 
 echo "To run the program you need to launch folowing file:
-mandelbulber2/mandelbulber2/Release/mandelbulber2"
+mandelbulber2/mandelbulber2/qmake/mandelbulber2"
 
 
 

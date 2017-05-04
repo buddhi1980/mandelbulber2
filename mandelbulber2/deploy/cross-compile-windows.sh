@@ -93,7 +93,7 @@ fi
 
 mkdir -p $MANDELBULBER_BUILD_FOLDER
 cd $MANDELBULBER_BUILD_FOLDER
-$MANDELBULBER_PREFIX/bin/qmake ../Release/mandelbulber.pro -r -spec win32-g++
+$MANDELBULBER_PREFIX/bin/qmake ../qmake/mandelbulber.pro -r -spec win32-g++
 make -j8
 cd ..
 ./make-package.sh $MANDELBULBER_VERSION $MANDELBULBER_BINARY_TARGET

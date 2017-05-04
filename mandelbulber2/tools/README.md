@@ -77,9 +77,9 @@ Optimize png images
 
 ### (7) new libraries ###
 - add the library to ... and check compilation
-  - mandelbulber/Release/mandelbulber.pro 
-  - mandelbulber/Debug/mandelbulber.pro
-  - CMakeLists.txt
+  - mandelbulber/qmake/common.pri
+  - mandelbulber/cmake/CMakeLists.txt
+  - mandelbulber/msvc/mandelbulber2.sln
 - add information to mandelbulber2/deploy/README
 - add dependencies to
   - mandelbulber2/tools/prepare_for_dev_debian_testing.sh
