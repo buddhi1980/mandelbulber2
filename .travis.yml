@@ -57,7 +57,7 @@ script:
       && CPPFLAGS=-I$QTDIR/include
       ;
     fi
-    mkdir mandelbulber2/build
+  - mkdir mandelbulber2/build
   - cd mandelbulber2/build
   - qmake ../qmake/mandelbulber.pro
   - make -j3
