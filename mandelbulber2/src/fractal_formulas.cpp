@@ -7847,7 +7847,7 @@ void TransfSphericalFoldVaryV1Iteration(
 void TransfSphericalFoldParabIteration(
 	CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-
+	double m = 1.0;
 	double rr;
 	// spherical fold
 	if (fractal->transformCommon.functionEnabledSFalse
@@ -7855,45 +7855,57 @@ void TransfSphericalFoldParabIteration(
 			&& i < fractal->transformCommon.stopIterationsS)
 	{
 		rr = z.Dot(z);
-
+		double tempM = rr + fractal->transformCommon.offsetB0;
+		m = fractal->transformCommon.maxMinR2factor;
 		// if (r2 < 1e-21) r2 = 1e-21;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
-			z *= fractal->transformCommon.maxMinR2factor;
-			aux.DE *= fractal->transformCommon.maxMinR2factor;
+			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
+			z *= m;
+			aux.DE *= m;
 			aux.color += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
-			z *= tglad_factor2;
-			aux.DE *= tglad_factor2;
+
+			double m = fractal->transformCommon.maxR2d1 / rr;
+		if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
+			z *= m;
+			aux.DE *= m;
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 	}
+	if (i >= fractal->transformCommon.startIterations
+			&& i < fractal->transformCommon.stopIterations)
+	{
+		rr = z.Dot(z);
+		z += fractal->mandelbox.offset;
+		z *= fractal->transformCommon.scale;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+		double maxScale = fractal->transformCommon.scale4;
+		double midPoint = (maxScale - 1.0) * 0.5;
+		rr += fractal->transformCommon.offset0;
+		double maxR2 = fractal->transformCommon.scale1;
+		double halfMax = maxR2 * 0.5;
+		double factor = midPoint / (halfMax * halfMax);
+		//double m = 1.0;
 
-	rr = z.Dot(z);
-	z += fractal->mandelbox.offset;
-	z *= fractal->transformCommon.scale;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-	double maxScale = fractal->transformCommon.scale4;
-	double midPoint = (maxScale - 1.0) * 0.5;
-	rr += fractal->transformCommon.offset0;
-	double maxR2 = fractal->transformCommon.scale1;
-	double halfMax = maxR2 * 0.5;
-	double factor = midPoint / (halfMax * halfMax);
-	double m;
-	if (rr < halfMax)
-	{
-		m = maxScale - (rr * rr) * factor;
-		z *= m;
-		aux.DE *= m;
-	}
-	else if (rr < maxR2)
-	{
-		m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
-		z *= m;
-		aux.DE *= m;
+		double tempM = rr + fractal->transformCommon.offsetA0;
+		if (rr < halfMax)
+		{
+			m = maxScale - (rr * rr) * factor;
+			m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
+			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
+			z *= m;
+			aux.DE *= m;
+		}
+		else if (rr < maxR2)
+		{
+			m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
+			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
+			z *= m;
+			aux.DE *= m;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 }
