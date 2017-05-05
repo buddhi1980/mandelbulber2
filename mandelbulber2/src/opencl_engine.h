@@ -22,7 +22,9 @@ public:
 	void LoadSourcesAndCompile();
 
 private:
-	cl::Program *program;
+	bool Build(cl::Program *prog, QString *errorText);
+
+	cl::Program *mainFractalProgram;
 
 	bool programsLoaded;
 #endif

@@ -19,14 +19,15 @@
 cOpenClEngine::cOpenClEngine(QObject *parent) : cOpenClHardware(parent)
 {
 #ifdef USE_OPENCL
-	program = nullptr;
+	mainFractalProgram = nullptr;
+	programsLoaded = false;
 #endif
 }
 
 cOpenClEngine::~cOpenClEngine()
 {
 #ifdef USE_OPENCL
-	if (program) delete program;
+	if (mainFractalProgram) delete mainFractalProgram;
 #endif
 }
 
@@ -70,32 +71,43 @@ void cOpenClEngine::LoadSourcesAndCompile()
 
 	// creating cl::Program
 	cl_int err;
-	program = new cl::Program(*context, sources, &err);
+	mainFractalProgram = new cl::Program(*context, sources, &err);
 	if (checkErr(err, "cl::Program()"))
 	{
 		// building OpenCl kernel
 
-		std::string buildParams;
-		buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero ";
-
-		err = program->build(clDevices, buildParams.c_str());
 		QString errorString;
-		if (checkErr(err, "program->build()"))
+		if(Build(mainFractalProgram, &errorString))
 		{
-			qDebug() << "OpenCl kernel program successfully compiled";
 			programsLoaded = true;
-		}
-		else
-		{
-			std::stringstream errorMessageStream;
-			errorMessageStream << "OpenCL Build log:\t"
-												 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(clDevices[0]) << std::endl;
-			errorString = QString::fromStdString(errorMessageStream.str());
-
-			std::string buildLogText;
-			buildLogText = errorMessageStream.str();
-			std::cerr << buildLogText;
 		}
 	}
 }
+
+bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
+{
+	std::string buildParams;
+	buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero ";
+	cl_int err;
+	err = prog->build(clDevices, buildParams.c_str());
+
+	if (checkErr(err, "program->build()"))
+	{
+		qDebug() << "OpenCl kernel program successfully compiled";
+		return true;
+	}
+	else
+	{
+		std::stringstream errorMessageStream;
+		errorMessageStream << "OpenCL Build log:\t"
+											 << mainFractalProgram->getBuildInfo<CL_PROGRAM_BUILD_LOG>(clDevices[0]) << std::endl;
+		*errorText = QString::fromStdString(errorMessageStream.str());
+
+		std::string buildLogText;
+		buildLogText = errorMessageStream.str();
+		std::cerr << buildLogText;
+		return false;
+	}
+}
+
 #endif
