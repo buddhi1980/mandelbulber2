@@ -184,123 +184,6 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
 	}
 }
 
-/*
- void SaveAllImageLayers(const char *filename, cImage *image)
- {
- unsigned int width = image->GetWidth();
- unsigned int height = image->GetHeight();
- unsigned int size = width*height;
- sRGB16 *buffer16 = new sRGB16[width*height];
- sComplexImage *ci = image->GetComplexImagePtr();
- string file(filename);
- file = removeFileExtension(file);
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
- ci[i].fogDensity16;
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_fog.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
- ci[i].glowBuf16;
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_glow.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
- ci[i].shadingBuf16;
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_shading.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
- ci[i].shadowsBuf16;
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_shadow.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	buffer16[i].R = buffer16[i].G = buffer16[i].B =
- ci[i].specularBuf16;
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_specular.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].ambientBuf16.R; buffer16[i].G =
- ci[i].ambientBuf16.G; buffer16[i].B = ci[i].ambientBuf16.B;}
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_ambient.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].auxLight.R; buffer16[i].G =
- ci[i].auxLight.G; buffer16[i].B = ci[i].auxLight.B;}
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_auxLights.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].auxSpecular.R; buffer16[i].G =
- ci[i].auxSpecular.G; buffer16[i].B = ci[i].auxSpecular.B;}
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_aux_lights_spec.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].backgroundBuf16.R; buffer16[i].G =
- ci[i].backgroundBuf16.G; buffer16[i].B = ci[i].backgroundBuf16.B;}
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_bkg.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].reflectBuf16.R; buffer16[i].G =
- ci[i].reflectBuf16.G; buffer16[i].B = ci[i].reflectBuf16.B;}
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_reflection.png").c_str(), 100, width, height, buffer16);
-
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = ci[i].volumetricLight.R; buffer16[i].G =
- ci[i].volumetricLight.G; buffer16[i].B = ci[i].volumetricLight.B;}
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_fogCol.png").c_str(), 100, width, height, buffer16);
-
- sImageAdjustments *imageAdjustments = image->GetImageAdjustments();
- unsigned short *colours = image->GetColourIndexBufPtr();
- for (unsigned int i = 0; i < size; i++)
- {
- int colorIndex = colours[i];
- int color_number;
- if (colorIndex >= 248 * 256)
- {
- color_number = colorIndex;
- }
- else
- {
- color_number = (int) (colorIndex * imageAdjustments->coloring_speed + 256 *
- imageAdjustments->paletteOffset) % 65536;
- }
- sRGB color = image->IndexToColour(color_number);
- buffer16[i].R = color.R; buffer16[i].G = color.G; buffer16[i].B = color.B;
- }
- BufferNormalize16(buffer16, size);
- SavePNG16((file+"_col.png").c_str(), 100, width, height, buffer16);
-
- unsigned short *alpha = image->GetAlphaBufPtr();
- for(unsigned int i = 0; i<size; i++)	{buffer16[i].R = alpha[i]; buffer16[i].G = alpha[i];
- buffer16[i].B = alpha[i];}
- SavePNG16((file+"_alpha.png").c_str(), 100, width, height, buffer16);
-
- //normalize zBuffer
- double *zbuffer = image->GetZBufferPtr();
- float minZ = 1.0e50;
- float maxZ = 0.0;
- for (unsigned int i = 0; i < size; i++)
- {
- float z = zbuffer[i];
- if(z > maxZ && z < 1e19) maxZ = z;
- if(z < minZ) minZ = z;
- }
- float zRange = maxZ - minZ;
- float zFactor = 65000.0 / zRange;
- for(unsigned int i = 0; i<size; i++)
- {
- int z = (zbuffer[i] - minZ) * zFactor;
- if(zbuffer[i] > 1e19) z = 65535;
- buffer16[i].R = buffer16[i].G = buffer16[i].B = z;
- }
- SavePNG16((file+"_zBuffer.png").c_str(), 100, width, height, buffer16);
-
- SavePNG16((file+"_image16.png").c_str(), 100, width, height, image->GetImage16Ptr());
-
- delete [] buffer16;
- }
- */
-
 void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
 	QObject *updateReceiver)
 {
@@ -613,4 +496,22 @@ QString FilePathHelperSounds(const QString &path)
 		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};
 
 	return FilePathHelper(nativePath, pathList);
+}
+
+QByteArray LoadUtf8TextFromFile(const QString &fileName)
+{
+	QFile file(fileName);
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		qCritical() << "Cant open text file: " << fileName << " error: " << file.errorString();
+		return QByteArray();
+	}
+	else
+	{
+		QTextStream in(&file);
+		QString text;
+		text = in.readAll();
+		file.close();
+		return text.toUtf8();
+	}
 }

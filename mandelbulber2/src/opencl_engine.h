@@ -17,6 +17,15 @@ class cOpenClEngine : public cOpenClHardware
 public:
 	cOpenClEngine(QObject *parent = nullptr);
 	~cOpenClEngine();
+
+#ifdef USE_OPENCL
+	void LoadSourcesAndCompile();
+
+private:
+	cl::Program *program;
+
+	bool programsLoaded;
+#endif
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_H_ */

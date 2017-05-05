@@ -78,10 +78,11 @@ protected:
 	std::vector<cl::Device> clDevices;
 	QList<sPlatformInformation> platformsInformation;
 	QList<sDeviceInformation> devicesInformation;
+	cl::Context *context;
 
 private:
 	std::vector<cl::Platform> clPlatforms;
-	cl::Context *context;
+
 
 #endif
 

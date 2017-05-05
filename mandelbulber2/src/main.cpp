@@ -109,6 +109,7 @@ int main(int argc, char *argv[])
 	cOpenClEngine *openClEngine = new cOpenClEngine();
 	openClEngine->ListOpenClPlatforms();
 	openClEngine->CreateContext(0, cOpenClEngine::openClDeviceTypeGPU);
+	openClEngine->LoadSourcesAndCompile();
 	delete openClEngine;
 #endif
 
