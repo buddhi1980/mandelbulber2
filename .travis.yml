@@ -64,8 +64,13 @@ script:
 
 # testing
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-         sudo ln -s `pwd`/../deploy/share/mandelbulber2 /usr/share/mandelbulber2
-      && ./mandelbulber2 --test
+      cd ..
+      && mkdir package
+      && ./make-package.sh test package
+      && cp build/mandelbulber2 package/mandelbulber2-test/usr/bin/mandelbulber2
+      && cd package/mandelbulber2-test
+      && ./install
+      && mandelbulber2 --test
       ;
     else
          echo 'TODO test...'
