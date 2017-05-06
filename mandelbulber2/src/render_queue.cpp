@@ -137,6 +137,8 @@ void cRenderQueue::slotRenderQueue()
 			parSettings.Decode(queuePar, queueParFractal, queueAnimFrames, queueKeyframes);
 
 			queuePar->Set("image_preview_scale", 0);
+			queuePar->Set("limit_CPU_cores", systemData.numberOfThreads);
+			queuePar->Set("threads_priority", systemData.threadsPriority);
 
 			bool result = false;
 			switch (queueItem.renderType)
