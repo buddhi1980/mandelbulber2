@@ -14,6 +14,7 @@
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
+#ifdef USE_OPENCL
 	constantInBuffer = nullptr;
 	inCLConstBuffer = nullptr;
 
@@ -22,18 +23,22 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	rgbbuff = nullptr;
 	outCL = nullptr;
+#endif
 }
 
 cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 {
+#ifdef USE_OPENCL
 	if (constantInBuffer) delete constantInBuffer;
 	if (inCLConstBuffer) delete inCLConstBuffer;
 	if (inBuffer) delete inBuffer;
 	if (inCLBuffer) delete inCLBuffer;
 	if (rgbbuff) delete rgbbuff;
 	if (outCL) delete outCL;
+#endif
 }
 
+#ifdef USE_OPENCL
 void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer *params)
 {
 	QString progPathHeader("#define INCLUDE_PATH_CL_DATA \"");
@@ -148,3 +153,5 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 
 	return true;
 }
+
+#endif
