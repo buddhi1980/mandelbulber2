@@ -42,9 +42,9 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff, __cons
 	
 	float2 z = screenPointNorm;
 	float2 c = z;
-	
+
 	int i;
-	
+
 	for(int i = 0; i < consts->params.N; i++)
 	{
 		float tempX = z.x + z.x - z.y * z.y;

@@ -44,7 +44,8 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "netrender.hpp"
-#include "opencl_engine.h"
+#include "opencl_hardware.h"
+#include "opencl_engine_render_fractal.h"
 #include "queue.hpp"
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
@@ -104,15 +105,6 @@ int main(int argc, char *argv[])
 
 	CalcPreferredFontSize(commandLineInterface.isNoGUI());
 
-#ifdef USE_OPENCL
-	//just for testing
-	cOpenClEngine *openClEngine = new cOpenClEngine();
-	openClEngine->ListOpenClPlatforms();
-	openClEngine->CreateContext(0, cOpenClEngine::openClDeviceTypeGPU);
-	openClEngine->LoadSourcesAndCompile();
-	delete openClEngine;
-#endif
-
 	// class for interface windows
 	gMainInterface = new cInterface;
 
@@ -159,6 +151,22 @@ int main(int argc, char *argv[])
 	}
 
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
+
+#ifdef USE_OPENCL
+	//just for testing
+	cOpenClHardware *openClHardware = new cOpenClHardware();
+
+	openClHardware->ListOpenClPlatforms();
+	openClHardware->CreateContext(0, cOpenClHardware::openClDeviceTypeGPU);
+	openClHardware->SelectDevice(0);
+
+	cOpenClEngineRenderFractal *openClEngine = new cOpenClEngineRenderFractal(openClHardware);
+	openClEngine->LoadSourcesAndCompile(gPar);
+	openClEngine->CreateKernel4Program(gPar);
+
+	delete openClEngine;
+	delete openClHardware;
+#endif
 
 	UpdateDefaultPaths();
 	if (!commandLineInterface.isNoGUI())

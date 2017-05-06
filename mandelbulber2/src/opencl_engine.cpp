@@ -10,78 +10,42 @@
 #include <sstream>
 #include <iostream>
 #include "system.hpp"
-#include "files.h"
+
+#include "opencl_hardware.h"
 
 #ifdef USE_OPENCL
 #include "../opencl/mandelbulber_cl_data.h"
 #endif
 
-cOpenClEngine::cOpenClEngine(QObject *parent) : cOpenClHardware(parent)
+cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), hardware(_hardware)
 {
 #ifdef USE_OPENCL
-	mainFractalProgram = nullptr;
+	program = nullptr;
+	kernel = nullptr;
 	programsLoaded = false;
+	workGroupSize = 0;
 #endif
 }
 
 cOpenClEngine::~cOpenClEngine()
 {
 #ifdef USE_OPENCL
-	if (mainFractalProgram) delete mainFractalProgram;
+	if (program) delete program;
+	if (kernel) delete kernel;
 #endif
 }
 
 #ifdef USE_OPENCL
-void cOpenClEngine::LoadSourcesAndCompile()
+
+bool cOpenClEngine::checkErr(cl_int err, QString fuctionName)
 {
-	QString progPathHeader("#define INCLUDE_PATH_CL_DATA \"");
-
-// pushing path to mandelbulber_cl_data.h
-// using correct slashes is important, because OpenCl compiler would fail
-#ifdef WIN32
-	progPathHeader += systemData.sharedDir + "opencl\\mandelbulber_cl_data.h\"";
-#else
-	progPathHeader += systemData.sharedDir + "opencl/mandelbulber_cl_data.h\"";
-#endif
-	QByteArray progPathHeaderUft8 = progPathHeader.toUtf8();
-	qDebug() << progPathHeader;
-
-	programsLoaded = false;
-
-	QByteArray progEngine;
-	try
+	if (err != CL_SUCCESS)
 	{
-		progEngine = LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
-																			+ "engines" + QDir::separator() + "test_engine.cl");
-		if (progEngine.isEmpty()) throw QString("Can't load main program");
-
-		//.... here will be loading of more programs
+		qCritical() << "OpenCl ERROR: " << fuctionName << " (" << err << ")";
+		return false;
 	}
-	catch (const QString &ex)
-	{
-		qCritical() << "OpenCl program error: " << ex;
-		return;
-	}
-
-	// collecting all parts of program
-	cl::Program::Sources sources;
-	sources.push_back(
-		std::make_pair(progPathHeaderUft8.constData(), size_t(progPathHeader.length())));
-	sources.push_back(std::make_pair(progEngine.constData(), size_t(progEngine.length())));
-
-	// creating cl::Program
-	cl_int err;
-	mainFractalProgram = new cl::Program(*context, sources, &err);
-	if (checkErr(err, "cl::Program()"))
-	{
-		// building OpenCl kernel
-
-		QString errorString;
-		if(Build(mainFractalProgram, &errorString))
-		{
-			programsLoaded = true;
-		}
-	}
+	else
+		return true;
 }
 
 bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
@@ -89,7 +53,7 @@ bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
 	std::string buildParams;
 	buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero ";
 	cl_int err;
-	err = prog->build(clDevices, buildParams.c_str());
+	err = prog->build(hardware->getClDevices(), buildParams.c_str());
 
 	if (checkErr(err, "program->build()"))
 	{
@@ -100,7 +64,8 @@ bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
 	{
 		std::stringstream errorMessageStream;
 		errorMessageStream << "OpenCL Build log:\t"
-											 << mainFractalProgram->getBuildInfo<CL_PROGRAM_BUILD_LOG>(clDevices[0]) << std::endl;
+											 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(hardware->getSelectedDevice())
+											 << std::endl;
 		*errorText = QString::fromStdString(errorMessageStream.str());
 
 		std::string buildLogText;
@@ -108,6 +73,32 @@ bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
 		std::cerr << buildLogText;
 		return false;
 	}
+}
+
+bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
+{
+	if (CreateKernel(program))
+	{
+		AllocateBuffers(params);
+		return true;
+	}
+	return false;
+}
+
+bool cOpenClEngine::CreateKernel(cl::Program *prog)
+{
+	cl_int err;
+	if (kernel) delete kernel;
+	kernel = new cl::Kernel(*prog, "fractal3D", &err);
+	if (checkErr(err, "cl::Kernel()"))
+	{
+		kernel->getWorkGroupInfo(
+			hardware->getSelectedDevice(), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
+		qDebug() << "CL_KERNEL_WORK_GROUP_SIZE" << workGroupSize;
+
+		return true;
+	}
+	return false;
 }
 
 #endif

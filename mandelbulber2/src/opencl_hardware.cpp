@@ -11,6 +11,7 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
 	openClAvailable = false;
 	contextReady = false;
+	selectedDeviceIndex = 0;
 
 #ifdef USE_OPENCL
 	context = nullptr;
@@ -187,4 +188,24 @@ bool cOpenClHardware::checkErr(cl_int err, QString fuctionName)
 	else
 		return true;
 }
+
+void cOpenClHardware::SelectDevice(int index)
+{
+	if (index < devicesInformation.size())
+	{
+		if (devicesInformation[index].compilerAvailable)
+		{
+			selectedDeviceIndex = index;
+		}
+		else
+		{
+			qCritical() << "Selected device doens't have compiler";
+		}
+	}
+	else
+	{
+		qCritical() << "Too high device index";
+	}
+}
+
 #endif

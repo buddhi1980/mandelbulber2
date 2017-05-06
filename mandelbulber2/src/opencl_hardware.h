@@ -68,6 +68,12 @@ public:
 	}
 	const QList<sDeviceInformation> &getDevicesInformation() const { return devicesInformation; }
 
+	void SelectDevice(int index);
+
+	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
+	const cl::Device &getSelectedDevice() const { return clDevices[selectedDeviceIndex]; }
+	cl::Context *getContext() { return context; }
+
 protected:
 	bool checkErr(cl_int err, QString fuctionName);
 
@@ -83,12 +89,12 @@ protected:
 private:
 	std::vector<cl::Platform> clPlatforms;
 
-
 #endif
 
 protected:
 	bool openClAvailable;
 	bool contextReady;
+	int selectedDeviceIndex;
 };
 
 #endif /* MANDELBULBER2_SRC_OPEN_CL_HARDWARE_H_ */
