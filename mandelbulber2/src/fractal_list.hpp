@@ -282,6 +282,11 @@ struct sFractalDescription
 		return systemData.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
 					 + "fractal_" + internalName + ".ui";
 	}
+	QString getOpenCLFilename() const
+	{
+		return systemData.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
+					 + internalName + ".ui";
+	}
 };
 
 extern QList<sFractalDescription> fractalList;
