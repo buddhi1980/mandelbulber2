@@ -13,7 +13,9 @@
 #
 
 <?php
-define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
+require_once(dirname(__FILE__) . '/common.inc.php');
+
+printStart();
 
 $formulas = array();
 
@@ -338,15 +340,8 @@ foreach($formulas as $index => $formula){
 	echo successString('image ' . $imgPath . ' generated.') . PHP_EOL;
 }
 
-
-
-if(isDryRun()){
-	echo 'This is a dry run.' . PHP_EOL;
-	echo 'If you want to apply the changes, execute with populateUiInformation.php nondry' . PHP_EOL;
-}
-else{
-	echo 'Changes applied' . PHP_EOL;
-}
+printFinish();
+exit;
 
 function getFormatCode($code){
 	$cmd = "echo " . escapeshellarg($code);
@@ -354,46 +349,6 @@ function getFormatCode($code){
 	$cmd .= " | highlight -O html --style moria --inline-css --syntax cpp";
 	return shell_exec($cmd);
 }
-
-function errorString($s){
-	return "\033[0;31m\033[47m" . $s . "\033[0m";
-}
-
-function successString($s){
-	return "\033[0;32m\033[47m" . $s . "\033[0m";
-}
-
-function noticeString($s){
-	return "\033[0;34m\033[47m" . $s . "\033[0m";
-}
-function warningString($s){
-	return "\033[0;33m\033[47m" . $s . "\033[0m";
-}
-
-function isDryRun(){
-	global $argv;
-	if(count($argv) > 1 && in_array('nondry', $argv)){
-		return false;
-	}
-	return true;
-}
-
-function isVerbose(){
-	global $argv;
-	if(count($argv) > 1 && in_array('verbose', $argv)){
-		return true;
-	}
-	return false;
-}
-
-function isWarning(){
-	global $argv;
-	if(count($argv) > 1 && (in_array('verbose', $argv) || in_array('warning', $argv))){
-		return true;
-	}
-	return false;
-}
-
 
 function parseComment($c){
 	$lines = explode(PHP_EOL, $c);
@@ -515,9 +470,11 @@ function parseToOpenCL($code){
 			array('find' => "/z\./", 'replace' => 'z->'),
 			array('find' => "/float4 &z4D/", 'replace' => 'global float4 *z4D'), // no passing by reference
 			array('find' => "/z4D\./", 'replace' => 'z4D->'),
-			array('find' => "/sExtendedAux &aux/", 'replace' => 'global sExtendedAux *aux'), // no passing by reference
+			array('find' => "/sExtendedAux &aux/", 'replace' => 'global sClsExtendedAux *aux'), // no passing by reference
 			array('find' => "/aux\./", 'replace' => 'aux->'),
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
+			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
+			array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
 			// TODO more replacements
 		);
 

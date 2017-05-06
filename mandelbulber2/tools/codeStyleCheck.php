@@ -10,7 +10,8 @@
 #
 
 <?php
-define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
+require_once(dirname(__FILE__) . '/common.inc.php');
+
 define('WILDCARD', '*');
 
 $filesToCheckSource = array();
@@ -28,7 +29,7 @@ $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".h";
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 
-echo 'Processing...' . PHP_EOL . PHP_EOL;
+printStart();
 
 foreach($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
@@ -66,30 +67,8 @@ foreach($headerFiles as $headerFilePath) {
 	printResultLine($headerFileName, $success, $status);
 }
 
-if(isDryRun()){
-	echo 'This is a dry run.' . PHP_EOL;
-	echo 'If you want to apply the changes, execute with codeStyleCheck.php nondry' . PHP_EOL;
-}
-else{
-	echo 'Changes applied' . PHP_EOL;
-}
-
+printFinish();
 exit;
-
-function printResultLine($name, $success, $status){
-	$out = str_pad('> ' . $name, 30);
-	if($success && !isVerbose() && count($status) == 0) return;
-	if($success)
-	{
-		echo $out . successString(' -> All Well') . PHP_EOL;
-	}
-	else{
-		echo $out . errorString(' -> Error') . PHP_EOL;
-	}
-	if(count($status) > 0){
-		echo ' |-' . implode(PHP_EOL . ' |-', $status) . PHP_EOL;
-	}
-}
 
 function checkFileHeader($filePath, &$fileContent, &$status){
         $headerRegex = '/^(\/\*\*?[\s\S]*?\*\/)([\s\S]*)$/';
@@ -214,33 +193,6 @@ function getModificationInterval($filePath){
 	return $yearStart . '-' . substr($yearEnd, 2, 2);
 }
 
-function errorString($s){
-	return "\033[0;31m\033[47m" . $s . "\033[0m";
-}
-
-function successString($s){
-	return "\033[0;32m\033[47m" . $s . "\033[0m";
-}
-
-function noticeString($s){
-	return "\033[0;34m\033[47m" . $s . "\033[0m";
-}
-
-function isDryRun(){
-	global $argv;
-	if(count($argv) > 1 && in_array('nondry', $argv)){
-		return false;
-	}
-	return true;
-}
-
-function isVerbose(){
-	global $argv;
-	if(count($argv) > 1 && in_array('verbose', $argv)){
-		return true;
-	}
-	return false;
-}
 
 function getFileHeader($author, $description, $modificationString){
 	$out = <<<EOT
