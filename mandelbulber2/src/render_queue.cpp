@@ -138,7 +138,7 @@ void cRenderQueue::slotRenderQueue()
 
 			queuePar->Set("image_preview_scale", 0);
 			queuePar->Set("limit_CPU_cores", systemData.numberOfThreads);
-			queuePar->Set("threads_priority", systemData.threadsPriority);
+			queuePar->Set("threads_priority", int(systemData.threadsPriority));
 
 			bool result = false;
 			switch (queueItem.renderType)
