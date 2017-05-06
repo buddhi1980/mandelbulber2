@@ -274,12 +274,18 @@ struct sFractalDescription
 		{
 			return QString(":system/icons/list-remove.svg");
 		}
-		return systemData.sharedDir + "formula" + QDir::separator() + "img"
-					 + QDir::separator() + internalName + ".png";
+		return systemData.sharedDir + "formula" + QDir::separator() + "img" + QDir::separator()
+					 + internalName + ".png";
 	}
 	QString getUiFilename() const
 	{
-		return systemData.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator() + "fractal_" + internalName + ".ui";
+		return systemData.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
+					 + "fractal_" + internalName + ".ui";
+	}
+	QString getOpenCLFilename() const
+	{
+		return systemData.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
+					 + internalName + ".cl";
 	}
 };
 
