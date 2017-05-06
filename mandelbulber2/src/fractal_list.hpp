@@ -285,7 +285,7 @@ struct sFractalDescription
 	QString getOpenCLFilename() const
 	{
 		return systemData.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
-					 + internalName + ".ui";
+					 + internalName + ".cl";
 	}
 };
 

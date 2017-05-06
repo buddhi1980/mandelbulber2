@@ -38,6 +38,7 @@
 #include <iostream>
 #include "system.hpp"
 #include "files.h"
+#include "fractal_list.hpp"
 
 #ifdef USE_OPENCL
 #include "../opencl/mandelbulber_cl_data.h"
@@ -81,6 +82,12 @@ void cOpenClEngine::LoadSourcesAndCompile()
 		progEngine = LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
 																			+ "engines" + QDir::separator() + "test_engine.cl");
 		if (progEngine.isEmpty()) throw QString("Can't load main program");
+
+		// Test loading of all fractal kernels
+		for (int f = 0; f < fractalList.size(); f++)
+		{
+			progEngine.append(LoadUtf8TextFromFile(fractalList[f].getOpenCLFilename()));
+		}
 
 		//.... here will be loading of more programs
 	}

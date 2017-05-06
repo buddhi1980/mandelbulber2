@@ -104,15 +104,6 @@ int main(int argc, char *argv[])
 
 	CalcPreferredFontSize(commandLineInterface.isNoGUI());
 
-#ifdef USE_OPENCL
-	// just for testing
-	cOpenClEngine *openClEngine = new cOpenClEngine();
-	openClEngine->ListOpenClPlatforms();
-	openClEngine->CreateContext(0, cOpenClEngine::openClDeviceTypeGPU);
-	openClEngine->LoadSourcesAndCompile();
-	delete openClEngine;
-#endif
-
 	// class for interface windows
 	gMainInterface = new cInterface;
 
@@ -146,6 +137,15 @@ int main(int argc, char *argv[])
 
 	// Define list of fractal formulas
 	DefineFractalList(&fractalList);
+
+#ifdef USE_OPENCL
+	// just for testing
+	cOpenClEngine *openClEngine = new cOpenClEngine();
+	openClEngine->ListOpenClPlatforms();
+	openClEngine->CreateContext(0, cOpenClEngine::openClDeviceTypeGPU);
+	openClEngine->LoadSourcesAndCompile();
+	delete openClEngine;
+#endif
 
 	// Netrender
 	gNetRender = new CNetRender(systemData.numberOfThreads);
