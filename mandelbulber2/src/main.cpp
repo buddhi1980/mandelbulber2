@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 	CalcPreferredFontSize(commandLineInterface.isNoGUI());
 
 #ifdef USE_OPENCL
-	//just for testing
+	// just for testing
 	cOpenClEngine *openClEngine = new cOpenClEngine();
 	openClEngine->ListOpenClPlatforms();
 	openClEngine->CreateContext(0, cOpenClEngine::openClDeviceTypeGPU);

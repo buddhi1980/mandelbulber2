@@ -1483,7 +1483,8 @@ void cInterface::SetBoundingBoxAsLimits()
 void cInterface::NewPrimitive(const QString &primitiveType, int index)
 {
 	QString primitiveName = QString("primitive_") + primitiveType;
-	QString uiFileName = systemData.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator() + primitiveName + ".ui";
+	QString uiFileName = systemData.sharedDir + "formula" + QDir::separator() + "ui"
+											 + QDir::separator() + primitiveName + ".ui";
 	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
 
 	int newId = 0;

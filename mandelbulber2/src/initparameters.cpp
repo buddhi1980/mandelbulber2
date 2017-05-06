@@ -1017,7 +1017,7 @@ void InitPrimitiveParams(
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_radius_lpow", 1, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_tube_radius", 0.2, morphAkima, paramStandard);
-			par->addParam(QString(primitiveName) + "_tube_radius_lpow", 1	, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_tube_radius_lpow", 1, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			par->addParam(
 				QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);

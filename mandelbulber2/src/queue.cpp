@@ -551,8 +551,8 @@ void cQueue::RenderQueue() const
 	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 	thread->setObjectName("RenderQueue");
 
-	//this is needed to get settings from main parameter container.
-	//Further will be used only local container
+	// this is needed to get settings from main parameter container.
+	// Further will be used only local container
 	systemData.numberOfThreads = gPar->Get<int>("limit_CPU_cores");
 	systemData.threadsPriority = enumRenderingThreadPriority(gPar->Get<int>("threads_priority"));
 

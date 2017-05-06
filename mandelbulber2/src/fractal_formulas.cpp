@@ -7869,14 +7869,13 @@ void TransfSphericalFoldParabIteration(
 		{
 
 			double m = fractal->transformCommon.maxR2d1 / rr;
-		if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
+			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE *= m;
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 	}
-	if (i >= fractal->transformCommon.startIterations
-			&& i < fractal->transformCommon.stopIterations)
+	if (i >= fractal->transformCommon.startIterations && i < fractal->transformCommon.stopIterations)
 	{
 		rr = z.Dot(z);
 		z += fractal->mandelbox.offset;
@@ -7888,7 +7887,7 @@ void TransfSphericalFoldParabIteration(
 		double maxR2 = fractal->transformCommon.scale1;
 		double halfMax = maxR2 * 0.5;
 		double factor = midPoint / (halfMax * halfMax);
-		//double m = 1.0;
+		// double m = 1.0;
 
 		double tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
