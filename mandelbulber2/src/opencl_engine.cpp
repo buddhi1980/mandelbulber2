@@ -12,10 +12,7 @@
 #include "system.hpp"
 
 #include "opencl_hardware.h"
-
-#ifdef USE_OPENCL
-#include "../opencl/mandelbulber_cl_data.h"
-#endif
+#include "parameters.hpp"
 
 cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), hardware(_hardware)
 {
@@ -23,7 +20,6 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 	program = nullptr;
 	kernel = nullptr;
 	programsLoaded = false;
-	workGroupSize = 0;
 #endif
 }
 
@@ -79,7 +75,7 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 {
 	if (CreateKernel(program))
 	{
-		AllocateBuffers(params);
+		optimalJob = CalculateOptimalJob(params);
 		return true;
 	}
 	return false;
@@ -92,13 +88,34 @@ bool cOpenClEngine::CreateKernel(cl::Program *prog)
 	kernel = new cl::Kernel(*prog, "fractal3D", &err);
 	if (checkErr(err, "cl::Kernel()"))
 	{
+		size_t workGroupSize = 0;
 		kernel->getWorkGroupInfo(
 			hardware->getSelectedDevice(), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
 		qDebug() << "CL_KERNEL_WORK_GROUP_SIZE" << workGroupSize;
 
+		optimalJob.workGroupSize = workGroupSize;
+
 		return true;
 	}
 	return false;
+}
+
+cOpenClEngine::sOptimalJob cOpenClEngine::CalculateOptimalJob(const cParameterContainer *params)
+{
+	sOptimalJob optJob = optimalJob;
+
+	size_t width = params->Get<int>("image_width");
+	size_t height = params->Get<int>("image_height");
+
+	optJob.pixelsPerJob =  optimalJob.workGroupSize * hardware->getSelectedDeviceInformation().maxComputeUnits;
+	optJob.numberOfSteps = height * width / optJob.pixelsPerJob + 1;
+	optJob.stepSize = (width * height / optJob.numberOfSteps / optJob.pixelsPerJob + 1) * optJob.pixelsPerJob;
+
+	qDebug() << "pixelsPerJob:" <<  optJob.pixelsPerJob;
+	qDebug() << "numberOfSteps:" <<  optJob.numberOfSteps;
+	qDebug() << "stepSize:" <<  optJob.stepSize;
+
+	return optJob;
 }
 
 #endif

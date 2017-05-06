@@ -73,6 +73,10 @@ public:
 	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
 	const cl::Device &getSelectedDevice() const { return clDevices[selectedDeviceIndex]; }
 	cl::Context *getContext() { return context; }
+	const sDeviceInformation &getSelectedDeviceInformation() const
+	{
+		return devicesInformation[selectedDeviceIndex];
+	}
 
 protected:
 	bool checkErr(cl_int err, QString fuctionName);

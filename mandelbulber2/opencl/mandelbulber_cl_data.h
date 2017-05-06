@@ -9,8 +9,8 @@ typedef struct
 
 typedef struct
 {
-	cl_int width;
-	cl_int height;
+	cl_int imageWidth;
+	cl_int imageHeight;
 	cl_int N;
 } sClParams;
 

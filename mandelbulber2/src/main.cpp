@@ -163,6 +163,8 @@ int main(int argc, char *argv[])
 	cOpenClEngineRenderFractal *openClEngine = new cOpenClEngineRenderFractal(openClHardware);
 	openClEngine->LoadSourcesAndCompile(gPar);
 	openClEngine->CreateKernel4Program(gPar);
+	openClEngine->SetParameters(gPar);
+	openClEngine->PreAllocateBuffers(gPar);
 
 	delete openClEngine;
 	delete openClHardware;

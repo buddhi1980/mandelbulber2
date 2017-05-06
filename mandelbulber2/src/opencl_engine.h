@@ -21,6 +21,14 @@ class cOpenClEngine : public QObject
 {
 	Q_OBJECT
 
+struct sOptimalJob
+{
+	size_t numberOfSteps;
+	size_t workGroupSize;
+	size_t pixelsPerJob;
+	size_t stepSize;
+};
+
 public:
 	cOpenClEngine(cOpenClHardware *hardware);
 	~cOpenClEngine();
@@ -34,14 +42,16 @@ protected:
 	bool checkErr(cl_int err, QString fuctionName);
 	bool Build(cl::Program *prog, QString *errorText);
 	bool CreateKernel(cl::Program *prog);
+	sOptimalJob CalculateOptimalJob(const cParameterContainer *params);
 
-	virtual void AllocateBuffers(const cParameterContainer *params) = 0;
+	virtual bool PreAllocateBuffers(const cParameterContainer *params) = 0;
 
 	cl::Program *program;
 	cl::Kernel *kernel;
 
+	sOptimalJob optimalJob;
 	bool programsLoaded;
-	size_t workGroupSize;
+
 #endif
 
 	cOpenClHardware *hardware;
