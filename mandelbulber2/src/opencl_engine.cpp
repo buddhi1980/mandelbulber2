@@ -135,13 +135,15 @@ cOpenClEngine::sOptimalJob cOpenClEngine::CalculateOptimalJob(const cParameterCo
 	size_t width = params->Get<int>("image_width");
 	size_t height = params->Get<int>("image_height");
 
-	optJob.pixelsPerJob =  optimalJob.workGroupSize * hardware->getSelectedDeviceInformation().maxComputeUnits;
+	optJob.pixelsPerJob =
+		optimalJob.workGroupSize * hardware->getSelectedDeviceInformation().maxComputeUnits;
 	optJob.numberOfSteps = height * width / optJob.pixelsPerJob + 1;
-	optJob.stepSize = (width * height / optJob.numberOfSteps / optJob.pixelsPerJob + 1) * optJob.pixelsPerJob;
+	optJob.stepSize =
+		(width * height / optJob.numberOfSteps / optJob.pixelsPerJob + 1) * optJob.pixelsPerJob;
 
-	qDebug() << "pixelsPerJob:" <<  optJob.pixelsPerJob;
-	qDebug() << "numberOfSteps:" <<  optJob.numberOfSteps;
-	qDebug() << "stepSize:" <<  optJob.stepSize;
+	qDebug() << "pixelsPerJob:" << optJob.pixelsPerJob;
+	qDebug() << "numberOfSteps:" << optJob.numberOfSteps;
+	qDebug() << "stepSize:" << optJob.stepSize;
 
 	return optJob;
 }

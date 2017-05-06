@@ -9,8 +9,7 @@
 #include "files.h"
 #include "fractparams.hpp"
 #include "opencl_hardware.h"
-
-
+#include "fractal_list.hpp"
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
@@ -58,6 +57,16 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 																			+ "engines" + QDir::separator() + "test_engine.cl");
 		if (progEngine.isEmpty()) throw QString("Can't load main program");
 
+
+		/*
+		// Test loading of all fractal kernels
+		for (int f = 0; f < fractalList.size(); f++)
+		{
+			progEngine.append(LoadUtf8TextFromFile(fractalList[f].getOpenCLFilename()));
+		}
+		*/
+
+
 		//.... here will be loading of more programs
 	}
 	catch (const QString &ex)
@@ -95,7 +104,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *params
 	constantInBuffer = new sClInConstants;
 
 	// TODO Write function to copy parameters from cParamRender to sClParamRender
-	// Woudl be good to write php script for it
+	// Would be good to write php script for it
 	cParamRender *paramRender = new cParamRender(params);
 
 	constantInBuffer->params.N = paramRender->N;
@@ -108,7 +117,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 {
 	cl_int err;
 
-	if(inCLConstBuffer) delete inCLConstBuffer;
+	if (inCLConstBuffer) delete inCLConstBuffer;
 	inCLConstBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 		sizeof(sClInConstants), constantInBuffer, &err);
 	if (!checkErr(err,
@@ -116,21 +125,25 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 				"sizeof(sClInConstants), constantInBuffer, &err)"))
 		return false;
 
-	//this buffer will be used for color palettes, lights, etc...
-	if(inBuffer) delete inBuffer;
+	// this buffer will be used for color palettes, lights, etc...
+	if (inBuffer) delete inBuffer;
 	inBuffer = new sClInBuff;
-	if(inCLBuffer) delete inCLBuffer;
-	inCLBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(sClInBuff), inBuffer, &err);
-	if(!checkErr(err, "Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, sizeof(sClInBuff), inBuffer, &err)"))
+	if (inCLBuffer) delete inCLBuffer;
+	inCLBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+		sizeof(sClInBuff), inBuffer, &err);
+	if (!checkErr(err,
+				"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
+				"sizeof(sClInBuff), inBuffer, &err)"))
 		return false;
 
 	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
-	if(rgbbuff) delete rgbbuff;
+	if (rgbbuff) delete rgbbuff;
 	rgbbuff = new sClPixel[buffSize];
 
-	if(outCL) delete outCL;
-	outCL = new cl::Buffer(*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize,rgbbuff,&err);
-	if(!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
+	if (outCL) delete outCL;
+	outCL = new cl::Buffer(
+		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err);
+	if (!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
 		return false;
 
 	return true;

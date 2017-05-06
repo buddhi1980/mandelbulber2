@@ -1,4 +1,4 @@
-//test version of cl_data
+// test version of cl_data
 
 typedef struct
 {
@@ -41,4 +41,3 @@ typedef struct
 {
 	cl_uint N;
 } sClCalcParams;
-
