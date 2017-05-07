@@ -1,15 +1,7 @@
-#!/usr/bin/env php
-#
-# this file checks the source and header files
-# requires clang-format, git and php (apt-get install clang-format php5-cli)
-#
-# on default this script runs dry,
-# it will try to parse all files and prints problems inside the files
-# this should always be run first, to see if any issues occur
-# if you invoke this script with "nondry" as cli argument it will write changes to the project files
-#
-
 <?php
+
+/* This file contains common logic needed in the php scripts */
+
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
 
 function printStart(){
