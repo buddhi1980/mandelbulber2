@@ -44,7 +44,7 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "netrender.hpp"
-#include "opencl_hardware.h"
+#include "opencl_global.h"
 #include "opencl_engine_render_fractal.h"
 #include "queue.hpp"
 #include "render_window.hpp"
@@ -153,21 +153,13 @@ int main(int argc, char *argv[])
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
 #ifdef USE_OPENCL
+	gOpenCl = new cGlobalOpenCl();
+
 	//just for testing
-	cOpenClHardware *openClHardware = new cOpenClHardware();
-
-	openClHardware->ListOpenClPlatforms();
-	openClHardware->CreateContext(0, cOpenClHardware::openClDeviceTypeGPU);
-	openClHardware->SelectDevice(0);
-
-	cOpenClEngineRenderFractal *openClEngine = new cOpenClEngineRenderFractal(openClHardware);
-	openClEngine->LoadSourcesAndCompile(gPar);
-	openClEngine->CreateKernel4Program(gPar);
-	openClEngine->SetParameters(gPar);
-	openClEngine->PreAllocateBuffers(gPar);
-
-	delete openClEngine;
-	delete openClHardware;
+	gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar);
+	gOpenCl->openClEngineRenderFractal->CreateKernel4Program(gPar);
+	gOpenCl->openClEngineRenderFractal->SetParameters(gPar);
+	gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(gPar);
 #endif
 
 	UpdateDefaultPaths();
@@ -235,6 +227,9 @@ int main(int argc, char *argv[])
 	delete gKeyframes;
 	delete gNetRender;
 	delete gQueue;
+#ifdef USE_OPENCL
+	delete gOpenCl;
+#endif
 	delete gMainInterface;
 	delete gErrorMessage;
 	delete gApplication;
