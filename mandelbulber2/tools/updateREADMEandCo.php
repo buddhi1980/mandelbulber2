@@ -28,20 +28,21 @@ $readmes['linux']['path'] = PROJECT_PATH .'deploy/README';
 $readmes['osx']['path'] = PROJECT_PATH .'deploy/README-osx.txt';
 $readmes['win']['path'] = PROJECT_PATH .'deploy/README-win32.txt';
 
-$readmes['linux']['oldContent'] = file_get_contents(PROJECT_PATH .'deploy/README');
-$readmes['osx']['oldContent'] = file_get_contents(PROJECT_PATH .'deploy/README-osx.txt');
-$readmes['win']['oldContent'] = file_get_contents(PROJECT_PATH .'deploy/README-win32.txt');
-
 foreach($readmes as $type => $readme){
-	$content = $readme['oldContent'];
+	$oldContent = file_get_contents($readme['path']);
+	$content = $oldContent;
 	$content = substr($content, 0, strpos($content, 'Options:') + strlen('Options:'));
 	$content .= $helpOutput;
 
-	if($content != $readme['oldContent']){
+	if($content != $oldContent){
 		if(!isDryRun()){
 			file_put_contents($readme['path'], $content);
 		}
 		echo successString('readme for ' . $readme['path'] . ' changed.') . PHP_EOL;
+	}else{
+		if(isVerbose()){
+			echo noticeString('readme for ' . $readme['path'] . ' has not changed.') . PHP_EOL;
+		}
 	}
 }
 
