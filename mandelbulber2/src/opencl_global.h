@@ -23,5 +23,4 @@ public:
 
 extern cGlobalOpenCl *gOpenCl;
 
-
 #endif /* MANDELBULBER2_SRC_OPENCL_GLOBAL_H_ */

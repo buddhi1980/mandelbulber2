@@ -41,6 +41,8 @@
 #include "image_scale.hpp"
 #include "netrender.hpp"
 #include "nine_fractals.hpp"
+#include "opencl_engine_render_fractal.h"
+#include "opencl_global.h"
 #include "render_data.hpp"
 #include "render_image.hpp"
 #include "rendering_configuration.hpp"
@@ -186,6 +188,18 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	renderData->stereo = stereo;
 
 	PrepareData(config);
+
+#ifdef USE_OPENCL
+	if(paramsContainer->Get<bool>("gpu_enabled"))
+	{
+		//just for testing
+		gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+	}
+#endif
 
 	ready = true;
 

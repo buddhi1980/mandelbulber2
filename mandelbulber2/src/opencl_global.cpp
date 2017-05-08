@@ -18,18 +18,21 @@ cGlobalOpenCl::cGlobalOpenCl()
 	openClHardware = new cOpenClHardware();
 
 	openClHardware->ListOpenClPlatforms();
+
+	// TODO hardcoded platform index
 	openClHardware->CreateContext(0, cOpenClHardware::openClDeviceTypeGPU);
+
+	// TODO hardcoded device index
 	openClHardware->SelectDevice(0);
 
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
 #endif
-
 }
 
 cGlobalOpenCl::~cGlobalOpenCl()
 {
 #ifdef USE_OPENCL
-	delete openClHardware;
 	delete openClEngineRenderFractal;
+	delete openClHardware;
 #endif
 }

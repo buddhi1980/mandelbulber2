@@ -27,7 +27,6 @@ public:
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 
 private:
-
 	sClInConstants *constantInBuffer;
 	cl::Buffer *inCLConstBuffer;
 

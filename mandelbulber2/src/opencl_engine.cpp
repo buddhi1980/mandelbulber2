@@ -47,7 +47,9 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 #ifdef USE_OPENCL
 	program = nullptr;
 	kernel = nullptr;
+	queue = nullptr;
 	programsLoaded = false;
+	readyForRendering = false;
 #endif
 }
 
@@ -56,6 +58,7 @@ cOpenClEngine::~cOpenClEngine()
 #ifdef USE_OPENCL
 	if (program) delete program;
 	if (kernel) delete kernel;
+	if (queue) delete queue;
 #endif
 }
 
@@ -146,6 +149,21 @@ cOpenClEngine::sOptimalJob cOpenClEngine::CalculateOptimalJob(const cParameterCo
 	qDebug() << "stepSize:" << optJob.stepSize;
 
 	return optJob;
+}
+
+bool cOpenClEngine::CreateCommandQueue()
+{
+	cl_int err;
+	if(queue) delete queue;
+	queue = new cl::CommandQueue(*hardware->getContext(), hardware->getSelectedDevice(), 0, &err);
+
+	if (checkErr(err, "CommandQueue::CommandQueue()"))
+	{
+		readyForRendering = true;
+		return true;
+	}
+	readyForRendering = false;
+	return false;
 }
 
 #endif

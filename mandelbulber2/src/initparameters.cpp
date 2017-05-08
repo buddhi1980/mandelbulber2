@@ -492,28 +492,6 @@ void InitParams(cParameterContainer *par)
 	par->addParam("gpu_memory_limit", 256, 1, 10000, morphNone, paramApp);
 	par->addParam("gpu_cycle_time", 1.0, 0.02, 60.0, morphNone, paramApp);
 
-#ifdef CLSUPPORT
-	par->addParam("openCL_use_CPU", false, true);
-	par->SetAsAppParam("openCL_use_CPU", true);
-	par->addParam("openCL_platform_index", 0, true);
-	par->SetAsAppParam("openCL_platform_index", true);
-	par->addParam("openCL_device_index", 0, true);
-	par->SetAsAppParam("openCL_device_index", true);
-	par->addParam("openCL_engine", 0, true);
-	par->SetAsAppParam("openCL_engine", true);
-	par->addParam("openCL_cycle_time", 1.0, 0.02, 60.0, true);
-	par->SetAsAppParam("openCL_cycle_time", true);
-	par->addParam("openCL_memory_limit", 256, true);
-	par->SetAsAppParam("openCL_memory_limit", true);
-#ifdef WIN32
-	par->addParam("openCL_text_editor", QString("notepad.exe"), true);
-	par->SetAsAppParam("openCL_text_editor", true);
-#else
-	par->addParam("openCL_text_editor", QString("/usr/bin/kate"), true);
-	par->SetAsAppParam("openCL_text_editor", true);
-#endif
-#endif
-
 	WriteLog("Parameters initialization finished", 3);
 }
 

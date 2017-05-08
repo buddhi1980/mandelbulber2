@@ -54,6 +54,7 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	qDebug() << progPathHeader;
 
 	programsLoaded = false;
+	readyForRendering = false;
 
 	QByteArray progEngine;
 	try
@@ -62,7 +63,6 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 																			+ "engines" + QDir::separator() + "test_engine.cl");
 		if (progEngine.isEmpty()) throw QString("Can't load main program");
 
-
 		/*
 		// Test loading of all fractal kernels
 		for (int f = 0; f < fractalList.size(); f++)
@@ -70,7 +70,6 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			progEngine.append(LoadUtf8TextFromFile(fractalList[f].getOpenCLFilename()));
 		}
 		*/
-
 
 		//.... here will be loading of more programs
 	}

@@ -154,12 +154,6 @@ int main(int argc, char *argv[])
 
 #ifdef USE_OPENCL
 	gOpenCl = new cGlobalOpenCl();
-
-	//just for testing
-	gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar);
-	gOpenCl->openClEngineRenderFractal->CreateKernel4Program(gPar);
-	gOpenCl->openClEngineRenderFractal->SetParameters(gPar);
-	gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(gPar);
 #endif
 
 	UpdateDefaultPaths();
