@@ -15,6 +15,8 @@
 #include "../opencl/mandelbulber_cl_data.h"
 #endif
 
+class cImage;
+
 class cOpenClEngineRenderFractal : public virtual cOpenClEngine
 {
 public:
@@ -25,6 +27,7 @@ public:
 	void LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void SetParameters(const cParameterContainer *params);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
+	bool Render(cImage *image);
 
 private:
 	sClInConstants *constantInBuffer;

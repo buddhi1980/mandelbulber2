@@ -190,12 +190,12 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	PrepareData(config);
 
 #ifdef USE_OPENCL
-	if(paramsContainer->Get<bool>("gpu_enabled"))
+	if (paramsContainer->Get<bool>("gpu_enabled"))
 	{
-		//just for testing
+		// just for testing
+		gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer);
 		gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer);
 		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
-		gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer);
 		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 		gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
 	}
@@ -504,6 +504,14 @@ bool cRenderJob::Execute()
 			image->GetImageWidget()->update();
 		}
 	}
+
+#ifdef USE_OPENCL
+	if (paramsContainer->Get<bool>("gpu_enabled"))
+	{
+		gOpenCl->openClEngineRenderFractal->Render(image);
+	}
+
+#endif
 
 	if (result)
 		emit fullyRendered(tr("Finished Render"), tr("The image has been rendered completely."));

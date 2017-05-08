@@ -22,16 +22,16 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff, __cons
 	int cl_offset = Gcl_offset;
 	
 	const int id = get_global_id(0) + cl_offset;
-	const int imageX = id % consts->params.width;
-	const int imageYtemp = id / consts->params.width;
+	const int imageX = id % consts->params.imageWidth;
+	const int imageYtemp = id / consts->params.imageWidth;
 	const int buffIndex = (id - cl_offset);
 	
-	const int imageY = clamp(imageYtemp, 0, consts->params.height-1);
+	const int imageY = clamp(imageYtemp, 0, consts->params.imageHeight-1);
 
 	float2 screenPoint = (float2)
 	{ convert_float(imageX), convert_float(imageY)};
-	float width = convert_float(consts->params.width);
-	float height = convert_float(consts->params.height);
+	float width = convert_float(consts->params.imageWidth);
+	float height = convert_float(consts->params.imageHeight);
 
 	float aspectRatio = width / height;
 	float2 screenPointNorm;
@@ -45,20 +45,20 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff, __cons
 
 	int i;
 
-	for(int i = 0; i < consts->params.N; i++)
+	for(i = 0; i < consts->params.N; i++)
 	{
-		float tempX = z.x + z.x - z.y * z.y;
+		float tempX = z.x * z.x - z.y * z.y + c.x;
 		z.y = 2.0f * z.x * z.y + c.y;
-		z.x = tempX + c.x;
+		z.x = tempX;
 		
-		if(length(z) > 2.0) break;
+		if(length(z) > 20000.0f) break;
 	}
 	
 	sClPixel pixel;
 
-	pixel.R = i / 256.0f;
-	pixel.G = i / 256.0f;
-	pixel.B = i / 256.0f;
+	pixel.R = i / 25.0f;
+	pixel.G = i / 25.0f;
+	pixel.B = i / 25.0f;
 	pixel.zBuffer = 0.0f;
 	pixel.colR = 0.0f;
 	pixel.colG = 0.0f;

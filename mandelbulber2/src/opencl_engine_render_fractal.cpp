@@ -10,6 +10,7 @@
 #include "fractparams.hpp"
 #include "opencl_hardware.h"
 #include "fractal_list.hpp"
+#include "cimage.hpp"
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
@@ -149,6 +150,95 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err);
 	if (!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
 		return false;
+
+	return true;
+}
+
+bool cOpenClEngineRenderFractal::Render(cImage *image)
+{
+	int width = image->GetWidth();
+	int height = image->GetHeight();
+
+	size_t sizeOfPixel = sizeof(sClPixel);
+
+	for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
+	{
+		cl_int err;
+
+		size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
+
+		// assign parameters to kernel
+		err = kernel->setArg(0, *outCL); // output image
+		if (!checkErr(err, "kernel->setArg(0, *outCL)")) return false;
+		err = kernel->setArg(1, *inCLBuffer); // input data in global memory
+		if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)")) return false;
+		err = kernel->setArg(2, *inCLConstBuffer); // input data in constant memory (faster than global)
+		if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)")) return false;
+		err = kernel->setArg(3, pixelIndex); // pixel offset
+		if (!checkErr(err, "kernel->setArg(3, pixelIndex)")) return false;
+
+		// writing data to queue
+		err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
+		size_t usedGPUdMem = sizeOfPixel * optimalJob.stepSize;
+		qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
+		if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)")) return false;
+
+		err = queue->finish();
+		if (!checkErr(err, "ComamndQueue::finish() - inCLBuffer")) return false;
+
+		err = queue->enqueueWriteBuffer(
+			*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
+		if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLConstBuffer)")) return false;
+
+		err = queue->finish();
+		if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer")) return false;
+
+		// processing queue
+		err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
+			cl::NDRange(optimalJob.workGroupSize));
+		if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()")) return false;
+
+		err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbbuff);
+		if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()")) return false;
+		err = queue->finish();
+		if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer")) return false;
+
+		for (unsigned int i = 0; i < optimalJob.stepSize; i++)
+		{
+			unsigned int a = pixelIndex + i;
+			sClPixel pixelCl = rgbbuff[i];
+			sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
+			sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
+			unsigned short opacity = pixelCl.opacity;
+			unsigned short alpha = pixelCl.alpha;
+			int x = a % width;
+			int y = a / width;
+
+			image->PutPixelImage(x, y, pixel);
+			image->PutPixelZBuffer(x, y, rgbbuff[i].zBuffer);
+			image->PutPixelColour(x, y, color);
+			image->PutPixelOpacity(x, y, opacity);
+			image->PutPixelAlpha(x, y, alpha);
+		}
+	}
+
+	qDebug() << "GPU jobs finished";
+
+	// refresh image at end
+	image->NullPostEffect();
+
+	WriteLog("image->CompileImage()", 2);
+	image->CompileImage();
+
+	if (image->IsPreview())
+	{
+		WriteLog("image->ConvertTo8bit()", 2);
+		image->ConvertTo8bit();
+		WriteLog("image->UpdatePreview()", 2);
+		image->UpdatePreview();
+		WriteLog("image->GetImageWidget()->update()", 2);
+		image->GetImageWidget()->update();
+	}
 
 	return true;
 }
