@@ -7908,6 +7908,14 @@ void TransfSphericalFoldParabIteration(
 		}
 	}
 	z -= fractal->mandelbox.offset;
+	if (i >= fractal->transformCommon.startIterationsA
+			&& i < fractal->transformCommon.stopIterationsA)
+	{
+		aux.actualScale =
+			fractal->transformCommon.scaleA1 + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+		z *= aux.actualScale;
+		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+	}
 }
 
 /**

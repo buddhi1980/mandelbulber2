@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox_mod11</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>988</width>
-    <height>5230</height>
+    <height>5385</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,7 +73,7 @@
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <number>99999</number>
        </property>
        <property name="value">
         <number>0</number>
@@ -89,7 +89,7 @@
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <number>99999</number>
        </property>
       </widget>
      </item>
@@ -281,7 +281,7 @@
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <number>99999</number>
        </property>
       </widget>
      </item>
@@ -294,7 +294,7 @@
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <number>99999</number>
        </property>
       </widget>
      </item>
@@ -598,7 +598,7 @@
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <number>99999</number>
        </property>
        <property name="value">
         <number>0</number>
@@ -621,7 +621,7 @@
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <number>99999</number>
        </property>
       </widget>
      </item>
@@ -1016,7 +1016,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>99999</number>
           </property>
          </widget>
         </item>
@@ -1043,7 +1043,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>99999</number>
           </property>
          </widget>
         </item>
@@ -1129,7 +1129,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>99999</number>
           </property>
          </widget>
         </item>
@@ -1570,7 +1570,7 @@ offset:</string>
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <number>99999</number>
        </property>
        <property name="value">
         <number>0</number>
@@ -1599,7 +1599,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>250</number>
+        <number>99999</number>
        </property>
       </widget>
      </item>
@@ -2010,7 +2010,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>99999</number>
           </property>
          </widget>
         </item>
@@ -2033,7 +2033,7 @@ offset:</string>
            <number>0</number>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>99999</number>
           </property>
           <property name="value">
            <number>0</number>
@@ -2375,7 +2375,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>99999</number>
           </property>
          </widget>
         </item>
@@ -2388,7 +2388,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>99999</number>
           </property>
          </widget>
         </item>
