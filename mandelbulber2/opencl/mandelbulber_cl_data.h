@@ -12,6 +12,11 @@ typedef struct
 	cl_int imageWidth;
 	cl_int imageHeight;
 	cl_int N;
+	cl_float fov;
+	cl_float DEFactor;
+	cl_float3 camera;
+	cl_float3 target;
+	cl_float3 viewAngle;
 } sClParams;
 
 typedef struct
@@ -40,4 +45,8 @@ typedef struct
 typedef struct
 {
 	cl_uint N;
+	cl_int randomSeed;
+	cl_float3 orbitTrap;
+	cl_float distThresh;
+	cl_float normalCalculationMode;
 } sClCalcParams;

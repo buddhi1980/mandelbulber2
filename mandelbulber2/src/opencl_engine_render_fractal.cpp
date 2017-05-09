@@ -115,6 +115,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *params
 	constantInBuffer->params.N = paramRender->N;
 	constantInBuffer->params.imageWidth = paramRender->imageWidth;
 	constantInBuffer->params.imageHeight = paramRender->imageHeight;
+	constantInBuffer->params.camera = paramRender->camera.toClFloat3();
+	constantInBuffer->params.target = paramRender->target.toClFloat3();
+	constantInBuffer->params.viewAngle = (paramRender->viewAngle * M_PI / 180.0).toClFloat3();
+	constantInBuffer->params.fov = paramRender->fov;
+	constantInBuffer->params.DEFactor = paramRender->DEFactor;
 	delete paramRender;
 }
 
@@ -180,7 +185,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		// writing data to queue
 		err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
 		size_t usedGPUdMem = sizeOfPixel * optimalJob.stepSize;
-		qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
+		//qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
 		if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)")) return false;
 
 		err = queue->finish();

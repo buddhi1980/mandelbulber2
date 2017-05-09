@@ -345,6 +345,8 @@ bool cRenderJob::Execute()
 		twoPassStereo = true;
 	}
 
+	if (!paramsContainer->Get<bool>("gpu_enabled") || !gOpenCl)
+	{
 	for (int repeat = 0; repeat < noOfRepeats; repeat++)
 	{
 		emit updateProgressAndStatus(
@@ -490,6 +492,7 @@ bool cRenderJob::Execute()
 		delete fractals;
 		delete renderer;
 	}
+	}
 
 	if (twoPassStereo)
 	{
@@ -508,7 +511,10 @@ bool cRenderJob::Execute()
 #ifdef USE_OPENCL
 	if (paramsContainer->Get<bool>("gpu_enabled"))
 	{
+		QElapsedTimer timer;
+		timer.start();
 		gOpenCl->openClEngineRenderFractal->Render(image);
+		qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 	}
 
 #endif
