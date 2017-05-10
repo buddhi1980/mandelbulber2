@@ -891,12 +891,10 @@ void AboxMod2Iteration(CVector3 &z, CVector3 c, int i, const cFractal *fractal, 
 }
 
 /**
- * ABoxModK11,
+ * ABoxMod11,
  * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
- * Variations by DarkBeam, Buddhi, Eiffie and mclarekin
- *
+ * Variations from DarkBeam, Buddhi, Eiffie and mclarekin
  * based on DarkBeam's Mandelbulb3D code
- *
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
