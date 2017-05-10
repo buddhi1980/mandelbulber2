@@ -44,33 +44,14 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 #ifdef USE_OPENCL
 void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer *params)
 {
-	QString progPathHeader("#define INCLUDE_PATH_CL_DATA \"");
-
-// pushing path to mandelbulber_cl_data.h
-// using correct slashes is important, because OpenCl compiler would fail
-#ifdef WIN32
-	progPathHeader += systemData.sharedDir + "opencl\\mandelbulber_cl_data.h\"";
-#else
-	progPathHeader += systemData.sharedDir + "opencl/mandelbulber_cl_data.h\"";
-#endif
-	QByteArray progPathHeaderUft8 = progPathHeader.toUtf8();
-	qDebug() << progPathHeader;
-
 	programsLoaded = false;
 	readyForRendering = false;
 
 	QByteArray progEngine;
 	try
 	{
-		//		progEngine.append(
-		//			"// TODO replace with autogen >>>\n"
-		//			"typedef struct{float r; float r_dz; } sClsExtendedAux;\n"
-		//			"typedef struct { float alphaAngleOffset; float betaAngleOffset; float power; }
-		// sBulb;\n"
-		//			"typedef struct { sBulb bulb;	} sCLFractal;\n"
-		//			"// <<< TODO replace with autogen\n");
-
 		// it's still temporary, but in this way we can append main header file
+
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "opencl_typedefs.h\"\n");
 
@@ -103,8 +84,6 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 	// collecting all parts of program
 	cl::Program::Sources sources;
-	//sources.push_back(
-	//	std::make_pair(progPathHeaderUft8.constData(), size_t(progPathHeader.length())));
 	sources.push_back(std::make_pair(progEngine.constData(), size_t(progEngine.length())));
 
 	// creating cl::Program
