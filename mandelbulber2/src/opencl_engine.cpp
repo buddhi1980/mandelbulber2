@@ -154,7 +154,7 @@ cOpenClEngine::sOptimalJob cOpenClEngine::CalculateOptimalJob(const cParameterCo
 bool cOpenClEngine::CreateCommandQueue()
 {
 	cl_int err;
-	if(queue) delete queue;
+	if (queue) delete queue;
 	queue = new cl::CommandQueue(*hardware->getContext(), hardware->getSelectedDevice(), 0, &err);
 
 	if (checkErr(err, "CommandQueue::CommandQueue()"))

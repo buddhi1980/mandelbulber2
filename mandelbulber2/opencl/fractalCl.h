@@ -250,14 +250,14 @@ typedef struct
 
 	typedef enum { xyz, xzy, yxz, yzx, zxy, zyx } eClmulti_OrderOfXYZ;
 
-	multi_acosOrAsin acosOrAsin;
-	multi_acosOrAsin acosOrAsinA;
-	multi_atanOrAtan2 atanOrAtan2;
-	multi_atanOrAtan2 atanOrAtan2A;
+	eClmulti_acosOrAsin acosOrAsin;
+	eClmulti_acosOrAsin acosOrAsinA;
+	eClmulti_atanOrAtan2 atanOrAtan2;
+	eClmulti_atanOrAtan2 atanOrAtan2A;
 
-	multi_OrderOfXYZ orderOfXYZ;
-	multi_OrderOfXYZ orderOfXYZ2;
-	multi_OrderOfXYZ orderOfXYZC;
+	eClmulti_OrderOfXYZ orderOfXYZ;
+	eClmulti_OrderOfXYZ orderOfXYZ2;
+	eClmulti_OrderOfXYZ orderOfXYZC;
 } sClsFractalMandelbulbMulti;
 
 // sinTan2Trig
@@ -269,20 +269,20 @@ typedef struct
 
 	typedef enum { zyx, zxy, yzx, yxz, xzy, xyz } eClmulti_OrderOfZYX;
 
-	multi_asinOrAcos asinOrAcos;
-	multi_atan2OrAtan atan2OrAtan;
-	multi_OrderOfZYX orderOfZYX;
+	eClmulti_asinOrAcos asinOrAcos;
+	eClmulti_atan2OrAtan atan2OrAtan;
+	eClmulti_OrderOfZYX orderOfZYX;
 } sClsFractalSinTan2Trig;
 
 // surf fold box
 typedef struct
 {
 	typedef enum { type1, type2, type3, type4, type5 } eClmulti_orderOfFolds;
-	multi_orderOfFolds orderOfFolds1;
-	multi_orderOfFolds orderOfFolds2;
-	multi_orderOfFolds orderOfFolds3;
-	multi_orderOfFolds orderOfFolds4;
-	multi_orderOfFolds orderOfFolds5;
+	eClmulti_orderOfFolds orderOfFolds1;
+	eClmulti_orderOfFolds orderOfFolds2;
+	eClmulti_orderOfFolds orderOfFolds3;
+	eClmulti_orderOfFolds orderOfFolds4;
+	eClmulti_orderOfFolds orderOfFolds5;
 } sClsFractalSurfFolds;
 
 // benesi mag transforms
@@ -296,11 +296,11 @@ typedef struct
 		typeT4,
 		typeT5b,
 	} eClmulti_orderOfTransf;
-	multi_orderOfTransf orderOfTransf1;
-	multi_orderOfTransf orderOfTransf2;
-	multi_orderOfTransf orderOfTransf3;
-	multi_orderOfTransf orderOfTransf4;
-	multi_orderOfTransf orderOfTransf5;
+	eClmulti_orderOfTransf orderOfTransf1;
+	eClmulti_orderOfTransf orderOfTransf2;
+	eClmulti_orderOfTransf orderOfTransf3;
+	eClmulti_orderOfTransf orderOfTransf4;
+	eClmulti_orderOfTransf orderOfTransf5;
 } sClsFractalMagTransforms;
 
 // basic combo
@@ -316,7 +316,7 @@ typedef struct
 		mode6,
 		mode7,
 	} eClcombo;
-	combo modeA;
+	eClcombo modeA;
 	//		combo modeB;
 	//		combo modeC;
 } sClsFractalCombo;
@@ -601,9 +601,6 @@ typedef struct
 
 typedef struct
 {
-	cFractal(const cParameterContainer *par);
-	void RecalculateFractalParams();
-
 	fractal::enumFractalFormula formula;
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;

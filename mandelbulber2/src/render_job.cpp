@@ -193,7 +193,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	if (paramsContainer->Get<bool>("gpu_enabled"))
 	{
 		// just for testing
-		gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer, fractalContainer);
 		gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer);
 		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
 		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);

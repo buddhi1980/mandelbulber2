@@ -16,6 +16,7 @@
 #endif
 
 class cImage;
+class cFractalContainer;
 
 class cOpenClEngineRenderFractal : public virtual cOpenClEngine
 {
@@ -25,7 +26,7 @@ public:
 
 #ifdef USE_OPENCL
 	void LoadSourcesAndCompile(const cParameterContainer *params) override;
-	void SetParameters(const cParameterContainer *params);
+	void SetParameters(const cParameterContainer *params, const cFractalContainer *fractals);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool Render(cImage *image);
 

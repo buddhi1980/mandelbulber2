@@ -14,6 +14,8 @@ typedef struct
 	cl_int N;
 	cl_float fov;
 	cl_float DEFactor;
+	cl_float mainLightAlpha;
+	cl_float mainLightBeta;
 	cl_float3 camera;
 	cl_float3 target;
 	cl_float3 viewAngle;
@@ -34,7 +36,13 @@ typedef struct
 
 typedef struct
 {
+	cl_float power;
+} sClFractal;
+
+typedef struct
+{
 	sClParams params;
+	sClFractal fractal[9]; //temporary for testing
 } sClInConstants;
 
 typedef struct

@@ -99,7 +99,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float colourMin = 1e8f;
 
 	// formula init
-	float power = 9.0f;
+	float power = consts->fractal[0].power;
 	r = length(z);
 	float r_dz = 1.0f;
 
@@ -162,6 +162,18 @@ formulaOut CalculateDistance(
 	return out;
 }
 
+float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainDistance,
+	float distThresh, sClCalcParams *calcParam)
+{
+	float delta = distThresh;
+	float s1 = CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam).distance;
+	float s2 = CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam).distance;
+	float s3 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam).distance;
+	float3 normal = (float3){s1 - mainDistance, s2 - mainDistance, s3 - mainDistance};
+	normal = normalize(normal);
+	return normal;
+}
+
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	__constant sClInConstants *consts, int Gcl_offset)
@@ -215,12 +227,13 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	scan = 1e-10f;
 
 	sClCalcParams calcParam;
-	calcParam.N = 9.0f; // hardcoded for testing
-		distThresh = 1e-6f;
+	calcParam.N = consts->params.N;
+	distThresh = 1e-6f;
 
 	formulaOut outF;
 	float step = 0.0f;
 
+	// ray-marching
 	for (count = 0; count < MAX_RAYMARCHING && scan < 50.0f; count++)
 	{
 		point = start + viewVector * scan;
@@ -239,11 +252,68 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 		scan += step;
 	}
 
+	// final binary searching
+	if (found)
+	{
+		step *= 0.5f;
+		for (int i = 0; i < 5; i++)
+		{
+			if (distance < distThresh && distance > distThresh * 0.95f)
+			{
+				break;
+			}
+			else
+			{
+				if (distance > distThresh)
+				{
+					point += viewVector * step;
+				}
+				else if (distance < distThresh * 0.95f)
+				{
+					point -= viewVector * step;
+				}
+			}
+			outF = CalculateDistance(consts, point, &calcParam);
+			distance = outF.distance;
+			step *= 0.5f;
+		}
+	}
+
+	float3 colour = 0.7f;
+	float3 surfaceColour = 1.0f;
+	if (found)
+	{
+		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
+
+		float3 lightVector = (float3){
+			cos(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
+			sin(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
+			sin(-consts->params.mainLightBeta)};
+		lightVector = Matrix33MulFloat3(rot, lightVector);
+		float shade = dot(lightVector, normal);
+		if (shade < 0.0f) shade = 0.0f;
+
+		float3 halfVector = lightVector - viewVector;
+		halfVector = fast_normalize(halfVector);
+		float specular = dot(normal, halfVector);
+		if (specular < 0.0f) specular = 0.0f;
+		specular = pown(specular, 30.0f);
+		if (specular > 15.0f) specular = 15.0f;
+
+		colour = colour * (shade + specular);
+	}
+	else
+	{
+		colour = 0.0f;
+	}
+
 	sClPixel pixel;
 
-	pixel.R = count / 25.0f;
-	pixel.G = count / 250.0f;
-	pixel.B = count / 250.0f;
+	float glow = count / 100.0 * consts->params.DEFactor;
+
+	pixel.R = colour.s0 + glow;
+	pixel.G = colour.s1 * glow * 10.0f;
+	pixel.B = colour.s2;
 	pixel.zBuffer = scan;
 	pixel.colR = 0.0f;
 	pixel.colG = 0.0f;

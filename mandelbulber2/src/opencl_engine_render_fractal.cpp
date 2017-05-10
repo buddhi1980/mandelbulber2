@@ -11,6 +11,8 @@
 #include "opencl_hardware.h"
 #include "fractal_list.hpp"
 #include "cimage.hpp"
+#include "nine_fractals.hpp"
+#include "fractal.h"
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
@@ -103,15 +105,17 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	}
 }
 
-void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *params)
+void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramContainer, const cFractalContainer *fractalContainer)
 {
 	if (constantInBuffer) delete constantInBuffer;
 	constantInBuffer = new sClInConstants;
 
 	// TODO Write function to copy parameters from cParamRender to sClParamRender
 	// Would be good to write php script for it
-	cParamRender *paramRender = new cParamRender(params);
+	cParamRender *paramRender = new cParamRender(paramContainer);
+	cNineFractals *fractals = new cNineFractals(fractalContainer, paramContainer);
 
+	//temporary code to copy general parameters
 	constantInBuffer->params.N = paramRender->N;
 	constantInBuffer->params.imageWidth = paramRender->imageWidth;
 	constantInBuffer->params.imageHeight = paramRender->imageHeight;
@@ -120,7 +124,16 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *params
 	constantInBuffer->params.viewAngle = (paramRender->viewAngle * M_PI / 180.0).toClFloat3();
 	constantInBuffer->params.fov = paramRender->fov;
 	constantInBuffer->params.DEFactor = paramRender->DEFactor;
+	constantInBuffer->params.mainLightAlpha = paramRender->mainLightAlpha;
+	constantInBuffer->params.mainLightBeta = paramRender->mainLightBeta;
+
+	//temporary code to copy fractal parameters
+	constantInBuffer->fractal[0].power = fractals->GetFractal(0)->bulb.power;
+
+	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
+
 	delete paramRender;
+	delete fractals;
 }
 
 bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *params)
@@ -165,6 +178,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 	int height = image->GetHeight();
 
 	size_t sizeOfPixel = sizeof(sClPixel);
+
+	QElapsedTimer timer;
+	timer.start();
 
 	for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 	{
@@ -228,6 +244,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 	}
 
 	qDebug() << "GPU jobs finished";
+	qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 
 	// refresh image at end
 	image->NullPostEffect();
