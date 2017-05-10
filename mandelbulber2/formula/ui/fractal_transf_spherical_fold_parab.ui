@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>853</width>
-    <height>1534</height>
+    <height>1651</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -84,7 +84,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>99999</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -107,7 +107,7 @@
            <number>0</number>
           </property>
           <property name="maximum">
-           <number>99999</number>
+           <number>999</number>
           </property>
           <property name="value">
            <number>0</number>
@@ -357,7 +357,7 @@
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>99999</number>
+        <number>999</number>
        </property>
       </widget>
      </item>
@@ -380,7 +380,7 @@
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>99999</number>
+        <number>999</number>
        </property>
        <property name="value">
         <number>0</number>
@@ -1105,7 +1105,7 @@ offset:</string>
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>99999</number>
+        <number>999</number>
        </property>
        <property name="value">
         <number>0</number>
@@ -1121,7 +1121,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="maximum">
-        <number>99999</number>
+        <number>999</number>
        </property>
       </widget>
      </item>
@@ -1342,6 +1342,38 @@ offset:</string>
     <hint type="destinationlabel">
      <x>788</x>
      <y>153</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider_transf_offsetA_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>79</x>
+     <y>391</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>633</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_offsetA_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>390</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>791</x>
+     <y>395</y>
     </hint>
    </hints>
   </connection>

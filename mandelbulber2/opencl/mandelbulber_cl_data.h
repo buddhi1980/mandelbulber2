@@ -34,15 +34,31 @@ typedef struct
 	cl_uchar colB;
 } sClPixel;
 
+// temporary struct for mandelbulb
 typedef struct
 {
 	cl_float power;
+	cl_float alphaAngleOffset;
+	cl_float betaAngleOffset;
+	cl_float gammaAngleOffset;
+} sClFractalMandelbulb;
+
+// temporary struct for fractal
+typedef struct
+{
+	sClFractalMandelbulb bulb;
 } sClFractal;
 
 typedef struct
 {
+	cl_float r;
+	cl_float r_dz;
+} sClsExtendedAux;
+
+	typedef struct
+{
 	sClParams params;
-	sClFractal fractal[9]; //temporary for testing
+	sClFractal fractal[9]; // temporary for testing
 } sClInConstants;
 
 typedef struct

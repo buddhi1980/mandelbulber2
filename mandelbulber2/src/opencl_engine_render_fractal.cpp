@@ -62,8 +62,27 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	QByteArray progEngine;
 	try
 	{
-		progEngine = LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
-																			+ "engines" + QDir::separator() + "test_engine.cl");
+		//		progEngine.append(
+		//			"// TODO replace with autogen >>>\n"
+		//			"typedef struct{float r; float r_dz; } sClsExtendedAux;\n"
+		//			"typedef struct { float alphaAngleOffset; float betaAngleOffset; float power; }
+		// sBulb;\n"
+		//			"typedef struct { sBulb bulb;	} sCLFractal;\n"
+		//			"// <<< TODO replace with autogen\n");
+
+		// it's still temporary, but in this way we can append main header file
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "opencl_typedefs.h\"\n");
+
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "mandelbulber_cl_data.h\"\n");
+
+		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
+											+ "opencl" + QDir::separator() + "mandelbulb" + ".cl\"\n");
+
+		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
+																					 + "engines" + QDir::separator() + "test_engine.cl"));
+
 		if (progEngine.isEmpty()) throw QString("Can't load main program");
 
 		/*
@@ -84,8 +103,8 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 	// collecting all parts of program
 	cl::Program::Sources sources;
-	sources.push_back(
-		std::make_pair(progPathHeaderUft8.constData(), size_t(progPathHeader.length())));
+	//sources.push_back(
+	//	std::make_pair(progPathHeaderUft8.constData(), size_t(progPathHeader.length())));
 	sources.push_back(std::make_pair(progEngine.constData(), size_t(progEngine.length())));
 
 	// creating cl::Program
@@ -105,7 +124,8 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	}
 }
 
-void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramContainer, const cFractalContainer *fractalContainer)
+void cOpenClEngineRenderFractal::SetParameters(
+	const cParameterContainer *paramContainer, const cFractalContainer *fractalContainer)
 {
 	if (constantInBuffer) delete constantInBuffer;
 	constantInBuffer = new sClInConstants;
@@ -115,7 +135,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	cParamRender *paramRender = new cParamRender(paramContainer);
 	cNineFractals *fractals = new cNineFractals(fractalContainer, paramContainer);
 
-	//temporary code to copy general parameters
+	// temporary code to copy general parameters
 	constantInBuffer->params.N = paramRender->N;
 	constantInBuffer->params.imageWidth = paramRender->imageWidth;
 	constantInBuffer->params.imageHeight = paramRender->imageHeight;
@@ -127,8 +147,13 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	constantInBuffer->params.mainLightAlpha = paramRender->mainLightAlpha;
 	constantInBuffer->params.mainLightBeta = paramRender->mainLightBeta;
 
-	//temporary code to copy fractal parameters
-	constantInBuffer->fractal[0].power = fractals->GetFractal(0)->bulb.power;
+	// temporary code to copy fractal parameters
+	constantInBuffer->fractal[0].bulb.power = fractals->GetFractal(0)->bulb.power;
+	constantInBuffer->fractal[0].bulb.alphaAngleOffset =
+		fractals->GetFractal(0)->bulb.alphaAngleOffset;
+	constantInBuffer->fractal[0].bulb.betaAngleOffset = fractals->GetFractal(0)->bulb.betaAngleOffset;
+	constantInBuffer->fractal[0].bulb.gammaAngleOffset =
+		fractals->GetFractal(0)->bulb.gammaAngleOffset;
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 
@@ -201,7 +226,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		// writing data to queue
 		err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
 		size_t usedGPUdMem = sizeOfPixel * optimalJob.stepSize;
-		//qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
+		// qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
 		if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)")) return false;
 
 		err = queue->finish();
