@@ -42,7 +42,7 @@ opencl {
 	message("Use OpenCL library")
 }
 
-# TODO: check if this define is necessary, was only present in release build
+# required for proper logging output
 DEFINES += QT_MESSAGELOGCONTEXT
 
 TARGET = mandelbulber2 
@@ -104,10 +104,3 @@ win32:LIBS += -lz
 # gsl png osx absolute path
 macx:INCLUDEPATH += /usr/local/include/
 macx:LIBS += -L/usr/local/lib/
-
-# TODO: is this still required?
-# rh: ugly absolute paths for libpng and libjpeg on my windows system
-#lpng
-win32:greaterThan(QT_MAJOR_VERSION, 4): INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"
-#win32:LIBS += "C:/Qt/Tools/mingw48_32/lib/libpng16"
-#win32:INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"

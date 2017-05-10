@@ -60,8 +60,15 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	QByteArray progEngine;
 	try
 	{
-		progEngine = LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
-																			+ "engines" + QDir::separator() + "test_engine.cl");
+		progEngine.append("// TODO replace with autogen >>>\n"
+											"typedef struct{float r; float r_dz; } sClsExtendedAux;\n"
+											"typedef struct { float alphaAngleOffset; float betaAngleOffset; float power; } sBulb;\n"
+											"typedef struct { sBulb bulb;	} sCLFractal;\n"
+											"// <<< TODO replace with autogen\n");
+		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "formula" + QDir::separator() + "opencl" + QDir::separator()
+					 + "mandelbulb" + ".cl"));;
+		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
+																			+ "engines" + QDir::separator() + "test_engine.cl"));
 		if (progEngine.isEmpty()) throw QString("Can't load main program");
 
 		/*
