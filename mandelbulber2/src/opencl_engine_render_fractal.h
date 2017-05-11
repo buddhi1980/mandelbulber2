@@ -12,6 +12,7 @@
 
 #ifdef USE_OPENCL
 #include <CL/cl.hpp>
+#include "../src/fractal_enums.h"
 #include "../opencl/mandelbulber_cl_data.h"
 #endif
 

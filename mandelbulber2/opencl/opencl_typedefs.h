@@ -10,6 +10,7 @@
 
 typedef float3 cl_float3;
 typedef float cl_float;
+typedef int3 cl_int3;
 typedef int cl_int;
 typedef unsigned int cl_uint;
 typedef unsigned short cl_ushort;

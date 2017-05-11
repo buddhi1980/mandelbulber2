@@ -53,15 +53,27 @@ foreach($copyFiles as $type => $copyFile){
 	    array('find' => '/(\s)int(\s)/', 'replace' => '$1cl_int$2'),
 	    array('find' => '/(\s)bool(\s)/', 'replace' => '$1cl_int$2'),
 	    array('find' => '/(\s)double(\s)/', 'replace' => '$1cl_float$2'),
+	    array('find' => '/(\s)float(\s)/', 'replace' => '$1cl_float$2'),
+	    array('find' => '/(\s)sRGB(\s)/', 'replace' => '$1cl_int3$2'),
 	    array('find' => '/(\s)CVector3(\s)/', 'replace' => '$1cl_float3$2'),
 	    array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
 	    array('find' => '/\n#include\s.*/', 'replace' => ''), // remove includes
 	    array('find' => '/(\s)CRotationMatrix(\s)/', 'replace' => '$1matrix33$2'),
-	    array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 sCl$1"),
-	    array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 eCl$1"),
+	    array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1Cl"),
+	    array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1Cl"),
 	    array('find' => '/class\s([a-zA-Z0-9_]+);/', 'replace' => ""), // remove forward declaration
 	    array('find' => '/\/\/\sforward declarations/', 'replace' => ""), // remove comment "forward declaration"
+	    array('find' => '/MANDELBULBER2_SRC_(.*)_HPP_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_HPP_"), // include guard
+	    array('find' => '/MANDELBULBER2_SRC_(.*)_H_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_H_"), // include guard
+
+		// TODO rework these regexes
 	    array('find' => '/namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
+	    array('find' => '/sParamRender\([\s\S]*?\);/', 'replace' => ""), // remove sParamRender constructor
+	    array('find' => '/.*::.*/', 'replace' => ""), // no namespace scopes allowed?
+	    array('find' => '/.*sImageAdjustments.*/', 'replace' => ""), // need to include file...
+	    array('find' => '/.*cPrimitives.*/', 'replace' => ""), // need to include file...
+	    array('find' => '/.*sCommonParams.*/', 'replace' => ""), // need to include file...
+	    array('find' => '/matrix33 /', 'replace' => "// matrix33 "), // TODO
 	);
 	foreach($openCLReplaceLookup as $item){
 		$content = preg_replace($item['find'], $item['replace'], $content);

@@ -1,18 +1,4 @@
-// test version of cl_data
-
-typedef struct
-{
-	cl_int imageWidth;
-	cl_int imageHeight;
-	cl_int N;
-	cl_float fov;
-	cl_float DEFactor;
-	cl_float mainLightAlpha;
-	cl_float mainLightBeta;
-	cl_float3 camera;
-	cl_float3 target;
-	cl_float3 viewAngle;
-} sClParams;
+#include "../opencl/fractparams_cl.hpp"
 
 typedef struct
 {
@@ -48,9 +34,9 @@ typedef struct
 	cl_float r_dz;
 } sClsExtendedAux;
 
-	typedef struct
+typedef struct
 {
-	sClParams params;
+	sParamRenderCl params;
 	sClFractal fractal[9]; // temporary for testing
 } sClInConstants;
 

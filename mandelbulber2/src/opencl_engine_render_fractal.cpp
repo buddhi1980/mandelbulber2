@@ -50,6 +50,9 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	QByteArray progEngine;
 	try
 	{
+		// passthrough define constants
+		progEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
+
 		// it's still temporary, but in this way we can append main header file
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
@@ -60,8 +63,8 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "mandelbulber_cl_data.h\"\n");
-		// progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-		// 									+ "fractparams_cl.hpp\"\n");
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "fractparams_cl.hpp\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 											+ "opencl" + QDir::separator() + "mandelbulb" + ".cl\"\n");

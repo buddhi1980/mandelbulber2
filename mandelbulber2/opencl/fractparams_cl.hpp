@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cParamRender struct - container for scene parameters
+ * sParamRender struct - container for scene parameters
  *       ____                   ________
  *      / __ \____  ___  ____  / ____/ /
  *     / / / / __ \/ _ \/ __ \/ /   / /
@@ -42,13 +42,12 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-#ifndef MANDELBULBER2_SRC_FRACTPARAMS_HPP_
-#define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
+#ifndef MANDELBULBER2_OPENCL_FRACTPARAMS_CL_HPP_
+#define MANDELBULBER2_OPENCL_FRACTPARAMS_CL_HPP_
 
 typedef struct
 {
 	// constructor with init
-	sParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = nullptr);
 
 	cl_int antialiasingSize;
 	cl_int ambientOcclusionQuality; // ambient occlusion quality
@@ -72,13 +71,6 @@ typedef struct
 	cl_int OpenCLEngine;
 	cl_int OpenCLPixelsPerJob;
 #endif
-
-	params::enumPerspectiveType perspectiveType;
-	params::enumAOMode ambientOcclusionMode;
-	params::enumTextureMapType texturedBackgroundMapType;
-	params::enumBooleanOperator booleanOperator[NUMBER_OF_FRACTALS - 1];
-	fractal::enumDEMethod delta_DE_method;
-	fractal::enumDEFunctionType delta_DE_function;
 
 	cl_int antialiasingEnabled;
 	cl_int ambientOcclusionEnabled; // enable global illumination
@@ -116,22 +108,22 @@ typedef struct
 	cl_int useCustomOCLFormula;
 #endif
 
-	sRGB auxLightPreColour[4];
-	sRGB background_color1; // background colour
-	sRGB background_color2;
-	sRGB background_color3;
-	sRGB fogColor;
-	sRGB glowColor1;
-	sRGB glowColor2;
-	sRGB iterFogColour1;
-	sRGB iterFogColour2;
-	sRGB iterFogColour3;
-	sRGB mainLightColour;
-	sRGB volFogColour1;
-	sRGB volFogColour2;
-	sRGB volFogColour3;
+	cl_int3 auxLightPreColour[4];
+	cl_int3 background_color1; // background colour
+	cl_int3 background_color2;
+	cl_int3 background_color3;
+	cl_int3 fogColor;
+	cl_int3 glowColor1;
+	cl_int3 glowColor2;
+	cl_int3 iterFogColour1;
+	cl_int3 iterFogColour2;
+	cl_int3 iterFogColour3;
+	cl_int3 mainLightColour;
+	cl_int3 volFogColour1;
+	cl_int3 volFogColour2;
+	cl_int3 volFogColour3;
 
-	float ambientOcclusion;
+	cl_float ambientOcclusion;
 	cl_float ambientOcclusionFastTune;
 	cl_float auxLightPreIntensity[4];
 	cl_float auxLightVisibility;
@@ -159,16 +151,16 @@ typedef struct
 	cl_float fogVisibility;
 	cl_float formulaScale[NUMBER_OF_FRACTALS];
 	cl_float fov; // perspective factor
-	float glowIntensity;
+	cl_float glowIntensity;
 	cl_float hdrBlurIntensity;
 	cl_float hdrBlurRadius;
-	float iterFogColor1Maxiter;
-	float iterFogColor2Maxiter;
+	cl_float iterFogColor1Maxiter;
+	cl_float iterFogColor2Maxiter;
 	cl_float iterFogOpacity;
-	float iterFogOpacityTrim;
+	cl_float iterFogOpacityTrim;
 	cl_float mainLightAlpha;
 	cl_float mainLightBeta;
-	float mainLightIntensity;
+	cl_float mainLightIntensity;
 	cl_float mainLightVisibility;
 	cl_float mainLightVisibilitySize;
 	cl_float resolution; // resolution of image in fractal coordinates
@@ -182,11 +174,9 @@ typedef struct
 	cl_float viewDistanceMin;
 	cl_float volFogColour1Distance;
 	cl_float volFogColour2Distance;
-	float volFogDensity;
+	cl_float volFogDensity;
 	cl_float volFogDistanceFactor;
 	cl_float volumetricLightIntensity[5];
-
-	sImageAdjustments imageAdjustments;
 
 	cl_float3 auxLightPre[4];
 	cl_float3 auxLightRandomCenter;
@@ -202,12 +192,9 @@ typedef struct
 	cl_float3 viewAngle;
 	cl_float3 topVector;
 
-	matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
-	matrix33 mRotBackgroundRotation;
+	// matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
+	// matrix33 mRotBackgroundRotation;
 
-	cPrimitives primitives;
+} sParamRenderCl;
 
-	sCommonParams common;
-} sClsParamRender;
-
-#endif /* MANDELBULBER2_SRC_FRACTPARAMS_HPP_ */
+#endif /* MANDELBULBER2_OPENCL_FRACTPARAMS_CL_HPP_ */

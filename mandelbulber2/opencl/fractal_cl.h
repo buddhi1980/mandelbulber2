@@ -42,8 +42,8 @@
  * D O    N O T    E D I T    T H I S    F I L E !
  */
 
-#ifndef MANDELBULBER2_SRC_FRACTAL_H_
-#define MANDELBULBER2_SRC_FRACTAL_H_
+#ifndef MANDELBULBER2_OPENCL_FRACTAL_CL_H_
+#define MANDELBULBER2_OPENCL_FRACTAL_CL_H_
 
 const cl_int IFS_VECTOR_COUNT = 9;
 const cl_int HYBRID_COUNT = 5;
@@ -92,7 +92,7 @@ typedef struct
 	cl_float minRFactor;
 	cl_float scaleFactor;
 	cl_float3 c;
-} sClsExtendedAux;
+} sExtendedAuxCl;
 
 typedef struct
 {
@@ -106,11 +106,11 @@ typedef struct
 	cl_float compFold;
 	cl_float compMinR;
 	cl_float compScale;
-} sClsFoldColor;
+} sFoldColorCl;
 
 typedef struct
 {
-	fractal::enumGeneralizedFoldBoxType type;
+
 	cl_float3 Nv_tet[4];
 	cl_float3 Nv_cube[6];
 	cl_float3 Nv_oct[8];
@@ -127,7 +127,7 @@ typedef struct
 	cl_int sides_icosa;
 	cl_int sides_box6;
 	cl_int sides_box5;
-} sClsFractalGeneralizedFoldBox;
+} sFractalGeneralizedFoldBoxCl;
 
 typedef struct
 {
@@ -136,8 +136,8 @@ typedef struct
 	cl_int mengerSpongeMode;
 	cl_int rotationEnabled;
 	cl_int edgeEnabled;
-	matrix33 mainRot;
-	matrix33 rot[IFS_VECTOR_COUNT];
+	// matrix33 mainRot;
+	// matrix33 rot[IFS_VECTOR_COUNT];
 	cl_float3 direction[IFS_VECTOR_COUNT];
 	cl_float3 edge;
 	cl_float3 offset;
@@ -146,7 +146,7 @@ typedef struct
 	cl_float intensity[IFS_VECTOR_COUNT];
 	cl_float3 rotation;
 	cl_float scale;
-} sClsFractalIFS;
+} sFractalIFSCl;
 
 typedef struct
 {
@@ -155,7 +155,7 @@ typedef struct
 	cl_float scaleVary;
 	cl_float wadd;
 	cl_float rPower;
-} sClsFractalMandelboxVary4D;
+} sFractalMandelboxVary4DCl;
 
 typedef struct
 {
@@ -173,20 +173,20 @@ typedef struct
 	cl_float3 offset;
 	cl_int rotationsEnabled;
 	cl_int mainRotationEnabled;
-	matrix33 mainRot;
-	matrix33 rot[MANDELBOX_FOLDS][3];
-	matrix33 rotinv[MANDELBOX_FOLDS][3];
+	// matrix33 mainRot;
+	// matrix33 rot[MANDELBOX_FOLDS][3];
+	// matrix33 rotinv[MANDELBOX_FOLDS][3];
 
 	cl_float fR2;
 	cl_float mR2;
 	cl_float mboxFactor1;
-} sClsFractalMandelbox;
+} sFractalMandelboxCl;
 
 typedef struct
 {
 	cl_float zFactor;
 	cl_float foldFactor;
-} sClsFractalBoxFoldBulbPow2;
+} sFractalBoxFoldBulbPow2Cl;
 
 typedef struct
 {
@@ -194,12 +194,12 @@ typedef struct
 	cl_float alphaAngleOffset;
 	cl_float betaAngleOffset;
 	cl_float gammaAngleOffset;
-} sClsFractalMandelbulb;
+} sFractalMandelbulbCl;
 
 typedef struct
 {
 	cl_float cadd;
-} sClsFractalAexion;
+} sFractalAexionCl;
 
 typedef struct
 {
@@ -210,7 +210,7 @@ typedef struct
 	cl_int absy;
 	cl_int absz;
 	cl_int posz;
-} sClsFractalBuffalo;
+} sFractalBuffaloCl;
 
 typedef struct
 {
@@ -218,7 +218,7 @@ typedef struct
 	cl_float ringThickness;
 	cl_float factor;
 	cl_float number;
-} sClsFractalDonut;
+} sFractalDonutCl;
 
 //----------------------------------------------------------
 typedef struct
@@ -226,16 +226,16 @@ typedef struct
 	cl_float frequency;
 	cl_float amplitude;
 	cl_float rhoMul;
-} sClsFractalPlatonicSolid;
+} sFractalPlatonicSolidCl;
 
 // mandelbulb multi
 typedef struct
 {
-	typedef enum { acos, asin } eClmulti_acosOrAsin;
+	typedef enum { acos, asin } multi_acosOrAsinCl;
 
-	typedef enum { atan, atan2 } eClmulti_atanOrAtan2;
+	typedef enum { atan, atan2 } multi_atanOrAtan2Cl;
 
-	typedef enum { xyz, xzy, yxz, yzx, zxy, zyx } eClmulti_OrderOfXYZ;
+	typedef enum { xyz, xzy, yxz, yzx, zxy, zyx } multi_OrderOfXYZCl;
 
 	multi_acosOrAsin acosOrAsin;
 	multi_acosOrAsin acosOrAsinA;
@@ -245,32 +245,32 @@ typedef struct
 	multi_OrderOfXYZ orderOfXYZ;
 	multi_OrderOfXYZ orderOfXYZ2;
 	multi_OrderOfXYZ orderOfXYZC;
-} sClsFractalMandelbulbMulti;
+} sFractalMandelbulbMultiCl;
 
 // sinTan2Trig
 typedef struct
 {
-	typedef enum { asin, acos } eClmulti_asinOrAcos;
+	typedef enum { asin, acos } multi_asinOrAcosCl;
 
-	typedef enum { atan2, atan } eClmulti_atan2OrAtan;
+	typedef enum { atan2, atan } multi_atan2OrAtanCl;
 
-	typedef enum { zyx, zxy, yzx, yxz, xzy, xyz } eClmulti_OrderOfZYX;
+	typedef enum { zyx, zxy, yzx, yxz, xzy, xyz } multi_OrderOfZYXCl;
 
 	multi_asinOrAcos asinOrAcos;
 	multi_atan2OrAtan atan2OrAtan;
 	multi_OrderOfZYX orderOfZYX;
-} sClsFractalSinTan2Trig;
+} sFractalSinTan2TrigCl;
 
 // surf fold box
 typedef struct
 {
-	typedef enum { type1, type2, type3, type4, type5 } eClmulti_orderOfFolds;
+	typedef enum { type1, type2, type3, type4, type5 } multi_orderOfFoldsCl;
 	multi_orderOfFolds orderOfFolds1;
 	multi_orderOfFolds orderOfFolds2;
 	multi_orderOfFolds orderOfFolds3;
 	multi_orderOfFolds orderOfFolds4;
 	multi_orderOfFolds orderOfFolds5;
-} sClsFractalSurfFolds;
+} sFractalSurfFoldsCl;
 
 // benesi mag transforms
 typedef struct
@@ -282,13 +282,13 @@ typedef struct
 		typeT3,
 		typeT4,
 		typeT5b,
-	} eClmulti_orderOfTransf;
+	} multi_orderOfTransfCl;
 	multi_orderOfTransf orderOfTransf1;
 	multi_orderOfTransf orderOfTransf2;
 	multi_orderOfTransf orderOfTransf3;
 	multi_orderOfTransf orderOfTransf4;
 	multi_orderOfTransf orderOfTransf5;
-} sClsFractalMagTransforms;
+} sFractalMagTransformsCl;
 
 // basic combo
 typedef struct
@@ -302,11 +302,11 @@ typedef struct
 		mode5,
 		mode6,
 		mode7,
-	} eClcombo;
+	} comboCl;
 	combo modeA;
 	//		combo modeB;
 	//		combo modeC;
-} sClsFractalCombo;
+} sFractalComboCl;
 
 // for surfbox types
 typedef struct
@@ -335,7 +335,7 @@ typedef struct
 	cl_float3 offset1A222;
 	cl_float3 offset1B222;
 	cl_float scale1Z1;
-} sClsFractalSurfBox;
+} sFractalSurfBoxCl;
 
 // for curvilinear
 typedef struct
@@ -359,7 +359,7 @@ typedef struct
 	cl_int iterA;
 	cl_int iterB;
 	cl_int iterC;
-} sClsFractalCpara;
+} sFractalCparaCl;
 
 typedef struct
 {
@@ -373,7 +373,7 @@ typedef struct
 	cl_float factor2;
 	cl_float scaleLin;
 	cl_float offsetLin;
-} sClsFractalAnalyticDE;
+} sFractalAnalyticDECl;
 
 // common parameters for transforming formulas
 typedef struct
@@ -530,10 +530,10 @@ typedef struct
 	cl_float4 additionConstant111d5;
 	cl_float4 constantMultiplier1220;
 
-	matrix33 rotationMatrix;
-	matrix33 rotationMatrix2;
+	// matrix33 rotationMatrix;
+	// matrix33 rotationMatrix2;
 	CRotationMatrix44 rotationMatrix44; //....................
-	matrix33 tempRotMatrix;
+	// matrix33 tempRotMatrix;
 
 	cl_int addCpixelEnabled;
 	cl_int addCpixelEnabledFalse;
@@ -584,7 +584,7 @@ typedef struct
 	cl_int functionEnabledXFalse;
 	cl_int juliaMode;
 	cl_int rotationEnabled;
-} sClsFractalTransformCommon;
+} sFractalTransformCommonCl;
 
 class cFractal
 {
@@ -592,7 +592,6 @@ public:
 	cFractal(const cParameterContainer *par);
 	void RecalculateFractalParams();
 
-	fractal::enumFractalFormula formula;
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;
@@ -618,8 +617,8 @@ public:
 	cl_float customParameters[15];
 	cl_float deltaDEStep;
 	char customOCLFormulaName[100];
-	fractal::enumOCLDEMode customOCLFormulaDEMode;
+
 #endif
 };
 
-#endif /* MANDELBULBER2_SRC_FRACTAL_H_ */
+#endif /* MANDELBULBER2_OPENCL_FRACTAL_CL_H_ */
