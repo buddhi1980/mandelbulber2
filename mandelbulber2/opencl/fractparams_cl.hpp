@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * sParamRender struct - container for scene parameters
+ * sParamRenderCl struct - container for scene parameters
  *       ____                   ________
  *      / __ \____  ___  ____  / ____/ /
  *     / / / / __ \/ _ \/ __ \/ /   / /

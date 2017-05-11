@@ -43,15 +43,15 @@
 // forward declarations
 class cParameterContainer;
 class cFractalContainer;
-class cFractal;
+class sFractal;
 
 class cNineFractals
 {
 public:
 	cNineFractals(const cFractalContainer *fractalPar, const cParameterContainer *generalPar);
 	~cNineFractals();
-	cFractal *GetFractal(int index) const { return fractals[index]; }
-	cFractal **fractals;
+	sFractal *GetFractal(int index) const { return fractals[index]; }
+	sFractal **fractals;
 	int GetSequence(const int i) const;
 	bool IsHybrid() const { return isHybrid; }
 	fractal::enumDEType GetDEType(int formulaIndex) const;

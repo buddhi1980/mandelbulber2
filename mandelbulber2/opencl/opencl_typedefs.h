@@ -8,6 +8,7 @@
 #ifndef MANDELBULBER2_OPENCL_OPENCL_TYPEDEFS_H_
 #define MANDELBULBER2_OPENCL_OPENCL_TYPEDEFS_H_
 
+typedef float4 cl_float4;
 typedef float3 cl_float3;
 typedef float cl_float;
 typedef int3 cl_int3;

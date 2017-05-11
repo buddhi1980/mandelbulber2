@@ -59,7 +59,7 @@ cNineFractals::~cNineFractals()
 
 cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
 {
-	fractals = new cFractal *[NUMBER_OF_FRACTALS];
+	fractals = new sFractal *[NUMBER_OF_FRACTALS];
 	hybridSequence = nullptr;
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
@@ -69,7 +69,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		fractals[i] = new cFractal(&par->at(i));
+		fractals[i] = new sFractal(&par->at(i));
 		fractals[i]->formula = fractal::enumFractalFormula(generalPar->Get<int>("formula", i + 1));
 		if (!generalPar->Get<bool>("fractal_enable", i + 1))
 		{

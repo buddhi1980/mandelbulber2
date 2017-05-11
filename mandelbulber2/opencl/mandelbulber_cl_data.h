@@ -1,4 +1,5 @@
 #include "../opencl/fractparams_cl.hpp"
+#include "../opencl/fractal_cl.h"
 
 typedef struct
 {
@@ -13,21 +14,6 @@ typedef struct
 	cl_uchar colB;
 } sClPixel;
 
-// temporary struct for mandelbulb
-typedef struct
-{
-	cl_float power;
-	cl_float alphaAngleOffset;
-	cl_float betaAngleOffset;
-	cl_float gammaAngleOffset;
-} sClFractalMandelbulb;
-
-// temporary struct for fractal
-typedef struct
-{
-	sClFractalMandelbulb bulb;
-} sClFractal;
-
 typedef struct
 {
 	cl_float r;
@@ -37,7 +23,7 @@ typedef struct
 typedef struct
 {
 	sParamRenderCl params;
-	sClFractal fractal[9]; // temporary for testing
+	sFractalCl fractal[9]; // temporary for testing
 } sClInConstants;
 
 typedef struct

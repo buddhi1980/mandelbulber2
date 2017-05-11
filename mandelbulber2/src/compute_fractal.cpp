@@ -90,7 +90,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	int fractalIndex = 0;
 	if (in.forcedFormulaIndex >= 0) fractalIndex = in.forcedFormulaIndex;
 
-	const cFractal *defaultFractal = fractals.GetFractal(fractalIndex);
+	const sFractal *defaultFractal = fractals.GetFractal(fractalIndex);
 
 	sExtendedAux extendedAux;
 
@@ -146,7 +146,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			r = z.Length();
 		}
 
-		const cFractal *fractal = fractals.GetFractal(sequence);
+		const sFractal *fractal = fractals.GetFractal(sequence);
 		formula = fractal->formula;
 
 		// temporary vector for weight function

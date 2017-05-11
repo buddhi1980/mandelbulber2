@@ -34,7 +34,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.r = length(z);
 	aux.r_dz = 1.0f;
 
-	__constant sClFractal *fractal = &consts->fractal[0];
+	__constant sFractalCl *fractal = &consts->fractal[0];
 
 	// loop
 	for (i = 0; i < N; i++)

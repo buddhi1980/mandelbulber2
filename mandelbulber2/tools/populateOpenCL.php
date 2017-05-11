@@ -48,6 +48,21 @@ foreach($copyFiles as $type => $copyFile){
 
 	$content = $fileHeader . $fileSourceCode; 
 
+	// replace opencl specific tokens (and replace all matches)
+	$openCLMatchAppendCL = array(
+		array('find' => '/struct\s([a-zA-Z0-9_]+)\n/'),
+		array('find' => '/enum\s([a-zA-Z0-9_]+)\n/'),
+		array('find' => '/const int\s([a-zA-Z0-9_]+)\s=\s/'),
+	);
+	foreach($openCLMatchAppendCL as $item){
+		preg_match_all($item['find'], $content, $match);
+		if(!empty($match[1])){
+			foreach($match[1] as $replace){
+				$content = str_replace($replace, $replace . 'Cl', $content);
+			}
+		}
+	}
+
 	// replace opencl specific tokens
 	$openCLReplaceLookup = array(
 	    array('find' => '/(\s)int(\s)/', 'replace' => '$1cl_int$2'),
@@ -57,23 +72,31 @@ foreach($copyFiles as $type => $copyFile){
 	    array('find' => '/(\s)sRGB(\s)/', 'replace' => '$1cl_int3$2'),
 	    array('find' => '/(\s)CVector3(\s)/', 'replace' => '$1cl_float3$2'),
 	    array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
+
+			array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1"),
+			array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1"),
+			array('find' => '/const cl_int\s([a-zA-Z0-9_]+)\s=\s([a-zA-Z0-9_]+);/', 'replace' => "#define $1 $2"),
 	    array('find' => '/\n#include\s.*/', 'replace' => ''), // remove includes
 	    array('find' => '/(\s)CRotationMatrix(\s)/', 'replace' => '$1matrix33$2'),
-	    array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1Cl"),
-	    array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1Cl"),
+			array('find' => '/(\s)CRotationMatrix44(\s)/', 'replace' => '$1matrix44$2'),
+
 	    array('find' => '/class\s([a-zA-Z0-9_]+);/', 'replace' => ""), // remove forward declaration
 	    array('find' => '/\/\/\sforward declarations/', 'replace' => ""), // remove comment "forward declaration"
-	    array('find' => '/MANDELBULBER2_SRC_(.*)_HPP_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_HPP_"), // include guard
-	    array('find' => '/MANDELBULBER2_SRC_(.*)_H_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_H_"), // include guard
+			array('find' => '/MANDELBULBER2_SRC_(.*)_HPP_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_HPP_"), // include guard 1
+			array('find' => '/MANDELBULBER2_SRC_(.*)_H_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_H_"), // include guard
 
 		// TODO rework these regexes
-	    array('find' => '/namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
-	    array('find' => '/sParamRender\([\s\S]*?\);/', 'replace' => ""), // remove sParamRender constructor
+			array('find' => '/namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
+			array('find' => '/sParamRenderCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
+			array('find' => '/sFractalCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
+			array('find' => '/void RecalculateFractalParams\([\s\S]*?\);/', 'replace' => ""), // remove method
+
 	    array('find' => '/.*::.*/', 'replace' => ""), // no namespace scopes allowed?
 	    array('find' => '/.*sImageAdjustments.*/', 'replace' => ""), // need to include file...
 	    array('find' => '/.*cPrimitives.*/', 'replace' => ""), // need to include file...
-	    array('find' => '/.*sCommonParams.*/', 'replace' => ""), // need to include file...
-	    array('find' => '/matrix33 /', 'replace' => "// matrix33 "), // TODO
+			array('find' => '/.*sCommonParams.*/', 'replace' => ""), // need to include file...
+			array('find' => '/matrix33 /', 'replace' => "// matrix33 "), // TODO
+			array('find' => '/matrix44 /', 'replace' => "// matrix44 "), // TODO
 	);
 	foreach($openCLReplaceLookup as $item){
 		$content = preg_replace($item['find'], $item['replace'], $content);

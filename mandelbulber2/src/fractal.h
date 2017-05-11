@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cFractal class - container for fractal formula parameters
+ * sFractal struct - container for fractal formula parameters
  */
 
 #ifndef MANDELBULBER2_SRC_FRACTAL_H_
@@ -66,31 +66,6 @@ enum enumOCLDEMode
 	ocl_noDE = 2
 };
 }
-
-// struct sMandelbulbAux
-//{
-//	double r_dz;
-//	double r;
-//};
-
-// struct sMandelboxAux
-//{
-//	double mboxDE;
-//	double mboxColor;
-//	double actualScale;
-//};
-
-// struct sIFSAux
-//{
-//	double ifsDE;
-//};
-
-// struct sAexionAux
-//{
-//	CVector3 c;
-//	double cw;
-//	int iterNo;
-//};
 
 struct sExtendedAux
 {
@@ -247,30 +222,29 @@ struct sFractalPlatonicSolid
 };
 
 // mandelbulb multi
+enum multi_acosOrAsin
+{
+	multi_acosOrAsin_acos,
+	multi_acosOrAsin_asin
+};
+
+enum multi_atanOrAtan2
+{
+	multi_atanOrAtan2_atan,
+	multi_atanOrAtan2_atan2
+};
+
+enum multi_OrderOfXYZ
+{
+	multi_OrderOfXYZ_xyz,
+	multi_OrderOfXYZ_xzy,
+	multi_OrderOfXYZ_yxz,
+	multi_OrderOfXYZ_yzx,
+	multi_OrderOfXYZ_zxy,
+	multi_OrderOfXYZ_zyx
+};
 struct sFractalMandelbulbMulti
 {
-	enum multi_acosOrAsin
-	{
-		acos,
-		asin
-	};
-
-	enum multi_atanOrAtan2
-	{
-		atan,
-		atan2
-	};
-
-	enum multi_OrderOfXYZ
-	{
-		xyz,
-		xzy,
-		yxz,
-		yzx,
-		zxy,
-		zyx
-	};
-
 	multi_acosOrAsin acosOrAsin;
 	multi_acosOrAsin acosOrAsinA;
 	multi_atanOrAtan2 atanOrAtan2;
@@ -282,46 +256,45 @@ struct sFractalMandelbulbMulti
 };
 
 // sinTan2Trig
+enum multi_asinOrAcos
+{
+	multi_asinOrAcos_asin,
+	multi_asinOrAcos_acos
+};
+
+enum multi_atan2OrAtan
+{
+	multi_atan2OrAtan_atan2,
+	multi_atan2OrAtan_atan
+};
+
+enum multi_OrderOfZYX
+{
+	multi_OrderOfZYX_zyx,
+	multi_OrderOfZYX_zxy,
+	multi_OrderOfZYX_yzx,
+	multi_OrderOfZYX_yxz,
+	multi_OrderOfZYX_xzy,
+	multi_OrderOfZYX_xyz
+};
 struct sFractalSinTan2Trig
 {
-	enum multi_asinOrAcos
-	{
-		asin,
-		acos
-	};
-
-	enum multi_atan2OrAtan
-	{
-		atan2,
-		atan
-	};
-
-	enum multi_OrderOfZYX
-	{
-		zyx,
-		zxy,
-		yzx,
-		yxz,
-		xzy,
-		xyz
-	};
-
 	multi_asinOrAcos asinOrAcos;
 	multi_atan2OrAtan atan2OrAtan;
 	multi_OrderOfZYX orderOfZYX;
 };
 
 // surf fold box
+enum multi_orderOfFolds
+{
+	multi_orderOfFolds_type1,
+	multi_orderOfFolds_type2,
+	multi_orderOfFolds_type3,
+	multi_orderOfFolds_type4,
+	multi_orderOfFolds_type5
+};
 struct sFractalSurfFolds
 {
-	enum multi_orderOfFolds
-	{
-		type1,
-		type2,
-		type3,
-		type4,
-		type5
-	};
 	multi_orderOfFolds orderOfFolds1;
 	multi_orderOfFolds orderOfFolds2;
 	multi_orderOfFolds orderOfFolds3;
@@ -330,17 +303,17 @@ struct sFractalSurfFolds
 };
 
 // benesi mag transforms
+enum multi_orderOfTransf
+{
+	multi_orderOfTransf_typeT1,
+	multi_orderOfTransf_typeT1Mod,
+	multi_orderOfTransf_typeT2,
+	multi_orderOfTransf_typeT3,
+	multi_orderOfTransf_typeT4,
+	multi_orderOfTransf_typeT5b,
+};
 struct sFractalMagTransforms
 {
-	enum multi_orderOfTransf
-	{
-		typeT1,
-		typeT1Mod,
-		typeT2,
-		typeT3,
-		typeT4,
-		typeT5b,
-	};
 	multi_orderOfTransf orderOfTransf1;
 	multi_orderOfTransf orderOfTransf2;
 	multi_orderOfTransf orderOfTransf3;
@@ -349,20 +322,20 @@ struct sFractalMagTransforms
 };
 
 // basic combo
+enum comboEnum
+{
+	comboEnum_mode0,
+	comboEnum_mode1,
+	comboEnum_mode2,
+	comboEnum_mode3,
+	comboEnum_mode4,
+	comboEnum_mode5,
+	comboEnum_mode6,
+	comboEnum_mode7,
+};
 struct sFractalCombo
 {
-	enum combo
-	{
-		mode0,
-		mode1,
-		mode2,
-		mode3,
-		mode4,
-		mode5,
-		mode6,
-		mode7,
-	};
-	combo modeA;
+	comboEnum modeA;
 	//		combo modeB;
 	//		combo modeC;
 };
@@ -645,10 +618,9 @@ struct sFractalTransformCommon
 	bool rotationEnabled;
 };
 
-class cFractal
+struct sFractal
 {
-public:
-	cFractal(const cParameterContainer *par);
+	sFractal(const cParameterContainer *par);
 	void RecalculateFractalParams();
 
 	fractal::enumFractalFormula formula;

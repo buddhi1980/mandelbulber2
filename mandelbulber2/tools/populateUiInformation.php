@@ -453,7 +453,7 @@ function parseToOpenCL($code){
 			array('find' => "/float4 &z4D/", 'replace' => 'float4 *z4D'), // no passing by reference
 			array('find' => "/z4D\./", 'replace' => 'z4D->'),
 			array('find' => "/sExtendedAux &aux/", 'replace' => 'sClsExtendedAux *aux'), // no passing by reference
-			array('find' => "/const cFractal \*fractal/", 'replace' => '__constant sClFractal *fractal'), // no passing by reference
+			array('find' => "/const cFractal \*fractal/", 'replace' => '__constant sFractalCl *fractal'), // no passing by reference
 			array('find' => "/aux\./", 'replace' => 'aux->'),
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
