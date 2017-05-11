@@ -46,7 +46,7 @@
 #include "region.hpp"
 
 // forward declarations
-class cParamRender;
+class sParamRender;
 struct sRenderData;
 class cImage;
 
@@ -66,14 +66,14 @@ public:
 		cRegion<int> region;
 	};
 
-	cSSAOWorker(const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data,
+	cSSAOWorker(const sParamRender *_params, sThreadData *_threadData, const sRenderData *_data,
 		cImage *_image);
 	~cSSAOWorker();
 
 	QThread workerThread;
 
 	// data got from main thread
-	const cParamRender *params;
+	const sParamRender *params;
 	const sRenderData *data;
 	sThreadData *threadData;
 	cImage *image;

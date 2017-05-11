@@ -51,7 +51,7 @@
 #include "stereo.h"
 #include "system.hpp"
 
-cRenderer::cRenderer(const cParamRender *_params, const cNineFractals *_fractal,
+cRenderer::cRenderer(const sParamRender *_params, const cNineFractals *_fractal,
 	sRenderData *_renderData, cImage *_image)
 		: QObject()
 {

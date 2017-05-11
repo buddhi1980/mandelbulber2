@@ -43,7 +43,7 @@
 #include "system.hpp"
 
 cRenderSSAO::cRenderSSAO(
-	const cParamRender *_params, const sRenderData *_renderData, cImage *_image)
+	const sParamRender *_params, const sRenderData *_renderData, cImage *_image)
 		: QObject()
 {
 	params = _params;

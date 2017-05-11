@@ -70,7 +70,7 @@ cVoxelExport::~cVoxelExport()
 void cVoxelExport::ProcessVolume()
 {
 	const cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
-	cParamRender *params = new cParamRender(gPar);
+	sParamRender *params = new sParamRender(gPar);
 
 	params->N = maxIter;
 

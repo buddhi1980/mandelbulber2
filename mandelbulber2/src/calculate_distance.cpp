@@ -50,7 +50,7 @@
 
 using namespace std;
 
-double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
+double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data)
 {
 	double distance;
@@ -196,7 +196,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &fracta
 	return distance;
 }
 
-double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
+double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
 {
 	double distance = 0;
@@ -339,7 +339,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 	return distance;
 }
 
-double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals &fractals,
+double CalculateDistanceMinPlane(const sParamRender &params, const cNineFractals &fractals,
 	const CVector3 planePoint, const CVector3 direction, const CVector3 orthDirection,
 	bool *stopRequest)
 {

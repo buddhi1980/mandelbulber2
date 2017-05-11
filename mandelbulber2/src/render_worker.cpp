@@ -49,7 +49,7 @@
 #include "scheduler.hpp"
 #include "system.hpp"
 
-cRenderWorker::cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
+cRenderWorker::cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,
 	sThreadData *_threadData, sRenderData *_data, cImage *_image)
 {
 	params = _params;

@@ -936,7 +936,7 @@ void cInterface::RefreshPostEffects()
 		if (gPar->Get<bool>("ambient_occlusion_enabled")
 				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
 		{
-			cParamRender params(gPar);
+			sParamRender params(gPar);
 			sRenderData data;
 			data.stopRequest = &stopRequest;
 			data.screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
@@ -956,7 +956,7 @@ void cInterface::RefreshPostEffects()
 
 		if (gPar->Get<bool>("DOF_enabled"))
 		{
-			cParamRender params(gPar);
+			sParamRender params(gPar);
 			// cRenderingConfiguration config;
 			cPostRenderingDOF dof(mainImage);
 			QObject::connect(&dof,
@@ -1015,7 +1015,7 @@ void cInterface::AutoFog() const
 double cInterface::GetDistanceForPoint(
 	CVector3 point, cParameterContainer *par, cFractalContainer *parFractal)
 {
-	cParamRender *params = new cParamRender(par);
+	sParamRender *params = new sParamRender(par);
 	cNineFractals *fractals = new cNineFractals(parFractal, par);
 	sDistanceIn in(point, 0, false);
 	sDistanceOut out;
@@ -1336,7 +1336,7 @@ void cInterface::ResetView()
 	// calculate size of the fractal in random directions
 	double maxDist = 0.0;
 
-	cParamRender *params = new cParamRender(gPar);
+	sParamRender *params = new sParamRender(gPar);
 	cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
 
 	for (int i = 0; i < 50; i++)
@@ -1394,7 +1394,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	parTemp.Set("limits_enabled", false);
 	parTemp.Set("interior_mode", false);
 
-	cParamRender *params = new cParamRender(&parTemp);
+	sParamRender *params = new sParamRender(&parTemp);
 	cNineFractals *fractals = new cNineFractals(gParFractal, &parTemp);
 
 	CVector3 direction;

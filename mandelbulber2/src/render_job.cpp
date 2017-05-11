@@ -440,7 +440,7 @@ bool cRenderJob::Execute()
 		WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs), 2);
 
 		// move parameters from containers to structures
-		cParamRender *params = new cParamRender(paramsContainer, &renderData->objectData);
+		sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
 		cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
 
 		// recalculation of some parameters;

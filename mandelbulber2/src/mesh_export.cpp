@@ -75,9 +75,9 @@ struct ProgressFtor
 struct FormulaFtor
 {
 	double dist_thresh;
-	cParamRender *params;
+	sParamRender *params;
 	const cNineFractals *fractals;
-	FormulaFtor(double dist_thresh, cParamRender *params, const cNineFractals *fractals)
+	FormulaFtor(double dist_thresh, sParamRender *params, const cNineFractals *fractals)
 	{
 
 		this->dist_thresh = dist_thresh;
@@ -136,7 +136,7 @@ void cMeshExport::updateProgressAndStatus(int i)
 void cMeshExport::ProcessVolume()
 {
 	QScopedPointer<const cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	QScopedPointer<cParamRender> params(new cParamRender(gPar));
+	QScopedPointer<sParamRender> params(new sParamRender(gPar));
 
 	params->N = maxIter;
 

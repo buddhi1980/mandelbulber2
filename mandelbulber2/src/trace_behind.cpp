@@ -43,7 +43,7 @@
 double traceBehindFractal(cParameterContainer *params, cFractalContainer *fractals, double maxDist,
 	CVector3 viewVector, double startingDepth, double resolution)
 {
-	cParamRender *paramRender = new cParamRender(params);
+	sParamRender *paramRender = new sParamRender(params);
 	cNineFractals *nineFractals = new cNineFractals(fractals, params);
 	paramRender->resolution = resolution;
 	double totalDistanceBehind = 0.0;

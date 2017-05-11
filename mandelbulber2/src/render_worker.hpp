@@ -48,7 +48,7 @@ struct sLight;
 class cCameraTarget;
 class cImage;
 struct sRenderData;
-class cParamRender;
+class sParamRender;
 class cNineFractals;
 class cScheduler;
 
@@ -64,7 +64,7 @@ public:
 		cScheduler *scheduler;
 	};
 
-	cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
+	cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,
 		sThreadData *_threadData, sRenderData *_data, cImage *_image);
 	~cRenderWorker();
 
@@ -206,7 +206,7 @@ private:
 	CVector3 NormalMapShader(const sShaderInputData &input) const;
 
 	// data got from main thread
-	const cParamRender *params;
+	const sParamRender *params;
 	const cNineFractals *fractal;
 	sRenderData *data;
 	sThreadData *threadData;

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cParamRender class - container for scene parameters
+ * sParamRender struct - container for scene parameters
  */
 
 #ifndef MANDELBULBER2_SRC_FRACTPARAMS_HPP_
@@ -63,11 +63,10 @@ enum enumBooleanOperator
 };
 }
 
-class cParamRender
+struct sParamRender
 {
-public:
 	// constructor with init
-	cParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = nullptr);
+	sParamRender(const cParameterContainer *par, QVector<cObjectData> *objectData = nullptr);
 
 	int antialiasingSize;
 	int ambientOcclusionQuality; // ambient occlusion quality

@@ -29,14 +29,14 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cParamRender class - container for scene parameters
+ * sParamRender struct - container for scene parameters
  */
 
 #include "fractparams.hpp"
 #include "object_data.hpp"
 #include "parameters.hpp"
 
-cParamRender::cParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData)
+sParamRender::sParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData)
 		: primitives(container, objectData)
 {
 	antialiasingEnabled = container->Get<bool>("antialiasing_enabled");

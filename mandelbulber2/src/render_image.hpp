@@ -40,7 +40,7 @@
 
 // forward declarations
 class cNineFractals;
-class cParamRender;
+class sParamRender;
 struct sRenderData;
 class cImage;
 class cScheduler;
@@ -49,7 +49,7 @@ class cRenderer : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderer(const cParamRender *_params, const cNineFractals *_fractal, sRenderData *_renderData,
+	cRenderer(const sParamRender *_params, const cNineFractals *_fractal, sRenderData *_renderData,
 		cImage *_image);
 	~cRenderer();
 	bool RenderImage();
@@ -57,7 +57,7 @@ public:
 private:
 	void CreateLineData(int y, QByteArray *lineData) const;
 
-	const cParamRender *params;
+	const sParamRender *params;
 	const cNineFractals *fractal;
 	sRenderData *data;
 	cImage *image;

@@ -45,7 +45,7 @@
 #include "render_data.hpp"
 
 cSSAOWorker::cSSAOWorker(
-	const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
+	const sParamRender *_params, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
 {
 	params = _params;
 	data = _data;

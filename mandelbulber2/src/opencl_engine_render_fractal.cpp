@@ -60,6 +60,8 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "mandelbulber_cl_data.h\"\n");
+		// progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+		// 									+ "fractparams_cl.hpp\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 											+ "opencl" + QDir::separator() + "mandelbulb" + ".cl\"\n");
@@ -112,9 +114,9 @@ void cOpenClEngineRenderFractal::SetParameters(
 	if (constantInBuffer) delete constantInBuffer;
 	constantInBuffer = new sClInConstants;
 
-	// TODO Write function to copy parameters from cParamRender to sClParamRender
+	// TODO Write function to copy parameters from sParamRender to sClParamRender
 	// Would be good to write php script for it
-	cParamRender *paramRender = new cParamRender(paramContainer);
+	sParamRender *paramRender = new sParamRender(paramContainer);
 	cNineFractals *fractals = new cNineFractals(fractalContainer, paramContainer);
 
 	// temporary code to copy general parameters

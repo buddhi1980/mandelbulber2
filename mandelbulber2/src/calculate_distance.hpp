@@ -43,7 +43,7 @@
 
 // forward declarations
 class cNineFractals;
-class cParamRender;
+class sParamRender;
 struct sRenderData;
 
 struct sDistanceIn
@@ -67,11 +67,11 @@ struct sDistanceOut
 	bool maxiter;
 };
 
-double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
+double CalculateDistance(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, sRenderData *data = nullptr);
-double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
+double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &fractals,
 	const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
-double CalculateDistanceMinPlane(const cParamRender &params, const cNineFractals &fractals,
+double CalculateDistanceMinPlane(const sParamRender &params, const cNineFractals &fractals,
 	const CVector3 point, const CVector3 direction, const CVector3 orthDirection, bool *stopRequest);
 
 #endif /* MANDELBULBER2_SRC_CALCULATE_DISTANCE_HPP_ */

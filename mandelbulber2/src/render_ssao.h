@@ -42,13 +42,13 @@
 // forward declarations
 class cImage;
 struct sRenderData;
-class cParamRender;
+class sParamRender;
 
 class cRenderSSAO : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image);
+	cRenderSSAO(const sParamRender *_params, const sRenderData *_renderData, cImage *_image);
 	~cRenderSSAO();
 
 	void SetRegion(const cRegion<int> &_region);
@@ -56,7 +56,7 @@ public:
 	void setProgressive(int step) { progressive = step; }
 
 private:
-	const cParamRender *params;
+	const sParamRender *params;
 	const sRenderData *data;
 	cImage *image;
 	cRegion<int> region;
