@@ -421,7 +421,11 @@ function parseToOpenCL($code){
 			array('find' => "/($var)\.Length\(\)/", 'replace' => 'length($1)'),       // CVector3 Length() to built in length
 			array('find' => "/($var)\.Dot\(/", 'replace' => 'dot($1, '),              // CVector3 Dot() to built in dot
 			array('find' => "/($var)\.Cross\(/", 'replace' => 'cross($1, '),          // CVector3 Cross() to built in cross
-			array('find' => "/($var)\.RotateVector\(/", 'replace' => 'Matrix33MulFloat3($1, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/($var)\.RotateVector\(/", 'replace' => '$1 = Matrix33MulFloat3($1, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/($var)\.RotateX\(/", 'replace' => '$1 = RotateX($1, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/($var)\.RotateY\(/", 'replace' => '$1 = RotateY($1, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/($var)\.RotateZ\(/", 'replace' => '$1 = RotateZ($1, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/CRotationMatrix /", 'replace' => 'matrix33 '), // CRotationMatrix33 to matrix33
 			array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ float temp = $1; $2 = $1; $1 = temp; }'),// swap vals
 			array('find' => "/($s|\()(\d+)f($s|;)/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
 			array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x)
@@ -454,6 +458,7 @@ function parseToOpenCL($code){
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
 			array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
+			array('find' => "/(\s)z([,\);])/", 'replace' => '$1*z$2'), // z to pointer
 			// TODO more replacements
 		);
 

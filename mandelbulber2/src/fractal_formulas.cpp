@@ -190,7 +190,7 @@ void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
 	z.x = temp;
 	z *= tempR;
 
-	z = z * aux.r;
+	z *= aux.r;
 }
 
 /**
@@ -221,7 +221,7 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 	z.x = temp * sign;
 	z *= tempR;
 
-	z = z * aux.r;
+	z *= aux.r;
 }
 
 /**

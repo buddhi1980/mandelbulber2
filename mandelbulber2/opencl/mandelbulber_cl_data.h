@@ -2,13 +2,6 @@
 
 typedef struct
 {
-	cl_float3 m1;
-	cl_float3 m2;
-	cl_float3 m3;
-} matrix33;
-
-typedef struct
-{
 	cl_int imageWidth;
 	cl_int imageHeight;
 	cl_int N;
