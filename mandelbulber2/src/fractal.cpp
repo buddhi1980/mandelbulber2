@@ -129,29 +129,29 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	// mandelbulb multi
 	mandelbulbMulti.acosOrAsin =
-		multi_acosOrAsin(container->Get<int>("mandelbulbMulti_acos_or_asin"));
-	mandelbulbMulti.atanOrAtan2 = multi_atanOrAtan2(
+		enumMulti_acosOrAsin(container->Get<int>("mandelbulbMulti_acos_or_asin"));
+	mandelbulbMulti.atanOrAtan2 = enumMulti_atanOrAtan2(
 		container->Get<int>("mandelbulbMulti_atan_or_atan2"));
 
-	mandelbulbMulti.acosOrAsinA = multi_acosOrAsin(
+	mandelbulbMulti.acosOrAsinA = enumMulti_acosOrAsin(
 		container->Get<int>("mandelbulbMulti_acos_or_asin_A"));
-	mandelbulbMulti.atanOrAtan2A = multi_atanOrAtan2(
+	mandelbulbMulti.atanOrAtan2A = enumMulti_atanOrAtan2(
 		container->Get<int>("mandelbulbMulti_atan_or_atan2_A"));
 
 	mandelbulbMulti.orderOfXYZ =
-		multi_OrderOfXYZ(container->Get<int>("mandelbulbMulti_order_of_xyz"));
-	mandelbulbMulti.orderOfXYZ2 = multi_OrderOfXYZ(
+		enumMulti_OrderOfXYZ(container->Get<int>("mandelbulbMulti_order_of_xyz"));
+	mandelbulbMulti.orderOfXYZ2 = enumMulti_OrderOfXYZ(
 		container->Get<int>("mandelbulbMulti_order_of_xyz_2"));
-	mandelbulbMulti.orderOfXYZC = multi_OrderOfXYZ(
+	mandelbulbMulti.orderOfXYZC = enumMulti_OrderOfXYZ(
 		container->Get<int>("mandelbulbMulti_order_of_xyz_C"));
 
 	// sinTan2Trig
 	sinTan2Trig.asinOrAcos =
-		multi_asinOrAcos(container->Get<int>("sinTan2Trig_asin_or_acos"));
+		enumMulti_asinOrAcos(container->Get<int>("sinTan2Trig_asin_or_acos"));
 	sinTan2Trig.atan2OrAtan =
-		multi_atan2OrAtan(container->Get<int>("sinTan2Trig_atan2_or_atan"));
+		enumMulti_atan2OrAtan(container->Get<int>("sinTan2Trig_atan2_or_atan"));
 	sinTan2Trig.orderOfZYX =
-		multi_OrderOfZYX(container->Get<int>("sinTan2Trig_order_of_zyx"));
+		enumMulti_OrderOfZYX(container->Get<int>("sinTan2Trig_order_of_zyx"));
 
 	// surfBox
 	surfBox.enabledX1 = container->Get<bool>("surfBox_enabledX1");
@@ -181,27 +181,27 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	// surfFolds
 	surfFolds.orderOfFolds1 =
-		multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_1"));
+		enumMulti_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_1"));
 	surfFolds.orderOfFolds2 =
-		multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_2"));
+		enumMulti_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_2"));
 	surfFolds.orderOfFolds3 =
-		multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_3"));
+		enumMulti_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_3"));
 	surfFolds.orderOfFolds4 =
-		multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_4"));
+		enumMulti_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_4"));
 	surfFolds.orderOfFolds5 =
-		multi_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_5"));
+		enumMulti_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_5"));
 
 	// benesi mag transforms
 	magTransf.orderOfTransf1 =
-		multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_1"));
+		enumMulti_orderOfTransf(container->Get<int>("magTransf_order_of_transf_1"));
 	magTransf.orderOfTransf2 =
-		multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_2"));
+		enumMulti_orderOfTransf(container->Get<int>("magTransf_order_of_transf_2"));
 	magTransf.orderOfTransf3 =
-		multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_3"));
+		enumMulti_orderOfTransf(container->Get<int>("magTransf_order_of_transf_3"));
 	magTransf.orderOfTransf4 =
-		multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_4"));
+		enumMulti_orderOfTransf(container->Get<int>("magTransf_order_of_transf_4"));
 	magTransf.orderOfTransf5 =
-		multi_orderOfTransf(container->Get<int>("magTransf_order_of_transf_5"));
+		enumMulti_orderOfTransf(container->Get<int>("magTransf_order_of_transf_5"));
 
 	// basic comboBox
 	combo.modeA = comboEnum(container->Get<int>("combo_mode_A"));

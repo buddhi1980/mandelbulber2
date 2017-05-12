@@ -222,19 +222,19 @@ struct sFractalPlatonicSolid
 };
 
 // mandelbulb multi
-enum multi_acosOrAsin
+enum enumMulti_acosOrAsin
 {
 	multi_acosOrAsin_acos,
 	multi_acosOrAsin_asin
 };
 
-enum multi_atanOrAtan2
+enum enumMulti_atanOrAtan2
 {
 	multi_atanOrAtan2_atan,
 	multi_atanOrAtan2_atan2
 };
 
-enum multi_OrderOfXYZ
+enum enumMulti_OrderOfXYZ
 {
 	multi_OrderOfXYZ_xyz,
 	multi_OrderOfXYZ_xzy,
@@ -245,30 +245,30 @@ enum multi_OrderOfXYZ
 };
 struct sFractalMandelbulbMulti
 {
-	multi_acosOrAsin acosOrAsin;
-	multi_acosOrAsin acosOrAsinA;
-	multi_atanOrAtan2 atanOrAtan2;
-	multi_atanOrAtan2 atanOrAtan2A;
+	enumMulti_acosOrAsin acosOrAsin;
+	enumMulti_acosOrAsin acosOrAsinA;
+	enumMulti_atanOrAtan2 atanOrAtan2;
+	enumMulti_atanOrAtan2 atanOrAtan2A;
 
-	multi_OrderOfXYZ orderOfXYZ;
-	multi_OrderOfXYZ orderOfXYZ2;
-	multi_OrderOfXYZ orderOfXYZC;
+	enumMulti_OrderOfXYZ orderOfXYZ;
+	enumMulti_OrderOfXYZ orderOfXYZ2;
+	enumMulti_OrderOfXYZ orderOfXYZC;
 };
 
 // sinTan2Trig
-enum multi_asinOrAcos
+enum enumMulti_asinOrAcos
 {
 	multi_asinOrAcos_asin,
 	multi_asinOrAcos_acos
 };
 
-enum multi_atan2OrAtan
+enum enumMulti_atan2OrAtan
 {
 	multi_atan2OrAtan_atan2,
 	multi_atan2OrAtan_atan
 };
 
-enum multi_OrderOfZYX
+enum enumMulti_OrderOfZYX
 {
 	multi_OrderOfZYX_zyx,
 	multi_OrderOfZYX_zxy,
@@ -279,13 +279,13 @@ enum multi_OrderOfZYX
 };
 struct sFractalSinTan2Trig
 {
-	multi_asinOrAcos asinOrAcos;
-	multi_atan2OrAtan atan2OrAtan;
-	multi_OrderOfZYX orderOfZYX;
+	enumMulti_asinOrAcos asinOrAcos;
+	enumMulti_atan2OrAtan atan2OrAtan;
+	enumMulti_OrderOfZYX orderOfZYX;
 };
 
 // surf fold box
-enum multi_orderOfFolds
+enum enumMulti_orderOfFolds
 {
 	multi_orderOfFolds_type1,
 	multi_orderOfFolds_type2,
@@ -295,15 +295,15 @@ enum multi_orderOfFolds
 };
 struct sFractalSurfFolds
 {
-	multi_orderOfFolds orderOfFolds1;
-	multi_orderOfFolds orderOfFolds2;
-	multi_orderOfFolds orderOfFolds3;
-	multi_orderOfFolds orderOfFolds4;
-	multi_orderOfFolds orderOfFolds5;
+	enumMulti_orderOfFolds orderOfFolds1;
+	enumMulti_orderOfFolds orderOfFolds2;
+	enumMulti_orderOfFolds orderOfFolds3;
+	enumMulti_orderOfFolds orderOfFolds4;
+	enumMulti_orderOfFolds orderOfFolds5;
 };
 
 // benesi mag transforms
-enum multi_orderOfTransf
+enum enumMulti_orderOfTransf
 {
 	multi_orderOfTransf_typeT1,
 	multi_orderOfTransf_typeT1Mod,
@@ -314,11 +314,11 @@ enum multi_orderOfTransf
 };
 struct sFractalMagTransforms
 {
-	multi_orderOfTransf orderOfTransf1;
-	multi_orderOfTransf orderOfTransf2;
-	multi_orderOfTransf orderOfTransf3;
-	multi_orderOfTransf orderOfTransf4;
-	multi_orderOfTransf orderOfTransf5;
+	enumMulti_orderOfTransf orderOfTransf1;
+	enumMulti_orderOfTransf orderOfTransf2;
+	enumMulti_orderOfTransf orderOfTransf3;
+	enumMulti_orderOfTransf orderOfTransf4;
+	enumMulti_orderOfTransf orderOfTransf5;
 };
 
 // basic combo

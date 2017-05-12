@@ -204,83 +204,83 @@ typedef struct
 } sFractalClPlatonicSolidCl;
 
 // mandelbulb multi
-typedef enum { multi_acosOrAsinCl_acos, multi_acosOrAsinCl_asin } multi_acosOrAsinCl;
+typedef enum { multi_acosOrAsin_acos, multi_acosOrAsin_asin } enumMulti_acosOrAsinCl;
 
-typedef enum { multi_atanOrAtan2Cl_atan, multi_atanOrAtan2Cl_atan2 } multi_atanOrAtan2Cl;
+typedef enum { multi_atanOrAtan2_atan, multi_atanOrAtan2_atan2 } enumMulti_atanOrAtan2Cl;
 
 typedef enum {
-	multi_OrderOfXYZCl_xyz,
-	multi_OrderOfXYZCl_xzy,
-	multi_OrderOfXYZCl_yxz,
-	multi_OrderOfXYZCl_yzx,
-	multi_OrderOfXYZCl_zxy,
-	multi_OrderOfXYZCl_zyx
-} multi_OrderOfXYZCl;
+	multi_OrderOfXYZ_xyz,
+	multi_OrderOfXYZ_xzy,
+	multi_OrderOfXYZ_yxz,
+	multi_OrderOfXYZ_yzx,
+	multi_OrderOfXYZ_zxy,
+	multi_OrderOfXYZ_zyx
+} enumMulti_OrderOfXYZCl;
 typedef struct
 {
-	multi_acosOrAsinCl acosOrAsin;
-	multi_acosOrAsinCl acosOrAsinA;
-	multi_atanOrAtan2Cl atanOrAtan2;
-	multi_atanOrAtan2Cl atanOrAtan2A;
+	enumMulti_acosOrAsinCl acosOrAsin;
+	enumMulti_acosOrAsinCl acosOrAsinA;
+	enumMulti_atanOrAtan2Cl atanOrAtan2;
+	enumMulti_atanOrAtan2Cl atanOrAtan2A;
 
-	multi_OrderOfXYZCl orderOfXYZ;
-	multi_OrderOfXYZCl orderOfXYZ2;
-	multi_OrderOfXYZCl orderOfXYZC;
+	enumMulti_OrderOfXYZCl orderOfXYZ;
+	enumMulti_OrderOfXYZCl orderOfXYZ2;
+	enumMulti_OrderOfXYZCl orderOfXYZC;
 } sFractalClMandelbulbClMulti;
 
 // sinTan2Trig
-typedef enum { multi_asinOrAcosCl_asin, multi_asinOrAcosCl_acos } multi_asinOrAcosCl;
+typedef enum { multi_asinOrAcos_asin, multi_asinOrAcos_acos } enumMulti_asinOrAcosCl;
 
-typedef enum { multi_atan2OrAtanCl_atan2, multi_atan2OrAtanCl_atan } multi_atan2OrAtanCl;
+typedef enum { multi_atan2OrAtan_atan2, multi_atan2OrAtan_atan } enumMulti_atan2OrAtanCl;
 
 typedef enum {
-	multi_OrderOfZYXCl_zyx,
-	multi_OrderOfZYXCl_zxy,
-	multi_OrderOfZYXCl_yzx,
-	multi_OrderOfZYXCl_yxz,
-	multi_OrderOfZYXCl_xzy,
-	multi_OrderOfZYXCl_xyz
-} multi_OrderOfZYXCl;
+	multi_OrderOfZYX_zyx,
+	multi_OrderOfZYX_zxy,
+	multi_OrderOfZYX_yzx,
+	multi_OrderOfZYX_yxz,
+	multi_OrderOfZYX_xzy,
+	multi_OrderOfZYX_xyz
+} enumMulti_OrderOfZYXCl;
 typedef struct
 {
-	multi_asinOrAcosCl asinOrAcos;
-	multi_atan2OrAtanCl atan2OrAtan;
-	multi_OrderOfZYXCl orderOfZYX;
+	enumMulti_asinOrAcosCl asinOrAcos;
+	enumMulti_atan2OrAtanCl atan2OrAtan;
+	enumMulti_OrderOfZYXCl orderOfZYX;
 } sFractalClSinTan2TrigCl;
 
 // surf fold box
 typedef enum {
-	multi_orderOfFoldsCl_type1,
-	multi_orderOfFoldsCl_type2,
-	multi_orderOfFoldsCl_type3,
-	multi_orderOfFoldsCl_type4,
-	multi_orderOfFoldsCl_type5
-} multi_orderOfFoldsCl;
+	multi_orderOfFolds_type1,
+	multi_orderOfFolds_type2,
+	multi_orderOfFolds_type3,
+	multi_orderOfFolds_type4,
+	multi_orderOfFolds_type5
+} enumMulti_orderOfFoldsCl;
 typedef struct
 {
-	multi_orderOfFoldsCl orderOfFolds1;
-	multi_orderOfFoldsCl orderOfFolds2;
-	multi_orderOfFoldsCl orderOfFolds3;
-	multi_orderOfFoldsCl orderOfFolds4;
-	multi_orderOfFoldsCl orderOfFolds5;
+	enumMulti_orderOfFoldsCl orderOfFolds1;
+	enumMulti_orderOfFoldsCl orderOfFolds2;
+	enumMulti_orderOfFoldsCl orderOfFolds3;
+	enumMulti_orderOfFoldsCl orderOfFolds4;
+	enumMulti_orderOfFoldsCl orderOfFolds5;
 } sFractalClSurfFoldsCl;
 
 // benesi mag transforms
 typedef enum {
-	multi_orderOfTransfCl_typeT1,
-	multi_orderOfTransfCl_typeT1Mod,
-	multi_orderOfTransfCl_typeT2,
-	multi_orderOfTransfCl_typeT3,
-	multi_orderOfTransfCl_typeT4,
-	multi_orderOfTransfCl_typeT5b,
-} multi_orderOfTransfCl;
+	multi_orderOfTransf_typeT1,
+	multi_orderOfTransf_typeT1Mod,
+	multi_orderOfTransf_typeT2,
+	multi_orderOfTransf_typeT3,
+	multi_orderOfTransf_typeT4,
+	multi_orderOfTransf_typeT5b,
+} enumMulti_orderOfTransfCl;
 typedef struct
 {
-	multi_orderOfTransfCl orderOfTransf1;
-	multi_orderOfTransfCl orderOfTransf2;
-	multi_orderOfTransfCl orderOfTransf3;
-	multi_orderOfTransfCl orderOfTransf4;
-	multi_orderOfTransfCl orderOfTransf5;
+	enumMulti_orderOfTransfCl orderOfTransf1;
+	enumMulti_orderOfTransfCl orderOfTransf2;
+	enumMulti_orderOfTransfCl orderOfTransf3;
+	enumMulti_orderOfTransfCl orderOfTransf4;
+	enumMulti_orderOfTransfCl orderOfTransf5;
 } sFractalClMagTransformsCl;
 
 // basic combo

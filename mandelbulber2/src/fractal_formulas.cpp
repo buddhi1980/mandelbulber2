@@ -1476,7 +1476,7 @@ void AmazingSurfMultiIteration(
 	int stopIterationN[5] = {fractal->transformCommon.stopIterationsA,
 		fractal->transformCommon.stopIterationsB, fractal->transformCommon.stopIterationsC,
 		fractal->transformCommon.stopIterationsD, fractal->transformCommon.stopIterationsE};
-	multi_orderOfFolds foldN[5] = {fractal->surfFolds.orderOfFolds1,
+	enumMulti_orderOfFolds foldN[5] = {fractal->surfFolds.orderOfFolds1,
 		fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3,
 		fractal->surfFolds.orderOfFolds4, fractal->surfFolds.orderOfFolds5};
 
@@ -1845,7 +1845,7 @@ void BenesiMagTransformsIteration(
 		fractal->transformCommon.stopIterationsB, fractal->transformCommon.stopIterationsC,
 		fractal->transformCommon.stopIterationsD, fractal->transformCommon.stopIterationsE};
 
-	multi_orderOfTransf transfN[5] = {fractal->magTransf.orderOfTransf1,
+	enumMulti_orderOfTransf transfN[5] = {fractal->magTransf.orderOfTransf1,
 		fractal->magTransf.orderOfTransf2, fractal->magTransf.orderOfTransf3,
 		fractal->magTransf.orderOfTransf4, fractal->magTransf.orderOfTransf5};
 
