@@ -39,7 +39,7 @@
 #include "algebra.hpp"
 
 // forward declarations
-class sFractal;
+struct sFractal;
 struct sExtendedAux;
 struct sFractalFoldings;
 

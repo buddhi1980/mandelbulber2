@@ -204,17 +204,17 @@ typedef struct
 } sFractalClPlatonicSolidCl;
 
 // mandelbulb multi
-typedef enum { multi_acosOrAsin_acos, multi_acosOrAsin_asin } enumMulti_acosOrAsinCl;
+typedef enum { multi_acosOrAsinCl_acos, multi_acosOrAsinCl_asin } enumMulti_acosOrAsinCl;
 
-typedef enum { multi_atanOrAtan2_atan, multi_atanOrAtan2_atan2 } enumMulti_atanOrAtan2Cl;
+typedef enum { multi_atanOrAtan2Cl_atan, multi_atanOrAtan2Cl_atan2 } enumMulti_atanOrAtan2Cl;
 
 typedef enum {
-	multi_OrderOfXYZ_xyz,
-	multi_OrderOfXYZ_xzy,
-	multi_OrderOfXYZ_yxz,
-	multi_OrderOfXYZ_yzx,
-	multi_OrderOfXYZ_zxy,
-	multi_OrderOfXYZ_zyx
+	multi_OrderOfXYZCl_xyz,
+	multi_OrderOfXYZCl_xzy,
+	multi_OrderOfXYZCl_yxz,
+	multi_OrderOfXYZCl_yzx,
+	multi_OrderOfXYZCl_zxy,
+	multi_OrderOfXYZCl_zyx
 } enumMulti_OrderOfXYZCl;
 typedef struct
 {
@@ -229,17 +229,17 @@ typedef struct
 } sFractalClMandelbulbClMulti;
 
 // sinTan2Trig
-typedef enum { multi_asinOrAcos_asin, multi_asinOrAcos_acos } enumMulti_asinOrAcosCl;
+typedef enum { multi_asinOrAcosCl_asin, multi_asinOrAcosCl_acos } enumMulti_asinOrAcosCl;
 
-typedef enum { multi_atan2OrAtan_atan2, multi_atan2OrAtan_atan } enumMulti_atan2OrAtanCl;
+typedef enum { multi_atan2OrAtanCl_atan2, multi_atan2OrAtanCl_atan } enumMulti_atan2OrAtanCl;
 
 typedef enum {
-	multi_OrderOfZYX_zyx,
-	multi_OrderOfZYX_zxy,
-	multi_OrderOfZYX_yzx,
-	multi_OrderOfZYX_yxz,
-	multi_OrderOfZYX_xzy,
-	multi_OrderOfZYX_xyz
+	multi_OrderOfZYXCl_zyx,
+	multi_OrderOfZYXCl_zxy,
+	multi_OrderOfZYXCl_yzx,
+	multi_OrderOfZYXCl_yxz,
+	multi_OrderOfZYXCl_xzy,
+	multi_OrderOfZYXCl_xyz
 } enumMulti_OrderOfZYXCl;
 typedef struct
 {
@@ -250,11 +250,11 @@ typedef struct
 
 // surf fold box
 typedef enum {
-	multi_orderOfFolds_type1,
-	multi_orderOfFolds_type2,
-	multi_orderOfFolds_type3,
-	multi_orderOfFolds_type4,
-	multi_orderOfFolds_type5
+	multi_orderOfFoldsCl_type1,
+	multi_orderOfFoldsCl_type2,
+	multi_orderOfFoldsCl_type3,
+	multi_orderOfFoldsCl_type4,
+	multi_orderOfFoldsCl_type5
 } enumMulti_orderOfFoldsCl;
 typedef struct
 {
@@ -267,12 +267,12 @@ typedef struct
 
 // benesi mag transforms
 typedef enum {
-	multi_orderOfTransf_typeT1,
-	multi_orderOfTransf_typeT1Mod,
-	multi_orderOfTransf_typeT2,
-	multi_orderOfTransf_typeT3,
-	multi_orderOfTransf_typeT4,
-	multi_orderOfTransf_typeT5b,
+	multi_orderOfTransfCl_typeT1,
+	multi_orderOfTransfCl_typeT1Mod,
+	multi_orderOfTransfCl_typeT2,
+	multi_orderOfTransfCl_typeT3,
+	multi_orderOfTransfCl_typeT4,
+	multi_orderOfTransfCl_typeT5b,
 } enumMulti_orderOfTransfCl;
 typedef struct
 {

@@ -42,7 +42,7 @@
 // forward declarations
 class cImage;
 struct sRenderData;
-class sParamRender;
+struct sParamRender;
 
 class cRenderSSAO : public QObject
 {

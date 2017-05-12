@@ -43,7 +43,7 @@
 // forward declarations
 class cParameterContainer;
 class cFractalContainer;
-class sFractal;
+struct sFractal;
 
 class cNineFractals
 {

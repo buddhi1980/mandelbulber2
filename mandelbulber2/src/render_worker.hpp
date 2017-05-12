@@ -48,7 +48,7 @@ struct sLight;
 class cCameraTarget;
 class cImage;
 struct sRenderData;
-class sParamRender;
+struct sParamRender;
 class cNineFractals;
 class cScheduler;
 

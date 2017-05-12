@@ -46,7 +46,7 @@
 #include "region.hpp"
 
 // forward declarations
-class sParamRender;
+struct sParamRender;
 struct sRenderData;
 class cImage;
 

@@ -43,7 +43,7 @@
 
 // forward declarations
 class cNineFractals;
-class sParamRender;
+struct sParamRender;
 struct sRenderData;
 
 struct sDistanceIn

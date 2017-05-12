@@ -40,7 +40,7 @@
 
 // forward declarations
 class cNineFractals;
-class sParamRender;
+struct sParamRender;
 struct sRenderData;
 class cImage;
 class cScheduler;
