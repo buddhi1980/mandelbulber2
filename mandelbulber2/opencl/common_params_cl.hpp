@@ -48,6 +48,8 @@
 #ifndef OPENCL_KERNEL_CODE
 #include "../src/fractal_enums.h"
 #include "../opencl/opencl_algebra.h"
+#include "../opencl/common_params_cl.hpp"
+#include "../opencl/image_adjustments_cl.h"
 #endif
 
 typedef struct
