@@ -54,7 +54,7 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	{
 		// passthrough define constants
 		progEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
-		progEngine.append("#define CLSUPPORT 1\n");
+		progEngine.append("#define USE_OPENCL 1\n");
 
 		// it's still temporary, but in this way we can append main header file
 
@@ -137,6 +137,9 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	// temporary code to copy general parameters
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
+
+	// TODO
+	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
 /*
 	constantInBuffer->params.N = paramRender->N;
 	constantInBuffer->params.imageWidth = paramRender->imageWidth;
