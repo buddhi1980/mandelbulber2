@@ -13,8 +13,11 @@
 #include "cimage.hpp"
 #include "nine_fractals.hpp"
 #include "fractal.h"
+
+#ifdef USE_OPENCL
 #include "../opencl/fractal_cl.h"
 #include "../opencl/fractparams_cl.hpp"
+#endif
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
