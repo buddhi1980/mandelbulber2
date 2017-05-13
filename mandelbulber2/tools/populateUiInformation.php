@@ -449,11 +449,12 @@ function parseToOpenCL($code){
 			// formula specific replacements
 			array('find' => "/^void(\s)/", 'replace' => 'inline void$1'), // mark void with inline void
 			array('find' => "/float3 &z/", 'replace' => 'float3 *z'), // no passing by reference
+			array('find' => "/float &w/", 'replace' => 'float *w'), // no passing by reference
 			array('find' => "/z\./", 'replace' => 'z->'),
 			array('find' => "/float4 &z4D/", 'replace' => 'float4 *z4D'), // no passing by reference
 			array('find' => "/z4D\./", 'replace' => 'z4D->'),
-			array('find' => "/sExtendedAux &aux/", 'replace' => 'sClsExtendedAux *aux'), // no passing by reference
-			array('find' => "/const cFractal \*fractal/", 'replace' => '__constant sFractalCl *fractal'), // no passing by reference
+			array('find' => "/sExtendedAux &aux/", 'replace' => 'sExtendedAuxCl *aux'), // no passing by reference
+			array('find' => "/const sFractal \*fractal/", 'replace' => '__constant sFractalCl *fractal'), // no passing by reference
 			array('find' => "/aux\./", 'replace' => 'aux->'),
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer

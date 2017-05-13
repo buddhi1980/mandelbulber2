@@ -18,12 +18,6 @@ typedef struct
 
 typedef struct
 {
-	cl_float r;
-	cl_float r_dz;
-} sClsExtendedAux;
-
-typedef struct
-{
 	sParamRenderCl params;
 	sFractalCl fractal[9]; // temporary for testing
 } sClInConstants;

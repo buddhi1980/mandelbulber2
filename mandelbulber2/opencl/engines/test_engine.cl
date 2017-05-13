@@ -30,7 +30,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	// formula init
 	float r_dz = 1.0f;
-	sClsExtendedAux aux;
+	sExtendedAuxCl aux;
+	// TODO copy aux
 	aux.r = length(z);
 	aux.r_dz = 1.0f;
 
@@ -39,7 +40,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// loop
 	for (i = 0; i < N; i++)
 	{
-		MandelbulbIteration(&z, fractal, &aux);
+	    MandelbulbIteration(&z, fractal, &aux);
 		// Mandelbulb4Iteration(&z, fractal, &aux);
 		// Mandelbulb3Iteration(&z, &aux);
 
