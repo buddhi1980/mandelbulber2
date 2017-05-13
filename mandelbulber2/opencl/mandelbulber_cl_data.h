@@ -1,5 +1,7 @@
+#ifndef OPENCL_KERNEL_CODE
 #include "../opencl/fractparams_cl.hpp"
 #include "../opencl/fractal_cl.h"
+#endif
 
 typedef struct
 {

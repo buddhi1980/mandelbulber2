@@ -45,6 +45,10 @@
 #ifndef MANDELBULBER2_OPENCL_FRACTPARAMS_CL_HPP_
 #define MANDELBULBER2_OPENCL_FRACTPARAMS_CL_HPP_
 
+#ifndef OPENCL_KERNEL_CODE
+#include "../src/fractal_enums.h"
+#endif
+
 typedef struct
 {
 	// constructor with init
@@ -192,8 +196,8 @@ typedef struct
 	cl_float3 viewAngle;
 	cl_float3 topVector;
 
-	// matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
-	// matrix33 mRotBackgroundRotation;
+	//matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
+	//matrix33 mRotBackgroundRotation;
 
 } sParamRenderCl;
 

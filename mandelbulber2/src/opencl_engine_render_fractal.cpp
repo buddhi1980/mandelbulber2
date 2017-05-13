@@ -62,9 +62,13 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 											+ "opencl_algebra.h\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "mandelbulber_cl_data.h\"\n");
+											+ "fractal_cl.h\"\n");
+
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "fractparams_cl.hpp\"\n");
+
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "mandelbulber_cl_data.h\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 											+ "opencl" + QDir::separator() + "mandelbulb" + ".cl\"\n");

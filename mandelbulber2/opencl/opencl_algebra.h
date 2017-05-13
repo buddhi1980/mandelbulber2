@@ -1,9 +1,11 @@
-/*
- * opencl_typedefs.h
- *
- *  Created on: 10 maj 2017
- *      Author: krzysztof
- */
+
+typedef struct {
+	cl_float3 m1;
+	cl_float3 m2;
+	cl_float3 m3;
+} matrix33;
+
+#ifdef OPENCL_KERNEL_CODE
 
 inline float3 Matrix33MulFloat3(matrix33 matrix, float3 vect)
 {
@@ -64,3 +66,5 @@ matrix33 RotateZ(matrix33 m, float angle)
 	out = Matrix33MulMatrix33(m, rot);
 	return out;
 }
+
+#endif

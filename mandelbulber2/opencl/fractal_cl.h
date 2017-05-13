@@ -49,6 +49,11 @@
 #define HYBRID_COUNTCl 5
 #define MANDELBOX_FOLDSCl 2
 
+#ifndef OPENCL_KERNEL_CODE
+#include "../opencl/opencl_algebra.h"
+#include "../src/fractal_enums.h"
+#endif
+
 typedef struct
 {
 	cl_float r_dz;
@@ -111,8 +116,8 @@ typedef struct
 	cl_int mengerSpongeMode;
 	cl_int rotationEnabled;
 	cl_int edgeEnabled;
-	// matrix33 mainRot;
-	// matrix33 rot[IFS_VECTOR_COUNTCl];
+	matrix33 mainRot;
+	matrix33 rot[IFS_VECTOR_COUNTCl];
 	cl_float3 direction[IFS_VECTOR_COUNTCl];
 	cl_float3 edge;
 	cl_float3 offset;
@@ -148,9 +153,9 @@ typedef struct
 	cl_float3 offset;
 	cl_int rotationsEnabled;
 	cl_int mainRotationEnabled;
-	// matrix33 mainRot;
-	// matrix33 rot[MANDELBOX_FOLDSCl][3];
-	// matrix33 rotinv[MANDELBOX_FOLDSCl][3];
+	matrix33 mainRot;
+	matrix33 rot[MANDELBOX_FOLDSCl][3];
+	matrix33 rotinv[MANDELBOX_FOLDSCl][3];
 
 	cl_float fR2;
 	cl_float mR2;
@@ -523,10 +528,10 @@ typedef struct
 	cl_float4 additionConstant111d5;
 	cl_float4 constantMultiplier1220;
 
-	// matrix33 rotationMatrix;
-	// matrix33 rotationMatrix2;
-	// matrix44 rotationMatrix44; //....................
-	// matrix33 tempRotMatrix;
+	matrix33 rotationMatrix;
+	matrix33 rotationMatrix2;
+	//matrix44 rotationMatrix44; //....................
+	matrix33 tempRotMatrix;
 
 	cl_int addCpixelEnabled;
 	cl_int addCpixelEnabledFalse;
