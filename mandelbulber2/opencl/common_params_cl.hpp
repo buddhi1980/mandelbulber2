@@ -104,10 +104,10 @@ inline sCommonParamsCl clCopySCommonParamsCl(sCommonParams source)
 	target.fakeLightsMaxIter = source.fakeLightsMaxIter;
 	target.fakeLightsMinIter = source.fakeLightsMinIter;
 	target.linearDEOffset = source.linearDEOffset;
-	target.fakeLightsOrbitTrap = source.fakeLightsOrbitTrap.toClFloat3();
-	target.fractalPosition = source.fractalPosition.toClFloat3();
-	target.fractalRotation = source.fractalRotation.toClFloat3();
-	target.repeat = source.repeat.toClFloat3();
+	target.fakeLightsOrbitTrap = toClFloat3(source.fakeLightsOrbitTrap);
+	target.fractalPosition = toClFloat3(source.fractalPosition);
+	target.fractalRotation = toClFloat3(source.fractalRotation);
+	target.repeat = toClFloat3(source.repeat);
 	target.mRotFractalRotation = toClMatrix33(source.mRotFractalRotation);
 	target.foldings = clCopySFractalFoldingsCl(source.foldings);
 	return target;

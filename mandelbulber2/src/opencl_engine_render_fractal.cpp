@@ -137,14 +137,13 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	// temporary code to copy general parameters
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
-
 /*
 	constantInBuffer->params.N = paramRender->N;
 	constantInBuffer->params.imageWidth = paramRender->imageWidth;
 	constantInBuffer->params.imageHeight = paramRender->imageHeight;
-	constantInBuffer->params.camera = paramRender->camera.toClFloat3();
-	constantInBuffer->params.target = paramRender->target.toClFloat3();
-	constantInBuffer->params.viewAngle = (paramRender->viewAngle * M_PI / 180.0).toClFloat3();
+	constantInBuffer->params.camera = toClFloat3(paramRender->camera);
+	constantInBuffer->params.target = toClFloat3(paramRender->target);
+	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
 	constantInBuffer->params.fov = paramRender->fov;
 	constantInBuffer->params.DEFactor = paramRender->DEFactor;
 	constantInBuffer->params.mainLightAlpha = paramRender->mainLightAlpha;
@@ -154,7 +153,8 @@ void cOpenClEngineRenderFractal::SetParameters(
 	constantInBuffer->fractal[0] = clCopySFractalCl(*fractals->GetFractal(0));
 
 	// temporary code to copy fractal parameters
-	/*constantInBuffer->fractal[0].bulb.power = fractals->GetFractal(0)->bulb.power;
+/*
+	constantInBuffer->fractal[0].bulb.power = fractals->GetFractal(0)->bulb.power;
 	constantInBuffer->fractal[0].bulb.alphaAngleOffset =
 		fractals->GetFractal(0)->bulb.alphaAngleOffset;
 	constantInBuffer->fractal[0].bulb.betaAngleOffset = fractals->GetFractal(0)->bulb.betaAngleOffset;

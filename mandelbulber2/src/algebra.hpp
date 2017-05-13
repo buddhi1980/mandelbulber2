@@ -229,14 +229,6 @@ public:
 
 	double itemByName(char item) const;
 
-#ifdef USE_OPENCL
-	inline cl_float3 toClFloat3()
-	{
-		cl_float3 retval = {cl_float(x), cl_float(y), cl_float(z)};
-		return retval;
-	}
-#endif
-
 	double x;
 	double y;
 	double z;

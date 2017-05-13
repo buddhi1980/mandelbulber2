@@ -23,6 +23,11 @@ inline matrix33 toClMatrix33(CRotationMatrix source)
 	m.m3 = {cl_float(matrix.m31), cl_float(matrix.m32), cl_float(matrix.m33)};
 	return m;
 }
+inline cl_float3 toClFloat3(CVector3 v)
+{
+	cl_float3 retval = {cl_float(v.x), cl_float(v.y), cl_float(v.z)};
+	return retval;
+}
 inline cl_int3 toClInt3(sRGB c)
 {
 	cl_int3 retval = {cl_int(c.R), cl_int(c.G), cl_int(c.B)};

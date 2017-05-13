@@ -176,7 +176,7 @@ function getCopyStruct($structName, $properties){
 		switch($property['type']){
 		case 'struct': $copyLine .= 'clCopy' . ucfirst($property['typeName']) . '(source.' . $property['name'] . ');'; break;
 		    case 'enum': $copyLine .=  $property['typeName'] . '(source.' . $property['name'] . ');'; break;
-			case 'cl_float3': $copyLine .= 'source.' . $property['name'] . '.toClFloat3();'; break;
+			case 'cl_float3': $copyLine .= 'toClFloat3(source.' . $property['name'] . ');'; break;
 			case 'matrix33': $copyLine .= 'toClMatrix33(source.' . $property['name'] . ');'; break;
 			case 'cl_int3': $copyLine .= 'toClInt3(source.' . $property['name'] . ');'; break;
 			case 'cl_float4': $copyLine .= 'toClFloat4(source.' . $property['name'] . ');'; break;
