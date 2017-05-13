@@ -1,3 +1,5 @@
+#ifndef MANDELBULBER2_OPENCL_ALGEBRA_HPP_
+#define MANDELBULBER2_OPENCL_ALGEBRA_HPP_
 
 typedef struct {
 	cl_float3 m1;
@@ -68,3 +70,5 @@ matrix33 RotateZ(matrix33 m, float angle)
 }
 
 #endif
+
+#endif //MANDELBULBER2_OPENCL_ALGEBRA_HPP_

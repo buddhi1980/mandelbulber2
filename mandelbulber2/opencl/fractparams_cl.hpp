@@ -47,6 +47,7 @@
 
 #ifndef OPENCL_KERNEL_CODE
 #include "../src/fractal_enums.h"
+#include "../opencl/opencl_algebra.h"
 #endif
 
 typedef struct
@@ -196,8 +197,8 @@ typedef struct
 	cl_float3 viewAngle;
 	cl_float3 topVector;
 
-	//matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
-	//matrix33 mRotBackgroundRotation;
+	matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
+	matrix33 mRotBackgroundRotation;
 
 } sParamRenderCl;
 
