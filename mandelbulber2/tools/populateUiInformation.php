@@ -427,7 +427,7 @@ function parseToOpenCL($code){
 			array('find' => "/($var)\.RotateZ\(/", 'replace' => '$1 = RotateZ($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/CRotationMatrix /", 'replace' => 'matrix33 '), // CRotationMatrix33 to matrix33
 			array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ float temp = $1; $2 = $1; $1 = temp; }'),// swap vals
-			array('find' => "/($s|\()(\d+)f($s|;)/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
+			array('find' => "/($s|\()(\d+)f($s|;|\))/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
 			array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x)
 
       // from here on its getting messy
@@ -459,7 +459,11 @@ function parseToOpenCL($code){
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
 			array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
-			array('find' => "/(\s)z([,\);])/", 'replace' => '$1*z$2'), // z to pointer
+			array('find' => "/([\s\(])z([,\);])/", 'replace' => '$1*z$2'), // z to pointer
+			array('find' => "/(\s)z4D\s=/", 'replace' => '$1*z4D ='), // z4D to pointer
+			array('find' => "/(\s)z4D\s(.)=/", 'replace' => '$1*z4D $2='), // z4D to pointer
+			array('find' => "/([\s\(])z4D([,\);])/", 'replace' => '$1*z4D$2'), // z4D to pointer
+
 			// TODO more replacements
 		);
 
