@@ -50,6 +50,10 @@
 #include "../opencl/opencl_algebra.h"
 #include "../opencl/common_params_cl.hpp"
 #include "../opencl/image_adjustments_cl.h"
+#include "../src/common_params.hpp"
+#include "../src/image_adjustments.h"
+#include "../src/fractparams.hpp"
+#include "../src/fractal.h"
 #endif
 
 #define IFS_VECTOR_COUNTCl 9
@@ -292,18 +296,18 @@ typedef struct
 
 // basic combo
 typedef enum {
-	comboEnumCl_mode0,
-	comboEnumCl_mode1,
-	comboEnumCl_mode2,
-	comboEnumCl_mode3,
-	comboEnumCl_mode4,
-	comboEnumCl_mode5,
-	comboEnumCl_mode6,
-	comboEnumCl_mode7,
-} comboEnumCl;
+	comboCl_mode0,
+	comboCl_mode1,
+	comboCl_mode2,
+	comboCl_mode3,
+	comboCl_mode4,
+	comboCl_mode5,
+	comboCl_mode6,
+	comboCl_mode7,
+} enumComboCl;
 typedef struct
 {
-	comboEnumCl modeA;
+	enumComboCl modeA;
 	//		combo modeB;
 	//		combo modeC;
 } sFractalComboCl;
@@ -610,12 +614,523 @@ typedef struct
 	sFractalCparaCl Cpara;
 	sFractalComboCl combo;
 
-#ifdef CLSUPPORT
+#ifdef USE_OPENCL
 	cl_float customParameters[15];
 	cl_float deltaDEStep;
 	char customOCLFormulaName[100];
 
 #endif
 } sFractalCl;
+
+#ifndef OPENCL_KERNEL_CODE
+inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux source)
+{
+	sExtendedAuxCl target;
+	target.r_dz = source.r_dz;
+	target.r = source.r;
+	target.DE = source.DE;
+	target.color = source.color;
+	target.actualScale = source.actualScale;
+	target.pseudoKleinianDE = source.pseudoKleinianDE;
+	target.linearDE = source.linearDE;
+	target.cw = source.cw;
+	target.foldFactor = source.foldFactor;
+	target.minRFactor = source.minRFactor;
+	target.scaleFactor = source.scaleFactor;
+	target.c = source.c.toClFloat3();
+	return target;
+}
+
+inline sFoldColorCl clCopySFoldColorCl(sFoldColor source)
+{
+	sFoldColorCl target;
+	target.factor = source.factor.toClFloat3();
+	target.factor4D = toClFloat4(source.factor4D);
+	target.factorR = source.factorR;
+	target.factorSp1 = source.factorSp1;
+	target.factorSp2 = source.factorSp2;
+	target.colorMin = source.colorMin;
+	target.compFold0 = source.compFold0;
+	target.compFold = source.compFold;
+	target.compMinR = source.compMinR;
+	target.compScale = source.compScale;
+	return target;
+}
+
+inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
+	sFractalGeneralizedFoldBox source)
+{
+	sFractalGeneralizedFoldBoxCl target;
+	target.sides_tet = source.sides_tet;
+	target.sides_cube = source.sides_cube;
+	target.sides_oct = source.sides_oct;
+	target.sides_oct_cube = source.sides_oct_cube;
+	target.sides_dodeca = source.sides_dodeca;
+	target.sides_icosa = source.sides_icosa;
+	target.sides_box6 = source.sides_box6;
+	target.sides_box5 = source.sides_box5;
+	return target;
+}
+
+inline sFractalIFSCl clCopySFractalIFSCl(sFractalIFS source)
+{
+	sFractalIFSCl target;
+	target.mengerSpongeMode = source.mengerSpongeMode;
+	target.rotationEnabled = source.rotationEnabled;
+	target.edgeEnabled = source.edgeEnabled;
+	target.mainRot = toClMatrix33(source.mainRot);
+	target.edge = source.edge.toClFloat3();
+	target.offset = source.offset.toClFloat3();
+	target.rotation = source.rotation.toClFloat3();
+	target.scale = source.scale;
+	return target;
+}
+
+inline sFractalMandelboxVary4DCl clCopySFractalMandelboxVary4DCl(sFractalMandelboxVary4D source)
+{
+	sFractalMandelboxVary4DCl target;
+	target.fold = source.fold;
+	target.minR = source.minR;
+	target.scaleVary = source.scaleVary;
+	target.wadd = source.wadd;
+	target.rPower = source.rPower;
+	return target;
+}
+
+inline sFractalMandelboxCl clCopySFractalMandelboxCl(sFractalMandelbox source)
+{
+	sFractalMandelboxCl target;
+	target.rotationMain = source.rotationMain.toClFloat3();
+	target.color = clCopySFoldColorCl(source.color);
+	target.scale = source.scale;
+	target.foldingLimit = source.foldingLimit;
+	target.foldingValue = source.foldingValue;
+	target.foldingSphericalMin = source.foldingSphericalMin;
+	target.foldingSphericalFixed = source.foldingSphericalFixed;
+	target.sharpness = source.sharpness;
+	target.solid = source.solid;
+	target.melt = source.melt;
+	target.offset = source.offset.toClFloat3();
+	target.rotationsEnabled = source.rotationsEnabled;
+	target.mainRotationEnabled = source.mainRotationEnabled;
+	target.mainRot = toClMatrix33(source.mainRot);
+	target.fR2 = source.fR2;
+	target.mR2 = source.mR2;
+	target.mboxFactor1 = source.mboxFactor1;
+	return target;
+}
+
+inline sFractalBoxFoldBulbPow2Cl clCopySFractalBoxFoldBulbPow2Cl(sFractalBoxFoldBulbPow2 source)
+{
+	sFractalBoxFoldBulbPow2Cl target;
+	target.zFactor = source.zFactor;
+	target.foldFactor = source.foldFactor;
+	return target;
+}
+
+inline sFractalMandelbulbCl clCopySFractalMandelbulbCl(sFractalMandelbulb source)
+{
+	sFractalMandelbulbCl target;
+	target.power = source.power;
+	target.alphaAngleOffset = source.alphaAngleOffset;
+	target.betaAngleOffset = source.betaAngleOffset;
+	target.gammaAngleOffset = source.gammaAngleOffset;
+	return target;
+}
+
+inline sFractalAexionCl clCopySFractalAexionCl(sFractalAexion source)
+{
+	sFractalAexionCl target;
+	target.cadd = source.cadd;
+	return target;
+}
+
+inline sFractalBuffaloCl clCopySFractalBuffaloCl(sFractalBuffalo source)
+{
+	sFractalBuffaloCl target;
+	target.preabsx = source.preabsx;
+	target.preabsy = source.preabsy;
+	target.preabsz = source.preabsz;
+	target.absx = source.absx;
+	target.absy = source.absy;
+	target.absz = source.absz;
+	target.posz = source.posz;
+	return target;
+}
+
+inline sFractalDonutCl clCopySFractalDonutCl(sFractalDonut source)
+{
+	sFractalDonutCl target;
+	target.ringRadius = source.ringRadius;
+	target.ringThickness = source.ringThickness;
+	target.factor = source.factor;
+	target.number = source.number;
+	return target;
+}
+
+inline sFractalPlatonicSolidCl clCopySFractalPlatonicSolidCl(sFractalPlatonicSolid source)
+{
+	sFractalPlatonicSolidCl target;
+	target.frequency = source.frequency;
+	target.amplitude = source.amplitude;
+	target.rhoMul = source.rhoMul;
+	return target;
+}
+
+inline sFractalMandelbulbMultiCl clCopySFractalMandelbulbMultiCl(sFractalMandelbulbMulti source)
+{
+	sFractalMandelbulbMultiCl target;
+	target.acosOrAsin = enumMulti_acosOrAsinCl(source.acosOrAsin);
+	target.acosOrAsinA = enumMulti_acosOrAsinCl(source.acosOrAsinA);
+	target.atanOrAtan2 = enumMulti_atanOrAtan2Cl(source.atanOrAtan2);
+	target.atanOrAtan2A = enumMulti_atanOrAtan2Cl(source.atanOrAtan2A);
+	target.orderOfXYZ = enumMulti_OrderOfXYZCl(source.orderOfXYZ);
+	target.orderOfXYZ2 = enumMulti_OrderOfXYZCl(source.orderOfXYZ2);
+	target.orderOfXYZC = enumMulti_OrderOfXYZCl(source.orderOfXYZC);
+	return target;
+}
+
+inline sFractalSinTan2TrigCl clCopySFractalSinTan2TrigCl(sFractalSinTan2Trig source)
+{
+	sFractalSinTan2TrigCl target;
+	target.asinOrAcos = enumMulti_asinOrAcosCl(source.asinOrAcos);
+	target.atan2OrAtan = enumMulti_atan2OrAtanCl(source.atan2OrAtan);
+	target.orderOfZYX = enumMulti_OrderOfZYXCl(source.orderOfZYX);
+	return target;
+}
+
+inline sFractalSurfFoldsCl clCopySFractalSurfFoldsCl(sFractalSurfFolds source)
+{
+	sFractalSurfFoldsCl target;
+	target.orderOfFolds1 = enumMulti_orderOfFoldsCl(source.orderOfFolds1);
+	target.orderOfFolds2 = enumMulti_orderOfFoldsCl(source.orderOfFolds2);
+	target.orderOfFolds3 = enumMulti_orderOfFoldsCl(source.orderOfFolds3);
+	target.orderOfFolds4 = enumMulti_orderOfFoldsCl(source.orderOfFolds4);
+	target.orderOfFolds5 = enumMulti_orderOfFoldsCl(source.orderOfFolds5);
+	return target;
+}
+
+inline sFractalMagTransformsCl clCopySFractalMagTransformsCl(sFractalMagTransforms source)
+{
+	sFractalMagTransformsCl target;
+	target.orderOfTransf1 = enumMulti_orderOfTransfCl(source.orderOfTransf1);
+	target.orderOfTransf2 = enumMulti_orderOfTransfCl(source.orderOfTransf2);
+	target.orderOfTransf3 = enumMulti_orderOfTransfCl(source.orderOfTransf3);
+	target.orderOfTransf4 = enumMulti_orderOfTransfCl(source.orderOfTransf4);
+	target.orderOfTransf5 = enumMulti_orderOfTransfCl(source.orderOfTransf5);
+	return target;
+}
+
+inline sFractalComboCl clCopySFractalComboCl(sFractalCombo source)
+{
+	sFractalComboCl target;
+	target.modeA = enumComboCl(source.modeA);
+	return target;
+}
+
+inline sFractalSurfBoxCl clCopySFractalSurfBoxCl(sFractalSurfBox source)
+{
+	sFractalSurfBoxCl target;
+	target.enabledX1 = source.enabledX1;
+	target.enabledY1 = source.enabledY1;
+	target.enabledZ1 = source.enabledZ1;
+	target.enabledX2False = source.enabledX2False;
+	target.enabledY2False = source.enabledY2False;
+	target.enabledZ2False = source.enabledZ2False;
+	target.enabledX3False = source.enabledX3False;
+	target.enabledY3False = source.enabledY3False;
+	target.enabledZ3False = source.enabledZ3False;
+	target.enabledX4False = source.enabledX4False;
+	target.enabledY4False = source.enabledY4False;
+	target.enabledZ4False = source.enabledZ4False;
+	target.enabledX5False = source.enabledX5False;
+	target.enabledY5False = source.enabledY5False;
+	target.enabledZ5False = source.enabledZ5False;
+	target.offset1A111 = source.offset1A111.toClFloat3();
+	target.offset1B111 = source.offset1B111.toClFloat3();
+	target.offset2A111 = source.offset2A111.toClFloat3();
+	target.offset2B111 = source.offset2B111.toClFloat3();
+	target.offset3A111 = source.offset3A111.toClFloat3();
+	target.offset3B111 = source.offset3B111.toClFloat3();
+	target.offset1A222 = source.offset1A222.toClFloat3();
+	target.offset1B222 = source.offset1B222.toClFloat3();
+	target.scale1Z1 = source.scale1Z1;
+	return target;
+}
+
+inline sFractalCparaCl clCopySFractalCparaCl(sFractalCpara source)
+{
+	sFractalCparaCl target;
+	target.enabledLinear = source.enabledLinear;
+	target.enabledCurves = source.enabledCurves;
+	target.enabledParabFalse = source.enabledParabFalse;
+	target.enabledParaAddP0 = source.enabledParaAddP0;
+	target.para00 = source.para00;
+	target.paraA0 = source.paraA0;
+	target.paraB0 = source.paraB0;
+	target.paraC0 = source.paraC0;
+	target.parabOffset0 = source.parabOffset0;
+	target.para0 = source.para0;
+	target.paraA = source.paraA;
+	target.paraB = source.paraB;
+	target.paraC = source.paraC;
+	target.parabOffset = source.parabOffset;
+	target.parabSlope = source.parabSlope;
+	target.parabScale = source.parabScale;
+	target.iterA = source.iterA;
+	target.iterB = source.iterB;
+	target.iterC = source.iterC;
+	return target;
+}
+
+inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(sFractalAnalyticDE source)
+{
+	sFractalAnalyticDECl target;
+	target.enabledFalse = source.enabledFalse;
+	target.enabledAuxR2False = source.enabledAuxR2False;
+	target.scale1 = source.scale1;
+	target.tweak005 = source.tweak005;
+	target.offset0 = source.offset0;
+	target.offset1 = source.offset1;
+	target.offset2 = source.offset2;
+	target.factor2 = source.factor2;
+	target.scaleLin = source.scaleLin;
+	target.offsetLin = source.offsetLin;
+	return target;
+}
+
+inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransformCommon source)
+{
+	sFractalTransformCommonCl target;
+	target.alphaAngleOffset = source.alphaAngleOffset;
+	target.betaAngleOffset = source.betaAngleOffset;
+	target.foldingValue = source.foldingValue;
+	target.foldingLimit = source.foldingLimit;
+	target.offset = source.offset;
+	target.offset0 = source.offset0;
+	target.offsetA0 = source.offsetA0;
+	target.offsetB0 = source.offsetB0;
+	target.offsetC0 = source.offsetC0;
+	target.offset0005 = source.offset0005;
+	target.offset05 = source.offset05;
+	target.offset1 = source.offset1;
+	target.offset105 = source.offset105;
+	target.offset2 = source.offset2;
+	target.multiplication = source.multiplication;
+	target.minRNeg1 = source.minRNeg1;
+	target.minR0 = source.minR0;
+	target.minR05 = source.minR05;
+	target.minR06 = source.minR06;
+	target.minR2p25 = source.minR2p25;
+	target.maxR2d1 = source.maxR2d1;
+	target.maxMinR2factor = source.maxMinR2factor;
+	target.scale = source.scale;
+	target.scale0 = source.scale0;
+	target.scale025 = source.scale025;
+	target.scale05 = source.scale05;
+	target.scale08 = source.scale08;
+	target.scale1 = source.scale1;
+	target.scaleA1 = source.scaleA1;
+	target.scaleB1 = source.scaleB1;
+	target.scaleC1 = source.scaleC1;
+	target.scaleD1 = source.scaleD1;
+	target.scaleE1 = source.scaleE1;
+	target.scaleF1 = source.scaleF1;
+	target.scaleG1 = source.scaleG1;
+	target.scaleA2 = source.scaleA2;
+	target.scale015 = source.scale015;
+	target.scale2 = source.scale2;
+	target.scale3 = source.scale3;
+	target.scaleA3 = source.scaleA3;
+	target.scaleB3 = source.scaleB3;
+	target.scale4 = source.scale4;
+	target.scale8 = source.scale8;
+	target.pwr05 = source.pwr05;
+	target.pwr4 = source.pwr4;
+	target.pwr8 = source.pwr8;
+	target.pwr8a = source.pwr8a;
+	target.sqtR = source.sqtR;
+	target.mboxFactor1 = source.mboxFactor1;
+	target.startIterations = source.startIterations;
+	target.startIterations250 = source.startIterations250;
+	target.stopIterations = source.stopIterations;
+	target.startIterationsA = source.startIterationsA;
+	target.stopIterationsA = source.stopIterationsA;
+	target.startIterationsB = source.startIterationsB;
+	target.stopIterationsB = source.stopIterationsB;
+	target.startIterationsC = source.startIterationsC;
+	target.stopIterationsC = source.stopIterationsC;
+	target.startIterationsD = source.startIterationsD;
+	target.stopIterationsD = source.stopIterationsD;
+	target.stopIterationsD1 = source.stopIterationsD1;
+	target.startIterationsE = source.startIterationsE;
+	target.stopIterationsE = source.stopIterationsE;
+	target.startIterationsF = source.startIterationsF;
+	target.stopIterationsF = source.stopIterationsF;
+	target.startIterationsP = source.startIterationsP;
+	target.stopIterationsP1 = source.stopIterationsP1;
+	target.startIterationsR = source.startIterationsR;
+	target.stopIterationsR = source.stopIterationsR;
+	target.startIterationsS = source.startIterationsS;
+	target.stopIterationsS = source.stopIterationsS;
+	target.startIterationsT = source.startIterationsT;
+	target.stopIterationsT = source.stopIterationsT;
+	target.startIterationsM = source.startIterationsM;
+	target.stopIterationsM = source.stopIterationsM;
+	target.stopIterations1 = source.stopIterations1;
+	target.stopIterationsT1 = source.stopIterationsT1;
+	target.stopIterationsTM1 = source.stopIterationsTM1;
+	target.startIterationsX = source.startIterationsX;
+	target.stopIterationsX = source.stopIterationsX;
+	target.startIterationsY = source.startIterationsY;
+	target.stopIterationsY = source.stopIterationsY;
+	target.startIterationsZ = source.startIterationsZ;
+	target.stopIterationsZ = source.stopIterationsZ;
+	target.intA = source.intA;
+	target.intB = source.intB;
+	target.int1 = source.int1;
+	target.int8X = source.int8X;
+	target.int8Y = source.int8Y;
+	target.int8Z = source.int8Z;
+	target.additionConstant0555 = source.additionConstant0555.toClFloat3();
+	target.additionConstant0777 = source.additionConstant0777.toClFloat3();
+	target.additionConstant000 = source.additionConstant000.toClFloat3();
+	target.additionConstantA000 = source.additionConstantA000.toClFloat3();
+	target.additionConstantP000 = source.additionConstantP000.toClFloat3();
+	target.additionConstant111 = source.additionConstant111.toClFloat3();
+	target.additionConstantA111 = source.additionConstantA111.toClFloat3();
+	target.additionConstant222 = source.additionConstant222.toClFloat3();
+	target.additionConstantNeg100 = source.additionConstantNeg100.toClFloat3();
+	target.constantMultiplier000 = source.constantMultiplier000.toClFloat3();
+	target.constantMultiplier001 = source.constantMultiplier001.toClFloat3();
+	target.constantMultiplier010 = source.constantMultiplier010.toClFloat3();
+	target.constantMultiplier100 = source.constantMultiplier100.toClFloat3();
+	target.constantMultiplierA100 = source.constantMultiplierA100.toClFloat3();
+	target.constantMultiplier111 = source.constantMultiplier111.toClFloat3();
+	target.constantMultiplierA111 = source.constantMultiplierA111.toClFloat3();
+	target.constantMultiplierB111 = source.constantMultiplierB111.toClFloat3();
+	target.constantMultiplierC111 = source.constantMultiplierC111.toClFloat3();
+	target.constantMultiplier121 = source.constantMultiplier121.toClFloat3();
+	target.constantMultiplier122 = source.constantMultiplier122.toClFloat3();
+	target.constantMultiplier221 = source.constantMultiplier221.toClFloat3();
+	target.constantMultiplier222 = source.constantMultiplier222.toClFloat3();
+	target.constantMultiplier441 = source.constantMultiplier441.toClFloat3();
+	target.juliaC = source.juliaC.toClFloat3();
+	target.offset000 = source.offset000.toClFloat3();
+	target.offsetA000 = source.offsetA000.toClFloat3();
+	target.offsetF000 = source.offsetF000.toClFloat3();
+	target.offset100 = source.offset100.toClFloat3();
+	target.offset1105 = source.offset1105.toClFloat3();
+	target.offset111 = source.offset111.toClFloat3();
+	target.offsetA111 = source.offsetA111.toClFloat3();
+	target.offsetB111 = source.offsetB111.toClFloat3();
+	target.offsetC111 = source.offsetC111.toClFloat3();
+	target.offset200 = source.offset200.toClFloat3();
+	target.offsetA200 = source.offsetA200.toClFloat3();
+	target.offset222 = source.offset222.toClFloat3();
+	target.power025 = source.power025.toClFloat3();
+	target.power8 = source.power8.toClFloat3();
+	target.rotation = source.rotation.toClFloat3();
+	target.rotation2 = source.rotation2.toClFloat3();
+	target.rotation44a = source.rotation44a.toClFloat3();
+	target.rotation44b = source.rotation44b.toClFloat3();
+	target.scale3D000 = source.scale3D000.toClFloat3();
+	target.scale3D111 = source.scale3D111.toClFloat3();
+	target.scale3D222 = source.scale3D222.toClFloat3();
+	target.scale3Da222 = source.scale3Da222.toClFloat3();
+	target.scale3Db222 = source.scale3Db222.toClFloat3();
+	target.scale3Dc222 = source.scale3Dc222.toClFloat3();
+	target.scale3Dd222 = source.scale3Dd222.toClFloat3();
+	target.scale3D333 = source.scale3D333.toClFloat3();
+	target.scale3D444 = source.scale3D444.toClFloat3();
+	target.additionConstant0000 = toClFloat4(source.additionConstant0000);
+	target.offset0000 = toClFloat4(source.offset0000);
+	target.offset1111 = toClFloat4(source.offset1111);
+	target.offsetA1111 = toClFloat4(source.offsetA1111);
+	target.additionConstant111d5 = toClFloat4(source.additionConstant111d5);
+	target.constantMultiplier1220 = toClFloat4(source.constantMultiplier1220);
+	target.rotationMatrix = toClMatrix33(source.rotationMatrix);
+	target.rotationMatrix2 = toClMatrix33(source.rotationMatrix2);
+	target.tempRotMatrix = toClMatrix33(source.tempRotMatrix);
+	target.addCpixelEnabled = source.addCpixelEnabled;
+	target.addCpixelEnabledFalse = source.addCpixelEnabledFalse;
+	target.alternateEnabledFalse = source.alternateEnabledFalse;
+	target.benesiT1Enabled = source.benesiT1Enabled;
+	target.benesiT1EnabledFalse = source.benesiT1EnabledFalse;
+	target.benesiT1MEnabledFalse = source.benesiT1MEnabledFalse;
+	target.functionEnabled = source.functionEnabled;
+	target.functionEnabledFalse = source.functionEnabledFalse;
+	target.functionEnabledx = source.functionEnabledx;
+	target.functionEnabledy = source.functionEnabledy;
+	target.functionEnabledz = source.functionEnabledz;
+	target.functionEnabledw = source.functionEnabledw;
+	target.functionEnabledxFalse = source.functionEnabledxFalse;
+	target.functionEnabledyFalse = source.functionEnabledyFalse;
+	target.functionEnabledzFalse = source.functionEnabledzFalse;
+	target.functionEnabledwFalse = source.functionEnabledwFalse;
+	target.functionEnabledAx = source.functionEnabledAx;
+	target.functionEnabledAy = source.functionEnabledAy;
+	target.functionEnabledAz = source.functionEnabledAz;
+	target.functionEnabledAw = source.functionEnabledAw;
+	target.functionEnabledAxFalse = source.functionEnabledAxFalse;
+	target.functionEnabledAyFalse = source.functionEnabledAyFalse;
+	target.functionEnabledAzFalse = source.functionEnabledAzFalse;
+	target.functionEnabledAwFalse = source.functionEnabledAwFalse;
+	target.functionEnabledBx = source.functionEnabledBx;
+	target.functionEnabledBy = source.functionEnabledBy;
+	target.functionEnabledBz = source.functionEnabledBz;
+	target.functionEnabledBxFalse = source.functionEnabledBxFalse;
+	target.functionEnabledByFalse = source.functionEnabledByFalse;
+	target.functionEnabledBzFalse = source.functionEnabledBzFalse;
+	target.functionEnabledCx = source.functionEnabledCx;
+	target.functionEnabledCy = source.functionEnabledCy;
+	target.functionEnabledCz = source.functionEnabledCz;
+	target.functionEnabledCxFalse = source.functionEnabledCxFalse;
+	target.functionEnabledCyFalse = source.functionEnabledCyFalse;
+	target.functionEnabledCzFalse = source.functionEnabledCzFalse;
+	target.functionEnabledDFalse = source.functionEnabledDFalse;
+	target.functionEnabledEFalse = source.functionEnabledEFalse;
+	target.functionEnabledFFalse = source.functionEnabledFFalse;
+	target.functionEnabledKFalse = source.functionEnabledKFalse;
+	target.functionEnabledM = source.functionEnabledM;
+	target.functionEnabledMFalse = source.functionEnabledMFalse;
+	target.functionEnabledPFalse = source.functionEnabledPFalse;
+	target.functionEnabledRFalse = source.functionEnabledRFalse;
+	target.functionEnabledSFalse = source.functionEnabledSFalse;
+	target.functionEnabledSwFalse = source.functionEnabledSwFalse;
+	target.functionEnabledXFalse = source.functionEnabledXFalse;
+	target.juliaMode = source.juliaMode;
+	target.rotationEnabled = source.rotationEnabled;
+	return target;
+}
+
+inline sFractalCl clCopySFractalCl(sFractal source)
+{
+	sFractalCl target;
+	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
+	target.IFS = clCopySFractalIFSCl(source.IFS);
+	target.mandelbox = clCopySFractalMandelboxCl(source.mandelbox);
+	target.genFoldBox = clCopySFractalGeneralizedFoldBoxCl(source.genFoldBox);
+	target.foldingIntPow = clCopySFractalBoxFoldBulbPow2Cl(source.foldingIntPow);
+	target.mandelboxVary4D = clCopySFractalMandelboxVary4DCl(source.mandelboxVary4D);
+	target.aexion = clCopySFractalAexionCl(source.aexion);
+	target.buffalo = clCopySFractalBuffaloCl(source.buffalo);
+	target.platonicSolid = clCopySFractalPlatonicSolidCl(source.platonicSolid);
+	target.transformCommon = clCopySFractalTransformCommonCl(source.transformCommon);
+	target.analyticDE = clCopySFractalAnalyticDECl(source.analyticDE);
+	target.mandelbulbMulti = clCopySFractalMandelbulbMultiCl(source.mandelbulbMulti);
+	target.sinTan2Trig = clCopySFractalSinTan2TrigCl(source.sinTan2Trig);
+	target.surfBox = clCopySFractalSurfBoxCl(source.surfBox);
+	target.surfFolds = clCopySFractalSurfFoldsCl(source.surfFolds);
+	target.donut = clCopySFractalDonutCl(source.donut);
+	target.foldColor = clCopySFoldColorCl(source.foldColor);
+	target.magTransf = clCopySFractalMagTransformsCl(source.magTransf);
+	target.Cpara = clCopySFractalCparaCl(source.Cpara);
+	target.combo = clCopySFractalComboCl(source.combo);
+	target.deltaDEStep = source.deltaDEStep;
+	return target;
+}
+
+#endif
 
 #endif /* MANDELBULBER2_OPENCL_FRACTAL_CL_H_ */

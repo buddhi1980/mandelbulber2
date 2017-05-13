@@ -50,6 +50,10 @@
 #include "../opencl/opencl_algebra.h"
 #include "../opencl/common_params_cl.hpp"
 #include "../opencl/image_adjustments_cl.h"
+#include "../src/common_params.hpp"
+#include "../src/image_adjustments.h"
+#include "../src/fractparams.hpp"
+#include "../src/fractal.h"
 #endif
 
 typedef struct
@@ -79,5 +83,36 @@ typedef struct
 
 	sFractalFoldingsCl foldings;
 } sCommonParamsCl;
+
+#ifndef OPENCL_KERNEL_CODE
+inline sFractalFoldingsCl clCopySFractalFoldingsCl(sFractalFoldings source)
+{
+	sFractalFoldingsCl target;
+	target.boxLimit = source.boxLimit;
+	target.boxValue = source.boxValue;
+	target.sphericalOuter = source.sphericalOuter;
+	target.sphericalInner = source.sphericalInner;
+	target.boxEnable = source.boxEnable;
+	target.sphericalEnable = source.sphericalEnable;
+	return target;
+}
+
+inline sCommonParamsCl clCopySCommonParamsCl(sCommonParams source)
+{
+	sCommonParamsCl target;
+	target.iterThreshMode = source.iterThreshMode;
+	target.fakeLightsMaxIter = source.fakeLightsMaxIter;
+	target.fakeLightsMinIter = source.fakeLightsMinIter;
+	target.linearDEOffset = source.linearDEOffset;
+	target.fakeLightsOrbitTrap = source.fakeLightsOrbitTrap.toClFloat3();
+	target.fractalPosition = source.fractalPosition.toClFloat3();
+	target.fractalRotation = source.fractalRotation.toClFloat3();
+	target.repeat = source.repeat.toClFloat3();
+	target.mRotFractalRotation = toClMatrix33(source.mRotFractalRotation);
+	target.foldings = clCopySFractalFoldingsCl(source.foldings);
+	return target;
+}
+
+#endif
 
 #endif /* MANDELBULBER2_OPENCL_COMMON_PARAMS_CL_HPP_ */

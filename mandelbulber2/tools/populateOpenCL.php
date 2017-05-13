@@ -115,11 +115,40 @@ foreach($copyFiles as $type => $copyFile){
 	$cppIncludes .= '#include "../opencl/opencl_algebra.h"' . PHP_EOL;
 	$cppIncludes .= '#include "../opencl/common_params_cl.hpp"' . PHP_EOL;
 	$cppIncludes .= '#include "../opencl/image_adjustments_cl.h"' . PHP_EOL;
-	$cppIncludes .= '#endif' . PHP_EOL;
+	$cppIncludes .= '#include "../src/common_params.hpp"' . PHP_EOL;
+	$cppIncludes .= '#include "../src/image_adjustments.h"' . PHP_EOL;
+	$cppIncludes .= '#include "../src/fractparams.hpp"' . PHP_EOL;
+	$cppIncludes .= '#include "../src/fractal.h"' . PHP_EOL;
+
+    $cppIncludes .= '#endif' . PHP_EOL;
 	$content = preg_replace('/(#define MANDELBULBER2_OPENCL_.*)/', '$1' . PHP_EOL . PHP_EOL . $cppIncludes, $content);
 
+    // create copy methods for structs
+	preg_match_all('/typedef struct\n{([\s\S]*?)}\s([0-9a-zA-Z_]+);/', $content, $structMatches);
+	$copyStructs = array();
+	foreach($structMatches[1] as $key => $match){
+	    $props = array();
+		$structName = trim($structMatches[2][$key]);
+		$lines = explode(PHP_EOL, $match);
+		foreach($lines as $line){
+		    $line = trim($line);
+			if(preg_match('/^\s*([a-zA-Z0-9_]+)\s([a-zA-Z0-9_]+);.*/', $line, $lineMatch)){
+			    $prop = array();
+				$prop['name'] = $lineMatch[2];
+				$prop['typeName'] = $lineMatch[1];
+				$prop['type'] = $lineMatch[1];
+				if(substr($prop['type'], 0, 1) == 's') $prop['type'] = 'struct';
+				if(substr($prop['type'], 0, 4) == 'enum') $prop['type'] = 'enum';
+				$props[] = $prop;
+			}
+		}
+		$copyStructs[] = getCopyStruct($structName, $props);
+	}
+	$content = preg_replace('/(#endif \/\* MANDELBULBER2_OPENCL.*)/',
+	    PHP_EOL . '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL
+		. implode(PHP_EOL, $copyStructs) . PHP_EOL . '#endif' . PHP_EOL . PHP_EOL . '$1', $content);
 
-	// clang-format
+    // clang-format
 	$filepathTemp = $copyFile['path'] . '.tmp.c';
 	file_put_contents($filepathTemp, $content);
 	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
@@ -140,22 +169,25 @@ foreach($copyFiles as $type => $copyFile){
 
 function getCopyStruct($structName, $properties){
     $structNameSource = substr($structName, 0, -2);
-    $out = '#ifndef __OPENCL_VERSION__' . PHP_EOL;
-    $out .= $structName . ' init' . $structName . '(' . $structNameSource . ' source){' . PHP_EOL;
-    $out .= '    ' . $structName . ' target;' . PHP_EOL;
+	$out = 'inline ' . $structName . ' clCopy' . ucfirst($structName) . '(' . $structNameSource . ' source){' . PHP_EOL;
+	$out .= '	' . $structName . ' target;' . PHP_EOL;
     foreach($properties as $property){
         $copyLine = 'target.' . $property['name'] . ' = ';
-        switch($property['type']){
-		    case 'struct': $copyLine .= 'init' . $property['typeName'] . '(source.' . $property['name'] . ');';
-			case 'cl_float3': $copyLine .= $property['name'] . '.toFloat3();';
-			default:  $copyLine .= $property['name'] . ';';
+		switch($property['type']){
+		case 'struct': $copyLine .= 'clCopy' . ucfirst($property['typeName']) . '(source.' . $property['name'] . ');'; break;
+		    case 'enum': $copyLine .=  $property['typeName'] . '(source.' . $property['name'] . ');'; break;
+			case 'cl_float3': $copyLine .= 'source.' . $property['name'] . '.toClFloat3();'; break;
+			case 'matrix33': $copyLine .= 'toClMatrix33(source.' . $property['name'] . ');'; break;
+			case 'cl_int3': $copyLine .= 'toClInt3(source.' . $property['name'] . ');'; break;
+			case 'cl_float4': $copyLine .= 'toClFloat4(source.' . $property['name'] . ');'; break;
+
+            default:  $copyLine .= 'source.' . $property['name'] . ';';
         }
-        $out .= '   ' . $copyLine . PHP_EOL;
+		$out .= '	' . $copyLine . PHP_EOL;
     }
 
-    $out .= '   ' . 'return target;' . PHP_EOL;
-    $out .= '}' . PHP_EOL;
-    $out .= '#endif' . PHP_EOL;
+    $out .= '	' . 'return target;' . PHP_EOL;
+	$out .= '}' . PHP_EOL;
     return $out;
 }
 

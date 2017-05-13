@@ -50,6 +50,10 @@
 #include "../opencl/opencl_algebra.h"
 #include "../opencl/common_params_cl.hpp"
 #include "../opencl/image_adjustments_cl.h"
+#include "../src/common_params.hpp"
+#include "../src/image_adjustments.h"
+#include "../src/fractparams.hpp"
+#include "../src/fractal.h"
 #endif
 
 typedef struct
@@ -60,5 +64,18 @@ typedef struct
 	cl_float imageGamma;
 	cl_int hdrEnabled;
 } sImageAdjustmentsCl;
+
+#ifndef OPENCL_KERNEL_CODE
+inline sImageAdjustmentsCl clCopySImageAdjustmentsCl(sImageAdjustments source)
+{
+	sImageAdjustmentsCl target;
+	target.brightness = source.brightness;
+	target.contrast = source.contrast;
+	target.imageGamma = source.imageGamma;
+	target.hdrEnabled = source.hdrEnabled;
+	return target;
+}
+
+#endif
 
 #endif /* MANDELBULBER2_OPENCL_IMAGE_ADJUSTMENTS_CL_H_ */

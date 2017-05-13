@@ -204,7 +204,7 @@ sFractal::sFractal(const cParameterContainer *container)
 		enumMulti_orderOfTransf(container->Get<int>("magTransf_order_of_transf_5"));
 
 	// basic comboBox
-	combo.modeA = comboEnum(container->Get<int>("combo_mode_A"));
+	combo.modeA = enumCombo(container->Get<int>("combo_mode_A"));
 
 	//	combo.mode1 = (sFractalCombo::combo)container->Get<int>("combo_mode_B");
 	//	combo.mode2 = (sFractalCombo::combo)container->Get<int>("combo_mode_C");

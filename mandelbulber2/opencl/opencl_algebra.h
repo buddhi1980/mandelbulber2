@@ -1,11 +1,39 @@
 #ifndef MANDELBULBER2_OPENCL_ALGEBRA_HPP_
 #define MANDELBULBER2_OPENCL_ALGEBRA_HPP_
 
+#ifndef OPENCL_KERNEL_CODE
+#include <QString>
+#include "../src/algebra.hpp"
+#include "../src/color_structures.hpp"
+#endif
+
 typedef struct {
 	cl_float3 m1;
 	cl_float3 m2;
 	cl_float3 m3;
 } matrix33;
+
+#ifndef OPENCL_KERNEL_CODE
+inline matrix33 toClMatrix33(CRotationMatrix source)
+{
+	CMatrix33 matrix = source.GetMatrix();
+	matrix33 m;
+	m.m1 = {cl_float(matrix.m11), cl_float(matrix.m12), cl_float(matrix.m13)};
+	m.m2 = {cl_float(matrix.m21), cl_float(matrix.m22), cl_float(matrix.m23)};
+	m.m3 = {cl_float(matrix.m31), cl_float(matrix.m32), cl_float(matrix.m33)};
+	return m;
+}
+inline cl_int3 toClInt3(sRGB c)
+{
+	cl_int3 retval = {cl_int(c.R), cl_int(c.G), cl_int(c.B)};
+	return retval;
+}
+inline cl_float4 toClFloat4(CVector4 v)
+{
+	cl_float4 retval = {cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(v.w)};
+	return retval;
+}
+#endif
 
 #ifdef OPENCL_KERNEL_CODE
 

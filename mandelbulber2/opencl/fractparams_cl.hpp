@@ -50,6 +50,10 @@
 #include "../opencl/opencl_algebra.h"
 #include "../opencl/common_params_cl.hpp"
 #include "../opencl/image_adjustments_cl.h"
+#include "../src/common_params.hpp"
+#include "../src/image_adjustments.h"
+#include "../src/fractparams.hpp"
+#include "../src/fractal.h"
 #endif
 
 typedef struct
@@ -73,7 +77,7 @@ typedef struct
 	cl_int DOFSamples;
 	cl_int DOFMinSamples;
 
-#ifdef CLSUPPORT
+#ifdef USE_OPENCL
 	cl_int OpenCLDOFMethod;
 	cl_int OpenCLEngine;
 	cl_int OpenCLPixelsPerJob;
@@ -111,7 +115,7 @@ typedef struct
 	cl_int volumetricLightAnyEnabled;
 	cl_int volFogEnabled;
 
-#ifdef CLSUPPORT
+#ifdef USE_OPENCL
 	cl_int useCustomOCLFormula;
 #endif
 
@@ -206,5 +210,138 @@ typedef struct
 
 	sCommonParamsCl common;
 } sParamRenderCl;
+
+#ifndef OPENCL_KERNEL_CODE
+inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
+{
+	sParamRenderCl target;
+	target.antialiasingSize = source.antialiasingSize;
+	target.ambientOcclusionQuality = source.ambientOcclusionQuality;
+	target.auxLightNumber = source.auxLightNumber;
+	target.auxLightRandomNumber = source.auxLightRandomNumber;
+	target.auxLightRandomSeed = source.auxLightRandomSeed;
+	target.frameNo = source.frameNo;
+	target.imageHeight = source.imageHeight;
+	target.imageWidth = source.imageWidth;
+	target.minN = source.minN;
+	target.N = source.N;
+	target.reflectionsMax = source.reflectionsMax;
+	target.repeatFrom = source.repeatFrom;
+	target.DOFNumberOfPasses = source.DOFNumberOfPasses;
+	target.DOFSamples = source.DOFSamples;
+	target.DOFMinSamples = source.DOFMinSamples;
+	target.OpenCLDOFMethod = source.OpenCLDOFMethod;
+	target.OpenCLEngine = source.OpenCLEngine;
+	target.OpenCLPixelsPerJob = source.OpenCLPixelsPerJob;
+	target.antialiasingEnabled = source.antialiasingEnabled;
+	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
+	target.auxLightRandomEnabled = source.auxLightRandomEnabled;
+	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
+	target.constantDEThreshold = source.constantDEThreshold;
+	target.DOFEnabled = source.DOFEnabled;
+	target.DOFHDRMode = source.DOFHDRMode;
+	target.DOFMonteCarlo = source.DOFMonteCarlo;
+	target.envMappingEnable = source.envMappingEnable;
+	target.fakeLightsEnabled = source.fakeLightsEnabled;
+	target.fogEnabled = source.fogEnabled;
+	target.glowEnabled = source.glowEnabled;
+	target.hdrBlurEnabled = source.hdrBlurEnabled;
+	target.hybridFractalEnable = source.hybridFractalEnable;
+	target.interiorMode = source.interiorMode;
+	target.iterFogEnabled = source.iterFogEnabled;
+	target.legacyCoordinateSystem = source.legacyCoordinateSystem;
+	target.limitsEnabled = source.limitsEnabled;
+	target.mainLightEnable = source.mainLightEnable;
+	target.mainLightPositionAsRelative = source.mainLightPositionAsRelative;
+	target.penetratingLights = source.penetratingLights;
+	target.raytracedReflections = source.raytracedReflections;
+	target.shadow = source.shadow;
+	target.slowShading = source.slowShading;
+	target.SSAO_random_mode = source.SSAO_random_mode;
+	target.texturedBackground = source.texturedBackground;
+	target.useDefaultBailout = source.useDefaultBailout;
+	target.volumetricLightAnyEnabled = source.volumetricLightAnyEnabled;
+	target.volFogEnabled = source.volFogEnabled;
+	target.useCustomOCLFormula = source.useCustomOCLFormula;
+	target.background_color1 = toClInt3(source.background_color1);
+	target.background_color2 = toClInt3(source.background_color2);
+	target.background_color3 = toClInt3(source.background_color3);
+	target.fogColor = toClInt3(source.fogColor);
+	target.glowColor1 = toClInt3(source.glowColor1);
+	target.glowColor2 = toClInt3(source.glowColor2);
+	target.iterFogColour1 = toClInt3(source.iterFogColour1);
+	target.iterFogColour2 = toClInt3(source.iterFogColour2);
+	target.iterFogColour3 = toClInt3(source.iterFogColour3);
+	target.mainLightColour = toClInt3(source.mainLightColour);
+	target.volFogColour1 = toClInt3(source.volFogColour1);
+	target.volFogColour2 = toClInt3(source.volFogColour2);
+	target.volFogColour3 = toClInt3(source.volFogColour3);
+	target.ambientOcclusion = source.ambientOcclusion;
+	target.ambientOcclusionFastTune = source.ambientOcclusionFastTune;
+	target.auxLightVisibility = source.auxLightVisibility;
+	target.auxLightVisibilitySize = source.auxLightVisibilitySize;
+	target.auxLightRandomRadius = source.auxLightRandomRadius;
+	target.auxLightRandomMaxDistanceFromFractal = source.auxLightRandomMaxDistanceFromFractal;
+	target.auxLightRandomIntensity = source.auxLightRandomIntensity;
+	target.background_brightness = source.background_brightness;
+	target.backgroundHScale = source.backgroundHScale;
+	target.backgroundVScale = source.backgroundVScale;
+	target.backgroundTextureOffsetX = source.backgroundTextureOffsetX;
+	target.backgroundTextureOffsetY = source.backgroundTextureOffsetY;
+	target.cameraDistanceToTarget = source.cameraDistanceToTarget;
+	target.constantFactor = source.constantFactor;
+	target.DEFactor = source.DEFactor;
+	target.detailLevel = source.detailLevel;
+	target.DEThresh = source.DEThresh;
+	target.DOFFocus = source.DOFFocus;
+	target.DOFRadius = source.DOFRadius;
+	target.DOFBlurOpacity = source.DOFBlurOpacity;
+	target.DOFMaxNoise = source.DOFMaxNoise;
+	target.fakeLightsIntensity = source.fakeLightsIntensity;
+	target.fakeLightsVisibility = source.fakeLightsVisibility;
+	target.fakeLightsVisibilitySize = source.fakeLightsVisibilitySize;
+	target.fogVisibility = source.fogVisibility;
+	target.fov = source.fov;
+	target.glowIntensity = source.glowIntensity;
+	target.hdrBlurIntensity = source.hdrBlurIntensity;
+	target.hdrBlurRadius = source.hdrBlurRadius;
+	target.iterFogColor1Maxiter = source.iterFogColor1Maxiter;
+	target.iterFogColor2Maxiter = source.iterFogColor2Maxiter;
+	target.iterFogOpacity = source.iterFogOpacity;
+	target.iterFogOpacityTrim = source.iterFogOpacityTrim;
+	target.mainLightAlpha = source.mainLightAlpha;
+	target.mainLightBeta = source.mainLightBeta;
+	target.mainLightIntensity = source.mainLightIntensity;
+	target.mainLightVisibility = source.mainLightVisibility;
+	target.mainLightVisibilitySize = source.mainLightVisibilitySize;
+	target.resolution = source.resolution;
+	target.shadowConeAngle = source.shadowConeAngle;
+	target.smoothness = source.smoothness;
+	target.stereoEyeDistance = source.stereoEyeDistance;
+	target.stereoInfiniteCorrection = source.stereoInfiniteCorrection;
+	target.sweetSpotHAngle = source.sweetSpotHAngle;
+	target.sweetSpotVAngle = source.sweetSpotVAngle;
+	target.viewDistanceMax = source.viewDistanceMax;
+	target.viewDistanceMin = source.viewDistanceMin;
+	target.volFogColour1Distance = source.volFogColour1Distance;
+	target.volFogColour2Distance = source.volFogColour2Distance;
+	target.volFogDensity = source.volFogDensity;
+	target.volFogDistanceFactor = source.volFogDistanceFactor;
+	target.imageAdjustments = clCopySImageAdjustmentsCl(source.imageAdjustments);
+	target.auxLightRandomCenter = source.auxLightRandomCenter.toClFloat3();
+	target.backgroundRotation = source.backgroundRotation.toClFloat3();
+	target.limitMin = source.limitMin.toClFloat3();
+	target.limitMax = source.limitMax.toClFloat3();
+	target.repeat = source.repeat.toClFloat3();
+	target.target = source.target.toClFloat3();
+	target.camera = source.camera.toClFloat3();
+	target.viewAngle = source.viewAngle.toClFloat3();
+	target.topVector = source.topVector.toClFloat3();
+	target.mRotBackgroundRotation = toClMatrix33(source.mRotBackgroundRotation);
+	target.common = clCopySCommonParamsCl(source.common);
+	return target;
+}
+
+#endif
 
 #endif /* MANDELBULBER2_OPENCL_FRACTPARAMS_CL_HPP_ */

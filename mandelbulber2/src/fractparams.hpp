@@ -85,7 +85,7 @@ struct sParamRender
 	int DOFSamples;
 	int DOFMinSamples;
 
-#ifdef CLSUPPORT
+#ifdef USE_OPENCL
 	int OpenCLDOFMethod;
 	int OpenCLEngine;
 	int OpenCLPixelsPerJob;
@@ -130,7 +130,7 @@ struct sParamRender
 	bool volumetricLightAnyEnabled;
 	bool volFogEnabled;
 
-#ifdef CLSUPPORT
+#ifdef USE_OPENCL
 	bool useCustomOCLFormula;
 #endif
 

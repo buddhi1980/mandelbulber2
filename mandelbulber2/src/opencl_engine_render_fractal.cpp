@@ -13,6 +13,8 @@
 #include "cimage.hpp"
 #include "nine_fractals.hpp"
 #include "fractal.h"
+#include "../opencl/fractal_cl.h"
+#include "../opencl/fractparams_cl.hpp"
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
@@ -52,6 +54,7 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	{
 		// passthrough define constants
 		progEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
+		progEngine.append("#define CLSUPPORT 1\n");
 
 		// it's still temporary, but in this way we can append main header file
 
@@ -133,6 +136,9 @@ void cOpenClEngineRenderFractal::SetParameters(
 	cNineFractals *fractals = new cNineFractals(fractalContainer, paramContainer);
 
 	// temporary code to copy general parameters
+	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
+
+/*
 	constantInBuffer->params.N = paramRender->N;
 	constantInBuffer->params.imageWidth = paramRender->imageWidth;
 	constantInBuffer->params.imageHeight = paramRender->imageHeight;
@@ -143,14 +149,18 @@ void cOpenClEngineRenderFractal::SetParameters(
 	constantInBuffer->params.DEFactor = paramRender->DEFactor;
 	constantInBuffer->params.mainLightAlpha = paramRender->mainLightAlpha;
 	constantInBuffer->params.mainLightBeta = paramRender->mainLightBeta;
+*/
+
+	constantInBuffer->fractal[0] = clCopySFractalCl(*fractals->GetFractal(0));
 
 	// temporary code to copy fractal parameters
-	constantInBuffer->fractal[0].bulb.power = fractals->GetFractal(0)->bulb.power;
+	/*constantInBuffer->fractal[0].bulb.power = fractals->GetFractal(0)->bulb.power;
 	constantInBuffer->fractal[0].bulb.alphaAngleOffset =
 		fractals->GetFractal(0)->bulb.alphaAngleOffset;
 	constantInBuffer->fractal[0].bulb.betaAngleOffset = fractals->GetFractal(0)->bulb.betaAngleOffset;
 	constantInBuffer->fractal[0].bulb.gammaAngleOffset =
 		fractals->GetFractal(0)->bulb.gammaAngleOffset;
+*/
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 

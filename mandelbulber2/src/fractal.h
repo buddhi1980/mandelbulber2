@@ -322,20 +322,20 @@ struct sFractalMagTransforms
 };
 
 // basic combo
-enum comboEnum
+enum enumCombo
 {
-	comboEnum_mode0,
-	comboEnum_mode1,
-	comboEnum_mode2,
-	comboEnum_mode3,
-	comboEnum_mode4,
-	comboEnum_mode5,
-	comboEnum_mode6,
-	comboEnum_mode7,
+	combo_mode0,
+	combo_mode1,
+	combo_mode2,
+	combo_mode3,
+	combo_mode4,
+	combo_mode5,
+	combo_mode6,
+	combo_mode7,
 };
 struct sFractalCombo
 {
-	comboEnum modeA;
+	enumCombo modeA;
 	//		combo modeB;
 	//		combo modeC;
 };
@@ -645,7 +645,7 @@ struct sFractal
 	sFractalCpara Cpara;
 	sFractalCombo combo;
 
-#ifdef CLSUPPORT
+#ifdef USE_OPENCL
 	double customParameters[15];
 	double deltaDEStep;
 	char customOCLFormulaName[100];
