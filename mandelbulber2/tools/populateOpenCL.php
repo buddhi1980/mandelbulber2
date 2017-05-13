@@ -59,6 +59,8 @@ foreach($copyFiles as $type => $copyFile){
 		if(!empty($match[1])){
 			foreach($match[1] as $replace){
 				$content = str_replace($replace, $replace . 'Cl', $content);
+				$stripEnum = lcfirst(str_replace('enum', '', $replace));
+				$content = preg_replace('/(' . $stripEnum . ')_([a-zA-Z0-9_]+)/', '$1Cl_$2', $content);
 			}
 		}
 	}
@@ -94,13 +96,20 @@ foreach($copyFiles as $type => $copyFile){
 	    array('find' => '/.*::.*/', 'replace' => ""), // no namespace scopes allowed?
 	    array('find' => '/.*sImageAdjustments.*/', 'replace' => ""), // need to include file...
 	    array('find' => '/.*cPrimitives.*/', 'replace' => ""), // need to include file...
-			array('find' => '/.*sCommonParams.*/', 'replace' => ""), // need to include file...
-			array('find' => '/matrix33 /', 'replace' => "// matrix33 "), // TODO
+		    array('find' => '/.*sCommonParams.*/', 'replace' => ""), // need to include file...
 			array('find' => '/matrix44 /', 'replace' => "// matrix44 "), // TODO
 	);
 	foreach($openCLReplaceLookup as $item){
 		$content = preg_replace($item['find'], $item['replace'], $content);
 	}
+
+    // add c++ side includes
+	$cppIncludes = '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL;
+	$cppIncludes .= '#include "../src/fractal_enums.h"' . PHP_EOL;
+	$cppIncludes .= '#include "../opencl/opencl_algebra.h"' . PHP_EOL;
+	$cppIncludes .= '#endif' . PHP_EOL;
+	$content = preg_replace('/(#define MANDELBULBER2_OPENCL_.*)/', '$1' . PHP_EOL . PHP_EOL . $cppIncludes, $content);
+
 
 	// clang-format
 	$filepathTemp = $copyFile['path'] . '.tmp.c';
@@ -109,7 +118,7 @@ foreach($copyFiles as $type => $copyFile){
 	$content = file_get_contents($filepathTemp);
 	unlink($filepathTemp); // nothing to see here :)
 	
-	if($content != $oldContent){
+    if($content != $oldContent){
 		if(!isDryRun()){
 			file_put_contents($copyFile['pathTarget'], $content);
 		}

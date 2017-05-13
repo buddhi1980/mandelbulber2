@@ -45,14 +45,14 @@
 #ifndef MANDELBULBER2_OPENCL_FRACTAL_CL_H_
 #define MANDELBULBER2_OPENCL_FRACTAL_CL_H_
 
+#ifndef OPENCL_KERNEL_CODE
+#include "../src/fractal_enums.h"
+#include "../opencl/opencl_algebra.h"
+#endif
+
 #define IFS_VECTOR_COUNTCl 9
 #define HYBRID_COUNTCl 5
 #define MANDELBOX_FOLDSCl 2
-
-#ifndef OPENCL_KERNEL_CODE
-#include "../opencl/opencl_algebra.h"
-#include "../src/fractal_enums.h"
-#endif
 
 typedef struct
 {
@@ -530,7 +530,7 @@ typedef struct
 
 	matrix33 rotationMatrix;
 	matrix33 rotationMatrix2;
-	//matrix44 rotationMatrix44; //....................
+	// matrix44 rotationMatrix44; //....................
 	matrix33 tempRotMatrix;
 
 	cl_int addCpixelEnabled;
