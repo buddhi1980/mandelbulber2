@@ -25,5 +25,5 @@ inline void Mandelbulb4Iteration(float3 *z, __constant sFractalCl *fractal, sExt
 	rotM = RotateY(rotM, angY * (fractal->bulb.power - 1.0f));
 	rotM = RotateZ(rotM, angZ * (fractal->bulb.power - 1.0f));
 
-	*z = rotM = Matrix33MulFloat3(rotM, *z) * rp;
+	*z = Matrix33MulFloat3(rotM, *z) * rp;
 }

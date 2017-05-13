@@ -421,7 +421,7 @@ function parseToOpenCL($code){
 			array('find' => "/($var)\.Length\(\)/", 'replace' => 'length($1)'),       // CVector3 Length() to built in length
 			array('find' => "/($var)\.Dot\(/", 'replace' => 'dot($1, '),              // CVector3 Dot() to built in dot
 			array('find' => "/($var)\.Cross\(/", 'replace' => 'cross($1, '),          // CVector3 Cross() to built in cross
-			array('find' => "/($var)\.RotateVector\(/", 'replace' => '$1 = Matrix33MulFloat3($1, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/($var) = ($var)\.RotateVector\(/", 'replace' => '$1 = Matrix33MulFloat3($2, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateX\(/", 'replace' => '$1 = RotateX($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateY\(/", 'replace' => '$1 = RotateY($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateZ\(/", 'replace' => '$1 = RotateZ($1, '), // CRotationMatrix33 to custom rotation function
@@ -463,6 +463,7 @@ function parseToOpenCL($code){
 			array('find' => "/(\s)z4D\s=/", 'replace' => '$1*z4D ='), // z4D to pointer
 			array('find' => "/(\s)z4D\s(.)=/", 'replace' => '$1*z4D $2='), // z4D to pointer
 			array('find' => "/([\s\(])z4D([,\);])/", 'replace' => '$1*z4D$2'), // z4D to pointer
+			array('find' => "/case ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+):/", 'replace' => 'case $1Cl$2:'), // replace enum switch cases ith cl version
 
 			// TODO more replacements
 		);
