@@ -20,6 +20,10 @@ $copyFiles['fractal_h']['path'] = PROJECT_PATH . 'src/fractal.h';
 $copyFiles['fractal_h']['pathTarget'] = PROJECT_PATH . 'opencl/fractal_cl.h';
 $copyFiles['fractparams_h']['path'] = PROJECT_PATH . 'src/fractparams.hpp';
 $copyFiles['fractparams_h']['pathTarget'] = PROJECT_PATH . 'opencl/fractparams_cl.hpp';
+$copyFiles['image_adjustments_h']['path'] = PROJECT_PATH . 'src/image_adjustments.h';
+$copyFiles['image_adjustments_h']['pathTarget'] = PROJECT_PATH . 'opencl/image_adjustments_cl.h';
+$copyFiles['common_params_hpp']['path'] = PROJECT_PATH . 'src/common_params.hpp';
+$copyFiles['common_params_hpp']['pathTarget'] = PROJECT_PATH . 'opencl/common_params_cl.hpp';
 
 foreach($copyFiles as $type => $copyFile){
 	$oldContent = file_get_contents($copyFile['pathTarget']);
@@ -58,7 +62,7 @@ foreach($copyFiles as $type => $copyFile){
 		preg_match_all($item['find'], $content, $match);
 		if(!empty($match[1])){
 			foreach($match[1] as $replace){
-				$content = str_replace($replace, $replace . 'Cl', $content);
+			    $content = str_replace($replace, $replace . 'Cl', $content);
 				$stripEnum = lcfirst(str_replace('enum', '', $replace));
 				$content = preg_replace('/(' . $stripEnum . ')_([a-zA-Z0-9_]+)/', '$1Cl_$2', $content);
 			}
@@ -75,29 +79,28 @@ foreach($copyFiles as $type => $copyFile){
 	    array('find' => '/(\s)CVector3(\s)/', 'replace' => '$1cl_float3$2'),
 	    array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
 
-			array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1"),
-			array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1"),
-			array('find' => '/const cl_int\s([a-zA-Z0-9_]+)\s=\s([a-zA-Z0-9_]+);/', 'replace' => "#define $1 $2"),
-	    array('find' => '/\n#include\s.*/', 'replace' => ''), // remove includes
-	    array('find' => '/(\s)CRotationMatrix(\s)/', 'replace' => '$1matrix33$2'),
-			array('find' => '/(\s)CRotationMatrix44(\s)/', 'replace' => '$1matrix44$2'),
+        array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1"),
+		array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1"),
+		array('find' => '/const cl_int\s([a-zA-Z0-9_]+)\s=\s([a-zA-Z0-9_]+);/', 'replace' => "#define $1 $2"),
+		array('find' => '/\n#include\s.*/', 'replace' => ''), // remove includes
+		array('find' => '/(\s)CRotationMatrix(\s)/', 'replace' => '$1matrix33$2'),
+		array('find' => '/(\s)CRotationMatrix44(\s)/', 'replace' => '$1matrix44$2'),
 
-	    array('find' => '/class\s([a-zA-Z0-9_]+);/', 'replace' => ""), // remove forward declaration
-	    array('find' => '/\/\/\sforward declarations/', 'replace' => ""), // remove comment "forward declaration"
-			array('find' => '/MANDELBULBER2_SRC_(.*)_HPP_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_HPP_"), // include guard 1
-			array('find' => '/MANDELBULBER2_SRC_(.*)_H_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_H_"), // include guard
+        array('find' => '/class\s([a-zA-Z0-9_]+);/', 'replace' => ""), // remove forward declaration
+		array('find' => '/\/\/\sforward declarations/', 'replace' => ""), // remove comment "forward declaration"
+		array('find' => '/MANDELBULBER2_SRC_(.*)_HPP_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_HPP_"), // include guard 1
+		array('find' => '/MANDELBULBER2_SRC_(.*)_H_/', 'replace' => "MANDELBULBER2_OPENCL_$1_CL_H_"), // include guard
 
-		// TODO rework these regexes
-			array('find' => '/namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
-			array('find' => '/sParamRenderCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
-			array('find' => '/sFractalCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
-			array('find' => '/void RecalculateFractalParams\([\s\S]*?\);/', 'replace' => ""), // remove method
+        // TODO rework these regexes
+		array('find' => '/namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
+		array('find' => '/sParamRenderCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
+		array('find' => '/sFractalCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
+		array('find' => '/sImageAdjustmentsCl\([\s\S]*?}/', 'replace' => ""), // remove constructor
+		array('find' => '/void RecalculateFractalParams\([\s\S]*?\);/', 'replace' => ""), // remove method
 
-	    array('find' => '/.*::.*/', 'replace' => ""), // no namespace scopes allowed?
-	    array('find' => '/.*sImageAdjustments.*/', 'replace' => ""), // need to include file...
-	    array('find' => '/.*cPrimitives.*/', 'replace' => ""), // need to include file...
-		    array('find' => '/.*sCommonParams.*/', 'replace' => ""), // need to include file...
-			array('find' => '/matrix44 /', 'replace' => "// matrix44 "), // TODO
+        array('find' => '/.*::.*/', 'replace' => ""), // no namespace scopes allowed?
+		array('find' => '/.*cPrimitives.*/', 'replace' => ""), // need to include file...
+		array('find' => '/matrix44 /', 'replace' => "// matrix44 "), // TODO
 	);
 	foreach($openCLReplaceLookup as $item){
 		$content = preg_replace($item['find'], $item['replace'], $content);
@@ -107,6 +110,8 @@ foreach($copyFiles as $type => $copyFile){
 	$cppIncludes = '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL;
 	$cppIncludes .= '#include "../src/fractal_enums.h"' . PHP_EOL;
 	$cppIncludes .= '#include "../opencl/opencl_algebra.h"' . PHP_EOL;
+	$cppIncludes .= '#include "../opencl/common_params_cl.hpp"' . PHP_EOL;
+	$cppIncludes .= '#include "../opencl/image_adjustments_cl.h"' . PHP_EOL;
 	$cppIncludes .= '#endif' . PHP_EOL;
 	$content = preg_replace('/(#define MANDELBULBER2_OPENCL_.*)/', '$1' . PHP_EOL . PHP_EOL . $cppIncludes, $content);
 
@@ -118,7 +123,7 @@ foreach($copyFiles as $type => $copyFile){
 	$content = file_get_contents($filepathTemp);
 	unlink($filepathTemp); // nothing to see here :)
 	
-    if($content != $oldContent){
+	if($content != $oldContent){
 		if(!isDryRun()){
 			file_put_contents($copyFile['pathTarget'], $content);
 		}
@@ -128,6 +133,27 @@ foreach($copyFiles as $type => $copyFile){
 			echo noticeString('file ' . $copyFile['pathTarget'] . ' has not changed.') . PHP_EOL;
 		}
 	}
+}
+
+function getCopyStruct($structName, $properties){
+    $structNameSource = substr($structName, 0, -2);
+    $out = '#ifndef __OPENCL_VERSION__' . PHP_EOL;
+    $out .= $structName . ' init' . $structName . '(' . $structNameSource . ' source){' . PHP_EOL;
+    $out .= '    ' . $structName . ' target;' . PHP_EOL;
+    foreach($properties as $property){
+        $copyLine = 'target.' . $property['name'] . ' = ';
+        switch($property['type']){
+		    case 'struct': $copyLine .= 'init' . $property['typeName'] . '(source.' . $property['name'] . ');';
+			case 'cl_float3': $copyLine .= $property['name'] . '.toFloat3();';
+			default:  $copyLine .= $property['name'] . ';';
+        }
+        $out .= '   ' . $copyLine . PHP_EOL;
+    }
+
+    $out .= '   ' . 'return target;' . PHP_EOL;
+    $out .= '}' . PHP_EOL;
+    $out .= '#endif' . PHP_EOL;
+    return $out;
 }
 
 printFinish();

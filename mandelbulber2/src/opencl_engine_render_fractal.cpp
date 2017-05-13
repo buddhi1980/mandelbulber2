@@ -62,6 +62,12 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 											+ "opencl_algebra.h\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "common_params_cl.hpp\"\n");
+
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "image_adjustments_cl.h\"\n");
+
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "fractal_cl.h\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()

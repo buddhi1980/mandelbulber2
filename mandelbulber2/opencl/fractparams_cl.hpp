@@ -48,6 +48,8 @@
 #ifndef OPENCL_KERNEL_CODE
 #include "../src/fractal_enums.h"
 #include "../opencl/opencl_algebra.h"
+#include "../opencl/common_params_cl.hpp"
+#include "../opencl/image_adjustments_cl.h"
 #endif
 
 typedef struct
@@ -183,6 +185,8 @@ typedef struct
 	cl_float volFogDistanceFactor;
 	cl_float volumetricLightIntensity[5];
 
+	sImageAdjustmentsCl imageAdjustments;
+
 	cl_float3 auxLightPre[4];
 	cl_float3 auxLightRandomCenter;
 	cl_float3 backgroundRotation;
@@ -200,6 +204,7 @@ typedef struct
 	matrix33 mRotFormulaRotation[NUMBER_OF_FRACTALS];
 	matrix33 mRotBackgroundRotation;
 
+	sCommonParamsCl common;
 } sParamRenderCl;
 
 #endif /* MANDELBULBER2_OPENCL_FRACTPARAMS_CL_HPP_ */
