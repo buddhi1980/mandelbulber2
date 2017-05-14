@@ -59,6 +59,9 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
 		progEngine.append("#define M_PI_180 0.01745329251994329576923690768489\n");
 		progEngine.append("#define USE_OPENCL 1\n");
+		progEngine.append("#define IFS_VECTOR_COUNT 9\n");
+		progEngine.append("#define HYBRID_COUNT 5\n");
+		progEngine.append("#define MANDELBOX_FOLDS 2\n");
 
 		// it's still temporary, but in this way we can append main header file
 

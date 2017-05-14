@@ -395,7 +395,7 @@ function getIndexIdLookUp(){
 
 function parseToOpenCL($code, $mode = 'single'){
 	$fod = $mode == 'single' ? 'float' : 'double';
-	$var = '-?[A-Za-z_][A-Za-z0-9\.\-\>_]*'; // regex for a var name
+	$var = '-?[A-Za-z_][A-Za-z0-9\.\-\>_\[\]]*'; // regex for a var name
 	$functionName = '[A-Za-z_][A-Za-z0-9\.\-\>_]*'; // regex for a function name
 	$double = '(?:-?\d+\.?\d*(?:[eE][+-]?\d+)?|-?\d*\.?\d+(?:[eE][+-]?\d+)?)'; // regex for a double value
 	$float = $double . 'f'; // regex for a float value
@@ -461,10 +461,10 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
 			array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
-			array('find' => "/([\s\(])z([,\);])/", 'replace' => '$1*z$2'), // z to pointer
+			array('find' => "/([\s\(])z([,\);\s])/", 'replace' => '$1*z$2'), // z to pointer
 			array('find' => "/(\s)z4D\s=/", 'replace' => '$1*z4D ='), // z4D to pointer
 			array('find' => "/(\s)z4D\s(.)=/", 'replace' => '$1*z4D $2='), // z4D to pointer
-			array('find' => "/([\s\(])z4D([,\);])/", 'replace' => '$1*z4D$2'), // z4D to pointer
+			array('find' => "/([\s\(])z4D([,\);\s])/", 'replace' => '$1*z4D$2'), // z4D to pointer
 			array('find' => "/case ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+):/", 'replace' => 'case $1Cl$2:'), // replace enum switch cases ith cl version
 
 			// TODO more replacements
