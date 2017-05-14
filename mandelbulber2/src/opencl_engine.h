@@ -23,6 +23,7 @@ class cOpenClEngine : public QObject
 
 	struct sOptimalJob
 	{
+		sOptimalJob() : numberOfSteps(0), workGroupSize(0), pixelsPerJob(0), stepSize(0) {}
 		size_t numberOfSteps;
 		size_t workGroupSize;
 		size_t pixelsPerJob;

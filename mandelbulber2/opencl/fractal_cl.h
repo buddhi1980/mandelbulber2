@@ -615,9 +615,9 @@ typedef struct
 	sFractalComboCl combo;
 
 #ifdef USE_OPENCL
-	cl_float customParameters[15];
-	cl_float deltaDEStep;
-	char customOCLFormulaName[100];
+//	cl_float customParameters[15];
+//	cl_float deltaDEStep;
+//	char customOCLFormulaName[100];
 
 #endif
 } sFractalCl;
@@ -1127,7 +1127,6 @@ inline sFractalCl clCopySFractalCl(sFractal source)
 	target.magTransf = clCopySFractalMagTransformsCl(source.magTransf);
 	target.Cpara = clCopySFractalCparaCl(source.Cpara);
 	target.combo = clCopySFractalComboCl(source.combo);
-	target.deltaDEStep = source.deltaDEStep;
 	return target;
 }
 

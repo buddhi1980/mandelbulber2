@@ -646,10 +646,10 @@ struct sFractal
 	sFractalCombo combo;
 
 #ifdef USE_OPENCL
-	double customParameters[15];
-	double deltaDEStep;
-	char customOCLFormulaName[100];
-	fractal::enumOCLDEMode customOCLFormulaDEMode;
+//	double customParameters[15];
+//	double deltaDEStep;
+//	char customOCLFormulaName[100];
+//	fractal::enumOCLDEMode customOCLFormulaDEMode;
 #endif
 };
 
