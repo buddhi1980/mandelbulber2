@@ -132,13 +132,22 @@ foreach($copyFiles as $type => $copyFile){
 		$lines = explode(PHP_EOL, $match);
 		foreach($lines as $line){
 		    $line = trim($line);
-			if(preg_match('/^\s*([a-zA-Z0-9_]+)\s([a-zA-Z0-9_]+);.*/', $line, $lineMatch)){
+			if(preg_match('/^\s*([a-zA-Z0-9_]+)\s([a-zA-Z0-9_\[\]]+);.*/', $line, $lineMatch)){
 			    $prop = array();
 				$prop['name'] = $lineMatch[2];
 				$prop['typeName'] = $lineMatch[1];
 				$prop['type'] = $lineMatch[1];
 				if(substr($prop['type'], 0, 1) == 's') $prop['type'] = 'struct';
 				if(substr($prop['type'], 0, 4) == 'enum') $prop['type'] = 'enum';
+				$array = explode('[', $lineMatch[2]);
+				array_shift($array);
+				if(count($array) > 0){
+				    foreach($array as $index => $e){
+					    $size = substr($e, 0, strpos($e, ']'));
+						$prop['array'][] = $size;
+						$prop['name'] = str_replace('[' . $size . ']', '[' . chr(105 + $index) . ']', $prop['name']);
+					}
+				}
 				$props[] = $prop;
 			}
 		}
@@ -172,7 +181,14 @@ function getCopyStruct($structName, $properties){
 	$out = 'inline ' . $structName . ' clCopy' . ucfirst($structName) . '(' . $structNameSource . ' source){' . PHP_EOL;
 	$out .= '	' . $structName . ' target;' . PHP_EOL;
     foreach($properties as $property){
-        $copyLine = 'target.' . $property['name'] . ' = ';
+	    $copyLine = '';
+		if(array_key_exists('array', $property) && !empty($property['array'])){
+		    foreach($property['array'] as $index => $size){
+			   $x = chr(105 + $index);
+			   $copyLine .= 'for(int ' . $x . ' = 0; ' . $x . ' < ' . $size . '; ' . $x . '++){';
+			}
+		}
+		$copyLine .= 'target.' . $property['name'] . ' = ';
 		switch($property['type']){
 		case 'struct': $copyLine .= 'clCopy' . ucfirst($property['typeName']) . '(source.' . $property['name'] . ');'; break;
 		    case 'enum': $copyLine .=  $property['typeName'] . '(source.' . $property['name'] . ');'; break;
@@ -183,6 +199,7 @@ function getCopyStruct($structName, $properties){
 
             default:  $copyLine .= 'source.' . $property['name'] . ';';
         }
+		$copyLine .= str_repeat("}", count(@$property['array']));
 		$out .= '	' . $copyLine . PHP_EOL;
     }
 

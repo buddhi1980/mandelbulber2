@@ -223,6 +223,10 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
 	target.frameNo = source.frameNo;
 	target.imageHeight = source.imageHeight;
 	target.imageWidth = source.imageWidth;
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		target.formulaMaterialId[i] = source.formulaMaterialId[i];
+	}
 	target.minN = source.minN;
 	target.N = source.N;
 	target.reflectionsMax = source.reflectionsMax;
@@ -235,6 +239,10 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
 	target.OpenCLPixelsPerJob = source.OpenCLPixelsPerJob;
 	target.antialiasingEnabled = source.antialiasingEnabled;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
+	for (int i = 0; i < 4; i++)
+	{
+		target.auxLightPreEnabled[i] = source.auxLightPreEnabled[i];
+	}
 	target.auxLightRandomEnabled = source.auxLightRandomEnabled;
 	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
 	target.constantDEThreshold = source.constantDEThreshold;
@@ -260,9 +268,17 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
 	target.SSAO_random_mode = source.SSAO_random_mode;
 	target.texturedBackground = source.texturedBackground;
 	target.useDefaultBailout = source.useDefaultBailout;
+	for (int i = 0; i < 5; i++)
+	{
+		target.volumetricLightEnabled[i] = source.volumetricLightEnabled[i];
+	}
 	target.volumetricLightAnyEnabled = source.volumetricLightAnyEnabled;
 	target.volFogEnabled = source.volFogEnabled;
 	target.useCustomOCLFormula = source.useCustomOCLFormula;
+	for (int i = 0; i < 4; i++)
+	{
+		target.auxLightPreColour[i] = toClInt3(source.auxLightPreColour[i]);
+	}
 	target.background_color1 = toClInt3(source.background_color1);
 	target.background_color2 = toClInt3(source.background_color2);
 	target.background_color3 = toClInt3(source.background_color3);
@@ -278,6 +294,10 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
 	target.volFogColour3 = toClInt3(source.volFogColour3);
 	target.ambientOcclusion = source.ambientOcclusion;
 	target.ambientOcclusionFastTune = source.ambientOcclusionFastTune;
+	for (int i = 0; i < 4; i++)
+	{
+		target.auxLightPreIntensity[i] = source.auxLightPreIntensity[i];
+	}
 	target.auxLightVisibility = source.auxLightVisibility;
 	target.auxLightVisibilitySize = source.auxLightVisibilitySize;
 	target.auxLightRandomRadius = source.auxLightRandomRadius;
@@ -301,6 +321,10 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
 	target.fakeLightsVisibility = source.fakeLightsVisibility;
 	target.fakeLightsVisibilitySize = source.fakeLightsVisibilitySize;
 	target.fogVisibility = source.fogVisibility;
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		target.formulaScale[i] = source.formulaScale[i];
+	}
 	target.fov = source.fov;
 	target.glowIntensity = source.glowIntensity;
 	target.hdrBlurIntensity = source.hdrBlurIntensity;
@@ -327,9 +351,29 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
 	target.volFogColour2Distance = source.volFogColour2Distance;
 	target.volFogDensity = source.volFogDensity;
 	target.volFogDistanceFactor = source.volFogDistanceFactor;
+	for (int i = 0; i < 5; i++)
+	{
+		target.volumetricLightIntensity[i] = source.volumetricLightIntensity[i];
+	}
 	target.imageAdjustments = clCopySImageAdjustmentsCl(source.imageAdjustments);
+	for (int i = 0; i < 4; i++)
+	{
+		target.auxLightPre[i] = toClFloat3(source.auxLightPre[i]);
+	}
 	target.auxLightRandomCenter = toClFloat3(source.auxLightRandomCenter);
 	target.backgroundRotation = toClFloat3(source.backgroundRotation);
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		target.formulaPosition[i] = toClFloat3(source.formulaPosition[i]);
+	}
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		target.formulaRotation[i] = toClFloat3(source.formulaRotation[i]);
+	}
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		target.formulaRepeat[i] = toClFloat3(source.formulaRepeat[i]);
+	}
 	target.limitMin = toClFloat3(source.limitMin);
 	target.limitMax = toClFloat3(source.limitMax);
 	target.repeat = toClFloat3(source.repeat);
@@ -337,6 +381,10 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
 	target.camera = toClFloat3(source.camera);
 	target.viewAngle = toClFloat3(source.viewAngle);
 	target.topVector = toClFloat3(source.topVector);
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		target.mRotFormulaRotation[i] = toClMatrix33(source.mRotFormulaRotation[i]);
+	}
 	target.mRotBackgroundRotation = toClMatrix33(source.mRotBackgroundRotation);
 	target.common = clCopySCommonParamsCl(source.common);
 	return target;

@@ -661,6 +661,38 @@ inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
 	sFractalGeneralizedFoldBox source)
 {
 	sFractalGeneralizedFoldBoxCl target;
+	for (int i = 0; i < 4; i++)
+	{
+		target.Nv_tet[i] = toClFloat3(source.Nv_tet[i]);
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		target.Nv_cube[i] = toClFloat3(source.Nv_cube[i]);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		target.Nv_oct[i] = toClFloat3(source.Nv_oct[i]);
+	}
+	for (int i = 0; i < 14; i++)
+	{
+		target.Nv_oct_cube[i] = toClFloat3(source.Nv_oct_cube[i]);
+	}
+	for (int i = 0; i < 12; i++)
+	{
+		target.Nv_dodeca[i] = toClFloat3(source.Nv_dodeca[i]);
+	}
+	for (int i = 0; i < 20; i++)
+	{
+		target.Nv_icosa[i] = toClFloat3(source.Nv_icosa[i]);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		target.Nv_box6[i] = toClFloat3(source.Nv_box6[i]);
+	}
+	for (int i = 0; i < 7; i++)
+	{
+		target.Nv_box5[i] = toClFloat3(source.Nv_box5[i]);
+	}
 	target.sides_tet = source.sides_tet;
 	target.sides_cube = source.sides_cube;
 	target.sides_oct = source.sides_oct;
@@ -675,12 +707,36 @@ inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
 inline sFractalIFSCl clCopySFractalIFSCl(sFractalIFS source)
 {
 	sFractalIFSCl target;
+	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
+	{
+		target.enabled[i] = source.enabled[i];
+	}
 	target.mengerSpongeMode = source.mengerSpongeMode;
 	target.rotationEnabled = source.rotationEnabled;
 	target.edgeEnabled = source.edgeEnabled;
 	target.mainRot = toClMatrix33(source.mainRot);
+	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
+	{
+		target.rot[i] = toClMatrix33(source.rot[i]);
+	}
+	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
+	{
+		target.direction[i] = toClFloat3(source.direction[i]);
+	}
 	target.edge = toClFloat3(source.edge);
 	target.offset = toClFloat3(source.offset);
+	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
+	{
+		target.rotations[i] = toClFloat3(source.rotations[i]);
+	}
+	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
+	{
+		target.distance[i] = source.distance[i];
+	}
+	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
+	{
+		target.intensity[i] = source.intensity[i];
+	}
 	target.rotation = toClFloat3(source.rotation);
 	target.scale = source.scale;
 	return target;
@@ -701,6 +757,13 @@ inline sFractalMandelboxCl clCopySFractalMandelboxCl(sFractalMandelbox source)
 {
 	sFractalMandelboxCl target;
 	target.rotationMain = toClFloat3(source.rotationMain);
+	for (int i = 0; i < MANDELBOX_FOLDSCl; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			target.rotation[i][j] = toClFloat3(source.rotation[i][j]);
+		}
+	}
 	target.color = clCopySFoldColorCl(source.color);
 	target.scale = source.scale;
 	target.foldingLimit = source.foldingLimit;
@@ -714,6 +777,20 @@ inline sFractalMandelboxCl clCopySFractalMandelboxCl(sFractalMandelbox source)
 	target.rotationsEnabled = source.rotationsEnabled;
 	target.mainRotationEnabled = source.mainRotationEnabled;
 	target.mainRot = toClMatrix33(source.mainRot);
+	for (int i = 0; i < MANDELBOX_FOLDSCl; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			target.rot[i][j] = toClMatrix33(source.rot[i][j]);
+		}
+	}
+	for (int i = 0; i < MANDELBOX_FOLDSCl; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			target.rotinv[i][j] = toClMatrix33(source.rotinv[i][j]);
+		}
+	}
 	target.fR2 = source.fR2;
 	target.mR2 = source.mR2;
 	target.mboxFactor1 = source.mboxFactor1;
