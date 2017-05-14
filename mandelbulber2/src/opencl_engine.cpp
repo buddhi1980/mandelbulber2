@@ -79,6 +79,8 @@ bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
 {
 	std::string buildParams;
 	buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE";
+	buildParams += definesCollector.toUtf8().constData();
+	qDebug() << "Build parameters: " << buildParams.c_str();
 	cl_int err;
 	err = prog->build(hardware->getClDevices(), buildParams.c_str());
 

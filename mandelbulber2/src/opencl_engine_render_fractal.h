@@ -40,6 +40,7 @@ private:
 
 	sClPixel *rgbbuff;
 	cl::Buffer *outCL;
+
 #endif
 };
 

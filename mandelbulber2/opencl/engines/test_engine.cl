@@ -29,18 +29,27 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float colourMin = 1e8f;
 
 	// formula init
-	float r_dz = 1.0f;
 	sExtendedAuxCl aux;
 	// TODO copy aux
-	aux.r = length(z);
 	aux.r_dz = 1.0f;
+	aux.r = length(z);
+	aux.color = 1.0f;
+	aux.actualScale = 2.0f; // fractals.GetFractal(fractalIndex)->mandelbox.scale;
+	aux.DE = 1.0f;
+	aux.c = c;
+	aux.cw = 0.0f;
+	aux.foldFactor = 0.0f;
+	aux.minRFactor = 0.0f;
+	aux.scaleFactor = 0.0f;
+	aux.pseudoKleinianDE = 1.0f;
 
 	__constant sFractalCl *fractal = &consts->fractal[0];
 
 	// loop
 	for (i = 0; i < N; i++)
 	{
-	    MandelbulbIteration(&z, fractal, &aux);
+		MandelbulbIteration(&z, fractal, &aux);
+		// AboxMod1Iteration(&z, c, i, fractal, &aux);
 		// Mandelbulb4Iteration(&z, fractal, &aux);
 		// Mandelbulb3Iteration(&z, &aux);
 
@@ -51,7 +60,16 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		if (aux.r > 4.0f || any(isinf(z)))
 		{
+#ifdef ANALYTIC_LOG_DE
 			dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);
+#elif ANALYTIC_LINEAR_DE
+			dist = aux.r / fabs(aux.DE);
+#elif ANALYTIC_PSEUDO_KLEINIAN_DE
+
+#else
+			dist = z;
+#endif
+
 			out.colourIndex = colourMin * 5000.0f;
 			break;
 		}
@@ -75,6 +93,7 @@ formulaOut CalculateDistance(
 	out.distance = 0.0f;
 	out.colourIndex = 0.0f;
 
+#if defined(ANALYTIC_LOG_DE) || defined(ANALYTIC_LINEAR_DE) || defined(ANALYTIC_PSEUDO_KLEINIAN_DE)
 	out = Fractal(consts, point, calcParam);
 
 	if (out.iters == calcParam->N)
@@ -87,7 +106,7 @@ formulaOut CalculateDistance(
 		if (out.distance < 0.0f) out.distance = 0.0f;
 		if (out.distance > 10.0f) out.distance = 10.0f;
 	}
-
+#endif
 	return out;
 }
 

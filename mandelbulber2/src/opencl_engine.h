@@ -55,6 +55,8 @@ protected:
 	bool programsLoaded;
 	bool readyForRendering;
 
+	QString definesCollector;
+
 #endif
 
 	cOpenClHardware *hardware;

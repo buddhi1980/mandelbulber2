@@ -86,6 +86,9 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 											+ "opencl" + QDir::separator() + "mandelbulb" + ".cl\"\n");
 
+		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
+											+ "opencl" + QDir::separator() + "abox_mod1" + ".cl\"\n");
+
 		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
 																					 + "engines" + QDir::separator() + "test_engine.cl"));
 
@@ -134,6 +137,8 @@ void cOpenClEngineRenderFractal::SetParameters(
 	if (constantInBuffer) delete constantInBuffer;
 	constantInBuffer = new sClInConstants;
 
+	definesCollector.clear();
+
 	// TODO Write function to copy parameters from sParamRender to sClParamRender
 	// Would be good to write php script for it
 	sParamRender *paramRender = new sParamRender(paramContainer);
@@ -144,30 +149,37 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	// TODO
 	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
-/*
-	constantInBuffer->params.N = paramRender->N;
-	constantInBuffer->params.imageWidth = paramRender->imageWidth;
-	constantInBuffer->params.imageHeight = paramRender->imageHeight;
-	constantInBuffer->params.camera = toClFloat3(paramRender->camera);
-	constantInBuffer->params.target = toClFloat3(paramRender->target);
-	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
-	constantInBuffer->params.fov = paramRender->fov;
-	constantInBuffer->params.DEFactor = paramRender->DEFactor;
-	constantInBuffer->params.mainLightAlpha = paramRender->mainLightAlpha;
-	constantInBuffer->params.mainLightBeta = paramRender->mainLightBeta;
-*/
 
-	constantInBuffer->fractal[0] = clCopySFractalCl(*fractals->GetFractal(0));
+	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
+	}
 
-	// temporary code to copy fractal parameters
-/*
-	constantInBuffer->fractal[0].bulb.power = fractals->GetFractal(0)->bulb.power;
-	constantInBuffer->fractal[0].bulb.alphaAngleOffset =
-		fractals->GetFractal(0)->bulb.alphaAngleOffset;
-	constantInBuffer->fractal[0].bulb.betaAngleOffset = fractals->GetFractal(0)->bulb.betaAngleOffset;
-	constantInBuffer->fractal[0].bulb.gammaAngleOffset =
-		fractals->GetFractal(0)->bulb.gammaAngleOffset;
-*/
+	//define distance estimation method
+	fractal::enumDEType deType = fractals->GetDEType(0);
+	fractal::enumDEFunctionType deFunctionType = fractals->GetDEFunctionType(0);
+
+	if(deType == fractal::analyticDEType)
+	{
+		switch(deFunctionType)
+		{
+			case fractal::linearDEFunction:
+				definesCollector += " -DANALYTIC_LINEAR_DE";
+				break;
+			case fractal::logarithmicDEFunction:
+				definesCollector += " -DANALYTIC_LOG_DE";
+				break;
+			case fractal::pseudoKleinianDEFunction:
+				definesCollector += " -DANALYTIC_PSEUDO_KLEINIAN_DE";
+				break;
+			default:
+				break;
+		}
+	}
+	else
+	{
+
+	}
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 
