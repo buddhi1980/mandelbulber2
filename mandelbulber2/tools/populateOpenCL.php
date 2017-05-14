@@ -145,6 +145,7 @@ foreach($copyFiles as $type => $copyFile){
 				    foreach($array as $index => $e){
 					    $size = substr($e, 0, strpos($e, ']'));
 						$prop['array'][] = $size;
+						// the array will be inited in a loop, so the array index should be the run var in each dimension: i, j, k, ...
 						$prop['name'] = str_replace('[' . $size . ']', '[' . chr(105 + $index) . ']', $prop['name']);
 					}
 				}
@@ -182,23 +183,31 @@ function getCopyStruct($structName, $properties){
 	$out .= '	' . $structName . ' target;' . PHP_EOL;
     foreach($properties as $property){
 	    $copyLine = '';
+
+        // if the var is an array, prepend for loops for each dimension
 		if(array_key_exists('array', $property) && !empty($property['array'])){
 		    foreach($property['array'] as $index => $size){
-			   $x = chr(105 + $index);
+			   $x = chr(105 + $index); // i, j, k, ...
 			   $copyLine .= 'for(int ' . $x . ' = 0; ' . $x . ' < ' . $size . '; ' . $x . '++){';
 			}
 		}
+
 		$copyLine .= 'target.' . $property['name'] . ' = ';
 		switch($property['type']){
-		case 'struct': $copyLine .= 'clCopy' . ucfirst($property['typeName']) . '(source.' . $property['name'] . ');'; break;
-		    case 'enum': $copyLine .=  $property['typeName'] . '(source.' . $property['name'] . ');'; break;
+		    // if the var is a struct, copy with the assumed clCopy* function
+			case 'struct': $copyLine .= 'clCopy' . ucfirst($property['typeName']) . '(source.' . $property['name'] . ');'; break;
+			// the value is an enum, so it has to be casted to target type
+			case 'enum': $copyLine .=  $property['typeName'] . '(source.' . $property['name'] . ');'; break;
+			// the target type is a special opencl type, which has a copy method from opencl_algebra.h
 			case 'cl_float3': $copyLine .= 'toClFloat3(source.' . $property['name'] . ');'; break;
 			case 'matrix33': $copyLine .= 'toClMatrix33(source.' . $property['name'] . ');'; break;
 			case 'cl_int3': $copyLine .= 'toClInt3(source.' . $property['name'] . ');'; break;
 			case 'cl_float4': $copyLine .= 'toClFloat4(source.' . $property['name'] . ');'; break;
-
+			// the value can simply be assigned
             default:  $copyLine .= 'source.' . $property['name'] . ';';
         }
+
+        // close open for loops
 		$copyLine .= str_repeat("}", count(@$property['array']));
 		$out .= '	' . $copyLine . PHP_EOL;
     }
