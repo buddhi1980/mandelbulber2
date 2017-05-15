@@ -124,7 +124,9 @@ struct sFractalGeneralizedFoldBox
 
 struct sFractalIFS
 {
-	bool absX, absY, absZ;
+	bool absX;
+	bool absY;
+	bool absZ;
 	bool enabled[IFS_VECTOR_COUNT];
 	bool mengerSpongeMode;
 	bool rotationEnabled;

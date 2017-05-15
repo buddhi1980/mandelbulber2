@@ -48,10 +48,25 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// loop
 	for (i = 0; i < N; i++)
 	{
+#ifdef FORMULA_MANDELBULB
 		MandelbulbIteration(&z, fractal, &aux);
-		// AboxMod1Iteration(&z, c, i, fractal, &aux);
-		// Mandelbulb4Iteration(&z, fractal, &aux);
-		// Mandelbulb3Iteration(&z, &aux);
+#endif
+
+#ifdef FORMULA_MANDELBULB4
+		Mandelbulb4Iteration(&z, fractal, &aux);
+#endif
+
+#ifdef FORMULA_MANDELBULB3
+		Mandelbulb3Iteration(&z, &aux);
+#endif
+
+#ifdef FORMULA_KALEIDOSCOPIC_IFS
+		KaleidoscopicIFSIteration(&z, fractal, &aux);
+#endif
+
+#ifdef FORMULA_ABOX_MOD1
+		AboxMod1Iteration(&z, c, i, fractal, &aux);
+#endif
 
 		z += c;
 		aux.r = length(z);
@@ -63,11 +78,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef ANALYTIC_LOG_DE
 			dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);
 #elif ANALYTIC_LINEAR_DE
-			dist = aux.r / fabs(aux.DE);
+			dist = (aux.r - 2.0f) / fabs(aux.DE);
 #elif ANALYTIC_PSEUDO_KLEINIAN_DE
 
 #else
-			dist = z;
+			dist = length(z);
 #endif
 
 			out.colourIndex = colourMin * 5000.0f;

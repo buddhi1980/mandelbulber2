@@ -75,6 +75,8 @@ public:
 		return useAdditionalBailoutCond[formulaIndex];
 	};
 
+	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
+
 private:
 	bool forceDeltaDE;
 	bool isHybrid;
@@ -102,7 +104,6 @@ private:
 	bool useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
 
 	void CreateSequence(const cParameterContainer *generalPar);
-	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 };
 
 #endif /* MANDELBULBER2_SRC_NINE_FRACTALS_HPP_ */

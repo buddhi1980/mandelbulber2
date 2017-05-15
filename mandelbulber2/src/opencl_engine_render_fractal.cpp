@@ -68,8 +68,8 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "opencl_typedefs.h\"\n");
 
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "opencl_algebra.h\"\n");
+		progEngine.append(
+			"#include \"" + systemData.sharedDir + "opencl" + QDir::separator() + "opencl_algebra.h\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "common_params_cl.hpp\"\n");
@@ -77,8 +77,8 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "image_adjustments_cl.h\"\n");
 
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "fractal_cl.h\"\n");
+		progEngine.append(
+			"#include \"" + systemData.sharedDir + "opencl" + QDir::separator() + "fractal_cl.h\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "fractparams_cl.hpp\"\n");
@@ -91,6 +91,9 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 											+ "opencl" + QDir::separator() + "abox_mod1" + ".cl\"\n");
+
+		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
+											+ "opencl" + QDir::separator() + "kaleidoscopic_ifs" + ".cl\"\n");
 
 		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
 																					 + "engines" + QDir::separator() + "test_engine.cl"));
@@ -153,36 +156,35 @@ void cOpenClEngineRenderFractal::SetParameters(
 	// TODO
 	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
 
-	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
 	}
 
-	//define distance estimation method
+	// define distance estimation method
 	fractal::enumDEType deType = fractals->GetDEType(0);
 	fractal::enumDEFunctionType deFunctionType = fractals->GetDEFunctionType(0);
 
-	if(deType == fractal::analyticDEType)
+	if (deType == fractal::analyticDEType)
 	{
-		switch(deFunctionType)
+		switch (deFunctionType)
 		{
-			case fractal::linearDEFunction:
-				definesCollector += " -DANALYTIC_LINEAR_DE";
-				break;
-			case fractal::logarithmicDEFunction:
-				definesCollector += " -DANALYTIC_LOG_DE";
-				break;
+			case fractal::linearDEFunction: definesCollector += " -DANALYTIC_LINEAR_DE"; break;
+			case fractal::logarithmicDEFunction: definesCollector += " -DANALYTIC_LOG_DE"; break;
 			case fractal::pseudoKleinianDEFunction:
 				definesCollector += " -DANALYTIC_PSEUDO_KLEINIAN_DE";
 				break;
-			default:
-				break;
+			default: break;
 		}
 	}
 	else
 	{
-
 	}
+
+	fractal::enumFractalFormula fractalFormula = fractals->GetFractal(0)->formula;
+	int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
+	QString formulaName = fractalList.at(listIndex).internalName;
+	definesCollector += " -DFORMULA_" + formulaName.toUpper();
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 

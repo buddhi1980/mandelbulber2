@@ -393,3 +393,5 @@ int cNineFractals::GetIndexOnFractalList(fractal::enumFractalFormula formula)
 	}
 	return 0;
 }
+
+

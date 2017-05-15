@@ -117,7 +117,9 @@ typedef struct
 
 typedef struct
 {
-	cl_int absX, absY, absZ;
+	cl_int absX;
+	cl_int absY;
+	cl_int absZ;
 	cl_int enabled[IFS_VECTOR_COUNTCl];
 	cl_int mengerSpongeMode;
 	cl_int rotationEnabled;
@@ -707,6 +709,9 @@ inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
 inline sFractalIFSCl clCopySFractalIFSCl(sFractalIFS source)
 {
 	sFractalIFSCl target;
+	target.absX = source.absX;
+	target.absY = source.absY;
+	target.absZ = source.absZ;
 	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
 	{
 		target.enabled[i] = source.enabled[i];
