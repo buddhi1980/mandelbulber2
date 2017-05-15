@@ -54,7 +54,7 @@
 #include "../src/image_adjustments.h"
 #include "../src/fractparams.hpp"
 #include "../src/fractal.h"
-#endif
+#endif /* OPENCL_KERNEL_CODE */
 
 typedef struct
 {
@@ -85,7 +85,7 @@ typedef struct
 } sCommonParamsCl;
 
 #ifndef OPENCL_KERNEL_CODE
-inline sFractalFoldingsCl clCopySFractalFoldingsCl(sFractalFoldings source)
+inline sFractalFoldingsCl clCopySFractalFoldingsCl(sFractalFoldings &source)
 {
 	sFractalFoldingsCl target;
 	target.boxLimit = source.boxLimit;
@@ -97,7 +97,7 @@ inline sFractalFoldingsCl clCopySFractalFoldingsCl(sFractalFoldings source)
 	return target;
 }
 
-inline sCommonParamsCl clCopySCommonParamsCl(sCommonParams source)
+inline sCommonParamsCl clCopySCommonParamsCl(sCommonParams &source)
 {
 	sCommonParamsCl target;
 	target.iterThreshMode = source.iterThreshMode;
@@ -112,7 +112,6 @@ inline sCommonParamsCl clCopySCommonParamsCl(sCommonParams source)
 	target.foldings = clCopySFractalFoldingsCl(source.foldings);
 	return target;
 }
-
-#endif
+#endif /* OPENCL_KERNEL_CODE */
 
 #endif /* MANDELBULBER2_OPENCL_COMMON_PARAMS_CL_HPP_ */

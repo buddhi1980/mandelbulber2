@@ -119,8 +119,8 @@ foreach($copyFiles as $type => $copyFile){
 	$cppIncludes .= '#include "../src/image_adjustments.h"' . PHP_EOL;
 	$cppIncludes .= '#include "../src/fractparams.hpp"' . PHP_EOL;
 	$cppIncludes .= '#include "../src/fractal.h"' . PHP_EOL;
-
-    $cppIncludes .= '#endif' . PHP_EOL;
+	$cppIncludes .= '#endif /* OPENCL_KERNEL_CODE */' . PHP_EOL;
+	
 	$content = preg_replace('/(#define MANDELBULBER2_OPENCL_.*)/', '$1' . PHP_EOL . PHP_EOL . $cppIncludes, $content);
 
     // create copy methods for structs
@@ -156,7 +156,7 @@ foreach($copyFiles as $type => $copyFile){
 	}
 	$content = preg_replace('/(#endif \/\* MANDELBULBER2_OPENCL.*)/',
 	    PHP_EOL . '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL
-		. implode(PHP_EOL, $copyStructs) . PHP_EOL . '#endif' . PHP_EOL . PHP_EOL . '$1', $content);
+		. implode(PHP_EOL, $copyStructs) . '#endif /* OPENCL_KERNEL_CODE */' . PHP_EOL . PHP_EOL . '$1', $content);
 
     // clang-format
 	$filepathTemp = $copyFile['path'] . '.tmp.c';
@@ -179,7 +179,7 @@ foreach($copyFiles as $type => $copyFile){
 
 function getCopyStruct($structName, $properties){
     $structNameSource = substr($structName, 0, -2);
-	$out = 'inline ' . $structName . ' clCopy' . ucfirst($structName) . '(' . $structNameSource . ' source){' . PHP_EOL;
+	$out = 'inline ' . $structName . ' clCopy' . ucfirst($structName) . '(' . $structNameSource . '& source){' . PHP_EOL;
 	$out .= '	' . $structName . ' target;' . PHP_EOL;
     foreach($properties as $property){
 	    $copyLine = '';
