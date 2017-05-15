@@ -54,7 +54,7 @@
 #include "../src/image_adjustments.h"
 #include "../src/fractparams.hpp"
 #include "../src/fractal.h"
-#endif
+#endif /* OPENCL_KERNEL_CODE */
 
 typedef struct
 {
@@ -212,7 +212,7 @@ typedef struct
 } sParamRenderCl;
 
 #ifndef OPENCL_KERNEL_CODE
-inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
+inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 {
 	sParamRenderCl target;
 	target.antialiasingSize = source.antialiasingSize;
@@ -389,7 +389,6 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender source)
 	target.common = clCopySCommonParamsCl(source.common);
 	return target;
 }
-
-#endif
+#endif /* OPENCL_KERNEL_CODE */
 
 #endif /* MANDELBULBER2_OPENCL_FRACTPARAMS_CL_HPP_ */

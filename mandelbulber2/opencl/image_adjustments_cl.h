@@ -54,7 +54,7 @@
 #include "../src/image_adjustments.h"
 #include "../src/fractparams.hpp"
 #include "../src/fractal.h"
-#endif
+#endif /* OPENCL_KERNEL_CODE */
 
 typedef struct
 {
@@ -66,7 +66,7 @@ typedef struct
 } sImageAdjustmentsCl;
 
 #ifndef OPENCL_KERNEL_CODE
-inline sImageAdjustmentsCl clCopySImageAdjustmentsCl(sImageAdjustments source)
+inline sImageAdjustmentsCl clCopySImageAdjustmentsCl(sImageAdjustments &source)
 {
 	sImageAdjustmentsCl target;
 	target.brightness = source.brightness;
@@ -75,7 +75,6 @@ inline sImageAdjustmentsCl clCopySImageAdjustmentsCl(sImageAdjustments source)
 	target.hdrEnabled = source.hdrEnabled;
 	return target;
 }
-
-#endif
+#endif /* OPENCL_KERNEL_CODE */
 
 #endif /* MANDELBULBER2_OPENCL_IMAGE_ADJUSTMENTS_CL_H_ */

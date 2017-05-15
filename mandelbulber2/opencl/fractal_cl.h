@@ -54,7 +54,7 @@
 #include "../src/image_adjustments.h"
 #include "../src/fractparams.hpp"
 #include "../src/fractal.h"
-#endif
+#endif /* OPENCL_KERNEL_CODE */
 
 #define IFS_VECTOR_COUNTCl 9
 #define HYBRID_COUNTCl 5
@@ -625,7 +625,7 @@ typedef struct
 } sFractalCl;
 
 #ifndef OPENCL_KERNEL_CODE
-inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux source)
+inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 {
 	sExtendedAuxCl target;
 	target.r_dz = source.r_dz;
@@ -643,7 +643,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux source)
 	return target;
 }
 
-inline sFoldColorCl clCopySFoldColorCl(sFoldColor source)
+inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 {
 	sFoldColorCl target;
 	target.factor = toClFloat3(source.factor);
@@ -660,7 +660,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor source)
 }
 
 inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
-	sFractalGeneralizedFoldBox source)
+	sFractalGeneralizedFoldBox &source)
 {
 	sFractalGeneralizedFoldBoxCl target;
 	for (int i = 0; i < 4; i++)
@@ -706,7 +706,7 @@ inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
 	return target;
 }
 
-inline sFractalIFSCl clCopySFractalIFSCl(sFractalIFS source)
+inline sFractalIFSCl clCopySFractalIFSCl(sFractalIFS &source)
 {
 	sFractalIFSCl target;
 	target.absX = source.absX;
@@ -747,7 +747,7 @@ inline sFractalIFSCl clCopySFractalIFSCl(sFractalIFS source)
 	return target;
 }
 
-inline sFractalMandelboxVary4DCl clCopySFractalMandelboxVary4DCl(sFractalMandelboxVary4D source)
+inline sFractalMandelboxVary4DCl clCopySFractalMandelboxVary4DCl(sFractalMandelboxVary4D &source)
 {
 	sFractalMandelboxVary4DCl target;
 	target.fold = source.fold;
@@ -758,7 +758,7 @@ inline sFractalMandelboxVary4DCl clCopySFractalMandelboxVary4DCl(sFractalMandelb
 	return target;
 }
 
-inline sFractalMandelboxCl clCopySFractalMandelboxCl(sFractalMandelbox source)
+inline sFractalMandelboxCl clCopySFractalMandelboxCl(sFractalMandelbox &source)
 {
 	sFractalMandelboxCl target;
 	target.rotationMain = toClFloat3(source.rotationMain);
@@ -802,7 +802,7 @@ inline sFractalMandelboxCl clCopySFractalMandelboxCl(sFractalMandelbox source)
 	return target;
 }
 
-inline sFractalBoxFoldBulbPow2Cl clCopySFractalBoxFoldBulbPow2Cl(sFractalBoxFoldBulbPow2 source)
+inline sFractalBoxFoldBulbPow2Cl clCopySFractalBoxFoldBulbPow2Cl(sFractalBoxFoldBulbPow2 &source)
 {
 	sFractalBoxFoldBulbPow2Cl target;
 	target.zFactor = source.zFactor;
@@ -810,7 +810,7 @@ inline sFractalBoxFoldBulbPow2Cl clCopySFractalBoxFoldBulbPow2Cl(sFractalBoxFold
 	return target;
 }
 
-inline sFractalMandelbulbCl clCopySFractalMandelbulbCl(sFractalMandelbulb source)
+inline sFractalMandelbulbCl clCopySFractalMandelbulbCl(sFractalMandelbulb &source)
 {
 	sFractalMandelbulbCl target;
 	target.power = source.power;
@@ -820,14 +820,14 @@ inline sFractalMandelbulbCl clCopySFractalMandelbulbCl(sFractalMandelbulb source
 	return target;
 }
 
-inline sFractalAexionCl clCopySFractalAexionCl(sFractalAexion source)
+inline sFractalAexionCl clCopySFractalAexionCl(sFractalAexion &source)
 {
 	sFractalAexionCl target;
 	target.cadd = source.cadd;
 	return target;
 }
 
-inline sFractalBuffaloCl clCopySFractalBuffaloCl(sFractalBuffalo source)
+inline sFractalBuffaloCl clCopySFractalBuffaloCl(sFractalBuffalo &source)
 {
 	sFractalBuffaloCl target;
 	target.preabsx = source.preabsx;
@@ -840,7 +840,7 @@ inline sFractalBuffaloCl clCopySFractalBuffaloCl(sFractalBuffalo source)
 	return target;
 }
 
-inline sFractalDonutCl clCopySFractalDonutCl(sFractalDonut source)
+inline sFractalDonutCl clCopySFractalDonutCl(sFractalDonut &source)
 {
 	sFractalDonutCl target;
 	target.ringRadius = source.ringRadius;
@@ -850,7 +850,7 @@ inline sFractalDonutCl clCopySFractalDonutCl(sFractalDonut source)
 	return target;
 }
 
-inline sFractalPlatonicSolidCl clCopySFractalPlatonicSolidCl(sFractalPlatonicSolid source)
+inline sFractalPlatonicSolidCl clCopySFractalPlatonicSolidCl(sFractalPlatonicSolid &source)
 {
 	sFractalPlatonicSolidCl target;
 	target.frequency = source.frequency;
@@ -859,7 +859,7 @@ inline sFractalPlatonicSolidCl clCopySFractalPlatonicSolidCl(sFractalPlatonicSol
 	return target;
 }
 
-inline sFractalMandelbulbMultiCl clCopySFractalMandelbulbMultiCl(sFractalMandelbulbMulti source)
+inline sFractalMandelbulbMultiCl clCopySFractalMandelbulbMultiCl(sFractalMandelbulbMulti &source)
 {
 	sFractalMandelbulbMultiCl target;
 	target.acosOrAsin = enumMulti_acosOrAsinCl(source.acosOrAsin);
@@ -872,7 +872,7 @@ inline sFractalMandelbulbMultiCl clCopySFractalMandelbulbMultiCl(sFractalMandelb
 	return target;
 }
 
-inline sFractalSinTan2TrigCl clCopySFractalSinTan2TrigCl(sFractalSinTan2Trig source)
+inline sFractalSinTan2TrigCl clCopySFractalSinTan2TrigCl(sFractalSinTan2Trig &source)
 {
 	sFractalSinTan2TrigCl target;
 	target.asinOrAcos = enumMulti_asinOrAcosCl(source.asinOrAcos);
@@ -881,7 +881,7 @@ inline sFractalSinTan2TrigCl clCopySFractalSinTan2TrigCl(sFractalSinTan2Trig sou
 	return target;
 }
 
-inline sFractalSurfFoldsCl clCopySFractalSurfFoldsCl(sFractalSurfFolds source)
+inline sFractalSurfFoldsCl clCopySFractalSurfFoldsCl(sFractalSurfFolds &source)
 {
 	sFractalSurfFoldsCl target;
 	target.orderOfFolds1 = enumMulti_orderOfFoldsCl(source.orderOfFolds1);
@@ -892,7 +892,7 @@ inline sFractalSurfFoldsCl clCopySFractalSurfFoldsCl(sFractalSurfFolds source)
 	return target;
 }
 
-inline sFractalMagTransformsCl clCopySFractalMagTransformsCl(sFractalMagTransforms source)
+inline sFractalMagTransformsCl clCopySFractalMagTransformsCl(sFractalMagTransforms &source)
 {
 	sFractalMagTransformsCl target;
 	target.orderOfTransf1 = enumMulti_orderOfTransfCl(source.orderOfTransf1);
@@ -903,14 +903,14 @@ inline sFractalMagTransformsCl clCopySFractalMagTransformsCl(sFractalMagTransfor
 	return target;
 }
 
-inline sFractalComboCl clCopySFractalComboCl(sFractalCombo source)
+inline sFractalComboCl clCopySFractalComboCl(sFractalCombo &source)
 {
 	sFractalComboCl target;
 	target.modeA = enumComboCl(source.modeA);
 	return target;
 }
 
-inline sFractalSurfBoxCl clCopySFractalSurfBoxCl(sFractalSurfBox source)
+inline sFractalSurfBoxCl clCopySFractalSurfBoxCl(sFractalSurfBox &source)
 {
 	sFractalSurfBoxCl target;
 	target.enabledX1 = source.enabledX1;
@@ -940,7 +940,7 @@ inline sFractalSurfBoxCl clCopySFractalSurfBoxCl(sFractalSurfBox source)
 	return target;
 }
 
-inline sFractalCparaCl clCopySFractalCparaCl(sFractalCpara source)
+inline sFractalCparaCl clCopySFractalCparaCl(sFractalCpara &source)
 {
 	sFractalCparaCl target;
 	target.enabledLinear = source.enabledLinear;
@@ -965,7 +965,7 @@ inline sFractalCparaCl clCopySFractalCparaCl(sFractalCpara source)
 	return target;
 }
 
-inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(sFractalAnalyticDE source)
+inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(sFractalAnalyticDE &source)
 {
 	sFractalAnalyticDECl target;
 	target.enabledFalse = source.enabledFalse;
@@ -981,7 +981,7 @@ inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(sFractalAnalyticDE source
 	return target;
 }
 
-inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransformCommon source)
+inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransformCommon &source)
 {
 	sFractalTransformCommonCl target;
 	target.alphaAngleOffset = source.alphaAngleOffset;
@@ -1186,7 +1186,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	return target;
 }
 
-inline sFractalCl clCopySFractalCl(sFractal source)
+inline sFractalCl clCopySFractalCl(sFractal &source)
 {
 	sFractalCl target;
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
@@ -1211,7 +1211,6 @@ inline sFractalCl clCopySFractalCl(sFractal source)
 	target.combo = clCopySFractalComboCl(source.combo);
 	return target;
 }
-
-#endif
+#endif /* OPENCL_KERNEL_CODE */
 
 #endif /* MANDELBULBER2_OPENCL_FRACTAL_CL_H_ */
