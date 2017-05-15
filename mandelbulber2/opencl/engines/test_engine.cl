@@ -48,7 +48,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// loop
 	for (i = 0; i < N; i++)
 	{
-		MandelbulbIteration(&z, fractal, &aux);
+		MandelboxIteration(&z, fractal, &aux);
+		// MandelbulbIteration(&z, fractal, &aux);
 		// AboxMod1Iteration(&z, c, i, fractal, &aux);
 		// Mandelbulb4Iteration(&z, fractal, &aux);
 		// Mandelbulb3Iteration(&z, &aux);

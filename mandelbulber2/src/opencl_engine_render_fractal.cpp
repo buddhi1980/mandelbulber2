@@ -90,7 +90,7 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 											+ "opencl" + QDir::separator() + "mandelbulb" + ".cl\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-											+ "opencl" + QDir::separator() + "abox_mod1" + ".cl\"\n");
+											+ "opencl" + QDir::separator() + "mandelbox" + ".cl\"\n");
 
 		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
 																					 + "engines" + QDir::separator() + "test_engine.cl"));
