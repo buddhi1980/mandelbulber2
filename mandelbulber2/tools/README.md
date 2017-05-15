@@ -10,9 +10,12 @@ The project should be kept updated and clean with the following steps (when nece
 - 2. Updating the fractal ui files with code information
   - `mandelbulber2/tools/populateUiInformation.php # this makes a dry run, check output`
   - `mandelbulber2/tools/populateUiInformation.php nondry # this applies changes`
-- 3. `mandelbulber2/tools/dos2unix.sh # fix file formatting issues`
-- 4. Add new language snippets, see also "(3) language system"
-- 5. Add new formula images, see also "(4) formula images"
+- 3. Updating the opencl files with autogeneration from cpp code
+  - `mandelbulber2/tools/populateOpenCL.php # this makes a dry run, check output`
+  - `mandelbulber2/tools/populateOpenCL.php nondry # this applies changes`
+- 4. `mandelbulber2/tools/dos2unix.sh # fix file formatting issues`
+- 5. Add new language snippets, see also "(3) language system"
+- 6. Add new formula images, see also "(4) formula images"
 
 ### (2) Packaging for new version
 When a new version is prepared for release, the following steps should be taken:
