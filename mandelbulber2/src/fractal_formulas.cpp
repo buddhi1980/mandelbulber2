@@ -89,13 +89,14 @@ void MandelboxIteration(CVector3 &z, const sFractal *fractal, sExtendedAux &aux)
 	if (fractal->mandelbox.rotationsEnabled)
 	{
 		CVector3 zRot;
+		// cast vector to array pointer for address taking of components in opencl
+		double* zRotP = (double*)&zRot;
+		const double* colP = (const double*)&fractal->mandelbox.color.factor;
 		for (int dim = 0; dim < 3; dim++)
 		{
 			// handle each dimension x, y and z sequentially in pointer var dim
-			double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
-			const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
-																						 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
-																													 : &fractal->mandelbox.color.factor.z);
+			double *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
+			const double *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
 
 			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
 			if (*rotDim > fractal->mandelbox.foldingLimit)
@@ -2309,13 +2310,14 @@ void MandelboxMengerIteration(
 	if (fractal->mandelbox.rotationsEnabled)
 	{
 		CVector3 zRot;
+		// cast vector to array pointer for address taking of components in opencl
+		double* zRotP = (double*)&zRot;
+		const double* colP = (const double*)&fractal->mandelbox.color.factor;
 		for (int dim = 0; dim < 3; dim++)
 		{
 			// handle each dimension x, y and z sequentially in pointer var dim
-			double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
-			const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
-																						 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
-																													 : &fractal->mandelbox.color.factor.z);
+			double *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
+			const double *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
 
 			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
 			if (*rotDim > fractal->mandelbox.foldingLimit)
@@ -7389,13 +7391,14 @@ void TransfRotationIteration(CVector3 &z, const sFractal *fractal)
 void TransfRotationFoldingPlaneIteration(CVector3 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector3 zRot;
+	// cast vector to array pointer for address taking of components in opencl
+	double* zRotP = (double*)&zRot;
+	const double* colP = (const double*)&fractal->mandelbox.color.factor;
 	for (int dim = 0; dim < 3; dim++)
 	{
 		// handle each dimension x, y and z sequentially in pointer var dim
-		double *rotDim = (dim == 0) ? &zRot.x : ((dim == 1) ? &zRot.y : &zRot.z);
-		const double *colorFactor = (dim == 0) ? &fractal->mandelbox.color.factor.x
-																					 : ((dim == 1) ? &fractal->mandelbox.color.factor.y
-																												 : &fractal->mandelbox.color.factor.z);
+		double *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
+		const double *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
 
 		zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
 		if (*rotDim > fractal->mandelbox.foldingLimit)

@@ -19,3 +19,9 @@ dos2unix $BASEDIR/../qt/*.cpp
 dos2unix $BASEDIR/../qt/*.hpp
 #dos2unix $BASEDIR/../qt/*.c
 dos2unix $BASEDIR/../qt/*.h
+
+dos2unix $BASEDIR/../opencl/*.hpp
+dos2unix $BASEDIR/../opencl/*.h
+
+dos2unix $BASEDIR/../formula/opencl/*.cl
+dos2unix $BASEDIR/../formula/ui/*.ui

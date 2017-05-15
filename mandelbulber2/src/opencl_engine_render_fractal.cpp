@@ -90,7 +90,7 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 											+ "opencl" + QDir::separator() + "mandelbulb" + ".cl\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-											+ "opencl" + QDir::separator() + "abox_mod1" + ".cl\"\n");
+											+ "opencl" + QDir::separator() + "mandelbox" + ".cl\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 											+ "opencl" + QDir::separator() + "kaleidoscopic_ifs" + ".cl\"\n");

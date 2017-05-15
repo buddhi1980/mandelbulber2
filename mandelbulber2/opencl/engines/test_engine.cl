@@ -67,6 +67,10 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef FORMULA_ABOX_MOD1
 		AboxMod1Iteration(&z, c, i, fractal, &aux);
 #endif
+		
+#ifdef FORMULA_MANDELBOX
+		MandelboxIteration(&z, fractal, &aux);
+#endif
 
 		z += c;
 		aux.r = length(z);
