@@ -67,7 +67,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef FORMULA_ABOX_MOD1
 		AboxMod1Iteration(&z, c, i, fractal, &aux);
 #endif
-		
+
 #ifdef FORMULA_MANDELBOX
 		MandelboxIteration(&z, fractal, &aux);
 #endif
@@ -77,7 +77,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		if (aux.r < colourMin) colourMin = aux.r;
 
-		if (aux.r > 4.0f || any(isinf(z)))
+		if (aux.r > 1000.0f || any(isinf(z))) // TODO bailout from cNineFractals
 		{
 #ifdef ANALYTIC_LOG_DE
 			dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);

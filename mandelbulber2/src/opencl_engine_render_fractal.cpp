@@ -130,10 +130,14 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// building OpenCl kernel
 
 		QString errorString;
+
+		QElapsedTimer timer;
+		timer.start();
 		if (Build(program, &errorString))
 		{
 			programsLoaded = true;
 		}
+		qDebug() << "Opencl build time [s]" << timer.nsecsElapsed() / 1.0e9;
 	}
 }
 
@@ -300,7 +304,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 	}
 
 	qDebug() << "GPU jobs finished";
-	qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+	qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 
 	// refresh image at end
 	image->NullPostEffect();
