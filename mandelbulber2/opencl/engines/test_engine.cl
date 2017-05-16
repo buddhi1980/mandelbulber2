@@ -23,6 +23,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float dist = 0.0f;
 	int N = calcParam->N;
 	float3 z = point;
+	float w = 0;
 	float3 c = point;
 	int i;
 	formulaOut out;
@@ -72,6 +73,14 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 #ifdef FORMULA_MANDELBOX
 		MandelboxIteration(&z, fractal, &aux);
+#endif
+
+#ifdef FORMULA_HYPERCOMPLEX
+		HypercomplexIteration(&z, &w, &aux);
+#endif
+
+#ifdef FORMULA_XENODREAMBUIE
+		XenodreambuieIteration(&z, fractal, &aux);
 #endif
 
 		if (consts->sequence.addCConstant[formulaIndex]) z += c;

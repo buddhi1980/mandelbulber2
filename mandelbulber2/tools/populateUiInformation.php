@@ -461,10 +461,13 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
 			array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
-			array('find' => "/([\s\(])z([,\);\s])/", 'replace' => '$1*z$2'), // z to pointer
+			array('find' => "/([\s\(-])z([,\);\s])/", 'replace' => '$1*z$2'), // z to pointer
 			array('find' => "/(\s)z4D\s=/", 'replace' => '$1*z4D ='), // z4D to pointer
 			array('find' => "/(\s)z4D\s(.)=/", 'replace' => '$1*z4D $2='), // z4D to pointer
-			array('find' => "/([\s\(])z4D([,\);\s])/", 'replace' => '$1*z4D$2'), // z4D to pointer
+			array('find' => "/([\s\(-])z4D([,\);\s])/", 'replace' => '$1*z4D$2'), // z4D to pointer
+			array('find' => "/(\s)w\s=/", 'replace' => '$1*w ='), // w to pointer
+			array('find' => "/(\s)w\s(.)=/", 'replace' => '$1*w $2='), // w to pointer
+			array('find' => "/([\s\(-])w([,\);\s])/", 'replace' => '$1*w$2'), // w to pointer
 			array('find' => "/case ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+):/", 'replace' => 'case $1Cl$2:'), // replace enum switch cases ith cl version
 
 			// TODO more replacements

@@ -13,6 +13,7 @@
 #include "cimage.hpp"
 #include "nine_fractals.hpp"
 #include "fractal.h"
+#include "fractal_formulas.hpp"
 
 #ifdef USE_OPENCL
 #include "../opencl/fractal_cl.h"
@@ -56,12 +57,12 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	try
 	{
 		// passthrough define constants
-		progEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
-		progEngine.append("#define M_PI_180 0.01745329251994329576923690768489\n");
 		progEngine.append("#define USE_OPENCL 1\n");
-		progEngine.append("#define IFS_VECTOR_COUNT 9\n");
-		progEngine.append("#define HYBRID_COUNT 5\n");
-		progEngine.append("#define MANDELBOX_FOLDS 2\n");
+		progEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
+		progEngine.append("#define M_PI_180 " + QString::number(M_PI_180) + "\n");
+		progEngine.append("#define IFS_VECTOR_COUNT " + QString::number(IFS_VECTOR_COUNT) + "\n");
+		progEngine.append("#define HYBRID_COUNT " + QString::number(HYBRID_COUNT) + "\n");
+		progEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
 
 		// it's still temporary, but in this way we can append main header file
 
