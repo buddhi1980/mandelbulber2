@@ -17,7 +17,7 @@
 inline void HypercomplexIteration(float3 *z, float *w, sExtendedAuxCl *aux)
 {
 	aux->r_dz = aux->r_dz * 2.0f * aux->r;
-	float newx = mad(z->x, z->x, -z->y * z->y) - mad(z->z, z->z, -*w * *w);
+	float newx = mad(-z->z, z->z, mad(z->x, z->x, -z->y * z->y)) - *w * *w;
 	float newy = mad(2.0f * z->x, z->y, -2.0f * *w * z->z);
 	float newz = mad(2.0f * z->x, z->z, -2.0f * z->y * *w);
 	float neww = mad(2.0f * z->x, *w, -2.0f * z->y * z->z);
@@ -30,7 +30,7 @@ inline void HypercomplexIteration(float3 *z, float *w, sExtendedAuxCl *aux)
 inline void HypercomplexIteration(double3 *z, double *w, sExtendedAuxCl *aux)
 {
 	aux->r_dz = aux->r_dz * 2.0 * aux->r;
-	double newx = mad(z->x, z->x, -z->y * z->y) - mad(z->z, z->z, -*w * *w);
+	double newx = mad(-z->z, z->z, mad(z->x, z->x, -z->y * z->y)) - *w * *w;
 	double newy = 2.0 * z->x * z->y - 2.0 * *w * z->z;
 	double newz = 2.0 * z->x * z->z - 2.0 * z->y * *w;
 	double neww = 2.0 * z->x * *w - 2.0 * z->y * z->z;

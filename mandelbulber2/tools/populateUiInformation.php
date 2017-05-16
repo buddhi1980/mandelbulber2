@@ -441,12 +441,12 @@ function parseToOpenCL($code, $mode = 'single'){
       // mad (literally ;D )
 			array('find' => "/\(($multChain)$s\*$s($rval)$s\+$s($multChain)\)/", 'replace' => '(mad($1, $2, $3))'), 	// (a * b + c) ====> mad(a, b, c)
 			array('find' => "/\(($multChain)$s\*$s($rval)$s\-$s($multChain)\)/", 'replace' => '(mad($1, $2, -$3))'), 	// (a * b - c) ====> mad(a, b, -c)
-			array('find' => "/([^*]$s)($multChain)$s\*$s($rval)$s\+$s($multChain)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, $4)$5'), // a * b + c ====> mad(a, b, c)
-			array('find' => "/([^*]$s)($multChain)$s\*$s($rval)$s\-$s($multChain)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, -$4)$5'), // a * b + c ====> mad(a, b, -c)
+			array('find' => "/([^*-]$s)($multChain)$s\*$s($rval)$s\+$s($multChain)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, $4)$5'), // a * b + c ====> mad(a, b, c)
+			array('find' => "/([^*-]$s)($multChain)$s\*$s($rval)$s\-$s($multChain)(${'s'}[^*]|;)/", 'replace' => '$1mad($2, $3, -$4)$5'), // a * b - c ====> mad(a, b, -c)
 			array('find' => "/\(($multChain)$s\+$s($rval)$s\*$s($multChain)\)/", 'replace' => '(mad($2, $3, $1))'), 	// (c + a * b) ====> mad(a, b, c)
 			array('find' => "/\(($multChain)$s\-$s($rval)$s\*$s($multChain)\)/", 'replace' => '(mad(-$2, $3, $1))'), 	// (c - a * b) ====> mad(-a, b, c)
-			array('find' => "/([^*]$s)($multChain)$s\+$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($4, $3, $2)$5'), // a * b + c ====> mad(a, b, c)
-			array('find' => "/([^*]$s)($multChain)$s\-$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $2)$5'), // c - a * b ====> mad(-a, b, c)
+			array('find' => "/([^*-]$s)($multChain)$s\+$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad($4, $3, $2)$5'), // a * b + c ====> mad(a, b, c)
+			array('find' => "/([^*-]$s)($multChain)$s\-$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $2)$5'), // c - a * b ====> mad(-a, b, c)
 
 			// formula specific replacements
 			array('find' => "/^void(\s)/", 'replace' => 'inline void$1'), // mark void with inline void
