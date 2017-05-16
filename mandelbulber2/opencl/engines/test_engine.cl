@@ -48,6 +48,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// loop
 	for (i = 0; i < N; i++)
 	{
+		int formulaIndex = consts->sequence.hybridSequence[i];
+
 #ifdef FORMULA_MANDELBULB
 		MandelbulbIteration(&z, fractal, &aux);
 #endif
@@ -72,12 +74,13 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		MandelboxIteration(&z, fractal, &aux);
 #endif
 
-		z += c;
+		if (consts->sequence.addCConstant[formulaIndex]) z += c;
+
 		aux.r = length(z);
 
 		if (aux.r < colourMin) colourMin = aux.r;
 
-		if (aux.r > 1000.0f || any(isinf(z))) // TODO bailout from cNineFractals
+		if (aux.r > consts->sequence.bailout[formulaIndex] || any(isinf(z)))
 		{
 #ifdef ANALYTIC_LOG_DE
 			dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);
