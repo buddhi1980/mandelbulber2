@@ -86,29 +86,19 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "mandelbulber_cl_data.h\"\n");
 
-		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-											+ "opencl" + QDir::separator() + "mandelbulb" + ".cl\"\n");
-
-		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-											+ "opencl" + QDir::separator() + "mandelbox" + ".cl\"\n");
-
-		progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-											+ "opencl" + QDir::separator() + "kaleidoscopic_ifs" + ".cl\"\n");
+		for(int i = 0; i < listOfUsedFormulas.size(); i++)
+		{
+			QString formulaName = listOfUsedFormulas.at(i);
+			if(formulaName != "none")
+			{
+				progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
+													+ "opencl" + QDir::separator() + formulaName + ".cl\"\n");
+			}
+		}
 
 		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
 																					 + "engines" + QDir::separator() + "test_engine.cl"));
 
-		if (progEngine.isEmpty()) throw QString("Can't load main program");
-
-		/*
-		// Test loading of all fractal kernels
-		for (int f = 0; f < fractalList.size(); f++)
-		{
-			progEngine.append(LoadUtf8TextFromFile(fractalList[f].getOpenCLFilename()));
-		}
-		*/
-
-		//.... here will be loading of more programs
 	}
 	catch (const QString &ex)
 	{
@@ -185,10 +175,23 @@ void cOpenClEngineRenderFractal::SetParameters(
 	{
 	}
 
-	fractal::enumFractalFormula fractalFormula = fractals->GetFractal(0)->formula;
-	int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
-	QString formulaName = fractalList.at(listIndex).internalName;
-	definesCollector += " -DFORMULA_" + formulaName.toUpper();
+	listOfUsedFormulas.clear();
+
+	//creating list of used formuals
+	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(0)->formula;
+		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
+		QString formulaName = fractalList.at(listIndex).internalName;
+		listOfUsedFormulas.append(formulaName);
+	}
+	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); //eliminate duplicates
+
+	//adding #defines to the list
+	for(int i = 0; i < listOfUsedFormulas.size(); i++)
+	{
+		definesCollector += " -DFORMULA_" + listOfUsedFormulas.at(i).toUpper();
+	}
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 

@@ -41,6 +41,8 @@ private:
 	sClPixel *rgbbuff;
 	cl::Buffer *outCL;
 
+	QStringList listOfUsedFormulas;
+
 #endif
 };
 
