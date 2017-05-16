@@ -40,6 +40,10 @@
 #include "algebra.hpp"
 #include <QtCore>
 
+#ifdef USE_OPENCL
+#include "../opencl/fractal_sequence_cl.h"
+#endif
+
 // forward declarations
 class cParameterContainer;
 class cFractalContainer;
@@ -76,6 +80,10 @@ public:
 	};
 
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
+
+#ifdef USE_OPENCL
+	void CopyToOpenclData(sClFractalSequence *sequence);
+#endif
 
 private:
 	bool forceDeltaDE;

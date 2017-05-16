@@ -84,12 +84,15 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 											+ "fractparams_cl.hpp\"\n");
 
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "fractal_sequence_cl.h\"\n");
+
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "mandelbulber_cl_data.h\"\n");
 
-		for(int i = 0; i < listOfUsedFormulas.size(); i++)
+		for (int i = 0; i < listOfUsedFormulas.size(); i++)
 		{
 			QString formulaName = listOfUsedFormulas.at(i);
-			if(formulaName != "none")
+			if (formulaName != "none")
 			{
 				progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 													+ "opencl" + QDir::separator() + formulaName + ".cl\"\n");
@@ -98,7 +101,6 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
 																					 + "engines" + QDir::separator() + "test_engine.cl"));
-
 	}
 	catch (const QString &ex)
 	{
@@ -155,6 +157,8 @@ void cOpenClEngineRenderFractal::SetParameters(
 		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
 	}
 
+	fractals->CopyToOpenclData(&constantInBuffer->sequence);
+
 	// define distance estimation method
 	fractal::enumDEType deType = fractals->GetDEType(0);
 	fractal::enumDEFunctionType deFunctionType = fractals->GetDEFunctionType(0);
@@ -177,18 +181,18 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	listOfUsedFormulas.clear();
 
-	//creating list of used formuals
-	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	// creating list of used formuals
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(0)->formula;
 		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
 		QString formulaName = fractalList.at(listIndex).internalName;
 		listOfUsedFormulas.append(formulaName);
 	}
-	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); //eliminate duplicates
+	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
-	//adding #defines to the list
-	for(int i = 0; i < listOfUsedFormulas.size(); i++)
+	// adding #defines to the list
+	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
 		definesCollector += " -DFORMULA_" + listOfUsedFormulas.at(i).toUpper();
 	}

@@ -1,7 +1,11 @@
 #ifndef OPENCL_KERNEL_CODE
 #include "../opencl/fractparams_cl.hpp"
 #include "../opencl/fractal_cl.h"
+#include "../opencl/fractal_sequence_cl.h"
 #endif
+
+#ifndef MANDELBULBER_OPENCL_DATA
+#define MANDELBULBER_OPENCL_DATA
 
 typedef struct
 {
@@ -20,6 +24,7 @@ typedef struct
 {
 	sParamRenderCl params;
 	sFractalCl fractal[9]; // temporary for testing
+	sClFractalSequence sequence;
 } sClInConstants;
 
 typedef struct
@@ -35,3 +40,5 @@ typedef struct
 	cl_float distThresh;
 	cl_float normalCalculationMode;
 } sClCalcParams;
+
+#endif // MANDELBULBER_OPENCL_DATA

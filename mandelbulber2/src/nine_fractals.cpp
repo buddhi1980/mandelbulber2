@@ -40,6 +40,10 @@
 #include "fractal_container.hpp"
 #include "parameters.hpp"
 
+#ifdef USE_OPENCL
+#include "../opencl/opencl_algebra.h"
+#endif
+
 cNineFractals::~cNineFractals()
 {
 	if (fractals)
@@ -394,4 +398,39 @@ int cNineFractals::GetIndexOnFractalList(fractal::enumFractalFormula formula)
 	return 0;
 }
 
+#ifdef USE_OPENCL
+void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence)
+{
+	sequence->isHybrid = isHybrid;
 
+	for (int i = 0; i < OPENCL_FRACTAL_SEQUENCE_LENGTH; i++)
+	{
+		if (i < hybridSequenceLength)
+		{
+			sequence->hybridSequence[i] = hybridSequence[i];
+		}
+		else
+		{
+			sequence->hybridSequence[i] = 0;
+		}
+	}
+
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		sequence->formulaWeight[i] = formulaWeight[i];
+		sequence->DEFunctionType[i] = enumDEFunctionTypeCl(DEFunctionType[i]);
+		sequence->DEType[i] = enumDETypeCl(DEType[i]);
+		sequence->counts[i] = counts[i];
+		sequence->formulaStartIteration[i] = formulaStartIteration[i];
+		sequence->formulaStopIteration[i] = formulaStopIteration[i];
+		sequence->addCConstant[i] = addCConstant[i];
+		sequence->checkForBailout[i] = checkForBailout[i];
+		sequence->bailout[i] = bailout[i];
+		sequence->juliaEnabled[i] = juliaEnabled[i];
+		sequence->juliaConstant[i] = toClFloat3(juliaConstant[i]);
+		sequence->constantMultiplier[i] = toClFloat3(constantMultiplier[i]);
+		sequence->initialWAxis[i] = initialWAxis[i];
+		sequence->useAdditionalBailoutCond[i] = useAdditionalBailoutCond[i];
+	}
+}
+#endif
