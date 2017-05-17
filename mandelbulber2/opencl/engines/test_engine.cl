@@ -99,6 +99,14 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
         AmazingSurfIteration(&z, c, fractal, &aux);
 #endif
 
+#ifdef FORMULA_QUATERNION
+        QuaternionIteration(&z, &w, &aux);
+#endif
+
+#ifdef FORMULA_BOX_FOLD_BULB_POW2
+        BoxFoldBulbPow2Iteration(&z, fractal);
+#endif
+
 		if (consts->sequence.addCConstant[formulaIndex]) z += c;
 
 		aux.r = length(z);
