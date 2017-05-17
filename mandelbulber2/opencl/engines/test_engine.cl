@@ -80,7 +80,23 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #endif
 
 #ifdef FORMULA_XENODREAMBUIE
-		XenodreambuieIteration(&z, fractal, &aux);
+        XenodreambuieIteration(&z, fractal, &aux);
+#endif
+
+#ifdef FORMULA_COLLATZ
+        CollatzIteration(&z, &aux);
+#endif
+
+#ifdef FORMULA_BUFFALO
+        BuffaloIteration(&z, fractal, &aux);
+#endif
+
+#ifdef FORMULA_MENGER_SPONGE
+        MengerSpongeIteration(&z, &aux);
+#endif
+
+#ifdef FORMULA_AMAZING_SURF
+        AmazingSurfIteration(&z, c, fractal, &aux);
 #endif
 
 		if (consts->sequence.addCConstant[formulaIndex]) z += c;
@@ -100,7 +116,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #else
 			dist = length(z);
 #endif
-
 			out.colourIndex = colourMin * 5000.0f;
 			break;
 		}

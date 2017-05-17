@@ -416,8 +416,10 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/($preF)cos\(/", 'replace' => '$1native_cos('),          // native cos
 			array('find' => "/($preF)pow\(/", 'replace' => '$1native_powr('),         // native pow
 			array('find' => "/($preF)sqrt\(/", 'replace' => '$1native_sqrt('),        // native sqrt
+			array('find' => "/CVector3\(($multChain,$s$multChain,$s$multChain)\)/", 'replace' => '(' . $fod . '3) {$1}'),  // CVector3 to built in float3
 			array('find' => "/CVector3\(($all)\);/", 'replace' => '(' . $fod . '3) {$1};'),  // CVector3 to built in float3
 			array('find' => "/CVector3(\s)/", 'replace' => $fod . '3$1'),               // CVector3 to built in float3
+			array('find' => "/CVector4\(($multChain,$s$multChain,$s$multChain,$s$multChain)\)/", 'replace' => '(' . $fod . '4) {$1}'),  // CVector3 to built in float3
 			array('find' => "/CVector4\(($all)\);/", 'replace' => '(' . $fod . '4) {$1};'),  // CVector4 to built in float4
 			array('find' => "/CVector4(\s)/", 'replace' => $fod . '4$1'),               // CVector4 to built in float4
 			array('find' => "/($var)\.Length\(\)/", 'replace' => 'length($1)'),       // CVector3 Length() to built in length
@@ -427,8 +429,9 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/($var)\.RotateX\(/", 'replace' => '$1 = RotateX($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateY\(/", 'replace' => '$1 = RotateY($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateZ\(/", 'replace' => '$1 = RotateZ($1, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/($var)\.RotateAroundVectorByAngle\(/", 'replace' => 'RotateAroundVectorByAngle($1, '), // CVector3 to custom rotation function
 			array('find' => "/CRotationMatrix /", 'replace' => 'matrix33 '), // CRotationMatrix33 to matrix33
-			array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ ' . $fod . ' temp = $1; $2 = $1; $1 = temp; }'),// swap vals
+			array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ ' . $fod . ' temp = $1; $1 = $2; $2 = temp; }'),// swap vals
 			array('find' => "/($s|\()(\d+)f($s|;|\))/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
 			array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x)
 
@@ -461,13 +464,13 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
 			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
 			array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
-			array('find' => "/([\s\(-])z([,\);\s])/", 'replace' => '$1*z$2'), // z to pointer
+			array('find' => "/([\s\(-])z([,\);\s}])/", 'replace' => '$1*z$2'), // z to pointer
 			array('find' => "/(\s)z4D\s=/", 'replace' => '$1*z4D ='), // z4D to pointer
 			array('find' => "/(\s)z4D\s(.)=/", 'replace' => '$1*z4D $2='), // z4D to pointer
-			array('find' => "/([\s\(-])z4D([,\);\s])/", 'replace' => '$1*z4D$2'), // z4D to pointer
+			array('find' => "/([\s\(-])z4D([,\);\s}])/", 'replace' => '$1*z4D$2'), // z4D to pointer
 			array('find' => "/(\s)w\s=/", 'replace' => '$1*w ='), // w to pointer
 			array('find' => "/(\s)w\s(.)=/", 'replace' => '$1*w $2='), // w to pointer
-			array('find' => "/([\s\(-])w([,\);\s])/", 'replace' => '$1*w$2'), // w to pointer
+			array('find' => "/([\s\(-])w([,\);\s}])/", 'replace' => '$1*w$2'), // w to pointer
 			array('find' => "/case ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+):/", 'replace' => 'case $1Cl$2:'), // replace enum switch cases ith cl version
 
 			// TODO more replacements
