@@ -372,7 +372,7 @@ void BoxFoldBulbPow2Iteration(CVector4 &z, const sFractal *fractal)
 	zTemp.x = (x2 - y2) * temp;
 	zTemp.y = 2.0 * z.x * z.y * temp;
 	zTemp.z = -2.0 * z.z * sqrt(x2 + y2);
-	zTemp.z = z.w;
+	zTemp.w = z.w;
 	z = zTemp;
 	z.z *= fractal->foldingIntPow.zFactor;
 
