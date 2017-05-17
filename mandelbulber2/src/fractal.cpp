@@ -53,7 +53,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	mandelbox.foldingSphericalMin = container->Get<double>("mandelbox_folding_min_radius");
 	mandelbox.foldingSphericalFixed = container->Get<double>("mandelbox_folding_fixed_radius");
 	mandelbox.sharpness = container->Get<double>("mandelbox_sharpness");
-	mandelbox.offset = container->Get<CVector3>("mandelbox_offset");
+	mandelbox.offset = CVector4(container->Get<CVector3>("mandelbox_offset"), 0.0);
 	mandelbox.rotationMain = container->Get<CVector3>("mandelbox_rotation_main");
 
 	for (int i = 1; i <= 3; i++)
@@ -86,7 +86,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	IFS.scale = container->Get<double>("IFS_scale");
 	IFS.rotation = container->Get<CVector3>("IFS_rotation");
 	IFS.rotationEnabled = container->Get<bool>("IFS_rotation_enabled");
-	IFS.offset = container->Get<CVector3>("IFS_offset");
+	IFS.offset = CVector4(container->Get<CVector3>("IFS_offset"), 0.0);
 	IFS.edge = container->Get<CVector3>("IFS_edge");
 	IFS.edgeEnabled = container->Get<bool>("IFS_edge_enabled");
 
@@ -97,7 +97,7 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
-		IFS.direction[i] = container->Get<CVector3>("IFS_direction", i);
+		IFS.direction[i] = CVector4(container->Get<CVector3>("IFS_direction", i), 0.0);
 		IFS.rotations[i] = container->Get<CVector3>("IFS_rotations", i);
 		IFS.distance[i] = container->Get<double>("IFS_distance", i);
 		IFS.intensity[i] = container->Get<double>("IFS_intensity", i);
@@ -130,28 +130,25 @@ sFractal::sFractal(const cParameterContainer *container)
 	// mandelbulb multi
 	mandelbulbMulti.acosOrAsin =
 		enumMulti_acosOrAsin(container->Get<int>("mandelbulbMulti_acos_or_asin"));
-	mandelbulbMulti.atanOrAtan2 = enumMulti_atanOrAtan2(
-		container->Get<int>("mandelbulbMulti_atan_or_atan2"));
+	mandelbulbMulti.atanOrAtan2 =
+		enumMulti_atanOrAtan2(container->Get<int>("mandelbulbMulti_atan_or_atan2"));
 
-	mandelbulbMulti.acosOrAsinA = enumMulti_acosOrAsin(
-		container->Get<int>("mandelbulbMulti_acos_or_asin_A"));
-	mandelbulbMulti.atanOrAtan2A = enumMulti_atanOrAtan2(
-		container->Get<int>("mandelbulbMulti_atan_or_atan2_A"));
+	mandelbulbMulti.acosOrAsinA =
+		enumMulti_acosOrAsin(container->Get<int>("mandelbulbMulti_acos_or_asin_A"));
+	mandelbulbMulti.atanOrAtan2A =
+		enumMulti_atanOrAtan2(container->Get<int>("mandelbulbMulti_atan_or_atan2_A"));
 
 	mandelbulbMulti.orderOfXYZ =
 		enumMulti_OrderOfXYZ(container->Get<int>("mandelbulbMulti_order_of_xyz"));
-	mandelbulbMulti.orderOfXYZ2 = enumMulti_OrderOfXYZ(
-		container->Get<int>("mandelbulbMulti_order_of_xyz_2"));
-	mandelbulbMulti.orderOfXYZC = enumMulti_OrderOfXYZ(
-		container->Get<int>("mandelbulbMulti_order_of_xyz_C"));
+	mandelbulbMulti.orderOfXYZ2 =
+		enumMulti_OrderOfXYZ(container->Get<int>("mandelbulbMulti_order_of_xyz_2"));
+	mandelbulbMulti.orderOfXYZC =
+		enumMulti_OrderOfXYZ(container->Get<int>("mandelbulbMulti_order_of_xyz_C"));
 
 	// sinTan2Trig
-	sinTan2Trig.asinOrAcos =
-		enumMulti_asinOrAcos(container->Get<int>("sinTan2Trig_asin_or_acos"));
-	sinTan2Trig.atan2OrAtan =
-		enumMulti_atan2OrAtan(container->Get<int>("sinTan2Trig_atan2_or_atan"));
-	sinTan2Trig.orderOfZYX =
-		enumMulti_OrderOfZYX(container->Get<int>("sinTan2Trig_order_of_zyx"));
+	sinTan2Trig.asinOrAcos = enumMulti_asinOrAcos(container->Get<int>("sinTan2Trig_asin_or_acos"));
+	sinTan2Trig.atan2OrAtan = enumMulti_atan2OrAtan(container->Get<int>("sinTan2Trig_atan2_or_atan"));
+	sinTan2Trig.orderOfZYX = enumMulti_OrderOfZYX(container->Get<int>("sinTan2Trig_order_of_zyx"));
 
 	// surfBox
 	surfBox.enabledX1 = container->Get<bool>("surfBox_enabledX1");
@@ -337,32 +334,38 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.startIterationsZ = container->Get<int>("transf_start_iterations_Z");
 	transformCommon.stopIterationsZ = container->Get<int>("transf_stop_iterations_Z");
 
-	transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
-	transformCommon.additionConstant0777 = container->Get<CVector3>("transf_addition_constant_0777");
-	transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
-	transformCommon.additionConstantA000 = container->Get<CVector3>("transf_addition_constantA_000");
+	transformCommon.additionConstant0555 =
+		CVector4(container->Get<CVector3>("transf_addition_constant_0555"), 0.0);
+	transformCommon.additionConstant0777 =
+		CVector4(container->Get<CVector3>("transf_addition_constant_0777"), 0.0);
+	transformCommon.additionConstant000 =
+		CVector4(container->Get<CVector3>("transf_addition_constant"), 0.0);
+	transformCommon.additionConstantA000 =
+		CVector4(container->Get<CVector3>("transf_addition_constantA_000"), 0.0);
 	transformCommon.additionConstantP000 = container->Get<CVector3>("transf_addition_constantP_000");
-	transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
+	transformCommon.additionConstant111 =
+		CVector4(container->Get<CVector3>("transf_addition_constant_111"), 0.0);
 	transformCommon.additionConstantA111 = container->Get<CVector3>("transf_addition_constantA_111");
-	transformCommon.additionConstant222 = container->Get<CVector3>("transf_addition_constant_222");
+	transformCommon.additionConstant222 =
+		CVector4(container->Get<CVector3>("transf_addition_constant_222"), 0.0);
 	transformCommon.additionConstantNeg100 =
 		container->Get<CVector3>("transf_addition_constant_neg100");
 	transformCommon.constantMultiplier000 =
-		container->Get<CVector3>("transf_constant_multiplier_000");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_000"), 0.0);
 	transformCommon.constantMultiplier001 =
-		container->Get<CVector3>("transf_constant_multiplier_001");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_001"), 0.0);
 	transformCommon.constantMultiplier010 =
-		container->Get<CVector3>("transf_constant_multiplier_010");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_010"), 0.0);
 	transformCommon.constantMultiplier100 =
-		container->Get<CVector3>("transf_constant_multiplier_100");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_100"), 0.0);
 	transformCommon.constantMultiplierA100 =
-		container->Get<CVector3>("transf_constant_multiplierA_100");
+		CVector4(container->Get<CVector3>("transf_constant_multiplierA_100"), 0.0);
 	transformCommon.constantMultiplier111 =
-		container->Get<CVector3>("transf_constant_multiplier_111");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_111"), 1.0);
 	transformCommon.constantMultiplierA111 =
-		container->Get<CVector3>("transf_constant_multiplierA_111");
+		CVector4(container->Get<CVector3>("transf_constant_multiplierA_111"), 1.0);
 	transformCommon.constantMultiplierB111 =
-		container->Get<CVector3>("transf_constant_multiplierB_111");
+		CVector4(container->Get<CVector3>("transf_constant_multiplierB_111"), 1.0);
 	transformCommon.constantMultiplierC111 =
 		container->Get<CVector3>("transf_constant_multiplierC_111");
 	transformCommon.constantMultiplier121 =
@@ -370,24 +373,24 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.constantMultiplier122 =
 		container->Get<CVector3>("transf_constant_multiplier_122");
 	transformCommon.constantMultiplier221 =
-		container->Get<CVector3>("transf_constant_multiplier_221");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_221"), 1.0);
 	transformCommon.constantMultiplier222 =
 		container->Get<CVector3>("transf_constant_multiplier_222");
 	transformCommon.constantMultiplier441 =
 		container->Get<CVector3>("transf_constant_multiplier_441");
-	transformCommon.juliaC = container->Get<CVector3>("transf_constant_julia_c");
-	transformCommon.offset000 = container->Get<CVector3>("transf_offset_000");
-	transformCommon.offsetA000 = container->Get<CVector3>("transf_offsetA_000");
+	transformCommon.juliaC = CVector4(container->Get<CVector3>("transf_constant_julia_c"), 0.0);
+	transformCommon.offset000 = CVector4(container->Get<CVector3>("transf_offset_000"), 0.0);
+	transformCommon.offsetA000 = CVector4(container->Get<CVector3>("transf_offsetA_000"), 0.0);
 	transformCommon.offsetF000 = container->Get<CVector3>("transf_offsetF_000");
-	transformCommon.offset100 = container->Get<CVector3>("transf_offset_100");
-	transformCommon.offset1105 = container->Get<CVector3>("transf_offset_1105");
-	transformCommon.offset111 = container->Get<CVector3>("transf_offset_111");
-	transformCommon.offsetA111 = container->Get<CVector3>("transf_offsetA_111");
-	transformCommon.offsetB111 = container->Get<CVector3>("transf_offsetB_111");
-	transformCommon.offsetC111 = container->Get<CVector3>("transf_offsetC_111");
-	transformCommon.offset200 = container->Get<CVector3>("transf_offset_200");
-	transformCommon.offsetA200 = container->Get<CVector3>("transf_offsetA_200");
-	transformCommon.offset222 = container->Get<CVector3>("transf_offset_222");
+	transformCommon.offset100 = CVector4(container->Get<CVector3>("transf_offset_100"), 0.0);
+	transformCommon.offset1105 = CVector4(container->Get<CVector3>("transf_offset_1105"), 0.0);
+	transformCommon.offset111 = CVector4(container->Get<CVector3>("transf_offset_111"), 0.0);
+	transformCommon.offsetA111 = CVector4(container->Get<CVector3>("transf_offsetA_111"), 0.0);
+	transformCommon.offsetB111 = CVector4(container->Get<CVector3>("transf_offsetB_111"), 0.0);
+	transformCommon.offsetC111 = CVector4(container->Get<CVector3>("transf_offsetC_111"), 0.0);
+	transformCommon.offset200 = CVector4(container->Get<CVector3>("transf_offset_200"), 0.0);
+	transformCommon.offsetA200 = CVector4(container->Get<CVector3>("transf_offsetA_200"), 0.0);
+	transformCommon.offset222 = CVector4(container->Get<CVector3>("transf_offset_222"), 0.0);
 
 	transformCommon.power025 = container->Get<CVector3>("transf_power_025");
 	transformCommon.power8 = container->Get<CVector3>("transf_power_8");

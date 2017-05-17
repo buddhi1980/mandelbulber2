@@ -47,6 +47,15 @@ CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle) const
 	return vector;
 }
 
+CVector4 CVector4::RotateAroundVectorByAngle(CVector3 axis, double angle) const
+{
+	CVector3 oldVector = this->GetXYZ();
+	CVector3 vector = oldVector * cos(angle);
+	vector += (axis.Cross(oldVector)) * sin(angle);
+	vector += axis * axis.Dot(oldVector) * (1 - cos(angle));
+	return CVector4(vector, w);
+}
+
 double CVector3::itemByName(char item) const
 {
 	switch (item)
@@ -259,6 +268,19 @@ CVector3 CRotationMatrix::RotateVector(const CVector3 &vector) const
 	if (!zero)
 	{
 		CVector3 vector2 = matrix * vector;
+		return vector2;
+	}
+	else
+	{
+		return vector;
+	}
+}
+
+CVector4 CRotationMatrix::RotateVector(const CVector4 &vector) const
+{
+	if (!zero)
+	{
+		CVector4 vector2 = CVector4(matrix * vector.GetXYZ(), vector.w);
 		return vector2;
 	}
 	else

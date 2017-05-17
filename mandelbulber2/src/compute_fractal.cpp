@@ -63,19 +63,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	CVector3 point2 = in.point.mod(in.common.repeat) - in.common.fractalPosition;
 	point2 = in.common.mRotFractalRotation.RotateVector(point2);
 
-	CVector3 z = point2;
+	CVector4 z = CVector4(point2, 0.0);
 	double r = z.Length();
-	CVector3 c = z;
+	CVector4 c = z;
 	double minimumR = 100.0;
 
-	double w;
 	if (in.forcedFormulaIndex >= 0)
 	{
-		w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
+		z.w = fractals.GetInitialWAxis(in.forcedFormulaIndex);
 	}
 	else
 	{
-		w = fractals.GetInitialWAxis(0);
+		z.w = fractals.GetInitialWAxis(0);
 	}
 
 	double orbitTrapTotal = 0.0;
@@ -114,8 +113,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	int i;
 	int sequence;
 
-	CVector3 lastGoodZ;
-	CVector3 lastZ;
+	CVector4 lastGoodZ;
+	CVector4 lastZ;
 
 	for (i = 0; i < in.maxN; i++)
 	{
@@ -150,7 +149,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		formula = fractal->formula;
 
 		// temporary vector for weight function
-		CVector3 tempZ = z;
+		CVector4 tempZ = z;
 
 		extendedAux.r = r;
 
@@ -159,6 +158,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			// calls for fractal formulas
 			switch (formula)
 			{
+
 				case mandelbulb:
 				{
 					MandelbulbIteration(z, fractal, extendedAux);
@@ -216,17 +216,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case aexion:
 				{
-					AexionIteration(z, w, i, fractal, extendedAux);
+					AexionIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case hypercomplex:
 				{
-					HypercomplexIteration(z, w, extendedAux);
+					HypercomplexIteration(z, extendedAux);
 					break;
 				}
 				case quaternion:
 				{
-					QuaternionIteration(z, w, extendedAux);
+					QuaternionIteration(z, extendedAux);
 					break;
 				}
 				case benesi:
@@ -882,136 +882,99 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				// 4D  ---------------------------------------------------------------------------
 				case abox4d:
 				{
-					CVector4 z4D(z, w);
-					Abox4dIteration(z4D, i, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					Abox4dIteration(z, i, fractal, extendedAux);
 					break;
 				}
 
 				case quaternion4d:
 				{
-					CVector4 z4D(z, w);
-					Quaternion4dIteration(z4D, i, fractal);
-					z4D.GetXYZWInto(z, w);
+					Quaternion4dIteration(z, i, fractal);
 					break;
 				}
 				case mandelboxVaryScale4d:
 				{
-					CVector4 z4D(z, w);
-					MandelboxVaryScale4dIteration(z4D, i, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					MandelboxVaryScale4dIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case bristorbrot4d:
 				{
-					CVector4 z4D(z, w);
-					Bristorbrot4dIteration(z4D, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					Bristorbrot4dIteration(z, fractal, extendedAux);
 					break;
 				}
 				case menger4d:
 				{
-					CVector4 z4D(z, w);
-					Menger4dIteration(z4D, i, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					Menger4dIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case menger4dMod1:
 				{
-					CVector4 z4D(z, w);
-					Menger4dMod1Iteration(z4D, i, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					Menger4dMod1Iteration(z, i, fractal, extendedAux);
 					break;
 				}
 
 				case mixPinski4d:
 				{
-					CVector4 z4D(z, w);
-					MixPinski4dIteration(z4D, i, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					MixPinski4dIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case sierpinski4d:
 				{
-					CVector4 z4D(z, w);
-					Sierpinski4dIteration(z4D, i, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					Sierpinski4dIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfAddConstant4d:
 				{
-					CVector4 z4D(z, w);
-					TransfAddConstant4dIteration(z4D, fractal);
-					z4D.GetXYZWInto(z, w);
+					TransfAddConstant4dIteration(z, fractal);
 					break;
 				}
 				case transfBoxFold4d:
 				{
-					CVector4 z4D(z, w);
-					TransfBoxFold4dIteration(z4D, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					TransfBoxFold4dIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfFabsAddConstant4d:
 				{
-					CVector4 z4D(z, w);
-					TransfFabsAddConstant4dIteration(z4D, fractal);
-					z4D.GetXYZWInto(z, w);
+					TransfFabsAddConstant4dIteration(z, fractal);
 					break;
 				}
 				case transfFabsAddTgladFold4d:
 				{
-					CVector4 z4D(z, w);
-					TransfFabsAddTgladFold4dIteration(z4D, fractal);
-					z4D.GetXYZWInto(z, w);
+					TransfFabsAddTgladFold4dIteration(z, fractal);
 					break;
 				}
 				case transfFabsAddConditional4d:
 				{
-					CVector4 z4D(z, w);
-					TransfFabsAddConditional4dIteration(z4D, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					TransfFabsAddConditional4dIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfIterationWeight4d:
 				{
-					CVector4 z4D(z, w);
-					TransfIterationWeight4dIteration(z4D, i, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					TransfIterationWeight4dIteration(z, i, fractal, extendedAux);
 					break;
 				}
 				case transfReciprocal4d:
 				{
-					CVector4 z4D(z, w);
-					TransfReciprocal4dIteration(z4D, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					TransfReciprocal4dIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfRotation4d:
 				{
-					CVector4 z4D(z, w);
-					TransfRotation4dIteration(z4D, fractal);
-					z4D.GetXYZWInto(z, w);
+					TransfRotation4dIteration(z, fractal);
 					break;
 				}
 				case transfScale4d:
 				{
-					CVector4 z4D(z, w);
-					TransfScale4dIteration(z4D, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					TransfScale4dIteration(z, fractal, extendedAux);
 					break;
 				}
 				case transfSphericalFold4d:
 				{
-					CVector4 z4D(z, w);
-					TransfSphericalFold4dIteration(z4D, fractal, extendedAux);
-					z4D.GetXYZWInto(z, w);
+					TransfSphericalFold4dIteration(z, fractal, extendedAux);
 					break;
 				}
-
 				default:
 					double high = fractals.GetBailout(sequence) * 10.0;
-					z = CVector3(high, high, high);
+					z = CVector4(high, high, high, high);
 					break;
 			}
 		}
@@ -1029,11 +992,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						{
 							CVector3 juliaC =
 								fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence);
-							z += CVector3(juliaC.y, juliaC.x, juliaC.z);
+							z += CVector4(juliaC.y, juliaC.x, juliaC.z, 0.0);
 						}
 						else
 						{
-							z += CVector3(c.y, c.x, c.z) * fractals.GetConstantMultiplier(sequence);
+							z += CVector4(c.y, c.x, c.z, 0.0) * fractals.GetConstantMultiplier(sequence);
 						}
 						break;
 					}
@@ -1042,7 +1005,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					if (fractals.IsJuliaEnabled(sequence))
 					{
-						z += fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence);
+						z += CVector4(
+							fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence), 0.0);
 					}
 					else
 					{
@@ -1064,7 +1028,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		{
 			case imaginaryScatorPower2:
 			{
-				CVector3 z2 = z * z;
+				CVector4 z2 = z * z;
 				r = sqrt(z2.x + z2.y + z2.z) + (z2.y * z2.z) / (z2.x);
 				break;
 			}
@@ -1084,7 +1048,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 			default:
 			{
-				r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
+				r = z.Length();
 				break;
 			}
 		}
@@ -1093,7 +1057,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		{
 			z = lastZ;
 			r = z.Length();
-			w = 0.0;
 			out->maxiter = true;
 			break;
 		}
@@ -1151,12 +1114,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case sFractalColoring::fractalColoringZDotPoint:
 					{
-						len = fabs(z.Dot(in.point));
+						len = fabs(z.Dot(CVector4(in.point, 0.0)));
 						break;
 					}
 					case sFractalColoring::fractalColoringSphere:
 					{
-						len = fabs((z - in.point).Length() - in.fractalColoring.sphereRadius);
+						len = fabs((z - CVector4(in.point, 0.0)).Length() - in.fractalColoring.sphereRadius);
 						break;
 					}
 					case sFractalColoring::fractalColoringCross:
@@ -1166,7 +1129,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case sFractalColoring::fractalColoringLine:
 					{
-						len = fabs(z.Dot(in.fractalColoring.lineDirection));
+						len = fabs(z.Dot(CVector4(in.fractalColoring.lineDirection, 0.0)));
 						break;
 					}
 					case sFractalColoring::fractalColoringNone:
@@ -1184,7 +1147,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeOrbitTrap)
 			{
-				CVector3 delta = z - in.common.fakeLightsOrbitTrap;
+				CVector4 delta = z - CVector4(in.common.fakeLightsOrbitTrap, 0.0);
 				double distance = delta.Length();
 				if (i >= in.common.fakeLightsMinIter && i <= in.common.fakeLightsMaxIter)
 					orbitTrapTotal += (1.0 / (distance * distance));
@@ -1441,7 +1404,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	}
 
 	out->iters = i + 1;
-	out->z = z; // CVector3( z.x, z.y, w);// z;
+	out->z = z.GetXYZ(); // CVector3( z.x, z.y, w);// z;
 	// tim = rdtsc() - tim; perf+= tim; perfCount++; outStream << (double)perf/perfCount - 560.0 <<
 	// endl;
 	//------------- 3249 ns for all calculation  ----------------

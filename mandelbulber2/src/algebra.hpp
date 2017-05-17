@@ -182,7 +182,10 @@ public:
 		return x == vector.x && y == vector.y && z == vector.z;
 	}
 	inline double Length() const { return sqrt(x * x + y * y + z * z); }
-	inline double LengthPow(double p) const { return pow(pow(x, p) + pow(y, p) + pow(z, p), 1.0 / p); }
+	inline double LengthPow(double p) const
+	{
+		return pow(pow(x, p) + pow(y, p) + pow(z, p), 1.0 / p);
+	}
 	inline double Dot(const CVector3 &vector) const
 	{
 		return x * vector.x + y * vector.y + z * vector.z;
@@ -332,6 +335,11 @@ public:
 	{
 		return CVector4(x * v.x, y * v.y, z * v.z, w * v.w);
 	}
+	inline CVector4 operator*(const CVector3 &v) const
+	{
+		return CVector4(x * v.x, y * v.y, z * v.z, w);
+	}
+
 	inline CVector4 operator/(const double &s) const { return CVector4(x / s, y / s, z / s, w / s); }
 	inline CVector4 &operator=(const CVector4 &v)
 	{
@@ -371,6 +379,14 @@ public:
 		y *= v.y;
 		z *= v.z;
 		w *= v.w;
+		return *this;
+	}
+	inline CVector4 &operator*=(const CVector3 &v)
+	{
+		x *= v.x;
+		y *= v.y;
+		z *= v.z;
+		w *= 1.0;
 		return *this;
 	}
 	inline CVector4 &operator/=(const double &s)
@@ -425,6 +441,18 @@ public:
 		if (v.Length() == 0.0) return *this;
 		return (((*this - v * 0.5) % v) + v) % v - v * 0.5;
 	}
+
+	inline bool IsNotANumber() const
+	{
+		// Check for NaN
+		// single "&" is intended: since "most of times" gsl_finite is true,
+		// always evaluating xyz at once allows cpu to perform faster
+		// than evaluating each dimension sequentially.
+		return !(gsl_finite(x) & gsl_finite(y) & gsl_finite(z) & gsl_finite(w));
+	}
+
+	CVector4 RotateAroundVectorByAngle(CVector3 axis, double angle) const;
+
 	QString Debug() const
 	{
 		return QString("[%1, %2, %3, %4]")
@@ -600,6 +628,7 @@ public:
 	void RotateZ(double angle);
 	void Null();
 	CVector3 RotateVector(const CVector3 &vector) const;
+	CVector4 RotateVector(const CVector4 &vector) const;
 	double GetAlfa() const;
 	double GetBeta() const;
 	double GetGamma() const;
