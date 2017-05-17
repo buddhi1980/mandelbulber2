@@ -41,7 +41,6 @@ inline cl_float4 toClFloat4(CVector4 v)
 #endif
 
 #ifdef OPENCL_KERNEL_CODE
-
 inline float3 Matrix33MulFloat3(matrix33 matrix, float3 vect)
 {
 	float3 out;
@@ -102,6 +101,13 @@ matrix33 RotateZ(matrix33 m, float angle)
 	return out;
 }
 
+float3 RotateAroundVectorByAngle(float3 origin, float3 axis, float angle)
+{
+	float3 vector = origin * cos(angle);
+	vector += cross(axis, origin) * sin(angle);
+	vector += axis * dot(axis, origin) * (1.0f - cos(angle));
+	return vector;
+}
 #endif
 
 #endif //MANDELBULBER2_OPENCL_ALGEBRA_HPP_

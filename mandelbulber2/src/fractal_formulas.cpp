@@ -1309,8 +1309,7 @@ void AexionOctopusModIteration(CVector4 &z, CVector4 c, const sFractal *fractal)
  */
 void AmazingSurfIteration(CVector4 &z, CVector4 c, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.actualScale =
-		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	aux.actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -2116,7 +2115,7 @@ void CollatzIteration(CVector4 &z, sExtendedAux &aux)
 			- CVector4(xV + 2.0 * z) * CVector4(z.RotateAroundVectorByAngle(xV.GetXYZ(), M_PI));
 	z /= 4.0;
 	aux.DE = aux.DE * 4.0 + 1.0;
-	aux.r_dz = aux.r_dz * 4.0;
+	aux.r_dz *= 4.0;
 }
 
 /**
@@ -2235,8 +2234,6 @@ void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// extract polar coordinates
 	double wr = aux.r;
-	// if (wr < 1e-21)
-	//	wr = 1e-21;
 	double wo = acos(z.y / wr);
 	double wi = atan2(z.x, z.z);
 
@@ -4729,13 +4726,10 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 			break;
 	}
 
-	if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtan_atan2)
+	switch (fractal->sinTan2Trig.atan2OrAtan)
 	{
-		ph0 += atan2(v2, v3);
-	}
-	else
-	{
-		ph0 += atan(v2 / v3);
+		case multi_atan2OrAtan_atan2: ph0 += atan2(v2, v3); break;
+		case multi_atan2OrAtan_atan: ph0 += atan(v2 / v3); break;
 	}
 
 	double r1 = fractal->transformCommon.minR05;
@@ -4749,14 +4743,13 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 	{
 		sqrT = sqrt(aux.r);
 	}
-	if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcos_asin)
+
+	switch (fractal->sinTan2Trig.asinOrAcos)
 	{
-		th0 += asin(v1 / sqrT);
+		case multi_asinOrAcos_asin: th0 += asin(v1 / sqrT); break;
+		case multi_asinOrAcos_acos: th0 += acos(v1 / sqrT); break;
 	}
-	else
-	{
-		th0 += acos(v1 / sqrT);
-	}
+
 	th0 *= fractal->transformCommon.pwr8; // default 8
 	ph0 *= fractal->bulb.power;						// default 9 gives 8 symmetry
 
