@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.09
+# version 2.11
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -23,9 +23,9 @@ hdr true;
 hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
-initial_waxis 0,3;
 keyframe_last_to_render 0;
 mat1_coloring_palette_offset 4;
+mat1_is_defined true;
 mat1_specular 0,9;
 mat1_specular_width 0,7;
 SSAO_random_mode true;

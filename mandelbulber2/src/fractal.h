@@ -69,22 +69,20 @@ enum enumOCLDEMode
 
 struct sExtendedAux
 {
+	int i;
 	double r_dz;
 	double r;
 	double DE;
 	double color;
 	double actualScale;
-	// double newR;
-	// double orbitTraps;
-	// double axisBias;
 	double pseudoKleinianDE;
-	//	double pseudoKleinianZZ;
 	double linearDE;
 	double cw;
 	double foldFactor;
 	double minRFactor;
 	double scaleFactor;
 	CVector4 c;
+	CVector4 const_c;
 };
 
 struct sFoldColor
