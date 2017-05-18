@@ -75,6 +75,8 @@ cmake3 \
 -DGSL_INCLUDE_DIR=$KNC_LIB/install-mic/gsl/include \
 -DGSL_LIBRARY=$KNC_LIB/install-mic/gsl/lib/libgsl.a \
 -DGSL_CBLAS_LIBRARY=$KNC_LIB/install-mic/gsl/lib/libgslcblas.a \
+-DLZO_INCLUDE_DIR=$KNC_LIB/install-mic/lzo/include \
+-DLZO_LIBRARIES=$KNC_LIB/install-mic/lzo/lib/liblzo2.a \
 -DCMAKE_INSTALL_PREFIX=$SRC/install-mic \
 -G "Eclipse CDT4 - Unix Makefiles" \
 $SRC/mandelbulber2/cmake/
