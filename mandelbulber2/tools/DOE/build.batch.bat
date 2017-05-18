@@ -106,5 +106,7 @@ xcopy /Q /C /Y /I %SRC%\mandelbulber2\data %BINDIR%data
 xcopy /Q /C /Y %PNGDIST%\*.dll %BINDIR%
 xcopy /Q /C /Y %ZLIBDIST%\*.dll %BINDIR%
 
+cd %_SCRIPT_FOLDER%
+
 REM --- exit ----
 GOTO:eof

@@ -55,7 +55,6 @@ cmake -G %cmake_platform% ^
 -DCMAKE_MAKE_PROGRAM=%JomDir%\jom.exe ^
 -DCMAKE_VERBOSE_MAKEFILE=%VERBOSE_MAKEFILE% ^
 -DUSE_GAMEPAD=1 ^
--DCMAKE_CXX_FLAGS="/Qstd=c++11 /Qopenmp /EHsc /nologo" ^
 -DCMAKE_BUILD_TYPE=Release ^
 -DCMAKE_INSTALL_PREFIX=%OutDir% ^
 -DZLIB_LIBRARY=%ZLIBDIR%\lib_release\zlibstatic.lib ^
@@ -98,6 +97,8 @@ xcopy /Q /C /Y /I %SRC%\mandelbulber2\formula %BINDIR%formula
 xcopy /Q /C /Y /I %SRC%\mandelbulber2\data %BINDIR%data
 xcopy /Q /C /Y %PNGDIST%\*.dll %BINDIR%
 xcopy /Q /C /Y %ZLIBDIST%\*.dll %BINDIR%
+
+cd %_SCRIPT_FOLDER%
 
 REM --- exit ----
 GOTO:eof
