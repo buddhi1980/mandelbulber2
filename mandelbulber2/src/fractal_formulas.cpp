@@ -1309,7 +1309,8 @@ void AexionOctopusModIteration(CVector4 &z, CVector4 c, const sFractal *fractal)
  */
 void AmazingSurfIteration(CVector4 &z, CVector4 c, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	aux.actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
