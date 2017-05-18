@@ -78,6 +78,10 @@ public:
 	{
 		return useAdditionalBailoutCond[formulaIndex];
 	};
+	inline fractalFormulaFcn GetFractalFormulaFunction(int formulaIndex) const
+	{
+		return fractalFormulaFunctions[formulaIndex];
+	}
 
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 
@@ -110,6 +114,7 @@ private:
 	CVector3 constantMultiplier[NUMBER_OF_FRACTALS];
 	double initialWAxis[NUMBER_OF_FRACTALS];
 	bool useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
+	fractalFormulaFcn fractalFormulaFunctions[NUMBER_OF_FRACTALS];
 
 	void CreateSequence(const cParameterContainer *generalPar);
 };

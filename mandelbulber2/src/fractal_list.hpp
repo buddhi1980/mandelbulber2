@@ -38,6 +38,7 @@
 #include "system.hpp"
 #include "fractal_enums.h"
 #include <QtCore>
+#include "algebra.hpp"
 
 namespace fractal
 {
@@ -245,23 +246,30 @@ enum enumFractalFormula
 };
 }
 
+struct sFractal;
+struct sExtendedAux;
+
+typedef void (*fractalFormulaFcn)(CVector4 &, const sFractal *, sExtendedAux &);
+
 struct sFractalDescription
 {
 	QString nameInComboBox;
 	QString internalName;
 	fractal::enumFractalFormula internalID;
+	fractalFormulaFcn fractalFormulaFunction;
 	fractal::enumDEType DEType;
 	fractal::enumDEFunctionType DEFunctionType;
 	fractal::enumCPixelAddition cpixelAddition;
 	double defaultBailout;
 
 	sFractalDescription(QString _nameInComboBox, QString _internalName,
-		fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType,
-		fractal::enumDEFunctionType _DEFunctionType, fractal::enumCPixelAddition _cpixelAddition,
-		double _defaultBailout)
+		fractal::enumFractalFormula _internalID, fractalFormulaFcn _fractalFormulaFunction,
+		fractal::enumDEType _DEType, fractal::enumDEFunctionType _DEFunctionType,
+		fractal::enumCPixelAddition _cpixelAddition, double _defaultBailout)
 			: nameInComboBox(_nameInComboBox),
 				internalName(_internalName),
 				internalID(_internalID),
+				fractalFormulaFunction(_fractalFormulaFunction),
 				DEType(_DEType),
 				DEFunctionType(_DEFunctionType),
 				cpixelAddition(_cpixelAddition),

@@ -85,6 +85,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		DEType[i] = fractal::deltaDEType;
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
 
+		fractalFormulaFunctions[i] =
+			fractalList[GetIndexOnFractalList(fractals[i]->formula)].fractalFormulaFunction;
+
 		if (isBoolean || (!isBoolean && !isHybrid))
 			checkForBailout[i] = true;
 		else
