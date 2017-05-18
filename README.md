@@ -76,6 +76,8 @@ These scripts install all dependencies, compile the program, and create symbolic
 
 In addition, there exists an MSBuild System Solution located in root folder of git package. This solution accommodates all dependencies with NUGET for autonomous compilation.
 
+The system requires the QT5 framework in conjuction with LZO for real-time data compression and GSL for scientific resources.
+
 ## Resources
 
 [Image Gallery](http://krzysztofmarczak.deviantart.com/gallery/)
