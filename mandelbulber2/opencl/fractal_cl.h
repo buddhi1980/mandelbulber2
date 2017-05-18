@@ -77,7 +77,7 @@ typedef struct
 	cl_float foldFactor;
 	cl_float minRFactor;
 	cl_float scaleFactor;
-	cl_float3 c;
+	cl_float4 c;
 } sExtendedAuxCl;
 
 typedef struct
@@ -126,9 +126,9 @@ typedef struct
 	cl_int edgeEnabled;
 	matrix33 mainRot;
 	matrix33 rot[IFS_VECTOR_COUNTCl];
-	cl_float3 direction[IFS_VECTOR_COUNTCl];
+	cl_float4 direction[IFS_VECTOR_COUNTCl];
 	cl_float3 edge;
-	cl_float3 offset;
+	cl_float4 offset;
 	cl_float3 rotations[IFS_VECTOR_COUNTCl];
 	cl_float distance[IFS_VECTOR_COUNTCl];
 	cl_float intensity[IFS_VECTOR_COUNTCl];
@@ -158,7 +158,7 @@ typedef struct
 	cl_float sharpness;
 	cl_float solid;
 	cl_float melt;
-	cl_float3 offset;
+	cl_float4 offset;
 	cl_int rotationsEnabled;
 	cl_int mainRotationEnabled;
 	matrix33 mainRot;
@@ -476,42 +476,42 @@ typedef struct
 	cl_int int8Y;
 	cl_int int8Z;
 
-	cl_float3 additionConstant0555;
-	cl_float3 additionConstant0777;
-	cl_float3 additionConstant000;
-	cl_float3 additionConstantA000;
+	cl_float4 additionConstant0555;
+	cl_float4 additionConstant0777;
+	cl_float4 additionConstant000;
+	cl_float4 additionConstantA000;
 	cl_float3 additionConstantP000;
-	cl_float3 additionConstant111;
+	cl_float4 additionConstant111;
 	cl_float3 additionConstantA111;
-	cl_float3 additionConstant222;
+	cl_float4 additionConstant222;
 	cl_float3 additionConstantNeg100;
-	cl_float3 constantMultiplier000;
-	cl_float3 constantMultiplier001;
-	cl_float3 constantMultiplier010;
-	cl_float3 constantMultiplier100;
-	cl_float3 constantMultiplierA100;
-	cl_float3 constantMultiplier111;
-	cl_float3 constantMultiplierA111;
-	cl_float3 constantMultiplierB111;
+	cl_float4 constantMultiplier000;
+	cl_float4 constantMultiplier001;
+	cl_float4 constantMultiplier010;
+	cl_float4 constantMultiplier100;
+	cl_float4 constantMultiplierA100;
+	cl_float4 constantMultiplier111;
+	cl_float4 constantMultiplierA111;
+	cl_float4 constantMultiplierB111;
 	cl_float3 constantMultiplierC111;
 	cl_float3 constantMultiplier121;
 	cl_float3 constantMultiplier122;
-	cl_float3 constantMultiplier221;
+	cl_float4 constantMultiplier221;
 	cl_float3 constantMultiplier222;
 	cl_float3 constantMultiplier441;
-	cl_float3 juliaC;
-	cl_float3 offset000;
-	cl_float3 offsetA000;
+	cl_float4 juliaC;
+	cl_float4 offset000;
+	cl_float4 offsetA000;
 	cl_float3 offsetF000;
-	cl_float3 offset100;
-	cl_float3 offset1105;
-	cl_float3 offset111;
-	cl_float3 offsetA111;
-	cl_float3 offsetB111;
-	cl_float3 offsetC111;
-	cl_float3 offset200;
-	cl_float3 offsetA200;
-	cl_float3 offset222;
+	cl_float4 offset100;
+	cl_float4 offset1105;
+	cl_float4 offset111;
+	cl_float4 offsetA111;
+	cl_float4 offsetB111;
+	cl_float4 offsetC111;
+	cl_float4 offset200;
+	cl_float4 offsetA200;
+	cl_float4 offset222;
 
 	cl_float3 power025;
 	cl_float3 power8;
@@ -639,7 +639,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.foldFactor = source.foldFactor;
 	target.minRFactor = source.minRFactor;
 	target.scaleFactor = source.scaleFactor;
-	target.c = toClFloat3(source.c);
+	target.c = toClFloat4(source.c);
 	return target;
 }
 
@@ -726,10 +726,10 @@ inline sFractalIFSCl clCopySFractalIFSCl(sFractalIFS &source)
 	}
 	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
 	{
-		target.direction[i] = toClFloat3(source.direction[i]);
+		target.direction[i] = toClFloat4(source.direction[i]);
 	}
 	target.edge = toClFloat3(source.edge);
-	target.offset = toClFloat3(source.offset);
+	target.offset = toClFloat4(source.offset);
 	for (int i = 0; i < IFS_VECTOR_COUNTCl; i++)
 	{
 		target.rotations[i] = toClFloat3(source.rotations[i]);
@@ -778,7 +778,7 @@ inline sFractalMandelboxCl clCopySFractalMandelboxCl(sFractalMandelbox &source)
 	target.sharpness = source.sharpness;
 	target.solid = source.solid;
 	target.melt = source.melt;
-	target.offset = toClFloat3(source.offset);
+	target.offset = toClFloat4(source.offset);
 	target.rotationsEnabled = source.rotationsEnabled;
 	target.mainRotationEnabled = source.mainRotationEnabled;
 	target.mainRot = toClMatrix33(source.mainRot);
@@ -1074,42 +1074,42 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.int8X = source.int8X;
 	target.int8Y = source.int8Y;
 	target.int8Z = source.int8Z;
-	target.additionConstant0555 = toClFloat3(source.additionConstant0555);
-	target.additionConstant0777 = toClFloat3(source.additionConstant0777);
-	target.additionConstant000 = toClFloat3(source.additionConstant000);
-	target.additionConstantA000 = toClFloat3(source.additionConstantA000);
+	target.additionConstant0555 = toClFloat4(source.additionConstant0555);
+	target.additionConstant0777 = toClFloat4(source.additionConstant0777);
+	target.additionConstant000 = toClFloat4(source.additionConstant000);
+	target.additionConstantA000 = toClFloat4(source.additionConstantA000);
 	target.additionConstantP000 = toClFloat3(source.additionConstantP000);
-	target.additionConstant111 = toClFloat3(source.additionConstant111);
+	target.additionConstant111 = toClFloat4(source.additionConstant111);
 	target.additionConstantA111 = toClFloat3(source.additionConstantA111);
-	target.additionConstant222 = toClFloat3(source.additionConstant222);
+	target.additionConstant222 = toClFloat4(source.additionConstant222);
 	target.additionConstantNeg100 = toClFloat3(source.additionConstantNeg100);
-	target.constantMultiplier000 = toClFloat3(source.constantMultiplier000);
-	target.constantMultiplier001 = toClFloat3(source.constantMultiplier001);
-	target.constantMultiplier010 = toClFloat3(source.constantMultiplier010);
-	target.constantMultiplier100 = toClFloat3(source.constantMultiplier100);
-	target.constantMultiplierA100 = toClFloat3(source.constantMultiplierA100);
-	target.constantMultiplier111 = toClFloat3(source.constantMultiplier111);
-	target.constantMultiplierA111 = toClFloat3(source.constantMultiplierA111);
-	target.constantMultiplierB111 = toClFloat3(source.constantMultiplierB111);
+	target.constantMultiplier000 = toClFloat4(source.constantMultiplier000);
+	target.constantMultiplier001 = toClFloat4(source.constantMultiplier001);
+	target.constantMultiplier010 = toClFloat4(source.constantMultiplier010);
+	target.constantMultiplier100 = toClFloat4(source.constantMultiplier100);
+	target.constantMultiplierA100 = toClFloat4(source.constantMultiplierA100);
+	target.constantMultiplier111 = toClFloat4(source.constantMultiplier111);
+	target.constantMultiplierA111 = toClFloat4(source.constantMultiplierA111);
+	target.constantMultiplierB111 = toClFloat4(source.constantMultiplierB111);
 	target.constantMultiplierC111 = toClFloat3(source.constantMultiplierC111);
 	target.constantMultiplier121 = toClFloat3(source.constantMultiplier121);
 	target.constantMultiplier122 = toClFloat3(source.constantMultiplier122);
-	target.constantMultiplier221 = toClFloat3(source.constantMultiplier221);
+	target.constantMultiplier221 = toClFloat4(source.constantMultiplier221);
 	target.constantMultiplier222 = toClFloat3(source.constantMultiplier222);
 	target.constantMultiplier441 = toClFloat3(source.constantMultiplier441);
-	target.juliaC = toClFloat3(source.juliaC);
-	target.offset000 = toClFloat3(source.offset000);
-	target.offsetA000 = toClFloat3(source.offsetA000);
+	target.juliaC = toClFloat4(source.juliaC);
+	target.offset000 = toClFloat4(source.offset000);
+	target.offsetA000 = toClFloat4(source.offsetA000);
 	target.offsetF000 = toClFloat3(source.offsetF000);
-	target.offset100 = toClFloat3(source.offset100);
-	target.offset1105 = toClFloat3(source.offset1105);
-	target.offset111 = toClFloat3(source.offset111);
-	target.offsetA111 = toClFloat3(source.offsetA111);
-	target.offsetB111 = toClFloat3(source.offsetB111);
-	target.offsetC111 = toClFloat3(source.offsetC111);
-	target.offset200 = toClFloat3(source.offset200);
-	target.offsetA200 = toClFloat3(source.offsetA200);
-	target.offset222 = toClFloat3(source.offset222);
+	target.offset100 = toClFloat4(source.offset100);
+	target.offset1105 = toClFloat4(source.offset1105);
+	target.offset111 = toClFloat4(source.offset111);
+	target.offsetA111 = toClFloat4(source.offsetA111);
+	target.offsetB111 = toClFloat4(source.offsetB111);
+	target.offsetC111 = toClFloat4(source.offsetC111);
+	target.offset200 = toClFloat4(source.offset200);
+	target.offsetA200 = toClFloat4(source.offsetA200);
+	target.offset222 = toClFloat4(source.offset222);
 	target.power025 = toClFloat3(source.power025);
 	target.power8 = toClFloat3(source.power8);
 	target.rotation = toClFloat3(source.rotation);

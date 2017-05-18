@@ -15,7 +15,7 @@
 
 #ifndef DOUBLE_PRECISION
 inline void KaleidoscopicIFSIteration(
-	float3 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	float4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->IFS.absX) z->x = fabs(z->x);
 	if (fractal->IFS.absY) z->y = fabs(z->y);
@@ -25,7 +25,7 @@ inline void KaleidoscopicIFSIteration(
 	{
 		if (fractal->IFS.enabled[i])
 		{
-			*z = Matrix33MulFloat3(fractal->IFS.rot[i], *z);
+			z->xyz = Matrix33MulFloat3(fractal->IFS.rot[i], *z);
 			float length = dot(*z, fractal->IFS.direction[i]);
 
 			if (length < fractal->IFS.distance[i])
@@ -37,7 +37,8 @@ inline void KaleidoscopicIFSIteration(
 	}
 
 	if (fractal->IFS.rotationEnabled)
-		*z = Matrix33MulFloat3(fractal->IFS.mainRot, *z - fractal->IFS.offset) + fractal->IFS.offset;
+		z->xyz =
+			Matrix33MulFloat3(fractal->IFS.mainRot, *z - fractal->IFS.offset) + fractal->IFS.offset;
 
 	if (fractal->IFS.edge.x > 0.0f) z->x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z->x);
 	if (fractal->IFS.edge.y > 0.0f) z->y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z->y);
@@ -59,7 +60,7 @@ inline void KaleidoscopicIFSIteration(
 }
 #else
 inline void KaleidoscopicIFSIteration(
-	double3 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	double4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->IFS.absX) z->x = fabs(z->x);
 	if (fractal->IFS.absY) z->y = fabs(z->y);
@@ -69,7 +70,7 @@ inline void KaleidoscopicIFSIteration(
 	{
 		if (fractal->IFS.enabled[i])
 		{
-			*z = Matrix33MulFloat3(fractal->IFS.rot[i], *z);
+			z->xyz = Matrix33MulFloat3(fractal->IFS.rot[i], *z);
 			double length = dot(*z, fractal->IFS.direction[i]);
 
 			if (length < fractal->IFS.distance[i])
@@ -81,7 +82,8 @@ inline void KaleidoscopicIFSIteration(
 	}
 
 	if (fractal->IFS.rotationEnabled)
-		*z = Matrix33MulFloat3(fractal->IFS.mainRot, *z - fractal->IFS.offset) + fractal->IFS.offset;
+		z->xyz =
+			Matrix33MulFloat3(fractal->IFS.mainRot, *z - fractal->IFS.offset) + fractal->IFS.offset;
 
 	if (fractal->IFS.edge.x > 0.0) z->x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z->x);
 	if (fractal->IFS.edge.y > 0.0) z->y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z->y);

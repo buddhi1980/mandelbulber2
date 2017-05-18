@@ -108,6 +108,15 @@ float3 RotateAroundVectorByAngle(float3 origin, float3 axis, float angle)
 	vector += axis * dot(axis, origin) * (1.0f - cos(angle));
 	return vector;
 }
+
+float4 RotateAroundVectorByAngle4(float4 origin4d, float3 axis, float angle)
+{
+	float3 origin = origin4d.xyz;
+	float3 vector = origin * cos(angle);
+	vector += cross(axis, origin) * sin(angle);
+	vector += axis * dot(axis, origin) * (1.0f - cos(angle));
+	return (float4){vector, origin4d.w};
+}
 #endif
 
 #endif //MANDELBULBER2_OPENCL_ALGEBRA_HPP_

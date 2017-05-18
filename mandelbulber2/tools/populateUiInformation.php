@@ -425,11 +425,12 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/($var)\.Length\(\)/", 'replace' => 'length($1)'),       // CVector3 Length() to built in length
 			array('find' => "/($var)\.Dot\(/", 'replace' => 'dot($1, '),              // CVector3 Dot() to built in dot
 			array('find' => "/($var)\.Cross\(/", 'replace' => 'cross($1, '),          // CVector3 Cross() to built in cross
-			array('find' => "/($var) = ($var)\.RotateVector\(/", 'replace' => '$1 = Matrix33MulFloat3($2, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/($var) = ($var)\.RotateVector\(/", 'replace' => '$1->xyz = Matrix33MulFloat3($2, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateX\(/", 'replace' => '$1 = RotateX($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateY\(/", 'replace' => '$1 = RotateY($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateZ\(/", 'replace' => '$1 = RotateZ($1, '), // CRotationMatrix33 to custom rotation function
-			array('find' => "/($var)\.RotateAroundVectorByAngle\(/", 'replace' => 'RotateAroundVectorByAngle($1, '), // CVector3 to custom rotation function
+			array('find' => "/($var)\.RotateAroundVectorByAngle\(/", 'replace' => 'RotateAroundVectorByAngle4($1, '), // CVector3 to custom rotation function
+			array('find' => "/($var)\.GetXYZ\(\)/", 'replace' => '$1.xyz'), // CVector4 getxyz to native accessor of float4
 			array('find' => "/CRotationMatrix /", 'replace' => 'matrix33 '), // CRotationMatrix33 to matrix33
 			array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ ' . $fod . ' temp = $1; $1 = $2; $2 = temp; }'),// swap vals
 			array('find' => "/($s|\()(\d+)f($s|;|\))/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
@@ -453,7 +454,7 @@ function parseToOpenCL($code, $mode = 'single'){
 
 			// formula specific replacements
 			array('find' => "/^void(\s)/", 'replace' => 'inline void$1'), // mark void with inline void
-			array('find' => "/" . $fod . "3 &z/", 'replace' => $fod . '3 *z'), // no passing by reference
+			array('find' => "/" . $fod . "4 &z/", 'replace' => $fod . '4 *z'), // no passing by reference
 			array('find' => "/" . $fod . " &w/", 'replace' => $fod . ' *w'), // no passing by reference
 			array('find' => "/z\./", 'replace' => 'z->'),
 			array('find' => "/" . $fod . "4 &z4D/", 'replace' => $fod . '4 *z4D'), // no passing by reference

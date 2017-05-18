@@ -2111,9 +2111,10 @@ void BenesiPwr2MandelbulbIteration(
 void CollatzIteration(CVector4 &z, sExtendedAux &aux)
 {
 
-	CVector4 xV(1.0, 1.0, 1.0, 0.0);
-	z = xV + 4.0 * z
-			- CVector4(xV + 2.0 * z) * CVector4(z.RotateAroundVectorByAngle(xV.GetXYZ(), M_PI));
+	CVector4 xV = CVector4(1.0, 1.0, 1.0, 0.0);
+	CVector4 temp = CVector4(xV + 2.0 * z);
+	temp *= z.RotateAroundVectorByAngle(xV.GetXYZ(), M_PI);
+	z = xV + 4.0 * z - temp;
 	z /= 4.0;
 	aux.DE = aux.DE * 4.0 + 1.0;
 	aux.r_dz *= 4.0;

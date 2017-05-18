@@ -11,7 +11,7 @@
 
 typedef struct
 {
-	float3 z;
+    float4 z;
 	float iters;
 	float distance;
 	float colourIndex;
@@ -22,9 +22,15 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// begin
 	float dist = 0.0f;
 	int N = calcParam->N;
-	float3 z = point;
+	float4 z;
+	z.x = point.x;
+	z.y = point.y;
+	z.z = point.z;
+	z.w = 0;
+
 	float w = 0;
-	float3 c = point;
+
+    float4 c = z;
 	int i;
 	formulaOut out;
 	float colourMin = 1e8f;
@@ -52,7 +58,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		int formulaIndex = consts->sequence.hybridSequence[i];
 
 #ifdef FORMULA_MANDELBULB
-		MandelbulbIteration(&z, fractal, &aux);
+        MandelbulbIteration(&z, fractal, &aux);
 #endif
 
 #ifdef FORMULA_MANDELBULB4
@@ -76,7 +82,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #endif
 
 #ifdef FORMULA_HYPERCOMPLEX
-		HypercomplexIteration(&z, &w, &aux);
+        HypercomplexIteration(&z, &aux);
 #endif
 
 #ifdef FORMULA_XENODREAMBUIE

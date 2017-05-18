@@ -18,9 +18,10 @@
 
 #ifndef DOUBLE_PRECISION
 inline void AmazingSurfIteration(
-	float3 *z, float3 c, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	float4 *z, float4 c, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	z->x = fabs(z->x + fractal->transformCommon.additionConstant111.x)
 				 - fabs(z->x - fractal->transformCommon.additionConstant111.x) - z->x;
@@ -39,15 +40,16 @@ inline void AmazingSurfIteration(
 	aux->DE = mad(aux->DE, fabs(m), 1.0f);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
-		*z += (float3){c.y, c.x, c.z} * fractal->transformCommon.constantMultiplier111;
+		*z += (float4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
 
-	*z = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
+	z->xyz = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
 }
 #else
 inline void AmazingSurfIteration(
-	double3 *z, double3 c, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	double4 *z, double4 c, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0);
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	z->x = fabs(z->x + fractal->transformCommon.additionConstant111.x)
 				 - fabs(z->x - fractal->transformCommon.additionConstant111.x) - z->x;
@@ -66,8 +68,8 @@ inline void AmazingSurfIteration(
 	aux->DE = aux->DE * fabs(m) + 1.0;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
-		*z += (double3){c.y, c.x, c.z} * fractal->transformCommon.constantMultiplier111;
+		*z += (double4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
 
-	*z = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
+	z->xyz = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
 }
 #endif

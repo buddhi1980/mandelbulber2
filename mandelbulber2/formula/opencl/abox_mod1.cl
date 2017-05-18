@@ -24,7 +24,7 @@
 
 #ifndef DOUBLE_PRECISION
 inline void AboxMod1Iteration(
-	float3 *z, float3 c, int i, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	float4 *z, float4 c, int i, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
@@ -75,19 +75,19 @@ inline void AboxMod1Iteration(
 			&& i >= fractal->transformCommon.startIterationsE
 			&& i < fractal->transformCommon.stopIterationsE)
 	{
-		float3 tempC = c;
+		float4 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux->c;
 			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case multi_OrderOfXYZCl_xyz:
-				default: tempC = (float3){tempC.x, tempC.y, tempC.z}; break;
-				case multi_OrderOfXYZCl_xzy: tempC = (float3){tempC.x, tempC.z, tempC.y}; break;
-				case multi_OrderOfXYZCl_yxz: tempC = (float3){tempC.y, tempC.x, tempC.z}; break;
-				case multi_OrderOfXYZCl_yzx: tempC = (float3){tempC.y, tempC.z, tempC.x}; break;
-				case multi_OrderOfXYZCl_zxy: tempC = (float3){tempC.z, tempC.x, tempC.y}; break;
-				case multi_OrderOfXYZCl_zyx: tempC = (float3){tempC.z, tempC.y, tempC.x}; break;
+				default: tempC = (float4){tempC.x, tempC.y, tempC.z, tempC.w}; break;
+				case multi_OrderOfXYZCl_xzy: tempC = (float4){tempC.x, tempC.z, tempC.y, tempC.w}; break;
+				case multi_OrderOfXYZCl_yxz: tempC = (float4){tempC.y, tempC.x, tempC.z, tempC.w}; break;
+				case multi_OrderOfXYZCl_yzx: tempC = (float4){tempC.y, tempC.z, tempC.x, tempC.w}; break;
+				case multi_OrderOfXYZCl_zxy: tempC = (float4){tempC.z, tempC.x, tempC.y, tempC.w}; break;
+				case multi_OrderOfXYZCl_zyx: tempC = (float4){tempC.z, tempC.y, tempC.x, tempC.w}; break;
 			}
 			aux->c = tempC;
 		}
@@ -96,12 +96,12 @@ inline void AboxMod1Iteration(
 			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case multi_OrderOfXYZCl_xyz:
-				default: tempC = (float3){c.x, c.y, c.z}; break;
-				case multi_OrderOfXYZCl_xzy: tempC = (float3){c.x, c.z, c.y}; break;
-				case multi_OrderOfXYZCl_yxz: tempC = (float3){c.y, c.x, c.z}; break;
-				case multi_OrderOfXYZCl_yzx: tempC = (float3){c.y, c.z, c.x}; break;
-				case multi_OrderOfXYZCl_zxy: tempC = (float3){c.z, c.x, c.y}; break;
-				case multi_OrderOfXYZCl_zyx: tempC = (float3){c.z, c.y, c.x}; break;
+				default: tempC = (float4){c.x, c.y, c.z, c.w}; break;
+				case multi_OrderOfXYZCl_xzy: tempC = (float4){c.x, c.z, c.y, c.w}; break;
+				case multi_OrderOfXYZCl_yxz: tempC = (float4){c.y, c.x, c.z, c.w}; break;
+				case multi_OrderOfXYZCl_yzx: tempC = (float4){c.y, c.z, c.x, c.w}; break;
+				case multi_OrderOfXYZCl_zxy: tempC = (float4){c.z, c.x, c.y, c.w}; break;
+				case multi_OrderOfXYZCl_zyx: tempC = (float4){c.z, c.y, c.x, c.w}; break;
 			}
 		}
 		*z += tempC * fractal->transformCommon.constantMultiplier111;
@@ -110,12 +110,12 @@ inline void AboxMod1Iteration(
 	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
-		*z = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
+		z->xyz = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
 	}
 }
 #else
 inline void AboxMod1Iteration(
-	double3 *z, double3 c, int i, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	double4 *z, double4 c, int i, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
@@ -166,19 +166,19 @@ inline void AboxMod1Iteration(
 			&& i >= fractal->transformCommon.startIterationsE
 			&& i < fractal->transformCommon.stopIterationsE)
 	{
-		double3 tempC = c;
+		double4 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux->c;
 			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case multi_OrderOfXYZCl_xyz:
-				default: tempC = (double3){tempC.x, tempC.y, tempC.z}; break;
-				case multi_OrderOfXYZCl_xzy: tempC = (double3){tempC.x, tempC.z, tempC.y}; break;
-				case multi_OrderOfXYZCl_yxz: tempC = (double3){tempC.y, tempC.x, tempC.z}; break;
-				case multi_OrderOfXYZCl_yzx: tempC = (double3){tempC.y, tempC.z, tempC.x}; break;
-				case multi_OrderOfXYZCl_zxy: tempC = (double3){tempC.z, tempC.x, tempC.y}; break;
-				case multi_OrderOfXYZCl_zyx: tempC = (double3){tempC.z, tempC.y, tempC.x}; break;
+				default: tempC = (double4){tempC.x, tempC.y, tempC.z, tempC.w}; break;
+				case multi_OrderOfXYZCl_xzy: tempC = (double4){tempC.x, tempC.z, tempC.y, tempC.w}; break;
+				case multi_OrderOfXYZCl_yxz: tempC = (double4){tempC.y, tempC.x, tempC.z, tempC.w}; break;
+				case multi_OrderOfXYZCl_yzx: tempC = (double4){tempC.y, tempC.z, tempC.x, tempC.w}; break;
+				case multi_OrderOfXYZCl_zxy: tempC = (double4){tempC.z, tempC.x, tempC.y, tempC.w}; break;
+				case multi_OrderOfXYZCl_zyx: tempC = (double4){tempC.z, tempC.y, tempC.x, tempC.w}; break;
 			}
 			aux->c = tempC;
 		}
@@ -187,12 +187,12 @@ inline void AboxMod1Iteration(
 			switch (fractal->mandelbulbMulti.orderOfXYZ)
 			{
 				case multi_OrderOfXYZCl_xyz:
-				default: tempC = (double3){c.x, c.y, c.z}; break;
-				case multi_OrderOfXYZCl_xzy: tempC = (double3){c.x, c.z, c.y}; break;
-				case multi_OrderOfXYZCl_yxz: tempC = (double3){c.y, c.x, c.z}; break;
-				case multi_OrderOfXYZCl_yzx: tempC = (double3){c.y, c.z, c.x}; break;
-				case multi_OrderOfXYZCl_zxy: tempC = (double3){c.z, c.x, c.y}; break;
-				case multi_OrderOfXYZCl_zyx: tempC = (double3){c.z, c.y, c.x}; break;
+				default: tempC = (double4){c.x, c.y, c.z, c.w}; break;
+				case multi_OrderOfXYZCl_xzy: tempC = (double4){c.x, c.z, c.y, c.w}; break;
+				case multi_OrderOfXYZCl_yxz: tempC = (double4){c.y, c.x, c.z, c.w}; break;
+				case multi_OrderOfXYZCl_yzx: tempC = (double4){c.y, c.z, c.x, c.w}; break;
+				case multi_OrderOfXYZCl_zxy: tempC = (double4){c.z, c.x, c.y, c.w}; break;
+				case multi_OrderOfXYZCl_zyx: tempC = (double4){c.z, c.y, c.x, c.w}; break;
 			}
 		}
 		*z += tempC * fractal->transformCommon.constantMultiplier111;
@@ -201,7 +201,7 @@ inline void AboxMod1Iteration(
 	if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterationsR
 			&& i < fractal->transformCommon.stopIterationsR)
 	{
-		*z = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
+		z->xyz = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
 	}
 }
 #endif
