@@ -239,7 +239,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				// case pseudoKleinianMod2:
 				{
 
-					// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z * extendedAux.pseudoKleinianZZ);
 					r = sqrt(z.x * z.x + z.y * z.y);
 					break;
 				}
@@ -419,10 +418,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulb3:
 				case mandelbulb4:
 				case mandelbulbBermarte:
+				//case mandelbulbJuliabulb:
 				case mandelbulbKali:
 				case mandelbulbKaliMulti:
 				case mandelbulbMulti:
 				case mandelbulbMulti2:
+				//case mandelbulbQuat:
 				case mandelbulbVaryPowerV1:
 				case msltoeSym2Mod:
 				case msltoeSym3Mod:

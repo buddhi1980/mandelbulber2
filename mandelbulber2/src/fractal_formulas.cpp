@@ -1390,7 +1390,7 @@ void AmazingSurfIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	aux.actualScale =
-		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{

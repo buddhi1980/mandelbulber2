@@ -110,7 +110,7 @@ enum enumFractalFormula
 	eiffieMsltoe = 70, // updated V2.08
 	riemannSphereMsltoeV1 = 71,
 	riemannSphereMsltoe = 72,
-	amazingSurf = 73,
+	amazingSurf = 73, // fix scale v2.12
 	kalisets1 = 74,
 	aboxMod2 = 75, // fix scale v2.11
 	aboxVSIcen1 = 76,
@@ -161,6 +161,9 @@ enum enumFractalFormula
 	pseudoKleinianMod2 = 117,
 	mandelbulbMulti2 = 118,
 	aboxMod11 = 119,
+	// V2.12
+	//mandelbulbQuat = 120,
+	//mandelbulbJuliabulb = 121,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
