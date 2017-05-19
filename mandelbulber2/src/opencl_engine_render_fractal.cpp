@@ -93,7 +93,7 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		for (int i = 0; i < listOfUsedFormulas.size(); i++)
 		{
 			QString formulaName = listOfUsedFormulas.at(i);
-			if (formulaName != "none")
+			if (formulaName != "")
 			{
 				progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 													+ "opencl" + QDir::separator() + formulaName + ".cl\"\n");
@@ -185,18 +185,24 @@ void cOpenClEngineRenderFractal::SetParameters(
 	// creating list of used formuals
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(0)->formula;
+		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
 		int listIndex = cNineFractals::GetIndexOnFractalList(fractalFormula);
 		QString formulaName = fractalList.at(listIndex).internalName;
 		listOfUsedFormulas.append(formulaName);
 	}
-	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
 	// adding #defines to the list
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
-		definesCollector += " -DFORMULA_" + listOfUsedFormulas.at(i).toUpper();
+		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
+		if(internalID != "")
+		{
+			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
+		}
 	}
+
+	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 
@@ -333,4 +339,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 	return true;
 }
 
+QString cOpenClEngineRenderFractal::toCamelCase(const QString& s)
+{
+		QStringList parts = s.split('_', QString::SkipEmptyParts);
+		for (int i=1; i<parts.size(); ++i)
+				parts[i].replace(0, 1, parts[i][0].toUpper());
+
+		return parts.join("");
+}
 #endif

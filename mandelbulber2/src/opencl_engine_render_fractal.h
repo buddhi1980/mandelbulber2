@@ -32,6 +32,8 @@ public:
 	bool Render(cImage *image);
 
 private:
+	QString toCamelCase(const QString& s);
+
 	sClInConstants *constantInBuffer;
 	cl::Buffer *inCLConstBuffer;
 
