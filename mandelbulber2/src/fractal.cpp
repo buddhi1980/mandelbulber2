@@ -343,14 +343,22 @@ sFractal::sFractal(const cParameterContainer *container)
 		CVector4(container->Get<CVector3>("transf_addition_constant"), 0.0);
 	transformCommon.additionConstantA000 =
 		CVector4(container->Get<CVector3>("transf_addition_constantA_000"), 0.0);
-	transformCommon.additionConstantP000 = container->Get<CVector3>("transf_addition_constantP_000");
+
+	transformCommon.additionConstantP000 =
+		CVector4(container->Get<CVector3>("transf_addition_constantP_000"), 0.0);
+
 	transformCommon.additionConstant111 =
 		CVector4(container->Get<CVector3>("transf_addition_constant_111"), 0.0);
-	transformCommon.additionConstantA111 = container->Get<CVector3>("transf_addition_constantA_111");
+
+	transformCommon.additionConstantA111 =
+		CVector4(container->Get<CVector3>("transf_addition_constantA_111"), 0.0);
+
 	transformCommon.additionConstant222 =
 		CVector4(container->Get<CVector3>("transf_addition_constant_222"), 0.0);
+
 	transformCommon.additionConstantNeg100 =
-		container->Get<CVector3>("transf_addition_constant_neg100");
+		CVector4(container->Get<CVector3>("transf_addition_constant_neg100"), 0.0);
+
 	transformCommon.constantMultiplier000 =
 		CVector4(container->Get<CVector3>("transf_constant_multiplier_000"), 0.0);
 	transformCommon.constantMultiplier001 =

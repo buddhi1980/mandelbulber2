@@ -507,11 +507,11 @@ struct sFractalTransformCommon
 	CVector4 additionConstant0777;
 	CVector4 additionConstant000;
 	CVector4 additionConstantA000;
-	CVector3 additionConstantP000;
+	CVector4 additionConstantP000;
 	CVector4 additionConstant111;
-	CVector3 additionConstantA111;
+	CVector4 additionConstantA111;
 	CVector4 additionConstant222;
-	CVector3 additionConstantNeg100;
+	CVector4 additionConstantNeg100;
 	CVector4 constantMultiplier000;
 	CVector4 constantMultiplier001;
 	CVector4 constantMultiplier010;
@@ -520,7 +520,7 @@ struct sFractalTransformCommon
 	CVector4 constantMultiplier111;
 	CVector4 constantMultiplierA111;
 	CVector4 constantMultiplierB111;
-	CVector3 constantMultiplierC111;
+	CVector3 constantMultiplierC111; // vec3s
 	CVector3 constantMultiplier121;
 	CVector3 constantMultiplier122;
 	CVector4 constantMultiplier221;
