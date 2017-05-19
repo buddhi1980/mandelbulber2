@@ -382,7 +382,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.juliaC = CVector4(container->Get<CVector3>("transf_constant_julia_c"), 0.0);
 	transformCommon.offset000 = CVector4(container->Get<CVector3>("transf_offset_000"), 0.0);
 	transformCommon.offsetA000 = CVector4(container->Get<CVector3>("transf_offsetA_000"), 0.0);
-	transformCommon.offsetF000 = container->Get<CVector3>("transf_offsetF_000");
+	transformCommon.offsetF000 = CVector4(container->Get<CVector3>("transf_offsetF_000"), 0.0);
 	transformCommon.offset100 = CVector4(container->Get<CVector3>("transf_offset_100"), 0.0);
 	transformCommon.offset1105 = CVector4(container->Get<CVector3>("transf_offset_1105"), 0.0);
 	transformCommon.offset111 = CVector4(container->Get<CVector3>("transf_offset_111"), 0.0);

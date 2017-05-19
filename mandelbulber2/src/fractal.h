@@ -529,7 +529,7 @@ struct sFractalTransformCommon
 	CVector4 juliaC;
 	CVector4 offset000;
 	CVector4 offsetA000;
-	CVector3 offsetF000;
+	CVector4 offsetF000;
 	CVector4 offset100;
 	CVector4 offset1105;
 	CVector4 offset111;

@@ -418,7 +418,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulb3:
 				case mandelbulb4:
 				case mandelbulbBermarte:
-				//case mandelbulbJuliabulb:
+				case mandelbulbJuliabulb:
 				case mandelbulbKali:
 				case mandelbulbKaliMulti:
 				case mandelbulbMulti:
