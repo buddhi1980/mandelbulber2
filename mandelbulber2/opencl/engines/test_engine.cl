@@ -17,6 +17,8 @@ typedef struct
 	float colourIndex;
 } formulaOut;
 
+typedef void (*fractalFormulaFcn)(float4*, __constant sFractalCl*, sExtendedAuxCl*);
+
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam)
 {
 	// begin
@@ -56,63 +58,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	for (i = 0; i < N; i++)
 	{
 		int formulaIndex = consts->sequence.hybridSequence[i];
-
-#ifdef FORMULA_MANDELBULB
-        MandelbulbIteration(&z, fractal, &aux);
-#endif
-
-#ifdef FORMULA_MANDELBULB4
-		Mandelbulb4Iteration(&z, fractal, &aux);
-#endif
-
-#ifdef FORMULA_MANDELBULB3
-		Mandelbulb3Iteration(&z, &aux);
-#endif
-
-#ifdef FORMULA_KALEIDOSCOPIC_IFS
-		KaleidoscopicIFSIteration(&z, fractal, &aux);
-#endif
-
-#ifdef FORMULA_ABOX_MOD1
-		AboxMod1Iteration(&z, c, i, fractal, &aux);
-#endif
-
-#ifdef FORMULA_MANDELBOX
-		MandelboxIteration(&z, fractal, &aux);
-#endif
-
-#ifdef FORMULA_HYPERCOMPLEX
-        HypercomplexIteration(&z, &aux);
-#endif
-
-#ifdef FORMULA_XENODREAMBUIE
-        XenodreambuieIteration(&z, fractal, &aux);
-#endif
-
-#ifdef FORMULA_COLLATZ
-        CollatzIteration(&z, &aux);
-#endif
-
-#ifdef FORMULA_BUFFALO
-        BuffaloIteration(&z, fractal, &aux);
-#endif
-
-#ifdef FORMULA_MENGER_SPONGE
-        MengerSpongeIteration(&z, &aux);
-#endif
-
-#ifdef FORMULA_AMAZING_SURF
-        AmazingSurfIteration(&z, c, fractal, &aux);
-#endif
-
-#ifdef FORMULA_QUATERNION
-        QuaternionIteration(&z, &w, &aux);
-#endif
-
-#ifdef FORMULA_BOX_FOLD_BULB_POW2
-        BoxFoldBulbPow2Iteration(&z, fractal);
-#endif
-
+		fractalFormulaFcn fractalFormulaFunction = MandelbulbIteration;
+		if (fractalFormulaFunction)
+		{
+		    fractalFormulaFunction(&z, &fractal, &aux);
+		}
 		if (consts->sequence.addCConstant[formulaIndex]) z += c;
 
 		aux.r = length(z);

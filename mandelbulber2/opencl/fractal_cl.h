@@ -62,22 +62,20 @@
 
 typedef struct
 {
+	cl_int i;
 	cl_float r_dz;
 	cl_float r;
 	cl_float DE;
 	cl_float color;
 	cl_float actualScale;
-	// cl_float newR;
-	// cl_float orbitTraps;
-	// cl_float axisBias;
 	cl_float pseudoKleinianDE;
-	//	cl_float pseudoKleinianZZ;
 	cl_float linearDE;
 	cl_float cw;
 	cl_float foldFactor;
 	cl_float minRFactor;
 	cl_float scaleFactor;
 	cl_float4 c;
+	cl_float4 const_c;
 } sExtendedAuxCl;
 
 typedef struct
@@ -443,6 +441,7 @@ typedef struct
 	cl_int stopIterationsB;
 	cl_int startIterationsC;
 	cl_int stopIterationsC;
+	cl_int stopIterationsC1;
 	cl_int startIterationsD;
 	cl_int stopIterationsD;
 	cl_int stopIterationsD1;
@@ -628,6 +627,7 @@ typedef struct
 inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 {
 	sExtendedAuxCl target;
+	target.i = source.i;
 	target.r_dz = source.r_dz;
 	target.r = source.r;
 	target.DE = source.DE;
@@ -640,6 +640,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.minRFactor = source.minRFactor;
 	target.scaleFactor = source.scaleFactor;
 	target.c = toClFloat4(source.c);
+	target.const_c = toClFloat4(source.const_c);
 	return target;
 }
 
@@ -1042,6 +1043,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.stopIterationsB = source.stopIterationsB;
 	target.startIterationsC = source.startIterationsC;
 	target.stopIterationsC = source.stopIterationsC;
+	target.stopIterationsC1 = source.stopIterationsC1;
 	target.startIterationsD = source.startIterationsD;
 	target.stopIterationsD = source.stopIterationsD;
 	target.stopIterationsD1 = source.stopIterationsD1;
