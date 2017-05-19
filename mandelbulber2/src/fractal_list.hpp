@@ -162,7 +162,7 @@ enum enumFractalFormula
 	mandelbulbMulti2 = 118,
 	aboxMod11 = 119,
 	// V2.12
-	//mandelbulbQuat = 120,
+	mandelbulbQuat = 120,
 	mandelbulbJuliabulb = 121,
 
 	// 152 to 172 reserved for scator

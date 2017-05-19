@@ -423,7 +423,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulbKaliMulti:
 				case mandelbulbMulti:
 				case mandelbulbMulti2:
-				//case mandelbulbQuat:
+				case mandelbulbQuat:
 				case mandelbulbVaryPowerV1:
 				case msltoeSym2Mod:
 				case msltoeSym3Mod:
