@@ -36,24 +36,17 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 	if($key == 0) continue; // skip formula "none"
 	
 	// read index and name from fractal_list	
-	preg_match('/"([a-zA-Z0-9 _\'-\^]+)"[\s\S]*?"([a-zA-Z0-9 _-]+)"[\s\S]*?([a-zA-Z0-9 _-]+)/', $formulaMatch, $matches);
+	preg_match('/"([a-zA-Z0-9 _\'-\^]+)"[\s\S]*?"([a-zA-Z0-9 _-]+)"[\s\S]*?([a-zA-Z0-9 _-]+)[\s\S]*?([a-zA-Z0-9 _-]+)/', $formulaMatch, $matches);
 	if(count($matches) < 4) die('could not read index for formula : ' . $formulaMatch);
-	$index = trim($matches[3]);
-	$internalName = trim($matches[2]);
-	$internalNameNew = from_camel_case($index);
 	$name = trim($matches[1]);
+	$internalName = trim($matches[2]);
+	$index = trim($matches[3]);
+	$functionName = trim($matches[4]);;
 
-	// find associated functions
-	$functionNameMatchString = '/case ' . $index . '\s*:[\s\S]+?{[\s\S]*?\n[\s]+([a-zA-Z0-9]+)\(/';
-	preg_match($functionNameMatchString, $fractalFunctionLookup, $matchFunctionName);
-	if(count($matchFunctionName) < 2){
-		echo errorString('Warning, could not read function name for index: ' . $index) . PHP_EOL;		
-		continue;
-	}
-	$functionName = trim($matchFunctionName[1]);
+    $internalNameNew = from_camel_case($index);
 	$functionNameNew = ucfirst($index) . 'Iteration';
 
-  // check for automatic renaming to fit naming convention
+    // check for automatic renaming to fit naming convention
 	if($internalNameNew != $internalName){
 	  if(!isDryRun()){
 		  upgradeInternalName($internalName, $internalNameNew);
@@ -590,8 +583,9 @@ function upgradeInternalName($internalName, $internalNameNew){
 function upgradeFunctionName($functionName, $functionNameNew){
   $replaceInFiles = array(
 	  PROJECT_PATH .'src/compute_fractal.cpp',
-		PROJECT_PATH .'src/fractal_formulas.cpp',
+	    PROJECT_PATH .'src/fractal_formulas.cpp',
 		PROJECT_PATH .'src/fractal_formulas.hpp',
+		PROJECT_PATH .'src/fractal_list.cpp',
 	);
 	foreach($replaceInFiles as $replaceInFile){
 	  $fileContent = file_get_contents($replaceInFile);

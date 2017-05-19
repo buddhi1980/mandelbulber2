@@ -43,6 +43,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	// list of fractal formulas (name visible in UI,
 	//													internal name,
 	//													internal ID,
+	//													function pointer,
 	//													DE type,
 	//													DE function
 	//													enable CPixel addition
