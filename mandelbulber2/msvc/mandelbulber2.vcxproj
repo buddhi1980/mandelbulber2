@@ -944,7 +944,7 @@
     <Import Project="..\..\packages\libsndfile-msvc14-x86.1.0.27.7788\build\native\libsndfile-msvc14-x86.targets" Condition="Exists('..\..\packages\libsndfile-msvc14-x86.1.0.27.7788\build\native\libsndfile-msvc14-x86.targets')" />
     <Import Project="..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets" Condition="Exists('..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets')" />
     <Import Project="..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets" Condition="Exists('..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets')" />
-    <Import Project="..\..\packages\opencl-nug.0.777.7\build\native\opencl-nug.targets" Condition="Exists('..\..\packages\opencl-nug.0.777.7\build\native\opencl-nug.targets')" />
+    <Import Project="..\..\packages\opencl-nug.0.777.8\build\native\opencl-nug.targets" Condition="Exists('..\..\packages\opencl-nug.0.777.8\build\native\opencl-nug.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -979,7 +979,7 @@
     <Error Condition="!Exists('..\..\packages\libsndfile-msvc14-x86.1.0.27.7788\build\native\libsndfile-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libsndfile-msvc14-x86.1.0.27.7788\build\native\libsndfile-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets'))" />
-    <Error Condition="!Exists('..\..\packages\opencl-nug.0.777.7\build\native\opencl-nug.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\opencl-nug.0.777.7\build\native\opencl-nug.targets'))" />
+    <Error Condition="!Exists('..\..\packages\opencl-nug.0.777.8\build\native\opencl-nug.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\opencl-nug.0.777.8\build\native\opencl-nug.targets'))" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q &quot;$(IntDir)&quot;" />
