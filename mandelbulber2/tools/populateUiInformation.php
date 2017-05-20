@@ -446,7 +446,7 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/([^*-]$s)($multChain)$s\-$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $2)$5'), // c - a * b ====> mad(-a, b, c)
 
 			// formula specific replacements
-			array('find' => "/^void(\s)/", 'replace' => 'inline void$1'), // mark void with inline void
+			//array('find' => "/^void(\s)/", 'replace' => 'inline void$1'), // mark void with inline void
 			array('find' => "/" . $fod . "4 &z/", 'replace' => $fod . '4 *z'), // no passing by reference
 			array('find' => "/" . $fod . " &w/", 'replace' => $fod . ' *w'), // no passing by reference
 			array('find' => "/z\./", 'replace' => 'z->'),
