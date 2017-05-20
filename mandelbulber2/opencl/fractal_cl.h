@@ -330,14 +330,14 @@ typedef struct
 	cl_int enabledX5False;
 	cl_int enabledY5False;
 	cl_int enabledZ5False;
-	cl_float3 offset1A111;
-	cl_float3 offset1B111;
-	cl_float3 offset2A111;
-	cl_float3 offset2B111;
-	cl_float3 offset3A111;
-	cl_float3 offset3B111;
-	cl_float3 offset1A222;
-	cl_float3 offset1B222;
+	cl_float4 offset1A111;
+	cl_float4 offset1B111;
+	cl_float4 offset2A111;
+	cl_float4 offset2B111;
+	cl_float4 offset3A111;
+	cl_float4 offset3B111;
+	cl_float4 offset1A222;
+	cl_float4 offset1B222;
 	cl_float scale1Z1;
 } sFractalSurfBoxCl;
 
@@ -479,11 +479,11 @@ typedef struct
 	cl_float4 additionConstant0777;
 	cl_float4 additionConstant000;
 	cl_float4 additionConstantA000;
-	cl_float3 additionConstantP000;
+	cl_float4 additionConstantP000;
 	cl_float4 additionConstant111;
-	cl_float3 additionConstantA111;
+	cl_float4 additionConstantA111;
 	cl_float4 additionConstant222;
-	cl_float3 additionConstantNeg100;
+	cl_float4 additionConstantNeg100;
 	cl_float4 constantMultiplier000;
 	cl_float4 constantMultiplier001;
 	cl_float4 constantMultiplier010;
@@ -492,7 +492,7 @@ typedef struct
 	cl_float4 constantMultiplier111;
 	cl_float4 constantMultiplierA111;
 	cl_float4 constantMultiplierB111;
-	cl_float3 constantMultiplierC111;
+	cl_float3 constantMultiplierC111; // vec3s
 	cl_float3 constantMultiplier121;
 	cl_float3 constantMultiplier122;
 	cl_float4 constantMultiplier221;
@@ -501,7 +501,7 @@ typedef struct
 	cl_float4 juliaC;
 	cl_float4 offset000;
 	cl_float4 offsetA000;
-	cl_float3 offsetF000;
+	cl_float4 offsetF000;
 	cl_float4 offset100;
 	cl_float4 offset1105;
 	cl_float4 offset111;
@@ -929,14 +929,14 @@ inline sFractalSurfBoxCl clCopySFractalSurfBoxCl(sFractalSurfBox &source)
 	target.enabledX5False = source.enabledX5False;
 	target.enabledY5False = source.enabledY5False;
 	target.enabledZ5False = source.enabledZ5False;
-	target.offset1A111 = toClFloat3(source.offset1A111);
-	target.offset1B111 = toClFloat3(source.offset1B111);
-	target.offset2A111 = toClFloat3(source.offset2A111);
-	target.offset2B111 = toClFloat3(source.offset2B111);
-	target.offset3A111 = toClFloat3(source.offset3A111);
-	target.offset3B111 = toClFloat3(source.offset3B111);
-	target.offset1A222 = toClFloat3(source.offset1A222);
-	target.offset1B222 = toClFloat3(source.offset1B222);
+	target.offset1A111 = toClFloat4(source.offset1A111);
+	target.offset1B111 = toClFloat4(source.offset1B111);
+	target.offset2A111 = toClFloat4(source.offset2A111);
+	target.offset2B111 = toClFloat4(source.offset2B111);
+	target.offset3A111 = toClFloat4(source.offset3A111);
+	target.offset3B111 = toClFloat4(source.offset3B111);
+	target.offset1A222 = toClFloat4(source.offset1A222);
+	target.offset1B222 = toClFloat4(source.offset1B222);
 	target.scale1Z1 = source.scale1Z1;
 	return target;
 }
@@ -1080,11 +1080,11 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.additionConstant0777 = toClFloat4(source.additionConstant0777);
 	target.additionConstant000 = toClFloat4(source.additionConstant000);
 	target.additionConstantA000 = toClFloat4(source.additionConstantA000);
-	target.additionConstantP000 = toClFloat3(source.additionConstantP000);
+	target.additionConstantP000 = toClFloat4(source.additionConstantP000);
 	target.additionConstant111 = toClFloat4(source.additionConstant111);
-	target.additionConstantA111 = toClFloat3(source.additionConstantA111);
+	target.additionConstantA111 = toClFloat4(source.additionConstantA111);
 	target.additionConstant222 = toClFloat4(source.additionConstant222);
-	target.additionConstantNeg100 = toClFloat3(source.additionConstantNeg100);
+	target.additionConstantNeg100 = toClFloat4(source.additionConstantNeg100);
 	target.constantMultiplier000 = toClFloat4(source.constantMultiplier000);
 	target.constantMultiplier001 = toClFloat4(source.constantMultiplier001);
 	target.constantMultiplier010 = toClFloat4(source.constantMultiplier010);
@@ -1102,7 +1102,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.juliaC = toClFloat4(source.juliaC);
 	target.offset000 = toClFloat4(source.offset000);
 	target.offsetA000 = toClFloat4(source.offsetA000);
-	target.offsetF000 = toClFloat3(source.offsetF000);
+	target.offsetF000 = toClFloat4(source.offsetF000);
 	target.offset100 = toClFloat4(source.offset100);
 	target.offset1105 = toClFloat4(source.offset1105);
 	target.offset111 = toClFloat4(source.offset111);

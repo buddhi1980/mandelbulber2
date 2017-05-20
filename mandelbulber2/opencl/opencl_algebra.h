@@ -7,7 +7,8 @@
 #include "../src/color_structures.hpp"
 #endif
 
-typedef struct {
+typedef struct
+{
 	cl_float3 m1;
 	cl_float3 m2;
 	cl_float3 m3;
@@ -18,19 +19,19 @@ inline matrix33 toClMatrix33(CRotationMatrix source)
 {
 	CMatrix33 matrix = source.GetMatrix();
 	matrix33 m;
-	m.m1 = {cl_float(matrix.m11), cl_float(matrix.m12), cl_float(matrix.m13)};
-	m.m2 = {cl_float(matrix.m21), cl_float(matrix.m22), cl_float(matrix.m23)};
-	m.m3 = {cl_float(matrix.m31), cl_float(matrix.m32), cl_float(matrix.m33)};
+	m.m1 = {cl_float(matrix.m11), cl_float(matrix.m12), cl_float(matrix.m13), cl_float(0.0)};
+	m.m2 = {cl_float(matrix.m21), cl_float(matrix.m22), cl_float(matrix.m23), cl_float(0.0)};
+	m.m3 = {cl_float(matrix.m31), cl_float(matrix.m32), cl_float(matrix.m33), cl_float(0.0)};
 	return m;
 }
 inline cl_float3 toClFloat3(CVector3 v)
 {
-	cl_float3 retval = {cl_float(v.x), cl_float(v.y), cl_float(v.z)};
+	cl_float3 retval = {cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(0.0)};
 	return retval;
 }
 inline cl_int3 toClInt3(sRGB c)
 {
-	cl_int3 retval = {cl_int(c.R), cl_int(c.G), cl_int(c.B)};
+	cl_int3 retval = {cl_int(c.R), cl_int(c.G), cl_int(c.B), cl_int(1)};
 	return retval;
 }
 inline cl_float4 toClFloat4(CVector4 v)
@@ -119,4 +120,4 @@ float4 RotateAroundVectorByAngle4(float4 origin4d, float3 axis, float angle)
 }
 #endif
 
-#endif //MANDELBULBER2_OPENCL_ALGEBRA_HPP_
+#endif // MANDELBULBER2_OPENCL_ALGEBRA_HPP_

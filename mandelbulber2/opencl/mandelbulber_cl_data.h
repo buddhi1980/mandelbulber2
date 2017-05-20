@@ -23,7 +23,7 @@ typedef struct
 typedef struct
 {
 	sParamRenderCl params;
-	sFractalCl fractal[9]; // temporary for testing
+	sFractalCl fractal[NUMBER_OF_FRACTALS]; // temporary for testing
 	sClFractalSequence sequence;
 } sClInConstants;
 
