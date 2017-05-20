@@ -12,7 +12,7 @@ set SRC=%_SCRIPT_FOLDER%\..\..\..\
 SET tbs_arch=x64
 SET vcvar_arg=x86_amd64
 SET ms_build_suffix=Bin\amd64
-SET cmake_platform="NMake Makefiles JOM"
+SET cmake_platform="Visual Studio 14 2015 Win64"
 SET VERBOSE_MAKEFILE=FALSE
 set QTDIR=%SRC%\packages\bulbqt-msvc14-x64.5.8.0.10782\build\native
 SET JomDir=%SRC%\packages\jom-nug.1.1.2.777\build\native
@@ -52,7 +52,6 @@ set LZODIR=%SRC%\packages\lzo-msvc14-x64.2.10.0.7802\build\native
 cd %BUILDTREE%
 cmake -G %cmake_platform% ^
 -DCMAKE_CXX_STANDARD=11 ^
--DCMAKE_MAKE_PROGRAM=%JomDir%\jom.exe ^
 -DCMAKE_VERBOSE_MAKEFILE=%VERBOSE_MAKEFILE% ^
 -DUSE_GAMEPAD=1 ^
 -DCMAKE_BUILD_TYPE=Release ^
