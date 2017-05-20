@@ -166,14 +166,14 @@ sFractal::sFractal(const cParameterContainer *container)
 	surfBox.enabledX5False = container->Get<bool>("surfBox_enabledX5_false");
 	surfBox.enabledY5False = container->Get<bool>("surfBox_enabledY5_false");
 	surfBox.enabledZ5False = container->Get<bool>("surfBox_enabledZ5_false");
-	surfBox.offset1A111 = container->Get<CVector3>("surfBox_offset1A_111");
-	surfBox.offset1B111 = container->Get<CVector3>("surfBox_offset1B_111");
-	surfBox.offset2A111 = container->Get<CVector3>("surfBox_offset2A_111");
-	surfBox.offset2B111 = container->Get<CVector3>("surfBox_offset2B_111");
-	surfBox.offset3A111 = container->Get<CVector3>("surfBox_offset3A_111");
-	surfBox.offset3B111 = container->Get<CVector3>("surfBox_offset3B_111");
-	surfBox.offset1A222 = container->Get<CVector3>("surfBox_offset1A_222");
-	surfBox.offset1B222 = container->Get<CVector3>("surfBox_offset1B_222");
+	surfBox.offset1A111 = CVector4(container->Get<CVector3>("surfBox_offset1A_111"), 0.0);
+	surfBox.offset1B111 = CVector4(container->Get<CVector3>("surfBox_offset1B_111"), 0.0);
+	surfBox.offset2A111 = CVector4(container->Get<CVector3>("surfBox_offset2A_111"), 0.0);
+	surfBox.offset2B111 = CVector4(container->Get<CVector3>("surfBox_offset2B_111"), 0.0);
+	surfBox.offset3A111 = CVector4(container->Get<CVector3>("surfBox_offset3A_111"), 0.0);
+	surfBox.offset3B111 = CVector4(container->Get<CVector3>("surfBox_offset3B_111"), 0.0);
+	surfBox.offset1A222 = CVector4(container->Get<CVector3>("surfBox_offset1A_222"), 0.0);
+	surfBox.offset1B222 = CVector4(container->Get<CVector3>("surfBox_offset1B_222"), 0.0);
 	surfBox.scale1Z1 = container->Get<double>("surfBox_scale1Z1");
 
 	// surfFolds
@@ -343,19 +343,14 @@ sFractal::sFractal(const cParameterContainer *container)
 		CVector4(container->Get<CVector3>("transf_addition_constant"), 0.0);
 	transformCommon.additionConstantA000 =
 		CVector4(container->Get<CVector3>("transf_addition_constantA_000"), 0.0);
-
 	transformCommon.additionConstantP000 =
 		CVector4(container->Get<CVector3>("transf_addition_constantP_000"), 0.0);
-
 	transformCommon.additionConstant111 =
 		CVector4(container->Get<CVector3>("transf_addition_constant_111"), 0.0);
-
 	transformCommon.additionConstantA111 =
 		CVector4(container->Get<CVector3>("transf_addition_constantA_111"), 0.0);
-
 	transformCommon.additionConstant222 =
 		CVector4(container->Get<CVector3>("transf_addition_constant_222"), 0.0);
-
 	transformCommon.additionConstantNeg100 =
 		CVector4(container->Get<CVector3>("transf_addition_constant_neg100"), 0.0);
 
@@ -387,6 +382,8 @@ sFractal::sFractal(const cParameterContainer *container)
 		container->Get<CVector3>("transf_constant_multiplier_222");
 	transformCommon.constantMultiplier441 =
 		container->Get<CVector3>("transf_constant_multiplier_441");
+
+
 	transformCommon.juliaC = CVector4(container->Get<CVector3>("transf_constant_julia_c"), 0.0);
 	transformCommon.offset000 = CVector4(container->Get<CVector3>("transf_offset_000"), 0.0);
 	transformCommon.offsetA000 = CVector4(container->Get<CVector3>("transf_offsetA_000"), 0.0);

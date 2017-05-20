@@ -358,14 +358,14 @@ struct sFractalSurfBox
 	bool enabledX5False;
 	bool enabledY5False;
 	bool enabledZ5False;
-	CVector3 offset1A111;
-	CVector3 offset1B111;
-	CVector3 offset2A111;
-	CVector3 offset2B111;
-	CVector3 offset3A111;
-	CVector3 offset3B111;
-	CVector3 offset1A222;
-	CVector3 offset1B222;
+	CVector4 offset1A111;
+	CVector4 offset1B111;
+	CVector4 offset2A111;
+	CVector4 offset2B111;
+	CVector4 offset3A111;
+	CVector4 offset3B111;
+	CVector4 offset1A222;
+	CVector4 offset1B222;
 	double scale1Z1;
 };
 
