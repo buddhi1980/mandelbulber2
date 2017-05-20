@@ -63,6 +63,7 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#define IFS_VECTOR_COUNT " + QString::number(IFS_VECTOR_COUNT) + "\n");
 		progEngine.append("#define HYBRID_COUNT " + QString::number(HYBRID_COUNT) + "\n");
 		progEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
+		progEngine.append("#define Q_UNUSED(x) (void)x;" + QString::number(MANDELBOX_FOLDS) + "\n");
 
 		// it's still temporary, but in this way we can append main header file
 
@@ -195,9 +196,14 @@ void cOpenClEngineRenderFractal::SetParameters(
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
 		QString internalID = toCamelCase(listOfUsedFormulas.at(i));
-		if(internalID != "")
+		if (internalID != "")
 		{
 			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
+			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
+		}
+		else
+		{
+			QString functionName = "DummyIteration";
 			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
 		}
 	}
@@ -339,12 +345,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 	return true;
 }
 
-QString cOpenClEngineRenderFractal::toCamelCase(const QString& s)
+QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
-		QStringList parts = s.split('_', QString::SkipEmptyParts);
-		for (int i=1; i<parts.size(); ++i)
-				parts[i].replace(0, 1, parts[i][0].toUpper());
+	QStringList parts = s.split('_', QString::SkipEmptyParts);
+	for (int i = 1; i < parts.size(); ++i)
+		parts[i].replace(0, 1, parts[i][0].toUpper());
 
-		return parts.join("");
+	return parts.join("");
 }
 #endif

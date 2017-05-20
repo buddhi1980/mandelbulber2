@@ -11,13 +11,17 @@
 
 typedef struct
 {
-    float4 z;
+	float4 z;
 	float iters;
 	float distance;
 	float colourIndex;
 } formulaOut;
 
-typedef void (*fractalFormulaFcn)(float4*, __constant sFractalCl*, sExtendedAuxCl*);
+void DummyIteration(float4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+{
+}
+
+typedef void (*fractalFormulaFcn)(float4 *, __constant sFractalCl *, sExtendedAuxCl *);
 
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam)
 {
@@ -28,11 +32,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	z.x = point.x;
 	z.y = point.y;
 	z.z = point.z;
-	z.w = 0;
+	z.w = 0.0f;
 
 	float w = 0;
 
-    float4 c = z;
+	float4 c = z;
 	int i;
 	formulaOut out;
 	float colourMin = 1e8f;
@@ -52,17 +56,25 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.scaleFactor = 0.0f;
 	aux.pseudoKleinianDE = 1.0f;
 
-	__constant sFractalCl *fractal = &consts->fractal[0];
-
 	// loop
 	for (i = 0; i < N; i++)
 	{
 		int formulaIndex = consts->sequence.hybridSequence[i];
-		fractalFormulaFcn fractalFormulaFunction = MandelbulbIteration;
-		if (fractalFormulaFunction)
+		__constant sFractalCl *fractal = &consts->fractal[formulaIndex];
+
+		switch (formulaIndex)
 		{
-		    fractalFormulaFunction(&z, &fractal, &aux);
+			case 0: FORMULA_ITER_0(&z, fractal, &aux);
+			case 1: FORMULA_ITER_1(&z, fractal, &aux);
+			case 2: FORMULA_ITER_2(&z, fractal, &aux);
+			case 3: FORMULA_ITER_3(&z, fractal, &aux);
+			case 4: FORMULA_ITER_4(&z, fractal, &aux);
+			case 5: FORMULA_ITER_5(&z, fractal, &aux);
+			case 6: FORMULA_ITER_6(&z, fractal, &aux);
+			case 7: FORMULA_ITER_7(&z, fractal, &aux);
+			case 8: FORMULA_ITER_8(&z, fractal, &aux);
 		}
+
 		if (consts->sequence.addCConstant[formulaIndex]) z += c;
 
 		aux.r = length(z);
