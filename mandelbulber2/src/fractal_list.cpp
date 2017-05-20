@@ -136,8 +136,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 
 	fractalList->append(
-		sFractalDescription("Kaleidoscopic IFS", "kaleidoscopic_ifs", kaleidoscopicIFS,
-			KaleidoscopicIFSIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
+		sFractalDescription("Kaleidoscopic IFS", "kaleidoscopic_ifs", kaleidoscopicIfs,
+			KaleidoscopicIfsIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100));
 
 	fractalList->append(sFractalDescription("Kalisets1 Mod", "kalisets1", kalisets1,
 		Kalisets1Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 10));
@@ -184,9 +184,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb - Multi2", "mandelbulb_multi2",
 		mandelbulbMulti2, MandelbulbMulti2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10));
-	fractalList->append(sFractalDescription("Mandelbulb - Quat", "mandelbulb_quat",
-		mandelbulbQuat, MandelbulbQuatIteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10));
+	fractalList->append(sFractalDescription("Mandelbulb - Quat", "mandelbulb_quat", mandelbulbQuat,
+		MandelbulbQuatIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10));
 	fractalList->append(sFractalDescription("Mandelbulb - Vary Power V1", "mandelbulb_vary_power_v1",
 		mandelbulbVaryPowerV1, MandelbulbVaryPowerV1Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10));

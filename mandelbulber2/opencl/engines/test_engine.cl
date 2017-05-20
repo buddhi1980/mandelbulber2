@@ -21,8 +21,6 @@ void DummyIteration(float4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 {
 }
 
-typedef void (*fractalFormulaFcn)(float4 *, __constant sFractalCl *, sExtendedAuxCl *);
-
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam)
 {
 	// begin

@@ -53,7 +53,7 @@ enum enumFractalFormula
 	minusFastTrig = 6,
 	mengerSponge = 7,
 	mandelbox = 8,
-	kaleidoscopicIFS = 10,
+	kaleidoscopicIfs = 10,
 	xenodreambuie = 11,
 	hybrid = 12,
 	mandelbulb2 = 13,

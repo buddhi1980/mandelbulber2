@@ -418,7 +418,7 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/($var)\.Length\(\)/", 'replace' => 'length($1)'),       // CVector3 Length() to built in length
 			array('find' => "/($var)\.Dot\(/", 'replace' => 'dot($1, '),              // CVector3 Dot() to built in dot
 			array('find' => "/($var)\.Cross\(/", 'replace' => 'cross($1, '),          // CVector3 Cross() to built in cross
-			array('find' => "/($var) = ($var)\.RotateVector\(/", 'replace' => '$1->xyz = Matrix33MulFloat3($2, '), // CRotationMatrix33 to custom rotation function
+			array('find' => "/($var)\.RotateVector\(/", 'replace' => 'Matrix33MulFloat4($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateX\(/", 'replace' => '$1 = RotateX($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateY\(/", 'replace' => '$1 = RotateY($1, '), // CRotationMatrix33 to custom rotation function
 			array('find' => "/($var)\.RotateZ\(/", 'replace' => '$1 = RotateZ($1, '), // CRotationMatrix33 to custom rotation function

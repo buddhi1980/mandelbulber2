@@ -394,7 +394,7 @@ void BoxFoldBulbPow2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
  */
-void KaleidoscopicIFSIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void KaleidoscopicIfsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->IFS.absX) z.x = fabs(z.x);
 	if (fractal->IFS.absY) z.y = fabs(z.y);
@@ -2737,7 +2737,7 @@ void MandelbulbJuliabulbIteration(CVector4 &z, const sFractal *fractal, sExtende
 	// if (lengthTempZ > -1e-21)
 	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
-	//scale
+	// scale
 	z *= fractal->transformCommon.scale1;
 	aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
@@ -3182,8 +3182,7 @@ void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 /**
  * mandelbulb Quaternion 3D TODO a lot
  */
-void MandelbulbQuatIteration(
-	CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
@@ -3271,12 +3270,9 @@ void MandelbulbQuatIteration(
 		aux.r_dz *= fabs(fractal->transformCommon.scale1);
 	}
 
-
-
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-
 
 		aux.r = z.Length();
 		if (fractal->transformCommon.functionEnabledFalse)
@@ -3348,10 +3344,8 @@ void MandelbulbQuatIteration(
 
 		if (fractal->transformCommon.functionEnabledKFalse)
 		{
-			if (fractal->transformCommon.functionEnabledDFalse)
-				swap(z.x, z.y);
-			if (fractal->transformCommon.functionEnabledEFalse)
-				swap(z.x, z.z);
+			if (fractal->transformCommon.functionEnabledDFalse) swap(z.x, z.y);
+			if (fractal->transformCommon.functionEnabledEFalse) swap(z.x, z.z);
 
 			// swap
 			if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
@@ -3369,7 +3363,6 @@ void MandelbulbQuatIteration(
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 }
-
 
 /**
  * mandelbulb vary scaleV1

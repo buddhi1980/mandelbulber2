@@ -112,7 +112,7 @@ inline void AboxMod1Iteration(float4 *z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 	{
-		z->xyz = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
+		*z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, *z);
 	}
 }
 #else
@@ -205,7 +205,7 @@ inline void AboxMod1Iteration(double4 *z, __constant sFractalCl *fractal, sExten
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 	{
-		z->xyz = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
+		*z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, *z);
 	}
 }
 #endif

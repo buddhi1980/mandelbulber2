@@ -468,7 +468,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r3D;
 					break;
 				}
-				case kaleidoscopicIFS:
+				case kaleidoscopicIfs:
 				case mengerSponge:
 				case mengerCrossKIFS:
 				case mengerCrossMod1:
@@ -570,7 +570,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerSponge:
 				case collatz:
 				case collatzMod:
-				case kaleidoscopicIFS:
+				case kaleidoscopicIfs:
 				case mengerPwr2Poly:
 				case mengerMiddleMod: out->colorIndex = minimumR * 1000.0; break;
 

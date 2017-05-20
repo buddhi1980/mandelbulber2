@@ -999,7 +999,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("minN", oldData->fractal.minN);
 	par->Set("fractal_constant_factor",
 		CVector3(oldData->fractal.doubles.constantFactor, oldData->fractal.doubles.constantFactor,
-			oldData->fractal.doubles.constantFactor));
+						 oldData->fractal.doubles.constantFactor));
 	par->Set("detail_level", oldData->doubles.quality);
 	par->Set("DE_thresh", oldData->doubles.quality);
 	par->Set("smoothness", oldData->doubles.smoothness);
@@ -1406,7 +1406,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	if (oldData->fractal.IFS.foldingMode)
 	{
 		par->Set("hybrid_fractal_enable", true);
-		par->Set("formula", 2, int(fractal::kaleidoscopicIFS));
+		par->Set("formula", 2, int(fractal::kaleidoscopicIfs));
 	}
 
 	if (oldData->fractal.juliaMode)

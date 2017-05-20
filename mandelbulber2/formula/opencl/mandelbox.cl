@@ -28,20 +28,20 @@ inline void MandelboxIteration(float4 *z, __constant sFractalCl *fractal, sExten
 			float *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
 			__constant float *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
 
-			zRot->xyz = Matrix33MulFloat3(fractal->mandelbox.rot[0][dim], *z);
+			zRot = Matrix33MulFloat4(fractal->mandelbox.rot[0][dim], *z);
 			if (*rotDim > fractal->mandelbox.foldingLimit)
 			{
 				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
-				z->xyz = Matrix33MulFloat3(fractal->mandelbox.rotinv[0][dim], zRot);
+				*z = Matrix33MulFloat4(fractal->mandelbox.rotinv[0][dim], zRot);
 				aux->color += *colorFactor;
 			}
 			else
 			{
-				zRot->xyz = Matrix33MulFloat3(fractal->mandelbox.rot[1][dim], *z);
+				zRot = Matrix33MulFloat4(fractal->mandelbox.rot[1][dim], *z);
 				if (*rotDim < -fractal->mandelbox.foldingLimit)
 				{
 					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
-					z->xyz = Matrix33MulFloat3(fractal->mandelbox.rotinv[1][dim], zRot);
+					*z = Matrix33MulFloat4(fractal->mandelbox.rotinv[1][dim], zRot);
 					aux->color += *colorFactor;
 				}
 			}
@@ -87,7 +87,7 @@ inline void MandelboxIteration(float4 *z, __constant sFractalCl *fractal, sExten
 	*z -= fractal->mandelbox.offset;
 
 	if (fractal->mandelbox.mainRotationEnabled)
-		z->xyz = Matrix33MulFloat3(fractal->mandelbox.mainRot, *z);
+		*z = Matrix33MulFloat4(fractal->mandelbox.mainRot, *z);
 
 	*z = *z * fractal->mandelbox.scale;
 	aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
@@ -107,20 +107,20 @@ inline void MandelboxIteration(double4 *z, __constant sFractalCl *fractal, sExte
 			double *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
 			__constant double *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
 
-			zRot->xyz = Matrix33MulFloat3(fractal->mandelbox.rot[0][dim], *z);
+			zRot = Matrix33MulFloat4(fractal->mandelbox.rot[0][dim], *z);
 			if (*rotDim > fractal->mandelbox.foldingLimit)
 			{
 				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
-				z->xyz = Matrix33MulFloat3(fractal->mandelbox.rotinv[0][dim], zRot);
+				*z = Matrix33MulFloat4(fractal->mandelbox.rotinv[0][dim], zRot);
 				aux->color += *colorFactor;
 			}
 			else
 			{
-				zRot->xyz = Matrix33MulFloat3(fractal->mandelbox.rot[1][dim], *z);
+				zRot = Matrix33MulFloat4(fractal->mandelbox.rot[1][dim], *z);
 				if (*rotDim < -fractal->mandelbox.foldingLimit)
 				{
 					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
-					z->xyz = Matrix33MulFloat3(fractal->mandelbox.rotinv[1][dim], zRot);
+					*z = Matrix33MulFloat4(fractal->mandelbox.rotinv[1][dim], zRot);
 					aux->color += *colorFactor;
 				}
 			}
@@ -166,7 +166,7 @@ inline void MandelboxIteration(double4 *z, __constant sFractalCl *fractal, sExte
 	*z -= fractal->mandelbox.offset;
 
 	if (fractal->mandelbox.mainRotationEnabled)
-		z->xyz = Matrix33MulFloat3(fractal->mandelbox.mainRot, *z);
+		*z = Matrix33MulFloat4(fractal->mandelbox.mainRot, *z);
 
 	*z = *z * fractal->mandelbox.scale;
 	aux->DE = aux->DE * fabs(fractal->mandelbox.scale) + 1.0;

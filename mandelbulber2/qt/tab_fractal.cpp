@@ -186,7 +186,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			else
 				CConstantAdditionSetVisible(booleanState);
 
-			if (fractalList[index].internalID == fractal::kaleidoscopicIFS)
+			if (fractalList[index].internalID == fractal::kaleidoscopicIfs)
 			{
 				QWidget *pushButton_preset_dodecahedron =
 					fractalWidget->findChild<QWidget *>("pushButton_preset_dodecahedron");

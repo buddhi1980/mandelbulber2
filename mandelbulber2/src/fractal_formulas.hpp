@@ -94,7 +94,7 @@ void HypercomplexIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 void Ides2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void IdesIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void KaleidoscopicIFSIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void KaleidoscopicIfsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Kalisets1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Makin3d2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

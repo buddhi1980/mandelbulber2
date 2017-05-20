@@ -43,7 +43,7 @@ inline void AmazingSurfIteration(float4 *z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		*z += (float4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
 
-	z->xyz = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
+	*z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, *z);
 }
 #else
 inline void AmazingSurfIteration(double4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
@@ -72,6 +72,6 @@ inline void AmazingSurfIteration(double4 *z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		*z += (double4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
 
-	z->xyz = Matrix33MulFloat3(fractal->transformCommon.rotationMatrix, *z);
+	*z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, *z);
 }
 #endif

@@ -42,12 +42,23 @@ inline cl_float4 toClFloat4(CVector4 v)
 #endif
 
 #ifdef OPENCL_KERNEL_CODE
+
+inline float4 Matrix33MulFloat4(matrix33 matrix, float4 vect)
+{
+	float4 out;
+	out.x = dot(vect.xyz, matrix.m1);
+	out.y = dot(vect.xyz, matrix.m2);
+	out.z = dot(vect.xyz, matrix.m3);
+	out.w = vect.w;
+	return out;
+}
+
 inline float3 Matrix33MulFloat3(matrix33 matrix, float3 vect)
 {
 	float3 out;
-	out.x = dot(vect, matrix.m1);
-	out.y = dot(vect, matrix.m2);
-	out.z = dot(vect, matrix.m3);
+	out.x = dot(vect.xyz, matrix.m1);
+	out.y = dot(vect.xyz, matrix.m2);
+	out.z = dot(vect.xyz, matrix.m3);
 	return out;
 }
 
