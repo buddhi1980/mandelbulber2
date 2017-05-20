@@ -68,7 +68,7 @@
     <GenDir>$(SourceDir)build-win</GenDir>
 	<PreProcs>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS=1;USE_SNDFILE;USE_TIFF;USE_GAMEPAD=1;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;QT_GAMEPAD_LIB;QT_TESTCASE_BUILDDIR="../../build-win"</PreProcs>
     <TargetName>mandelbulber2</TargetName>
-    <PreProcsE>$(PreProcs);USE_EXR</PreProcsE>
+    <PreProcsE>$(PreProcs);USE_EXR;USE_OPENCL=1</PreProcsE>
     <TargetExt>.exe</TargetExt>
     <GenerateManifest>true</GenerateManifest>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
@@ -944,7 +944,7 @@
     <Import Project="..\..\packages\libsndfile-msvc14-x86.1.0.27.7788\build\native\libsndfile-msvc14-x86.targets" Condition="Exists('..\..\packages\libsndfile-msvc14-x86.1.0.27.7788\build\native\libsndfile-msvc14-x86.targets')" />
     <Import Project="..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets" Condition="Exists('..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets')" />
     <Import Project="..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets" Condition="Exists('..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets')" />
-    <Import Project="..\..\packages\opencl-nug.0.777.8\build\native\opencl-nug.targets" Condition="Exists('..\..\packages\opencl-nug.0.777.8\build\native\opencl-nug.targets')" />
+    <Import Project="..\..\packages\opencl-nug.0.777.9\build\native\opencl-nug.targets" Condition="Exists('..\..\packages\opencl-nug.0.777.9\build\native\opencl-nug.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -979,7 +979,7 @@
     <Error Condition="!Exists('..\..\packages\libsndfile-msvc14-x86.1.0.27.7788\build\native\libsndfile-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libsndfile-msvc14-x86.1.0.27.7788\build\native\libsndfile-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc14-x86.2.10.0.7802\build\native\lzo-msvc14-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc14-x64.2.10.0.7802\build\native\lzo-msvc14-x64.targets'))" />
-    <Error Condition="!Exists('..\..\packages\opencl-nug.0.777.8\build\native\opencl-nug.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\opencl-nug.0.777.8\build\native\opencl-nug.targets'))" />
+    <Error Condition="!Exists('..\..\packages\opencl-nug.0.777.9\build\native\opencl-nug.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\opencl-nug.0.777.9\build\native\opencl-nug.targets'))" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <Exec Command="rd /s /q &quot;$(IntDir)&quot;" />

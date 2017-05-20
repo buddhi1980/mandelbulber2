@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
  *
  * CVector2, CVector3, CVector4 and CMatrix33 classes - vector and matrix
  * manipulation
@@ -50,19 +50,20 @@
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
-#endif
+#pragma warning(disable : 4996) // declared deprecated
+#endif // _MSC_VER
 
 // MSVC defines math constants elsewhere, do not warn about the
 // redefinition in math.h
 #include <math.h>
 
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
-
 #ifdef USE_OPENCL
 #include <CL/cl.hpp>
-#endif
+#endif // USE_OPENCL
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif // _MSC_VER
 
 /************************* vector 3D **********************/
 class CVector3
