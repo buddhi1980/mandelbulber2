@@ -355,15 +355,15 @@ sFractal::sFractal(const cParameterContainer *container)
 		CVector4(container->Get<CVector3>("transf_addition_constant_neg100"), 0.0);
 
 	transformCommon.constantMultiplier000 =
-		CVector4(container->Get<CVector3>("transf_constant_multiplier_000"), 0.0);
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_000"), 1.0);
 	transformCommon.constantMultiplier001 =
-		CVector4(container->Get<CVector3>("transf_constant_multiplier_001"), 0.0);
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_001"), 1.0);
 	transformCommon.constantMultiplier010 =
-		CVector4(container->Get<CVector3>("transf_constant_multiplier_010"), 0.0);
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_010"), 1.0);
 	transformCommon.constantMultiplier100 =
-		CVector4(container->Get<CVector3>("transf_constant_multiplier_100"), 0.0);
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_100"), 1.0);
 	transformCommon.constantMultiplierA100 =
-		CVector4(container->Get<CVector3>("transf_constant_multiplierA_100"), 0.0);
+		CVector4(container->Get<CVector3>("transf_constant_multiplierA_100"), 1.0);
 	transformCommon.constantMultiplier111 =
 		CVector4(container->Get<CVector3>("transf_constant_multiplier_111"), 1.0);
 	transformCommon.constantMultiplierA111 =
