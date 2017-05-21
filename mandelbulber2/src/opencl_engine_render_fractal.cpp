@@ -194,7 +194,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 			default: break;
 		}
 	}
-	else
+	else if (deType == fractal::deltaDEType)
 	{
 		definesCollector += " -DDELTA_DE";
 		switch (deFunctionType)

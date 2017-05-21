@@ -81,7 +81,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	float step = 0.0f;
 
 	// ray-marching
-	for (count = 0; count < MAX_RAYMARCHING && scan < 50.0f; count++)
+	for (count = 0; count < MAX_RAYMARCHING && scan < consts->params.viewDistanceMax; count++)
 	{
 		point = start + viewVector * scan;
 		calcParam.distThresh = distThresh;

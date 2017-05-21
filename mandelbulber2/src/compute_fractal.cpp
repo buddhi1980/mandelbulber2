@@ -369,7 +369,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 	}
 
-	double r3D = z.GetXYZ().Length();
+	double r3D = z.Length();
 
 	// final calculations
 	if (Mode == calcModeNormal)
