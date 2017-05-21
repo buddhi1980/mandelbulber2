@@ -68,7 +68,8 @@ class cOpenClEngine : public QObject
 					workGroupSizeMultiplier(1),
 					lastProcessingTime(1.0),
 					sizeOfPixel(0),
-					jobSizeLimit(0)
+					jobSizeLimit(0),
+					optimalProcessingCycle(0.1)
 		{
 		}
 		size_t numberOfSteps;
@@ -80,6 +81,7 @@ class cOpenClEngine : public QObject
 		double lastProcessingTime;
 		size_t sizeOfPixel;
 		size_t jobSizeLimit;
+		double optimalProcessingCycle;
 	};
 
 public:

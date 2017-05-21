@@ -58,6 +58,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	{
 		int formulaIndex = consts->sequence.hybridSequence[i];
 		__constant sFractalCl *fractal = &consts->fractal[formulaIndex];
+		aux.i = i;
 
 		switch (formulaIndex)
 		{

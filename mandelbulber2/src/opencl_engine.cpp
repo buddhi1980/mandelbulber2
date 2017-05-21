@@ -191,7 +191,7 @@ void cOpenClEngine::UpdateOptimalJobStart(int pixelsLeft)
 {
 	optimalJob.timer.restart();
 	optimalJob.timer.start();
-	double processingCycleTime = 0.1; // TODO add parameter
+	double processingCycleTime = optimalJob.optimalProcessingCycle; // TODO add parameter
 
 	optimalJob.workGroupSizeMultiplier *= processingCycleTime / optimalJob.lastProcessingTime;
 

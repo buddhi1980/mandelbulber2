@@ -314,6 +314,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 	QElapsedTimer timer;
 	timer.start();
 
+	QList<int> lastRenderedLines;
+
 	for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 	{
 		cl_int err;
@@ -352,10 +354,29 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		err = queue->finish();
 		if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer")) return false;
 
+		qDebug() << "start time" << optimalJob.timer.elapsed();
+
 		// processing queue
 		err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
 			cl::NDRange(optimalJob.workGroupSize));
 		if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()")) return false;
+
+		// update image when OpenCl kernel is working
+		if (lastRenderedLines.size() > 0)
+		{
+			QElapsedTimer timerImageRefresh;
+			timerImageRefresh.start();
+			image->NullPostEffect(&lastRenderedLines);
+			image->CompileImage(&lastRenderedLines);
+			image->ConvertTo8bit();
+			image->UpdatePreview(&lastRenderedLines);
+			image->GetImageWidget()->update();
+			lastRenderedLines.clear();
+			optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
+			if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
+		}
+
+		qDebug() << "end time" << optimalJob.timer.elapsed();
 
 		err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbbuff);
 		if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()")) return false;
@@ -363,6 +384,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer")) return false;
 
 		UpdateOptimalJobEnd();
+
+		qDebug() << "read buffer" << optimalJob.timer.elapsed();
 
 		for (unsigned int i = 0; i < optimalJob.stepSize; i++)
 		{
@@ -380,6 +403,13 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 			image->PutPixelColour(x, y, color);
 			image->PutPixelOpacity(x, y, opacity);
 			image->PutPixelAlpha(x, y, alpha);
+		}
+
+		for (unsigned int i = 0; i < optimalJob.stepSize; i += width)
+		{
+			unsigned int a = pixelIndex + i;
+			int y = a / width;
+			lastRenderedLines.append(y);
 		}
 
 		double percentDone = double(pixelIndex) / (width * height);
