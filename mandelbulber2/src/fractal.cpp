@@ -371,17 +371,17 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.constantMultiplierB111 =
 		CVector4(container->Get<CVector3>("transf_constant_multiplierB_111"), 1.0);
 	transformCommon.constantMultiplierC111 =
-		container->Get<CVector3>("transf_constant_multiplierC_111");
+		CVector4(container->Get<CVector3>("transf_constant_multiplierC_111"), 1.0);
 	transformCommon.constantMultiplier121 =
-		container->Get<CVector3>("transf_constant_multiplier_121");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_121"), 1.0);
 	transformCommon.constantMultiplier122 =
-		container->Get<CVector3>("transf_constant_multiplier_122");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_122"), 1.0);
 	transformCommon.constantMultiplier221 =
 		CVector4(container->Get<CVector3>("transf_constant_multiplier_221"), 1.0);
 	transformCommon.constantMultiplier222 =
-		container->Get<CVector3>("transf_constant_multiplier_222");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_222"), 1.0);
 	transformCommon.constantMultiplier441 =
-		container->Get<CVector3>("transf_constant_multiplier_441");
+		CVector4(container->Get<CVector3>("transf_constant_multiplier_441"), 1.0);
 
 
 	transformCommon.juliaC = CVector4(container->Get<CVector3>("transf_constant_julia_c"), 0.0);
@@ -406,15 +406,18 @@ sFractal::sFractal(const cParameterContainer *container)
 		container->Get<CVector3>("transf_rotation44a"); //...........................
 	transformCommon.rotation44b =
 		container->Get<CVector3>("transf_rotation44b"); //...........................
-	transformCommon.scale3D000 = container->Get<CVector3>("transf_scale3D_000");
-	transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
-	transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
-	transformCommon.scale3Da222 = container->Get<CVector3>("transf_scale3Da_222");
-	transformCommon.scale3Db222 = container->Get<CVector3>("transf_scale3Db_222");
-	transformCommon.scale3Dc222 = container->Get<CVector3>("transf_scale3Dc_222");
-	transformCommon.scale3Dd222 = container->Get<CVector3>("transf_scale3Dd_222");
-	transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
-	transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
+
+
+
+	transformCommon.scale3D000 = CVector4(container->Get<CVector3>("transf_scale3D_000"), 1.0);
+	transformCommon.scale3D111 = CVector4(container->Get<CVector3>("transf_scale3D_111"), 1.0);
+	transformCommon.scale3D222 = CVector4(container->Get<CVector3>("transf_scale3D_222"), 1.0);
+	transformCommon.scale3Da222 = CVector4(container->Get<CVector3>("transf_scale3Da_222"), 1.0);
+	transformCommon.scale3Db222 = CVector4(container->Get<CVector3>("transf_scale3Db_222"), 1.0);
+	transformCommon.scale3Dc222 = CVector4(container->Get<CVector3>("transf_scale3Dc_222"), 1.0);
+	transformCommon.scale3Dd222 = CVector4(container->Get<CVector3>("transf_scale3Dd_222"), 1.0);
+	transformCommon.scale3D333 = CVector4(container->Get<CVector3>("transf_scale3D_333"), 1.0);
+	transformCommon.scale3D444 = CVector4(container->Get<CVector3>("transf_scale3D_444"), 1.0);
 
 	transformCommon.additionConstant0000 = container->Get<CVector4>("transf_addition_constant_0000");
 	transformCommon.offset0000 = container->Get<CVector4>("transf_offset_0000");

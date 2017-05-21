@@ -520,12 +520,12 @@ struct sFractalTransformCommon
 	CVector4 constantMultiplier111;
 	CVector4 constantMultiplierA111;
 	CVector4 constantMultiplierB111;
-	CVector3 constantMultiplierC111; // vec3s
-	CVector3 constantMultiplier121;
-	CVector3 constantMultiplier122;
+	CVector4 constantMultiplierC111;
+	CVector4 constantMultiplier121;
+	CVector4 constantMultiplier122;
 	CVector4 constantMultiplier221;
-	CVector3 constantMultiplier222;
-	CVector3 constantMultiplier441;
+	CVector4 constantMultiplier222;
+	CVector4 constantMultiplier441;
 	CVector4 juliaC;
 	CVector4 offset000;
 	CVector4 offsetA000;
@@ -540,21 +540,22 @@ struct sFractalTransformCommon
 	CVector4 offsetA200;
 	CVector4 offset222;
 
-	CVector3 power025;
+	CVector3 power025; // vec3s
 	CVector3 power8;
 	CVector3 rotation;
 	CVector3 rotation2;
 	CVector3 rotation44a; //.........................
 	CVector3 rotation44b; //..........................
-	CVector3 scale3D000;
-	CVector3 scale3D111;
-	CVector3 scale3D222;
-	CVector3 scale3Da222;
-	CVector3 scale3Db222;
-	CVector3 scale3Dc222;
-	CVector3 scale3Dd222;
-	CVector3 scale3D333;
-	CVector3 scale3D444;
+
+	CVector4 scale3D000;
+	CVector4 scale3D111;
+	CVector4 scale3D222;
+	CVector4 scale3Da222;
+	CVector4 scale3Db222;
+	CVector4 scale3Dc222;
+	CVector4 scale3Dd222;
+	CVector4 scale3D333;
+	CVector4 scale3D444;
 
 	CVector4 additionConstant0000;
 	CVector4 offset0000;
