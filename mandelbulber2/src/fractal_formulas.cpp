@@ -3293,9 +3293,9 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 
 		double th0 = fractal->bulb.betaAngleOffset;
 		double ph0 = fractal->bulb.alphaAngleOffset;
-		CVector3 v;
+		/*CVector3 v;
 
-		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		switch (fractal->sinTan2Trig.orderOfZYX)
 		{
 			case multi_OrderOfXYZ_xyz:
 			default: v = CVector3(z.x, z.y, z.z); break;
@@ -3304,21 +3304,75 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			case multi_OrderOfXYZ_yzx: v = CVector3(z.y, z.z, z.x); break;
 			case multi_OrderOfXYZ_zxy: v = CVector3(z.z, z.x, z.y); break;
 			case multi_OrderOfXYZ_zyx: v = CVector3(z.z, z.y, z.x); break;
+		}*/
+
+		CVector3 v;
+		switch (fractal->sinTan2Trig.orderOfZYX)
+		{
+			case multi_OrderOfZYX_zyx:
+			default: v = CVector3(z.z, z.y, z.x); break;
+			case multi_OrderOfZYX_zxy: v = CVector3(z.z, z.x, z.y); break;
+			case multi_OrderOfZYX_yzx: v = CVector3(z.y, z.z, z.x); break;
+			case multi_OrderOfZYX_yxz: v = CVector3(z.y, z.x, z.z); break;
+			case multi_OrderOfZYX_xzy: v = CVector3(z.x, z.z, z.y); break;
+			case multi_OrderOfZYX_xyz: v = CVector3(z.x, z.y, z.z); break;
 		}
+
+
+		/*double v1, v2, v3;
+		switch (fractal->sinTan2Trig.orderOfZYX)
+		{
+			case multi_OrderOfZYX_zyx:
+			default:
+				v1 = z.z;
+				v2 = z.y;
+				v3 = z.x;
+				break;
+			case multi_OrderOfZYX_zxy:
+				v1 = z.z;
+				v2 = z.x;
+				v3 = z.y;
+				break;
+			case multi_OrderOfZYX_yzx:
+				v1 = z.y;
+				v2 = z.z;
+				v3 = z.x;
+				break;
+			case multi_OrderOfZYX_yxz:
+				v1 = z.y;
+				v2 = z.x;
+				v3 = z.z;
+				break;
+			case multi_OrderOfZYX_xzy:
+				v1 = z.x;
+				v2 = z.z;
+				v3 = z.y;
+				break;
+			case multi_OrderOfZYX_xyz:
+				v1 = z.x;
+				v2 = z.y;
+				v3 = z.z;
+				break;
+		}*/
+
+
+
+
+
 		// if (aux.r < 1e-21)
 		//	aux.r = 1e-21;
 		// if (v3 < 1e-21 && v3 > -1e-21)
 		//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
 
-		if (fractal->mandelbulbMulti.acosOrAsin == multi_acosOrAsin_acos)
-			th0 += acos(v.x / aux.r);
-		else
+		if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcos_asin)
 			th0 += asin(v.x / aux.r);
-
-		if (fractal->mandelbulbMulti.atanOrAtan2 == multi_atanOrAtan2_atan)
-			ph0 += atan(v.y / v.z);
 		else
-			ph0 += atan2(v.y, v.z);
+			th0 += acos(v.x / aux.r);
+
+		if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtan_atan2)
+			ph0 += atan2(v.y , v.z);
+		else
+			ph0 += atan(v.y / v.z);
 
 		double rp = pow(aux.r, fractal->bulb.power - 1.0);
 		double th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;

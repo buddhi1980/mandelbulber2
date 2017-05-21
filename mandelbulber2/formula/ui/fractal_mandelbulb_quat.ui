@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb_quat</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>3917</height>
+    <height>4937</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1729,12 +1729,12 @@
          <widget class="QComboBox" name="comboBox_mandelbulbMulti_atan_or_atan2">
           <item>
            <property name="text">
-            <string notr="true">atan</string>
+            <string notr="true">atan2</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string notr="true">atan2</string>
+            <string notr="true">atan</string>
            </property>
           </item>
          </widget>
@@ -1760,25 +1760,10 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
+         <widget class="QComboBox" name="comboBox_sinTan2Trig_order_of_zyx">
           <item>
            <property name="text">
-            <string notr="true">xyz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">xzy</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">yxz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">yzx</string>
+            <string notr="true">zyx</string>
            </property>
           </item>
           <item>
@@ -1788,7 +1773,22 @@
           </item>
           <item>
            <property name="text">
-            <string notr="true">zyx</string>
+            <string notr="true">yzx</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">yxz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">xzy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">xyz</string>
            </property>
           </item>
          </widget>
@@ -1797,12 +1797,12 @@
          <widget class="QComboBox" name="comboBox_mandelbulbMulti_acos_or_asin">
           <item>
            <property name="text">
-            <string notr="true">acos</string>
+            <string notr="true">asin</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string notr="true">asin</string>
+            <string notr="true">acos</string>
            </property>
           </item>
          </widget>
@@ -2765,7 +2765,8 @@
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;body style=&quot;background-color:#202020&quot;&gt;
-&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;MandelbulbQuatIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+&lt;pre style=&quot;color:#d0d0d0; background-color:#202020;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;MandelbulbQuatIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;
+  CVector4 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;startIterationsC
       &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;stopIterationsC1&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
@@ -2853,9 +2854,12 @@
     aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
 
+
+
   &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;startIterationsM
       &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;stopIterationsM&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
+
 
     aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;Length&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;();&lt;/span&gt;
     &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
@@ -2927,8 +2931,10 @@
 
     &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledKFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
     &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledDFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;swap&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
-      &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledEFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;swap&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+      &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledDFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color:#e47eed&quot;&gt;swap&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+      &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledEFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color:#e47eed&quot;&gt;swap&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
 
       &lt;span style=&quot;color:#d0d0a0&quot;&gt;// swap&lt;/span&gt;
       &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledBxFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;= -&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
@@ -3013,7 +3019,7 @@
   <tabstop>spinboxInt_transf_stop_iterations_Z</tabstop>
   <tabstop>comboBox_mandelbulbMulti_acos_or_asin</tabstop>
   <tabstop>comboBox_mandelbulbMulti_atan_or_atan2</tabstop>
-  <tabstop>comboBox_mandelbulbMulti_order_of_xyz</tabstop>
+  <tabstop>comboBox_sinTan2Trig_order_of_zyx</tabstop>
   <tabstop>slider_power</tabstop>
   <tabstop>spinbox_power</tabstop>
   <tabstop>slider_transf_scaleA_1</tabstop>
