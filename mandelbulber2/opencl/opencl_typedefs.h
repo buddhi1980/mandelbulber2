@@ -17,5 +17,4 @@ typedef unsigned int cl_uint;
 typedef unsigned short cl_ushort;
 typedef unsigned char cl_uchar;
 
-
 #endif /* MANDELBULBER2_OPENCL_OPENCL_TYPEDEFS_H_ */

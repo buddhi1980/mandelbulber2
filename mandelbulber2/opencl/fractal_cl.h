@@ -492,12 +492,12 @@ typedef struct
 	cl_float4 constantMultiplier111;
 	cl_float4 constantMultiplierA111;
 	cl_float4 constantMultiplierB111;
-	cl_float3 constantMultiplierC111; // vec3s
-	cl_float3 constantMultiplier121;
-	cl_float3 constantMultiplier122;
+	cl_float4 constantMultiplierC111;
+	cl_float4 constantMultiplier121;
+	cl_float4 constantMultiplier122;
 	cl_float4 constantMultiplier221;
-	cl_float3 constantMultiplier222;
-	cl_float3 constantMultiplier441;
+	cl_float4 constantMultiplier222;
+	cl_float4 constantMultiplier441;
 	cl_float4 juliaC;
 	cl_float4 offset000;
 	cl_float4 offsetA000;
@@ -512,21 +512,22 @@ typedef struct
 	cl_float4 offsetA200;
 	cl_float4 offset222;
 
-	cl_float3 power025;
+	cl_float3 power025; // vec3s
 	cl_float3 power8;
 	cl_float3 rotation;
 	cl_float3 rotation2;
 	cl_float3 rotation44a; //.........................
 	cl_float3 rotation44b; //..........................
-	cl_float3 scale3D000;
-	cl_float3 scale3D111;
-	cl_float3 scale3D222;
-	cl_float3 scale3Da222;
-	cl_float3 scale3Db222;
-	cl_float3 scale3Dc222;
-	cl_float3 scale3Dd222;
-	cl_float3 scale3D333;
-	cl_float3 scale3D444;
+
+	cl_float4 scale3D000;
+	cl_float4 scale3D111;
+	cl_float4 scale3D222;
+	cl_float4 scale3Da222;
+	cl_float4 scale3Db222;
+	cl_float4 scale3Dc222;
+	cl_float4 scale3Dd222;
+	cl_float4 scale3D333;
+	cl_float4 scale3D444;
 
 	cl_float4 additionConstant0000;
 	cl_float4 offset0000;
@@ -1093,12 +1094,12 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.constantMultiplier111 = toClFloat4(source.constantMultiplier111);
 	target.constantMultiplierA111 = toClFloat4(source.constantMultiplierA111);
 	target.constantMultiplierB111 = toClFloat4(source.constantMultiplierB111);
-	target.constantMultiplierC111 = toClFloat3(source.constantMultiplierC111);
-	target.constantMultiplier121 = toClFloat3(source.constantMultiplier121);
-	target.constantMultiplier122 = toClFloat3(source.constantMultiplier122);
+	target.constantMultiplierC111 = toClFloat4(source.constantMultiplierC111);
+	target.constantMultiplier121 = toClFloat4(source.constantMultiplier121);
+	target.constantMultiplier122 = toClFloat4(source.constantMultiplier122);
 	target.constantMultiplier221 = toClFloat4(source.constantMultiplier221);
-	target.constantMultiplier222 = toClFloat3(source.constantMultiplier222);
-	target.constantMultiplier441 = toClFloat3(source.constantMultiplier441);
+	target.constantMultiplier222 = toClFloat4(source.constantMultiplier222);
+	target.constantMultiplier441 = toClFloat4(source.constantMultiplier441);
 	target.juliaC = toClFloat4(source.juliaC);
 	target.offset000 = toClFloat4(source.offset000);
 	target.offsetA000 = toClFloat4(source.offsetA000);
@@ -1118,15 +1119,15 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.rotation2 = toClFloat3(source.rotation2);
 	target.rotation44a = toClFloat3(source.rotation44a);
 	target.rotation44b = toClFloat3(source.rotation44b);
-	target.scale3D000 = toClFloat3(source.scale3D000);
-	target.scale3D111 = toClFloat3(source.scale3D111);
-	target.scale3D222 = toClFloat3(source.scale3D222);
-	target.scale3Da222 = toClFloat3(source.scale3Da222);
-	target.scale3Db222 = toClFloat3(source.scale3Db222);
-	target.scale3Dc222 = toClFloat3(source.scale3Dc222);
-	target.scale3Dd222 = toClFloat3(source.scale3Dd222);
-	target.scale3D333 = toClFloat3(source.scale3D333);
-	target.scale3D444 = toClFloat3(source.scale3D444);
+	target.scale3D000 = toClFloat4(source.scale3D000);
+	target.scale3D111 = toClFloat4(source.scale3D111);
+	target.scale3D222 = toClFloat4(source.scale3D222);
+	target.scale3Da222 = toClFloat4(source.scale3Da222);
+	target.scale3Db222 = toClFloat4(source.scale3Db222);
+	target.scale3Dc222 = toClFloat4(source.scale3Dc222);
+	target.scale3Dd222 = toClFloat4(source.scale3Dd222);
+	target.scale3D333 = toClFloat4(source.scale3D333);
+	target.scale3D444 = toClFloat4(source.scale3D444);
 	target.additionConstant0000 = toClFloat4(source.additionConstant0000);
 	target.offset0000 = toClFloat4(source.offset0000);
 	target.offset1111 = toClFloat4(source.offset1111);

@@ -65,32 +65,39 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
 		progEngine.append("#define Q_UNUSED(x) (void)x;" + QString::number(MANDELBOX_FOLDS) + "\n");
 
-		// it's still temporary, but in this way we can append main header file
-
+		// definitions of common opencl types
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "opencl_typedefs.h\"\n");
 
+		// algebra for kernels
 		progEngine.append(
 			"#include \"" + systemData.sharedDir + "opencl" + QDir::separator() + "opencl_algebra.h\"\n");
 
+		// common parameters
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "common_params_cl.hpp\"\n");
 
+		// image adjustments
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "image_adjustments_cl.h\"\n");
 
+		// fractal data structures
 		progEngine.append(
 			"#include \"" + systemData.sharedDir + "opencl" + QDir::separator() + "fractal_cl.h\"\n");
 
+		// rendering data stractures
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "fractparams_cl.hpp\"\n");
 
+		// sequence of fractal formulas
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "fractal_sequence_cl.h\"\n");
 
+		// main data structures
 		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
 											+ "mandelbulber_cl_data.h\"\n");
 
+		// fractal formulas - only actually used
 		for (int i = 0; i < listOfUsedFormulas.size(); i++)
 		{
 			QString formulaName = listOfUsedFormulas.at(i);
@@ -101,6 +108,15 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			}
 		}
 
+		// compute fractal
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "engines" + QDir::separator() + "compute_fractal.cl\"\n");
+
+		// calculate dustance
+		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
+											+ "engines" + QDir::separator() + "calculate_distance.cl\"\n");
+
+		// main engine
 		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
 																					 + "engines" + QDir::separator() + "test_engine.cl"));
 	}
@@ -167,6 +183,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	if (deType == fractal::analyticDEType)
 	{
+		definesCollector += " -DANALYTIC_DE";
 		switch (deFunctionType)
 		{
 			case fractal::linearDEFunction: definesCollector += " -DANALYTIC_LINEAR_DE"; break;
@@ -179,6 +196,16 @@ void cOpenClEngineRenderFractal::SetParameters(
 	}
 	else
 	{
+		definesCollector += " -DDELTA_DE";
+		switch (deFunctionType)
+		{
+			case fractal::linearDEFunction: definesCollector += " -DDELTA_LINEAR_DE"; break;
+			case fractal::logarithmicDEFunction: definesCollector += " -DDELTA_LOG_DE"; break;
+			case fractal::pseudoKleinianDEFunction:
+				definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
+				break;
+			default: break;
+		}
 	}
 
 	listOfUsedFormulas.clear();
