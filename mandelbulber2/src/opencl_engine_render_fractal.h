@@ -1,22 +1,22 @@
 /**
-* Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
-*                                             ,B" ]L,,p%%%,,,§;, "K
-* Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
-*                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
-* This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+* Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmï¿½MNWy,
+*                                             ,B" ]L,,p%%%,,,ï¿½;, "K
+* Copyright (C) 2017 Mandelbulber Team        ï¿½R-==%w["'~5]m%=L.=~5N
+*                                        ,=mm=ï¿½M ]=4 yJKA"/-Nsaj  "Bw,==,,
+* This file is part of Mandelbulber.    ï¿½R.r= jw",M  Km .mM  FW ",ï¿½=ï¿½., ,TN
 *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
-* Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
-* you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
-* modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
-* GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
-* published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
-* Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
-* either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+* Mandelbulber is free software:     ï¿½R.ï¿½~-Q/M=,=5"v"]=Qf,'ï¿½"M= =,M.ï¿½ Rz]M"Kw
+* you can redistribute it and/or     ï¿½w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" ï¿½
+* modify it under the terms of the    "ï¿½M=M =D=4"N #"%==A%p Mï¿½ M6  R' #"=~.4M
+* GNU General Public License as        ï¿½W =, ][T"]C  ï¿½  ï¿½ 'ï¿½ e===~ U  !ï¿½[Z ]N
+* published by the                    4M",,Jm=,"=e~  ï¿½  ï¿½  j]]""N  BmM"py=ï¿½M
+* Free Software Foundation,          ]ï¿½ T,M=& 'YmMMpM9MMM%=w=,,=MT]M mï¿½;'ï¿½,
+* either version 3 of the License,    TWw [.j"5=~N[=ï¿½%=%W,T ]R,"=="Y[LFT ]N
 * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
-* any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
-*                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
-* Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
-* the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+* any later version.                      Jï¿½"mr"] ,=,," =="""J]= M"M"]==ï¿½"
+*                                          ï¿½= "=C=4 ï¿½"eM "=B:m|4"]#F,ï¿½~
+* Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ï¿½"
+* the hope that it will be useful,                 . "K=  ,=RMMMï¿½M"""
 * but WITHOUT ANY WARRANTY;                            .'''
 * without even the implied warranty
 * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -41,7 +41,7 @@
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
-#endif  // _MSC_VER
+#endif													// _MSC_VER
 
 #ifdef USE_OPENCL
 #include <CL/cl.hpp>
@@ -56,8 +56,10 @@
 class cImage;
 class cFractalContainer;
 
-class cOpenClEngineRenderFractal : public virtual cOpenClEngine
+class cOpenClEngineRenderFractal : public cOpenClEngine
 {
+	Q_OBJECT
+
 public:
 	cOpenClEngineRenderFractal(cOpenClHardware *hardware);
 	~cOpenClEngineRenderFractal();
@@ -66,10 +68,11 @@ public:
 	void LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void SetParameters(const cParameterContainer *params, const cFractalContainer *fractals);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
+	bool ReAllocateImageBuffers();
 	bool Render(cImage *image);
 
 private:
-	QString toCamelCase(const QString& s);
+	QString toCamelCase(const QString &s);
 
 	sClInConstants *constantInBuffer;
 	cl::Buffer *inCLConstBuffer;
@@ -83,6 +86,9 @@ private:
 	QStringList listOfUsedFormulas;
 
 #endif
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_FRACTAL_H_ */

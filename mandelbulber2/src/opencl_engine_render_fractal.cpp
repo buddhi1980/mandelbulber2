@@ -14,6 +14,8 @@
 #include "nine_fractals.hpp"
 #include "fractal.h"
 #include "fractal_formulas.hpp"
+#include "progress_text.hpp"
+#include "global_data.hpp"
 
 #ifdef USE_OPENCL
 #include "../opencl/fractal_cl.h"
@@ -32,6 +34,9 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	rgbbuff = nullptr;
 	outCL = nullptr;
+
+	optimalJob.sizeOfPixel = sizeof(sClPixel);
+
 #endif
 }
 
@@ -52,6 +57,8 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 {
 	programsLoaded = false;
 	readyForRendering = false;
+
+	emit updateProgressAndStatus(tr("OpenCl - initializing"), tr("Compiling sources"), 0.0);
 
 	QByteArray progEngine;
 	try
@@ -279,12 +286,30 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 	return true;
 }
 
+bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
+{
+	cl_int err;
+
+	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
+	if (rgbbuff) delete rgbbuff;
+	rgbbuff = new sClPixel[buffSize];
+
+	if (outCL) delete outCL;
+	outCL = new cl::Buffer(
+		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err);
+	if (!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
+		return false;
+}
+
 bool cOpenClEngineRenderFractal::Render(cImage *image)
 {
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 
-	size_t sizeOfPixel = sizeof(sClPixel);
+	cProgressText progressText;
+	progressText.ResetTimer();
+
+	emit updateProgressAndStatus(tr("OpenCl - rendering image"), progressText.getText(0.0), 0.0);
 
 	QElapsedTimer timer;
 	timer.start();
@@ -293,7 +318,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 	{
 		cl_int err;
 
+		size_t pixelsLeft = width * height - pixelIndex;
+		UpdateOptimalJobStart(pixelsLeft);
+
 		size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
+
+		ReAllocateImageBuffers();
 
 		// assign parameters to kernel
 		err = kernel->setArg(0, *outCL); // output image
@@ -307,8 +337,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 		// writing data to queue
 		err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
-		size_t usedGPUdMem = sizeOfPixel * optimalJob.stepSize;
-		// qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
+		size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
+
+		qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
 		if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)")) return false;
 
 		err = queue->finish();
@@ -331,6 +362,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		err = queue->finish();
 		if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer")) return false;
 
+		UpdateOptimalJobEnd();
+
 		for (unsigned int i = 0; i < optimalJob.stepSize; i++)
 		{
 			unsigned int a = pixelIndex + i;
@@ -348,6 +381,11 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 			image->PutPixelOpacity(x, y, opacity);
 			image->PutPixelAlpha(x, y, alpha);
 		}
+
+		double percentDone = double(pixelIndex) / (width * height);
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
+		gApplication->processEvents();
 	}
 
 	qDebug() << "GPU jobs finished";
@@ -368,6 +406,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		WriteLog("image->GetImageWidget()->update()", 2);
 		image->GetImageWidget()->update();
 	}
+
+	emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
 
 	return true;
 }

@@ -108,7 +108,7 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 {
 	if (CreateKernel(program))
 	{
-		optimalJob = CalculateOptimalJob(params);
+		InitOptimalJob(params);
 		return true;
 	}
 	return false;
@@ -133,24 +133,43 @@ bool cOpenClEngine::CreateKernel(cl::Program *prog)
 	return false;
 }
 
-cOpenClEngine::sOptimalJob cOpenClEngine::CalculateOptimalJob(const cParameterContainer *params)
+void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 {
-	sOptimalJob optJob = optimalJob;
-
 	size_t width = params->Get<int>("image_width");
 	size_t height = params->Get<int>("image_height");
 
-	optJob.pixelsPerJob =
+	optimalJob.pixelsPerJob =
 		optimalJob.workGroupSize * hardware->getSelectedDeviceInformation().maxComputeUnits;
-	optJob.numberOfSteps = height * width / optJob.pixelsPerJob + 1;
-	optJob.stepSize =
-		(width * height / optJob.numberOfSteps / optJob.pixelsPerJob + 1) * optJob.pixelsPerJob;
+	optimalJob.numberOfSteps = height * width / optimalJob.pixelsPerJob + 1;
+	optimalJob.stepSize = (width * height / optimalJob.numberOfSteps / optimalJob.pixelsPerJob + 1)
+												* optimalJob.pixelsPerJob;
 
-	qDebug() << "pixelsPerJob:" << optJob.pixelsPerJob;
-	qDebug() << "numberOfSteps:" << optJob.numberOfSteps;
-	qDebug() << "stepSize:" << optJob.stepSize;
+	optimalJob.workGroupSizeMultiplier = 1;
+	optimalJob.lastProcessingTime = 1.0;
 
-	return optJob;
+	size_t maxAllocMemSize = hardware->getSelectedDeviceInformation().maxMemAllocSize;
+
+	size_t memoryLimitByUser = 512 * 1024 * 1024;
+
+	if (maxAllocMemSize > 0)
+	{
+		if (maxAllocMemSize * 0.75 < memoryLimitByUser) // 512MB TODO parameter for max mem
+		{
+			optimalJob.jobSizeLimit = maxAllocMemSize / optimalJob.sizeOfPixel * 0.75;
+		}
+		else
+		{
+			optimalJob.jobSizeLimit = memoryLimitByUser / optimalJob.sizeOfPixel;
+		}
+	}
+	else
+	{
+		optimalJob.jobSizeLimit = memoryLimitByUser / optimalJob.sizeOfPixel;
+	}
+
+	qDebug() << "pixelsPerJob:" << optimalJob.pixelsPerJob;
+	qDebug() << "numberOfSteps:" << optimalJob.numberOfSteps;
+	qDebug() << "stepSize:" << optimalJob.stepSize;
 }
 
 bool cOpenClEngine::CreateCommandQueue()
@@ -166,6 +185,36 @@ bool cOpenClEngine::CreateCommandQueue()
 	}
 	readyForRendering = false;
 	return false;
+}
+
+void cOpenClEngine::UpdateOptimalJobStart(int pixelsLeft)
+{
+	optimalJob.timer.restart();
+	optimalJob.timer.start();
+	double processingCycleTime = 0.1; // TODO add parameter
+
+	optimalJob.workGroupSizeMultiplier *= processingCycleTime / optimalJob.lastProcessingTime;
+
+	size_t maxWorkGroupSizeMultiplier = pixelsLeft / optimalJob.workGroupSize;
+
+	if (optimalJob.workGroupSizeMultiplier > maxWorkGroupSizeMultiplier)
+		optimalJob.workGroupSizeMultiplier = maxWorkGroupSizeMultiplier;
+
+	if (optimalJob.workGroupSizeMultiplier * optimalJob.workGroupSize > optimalJob.jobSizeLimit)
+		optimalJob.workGroupSizeMultiplier = optimalJob.jobSizeLimit / optimalJob.workGroupSize;
+
+	if (optimalJob.workGroupSizeMultiplier < hardware->getSelectedDeviceInformation().maxComputeUnits)
+		optimalJob.workGroupSizeMultiplier = hardware->getSelectedDeviceInformation().maxComputeUnits;
+
+	optimalJob.stepSize = optimalJob.workGroupSizeMultiplier * optimalJob.workGroupSize;
+
+	qDebug() << "lastProcessingTime" << optimalJob.lastProcessingTime;
+	qDebug() << "stepSize:" << optimalJob.stepSize;
+}
+
+void cOpenClEngine::UpdateOptimalJobEnd()
+{
+	optimalJob.lastProcessingTime = optimalJob.timer.elapsed() / 1000.0;
 }
 
 #endif

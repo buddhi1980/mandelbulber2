@@ -67,8 +67,11 @@
 #include "rendering_configuration.hpp"
 #include "ui_render_window.h"
 #include "detached_window.h"
+#include "opencl_global.h"
 #include "post_effect_hdr_blur.h"
 #include "trace_behind.h"
+#include "opencl_global.h"
+#include "opencl_engine_render_fractal.h"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
@@ -409,6 +412,14 @@ void cInterface::ConnectSignals() const
 		SLOT(slotCustomWindowStateAddToMenu()));
 	connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotCustomWindowRemovePopup()));
+
+#ifdef USE_OPENCL
+	// connect signal for progress bar update
+	connect(gOpenCl->openClEngineRenderFractal,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+
+#endif
 
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksAndToolbarByView();
@@ -1483,7 +1494,8 @@ void cInterface::SetBoundingBoxAsLimits()
 void cInterface::NewPrimitive(const QString &primitiveType, int index)
 {
 	QString primitiveName = QString("primitive_") + primitiveType;
-	QString uiFileName = systemData.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator() + primitiveName + ".ui";
+	QString uiFileName = systemData.sharedDir + "formula" + QDir::separator() + "ui"
+											 + QDir::separator() + primitiveName + ".ui";
 	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
 
 	int newId = 0;
@@ -1815,7 +1827,8 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(
+			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);
