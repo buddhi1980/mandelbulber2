@@ -63,46 +63,43 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	QByteArray progEngine;
 	try
 	{
+		QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
+		QString openclEnginePath = openclPath + "engines" + QDir::separator();
+
 		// passthrough define constants
 		progEngine.append("#define USE_OPENCL 1\n");
 		progEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
+
+		progEngine.append("#define SQRT_1_3 " + QString::number(SQRT_1_3) + "\n");
+		progEngine.append("#define SQRT_1_2 " + QString::number(SQRT_1_2) + "\n");
+		progEngine.append("#define SQRT_2_3 " + QString::number(SQRT_2_3) + "\n");
+		progEngine.append("#define SQRT_3_2 " + QString::number(SQRT_3_2) + "\n");
+		progEngine.append("#define SQRT_3_4 " + QString::number(SQRT_3_4) + "\n");
+		progEngine.append("#define SQRT_3_4d2 " + QString::number(SQRT_3_4d2) + "\n");
+		progEngine.append("#define SQRT_3 " + QString::number(SQRT_3) + "\n");
+		progEngine.append("#define FRAC_1_3 " + QString::number(FRAC_1_3) + "\n");
 		progEngine.append("#define M_PI_180 " + QString::number(M_PI_180) + "\n");
+		progEngine.append("#define M_PI_8 " + QString::number(M_PI_8) + "\n");
+
 		progEngine.append("#define IFS_VECTOR_COUNT " + QString::number(IFS_VECTOR_COUNT) + "\n");
 		progEngine.append("#define HYBRID_COUNT " + QString::number(HYBRID_COUNT) + "\n");
 		progEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
-		progEngine.append("#define Q_UNUSED(x) (void)x;" + QString::number(MANDELBOX_FOLDS) + "\n");
+		progEngine.append("#define Q_UNUSED(x) (void)x;\n");
 
-		// definitions of common opencl types
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "opencl_typedefs.h\"\n");
+		QStringList clHeaderFiles;
+		clHeaderFiles.append("opencl_typedefs.h");			// definitions of common opencl types
+		clHeaderFiles.append("opencl_algebra.h");				// algebra for kernels
+		clHeaderFiles.append("common_params_cl.hpp");		// common parameters
+		clHeaderFiles.append("image_adjustments_cl.h"); // image adjustments
+		clHeaderFiles.append("fractal_cl.h");						// fractal data structures
+		clHeaderFiles.append("fractparams_cl.hpp");			// rendering data structures
+		clHeaderFiles.append("fractal_sequence_cl.h");	// sequence of fractal formulas
+		clHeaderFiles.append("mandelbulber_cl_data.h"); // main data structures
 
-		// algebra for kernels
-		progEngine.append(
-			"#include \"" + systemData.sharedDir + "opencl" + QDir::separator() + "opencl_algebra.h\"\n");
-
-		// common parameters
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "common_params_cl.hpp\"\n");
-
-		// image adjustments
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "image_adjustments_cl.h\"\n");
-
-		// fractal data structures
-		progEngine.append(
-			"#include \"" + systemData.sharedDir + "opencl" + QDir::separator() + "fractal_cl.h\"\n");
-
-		// rendering data stractures
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "fractparams_cl.hpp\"\n");
-
-		// sequence of fractal formulas
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "fractal_sequence_cl.h\"\n");
-
-		// main data structures
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "mandelbulber_cl_data.h\"\n");
+		for (int i = 0; i < clHeaderFiles.size(); i++)
+		{
+			progEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");
+		}
 
 		// fractal formulas - only actually used
 		for (int i = 0; i < listOfUsedFormulas.size(); i++)
@@ -116,16 +113,14 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		}
 
 		// compute fractal
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "engines" + QDir::separator() + "compute_fractal.cl\"\n");
+		progEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
 
 		// calculate dustance
-		progEngine.append("#include \"" + systemData.sharedDir + "opencl" + QDir::separator()
-											+ "engines" + QDir::separator() + "calculate_distance.cl\"\n");
+		progEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
 
 		// main engine
-		progEngine.append(LoadUtf8TextFromFile(systemData.sharedDir + "opencl" + QDir::separator()
-																					 + "engines" + QDir::separator() + "test_engine.cl"));
+		QString engineFileName = openclEnginePath + "test_engine.cl";
+		progEngine.append(LoadUtf8TextFromFile(engineFileName));
 	}
 	catch (const QString &ex)
 	{
