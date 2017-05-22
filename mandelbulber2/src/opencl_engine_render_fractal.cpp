@@ -440,8 +440,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
-	for (int i = 1; i < parts.size(); ++i)
+	for (int i = 1; i < parts.size(); ++i){
 		parts[i].replace(0, 1, parts[i][0].toUpper());
+
+		// rewrite to known capital names in iteration function names
+		if(parts[i] == "Vs") parts[i] = "VS";
+	}
 
 	return parts.join("");
 }

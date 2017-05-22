@@ -1254,8 +1254,7 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 {
 	CVector4 c = aux.const_c;
 
-	aux.actualScale =
-		aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	aux.actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -1295,7 +1294,7 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	if (fractal->transformCommon.juliaMode)
 	{
-		z += CVector4(fractal->transformCommon.juliaC)
+		z += fractal->transformCommon.juliaC
 				 - c * fractal->transformCommon.constantMultiplier111;
 	}
 	else
