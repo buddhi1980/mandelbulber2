@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb_multi2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -257,15 +257,15 @@
          </widget>
         </item>
         <item row="1" column="5">
-         <widget class="QComboBox" name="comboBox_mandelbulbMulti_atan_or_atan2">
+         <widget class="QComboBox" name="comboBox_sinTan2Trig_atan2_or_atan">
           <item>
            <property name="text">
-            <string notr="true">atan</string>
+            <string notr="true">atan2</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string notr="true">atan2</string>
+            <string notr="true">atan</string>
            </property>
           </item>
          </widget>
@@ -291,25 +291,10 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
+         <widget class="QComboBox" name="comboBox_sinTan2Trig_order_of_zyx">
           <item>
            <property name="text">
-            <string notr="true">xyz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">xzy</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">yxz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">yzx</string>
+            <string notr="true">zyx</string>
            </property>
           </item>
           <item>
@@ -319,21 +304,36 @@
           </item>
           <item>
            <property name="text">
-            <string notr="true">zyx</string>
+            <string notr="true">yzx</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">yxz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">xzy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">xyz</string>
            </property>
           </item>
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QComboBox" name="comboBox_mandelbulbMulti_acos_or_asin">
+         <widget class="QComboBox" name="comboBox_sinTan2Trig_asin_or_acos">
           <item>
            <property name="text">
-            <string notr="true">acos</string>
+            <string notr="true">asin</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string notr="true">asin</string>
+            <string notr="true">acos</string>
            </property>
           </item>
          </widget>
@@ -1846,9 +1846,9 @@
   <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_Z</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_Z</tabstop>
-  <tabstop>comboBox_mandelbulbMulti_acos_or_asin</tabstop>
-  <tabstop>comboBox_mandelbulbMulti_atan_or_atan2</tabstop>
-  <tabstop>comboBox_mandelbulbMulti_order_of_xyz</tabstop>
+  <tabstop>comboBox_sinTan2Trig_asin_or_acos</tabstop>
+  <tabstop>comboBox_sinTan2Trig_atan2_or_atan</tabstop>
+  <tabstop>comboBox_sinTan2Trig_order_of_zyx</tabstop>
   <tabstop>slider_power</tabstop>
   <tabstop>spinbox_power</tabstop>
   <tabstop>slider_transf_scaleA_1</tabstop>

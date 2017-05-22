@@ -3071,32 +3071,28 @@ void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 	double th0 = fractal->bulb.betaAngleOffset;
 	double ph0 = fractal->bulb.alphaAngleOffset;
-	CVector4 v;
 
-	switch (fractal->mandelbulbMulti.orderOfXYZ)
+	CVector3 v;
+	switch (fractal->sinTan2Trig.orderOfZYX)
 	{
-		case multi_OrderOfXYZ_xyz:
-		default: v = CVector4(z.x, z.y, z.z, z.w); break;
-		case multi_OrderOfXYZ_xzy: v = CVector4(z.x, z.z, z.y, z.w); break;
-		case multi_OrderOfXYZ_yxz: v = CVector4(z.y, z.x, z.z, z.w); break;
-		case multi_OrderOfXYZ_yzx: v = CVector4(z.y, z.z, z.x, z.w); break;
-		case multi_OrderOfXYZ_zxy: v = CVector4(z.z, z.x, z.y, z.w); break;
-		case multi_OrderOfXYZ_zyx: v = CVector4(z.z, z.y, z.x, z.w); break;
+		case multi_OrderOfZYX_zyx:
+		default: v = CVector3(z.z, z.y, z.x); break;
+		case multi_OrderOfZYX_zxy: v = CVector3(z.z, z.x, z.y); break;
+		case multi_OrderOfZYX_yzx: v = CVector3(z.y, z.z, z.x); break;
+		case multi_OrderOfZYX_yxz: v = CVector3(z.y, z.x, z.z); break;
+		case multi_OrderOfZYX_xzy: v = CVector3(z.x, z.z, z.y); break;
+		case multi_OrderOfZYX_xyz: v = CVector3(z.x, z.y, z.z); break;
 	}
-	// if (aux.r < 1e-21)
-	//	aux.r = 1e-21;
-	// if (v3 < 1e-21 && v3 > -1e-21)
-	//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
 
-	if (fractal->mandelbulbMulti.acosOrAsin == multi_acosOrAsin_acos)
-		th0 += acos(v.x / aux.r);
-	else
+	if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcos_asin)
 		th0 += asin(v.x / aux.r);
-
-	if (fractal->mandelbulbMulti.atanOrAtan2 == multi_atanOrAtan2_atan)
-		ph0 += atan(v.y / v.z);
 	else
-		ph0 += atan2(v.y, v.z);
+		th0 += acos(v.x / aux.r);
+
+	if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtan_atan2)
+		ph0 += atan2(v.y , v.z);
+	else
+		ph0 += atan(v.y / v.z);
 
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
 	double th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
