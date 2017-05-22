@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>mandelbulb_juliabulb</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1662,7 +1662,7 @@
   &lt;span style=&quot;color:#d0d0a0&quot;&gt;// if (lengthTempZ &amp;gt; -1e-21)&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0a0&quot;&gt;//  lengthTempZ = -1e-21;   //  z is neg.)&lt;/span&gt;
   z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; lengthTempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0a0&quot;&gt;//scale&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// scale&lt;/span&gt;
   z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
