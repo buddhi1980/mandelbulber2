@@ -3180,11 +3180,13 @@ void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 }
 
 /**
- * mandelbulb Quaternion 3D TODO a lot
+ * mandelbulb Quaternion
+ *
  */
 void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (aux.i >= fractal->transformCommon.startIterationsC
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
 		CVector4 c = aux.const_c;
@@ -3235,7 +3237,8 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		z += fractal->transformCommon.offset000;
 	}
 	// sym4
-	if (aux.i >= fractal->transformCommon.startIterationsB
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		aux.r = z.Length();
@@ -3260,16 +3263,8 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		temp.z = 2.0 * z.x * z.z;
 
 		z = temp + fractal->transformCommon.offsetF000;
-
-		double lengthTempZ = -z.Length();
-		// if (lengthTempZ > -1e-21)
-		//	lengthTempZ = -1e-21;   //  z is neg.)
-		z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
-		// scale
-		z *= fractal->transformCommon.scale1;
-		aux.r_dz *= fabs(fractal->transformCommon.scale1);
 	}
-
+	//mandelbulb multi
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
@@ -3293,18 +3288,6 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 
 		double th0 = fractal->bulb.betaAngleOffset;
 		double ph0 = fractal->bulb.alphaAngleOffset;
-		/*CVector3 v;
-
-		switch (fractal->sinTan2Trig.orderOfZYX)
-		{
-			case multi_OrderOfXYZ_xyz:
-			default: v = CVector3(z.x, z.y, z.z); break;
-			case multi_OrderOfXYZ_xzy: v = CVector3(z.x, z.z, z.y); break;
-			case multi_OrderOfXYZ_yxz: v = CVector3(z.y, z.x, z.z); break;
-			case multi_OrderOfXYZ_yzx: v = CVector3(z.y, z.z, z.x); break;
-			case multi_OrderOfXYZ_zxy: v = CVector3(z.z, z.x, z.y); break;
-			case multi_OrderOfXYZ_zyx: v = CVector3(z.z, z.y, z.x); break;
-		}*/
 
 		CVector3 v;
 		switch (fractal->sinTan2Trig.orderOfZYX)
@@ -3317,52 +3300,6 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			case multi_OrderOfZYX_xzy: v = CVector3(z.x, z.z, z.y); break;
 			case multi_OrderOfZYX_xyz: v = CVector3(z.x, z.y, z.z); break;
 		}
-
-
-		/*double v1, v2, v3;
-		switch (fractal->sinTan2Trig.orderOfZYX)
-		{
-			case multi_OrderOfZYX_zyx:
-			default:
-				v1 = z.z;
-				v2 = z.y;
-				v3 = z.x;
-				break;
-			case multi_OrderOfZYX_zxy:
-				v1 = z.z;
-				v2 = z.x;
-				v3 = z.y;
-				break;
-			case multi_OrderOfZYX_yzx:
-				v1 = z.y;
-				v2 = z.z;
-				v3 = z.x;
-				break;
-			case multi_OrderOfZYX_yxz:
-				v1 = z.y;
-				v2 = z.x;
-				v3 = z.z;
-				break;
-			case multi_OrderOfZYX_xzy:
-				v1 = z.x;
-				v2 = z.z;
-				v3 = z.y;
-				break;
-			case multi_OrderOfZYX_xyz:
-				v1 = z.x;
-				v2 = z.y;
-				v3 = z.z;
-				break;
-		}*/
-
-
-
-
-
-		// if (aux.r < 1e-21)
-		//	aux.r = 1e-21;
-		// if (v3 < 1e-21 && v3 > -1e-21)
-		//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
 
 		if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcos_asin)
 			th0 += asin(v.x / aux.r);
@@ -3389,7 +3326,7 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			z = rp * CVector4(sinth * sin(ph), cos(ph) * sinth, cos(th), 0.0);
 		}
 		else
-		{ // sine mode ( default = V2.07))
+		{ // sine mode
 			double costh = th;
 			if (fractal->transformCommon.functionEnabledzFalse) costh = th0;
 			costh = cos(costh);
@@ -3416,6 +3353,14 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+	// radial offset
+	double lengthTempZ = -z.Length();
+	// if (lengthTempZ > -1e-21)
+	//	lengthTempZ = -1e-21;   //  z is neg.)
+	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
+	// scale
+	z *= fractal->transformCommon.scale1;
+	aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
 /**

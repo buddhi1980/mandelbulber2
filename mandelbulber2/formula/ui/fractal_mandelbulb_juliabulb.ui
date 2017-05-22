@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb_juliabulb</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>2629</height>
+    <height>3394</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -241,22 +241,7 @@
          <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
           <item>
            <property name="text">
-            <string notr="true">xyz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">xzy</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">yxz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">yzx</string>
+            <string notr="true">zyx</string>
            </property>
           </item>
           <item>
@@ -266,7 +251,22 @@
           </item>
           <item>
            <property name="text">
-            <string notr="true">zyx</string>
+            <string notr="true">yzx</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">yxz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">xzy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">xyz</string>
            </property>
           </item>
          </widget>
@@ -275,12 +275,12 @@
          <widget class="QComboBox" name="comboBox_mandelbulbMulti_acos_or_asin">
           <item>
            <property name="text">
-            <string notr="true">acos</string>
+            <string notr="true">asin</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string notr="true">asin</string>
+            <string notr="true">acos</string>
            </property>
           </item>
          </widget>
@@ -1662,7 +1662,7 @@
   &lt;span style=&quot;color:#d0d0a0&quot;&gt;// if (lengthTempZ &amp;gt; -1e-21)&lt;/span&gt;
   &lt;span style=&quot;color:#d0d0a0&quot;&gt;//  lengthTempZ = -1e-21;   //  z is neg.)&lt;/span&gt;
   z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;offset &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; lengthTempZ&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#d0d0a0&quot;&gt;// scale&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0a0&quot;&gt;//scale&lt;/span&gt;
   z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
   aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
 &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
