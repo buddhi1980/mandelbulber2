@@ -2188,9 +2188,8 @@ void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 	z = fractal->transformCommon.constantMultiplierB111 + fractal->transformCommon.scale4 * z
 			- (fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.scale2 * z)
-					* CVector4(
-							z.RotateAroundVectorByAngle(fractal->transformCommon.constantMultiplier111.GetXYZ(),
-								M_PI * fractal->transformCommon.scale1)); // * cPI ;
+					* z.RotateAroundVectorByAngle(fractal->transformCommon.constantMultiplier111.GetXYZ(),
+								M_PI * fractal->transformCommon.scale1); // * cPI ;
 
 	z *= fractal->transformCommon.scale025;
 
@@ -4800,12 +4799,12 @@ void EiffieMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	CVector4 z2 = z * z;
 	double rr = z2.x + z2.y + z2.z;
 	double m = 1.0 - z2.z / rr;
-	CVector4 newz;
-	newz.x = (z2.x - z2.y) * m;
-	newz.y = 2.0 * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;;
-	newz.z = 2.0 * z.z * sqrt(z2.x + z2.y);
-	newz.w = z.w;
-	z = newz + fractal->transformCommon.additionConstant000;
+	CVector4 temp;
+	temp.x = (z2.x - z2.y) * m;
+	temp.y = 2.0 * z.x * z.y * m * fractal->transformCommon.scale; // scaling y;;
+	temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
+	temp.w = z.w;
+	z = temp + fractal->transformCommon.additionConstant000;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
