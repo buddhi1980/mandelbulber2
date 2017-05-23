@@ -3257,7 +3257,16 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		temp.z = 2.0 * z.x * z.z;
 
 		z = temp + fractal->transformCommon.offsetF000;
+		// radial offset
+		double lengthTempZ = -z.Length();
+		// if (lengthTempZ > -1e-21)
+		//	lengthTempZ = -1e-21;   //  z is neg.)
+		z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
+		// scale
+		z *= fractal->transformCommon.scale1;
+		aux.r_dz *= fabs(fractal->transformCommon.scale1);
 	}
+
 	//mandelbulb multi
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
@@ -3347,14 +3356,6 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-	// radial offset
-	double lengthTempZ = -z.Length();
-	// if (lengthTempZ > -1e-21)
-	//	lengthTempZ = -1e-21;   //  z is neg.)
-	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
-	// scale
-	z *= fractal->transformCommon.scale1;
-	aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
 /**
