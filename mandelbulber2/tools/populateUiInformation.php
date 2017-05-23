@@ -465,7 +465,8 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/(\s)w\s=/", 'replace' => '$1*w ='), // w to pointer
 			array('find' => "/(\s)w\s(.)=/", 'replace' => '$1*w $2='), // w to pointer
 			array('find' => "/([\s\(-])w([,\);\s}])/", 'replace' => '$1*w$2'), // w to pointer
-			array('find' => "/case ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+):/", 'replace' => 'case $1Cl$2:'), // replace enum switch cases ith cl version
+			array('find' => "/case ([a-zA-Z]+[a-zA-Z0-9_]+?[^l])(_[a-zA-Z0-9]+):/", 'replace' => 'case $1Cl$2:'), // replace enum switch cases with cl version
+			array('find' => "/($s)(enum[a-zA-Z0-9_]+?[^l])($s)/", 'replace' => '$1$2Cl$3'), // replace enum definitions with cl version
 
 			// TODO more replacements
 		);
@@ -554,7 +555,7 @@ transf_scale_2 1,079812;';
         if(!file_exists($tempFractPath)){ // allow manual override
             file_put_contents($tempFractPath, $settings);
         }
-				$cmd = PROJECT_PATH ."Debug/mandelbulber2 -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
+		        $cmd = PROJECT_PATH ."Debug/mandelbulber2 -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
         echo PHP_EOL . $cmd . PHP_EOL;
         shell_exec($cmd);
         shell_exec("convert '" . $imgPath . "' -depth 8 '" . $imgPath . "'"); // save disk space with 8-bit png
