@@ -142,7 +142,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
@@ -189,7 +189,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
@@ -236,7 +236,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
@@ -289,7 +289,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
@@ -343,7 +343,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
@@ -390,7 +390,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
@@ -438,7 +438,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
@@ -485,7 +485,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
@@ -533,7 +533,7 @@
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(OutDir)mandelbulber2.lib</ImportLibrary>
       <ProgramDataBaseFile>$(OutDir)mandelbulber2.pdb</ProgramDataBaseFile>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <Version>
       </Version>
     </Link>
