@@ -3225,7 +3225,8 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		double tempL = z.Length();
 		z *= fractal->transformCommon.constantMultiplier122;
 		// if (tempL < 1e-21) tempL = 1e-21;
-		double avgScale = CVector3(z.x, z.y / 2.0, z.z / 2.0).Length() / tempL;
+		CVector3 tempAvgScale = CVector3(z.x, z.y / 2.0, z.z / 2.0);
+		double avgScale = tempAvgScale.Length() / tempL;
 		double tempAux = aux.r_dz * avgScale;
 		aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleF1;
 		z += fractal->transformCommon.offset000;
@@ -3370,11 +3371,10 @@ void MandelbulbVaryPowerV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		tempVC =
-			(tempVC
-				+ fractal->transformCommon.offset0 * (aux.i - fractal->transformCommon.startIterations250)
-						/ (fractal->transformCommon.stopIterations
-								- fractal->transformCommon.startIterations250));
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
+		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+		tempVC += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
