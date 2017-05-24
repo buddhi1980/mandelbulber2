@@ -7,7 +7,7 @@
  *      Author: krzysztof
  */
 
-#define MAX_RAYMARCHING 500
+#define MAX_RAYMARCHING 5000
 
 float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainDistance,
 	float distThresh, sClCalcParams *calcParam)

@@ -208,8 +208,8 @@ void cOpenClEngine::UpdateOptimalJobStart(int pixelsLeft)
 
 	optimalJob.stepSize = optimalJob.workGroupSizeMultiplier * optimalJob.workGroupSize;
 
-	qDebug() << "lastProcessingTime" << optimalJob.lastProcessingTime;
-	qDebug() << "stepSize:" << optimalJob.stepSize;
+	//	qDebug() << "lastProcessingTime" << optimalJob.lastProcessingTime;
+	//	qDebug() << "stepSize:" << optimalJob.stepSize;
 }
 
 void cOpenClEngine::UpdateOptimalJobEnd()

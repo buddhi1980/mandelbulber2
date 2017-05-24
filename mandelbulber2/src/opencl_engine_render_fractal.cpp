@@ -149,6 +149,11 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		{
 			programsLoaded = true;
 		}
+		else
+		{
+			programsLoaded = false;
+			WriteLog(errorString, 0);
+		}
 		qDebug() << "Opencl build time [s]" << timer.nsecsElapsed() / 1.0e9;
 	}
 }
@@ -298,153 +303,157 @@ bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
 
 bool cOpenClEngineRenderFractal::Render(cImage *image)
 {
-	int width = image->GetWidth();
-	int height = image->GetHeight();
-
-	cProgressText progressText;
-	progressText.ResetTimer();
-
-	emit updateProgressAndStatus(tr("OpenCl - rendering image"), progressText.getText(0.0), 0.0);
-
-	QElapsedTimer timer;
-	timer.start();
-
-	QList<int> lastRenderedLines;
-
-	for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
+	if (programsLoaded)
 	{
-		cl_int err;
+		int width = image->GetWidth();
+		int height = image->GetHeight();
 
-		size_t pixelsLeft = width * height - pixelIndex;
-		UpdateOptimalJobStart(pixelsLeft);
+		cProgressText progressText;
+		progressText.ResetTimer();
 
-		size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
+		emit updateProgressAndStatus(tr("OpenCl - rendering image"), progressText.getText(0.0), 0.0);
 
-		ReAllocateImageBuffers();
+		QElapsedTimer timer;
+		timer.start();
 
-		// assign parameters to kernel
-		err = kernel->setArg(0, *outCL); // output image
-		if (!checkErr(err, "kernel->setArg(0, *outCL)")) return false;
-		err = kernel->setArg(1, *inCLBuffer); // input data in global memory
-		if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)")) return false;
-		err = kernel->setArg(2, *inCLConstBuffer); // input data in constant memory (faster than global)
-		if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)")) return false;
-		err = kernel->setArg(3, pixelIndex); // pixel offset
-		if (!checkErr(err, "kernel->setArg(3, pixelIndex)")) return false;
+		QList<int> lastRenderedLines;
 
-		// writing data to queue
-		err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
-		size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
-
-		qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
-		if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)")) return false;
-
-		err = queue->finish();
-		if (!checkErr(err, "ComamndQueue::finish() - inCLBuffer")) return false;
-
-		err = queue->enqueueWriteBuffer(
-			*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
-		if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLConstBuffer)")) return false;
-
-		err = queue->finish();
-		if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer")) return false;
-
-		qDebug() << "start time" << optimalJob.timer.elapsed();
-
-		// processing queue
-		err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
-			cl::NDRange(optimalJob.workGroupSize));
-		if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()")) return false;
-
-		// update image when OpenCl kernel is working
-		if (lastRenderedLines.size() > 0)
+		for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 		{
-			QElapsedTimer timerImageRefresh;
-			timerImageRefresh.start();
-			image->NullPostEffect(&lastRenderedLines);
-			image->CompileImage(&lastRenderedLines);
+			cl_int err;
+
+			size_t pixelsLeft = width * height - pixelIndex;
+			UpdateOptimalJobStart(pixelsLeft);
+
+			size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
+
+			ReAllocateImageBuffers();
+
+			// assign parameters to kernel
+			err = kernel->setArg(0, *outCL); // output image
+			if (!checkErr(err, "kernel->setArg(0, *outCL)")) return false;
+			err = kernel->setArg(1, *inCLBuffer); // input data in global memory
+			if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)")) return false;
+			err =
+				kernel->setArg(2, *inCLConstBuffer); // input data in constant memory (faster than global)
+			if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)")) return false;
+			err = kernel->setArg(3, pixelIndex); // pixel offset
+			if (!checkErr(err, "kernel->setArg(3, pixelIndex)")) return false;
+
+			// writing data to queue
+			err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
+			size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
+
+			// qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
+
+			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)")) return false;
+
+			err = queue->finish();
+			if (!checkErr(err, "ComamndQueue::finish() - inCLBuffer")) return false;
+
+			err = queue->enqueueWriteBuffer(
+				*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
+			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLConstBuffer)")) return false;
+
+			err = queue->finish();
+			if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer")) return false;
+
+			// processing queue
+			err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
+				cl::NDRange(optimalJob.workGroupSize));
+			if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()")) return false;
+
+			// update image when OpenCl kernel is working
+			if (lastRenderedLines.size() > 0)
+			{
+				QElapsedTimer timerImageRefresh;
+				timerImageRefresh.start();
+				image->NullPostEffect(&lastRenderedLines);
+				image->CompileImage(&lastRenderedLines);
+				image->ConvertTo8bit();
+				image->UpdatePreview(&lastRenderedLines);
+				image->GetImageWidget()->update();
+				lastRenderedLines.clear();
+				optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
+				if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
+			}
+
+			err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbbuff);
+			if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()")) return false;
+			err = queue->finish();
+			if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer")) return false;
+
+			UpdateOptimalJobEnd();
+
+			for (unsigned int i = 0; i < optimalJob.stepSize; i++)
+			{
+				unsigned int a = pixelIndex + i;
+				sClPixel pixelCl = rgbbuff[i];
+				sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
+				sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
+				unsigned short opacity = pixelCl.opacity;
+				unsigned short alpha = pixelCl.alpha;
+				int x = a % width;
+				int y = a / width;
+
+				image->PutPixelImage(x, y, pixel);
+				image->PutPixelZBuffer(x, y, rgbbuff[i].zBuffer);
+				image->PutPixelColour(x, y, color);
+				image->PutPixelOpacity(x, y, opacity);
+				image->PutPixelAlpha(x, y, alpha);
+			}
+
+			for (unsigned int i = 0; i < optimalJob.stepSize; i += width)
+			{
+				unsigned int a = pixelIndex + i;
+				int y = a / width;
+				lastRenderedLines.append(y);
+			}
+
+			double percentDone = double(pixelIndex) / (width * height);
+			emit updateProgressAndStatus(
+				tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
+			gApplication->processEvents();
+		}
+
+		qDebug() << "GPU jobs finished";
+		qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+
+		// refresh image at end
+		image->NullPostEffect();
+
+		WriteLog("image->CompileImage()", 2);
+		image->CompileImage();
+
+		if (image->IsPreview())
+		{
+			WriteLog("image->ConvertTo8bit()", 2);
 			image->ConvertTo8bit();
-			image->UpdatePreview(&lastRenderedLines);
+			WriteLog("image->UpdatePreview()", 2);
+			image->UpdatePreview();
+			WriteLog("image->GetImageWidget()->update()", 2);
 			image->GetImageWidget()->update();
-			lastRenderedLines.clear();
-			optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
-			if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
 		}
 
-		qDebug() << "end time" << optimalJob.timer.elapsed();
+		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
 
-		err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbbuff);
-		if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()")) return false;
-		err = queue->finish();
-		if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer")) return false;
-
-		UpdateOptimalJobEnd();
-
-		qDebug() << "read buffer" << optimalJob.timer.elapsed();
-
-		for (unsigned int i = 0; i < optimalJob.stepSize; i++)
-		{
-			unsigned int a = pixelIndex + i;
-			sClPixel pixelCl = rgbbuff[i];
-			sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
-			sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
-			unsigned short opacity = pixelCl.opacity;
-			unsigned short alpha = pixelCl.alpha;
-			int x = a % width;
-			int y = a / width;
-
-			image->PutPixelImage(x, y, pixel);
-			image->PutPixelZBuffer(x, y, rgbbuff[i].zBuffer);
-			image->PutPixelColour(x, y, color);
-			image->PutPixelOpacity(x, y, opacity);
-			image->PutPixelAlpha(x, y, alpha);
-		}
-
-		for (unsigned int i = 0; i < optimalJob.stepSize; i += width)
-		{
-			unsigned int a = pixelIndex + i;
-			int y = a / width;
-			lastRenderedLines.append(y);
-		}
-
-		double percentDone = double(pixelIndex) / (width * height);
-		emit updateProgressAndStatus(
-			tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
-		gApplication->processEvents();
+		return true;
 	}
-
-	qDebug() << "GPU jobs finished";
-	qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
-
-	// refresh image at end
-	image->NullPostEffect();
-
-	WriteLog("image->CompileImage()", 2);
-	image->CompileImage();
-
-	if (image->IsPreview())
+	else
 	{
-		WriteLog("image->ConvertTo8bit()", 2);
-		image->ConvertTo8bit();
-		WriteLog("image->UpdatePreview()", 2);
-		image->UpdatePreview();
-		WriteLog("image->GetImageWidget()->update()", 2);
-		image->GetImageWidget()->update();
+		return false;
 	}
-
-	emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
-
-	return true;
 }
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
-	for (int i = 1; i < parts.size(); ++i){
+	for (int i = 1; i < parts.size(); ++i)
+	{
 		parts[i].replace(0, 1, parts[i][0].toUpper());
 
 		// rewrite to known capital names in iteration function names
-		if(parts[i] == "Vs") parts[i] = "VS";
+		if (parts[i] == "Vs") parts[i] = "VS";
 	}
 
 	return parts.join("");
