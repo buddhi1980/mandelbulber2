@@ -129,6 +129,17 @@ float4 RotateAroundVectorByAngle4(float4 origin4d, float3 axis, float angle)
 	vector += axis * dot(axis, origin) * (1.0f - cos(angle));
 	return (float4){vector, origin4d.w};
 }
+
+float SmoothConditionAGreaterB(float a, float b, float sharpness)
+{
+	return native_recip(1.0f + native_exp(sharpness * (b - a)));
+}
+
+float SmoothConditionALessB(float a, float b, float sharpness)
+{
+	return native_recip(1.0f + native_exp(sharpness * (a - b)));
+}
+
 #endif
 
 #endif // MANDELBULBER2_OPENCL_ALGEBRA_HPP_

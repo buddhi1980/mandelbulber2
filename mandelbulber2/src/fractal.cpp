@@ -77,8 +77,7 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	mandelbox.solid = container->Get<double>("mandelbox_solid");
 	mandelbox.melt = container->Get<double>("mandelbox_melt");
-	genFoldBox.type =
-		fractal::enumGeneralizedFoldBoxType(container->Get<int>("mandelbox_generalized_fold_type"));
+	genFoldBox.type = enumGeneralizedFoldBoxType(container->Get<int>("mandelbox_generalized_fold_type"));
 
 	foldingIntPow.foldFactor = container->Get<double>("boxfold_bulbpow2_folding_factor");
 	foldingIntPow.zFactor = container->Get<double>("boxfold_bulbpow2_z_factor");

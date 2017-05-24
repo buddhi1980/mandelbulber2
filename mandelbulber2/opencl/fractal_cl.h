@@ -60,6 +60,17 @@
 #define HYBRID_COUNTCl 5
 #define MANDELBOX_FOLDSCl 2
 
+typedef enum {
+	generalizedFoldBoxTypeCl_foldTet = 0,
+	generalizedFoldBoxTypeCl_foldCube = 1,
+	generalizedFoldBoxTypeCl_foldOct = 2,
+	generalizedFoldBoxTypeCl_foldDodeca = 3,
+	generalizedFoldBoxTypeCl_foldOctCube = 4,
+	generalizedFoldBoxTypeCl_foldIcosa = 5,
+	generalizedFoldBoxTypeCl_foldBox6 = 6,
+	generalizedFoldBoxTypeCl_foldBox5 = 7
+} enumGeneralizedFoldBoxTypeCl;
+
 typedef struct
 {
 	cl_int i;
@@ -94,7 +105,7 @@ typedef struct
 
 typedef struct
 {
-
+	enumGeneralizedFoldBoxTypeCl type;
 	cl_float3 Nv_tet[4];
 	cl_float3 Nv_cube[6];
 	cl_float3 Nv_oct[8];
@@ -665,6 +676,7 @@ inline sFractalGeneralizedFoldBoxCl clCopySFractalGeneralizedFoldBoxCl(
 	sFractalGeneralizedFoldBox &source)
 {
 	sFractalGeneralizedFoldBoxCl target;
+	target.type = enumGeneralizedFoldBoxTypeCl(source.type);
 	for (int i = 0; i < 4; i++)
 	{
 		target.Nv_tet[i] = toClFloat3(source.Nv_tet[i]);

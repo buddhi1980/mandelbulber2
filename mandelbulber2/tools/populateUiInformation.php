@@ -426,7 +426,7 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/($var)\.GetXYZ\(\)/", 'replace' => '$1.xyz'), // CVector4 getxyz to native accessor of float4
 			array('find' => "/CRotationMatrix /", 'replace' => 'matrix33 '), // CRotationMatrix33 to matrix33
 			array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ ' . $fod . ' temp = $1; $1 = $2; $2 = temp; }'),// swap vals
-			array('find' => "/($s|\()(\d+)f($s|;|\))/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
+			array('find' => "/($s|\()(-?\d+)f($s|;|\))/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
 			array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x)
 
       // from here on its getting messy

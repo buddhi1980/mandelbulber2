@@ -47,18 +47,6 @@ const int MANDELBOX_FOLDS = 2;
 
 namespace fractal
 {
-enum enumGeneralizedFoldBoxType
-{
-	foldTet = 0,
-	foldCube = 1,
-	foldOct = 2,
-	foldDodeca = 3,
-	foldOctCube = 4,
-	foldIcosa = 5,
-	foldBox6 = 6,
-	foldBox5 = 7
-};
-
 enum enumOCLDEMode
 {
 	ocl_DECalculated = 0,
@@ -66,6 +54,18 @@ enum enumOCLDEMode
 	ocl_noDE = 2
 };
 }
+
+enum enumGeneralizedFoldBoxType
+{
+	generalizedFoldBoxType_foldTet = 0,
+	generalizedFoldBoxType_foldCube = 1,
+	generalizedFoldBoxType_foldOct = 2,
+	generalizedFoldBoxType_foldDodeca = 3,
+	generalizedFoldBoxType_foldOctCube = 4,
+	generalizedFoldBoxType_foldIcosa = 5,
+	generalizedFoldBoxType_foldBox6 = 6,
+	generalizedFoldBoxType_foldBox5 = 7
+};
 
 struct sExtendedAux
 {
@@ -101,7 +101,7 @@ struct sFoldColor
 
 struct sFractalGeneralizedFoldBox
 {
-	fractal::enumGeneralizedFoldBoxType type;
+	enumGeneralizedFoldBoxType type;
 	CVector3 Nv_tet[4];
 	CVector3 Nv_cube[6];
 	CVector3 Nv_oct[8];

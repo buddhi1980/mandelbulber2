@@ -6148,9 +6148,9 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  * GeneralizedFoldBoxIteration - Quaternion fractal with extended controls
  * @reference http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/
  */
-void GeneralizedFoldBoxIteration(CVector4 &z4D, const sFractal *fractal, sExtendedAux &aux)
+void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector3 z = z4D.GetXYZ();
+	CVector3 zXYZ = z.GetXYZ();
 	int i;
 	const CVector3 *Nv;
 	int sides;
@@ -6158,40 +6158,36 @@ void GeneralizedFoldBoxIteration(CVector4 &z4D, const sFractal *fractal, sExtend
 	Nv = fractal->genFoldBox.Nv_tet;
 	sides = fractal->genFoldBox.sides_tet;
 
-	if (fractal->genFoldBox.type == foldCube)
+	switch (fractal->genFoldBox.type)
 	{
+	case generalizedFoldBoxType_foldCube:
 		Nv = fractal->genFoldBox.Nv_cube;
 		sides = fractal->genFoldBox.sides_cube;
-	}
-	else if (fractal->genFoldBox.type == foldOct)
-	{
+		break;
+	case generalizedFoldBoxType_foldOct:
 		Nv = fractal->genFoldBox.Nv_oct;
 		sides = fractal->genFoldBox.sides_oct;
-	}
-	else if (fractal->genFoldBox.type == foldDodeca)
-	{
+		break;
+	case generalizedFoldBoxType_foldDodeca:
 		Nv = fractal->genFoldBox.Nv_dodeca;
 		sides = fractal->genFoldBox.sides_dodeca;
-	}
-	else if (fractal->genFoldBox.type == foldOctCube)
-	{
+		break;
+	case generalizedFoldBoxType_foldOctCube:
 		Nv = fractal->genFoldBox.Nv_oct_cube;
 		sides = fractal->genFoldBox.sides_oct_cube;
-	}
-	else if (fractal->genFoldBox.type == foldIcosa)
-	{
+		break;
+	case generalizedFoldBoxType_foldIcosa:
 		Nv = fractal->genFoldBox.Nv_icosa;
 		sides = fractal->genFoldBox.sides_icosa;
-	}
-	else if (fractal->genFoldBox.type == foldBox6)
-	{
+		break;
+	case generalizedFoldBoxType_foldBox6:
 		Nv = fractal->genFoldBox.Nv_box6;
 		sides = fractal->genFoldBox.sides_box6;
-	}
-	else if (fractal->genFoldBox.type == foldBox5)
-	{
+		break;
+	case generalizedFoldBoxType_foldBox5:
 		Nv = fractal->genFoldBox.Nv_box5;
 		sides = fractal->genFoldBox.sides_box5;
+		break;
 	}
 
 	double melt = fractal->mandelbox.melt;
@@ -6202,7 +6198,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z4D, const sFractal *fractal, sExtend
 	// Cutting plane is X.Dot(Nv) = Solid.
 	// (Y + L*a).Dot(Nv) = solid.
 	// a = (solid - Y.Dot(Nv))/L.Dot(Nv) = b/c
-	CVector3 L = z;
+	CVector3 L = zXYZ;
 	double a = 1;
 	CVector3 Y; // Y is the origin in this case.
 	int side = -1;
@@ -6225,7 +6221,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z4D, const sFractal *fractal, sExtend
 	{ // mirror check
 		int side_m = side;
 		CVector3 Nv_m = Nv[side_m];
-		CVector3 X_m = z - Nv_m * (z.Dot(Nv_m) - solid);
+		CVector3 X_m = zXYZ - Nv_m * (zXYZ.Dot(Nv_m) - solid);
 
 		// Find any plane (Nv_r) closest to X_m that cuts the line between Nv_m and X_m.
 		// Nv_m cross Nv_r will define a possible rotation axis.
@@ -6263,7 +6259,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z4D, const sFractal *fractal, sExtend
 			// the square of the distance (D) between z and the line
 			// X = Xmr_intersect + L_r * a_rmin.
 			// Setting dD/da_rmin equal to zero and solving for a_rmin.
-			double a_rmin = (z.Dot(L_r) - Xmr_intersect.Dot(L_r)) / (L_r.Dot(L_r));
+			double a_rmin = (zXYZ.Dot(L_r) - Xmr_intersect.Dot(L_r)) / (L_r.Dot(L_r));
 
 			// force a_rmin to be positive. I think I made an even number of sign errors here.
 			if (a_rmin < 0.0)
@@ -6301,12 +6297,12 @@ void GeneralizedFoldBoxIteration(CVector4 &z4D, const sFractal *fractal, sExtend
 				// Only inversion point possible but still need to check for melt.
 
 				CVector3 X_i = Y + L * a;
-				CVector3 z2X = X_i - z;
+				CVector3 z2X = X_i - zXYZ;
 				// Is z above the melt layer.
 				if (z2X.Dot(z2X) > (melt * melt))
 				{
 					double z2X_mag = z2X.Length();
-					z = z + z2X * (2.0 * (z2X_mag - melt) / (z2X_mag + .00000001));
+					zXYZ += z2X * (2.0 * (z2X_mag - melt) / (z2X_mag + .00000001));
 					aux.color += fractal->mandelbox.color.factor.z;
 				}
 			}
@@ -6314,11 +6310,11 @@ void GeneralizedFoldBoxIteration(CVector4 &z4D, const sFractal *fractal, sExtend
 			{
 				// Only rotation line possible but still need to check for melt.
 				// Is z above the melt layer.
-				CVector3 z2X = X_r - z;
+				CVector3 z2X = X_r - zXYZ;
 				if (z2X.Dot(z2X) > (melt * melt))
 				{
 					double z2X_mag = z2X.Length();
-					z = z + z2X * (2.0 * (z2X_mag - melt) / (z2X_mag + .00000001));
+					zXYZ += z2X * (2.0 * (z2X_mag - melt) / (z2X_mag + .00000001));
 					aux.color += fractal->mandelbox.color.factor.y;
 				}
 			}
@@ -6326,44 +6322,44 @@ void GeneralizedFoldBoxIteration(CVector4 &z4D, const sFractal *fractal, sExtend
 		else
 		{
 			// Only mirror plane possible but still need to check for melt.
-			CVector3 z2X = X_m - z;
+			CVector3 z2X = X_m - zXYZ;
 			if (z2X.Dot(z2X) > (melt * melt))
 			{
 				double z2X_mag = z2X.Length();
-				z = z + z2X * (2.0 * (z2X_mag - melt) / (z2X_mag + .00000001));
+				zXYZ += z2X * (2.0 * (z2X_mag - melt) / (z2X_mag + .00000001));
 				aux.color += fractal->mandelbox.color.factor.x;
 			}
 		}
 	} // outside solid
 
-	z4D = CVector4(z, z4D.w);
+	double r2 = zXYZ.Dot(zXYZ);
 
-	double r2 = z.Dot(z);
+	z = CVector4(zXYZ, z.w);
 
-	z4D += fractal->mandelbox.offset;
+	z += fractal->mandelbox.offset;
 
 	if (r2 < fractal->mandelbox.mR2)
 	{
-		z4D *= fractal->mandelbox.mboxFactor1;
+		z *= fractal->mandelbox.mboxFactor1;
 		aux.DE *= fractal->mandelbox.mboxFactor1;
 		aux.color += fractal->mandelbox.color.factorSp1;
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
 		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
-		z4D *= tglad_factor2;
+		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 
-	z4D -= fractal->mandelbox.offset;
+	z -= fractal->mandelbox.offset;
 
 	if (fractal->mandelbox.mainRotationEnabled)
 	{
-		z4D = fractal->mandelbox.mainRot.RotateVector(z4D);
+		z = fractal->mandelbox.mainRot.RotateVector(z);
 	}
 
-	z4D = z4D * fractal->mandelbox.scale;
+	z *= fractal->mandelbox.scale;
 	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 }
 
