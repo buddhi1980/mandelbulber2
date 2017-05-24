@@ -369,8 +369,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 	}
 
-	double r3D = z.Length();
-
 	// final calculations
 	if (Mode == calcModeNormal)
 	{
@@ -380,17 +378,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
-					out->distance = (r3D - in.common.linearDEOffset) / fabs(extendedAux.DE);
+					out->distance = (r - in.common.linearDEOffset) / fabs(extendedAux.DE);
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
 				{
-					out->distance = 0.5 * r3D * log(r3D) / extendedAux.r_dz;
+					out->distance = 0.5 * r * log(r) / extendedAux.r_dz;
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
 				{
 					double rxy = sqrt(z.x * z.x + z.y * z.y);
 					out->distance =
-						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r3D) / (extendedAux.DE);
+						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 				}
 			}
 			else
@@ -438,9 +436,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case xenodreambuie:
 				{
 					if (extendedAux.r_dz > 0)
-						out->distance = 0.5 * r3D * log(r3D) / extendedAux.r_dz;
+						out->distance = 0.5 * r * log(r) / extendedAux.r_dz;
 					else
-						out->distance = r3D;
+						out->distance = r;
 					break;
 				}
 				case mandelbox:
@@ -463,9 +461,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case abox4d:
 				{
 					if (extendedAux.DE > 0)
-						out->distance = r3D / fabs(extendedAux.DE);
+						out->distance = r / fabs(extendedAux.DE);
 					else
-						out->distance = r3D;
+						out->distance = r;
 					break;
 				}
 				case kaleidoscopicIfs:
@@ -490,9 +488,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerOcto:
 				{
 					if (extendedAux.DE > 0)
-						out->distance = (r3D - 2.0) / (extendedAux.DE);
+						out->distance = (r - 2.0) / (extendedAux.DE);
 					else
-						out->distance = r3D;
+						out->distance = r;
 					break;
 				}
 				case pseudoKleinian:
@@ -502,11 +500,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (extendedAux.DE > 0)
 					{
 						double rxy = sqrt(z.x * z.x + z.y * z.y);
-						out->distance = max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r3D)
+						out->distance = max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r)
 														/ (extendedAux.DE); // 0.92784 extendedAux.pseudoKleinianDE
 					}
 					else
-						out->distance = r3D;
+						out->distance = r;
 					break;
 				}
 

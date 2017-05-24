@@ -48,6 +48,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.actualScale = 2.0f; // fractals.GetFractal(fractalIndex)->mandelbox.scale;
 	aux.DE = 1.0f;
 	aux.c = c;
+	aux.const_c = c;
 	aux.cw = 0.0f;
 	aux.foldFactor = 0.0f;
 	aux.minRFactor = 0.0f;
