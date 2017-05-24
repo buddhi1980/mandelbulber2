@@ -14,7 +14,7 @@ SET vcvar_arg=x86_amd64
 SET ms_build_suffix=Bin\amd64
 SET cmake_platform="Visual Studio 14 2015 Win64"
 SET VERBOSE_MAKEFILE=FALSE
-set QTDIR=%SRC%\packages\bulbqt-msvc14-x64.5.8.0.10782\build\native
+set QTDIR=%SRC%\packages\bulbqt-msvc14-x64.5.7.0.10783\build\native
 SET JomDir=%SRC%\packages\jom-nug.1.1.2.777\build\native
 set PATH=%QTDIR%\bin;C:\Program Files (x86)\MSBuild\14.0\%ms_build_suffix%;%SRC%;%PATH%
 
