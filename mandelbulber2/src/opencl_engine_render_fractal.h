@@ -61,6 +61,13 @@ class cOpenClEngineRenderFractal : public cOpenClEngine
 	Q_OBJECT
 
 public:
+	enum enumClRenderEngineMode
+	{
+		clRenderEngineTypeFast,
+		clRenderEngineTypeNormal,
+		clRenderEngineTypeFull
+	};
+
 	cOpenClEngineRenderFractal(cOpenClHardware *hardware);
 	~cOpenClEngineRenderFractal();
 

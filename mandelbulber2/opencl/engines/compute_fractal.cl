@@ -14,6 +14,7 @@ typedef struct
 	float iters;
 	float distance;
 	float colourIndex;
+	bool maxiter;
 } formulaOut;
 
 void DummyIteration(float4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)

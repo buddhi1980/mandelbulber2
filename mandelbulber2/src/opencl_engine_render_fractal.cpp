@@ -5,17 +5,18 @@
  *      Author: krzysztof
  */
 
-#include "opencl_engine_render_fractal.h"
-#include "files.h"
-#include "fractparams.hpp"
-#include "opencl_hardware.h"
-#include "fractal_list.hpp"
 #include "cimage.hpp"
-#include "nine_fractals.hpp"
-#include "fractal.h"
+#include "files.h"
 #include "fractal_formulas.hpp"
-#include "progress_text.hpp"
+#include "fractal_list.hpp"
+#include "fractal.h"
+#include "fractparams.hpp"
 #include "global_data.hpp"
+#include "nine_fractals.hpp"
+#include "opencl_engine_render_fractal.h"
+#include "opencl_hardware.h"
+#include "parameters.hpp"
+#include "progress_text.hpp"
 
 #ifdef USE_OPENCL
 #include "../opencl/fractal_cl.h"
@@ -119,8 +120,15 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
 
 		// main engine
-		QString engineFileName = openclEnginePath + "test_engine.cl";
-		progEngine.append(LoadUtf8TextFromFile(engineFileName));
+		QString engineFileName;
+		switch (enumClRenderEngineMode(params->Get<int>("gpu_mode")))
+		{
+			case clRenderEngineTypeFast: engineFileName = "fast_engine.cl"; break;
+			case clRenderEngineTypeNormal: engineFileName = "normal_engine.cl"; break;
+			case clRenderEngineTypeFull: engineFileName = "full_engine.cl"; break;
+		}
+		QString engineFullFileName = openclEnginePath + engineFileName;
+		progEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 	}
 	catch (const QString &ex)
 	{
@@ -214,6 +222,8 @@ void cOpenClEngineRenderFractal::SetParameters(
 			default: break;
 		}
 	}
+
+	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
 
 	listOfUsedFormulas.clear();
 

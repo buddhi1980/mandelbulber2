@@ -38,6 +38,7 @@ typedef struct
 	cl_int randomSeed;
 	cl_float3 orbitTrap;
 	cl_float distThresh;
+	cl_float detailSize;
 	cl_float normalCalculationMode;
 } sClCalcParams;
 

@@ -10,6 +10,22 @@ formulaOut CalculateDistance(
 	out.iters = 0;
 	out.distance = 0.0f;
 	out.colourIndex = 0.0f;
+	out.maxiter = false;
+
+	double limitBoxDist = 0.0f;
+
+#ifdef LIMITS_ENABLED
+	float3 boxDistance = max(point - consts->params.limitMax, -(point - consts->params.limitMin));
+	limitBoxDist = max(max(boxDistance.x, boxDistance.y), boxDistance.z);
+
+	if (limitBoxDist > calcParam->detailSize)
+	{
+		out.maxiter = false;
+		out.distance = limitBoxDist;
+		out.iters = 0;
+		return out;
+	}
+#endif
 
 #ifdef ANALYTIC_DE
 	out = Fractal(consts, point, calcParam);
@@ -67,9 +83,15 @@ formulaOut CalculateDistance(
 
 		if (out.distance < 0.0f) out.distance = 0.0f;
 		if (out.distance > 1.0f) out.distance = 1.0f;
-	}
 
+#ifdef LIMITS_ENABLED
+		if (limitBoxDist < in.detailSize)
+		{
+			out.distance = max(out.distance, limitBoxDist);
+		}
 #endif
+
+#endif // DELTA_DE
 
 	return out;
 }
