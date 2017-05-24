@@ -6204,7 +6204,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 	int side = -1;
 	double b, c;
 
-	for (aux.i = 0; aux.i < sides; i++)
+	for (i = 0; i < sides; i++)
 	{
 		b = solid;
 		c = L.Dot(Nv[i]);
@@ -6231,9 +6231,9 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 		a = 1;
 		side = -1;
 
-		for (aux.i = 0; aux.i < sides; i++)
+		for (i = 0; i < sides; i++)
 		{
-			if (aux.i != side_m)
+			if (i != side_m)
 			{
 				b = solid - Y.Dot(Nv[i]);
 				c = L.Dot(Nv[i]);
@@ -6277,9 +6277,9 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 			a = 1;
 			side = -1;
 
-			for (aux.i = 0; aux.i < sides; i++)
+			for (i = 0; i < sides; i++)
 			{
-				if ((aux.i != side_m) && (aux.i != side_r))
+				if ((i != side_m) && (i != side_r))
 				{
 					b = solid - Y.Dot(Nv[i]);
 					c = L.Dot(Nv[i]);
