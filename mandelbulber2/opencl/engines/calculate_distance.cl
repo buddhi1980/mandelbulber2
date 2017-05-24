@@ -12,7 +12,7 @@ formulaOut CalculateDistance(
 	out.colourIndex = 0.0f;
 	out.maxiter = false;
 
-	double limitBoxDist = 0.0f;
+	float limitBoxDist = 0.0f;
 
 #ifdef LIMITS_ENABLED
 	float3 boxDistance = max(point - consts->params.limitMax, -(point - consts->params.limitMin));
@@ -83,15 +83,16 @@ formulaOut CalculateDistance(
 
 		if (out.distance < 0.0f) out.distance = 0.0f;
 		if (out.distance > 1.0f) out.distance = 1.0f;
-
-#ifdef LIMITS_ENABLED
-		if (limitBoxDist < in.detailSize)
-		{
-			out.distance = max(out.distance, limitBoxDist);
-		}
-#endif
+	}
 
 #endif // DELTA_DE
+
+#ifdef LIMITS_ENABLED
+	if (limitBoxDist < calcParam->detailSize)
+	{
+		out.distance = max(out.distance, limitBoxDist);
+	}
+#endif
 
 	return out;
 }
