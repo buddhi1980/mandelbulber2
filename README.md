@@ -30,7 +30,7 @@ The possibilities are literally **infinite**!
 - Program compiled for x86 and x64 CPUs (Linux, Windows, OSX)
 - Simple 3D navigator
 - Distributed Network Rendering
-- Key-frame animation of all parameters with different interpolations
+- Key-frame animation for all parameters with different interpolations
 - Material management
 - Texture mapping (color, luminosity, diffusion, normal maps, displacement)
 - Rendering queue
@@ -74,7 +74,7 @@ These scripts install all dependencies, compile the program, and create symbolic
 
 [Arch Linux AUR Package (Current git snapshot)](https://aur.archlinux.org/packages/mandelbulber2-git/)
 
-In addition, there exists an MSBuild System Solution located in root folder of git package. This solution accommodates all dependencies with NUGET for autonomous compilation.
+In addition, there exists an MSVC Solution located in this git package. The solution accommodates all dependencies with NUGET for autonomous compilation of OpenCL accelerated Binary.
 
 The system requires the QT5 framework in conjuction with LZO for real-time data compression and GSL for scientific resources.
 
