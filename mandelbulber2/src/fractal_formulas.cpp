@@ -3220,6 +3220,7 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
+		aux.r = z.Length();
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, 0.0);
 		aux.r_dz = aux.r_dz * 2.0 * aux.r;
 		double tempL = z.Length();
