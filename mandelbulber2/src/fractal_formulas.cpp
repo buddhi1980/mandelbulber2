@@ -4715,7 +4715,7 @@ void MsltoeSym2ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-
+	aux.r = z.Length();
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	CVector4 temp = z;
 	if (fabs(z.y) < fabs(z.z)) // then swap
@@ -4767,6 +4767,7 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
+			aux.r = z.Length();
 			CVector4 temp2 = z;
 			double tempL = temp2.Length();
 			z *= CVector4(1.0, 2.0, 2.0, 1.0);
@@ -4790,7 +4791,7 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 void EiffieMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-
+	aux.r = z.Length();
 	double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI_8, M_PI_4) - M_PI_8);
 	double lengthYZ = sqrt(z.y * z.y + z.z * z.z);
 
@@ -4951,13 +4952,13 @@ void MsltoeSym3Mod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->transformCommon.functionEnabledFalse // quaternion fold
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
+		aux.r = z.Length();
 		aux.r_dz = aux.r_dz * 2.0 * z.Length();
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 		if (fractal->transformCommon.functionEnabledAxFalse)
@@ -5918,6 +5919,7 @@ void PseudoKleinianStdDEIteration(CVector4 &z, const sFractal *fractal, sExtende
  */
 void Quaternion3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	aux.r = z.Length();
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 
@@ -7669,10 +7671,11 @@ void TransfPwr2PolynomialIteration(CVector4 &z, const sFractal *fractal, sExtend
 void TransfQuaternionFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-
+	aux.r = z.Length();
 	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
+
 		aux.r_dz = aux.r_dz * 2.0 * aux.r;
 		double tempL = z.Length();
 		z *= fractal->transformCommon.constantMultiplier122;
