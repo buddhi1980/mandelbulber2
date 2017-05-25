@@ -21,7 +21,7 @@ fi
 mkdir -p $BUILDTREE
 
 # Build x64 #
-# XEON PHI Offload Application Build #
+# Hybrid Application Build #
 cd $BUILDTREE \
 && CC=icc CXX=icpc \
 CXXFLAGS="-03 -g -fPIC -wd39,10006" \
@@ -30,13 +30,14 @@ cmake3 \
 -DCMAKE_PREFIX_PATH=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake \
 -DQt5UiTools_DIR=/opt/Qt5.7.0/5.7/gcc_64/lib/cmake/Qt5UiTools \
 -DUSE_GAMEPAD=1 \
--DUSE_OFFLOAD=1 \
+-DUSE_OPENCL=1 \
 -G "Eclipse CDT4 - Unix Makefiles" \
 $SRC/mandelbulber2/cmake/
 cd $BUILDTREE && make -j12 VERBOSE=1
 
 # Deploy support 
 ln -s $SRC/mandelbulber2/deploy/share/mandelbulber2 /usr/share/mandelbulber2
+exit
 
 # XEON PHI Native Application Build #
 echo "XEON PHI Build"
