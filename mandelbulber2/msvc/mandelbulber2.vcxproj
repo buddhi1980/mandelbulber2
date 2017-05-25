@@ -68,7 +68,8 @@
     <GenDir>$(SourceDir)build-win</GenDir>
     <PreProcs>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS=1;USE_SNDFILE;USE_TIFF;USE_GAMEPAD=1;QT_CORE_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_UITOOLS_LIB;QT_TESTLIB_LIB;QT_MULTIMEDIA_LIB;QT_GAMEPAD_LIB;QT_TESTCASE_BUILDDIR="../../build-win"</PreProcs>
     <TargetName>mandelbulber2</TargetName>
-    <PreProcsE>$(PreProcs);USE_EXR;USE_OPENCL=1</PreProcsE>
+    <PreProcsE>$(PreProcs);USE_EXR</PreProcsE>
+	<PreProcsO>$(PreProcsE);USE_OPENCL=1</PreProcsO>
     <TargetExt>.exe</TargetExt>
     <GenerateManifest>true</GenerateManifest>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
@@ -115,7 +116,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <OpenMPSupport>true</OpenMPSupport>
@@ -124,7 +125,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -258,7 +259,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -269,7 +270,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
