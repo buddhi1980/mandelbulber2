@@ -24,7 +24,7 @@ The possibilities are literally **infinite**!
 
 - [Enlightening Documentation](https://github.com/buddhi1980/mandelbulber_doc/)
 - Renders trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals
-- Complex 3D ray-traced shading: hard shadows, ambient occlusion, depth of field, translucency & refraction, etc.
+- Complex 3D ray-marching: hard shadows, ambient occlusion, depth of field, translucency & refraction, etc.
 - Rich GUI in Qt 5 environment
 - Unlimited image resolution on 64-bit systems
 - Program compiled for x86 and x64 CPUs (Linux, Windows, OSX)
