@@ -58,6 +58,7 @@ class cOpenClHardware : public QObject
 public:
 	enum enumOpenClDeviceType
 	{
+		openClDeviceTypeACC,
 		openClDeviceTypeCPU,
 		openClDeviceTypeGPU
 	};
