@@ -115,8 +115,14 @@ void cOpenClHardware::CreateContext(int platformIndex, enumOpenClDeviceType devi
 			case openClDeviceTypeACC:
 				context = new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cprops, NULL, NULL, &err);
 				break;
+			case openClDeviceTypeALL:
+				context = new cl::Context(CL_DEVICE_TYPE_ALL, cprops, NULL, NULL, &err);
+				break;
 			case openClDeviceTypeCPU:
 				context = new cl::Context(CL_DEVICE_TYPE_CPU, cprops, NULL, NULL, &err);
+				break;
+			case openClDeviceTypeDEF:
+				context = new cl::Context(CL_DEVICE_TYPE_DEFAULT, cprops, NULL, NULL, &err);
 				break;
 			case openClDeviceTypeGPU:
 				context = new cl::Context(CL_DEVICE_TYPE_GPU, cprops, NULL, NULL, &err);

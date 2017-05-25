@@ -59,7 +59,9 @@ public:
 	enum enumOpenClDeviceType
 	{
 		openClDeviceTypeACC,
+		openClDeviceTypeALL,
 		openClDeviceTypeCPU,
+		openClDeviceTypeDEF,
 		openClDeviceTypeGPU
 	};
 
