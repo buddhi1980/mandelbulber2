@@ -56,6 +56,7 @@ void MandelbulbQuatIteration(float4 *z, __constant sFractalCl *fractal, sExtende
 	if (aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
+		aux->r = length(*z);
 		*z = (float4){z->x * z->x - z->y * z->y - z->z * z->z, z->x * z->y, z->x * z->z, 0.0f};
 		aux->r_dz = aux->r_dz * 2.0f * aux->r;
 		float tempL = length(*z);
@@ -263,6 +264,7 @@ void MandelbulbQuatIteration(double4 *z, __constant sFractalCl *fractal, sExtend
 	if (aux->i >= fractal->transformCommon.startIterationsD
 			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
+		aux->r = length(*z);
 		*z = (double4){z->x * z->x - z->y * z->y - z->z * z->z, z->x * z->y, z->x * z->z, 0.0};
 		aux->r_dz = aux->r_dz * 2.0 * aux->r;
 		double tempL = length(*z);
