@@ -430,8 +430,8 @@ void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence)
 		sequence->checkForBailout[i] = checkForBailout[i];
 		sequence->bailout[i] = bailout[i];
 		sequence->juliaEnabled[i] = juliaEnabled[i];
-		sequence->juliaConstant[i] = toClFloat3(juliaConstant[i]);
-		sequence->constantMultiplier[i] = toClFloat3(constantMultiplier[i]);
+		sequence->juliaConstant[i] = toClFloat4(CVector4(juliaConstant[i], 0.0));
+		sequence->constantMultiplier[i] = toClFloat4(CVector4(constantMultiplier[i], 1.0));
 		sequence->initialWAxis[i] = initialWAxis[i];
 		sequence->useAdditionalBailoutCond[i] = useAdditionalBailoutCond[i];
 	}

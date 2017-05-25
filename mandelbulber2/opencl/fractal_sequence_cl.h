@@ -35,8 +35,8 @@ typedef struct
 	cl_int checkForBailout[NUMBER_OF_FRACTALS];
 	cl_float bailout[NUMBER_OF_FRACTALS];
 	cl_int juliaEnabled[NUMBER_OF_FRACTALS];
-	cl_float3 juliaConstant[NUMBER_OF_FRACTALS];
-	cl_float3 constantMultiplier[NUMBER_OF_FRACTALS];
+	cl_float4 juliaConstant[NUMBER_OF_FRACTALS];
+	cl_float4 constantMultiplier[NUMBER_OF_FRACTALS];
 	cl_float initialWAxis[NUMBER_OF_FRACTALS];
 	cl_int useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
 } sClFractalSequence;

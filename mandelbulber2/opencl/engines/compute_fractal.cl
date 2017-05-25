@@ -75,7 +75,18 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			case 8: FORMULA_ITER_8(&z, fractal, &aux); break;
 		}
 
-		if (consts->sequence.addCConstant[formulaIndex]) z += c;
+		if (consts->sequence.addCConstant[formulaIndex])
+		{
+			if (consts->sequence.juliaEnabled[formulaIndex])
+			{
+				z += consts->sequence.juliaConstant[formulaIndex]
+						 * consts->sequence.constantMultiplier[formulaIndex];
+			}
+			else
+			{
+				z += c * consts->sequence.constantMultiplier[formulaIndex];
+			}
+		}
 
 		aux.r = length(z);
 
