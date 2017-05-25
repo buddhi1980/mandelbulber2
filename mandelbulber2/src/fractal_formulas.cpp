@@ -4168,7 +4168,7 @@ void MengerPrismShape2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 {
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
-		z = CVector4{-z.z, z.x, z.y, z.w};
+		z = CVector4(-z.z, z.x, z.y, z.w);
 	}
 	CVector4 gap = fractal->transformCommon.constantMultiplier000;
 

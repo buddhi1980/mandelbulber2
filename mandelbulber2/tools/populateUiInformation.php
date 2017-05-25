@@ -410,8 +410,10 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/($preF)pow\(/", 'replace' => '$1native_powr('),         // native pow
 			array('find' => "/($preF)sqrt\(/", 'replace' => '$1native_sqrt('),        // native sqrt
 			array('find' => "/CVector3\(($multChain,$s$multChain,$s$multChain)\)/", 'replace' => '(' . $fod . '3) {$1}'),  // CVector3 to built in float3
+			array('find' => "/CVector3\(\)/", 'replace' => '(' . $fod . '3) {}'),  // CVector3 default constructor to built in float3
 			array('find' => "/CVector3\(($all)\);/", 'replace' => '(' . $fod . '3) {$1};'),  // CVector3 to built in float3
 			array('find' => "/CVector3(\s)/", 'replace' => $fod . '3$1'),               // CVector3 to built in float3
+			array('find' => "/CVector4\(\)/", 'replace' => '(' . $fod . '4) {}'),  // CVector3 default constructor to built in float3
 			array('find' => "/CVector4\(($multChain,$s$multChain,$s$multChain,$s$multChain)\)/", 'replace' => '(' . $fod . '4) {$1}'),  // CVector3 to built in float3
 			array('find' => "/CVector4\(($all)\);/", 'replace' => '(' . $fod . '4) {$1};'),  // CVector4 to built in float4
 			array('find' => "/CVector4(\s)/", 'replace' => $fod . '4$1'),               // CVector4 to built in float4
