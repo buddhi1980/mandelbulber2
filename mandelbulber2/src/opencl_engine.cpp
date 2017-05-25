@@ -176,6 +176,9 @@ bool cOpenClEngine::CreateCommandQueue()
 {
 	cl_int err;
 	if (queue) delete queue;
+	// TODO: support multiple devices
+	// TODO: create a separate queue per device
+	// iterate through getDevicesInformation[s]
 	queue = new cl::CommandQueue(*hardware->getContext(), hardware->getSelectedDevice(), 0, &err);
 
 	if (checkErr(err, "CommandQueue::CommandQueue()"))
