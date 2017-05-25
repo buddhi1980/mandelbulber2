@@ -16,7 +16,7 @@
 void EiffieMsltoeIteration(float4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	float4 c = aux->const_c;
-
+	aux->r = length(*z);
 	float psi = fabs(fmod(atan2(z->z, z->y) + M_PI + M_PI_8, M_PI_4) - M_PI_8);
 	float lengthYZ = native_sqrt(mad(z->y, z->y, z->z * z->z));
 
@@ -66,7 +66,7 @@ void EiffieMsltoeIteration(float4 *z, __constant sFractalCl *fractal, sExtendedA
 void EiffieMsltoeIteration(double4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	double4 c = aux->const_c;
-
+	aux->r = length(*z);
 	double psi = fabs(fmod(atan2(z->z, z->y) + M_PI + M_PI_8, M_PI_4) - M_PI_8);
 	double lengthYZ = native_sqrt(mad(z->y, z->y, z->z * z->z));
 
