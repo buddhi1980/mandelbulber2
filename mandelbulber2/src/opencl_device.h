@@ -87,6 +87,10 @@ public:
 
 protected:
 	cl::Device clDevice;
+	sDeviceInformation deviceInformation;
+
+public:
+	cOpenClDevice(cl::Device device, sDeviceInformation info);
 
 #endif
 
@@ -94,12 +98,8 @@ public:
 	cOpenClDevice();
 	~cOpenClDevice();
 
-public:
-	cOpenClDevice(cl::Device device, sDeviceInformation info);
-
 protected:
 	int deviceIndex;
-	sDeviceInformation deviceInformation;
 };
 
 #endif /* MANDELBULBER2_SRC_OPEN_CL_DEVICE_H_ */
