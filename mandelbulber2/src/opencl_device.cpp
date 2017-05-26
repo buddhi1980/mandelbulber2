@@ -27,41 +27,19 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Robert Pancoast (RobertPancoast77@gmail.com)
  *
  * These objects enable an OpenCL backend definition.
  */
 
-#include "opencl_global.h"
-#include "opencl_hardware.h"
-#include "opencl_engine_render_fractal.h"
-#include "initparameters.hpp"
+#include "opencl_device.h"
 
-cGlobalOpenCl *gOpenCl = nullptr;
-
-cGlobalOpenCl::cGlobalOpenCl()
+cOpenClDevice::cOpenClDevice(QObject *parent) : QObject(parent)
 {
-#ifdef USE_OPENCL
-	openClHardware = new cOpenClHardware();
-
-	openClHardware->ListOpenClPlatforms();
-
-	// TODO hardcoded platform index: support platform selection in dialogue box
-	// TODO: support dialogue box for device type
-	openClHardware->CreateContext(0, cOpenClDevice::openClDeviceTypeALL);
-
-	// TODO hardcoded device index
-	// TODO: support dialogue box for selection of individual hardware devices
-	openClHardware->SelectDevice(0);
-
-	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
-#endif
+	deviceIndex = 0;
 }
 
-cGlobalOpenCl::~cGlobalOpenCl()
+cOpenClDevice::~cOpenClDevice()
 {
-#ifdef USE_OPENCL
-	delete openClEngineRenderFractal;
-	delete openClHardware;
-#endif
+	// TODO
 }

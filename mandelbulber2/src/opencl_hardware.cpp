@@ -33,6 +33,7 @@
  */
 
 #include "opencl_hardware.h"
+#include "opencl_device.h"
 
 cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
@@ -95,7 +96,7 @@ void cOpenClHardware::ListOpenClPlatforms()
 	}
 }
 
-void cOpenClHardware::CreateContext(int platformIndex, enumOpenClDeviceType deviceType)
+void cOpenClHardware::CreateContext(int platformIndex, cOpenClDevice::enumOpenClDeviceType deviceType)
 {
 	if (openClAvailable)
 	{
@@ -112,19 +113,19 @@ void cOpenClHardware::CreateContext(int platformIndex, enumOpenClDeviceType devi
 
 		switch (deviceType)
 		{
-			case openClDeviceTypeACC:
+			case cOpenClDevice::openClDeviceTypeACC:
 				context = new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cprops, NULL, NULL, &err);
 				break;
-			case openClDeviceTypeALL:
+			case cOpenClDevice::openClDeviceTypeALL:
 				context = new cl::Context(CL_DEVICE_TYPE_ALL, cprops, NULL, NULL, &err);
 				break;
-			case openClDeviceTypeCPU:
+			case cOpenClDevice::openClDeviceTypeCPU:
 				context = new cl::Context(CL_DEVICE_TYPE_CPU, cprops, NULL, NULL, &err);
 				break;
-			case openClDeviceTypeDEF:
+			case cOpenClDevice::openClDeviceTypeDEF:
 				context = new cl::Context(CL_DEVICE_TYPE_DEFAULT, cprops, NULL, NULL, &err);
 				break;
-			case openClDeviceTypeGPU:
+			case cOpenClDevice::openClDeviceTypeGPU:
 				context = new cl::Context(CL_DEVICE_TYPE_GPU, cprops, NULL, NULL, &err);
 				break;
 		}
@@ -155,7 +156,7 @@ void cOpenClHardware::ListOpenClDevices()
 		{
 			for (unsigned int i = 0; i < clDevices.size(); i++)
 			{
-				sDeviceInformation deviceInformation;
+				cOpenClDevice::sDeviceInformation deviceInformation;
 				clDevices[i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.deviceAvailable);
 				clDevices[i].getInfo(CL_DEVICE_COMPILER_AVAILABLE, &deviceInformation.compilerAvailable);
 				clDevices[i].getInfo(CL_DEVICE_DOUBLE_FP_CONFIG, &deviceInformation.doubleFpConfig);
