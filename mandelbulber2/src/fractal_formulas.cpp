@@ -4533,7 +4533,7 @@ void MengerSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  * http://www.fractalforums.com/fragmentarium/help-t22583/
  */
 void MengerSmoothMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{			aux.r = z.Length();
+{
 
 	if (fractal->transformCommon.functionEnabled)
 	{
