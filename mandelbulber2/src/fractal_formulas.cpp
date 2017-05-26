@@ -1703,7 +1703,6 @@ void BenesiPineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	CVector4 c = aux.const_c;
 
 	CVector4 temp = z;
-	aux.r = z.Length();
 	z *= z;
 	double t = 2.0 * temp.x;
 	if (z.y + z.z > 0.0)
@@ -1740,7 +1739,6 @@ void BenesiT1PineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		// if (tempL < 1e-21) tempL = 1e-21;
 		double avgScale = z.Length() / tempL;
 		aux.r_dz *= avgScale;
-		aux.DE = aux.DE * avgScale + 1.0;
 
 		if (fractal->transformCommon.rotationEnabled)
 		{
@@ -2092,7 +2090,7 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 	if (fractal->transformCommon.addCpixelEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-	{											// Benesi original pwr2
+	{ // Benesi original pwr2
 		aux.r = z.Length(); // needed when alternating pwr2s
 		aux.r_dz = aux.r_dz * 2.0 * aux.r;
 		double r1 = z.y * z.y + z.z * z.z;
@@ -4535,7 +4533,7 @@ void MengerSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  * http://www.fractalforums.com/fragmentarium/help-t22583/
  */
 void MengerSmoothMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
+{			aux.r = z.Length();
 
 	if (fractal->transformCommon.functionEnabled)
 	{
@@ -4697,7 +4695,6 @@ void MsltoeSym2ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
@@ -4708,7 +4705,6 @@ void MsltoeSym2ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-	aux.r = z.Length();
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	CVector4 temp = z;
 	if (fabs(z.y) < fabs(z.z)) // then swap
@@ -4756,11 +4752,11 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		aux.r_dz = aux.r_dz * 2.0 * z.Length();
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			aux.r = z.Length();
+			aux.r_dz = aux.r_dz * 2.0 * aux.r;
 			CVector4 temp2 = z;
 			double tempL = temp2.Length();
 			z *= CVector4(1.0, 2.0, 2.0, 1.0);
@@ -4784,7 +4780,6 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 void EiffieMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-	aux.r = z.Length();
 	double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI_8, M_PI_4) - M_PI_8);
 	double lengthYZ = sqrt(z.y * z.y + z.z * z.z);
 
@@ -4886,7 +4881,6 @@ void MsltoeSym3Mod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
@@ -4952,7 +4946,7 @@ void MsltoeSym3Mod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
 		aux.r = z.Length();
-		aux.r_dz = aux.r_dz * 2.0 * z.Length();
+		aux.r_dz = aux.r_dz * 2.0 * aux.r;
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
@@ -5023,7 +5017,6 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	//	lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
@@ -5037,7 +5030,6 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	{
 		z *= fractal->transformCommon.scale3D111;
 		aux.r_dz *= z.Length() / aux.r;
-		aux.DE = aux.DE * z.Length() / aux.r + 1.0;
 	}
 	// Toroidal bulb
 	double r1 = fractal->transformCommon.minR05; // default 0.5
