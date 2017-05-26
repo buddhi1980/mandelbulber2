@@ -82,6 +82,7 @@ public:
 	void SelectDevice(int index);
 
 	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
+	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }
 	const cl::Device &getSelectedDevice() const { return clDevices[selectedDeviceIndex]; }
 	cl::Context *getContext() { return context; }
 	const cOpenClDevice::sDeviceInformation &getSelectedDeviceInformation() const
@@ -97,6 +98,7 @@ private:
 
 protected:
 	std::vector<cl::Device> clDevices;
+	QList<cOpenClDevice> clDeviceWorkers;
 	QList<sPlatformInformation> platformsInformation;
 	QList<cOpenClDevice::sDeviceInformation> devicesInformation;
 	cl::Context *context;

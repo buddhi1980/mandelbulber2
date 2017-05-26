@@ -51,9 +51,8 @@
 #pragma warning(pop)
 #endif // _MSC_VER
 
-class cOpenClDevice : public QObject
+class cOpenClDevice
 {
-	Q_OBJECT
 
 public:
 	enum enumOpenClDeviceType
@@ -85,13 +84,22 @@ public:
 		QString deviceVersion;
 		QString driverVersion;
 	};
+
+protected:
+	cl::Device clDevice;
+
 #endif
 
-	cOpenClDevice(QObject *parent = nullptr);
+public:
+	cOpenClDevice();
 	~cOpenClDevice();
+
+public:
+	cOpenClDevice(cl::Device device, sDeviceInformation info);
 
 protected:
 	int deviceIndex;
+	sDeviceInformation deviceInformation;
 };
 
 #endif /* MANDELBULBER2_SRC_OPEN_CL_DEVICE_H_ */

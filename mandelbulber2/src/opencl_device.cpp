@@ -34,10 +34,21 @@
 
 #include "opencl_device.h"
 
-cOpenClDevice::cOpenClDevice(QObject *parent) : QObject(parent)
+cOpenClDevice::cOpenClDevice()
 {
 	deviceIndex = 0;
 }
+
+#ifdef USE_OPENCL
+
+cOpenClDevice::cOpenClDevice(cl::Device device, sDeviceInformation info)
+{
+	deviceIndex = 0;
+	clDevice = device;
+	deviceInformation = info;
+}
+
+#endif
 
 cOpenClDevice::~cOpenClDevice()
 {

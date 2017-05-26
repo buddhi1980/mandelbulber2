@@ -101,6 +101,7 @@ void cOpenClHardware::CreateContext(int platformIndex, cOpenClDevice::enumOpenCl
 	if (openClAvailable)
 	{
 		devicesInformation.clear();
+		clDeviceWorkers.clear();
 		clDevices.clear();
 
 		cl_context_properties cprops[3] = {
@@ -146,6 +147,7 @@ void cOpenClHardware::CreateContext(int platformIndex, cOpenClDevice::enumOpenCl
 void cOpenClHardware::ListOpenClDevices()
 {
 	devicesInformation.clear();
+	clDeviceWorkers.clear();
 	clDevices.clear();
 
 	if (contextReady)
@@ -206,6 +208,7 @@ void cOpenClHardware::ListOpenClDevices()
 				qDebug() << "CL_DRIVER_VERSION" << deviceInformation.driverVersion;
 
 				devicesInformation.append(deviceInformation);
+				clDeviceWorkers.append(cOpenClDevice(clDevices[i], deviceInformation));
 			}
 		}
 		else
