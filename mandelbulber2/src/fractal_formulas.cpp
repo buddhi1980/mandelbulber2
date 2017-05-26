@@ -2602,7 +2602,6 @@ void MandelbulbJuliabulbIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-		aux.r = z.Length();
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
 			if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
@@ -2951,14 +2950,12 @@ void MandelbulbMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 {
 	CVector4 c = aux.const_c;
 
-	aux.r = z.Length();
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
 	}
-
 	double th0 = fractal->bulb.betaAngleOffset;
 	double ph0 = fractal->bulb.alphaAngleOffset;
 	CVector4 v;
@@ -3050,7 +3047,6 @@ void MandelbulbMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-	aux.r = z.Length();
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse
@@ -3264,16 +3260,22 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		// if (lengthTempZ > -1e-21)
 		//	lengthTempZ = -1e-21;   //  z is neg.)
 		z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
+
 		// scale
 		z *= fractal->transformCommon.scale1;
 		aux.r_dz *= fabs(fractal->transformCommon.scale1);
 	}
-
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
 	//mandelbulb multi
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-
 		aux.r = z.Length();
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
@@ -3350,14 +3352,6 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		}
 	}
 	z += fractal->transformCommon.additionConstant000;
-
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
 }
 
 /**
@@ -3382,7 +3376,6 @@ void MandelbulbVaryPowerV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 		tempVC = (tempVC + fractal->transformCommon.offset0);
 	}
 
-	aux.r = z.Length();
 	// if (aux.r < 1e-21)
 	//	aux.r = 1e-21;
 	double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
@@ -5919,7 +5912,7 @@ void PseudoKleinianStdDEIteration(CVector4 &z, const sFractal *fractal, sExtende
  */
 void Quaternion3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.r = z.Length();
+
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 
@@ -7671,7 +7664,7 @@ void TransfPwr2PolynomialIteration(CVector4 &z, const sFractal *fractal, sExtend
 void TransfQuaternionFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-	aux.r = z.Length();
+
 	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
