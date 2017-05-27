@@ -48,7 +48,7 @@
 
 #include "../src/render_window.hpp"
 
-#ifndef WIN32
+#ifndef _WIN32
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
@@ -74,14 +74,14 @@ bool InitSystem()
 
 	systemData.homeDir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
 
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 	systemData.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());
 #else
 	systemData.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
 #endif /* WINDOWS */
 
 // logfile
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 	systemData.logfileName = systemData.homeDir + "mandelbulber_log.txt";
 #else
 	systemData.logfileName = systemData.homeDir + ".mandelbulber_log.txt";
@@ -104,7 +104,7 @@ bool InitSystem()
 #endif
 
 // data directory location
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 	systemData.SetDataDirectoryHidden(systemData.homeDir + "mandelbulber" + QDir::separator());
 	systemData.SetDataDirectoryPublic(systemData.homeDir + "mandelbulber" + QDir::separator());
 #else
@@ -158,7 +158,7 @@ bool InitSystem()
 void handle_winch(int sig)
 {
 	(void)sig;
-#ifndef WIN32
+#ifndef _WIN32
 	signal(SIGWINCH, SIG_IGN);
 	struct winsize w;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -178,7 +178,7 @@ void WriteLog(QString text, int verbosityLevel)
 	if (verbosityLevel <= systemData.loggingVerbosity)
 	{
 		FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
-#ifdef WIN32
+#ifdef _WIN32
 		QString logText = QString("PID: %1, time: %2, %3\n")
 												.arg(QCoreApplication::applicationPid())
 												.arg(QString::number(clock() / 1.0e3, 'f', 3))

@@ -1855,7 +1855,7 @@ void cInterface::AutoRecovery() const
 // ReSharper disable once CppMemberFunctionMayBeStatic
 bool cInterface::DataFolderUpgrade() const
 {
-#ifndef WIN32
+#ifndef _WIN32
 	if (systemData.IsUpgraded()) return false; // already upgraded, nothing to do
 	bool upgradeDoNotAskAgain = gPar->Get<bool>("upgrade_do_not_ask_again");
 	if (upgradeDoNotAskAgain) return false; // user does not want to upgrade ever

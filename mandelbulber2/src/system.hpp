@@ -39,13 +39,13 @@
 #define MANDELBULBER_VERSION_STRING "2.11"
 #define TO_STRING(a) #a
 
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 // #include <windows.h>
 #define HAVE_BOOLEAN /* prevent jmorecfg.h from redefining it */
 #endif
 
 #ifndef SHARED_DIR
-#ifdef WIN32
+#ifdef _WIN32
 #elif __APPLE__
 #define SHARED_DIR QDir::homePath() + "/share/mandelbulber2"
 #else

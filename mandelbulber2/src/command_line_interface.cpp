@@ -232,7 +232,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	cliData.showExampleHelp = parser.isSet(helpExamplesOption);
 	systemData.statsOnCLI = parser.isSet(statsOption);
 
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 	systemData.useColor = false;
 #else
 	systemData.useColor = !parser.isSet(noColorOption);

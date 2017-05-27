@@ -344,7 +344,7 @@ QString cHeadless::colorize(
 	QString text, ansiColor foregroundColor, ansiColor backgroundColor, bool bold)
 {
 // more information on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 	return text;
 #else
 	if (!systemData.useColor) return text;
@@ -367,7 +367,7 @@ QString cHeadless::colorize(
 
 QString cHeadless::formatLine(const QString &text)
 {
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 	return text;
 #else
 	if (!systemData.useColor) return text;
@@ -434,7 +434,7 @@ bool cHeadless::ConfirmMessage(QString message)
 
 void cHeadless::EraseLine()
 {
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 	return;
 #else
 	QTextStream out(stdout);
@@ -445,7 +445,7 @@ void cHeadless::EraseLine()
 
 void cHeadless::MoveCursor(int leftRight, int downUp)
 {
-#ifdef WIN32 /* WINDOWS */
+#ifdef _WIN32 /* WINDOWS */
 	return;
 #else
 	QTextStream out(stdout);
