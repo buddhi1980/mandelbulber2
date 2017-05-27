@@ -41,13 +41,13 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 	contextReady = false;
 	selectedDeviceIndex = 0;
 
+#ifdef USE_OPENCL
 #ifdef _WIN32
 	const std::wstring opencldll(L"OpenCL.dll");
 	int err = clewInit(opencldll.c_str());
 	qCritical() << clewErrorString(err);
 #endif
 
-#ifdef USE_OPENCL
 	context = nullptr;
 #endif
 }
