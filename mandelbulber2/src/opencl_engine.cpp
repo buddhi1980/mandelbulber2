@@ -50,6 +50,7 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 	queue = nullptr;
 	programsLoaded = false;
 	readyForRendering = false;
+	locked = false;
 #endif
 }
 
@@ -218,6 +219,21 @@ void cOpenClEngine::UpdateOptimalJobStart(int pixelsLeft)
 void cOpenClEngine::UpdateOptimalJobEnd()
 {
 	optimalJob.lastProcessingTime = optimalJob.timer.elapsed() / 1000.0;
+}
+
+void cOpenClEngine::Lock()
+{
+	lock.lock();
+	locked = true;
+}
+
+void cOpenClEngine::Unlock()
+{
+	if(locked)
+	{
+		lock.unlock();
+	}
+	locked = false;
 }
 
 #endif

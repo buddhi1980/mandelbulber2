@@ -90,6 +90,8 @@ public:
 
 #ifdef USE_OPENCL
 
+	void Lock();
+	void Unlock();
 	virtual void LoadSourcesAndCompile(const cParameterContainer *params) = 0;
 	bool CreateKernel4Program(const cParameterContainer *params);
 	virtual bool PreAllocateBuffers(const cParameterContainer *params) = 0;
@@ -116,6 +118,10 @@ protected:
 #endif
 
 	cOpenClHardware *hardware;
+
+private:
+	QMutex lock;
+	bool locked;
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_H_ */
