@@ -7462,80 +7462,80 @@ void TransfParabFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	CVector4 temp = z;
 
 	CVector4 slope2 = fractal->transformCommon.constantMultiplier111;
-	CVector4 length = fractal->transformCommon.additionConstant000;
+	CVector4 lengthAdd = fractal->transformCommon.additionConstant000;
 	CVector4 factorP;
 
-	factorP.x = -slope2.x / (length.x * 2.0);
-	factorP.y = -slope2.y / (length.y * 2.0);
-	factorP.z = -slope2.z / (length.z * 2.0);
+	factorP.x = -slope2.x / (lengthAdd.x * 2.0);
+	factorP.y = -slope2.y / (lengthAdd.y * 2.0);
+	factorP.z = -slope2.z / (lengthAdd.z * 2.0);
 
 	if (temp.x > 0)
 	{
-		if (temp.x < length.x)
+		if (temp.x < lengthAdd.x)
 		{
 			z.x = z.x * z.x * factorP.x;
 		}
 		else
 		{
-			z.x = (z.x - length.x / 2.0) * slope2.x;
+			z.x = (z.x - lengthAdd.x / 2.0) * slope2.x;
 		}
 	}
 	if (temp.y > 0)
 	{
-		if (temp.y < length.y)
+		if (temp.y < lengthAdd.y)
 		{
 			z.y = z.y * z.y * factorP.y;
 		}
 		else
 		{
-			z.y = (z.y - length.y / 2.0) * slope2.y;
+			z.y = (z.y - lengthAdd.y / 2.0) * slope2.y;
 		}
 	}
 	if (temp.z > 0)
 	{
-		if (temp.z < length.z)
+		if (temp.z < lengthAdd.z)
 		{
 			z.z = z.z * z.z * factorP.z;
 		}
 		else
 		{
-			z.z = (z.z - length.z / 2.0) * slope2.z;
+			z.z = (z.z - lengthAdd.z / 2.0) * slope2.z;
 		}
 	}
 
 	if (temp.x < 0)
 	{
-		if (temp.x > -length.x)
+		if (temp.x > -lengthAdd.x)
 		{
 			z.x = z.x * z.x * -factorP.x;
 		}
 		else
 		{
-			z.x = (z.x + length.x / 2.0) * slope2.x;
+			z.x = (z.x + lengthAdd.x / 2.0) * slope2.x;
 		}
 	}
 	if (temp.y < 0)
 	{
-		if (temp.y > -length.y)
+		if (temp.y > -lengthAdd.y)
 		{
 			z.y = z.y * z.y * -factorP.y;
 		}
 		else
 		{
-			z.y = (z.y + length.y / 2.0) * slope2.y;
+			z.y = (z.y + lengthAdd.y / 2.0) * slope2.y;
 		}
 	}
 
 	if (temp.z < 0)
 	{
 
-		if (temp.z > -length.z)
+		if (temp.z > -lengthAdd.z)
 		{
 			z.z = z.z * z.z * -factorP.z;
 		}
 		else
 		{
-			z.z = (z.z + length.z / 2.0) * slope2.z;
+			z.z = (z.z + lengthAdd.z / 2.0) * slope2.z;
 		}
 	}
 
@@ -7658,7 +7658,8 @@ void TransfQuaternionFoldIteration(CVector4 &z, const sFractal *fractal, sExtend
 		double tempL = z.Length();
 		z *= fractal->transformCommon.constantMultiplier122;
 		// if (tempL < 1e-21) tempL = 1e-21;
-		double avgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w).Length() / tempL;
+		CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
+		double avgScale = tempAvgScale.Length() / tempL;
 		double tempAux = aux.r_dz * avgScale;
 		aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
 		z += fractal->transformCommon.additionConstant000;
