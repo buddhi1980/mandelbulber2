@@ -30,6 +30,7 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * cNineFractals - container for 9 elements of hybrid fractal
+ * Beware: On change maybe needs porting changes to opencl/fractal_sequence_cl.h
  */
 
 #ifndef MANDELBULBER2_SRC_NINE_FRACTALS_HPP_

@@ -229,7 +229,7 @@ void cOpenClEngine::Lock()
 
 void cOpenClEngine::Unlock()
 {
-	if(locked)
+	if (locked)
 	{
 		lock.unlock();
 	}

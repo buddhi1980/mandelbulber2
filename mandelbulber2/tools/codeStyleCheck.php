@@ -21,12 +21,16 @@ $filesToCheckSource[] = PROJECT_PATH . "src/" . WILDCARD . ".cpp";
 $filesToCheckSource[] = PROJECT_PATH . "src/" . WILDCARD . ".c";
 $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".cpp";
 $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".c";
+$filesToCheckSource[] = PROJECT_PATH . "opencl/" . WILDCARD . ".cpp";
+$filesToCheckSource[] = PROJECT_PATH . "opencl/" . WILDCARD . ".c";
 
 $filesToCheckHeader = array();
 $filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . ".hpp";
 $filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . ".h";
 $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".hpp";
 $filesToCheckHeader[] = PROJECT_PATH . "qt/" . WILDCARD . ".h";
+$filesToCheckSource[] = PROJECT_PATH . "opencl/" . WILDCARD . ".hpp";
+$filesToCheckSource[] = PROJECT_PATH . "opencl/" . WILDCARD . ".h";
 
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
@@ -236,7 +240,7 @@ EOT;
 	foreach($lines as $line){
 		$l = trim($line);
 		if(!$firstFound && ($l == '*' || empty($l))) continue;
-		$regexCommentStart = '/^\*\s*(.*)$/';
+		$regexCommentStart = '/^\*\s?(.*)$/';
 		if(preg_match($regexCommentStart, $l, $match)){
 			$l = $match[1];
 		}

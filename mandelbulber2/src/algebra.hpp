@@ -51,7 +51,7 @@
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
-#endif // _MSC_VER
+#endif													// _MSC_VER
 
 // MSVC defines math constants elsewhere, do not warn about the
 // redefinition in math.h

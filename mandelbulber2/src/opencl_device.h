@@ -1,22 +1,22 @@
 /**
- * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
- *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
- *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
- * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
+ * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmÃŸMNWy,
+ *                                             ,B" ]L,,p%%%,,,Â§;, "K
+ * Copyright (C) 2017 Mandelbulber Team        Â§R-==%w["'~5]m%=L.=~5N
+ *                                        ,=mm=Â§M ]=4 yJKA"/-Nsaj  "Bw,==,,
+ * This file is part of Mandelbulber.    Â§R.r= jw",M  Km .mM  FW ",Â§=ÃŸ., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
- * Mandelbulber is free software:     §R.ß~-Q/M=,=5"v"]=Qf,'§"M= =,M.§ Rz]M"Kw
- * you can redistribute it and/or     §w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" §
- * modify it under the terms of the    "§M=M =D=4"N #"%==A%p M§ M6  R' #"=~.4M
- * GNU General Public License as        §W =, ][T"]C  §  § '§ e===~ U  !§[Z ]N
- * published by the                    4M",,Jm=,"=e~  §  §  j]]""N  BmM"py=ßM
- * Free Software Foundation,          ]§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M m§;'§,
- * either version 3 of the License,    TWw [.j"5=~N[=§%=%W,T ]R,"=="Y[LFT ]N
+ * Mandelbulber is free software:     Â§R.ÃŸ~-Q/M=,=5"v"]=Qf,'Â§"M= =,M.Â§ Rz]M"Kw
+ * you can redistribute it and/or     Â§w "xDY.J ' -"m=====WeC=\ ""%""y=%"]"" Â§
+ * modify it under the terms of the    "Â§M=M =D=4"N #"%==A%p MÂ§ M6  R' #"=~.4M
+ * GNU General Public License as        Â§W =, ][T"]C  Â§  Â§ 'Â§ e===~ U  !Â§[Z ]N
+ * published by the                    4M",,Jm=,"=e~  Â§  Â§  j]]""N  BmM"py=ÃŸM
+ * Free Software Foundation,          ]Â§ T,M=& 'YmMMpM9MMM%=w=,,=MT]M mÂ§;'Â§,
+ * either version 3 of the License,    TWw [.j"5=~N[=Â§%=%W,T ]R,"=="Y[LFT ]N
  * or (at your option)                   TW=,-#"%=;[  =Q:["V""  ],,M.m == ]N
- * any later version.                      J§"mr"] ,=,," =="""J]= M"M"]==ß"
- *                                          §= "=C=4 §"eM "=B:m|4"]#F,§~
- * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ß"
- * the hope that it will be useful,                 . "K=  ,=RMMMßM"""
+ * any later version.                      JÂ§"mr"] ,=,," =="""J]= M"M"]==ÃŸ"
+ *                                          Â§= "=C=4 Â§"eM "=B:m|4"]#F,Â§~
+ * Mandelbulber is distributed in            "9w=,,]w em%wJ '"~" ,=,,ÃŸ"
+ * the hope that it will be useful,                 . "K=  ,=RMMMÃŸM"""
  * but WITHOUT ANY WARRANTY;                            .'''
  * without even the implied warranty
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -41,7 +41,7 @@
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
-#endif  // _MSC_VER
+#endif													// _MSC_VER
 
 #ifdef USE_OPENCL
 #include <CL/cl.hpp>
@@ -102,4 +102,4 @@ protected:
 	int deviceIndex;
 };
 
-#endif /* MANDELBULBER2_SRC_OPEN_CL_DEVICE_H_ */
+#endif /* MANDELBULBER2_SRC_OPENCL_DEVICE_H_ */

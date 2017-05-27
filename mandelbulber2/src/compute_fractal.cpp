@@ -110,7 +110,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// extendedAux.orbitTraps = 1e+20;
 	extendedAux.pseudoKleinianDE = 1.0;
 
-
 	// main iteration loop
 	int i;
 	int sequence;
