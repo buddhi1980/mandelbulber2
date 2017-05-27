@@ -4612,13 +4612,13 @@ void MengerSmoothMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
  */
 void MsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double rad2 = fractal->donut.ringThickness;
+	double radius2 = fractal->donut.ringThickness;
 	double nSect = 2.0 * M_PI / fractal->donut.number;
 	double fact = fractal->donut.factor;
 
 	double R = sqrt(z.x * z.x + z.y * z.y);
 	double R2 = fractal->donut.ringRadius - R;
-	double t = R2 * R2 + z.z * z.z - rad2 * rad2;
+	double t = R2 * R2 + z.z * z.z - radius2 * radius2;
 
 	double theta = atan2(z.y, z.x);
 	double theta2 = nSect * round(theta / nSect);
@@ -6004,13 +6004,13 @@ void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
 {
 	Q_UNUSED(aux);
 
-	double rad2 = fractal->transformCommon.minR05;
+	double radius2 = fractal->transformCommon.minR05;
 	double r2 = z.x * z.x + z.y * z.y + z.z * z.z; // r2 or point radius squared
-	if (r2 < rad2 * rad2)
+	if (r2 < radius2 * radius2)
 	{
 		if (fractal->transformCommon.functionEnabled)
 			// smooth inside
-			z *= rad2 * ((r2 * 0.1) + 0.4) * 1.18 * fractal->transformCommon.scaleA1 / r2;
+			z *= radius2 * ((r2 * 0.1) + 0.4) * 1.18 * fractal->transformCommon.scaleA1 / r2;
 		else
 		{
 			z *= fractal->transformCommon.constantMultiplier111;
