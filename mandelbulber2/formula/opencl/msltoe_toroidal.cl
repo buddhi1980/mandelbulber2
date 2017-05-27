@@ -19,7 +19,6 @@ void MsltoeToroidalIteration(float4 *z, __constant sFractalCl *fractal, sExtende
 	{
 		*z *= fractal->transformCommon.scale3D111;
 		aux->r_dz *= native_divide(length(*z), aux->r);
-		aux->DE = aux->DE * native_divide(length(*z), aux->r) + 1.0f;
 	}
 	// Toroidal bulb
 	float r1 = fractal->transformCommon.minR05; // default 0.5f
@@ -69,7 +68,6 @@ void MsltoeToroidalIteration(double4 *z, __constant sFractalCl *fractal, sExtend
 	{
 		*z *= fractal->transformCommon.scale3D111;
 		aux->r_dz *= native_divide(length(*z), aux->r);
-		aux->DE = aux->DE * native_divide(length(*z), aux->r) + 1.0;
 	}
 	// Toroidal bulb
 	double r1 = fractal->transformCommon.minR05; // default 0.5

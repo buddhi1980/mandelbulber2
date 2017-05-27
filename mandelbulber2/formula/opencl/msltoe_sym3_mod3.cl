@@ -71,7 +71,7 @@ void MsltoeSym3Mod3Iteration(float4 *z, __constant sFractalCl *fractal, sExtende
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		aux->r = length(*z);
-		aux->r_dz = aux->r_dz * 2.0f * length(*z);
+		aux->r_dz = aux->r_dz * 2.0f * aux->r;
 		*z = (float4){z->x * z->x - z->y * z->y - z->z * z->z, z->x * z->y, z->x * z->z, z->w};
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
@@ -147,7 +147,7 @@ void MsltoeSym3Mod3Iteration(double4 *z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		aux->r = length(*z);
-		aux->r_dz = aux->r_dz * 2.0 * length(*z);
+		aux->r_dz = aux->r_dz * 2.0 * aux->r;
 		*z = (double4){z->x * z->x - z->y * z->y - z->z * z->z, z->x * z->y, z->x * z->z, z->w};
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{

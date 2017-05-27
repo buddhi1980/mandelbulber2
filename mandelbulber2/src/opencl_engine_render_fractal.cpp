@@ -457,14 +457,17 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
+	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xyz", "Cxyz"});
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
 	for (int i = 1; i < parts.size(); ++i)
 	{
 		parts[i].replace(0, 1, parts[i][0].toUpper());
 
 		// rewrite to known capital names in iteration function names
-		if (parts[i] == "Vs") parts[i] = "VS";
-		if (parts[i] == "Kifs") parts[i] = "KIFS";
+		if(upperCaseLookup.contains(parts[i]))
+		{
+			parts[i] = parts[i].toUpper();
+		}
 	}
 
 	return parts.join("");

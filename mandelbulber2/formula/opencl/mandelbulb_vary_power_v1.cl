@@ -32,7 +32,6 @@ void MandelbulbVaryPowerV1Iteration(float4 *z, __constant sFractalCl *fractal, s
 		tempVC = (tempVC + fractal->transformCommon.offset0);
 	}
 
-	aux->r = length(*z);
 	// if (aux->r < 1e-21f)
 	//	aux->r = 1e-21f;
 	float th0 = asin(native_divide(z->z, aux->r)) + fractal->bulb.betaAngleOffset;
@@ -66,7 +65,6 @@ void MandelbulbVaryPowerV1Iteration(double4 *z, __constant sFractalCl *fractal, 
 		tempVC = (tempVC + fractal->transformCommon.offset0);
 	}
 
-	aux->r = length(*z);
 	// if (aux->r < 1e-21)
 	//	aux->r = 1e-21;
 	double th0 = asin(native_divide(z->z, aux->r)) + fractal->bulb.betaAngleOffset;

@@ -16,14 +16,12 @@ void MandelbulbMultiIteration(float4 *z, __constant sFractalCl *fractal, sExtend
 {
 	float4 c = aux->const_c;
 
-	aux->r = length(*z);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z->x = fabs(z->x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z->y = fabs(z->y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z->z = fabs(z->z);
 	}
-
 	float th0 = fractal->bulb.betaAngleOffset;
 	float ph0 = fractal->bulb.alphaAngleOffset;
 	float4 v;
@@ -114,14 +112,12 @@ void MandelbulbMultiIteration(double4 *z, __constant sFractalCl *fractal, sExten
 {
 	double4 c = aux->const_c;
 
-	aux->r = length(*z);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse) z->x = fabs(z->x);
 		if (fractal->transformCommon.functionEnabledAyFalse) z->y = fabs(z->y);
 		if (fractal->transformCommon.functionEnabledAzFalse) z->z = fabs(z->z);
 	}
-
 	double th0 = fractal->bulb.betaAngleOffset;
 	double ph0 = fractal->bulb.alphaAngleOffset;
 	double4 v;

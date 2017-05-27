@@ -17,7 +17,6 @@ void MandelbulbJuliabulbIteration(float4 *z, __constant sFractalCl *fractal, sEx
 	if (aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-		aux->r = length(*z);
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
 			if (fractal->transformCommon.functionEnabledAxFalse) z->x = fabs(z->x);
@@ -175,7 +174,6 @@ void MandelbulbJuliabulbIteration(double4 *z, __constant sFractalCl *fractal, sE
 	if (aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-		aux->r = length(*z);
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
 			if (fractal->transformCommon.functionEnabledAxFalse) z->x = fabs(z->x);

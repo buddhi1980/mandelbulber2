@@ -5911,7 +5911,8 @@ void Quaternion3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	double tempL = z.Length();
 	z *= fractal->transformCommon.constantMultiplier122;
 	// if (tempL < 1e-21) tempL = 1e-21;
-	double avgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w).Length() / tempL;
+	CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
+	double avgScale = tempAvgScale.Length() / tempL;
 	double tempAux = aux.r_dz * avgScale;
 	aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
 
@@ -5937,14 +5938,11 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 
-	double w = 1.0 - z.z;
-	// if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
-	w = 1.0 / w;
+	double q = 1.0 / (1.0 - z.z);
+	double s = z.x * q;
+	double t = z.y * q;
 
-	double s = z.x * w;
-	double t = z.y * w;
-
-	w = 1.0 + s * s + t * t;
+	double p = 1.0 + s * s + t * t;
 
 	s = fabs(sin(M_PI * s));
 	t = fabs(sin(M_PI * t));
@@ -5953,14 +5951,13 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
 	// if (r < 1e-21)
 	//	r = 1e-21;
 
-	if (w > 36) w = 36; // problem with pow()
-	r = -0.25 + pow(r, w);
+	if (p > 36) p = 36; // problem with pow()
+	r = -0.25 + pow(r, p);
 
-	w = r / (1.0 + s * s + t * t);
 	z.x = 2.0 * s;
 	z.y = 2.0 * t;
 	z.z = -1.0 + s * s + t * t;
-	z *= w;
+	z *= r / (1.0 + s * s + t * t);
 
 	z += fractal->transformCommon.additionConstant000;
 }
@@ -5978,13 +5975,10 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 	double r = z.Length();
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
-	double w = 1.0 - z.z;
-	// if (w > -1e-21 && w < 1e-21)
-	//	w = (w > 0) ? 1e-21 : -1e-21;
-	w = 1.0 / w;
+	double q = 1.0 / (1.0 - z.z);
 	CVector4 t3;
-	t3.x = z.x * w;
-	t3.y = z.y * w;
+	t3.x = z.x * q;
+	t3.y = z.y * q;
 
 	t3.z = (r - 1.5) * (1.0 + t3.x * t3.x + t3.y * t3.y);
 
@@ -6463,11 +6457,10 @@ void TransfAddConstantVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExt
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		tempVC =
-			(tempVC
-				+ fractal->transformCommon.offset000 * (aux.i - fractal->transformCommon.startIterations250)
-						/ (fractal->transformCommon.stopIterations
-								- fractal->transformCommon.startIterations250));
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
+		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+		tempVC += fractal->transformCommon.offset000 * (1.0 * currentIteration) / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
@@ -6580,11 +6573,11 @@ void TransfAddCpixelVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		tempVC =
-			(tempVC
-				+ fractal->transformCommon.offset000 * (aux.i - fractal->transformCommon.startIterations250)
-						/ (fractal->transformCommon.stopIterations
-								- fractal->transformCommon.startIterations250));
+
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
+		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+		tempVC += fractal->transformCommon.offset000 * (1.0 * currentIteration) / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
@@ -7022,11 +7015,11 @@ void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtende
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		tempVC =
-			(tempVC
-				+ fractal->transformCommon.offset * (aux.i - fractal->transformCommon.startIterations250)
-						/ (fractal->transformCommon.stopIterations
-								- fractal->transformCommon.startIterations250));
+
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
+		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+		tempVC += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
@@ -7883,12 +7876,11 @@ void TransfRotationVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			&& aux.i < fractal->transformCommon.stopIterations
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
-	{
-		tempVC =
-			(tempVC
-				+ fractal->transformCommon.offset000 * (aux.i - fractal->transformCommon.startIterations250)
-						/ (fractal->transformCommon.stopIterations
-								- fractal->transformCommon.startIterations250));
+	{	
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
+		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+		tempVC += fractal->transformCommon.offset000 * (1.0 * currentIteration) / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
@@ -8017,12 +8009,11 @@ void TransfScaleVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			&& aux.i < fractal->transformCommon.stopIterations
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
-	{
-		tempVC =
-			(tempVC
-				+ fractal->transformCommon.offset0 * (aux.i - fractal->transformCommon.startIterations250)
-						/ (fractal->transformCommon.stopIterations
-								- fractal->transformCommon.startIterations250));
+	{		
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
+		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+		tempVC += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
