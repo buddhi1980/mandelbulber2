@@ -37,6 +37,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QtCore>
+#include <QCryptographicHash>
 
 #include "../qt/thumbnail_widget.h"
 #include "../src/automated_widgets.hpp"
@@ -50,6 +51,8 @@
 #include "../src/render_window.hpp"
 #include "../src/settings.hpp"
 #include "../src/system.hpp"
+#include "../src/opencl_global.h"
+#include "../src/opencl_hardware.h"
 #include "ui_preferences_dialog.h"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
@@ -89,14 +92,14 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	}
 
 #ifdef USE_OPENCL
-	QList<QPair<int, QString>> devices = GetGPUDevices();
+	QList<QPair<QString, QString>> devices = GetGPUDevices();
 	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
 	for (int i = 0; i < devices.size(); i++)
 	{
-		QPair<int, QString> device = devices.at(i);
+		QPair<QString, QString> device = devices.at(i);
 		QListWidgetItem *item = new QListWidgetItem(device.second);
 		item->setData(1, device.first);
-		bool selected = selectedDevices.contains(QString::number(device.first));
+		bool selected = selectedDevices.contains(device.first);
 		ui->listWidget_gpu_device_list->addItem(item);
 		item->setSelected(selected);
 	}
@@ -130,7 +133,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
 	QList<QListWidgetItem *> selectedDevicesItems = ui->listWidget_gpu_device_list->selectedItems();
-	QList<QPair<int, QString>> devices = GetGPUDevices();
+	QList<QPair<QString, QString>> devices = GetGPUDevices();
 	QStringList activeDevices;
 	for (int i = 0; i < selectedDevicesItems.size(); i++)
 	{
@@ -357,14 +360,23 @@ void cPreferencesDialog::on_pushButton_retrieve_materials_clicked() const
 	}
 }
 
-QList<QPair<int, QString>> cPreferencesDialog::GetGPUDevices()
+QList<QPair<QString, QString>> cPreferencesDialog::GetGPUDevices()
 {
 	// TODO get from opencl
-	QList<QPair<int, QString>> devices;
+	QList<QPair<QString, QString>> devices;
 #ifdef USE_OPENCL
-	devices << QPair<int, QString>(123456, "AMD    - RX4 80");
-	devices << QPair<int, QString>(654321, "nVidia - GTX 640");
-	devices << QPair<int, QString>(424242, "nVidia - GTX 1080 Ti");
+	QList<cOpenClHardware::sPlatformInformation> platforms = gOpenCl->openClHardware->getPlatformsInformation();
+	for(int i = 0; i < platforms.size(); i++)
+	{
+		const cOpenClHardware::sPlatformInformation platform = platforms.at(i);
+		QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+		hashCrypt.addData(platform.name.toLocal8Bit());
+		hashCrypt.addData(platform.profile.toLocal8Bit());
+		hashCrypt.addData(platform.vendor.toLocal8Bit());
+		hashCrypt.addData(platform.version.toLocal8Bit());
+		QByteArray hash = hashCrypt.result();
+		devices << QPair<QString, QString>(hash.toHex(), platform.vendor + " - " + platform.name);
+	}
 #endif // USE_OPENCL
 	return devices;
 }
