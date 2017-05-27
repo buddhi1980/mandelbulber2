@@ -14,6 +14,8 @@
 #include "global_data.hpp"
 #include "nine_fractals.hpp"
 #include "opencl_engine_render_fractal.h"
+
+#include "camera_target.hpp"
 #include "opencl_hardware.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
@@ -178,6 +180,10 @@ void cOpenClEngineRenderFractal::SetParameters(
 	// Would be good to write php script for it
 	sParamRender *paramRender = new sParamRender(paramContainer);
 	cNineFractals *fractals = new cNineFractals(fractalContainer, paramContainer);
+
+	// update camera rotation data (needed for simplified calculation in opencl kernel)
+	cCameraTarget cameraTarget(paramRender->camera, paramRender->target, paramRender->topVector);
+	paramRender->viewAngle = cameraTarget.GetRotation() * 180.0 / M_PI;
 
 	// temporary code to copy general parameters
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
@@ -464,7 +470,7 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 		parts[i].replace(0, 1, parts[i][0].toUpper());
 
 		// rewrite to known capital names in iteration function names
-		if(upperCaseLookup.contains(parts[i]))
+		if (upperCaseLookup.contains(parts[i]))
 		{
 			parts[i] = parts[i].toUpper();
 		}
