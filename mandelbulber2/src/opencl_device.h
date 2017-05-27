@@ -44,7 +44,12 @@
 #endif													// _MSC_VER
 
 #ifdef USE_OPENCL
+#ifdef WIN32
+#include "clew.h"
+#include "clew-cl.hpp"
+#else
 #include <CL/cl.hpp>
+#endif
 #endif // USE_OPENCL
 
 #if defined(_MSC_VER)

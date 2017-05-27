@@ -45,7 +45,12 @@
 #endif													// _MSC_VER
 
 #ifdef USE_OPENCL
+#ifdef WIN32
+#include "clew.h"
+#include "clew-cl.hpp"
+#else
 #include <CL/cl.hpp>
+#endif
 #include "../src/fractal_enums.h"
 #include "../opencl/input_data_structures.h"
 #endif // USE_OPENCL
