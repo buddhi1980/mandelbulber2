@@ -29,7 +29,7 @@ void TransfAddConstantVaryV1Iteration(
 			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
 		int currentIteration = (aux->i - fractal->transformCommon.startIterations250);
 		tempVC +=
-			fractal->transformCommon.offset0 * native_divide((1.0f * currentIteration), iterationRange);
+			fractal->transformCommon.offset000 * native_divide((1.0f * currentIteration), iterationRange);
 	}
 	if (aux->i >= fractal->transformCommon.stopIterations)
 	{
@@ -55,7 +55,7 @@ void TransfAddConstantVaryV1Iteration(
 			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
 		int currentIteration = (aux->i - fractal->transformCommon.startIterations250);
 		tempVC +=
-			fractal->transformCommon.offset0 * native_divide((1.0 * currentIteration), iterationRange);
+			fractal->transformCommon.offset000 * native_divide((1.0 * currentIteration), iterationRange);
 	}
 	if (aux->i >= fractal->transformCommon.stopIterations)
 	{
