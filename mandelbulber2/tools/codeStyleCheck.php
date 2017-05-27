@@ -23,6 +23,7 @@ $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".cpp";
 $filesToCheckSource[] = PROJECT_PATH . "qt/" . WILDCARD . ".c";
 $filesToCheckSource[] = PROJECT_PATH . "opencl/" . WILDCARD . ".cpp";
 $filesToCheckSource[] = PROJECT_PATH . "opencl/" . WILDCARD . ".c";
+$filesToCheckSource[] = PROJECT_PATH . "opencl/engines/" . WILDCARD . ".cl";
 
 $filesToCheckHeader = array();
 $filesToCheckHeader[] = PROJECT_PATH . "src/" . WILDCARD . ".hpp";
