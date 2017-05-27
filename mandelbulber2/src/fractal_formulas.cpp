@@ -8233,11 +8233,10 @@ void TransfSphericalFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sE
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		tempVCf =
-			(tempVCf
-				+ fractal->transformCommon.offset * (aux.i - fractal->transformCommon.startIterationsA)
-						/ (fractal->transformCommon.stopIterationsA
-								- fractal->transformCommon.startIterationsA));
+		int iterationRange = fractal->transformCommon.stopIterationsA
+													- fractal->transformCommon.startIterationsA;
+		int currentIteration = (aux.i - fractal->transformCommon.startIterationsA);
+		tempVCf += fractal->transformCommon.offset * (1.0 * currentIteration) / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterationsA)
 	{
@@ -8246,11 +8245,11 @@ void TransfSphericalFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sE
 	if (aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
-		tempVCm =
-			(tempVCm
-				+ fractal->transformCommon.offset0 * (aux.i - fractal->transformCommon.startIterationsB)
-						/ (fractal->transformCommon.stopIterationsB
-								- fractal->transformCommon.startIterationsB));
+
+		int iterationRange = fractal->transformCommon.stopIterationsB
+													- fractal->transformCommon.startIterationsB;
+		int currentIteration = (aux.i - fractal->transformCommon.startIterationsB);
+		tempVCm += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterationsB)
 	{
