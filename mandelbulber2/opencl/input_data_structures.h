@@ -38,8 +38,8 @@
 #include "../opencl/fractal_sequence_cl.h"
 #endif
 
-#ifndef MANDELBULBER_OPENCL_DATA
-#define MANDELBULBER_OPENCL_DATA
+#ifndef INPUT_DATA_STRUCTURES
+#define INPUT_DATA_STRUCTURES
 
 typedef struct
 {
@@ -76,4 +76,4 @@ typedef struct
 	cl_float normalCalculationMode;
 } sClCalcParams;
 
-#endif // MANDELBULBER_OPENCL_DATA
+#endif // INPUT_DATA_STRUCTURES

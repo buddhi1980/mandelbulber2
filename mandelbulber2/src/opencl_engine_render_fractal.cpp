@@ -118,14 +118,14 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		progEngine.append("#define Q_UNUSED(x) (void)x;\n");
 
 		QStringList clHeaderFiles;
-		clHeaderFiles.append("opencl_typedefs.h");			// definitions of common opencl types
-		clHeaderFiles.append("opencl_algebra.h");				// algebra for kernels
-		clHeaderFiles.append("common_params_cl.hpp");		// common parameters
-		clHeaderFiles.append("image_adjustments_cl.h"); // image adjustments
-		clHeaderFiles.append("fractal_cl.h");						// fractal data structures
-		clHeaderFiles.append("fractparams_cl.hpp");			// rendering data structures
-		clHeaderFiles.append("fractal_sequence_cl.h");	// sequence of fractal formulas
-		clHeaderFiles.append("mandelbulber_cl_data.h"); // main data structures
+		clHeaderFiles.append("opencl_typedefs.h");			 // definitions of common opencl types
+		clHeaderFiles.append("opencl_algebra.h");				 // algebra for kernels
+		clHeaderFiles.append("common_params_cl.hpp");		 // common parameters
+		clHeaderFiles.append("image_adjustments_cl.h");	// image adjustments
+		clHeaderFiles.append("fractal_cl.h");						 // fractal data structures
+		clHeaderFiles.append("fractparams_cl.hpp");			 // rendering data structures
+		clHeaderFiles.append("fractal_sequence_cl.h");	 // sequence of fractal formulas
+		clHeaderFiles.append("input_data_structures.h"); // main data structures
 
 		for (int i = 0; i < clHeaderFiles.size(); i++)
 		{

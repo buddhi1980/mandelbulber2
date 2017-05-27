@@ -47,7 +47,7 @@
 #ifdef USE_OPENCL
 #include <CL/cl.hpp>
 #include "../src/fractal_enums.h"
-#include "../opencl/mandelbulber_cl_data.h"
+#include "../opencl/input_data_structures.h"
 #endif // USE_OPENCL
 
 #if defined(_MSC_VER)
