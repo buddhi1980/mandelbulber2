@@ -20,7 +20,6 @@ void BenesiPineTreeIteration(float4 *z, __constant sFractalCl *fractal, sExtende
 	float4 c = aux->const_c;
 
 	float4 temp = *z;
-	aux->r = length(*z);
 	*z *= *z;
 	float t = 2.0f * temp.x;
 	if (z->y + z->z > 0.0f)
@@ -39,7 +38,6 @@ void BenesiPineTreeIteration(double4 *z, __constant sFractalCl *fractal, sExtend
 	double4 c = aux->const_c;
 
 	double4 temp = *z;
-	aux->r = length(*z);
 	*z *= *z;
 	double t = 2.0 * temp.x;
 	if (z->y + z->z > 0.0)

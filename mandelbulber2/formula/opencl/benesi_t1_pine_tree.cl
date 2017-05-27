@@ -32,7 +32,6 @@ void BenesiT1PineTreeIteration(float4 *z, __constant sFractalCl *fractal, sExten
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		float avgScale = native_divide(length(*z), tempL);
 		aux->r_dz *= avgScale;
-		aux->DE = mad(aux->DE, avgScale, 1.0f);
 
 		if (fractal->transformCommon.rotationEnabled)
 		{
@@ -111,7 +110,6 @@ void BenesiT1PineTreeIteration(double4 *z, __constant sFractalCl *fractal, sExte
 		// if (tempL < 1e-21) tempL = 1e-21;
 		double avgScale = native_divide(length(*z), tempL);
 		aux->r_dz *= avgScale;
-		aux->DE = aux->DE * avgScale + 1.0;
 
 		if (fractal->transformCommon.rotationEnabled)
 		{

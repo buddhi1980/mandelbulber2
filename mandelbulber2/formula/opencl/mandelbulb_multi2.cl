@@ -15,7 +15,6 @@
 void MandelbulbMulti2Iteration(float4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	float4 c = aux->const_c;
-	aux->r = length(*z);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse
@@ -149,7 +148,6 @@ void MandelbulbMulti2Iteration(float4 *z, __constant sFractalCl *fractal, sExten
 void MandelbulbMulti2Iteration(double4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	double4 c = aux->const_c;
-	aux->r = length(*z);
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse

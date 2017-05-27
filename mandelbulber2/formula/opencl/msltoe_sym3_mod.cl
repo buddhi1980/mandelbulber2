@@ -16,7 +16,6 @@
 void MsltoeSym3ModIteration(float4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	float4 c = aux->const_c;
-	aux->r = length(*z);
 	aux->r_dz = aux->r_dz * 2.0f * aux->r;
 	float4 temp = *z;
 	if (fabs(z->y) < fabs(z->z)) // then swap
@@ -64,11 +63,11 @@ void MsltoeSym3ModIteration(float4 *z, __constant sFractalCl *fractal, sExtended
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		aux->r_dz = aux->r_dz * 2.0f * length(*z);
 		*z = (float4){z->x * z->x - z->y * z->y - z->z * z->z, z->x * z->y, z->x * z->z, z->w};
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			aux->r = length(*z);
+			aux->r_dz = aux->r_dz * 2.0f * aux->r;
 			float4 temp2 = *z;
 			float tempL = length(temp2);
 			*z *= (float4){1.0f, 2.0f, 2.0f, 1.0f};
@@ -88,7 +87,6 @@ void MsltoeSym3ModIteration(float4 *z, __constant sFractalCl *fractal, sExtended
 void MsltoeSym3ModIteration(double4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	double4 c = aux->const_c;
-	aux->r = length(*z);
 	aux->r_dz = aux->r_dz * 2.0 * aux->r;
 	double4 temp = *z;
 	if (fabs(z->y) < fabs(z->z)) // then swap
@@ -136,11 +134,11 @@ void MsltoeSym3ModIteration(double4 *z, __constant sFractalCl *fractal, sExtende
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		aux->r_dz = aux->r_dz * 2.0 * length(*z);
 		*z = (double4){z->x * z->x - z->y * z->y - z->z * z->z, z->x * z->y, z->x * z->z, z->w};
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			aux->r = length(*z);
+			aux->r_dz = aux->r_dz * 2.0 * aux->r;
 			double4 temp2 = *z;
 			double tempL = length(temp2);
 			*z *= (double4){1.0, 2.0, 2.0, 1.0};

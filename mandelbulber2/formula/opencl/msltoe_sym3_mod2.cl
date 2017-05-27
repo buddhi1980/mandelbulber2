@@ -64,7 +64,6 @@ void MsltoeSym3Mod2Iteration(float4 *z, __constant sFractalCl *fractal, sExtende
 	//	lengthTempZ = -1e-21f;   //  *z is neg.)
 	*z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
 	*z *= fractal->transformCommon.scale1;
-	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale1), 1.0f);
 	aux->r_dz *= fabs(fractal->transformCommon.scale1);
 }
 #else
@@ -118,7 +117,6 @@ void MsltoeSym3Mod2Iteration(double4 *z, __constant sFractalCl *fractal, sExtend
 	//	lengthTempZ = -1e-21;   //  *z is neg.)
 	*z *= 1.0 + native_divide(fractal->transformCommon.offset, lengthTempZ);
 	*z *= fractal->transformCommon.scale1;
-	aux->DE = aux->DE * fabs(fractal->transformCommon.scale1) + 1.0;
 	aux->r_dz *= fabs(fractal->transformCommon.scale1);
 }
 #endif

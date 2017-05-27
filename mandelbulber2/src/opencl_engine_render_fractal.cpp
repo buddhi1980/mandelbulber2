@@ -465,6 +465,7 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 		// rewrite to known capital names in iteration function names
 		if (parts[i] == "Vs") parts[i] = "VS";
 		if (parts[i] == "Kifs") parts[i] = "KIFS";
+		if (parts[i] == "De") parts[i] = "DE";
 	}
 
 	return parts.join("");

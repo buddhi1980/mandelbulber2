@@ -115,16 +115,22 @@ void MandelbulbQuatIteration(float4 *z, __constant sFractalCl *fractal, sExtende
 		// if (lengthTempZ > -1e-21f)
 		//	lengthTempZ = -1e-21f;   //  *z is neg.)
 		*z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
+
 		// scale
 		*z *= fractal->transformCommon.scale1;
 		aux->r_dz *= fabs(fractal->transformCommon.scale1);
 	}
-
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+	{
+		*z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, *z);
+	}
 	// mandelbulb multi
 	if (aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-
 		aux->r = length(*z);
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
@@ -211,14 +217,6 @@ void MandelbulbQuatIteration(float4 *z, __constant sFractalCl *fractal, sExtende
 		}
 	}
 	*z += fractal->transformCommon.additionConstant000;
-
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux->i >= fractal->transformCommon.startIterationsR
-			&& aux->i < fractal->transformCommon.stopIterationsR)
-	{
-		*z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, *z);
-	}
 }
 #else
 void MandelbulbQuatIteration(double4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
@@ -323,16 +321,22 @@ void MandelbulbQuatIteration(double4 *z, __constant sFractalCl *fractal, sExtend
 		// if (lengthTempZ > -1e-21)
 		//	lengthTempZ = -1e-21;   //  *z is neg.)
 		*z *= 1.0 + native_divide(fractal->transformCommon.offset, lengthTempZ);
+
 		// scale
 		*z *= fractal->transformCommon.scale1;
 		aux->r_dz *= fabs(fractal->transformCommon.scale1);
 	}
-
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+	{
+		*z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, *z);
+	}
 	// mandelbulb multi
 	if (aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-
 		aux->r = length(*z);
 		if (fractal->transformCommon.functionEnabledFalse)
 		{
@@ -419,13 +423,5 @@ void MandelbulbQuatIteration(double4 *z, __constant sFractalCl *fractal, sExtend
 		}
 	}
 	*z += fractal->transformCommon.additionConstant000;
-
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux->i >= fractal->transformCommon.startIterationsR
-			&& aux->i < fractal->transformCommon.stopIterationsR)
-	{
-		*z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, *z);
-	}
 }
 #endif
