@@ -457,7 +457,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
-	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xyz", "Cxyz"});
+	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xyz", "Cxyz", "Vcl"});
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
 	for (int i = 1; i < parts.size(); ++i)
 	{
