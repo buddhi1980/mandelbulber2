@@ -92,7 +92,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	}
 
 #ifdef USE_OPENCL
-	QList<QPair<QString, QString>> devices = GetGPUDevices();
+	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
 	for (int i = 0; i < devices.size(); i++)
 	{
@@ -133,7 +133,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
 	QList<QListWidgetItem *> selectedDevicesItems = ui->listWidget_gpu_device_list->selectedItems();
-	QList<QPair<QString, QString>> devices = GetGPUDevices();
+	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList activeDevices;
 	for (int i = 0; i < selectedDevicesItems.size(); i++)
 	{
@@ -360,22 +360,21 @@ void cPreferencesDialog::on_pushButton_retrieve_materials_clicked() const
 	}
 }
 
-QList<QPair<QString, QString>> cPreferencesDialog::GetGPUDevices()
+QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 {
 	// TODO get from opencl
 	QList<QPair<QString, QString>> devices;
 #ifdef USE_OPENCL
-	QList<cOpenClHardware::sPlatformInformation> platforms = gOpenCl->openClHardware->getPlatformsInformation();
-	for(int i = 0; i < platforms.size(); i++)
+	QList<cOpenClDevice::sDeviceInformation> openclDevs = gOpenCl->openClHardware->getDevicesInformation();
+	for(int i = 0; i < openclDevs.size(); i++)
 	{
-		const cOpenClHardware::sPlatformInformation platform = platforms.at(i);
+		const cOpenClDevice::sDeviceInformation openclDev = openclDevs.at(i);
 		QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-		hashCrypt.addData(platform.name.toLocal8Bit());
-		hashCrypt.addData(platform.profile.toLocal8Bit());
-		hashCrypt.addData(platform.vendor.toLocal8Bit());
-		hashCrypt.addData(platform.version.toLocal8Bit());
+
+		hashCrypt.addData(openclDev.deviceName.toLocal8Bit());
+		hashCrypt.addData(openclDev.deviceVersion.toLocal8Bit());
 		QByteArray hash = hashCrypt.result();
-		devices << QPair<QString, QString>(hash.toHex(), platform.vendor + " - " + platform.name);
+		devices << QPair<QString, QString>(hash.toHex(), openclDev.deviceName);
 	}
 #endif // USE_OPENCL
 	return devices;

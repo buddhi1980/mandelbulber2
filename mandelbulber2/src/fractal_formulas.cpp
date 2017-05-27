@@ -1294,7 +1294,8 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	if (fractal->transformCommon.juliaMode)
 	{
-		z += fractal->transformCommon.juliaC - c * fractal->transformCommon.constantMultiplier111;
+		z += fractal->transformCommon.juliaC
+				 - c * fractal->transformCommon.constantMultiplier111;
 	}
 	else
 	{
@@ -2089,7 +2090,7 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 	if (fractal->transformCommon.addCpixelEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-	{											// Benesi original pwr2
+	{ // Benesi original pwr2
 		aux.r = z.Length(); // needed when alternating pwr2s
 		aux.r_dz = aux.r_dz * 2.0 * aux.r;
 		double r1 = z.y * z.y + z.z * z.z;
@@ -2186,7 +2187,7 @@ void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	z = fractal->transformCommon.constantMultiplierB111 + fractal->transformCommon.scale4 * z
 			- (fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.scale2 * z)
 					* z.RotateAroundVectorByAngle(fractal->transformCommon.constantMultiplier111.GetXYZ(),
-							M_PI * fractal->transformCommon.scale1); // * cPI ;
+								M_PI * fractal->transformCommon.scale1); // * cPI ;
 
 	z *= fractal->transformCommon.scale025;
 
@@ -3081,7 +3082,7 @@ void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		th0 += acos(v.x / aux.r);
 
 	if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtan_atan2)
-		ph0 += atan2(v.y, v.z);
+		ph0 += atan2(v.y , v.z);
 	else
 		ph0 += atan(v.y / v.z);
 
@@ -3269,7 +3270,7 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-	// mandelbulb multi
+	//mandelbulb multi
 	if (aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
@@ -3311,7 +3312,7 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			th0 += acos(v.x / aux.r);
 
 		if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtan_atan2)
-			ph0 += atan2(v.y, v.z);
+			ph0 += atan2(v.y , v.z);
 		else
 			ph0 += atan(v.y / v.z);
 
@@ -3363,8 +3364,8 @@ void MandelbulbVaryPowerV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		int iterationRange =
-			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
 		tempVC += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
 	}
@@ -6141,34 +6142,34 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 
 	switch (fractal->genFoldBox.type)
 	{
-		case generalizedFoldBoxType_foldCube:
-			Nv = fractal->genFoldBox.Nv_cube;
-			sides = fractal->genFoldBox.sides_cube;
-			break;
-		case generalizedFoldBoxType_foldOct:
-			Nv = fractal->genFoldBox.Nv_oct;
-			sides = fractal->genFoldBox.sides_oct;
-			break;
-		case generalizedFoldBoxType_foldDodeca:
-			Nv = fractal->genFoldBox.Nv_dodeca;
-			sides = fractal->genFoldBox.sides_dodeca;
-			break;
-		case generalizedFoldBoxType_foldOctCube:
-			Nv = fractal->genFoldBox.Nv_oct_cube;
-			sides = fractal->genFoldBox.sides_oct_cube;
-			break;
-		case generalizedFoldBoxType_foldIcosa:
-			Nv = fractal->genFoldBox.Nv_icosa;
-			sides = fractal->genFoldBox.sides_icosa;
-			break;
-		case generalizedFoldBoxType_foldBox6:
-			Nv = fractal->genFoldBox.Nv_box6;
-			sides = fractal->genFoldBox.sides_box6;
-			break;
-		case generalizedFoldBoxType_foldBox5:
-			Nv = fractal->genFoldBox.Nv_box5;
-			sides = fractal->genFoldBox.sides_box5;
-			break;
+	case generalizedFoldBoxType_foldCube:
+		Nv = fractal->genFoldBox.Nv_cube;
+		sides = fractal->genFoldBox.sides_cube;
+		break;
+	case generalizedFoldBoxType_foldOct:
+		Nv = fractal->genFoldBox.Nv_oct;
+		sides = fractal->genFoldBox.sides_oct;
+		break;
+	case generalizedFoldBoxType_foldDodeca:
+		Nv = fractal->genFoldBox.Nv_dodeca;
+		sides = fractal->genFoldBox.sides_dodeca;
+		break;
+	case generalizedFoldBoxType_foldOctCube:
+		Nv = fractal->genFoldBox.Nv_oct_cube;
+		sides = fractal->genFoldBox.sides_oct_cube;
+		break;
+	case generalizedFoldBoxType_foldIcosa:
+		Nv = fractal->genFoldBox.Nv_icosa;
+		sides = fractal->genFoldBox.sides_icosa;
+		break;
+	case generalizedFoldBoxType_foldBox6:
+		Nv = fractal->genFoldBox.Nv_box6;
+		sides = fractal->genFoldBox.sides_box6;
+		break;
+	case generalizedFoldBoxType_foldBox5:
+		Nv = fractal->genFoldBox.Nv_box5;
+		sides = fractal->genFoldBox.sides_box5;
+		break;
 	}
 
 	double melt = fractal->mandelbox.melt;
@@ -6456,8 +6457,8 @@ void TransfAddConstantVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExt
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		int iterationRange =
-			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
 		tempVC += fractal->transformCommon.offset000 * (1.0 * currentIteration) / iterationRange;
 	}
@@ -6573,8 +6574,8 @@ void TransfAddCpixelVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 					 != 0))
 	{
 
-		int iterationRange =
-			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
 		tempVC += fractal->transformCommon.offset000 * (1.0 * currentIteration) / iterationRange;
 	}
@@ -7015,8 +7016,8 @@ void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtende
 					 != 0))
 	{
 
-		int iterationRange =
-			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
 		tempVC += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
 	}
@@ -7877,8 +7878,8 @@ void TransfRotationVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		int iterationRange =
-			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
 		tempVC += fractal->transformCommon.offset000 * (1.0 * currentIteration) / iterationRange;
 	}
@@ -8010,8 +8011,8 @@ void TransfScaleVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-		int iterationRange =
-			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
+		int iterationRange = fractal->transformCommon.stopIterations
+													- fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
 		tempVC += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
 	}
@@ -8232,8 +8233,8 @@ void TransfSphericalFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sE
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		int iterationRange =
-			fractal->transformCommon.stopIterationsA - fractal->transformCommon.startIterationsA;
+		int iterationRange = fractal->transformCommon.stopIterationsA
+													- fractal->transformCommon.startIterationsA;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterationsA);
 		tempVCf += fractal->transformCommon.offset * (1.0 * currentIteration) / iterationRange;
 	}
@@ -8245,8 +8246,8 @@ void TransfSphericalFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sE
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 
-		int iterationRange =
-			fractal->transformCommon.stopIterationsB - fractal->transformCommon.startIterationsB;
+		int iterationRange = fractal->transformCommon.stopIterationsB
+													- fractal->transformCommon.startIterationsB;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterationsB);
 		tempVCm += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
 	}

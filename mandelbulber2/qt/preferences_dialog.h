@@ -70,7 +70,7 @@ private:
 	Ui::cPreferencesDialog *ui;
 	cAutomatedWidgets *automatedWidgets;
 	bool initFinished;
-	QList<QPair<QString, QString>> GetGPUDevices();
+	QList<QPair<QString, QString>> GetOpenCLDevices();
 };
 
 #endif /* MANDELBULBER2_QT_PREFERENCES_DIALOG_H_ */
