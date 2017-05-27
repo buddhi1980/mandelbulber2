@@ -466,6 +466,7 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 		if (parts[i] == "Vs") parts[i] = "VS";
 		if (parts[i] == "Kifs") parts[i] = "KIFS";
 		if (parts[i] == "De") parts[i] = "DE";
+		if (parts[i] == "Xyz") parts[i] = "XYZ";
 	}
 
 	return parts.join("");
