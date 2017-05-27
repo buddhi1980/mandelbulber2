@@ -43,8 +43,8 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 
 #ifdef _WIN32
 	const std::wstring opencldll(L"OpenCL.dll");
-	err = clewInit(opencldll.c_str());
-	std::cout << clewErrorString(err) << std::endl;
+	int err = clewInit(opencldll.c_str());
+	qCritical() << clewErrorString(err);
 #endif
 
 #ifdef USE_OPENCL
