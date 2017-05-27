@@ -60,7 +60,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	{
 		int formulaIndex = consts->sequence.hybridSequence[i];
 		__constant sFractalCl *fractal = &consts->fractal[formulaIndex];
+
 		aux.i = i;
+		float4 lastZ = z;
 
 		switch (formulaIndex)
 		{
@@ -88,30 +90,45 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			}
 		}
 
-//calculate r
-#ifdef PSEUDO_KLEINIAN
+// calculate r
+#ifdef ANALYTIC_PSEUDO_KLEINIAN_DE
 		aux.r = length(z.xy);
 #else
 		aux.r = length(z);
 #endif
-		
+
 		if (aux.r < colourMin) colourMin = aux.r;
 
-		if (aux.r > consts->sequence.bailout[formulaIndex] || any(isinf(z)))
+		if (consts->sequence.checkForBailout[formulaIndex])
 		{
-#ifdef ANALYTIC_LOG_DE
-			dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);
-#elif ANALYTIC_LINEAR_DE
-			dist = (aux.r - 2.0f) / fabs(aux.DE);
-#elif ANALYTIC_PSEUDO_KLEINIAN_DE
+			if (aux.r > consts->sequence.bailout[formulaIndex])
+			{
+				break;
+			}
 
-#else
-			dist = length(z);
-#endif
-			out.colourIndex = colourMin * 5000.0f;
-			break;
+			if (consts->sequence.useAdditionalBailoutCond[formulaIndex])
+			{
+				if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[formulaIndex])
+				{
+					break;
+				}
+			}
 		}
 	}
+
+// calculate estimated distance
+
+#ifdef ANALYTIC_LOG_DE
+	dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);
+#elif ANALYTIC_LINEAR_DE
+	dist = (aux.r - 2.0f) / fabs(aux.DE);
+#elif ANALYTIC_PSEUDO_KLEINIAN_DE
+	dist = max(aux.r - aux.pseudoKleinianDE, fabs(aux.r * z.z) / aux.r) / (aux.DE);
+#else
+	dist = length(z);
+#endif
+
+	out.colourIndex = colourMin * 5000.0f;
 
 	// end
 	if (dist < 0.0f) dist = 0.0f;
