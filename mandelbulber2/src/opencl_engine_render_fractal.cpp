@@ -386,9 +386,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 			// writing data to queue
 			err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
-			size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
 
-			// qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
+			size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
+			qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
 
 			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)")) return false;
 

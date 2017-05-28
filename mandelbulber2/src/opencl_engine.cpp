@@ -138,35 +138,24 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 {
 	size_t width = params->Get<int>("image_width");
 	size_t height = params->Get<int>("image_height");
+	size_t memoryLimitByUser = params->Get<int>("gpu_memory_limit") * 1024 * 1024;
+	size_t pixelCnt = width * height;
+	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDeviceInformation();
 
-	optimalJob.pixelsPerJob =
-		optimalJob.workGroupSize * hardware->getSelectedDeviceInformation().maxComputeUnits;
-	optimalJob.numberOfSteps = height * width / optimalJob.pixelsPerJob + 1;
-	optimalJob.stepSize = (width * height / optimalJob.numberOfSteps / optimalJob.pixelsPerJob + 1)
+	optimalJob.pixelsPerJob =	optimalJob.workGroupSize * deviceInfo.maxComputeUnits;
+	optimalJob.numberOfSteps = pixelCnt / optimalJob.pixelsPerJob + 1;
+	optimalJob.stepSize = (pixelCnt / optimalJob.numberOfSteps / optimalJob.pixelsPerJob + 1)
 												* optimalJob.pixelsPerJob;
-
 	optimalJob.workGroupSizeMultiplier = 1;
 	optimalJob.lastProcessingTime = 1.0;
 
-	size_t maxAllocMemSize = hardware->getSelectedDeviceInformation().maxMemAllocSize;
-
-	size_t memoryLimitByUser = 512 * 1024 * 1024;
-
-	if (maxAllocMemSize > 0)
+	size_t maxAllocMemSize = deviceInfo.maxMemAllocSize;
+	size_t memSize = memoryLimitByUser;
+	if (maxAllocMemSize > 0 && maxAllocMemSize * 0.75 < memoryLimitByUser)
 	{
-		if (maxAllocMemSize * 0.75 < memoryLimitByUser) // 512MB TODO parameter for max mem
-		{
-			optimalJob.jobSizeLimit = maxAllocMemSize / optimalJob.sizeOfPixel * 0.75;
-		}
-		else
-		{
-			optimalJob.jobSizeLimit = memoryLimitByUser / optimalJob.sizeOfPixel;
-		}
+		memSize = maxAllocMemSize * 0.75;
 	}
-	else
-	{
-		optimalJob.jobSizeLimit = memoryLimitByUser / optimalJob.sizeOfPixel;
-	}
+	optimalJob.jobSizeLimit = memSize / optimalJob.sizeOfPixel;
 
 	qDebug() << "pixelsPerJob:" << optimalJob.pixelsPerJob;
 	qDebug() << "numberOfSteps:" << optimalJob.numberOfSteps;
