@@ -40,17 +40,15 @@ cOpenClDevice::cOpenClDevice()
 }
 
 #ifdef USE_OPENCL
-
 cOpenClDevice::cOpenClDevice(cl::Device device, sDeviceInformation info)
 {
 	deviceIndex = 0;
 	clDevice = device;
 	deviceInformation = info;
 }
-
 #endif
 
 cOpenClDevice::~cOpenClDevice()
 {
-	// TODO
+	// nothing needed here
 }

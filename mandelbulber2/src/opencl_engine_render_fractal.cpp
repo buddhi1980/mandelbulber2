@@ -204,8 +204,6 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	definesCollector.clear();
 
-	// TODO Write function to copy parameters from sParamRender to sClParamRender
-	// Would be good to write php script for it
 	sParamRender *paramRender = new sParamRender(paramContainer);
 	cNineFractals *fractals = new cNineFractals(fractalContainer, paramContainer);
 

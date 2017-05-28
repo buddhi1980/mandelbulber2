@@ -38,15 +38,6 @@
 #ifndef MANDELBULBER2_SRC_LZO_COMPRESSION_H_
 #define MANDELBULBER2_SRC_LZO_COMPRESSION_H_
 
-#define HAVE_LIBLZO2
-// TODO:
-// - add -llzo2 as a compiler flag to all build chains (qmake, cmake, msvc) --> -llzo2
-// - add lib as dll to windows
-// lib dependency lzo and lzo-devel under fedora
-// - do a couple of tests for different netrender use cases
-
-#ifdef HAVE_LIBLZO2
-
 #include <QByteArray>
 #include <QElapsedTimer>
 #include <lzo/lzoconf.h>
@@ -120,6 +111,5 @@ QByteArray lzoUncompress(QByteArray data)
 	free(tmp);
 	return arr;
 }
-#endif /* HAVE_LIBLZO2 */
 
 #endif /* MANDELBULBER2_SRC_LZO_COMPRESSION_H_ */
