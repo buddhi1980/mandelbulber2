@@ -919,7 +919,7 @@ and will only be present after enabling and re-render.</string>
            <item>
             <widget class="MyGroupBox" name="groupCheck_gpu_enabled">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TODO: add explanation for GPU.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering. For more information about setup and workflow see the handbook under Menu &amp;gt; Help &amp;gt; Handbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
               <string>GPU ena&amp;ble</string>
