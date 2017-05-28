@@ -321,11 +321,9 @@
     <Exec Command="xcopy /Y /Q /I &quot;$(QtDir)\plugins\mediaservice&quot; &quot;$(OutDir)mediaservice&quot;" />
     <Exec Command="del /F /Q &quot;$(OutDir)language&quot;" />
     <Exec Command="del /F /Q &quot;$(OutDir)formula&quot;" />
-    <Exec Command="del /F /Q &quot;$(OutDir)data&quot;" />
     <Exec Command="del /F /Q &quot;$(OutDir)opencl&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(SourceDir)\mandelbulber2\language&quot; &quot;$(OutDir)language&quot;" />
     <Exec Command="xcopy /Y /Q /I /S &quot;$(SourceDir)\mandelbulber2\formula&quot; &quot;$(OutDir)formula&quot;" />
-    <Exec Command="xcopy /Y /Q /I &quot;$(SourceDir)\mandelbulber2\data&quot; &quot;$(OutDir)data&quot;" />
     <Exec Command="xcopy /Y /Q /I /S &quot;$(SourceDir)\mandelbulber2\opencl&quot; &quot;$(OutDir)opencl&quot;" />
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\deploy\README-win32.txt&quot; &quot;$(OutDir)README.txt&quot;" />
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\deploy\NEWS&quot; &quot;$(OutDir)NEWS.txt&quot;" />
