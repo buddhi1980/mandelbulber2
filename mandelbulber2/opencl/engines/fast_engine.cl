@@ -63,7 +63,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	float2 screenPoint = (float2){convert_float(imageX), convert_float(imageY)};
 	float width = convert_float(consts->params.imageWidth);
 	float height = convert_float(consts->params.imageHeight);
-	float resolution = 1.0f / width;
+	float resolution = 1.0f / height;
 
 	// axiliary vectors
 	const float3 one = (float3){1.0f, 0.0f, 0.0f};

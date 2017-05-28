@@ -120,6 +120,7 @@ protected:
 	bool openClAvailable;
 	bool contextReady;
 	int selectedDeviceIndex;
+	bool missingOpenClDLL;
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_HARDWARE_H_ */

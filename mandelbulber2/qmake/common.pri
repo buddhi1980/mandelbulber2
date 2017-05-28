@@ -38,7 +38,7 @@ win32|packagesExist(sndfile) {
 
 opencl {
 	DEFINES += USE_OPENCL
-	LIBS += -lOpenCL
+	!win32:LIBS += -lOpenCL
 	message("Use OpenCL library")
 }
 

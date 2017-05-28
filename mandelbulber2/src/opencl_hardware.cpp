@@ -40,12 +40,17 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 	openClAvailable = false;
 	contextReady = false;
 	selectedDeviceIndex = 0;
+	missingOpenClDLL = false;
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
 	const std::wstring opencldll(L"OpenCL.dll");
 	int err = clewInit(opencldll.c_str());
-	qCritical() << clewErrorString(err);
+	if (err)
+	{
+		qCritical() << clewErrorString(err);
+		missingOpenClDLL = true;
+	}
 #endif
 
 	context = nullptr;
@@ -65,40 +70,43 @@ void cOpenClHardware::ListOpenClPlatforms()
 	clPlatforms.clear();
 	platformsInformation.clear();
 
-	cl::Platform::get(&clPlatforms);
-	if (checkErr(clPlatforms.size() != 0 ? CL_SUCCESS : -1, "cl::Platform::get"))
+	if(!missingOpenClDLL)
 	{
-		openClAvailable = true;
-
-		std::string platformName;
-		std::string platformVendor;
-		std::string platformVersion;
-		std::string platformProfile;
-
-		for (unsigned int i = 0; i < clPlatforms.size(); i++)
+		cl::Platform::get(&clPlatforms);
+		if (checkErr(clPlatforms.size() != 0 ? CL_SUCCESS : -1, "cl::Platform::get"))
 		{
-			clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_NAME, &platformName);
-			clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_VENDOR, &platformVendor);
-			clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_VERSION, &platformVersion);
-			clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_PROFILE, &platformProfile);
+			openClAvailable = true;
 
-			sPlatformInformation platformInformation;
-			platformInformation.name = platformName.c_str();
-			platformInformation.vendor = platformVendor.c_str();
-			platformInformation.version = platformVersion.c_str();
-			platformInformation.profile = platformProfile.c_str();
+			std::string platformName;
+			std::string platformVendor;
+			std::string platformVersion;
+			std::string platformProfile;
 
-			qDebug() << "platform #" << i << ": " << platformInformation.name
-							 << platformInformation.vendor << platformInformation.version
-							 << platformInformation.profile;
+			for (unsigned int i = 0; i < clPlatforms.size(); i++)
+			{
+				clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_NAME, &platformName);
+				clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_VENDOR, &platformVendor);
+				clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_VERSION, &platformVersion);
+				clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_PROFILE, &platformProfile);
 
-			platformsInformation.append(platformInformation);
+				sPlatformInformation platformInformation;
+				platformInformation.name = platformName.c_str();
+				platformInformation.vendor = platformVendor.c_str();
+				platformInformation.version = platformVersion.c_str();
+				platformInformation.profile = platformProfile.c_str();
+
+				qDebug() << "platform #" << i << ": " << platformInformation.name
+								 << platformInformation.vendor << platformInformation.version
+								 << platformInformation.profile;
+
+				platformsInformation.append(platformInformation);
+			}
 		}
-	}
-	else
-	{
-		openClAvailable = false;
-		qCritical() << "There are no valid OpenCl platforms in the system";
+		else
+		{
+			openClAvailable = false;
+			qCritical() << "There are no valid OpenCl platforms in the system";
+		}
 	}
 }
 
