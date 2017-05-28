@@ -489,8 +489,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("gpu_device_list", QString(""), morphNone, paramApp);
 	par->addParam("gpu_mode", 0, morphNone, paramApp);
 	par->addParam("gpu_precision", 0, morphNone, paramApp);
-	par->addParam("gpu_memory_limit", 256, 1, 10000, morphNone, paramApp);
-	par->addParam("gpu_cycle_time", 1.0, 0.02, 60.0, morphNone, paramApp);
+	par->addParam("gpu_memory_limit", 512, 1, 10000, morphNone, paramApp);
 
 	WriteLog("Parameters initialization finished", 3);
 }
