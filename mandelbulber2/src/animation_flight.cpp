@@ -348,20 +348,6 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	mainInterface->progressBarAnimation->show();
 
-#ifdef USE_OPENCL
-	if (params->Get<bool>("gpu_enabled"))
-	{
-		// init opencl
-		gOpenCl->openClEngineRenderFractal->Lock();
-		gOpenCl->openClEngineRenderFractal->SetParameters(params, fractalParams);
-		gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(params);
-		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(params);
-		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(params);
-		gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-		gOpenCl->openClEngineRenderFractal->Unlock();
-	}
-#endif
-
 	while (!mainInterface->stopRequest)
 	{
 		emit updateProgressAndStatus(QObject::tr("Recording flight animation"),
@@ -486,26 +472,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 		mainInterface->renderedImage->SetFlightData(flightData);
 
-		// TODO:
-		// Standardize OpenCL init and render within renderJob
-		// This opencl bypasses the traditional call to renderJob->Execute
 		// render frame
-		bool result;
-#ifdef USE_OPENCL
-		if (params->Get<bool>("gpu_enabled"))
-		{
-			gOpenCl->openClEngineRenderFractal->Lock();
-			gOpenCl->openClEngineRenderFractal->SetParameters(params, fractalParams);
-			result = gOpenCl->openClEngineRenderFractal->Render(image);
-			gOpenCl->openClEngineRenderFractal->Unlock();
-		}
-		else
-		{
-			result = renderJob->Execute();
-		}
-#else
-		result = renderJob->Execute();
-#endif
+		bool result = renderJob->Execute();
 		if (!result) break;
 
 		// create thumbnail
