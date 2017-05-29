@@ -45,11 +45,14 @@
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
+#ifndef _MSC_VER
+ // clew for cross compile
 #include "clew.h"
 #include "clew-cl.hpp"
-#else
+#endif // NOT _MSC_VER
+#endif // _WIN32
+ // OpenCL SDK for all others
 #include <CL/cl.hpp>
-#endif
 #endif // USE_OPENCL
 
 #if defined(_MSC_VER)

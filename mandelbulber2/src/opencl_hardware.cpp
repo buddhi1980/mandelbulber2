@@ -44,6 +44,7 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
+#ifndef _MSC_VER
 	const std::wstring opencldll(L"OpenCL.dll");
 	int err = clewInit(opencldll.c_str());
 	if (err)
@@ -51,6 +52,7 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 		qCritical() << clewErrorString(err);
 		missingOpenClDLL = true;
 	}
+#endif  //   _MSC_VER
 #endif
 
 	context = nullptr;

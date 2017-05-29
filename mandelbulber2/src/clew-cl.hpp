@@ -140,6 +140,8 @@
 #ifndef CL_HPP_
 #define CL_HPP_
 
+#ifndef _MSC_VER
+
 #ifdef _WIN32
 #include <windows.h>
 #include <malloc.h>
@@ -4010,4 +4012,5 @@ Event KernelFunctor::operator()(
 
 } // namespace cl
 
+#endif // _MSC_VER
 #endif // CL_HPP_

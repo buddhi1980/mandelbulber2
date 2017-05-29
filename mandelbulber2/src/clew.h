@@ -1,6 +1,8 @@
 #ifndef CLEW_HPP_INCLUDED
 #define CLEW_HPP_INCLUDED
 
+#ifndef _MSC_VER
+
 //////////////////////////////////////////////////////////////////////////
 //  Copyright (c) 2009-2011 Organic Vectory B.V., KindDragon
 //  Written by George van Venrooij
@@ -2389,4 +2391,5 @@ const char* clewErrorString (cl_int error);
 }
 #endif
 
+#endif  //   _MSC_VER
 #endif  //  CLEW_HPP_INCLUDED

@@ -8,6 +8,7 @@
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
+#ifndef _MSC_VER
 
 #include "clew.h"
 
@@ -404,5 +405,6 @@ const char *clewErrorString(cl_int error)
 	return strings[-error];
 }
 
+#endif // _MSC_VER
 #endif // WIN32
 #endif // USE_OPENCL

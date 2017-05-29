@@ -44,13 +44,17 @@
 #pragma warning(disable : 4996) // declared deprecated
 #endif													// _MSC_VER
 
+
 #ifdef USE_OPENCL
 #ifdef _WIN32
+#ifndef _MSC_VER
+// clew for cross compile
 #include "clew.h"
 #include "clew-cl.hpp"
-#else
+#endif // NOT _MSC_VER
+#endif // _WIN32
+// OpenCL SDK for all others
 #include <CL/cl.hpp>
-#endif
 #include "../src/fractal_enums.h"
 #include "../opencl/input_data_structures.h"
 #endif // USE_OPENCL

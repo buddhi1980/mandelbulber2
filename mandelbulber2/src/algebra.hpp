@@ -51,7 +51,7 @@
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
-#endif													// _MSC_VER
+#endif // _MSC_VER
 
 // MSVC defines math constants elsewhere, do not warn about the
 // redefinition in math.h
@@ -59,11 +59,14 @@
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
+#ifndef _MSC_VER
+// clew for cross compile
 #include "clew.h"
 #include "clew-cl.hpp"
-#else
+#endif // NOT _MSC_VER
+#endif // _WIN32
+// OpenCL SDK for all others
 #include <CL/cl.hpp>
-#endif
 #endif // USE_OPENCL
 
 #if defined(_MSC_VER)
