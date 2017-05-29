@@ -394,7 +394,7 @@ void cRenderWorker::doWork()
 						if (xxx < data->screenRegion.x2)
 						{
 							image->PutPixelImage(xxx, yyy, finalPixel);
-							image->PutPixelColour(xxx, yyy, colour);
+							image->PutPixelColor(xxx, yyy, colour);
 							image->PutPixelAlpha(xxx, yyy, alpha);
 							image->PutPixelZBuffer(xxx, yyy, float(depth));
 							image->PutPixelOpacity(xxx, yyy, opacity16);

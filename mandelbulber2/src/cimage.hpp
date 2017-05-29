@@ -95,7 +95,7 @@ public:
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			image16[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelColour(int x, int y, sRGB8 pixel)
+	inline void PutPixelColor(int x, int y, sRGB8 pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			colourBuffer[qint64(x) + qint64(y) * qint64(width)] = pixel;

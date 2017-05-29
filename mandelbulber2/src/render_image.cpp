@@ -502,7 +502,7 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 			{
 				image->PutPixelImage(x, y, lineOfImage[x].imageFloat);
 				image->PutPixelAlpha(x, y, lineOfImage[x].alphaBuffer);
-				image->PutPixelColour(x, y, lineOfImage[x].colourBuffer);
+				image->PutPixelColor(x, y, lineOfImage[x].colourBuffer);
 				image->PutPixelZBuffer(x, y, lineOfImage[x].zBuffer);
 				image->PutPixelOpacity(x, y, lineOfImage[x].opacityBuffer);
 				if (image->GetImageOptional()->optionalNormal)

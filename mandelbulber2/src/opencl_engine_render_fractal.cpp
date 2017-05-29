@@ -435,6 +435,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 			UpdateOptimalJobEnd();
 
+			// Collect Pixel information from the rgbbuff
+			// Populate the data into image->Put
 			for (unsigned int i = 0; i < optimalJob.stepSize; i++)
 			{
 				unsigned int a = pixelIndex + i;
@@ -448,7 +450,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 				image->PutPixelImage(x, y, pixel);
 				image->PutPixelZBuffer(x, y, rgbbuff[i].zBuffer);
-				image->PutPixelColour(x, y, color);
+				image->PutPixelColor(x, y, color);
 				image->PutPixelOpacity(x, y, opacity);
 				image->PutPixelAlpha(x, y, alpha);
 			}
