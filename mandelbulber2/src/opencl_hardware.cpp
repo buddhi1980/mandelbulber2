@@ -121,6 +121,8 @@ void cOpenClHardware::CreateContext(
 		clDeviceWorkers.clear();
 		clDevices.clear();
 
+		// platformIndex required
+		// context operates exclusively with (1) platform
 		cl_context_properties cprops[3] = {
 			CL_CONTEXT_PLATFORM, (cl_context_properties)(clPlatforms[platformIndex])(), 0};
 
@@ -253,6 +255,7 @@ void cOpenClHardware::EnableDevice(int index)
 		if (devicesInformation[index].compilerAvailable)
 		{
 			selectedDeviceIndex = index;
+			clDeviceWorkers[index].Enable();
 		}
 		else
 		{
@@ -268,6 +271,7 @@ void cOpenClHardware::EnableDevice(int index)
 void cOpenClHardware::DisableDevice(int index)
 {
 	// TODO
+	clDeviceWorkers[index].Disable();
 }
 
 #endif

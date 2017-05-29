@@ -37,6 +37,7 @@
 cOpenClDevice::cOpenClDevice()
 {
 	deviceIndex = 0;
+	enabled = false;
 }
 
 #ifdef USE_OPENCL
@@ -45,10 +46,21 @@ cOpenClDevice::cOpenClDevice(cl::Device device, sDeviceInformation info)
 	deviceIndex = 0;
 	clDevice = device;
 	deviceInformation = info;
+	enabled = false;
 }
 #endif
 
 cOpenClDevice::~cOpenClDevice()
 {
 	// nothing needed here
+}
+
+void cOpenClDevice::Enable()
+{
+	enabled = true;
+}
+
+void cOpenClDevice::Disable()
+{
+	enabled = false;
 }

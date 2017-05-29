@@ -100,11 +100,6 @@ protected:
 public:
 	cOpenClDevice(cl::Device device, sDeviceInformation info);
 
-#endif
-
-public:
-	cOpenClDevice();
-	~cOpenClDevice();
 	const sDeviceInformation &getDeviceInformation() const
 	{
 		return deviceInformation;
@@ -115,8 +110,17 @@ public:
 		return clDevice;
 	}
 
+#endif
+
+public:
+	cOpenClDevice();
+	~cOpenClDevice();
+	void Enable();
+	void Disable();
+
 protected:
 	int deviceIndex;
+	bool enabled;
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_DEVICE_H_ */
