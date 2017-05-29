@@ -63,6 +63,8 @@
 #include "ui_dock_animation.h"
 #include "undo.h"
 #include "common_math.h"
+#include "opencl_engine_render_fractal.h"
+#include "opencl_global.h"
 
 cFlightAnimation *gFlightAnimation = nullptr;
 
@@ -345,6 +347,21 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
 
 	mainInterface->progressBarAnimation->show();
+
+#ifdef USE_OPENCL
+	if (params->Get<bool>("gpu_enabled"))
+	{
+		// init opencl
+		gOpenCl->openClEngineRenderFractal->Lock();
+		gOpenCl->openClEngineRenderFractal->SetParameters(params, fractalParams);
+		gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(params);
+		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(params);
+		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(params);
+		gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+		gOpenCl->openClEngineRenderFractal->Unlock();
+	}
+#endif
+
 	while (!mainInterface->stopRequest)
 	{
 		emit updateProgressAndStatus(QObject::tr("Recording flight animation"),
@@ -470,7 +487,22 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		mainInterface->renderedImage->SetFlightData(flightData);
 
 		// render frame
-		bool result = renderJob->Execute();
+		bool result;
+#ifdef USE_OPENCL
+		if (params->Get<bool>("gpu_enabled"))
+		{
+			gOpenCl->openClEngineRenderFractal->Lock();
+			gOpenCl->openClEngineRenderFractal->SetParameters(params, fractalParams);
+			result = gOpenCl->openClEngineRenderFractal->Render(image);
+			gOpenCl->openClEngineRenderFractal->Unlock();
+		}
+		else
+		{
+			result = renderJob->Execute();
+		}
+#else
+		result = renderJob->Execute();
+#endif
 		if (!result) break;
 
 		// create thumbnail
