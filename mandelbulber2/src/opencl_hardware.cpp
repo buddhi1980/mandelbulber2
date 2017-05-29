@@ -86,10 +86,10 @@ void cOpenClHardware::ListOpenClPlatforms()
 
 			for (unsigned int i = 0; i < clPlatforms.size(); i++)
 			{
-				clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_NAME, &platformName);
-				clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_VENDOR, &platformVendor);
-				clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_VERSION, &platformVersion);
-				clPlatforms[i].getInfo((cl_platform_info)CL_PLATFORM_PROFILE, &platformProfile);
+				clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_NAME), &platformName);
+				clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_VENDOR), &platformVendor);
+				clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_VERSION), &platformVersion);
+				clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_PROFILE), &platformProfile);
 
 				sPlatformInformation platformInformation;
 				platformInformation.name = platformName.c_str();
@@ -124,7 +124,7 @@ void cOpenClHardware::CreateContext(
 		// platformIndex required
 		// context operates exclusively with (1) platform
 		cl_context_properties cprops[3] = {
-			CL_CONTEXT_PLATFORM, (cl_context_properties)(clPlatforms[platformIndex])(), 0};
+			CL_CONTEXT_PLATFORM, cl_context_properties((clPlatforms[platformIndex])()), 0};
 
 		if (context) delete context;
 		contextReady = false;

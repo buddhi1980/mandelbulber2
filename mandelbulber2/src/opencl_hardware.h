@@ -106,7 +106,7 @@ public:
 	}
 
 protected:
-	bool checkErr(cl_int err, QString fuctionName);
+	static bool checkErr(cl_int err, QString fuctionName);
 
 private:
 	void ListOpenClDevices();
@@ -116,6 +116,9 @@ protected:
 	QList<cOpenClDevice> clDeviceWorkers;
 	QList<sPlatformInformation> platformsInformation;
 	QList<cOpenClDevice::sDeviceInformation> devicesInformation;
+
+	// TODO: The System only supports (1) platform
+	// 1 context == 1 platform
 	cl::Context *context;
 
 private:
