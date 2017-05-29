@@ -341,6 +341,8 @@ bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
 		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err);
 	if (!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
 		return false;
+	else
+		return true;
 }
 
 // TODO:
