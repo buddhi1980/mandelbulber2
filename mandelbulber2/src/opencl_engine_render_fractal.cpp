@@ -372,8 +372,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		// requires optimalJob for all opencl devices
 		for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 		{
-			cl_int err;
-
 			size_t pixelsLeft = width * height - pixelIndex;
 			UpdateOptimalJobStart(pixelsLeft);
 
@@ -382,7 +380,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 			ReAllocateImageBuffers();
 
 			// assign parameters to kernel
-			err = kernel->setArg(0, *outCL); // output image
+			cl_int err = kernel->setArg(0, *outCL); // output image
 			if (!checkErr(err, "kernel->setArg(0, *outCL)")) return false;
 			err = kernel->setArg(1, *inCLBuffer); // input data in global memory
 			if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)")) return false;

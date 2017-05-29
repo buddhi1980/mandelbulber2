@@ -106,8 +106,8 @@ public:
 	bool CreateCommandQueue();
 
 protected:
-	bool checkErr(cl_int err, QString fuctionName);
-	bool Build(cl::Program *prog, QString *errorText);
+	static bool checkErr(cl_int err, QString fuctionName);
+	bool Build(cl::Program *prog, QString *errorText) const;
 	bool CreateKernel(cl::Program *prog);
 	void InitOptimalJob(const cParameterContainer *params);
 	void UpdateOptimalJobStart(int pixelsLeft);

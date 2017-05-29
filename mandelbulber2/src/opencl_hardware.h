@@ -99,7 +99,7 @@ public:
 	{
 		return clDeviceWorkers[selectedDeviceIndex].getDevice();
 	}
-	cl::Context *getContext() { return context; }
+	cl::Context *getContext() const { return context; }
 	const cOpenClDevice::sDeviceInformation &getSelectedDeviceInformation() const
 	{
 		return clDeviceWorkers[selectedDeviceIndex].getDeviceInformation();

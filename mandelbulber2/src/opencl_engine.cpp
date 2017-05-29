@@ -76,14 +76,12 @@ bool cOpenClEngine::checkErr(cl_int err, QString fuctionName)
 		return true;
 }
 
-bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
+bool cOpenClEngine::Build(cl::Program *prog, QString *errorText) const
 {
-	std::string buildParams;
-	buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE";
+	std::string buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE";
 	buildParams += definesCollector.toUtf8().constData();
 	qDebug() << "Build parameters: " << buildParams.c_str();
-	cl_int err;
-	err = prog->build(hardware->getClDevices(), buildParams.c_str());
+	cl_int err = prog->build(hardware->getClDevices(), buildParams.c_str());
 
 	if (checkErr(err, "program->build()"))
 	{
@@ -98,8 +96,7 @@ bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
 											 << std::endl;
 		*errorText = QString::fromStdString(errorMessageStream.str());
 
-		std::string buildLogText;
-		buildLogText = errorMessageStream.str();
+		std::string buildLogText = errorMessageStream.str();
 		std::cerr << buildLogText;
 		return false;
 	}
