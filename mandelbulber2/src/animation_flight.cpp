@@ -486,6 +486,9 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 		mainInterface->renderedImage->SetFlightData(flightData);
 
+		// TODO:
+		// Standardize OpenCL init and render within renderJob
+		// This opencl bypasses the traditional call to renderJob->Execute
 		// render frame
 		bool result;
 #ifdef USE_OPENCL
