@@ -105,6 +105,15 @@ public:
 public:
 	cOpenClDevice();
 	~cOpenClDevice();
+	const sDeviceInformation &getDeviceInformation() const
+	{
+		return deviceInformation;
+	}
+
+	const cl::Device &getDevice() const
+	{
+		return clDevice;
+	}
 
 protected:
 	int deviceIndex;

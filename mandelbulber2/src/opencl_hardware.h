@@ -90,15 +90,19 @@ public:
 		return devicesInformation;
 	}
 
-	void SelectDevice(int index);
+	void EnableDevice(int index);
+	void DisableDevice(int index);
 
 	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }
-	const cl::Device &getSelectedDevice() const { return clDevices[selectedDeviceIndex]; }
+	const cl::Device &getEnabledDevices() const
+	{
+		return clDeviceWorkers[selectedDeviceIndex].getDevice();
+	}
 	cl::Context *getContext() { return context; }
 	const cOpenClDevice::sDeviceInformation &getSelectedDeviceInformation() const
 	{
-		return devicesInformation[selectedDeviceIndex];
+		return clDeviceWorkers[selectedDeviceIndex].getDeviceInformation();
 	}
 
 protected:

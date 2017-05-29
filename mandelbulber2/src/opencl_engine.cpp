@@ -94,7 +94,7 @@ bool cOpenClEngine::Build(cl::Program *prog, QString *errorText)
 	{
 		std::stringstream errorMessageStream;
 		errorMessageStream << "OpenCL Build log:\t"
-											 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(hardware->getSelectedDevice())
+											 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(hardware->getEnabledDevices())
 											 << std::endl;
 		*errorText = QString::fromStdString(errorMessageStream.str());
 
@@ -124,7 +124,7 @@ bool cOpenClEngine::CreateKernel(cl::Program *prog)
 	{
 		size_t workGroupSize = 0;
 		kernel->getWorkGroupInfo(
-			hardware->getSelectedDevice(), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
+			hardware->getEnabledDevices(), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
 		qDebug() << "CL_KERNEL_WORK_GROUP_SIZE" << workGroupSize;
 
 		optimalJob.workGroupSize = workGroupSize;
@@ -169,7 +169,7 @@ bool cOpenClEngine::CreateCommandQueue()
 	// TODO: support multiple devices
 	// TODO: create a separate queue per device
 	// iterate through getDevicesInformation[s]
-	queue = new cl::CommandQueue(*hardware->getContext(), hardware->getSelectedDevice(), 0, &err);
+	queue = new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices(), 0, &err);
 
 	if (checkErr(err, "CommandQueue::CommandQueue()"))
 	{

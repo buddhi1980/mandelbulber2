@@ -52,7 +52,7 @@ cGlobalOpenCl::cGlobalOpenCl()
 
 	// TODO hardcoded device index
 	// TODO: support dialogue box for selection of individual hardware devices
-	openClHardware->SelectDevice(0);
+	openClHardware->EnableDevice(0);
 
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
 #endif

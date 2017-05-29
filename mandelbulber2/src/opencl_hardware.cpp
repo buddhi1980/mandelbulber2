@@ -246,7 +246,7 @@ bool cOpenClHardware::checkErr(cl_int err, QString fuctionName)
 		return true;
 }
 
-void cOpenClHardware::SelectDevice(int index)
+void cOpenClHardware::EnableDevice(int index)
 {
 	if (index < devicesInformation.size())
 	{
@@ -263,6 +263,11 @@ void cOpenClHardware::SelectDevice(int index)
 	{
 		qCritical() << "Too high device index";
 	}
+}
+
+void cOpenClHardware::DisableDevice(int index)
+{
+	// TODO
 }
 
 #endif
