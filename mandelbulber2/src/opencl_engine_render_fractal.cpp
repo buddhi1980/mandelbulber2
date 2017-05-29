@@ -343,10 +343,14 @@ bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
 		return false;
 }
 
+// TODO:
+// This is the hotspot for heterogenous execution
+// requires opencl for all compute resources
 bool cOpenClEngineRenderFractal::Render(cImage *image)
 {
 	if (programsLoaded)
 	{
+		// The image resolution determines the total amount of work
 		int width = image->GetWidth();
 		int height = image->GetHeight();
 
@@ -360,6 +364,10 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 		QList<int> lastRenderedLines;
 
+		// TODO:
+		// insert device for loop here
+		// requires initialization for all opencl devices
+		// requires optimalJob for all opencl devices
 		for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 		{
 			cl_int err;
