@@ -156,7 +156,9 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	{
 		activeDevices.append(selectedDevicesItems.at(i)->data(1).toString());
 	}
-	gPar->Set("gpu_device_list", activeDevices.join("|"));
+	QString listString = activeDevices.join("|");
+	gPar->Set("gpu_device_list", listString);
+	gOpenCl->openClHardware->EnableDevicesByHashList(listString);
 #endif
 }
 

@@ -282,4 +282,31 @@ void cOpenClHardware::DisableDevice(int index)
 	clDeviceWorkers[index].Disable();
 }
 
+void cOpenClHardware::EnableDevicesByHashList(const QString &list)
+{
+	QStringList stringList = list.split("|");
+
+	// disable all devices
+	for (int dev = 0; dev < clDeviceWorkers.size(); dev++)
+	{
+		DisableDevice(dev);
+	}
+
+	// enable only devices from list
+	for (int i = 0; i < stringList.size(); i++)
+	{
+		QByteArray hashFromList = QByteArray::fromHex(stringList.at(i).toLocal8Bit());
+
+		for (int dev = 0; dev < clDeviceWorkers.size(); dev++)
+		{
+			QByteArray hashFromDevice = clDeviceWorkers[dev].getDeviceInformation().hash;
+			if (hashFromDevice == hashFromList)
+			{
+				EnableDevice(dev);
+				qDebug() << "Device" << clDeviceWorkers[dev].getDeviceInformation().deviceName << "enabled";
+			}
+		}
+	}
+}
+
 #endif

@@ -43,7 +43,7 @@
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
-#endif // _MSC_VER
+#endif													// _MSC_VER
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
@@ -92,6 +92,7 @@ public:
 
 	void EnableDevice(int index);
 	void DisableDevice(int index);
+	void EnableDevicesByHashList(const QString &list);
 
 	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }

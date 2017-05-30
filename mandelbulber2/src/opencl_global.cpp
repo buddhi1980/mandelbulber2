@@ -52,7 +52,7 @@ cGlobalOpenCl::cGlobalOpenCl()
 
 	// TODO hardcoded device index
 	// TODO: support dialogue box for selection of individual hardware devices
-	openClHardware->EnableDevice(0);
+	openClHardware->EnableDevicesByHashList(gPar->Get<QString>("gpu_device_list"));
 
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
 #endif
