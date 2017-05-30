@@ -388,13 +388,7 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 	for (int i = 0; i < openclDevs.size(); i++)
 	{
 		const cOpenClDevice::sDeviceInformation openclDev = openclDevs.at(i);
-		QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-
-		hashCrypt.addData(openclDev.deviceName.toLocal8Bit());
-		hashCrypt.addData(openclDev.deviceVersion.toLocal8Bit());
-		char index = char(i);
-		hashCrypt.addData(&index);
-		QByteArray hash = hashCrypt.result();
+		QByteArray hash = openclDev.hash;
 		devices << QPair<QString, QString>(hash.toHex(), openclDev.deviceName);
 	}
 #endif // USE_OPENCL

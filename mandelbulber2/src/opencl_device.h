@@ -46,12 +46,12 @@
 #ifdef USE_OPENCL
 #ifdef _WIN32
 #ifndef _MSC_VER
- // clew for cross compile
+// clew for cross compile
 #include "clew.h"
 #include "clew-cl.hpp"
 #endif // NOT _MSC_VER
 #endif // _WIN32
- // OpenCL SDK for all others
+			 // OpenCL SDK for all others
 #include <CL/cl.hpp>
 #endif // USE_OPENCL
 
@@ -91,6 +91,7 @@ public:
 		QString deviceName;
 		QString deviceVersion;
 		QString driverVersion;
+		QByteArray hash;
 	};
 
 protected:
@@ -100,15 +101,9 @@ protected:
 public:
 	cOpenClDevice(cl::Device device, sDeviceInformation info);
 
-	const sDeviceInformation &getDeviceInformation() const
-	{
-		return deviceInformation;
-	}
+	const sDeviceInformation &getDeviceInformation() const { return deviceInformation; }
 
-	const cl::Device &getDevice() const
-	{
-		return clDevice;
-	}
+	const cl::Device &getDevice() const { return clDevice; }
 
 #endif
 

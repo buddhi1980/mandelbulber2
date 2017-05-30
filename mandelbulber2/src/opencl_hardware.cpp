@@ -52,7 +52,7 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 		qCritical() << clewErrorString(err);
 		missingOpenClDLL = true;
 	}
-#endif  //   _MSC_VER
+#endif //   _MSC_VER
 #endif
 
 	context = nullptr;
@@ -72,7 +72,7 @@ void cOpenClHardware::ListOpenClPlatforms()
 	clPlatforms.clear();
 	platformsInformation.clear();
 
-	if(!missingOpenClDLL)
+	if (!missingOpenClDLL)
 	{
 		cl::Platform::get(&clPlatforms);
 		if (checkErr(clPlatforms.size() != 0 ? CL_SUCCESS : -1, "cl::Platform::get"))
@@ -225,6 +225,14 @@ void cOpenClHardware::ListOpenClDevices()
 				qDebug() << "CL_DEVICE_NAME" << deviceInformation.deviceName;
 				qDebug() << "CL_DEVICE_VERSION" << deviceInformation.deviceVersion;
 				qDebug() << "CL_DRIVER_VERSION" << deviceInformation.driverVersion;
+
+				// calculate hash code
+				QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+				hashCrypt.addData(deviceInformation.deviceName.toLocal8Bit());
+				hashCrypt.addData(deviceInformation.deviceVersion.toLocal8Bit());
+				char index = char(i);
+				hashCrypt.addData(&index);
+				deviceInformation.hash = hashCrypt.result();
 
 				devicesInformation.append(deviceInformation);
 				clDeviceWorkers.append(cOpenClDevice(clDevices[i], deviceInformation));
