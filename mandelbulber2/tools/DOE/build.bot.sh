@@ -37,7 +37,6 @@ cd $BUILDTREE && make -j12 VERBOSE=1
 
 # Deploy support 
 ln -s $SRC/mandelbulber2/deploy/share/mandelbulber2 /usr/share/mandelbulber2
-exit
 
 # XEON PHI Native Application Build #
 echo "XEON PHI Build"
