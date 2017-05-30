@@ -65,6 +65,9 @@ private slots:
 	void on_comboBox_ui_skin_currentIndexChanged(int index) const;
 	void on_pushButton_retrieve_toolbar_clicked() const;
 	void on_pushButton_retrieve_materials_clicked() const;
+#ifdef USE_OPENCL
+	void on_listWidget_gpu_platform_list_currentRowChanged(int index);
+#endif
 
 private:
 	Ui::cPreferencesDialog *ui;

@@ -92,7 +92,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	}
 
 #ifdef USE_OPENCL
-
+	// list of platforms
 	QList<cOpenClHardware::sPlatformInformation> platformsInformation =
 		gOpenCl->openClHardware->getPlatformsInformation();
 	for (int i = 0; i < platformsInformation.size(); i++)
@@ -115,6 +115,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 		ui->listWidget_gpu_device_list->addItem(item);
 		item->setSelected(selected);
 	}
+
 #else	// USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
@@ -399,3 +400,25 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 #endif // USE_OPENCL
 	return devices;
 }
+
+#ifdef USE_OPENCL
+void cPreferencesDialog::on_listWidget_gpu_platform_list_currentRowChanged(int index)
+{
+	gOpenCl->openClHardware->CreateContext(index, cOpenClDevice::openClDeviceTypeALL);
+	gOpenCl->openClHardware->getClDevices();
+
+	ui->listWidget_gpu_device_list->clear();
+
+	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
+	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
+	for (int i = 0; i < devices.size(); i++)
+	{
+		QPair<QString, QString> device = devices.at(i);
+		QListWidgetItem *item = new QListWidgetItem(device.second);
+		item->setData(1, device.first);
+		bool selected = selectedDevices.contains(device.first);
+		ui->listWidget_gpu_device_list->addItem(item);
+		item->setSelected(selected);
+	}
+}
+#endif
