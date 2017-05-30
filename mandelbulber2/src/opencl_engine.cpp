@@ -76,29 +76,71 @@ bool cOpenClEngine::checkErr(cl_int err, QString fuctionName)
 		return true;
 }
 
-bool cOpenClEngine::Build(cl::Program *prog, QString *errorText) const
+bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 {
-	std::string buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE";
-	buildParams += definesCollector.toUtf8().constData();
-	qDebug() << "Build parameters: " << buildParams.c_str();
-	cl_int err = prog->build(hardware->getClDevices(), buildParams.c_str());
+	// calculating hash code of the program
+	QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
+	hashCryptProgram.addData(programString);
+	QByteArray hashProgram = hashCryptProgram.result();
 
-	if (checkErr(err, "program->build()"))
+	// calculating hash code of build parameters
+	QCryptographicHash hashCryptBuildParams(QCryptographicHash::Md4);
+	hashCryptBuildParams.addData(programString);
+	QByteArray hashBuildParams = hashCryptBuildParams.result();
+
+	// if program is different than in previous run
+	if (!(hashProgram == lastProgramHash && hashBuildParams == lastBuldParametersHash))
 	{
-		qDebug() << "OpenCl kernel program successfully compiled";
-		return true;
+		lastBuldParametersHash = hashBuildParams;
+		lastProgramHash = hashProgram;
+
+		// collecting all parts of program
+		cl::Program::Sources sources;
+		sources.push_back(std::make_pair(programString.constData(), size_t(programString.length())));
+
+		// creating cl::Program
+		cl_int err;
+
+		if (program) delete program;
+		program = new cl::Program(*hardware->getContext(), sources, &err);
+
+		if (checkErr(err, "cl::Program()"))
+		{
+
+			std::string buildParams =
+				"-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE";
+			buildParams += definesCollector.toUtf8().constData();
+			qDebug() << "Build parameters: " << buildParams.c_str();
+			err = program->build(hardware->getClDevices(), buildParams.c_str());
+
+			if (checkErr(err, "program->build()"))
+			{
+				qDebug() << "OpenCl kernel program successfully compiled";
+				return true;
+			}
+			else
+			{
+				std::stringstream errorMessageStream;
+				errorMessageStream << "OpenCL Build log:\t"
+													 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(
+																hardware->getEnabledDevices())
+													 << std::endl;
+				*errorText = QString::fromStdString(errorMessageStream.str());
+
+				std::string buildLogText = errorMessageStream.str();
+				std::cerr << buildLogText;
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	}
 	else
 	{
-		std::stringstream errorMessageStream;
-		errorMessageStream << "OpenCL Build log:\t"
-											 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(hardware->getEnabledDevices())
-											 << std::endl;
-		*errorText = QString::fromStdString(errorMessageStream.str());
-
-		std::string buildLogText = errorMessageStream.str();
-		std::cerr << buildLogText;
-		return false;
+		qDebug() << "Re-compile is not needed";
+		return true;
 	}
 }
 
@@ -139,10 +181,10 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 	size_t pixelCnt = width * height;
 	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDeviceInformation();
 
-	optimalJob.pixelsPerJob =	optimalJob.workGroupSize * deviceInfo.maxComputeUnits;
+	optimalJob.pixelsPerJob = optimalJob.workGroupSize * deviceInfo.maxComputeUnits;
 	optimalJob.numberOfSteps = pixelCnt / optimalJob.pixelsPerJob + 1;
-	optimalJob.stepSize = (pixelCnt / optimalJob.numberOfSteps / optimalJob.pixelsPerJob + 1)
-												* optimalJob.pixelsPerJob;
+	optimalJob.stepSize =
+		(pixelCnt / optimalJob.numberOfSteps / optimalJob.pixelsPerJob + 1) * optimalJob.pixelsPerJob;
 	optimalJob.workGroupSizeMultiplier = 1;
 	optimalJob.lastProcessingTime = 1.0;
 

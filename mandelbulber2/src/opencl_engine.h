@@ -41,7 +41,7 @@
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
-#endif // _MSC_VER
+#endif													// _MSC_VER
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
@@ -107,7 +107,7 @@ public:
 
 protected:
 	static bool checkErr(cl_int err, QString fuctionName);
-	bool Build(cl::Program *prog, QString *errorText) const;
+	bool Build(const QByteArray &programString, QString *errorText);
 	bool CreateKernel(cl::Program *prog);
 	void InitOptimalJob(const cParameterContainer *params);
 	void UpdateOptimalJobStart(int pixelsLeft);
@@ -130,6 +130,8 @@ protected:
 private:
 	QMutex lock;
 	bool locked;
+	QByteArray lastProgramHash;
+	QByteArray lastBuldParametersHash;
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_H_ */

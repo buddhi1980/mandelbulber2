@@ -166,34 +166,21 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		return;
 	}
 
-	// collecting all parts of program
-	cl::Program::Sources sources;
-	sources.push_back(std::make_pair(progEngine.constData(), size_t(progEngine.length())));
+	// building OpenCl kernel
+	QString errorString;
 
-	// creating cl::Program
-	cl_int err;
-
-	if (program) delete program;
-	program = new cl::Program(*hardware->getContext(), sources, &err);
-	if (checkErr(err, "cl::Program()"))
+	QElapsedTimer timer;
+	timer.start();
+	if (Build(progEngine, &errorString))
 	{
-		// building OpenCl kernel
-
-		QString errorString;
-
-		QElapsedTimer timer;
-		timer.start();
-		if (Build(program, &errorString))
-		{
-			programsLoaded = true;
-		}
-		else
-		{
-			programsLoaded = false;
-			WriteLog(errorString, 0);
-		}
-		qDebug() << "Opencl build time [s]" << timer.nsecsElapsed() / 1.0e9;
+		programsLoaded = true;
 	}
+	else
+	{
+		programsLoaded = false;
+		WriteLog(errorString, 0);
+	}
+	qDebug() << "Opencl build time [s]" << timer.nsecsElapsed() / 1.0e9;
 }
 
 void cOpenClEngineRenderFractal::SetParameters(

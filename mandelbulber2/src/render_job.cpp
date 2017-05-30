@@ -189,23 +189,6 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	PrepareData(config);
 
-#ifdef USE_OPENCL
-	if (paramsContainer->Get<bool>("gpu_enabled"))
-	{
-		if (mode == cRenderJob::flightAnimRecord)
-		{
-			// init opencl
-			gOpenCl->openClEngineRenderFractal->Lock();
-			gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer, fractalContainer);
-			gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer);
-			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
-			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
-			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-			gOpenCl->openClEngineRenderFractal->Unlock();
-		}
-	}
-#endif
-
 	ready = true;
 
 	return true;
@@ -523,13 +506,10 @@ bool cRenderJob::Execute()
 		// just for testing
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer, fractalContainer);
-		if (mode != cRenderJob::flightAnimRecord)
-		{
-			gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer);
-			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
-			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
-			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-		}
+		gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
 		result = gOpenCl->openClEngineRenderFractal->Render(image);
 		gOpenCl->openClEngineRenderFractal->Unlock();
 		qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
