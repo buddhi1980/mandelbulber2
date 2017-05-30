@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>483</width>
-    <height>584</height>
+    <width>570</width>
+    <height>704</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,8 +57,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>437</width>
-            <height>678</height>
+            <width>546</width>
+            <height>628</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -486,8 +486,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>437</width>
-            <height>533</height>
+            <width>546</width>
+            <height>628</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -896,8 +896,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>451</width>
-            <height>477</height>
+            <width>546</width>
+            <height>628</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_GPU">
@@ -955,7 +955,97 @@ and will only be present after enabling and re-render.</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="1" colspan="2">
+                <item row="2" column="1" colspan="2">
+                 <widget class="QComboBox" name="comboBox_gpu_precision">
+                  <item>
+                   <property name="text">
+                    <string>single</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>double</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_mode">
+                  <property name="text">
+                   <string>Mode</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1" colspan="2">
+                 <widget class="QComboBox" name="comboBox_gpu_mode">
+                  <item>
+                   <property name="text">
+                    <string>fast</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>normal</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>full</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_gpu_memory_limit">
+                  <property name="text">
+                   <string>Memory Limit:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QSlider" name="sliderInt_gpu_memory_limit">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>8</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>64</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="2">
+                 <widget class="MySpinBox" name="spinboxInt_gpu_memory_limit">
+                  <property name="minimum">
+                   <number>-10000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_gpu_device">
+                  <property name="text">
+                   <string>Device</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_precision">
+                  <property name="text">
+                   <string>Precision</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1" colspan="2">
                  <layout class="QVBoxLayout" name="verticalLayout_gpu_device">
                   <item>
                    <widget class="QComboBox" name="comboBox_gpu_device_type">
@@ -991,93 +1081,26 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </layout>
                 </item>
-                <item row="1" column="1" colspan="2">
-                 <widget class="QComboBox" name="comboBox_gpu_precision">
-                  <item>
-                   <property name="text">
-                    <string>single</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>double</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_mode">
-                  <property name="text">
-                   <string>Mode</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1" colspan="2">
-                 <widget class="QComboBox" name="comboBox_gpu_mode">
-                  <item>
-                   <property name="text">
-                    <string>fast</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>normal</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>full</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_gpu_memory_limit">
-                  <property name="text">
-                   <string>Memory Limit:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QSlider" name="sliderInt_gpu_memory_limit">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>8</number>
-                  </property>
-                  <property name="pageStep">
-                   <number>64</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
-                 <widget class="MySpinBox" name="spinboxInt_gpu_memory_limit">
-                  <property name="minimum">
-                   <number>-10000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="label_gpu_device">
+                 <widget class="QLabel" name="label_gpu_device_2">
                   <property name="text">
-                   <string>Device</string>
+                   <string>Platforms</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_precision">
-                  <property name="text">
-                   <string>Precision</string>
+                <item row="0" column="1" colspan="2">
+                 <widget class="QListWidget" name="listWidget_gpu_platform_list">
+                  <property name="selectionMode">
+                   <enum>QAbstractItemView::SingleSelection</enum>
+                  </property>
+                  <property name="resizeMode">
+                   <enum>QListView::Adjust</enum>
+                  </property>
+                  <property name="layoutMode">
+                   <enum>QListView::SinglePass</enum>
+                  </property>
+                  <property name="viewMode">
+                   <enum>QListView::ListMode</enum>
                   </property>
                  </widget>
                 </item>

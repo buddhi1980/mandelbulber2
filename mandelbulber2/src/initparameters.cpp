@@ -485,6 +485,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("threads_priority", 2, 0, 3, morphNone, paramApp);
 
 	par->addParam("gpu_enabled", false, morphNone, paramApp);
+	par->addParam("gpu_platform", false, morphNone, paramApp);
 	par->addParam("gpu_device_type", 0, morphNone, paramApp);
 	par->addParam("gpu_device_list", QString(""), morphNone, paramApp);
 	par->addParam("gpu_mode", 0, morphNone, paramApp);
@@ -1087,24 +1088,24 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
+									systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
+									systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
+									systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
-		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
+		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
+														 + "displacement_texture.jpg"),
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
 		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
+									systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
 
 	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),

@@ -92,6 +92,18 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	}
 
 #ifdef USE_OPENCL
+
+	QList<cOpenClHardware::sPlatformInformation> platformsInformation =
+		gOpenCl->openClHardware->getPlatformsInformation();
+	for (int i = 0; i < platformsInformation.size(); i++)
+	{
+		QListWidgetItem *item =
+			new QListWidgetItem(platformsInformation[i].name + ", " + platformsInformation[i].vendor
+													+ ", " + platformsInformation[i].version);
+		ui->listWidget_gpu_platform_list->addItem(item);
+	}
+	ui->listWidget_gpu_platform_list->item(gPar->Get<int>("gpu_platform"))->setSelected(true);
+
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
 	for (int i = 0; i < devices.size(); i++)
@@ -132,6 +144,10 @@ void cPreferencesDialog::on_buttonBox_accepted()
 
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
+#ifdef USE_OPENCL
+	int selectedPlatform = ui->listWidget_gpu_platform_list->currentIndex().row();
+	gPar->Set("gpu_platform", selectedPlatform);
+
 	QList<QListWidgetItem *> selectedDevicesItems = ui->listWidget_gpu_device_list->selectedItems();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList activeDevices;
@@ -140,6 +156,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 		activeDevices.append(selectedDevicesItems.at(i)->data(1).toString());
 	}
 	gPar->Set("gpu_device_list", activeDevices.join("|"));
+#endif
 }
 
 void cPreferencesDialog::on_pushButton_select_image_path_clicked()
@@ -365,14 +382,17 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 	// TODO get from opencl
 	QList<QPair<QString, QString>> devices;
 #ifdef USE_OPENCL
-	QList<cOpenClDevice::sDeviceInformation> openclDevs = gOpenCl->openClHardware->getDevicesInformation();
-	for(int i = 0; i < openclDevs.size(); i++)
+	QList<cOpenClDevice::sDeviceInformation> openclDevs =
+		gOpenCl->openClHardware->getDevicesInformation();
+	for (int i = 0; i < openclDevs.size(); i++)
 	{
 		const cOpenClDevice::sDeviceInformation openclDev = openclDevs.at(i);
 		QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 
 		hashCrypt.addData(openclDev.deviceName.toLocal8Bit());
 		hashCrypt.addData(openclDev.deviceVersion.toLocal8Bit());
+		char index = char(i);
+		hashCrypt.addData(&index);
 		QByteArray hash = hashCrypt.result();
 		devices << QPair<QString, QString>(hash.toHex(), openclDev.deviceName);
 	}

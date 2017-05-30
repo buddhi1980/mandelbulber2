@@ -48,7 +48,7 @@ cGlobalOpenCl::cGlobalOpenCl()
 
 	// TODO hardcoded platform index: support platform selection in dialogue box
 	// TODO: support dialogue box for device type
-	openClHardware->CreateContext(0, cOpenClDevice::openClDeviceTypeALL);
+	openClHardware->CreateContext(gPar->Get<int>("gpu_platform"), cOpenClDevice::openClDeviceTypeALL);
 
 	// TODO hardcoded device index
 	// TODO: support dialogue box for selection of individual hardware devices
