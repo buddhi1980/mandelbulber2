@@ -85,7 +85,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 	// calculating hash code of build parameters
 	QCryptographicHash hashCryptBuildParams(QCryptographicHash::Md4);
-	hashCryptBuildParams.addData(programString);
+	hashCryptBuildParams.addData(definesCollector.toLocal8Bit());
 	QByteArray hashBuildParams = hashCryptBuildParams.result();
 
 	// if program is different than in previous run
