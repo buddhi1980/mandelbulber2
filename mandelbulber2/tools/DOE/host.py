@@ -13,11 +13,11 @@ import time
 RP = "Robert Pancoast collection - license Creative Commons (CC-BY 4.0)"
 settings_file = \
 RP + os.sep \
-+ "icoastahedron.fract"
++ "box-deuce-deuce.fract"
 
 # Options for Render #
 start = 0
-total_frames = 4700
+total_frames = 4300
 RenderSets = 100
 totalIterations = total_frames/RenderSets
 
@@ -25,6 +25,7 @@ totalIterations = total_frames/RenderSets
 WorkersCount = 8
 spacer = "\'"
 perspective = " --override perspective_type=3#sweet_spot_vertical_angle=60"
+perspective = " --override perspective_type=2"
 
 # Script Directory #
 DOE=os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -145,9 +146,9 @@ if __name__ == "__main__":
 		#render(" --res 50x50")
 		#render(" --res 85x64")
 		#render(" --res 320x240")
-		#render(" --res 1920x1080")
+		render(" --res 1920x1080")
 		#render(" --res 3840x2160")
-		render(" --res 2560x2560")
+		#render(" --res 2560x2560")
 		#render(" --res 7680x4320")
 	except KeyboardInterrupt:
 		print("KeyboardInterrupt Detected")
