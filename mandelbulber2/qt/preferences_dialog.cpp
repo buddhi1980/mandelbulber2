@@ -400,7 +400,7 @@ void cPreferencesDialog::on_groupCheck_gpu_enabled_toggled(bool state)
 	if (state)
 	{
 		gOpenCl->openClHardware->ListOpenClPlatforms();
-		if(gPar->Get<int>("gpu_platform") >= 0)
+		if (gPar->Get<int>("gpu_platform") >= 0)
 		{
 			gOpenCl->openClHardware->CreateContext(
 				gPar->Get<int>("gpu_platform"), cOpenClDevice::openClDeviceTypeALL);
@@ -429,9 +429,11 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 	int selectedPlatformIndex = gPar->Get<int>("gpu_platform");
 	if (selectedPlatformIndex < platformsInformation.size() && selectedPlatformIndex >= 0)
 	{
-		ui->listWidget_gpu_platform_list->item(gPar->Get<int>("gpu_platform"))->setSelected(true);
+		ui->listWidget_gpu_platform_list->item(selectedPlatformIndex)->setSelected(true);
+		ui->listWidget_gpu_platform_list->setCurrentRow(selectedPlatformIndex);
 	}
 
+	ui->listWidget_gpu_device_list->clear();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
 	for (int i = 0; i < devices.size(); i++)
