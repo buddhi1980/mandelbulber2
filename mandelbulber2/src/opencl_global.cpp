@@ -44,15 +44,22 @@ cGlobalOpenCl::cGlobalOpenCl()
 #ifdef USE_OPENCL
 	openClHardware = new cOpenClHardware();
 
-	openClHardware->ListOpenClPlatforms();
+	if (gPar->Get<bool>("gpu_enabled"))
+	{
+		openClHardware->ListOpenClPlatforms();
 
-	// TODO hardcoded platform index: support platform selection in dialogue box
-	// TODO: support dialogue box for device type
-	openClHardware->CreateContext(gPar->Get<int>("gpu_platform"), cOpenClDevice::openClDeviceTypeALL);
+		// TODO: support dialogue box for device type
 
-	// TODO hardcoded device index
-	// TODO: support dialogue box for selection of individual hardware devices
-	openClHardware->EnableDevicesByHashList(gPar->Get<QString>("gpu_device_list"));
+		if (gPar->Get<int>("gpu_platform") >= 0)
+		{
+			openClHardware->CreateContext(
+				gPar->Get<int>("gpu_platform"), cOpenClDevice::openClDeviceTypeALL);
+
+			// TODO hardcoded device index
+			// TODO: support dialogue box for selection of individual hardware devices
+			openClHardware->EnableDevicesByHashList(gPar->Get<QString>("gpu_device_list"));
+		}
+	}
 
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
 #endif

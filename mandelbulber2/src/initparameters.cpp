@@ -485,7 +485,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("threads_priority", 2, 0, 3, morphNone, paramApp);
 
 	par->addParam("gpu_enabled", false, morphNone, paramApp);
-	par->addParam("gpu_platform", false, morphNone, paramApp);
+	par->addParam("gpu_platform", 0, morphNone, paramApp);
 	par->addParam("gpu_device_type", 0, morphNone, paramApp);
 	par->addParam("gpu_device_list", QString(""), morphNone, paramApp);
 	par->addParam("gpu_mode", 0, morphNone, paramApp);

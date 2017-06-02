@@ -92,30 +92,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	}
 
 #ifdef USE_OPENCL
-	// list of platforms
-	QList<cOpenClHardware::sPlatformInformation> platformsInformation =
-		gOpenCl->openClHardware->getPlatformsInformation();
-	for (int i = 0; i < platformsInformation.size(); i++)
-	{
-		QListWidgetItem *item =
-			new QListWidgetItem(platformsInformation[i].name + ", " + platformsInformation[i].vendor
-													+ ", " + platformsInformation[i].version);
-		ui->listWidget_gpu_platform_list->addItem(item);
-	}
-	ui->listWidget_gpu_platform_list->item(gPar->Get<int>("gpu_platform"))->setSelected(true);
-
-	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
-	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
-	for (int i = 0; i < devices.size(); i++)
-	{
-		QPair<QString, QString> device = devices.at(i);
-		QListWidgetItem *item = new QListWidgetItem(device.second);
-		item->setData(1, device.first);
-		bool selected = selectedDevices.contains(device.first);
-		ui->listWidget_gpu_device_list->addItem(item);
-		item->setSelected(selected);
-	}
-
+	UpdateOpenCLListBoxes();
 #else	// USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
@@ -404,6 +381,56 @@ void cPreferencesDialog::on_listWidget_gpu_platform_list_currentRowChanged(int i
 	gOpenCl->openClHardware->getClDevices();
 
 	ui->listWidget_gpu_device_list->clear();
+
+	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
+	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
+	for (int i = 0; i < devices.size(); i++)
+	{
+		QPair<QString, QString> device = devices.at(i);
+		QListWidgetItem *item = new QListWidgetItem(device.second);
+		item->setData(1, device.first);
+		bool selected = selectedDevices.contains(device.first);
+		ui->listWidget_gpu_device_list->addItem(item);
+		item->setSelected(selected);
+	}
+}
+
+void cPreferencesDialog::on_groupCheck_gpu_enabled_toggled(bool state)
+{
+	if (state)
+	{
+		gOpenCl->openClHardware->ListOpenClPlatforms();
+		if(gPar->Get<int>("gpu_platform") >= 0)
+		{
+			gOpenCl->openClHardware->CreateContext(
+				gPar->Get<int>("gpu_platform"), cOpenClDevice::openClDeviceTypeALL);
+			gOpenCl->openClHardware->EnableDevicesByHashList(gPar->Get<QString>("gpu_device_list"));
+		}
+
+		UpdateOpenCLListBoxes();
+	}
+}
+
+void cPreferencesDialog::UpdateOpenCLListBoxes()
+{
+	// list of platforms
+	QList<cOpenClHardware::sPlatformInformation> platformsInformation =
+		gOpenCl->openClHardware->getPlatformsInformation();
+
+	ui->listWidget_gpu_platform_list->clear();
+	for (int i = 0; i < platformsInformation.size(); i++)
+	{
+		QListWidgetItem *item =
+			new QListWidgetItem(platformsInformation[i].name + ", " + platformsInformation[i].vendor
+													+ ", " + platformsInformation[i].version);
+		ui->listWidget_gpu_platform_list->addItem(item);
+	}
+
+	int selectedPlatformIndex = gPar->Get<int>("gpu_platform");
+	if (selectedPlatformIndex < platformsInformation.size() && selectedPlatformIndex >= 0)
+	{
+		ui->listWidget_gpu_platform_list->item(gPar->Get<int>("gpu_platform"))->setSelected(true);
+	}
 
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
