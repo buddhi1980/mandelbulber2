@@ -82,7 +82,7 @@ public:
 	~cOpenClEngineRenderFractal();
 
 #ifdef USE_OPENCL
-	void LoadSourcesAndCompile(const cParameterContainer *params) override;
+	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void SetParameters(const cParameterContainer *params, const cFractalContainer *fractals);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool ReAllocateImageBuffers();

@@ -41,6 +41,7 @@
 
 #include "opencl_hardware.h"
 #include "parameters.hpp"
+#include "error_message.hpp"
 
 cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), hardware(_hardware)
 {
@@ -50,8 +51,12 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 	queue = nullptr;
 	programsLoaded = false;
 	readyForRendering = false;
+	kernelCreated = false;
 	locked = false;
 #endif
+
+	connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)),
+		gErrorMessage, SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
 }
 
 cOpenClEngine::~cOpenClEngine()
@@ -78,78 +83,97 @@ bool cOpenClEngine::checkErr(cl_int err, QString fuctionName)
 
 bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 {
-	// calculating hash code of the program
-	QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
-	hashCryptProgram.addData(programString);
-	QByteArray hashProgram = hashCryptProgram.result();
-
-	// calculating hash code of build parameters
-	QCryptographicHash hashCryptBuildParams(QCryptographicHash::Md4);
-	hashCryptBuildParams.addData(definesCollector.toLocal8Bit());
-	QByteArray hashBuildParams = hashCryptBuildParams.result();
-
-	// if program is different than in previous run
-	if (!(hashProgram == lastProgramHash && hashBuildParams == lastBuldParametersHash))
+	if (hardware->getClDevices().size() > 0)
 	{
-		lastBuldParametersHash = hashBuildParams;
-		lastProgramHash = hashProgram;
+		// calculating hash code of the program
+		QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
+		hashCryptProgram.addData(programString);
+		QByteArray hashProgram = hashCryptProgram.result();
 
-		// collecting all parts of program
-		cl::Program::Sources sources;
-		sources.push_back(std::make_pair(programString.constData(), size_t(programString.length())));
+		// calculating hash code of build parameters
+		QCryptographicHash hashCryptBuildParams(QCryptographicHash::Md4);
+		hashCryptBuildParams.addData(definesCollector.toLocal8Bit());
+		QByteArray hashBuildParams = hashCryptBuildParams.result();
 
-		// creating cl::Program
-		cl_int err;
-
-		if (program) delete program;
-		program = new cl::Program(*hardware->getContext(), sources, &err);
-
-		if (checkErr(err, "cl::Program()"))
+		// if program is different than in previous run
+		if (!(hashProgram == lastProgramHash && hashBuildParams == lastBuldParametersHash))
 		{
+			lastBuldParametersHash = hashBuildParams;
+			lastProgramHash = hashProgram;
 
-			std::string buildParams =
-				"-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE";
-			buildParams += definesCollector.toUtf8().constData();
-			qDebug() << "Build parameters: " << buildParams.c_str();
-			err = program->build(hardware->getClDevices(), buildParams.c_str());
+			// collecting all parts of program
+			cl::Program::Sources sources;
+			sources.push_back(std::make_pair(programString.constData(), size_t(programString.length())));
 
-			if (checkErr(err, "program->build()"))
+			// creating cl::Program
+			cl_int err;
+
+			if (program) delete program;
+			program = new cl::Program(*hardware->getContext(), sources, &err);
+
+			if (checkErr(err, "cl::Program()"))
 			{
-				qDebug() << "OpenCl kernel program successfully compiled";
-				return true;
+
+				std::string buildParams =
+					"-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE";
+				buildParams += definesCollector.toUtf8().constData();
+				qDebug() << "Build parameters: " << buildParams.c_str();
+				err = program->build(hardware->getClDevices(), buildParams.c_str());
+
+				if (checkErr(err, "program->build()"))
+				{
+					qDebug() << "OpenCl kernel program successfully compiled";
+					return true;
+				}
+				else
+				{
+					std::stringstream errorMessageStream;
+					errorMessageStream << "OpenCL Build log:\n"
+														 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(
+																	hardware->getEnabledDevices())
+														 << std::endl;
+
+					std::string buildLogText = errorMessageStream.str();
+
+					*errorText = QString::fromStdString(errorMessageStream.str());
+
+					std::cerr << buildLogText;
+
+					emit showErrorMessage(
+						QObject::tr("Error during compilation of OpenCL program\n") + *errorText,
+						cErrorMessage::errorMessage, nullptr);
+
+					return false;
+				}
 			}
 			else
 			{
-				std::stringstream errorMessageStream;
-				errorMessageStream << "OpenCL Build log:\t"
-													 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(
-																hardware->getEnabledDevices())
-													 << std::endl;
-				*errorText = QString::fromStdString(errorMessageStream.str());
-
-				std::string buildLogText = errorMessageStream.str();
-				std::cerr << buildLogText;
+				cErrorMessage::showMessage(
+					QObject::tr("OpenCL program cannot be created!"), cErrorMessage::errorMessage);
 				return false;
 			}
 		}
 		else
 		{
-			return false;
+			qDebug() << "Re-compile is not needed";
+			return true;
 		}
 	}
 	else
 	{
-		qDebug() << "Re-compile is not needed";
-		return true;
+		return false;
 	}
 }
 
 bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 {
-	if (CreateKernel(program))
+	if (programsLoaded)
 	{
-		InitOptimalJob(params);
-		return true;
+		if (CreateKernel(program))
+		{
+			InitOptimalJob(params);
+			return true;
+		}
 	}
 	return false;
 }
@@ -167,8 +191,14 @@ bool cOpenClEngine::CreateKernel(cl::Program *prog)
 		qDebug() << "CL_KERNEL_WORK_GROUP_SIZE" << workGroupSize;
 
 		optimalJob.workGroupSize = workGroupSize;
-
+		kernelCreated = true;
 		return true;
+	}
+	else
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot create OpenCL kernel"), cErrorMessage::errorMessage, nullptr);
+		kernelCreated = false;
 	}
 	return false;
 }
@@ -203,19 +233,28 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 
 bool cOpenClEngine::CreateCommandQueue()
 {
-	cl_int err;
-	if (queue) delete queue;
-	// TODO: support multiple devices
-	// TODO: create a separate queue per device
-	// iterate through getDevicesInformation[s]
-	queue = new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices(), 0, &err);
-
-	if (checkErr(err, "CommandQueue::CommandQueue()"))
+	if (hardware->ContextCreated())
 	{
-		readyForRendering = true;
-		return true;
+		cl_int err;
+		if (queue) delete queue;
+		// TODO: support multiple devices
+		// TODO: create a separate queue per device
+		// iterate through getDevicesInformation[s]
+		queue = new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices(), 0, &err);
+
+		if (checkErr(err, "CommandQueue::CommandQueue()"))
+		{
+			readyForRendering = true;
+			return true;
+		}
+		else
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot create OpenCL command queue"), cErrorMessage::errorMessage, nullptr);
+			readyForRendering = false;
+			return false;
+		}
 	}
-	readyForRendering = false;
 	return false;
 }
 

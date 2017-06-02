@@ -106,6 +106,8 @@ public:
 		return clDeviceWorkers[selectedDeviceIndex].getDeviceInformation();
 	}
 
+	bool ContextCreated() const { return contextReady; }
+
 protected:
 	static bool checkErr(cl_int err, QString fuctionName);
 

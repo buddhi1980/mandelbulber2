@@ -506,11 +506,13 @@ bool cRenderJob::Execute()
 		// just for testing
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer, fractalContainer);
-		gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer);
-		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
-		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
-		gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-		result = gOpenCl->openClEngineRenderFractal->Render(image);
+		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
+		{
+			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
+			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
+			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+			result = gOpenCl->openClEngineRenderFractal->Render(image);
+		}
 		gOpenCl->openClEngineRenderFractal->Unlock();
 		qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 	}

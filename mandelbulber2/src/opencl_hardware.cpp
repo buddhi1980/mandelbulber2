@@ -34,6 +34,7 @@
 
 #include "opencl_hardware.h"
 #include "opencl_device.h"
+#include "error_message.hpp"
 
 cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
@@ -107,8 +108,15 @@ void cOpenClHardware::ListOpenClPlatforms()
 		else
 		{
 			openClAvailable = false;
-			qCritical() << "There are no valid OpenCl platforms in the system";
+			cErrorMessage::showMessage(QObject::tr("There are no valid OpenCl platforms in the system"),
+				cErrorMessage::errorMessage);
 		}
+	}
+	else
+	{
+		openClAvailable = false;
+		cErrorMessage::showMessage(
+			QObject::tr("Missing OpenCL.dll in the system"), cErrorMessage::errorMessage);
 	}
 }
 
@@ -129,7 +137,7 @@ void cOpenClHardware::CreateContext(
 		if (context) delete context;
 		contextReady = false;
 
-		cl_int err;
+		cl_int err = 0;
 
 		switch (deviceType)
 		{
@@ -155,6 +163,12 @@ void cOpenClHardware::CreateContext(
 			contextReady = true;
 			ListOpenClDevices();
 		}
+		else
+		{
+			contextReady = false;
+			cErrorMessage::showMessage(
+				QObject::tr("OpenCL context cannot be created!"), cErrorMessage::errorMessage);
+		}
 	}
 	else
 	{
@@ -169,78 +183,91 @@ void cOpenClHardware::ListOpenClDevices()
 	clDeviceWorkers.clear();
 	clDevices.clear();
 
+	cl_int err = 0;
+
 	if (contextReady)
 	{
-		clDevices = context->getInfo<CL_CONTEXT_DEVICES>();
+		clDevices = context->getInfo<CL_CONTEXT_DEVICES>(&err);
 
-		if (clDevices.size() > 0)
+		if (checkErr(err, "Context::getInfo()"))
 		{
-			for (unsigned int i = 0; i < clDevices.size(); i++)
+			if (clDevices.size() > 0)
 			{
-				cOpenClDevice::sDeviceInformation deviceInformation;
-				clDevices[i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.deviceAvailable);
-				clDevices[i].getInfo(CL_DEVICE_COMPILER_AVAILABLE, &deviceInformation.compilerAvailable);
-				clDevices[i].getInfo(CL_DEVICE_DOUBLE_FP_CONFIG, &deviceInformation.doubleFpConfig);
-				clDevices[i].getInfo(
-					CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, &deviceInformation.globalMemCacheSize);
-				clDevices[i].getInfo(
-					CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE, &deviceInformation.globalMemCachelineSize);
-				clDevices[i].getInfo(CL_DEVICE_GLOBAL_MEM_SIZE, &deviceInformation.globalMemSize);
-				clDevices[i].getInfo(CL_DEVICE_LOCAL_MEM_SIZE, &deviceInformation.localMemSize);
-				clDevices[i].getInfo(CL_DEVICE_MAX_CLOCK_FREQUENCY, &deviceInformation.maxClockFrequency);
-				clDevices[i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.maxComputeUnits);
-				clDevices[i].getInfo(
-					CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, &deviceInformation.maxConstantBufferSize);
-				clDevices[i].getInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE, &deviceInformation.maxMemAllocSize);
-				clDevices[i].getInfo(CL_DEVICE_MAX_PARAMETER_SIZE, &deviceInformation.maxParameterSize);
-				clDevices[i].getInfo(CL_DEVICE_MAX_WORK_GROUP_SIZE, &deviceInformation.maxWorkGroupSize);
+				for (unsigned int i = 0; i < clDevices.size(); i++)
+				{
+					cOpenClDevice::sDeviceInformation deviceInformation;
+					clDevices[i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.deviceAvailable);
+					clDevices[i].getInfo(CL_DEVICE_COMPILER_AVAILABLE, &deviceInformation.compilerAvailable);
+					clDevices[i].getInfo(CL_DEVICE_DOUBLE_FP_CONFIG, &deviceInformation.doubleFpConfig);
+					clDevices[i].getInfo(
+						CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, &deviceInformation.globalMemCacheSize);
+					clDevices[i].getInfo(
+						CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE, &deviceInformation.globalMemCachelineSize);
+					clDevices[i].getInfo(CL_DEVICE_GLOBAL_MEM_SIZE, &deviceInformation.globalMemSize);
+					clDevices[i].getInfo(CL_DEVICE_LOCAL_MEM_SIZE, &deviceInformation.localMemSize);
+					clDevices[i].getInfo(CL_DEVICE_MAX_CLOCK_FREQUENCY, &deviceInformation.maxClockFrequency);
+					clDevices[i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.maxComputeUnits);
+					clDevices[i].getInfo(
+						CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, &deviceInformation.maxConstantBufferSize);
+					clDevices[i].getInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE, &deviceInformation.maxMemAllocSize);
+					clDevices[i].getInfo(CL_DEVICE_MAX_PARAMETER_SIZE, &deviceInformation.maxParameterSize);
+					clDevices[i].getInfo(CL_DEVICE_MAX_WORK_GROUP_SIZE, &deviceInformation.maxWorkGroupSize);
 
-				std::string deviceName;
-				clDevices[i].getInfo(CL_DEVICE_NAME, &deviceName);
-				deviceInformation.deviceName = QString(deviceName.c_str());
+					std::string deviceName;
+					clDevices[i].getInfo(CL_DEVICE_NAME, &deviceName);
+					deviceInformation.deviceName = QString(deviceName.c_str());
 
-				std::string deviceVersion;
-				clDevices[i].getInfo(CL_DEVICE_VERSION, &deviceVersion);
-				deviceInformation.deviceVersion = QString(deviceVersion.c_str());
+					std::string deviceVersion;
+					clDevices[i].getInfo(CL_DEVICE_VERSION, &deviceVersion);
+					deviceInformation.deviceVersion = QString(deviceVersion.c_str());
 
-				std::string driverVersion;
-				clDevices[i].getInfo(CL_DRIVER_VERSION, &driverVersion);
-				deviceInformation.driverVersion = QString(driverVersion.c_str());
+					std::string driverVersion;
+					clDevices[i].getInfo(CL_DRIVER_VERSION, &driverVersion);
+					deviceInformation.driverVersion = QString(driverVersion.c_str());
 
-				qDebug() << "Device # " << i;
-				qDebug() << "CL_DEVICE_MAX_COMPUTE_UNITS" << deviceInformation.deviceAvailable;
-				qDebug() << "CL_DEVICE_COMPILER_AVAILABLE" << deviceInformation.compilerAvailable;
-				qDebug() << "CL_DEVICE_DOUBLE_FP_CONFIG" << deviceInformation.doubleFpConfig;
-				qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE" << deviceInformation.globalMemCacheSize;
-				qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE"
-								 << deviceInformation.globalMemCachelineSize;
-				qDebug() << "CL_DEVICE_GLOBAL_MEM_SIZE" << deviceInformation.globalMemSize;
-				qDebug() << "CL_DEVICE_LOCAL_MEM_SIZE" << deviceInformation.localMemSize;
-				qDebug() << "CL_DEVICE_MAX_CLOCK_FREQUENCY" << deviceInformation.maxClockFrequency;
-				qDebug() << "CL_DEVICE_MAX_COMPUTE_UNITS" << deviceInformation.maxComputeUnits;
-				qDebug() << "CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE" << deviceInformation.maxConstantBufferSize;
-				qDebug() << "CL_DEVICE_MAX_MEM_ALLOC_SIZE" << deviceInformation.maxMemAllocSize;
-				qDebug() << "CL_DEVICE_MAX_PARAMETER_SIZE" << deviceInformation.maxParameterSize;
-				qDebug() << "CL_DEVICE_MAX_WORK_GROUP_SIZE" << deviceInformation.maxWorkGroupSize;
-				qDebug() << "CL_DEVICE_NAME" << deviceInformation.deviceName;
-				qDebug() << "CL_DEVICE_VERSION" << deviceInformation.deviceVersion;
-				qDebug() << "CL_DRIVER_VERSION" << deviceInformation.driverVersion;
+					qDebug() << "Device # " << i;
+					qDebug() << "CL_DEVICE_MAX_COMPUTE_UNITS" << deviceInformation.deviceAvailable;
+					qDebug() << "CL_DEVICE_COMPILER_AVAILABLE" << deviceInformation.compilerAvailable;
+					qDebug() << "CL_DEVICE_DOUBLE_FP_CONFIG" << deviceInformation.doubleFpConfig;
+					qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE" << deviceInformation.globalMemCacheSize;
+					qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE"
+									 << deviceInformation.globalMemCachelineSize;
+					qDebug() << "CL_DEVICE_GLOBAL_MEM_SIZE" << deviceInformation.globalMemSize;
+					qDebug() << "CL_DEVICE_LOCAL_MEM_SIZE" << deviceInformation.localMemSize;
+					qDebug() << "CL_DEVICE_MAX_CLOCK_FREQUENCY" << deviceInformation.maxClockFrequency;
+					qDebug() << "CL_DEVICE_MAX_COMPUTE_UNITS" << deviceInformation.maxComputeUnits;
+					qDebug() << "CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE"
+									 << deviceInformation.maxConstantBufferSize;
+					qDebug() << "CL_DEVICE_MAX_MEM_ALLOC_SIZE" << deviceInformation.maxMemAllocSize;
+					qDebug() << "CL_DEVICE_MAX_PARAMETER_SIZE" << deviceInformation.maxParameterSize;
+					qDebug() << "CL_DEVICE_MAX_WORK_GROUP_SIZE" << deviceInformation.maxWorkGroupSize;
+					qDebug() << "CL_DEVICE_NAME" << deviceInformation.deviceName;
+					qDebug() << "CL_DEVICE_VERSION" << deviceInformation.deviceVersion;
+					qDebug() << "CL_DRIVER_VERSION" << deviceInformation.driverVersion;
 
-				// calculate hash code
-				QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-				hashCrypt.addData(deviceInformation.deviceName.toLocal8Bit());
-				hashCrypt.addData(deviceInformation.deviceVersion.toLocal8Bit());
-				char index = char(i);
-				hashCrypt.addData(&index);
-				deviceInformation.hash = hashCrypt.result();
+					// calculate hash code
+					QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+					hashCrypt.addData(deviceInformation.deviceName.toLocal8Bit());
+					hashCrypt.addData(deviceInformation.deviceVersion.toLocal8Bit());
+					char index = char(i);
+					hashCrypt.addData(&index);
+					deviceInformation.hash = hashCrypt.result();
 
-				devicesInformation.append(deviceInformation);
-				clDeviceWorkers.append(cOpenClDevice(clDevices[i], deviceInformation));
+					devicesInformation.append(deviceInformation);
+					clDeviceWorkers.append(cOpenClDevice(clDevices[i], deviceInformation));
+				}
+			}
+			else
+			{
+				cErrorMessage::showMessage(
+					QObject::tr("There are no available devices for selected OpenCL platform"),
+					cErrorMessage::errorMessage);
 			}
 		}
 		else
 		{
-			qCritical() << "There are no available devices for selected platform";
+			cErrorMessage::showMessage(QObject::tr("Cannot list devices from selected OpenCL platform"),
+				cErrorMessage::errorMessage);
 		}
 	}
 }

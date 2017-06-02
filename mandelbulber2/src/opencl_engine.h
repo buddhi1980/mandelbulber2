@@ -59,6 +59,8 @@
 #pragma warning(pop)
 #endif // _MSC_VER
 
+#include "error_message.hpp"
+
 class cOpenClHardware;
 class cParameterContainer;
 
@@ -100,7 +102,7 @@ public:
 
 	void Lock();
 	void Unlock();
-	virtual void LoadSourcesAndCompile(const cParameterContainer *params) = 0;
+	virtual bool LoadSourcesAndCompile(const cParameterContainer *params) = 0;
 	bool CreateKernel4Program(const cParameterContainer *params);
 	virtual bool PreAllocateBuffers(const cParameterContainer *params) = 0;
 	bool CreateCommandQueue();
@@ -120,6 +122,7 @@ protected:
 	sOptimalJob optimalJob;
 	bool programsLoaded;
 	bool readyForRendering;
+	bool kernelCreated;
 
 	QString definesCollector;
 
@@ -132,6 +135,9 @@ private:
 	bool locked;
 	QByteArray lastProgramHash;
 	QByteArray lastBuldParametersHash;
+
+signals:
+	void showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *);
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_H_ */

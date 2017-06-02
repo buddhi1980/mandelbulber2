@@ -84,7 +84,7 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 }
 
 #ifdef USE_OPENCL
-void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer *params)
+bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer *params)
 {
 	programsLoaded = false;
 	readyForRendering = false;
@@ -163,7 +163,7 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	catch (const QString &ex)
 	{
 		qCritical() << "OpenCl program error: " << ex;
-		return;
+		return false;
 	}
 
 	// building OpenCl kernel
@@ -181,6 +181,8 @@ void cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		WriteLog(errorString, 0);
 	}
 	qDebug() << "Opencl build time [s]" << timer.nsecsElapsed() / 1.0e9;
+
+	return programsLoaded;
 }
 
 void cOpenClEngineRenderFractal::SetParameters(
@@ -283,34 +285,57 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 {
 	cl_int err;
 
-	if (inCLConstBuffer) delete inCLConstBuffer;
-	inCLConstBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-		sizeof(sClInConstants), constantInBuffer, &err);
-	if (!checkErr(err,
-				"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
-				"sizeof(sClInConstants), constantInBuffer, &err)"))
-		return false;
+	if (hardware->ContextCreated())
+	{
 
-	// this buffer will be used for color palettes, lights, etc...
-	if (inBuffer) delete inBuffer;
-	inBuffer = new sClInBuff;
-	if (inCLBuffer) delete inCLBuffer;
-	inCLBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-		sizeof(sClInBuff), inBuffer, &err);
-	if (!checkErr(err,
-				"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
-				"sizeof(sClInBuff), inBuffer, &err)"))
-		return false;
+		if (inCLConstBuffer) delete inCLConstBuffer;
+		inCLConstBuffer = new cl::Buffer(*hardware->getContext(),
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(sClInConstants), constantInBuffer, &err);
+		if (!checkErr(err,
+					"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
+					"sizeof(sClInConstants), constantInBuffer, &err)"))
+		{
+			emit showErrorMessage(QObject::tr("Cannot create OpenCL buffer for constants"),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 
-	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
-	if (rgbbuff) delete rgbbuff;
-	rgbbuff = new sClPixel[buffSize];
+		// this buffer will be used for color palettes, lights, etc...
+		if (inBuffer) delete inBuffer;
+		inBuffer = new sClInBuff;
+		if (inCLBuffer) delete inCLBuffer;
+		inCLBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			sizeof(sClInBuff), inBuffer, &err);
+		if (!checkErr(err,
+					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
+					"sizeof(sClInBuff), inBuffer, &err)"))
+		{
+			emit showErrorMessage(QObject::tr("Cannot create OpenCL buffer for variable data"),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 
-	if (outCL) delete outCL;
-	outCL = new cl::Buffer(
-		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err);
-	if (!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
+		size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
+		if (rgbbuff) delete rgbbuff;
+		rgbbuff = new sClPixel[buffSize];
+
+		if (outCL) delete outCL;
+		outCL = new cl::Buffer(
+			*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err);
+		if (!checkErr(
+					err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot create OpenCL output buffer"), cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+	else
+	{
+		emit showErrorMessage(
+			QObject::tr("OpenCL context is not ready"), cErrorMessage::errorMessage, nullptr);
 		return false;
+	}
 
 	return true;
 }
@@ -368,14 +393,38 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 			// assign parameters to kernel
 			cl_int err = kernel->setArg(0, *outCL); // output image
-			if (!checkErr(err, "kernel->setArg(0, *outCL)")) return false;
+
+			if (!checkErr(err, "kernel->setArg(0, *outCL)"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for output data"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+
 			err = kernel->setArg(1, *inCLBuffer); // input data in global memory
-			if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)")) return false;
+			if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for input data"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+
 			err =
 				kernel->setArg(2, *inCLConstBuffer); // input data in constant memory (faster than global)
-			if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)")) return false;
+			if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for constant data"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+
 			err = kernel->setArg(3, pixelIndex); // pixel offset
-			if (!checkErr(err, "kernel->setArg(3, pixelIndex)")) return false;
+			if (!checkErr(err, "kernel->setArg(3, pixelIndex)"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for pixel index"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 
 			// writing data to queue
 			err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
@@ -383,22 +432,47 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 			size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
 			qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
 
-			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)")) return false;
+			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL input buffers"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 
 			err = queue->finish();
-			if (!checkErr(err, "ComamndQueue::finish() - inCLBuffer")) return false;
+			if (!checkErr(err, "ComamndQueue::finish() - inCLBuffer"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL input buffers"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 
 			err = queue->enqueueWriteBuffer(
 				*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
-			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLConstBuffer)")) return false;
+			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLConstBuffer)"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL constant buffers"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 
 			err = queue->finish();
-			if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer")) return false;
+			if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL constant buffers"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 
 			// processing queue
 			err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
 				cl::NDRange(optimalJob.workGroupSize));
-			if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()")) return false;
+			if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot enqueue OpenCL rendering jobs"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 
 			// update image when OpenCl kernel is working
 			if (lastRenderedLines.size() > 0)
@@ -416,9 +490,20 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 			}
 
 			err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbbuff);
-			if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()")) return false;
+			if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL output buffers"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+
 			err = queue->finish();
-			if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer")) return false;
+			if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer"))
+			{
+				emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 
 			UpdateOptimalJobEnd();
 
