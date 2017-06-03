@@ -30,7 +30,7 @@ float4 MandelbulbIteration(float4 z, __constant sFractalCl *fractal, sExtendedAu
 	return z;
 }
 #else
-void MandelbulbIteration(double4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+double4 MandelbulbIteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// if (aux->r < 1e-21) aux->r = 1e-21;
 	double th0 = asin(native_divide(z.z, aux->r)) + fractal->bulb.betaAngleOffset;
@@ -41,8 +41,9 @@ void MandelbulbIteration(double4 *z, __constant sFractalCl *fractal, sExtendedAu
 	double cth = native_cos(th);
 	aux->r_dz = (rp * aux->r_dz) * fractal->bulb.power + 1.0;
 	rp *= aux->r;
-	z->x = cth * native_cos(ph) * rp;
-	z->y = cth * native_sin(ph) * rp;
-	z->z = native_sin(th) * rp;
+	z.x = cth * native_cos(ph) * rp;
+	z.y = cth * native_sin(ph) * rp;
+	z.z = native_sin(th) * rp;
+	return z;
 }
 #endif
