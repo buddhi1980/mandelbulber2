@@ -53,6 +53,7 @@
 #include "../src/system.hpp"
 #include "../src/opencl_global.h"
 #include "../src/opencl_hardware.h"
+#include "../src/opencl_engine_render_fractal.h"
 #include "ui_preferences_dialog.h"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
@@ -377,6 +378,7 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 #ifdef USE_OPENCL
 void cPreferencesDialog::on_listWidget_gpu_platform_list_currentRowChanged(int index)
 {
+	gOpenCl->openClEngineRenderFractal->Reset();
 	gOpenCl->openClHardware->CreateContext(index, cOpenClDevice::openClDeviceTypeALL);
 	gOpenCl->openClHardware->getClDevices();
 

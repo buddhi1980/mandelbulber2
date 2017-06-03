@@ -102,6 +102,7 @@ public:
 
 	void Lock();
 	void Unlock();
+	void Reset();
 	virtual bool LoadSourcesAndCompile(const cParameterContainer *params) = 0;
 	bool CreateKernel4Program(const cParameterContainer *params);
 	virtual bool PreAllocateBuffers(const cParameterContainer *params) = 0;

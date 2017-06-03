@@ -283,6 +283,12 @@ void cOpenClEngine::UpdateOptimalJobStart(int pixelsLeft)
 	//	qDebug() << "stepSize:" << optimalJob.stepSize;
 }
 
+void cOpenClEngine::Reset()
+{
+	lastBuldParametersHash.clear();
+	lastProgramHash.clear();
+}
+
 void cOpenClEngine::UpdateOptimalJobEnd()
 {
 	optimalJob.lastProcessingTime = optimalJob.timer.elapsed() / 1000.0;
