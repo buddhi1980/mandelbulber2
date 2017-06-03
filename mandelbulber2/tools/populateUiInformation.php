@@ -448,19 +448,19 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/([^*-]$s)($multChain)$s\-$s($multChain)$s\*$s($rval)(${'s'}[^*]|;)/", 'replace' => '$1mad(-$4, $3, $2)$5'), // c - a * b ====> mad(-a, b, c)
 
 			// formula specific replacements
-			//array('find' => "/^void(\s)/", 'replace' => 'inline void$1'), // mark void with inline void
-			array('find' => "/" . $fod . "4 &z/", 'replace' => $fod . '4 *z'), // no passing by reference
+			array('find' => "/^void(\s)/", 'replace' =>  $fod . '4 $1'), // mark void with inline void
+			array('find' => "/" . $fod . "4 &z/", 'replace' => $fod . '4 z'), // no passing by reference
 			array('find' => "/" . $fod . " &w/", 'replace' => $fod . ' *w'), // no passing by reference
-			array('find' => "/z\./", 'replace' => 'z->'),
+			//array('find' => "/z\./", 'replace' => 'z->'),
 			array('find' => "/" . $fod . "4 &z4D/", 'replace' => $fod . '4 *z4D'), // no passing by reference
 			array('find' => "/z4D\./", 'replace' => 'z4D->'),
 			array('find' => "/sExtendedAux &aux/", 'replace' => 'sExtendedAuxCl *aux'), // no passing by reference
 			array('find' => "/const sFractal \*fractal/", 'replace' => '__constant sFractalCl *fractal'), // no passing by reference
 			array('find' => "/aux\./", 'replace' => 'aux->'),
 			array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
-			array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
-			array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
-			array('find' => "/([\s\(-])z([,\);\s}])/", 'replace' => '$1*z$2'), // z to pointer
+			//array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
+			//array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
+			//array('find' => "/([\s\(-])z([,\);\s}])/", 'replace' => '$1*z$2'), // z to pointer
 			array('find' => "/(\s)z4D\s=/", 'replace' => '$1*z4D ='), // z4D to pointer
 			array('find' => "/(\s)z4D\s(.)=/", 'replace' => '$1*z4D $2='), // z4D to pointer
 			array('find' => "/([\s\(-])z4D([,\);\s}])/", 'replace' => '$1*z4D$2'), // z4D to pointer
@@ -478,6 +478,7 @@ function parseToOpenCL($code, $mode = 'single'){
 		$code = preg_replace($item['find'], $item['replace'], $code);
 		$code = preg_replace($item['find'], $item['replace'], $code); // regex sometimes overlap, so run twice!
 	}
+	$code = substr($code, 0, -1) . 'return z;' . PHP_EOL . '}';
 	return $code;
 }
 

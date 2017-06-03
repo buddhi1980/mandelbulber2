@@ -13,68 +13,68 @@
 
 #ifndef DOUBLE_PRECISION
 float4 TransfFabsAddConditional4dIteration(
-	float4 *z4D, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{
-		z4D->x = copysign((fractal->transformCommon.offset1111.x - fabs(z4D->x)
-												+ fabs(z4D->x) * fractal->transformCommon.additionConstant0000.x),
-			z4D->x);
+		z.x = copysign((fractal->transformCommon.offset1111.x - fabs(z.x)
+										 + fabs(z.x) * fractal->transformCommon.additionConstant0000.x),
+			z.x);
 	}
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
-		z4D->y = copysign((fractal->transformCommon.offset1111.y - fabs(z4D->y)
-												+ fabs(z4D->y) * fractal->transformCommon.additionConstant0000.y),
-			z4D->y);
+		z.y = copysign((fractal->transformCommon.offset1111.y - fabs(z.y)
+										 + fabs(z.y) * fractal->transformCommon.additionConstant0000.y),
+			z.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
-		z4D->z = copysign((fractal->transformCommon.offset1111.z - fabs(z4D->z)
-												+ fabs(z4D->z) * fractal->transformCommon.additionConstant0000.z),
-			z4D->z);
+		z.z = copysign((fractal->transformCommon.offset1111.z - fabs(z.z)
+										 + fabs(z.z) * fractal->transformCommon.additionConstant0000.z),
+			z.z);
 	}
 
 	if (fractal->transformCommon.functionEnabledw)
 	{
-		z4D->w = copysign((fractal->transformCommon.offset1111.w - fabs(z4D->w)
-												+ fabs(z4D->w) * fractal->transformCommon.additionConstant0000.w),
-			z4D->w);
+		z.w = copysign((fractal->transformCommon.offset1111.w - fabs(z.w)
+										 + fabs(z.w) * fractal->transformCommon.additionConstant0000.w),
+			z.w);
 	}
 	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 	return z;
 }
 #else
 double4 TransfFabsAddConditional4dIteration(
-	double4 *z4D, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{
-		z4D->x = copysign((fractal->transformCommon.offset1111.x - fabs(z4D->x)
-												+ fabs(z4D->x) * fractal->transformCommon.additionConstant0000.x),
-			z4D->x);
+		z.x = copysign((fractal->transformCommon.offset1111.x - fabs(z.x)
+										 + fabs(z.x) * fractal->transformCommon.additionConstant0000.x),
+			z.x);
 	}
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
-		z4D->y = copysign((fractal->transformCommon.offset1111.y - fabs(z4D->y)
-												+ fabs(z4D->y) * fractal->transformCommon.additionConstant0000.y),
-			z4D->y);
+		z.y = copysign((fractal->transformCommon.offset1111.y - fabs(z.y)
+										 + fabs(z.y) * fractal->transformCommon.additionConstant0000.y),
+			z.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
-		z4D->z = copysign((fractal->transformCommon.offset1111.z - fabs(z4D->z)
-												+ fabs(z4D->z) * fractal->transformCommon.additionConstant0000.z),
-			z4D->z);
+		z.z = copysign((fractal->transformCommon.offset1111.z - fabs(z.z)
+										 + fabs(z.z) * fractal->transformCommon.additionConstant0000.z),
+			z.z);
 	}
 
 	if (fractal->transformCommon.functionEnabledw)
 	{
-		z4D->w = copysign((fractal->transformCommon.offset1111.w - fabs(z4D->w)
-												+ fabs(z4D->w) * fractal->transformCommon.additionConstant0000.w),
-			z4D->w);
+		z.w = copysign((fractal->transformCommon.offset1111.w - fabs(z.w)
+										 + fabs(z.w) * fractal->transformCommon.additionConstant0000.w),
+			z.w);
 	}
 	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 	return z;

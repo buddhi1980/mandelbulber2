@@ -13,30 +13,30 @@
 
 #ifndef DOUBLE_PRECISION
 float4 TransfFabsAddConstant4dIteration(
-	float4 *z4D, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	Q_UNUSED(aux);
 
-	*z4D += fractal->transformCommon.additionConstant0000;
+	z += fractal->transformCommon.additionConstant0000;
 
-	if (fractal->transformCommon.functionEnabledx) z4D->x = fabs(z4D->x);
-	if (fractal->transformCommon.functionEnabledy) z4D->y = fabs(z4D->y);
-	if (fractal->transformCommon.functionEnabledz) z4D->z = fabs(z4D->z);
-	if (fractal->transformCommon.functionEnabled) z4D->w = fabs(z4D->w);
+	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+	if (fractal->transformCommon.functionEnabled) z.w = fabs(z.w);
 	return z;
 }
 #else
 double4 TransfFabsAddConstant4dIteration(
-	double4 *z4D, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	Q_UNUSED(aux);
 
-	*z4D += fractal->transformCommon.additionConstant0000;
+	z += fractal->transformCommon.additionConstant0000;
 
-	if (fractal->transformCommon.functionEnabledx) z4D->x = fabs(z4D->x);
-	if (fractal->transformCommon.functionEnabledy) z4D->y = fabs(z4D->y);
-	if (fractal->transformCommon.functionEnabledz) z4D->z = fabs(z4D->z);
-	if (fractal->transformCommon.functionEnabled) z4D->w = fabs(z4D->w);
+	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+	if (fractal->transformCommon.functionEnabled) z.w = fabs(z.w);
 	return z;
 }
 #endif

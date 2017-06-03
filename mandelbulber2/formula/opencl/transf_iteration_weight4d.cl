@@ -13,26 +13,26 @@
 
 #ifndef DOUBLE_PRECISION
 float4 TransfIterationWeight4dIteration(
-	float4 *z4D, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	float4 zA4 = (aux->i == fractal->transformCommon.intA) ? *z4D : (float4){};
-	float4 zB4 = (aux->i == fractal->transformCommon.intB) ? *z4D : (float4){};
+	float4 zA4 = (aux->i == fractal->transformCommon.intA) ? z : (float4){};
+	float4 zB4 = (aux->i == fractal->transformCommon.intB) ? z : (float4){};
 
-	*z4D = (*z4D * fractal->transformCommon.scale) + (zA4 * fractal->transformCommon.offset)
-				 + (zB4 * fractal->transformCommon.offset0);
+	z = (z * fractal->transformCommon.scale) + (zA4 * fractal->transformCommon.offset)
+			+ (zB4 * fractal->transformCommon.offset0);
 	aux->DE *= fractal->transformCommon.scale;
 	aux->r_dz *= fractal->transformCommon.scale;
 	return z;
 }
 #else
 double4 TransfIterationWeight4dIteration(
-	double4 *z4D, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	double4 zA4 = (aux->i == fractal->transformCommon.intA) ? *z4D : (double4){};
-	double4 zB4 = (aux->i == fractal->transformCommon.intB) ? *z4D : (double4){};
+	double4 zA4 = (aux->i == fractal->transformCommon.intA) ? z : (double4){};
+	double4 zB4 = (aux->i == fractal->transformCommon.intB) ? z : (double4){};
 
-	*z4D = (*z4D * fractal->transformCommon.scale) + (zA4 * fractal->transformCommon.offset)
-				 + (zB4 * fractal->transformCommon.offset0);
+	z = (z * fractal->transformCommon.scale) + (zA4 * fractal->transformCommon.offset)
+			+ (zB4 * fractal->transformCommon.offset0);
 	aux->DE *= fractal->transformCommon.scale;
 	aux->r_dz *= fractal->transformCommon.scale;
 	return z;

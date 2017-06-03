@@ -13,22 +13,22 @@
 
 #ifndef DOUBLE_PRECISION
 float4 TransfFabsAddTgladFold4dIteration(
-	float4 *z4D, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	Q_UNUSED(aux);
 
-	*z4D = fabs(*z4D + fractal->transformCommon.additionConstant0000)
-				 - fabs(*z4D - fractal->transformCommon.additionConstant0000) - *z4D;
+	z = fabs(z + fractal->transformCommon.additionConstant0000)
+			- fabs(z - fractal->transformCommon.additionConstant0000) - z;
 	return z;
 }
 #else
 double4 TransfFabsAddTgladFold4dIteration(
-	double4 *z4D, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+	double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	Q_UNUSED(aux);
 
-	*z4D = fabs(*z4D + fractal->transformCommon.additionConstant0000)
-				 - fabs(*z4D - fractal->transformCommon.additionConstant0000) - *z4D;
+	z = fabs(z + fractal->transformCommon.additionConstant0000)
+			- fabs(z - fractal->transformCommon.additionConstant0000) - z;
 	return z;
 }
 #endif
