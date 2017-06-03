@@ -161,7 +161,7 @@ float4 RotateAroundVectorByAngle4(float4 origin4d, float3 axis, float angle)
 	float3 vector = origin * cos(angle);
 	vector += cross(axis, origin) * sin(angle);
 	vector += axis * dot(axis, origin) * (1.0f - cos(angle));
-	return (float4){vector, origin4d.w};
+	return (float4){vector.x, vector.y, vector.z, origin4d.w};
 }
 
 float SmoothConditionAGreaterB(float a, float b, float sharpness)

@@ -140,9 +140,11 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 					std::cerr << buildLogText;
 
 					emit showErrorMessage(
-						QObject::tr("Error during compilation of OpenCL program\n") + *errorText,
+						QObject::tr("Error during compilation of OpenCL program\n") + errorText->left(500),
 						cErrorMessage::errorMessage, nullptr);
 
+					lastBuldParametersHash.clear();
+					lastProgramHash.clear();
 					return false;
 				}
 			}

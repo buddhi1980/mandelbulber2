@@ -17,8 +17,9 @@ typedef struct
 	bool maxiter;
 } formulaOut;
 
-void DummyIteration(float4 *z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
+float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	return z;
 }
 
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam)
@@ -66,15 +67,15 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		switch (formulaIndex)
 		{
-			case 0: FORMULA_ITER_0(&z, fractal, &aux); break;
-			case 1: FORMULA_ITER_1(&z, fractal, &aux); break;
-			case 2: FORMULA_ITER_2(&z, fractal, &aux); break;
-			case 3: FORMULA_ITER_3(&z, fractal, &aux); break;
-			case 4: FORMULA_ITER_4(&z, fractal, &aux); break;
-			case 5: FORMULA_ITER_5(&z, fractal, &aux); break;
-			case 6: FORMULA_ITER_6(&z, fractal, &aux); break;
-			case 7: FORMULA_ITER_7(&z, fractal, &aux); break;
-			case 8: FORMULA_ITER_8(&z, fractal, &aux); break;
+			case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
+			case 1: z = FORMULA_ITER_1(z, fractal, &aux); break;
+			case 2: z = FORMULA_ITER_2(z, fractal, &aux); break;
+			case 3: z = FORMULA_ITER_3(z, fractal, &aux); break;
+			case 4: z = FORMULA_ITER_4(z, fractal, &aux); break;
+			case 5: z = FORMULA_ITER_5(z, fractal, &aux); break;
+			case 6: z = FORMULA_ITER_6(z, fractal, &aux); break;
+			case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
+			case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
 		}
 
 		if (consts->sequence.addCConstant[formulaIndex])
