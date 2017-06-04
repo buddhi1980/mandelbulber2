@@ -274,8 +274,8 @@
     <Uic>$(QtDir)/bin/uic.exe</Uic>
     <Rcc>$(QtDir)/bin/rcc.exe</Rcc>
     <PreProcs>-DUSE_SNDFILE -DUSE_TIFF -DUSE_GAMEPAD=1 -DQT_CORE_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_UITOOLS_LIB -DQT_TESTLIB_LIB -DQT_MULTIMEDIA_LIB -DQT_GAMEPAD_LIB -DQT_TESTCASE_BUILDDIR="../../build-win"</PreProcs>
-    <PreProcsE>$(PreProcs);USE_EXR</PreProcsE>
-	<PreProcsO>$(PreProcsE);USE_OPENCL=1</PreProcsO>
+    <PreProcsE>$(PreProcs) -DUSE_EXR</PreProcsE>
+	<PreProcsO>$(PreProcsE) -DUSE_OPENCL=1</PreProcsO>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'!='AnalysisRelease'">
     <MocFlags>$(PreProcsE)</MocFlags>
