@@ -127,6 +127,16 @@ formulaOut CalculateDistance(
 	}
 #endif
 
+	float distFromCamera = length(point - consts->params.camera);
+	float distanceLimitMin = consts->params.viewDistanceMin - distFromCamera;
+	out.distance = max(out.distance, distanceLimitMin);
+	
+	if (distanceLimitMin > calcParam->detailSize)
+	{
+		out.maxiter = false;
+		out.iters = 0;
+	}
+
 	return out;
 }
 

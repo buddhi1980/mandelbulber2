@@ -85,12 +85,6 @@ struct sParamRender
 	int DOFSamples;
 	int DOFMinSamples;
 
-#ifdef USE_OPENCL
-	int OpenCLDOFMethod;
-	int OpenCLEngine;
-	int OpenCLPixelsPerJob;
-#endif
-
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;
 	params::enumTextureMapType texturedBackgroundMapType;
@@ -129,10 +123,6 @@ struct sParamRender
 	bool volumetricLightEnabled[5];
 	bool volumetricLightAnyEnabled;
 	bool volFogEnabled;
-
-#ifdef USE_OPENCL
-	bool useCustomOCLFormula;
-#endif
 
 	sRGB auxLightPreColour[4];
 	sRGB background_color1; // background colour

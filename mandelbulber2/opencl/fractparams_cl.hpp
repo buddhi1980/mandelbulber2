@@ -77,12 +77,6 @@ typedef struct
 	cl_int DOFSamples;
 	cl_int DOFMinSamples;
 
-#ifdef USE_OPENCL
-	cl_int OpenCLDOFMethod;
-	cl_int OpenCLEngine;
-	cl_int OpenCLPixelsPerJob;
-#endif
-
 	cl_int antialiasingEnabled;
 	cl_int ambientOcclusionEnabled; // enable global illumination
 	cl_int auxLightPreEnabled[4];
@@ -114,10 +108,6 @@ typedef struct
 	cl_int volumetricLightEnabled[5];
 	cl_int volumetricLightAnyEnabled;
 	cl_int volFogEnabled;
-
-#ifdef USE_OPENCL
-	cl_int useCustomOCLFormula;
-#endif
 
 	cl_int3 auxLightPreColour[4];
 	cl_int3 background_color1; // background colour
@@ -234,9 +224,6 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.DOFNumberOfPasses = source.DOFNumberOfPasses;
 	target.DOFSamples = source.DOFSamples;
 	target.DOFMinSamples = source.DOFMinSamples;
-	target.OpenCLDOFMethod = source.OpenCLDOFMethod;
-	target.OpenCLEngine = source.OpenCLEngine;
-	target.OpenCLPixelsPerJob = source.OpenCLPixelsPerJob;
 	target.antialiasingEnabled = source.antialiasingEnabled;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
 	for (int i = 0; i < 4; i++)
@@ -274,7 +261,6 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	}
 	target.volumetricLightAnyEnabled = source.volumetricLightAnyEnabled;
 	target.volFogEnabled = source.volFogEnabled;
-	target.useCustomOCLFormula = source.useCustomOCLFormula;
 	for (int i = 0; i < 4; i++)
 	{
 		target.auxLightPreColour[i] = toClInt3(source.auxLightPreColour[i]);

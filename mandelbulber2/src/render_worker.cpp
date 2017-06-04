@@ -272,7 +272,7 @@ void cRenderWorker::doWork()
 					rayMarchingIn.binaryEnable = true;
 					rayMarchingIn.direction = direction;
 					rayMarchingIn.maxScan = params->viewDistanceMax;
-					rayMarchingIn.minScan = params->viewDistanceMin;
+					rayMarchingIn.minScan = 0; // params->viewDistanceMin;
 					rayMarchingIn.start = startRay;
 					rayMarchingIn.invertMode = false;
 					recursionIn.rayMarchingIn = rayMarchingIn;

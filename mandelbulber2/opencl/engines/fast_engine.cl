@@ -109,11 +109,11 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	for (count = 0; count < MAX_RAYMARCHING && scan < consts->params.viewDistanceMax; count++)
 	{
 		point = start + viewVector * scan;
+		distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
 		calcParam.distThresh = distThresh;
 		calcParam.detailSize = distThresh;
 		outF = CalculateDistance(consts, point, &calcParam);
 		distance = outF.distance;
-		distThresh = scan * resolution * consts->params.fov;
 
 		if (distance < distThresh * 0.95f)
 		{
@@ -122,7 +122,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 		}
 
 		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
-		scan += step;
+		scan += step / length(viewVector);
 	}
 
 	// final binary searching
@@ -156,8 +156,9 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	float3 surfaceColour = 1.0f;
 	if (found)
 	{
-		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
+		distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
 
+		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
 		float3 lightVector = (float3){
 			cos(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
 			sin(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),

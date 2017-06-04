@@ -58,7 +58,6 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	out->totalIters = 0;
 
 	double limitBoxDist = 0.0;
-
 	if (params.limitsEnabled)
 	{
 		double distance_a = max(in.point.x - params.limitMax.x, -(in.point.x - params.limitMin.x));
@@ -190,6 +189,19 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	{
 		distance = 0.0;
 	}
+
+	double distFromCamera = (in.point - params.camera).Length();
+	double distanceLimitMin = params.viewDistanceMin - distFromCamera;
+	if (distanceLimitMin > in.detailSize)
+	{
+		out->maxiter = false;
+		out->objectId = 0;
+		out->maxiter = false;
+		out->iters = 0;
+	}
+
+	distance = max(distance, distanceLimitMin);
+
 
 	out->distance = distance;
 
