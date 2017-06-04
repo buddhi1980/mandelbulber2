@@ -44,7 +44,6 @@
 #pragma warning(disable : 4996) // declared deprecated
 #endif													// _MSC_VER
 
-
 #ifdef USE_OPENCL
 #ifdef _WIN32
 #ifndef _MSC_VER
@@ -86,6 +85,10 @@ public:
 	void SetParameters(const cParameterContainer *params, const cFractalContainer *fractals);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool ReAllocateImageBuffers();
+	bool AssingParametersToKernel(int pixelIndex);
+	bool WriteDataBuffertsToQueue();
+	bool ProcessQueue();
+	bool ReadBuffersFromQueue();
 	bool Render(cImage *image);
 
 private:

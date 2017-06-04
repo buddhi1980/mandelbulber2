@@ -110,6 +110,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	{
 		point = start + viewVector * scan;
 		distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
+		distThresh = max(1e-6, distThresh);
 		calcParam.distThresh = distThresh;
 		calcParam.detailSize = distThresh;
 		outF = CalculateDistance(consts, point, &calcParam);
@@ -157,7 +158,8 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	if (found)
 	{
 		distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
-
+		distThresh = max(1e-6, distThresh);
+		
 		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
 		float3 lightVector = (float3){
 			cos(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),

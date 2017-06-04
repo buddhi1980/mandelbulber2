@@ -387,92 +387,16 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 			size_t pixelsLeft = width * height - pixelIndex;
 			UpdateOptimalJobStart(pixelsLeft);
 
-			size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
-
 			ReAllocateImageBuffers();
 
 			// assign parameters to kernel
-			cl_int err = kernel->setArg(0, *outCL); // output image
-
-			if (!checkErr(err, "kernel->setArg(0, *outCL)"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for output data"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-
-			err = kernel->setArg(1, *inCLBuffer); // input data in global memory
-			if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for input data"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-
-			err =
-				kernel->setArg(2, *inCLConstBuffer); // input data in constant memory (faster than global)
-			if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for constant data"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-
-			err = kernel->setArg(3, pixelIndex); // pixel offset
-			if (!checkErr(err, "kernel->setArg(3, pixelIndex)"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for pixel index"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
+			if (!AssingParametersToKernel(pixelIndex)) return false;
 
 			// writing data to queue
-			err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
-
-			size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
-			qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
-
-			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL input buffers"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-
-			err = queue->finish();
-			if (!checkErr(err, "ComamndQueue::finish() - inCLBuffer"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL input buffers"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-
-			err = queue->enqueueWriteBuffer(
-				*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
-			if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLConstBuffer)"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL constant buffers"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-
-			err = queue->finish();
-			if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL constant buffers"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
+			if (!WriteDataBuffertsToQueue()) return false;
 
 			// processing queue
-			err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
-				cl::NDRange(optimalJob.workGroupSize));
-			if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot enqueue OpenCL rendering jobs"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
+			if (!ProcessQueue()) return false;
 
 			// update image when OpenCl kernel is working
 			if (lastRenderedLines.size() > 0)
@@ -489,21 +413,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 				if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
 			}
 
-			err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbbuff);
-			if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL output buffers"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-
-			err = queue->finish();
-			if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer"))
-			{
-				emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
+			if (!ReadBuffersFromQueue()) return false;
 
 			UpdateOptimalJobEnd();
 
@@ -586,4 +496,122 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 
 	return parts.join("");
 }
+
+bool cOpenClEngineRenderFractal::AssingParametersToKernel(int pixelIndex)
+{
+	cl_int err = kernel->setArg(0, *outCL); // output image
+
+	if (!checkErr(err, "kernel->setArg(0, *outCL)"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for output data"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = kernel->setArg(1, *inCLBuffer); // input data in global memory
+	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for input data"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = kernel->setArg(2, *inCLConstBuffer); // input data in constant memory (faster than global)
+	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for constant data"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = kernel->setArg(3, pixelIndex); // pixel offset
+	if (!checkErr(err, "kernel->setArg(3, pixelIndex)"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for pixel index"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	return true;
+}
+
+bool cOpenClEngineRenderFractal::WriteDataBuffertsToQueue()
+{
+	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
+
+	size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
+	qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
+
+	if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL input buffers"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = queue->finish();
+	if (!checkErr(err, "ComamndQueue::finish() - inCLBuffer"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL input buffers"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = queue->enqueueWriteBuffer(
+		*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
+	if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLConstBuffer)"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL constant buffers"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = queue->finish();
+	if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL constant buffers"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	return true;
+}
+
+bool cOpenClEngineRenderFractal::ProcessQueue()
+{
+	cl_int err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
+		cl::NDRange(optimalJob.workGroupSize));
+	if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	return true;
+}
+
+bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
+{
+	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
+
+	cl_int err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbbuff);
+	if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL output buffers"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = queue->finish();
+	if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	return true;
+}
+
 #endif
