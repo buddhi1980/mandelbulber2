@@ -65,11 +65,11 @@ class cOpenClDevice
 public:
 	enum enumOpenClDeviceType
 	{
-		openClDeviceTypeACC,
+		openClDeviceTypeGPU,
+		openClDeviceTypeDEF,
 		openClDeviceTypeALL,
 		openClDeviceTypeCPU,
-		openClDeviceTypeDEF,
-		openClDeviceTypeGPU
+		openClDeviceTypeACC
 	};
 
 #ifdef USE_OPENCL

@@ -52,8 +52,8 @@ cGlobalOpenCl::cGlobalOpenCl()
 
 		if (gPar->Get<int>("gpu_platform") >= 0)
 		{
-			openClHardware->CreateContext(
-				gPar->Get<int>("gpu_platform"), cOpenClDevice::openClDeviceTypeALL);
+			openClHardware->CreateContext(gPar->Get<int>("gpu_platform"),
+				cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("gpu_device_type")));
 
 			// TODO hardcoded device index
 			// TODO: support dialogue box for selection of individual hardware devices

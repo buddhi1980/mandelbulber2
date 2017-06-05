@@ -1051,7 +1051,12 @@ and will only be present after enabling and re-render.</string>
                    <widget class="QComboBox" name="comboBox_gpu_device_type">
                     <item>
                      <property name="text">
-                      <string>All non CPU devices</string>
+                      <string>All GPU devices</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Default device</string>
                      </property>
                     </item>
                     <item>
@@ -1061,7 +1066,12 @@ and will only be present after enabling and re-render.</string>
                     </item>
                     <item>
                      <property name="text">
-                      <string>Custom devices</string>
+                      <string>All CPU devices</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>All accelerators</string>
                      </property>
                     </item>
                    </widget>

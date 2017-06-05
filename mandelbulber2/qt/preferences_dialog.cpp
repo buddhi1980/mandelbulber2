@@ -379,7 +379,8 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 void cPreferencesDialog::on_listWidget_gpu_platform_list_currentRowChanged(int index)
 {
 	gOpenCl->openClEngineRenderFractal->Reset();
-	gOpenCl->openClHardware->CreateContext(index, cOpenClDevice::openClDeviceTypeALL);
+	gOpenCl->openClHardware->CreateContext(
+		index, cOpenClDevice::enumOpenClDeviceType(ui->comboBox_gpu_device_type->currentIndex()));
 	gOpenCl->openClHardware->getClDevices();
 
 	ui->listWidget_gpu_device_list->clear();
@@ -404,8 +405,8 @@ void cPreferencesDialog::on_groupCheck_gpu_enabled_toggled(bool state)
 		gOpenCl->openClHardware->ListOpenClPlatforms();
 		if (gPar->Get<int>("gpu_platform") >= 0)
 		{
-			gOpenCl->openClHardware->CreateContext(
-				gPar->Get<int>("gpu_platform"), cOpenClDevice::openClDeviceTypeALL);
+			gOpenCl->openClHardware->CreateContext(gPar->Get<int>("gpu_platform"),
+				cOpenClDevice::enumOpenClDeviceType(ui->comboBox_gpu_device_type->currentIndex()));
 			gOpenCl->openClHardware->EnableDevicesByHashList(gPar->Get<QString>("gpu_device_list"));
 		}
 
@@ -447,5 +448,11 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 		ui->listWidget_gpu_device_list->addItem(item);
 		item->setSelected(selected);
 	}
+}
+
+void cPreferencesDialog::on_comboBox_gpu_device_type_currentIndexChanged(int index)
+{
+	Q_UNUSED(index);
+	UpdateOpenCLListBoxes();
 }
 #endif

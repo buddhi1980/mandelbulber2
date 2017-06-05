@@ -68,6 +68,7 @@ private slots:
 #ifdef USE_OPENCL
 	void on_listWidget_gpu_platform_list_currentRowChanged(int index);
 	void on_groupCheck_gpu_enabled_toggled(bool state);
+	void on_comboBox_gpu_device_type_currentIndexChanged(int index);
 #endif
 
 private:
