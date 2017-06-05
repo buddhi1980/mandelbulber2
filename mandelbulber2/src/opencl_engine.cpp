@@ -96,9 +96,9 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 		QByteArray hashBuildParams = hashCryptBuildParams.result();
 
 		// if program is different than in previous run
-		if (!(hashProgram == lastProgramHash && hashBuildParams == lastBuldParametersHash))
+		if (!(hashProgram == lastProgramHash && hashBuildParams == lastBuildParametersHash))
 		{
-			lastBuldParametersHash = hashBuildParams;
+			lastBuildParametersHash = hashBuildParams;
 			lastProgramHash = hashProgram;
 
 			// collecting all parts of program
@@ -143,7 +143,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 						QObject::tr("Error during compilation of OpenCL program\n") + errorText->left(500),
 						cErrorMessage::errorMessage, nullptr);
 
-					lastBuldParametersHash.clear();
+					lastBuildParametersHash.clear();
 					lastProgramHash.clear();
 					return false;
 				}
@@ -287,7 +287,7 @@ void cOpenClEngine::UpdateOptimalJobStart(int pixelsLeft)
 
 void cOpenClEngine::Reset()
 {
-	lastBuldParametersHash.clear();
+	lastBuildParametersHash.clear();
 	lastProgramHash.clear();
 }
 

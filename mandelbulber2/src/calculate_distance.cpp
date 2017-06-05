@@ -202,7 +202,6 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 
 	distance = max(distance, distanceLimitMin);
 
-
 	out->distance = distance;
 
 	return distance;

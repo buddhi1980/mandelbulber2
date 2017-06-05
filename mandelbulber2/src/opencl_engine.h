@@ -135,7 +135,7 @@ private:
 	QMutex lock;
 	bool locked;
 	QByteArray lastProgramHash;
-	QByteArray lastBuldParametersHash;
+	QByteArray lastBuildParametersHash;
 
 signals:
 	void showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *);

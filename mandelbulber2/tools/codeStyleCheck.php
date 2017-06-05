@@ -38,6 +38,7 @@ $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 
 foreach($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
+	if($sourceFileName == 'clew.cpp') continue;
 	$status = array();
 	$success = false;
 	$sourceContent = file_get_contents($sourceFilePath);
@@ -55,6 +56,8 @@ foreach($sourceFiles as $sourceFilePath) {
 foreach($headerFiles as $headerFilePath) {
 	$headerFileName = basename($headerFilePath);
 	if(substr($headerFileName, 0, strlen('ui_')) == 'ui_') continue;
+	if($headerFileName == 'clew.h') continue;
+	if($headerFileName == 'clew-cl.hpp') continue;
 	$folderName = basename(str_replace($headerFileName, '', $headerFilePath));
 	$status = array();
 	$success = false;
