@@ -453,6 +453,6 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 void cPreferencesDialog::on_comboBox_gpu_device_type_currentIndexChanged(int index)
 {
 	Q_UNUSED(index);
-	UpdateOpenCLListBoxes();
+	on_listWidget_gpu_platform_list_currentRowChanged(ui->listWidget_gpu_platform_list->currentRow());
 }
 #endif
