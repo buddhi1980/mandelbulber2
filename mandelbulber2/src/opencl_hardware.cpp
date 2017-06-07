@@ -123,56 +123,64 @@ void cOpenClHardware::ListOpenClPlatforms()
 void cOpenClHardware::CreateContext(
 	int platformIndex, cOpenClDevice::enumOpenClDeviceType deviceType)
 {
-	if (openClAvailable)
+	if (platformIndex >= 0)
 	{
-		devicesInformation.clear();
-		clDeviceWorkers.clear();
-		clDevices.clear();
-
-		// platformIndex required
-		// context operates exclusively with (1) platform
-		cl_context_properties cprops[3] = {
-			CL_CONTEXT_PLATFORM, cl_context_properties((clPlatforms[platformIndex])()), 0};
-
-		if (context) delete context;
-		contextReady = false;
-
-		cl_int err = 0;
-
-		switch (deviceType)
+		if (openClAvailable)
 		{
-			case cOpenClDevice::openClDeviceTypeACC:
-				context = new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cprops, nullptr, nullptr, &err);
-				break;
-			case cOpenClDevice::openClDeviceTypeALL:
-				context = new cl::Context(CL_DEVICE_TYPE_ALL, cprops, nullptr, nullptr, &err);
-				break;
-			case cOpenClDevice::openClDeviceTypeCPU:
-				context = new cl::Context(CL_DEVICE_TYPE_CPU, cprops, nullptr, nullptr, &err);
-				break;
-			case cOpenClDevice::openClDeviceTypeDEF:
-				context = new cl::Context(CL_DEVICE_TYPE_DEFAULT, cprops, nullptr, nullptr, &err);
-				break;
-			case cOpenClDevice::openClDeviceTypeGPU:
-				context = new cl::Context(CL_DEVICE_TYPE_GPU, cprops, nullptr, nullptr, &err);
-				break;
-		}
+			devicesInformation.clear();
+			clDeviceWorkers.clear();
+			clDevices.clear();
 
-		if (checkErr(err, "Context::Context()"))
-		{
-			contextReady = true;
-			ListOpenClDevices();
+			// platformIndex required
+			// context operates exclusively with (1) platform
+			cl_context_properties cprops[3] = {
+				CL_CONTEXT_PLATFORM, cl_context_properties((clPlatforms[platformIndex])()), 0};
+
+			if (context) delete context;
+			contextReady = false;
+
+			cl_int err = 0;
+
+			switch (deviceType)
+			{
+				case cOpenClDevice::openClDeviceTypeACC:
+					context = new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cprops, nullptr, nullptr, &err);
+					break;
+				case cOpenClDevice::openClDeviceTypeALL:
+					context = new cl::Context(CL_DEVICE_TYPE_ALL, cprops, nullptr, nullptr, &err);
+					break;
+				case cOpenClDevice::openClDeviceTypeCPU:
+					context = new cl::Context(CL_DEVICE_TYPE_CPU, cprops, nullptr, nullptr, &err);
+					break;
+				case cOpenClDevice::openClDeviceTypeDEF:
+					context = new cl::Context(CL_DEVICE_TYPE_DEFAULT, cprops, nullptr, nullptr, &err);
+					break;
+				case cOpenClDevice::openClDeviceTypeGPU:
+					context = new cl::Context(CL_DEVICE_TYPE_GPU, cprops, nullptr, nullptr, &err);
+					break;
+			}
+
+			if (checkErr(err, "Context::Context()"))
+			{
+				contextReady = true;
+				ListOpenClDevices();
+			}
+			else
+			{
+				contextReady = false;
+				cErrorMessage::showMessage(
+					QObject::tr("OpenCL context cannot be created!"), cErrorMessage::errorMessage);
+			}
 		}
 		else
 		{
+			qCritical() << "OpenCl is not available";
 			contextReady = false;
-			cErrorMessage::showMessage(
-				QObject::tr("OpenCL context cannot be created!"), cErrorMessage::errorMessage);
 		}
 	}
 	else
 	{
-		qCritical() << "OpenCl is not available";
+		qCritical() << "OpenCL platform index is negative number!";
 		contextReady = false;
 	}
 }

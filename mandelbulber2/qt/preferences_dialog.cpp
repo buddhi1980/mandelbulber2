@@ -378,23 +378,26 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 #ifdef USE_OPENCL
 void cPreferencesDialog::on_listWidget_gpu_platform_list_currentRowChanged(int index)
 {
-	gOpenCl->openClEngineRenderFractal->Reset();
-	gOpenCl->openClHardware->CreateContext(
-		index, cOpenClDevice::enumOpenClDeviceType(ui->comboBox_gpu_device_type->currentIndex()));
-	gOpenCl->openClHardware->getClDevices();
-
-	ui->listWidget_gpu_device_list->clear();
-
-	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
-	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
-	for (int i = 0; i < devices.size(); i++)
+	if (index >= 0)
 	{
-		QPair<QString, QString> device = devices.at(i);
-		QListWidgetItem *item = new QListWidgetItem(device.second);
-		item->setData(1, device.first);
-		bool selected = selectedDevices.contains(device.first);
-		ui->listWidget_gpu_device_list->addItem(item);
-		item->setSelected(selected);
+		gOpenCl->openClEngineRenderFractal->Reset();
+		gOpenCl->openClHardware->CreateContext(
+			index, cOpenClDevice::enumOpenClDeviceType(ui->comboBox_gpu_device_type->currentIndex()));
+		gOpenCl->openClHardware->getClDevices();
+
+		ui->listWidget_gpu_device_list->clear();
+
+		QList<QPair<QString, QString>> devices = GetOpenCLDevices();
+		QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
+		for (int i = 0; i < devices.size(); i++)
+		{
+			QPair<QString, QString> device = devices.at(i);
+			QListWidgetItem *item = new QListWidgetItem(device.second);
+			item->setData(1, device.first);
+			bool selected = selectedDevices.contains(device.first);
+			ui->listWidget_gpu_device_list->addItem(item);
+			item->setSelected(selected);
+		}
 	}
 }
 
@@ -402,6 +405,7 @@ void cPreferencesDialog::on_groupCheck_gpu_enabled_toggled(bool state)
 {
 	if (state)
 	{
+		gOpenCl->openClEngineRenderFractal->Reset();
 		gOpenCl->openClHardware->ListOpenClPlatforms();
 		if (gPar->Get<int>("gpu_platform") >= 0)
 		{
