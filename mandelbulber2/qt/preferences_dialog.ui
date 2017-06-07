@@ -36,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -486,8 +486,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>546</width>
-            <height>628</height>
+            <width>323</width>
+            <height>355</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -883,7 +883,7 @@ and will only be present after enabling and re-render.</string>
         <normaloff>:/system/icons/gpu.png</normaloff>:/system/icons/gpu.png</iconset>
       </attribute>
       <attribute name="title">
-       <string>GPU</string>
+       <string>OpenCL (GPU)</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_outer_GPU">
        <item>
@@ -922,7 +922,7 @@ and will only be present after enabling and re-render.</string>
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering. For more information about setup and workflow see the handbook under Menu &amp;gt; Help &amp;gt; Handbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
-              <string>GPU ena&amp;ble</string>
+              <string>OpenCL ena&amp;ble</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
