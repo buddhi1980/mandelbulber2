@@ -97,7 +97,7 @@ private:
 	sClInConstants *constantInBuffer;
 	cl::Buffer *inCLConstBuffer;
 
-	sClInBuff *inBuffer;
+	QByteArray inBuffer;
 	cl::Buffer *inCLBuffer;
 
 	sClPixel *rgbbuff;

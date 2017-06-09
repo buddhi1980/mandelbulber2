@@ -51,6 +51,7 @@
 #ifdef USE_OPENCL
 #include "../opencl/fractal_cl.h"
 #include "../opencl/fractparams_cl.hpp"
+#include "../opencl/material_cl.h"
 #endif
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
@@ -76,7 +77,6 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 #ifdef USE_OPENCL
 	if (constantInBuffer) delete constantInBuffer;
 	if (inCLConstBuffer) delete inCLConstBuffer;
-	if (inBuffer) delete inBuffer;
 	if (inCLBuffer) delete inCLBuffer;
 	if (rgbbuff) delete rgbbuff;
 	if (outCL) delete outCL;
@@ -125,6 +125,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("fractal_cl.h");						 // fractal data structures
 		clHeaderFiles.append("fractparams_cl.hpp");			 // rendering data structures
 		clHeaderFiles.append("fractal_sequence_cl.h");	 // sequence of fractal formulas
+		clHeaderFiles.append("material_cl.h");					 // materials
 		clHeaderFiles.append("input_data_structures.h"); // main data structures
 
 		for (int i = 0; i < clHeaderFiles.size(); i++)
@@ -277,6 +278,11 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 
+	inBuffer.clear();
+	QMap<int, cMaterial> materials;
+	CreateMaterialsMap(paramContainer, &materials, true);
+	BuildMaterialsData(&inBuffer, materials);
+
 	delete paramRender;
 	delete fractals;
 }
@@ -301,11 +307,9 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 		}
 
 		// this buffer will be used for color palettes, lights, etc...
-		if (inBuffer) delete inBuffer;
-		inBuffer = new sClInBuff;
 		if (inCLBuffer) delete inCLBuffer;
 		inCLBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			sizeof(sClInBuff), inBuffer, &err);
+			size_t(inBuffer.size()), inBuffer.data(), &err);
 		if (!checkErr(err,
 					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 					"sizeof(sClInBuff), inBuffer, &err)"))
@@ -537,7 +541,7 @@ bool cOpenClEngineRenderFractal::AssingParametersToKernel(int pixelIndex)
 
 bool cOpenClEngineRenderFractal::WriteDataBuffertsToQueue()
 {
-	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, sizeof(sClInBuff), inBuffer);
+	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 
 	size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
 	qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
