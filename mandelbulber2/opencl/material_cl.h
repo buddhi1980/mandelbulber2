@@ -128,10 +128,10 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 		sMaterialCl material
 		cl_int palette size (bytes)
 		cl_int paletteLength (number of color palette items)
-			cl_int3 color[0]
-			cl_int3 color[1]
+			cl_float3 color[0]
+			cl_float3 color[1]
 			...
-			cl_int3 color[paletteLength]
+			cl_float3 color[paletteLength]
 	-------------------
 
 	*/
@@ -149,6 +149,8 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 
 	QByteArray materialByteArrays;
 
+	qDebug() << "asdasdasdasd";
+
 	foreach (const cMaterial &material, materials)
 	{
 		materialOffsets[materialIndex] = totalMaterialOffset;
@@ -156,15 +158,16 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 		sMaterialCl materialCl = clCopySMaterialCl(material);
 		cColorPalette palette = material.palette;
 		int paletteSize = palette.GetSize();
-		cl_int3 *paletteCl = new cl_int3[paletteSize];
+		cl_float4 *paletteCl = new cl_float4[paletteSize];
 		for (int i = 0; i < paletteSize; i++)
 		{
-			paletteCl[i] = toClInt3(palette.GetColor(i));
+			paletteCl[i] = toClFloat4(CVector4(palette.GetColor(i).R / 256.0,
+				palette.GetColor(i).G / 256.0, palette.GetColor(i).B / 256.0, 0.0));
 		}
 
 		cl_int materalClOffset = sizeof(cl_int) * 2;
 		cl_int paletteOffset = materalClOffset + sizeof(sMaterialCl);
-		cl_int paletteSizeBytes = sizeof(cl_int3) * paletteSize;
+		cl_int paletteSizeBytes = sizeof(cl_float4) * paletteSize;
 		cl_int paletteLength = paletteSize;
 
 		// cl_int materalClOffset

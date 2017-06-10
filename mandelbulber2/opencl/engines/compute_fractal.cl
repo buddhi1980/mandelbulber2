@@ -40,7 +40,7 @@ typedef struct
 	float4 z;
 	float iters;
 	float distance;
-	float colourIndex;
+	float colorIndex;
 	bool maxiter;
 } formulaOut;
 
@@ -65,7 +65,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float4 c = z;
 	int i;
 	formulaOut out;
-	float colourMin = 1e8f;
+	float colorMin = 1e8f;
 
 	// formula init
 	sExtendedAuxCl aux;
@@ -125,7 +125,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		aux.r = length(z);
 #endif
 
-		if (aux.r < colourMin) colourMin = aux.r;
+		if (aux.r < colorMin) colorMin = aux.r;
 
 		if (consts->sequence.checkForBailout[formulaIndex])
 		{
@@ -156,7 +156,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	dist = length(z);
 #endif
 
-	out.colourIndex = colourMin * 5000.0f;
+	out.colorIndex = colorMin * 5000.0f;
 
 	// end
 	if (dist < 0.0f) dist = 0.0f;

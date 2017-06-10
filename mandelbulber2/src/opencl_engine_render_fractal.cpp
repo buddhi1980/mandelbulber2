@@ -61,7 +61,6 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	constantInBuffer = nullptr;
 	inCLConstBuffer = nullptr;
 
-	inBuffer = nullptr;
 	inCLBuffer = nullptr;
 
 	rgbbuff = nullptr;
@@ -147,15 +146,21 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// compute fractal
 		progEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
 
-		// calculate dustance
+		// calculate distance
 		progEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
+
+		if (params->Get<int>("gpu_mode") != clRenderEngineTypeFast)
+		{
+			// shaders
+			progEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
+		}
 
 		// main engine
 		QString engineFileName;
 		switch (enumClRenderEngineMode(params->Get<int>("gpu_mode")))
 		{
 			case clRenderEngineTypeFast: engineFileName = "fast_engine.cl"; break;
-			case clRenderEngineTypeNormal: engineFileName = "normal_engine.cl"; break;
+			case clRenderEngineTypeLimited: engineFileName = "limited_engine.cl"; break;
 			case clRenderEngineTypeFull: engineFileName = "full_engine.cl"; break;
 		}
 		QString engineFullFileName = openclEnginePath + engineFileName;

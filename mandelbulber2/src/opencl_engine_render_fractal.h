@@ -73,7 +73,7 @@ public:
 	enum enumClRenderEngineMode
 	{
 		clRenderEngineTypeFast,
-		clRenderEngineTypeNormal,
+		clRenderEngineTypeLimited,
 		clRenderEngineTypeFull
 	};
 

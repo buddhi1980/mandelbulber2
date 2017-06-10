@@ -42,7 +42,7 @@ formulaOut CalculateDistance(
 	out.z = 0.0f;
 	out.iters = 0;
 	out.distance = 0.0f;
-	out.colourIndex = 0.0f;
+	out.colorIndex = 0.0f;
 	out.maxiter = false;
 
 	float limitBoxDist = 0.0f;
