@@ -128,6 +128,8 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 		sMaterialCl material
 		cl_int palette size (bytes)
 		cl_int paletteLength (number of color palette items)
+		cl_int dummy
+		cl_int dummy
 			cl_float3 color[0]
 			cl_float3 color[1]
 			...
@@ -148,8 +150,6 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 	int materialIndex = 0;
 
 	QByteArray materialByteArrays;
-
-	qDebug() << "asdasdasdasd";
 
 	foreach (const cMaterial &material, materials)
 	{
@@ -190,6 +190,15 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 		// cl_int paletteLength (number of color palette items)
 		materialByteArrays.append(reinterpret_cast<char *>(&paletteLength), sizeof(paletteLength));
 		totalMaterialOffset += sizeof(paletteLength);
+
+		// data alignment to 16 (temporary code)
+		cl_int dummy = 0;
+		materialByteArrays.append(reinterpret_cast<char *>(&dummy), sizeof(dummy));
+		totalMaterialOffset += sizeof(dummy);
+		materialByteArrays.append(reinterpret_cast<char *>(&dummy), sizeof(dummy));
+		totalMaterialOffset += sizeof(dummy);
+
+		qDebug() << totalMaterialOffset;
 
 		// palette data
 		materialByteArrays.append(reinterpret_cast<char *>(paletteCl), paletteSizeBytes);

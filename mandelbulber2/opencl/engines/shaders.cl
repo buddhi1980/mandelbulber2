@@ -33,7 +33,7 @@ float3 IndexToColour(int index, sShaderInputDataCl *input)
 		float4 deltaC = (color2 - color1) / 256.0f;
 
 		float delta = index % 256;
-		color = (color1 + (color2 * delta)).xyz;
+		color = (color1 + (deltaC * delta)).xyz;
 	}
 	return color;
 }

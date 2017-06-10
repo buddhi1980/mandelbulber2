@@ -80,7 +80,7 @@ kernel void fractal3D(
 
 	int paletteOffset = GetInteger(material0Offset + sizeof(int), inBuff) + material0Offset;
 	int paletteSize = GetInteger(paletteOffset + sizeof(int), inBuff);
-	__global float4 *palette = (__global float4 *)&inBuff[paletteOffset + 2 * sizeof(int)];
+	__global float4 *palette = (__global float4 *)&inBuff[paletteOffset + 4 * sizeof(int)];
 
 	// axiliary vectors
 	const float3 one = (float3){1.0f, 0.0f, 0.0f};
@@ -222,7 +222,7 @@ kernel void fractal3D(
 	float glow = count / 500.0 * consts->params.DEFactor;
 
 	pixel.R = colour.s0 + glow;
-	pixel.G = colour.s1 * glow * 10.0f;
+	pixel.G = colour.s1 + glow;
 	pixel.B = colour.s2;
 	pixel.zBuffer = scan;
 	pixel.colR = 0.0f;
