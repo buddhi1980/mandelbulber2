@@ -71,16 +71,27 @@ kernel void fractal3D(
 	float height = convert_float(consts->params.imageHeight);
 	float resolution = 1.0f / height;
 
-	// default material - decode data file
+	//-------- default material - decode data file ----------------
+	// number of materials
+	int numberOfMaterials = GetInteger(0, inBuff);
+
+	// materials 0 offset:
 	const int materialAdressOffset = 1 * sizeof(int);
 	int material0Offset = GetInteger(materialAdressOffset, inBuff);
-	int materialClOffset = GetInteger(material0Offset, inBuff) + material0Offset;
 
+	// material header
+	int materialClOffset = GetInteger(material0Offset, inBuff);
+	int paletteItemsOffset = GetInteger(material0Offset + sizeof(int), inBuff);
+	int paletteSize = GetInteger(material0Offset + sizeof(int) * 2, inBuff);
+	int paletteLength = GetInteger(material0Offset + sizeof(int) * 3, inBuff);
+
+	// material data
 	__global sMaterialCl *material = (__global sMaterialCl *)&inBuff[materialClOffset];
 
-	int paletteOffset = GetInteger(material0Offset + sizeof(int), inBuff) + material0Offset;
-	int paletteSize = GetInteger(paletteOffset + sizeof(int), inBuff);
-	__global float4 *palette = (__global float4 *)&inBuff[paletteOffset + 4 * sizeof(int)];
+	// palette data
+	__global float4 *palette = (__global float4 *)&inBuff[paletteItemsOffset];
+
+	//--------- end of data file ----------------------------------
 
 	// axiliary vectors
 	const float3 one = (float3){1.0f, 0.0f, 0.0f};
@@ -205,7 +216,7 @@ kernel void fractal3D(
 		shaderInputData.invertMode = false;
 		shaderInputData.material = material;
 		shaderInputData.palette = palette;
-		shaderInputData.paletteSize = paletteSize;
+		shaderInputData.paletteSize = paletteLength;
 
 		float4 surfaceColour = SurfaceColor(consts, &shaderInputData, &calcParam);
 		// float4 surfaceColour = (float4){1.0f, 1.0f, 1.0f, 1.0f};

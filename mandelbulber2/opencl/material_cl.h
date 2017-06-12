@@ -109,6 +109,22 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	return target;
 }
 
+int PutDummyToAlign(int dataLength, int aligmentSize, QByteArray *array)
+{
+	int missingBytes = dataLength % aligmentSize;
+	if (missingBytes > 0)
+	{
+		char *dummyData = new char[missingBytes];
+		memset(dummyData, 0, missingBytes);
+		array->append(dummyData, missingBytes);
+		return missingBytes;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> &materials)
 {
 	/* material dynamic data structure
@@ -123,13 +139,14 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 	cl_int material[numberOfMaterials] offset
 
 	---- material 0 ---
-		cl_int materalClOffset (offset for material data)
-		cl_int paletteOffset (offset for palette data)
-		sMaterialCl material
-		cl_int palette size (bytes)
-		cl_int paletteLength (number of color palette items)
-		cl_int dummy
-		cl_int dummy
+	+0	cl_int materalClOffset (offset for material data)
+	+4	cl_int paletteItemsOffset
+	+8	cl_int palette size (bytes)
+	+12	cl_int paletteLength (number of color palette items)
+
+	+16	sMaterialCl material
+
+		palette items:
 			cl_float3 color[0]
 			cl_float3 color[1]
 			...
@@ -137,19 +154,28 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 	-------------------
 
 	*/
+	cl_int totalMaterialOffset = 0; // counter for actual address in structure
+
 	cl_int numberOfMaterials = materials.size();
 
 	// numberOfMaterials
 	materialsClData->append(reinterpret_cast<char *>(&numberOfMaterials), sizeof(numberOfMaterials));
-
 	int headerSize = sizeof(numberOfMaterials);
+	totalMaterialOffset += headerSize;
 
+	// reserve bytes for material offsets
 	cl_int *materialOffsets = new cl_int[numberOfMaterials];
+	int materialOffsetsSize = sizeof(cl_int) * numberOfMaterials;
+	memset(materialOffsets, 0, materialOffsetsSize);
 
-	cl_int totalMaterialOffset = headerSize + sizeof(cl_int) * numberOfMaterials;
+	int materialOffsetsAddress = totalMaterialOffset;
+	materialsClData->append(reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
+	totalMaterialOffset += materialOffsetsSize;
+
+	// add dummy bytes for aligment to 16
+	totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, materialsClData);
+
 	int materialIndex = 0;
-
-	QByteArray materialByteArrays;
 
 	foreach (const cMaterial &material, materials)
 	{
@@ -165,55 +191,61 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 				palette.GetColor(i).G / 256.0, palette.GetColor(i).B / 256.0, 0.0));
 		}
 
-		cl_int materalClOffset = sizeof(cl_int) * 2;
-		cl_int paletteOffset = materalClOffset + sizeof(sMaterialCl);
+		cl_int materalClOffset = 0;
+		cl_int paletteItemsOffset = 0;
 		cl_int paletteSizeBytes = sizeof(cl_float4) * paletteSize;
 		cl_int paletteLength = paletteSize;
 
-		// cl_int materalClOffset
-		materialByteArrays.append(reinterpret_cast<char *>(&materalClOffset), sizeof(materalClOffset));
+		// reserve bytes for cl_int materalClOffset
+		int materalClOffsetAddress = totalMaterialOffset;
+		materialsClData->append(reinterpret_cast<char *>(&materalClOffset), sizeof(materalClOffset));
 		totalMaterialOffset += sizeof(materalClOffset);
 
-		// cl_int paletteOffset
-		materialByteArrays.append(reinterpret_cast<char *>(&paletteOffset), sizeof(paletteOffset));
-		totalMaterialOffset += sizeof(paletteOffset);
-
-		// sMaterialCl material
-		materialByteArrays.append(reinterpret_cast<char *>(&materialCl), sizeof(materialCl));
-		totalMaterialOffset += sizeof(materialCl);
+		// reserve bytes cl_int paletteItemsOffset
+		int paletteItemsOffsetAddress = totalMaterialOffset;
+		materialsClData->append(
+			reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
+		totalMaterialOffset += sizeof(paletteItemsOffset);
 
 		// cl_int palette size (bytes)
-		materialByteArrays.append(
-			reinterpret_cast<char *>(&paletteSizeBytes), sizeof(paletteSizeBytes));
+		materialsClData->append(reinterpret_cast<char *>(&paletteSizeBytes), sizeof(paletteSizeBytes));
 		totalMaterialOffset += sizeof(paletteSizeBytes);
 
 		// cl_int paletteLength (number of color palette items)
-		materialByteArrays.append(reinterpret_cast<char *>(&paletteLength), sizeof(paletteLength));
+		materialsClData->append(reinterpret_cast<char *>(&paletteLength), sizeof(paletteLength));
 		totalMaterialOffset += sizeof(paletteLength);
 
-		// data alignment to 16 (temporary code)
-		cl_int dummy = 0;
-		materialByteArrays.append(reinterpret_cast<char *>(&dummy), sizeof(dummy));
-		totalMaterialOffset += sizeof(dummy);
-		materialByteArrays.append(reinterpret_cast<char *>(&dummy), sizeof(dummy));
-		totalMaterialOffset += sizeof(dummy);
+		// add dummy bytes for aligment to 16
+		totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, materialsClData);
 
-		qDebug() << totalMaterialOffset;
+		// sMaterialCl material
+		materalClOffset = totalMaterialOffset;
+		materialsClData->append(reinterpret_cast<char *>(&materialCl), sizeof(materialCl));
+		totalMaterialOffset += sizeof(materialCl);
+
+		// fill materalClOffset value
+		materialsClData->replace(materalClOffsetAddress, sizeof(materalClOffset),
+			reinterpret_cast<char *>(&materalClOffset), sizeof(materalClOffset));
+
+		// add dummy bytes for aligment to 16
+		totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, materialsClData);
 
 		// palette data
-		materialByteArrays.append(reinterpret_cast<char *>(paletteCl), paletteSizeBytes);
+		paletteItemsOffset = totalMaterialOffset;
+		materialsClData->append(reinterpret_cast<char *>(paletteCl), paletteSizeBytes);
 		totalMaterialOffset += paletteSizeBytes;
 
+		// fill paletteItemsOffset value
+		materialsClData->replace(paletteItemsOffsetAddress, sizeof(paletteItemsOffset),
+			reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
+
+		materialIndex++;
 		delete[] paletteCl;
 	}
 
-	// materials offsets:
-	materialsClData->append(
-		reinterpret_cast<char *>(materialOffsets), sizeof(cl_int) * numberOfMaterials);
-	totalMaterialOffset += sizeof(cl_int) * numberOfMaterials;
-
-	// materials
-	materialsClData->append(materialByteArrays);
+	// fill materials offsets:
+	materialsClData->replace(materialOffsetsAddress, materialOffsetsSize,
+		reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
 
 	delete[] materialOffsets;
 }
