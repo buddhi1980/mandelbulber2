@@ -67,6 +67,8 @@ typedef struct
 	cl_float4 constantMultiplier[NUMBER_OF_FRACTALS];
 	cl_float initialWAxis[NUMBER_OF_FRACTALS];
 	cl_int useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
+	cl_int DEAnalyticFunction[NUMBER_OF_FRACTALS];
+	cl_int coloringFunction[NUMBER_OF_FRACTALS];
 } sClFractalSequence;
 
 #endif /* MANDELBULBER2_OPENCL_FRACTAL_SEQUENCE_CL_H_ */

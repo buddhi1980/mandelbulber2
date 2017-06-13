@@ -38,28 +38,12 @@
 #include "fractal_formulas.hpp"
 #include "nine_fractals.hpp"
 
-// temporary functions for performance profiling
-/*
- long int perf = 0;
- int perfCount = 0;
- inline unsigned long int rdtsc()
- {
- timespec ts;
- clock_gettime(CLOCK_REALTIME, &ts);
- return (unsigned long int)ts.tv_sec * 1000000000LL + (unsigned long int)ts.tv_nsec;
- }
- */
-
 using namespace fractal;
 
 template <fractal::enumCalculationMode Mode>
 void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out)
 {
 	fractalFormulaFcn fractalFormulaFunction;
-
-	// QTextStream outStream(stdout);
-	// clock_t tim;
-	// tim = rdtsc();
 
 	// repeat, move and rotate
 	CVector3 point2 = in.point.mod(in.common.repeat) - in.common.fractalPosition;
@@ -105,9 +89,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.foldFactor = 0.0;
 	extendedAux.minRFactor = 0.0;
 	extendedAux.scaleFactor = 0.0;
-	// extendedAux.newR = 1e+20;
-	// extendedAux.axisBias = 1e+20;
-	// extendedAux.orbitTraps = 1e+20;
 	extendedAux.pseudoKleinianDE = 1.0;
 
 	// main iteration loop
@@ -357,12 +338,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 		if (z.IsNotANumber()) // detection of dead computation
 		{
-			// if(Mode != calcModeColouring)
-			// qWarning() << "Dead computation\n"
-			//		<< "iteration: " << i << "Formula:" << formula << "Sequence:" << sequence
-			//		<< "\nPoint:" << in.point.Debug()
-			//		<< "\nLast good z:" << lastGoodZ.Debug()
-			//		<< "\nPrevious z:" << lastZ.Debug();
 			z = lastGoodZ;
 			break;
 		}
@@ -397,42 +372,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 		else
 		{
-			switch (formula)
+			switch (fractals.GetDEAnalyticFunction(sequence))
 			{
-				case benesi:
-				case benesiPineTree:
-				case benesiT1PineTree:
-				case benesiPwr2Mandelbulb:
-				case bristorbrot:
-				case bristorbrot4d:
-				case buffalo:
-				case eiffieMsltoe:
-				case mandelbulbPower2:
-				case hypercomplex:
-				case iqBulb:
-				case mandelbulb:
-				case mandelbulb2:
-				case mandelbulb3:
-				case mandelbulb4:
-				case mandelbulbBermarte:
-				case mandelbulbJuliabulb:
-				case mandelbulbKali:
-				case mandelbulbKaliMulti:
-				case mandelbulbMulti:
-				case mandelbulbMulti2:
-				case mandelbulbQuat:
-				case mandelbulbVaryPowerV1:
-				case msltoeSym2Mod:
-				case msltoeSym3Mod:
-				case msltoeSym3Mod2:
-				case msltoeSym3Mod3:
-				case msltoeSym4Mod:
-				case msltoeToroidal:			// TODO fix??
-				case msltoeToroidalMulti: // TODO fix??
-				case quaternion:
-				case transfQuaternionFold: // hmmm, this issue again
-				case quaternion3d:
-				case xenodreambuie:
+				case analyticFunctionLogarithmic:
 				{
 					if (extendedAux.r_dz > 0)
 						out->distance = 0.5 * r * log(r) / extendedAux.r_dz;
@@ -440,24 +382,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
-				case mandelbox:
-				case mandelboxMenger:
-				case mandelboxSmooth:
-				case mandelboxVaryScale4d:
-				case generalizedFoldBox:
-				case foldBoxMod1:
-				case aboxModKali:
-				case aboxModKaliEiffie:
-				case aboxMod1:
-				case aboxMod2:
-				case aboxMod11:
-				case amazingSurf:
-				case amazingSurfMod1:
-				case amazingSurfMulti:
-				case kalisets1:
-				case aboxVSIcen1:
-				case pseudoKleinianStdDE:
-				case abox4d:
+				case analyticFunctionLinear:
 				{
 					if (extendedAux.DE > 0)
 						out->distance = r / fabs(extendedAux.DE);
@@ -465,26 +390,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
-				case kaleidoscopicIfs:
-				case mengerSponge:
-				case mengerCrossKIFS:
-				case mengerCrossMod1:
-				case mengerPrismShape:
-				case mengerPrismShape2:
-				case collatz:
-				case collatzMod:
-				case mengerMod1:
-				case mengerMiddleMod:
-				case transfMengerFold: // hmmm, this issue again
-				case mengerPwr2Poly:
-				case mixPinski4d:
-				case sierpinski4d:
-				case sierpinski3d:
-				case menger4d:
-				case menger4dMod1:
-				case mengerSmooth:
-				case mengerSmoothMod1:
-				case mengerOcto:
+				case analyticFunctionIFS:
 				{
 					if (extendedAux.DE > 0)
 						out->distance = (r - 2.0) / (extendedAux.DE);
@@ -492,22 +398,20 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
-				case pseudoKleinian:
-				case pseudoKleinianMod1:
-				case pseudoKleinianMod2:
+				case analyticFunctionPseudoKleinian:
 				{
 					if (extendedAux.DE > 0)
 					{
 						double rxy = sqrt(z.x * z.x + z.y * z.y);
-						out->distance = max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r)
-														/ (extendedAux.DE); // 0.92784 extendedAux.pseudoKleinianDE
+						out->distance =
+							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 					}
 					else
 						out->distance = r;
 					break;
 				}
 
-				default: out->distance = -1.0; break;
+				case analyticFunctionNone: out->distance = -1.0; break;
 			}
 		}
 	}
@@ -522,37 +426,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		if (fractals.IsHybrid())
 		{
 			if (minimumR > 100) minimumR = 100;
-
 			double mboxColor;
-
 			mboxColor = extendedAux.color;
-
 			if (mboxColor > 1000) mboxColor = 1000;
-
 			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
-			/*out->colorIndex =
-
-					extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
-
-					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-
-					+ 1.0 * r2 * 5000.0 // for backwards compatibility
-
-					+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i & r
-					+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
-								? minimumR * extendedAux.minRFactor * 1000.0
-								: 0.0);*/
 		}
 		else
 		{
-			switch (formula)
+			switch (fractals.GetColoringFunction(sequence))
 			{
-				case mandelbox:
-				case mandelboxSmooth:
-				case mandelboxVaryScale4d:
-				case generalizedFoldBox:
-
-				case foldBoxMod1:
+				case coloringFunctionABox:
 					out->colorIndex =
 						extendedAux.color * 100.0														 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
@@ -560,39 +443,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 									? minimumR * 1000.0
 									: 0.0);
 					break;
-
-				case mengerMod1:
-				case aboxModKali:
-				case aboxMod1:
-				case mengerSponge:
-				case collatz:
-				case collatzMod:
-				case kaleidoscopicIfs:
-				case mengerPwr2Poly:
-				case mengerMiddleMod: out->colorIndex = minimumR * 1000.0; break;
-
-				case amazingSurf: out->colorIndex = minimumR * 200.0; break;
-
-				case amazingSurfMulti:
-				case mandelboxMenger:
-				case amazingSurfMod1:
-				case aboxModKaliEiffie:
-				case abox4d:
-				case aboxMod11:
+				case coloringFunctionIFS: out->colorIndex = minimumR * 1000.0; break;
+				case coloringFunctionAmazingSurf: out->colorIndex = minimumR * 200.0; break;
+				case coloringFunctionAnox2:
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 						+ extendedAux.scaleFactor * r2 * 5000.0							 // for backwards compatibility
-						//+ extendedAux.scaleFactor * r * i / 1e15						 // scale part conditional on i &
-						// r
 						+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
 									: 0.0);
 					break;
-
-				case msltoeDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;
-
-				default: out->colorIndex = minimumR * 5000.0; break;
+				case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;
+				case coloringFunctionDefault: out->colorIndex = minimumR * 5000.0; break;
 			}
 		}
 	}
@@ -602,10 +465,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	}
 
 	out->iters = i + 1;
-	out->z = z.GetXYZ(); // CVector3( z.x, z.y, w);// z;
-	// tim = rdtsc() - tim; perf+= tim; perfCount++; outStream << (double)perf/perfCount - 560.0 <<
-	// endl;
-	//------------- 3249 ns for all calculation  ----------------
+	out->z = z.GetXYZ();
 }
 
 template void Compute<calcModeNormal>(

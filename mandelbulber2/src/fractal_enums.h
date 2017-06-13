@@ -67,6 +67,25 @@ enum enumDEType
 	analyticDEType,
 	deltaDEType
 };
+
+enum enumDEAnalyticFunction
+{
+	analyticFunctionNone = 0,
+	analyticFunctionLinear = 1,
+	analyticFunctionLogarithmic = 2,
+	analyticFunctionIFS = 3,
+	analyticFunctionPseudoKleinian = 4,
+};
+
+enum enumColoringFunction
+{
+	coloringFunctionDefault = 0,
+	coloringFunctionABox = 1,
+	coloringFunctionIFS = 2,
+	coloringFunctionAmazingSurf = 3,
+	coloringFunctionAnox2 = 4,
+	coloringFunctionDonut = 5,
+};
 };
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_ENUMS_H_ */

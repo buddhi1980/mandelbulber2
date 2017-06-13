@@ -83,6 +83,14 @@ public:
 	{
 		return fractalFormulaFunctions[formulaIndex];
 	}
+	inline fractal::enumDEAnalyticFunction GetDEAnalyticFunction(int formulaIndex) const
+	{
+		return DEAnalyticFunction[formulaIndex];
+	}
+	inline fractal::enumColoringFunction GetColoringFunction(int formulaIndex) const
+	{
+		return coloringFunction[formulaIndex];
+	}
 
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 
@@ -104,6 +112,8 @@ private:
 	double formulaWeight[NUMBER_OF_FRACTALS];
 	fractal::enumDEFunctionType DEFunctionType[NUMBER_OF_FRACTALS];
 	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
+	fractal::enumDEAnalyticFunction DEAnalyticFunction[NUMBER_OF_FRACTALS];
+	fractal::enumColoringFunction coloringFunction[NUMBER_OF_FRACTALS];
 	int counts[NUMBER_OF_FRACTALS];
 	int formulaStartIteration[NUMBER_OF_FRACTALS];
 	int formulaStopIteration[NUMBER_OF_FRACTALS];

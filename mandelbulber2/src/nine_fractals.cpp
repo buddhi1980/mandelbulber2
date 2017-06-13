@@ -88,6 +88,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 		fractalFormulaFunctions[i] =
 			fractalList[GetIndexOnFractalList(fractals[i]->formula)].fractalFormulaFunction;
+		DEAnalyticFunction[i] =
+			fractalList[GetIndexOnFractalList(fractals[i]->formula)].DEAnalyticFunction;
+		coloringFunction[i] = fractalList[GetIndexOnFractalList(fractals[i]->formula)].coloringFunction;
 
 		if (isBoolean || (!isBoolean && !isHybrid))
 			checkForBailout[i] = true;
@@ -434,7 +437,8 @@ void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence)
 		sequence->juliaConstant[i] = toClFloat4(CVector4(juliaConstant[i], 0.0));
 		sequence->constantMultiplier[i] = toClFloat4(CVector4(constantMultiplier[i], 1.0));
 		sequence->initialWAxis[i] = initialWAxis[i];
-		sequence->useAdditionalBailoutCond[i] = useAdditionalBailoutCond[i];
+		sequence->DEAnalyticFunction[i] = DEAnalyticFunction[i];
+		sequence->coloringFunction[i] = coloringFunction[i];
 	}
 }
 #endif

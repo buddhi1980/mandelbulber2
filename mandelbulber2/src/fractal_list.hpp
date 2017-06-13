@@ -264,11 +264,15 @@ struct sFractalDescription
 	fractal::enumDEFunctionType DEFunctionType;
 	fractal::enumCPixelAddition cpixelAddition;
 	double defaultBailout;
+	fractal::enumDEAnalyticFunction DEAnalyticFunction;
+	fractal::enumColoringFunction coloringFunction;
 
 	sFractalDescription(QString _nameInComboBox, QString _internalName,
 		fractal::enumFractalFormula _internalID, fractalFormulaFcn _fractalFormulaFunction,
 		fractal::enumDEType _DEType, fractal::enumDEFunctionType _DEFunctionType,
-		fractal::enumCPixelAddition _cpixelAddition, double _defaultBailout)
+		fractal::enumCPixelAddition _cpixelAddition, double _defaultBailout,
+		fractal::enumDEAnalyticFunction _DEAnalyticFunction,
+		fractal::enumColoringFunction _coloringFunction)
 			: nameInComboBox(_nameInComboBox),
 				internalName(_internalName),
 				internalID(_internalID),
@@ -276,7 +280,9 @@ struct sFractalDescription
 				DEType(_DEType),
 				DEFunctionType(_DEFunctionType),
 				cpixelAddition(_cpixelAddition),
-				defaultBailout(_defaultBailout)
+				defaultBailout(_defaultBailout),
+				DEAnalyticFunction(_DEAnalyticFunction),
+				coloringFunction(_coloringFunction)
 	{
 	}
 	QString getIconName() const
