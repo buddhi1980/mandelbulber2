@@ -93,6 +93,7 @@ typedef struct
 	cl_int hdrBlurEnabled;
 	cl_int hybridFractalEnable;
 	cl_int interiorMode;
+	cl_int iterThreshMode;
 	cl_int iterFogEnabled;
 	cl_int legacyCoordinateSystem;
 	cl_int limitsEnabled; // enable limits (intersections)
@@ -243,6 +244,7 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.hdrBlurEnabled = source.hdrBlurEnabled;
 	target.hybridFractalEnable = source.hybridFractalEnable;
 	target.interiorMode = source.interiorMode;
+	target.iterThreshMode = source.iterThreshMode;
 	target.iterFogEnabled = source.iterFogEnabled;
 	target.legacyCoordinateSystem = source.legacyCoordinateSystem;
 	target.limitsEnabled = source.limitsEnabled;

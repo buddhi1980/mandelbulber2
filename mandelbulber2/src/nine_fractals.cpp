@@ -433,12 +433,13 @@ void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence)
 		sequence->addCConstant[i] = addCConstant[i];
 		sequence->checkForBailout[i] = checkForBailout[i];
 		sequence->bailout[i] = bailout[i];
+		sequence->useAdditionalBailoutCond[i] = useAdditionalBailoutCond[i];
 		sequence->juliaEnabled[i] = juliaEnabled[i];
 		sequence->juliaConstant[i] = toClFloat4(CVector4(juliaConstant[i], 0.0));
 		sequence->constantMultiplier[i] = toClFloat4(CVector4(constantMultiplier[i], 1.0));
 		sequence->initialWAxis[i] = initialWAxis[i];
-		sequence->DEAnalyticFunction[i] = DEAnalyticFunction[i];
-		sequence->coloringFunction[i] = coloringFunction[i];
+		sequence->DEAnalyticFunction[i] = enumDEAnalyticFunctionCl(DEAnalyticFunction[i]);
+		sequence->coloringFunction[i] = enumColoringFunctionCl(coloringFunction[i]);
 	}
 }
 #endif

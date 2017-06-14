@@ -61,7 +61,7 @@ formulaOut CalculateDistance(
 #endif
 
 #ifdef ANALYTIC_DE
-	out = Fractal(consts, point, calcParam);
+	out = Fractal(consts, point, calcParam, calcModeNormal);
 
 	if (out.iters == calcParam->N)
 	{
@@ -79,7 +79,8 @@ formulaOut CalculateDistance(
 	float delta = 1.0e-5;
 	float3 dr = 0.0;
 
-	out = Fractal(consts, point, calcParam);
+	out = Fractal(consts, point, calcParam, calcModeDeltaDE1);
+	calcParam->deltaDEmaxN = out.iters;
 
 	if (out.iters == calcParam->N)
 	{
@@ -88,14 +89,20 @@ formulaOut CalculateDistance(
 	else
 	{
 		float r = length(out.z);
-		float r11 = length(Fractal(consts, point + (float3){delta, 0.0, 0.0}, calcParam).z);
-		float r12 = length(Fractal(consts, point + (float3){-delta, 0.0, 0.0}, calcParam).z);
+		float r11 =
+			length(Fractal(consts, point + (float3){delta, 0.0, 0.0}, calcParam, calcModeDeltaDE2).z);
+		float r12 =
+			length(Fractal(consts, point + (float3){-delta, 0.0, 0.0}, calcParam, calcModeDeltaDE2).z);
 		dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
-		float r21 = length(Fractal(consts, point + (float3){0.0, delta, 0.0}, calcParam).z);
-		float r22 = length(Fractal(consts, point + (float3){0.0, -delta, 0.0}, calcParam).z);
+		float r21 =
+			length(Fractal(consts, point + (float3){0.0, delta, 0.0}, calcParam, calcModeDeltaDE2).z);
+		float r22 =
+			length(Fractal(consts, point + (float3){0.0, -delta, 0.0}, calcParam, calcModeDeltaDE2).z);
 		dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
-		float r31 = length(Fractal(consts, point + (float3){0.0, 0.0, delta}, calcParam).z);
-		float r32 = length(Fractal(consts, point + (float3){0.0, 0.0, -delta}, calcParam).z);
+		float r31 =
+			length(Fractal(consts, point + (float3){0.0, 0.0, delta}, calcParam, calcModeDeltaDE2).z);
+		float r32 =
+			length(Fractal(consts, point + (float3){0.0, 0.0, -delta}, calcParam, calcModeDeltaDE2).z);
 		dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
 		float d = length(dr);
 

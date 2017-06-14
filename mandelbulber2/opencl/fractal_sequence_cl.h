@@ -49,6 +49,23 @@ typedef enum {
 	logarithmicDEFunction = 2,
 } enumDEFunctionTypeCl;
 
+typedef enum {
+	clAnalyticFunctionNone = 0,
+	clAnalyticFunctionLinear = 1,
+	clAnalyticFunctionLogarithmic = 2,
+	clAnalyticFunctionIFS = 3,
+	clAnalyticFunctionPseudoKleinian = 4,
+} enumDEAnalyticFunctionCl;
+
+typedef enum {
+	clColoringFunctionDefault = 0,
+	clColoringFunctionABox = 1,
+	clColoringFunctionIFS = 2,
+	clColoringFunctionAmazingSurf = 3,
+	clColoringFunctionAnox2 = 4,
+	clColoringFunctionDonut = 5,
+} enumColoringFunctionCl;
+
 typedef struct
 {
 	cl_int isHybrid;
@@ -67,8 +84,8 @@ typedef struct
 	cl_float4 constantMultiplier[NUMBER_OF_FRACTALS];
 	cl_float initialWAxis[NUMBER_OF_FRACTALS];
 	cl_int useAdditionalBailoutCond[NUMBER_OF_FRACTALS];
-	cl_int DEAnalyticFunction[NUMBER_OF_FRACTALS];
-	cl_int coloringFunction[NUMBER_OF_FRACTALS];
+	enumDEAnalyticFunctionCl DEAnalyticFunction[NUMBER_OF_FRACTALS];
+	enumColoringFunctionCl coloringFunction[NUMBER_OF_FRACTALS];
 } sClFractalSequence;
 
 #endif /* MANDELBULBER2_OPENCL_FRACTAL_SEQUENCE_CL_H_ */

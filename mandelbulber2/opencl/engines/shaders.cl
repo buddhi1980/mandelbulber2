@@ -55,7 +55,7 @@ float4 SurfaceColor(
 	float3 color = (float3){1.0f, 1.0f, 1.0f};
 	if (input->material->useColorsFromPalette)
 	{
-		fout = Fractal(consts, input->point, calcParams);
+		fout = Fractal(consts, input->point, calcParams, calcModeColouring);
 		int nCol = floor(fout.colorIndex);
 		nCol = abs(nCol) % (248 * 256);
 		int color_number =

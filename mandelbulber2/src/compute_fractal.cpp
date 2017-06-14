@@ -241,24 +241,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// escape conditions
 		if (fractals.IsCheckForBailout(sequence))
 		{
-			if (Mode == calcModeNormal)
-			{
-				if (r > fractals.GetBailout(sequence))
-				{
-					out->maxiter = false;
-					break;
-				}
-
-				if (fractals.UseAdditionalBailoutCond(sequence))
-				{
-					if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
-					{
-						out->maxiter = false;
-						break;
-					}
-				}
-			}
-			else if (Mode == calcModeDeltaDE1)
+			if (Mode == calcModeNormal || Mode == calcModeDeltaDE1)
 			{
 				if (r > fractals.GetBailout(sequence))
 				{

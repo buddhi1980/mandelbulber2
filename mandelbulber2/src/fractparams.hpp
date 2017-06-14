@@ -108,6 +108,7 @@ struct sParamRender
 	bool hdrBlurEnabled;
 	bool hybridFractalEnable;
 	bool interiorMode;
+	bool iterThreshMode;
 	bool iterFogEnabled;
 	bool legacyCoordinateSystem;
 	bool limitsEnabled; // enable limits (intersections)

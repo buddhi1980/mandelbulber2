@@ -44,12 +44,22 @@ typedef struct
 	bool maxiter;
 } formulaOut;
 
+typedef enum {
+	calcModeNormal = 0,
+	calcModeColouring = 1,
+	calcModeFake_AO = 2,
+	calcModeDeltaDE1 = 3,
+	calcModeDeltaDE2 = 4,
+	calcModeOrbitTrap = 5
+} enumCalculationModeCl;
+
 float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	return z;
 }
 
-formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam)
+formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam,
+	enumCalculationModeCl mode)
 {
 	// begin
 	float dist = 0.0f;
@@ -64,7 +74,10 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	float4 c = z;
 	int i;
+
 	formulaOut out;
+	out.maxiter = consts->params.iterThreshMode;
+
 	float colorMin = 1e8f;
 
 	// formula init
@@ -83,11 +96,14 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.scaleFactor = 0.0f;
 	aux.pseudoKleinianDE = 1.0f;
 
+	int formulaIndex = 0;
+	__constant sFractalCl *fractal;
+
 	// loop
 	for (i = 0; i < N; i++)
 	{
-		int formulaIndex = consts->sequence.hybridSequence[i];
-		__constant sFractalCl *fractal = &consts->fractal[formulaIndex];
+		formulaIndex = consts->sequence.hybridSequence[i];
+		fractal = &consts->fractal[formulaIndex];
 
 		aux.i = i;
 		float4 lastZ = z;
@@ -125,21 +141,41 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		aux.r = length(z);
 #endif
 
-		if (aux.r < colorMin) colorMin = aux.r;
-
+		// escape conditions
 		if (consts->sequence.checkForBailout[formulaIndex])
 		{
-			if (aux.r > consts->sequence.bailout[formulaIndex])
+			// mode normal or deltaDE center point
+			if (mode == calcModeNormal || mode == calcModeDeltaDE1)
 			{
-				break;
-			}
-
-			if (consts->sequence.useAdditionalBailoutCond[formulaIndex])
-			{
-				if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[formulaIndex])
+				if (aux.r > consts->sequence.bailout[formulaIndex])
 				{
+					out.maxiter = false;
 					break;
 				}
+
+				if (consts->sequence.useAdditionalBailoutCond[formulaIndex])
+				{
+					if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[formulaIndex])
+					{
+						out.maxiter = false;
+						break;
+					}
+				}
+			}
+			else if (mode == calcModeDeltaDE2)
+			{
+				if (i == calcParam->deltaDEmaxN) break;
+			}
+			else if (mode == calcModeColouring)
+			{
+				// TODO another coloring modes
+				// TODO exception for mandelbox
+				if (aux.r < colorMin) colorMin = aux.r;
+				if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
+			}
+			else if (mode == calcModeOrbitTrap)
+			{
+				// TODO orbit traps
 			}
 		}
 	}
@@ -156,7 +192,39 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	dist = length(z);
 #endif
 
-	out.colorIndex = colorMin * 5000.0f;
+	if (mode == calcModeColouring)
+	{
+		float r2 = aux.r / fabs(aux.DE);
+		r2 = min(r2, 20.0f);
+
+		if (consts->sequence.isHybrid)
+		{
+			colorMin = min(colorMin, 100.0f);
+			float mBoxColor = aux.color;
+			mBoxColor = min(mBoxColor, 1000.0f);
+			out.colorIndex = colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f;
+		}
+		else
+		{
+			switch (consts->sequence.coloringFunction[formulaIndex])
+			{
+				case clColoringFunctionABox:
+					out.colorIndex = aux.color * 100.0f + aux.r * fractal->mandelbox.color.factorR / 1.0e13f
+													 + colorMin * 1000.0f;
+					// TODO another coloring modes
+					break;
+				case clColoringFunctionIFS: out.colorIndex = colorMin * 1000.0f; break;
+				case clColoringFunctionAmazingSurf: out.colorIndex = colorMin * 200.0f; break;
+				case clColoringFunctionAnox2:
+					out.colorIndex = aux.color * 100.0f * aux.foldFactor
+													 + aux.r * fractal->mandelbox.color.factorR / 1e13f
+													 + aux.scaleFactor * r2 * 5000.0f + aux.minRFactor * 1000.0f;
+					break;
+				case clColoringFunctionDonut: out.colorIndex = aux.color * 2000.0f / i; break;
+				case clColoringFunctionDefault: out.colorIndex = colorMin * 5000.0f; break;
+			}
+		}
+	}
 
 	// end
 	if (dist < 0.0f) dist = 0.0f;
