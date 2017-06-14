@@ -2,6 +2,7 @@ typedef struct
 {
 	float3 point;
 	float3 viewVector;
+	float3 viewVectorNotRotated;
 	float3 normal;
 	float3 lightVect;
 	float distThresh; // distance threshold depend on 'detailLevel'
@@ -73,4 +74,44 @@ float4 SurfaceColor(
 	out = (float4){color.x, color.y, color.z, 1.0f};
 
 	return out;
+}
+
+float4 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
+{
+	float4 pixel2;
+
+	float3 vector = (float3){0.0, 0.0, 1.0f};
+	vector = normalize(vector);
+	float3 viewVectorNorm = input->viewVector;
+	viewVectorNorm = normalize(viewVectorNorm);
+	float grad = dot(viewVectorNorm, vector) + 1.0f;
+	int3 pixel;
+	if (grad < 1.0f)
+	{
+		float gradN = 1.0f - grad;
+		pixel.s0 =
+			consts->params.background_color3.s0 * gradN + consts->params.background_color2.s0 * grad;
+		pixel.s1 =
+			consts->params.background_color3.s1 * gradN + consts->params.background_color2.s1 * grad;
+		pixel.s2 =
+			consts->params.background_color3.s2 * gradN + consts->params.background_color2.s2 * grad;
+	}
+	else
+	{
+		grad = grad - 1.0f;
+		float gradN = 1.0f - grad;
+		pixel.s0 =
+			consts->params.background_color2.s0 * gradN + consts->params.background_color1.s0 * grad;
+		pixel.s1 =
+			consts->params.background_color2.s1 * gradN + consts->params.background_color1.s1 * grad;
+		pixel.s2 =
+			consts->params.background_color2.s2 * gradN + consts->params.background_color1.s2 * grad;
+	}
+
+	pixel2.s0 = pixel.s0 / 65536.0f;
+	pixel2.s1 = pixel.s1 / 65536.0f;
+	pixel2.s2 = pixel.s2 / 65536.0f;
+	pixel2.s3 = 0.0f;
+
+	return pixel2;
 }

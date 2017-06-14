@@ -116,6 +116,7 @@ kernel void fractal3D(
 	x2 = (screenPoint.x / width - 0.5f) * aspectRatio;
 	z2 = -(screenPoint.y / height - 0.5f);
 	float3 viewVector = (float3){x2 * consts->params.fov, 1.0f, z2 * consts->params.fov};
+	float3 viewVectorNotRotated = viewVector;
 	viewVector = Matrix33MulFloat3(rot, viewVector);
 
 	bool found = false;
@@ -181,19 +182,39 @@ kernel void fractal3D(
 		}
 	}
 
+	// shaders
+
 	float4 colour = 0.7f;
 	float4 surfaceColour = 1.0f;
+
+	float3 lightVector = (float3){
+		cos(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
+		sin(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
+		sin(consts->params.mainLightBeta)};
+	lightVector = Matrix33MulFloat3(rot, lightVector);
+
+	distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
+	distThresh = max(1e-6, distThresh);
+
+	sShaderInputDataCl shaderInputData;
+	shaderInputData.point = point;
+	shaderInputData.viewVector = viewVector;
+	shaderInputData.viewVectorNotRotated = viewVectorNotRotated;
+	shaderInputData.lightVect = lightVector;
+	shaderInputData.distThresh = distThresh;
+	shaderInputData.lastDist = distance;
+	shaderInputData.delta = calcParam.detailSize;
+	shaderInputData.depth = scan;
+	shaderInputData.invertMode = false;
+	shaderInputData.material = material;
+	shaderInputData.palette = palette;
+	shaderInputData.paletteSize = paletteLength;
+
 	if (found)
 	{
-		distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
-		distThresh = max(1e-6, distThresh);
-
 		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
-		float3 lightVector = (float3){
-			cos(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
-			sin(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
-			sin(consts->params.mainLightBeta)};
-		lightVector = Matrix33MulFloat3(rot, lightVector);
+		shaderInputData.normal = normal;
+
 		float shade = dot(lightVector, normal);
 		if (shade < 0.0f) shade = 0.0f;
 
@@ -204,28 +225,13 @@ kernel void fractal3D(
 		specular = pown(specular, 30.0f);
 		if (specular > 15.0f) specular = 15.0f;
 
-		sShaderInputDataCl shaderInputData;
-		shaderInputData.point = point;
-		shaderInputData.viewVector = viewVector;
-		shaderInputData.normal = normal;
-		shaderInputData.lightVect = lightVector;
-		shaderInputData.distThresh = distThresh;
-		shaderInputData.lastDist = distance;
-		shaderInputData.delta = calcParam.detailSize;
-		shaderInputData.depth = scan;
-		shaderInputData.invertMode = false;
-		shaderInputData.material = material;
-		shaderInputData.palette = palette;
-		shaderInputData.paletteSize = paletteLength;
-
 		float4 surfaceColour = SurfaceColor(consts, &shaderInputData, &calcParam);
-		// float4 surfaceColour = (float4){1.0f, 1.0f, 1.0f, 1.0f};
 
 		colour = surfaceColour * (shade + specular);
 	}
 	else
 	{
-		colour = (float4){0.0f, 0.0f, screenPoint.y / height, 1.0f};
+		colour = BackgroundShader(consts, &shaderInputData);
 	}
 
 	sClPixel pixel;
