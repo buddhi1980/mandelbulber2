@@ -115,3 +115,95 @@ float4 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 	return pixel2;
 }
+
+float4 MainShadow(
+	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
+{
+	float4 shadow = (float4){1.0f, 1.0f, 1.0f, 1.0f};
+
+	// starting point
+	float3 point2;
+
+	float factor = input->delta / consts->params.resolution;
+	if (!consts->params.penetratingLights) factor = consts->params.viewDistanceMax;
+	float dist;
+
+	float DEFactor = consts->params.DEFactor;
+	if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0]) DEFactor = 1.0f;
+
+	// double start = input->delta;
+	float start = input->distThresh;
+	if (consts->params.interiorMode) start = input->distThresh * DEFactor;
+
+	float opacity;
+	float shadowTemp = 1.0f;
+
+	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI);
+	float maxSoft = 0.0f;
+
+	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled
+										 && !consts->params.common.iterThreshMode && softRange > 0.0f;
+
+	for (float i = start; i < factor; i += dist * DEFactor)
+	{
+		point2 = input->point + input->lightVect * i;
+
+		float dist_thresh;
+		if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0])
+		{
+			dist_thresh = CalcDistThresh(point2, consts);
+		}
+		else
+			dist_thresh = input->distThresh;
+
+		calcParam->distThresh = dist_thresh;
+		formulaOut outF;
+
+		outF = CalculateDistance(consts, point2, calcParam);
+		dist = outF.distance;
+
+		if (bSoft)
+		{
+			float angle = (dist - dist_thresh) / i;
+			if (angle < 0.0f) angle = 0.0f;
+			if (dist < dist_thresh) angle = 0;
+			float softShadow = 1.0f - angle / softRange;
+			if (consts->params.penetratingLights) softShadow *= (factor - i) / factor;
+			if (softShadow < 0.0f) softShadow = 0.0f;
+			if (softShadow > maxSoft) maxSoft = softShadow;
+		}
+
+		if (consts->params.iterFogEnabled)
+		{
+			//			opacity = IterOpacity(dist * DEFactor, distanceOut.iters, consts->params.N,
+			//				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
+		}
+		else
+		{
+			opacity = 0.0f;
+		}
+		shadowTemp -= opacity * (factor - i) / factor;
+
+		if (dist < dist_thresh || shadowTemp < 0.0f)
+		{
+			shadowTemp -= (factor - i) / factor;
+			if (!consts->params.penetratingLights) shadowTemp = 0.0f;
+			if (shadowTemp < 0.0f) shadowTemp = 0.0f;
+			break;
+		}
+	}
+	if (!bSoft)
+	{
+		shadow.s0 = shadowTemp;
+		shadow.s1 = shadowTemp;
+		shadow.s2 = shadowTemp;
+	}
+	else
+	{
+		shadow.s0 = 1.0f - maxSoft;
+		shadow.s1 = 1.0f - maxSoft;
+		shadow.s2 = 1.0f - maxSoft;
+	}
+	shadow.s3 = 0.0f;
+	return shadow;
+}

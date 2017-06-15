@@ -205,6 +205,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 	// update camera rotation data (needed for simplified calculation in opencl kernel)
 	cCameraTarget cameraTarget(paramRender->camera, paramRender->target, paramRender->topVector);
 	paramRender->viewAngle = cameraTarget.GetRotation() * 180.0 / M_PI;
+	paramRender->resolution = 1.0 / paramRender->imageHeight;
 
 	// temporary code to copy general parameters
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);

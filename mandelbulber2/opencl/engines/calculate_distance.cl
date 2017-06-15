@@ -35,6 +35,36 @@
 #ifndef MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 #define MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 
+// calculation of distance where ray-marching stops
+float CalcDistThresh(float3 point, __constant sClInConstants *consts)
+{
+	float distThresh;
+	if (consts->params.constantDEThreshold)
+		distThresh = consts->params.DEThresh;
+	else
+		distThresh = length(consts->params.camera - point) * consts->params.resolution
+								 * consts->params.fov / consts->params.detailLevel;
+	// TODO: another perspective types
+	//	if (consts->params.perspectiveType == params::perspEquirectangular
+	//			|| consts->params.perspectiveType == params::perspFishEye
+	//			|| consts->params.perspectiveType == params::perspFishEyeCut)
+	//		distThresh *= M_PI;
+	return distThresh;
+}
+
+// calculation of "voxel" size
+float CalcDelta(float3 point, __constant sClInConstants *consts)
+{
+	float delta;
+	delta = length(consts->params.camera - point) * consts->params.resolution * consts->params.fov;
+	// TODO: another perspective types
+	//	if (consts->params.perspectiveType == params::perspEquirectangular
+	//			|| consts->params.perspectiveType == params::perspFishEye
+	//			|| consts->params.perspectiveType == params::perspFishEyeCut)
+	//		delta *= M_PI;
+	return delta;
+}
+
 formulaOut CalculateDistance(
 	__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam)
 {

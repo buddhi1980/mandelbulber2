@@ -226,8 +226,9 @@ kernel void fractal3D(
 		if (specular > 15.0f) specular = 15.0f;
 
 		float4 surfaceColour = SurfaceColor(consts, &shaderInputData, &calcParam);
+		float4 shadow = MainShadow(consts, &shaderInputData, &calcParam);
 
-		colour = surfaceColour * (shade + specular);
+		colour = shadow * surfaceColour * (shade + specular);
 	}
 	else
 	{
