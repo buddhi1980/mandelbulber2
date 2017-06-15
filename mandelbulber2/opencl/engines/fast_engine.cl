@@ -161,10 +161,10 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 		distThresh = max(1e-6, distThresh);
 
 		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
-		float3 lightVector = (float3){
-			cos(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
-			sin(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
-			sin(consts->params.mainLightBeta)};
+		float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
+		float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
+		float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
+			sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
 		lightVector = Matrix33MulFloat3(rot, lightVector);
 		float shade = dot(lightVector, normal);
 		if (shade < 0.0f) shade = 0.0f;

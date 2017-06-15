@@ -138,7 +138,7 @@ float4 MainShadow(
 	float opacity;
 	float shadowTemp = 1.0f;
 
-	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI);
+	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
 	float maxSoft = 0.0f;
 
 	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled

@@ -187,10 +187,10 @@ kernel void fractal3D(
 	float4 colour = 0.7f;
 	float4 surfaceColour = 1.0f;
 
-	float3 lightVector = (float3){
-		cos(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
-		sin(consts->params.mainLightAlpha - 0.5f * M_PI_F) * cos(-consts->params.mainLightBeta),
-		sin(consts->params.mainLightBeta)};
+	float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
+	float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
+	float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
+		sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
 	lightVector = Matrix33MulFloat3(rot, lightVector);
 
 	distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
@@ -237,11 +237,11 @@ kernel void fractal3D(
 
 	sClPixel pixel;
 
-	float glow = count / 500.0 * consts->params.DEFactor;
+	float glow = count / 1500.0 * consts->params.DEFactor;
 
 	pixel.R = colour.s0 + glow;
 	pixel.G = colour.s1 + glow;
-	pixel.B = colour.s2;
+	pixel.B = colour.s2 + glow;
 	pixel.zBuffer = scan;
 	pixel.colR = 0.0f;
 	pixel.colG = 0.0f;
