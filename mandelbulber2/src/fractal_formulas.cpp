@@ -6136,11 +6136,13 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 	const CVector3 *Nv;
 	int sides;
 
-	Nv = fractal->genFoldBox.Nv_tet;
-	sides = fractal->genFoldBox.sides_tet;
-
 	switch (fractal->genFoldBox.type)
 	{
+		default:
+		case generalizedFoldBoxType_foldTet:
+			Nv = fractal->genFoldBox.Nv_tet;
+			sides = fractal->genFoldBox.sides_tet;
+			break;
 		case generalizedFoldBoxType_foldCube:
 			Nv = fractal->genFoldBox.Nv_cube;
 			sides = fractal->genFoldBox.sides_cube;

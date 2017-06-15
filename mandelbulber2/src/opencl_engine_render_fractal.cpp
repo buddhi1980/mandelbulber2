@@ -295,6 +295,8 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *params)
 {
+	Q_UNUSED(params);
+
 	cl_int err;
 
 	if (hardware->ContextCreated())

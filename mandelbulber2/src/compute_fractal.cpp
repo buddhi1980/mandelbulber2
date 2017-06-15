@@ -93,7 +93,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	// main iteration loop
 	int i;
-	int sequence;
+	int sequence = 0;
 
 	CVector4 lastGoodZ;
 	CVector4 lastZ;
