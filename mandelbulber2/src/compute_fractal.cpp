@@ -428,7 +428,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					break;
 				case coloringFunctionIFS: out->colorIndex = minimumR * 1000.0; break;
 				case coloringFunctionAmazingSurf: out->colorIndex = minimumR * 200.0; break;
-				case coloringFunctionAnox2:
+				case coloringFunctionABox2:
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part

@@ -109,7 +109,7 @@ public:
 	bool ContextCreated() const { return contextReady; }
 
 protected:
-	static bool checkErr(cl_int err, QString fuctionName);
+	static bool checkErr(cl_int err, QString functionName);
 
 private:
 	void ListOpenClDevices();

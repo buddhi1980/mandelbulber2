@@ -293,4 +293,8 @@ OPENCL
 Quat
 mbulb
 lpow
-
+samplerate
+readf
+sndfile
+isinf
+qgamepad

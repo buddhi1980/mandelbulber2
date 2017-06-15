@@ -83,7 +83,7 @@ enum enumColoringFunction
 	coloringFunctionABox = 1,
 	coloringFunctionIFS = 2,
 	coloringFunctionAmazingSurf = 3,
-	coloringFunctionAnox2 = 4,
+	coloringFunctionABox2 = 4,
 	coloringFunctionDonut = 5,
 };
 };

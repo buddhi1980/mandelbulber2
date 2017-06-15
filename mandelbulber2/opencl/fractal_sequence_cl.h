@@ -62,7 +62,7 @@ typedef enum {
 	clColoringFunctionABox = 1,
 	clColoringFunctionIFS = 2,
 	clColoringFunctionAmazingSurf = 3,
-	clColoringFunctionAnox2 = 4,
+	clColoringFunctionABox2 = 4,
 	clColoringFunctionDonut = 5,
 } enumColoringFunctionCl;
 
