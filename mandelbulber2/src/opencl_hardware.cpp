@@ -280,11 +280,11 @@ void cOpenClHardware::ListOpenClDevices()
 	}
 }
 
-bool cOpenClHardware::checkErr(cl_int err, QString fuctionName)
+bool cOpenClHardware::checkErr(cl_int err, QString functionName)
 {
 	if (err != CL_SUCCESS)
 	{
-		qCritical() << "OpenCl ERROR: " << fuctionName << " (" << err << ")";
+		qCritical() << "OpenCl ERROR: " << functionName << " (" << err << ")";
 		return false;
 	}
 	else

@@ -103,10 +103,10 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 	emit loadingProgress(tr("Loading sound file"));
 	QApplication::processEvents();
 	SNDFILE *infile = nullptr;
-	SF_INFO sfinfo;
-	memset(&sfinfo, 0, sizeof(sfinfo));
+	SF_INFO sfInfo;
+	memset(&sfInfo, 0, sizeof(sfInfo));
 
-	if ((infile = sf_open(filename.toLocal8Bit().constData(), SFM_READ, &sfinfo)) == nullptr)
+	if ((infile = sf_open(filename.toLocal8Bit().constData(), SFM_READ, &sfInfo)) == nullptr)
 	{
 		qInfo() << "Not able to open input file using libSndFile:" << filename;
 		qInfo() << "Will be used QAudioDecoder instead";
@@ -114,24 +114,24 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 	}
 	else
 	{
-		sampleRate = sfinfo.samplerate;
+		sampleRate = sfInfo.samplerate;
 
-		if (sfinfo.frames > 0)
+		if (sfInfo.frames > 0)
 		{
-			rawAudio.reserve(sfinfo.frames);
-			rawAudio.resize(sfinfo.frames);
+			rawAudio.reserve(sfInfo.frames);
+			rawAudio.resize(sfInfo.frames);
 
-			float *tempBuff = new float[sfinfo.frames * sfinfo.channels];
-			sf_count_t readSamples = sf_readf_float(infile, tempBuff, sfinfo.frames);
+			float *tempBuff = new float[sfInfo.frames * sfInfo.channels];
+			sf_count_t readSamples = sf_readf_float(infile, tempBuff, sfInfo.frames);
 
 			for (int64_t i = 0; i < readSamples; i++)
 			{
 				float sample = 0.0;
-				for (int chan = 0; chan < sfinfo.channels; chan++)
+				for (int chan = 0; chan < sfInfo.channels; chan++)
 				{
-					sample += tempBuff[i * sfinfo.channels + chan];
+					sample += tempBuff[i * sfInfo.channels + chan];
 				}
-				sample /= sfinfo.channels;
+				sample /= sfInfo.channels;
 				rawAudio[i] = sample;
 				maxVolume = qMax(sample, maxVolume);
 			}

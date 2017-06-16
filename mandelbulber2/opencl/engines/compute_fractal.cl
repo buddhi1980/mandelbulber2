@@ -215,7 +215,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					break;
 				case clColoringFunctionIFS: out.colorIndex = colorMin * 1000.0f; break;
 				case clColoringFunctionAmazingSurf: out.colorIndex = colorMin * 200.0f; break;
-				case clColoringFunctionAnox2:
+			    case clColoringFunctionABox2:
 					out.colorIndex = aux.color * 100.0f * aux.foldFactor
 													 + aux.r * fractal->mandelbox.color.factorR / 1e13f
 													 + aux.scaleFactor * r2 * 5000.0f + aux.minRFactor * 1000.0f;
