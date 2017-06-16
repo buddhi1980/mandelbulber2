@@ -39,10 +39,10 @@ float3 IndexToColour(int index, sShaderInputDataCl *input)
 	return color;
 }
 
-float4 SurfaceColor(
+float3 SurfaceColor(
 	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParams)
 {
-	float4 out;
+	float3 out;
 	calcParams->distThresh = input->distThresh;
 	calcParams->detailSize = input->delta;
 
@@ -71,14 +71,14 @@ float4 SurfaceColor(
 		color.z = input->material->color.z / 65536.0f;
 	}
 
-	out = (float4){color.x, color.y, color.z, 1.0f};
+	out = (float3){color.x, color.y, color.z};
 
 	return out;
 }
 
-float4 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
+float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
 {
-	float4 pixel2;
+	float3 pixel2;
 
 	float3 vector = (float3){0.0, 0.0, 1.0f};
 	vector = normalize(vector);
@@ -111,15 +111,14 @@ float4 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	pixel2.s0 = pixel.s0 / 65536.0f;
 	pixel2.s1 = pixel.s1 / 65536.0f;
 	pixel2.s2 = pixel.s2 / 65536.0f;
-	pixel2.s3 = 0.0f;
 
 	return pixel2;
 }
 
-float4 MainShadow(
+float3 MainShadow(
 	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
-	float4 shadow = (float4){1.0f, 1.0f, 1.0f, 1.0f};
+	float3 shadow = (float3){1.0f, 1.0f, 1.0f};
 
 	// starting point
 	float3 point2;
@@ -204,6 +203,35 @@ float4 MainShadow(
 		shadow.s1 = 1.0f - maxSoft;
 		shadow.s2 = 1.0f - maxSoft;
 	}
-	shadow.s3 = 0.0f;
 	return shadow;
+}
+
+float3 FastAmbientOcclusion(
+	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
+{
+	// reference Iñigo Quilez –iq/rgba:
+	// http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf
+	float delta = input->distThresh;
+	float aoTemp = 0;
+	float quality = consts->params.ambientOcclusionQuality;
+	float lastDist = 1e20f;
+	for (int i = 1; i < quality * quality; i++)
+	{
+		float scan = i * i * delta;
+		float3 pointTemp = input->point + input->normal * scan;
+
+		calcParam->distThresh = input->distThresh;
+		formulaOut outF;
+		outF = CalculateDistance(consts, pointTemp, calcParam);
+		float dist = outF.distance;
+
+		if (dist > lastDist * 2.0f) dist = lastDist * 2.0f;
+		lastDist = dist;
+		aoTemp += 1.0 / pow(2.0, i) * (scan - consts->params.ambientOcclusionFastTune * dist)
+							/ input->distThresh;
+	}
+	float ao = 1.0f - 0.2f * aoTemp;
+	if (ao < 0) ao = 0;
+	float3 output = (float3){ao, ao, ao};
+	return output;
 }

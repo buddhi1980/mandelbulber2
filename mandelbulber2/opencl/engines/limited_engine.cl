@@ -181,11 +181,15 @@ kernel void fractal3D(
 			step *= 0.5f;
 		}
 	}
+	else
+	{
+		scan = 1e20f;
+	}
 
 	// shaders
 
-	float4 colour = 0.7f;
-	float4 surfaceColour = 1.0f;
+	float3 colour = 0.7f;
+	float3 surfaceColour = 1.0f;
 
 	float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
 	float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
@@ -215,20 +219,42 @@ kernel void fractal3D(
 		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
 		shaderInputData.normal = normal;
 
-		float shade = dot(lightVector, normal);
-		if (shade < 0.0f) shade = 0.0f;
+		float shade = 0.0f;
+		float specular = 0.0f;
+		if (consts->params.mainLightEnable)
+		{
+			shade = dot(lightVector, normal);
+			if (shade < 0.0f) shade = 0.0f;
 
-		float3 halfVector = lightVector - viewVector;
-		halfVector = fast_normalize(halfVector);
-		float specular = dot(normal, halfVector);
-		if (specular < 0.0f) specular = 0.0f;
-		specular = pown(specular, 30.0f);
-		if (specular > 15.0f) specular = 15.0f;
+			float3 halfVector = lightVector - viewVector;
+			halfVector = fast_normalize(halfVector);
+			specular = dot(normal, halfVector);
+			if (specular < 0.0f) specular = 0.0f;
+			specular = pown(specular, 30.0f);
+			if (specular > 15.0f) specular = 15.0f;
+		}
 
-		float4 surfaceColour = SurfaceColor(consts, &shaderInputData, &calcParam);
-		float4 shadow = MainShadow(consts, &shaderInputData, &calcParam);
+		float3 mainLight =
+			(float3){consts->params.mainLightColour.s0 / 65536.0f,
+				consts->params.mainLightColour.s1 / 65536.0f, consts->params.mainLightColour.s2 / 65536.0f}
+			* consts->params.mainLightIntensity;
 
-		colour = shadow * surfaceColour * (shade + specular);
+		float3 surfaceColour = SurfaceColor(consts, &shaderInputData, &calcParam);
+
+		float3 shadow = 1.0f;
+		if (consts->params.shadow)
+		{
+			shadow = MainShadow(consts, &shaderInputData, &calcParam);
+		}
+
+		float3 fastAO = 0.0f;
+		if (consts->params.ambientOcclusionEnabled)
+		{
+			fastAO = FastAmbientOcclusion(consts, &shaderInputData, &calcParam);
+			fastAO *= consts->params.ambientOcclusion;
+		}
+
+		colour = surfaceColour * (mainLight * shadow * (shade + specular) + fastAO);
 	}
 	else
 	{

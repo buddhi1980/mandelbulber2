@@ -152,6 +152,10 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 			step *= 0.5f;
 		}
 	}
+	else
+	{
+		scan = 1e20f;
+	}
 
 	float3 colour = 0.7f;
 	float3 surfaceColour = 1.0f;
