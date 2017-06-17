@@ -65,6 +65,9 @@
 class cImage;
 class cFractalContainer;
 class cOpenClDynamicData;
+struct sParamRender;
+class cNineFractals;
+struct sRenderData;
 
 class cOpenClEngineRenderFractal : public cOpenClEngine
 {
@@ -83,7 +86,9 @@ public:
 
 #ifdef USE_OPENCL
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
-	void SetParameters(const cParameterContainer *params, const cFractalContainer *fractals);
+	void SetParameters(const cParameterContainer *paramContainer,
+		const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
+		sRenderData *renderData);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool ReAllocateImageBuffers();
 	bool AssignParametersToKernel(int pixelIndex);

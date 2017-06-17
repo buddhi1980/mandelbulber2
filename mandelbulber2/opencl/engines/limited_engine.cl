@@ -59,12 +59,18 @@ kernel void fractal3D(
 	float height = convert_float(consts->params.imageHeight);
 	float resolution = 1.0f / height;
 
-	//-------- default material - decode data file ----------------
+	//-------- decode data file ----------------
+	// main offset for materials
+	int materialsMainOffset = GetInteger(0, inBuff);
+	int AOVectorsMainOffset = GetInteger(1 * sizeof(int), inBuff);
+
+	//--- main material
+
 	// number of materials
-	int numberOfMaterials = GetInteger(0, inBuff);
+	int numberOfMaterials = GetInteger(materialsMainOffset, inBuff);
 
 	// materials 0 offset:
-	const int materialAddressOffset = 1 * sizeof(int);
+	const int materialAddressOffset = materialsMainOffset + 1 * sizeof(int);
 	int material0Offset = GetInteger(materialAddressOffset, inBuff);
 
 	// material header
@@ -78,6 +84,15 @@ kernel void fractal3D(
 
 	// palette data
 	__global float4 *palette = (__global float4 *)&inBuff[paletteItemsOffset];
+
+	//--- AO vectors
+
+	// AO vectors count
+	int AOVectorsCount = GetInteger(AOVectorsMainOffset, inBuff);
+	int AOVectorsOffset = GetInteger(AOVectorsMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sVectorsAroundCl *__attribute__((aligned(16))) AOVectors =
+		(__global sVectorsAroundCl *)&inBuff[AOVectorsOffset];
 
 	//--------- end of data file ----------------------------------
 

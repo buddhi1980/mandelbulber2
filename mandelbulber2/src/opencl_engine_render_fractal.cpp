@@ -44,8 +44,11 @@
 #include "nine_fractals.hpp"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_dynamic_data.hpp"
+#include "render_data.hpp"
+#include "render_worker.hpp"
 
 #include "camera_target.hpp"
+#include "common_math.h"
 #include "opencl_hardware.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
@@ -199,16 +202,14 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	return programsLoaded;
 }
 
-void cOpenClEngineRenderFractal::SetParameters(
-	const cParameterContainer *paramContainer, const cFractalContainer *fractalContainer)
+void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramContainer,
+	const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
+	sRenderData *renderData)
 {
 	if (constantInBuffer) delete constantInBuffer;
 	constantInBuffer = new sClInConstants;
 
 	definesCollector.clear();
-
-	sParamRender *paramRender = new sParamRender(paramContainer);
-	cNineFractals *fractals = new cNineFractals(fractalContainer, paramContainer);
 
 	// update camera rotation data (needed for simplified calculation in opencl kernel)
 	cCameraTarget cameraTarget(paramRender->camera, paramRender->target, paramRender->topVector);
@@ -292,15 +293,28 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 
+	//----------- create dynamic data -----------
 	dynamicData->Clear();
+	dynamicData->ReserveHeader();
 
+	// materials
 	QMap<int, cMaterial> materials;
 	CreateMaterialsMap(paramContainer, &materials, true);
 	dynamicData->BuildMaterialsData(materials);
+
+	// AO colored vectors
+	cRenderWorker *tempRenderWorker =
+		new cRenderWorker(paramRender, fractals, nullptr, renderData, nullptr);
+	tempRenderWorker->PrepareAOVectors();
+	sVectorsAround *AOVectors = tempRenderWorker->getAOVectorsAround();
+	int numberOfVectors = tempRenderWorker->getAoVectorsCount();
+	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
+
+	dynamicData->FillHeader();
+
 	inBuffer = dynamicData->GetData();
 
-	delete paramRender;
-	delete fractals;
+	delete tempRenderWorker;
 }
 
 bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *params)

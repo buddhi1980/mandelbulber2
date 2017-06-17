@@ -50,16 +50,6 @@
 #undef MIN
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-struct sVectorsAround
-{
-	double alpha;
-	double beta;
-	CVector3 v;
-	int R;
-	int G;
-	int B;
-};
-
 struct sVector
 {
 	double x;

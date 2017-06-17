@@ -4,15 +4,22 @@
  *  Created on: 17 cze 2017
  *      Author: krzysztof
  */
+#include "../src/render_worker.hpp"
 
 #ifdef USE_OPENCL
 
 #include "opencl_dynamic_data.hpp"
 #include "../src/material.h"
 #include "../opencl/material_cl.h"
+#include "../opencl/input_data_structures.h"
 
 cOpenClDynamicData::cOpenClDynamicData()
 {
+	totalDataOffset = 0; // counter for actual address in structure
+	materialsOffset = 0;
+	AOVectorsOffset = 0;
+	materialsOffsetAddress = 0;
+	AOVectorsOffsetAddress = 0;
 }
 
 cOpenClDynamicData::~cOpenClDynamicData()
@@ -64,32 +71,34 @@ void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &material
 	-------------------
 
 	*/
-	cl_int totalMaterialOffset = 0; // counter for actual address in structure
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	materialsOffset = totalDataOffset;
 
 	cl_int numberOfMaterials = materials.size();
 
 	// numberOfMaterials
 	data.append(reinterpret_cast<char *>(&numberOfMaterials), sizeof(numberOfMaterials));
 	int headerSize = sizeof(numberOfMaterials);
-	totalMaterialOffset += headerSize;
+	totalDataOffset += headerSize;
 
 	// reserve bytes for material offsets
 	cl_int *materialOffsets = new cl_int[numberOfMaterials];
 	int materialOffsetsSize = sizeof(cl_int) * numberOfMaterials;
 	memset(materialOffsets, 0, materialOffsetsSize);
 
-	int materialOffsetsAddress = totalMaterialOffset;
+	int materialOffsetsAddress = totalDataOffset;
 	data.append(reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
-	totalMaterialOffset += materialOffsetsSize;
+	totalDataOffset += materialOffsetsSize;
 
 	// add dummy bytes for alignment to 16
-	totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, &data);
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 
 	int materialIndex = 0;
 
 	foreach (const cMaterial &material, materials)
 	{
-		materialOffsets[materialIndex] = totalMaterialOffset;
+		materialOffsets[materialIndex] = totalDataOffset;
 
 		sMaterialCl materialCl = clCopySMaterialCl(material);
 		cColorPalette palette = material.palette;
@@ -107,42 +116,42 @@ void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &material
 		cl_int paletteLength = paletteSize;
 
 		// reserve bytes for cl_int materialClOffset
-		int materialClOffsetAddress = totalMaterialOffset;
+		int materialClOffsetAddress = totalDataOffset;
 		data.append(reinterpret_cast<char *>(&materialClOffset), sizeof(materialClOffset));
-		totalMaterialOffset += sizeof(materialClOffset);
+		totalDataOffset += sizeof(materialClOffset);
 
 		// reserve bytes cl_int paletteItemsOffset
-		int paletteItemsOffsetAddress = totalMaterialOffset;
+		int paletteItemsOffsetAddress = totalDataOffset;
 		data.append(reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
-		totalMaterialOffset += sizeof(paletteItemsOffset);
+		totalDataOffset += sizeof(paletteItemsOffset);
 
 		// cl_int palette size (bytes)
 		data.append(reinterpret_cast<char *>(&paletteSizeBytes), sizeof(paletteSizeBytes));
-		totalMaterialOffset += sizeof(paletteSizeBytes);
+		totalDataOffset += sizeof(paletteSizeBytes);
 
 		// cl_int paletteLength (number of color palette items)
 		data.append(reinterpret_cast<char *>(&paletteLength), sizeof(paletteLength));
-		totalMaterialOffset += sizeof(paletteLength);
+		totalDataOffset += sizeof(paletteLength);
 
 		// add dummy bytes for alignment to 16
-		totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, &data);
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 
 		// sMaterialCl material
-		materialClOffset = totalMaterialOffset;
+		materialClOffset = totalDataOffset;
 		data.append(reinterpret_cast<char *>(&materialCl), sizeof(materialCl));
-		totalMaterialOffset += sizeof(materialCl);
+		totalDataOffset += sizeof(materialCl);
 
 		// fill materialClOffset value
 		data.replace(materialClOffsetAddress, sizeof(materialClOffset),
 			reinterpret_cast<char *>(&materialClOffset), sizeof(materialClOffset));
 
 		// add dummy bytes for alignment to 16
-		totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, &data);
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 
 		// palette data
-		paletteItemsOffset = totalMaterialOffset;
+		paletteItemsOffset = totalDataOffset;
 		data.append(reinterpret_cast<char *>(paletteCl), paletteSizeBytes);
-		totalMaterialOffset += paletteSizeBytes;
+		totalDataOffset += paletteSizeBytes;
 
 		// fill paletteItemsOffset value
 		data.replace(paletteItemsOffsetAddress, sizeof(paletteItemsOffset),
@@ -162,11 +171,88 @@ void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &material
 void cOpenClDynamicData::Clear()
 {
 	data.clear();
+	totalDataOffset = 0;
 }
 
 QByteArray &cOpenClDynamicData::GetData(void)
 {
 	return data;
+}
+
+void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_int vectorsCount)
+{
+	/* use __attribute__((aligned(16))) in kernel code for array
+	 *
+	 * header:
+	 * cl_int vectorsCount
+	 * cl_int arrayOffset;
+	 *
+	 * array (aligned to 16):
+	 * 	sVectorsAroundCl item1
+	 * 	sVectorsAroundCl item2
+	 * 	...
+	 *	sVectorsAroundCl itemN
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	AOVectorsOffset = totalDataOffset;
+
+	data.append(reinterpret_cast<char *>(&vectorsCount), sizeof(vectorsCount));
+	totalDataOffset += sizeof(vectorsCount);
+
+	// reserve bytes for array offset
+	cl_int arrayOffset = 0;
+	int arrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&arrayOffset), sizeof(arrayOffset));
+	totalDataOffset += sizeof(arrayOffset);
+
+	// copy AO vectors aligned to 16
+	for (int i = 0; i < vectorsCount; i++)
+	{
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+		if (i == 0) arrayOffset = totalDataOffset;
+
+		sVectorsAroundCl vector;
+		vector.v = toClFloat3(AOVectors[i].v);
+		vector.color = toClInt3(sRGB(AOVectors[i].R, AOVectors[i].G, AOVectors[i].B));
+		vector.alpha = AOVectors[i].alpha;
+		vector.beta = AOVectors[i].beta;
+
+		qDebug() << AOVectors[i].v.x;
+
+		data.append(reinterpret_cast<char *>(&vector), sizeof(vector));
+		totalDataOffset += sizeof(vector);
+	}
+
+	// replace arrayOffset:
+	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
+		sizeof(arrayOffset));
+}
+
+void cOpenClDynamicData::ReserveHeader()
+{
+	/* main header:
+	 * cl_int materialsOffset
+	 * cl_int AOVectorsOffset
+	 */
+
+	// reserve bytes for array offset
+	materialsOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&materialsOffset), sizeof(materialsOffset));
+	totalDataOffset += sizeof(materialsOffset);
+
+	AOVectorsOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&AOVectorsOffset), sizeof(AOVectorsOffset));
+	totalDataOffset += sizeof(AOVectorsOffset);
+}
+
+void cOpenClDynamicData::FillHeader()
+{
+	data.replace(materialsOffsetAddress, sizeof(materialsOffset),
+		reinterpret_cast<char *>(&materialsOffset), sizeof(materialsOffset));
+
+	data.replace(AOVectorsOffsetAddress, sizeof(AOVectorsOffset),
+		reinterpret_cast<char *>(&AOVectorsOffset), sizeof(AOVectorsOffset));
 }
 
 #endif // USE_OPENCL

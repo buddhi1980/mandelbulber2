@@ -503,9 +503,14 @@ bool cRenderJob::Execute()
 		QElapsedTimer timer;
 		timer.start();
 
+		// move parameters from containers to structures
+		sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
+		cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
+
 		// just for testing
 		gOpenCl->openClEngineRenderFractal->Lock();
-		gOpenCl->openClEngineRenderFractal->SetParameters(paramsContainer, fractalContainer);
+		gOpenCl->openClEngineRenderFractal->SetParameters(
+			paramsContainer, fractalContainer, params, fractals, renderData);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
@@ -515,6 +520,9 @@ bool cRenderJob::Execute()
 		}
 		gOpenCl->openClEngineRenderFractal->Unlock();
 		qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+
+		delete params;
+		delete fractals;
 	}
 
 #endif

@@ -52,6 +52,17 @@ struct sParamRender;
 class cNineFractals;
 class cScheduler;
 
+// ambient occlusion data
+struct sVectorsAround
+{
+	double alpha;
+	double beta;
+	CVector3 v;
+	int R;
+	int G;
+	int B;
+};
+
 class cRenderWorker : public QObject
 {
 	Q_OBJECT
@@ -67,6 +78,11 @@ public:
 	cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,
 		sThreadData *_threadData, sRenderData *_data, cImage *_image);
 	~cRenderWorker();
+
+	// PrepareAOVectors() is public because is needed also for OpenCL data
+	void PrepareAOVectors();
+	sVectorsAround *getAOVectorsAround() const { return AOVectorsAround; }
+	int getAoVectorsCount() const { return AOVectorsCount; }
 
 	QThread workerThread;
 
@@ -85,17 +101,6 @@ private:
 	{
 		sStep *stepBuff;
 		int buffCount;
-	};
-
-	// ambient occlusion data
-	struct sVectorsAround
-	{
-		double alpha;
-		double beta;
-		CVector3 v;
-		int R;
-		int G;
-		int B;
 	};
 
 	struct sRayMarchingIn
@@ -171,7 +176,6 @@ private:
 	// functions
 	void PrepareMainVectors();
 	void PrepareReflectionBuffer();
-	void PrepareAOVectors();
 	CVector3 RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out) const;
 	double CalcDistThresh(CVector3 point) const;
 	double CalcDelta(CVector3 point) const;
