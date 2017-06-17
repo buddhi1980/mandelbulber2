@@ -98,7 +98,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
-		programEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
+		programEngine.append(
+			"#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
 
 		programEngine.append("#define SQRT_1_3 " + QString::number(SQRT_1_3) + "\n");
 		programEngine.append("#define SQRT_1_2 " + QString::number(SQRT_1_2) + "\n");
@@ -120,7 +121,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("opencl_typedefs.h");			 // definitions of common opencl types
 		clHeaderFiles.append("opencl_algebra.h");				 // algebra for kernels
 		clHeaderFiles.append("common_params_cl.hpp");		 // common parameters
-		clHeaderFiles.append("image_adjustments_cl.h");  // image adjustments
+		clHeaderFiles.append("image_adjustments_cl.h");	// image adjustments
 		clHeaderFiles.append("fractal_cl.h");						 // fractal data structures
 		clHeaderFiles.append("fractparams_cl.hpp");			 // rendering data structures
 		clHeaderFiles.append("fractal_sequence_cl.h");	 // sequence of fractal formulas
@@ -139,7 +140,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			if (formulaName != "")
 			{
 				programEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-													+ "opencl" + QDir::separator() + formulaName + ".cl\"\n");
+														 + "opencl" + QDir::separator() + formulaName + ".cl\"\n");
 			}
 		}
 
@@ -148,6 +149,9 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		// calculate distance
 		programEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
+
+		// normal vector calculation
+		programEngine.append("#include \"" + openclEnginePath + "normal_vector.cl\"\n");
 
 		if (params->Get<int>("gpu_mode") != clRenderEngineTypeFast)
 		{
@@ -363,7 +367,8 @@ bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
 	if (outCL) delete outCL;
 	outCL = new cl::Buffer(
 		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err);
-	if (!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err"))
+	if (!checkErr(
+				err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err"))
 		return false;
 	else
 		return true;

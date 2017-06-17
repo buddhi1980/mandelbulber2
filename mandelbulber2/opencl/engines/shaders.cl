@@ -16,6 +16,49 @@ typedef struct
 
 } sShaderInputDataCl;
 
+//-------------- background shaders ---------------
+
+float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
+{
+	float3 pixel2;
+
+	float3 vector = (float3){0.0, 0.0, 1.0f};
+	vector = normalize(vector);
+	float3 viewVectorNorm = input->viewVector;
+	viewVectorNorm = normalize(viewVectorNorm);
+	float grad = dot(viewVectorNorm, vector) + 1.0f;
+	int3 pixel;
+	if (grad < 1.0f)
+	{
+		float gradN = 1.0f - grad;
+		pixel.s0 =
+			consts->params.background_color3.s0 * gradN + consts->params.background_color2.s0 * grad;
+		pixel.s1 =
+			consts->params.background_color3.s1 * gradN + consts->params.background_color2.s1 * grad;
+		pixel.s2 =
+			consts->params.background_color3.s2 * gradN + consts->params.background_color2.s2 * grad;
+	}
+	else
+	{
+		grad = grad - 1.0f;
+		float gradN = 1.0f - grad;
+		pixel.s0 =
+			consts->params.background_color2.s0 * gradN + consts->params.background_color1.s0 * grad;
+		pixel.s1 =
+			consts->params.background_color2.s1 * gradN + consts->params.background_color1.s1 * grad;
+		pixel.s2 =
+			consts->params.background_color2.s2 * gradN + consts->params.background_color1.s2 * grad;
+	}
+
+	pixel2.s0 = pixel.s0 / 65536.0f;
+	pixel2.s1 = pixel.s1 / 65536.0f;
+	pixel2.s2 = pixel.s2 / 65536.0f;
+
+	return pixel2;
+}
+
+//----------------- object shaders -----------------
+
 float3 IndexToColour(int index, sShaderInputDataCl *input)
 {
 	float3 color = (float3){1.0f, 1.0f, 1.0f};
@@ -76,43 +119,26 @@ float3 SurfaceColor(
 	return out;
 }
 
-float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
+float3 MainShading(sShaderInputDataCl *input)
 {
-	float3 pixel2;
+	float shade = dot(input->normal, input->lightVect);
+	if (shade < 0.0f) shade = 0.0f;
+	return shade;
+}
 
-	float3 vector = (float3){0.0, 0.0, 1.0f};
-	vector = normalize(vector);
-	float3 viewVectorNorm = input->viewVector;
-	viewVectorNorm = normalize(viewVectorNorm);
-	float grad = dot(viewVectorNorm, vector) + 1.0f;
-	int3 pixel;
-	if (grad < 1.0f)
-	{
-		float gradN = 1.0f - grad;
-		pixel.s0 =
-			consts->params.background_color3.s0 * gradN + consts->params.background_color2.s0 * grad;
-		pixel.s1 =
-			consts->params.background_color3.s1 * gradN + consts->params.background_color2.s1 * grad;
-		pixel.s2 =
-			consts->params.background_color3.s2 * gradN + consts->params.background_color2.s2 * grad;
-	}
-	else
-	{
-		grad = grad - 1.0f;
-		float gradN = 1.0f - grad;
-		pixel.s0 =
-			consts->params.background_color2.s0 * gradN + consts->params.background_color1.s0 * grad;
-		pixel.s1 =
-			consts->params.background_color2.s1 * gradN + consts->params.background_color1.s1 * grad;
-		pixel.s2 =
-			consts->params.background_color2.s2 * gradN + consts->params.background_color1.s2 * grad;
-	}
-
-	pixel2.s0 = pixel.s0 / 65536.0f;
-	pixel2.s1 = pixel.s1 / 65536.0f;
-	pixel2.s2 = pixel.s2 / 65536.0f;
-
-	return pixel2;
+float3 MainSpecular(sShaderInputDataCl *input)
+{
+	float3 halfVector = input->lightVect - input->viewVector;
+	halfVector = fast_normalize(halfVector);
+	float specular = dot(input->normal, halfVector);
+	if (specular < 0.0f) specular = 0.0f;
+	specular = pow(specular, 30.0f / input->material->specularWidth);
+	if (specular > 15.0f) specular = 15.0f;
+	float3 out = specular;
+	out.s0 *= input->material->specularColor.s0 / 65536.0f;
+	out.s1 *= input->material->specularColor.s1 / 65536.0f;
+	out.s2 *= input->material->specularColor.s2 / 65536.0f;
+	return out;
 }
 
 float3 MainShadow(
@@ -234,4 +260,49 @@ float3 FastAmbientOcclusion(
 	if (ao < 0) ao = 0;
 	float3 output = (float3){ao, ao, ao};
 	return output;
+}
+
+float3 ObjectShader(float3 point, __constant sClInConstants *consts, sShaderInputDataCl *input,
+	sClCalcParams *calcParam)
+{
+	float3 color = 0.7f;
+
+	float3 normal = NormalVector(consts, point, input->lastDist, input->distThresh, calcParam);
+	input->normal = normal;
+
+	float3 mainLight =
+		(float3){consts->params.mainLightColour.s0 / 65536.0f,
+			consts->params.mainLightColour.s1 / 65536.0f, consts->params.mainLightColour.s2 / 65536.0f}
+		* consts->params.mainLightIntensity;
+
+	float3 shade = 0.0f;
+	float3 specular = 0.0f;
+	float3 shadow = 1.0f;
+
+	if (consts->params.mainLightEnable)
+	{
+		shade = MainShading(input);
+		shade = consts->params.mainLightIntensity
+						* ((float3)1.0f - input->material->shading + input->material->shading * shade);
+
+		specular = MainSpecular(input) * input->material->specular;
+
+		if (consts->params.shadow)
+		{
+			shadow = MainShadow(consts, input, calcParam);
+		}
+	}
+
+	float3 surfaceColour = SurfaceColor(consts, input, calcParam);
+
+	float3 fastAO = 0.0f;
+	if (consts->params.ambientOcclusionEnabled)
+	{
+		fastAO = FastAmbientOcclusion(consts, input, calcParam);
+		fastAO *= consts->params.ambientOcclusion;
+	}
+
+	color = surfaceColour * (mainLight * shadow * (shade + specular) + fastAO);
+
+	return color;
 }

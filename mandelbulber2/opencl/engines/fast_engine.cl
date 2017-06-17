@@ -34,18 +34,6 @@
 
 #define MAX_RAYMARCHING 5000
 
-float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainDistance,
-	float distThresh, sClCalcParams *calcParam)
-{
-	float delta = distThresh;
-	float s1 = CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam).distance;
-	float s2 = CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam).distance;
-	float s3 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam).distance;
-	float3 normal = (float3){s1 - mainDistance, s2 - mainDistance, s3 - mainDistance};
-	normal = normalize(normal);
-	return normal;
-}
-
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	__constant sClInConstants *consts, int Gcl_offset)
@@ -58,7 +46,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	const int imageYTemp = id / consts->params.imageWidth;
 	const int buffIndex = (id - cl_offset);
 
-    const int imageY = clamp(imageYTemp, 0, consts->params.imageHeight - 1);
+	const int imageY = clamp(imageYTemp, 0, consts->params.imageHeight - 1);
 
 	float2 screenPoint = (float2){convert_float(imageX), convert_float(imageY)};
 	float width = convert_float(consts->params.imageWidth);

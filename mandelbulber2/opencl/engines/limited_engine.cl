@@ -34,18 +34,6 @@
 
 #define MAX_RAYMARCHING 5000
 
-float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainDistance,
-	float distThresh, sClCalcParams *calcParam)
-{
-	float delta = distThresh;
-	float s1 = CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam).distance;
-	float s2 = CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam).distance;
-	float s3 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam).distance;
-	float3 normal = (float3){s1 - mainDistance, s2 - mainDistance, s3 - mainDistance};
-	normal = normalize(normal);
-	return normal;
-}
-
 int GetInteger(int byte, __global char *array)
 {
 	__global int *intPointer = (__global int *)&array[byte];
@@ -188,8 +176,7 @@ kernel void fractal3D(
 
 	// shaders
 
-	float3 colour = 0.7f;
-	float3 surfaceColour = 1.0f;
+	float3 color;
 
 	float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
 	float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
@@ -216,58 +203,20 @@ kernel void fractal3D(
 
 	if (found)
 	{
-		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
-		shaderInputData.normal = normal;
-
-		float shade = 0.0f;
-		float specular = 0.0f;
-		if (consts->params.mainLightEnable)
-		{
-			shade = dot(lightVector, normal);
-			if (shade < 0.0f) shade = 0.0f;
-
-			float3 halfVector = lightVector - viewVector;
-			halfVector = fast_normalize(halfVector);
-			specular = dot(normal, halfVector);
-			if (specular < 0.0f) specular = 0.0f;
-			specular = pown(specular, 30.0f);
-			if (specular > 15.0f) specular = 15.0f;
-		}
-
-		float3 mainLight =
-			(float3){consts->params.mainLightColour.s0 / 65536.0f,
-				consts->params.mainLightColour.s1 / 65536.0f, consts->params.mainLightColour.s2 / 65536.0f}
-			* consts->params.mainLightIntensity;
-
-		float3 surfaceColour = SurfaceColor(consts, &shaderInputData, &calcParam);
-
-		float3 shadow = 1.0f;
-		if (consts->params.shadow)
-		{
-			shadow = MainShadow(consts, &shaderInputData, &calcParam);
-		}
-
-		float3 fastAO = 0.0f;
-		if (consts->params.ambientOcclusionEnabled)
-		{
-			fastAO = FastAmbientOcclusion(consts, &shaderInputData, &calcParam);
-			fastAO *= consts->params.ambientOcclusion;
-		}
-
-		colour = surfaceColour * (mainLight * shadow * (shade + specular) + fastAO);
+		color = ObjectShader(point, consts, &shaderInputData, &calcParam);
 	}
 	else
 	{
-		colour = BackgroundShader(consts, &shaderInputData);
+		color = BackgroundShader(consts, &shaderInputData);
 	}
 
 	sClPixel pixel;
 
 	float glow = count / 1500.0 * consts->params.DEFactor;
 
-	pixel.R = colour.s0 + glow;
-	pixel.G = colour.s1 + glow;
-	pixel.B = colour.s2 + glow;
+	pixel.R = color.s0 + glow;
+	pixel.G = color.s1 + glow;
+	pixel.B = color.s2 + glow;
 	pixel.zBuffer = scan;
 	pixel.colR = 0.0f;
 	pixel.colG = 0.0f;
