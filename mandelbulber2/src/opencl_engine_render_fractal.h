@@ -64,6 +64,7 @@
 
 class cImage;
 class cFractalContainer;
+class cOpenClDynamicData;
 
 class cOpenClEngineRenderFractal : public cOpenClEngine
 {
@@ -102,6 +103,8 @@ private:
 
 	sClPixel *rgbBuffer;
 	cl::Buffer *outCL;
+
+	cOpenClDynamicData *dynamicData;
 
 	QStringList listOfUsedFormulas;
 

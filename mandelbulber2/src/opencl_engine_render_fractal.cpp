@@ -40,8 +40,10 @@
 #include "fractal.h"
 #include "fractparams.hpp"
 #include "global_data.hpp"
+#include "material.h"
 #include "nine_fractals.hpp"
 #include "opencl_engine_render_fractal.h"
+#include "opencl_dynamic_data.hpp"
 
 #include "camera_target.hpp"
 #include "opencl_hardware.h"
@@ -51,7 +53,6 @@
 #ifdef USE_OPENCL
 #include "../opencl/fractal_cl.h"
 #include "../opencl/fractparams_cl.hpp"
-#include "../opencl/material_cl.h"
 #endif
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
@@ -66,6 +67,8 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	rgbBuffer = nullptr;
 	outCL = nullptr;
 
+	dynamicData = new cOpenClDynamicData;
+
 	optimalJob.sizeOfPixel = sizeof(sClPixel);
 
 #endif
@@ -79,6 +82,7 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 	if (inCLBuffer) delete inCLBuffer;
 	if (rgbBuffer) delete[] rgbBuffer;
 	if (outCL) delete outCL;
+	if (dynamicData) delete dynamicData;
 #endif
 }
 
@@ -288,10 +292,12 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
 
-	inBuffer.clear();
+	dynamicData->Clear();
+
 	QMap<int, cMaterial> materials;
 	CreateMaterialsMap(paramContainer, &materials, true);
-	BuildMaterialsData(&inBuffer, materials);
+	dynamicData->BuildMaterialsData(materials);
+	inBuffer = dynamicData->GetData();
 
 	delete paramRender;
 	delete fractals;
@@ -470,21 +476,23 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		qDebug() << "GPU jobs finished";
 		qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 
-		// refresh image at end
-		image->NullPostEffect();
+		// refreshing is not needed when SSAO or DOF is not used.
 
-		WriteLog("image->CompileImage()", 2);
-		image->CompileImage();
-
-		if (image->IsPreview())
-		{
-			WriteLog("image->ConvertTo8bit()", 2);
-			image->ConvertTo8bit();
-			WriteLog("image->UpdatePreview()", 2);
-			image->UpdatePreview();
-			WriteLog("image->GetImageWidget()->update()", 2);
-			image->GetImageWidget()->update();
-		}
+		//		// refresh image at end
+		//		image->NullPostEffect();
+		//
+		//		WriteLog("image->CompileImage()", 2);
+		//		image->CompileImage();
+		//
+		//		if (image->IsPreview())
+		//		{
+		//			WriteLog("image->ConvertTo8bit()", 2);
+		//			image->ConvertTo8bit();
+		//			WriteLog("image->UpdatePreview()", 2);
+		//			image->UpdatePreview();
+		//			WriteLog("image->GetImageWidget()->update()", 2);
+		//			image->GetImageWidget()->update();
+		//		}
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
 
