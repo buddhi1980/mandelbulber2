@@ -46,8 +46,8 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 #ifdef USE_OPENCL
 #ifdef _WIN32
 #ifndef _MSC_VER
-	const std::wstring opencldll(L"OpenCL.dll");
-	int err = clewInit(opencldll.c_str());
+	const std::wstring openclDll(L"OpenCL.dll");
+	int err = clewInit(openclDll.c_str());
 	if (err)
 	{
 		qCritical() << clewErrorString(err);
@@ -133,7 +133,7 @@ void cOpenClHardware::CreateContext(
 
 			// platformIndex required
 			// context operates exclusively with (1) platform
-			cl_context_properties cprops[3] = {
+			cl_context_properties cProps[3] = {
 				CL_CONTEXT_PLATFORM, cl_context_properties((clPlatforms[platformIndex])()), 0};
 
 			if (context) delete context;
@@ -144,19 +144,19 @@ void cOpenClHardware::CreateContext(
 			switch (deviceType)
 			{
 				case cOpenClDevice::openClDeviceTypeACC:
-					context = new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cprops, nullptr, nullptr, &err);
+					context = new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cProps, nullptr, nullptr, &err);
 					break;
 				case cOpenClDevice::openClDeviceTypeALL:
-					context = new cl::Context(CL_DEVICE_TYPE_ALL, cprops, nullptr, nullptr, &err);
+					context = new cl::Context(CL_DEVICE_TYPE_ALL, cProps, nullptr, nullptr, &err);
 					break;
 				case cOpenClDevice::openClDeviceTypeCPU:
-					context = new cl::Context(CL_DEVICE_TYPE_CPU, cprops, nullptr, nullptr, &err);
+					context = new cl::Context(CL_DEVICE_TYPE_CPU, cProps, nullptr, nullptr, &err);
 					break;
 				case cOpenClDevice::openClDeviceTypeDEF:
-					context = new cl::Context(CL_DEVICE_TYPE_DEFAULT, cprops, nullptr, nullptr, &err);
+					context = new cl::Context(CL_DEVICE_TYPE_DEFAULT, cProps, nullptr, nullptr, &err);
 					break;
 				case cOpenClDevice::openClDeviceTypeGPU:
-					context = new cl::Context(CL_DEVICE_TYPE_GPU, cprops, nullptr, nullptr, &err);
+					context = new cl::Context(CL_DEVICE_TYPE_GPU, cProps, nullptr, nullptr, &err);
 					break;
 			}
 
@@ -302,7 +302,7 @@ void cOpenClHardware::EnableDevice(int index)
 		}
 		else
 		{
-			qCritical() << "Selected device doens't have compiler";
+			qCritical() << "Selected device doesn't have compiler";
 		}
 	}
 	else

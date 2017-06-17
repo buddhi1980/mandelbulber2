@@ -69,7 +69,7 @@ typedef struct
 typedef struct
 {
 	cl_uint N;
-	cl_uint deltaDEmaxN;
+	cl_uint deltaDEMaxN;
 	cl_int randomSeed;
 	cl_int iterThreshMode;
 	cl_float3 orbitTrap;

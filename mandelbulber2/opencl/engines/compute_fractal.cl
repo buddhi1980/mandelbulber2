@@ -164,7 +164,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			}
 			else if (mode == calcModeDeltaDE2)
 			{
-				if (i == calcParam->deltaDEmaxN) break;
+				if (i == calcParam->deltaDEMaxN) break;
 			}
 			else if (mode == calcModeColouring)
 			{

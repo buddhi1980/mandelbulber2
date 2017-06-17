@@ -109,9 +109,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	return target;
 }
 
-int PutDummyToAlign(int dataLength, int aligmentSize, QByteArray *array)
+int PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array)
 {
-	int missingBytes = dataLength % aligmentSize;
+	int missingBytes = dataLength % alignmentSize;
 	if (missingBytes > 0)
 	{
 		char *dummyData = new char[missingBytes];
@@ -139,7 +139,7 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 	cl_int material[numberOfMaterials] offset
 
 	---- material 0 ---
-	+0	cl_int materalClOffset (offset for material data)
+	+0	cl_int materialClOffset (offset for material data)
 	+4	cl_int paletteItemsOffset
 	+8	cl_int palette size (bytes)
 	+12	cl_int paletteLength (number of color palette items)
@@ -172,7 +172,7 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 	materialsClData->append(reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
 	totalMaterialOffset += materialOffsetsSize;
 
-	// add dummy bytes for aligment to 16
+	// add dummy bytes for alignment to 16
 	totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, materialsClData);
 
 	int materialIndex = 0;
@@ -191,15 +191,15 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 				palette.GetColor(i).G / 256.0, palette.GetColor(i).B / 256.0, 0.0));
 		}
 
-		cl_int materalClOffset = 0;
+		cl_int materialClOffset = 0;
 		cl_int paletteItemsOffset = 0;
 		cl_int paletteSizeBytes = sizeof(cl_float4) * paletteSize;
 		cl_int paletteLength = paletteSize;
 
-		// reserve bytes for cl_int materalClOffset
-		int materalClOffsetAddress = totalMaterialOffset;
-		materialsClData->append(reinterpret_cast<char *>(&materalClOffset), sizeof(materalClOffset));
-		totalMaterialOffset += sizeof(materalClOffset);
+		// reserve bytes for cl_int materialClOffset
+		int materialClOffsetAddress = totalMaterialOffset;
+		materialsClData->append(reinterpret_cast<char *>(&materialClOffset), sizeof(materialClOffset));
+		totalMaterialOffset += sizeof(materialClOffset);
 
 		// reserve bytes cl_int paletteItemsOffset
 		int paletteItemsOffsetAddress = totalMaterialOffset;
@@ -215,19 +215,19 @@ void BuildMaterialsData(QByteArray *materialsClData, const QMap<int, cMaterial> 
 		materialsClData->append(reinterpret_cast<char *>(&paletteLength), sizeof(paletteLength));
 		totalMaterialOffset += sizeof(paletteLength);
 
-		// add dummy bytes for aligment to 16
+		// add dummy bytes for alignment to 16
 		totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, materialsClData);
 
 		// sMaterialCl material
-		materalClOffset = totalMaterialOffset;
+		materialClOffset = totalMaterialOffset;
 		materialsClData->append(reinterpret_cast<char *>(&materialCl), sizeof(materialCl));
 		totalMaterialOffset += sizeof(materialCl);
 
-		// fill materalClOffset value
-		materialsClData->replace(materalClOffsetAddress, sizeof(materalClOffset),
-			reinterpret_cast<char *>(&materalClOffset), sizeof(materalClOffset));
+		// fill materialClOffset value
+		materialsClData->replace(materialClOffsetAddress, sizeof(materialClOffset),
+			reinterpret_cast<char *>(&materialClOffset), sizeof(materialClOffset));
 
-		// add dummy bytes for aligment to 16
+		// add dummy bytes for alignment to 16
 		totalMaterialOffset += PutDummyToAlign(totalMaterialOffset, 16, materialsClData);
 
 		// palette data

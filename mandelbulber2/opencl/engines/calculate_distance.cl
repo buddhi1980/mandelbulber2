@@ -110,7 +110,7 @@ formulaOut CalculateDistance(
 	float3 dr = 0.0;
 
 	out = Fractal(consts, point, calcParam, calcModeDeltaDE1);
-	calcParam->deltaDEmaxN = out.iters;
+	calcParam->deltaDEMaxN = out.iters;
 
 	if (out.iters == calcParam->N)
 	{

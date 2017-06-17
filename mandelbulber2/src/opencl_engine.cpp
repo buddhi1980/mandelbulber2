@@ -70,11 +70,11 @@ cOpenClEngine::~cOpenClEngine()
 
 #ifdef USE_OPENCL
 
-bool cOpenClEngine::checkErr(cl_int err, QString fuctionName)
+bool cOpenClEngine::checkErr(cl_int err, QString functionName)
 {
 	if (err != CL_SUCCESS)
 	{
-		qCritical() << "OpenCl ERROR: " << fuctionName << " (" << err << ")";
+		qCritical() << "OpenCl ERROR: " << functionName << " (" << err << ")";
 		return false;
 	}
 	else
@@ -180,11 +180,11 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 	return false;
 }
 
-bool cOpenClEngine::CreateKernel(cl::Program *prog)
+bool cOpenClEngine::CreateKernel(cl::Program *program)
 {
 	cl_int err;
 	if (kernel) delete kernel;
-	kernel = new cl::Kernel(*prog, "fractal3D", &err);
+	kernel = new cl::Kernel(*program, "fractal3D", &err);
 	if (checkErr(err, "cl::Kernel()"))
 	{
 		size_t workGroupSize = 0;

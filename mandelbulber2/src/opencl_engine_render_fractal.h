@@ -85,8 +85,8 @@ public:
 	void SetParameters(const cParameterContainer *params, const cFractalContainer *fractals);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool ReAllocateImageBuffers();
-	bool AssingParametersToKernel(int pixelIndex);
-	bool WriteDataBuffertsToQueue();
+	bool AssignParametersToKernel(int pixelIndex);
+	bool WriteBuffersToQueue();
 	bool ProcessQueue();
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image);
@@ -100,7 +100,7 @@ private:
 	QByteArray inBuffer;
 	cl::Buffer *inCLBuffer;
 
-	sClPixel *rgbbuff;
+	sClPixel *rgbBuffer;
 	cl::Buffer *outCL;
 
 	QStringList listOfUsedFormulas;

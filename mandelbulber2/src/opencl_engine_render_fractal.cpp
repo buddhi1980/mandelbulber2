@@ -63,7 +63,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	inCLBuffer = nullptr;
 
-	rgbbuff = nullptr;
+	rgbBuffer = nullptr;
 	outCL = nullptr;
 
 	optimalJob.sizeOfPixel = sizeof(sClPixel);
@@ -77,7 +77,7 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 	if (constantInBuffer) delete constantInBuffer;
 	if (inCLConstBuffer) delete inCLConstBuffer;
 	if (inCLBuffer) delete inCLBuffer;
-	if (rgbbuff) delete rgbbuff;
+	if (rgbBuffer) delete rgbBuffer;
 	if (outCL) delete outCL;
 #endif
 }
@@ -90,37 +90,37 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 	emit updateProgressAndStatus(tr("OpenCl - initializing"), tr("Compiling sources"), 0.0);
 
-	QByteArray progEngine;
+	QByteArray programEngine;
 	try
 	{
 		QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
 		QString openclEnginePath = openclPath + "engines" + QDir::separator();
 
-		// passthrough define constants
-		progEngine.append("#define USE_OPENCL 1\n");
-		progEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
+		// pass through define constants
+		programEngine.append("#define USE_OPENCL 1\n");
+		programEngine.append("#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
 
-		progEngine.append("#define SQRT_1_3 " + QString::number(SQRT_1_3) + "\n");
-		progEngine.append("#define SQRT_1_2 " + QString::number(SQRT_1_2) + "\n");
-		progEngine.append("#define SQRT_2_3 " + QString::number(SQRT_2_3) + "\n");
-		progEngine.append("#define SQRT_3_2 " + QString::number(SQRT_3_2) + "\n");
-		progEngine.append("#define SQRT_3_4 " + QString::number(SQRT_3_4) + "\n");
-		progEngine.append("#define SQRT_3_4d2 " + QString::number(SQRT_3_4d2) + "\n");
-		progEngine.append("#define SQRT_3 " + QString::number(SQRT_3) + "\n");
-		progEngine.append("#define FRAC_1_3 " + QString::number(FRAC_1_3) + "\n");
-		progEngine.append("#define M_PI_180 " + QString::number(M_PI_180) + "\n");
-		progEngine.append("#define M_PI_8 " + QString::number(M_PI_8) + "\n");
+		programEngine.append("#define SQRT_1_3 " + QString::number(SQRT_1_3) + "\n");
+		programEngine.append("#define SQRT_1_2 " + QString::number(SQRT_1_2) + "\n");
+		programEngine.append("#define SQRT_2_3 " + QString::number(SQRT_2_3) + "\n");
+		programEngine.append("#define SQRT_3_2 " + QString::number(SQRT_3_2) + "\n");
+		programEngine.append("#define SQRT_3_4 " + QString::number(SQRT_3_4) + "\n");
+		programEngine.append("#define SQRT_3_4d2 " + QString::number(SQRT_3_4d2) + "\n");
+		programEngine.append("#define SQRT_3 " + QString::number(SQRT_3) + "\n");
+		programEngine.append("#define FRAC_1_3 " + QString::number(FRAC_1_3) + "\n");
+		programEngine.append("#define M_PI_180 " + QString::number(M_PI_180) + "\n");
+		programEngine.append("#define M_PI_8 " + QString::number(M_PI_8) + "\n");
 
-		progEngine.append("#define IFS_VECTOR_COUNT " + QString::number(IFS_VECTOR_COUNT) + "\n");
-		progEngine.append("#define HYBRID_COUNT " + QString::number(HYBRID_COUNT) + "\n");
-		progEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
-		progEngine.append("#define Q_UNUSED(x) (void)x;\n");
+		programEngine.append("#define IFS_VECTOR_COUNT " + QString::number(IFS_VECTOR_COUNT) + "\n");
+		programEngine.append("#define HYBRID_COUNT " + QString::number(HYBRID_COUNT) + "\n");
+		programEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
+		programEngine.append("#define Q_UNUSED(x) (void)x;\n");
 
 		QStringList clHeaderFiles;
 		clHeaderFiles.append("opencl_typedefs.h");			 // definitions of common opencl types
 		clHeaderFiles.append("opencl_algebra.h");				 // algebra for kernels
 		clHeaderFiles.append("common_params_cl.hpp");		 // common parameters
-		clHeaderFiles.append("image_adjustments_cl.h");	// image adjustments
+		clHeaderFiles.append("image_adjustments_cl.h");  // image adjustments
 		clHeaderFiles.append("fractal_cl.h");						 // fractal data structures
 		clHeaderFiles.append("fractparams_cl.hpp");			 // rendering data structures
 		clHeaderFiles.append("fractal_sequence_cl.h");	 // sequence of fractal formulas
@@ -129,7 +129,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		for (int i = 0; i < clHeaderFiles.size(); i++)
 		{
-			progEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");
+			programEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");
 		}
 
 		// fractal formulas - only actually used
@@ -138,21 +138,21 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			QString formulaName = listOfUsedFormulas.at(i);
 			if (formulaName != "")
 			{
-				progEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
+				programEngine.append("#include \"" + systemData.sharedDir + "formula" + QDir::separator()
 													+ "opencl" + QDir::separator() + formulaName + ".cl\"\n");
 			}
 		}
 
 		// compute fractal
-		progEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
+		programEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
 
 		// calculate distance
-		progEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
+		programEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
 
 		if (params->Get<int>("gpu_mode") != clRenderEngineTypeFast)
 		{
 			// shaders
-			progEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
+			programEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
 		}
 
 		// main engine
@@ -164,7 +164,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			case clRenderEngineTypeFull: engineFileName = "full_engine.cl"; break;
 		}
 		QString engineFullFileName = openclEnginePath + engineFileName;
-		progEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+		programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 	}
 	catch (const QString &ex)
 	{
@@ -177,7 +177,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 	QElapsedTimer timer;
 	timer.start();
-	if (Build(progEngine, &errorString))
+	if (Build(programEngine, &errorString))
 	{
 		programsLoaded = true;
 	}
@@ -255,7 +255,7 @@ void cOpenClEngineRenderFractal::SetParameters(
 
 	listOfUsedFormulas.clear();
 
-	// creating list of used formuals
+	// creating list of used formulas
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		fractal::enumFractalFormula fractalFormula = fractals->GetFractal(i)->formula;
@@ -328,14 +328,14 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 		}
 
 		size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
-		if (rgbbuff) delete rgbbuff;
-		rgbbuff = new sClPixel[buffSize];
+		if (rgbBuffer) delete rgbBuffer;
+		rgbBuffer = new sClPixel[buffSize];
 
 		if (outCL) delete outCL;
 		outCL = new cl::Buffer(
-			*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err);
+			*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err);
 		if (!checkErr(
-					err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
+					err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err"))
 		{
 			emit showErrorMessage(
 				QObject::tr("Cannot create OpenCL output buffer"), cErrorMessage::errorMessage, nullptr);
@@ -357,20 +357,20 @@ bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
 	cl_int err;
 
 	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
-	if (rgbbuff) delete rgbbuff;
-	rgbbuff = new sClPixel[buffSize];
+	if (rgbBuffer) delete rgbBuffer;
+	rgbBuffer = new sClPixel[buffSize];
 
 	if (outCL) delete outCL;
 	outCL = new cl::Buffer(
-		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err);
-	if (!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbbuff, &err"))
+		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err);
+	if (!checkErr(err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err"))
 		return false;
 	else
 		return true;
 }
 
 // TODO:
-// This is the hotspot for heterogenous execution
+// This is the hot spot for heterogeneous execution
 // requires opencl for all compute resources
 bool cOpenClEngineRenderFractal::Render(cImage *image)
 {
@@ -402,10 +402,10 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 			ReAllocateImageBuffers();
 
 			// assign parameters to kernel
-			if (!AssingParametersToKernel(pixelIndex)) return false;
+			if (!AssignParametersToKernel(pixelIndex)) return false;
 
 			// writing data to queue
-			if (!WriteDataBuffertsToQueue()) return false;
+			if (!WriteBuffersToQueue()) return false;
 
 			// processing queue
 			if (!ProcessQueue()) return false;
@@ -429,12 +429,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 
 			UpdateOptimalJobEnd();
 
-			// Collect Pixel information from the rgbbuff
+			// Collect Pixel information from the rgbBuffer
 			// Populate the data into image->Put
 			for (unsigned int i = 0; i < optimalJob.stepSize; i++)
 			{
 				unsigned int a = pixelIndex + i;
-				sClPixel pixelCl = rgbbuff[i];
+				sClPixel pixelCl = rgbBuffer[i];
 				sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
 				sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
 				unsigned short opacity = pixelCl.opacity;
@@ -443,7 +443,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 				int y = a / width;
 
 				image->PutPixelImage(x, y, pixel);
-				image->PutPixelZBuffer(x, y, rgbbuff[i].zBuffer);
+				image->PutPixelZBuffer(x, y, rgbBuffer[i].zBuffer);
 				image->PutPixelColor(x, y, color);
 				image->PutPixelOpacity(x, y, opacity);
 				image->PutPixelAlpha(x, y, alpha);
@@ -509,7 +509,7 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 	return parts.join("");
 }
 
-bool cOpenClEngineRenderFractal::AssingParametersToKernel(int pixelIndex)
+bool cOpenClEngineRenderFractal::AssignParametersToKernel(int pixelIndex)
 {
 	cl_int err = kernel->setArg(0, *outCL); // output image
 
@@ -547,14 +547,14 @@ bool cOpenClEngineRenderFractal::AssingParametersToKernel(int pixelIndex)
 	return true;
 }
 
-bool cOpenClEngineRenderFractal::WriteDataBuffertsToQueue()
+bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 {
 	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 
 	size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
 	qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
 
-	if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLBuffer)"))
+	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL input buffers"),
 			cErrorMessage::errorMessage, nullptr);
@@ -562,7 +562,7 @@ bool cOpenClEngineRenderFractal::WriteDataBuffertsToQueue()
 	}
 
 	err = queue->finish();
-	if (!checkErr(err, "ComamndQueue::finish() - inCLBuffer"))
+	if (!checkErr(err, "CommandQueue::finish() - inCLBuffer"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL input buffers"),
 			cErrorMessage::errorMessage, nullptr);
@@ -571,7 +571,7 @@ bool cOpenClEngineRenderFractal::WriteDataBuffertsToQueue()
 
 	err = queue->enqueueWriteBuffer(
 		*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
-	if (!checkErr(err, "ComamndQueue::enqueueWriteBuffer(inCLConstBuffer)"))
+	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL constant buffers"),
 			cErrorMessage::errorMessage, nullptr);
@@ -579,7 +579,7 @@ bool cOpenClEngineRenderFractal::WriteDataBuffertsToQueue()
 	}
 
 	err = queue->finish();
-	if (!checkErr(err, "ComamndQueue::finish() - inCLConstBuffer"))
+	if (!checkErr(err, "CommandQueue::finish() - inCLConstBuffer"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL constant buffers"),
 			cErrorMessage::errorMessage, nullptr);
@@ -593,7 +593,7 @@ bool cOpenClEngineRenderFractal::ProcessQueue()
 {
 	cl_int err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
 		cl::NDRange(optimalJob.workGroupSize));
-	if (!checkErr(err, "ComamndQueue::enqueueNDRangeKernel()"))
+	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
@@ -607,8 +607,8 @@ bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 {
 	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
 
-	cl_int err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbbuff);
-	if (!checkErr(err, "ComamndQueue::enqueueReadBuffer()"))
+	cl_int err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbBuffer);
+	if (!checkErr(err, "CommandQueue::enqueueReadBuffer()"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL output buffers"),
 			cErrorMessage::errorMessage, nullptr);
@@ -616,7 +616,7 @@ bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 	}
 
 	err = queue->finish();
-	if (!checkErr(err, "ComamndQueue::finish() - ReadBuffer"))
+	if (!checkErr(err, "CommandQueue::finish() - ReadBuffer"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
 			cErrorMessage::errorMessage, nullptr);

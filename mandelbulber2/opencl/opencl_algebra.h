@@ -60,18 +60,18 @@ inline matrix33 toClMatrix33(CRotationMatrix source)
 }
 inline cl_float3 toClFloat3(CVector3 v)
 {
-	cl_float3 retval = {cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(0.0)};
-	return retval;
+	cl_float3 retVal = {cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(0.0)};
+	return retVal;
 }
 inline cl_int3 toClInt3(sRGB c)
 {
-	cl_int3 retval = {cl_int(c.R), cl_int(c.G), cl_int(c.B), cl_int(1)};
-	return retval;
+	cl_int3 retVal = {cl_int(c.R), cl_int(c.G), cl_int(c.B), cl_int(1)};
+	return retVal;
 }
 inline cl_float4 toClFloat4(CVector4 v)
 {
-	cl_float4 retval = {cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(v.w)};
-	return retval;
+	cl_float4 retVal = {cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(v.w)};
+	return retVal;
 }
 #endif
 
