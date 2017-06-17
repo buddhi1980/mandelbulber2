@@ -490,23 +490,21 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 		qDebug() << "GPU jobs finished";
 		qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 
-		// refreshing is not needed when SSAO or DOF is not used.
+		// refresh image at end
+		image->NullPostEffect();
 
-		//		// refresh image at end
-		//		image->NullPostEffect();
-		//
-		//		WriteLog("image->CompileImage()", 2);
-		//		image->CompileImage();
-		//
-		//		if (image->IsPreview())
-		//		{
-		//			WriteLog("image->ConvertTo8bit()", 2);
-		//			image->ConvertTo8bit();
-		//			WriteLog("image->UpdatePreview()", 2);
-		//			image->UpdatePreview();
-		//			WriteLog("image->GetImageWidget()->update()", 2);
-		//			image->GetImageWidget()->update();
-		//		}
+		WriteLog("image->CompileImage()", 2);
+		image->CompileImage();
+
+		if (image->IsPreview())
+		{
+			WriteLog("image->ConvertTo8bit()", 2);
+			image->ConvertTo8bit();
+			WriteLog("image->UpdatePreview()", 2);
+			image->UpdatePreview();
+			WriteLog("image->GetImageWidget()->update()", 2);
+			image->GetImageWidget()->update();
+		}
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
 
