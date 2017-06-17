@@ -516,7 +516,7 @@ bool cRenderJob::Execute()
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-			result = gOpenCl->openClEngineRenderFractal->Render(image);
+			result = gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest);
 		}
 		gOpenCl->openClEngineRenderFractal->Unlock();
 		qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;

@@ -95,7 +95,7 @@ public:
 	bool WriteBuffersToQueue();
 	bool ProcessQueue();
 	bool ReadBuffersFromQueue();
-	bool Render(cImage *image);
+	bool Render(cImage *image, bool* stopRequest);
 
 private:
 	static QString toCamelCase(const QString &s);

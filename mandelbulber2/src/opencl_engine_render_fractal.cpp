@@ -397,7 +397,7 @@ bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
 // TODO:
 // This is the hot spot for heterogeneous execution
 // requires opencl for all compute resources
-bool cOpenClEngineRenderFractal::Render(cImage *image)
+bool cOpenClEngineRenderFractal::Render(cImage *image, bool* stopRequest)
 {
 	if (programsLoaded)
 	{
@@ -485,6 +485,11 @@ bool cOpenClEngineRenderFractal::Render(cImage *image)
 			emit updateProgressAndStatus(
 				tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
+			if(*stopRequest)
+			{
+				*stopRequest = false;
+				break;
+			}
 		}
 
 		qDebug() << "GPU jobs finished";
