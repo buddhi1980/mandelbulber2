@@ -9,9 +9,11 @@ typedef struct
 	float lastDist;
 	float delta; // initial step distance for shaders based on distance form camera
 	float depth;
+	int AOVectorsCount;
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
+	__global sVectorsAroundCl *AOVectors;
 	int paletteSize;
 
 } sShaderInputDataCl;
@@ -141,6 +143,7 @@ float3 MainSpecular(sShaderInputDataCl *input)
 	return out;
 }
 
+#ifdef SHADOWS
 float3 MainShadow(
 	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
@@ -231,7 +234,9 @@ float3 MainShadow(
 	}
 	return shadow;
 }
+#endif
 
+#ifdef AO_MODE_FAST
 float3 FastAmbientOcclusion(
 	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
@@ -261,6 +266,75 @@ float3 FastAmbientOcclusion(
 	float3 output = (float3){ao, ao, ao};
 	return output;
 }
+#endif
+
+#ifdef AO_MODE_MULTIPLE_RAYS
+float3 AmbientOcclusion(
+	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
+{
+	float3 AO = 0.0f;
+
+	float start_dist = input->delta;
+	float end_dist = input->delta / consts->params.resolution;
+	float intense;
+
+	for (int i = 0; i < input->AOVectorsCount; i++)
+	{
+		sVectorsAroundCl v = input->AOVectors[i];
+
+		float dist;
+
+		float opacity;
+		float shadowTemp = 1.0f;
+
+		for (float r = start_dist; r < end_dist; r += dist * 2.0f)
+		{
+			float3 point2 = input->point + v.v * r;
+
+			calcParam->distThresh = input->distThresh;
+			formulaOut outF;
+			outF = CalculateDistance(consts, point2, calcParam);
+			dist = outF.distance;
+
+			if (consts->params.iterFogEnabled)
+			{
+				//				opacity = IterOpacity(dist * 2.0, distanceOut.iters, consts->params.N,
+				// consts->params.iterFogOpacityTrim,
+				//					consts->params.iterFogOpacity);
+			}
+			else
+			{
+				opacity = 0.0f;
+			}
+			shadowTemp -= opacity * (end_dist - r) / end_dist;
+
+			float dist_thresh;
+			if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0])
+			{
+				dist_thresh = CalcDistThresh(point2, consts);
+			}
+			else
+				dist_thresh = input->distThresh;
+
+			if (dist < dist_thresh || outF.maxiter || shadowTemp < 0.0f)
+			{
+				shadowTemp -= (end_dist - r) / end_dist;
+				if (shadowTemp < 0.0f) shadowTemp = 0.0f;
+				break;
+			}
+		}
+
+		intense = shadowTemp;
+
+		AO.s0 += intense * v.color.s0;
+		AO.s1 += intense * v.color.s1;
+		AO.s2 += intense * v.color.s2;
+	}
+	AO /= input->AOVectorsCount * 65536.0f;
+
+	return AO;
+}
+#endif
 
 float3 ObjectShader(float3 point, __constant sClInConstants *consts, sShaderInputDataCl *input,
 	sClCalcParams *calcParam)
@@ -287,22 +361,29 @@ float3 ObjectShader(float3 point, __constant sClInConstants *consts, sShaderInpu
 
 		specular = MainSpecular(input) * input->material->specular;
 
+#ifdef SHADOWS
 		if (consts->params.shadow)
 		{
 			shadow = MainShadow(consts, input, calcParam);
 		}
+#endif
 	}
 
 	float3 surfaceColour = SurfaceColor(consts, input, calcParam);
 
-	float3 fastAO = 0.0f;
+	float3 AO = 0.0f;
 	if (consts->params.ambientOcclusionEnabled)
 	{
-		fastAO = FastAmbientOcclusion(consts, input, calcParam);
-		fastAO *= consts->params.ambientOcclusion;
+#ifdef AO_MODE_FAST
+		AO = FastAmbientOcclusion(consts, input, calcParam);
+#endif
+#ifdef AO_MODE_MULTIPLE_RAYS
+		AO = AmbientOcclusion(consts, input, calcParam);
+#endif
+		AO *= consts->params.ambientOcclusion;
 	}
 
-	color = surfaceColour * (mainLight * shadow * (shade + specular) + fastAO);
+	color = surfaceColour * (mainLight * shadow * (shade + specular) + AO);
 
 	return color;
 }

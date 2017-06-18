@@ -215,6 +215,8 @@ kernel void fractal3D(
 	shaderInputData.material = material;
 	shaderInputData.palette = palette;
 	shaderInputData.paletteSize = paletteLength;
+	shaderInputData.AOVectors = AOVectors;
+	shaderInputData.AOVectorsCount = AOVectorsCount;
 
 	if (found)
 	{

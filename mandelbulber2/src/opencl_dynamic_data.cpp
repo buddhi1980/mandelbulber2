@@ -218,8 +218,6 @@ void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_
 		vector.alpha = AOVectors[i].alpha;
 		vector.beta = AOVectors[i].beta;
 
-		qDebug() << AOVectors[i].v.x;
-
 		data.append(reinterpret_cast<char *>(&vector), sizeof(vector));
 		totalDataOffset += sizeof(vector);
 	}

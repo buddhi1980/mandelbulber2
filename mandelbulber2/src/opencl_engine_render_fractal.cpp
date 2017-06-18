@@ -289,6 +289,23 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		}
 	}
 
+	if (paramRender->shadow)
+	{
+		definesCollector += " -DSHADOWS";
+	}
+
+	if (paramRender->ambientOcclusionEnabled)
+	{
+		if (paramRender->ambientOcclusionMode == params::AOModeFast)
+		{
+			definesCollector += " -DAO_MODE_FAST";
+		}
+		else if (paramRender->ambientOcclusionMode == params::AOModeMultipleRays)
+		{
+			definesCollector += " -DAO_MODE_MULTIPLE_RAYS";
+		}
+	}
+
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
@@ -397,7 +414,7 @@ bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
 // TODO:
 // This is the hot spot for heterogeneous execution
 // requires opencl for all compute resources
-bool cOpenClEngineRenderFractal::Render(cImage *image, bool* stopRequest)
+bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 {
 	if (programsLoaded)
 	{
@@ -485,7 +502,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool* stopRequest)
 			emit updateProgressAndStatus(
 				tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
-			if(*stopRequest)
+			if (*stopRequest)
 			{
 				*stopRequest = false;
 				break;
