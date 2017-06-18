@@ -147,25 +147,46 @@ foreach($formulas as $index => $formula){
 	}
 
 	$informationText .= "<h3>Code</h3>" . PHP_EOL;
-	$informationText .= $formattedEscapedCode;
 	
 	$uiFileContent = file_get_contents($formula['uiFile']);
-	$regexInformation = '/(<widget class="MyGroupBox" name="groupCheck_info">[\s\S]+)(<widget class="QLabel"[\s\S]+?<\/widget>)/';
+	$regexInformation = '/(<widget class="MyGroupBox" name="groupCheck_info">[\s\S]+?)<item>[\s\S]+?<\/layout>/';
      
-      	$replacement = '$1<widget class="QLabel" name="label_code_content">
-        <property name="text">
-         <string notr="true">' . htmlentities($informationText) . '</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="openExternalLinks">
-         <bool>true</bool>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-        </property>
-       </widget>';
+        $replacement = '$1<item>
+	   <widget class="QLabel" name="label_information_general">
+	    <property name="text">
+		 <string notr="true">' . htmlentities($informationText) . '</string>
+		</property>
+		<property name="wordWrap">
+		 <bool>true</bool>
+		</property>
+		<property name="openExternalLinks">
+		 <bool>true</bool>
+		</property>
+		<property name="textInteractionFlags">
+		 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+		</property>
+		</widget>
+	   </item>
+	   <item>
+	    <widget class="QLabel" name="label_code_content">
+		 <property name="text">
+		  <string notr="true">' . htmlentities($formattedEscapedCode) . '</string>
+		 </property>
+		 <property name="wordWrap">
+		  <bool>true</bool>
+		 </property>
+		 <property name="openExternalLinks">
+		  <bool>true</bool>
+		 </property>
+		 <property name="textInteractionFlags">
+		  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+		 </property>
+		 <property name="styleSheet">
+		  <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
+		  </property>
+		 </widget>
+		</item>
+	   </layout>';
 	$newUiFileContent = preg_replace($regexInformation, $replacement, $uiFileContent, -1, $count);
 	$newUiFileContent = preg_replace('/<class>.+<\/class>/', '<class>' . $formula['internalName'] . '</class>', $newUiFileContent, 1);
 	$postitionOfWindowTitle = strpos($newUiFileContent, 'windowTitle ');
@@ -245,13 +266,7 @@ foreach($formulas as $index => $formula){
 
 // opencl formulas
 foreach($formulas as $index => $formula){
-  // TODO: autoport structs from fractal.h and add start conditions
-	// for each formula add maxiter / bailout, orbittrap, distance calculation, coloring
-	// add primitives
-	// add more expressions to $cppToOpenCLReplaceLookup to make all kernels executable and add all possible native functions
-	// TO DISCUSS: put whole kernel into one file for each formula, 
-	// or put common logic (eg. orbittrap) into one opencl snippet
-	// and concat kernel on the fly like in mandelbulber 1.*?
+    // TODO add primitives
 
 	$fileHeader = '/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______    
@@ -319,7 +334,7 @@ exit;
 function getFormatCode($code){
 	$cmd = "echo " . escapeshellarg($code);
 	$cmd .= " | sed 's/	/  /g' "; // replace tab with double space
-	$cmd .= " | highlight -O html --style moria --inline-css --syntax cpp";
+	$cmd .= " | highlight -O html --style seashell --inline-css --syntax cpp";
 	return shell_exec($cmd);
 }
 

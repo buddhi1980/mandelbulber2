@@ -20,11 +20,13 @@ float4 GeneralizedFoldBoxIteration(float4 z, __constant sFractalCl *fractal, sEx
 	__constant float3 *Nv;
 	int sides;
 
-	Nv = fractal->genFoldBox.Nv_tet;
-	sides = fractal->genFoldBox.sides_tet;
-
 	switch (fractal->genFoldBox.type)
 	{
+		default:
+		case generalizedFoldBoxTypeCl_foldTet:
+			Nv = fractal->genFoldBox.Nv_tet;
+			sides = fractal->genFoldBox.sides_tet;
+			break;
 		case generalizedFoldBoxTypeCl_foldCube:
 			Nv = fractal->genFoldBox.Nv_cube;
 			sides = fractal->genFoldBox.sides_cube;
@@ -236,11 +238,13 @@ double4 GeneralizedFoldBoxIteration(double4 z, __constant sFractalCl *fractal, s
 	__constant double3 *Nv;
 	int sides;
 
-	Nv = fractal->genFoldBox.Nv_tet;
-	sides = fractal->genFoldBox.sides_tet;
-
 	switch (fractal->genFoldBox.type)
 	{
+		default:
+		case generalizedFoldBoxTypeCl_foldTet:
+			Nv = fractal->genFoldBox.Nv_tet;
+			sides = fractal->genFoldBox.sides_tet;
+			break;
 		case generalizedFoldBoxTypeCl_foldCube:
 			Nv = fractal->genFoldBox.Nv_cube;
 			sides = fractal->genFoldBox.sides_cube;
