@@ -169,7 +169,7 @@ void cOpenClHardware::CreateContext(
 			{
 				contextReady = false;
 				cErrorMessage::showMessage(
-					QObject::tr("OpenCL context cannot be created!"), cErrorMessage::errorMessage);
+					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("context")), cErrorMessage::errorMessage);
 			}
 		}
 		else

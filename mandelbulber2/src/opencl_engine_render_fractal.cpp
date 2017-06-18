@@ -350,7 +350,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 					"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 					"sizeof(sClInConstants), constantInBuffer, &err)"))
 		{
-			emit showErrorMessage(QObject::tr("Cannot create OpenCL buffer for constants"),
+			emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -363,7 +363,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 					"sizeof(sClInBuff), inBuffer, &err)"))
 		{
-			emit showErrorMessage(QObject::tr("Cannot create OpenCL buffer for variable data"),
+			emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for variable data")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -378,8 +378,8 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 		if (!checkErr(
 					err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err"))
 		{
-			emit showErrorMessage(
-				QObject::tr("Cannot create OpenCL output buffer"), cErrorMessage::errorMessage, nullptr);
+			emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("output buffer"))
+														, cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
 	}
@@ -562,7 +562,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel(int pixelIndex)
 
 	if (!checkErr(err, "kernel->setArg(0, *outCL)"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for output data"),
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("output data")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -570,7 +570,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel(int pixelIndex)
 	err = kernel->setArg(1, *inCLBuffer); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for input data"),
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input data")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -578,7 +578,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel(int pixelIndex)
 	err = kernel->setArg(2, *inCLConstBuffer); // input data in constant memory (faster than global)
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for constant data"),
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant data")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -586,7 +586,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel(int pixelIndex)
 	err = kernel->setArg(3, pixelIndex); // pixel offset
 	if (!checkErr(err, "kernel->setArg(3, pixelIndex)"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for pixel index"),
+		emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("pixel index")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -603,7 +603,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL input buffers"),
+		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -611,7 +611,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 	err = queue->finish();
 	if (!checkErr(err, "CommandQueue::finish() - inCLBuffer"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL input buffers"),
+		emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input buffers")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -620,7 +620,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL constant buffers"),
+		emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("constant buffers")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -628,7 +628,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 	err = queue->finish();
 	if (!checkErr(err, "CommandQueue::finish() - inCLConstBuffer"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL constant buffers"),
+		emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("constant buffers")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
