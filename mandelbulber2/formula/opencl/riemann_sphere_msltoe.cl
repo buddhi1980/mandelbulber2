@@ -31,8 +31,8 @@ float4 RiemannSphereMsltoeIteration(float4 z, __constant sFractalCl *fractal, sE
 
 	float p = 1.0f + mad(s, s, t * t);
 
-	s = fabs(native_sin(M_PI * s));
-	t = fabs(native_sin(M_PI * t));
+	s = fabs(native_sin(M_PI_F * s));
+	t = fabs(native_sin(M_PI_F * t));
 
 	r *= r;
 	// if (r < 1e-21f)

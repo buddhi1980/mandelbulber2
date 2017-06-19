@@ -25,14 +25,14 @@ float4 TransfPwr2PolynomialIteration(float4 z, __constant sFractalCl *fractal, s
 	float4 fnZ1 = z;
 	if (fractal->transformCommon.functionEnabledBxFalse) // native_cos(z*Pi)
 	{
-		float scalePi = M_PI * fractal->transformCommon.scaleC1;
+		float scalePi = M_PI_F * fractal->transformCommon.scaleC1;
 		fnZ1.x = native_cos(z.x * scalePi);
 		fnZ1.y = native_cos(z.y * scalePi);
 		fnZ1.z = native_cos(z.z * scalePi);
 	}
 	if (fractal->transformCommon.functionEnabledyFalse) // pi rotation
 		fnZ1 = RotateAroundVectorByAngle4(fnZ1, fractal->transformCommon.constantMultiplier111.xyz,
-			M_PI * fractal->transformCommon.scale0);				// * cPI ;
+			M_PI_F * fractal->transformCommon.scale0);			// * cPI ;
 	if (fractal->transformCommon.functionEnabledzFalse) // box offset
 	{
 		fnZ1.x = fnZ1.x + copysign(fractal->transformCommon.additionConstant000.x, fnZ1.x);

@@ -30,7 +30,7 @@ float4 MandelbulbBermarteIteration(float4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		th0 = acos(native_divide(z.z, aux->r)) + fractal->bulb.betaAngleOffset
-					+ 1e-061f; // MUST keep exception catch
+					+ 1e-030f; // MUST keep exception catch
 		ph0 = atan(native_divide(z.y, z.x)) + fractal->bulb.alphaAngleOffset;
 		th0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
 		sinth = native_sin(th0);
@@ -39,7 +39,7 @@ float4 MandelbulbBermarteIteration(float4 z, __constant sFractalCl *fractal, sEx
 	else
 	{
 		th0 = asin(native_divide(z.z, aux->r)) + fractal->bulb.betaAngleOffset
-					+ 1e-061f; // MUST keep exception catch
+					+ 1e-030f; // MUST keep exception catch
 		ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 		th0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
 		costh = native_cos(th0);
@@ -52,7 +52,7 @@ float4 MandelbulbBermarteIteration(float4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
 		th0 = acos(native_divide(z.z, aux->r)) + fractal->transformCommon.betaAngleOffset
-					+ 1e-061f; // MUST keep exception catch ??;
+					+ 1e-030f; // MUST keep exception catch ??;
 		ph0 = atan(native_divide(z.y, z.x));
 		ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
 		zp = native_powr(aux->r, fractal->transformCommon.pwr8);
@@ -62,7 +62,7 @@ float4 MandelbulbBermarteIteration(float4 z, __constant sFractalCl *fractal, sEx
 	else
 	{
 		th0 = asin(native_divide(z.z, aux->r)) + fractal->transformCommon.betaAngleOffset
-					+ 1e-061f; // MUST keep exception catch ??;
+					+ 1e-030f; // MUST keep exception catch ??;
 		ph0 = atan2(z.y, z.x);
 		ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
 		zp = native_powr(aux->r, fractal->transformCommon.pwr8);

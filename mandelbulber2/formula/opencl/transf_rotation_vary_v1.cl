@@ -32,7 +32,7 @@ float4 TransfRotationVaryV1Iteration(float4 z, __constant sFractalCl *fractal, s
 		tempVC = (tempVC + fractal->transformCommon.offset000);
 	}
 
-	tempVC *= native_divide(M_PI, 180.0f);
+	tempVC *= native_divide(M_PI_F, 180.0f);
 
 	z = RotateAroundVectorByAngle4(z, (float3){1.0f, 0.0f, 0.0f}, tempVC.x);
 	z = RotateAroundVectorByAngle4(z, (float3){0.0f, 1.0f, 0.0f}, tempVC.y);

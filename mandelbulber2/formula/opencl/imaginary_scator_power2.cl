@@ -22,7 +22,7 @@ float4 ImaginaryScatorPower2Iteration(float4 z, __constant sFractalCl *fractal, 
 	Q_UNUSED(fractal);
 	Q_UNUSED(aux);
 
-	float x2 = z.x * z.x; //+ 1e-061f
+	float x2 = z.x * z.x; //+ 1e-030f
 	float y2 = z.y * z.y;
 	float z2 = z.z * z.z;
 

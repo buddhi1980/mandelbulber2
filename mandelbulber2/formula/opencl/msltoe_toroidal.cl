@@ -25,7 +25,7 @@ float4 MsltoeToroidalIteration(float4 z, __constant sFractalCl *fractal, sExtend
 	float theta = atan2(z.y, z.x);
 	float x1 = r1 * native_cos(theta);
 	float y1 = r1 * native_sin(theta);
-	aux->r = mad((z.x - x1), (z.x - x1), (z.y - y1) * (z.y - y1)) + z.z * z.z; //+ 1e-061f
+	aux->r = mad((z.x - x1), (z.x - x1), (z.y - y1) * (z.y - y1)) + z.z * z.z; //+ 1e-030f
 	float phi = asin(native_divide(z.z, native_sqrt(aux->r)));
 	float rp = native_powr(aux->r, fractal->transformCommon.pwr4); // default 4.0f
 

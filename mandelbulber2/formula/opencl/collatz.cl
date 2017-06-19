@@ -20,7 +20,7 @@ float4 CollatzIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 
 	float4 xV = (float4){1.0f, 1.0f, 1.0f, 0.0f};
 	float4 temp = (float4){xV + 2.0f * z};
-	temp *= RotateAroundVectorByAngle4(z, xV.xyz, M_PI);
+	temp *= RotateAroundVectorByAngle4(z, xV.xyz, M_PI_F);
 	z = xV + mad(4.0f, z, -temp);
 	z /= 4.0f;
 	aux->DE = mad(aux->DE, 4.0f, 1.0f);

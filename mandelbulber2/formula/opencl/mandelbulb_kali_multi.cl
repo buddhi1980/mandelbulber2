@@ -25,7 +25,7 @@ float4 MandelbulbKaliMultiIteration(float4 z, __constant sFractalCl *fractal, sE
 	}
 	float costh;
 	float sinth;
-	float th0 = fractal->bulb.betaAngleOffset + 1e-061f; // MUST keep exception catch
+	float th0 = fractal->bulb.betaAngleOffset + 1e-030f; // MUST keep exception catch
 	float ph0 = fractal->bulb.alphaAngleOffset;
 	float4 v;
 	switch (fractal->mandelbulbMulti.orderOfXYZ)
@@ -75,10 +75,10 @@ float4 MandelbulbKaliMultiIteration(float4 z, __constant sFractalCl *fractal, sE
 		}
 		if (fractal->mandelbulbMulti.acosOrAsinA == multi_acosOrAsinCl_acos)
 			th0 = acos(native_divide(v.x, aux->r)) + fractal->transformCommon.betaAngleOffset
-						+ 1e-061f; // MUST keep exception catch
+						+ 1e-030f; // MUST keep exception catch
 		else
 			th0 += asin(native_divide(v.x, aux->r)) + fractal->transformCommon.betaAngleOffset
-						 + 1e-061f; // MUST keep exception catch;
+						 + 1e-030f; // MUST keep exception catch;
 
 		if (fractal->mandelbulbMulti.atanOrAtan2A == multi_atanOrAtan2Cl_atan)
 			ph0 += atan(native_divide(v.y, v.z));
@@ -100,10 +100,10 @@ float4 MandelbulbKaliMultiIteration(float4 z, __constant sFractalCl *fractal, sE
 
 		if (fractal->mandelbulbMulti.acosOrAsin == multi_acosOrAsinCl_acos)
 			th0 = acos(native_divide(v.x, aux->r)) + fractal->transformCommon.betaAngleOffset
-						+ 1e-061f; // MUST keep exception catch ??;
+						+ 1e-030f; // MUST keep exception catch ??;
 		else
 			th0 += asin(native_divide(v.x, aux->r)) + fractal->transformCommon.betaAngleOffset
-						 + 1e-061f; // MUST keep exception catch ??;
+						 + 1e-030f; // MUST keep exception catch ??;
 
 		if (fractal->mandelbulbMulti.atanOrAtan2 == multi_atanOrAtan2Cl_atan)
 			ph0 += atan(native_divide(v.y, v.z));

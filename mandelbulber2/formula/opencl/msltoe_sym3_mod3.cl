@@ -19,7 +19,7 @@ float4 MsltoeSym3Mod3Iteration(float4 z, __constant sFractalCl *fractal, sExtend
 	float4 c = aux->const_c;
 	aux->r_dz = aux->r_dz * 2.0f * aux->r;
 	float4 z1 = z;
-	float psi = mad(2.0f, M_PI, atan2(z.z, z.y));
+	float psi = mad(2.0f, M_PI_F, atan2(z.z, z.y));
 	float psi2 = 0;
 	while (psi > M_PI_8)
 	{
