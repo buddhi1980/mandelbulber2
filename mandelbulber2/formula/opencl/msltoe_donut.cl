@@ -18,7 +18,7 @@
 float4 MsltoeDonutIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	float radius2 = fractal->donut.ringThickness;
-	float nSect = 2.0f * native_divide(M_PI, fractal->donut.number);
+	float nSect = 2.0f * native_divide(M_PI_F, fractal->donut.number);
 	float fact = fractal->donut.factor;
 
 	float R = native_sqrt(mad(z.x, z.x, z.y * z.y));

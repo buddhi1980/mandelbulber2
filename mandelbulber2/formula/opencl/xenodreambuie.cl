@@ -23,7 +23,7 @@ float4 XenodreambuieIteration(float4 z, __constant sFractalCl *fractal, sExtende
 	float th = atan2(z.y, z.x) + fractal->bulb.betaAngleOffset;
 	float ph = acos(native_divide(z.z, aux->r)) + fractal->bulb.alphaAngleOffset;
 
-	if (fabs(ph) > 0.5f * M_PI) ph = copysign(M_PI, ph) - ph;
+	if (fabs(ph) > 0.5f * M_PI_F) ph = copysign(M_PI_F, ph) - ph;
 
 	z.x = rp * native_cos(th * fractal->bulb.power) * native_sin(ph * fractal->bulb.power);
 	z.y = rp * native_sin(th * fractal->bulb.power) * native_sin(ph * fractal->bulb.power);

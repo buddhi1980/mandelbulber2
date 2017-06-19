@@ -16,7 +16,7 @@
 float4 EiffieMsltoeIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	float4 c = aux->const_c;
-	float psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI_8, M_PI_4) - M_PI_8);
+	float psi = fabs(fmod(atan2(z.z, z.y) + M_PI_F + M_PI_8, M_PI_4) - M_PI_8);
 	float lengthYZ = native_sqrt(mad(z.y, z.y, z.z * z.z));
 
 	z.y = native_cos(psi) * lengthYZ;

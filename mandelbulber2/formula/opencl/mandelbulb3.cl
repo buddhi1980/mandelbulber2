@@ -24,7 +24,7 @@ float4 Mandelbulb3Iteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 	float sign2 = 1.0f;
 
 	if (z.x < 0.0f) sign2 = -1.0f;
-	tempR = native_sqrt(mad(z.x, z.x, z.y * z.y)); //+ 1e-061f
+	tempR = native_sqrt(mad(z.x, z.x, z.y * z.y)); //+ 1e-030f
 	z *= native_recip(tempR);
 	temp = mad(z.x, z.x, -z.y * z.y);
 	z.y = 2.0f * z.x * z.y;
@@ -32,7 +32,7 @@ float4 Mandelbulb3Iteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 	z *= tempR;
 
 	if (z.x < 0.0f) sign = -1.0f;
-	tempR = native_sqrt(mad(z.x, z.x, z.z * z.z)); //+ 1e-061f
+	tempR = native_sqrt(mad(z.x, z.x, z.z * z.z)); //+ 1e-030f
 	z *= native_recip(tempR);
 	temp = mad(z.x, z.x, -z.z * z.z);
 	z.z = 2.0f * z.x * z.z * sign2;

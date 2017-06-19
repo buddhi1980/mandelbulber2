@@ -70,7 +70,7 @@ float4 MsltoeToroidalMultiIteration(float4 z, __constant sFractalCl *fractal, sE
 	float x1 = r1 * native_cos(ph0);
 	float y1 = r1 * native_sin(ph0);
 
-	aux->r = mad((z.x - x1), (z.x - x1), (z.y - y1) * (z.y - y1)) + z.z * z.z; //+ 1e-061f
+	aux->r = mad((z.x - x1), (z.x - x1), (z.y - y1) * (z.y - y1)) + z.z * z.z; //+ 1e-030f
 
 	float sqrT = aux->r;
 	if (fractal->transformCommon.functionEnabledAy) // sqrt

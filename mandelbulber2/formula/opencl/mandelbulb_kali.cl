@@ -23,14 +23,14 @@ float4 MandelbulbKaliIteration(float4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	float th0 = acos(native_divide(z.z, aux->r)) + fractal->bulb.betaAngleOffset
-							+ 1e-061f; // MUST keep exception catch
+							+ 1e-030f; // MUST keep exception catch
 	float ph0 = atan(native_divide(z.y, z.x)) + fractal->bulb.alphaAngleOffset;
 	th0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleA1;
 	float sinth = native_sin(th0);
 	z = aux->r * (float4){sinth * native_cos(ph0), native_sin(ph0) * sinth, native_cos(th0), 0.0f};
 
 	th0 = acos(native_divide(z.z, aux->r)) + fractal->transformCommon.betaAngleOffset
-				+ 1e-061f; // MUST keep exception catch ??;
+				+ 1e-030f; // MUST keep exception catch ??;
 	ph0 = atan(native_divide(z.y, z.x));
 	ph0 *= fractal->transformCommon.pwr8 * fractal->transformCommon.scaleB1;
 	float zp = native_powr(aux->r, fractal->transformCommon.pwr8);

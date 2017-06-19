@@ -22,7 +22,7 @@ float4 CollatzModIteration(float4 z, __constant sFractalCl *fractal, sExtendedAu
 			+ mad(fractal->transformCommon.scale4, z,
 					-(mad(fractal->transformCommon.scale2, z, fractal->transformCommon.constantMultiplier111))
 						* RotateAroundVectorByAngle4(z, fractal->transformCommon.constantMultiplier111.xyz,
-								M_PI * fractal->transformCommon.scale1)); // * cPI ;
+								M_PI_F * fractal->transformCommon.scale1)); // * cPI ;
 
 	z *= fractal->transformCommon.scale025;
 

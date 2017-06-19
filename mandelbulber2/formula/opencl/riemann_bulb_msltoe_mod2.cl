@@ -37,7 +37,7 @@ float4 RiemannBulbMsltoeMod2Iteration(float4 z, __constant sFractalCl *fractal, 
 		// 1st scale variable, default vect3 (1.7f, 1.7f, 1.7f),
 		z *= fractal->transformCommon.constantMultiplier222;
 		float shift = fractal->transformCommon.offset1;
-		// r1 = length^2,  //  + 1e-061f
+		// r1 = length^2,  //  + 1e-030f
 		float r1 = mad(z.x, z.x, (z.y - shift) * (z.y - shift)) + z.z * z.z;
 		// inversions by length^2
 		z.x = native_divide(z.x, r1);
@@ -54,8 +54,8 @@ float4 RiemannBulbMsltoeMod2Iteration(float4 z, __constant sFractalCl *fractal, 
 		}
 		if (fractal->transformCommon.functionEnabledxFalse)
 		{
-			z.x = fabs(native_sin(M_PI * z.x * fractal->transformCommon.scale1));
-			z.z = fabs(native_sin(M_PI * z.z * fractal->transformCommon.scale1));
+			z.x = fabs(native_sin(M_PI_F * z.x * fractal->transformCommon.scale1));
+			z.z = fabs(native_sin(M_PI_F * z.z * fractal->transformCommon.scale1));
 		}
 	}
 	return z;
