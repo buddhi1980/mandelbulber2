@@ -503,6 +503,8 @@ bool cRenderJob::Execute()
 		QElapsedTimer timer;
 		timer.start();
 
+		*renderData->stopRequest = false;
+
 		// move parameters from containers to structures
 		sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
 		cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
