@@ -97,11 +97,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	CVector4 lastGoodZ;
 	CVector4 lastZ;
+	CVector4 lastLastZ;
 
 	// main iteration loop
 	for (i = 0; i < in.maxN; i++)
 	{
 		lastGoodZ = lastZ;
+		lastLastZ = lastZ;
+		;
 		lastZ = z;
 
 		// hybrid fractal sequence
@@ -251,6 +254,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				if (fractals.UseAdditionalBailoutCond(sequence))
 				{
 					if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
+					{
+						out->maxiter = false;
+						break;
+					}
+					if ((z - lastLastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
 					{
 						out->maxiter = false;
 						break;

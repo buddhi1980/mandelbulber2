@@ -261,7 +261,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 		{
 			if (fractalList[GetIndexOnFractalList(fractals[f]->formula)].DEFunctionType
-					== fractal::pseudoKleinianDEFunction)
+						== fractal::pseudoKleinianDEFunction
+					|| fractalList[GetIndexOnFractalList(fractals[f]->formula)].DEFunctionType
+							 == fractal::josKleinianDEFunction)
 			{
 				useAdditionalBailoutCond[0] = true;
 			}
@@ -269,7 +271,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	else if (!isBoolean)
 	{
 		if (fractalList[GetIndexOnFractalList(fractals[0]->formula)].DEFunctionType
-				== fractal::pseudoKleinianDEFunction)
+					== fractal::pseudoKleinianDEFunction
+				|| fractalList[GetIndexOnFractalList(fractals[0]->formula)].DEFunctionType
+						 == fractal::josKleinianDEFunction)
 		{
 			useAdditionalBailoutCond[0] = true;
 		}
