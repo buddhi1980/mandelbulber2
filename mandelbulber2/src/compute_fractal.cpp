@@ -472,6 +472,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	else
 	{
 		out->distance = 0.0;
+
+		if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
+		{
+			if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
+				z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.minR05 - z.y);
+		}
 	}
 
 	out->iters = i + 1;

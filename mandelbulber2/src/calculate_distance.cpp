@@ -310,7 +310,6 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 			{
 				CVector3 z = fractOut.z;
 				double rxy = sqrt(z.x * z.x + z.z * z.z);
-				qDebug() << dr << z.y << rxy;
 				distance = (fabs(rxy * z.y) / r) / (dr);
 				maxiter = false;
 			}
