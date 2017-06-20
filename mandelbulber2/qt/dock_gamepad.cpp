@@ -46,6 +46,10 @@ cDockGamepad::cDockGamepad(QWidget *parent) : QWidget(parent), ui(new Ui::cDockG
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
+
+	QList<int> deviceIds = QGamepadManager::instance()->connectedGamepads();
+	if(deviceIds.size() > 0) gamepad.setDeviceId(deviceIds[0]);
+	populateGamepadList();
 }
 
 cDockGamepad::~cDockGamepad()
@@ -86,44 +90,49 @@ void cDockGamepad::ConnectSignals()
 		SLOT(setConnected(bool)));
 
 	connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), this,
-		SLOT(slotGamePadDeviceConnected(int)));
+		SLOT(slotGamePadDeviceChanged()));
 	connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), this,
-		SLOT(slotGamePadDeviceDisconnected(int)));
+		SLOT(slotGamePadDeviceChanged()));
 #endif // USE_GAMEPAD
 }
 
 #ifdef USE_GAMEPAD
 void cDockGamepad::slotChangeGamepadIndex(int index)
 {
-	gamepad.setDeviceId(index);
-	WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index), 2);
-}
-
-void cDockGamepad::slotGamePadDeviceConnected(int index)
-{
-	QString deviceName = gamepad.name();
-	if (deviceName == "") deviceName = "Device #" + QString::number(index);
-	WriteLog(
-		"Gamepad - device connected | index: " + QString::number(index) + ", name: " + deviceName, 2);
-
-	if (ui->comboBox_gamepad_device->count() == 0)
+	QList<int> deviceIds = QGamepadManager::instance()->connectedGamepads();
+	if(deviceIds.size() > index - 1)
 	{
-		ui->comboBox_gamepad_device->setEnabled(true);
-		ui->label_gamepad_no_device->hide();
+		gamepad.setDeviceId(deviceIds[index]);
+		WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index), 2);
 	}
-	ui->comboBox_gamepad_device->addItem(deviceName, index);
 }
 
-void cDockGamepad::slotGamePadDeviceDisconnected(int index)
+void cDockGamepad::slotGamePadDeviceChanged()
 {
-	WriteLog("Gamepad - device disconnected | index: " + QString::number(index) + ", name: "
-						 + ui->comboBox_gamepad_device->itemText(index),
-		2);
-	ui->comboBox_gamepad_device->removeItem(index);
-	if (ui->comboBox_gamepad_device->count() == 0)
+	populateGamepadList();
+}
+
+void cDockGamepad::populateGamepadList()
+{
+	ui->comboBox_gamepad_device->clear();
+	QList<int> deviceIds = QGamepadManager::instance()->connectedGamepads();
+
+	for(int i = 0; i < deviceIds.size(); i++){
+		QGamepad gp(deviceIds[i]);
+		QString deviceName = gp.name();
+		if (deviceName == "") deviceName = "Device #" + QString::number(i);
+		WriteLog("Gamepad - device list changed", 2);
+		ui->comboBox_gamepad_device->addItem(deviceName, i);
+	}
+	if (deviceIds.size() == 0)
 	{
 		ui->comboBox_gamepad_device->setEnabled(false);
 		ui->label_gamepad_no_device->show();
+	}
+	else
+	{
+		ui->comboBox_gamepad_device->setEnabled(true);
+		ui->label_gamepad_no_device->hide();
 	}
 }
 
