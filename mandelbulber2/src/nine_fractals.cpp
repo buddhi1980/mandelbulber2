@@ -148,7 +148,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		if (isBoolean)
 		{
 			if (fractalList[GetIndexOnFractalList(fractals[i]->formula)].DEFunctionType
-					== fractal::pseudoKleinianDEFunction)
+						== fractal::pseudoKleinianDEFunction
+					|| fractalList[GetIndexOnFractalList(fractals[i]->formula)].DEFunctionType
+							 == fractal::josKleinianDEFunction)
 			{
 				useAdditionalBailoutCond[i] = true;
 			}

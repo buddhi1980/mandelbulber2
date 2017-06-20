@@ -147,6 +147,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, IqBulbIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
+	fractalList->append(sFractalDescription("JosLeys-Kleinian", "jos_kleinian", josKleinian,
+		JosKleinianIteration, analyticDEType, josKleinianDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionJosKleinian, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "kaleidoscopic_ifs",
 		kaleidoscopicIfs, KaleidoscopicIfsIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionIFS, coloringFunctionIFS));

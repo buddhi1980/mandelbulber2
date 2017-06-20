@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>1151</height>
+    <height>1201</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -330,6 +330,11 @@ of fractal iterations
           <item>
            <property name="text">
             <string>Delta DE Pseudo Kleinian</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Delta DE JosKleinian</string>
            </property>
           </item>
          </widget>
@@ -780,8 +785,7 @@ of fractal iterations
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyLineEdit" name="logedit_limit_outer_bounding">
-         </widget>
+         <widget class="MyLineEdit" name="logedit_limit_outer_bounding"/>
         </item>
         <item row="0" column="1">
          <widget class="QSlider" name="logslider_limit_outer_bounding">
@@ -789,9 +793,9 @@ of fractal iterations
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="sizeIncrement">
+           </sizepolicy>
+          </property>
+          <property name="sizeIncrement">
            <size>
             <width>0</width>
             <height>0</height>
@@ -1379,6 +1383,12 @@ of fractal iterations
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
@@ -1392,12 +1402,6 @@ of fractal iterations
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

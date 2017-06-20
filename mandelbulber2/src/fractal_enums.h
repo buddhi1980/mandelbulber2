@@ -51,7 +51,8 @@ enum enumDEFunctionType
 	linearDEFunction = 1,
 	logarithmicDEFunction = 2,
 	pseudoKleinianDEFunction = 3,
-	numberOfDEFunctions = 3, // used to prepare array
+	josKleinianDEFunction = 4,
+	numberOfDEFunctions = 4, // used to prepare array
 	withoutDEFunction = 99
 };
 
@@ -75,6 +76,7 @@ enum enumDEAnalyticFunction
 	analyticFunctionLogarithmic = 2,
 	analyticFunctionIFS = 3,
 	analyticFunctionPseudoKleinian = 4,
+	analyticFunctionJosKleinian = 5,
 };
 
 enum enumColoringFunction

@@ -306,6 +306,13 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 				double rxy = sqrt(z.x * z.x + z.y * z.y);
 				distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (dr);
 			}
+			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::josKleinianDEFunction)
+			{
+				CVector3 z = fractOut.z;
+				// qDebug() << dr << z.y;
+				distance = z.y;
+				maxiter = false;
+			}
 		}
 		else
 		{

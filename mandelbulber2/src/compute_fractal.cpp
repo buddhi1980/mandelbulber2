@@ -218,7 +218,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				// case pseudoKleinianMod1:
 				// case pseudoKleinianMod2:
 				{
-
 					r = sqrt(z.x * z.x + z.y * z.y);
 					break;
 				}
@@ -347,6 +346,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->distance =
 						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 				}
+				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
+				{
+					if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
+						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.minR05 - z.y);
+
+					out->distance =
+						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
+						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
+				}
 			}
 			else
 			{
@@ -391,6 +399,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					else
 						out->distance = r;
+
+					break;
+				}
+				case analyticFunctionJosKleinian:
+				{
+					if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
+						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.minR05 - z.y);
+
+					out->distance =
+						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
+						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
 					break;
 				}
 

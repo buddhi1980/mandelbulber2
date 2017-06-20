@@ -116,4 +116,6 @@ T SmoothCVector(const T &v1, const T &v2, double k);
 double cubicInterpolate(double p[4], double x);
 double bicubicInterpolate(double p[4][4], double x, double y);
 
+CVector3 wrap(CVector3 x, CVector3 a, CVector3 s);
+
 #endif /* MANDELBULBER2_SRC_COMMON_MATH_H_ */

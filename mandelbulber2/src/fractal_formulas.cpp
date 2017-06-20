@@ -2309,6 +2309,36 @@ void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	z *= wr; // then add Cpixel constant
 }
 
+/*
+ * JosLeys-Kleinian formula
+ * @reference
+ * http://www.fractalforums.com/3d-fractal-generation/an-escape-tim-algorithm-for-kleinian-group-limit-sets/msg98248/#msg98248
+ */
+void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double a = fractal->transformCommon.foldingValue;
+	double b = fractal->transformCommon.offset;
+	double f = sign(b);
+
+	CVector4 box_size = fractal->transformCommon.offset111;
+
+	z = CVector4(wrap(z.GetXYZ(), CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z),
+								 CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z)),
+		z.w);
+
+	// If above the separation line, rotate by 180° about (-b/2, a/2)
+	if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+		z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;
+
+	aux.color = min(aux.color, CVector4(z.GetXYZ(), z.Dot(z)).Length()); // For coloring
+
+	double iR = 1.0 / z.Dot(z);
+	z *= -iR;
+	z.x = -b - z.x;
+	z.y = a + z.y;
+	aux.pseudoKleinianDE *= iR;
+}
+
 /**
  * Based on Kalisets1 and KaliDucks, from Mandelbulb 3D, and refer Formula proposed by Kali, with
  * features added by Darkbeam.
@@ -5198,6 +5228,7 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
  * @reference https://github.com/Syntopia/Fragmentarium/blob/master/
  * Fragmentarium-Source/Examples/Knighty%20Collection/PseudoKleinian.frag
  */
+
 void PseudoKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 gap = fractal->transformCommon.constantMultiplier000;
