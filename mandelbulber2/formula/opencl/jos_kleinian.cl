@@ -28,7 +28,7 @@ float4 JosKleinianIteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 
 	z = (float4){wrapped, z.w};
 
-	// If above the separation line, rotate by 180° about (-b/2, a/2)
+	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y
 			>= a * (0.5f
 							 + 0.2f * native_sin(f * M_PI_F * native_divide((mad(b, 0.5f, z.x)), box_size.x))))
@@ -61,7 +61,7 @@ double4 JosKleinianIteration(double4 z, __constant sFractalCl *fractal, sExtende
 
 	z = (double4){wrapped, z.w};
 
-	// If above the separation line, rotate by 180° about (-b/2, a/2)
+	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y >= a * (0.5 + 0.2 * native_sin(f * M_PI * native_divide((z.x + b * 0.5), box_size.x))))
 		z = (double4)
 		{-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;

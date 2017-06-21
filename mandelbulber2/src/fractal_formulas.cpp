@@ -2328,7 +2328,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	z = CVector4(wrapped, z.w);
 
-	// If above the separation line, rotate by 180° about (-b/2, a/2)
+	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
 		z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;
 
