@@ -243,6 +243,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			case fractal::pseudoKleinianDEFunction:
 				definesCollector += " -DANALYTIC_PSEUDO_KLEINIAN_DE";
 				break;
+			case fractal::josKleinianDEFunction: definesCollector += " -DANALYTIC_JOS_KLEINIAN_DE"; break;
 			default: break;
 		}
 	}

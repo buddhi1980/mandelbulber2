@@ -174,6 +174,16 @@ float SmoothConditionALessB(float a, float b, float sharpness)
 	return native_recip(1.0f + native_exp(sharpness * (a - b)));
 }
 
+inline float3 wrap(float3 x, float3 a, float3 s)
+{
+	x -= s;
+	float3 out;
+	out.x = x.x - a.x * floor(x.x / a.x) + s.x;
+	out.y = x.y - a.y * floor(x.y / a.y) + s.y;
+	out.z = x.z - a.z * floor(x.z / a.z) + s.z;
+	return out;
+}
+
 #endif
 
 #endif // MANDELBULBER2_OPENCL_ALGEBRA_HPP_

@@ -392,6 +392,7 @@ QString cNineFractals::GetDETypeString() const
 			case fractal::logarithmicDEFunction: text += " logarithmic"; break;
 			case fractal::linearDEFunction: text += " linear"; break;
 			case fractal::pseudoKleinianDEFunction: text += " pseudo kleinian"; break;
+			case fractal::josKleinianDEFunction: text += " jos kleinian"; break;
 			default: text += "unknown"; break;
 		}
 	}

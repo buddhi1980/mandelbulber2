@@ -99,6 +99,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	int formulaIndex = 0;
 	__constant sFractalCl *fractal;
 
+	float4 lastZ = 0.0f;
+	float4 lastLastZ = 0.0f;
+
 	// loop
 	for (i = 0; i < N; i++)
 	{
@@ -106,7 +109,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		fractal = &consts->fractal[formulaIndex];
 
 		aux.i = i;
-		float4 lastZ = z;
+
+		lastLastZ = lastZ;
+		lastZ = z;
 
 		switch (formulaIndex)
 		{
@@ -160,6 +165,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 						out.maxiter = false;
 						break;
 					}
+
+					if (length(z - lastLastZ) / aux.r < 0.1f / consts->sequence.bailout[formulaIndex])
+					{
+						out.maxiter = false;
+						break;
+					}
 				}
 			}
 			else if (mode == calcModeDeltaDE2)
@@ -188,6 +199,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	dist = (aux.r - 2.0f) / fabs(aux.DE);
 #elif ANALYTIC_PSEUDO_KLEINIAN_DE
 	dist = max(aux.r - aux.pseudoKleinianDE, fabs(aux.r * z.z) / aux.r) / (aux.DE);
+#elif ANALYTIC_JOS_KLEINIAN_DE
+	if (fractal->transformCommon.functionEnabled)
+		z.y = min(z.y, fractal->transformCommon.minR05 - z.y);
+
+	dist =
+		min(z.y, fractal->analyticDE.tweak005) / max(aux.pseudoKleinianDE, fractal->analyticDE.offset1);
 #else
 	dist = length(z);
 #endif
@@ -215,7 +232,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					break;
 				case clColoringFunctionIFS: out.colorIndex = colorMin * 1000.0f; break;
 				case clColoringFunctionAmazingSurf: out.colorIndex = colorMin * 200.0f; break;
-			    case clColoringFunctionABox2:
+				case clColoringFunctionABox2:
 					out.colorIndex = aux.color * 100.0f * aux.foldFactor
 													 + aux.r * fractal->mandelbox.color.factorR / 1e13f
 													 + aux.scaleFactor * r2 * 5000.0f + aux.minRFactor * 1000.0f;
