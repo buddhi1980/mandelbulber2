@@ -47,9 +47,11 @@ cDockGamepad::cDockGamepad(QWidget *parent) : QWidget(parent), ui(new Ui::cDockG
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
 
+#ifdef USE_GAMEPAD
 	QList<int> deviceIds = QGamepadManager::instance()->connectedGamepads();
-	if(deviceIds.size() > 0) gamepad.setDeviceId(deviceIds[0]);
+	if (deviceIds.size() > 0) gamepad.setDeviceId(deviceIds[0]);
 	populateGamepadList();
+#endif
 }
 
 cDockGamepad::~cDockGamepad()
@@ -100,7 +102,7 @@ void cDockGamepad::ConnectSignals()
 void cDockGamepad::slotChangeGamepadIndex(int index)
 {
 	QList<int> deviceIds = QGamepadManager::instance()->connectedGamepads();
-	if(deviceIds.size() > index - 1)
+	if (deviceIds.size() > index - 1)
 	{
 		gamepad.setDeviceId(deviceIds[index]);
 		WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index), 2);
@@ -117,7 +119,8 @@ void cDockGamepad::populateGamepadList()
 	ui->comboBox_gamepad_device->clear();
 	QList<int> deviceIds = QGamepadManager::instance()->connectedGamepads();
 
-	for(int i = 0; i < deviceIds.size(); i++){
+	for (int i = 0; i < deviceIds.size(); i++)
+	{
 		QGamepad gp(deviceIds[i]);
 		QString deviceName = gp.name();
 		if (deviceName == "") deviceName = "Device #" + QString::number(i);
