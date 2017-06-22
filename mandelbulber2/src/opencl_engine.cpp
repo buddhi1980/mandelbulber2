@@ -151,7 +151,8 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 			else
 			{
 				cErrorMessage::showMessage(
-					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("program")), cErrorMessage::errorMessage);
+					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("program")),
+					cErrorMessage::errorMessage);
 				return false;
 			}
 		}
@@ -198,8 +199,8 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 	}
 	else
 	{
-		emit showErrorMessage(
-			QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("kernel")), cErrorMessage::errorMessage, nullptr);
+		emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("kernel")),
+			cErrorMessage::errorMessage, nullptr);
 		kernelCreated = false;
 	}
 	return false;
@@ -252,7 +253,8 @@ bool cOpenClEngine::CreateCommandQueue()
 		else
 		{
 			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("command queue")), cErrorMessage::errorMessage, nullptr);
+				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("command queue")),
+				cErrorMessage::errorMessage, nullptr);
 			readyForRendering = false;
 			return false;
 		}

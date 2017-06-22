@@ -366,7 +366,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 
 		size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
 		if (rgbBuffer) delete[] rgbBuffer;
-		rgbBuffer = new sClPixel[buffSize];
+		rgbBuffer = new sClPixel[optimalJob.stepSize];
 
 		if (outCL) delete outCL;
 		outCL = new cl::Buffer(
@@ -396,7 +396,7 @@ bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
 
 	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
 	if (rgbBuffer) delete[] rgbBuffer;
-	rgbBuffer = new sClPixel[buffSize];
+	rgbBuffer = new sClPixel[optimalJob.stepSize];
 
 	if (outCL) delete outCL;
 	outCL = new cl::Buffer(
