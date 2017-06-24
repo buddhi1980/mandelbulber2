@@ -45,7 +45,9 @@ public:
 	cGlobalOpenCl();
 	~cGlobalOpenCl();
 
+#ifdef USE_OPENCL
 	void Reset();
+#endif
 
 	cOpenClEngineRenderFractal *openClEngineRenderFractal;
 	cOpenClEngineRenderSSAO *openClEngineRenderSSAO;

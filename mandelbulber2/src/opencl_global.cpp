@@ -76,8 +76,10 @@ cGlobalOpenCl::~cGlobalOpenCl()
 #endif
 }
 
+#ifdef USE_OPENCL
 void cGlobalOpenCl::Reset()
 {
 	openClEngineRenderFractal->Reset();
 	openClEngineRenderSSAO->Reset();
 }
+#endif

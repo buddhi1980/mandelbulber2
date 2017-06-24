@@ -327,40 +327,43 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			}
 		}
 
-		if (!ReadBuffersFromQueue()) return false;
-
-		for (int y = 0; y < height; y++)
+		if (!*stopRequest)
 		{
-			for (int x = 0; x < width; x++)
+			if (!ReadBuffersFromQueue()) return false;
+
+			for (int y = 0; y < height; y++)
 			{
-				cl_float total_ambient = outBuffer[x + y * width];
-				unsigned short opacity16 = image->GetPixelOpacity(x, y);
-				float opacity = opacity16 / 65535.0f;
-				sRGB8 colour = image->GetPixelColor(x, y);
-				sRGBFloat pixel = image->GetPixelPostImage(x, y);
-				float shadeFactor = 1.0f / 256.0f * total_ambient * intensity * (1.0f - opacity);
-				//qDebug() << total_ambient << shadeFactor << opacity << colour.R;
-				pixel.R = pixel.R + colour.R * shadeFactor;
-				pixel.G = pixel.G + colour.G * shadeFactor;
-				pixel.B = pixel.B + colour.B * shadeFactor;
-				image->PutPixelPostImage(x, y, pixel);
+				for (int x = 0; x < width; x++)
+				{
+					cl_float total_ambient = outBuffer[x + y * width];
+					unsigned short opacity16 = image->GetPixelOpacity(x, y);
+					float opacity = opacity16 / 65535.0f;
+					sRGB8 colour = image->GetPixelColor(x, y);
+					sRGBFloat pixel = image->GetPixelPostImage(x, y);
+					float shadeFactor = 1.0f / 256.0f * total_ambient * intensity * (1.0f - opacity);
+					// qDebug() << total_ambient << shadeFactor << opacity << colour.R;
+					pixel.R = pixel.R + colour.R * shadeFactor;
+					pixel.G = pixel.G + colour.G * shadeFactor;
+					pixel.B = pixel.B + colour.B * shadeFactor;
+					image->PutPixelPostImage(x, y, pixel);
+				}
 			}
-		}
 
-		qDebug() << "GPU jobs finished";
-		qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+			qDebug() << "GPU jobs finished";
+			qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 
-		WriteLog("image->CompileImage()", 2);
-		image->CompileImage();
+			WriteLog("image->CompileImage()", 2);
+			image->CompileImage();
 
-		if (image->IsPreview())
-		{
-			WriteLog("image->ConvertTo8bit()", 2);
-			image->ConvertTo8bit();
-			WriteLog("image->UpdatePreview()", 2);
-			image->UpdatePreview();
-			WriteLog("image->GetImageWidget()->update()", 2);
-			image->GetImageWidget()->update();
+			if (image->IsPreview())
+			{
+				WriteLog("image->ConvertTo8bit()", 2);
+				image->ConvertTo8bit();
+				WriteLog("image->UpdatePreview()", 2);
+				image->UpdatePreview();
+				WriteLog("image->GetImageWidget()->update()", 2);
+				image->GetImageWidget()->update();
+			}
 		}
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
