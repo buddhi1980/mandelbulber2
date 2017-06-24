@@ -26,7 +26,7 @@ float4 JosKleinianIteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 	float3 box2 = (float3){-box_size.x, -box_size.y + 1.0f, -box_size.z};
 	float3 wrapped = wrap(z.xyz, box1, box2);
 
-	z = (float4){wrapped, z.w};
+	z = (float4){wrapped.x, wrapped.y, wrapped.z, z.w};
 
 	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y
@@ -36,7 +36,7 @@ float4 JosKleinianIteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 
 	float z2 = dot(z, z);
 
-	float4 colorVector = (float4){z.xyz, z2};
+	float4 colorVector = (float4){z.x, z.y, z.z, z2};
 	aux->color = min(aux->color, length(colorVector)); // For coloring
 
 	float iR = native_recip(z2);
@@ -59,7 +59,7 @@ double4 JosKleinianIteration(double4 z, __constant sFractalCl *fractal, sExtende
 	double3 box2 = (double3){-box_size.x, -box_size.y + 1.0, -box_size.z};
 	double3 wrapped = wrap(z.xyz, box1, box2);
 
-	z = (double4){wrapped, z.w};
+	z = (double4){wrapped.xyz, z.w};
 
 	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y >= a * (0.5 + 0.2 * native_sin(f * M_PI * native_divide((z.x + b * 0.5), box_size.x))))
@@ -69,7 +69,7 @@ double4 JosKleinianIteration(double4 z, __constant sFractalCl *fractal, sExtende
 	double z2 = dot(z, z
 		};
 
-	double4 colorVector = (double4){z.xyz, z2};
+	double4 colorVector = (double4){z.x, z.y, z.z, z2};
 	aux->color = min(aux->color, length(colorVector)); // For coloring
 
 	double iR = 1.0 / z2;
