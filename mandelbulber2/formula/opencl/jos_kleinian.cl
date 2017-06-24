@@ -59,7 +59,7 @@ double4 JosKleinianIteration(double4 z, __constant sFractalCl *fractal, sExtende
 	double3 box2 = (double3){-box_size.x, -box_size.y + 1.0, -box_size.z};
 	double3 wrapped = wrap(z.xyz, box1, box2);
 
-	z = (double4){wrapped.xyz, z.w};
+	z = (double4){wrapped.x, wrapped.y, wrapped.z, z.w};
 
 	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y >= a * (0.5 + 0.2 * native_sin(f * M_PI * native_divide((z.x + b * 0.5), box_size.x))))
