@@ -46,11 +46,13 @@ public:
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool AssignParametersToKernel();
 	bool WriteBuffersToQueue();
-	bool ProcessQueue(int pixelIndex);
+	bool ProcessQueue(int pixelsLeft, int pixelIndex);
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, bool *stopRequest);
 
 private:
+	QString GetKernelName() override;
+
 	sParamsSSAO paramsSSAO;
 	float intensity;
 

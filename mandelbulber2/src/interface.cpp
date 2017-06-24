@@ -419,6 +419,10 @@ void cInterface::ConnectSignals() const
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
+//	connect(gOpenCl->openClEngineRenderSSAO,
+//		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
+//		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+
 #endif
 
 	//------------------------------------------------
@@ -1827,7 +1831,8 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(
+			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);

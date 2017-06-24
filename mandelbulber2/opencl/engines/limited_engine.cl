@@ -218,9 +218,12 @@ kernel void fractal3D(
 	shaderInputData.AOVectors = AOVectors;
 	shaderInputData.AOVectorsCount = AOVectorsCount;
 
+	float3 surfaceColor = 0.0f;
+	float3 specular = 0.0f;
+
 	if (found)
 	{
-		color = ObjectShader(point, consts, &shaderInputData, &calcParam);
+		color = ObjectShader(point, consts, &shaderInputData, &calcParam, &surfaceColor, &specular);
 	}
 	else
 	{
@@ -235,9 +238,9 @@ kernel void fractal3D(
 	pixel.G = color.s1 + glow;
 	pixel.B = color.s2 + glow;
 	pixel.zBuffer = scan;
-	pixel.colR = 0.0f;
-	pixel.colG = 0.0f;
-	pixel.colB = 0.0f;
+	pixel.colR = surfaceColor.s0 * 256.0f;
+	pixel.colG = surfaceColor.s1 * 256.0f;
+	pixel.colB = surfaceColor.s2 * 256.0f;
 	pixel.opacity = 0;
 	pixel.alpha = 65535;
 

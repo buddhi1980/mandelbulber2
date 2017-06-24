@@ -1,5 +1,5 @@
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void SSAO(__global float *zBuffer, __global float3 *out, sParamsSSAO p)
+kernel void SSAO(__global float *zBuffer, __global float *out, sParamsSSAO p)
 {
 	const unsigned int i = get_global_id(0);
 	const int2 scr = (int2){i % p.width, i / p.width};
@@ -9,10 +9,10 @@ kernel void SSAO(__global float *zBuffer, __global float3 *out, sParamsSSAO p)
 	float aspectRatio = (float)p.width / p.height;
 
 	float z = zBuffer[i];
-	unsigned short opacity = opacityBuffer[i];
-	uchar3 color = colorBuffer[i];
 	float totalAmbient = 0.0f;
 	float quality = p.quality;
+
+	// printf("width %d", p.width);
 
 	if (z < 1.0e2f)
 	{
@@ -54,11 +54,5 @@ kernel void SSAO(__global float *zBuffer, __global float3 *out, sParamsSSAO p)
 		totalAmbient = ambient / quality;
 		totalAmbient = max(totalAmbient, 0.0f);
 	}
-
-	uint4 pixel = convert_uint4(image[i]);
-	pixel.x += color.x * (totalAmbient * p.intensity * (65535 - opacity)) / 256;
-	pixel.y += color.y * (totalAmbient * p.intensity * (65535 - opacity)) / 256;
-	pixel.z += color.z * (totalAmbient * p.intensity * (65535 - opacity)) / 256;
-	pixel = min(65535, pixel);
-	image[i] = convert_ushort4(pixel);
+	out[i] = totalAmbient;
 }

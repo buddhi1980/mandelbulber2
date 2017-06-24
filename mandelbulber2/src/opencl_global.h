@@ -37,6 +37,7 @@
 
 class cOpenClHardware;
 class cOpenClEngineRenderFractal;
+class cOpenClEngineRenderSSAO;
 
 class cGlobalOpenCl
 {
@@ -44,7 +45,10 @@ public:
 	cGlobalOpenCl();
 	~cGlobalOpenCl();
 
+	void Reset();
+
 	cOpenClEngineRenderFractal *openClEngineRenderFractal;
+	cOpenClEngineRenderSSAO *openClEngineRenderSSAO;
 	cOpenClHardware *openClHardware;
 };
 

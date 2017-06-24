@@ -109,6 +109,7 @@ public:
 	bool CreateCommandQueue();
 
 protected:
+	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText);
 	bool CreateKernel(cl::Program *program);

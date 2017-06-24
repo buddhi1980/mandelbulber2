@@ -183,9 +183,9 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	pixel.G = colour.s1 * glow * 10.0f;
 	pixel.B = colour.s2;
 	pixel.zBuffer = scan;
-	pixel.colR = 0.0f;
-	pixel.colG = 0.0f;
-	pixel.colB = 0.0f;
+	pixel.colR = 128;
+	pixel.colG = 128f;
+	pixel.colB = 128f;
 	pixel.opacity = 0;
 	pixel.alpha = 65535;
 

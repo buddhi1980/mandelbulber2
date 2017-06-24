@@ -35,6 +35,7 @@
 #include "opencl_global.h"
 #include "opencl_hardware.h"
 #include "opencl_engine_render_fractal.h"
+#include "opencl_engine_render_ssao.h"
 #include "initparameters.hpp"
 
 cGlobalOpenCl *gOpenCl = nullptr;
@@ -62,6 +63,7 @@ cGlobalOpenCl::cGlobalOpenCl()
 	}
 
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
+	openClEngineRenderSSAO = new cOpenClEngineRenderSSAO(openClHardware);
 #endif
 }
 
@@ -69,6 +71,13 @@ cGlobalOpenCl::~cGlobalOpenCl()
 {
 #ifdef USE_OPENCL
 	delete openClEngineRenderFractal;
+	delete openClEngineRenderSSAO;
 	delete openClHardware;
 #endif
+}
+
+void cGlobalOpenCl::Reset()
+{
+	openClEngineRenderFractal->Reset();
+	openClEngineRenderSSAO->Reset();
 }

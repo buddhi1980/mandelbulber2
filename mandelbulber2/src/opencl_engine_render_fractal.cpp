@@ -90,6 +90,12 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 }
 
 #ifdef USE_OPENCL
+
+QString cOpenClEngineRenderFractal::GetKernelName()
+{
+	return QString("fractal3D");
+}
+
 bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer *params)
 {
 	programsLoaded = false;

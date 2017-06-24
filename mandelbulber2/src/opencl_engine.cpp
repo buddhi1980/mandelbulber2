@@ -185,7 +185,7 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 {
 	cl_int err;
 	if (kernel) delete kernel;
-	kernel = new cl::Kernel(*program, "fractal3D", &err);
+	kernel = new cl::Kernel(*program, GetKernelName().toLatin1().constData(), &err);
 	if (checkErr(err, "cl::Kernel()"))
 	{
 		size_t workGroupSize = 0;

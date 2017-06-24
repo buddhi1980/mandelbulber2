@@ -98,6 +98,8 @@ public:
 	bool Render(cImage *image, bool *stopRequest);
 
 private:
+	QString GetKernelName() override;
+
 	static QString toCamelCase(const QString &s);
 
 	sClInConstants *constantInBuffer;

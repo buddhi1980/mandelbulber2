@@ -42,6 +42,7 @@
 #include "netrender.hpp"
 #include "nine_fractals.hpp"
 #include "opencl_engine_render_fractal.h"
+#include "opencl_engine_render_ssao.h"
 #include "opencl_global.h"
 #include "render_data.hpp"
 #include "render_image.hpp"
@@ -509,7 +510,6 @@ bool cRenderJob::Execute()
 		sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
 		cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
 
-		// just for testing
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
 			paramsContainer, fractalContainer, params, fractals, renderData);
@@ -522,6 +522,25 @@ bool cRenderJob::Execute()
 		}
 		gOpenCl->openClEngineRenderFractal->Unlock();
 		qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+
+		if (params->ambientOcclusionEnabled
+				&& params->ambientOcclusionMode == params::AOModeScreenSpace)
+		{
+			timer.restart();
+			timer.start();
+
+			gOpenCl->openClEngineRenderSSAO->Lock();
+			gOpenCl->openClEngineRenderSSAO->SetParameters(params);
+			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
+			{
+				gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
+				gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);
+				gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
+				result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
+			}
+			gOpenCl->openClEngineRenderSSAO->Unlock();
+			qDebug() << "Rendering SSAO time [s]" << timer.nsecsElapsed() / 1.0e9;
+		}
 
 		delete params;
 		delete fractals;

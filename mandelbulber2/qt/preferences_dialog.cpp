@@ -54,6 +54,7 @@
 #include "../src/opencl_global.h"
 #include "../src/opencl_hardware.h"
 #include "../src/opencl_engine_render_fractal.h"
+#include "../src/opencl_engine_render_ssao.h"
 #include "ui_preferences_dialog.h"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
@@ -380,7 +381,7 @@ void cPreferencesDialog::on_listWidget_gpu_platform_list_currentRowChanged(int i
 {
 	if (index >= 0)
 	{
-		gOpenCl->openClEngineRenderFractal->Reset();
+		gOpenCl->Reset();
 		gOpenCl->openClHardware->CreateContext(
 			index, cOpenClDevice::enumOpenClDeviceType(ui->comboBox_gpu_device_type->currentIndex()));
 		gOpenCl->openClHardware->getClDevices();
@@ -405,7 +406,7 @@ void cPreferencesDialog::on_groupCheck_gpu_enabled_toggled(bool state)
 {
 	if (state)
 	{
-		gOpenCl->openClEngineRenderFractal->Reset();
+		gOpenCl->Reset();
 		gOpenCl->openClHardware->ListOpenClPlatforms();
 		if (gPar->Get<int>("gpu_platform") >= 0)
 		{

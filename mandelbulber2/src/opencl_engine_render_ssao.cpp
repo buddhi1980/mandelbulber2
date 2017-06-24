@@ -28,7 +28,7 @@ cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
 	outBuffer = nullptr;
 	outCl = nullptr;
 
-	optimalJob.sizeOfPixel = sizeof(cl_float) + sizeof(cl_float3);
+	optimalJob.sizeOfPixel = sizeof(cl_float) + sizeof(cl_float);
 	optimalJob.optimalProcessingCycle = 0.1;
 #endif
 }
@@ -44,6 +44,12 @@ cOpenClEngineRenderSSAO::~cOpenClEngineRenderSSAO()
 }
 
 #ifdef USE_OPENCL
+
+QString cOpenClEngineRenderSSAO::GetKernelName()
+{
+	return QString("SSAO");
+}
+
 void cOpenClEngineRenderSSAO::SetParameters(const sParamRender *paramRender)
 {
 	paramsSSAO.width = paramRender->imageWidth;
@@ -52,6 +58,7 @@ void cOpenClEngineRenderSSAO::SetParameters(const sParamRender *paramRender)
 	paramsSSAO.quality = paramRender->ambientOcclusionQuality * paramRender->ambientOcclusionQuality;
 	if (paramsSSAO.quality < 3) paramsSSAO.quality = 3;
 	numberOfPixels = paramsSSAO.width * paramsSSAO.height;
+	intensity = paramRender->ambientOcclusion;
 }
 
 bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *params)
@@ -131,7 +138,7 @@ bool cOpenClEngineRenderSSAO::PreAllocateBuffers(const cParameterContainer *para
 		inZBuffer = new cl_float[numberOfPixels];
 
 		if (inCLZBuffer) delete inCLZBuffer;
-		inCLZBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+		inCLZBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
 			numberOfPixels * sizeof(cl_float), inZBuffer, &err);
 		if (!checkErr(err,
 					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
@@ -210,10 +217,28 @@ bool cOpenClEngineRenderSSAO::WriteBuffersToQueue()
 	return true;
 }
 
-bool cOpenClEngineRenderSSAO::ProcessQueue(int pixelIndex)
+bool cOpenClEngineRenderSSAO::ProcessQueue(int pixelsLeft, int pixelIndex)
 {
-	cl_int err = queue->enqueueNDRangeKernel(*kernel, cl::NDRange(pixelIndex),
-		cl::NDRange(optimalJob.stepSize), cl::NDRange(optimalJob.workGroupSize));
+	size_t limitedWorkgroupSize = optimalJob.workGroupSize;
+	int stepSize = optimalJob.stepSize;
+
+	if (optimalJob.stepSize > pixelsLeft)
+	{
+		int mul = pixelsLeft / optimalJob.workGroupSize;
+		if (mul > 0)
+		{
+			stepSize = mul * optimalJob.workGroupSize;
+		}
+		else
+		{
+			// in this case will be limited workGroupSize
+			stepSize = pixelsLeft;
+			limitedWorkgroupSize = pixelsLeft;
+		}
+	}
+
+	cl_int err = queue->enqueueNDRangeKernel(
+		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
@@ -226,7 +251,7 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(int pixelIndex)
 
 bool cOpenClEngineRenderSSAO::ReadBuffersFromQueue()
 {
-	size_t buffSize = optimalJob.stepSize * sizeof(cl_float);
+	size_t buffSize = numberOfPixels * sizeof(cl_float);
 
 	cl_int err = queue->enqueueReadBuffer(*outCl, CL_TRUE, 0, buffSize, outBuffer);
 	if (!checkErr(err, "CommandQueue::enqueueReadBuffer()"))
@@ -270,6 +295,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		{
 			inZBuffer[i] = image->GetZBufferPtr()[i];
 		}
+
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
@@ -286,7 +312,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			if (!AssignParametersToKernel()) return false;
 
 			// processing queue
-			if (!ProcessQueue(pixelIndex)) return false;
+			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
 
 			UpdateOptimalJobEnd();
 
@@ -305,7 +331,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 		for (int y = 0; y < height; y++)
 		{
-			for (int x = 0; x < height; x++)
+			for (int x = 0; x < width; x++)
 			{
 				cl_float total_ambient = outBuffer[x + y * width];
 				unsigned short opacity16 = image->GetPixelOpacity(x, y);
@@ -313,6 +339,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 				sRGB8 colour = image->GetPixelColor(x, y);
 				sRGBFloat pixel = image->GetPixelPostImage(x, y);
 				float shadeFactor = 1.0f / 256.0f * total_ambient * intensity * (1.0f - opacity);
+				//qDebug() << total_ambient << shadeFactor << opacity << colour.R;
 				pixel.R = pixel.R + colour.R * shadeFactor;
 				pixel.G = pixel.G + colour.G * shadeFactor;
 				pixel.B = pixel.B + colour.B * shadeFactor;
@@ -322,9 +349,6 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 		qDebug() << "GPU jobs finished";
 		qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
-
-		// refresh image at end
-		image->NullPostEffect();
 
 		WriteLog("image->CompileImage()", 2);
 		image->CompileImage();

@@ -337,7 +337,7 @@ float3 AmbientOcclusion(
 #endif
 
 float3 ObjectShader(float3 point, __constant sClInConstants *consts, sShaderInputDataCl *input,
-	sClCalcParams *calcParam)
+	sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular)
 {
 	float3 color = 0.7f;
 
@@ -369,7 +369,7 @@ float3 ObjectShader(float3 point, __constant sClInConstants *consts, sShaderInpu
 #endif
 	}
 
-	float3 surfaceColour = SurfaceColor(consts, input, calcParam);
+	float3 surfaceColor = SurfaceColor(consts, input, calcParam);
 
 	float3 AO = 0.0f;
 	if (consts->params.ambientOcclusionEnabled)
@@ -383,7 +383,9 @@ float3 ObjectShader(float3 point, __constant sClInConstants *consts, sShaderInpu
 		AO *= consts->params.ambientOcclusion;
 	}
 
-	color = surfaceColour * (mainLight * shadow * (shade + specular) + AO);
+	color = surfaceColor * (mainLight * shadow * (shade + specular) + AO);
+	*outSurfaceColor = surfaceColor;
+	*outSpecular = specular;
 
 	return color;
 }
