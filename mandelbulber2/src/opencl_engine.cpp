@@ -227,7 +227,14 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 	{
 		memSize = maxAllocMemSize * 0.75;
 	}
-	optimalJob.jobSizeLimit = memSize / optimalJob.sizeOfPixel;
+	if (optimalJob.sizeOfPixel != 0)
+	{
+		optimalJob.jobSizeLimit = memSize / optimalJob.sizeOfPixel;
+	}
+	else
+	{
+		optimalJob.jobSizeLimit = pixelCnt;
+	}
 
 	qDebug() << "pixelsPerJob:" << optimalJob.pixelsPerJob;
 	qDebug() << "numberOfSteps:" << optimalJob.numberOfSteps;
@@ -295,7 +302,7 @@ void cOpenClEngine::Reset()
 
 void cOpenClEngine::UpdateOptimalJobEnd()
 {
-	optimalJob.lastProcessingTime = optimalJob.timer.elapsed() / 1000.0;
+	optimalJob.lastProcessingTime = optimalJob.timer.nsecsElapsed() / 1e9;
 }
 
 void cOpenClEngine::Lock()

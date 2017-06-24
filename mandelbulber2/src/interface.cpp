@@ -72,6 +72,7 @@
 #include "trace_behind.h"
 #include "opencl_global.h"
 #include "opencl_engine_render_fractal.h"
+#include "opencl_engine_render_ssao.h"
 
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
@@ -419,9 +420,9 @@ void cInterface::ConnectSignals() const
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
-//	connect(gOpenCl->openClEngineRenderSSAO,
-//		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-//		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+	connect(gOpenCl->openClEngineRenderSSAO,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
 #endif
 

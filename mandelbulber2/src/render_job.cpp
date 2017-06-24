@@ -44,6 +44,7 @@
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
 #include "opencl_global.h"
+#include "progress_text.hpp"
 #include "render_data.hpp"
 #include "render_image.hpp"
 #include "rendering_configuration.hpp"
@@ -501,8 +502,8 @@ bool cRenderJob::Execute()
 #ifdef USE_OPENCL
 	if (paramsContainer->Get<bool>("gpu_enabled"))
 	{
-		QElapsedTimer timer;
-		timer.start();
+		cProgressText progressText;
+		progressText.ResetTimer();
 
 		*renderData->stopRequest = false;
 
@@ -521,14 +522,12 @@ bool cRenderJob::Execute()
 			result = gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest);
 		}
 		gOpenCl->openClEngineRenderFractal->Unlock();
-		qDebug() << "Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+
+		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
 
 		if (params->ambientOcclusionEnabled
 				&& params->ambientOcclusionMode == params::AOModeScreenSpace)
 		{
-			timer.restart();
-			timer.start();
-
 			gOpenCl->openClEngineRenderSSAO->Lock();
 			gOpenCl->openClEngineRenderSSAO->SetParameters(params);
 			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
@@ -539,8 +538,12 @@ bool cRenderJob::Execute()
 				result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
 			}
 			gOpenCl->openClEngineRenderSSAO->Unlock();
-			qDebug() << "Rendering SSAO time [s]" << timer.nsecsElapsed() / 1.0e9;
+
+			emit updateProgressAndStatus(
+				tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
 		}
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
 
 		delete params;
 		delete fractals;

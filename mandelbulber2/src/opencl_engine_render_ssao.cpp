@@ -28,8 +28,8 @@ cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
 	outBuffer = nullptr;
 	outCl = nullptr;
 
-	optimalJob.sizeOfPixel = sizeof(cl_float) + sizeof(cl_float);
-	optimalJob.optimalProcessingCycle = 0.1;
+	optimalJob.sizeOfPixel = 0; // memory usage doens't depend on job size
+	optimalJob.optimalProcessingCycle = 0.5;
 #endif
 }
 
@@ -314,12 +314,13 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			// processing queue
 			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
 
-			UpdateOptimalJobEnd();
-
 			double percentDone = double(pixelIndex) / (width * height);
 			emit updateProgressAndStatus(
 				tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
+
+			UpdateOptimalJobEnd();
+
 			if (*stopRequest)
 			{
 				*stopRequest = false;
@@ -366,7 +367,8 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			}
 		}
 
-		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
 
 		return true;
 	}
