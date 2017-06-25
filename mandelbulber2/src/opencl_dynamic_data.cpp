@@ -4,12 +4,14 @@
  *  Created on: 17 cze 2017
  *      Author: krzysztof
  */
-#include "../src/render_worker.hpp"
+
+#include "opencl_dynamic_data.hpp"
 
 #ifdef USE_OPENCL
 
-#include "opencl_dynamic_data.hpp"
+#include "../src/render_worker.hpp"
 #include "../src/material.h"
+#include "../src/lights.hpp"
 #include "../opencl/material_cl.h"
 #include "../opencl/input_data_structures.h"
 
@@ -18,8 +20,10 @@ cOpenClDynamicData::cOpenClDynamicData()
 	totalDataOffset = 0; // counter for actual address in structure
 	materialsOffset = 0;
 	AOVectorsOffset = 0;
+	lightsOffset = 0;
 	materialsOffsetAddress = 0;
 	AOVectorsOffsetAddress = 0;
+	lightsOffsetAddress = 0;
 }
 
 cOpenClDynamicData::~cOpenClDynamicData()
@@ -40,6 +44,51 @@ int cOpenClDynamicData::PutDummyToAlign(int dataLength, int alignmentSize, QByte
 	{
 		return 0;
 	}
+}
+
+void cOpenClDynamicData::ReserveHeader()
+{
+	/* main header:
+	 * cl_int materialsOffset
+	 * cl_int AOVectorsOffset
+	 * cl_int lightsOffset
+	 */
+
+	// reserve bytes for array offset
+	materialsOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&materialsOffset), sizeof(materialsOffset));
+	totalDataOffset += sizeof(materialsOffset);
+
+	AOVectorsOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&AOVectorsOffset), sizeof(AOVectorsOffset));
+	totalDataOffset += sizeof(AOVectorsOffset);
+
+	lightsOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&lightsOffset), sizeof(lightsOffset));
+	totalDataOffset += sizeof(lightsOffset);
+}
+
+void cOpenClDynamicData::FillHeader()
+{
+	data.replace(materialsOffsetAddress, sizeof(materialsOffset),
+		reinterpret_cast<char *>(&materialsOffset), sizeof(materialsOffset));
+
+	data.replace(AOVectorsOffsetAddress, sizeof(AOVectorsOffset),
+		reinterpret_cast<char *>(&AOVectorsOffset), sizeof(AOVectorsOffset));
+
+	data.replace(lightsOffsetAddress, sizeof(lightsOffset), reinterpret_cast<char *>(&lightsOffset),
+		sizeof(lightsOffset));
+}
+
+void cOpenClDynamicData::Clear()
+{
+	data.clear();
+	totalDataOffset = 0;
+}
+
+QByteArray &cOpenClDynamicData::GetData(void)
+{
+	return data;
 }
 
 void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials)
@@ -168,17 +217,6 @@ void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &material
 	delete[] materialOffsets;
 }
 
-void cOpenClDynamicData::Clear()
-{
-	data.clear();
-	totalDataOffset = 0;
-}
-
-QByteArray &cOpenClDynamicData::GetData(void)
-{
-	return data;
-}
-
 void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_int vectorsCount)
 {
 	/* use __attribute__((aligned(16))) in kernel code for array
@@ -227,30 +265,56 @@ void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_
 		sizeof(arrayOffset));
 }
 
-void cOpenClDynamicData::ReserveHeader()
+void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 {
-	/* main header:
-	 * cl_int materialsOffset
-	 * cl_int AOVectorsOffset
+	/* use __attribute__((aligned(16))) in kernel code for array
+	 *
+	 * header:
+	 * cl_int numberOfLights
+	 * cl_int arrayOffset;
+	 *
+	 * array (aligned to 16):
+	 * 	sLightCl light1
+	 * 	sLightCl light1
+	 *  ...
+	 * 	sLightCl lightN
 	 */
 
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	lightsOffset = totalDataOffset;
+
+	cl_int numberOfLights = lights->GetNumberOfLights();
+	qDebug() << numberOfLights;
+	data.append(reinterpret_cast<char *>(&numberOfLights), sizeof(numberOfLights));
+	totalDataOffset += sizeof(numberOfLights);
+
 	// reserve bytes for array offset
-	materialsOffsetAddress = totalDataOffset;
-	data.append(reinterpret_cast<char *>(&materialsOffset), sizeof(materialsOffset));
-	totalDataOffset += sizeof(materialsOffset);
+	cl_int arrayOffset = 0;
+	int arrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&arrayOffset), sizeof(arrayOffset));
+	totalDataOffset += sizeof(arrayOffset);
 
-	AOVectorsOffsetAddress = totalDataOffset;
-	data.append(reinterpret_cast<char *>(&AOVectorsOffset), sizeof(AOVectorsOffset));
-	totalDataOffset += sizeof(AOVectorsOffset);
-}
+	// copy lights aligned to 16
+	for (int i = 0; i < numberOfLights; i++)
+	{
+		// allign struct to 16
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+		if (i == 0) arrayOffset = totalDataOffset;
 
-void cOpenClDynamicData::FillHeader()
-{
-	data.replace(materialsOffsetAddress, sizeof(materialsOffset),
-		reinterpret_cast<char *>(&materialsOffset), sizeof(materialsOffset));
+		sLightCl lightCl;
+		sLight *light = lights->GetLight(i);
+		lightCl.position = toClFloat3(light->position);
+		lightCl.colour = toClInt3(light->colour);
+		lightCl.intensity = light->intensity;
+		lightCl.enabled = light->enabled;
 
-	data.replace(AOVectorsOffsetAddress, sizeof(AOVectorsOffset),
-		reinterpret_cast<char *>(&AOVectorsOffset), sizeof(AOVectorsOffset));
+		data.append(reinterpret_cast<char *>(&lightCl), sizeof(lightCl));
+		totalDataOffset += sizeof(lightCl);
+	}
+
+	// replace arrayOffset:
+	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
+		sizeof(arrayOffset));
 }
 
 #endif // USE_OPENCL

@@ -10,10 +10,12 @@ typedef struct
 	float delta; // initial step distance for shaders based on distance form camera
 	float depth;
 	int AOVectorsCount;
+	int numberOfLights;
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
 	__global sVectorsAroundCl *AOVectors;
+	__global sLightCl *lights;
 	int paletteSize;
 
 } sShaderInputDataCl;
@@ -336,12 +338,167 @@ float3 AmbientOcclusion(
 }
 #endif
 
-float3 ObjectShader(float3 point, __constant sClInConstants *consts, sShaderInputDataCl *input,
+#ifdef AUX_LIGHTS
+#ifdef SHADOWS
+float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, float distance,
+	float3 lightVector, sClCalcParams *calcParam)
+{
+	// float step = input.delta;
+	float dist;
+	float light;
+
+	float opacity;
+	float shadowTemp = 1.0f;
+
+	float DE_factor = consts->params.DEFactor;
+	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0;
+
+	for (float i = input->delta; i < distance; i += dist * DE_factor)
+	{
+		float3 point2 = input->point + lightVector * i;
+
+		calcParam->distThresh = input->distThresh;
+		formulaOut outF;
+
+		outF = CalculateDistance(consts, point2, calcParam);
+		dist = outF.distance;
+
+		if (consts->params.iterFogEnabled)
+		{
+			//			opacity = IterOpacity(dist * DE_factor, distanceOut.iters, consts->params.N,
+			//				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
+		}
+		else
+		{
+			opacity = 0.0f;
+		}
+		shadowTemp -= opacity * (distance - i) / distance;
+
+		float dist_thresh;
+		if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled)
+		{
+			dist_thresh = CalcDistThresh(point2, consts);
+		}
+		else
+			dist_thresh = input->distThresh;
+
+		if (dist < dist_thresh || shadowTemp < 0.0f)
+		{
+			if (consts->params.penetratingLights)
+			{
+				shadowTemp -= (distance - i) / distance;
+				if (shadowTemp < 0.0f) shadowTemp = 0.0f;
+			}
+			else
+			{
+				shadowTemp = 0.0f;
+			}
+			break;
+		}
+	}
+	light = shadowTemp;
+	return light;
+}
+#endif // SHADOWS
+
+float3 LightShading(__constant sClInConstants *consts, sShaderInputDataCl *input,
+	sClCalcParams *calcParam, __global sLightCl *light, float3 *outSpecular)
+{
+	float3 shading = 0.0f;
+
+	float3 d = light->position - input->point;
+
+	float distance = length(d);
+
+	// angle of incidence
+	float3 lightVector = d;
+	lightVector = normalize(lightVector);
+
+	// intensity of lights is divided by 6 because of backward compatibility. There was an error
+	// where numberOfLights of light was always 24
+	float intensity = 100.0f * light->intensity / (distance * distance) / input->numberOfLights / 6.0;
+	float shade = dot(input->normal, lightVector);
+	if (shade < 0.0) shade = 0.0;
+	shade = 1.0f - input->material->shading + shade * input->material->shading;
+
+	shade = shade * intensity;
+	if (shade > 500.0f) shade = 500.0f;
+
+	// specular
+	float3 halfVector = lightVector - input->viewVector;
+	halfVector = normalize(halfVector);
+	float shade2 = dot(input->normal, halfVector);
+	if (shade2 < 0.0f) shade2 = 0.0f;
+
+	shade2 = pow(shade2, 30.0f / input->material->specularWidth);
+	shade2 *= intensity * input->material->specular;
+	if (shade2 > 15.0f) shade2 = 15.0f;
+
+	// calculate shadow
+	if ((shade > 0.01f || shade2 > 0.01f) && consts->params.shadow)
+	{
+		float auxShadow = 1.0f;
+#ifdef SHADOWS
+		auxShadow = AuxShadow(consts, input, distance, lightVector, calcParam);
+#endif
+		shade *= auxShadow;
+		shade2 *= auxShadow;
+	}
+	else
+	{
+		if (consts->params.shadow)
+		{
+			shade = 0.0;
+			shade2 = 0.0;
+		}
+	}
+
+	shading.s0 = shade * light->colour.s0 / 65536.0f;
+	shading.s1 = shade * light->colour.s1 / 65536.0f;
+	shading.s2 = shade * light->colour.s2 / 65536.0f;
+
+	float3 specular;
+	specular.s0 = shade2 * light->colour.s0 / 65536.0f;
+	specular.s1 = shade2 * light->colour.s1 / 65536.0f;
+	specular.s2 = shade2 * light->colour.s2 / 65536.0f;
+
+	*outSpecular = specular;
+
+	return shading;
+}
+
+float3 AuxLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
+	sClCalcParams *calcParam, float3 *specularOut)
+{
+
+	int numberOfLights = input->numberOfLights;
+	if (numberOfLights < 4) numberOfLights = 4;
+	float3 shadeAuxSum = 0.0f;
+	float3 specularAuxSum = 0.0f;
+	for (int i = 0; i < numberOfLights; i++)
+	{
+		__global sLightCl *light = &input->lights[i];
+
+		if (i < consts->params.auxLightNumber || light->enabled)
+		{
+			float3 specularAuxOutTemp;
+			float3 shadeAux = LightShading(consts, input, calcParam, light, &specularAuxOutTemp);
+			shadeAuxSum += shadeAux;
+			specularAuxSum += specularAuxOutTemp;
+		}
+	}
+
+	*specularOut = specularAuxSum;
+	return shadeAuxSum;
+}
+#endif // AUX_LIGHTS
+
+float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
 	sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular)
 {
 	float3 color = 0.7f;
 
-	float3 normal = NormalVector(consts, point, input->lastDist, input->distThresh, calcParam);
+	float3 normal = NormalVector(consts, input->point, input->lastDist, input->distThresh, calcParam);
 	input->normal = normal;
 
 	float3 mainLight =
@@ -383,7 +540,15 @@ float3 ObjectShader(float3 point, __constant sClInConstants *consts, sShaderInpu
 		AO *= consts->params.ambientOcclusion;
 	}
 
-	color = surfaceColor * (mainLight * shadow * (shade + specular) + AO);
+	float3 auxLights = 0.0f;
+	float3 auxSpecular = 0.0f;
+
+#ifdef AUX_LIGHTS
+	auxLights = AuxLightsShader(consts, input, calcParam, &auxSpecular);
+#endif
+
+	color =
+		surfaceColor * (mainLight * shadow * shade + auxLights + AO) + specular * shadow + auxSpecular;
 	*outSurfaceColor = surfaceColor;
 	*outSpecular = specular;
 

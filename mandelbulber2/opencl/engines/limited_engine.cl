@@ -63,6 +63,7 @@ kernel void fractal3D(
 	// main offset for materials
 	int materialsMainOffset = GetInteger(0, inBuff);
 	int AOVectorsMainOffset = GetInteger(1 * sizeof(int), inBuff);
+	int lightsMainOffset = GetInteger(2 * sizeof(int), inBuff);
 
 	//--- main material
 
@@ -93,6 +94,15 @@ kernel void fractal3D(
 
 	__global sVectorsAroundCl *__attribute__((aligned(16))) AOVectors =
 		(__global sVectorsAroundCl *)&inBuff[AOVectorsOffset];
+
+	//--- Lights
+
+	// AO vectors count
+	int numberOfLights = GetInteger(lightsMainOffset, inBuff);
+	int lightssOffset = GetInteger(lightsMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sLightCl *__attribute__((aligned(16))) lights =
+		(__global sLightCl *)&inBuff[lightssOffset];
 
 	//--------- end of data file ----------------------------------
 
@@ -217,13 +227,15 @@ kernel void fractal3D(
 	shaderInputData.paletteSize = paletteLength;
 	shaderInputData.AOVectors = AOVectors;
 	shaderInputData.AOVectorsCount = AOVectorsCount;
+	shaderInputData.lights = lights;
+	shaderInputData.numberOfLights = numberOfLights;
 
 	float3 surfaceColor = 0.0f;
 	float3 specular = 0.0f;
 
 	if (found)
 	{
-		color = ObjectShader(point, consts, &shaderInputData, &calcParam, &surfaceColor, &specular);
+		color = ObjectShader(consts, &shaderInputData, &calcParam, &surfaceColor, &specular);
 	}
 	else
 	{

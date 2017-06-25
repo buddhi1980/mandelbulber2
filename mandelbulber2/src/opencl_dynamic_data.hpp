@@ -15,6 +15,7 @@
 
 class cMaterial;
 struct sVectorsAround;
+class cLights;
 
 class cOpenClDynamicData
 {
@@ -26,6 +27,7 @@ public:
 	static int PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array);
 	void BuildMaterialsData(const QMap<int, cMaterial> &materials);
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
+	void BuildLightsData(const cLights *lights);
 	void ReserveHeader();
 	void FillHeader();
 	QByteArray &GetData(void);
@@ -33,10 +35,15 @@ public:
 private:
 	QByteArray data;
 	cl_int totalDataOffset;
+
 	cl_int materialsOffset;
 	int materialsOffsetAddress;
+
 	cl_int AOVectorsOffset;
 	int AOVectorsOffsetAddress;
+
+	cl_int lightsOffset;
+	int lightsOffsetAddress;
 };
 
 #endif // USE_OPENCL

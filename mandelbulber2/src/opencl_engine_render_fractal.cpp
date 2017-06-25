@@ -305,6 +305,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			definesCollector += " -DAO_MODE_MULTIPLE_RAYS";
 	}
 	if (paramRender->slowShading) definesCollector += " -DSLOW_SHADING";
+	if (renderData->lights.IsAnyLightEnabled()) definesCollector += " -DAUX_LIGHTS";
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
@@ -326,6 +327,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	sVectorsAround *AOVectors = tempRenderWorker->getAOVectorsAround();
 	int numberOfVectors = tempRenderWorker->getAoVectorsCount();
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
+	dynamicData->BuildLightsData(&renderData->lights);
 
 	dynamicData->FillHeader();
 

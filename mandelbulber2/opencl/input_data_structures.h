@@ -87,4 +87,12 @@ typedef struct
 	cl_float beta;
 } sVectorsAroundCl;
 
+typedef struct
+{
+	cl_float3 position;
+	cl_int3 colour;
+	float intensity;
+	cl_int enabled;
+} sLightCl;
+
 #endif // INPUT_DATA_STRUCTURES
