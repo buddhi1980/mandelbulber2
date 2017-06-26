@@ -28,7 +28,11 @@ class cImage;
 #endif // NOT _MSC_VER
 #endif // _WIN32
 // OpenCL SDK for all others
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl.hpp>
+#else
 #include <CL/cl.hpp>
+#endif
 #include "../opencl/ssao_cl.h"
 #endif // USE_OPENCL
 

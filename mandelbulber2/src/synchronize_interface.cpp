@@ -94,7 +94,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 					char lastChar = parameterName.at(parameterName.length() - 1).toLatin1();
 					QString nameVect = parameterName.left(parameterName.length() - 2);
 
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						double value = systemData.locale.toDouble(lineEdit->text());
 						// qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
@@ -115,7 +115,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 						}
 						par->Set(nameVect, vect);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						CVector3 vect = par->Get<CVector3>(nameVect);
 						QString qText;
@@ -144,7 +144,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 					char lastChar = parameterName.at(parameterName.length() - 1).toLatin1();
 					QString nameVect = parameterName.left(parameterName.length() - 2);
 
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						double value = systemData.locale.toDouble(lineEdit->text());
 						// qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
@@ -167,7 +167,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 						}
 						par->Set(nameVect, vect);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						CVector4 vect = par->Get<CVector4>(nameVect);
 						QString qText;
@@ -195,12 +195,12 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				//---------- get double scalars --------
 				else if (type == QString("edit") || type == QString("logedit"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						double value = systemData.locale.toDouble(lineEdit->text());
 						par->Set(parameterName, value);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						double value = par->Get<double>(parameterName);
 						lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
@@ -211,12 +211,12 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				//----------- get texts ------------
 				else if (type == QString("text"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						QString value = lineEdit->text();
 						par->Set(parameterName, value);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						QString value = par->Get<QString>(parameterName);
 						lineEdit->setText(value);
@@ -254,12 +254,12 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (type == QString("spinbox") || type == QString("spinboxd"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						double value = spinbox->value();
 						par->Set(parameterName, value);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						double value = par->Get<double>(parameterName);
 						spinbox->setValue(value);
@@ -269,7 +269,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				{
 					char lastChar = parameterName.at(parameterName.length() - 1).toLatin1();
 					QString nameVect = parameterName.left(parameterName.length() - 2);
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						double value = spinbox->value();
 						CVector3 vect = par->Get<CVector3>(nameVect);
@@ -289,7 +289,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 						}
 						par->Set(nameVect, vect);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						CVector3 vect = par->Get<CVector3>(nameVect);
 						double value = 0;
@@ -314,7 +314,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				{
 					char lastChar = parameterName.at(parameterName.length() - 1).toLatin1();
 					QString nameVect = parameterName.left(parameterName.length() - 2);
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						double value = spinbox->value();
 						CVector4 vect = par->Get<CVector4>(nameVect);
@@ -336,7 +336,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 						}
 						par->Set(nameVect, vect);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						CVector4 vect = par->Get<CVector4>(nameVect);
 						double value = 0;
@@ -390,12 +390,12 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (type == QString("spinboxInt"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						int value = spinbox->value();
 						par->Set(parameterName, value);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						int value = par->Get<int>(parameterName);
 						spinbox->setValue(value);
@@ -433,12 +433,12 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (type == QString("checkBox"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						bool value = checkbox->isChecked();
 						par->Set(parameterName, value);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						bool value = par->Get<bool>(parameterName);
 						checkbox->setChecked(value);
@@ -476,12 +476,12 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (type == QString("groupCheck"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						bool value = groupBbox->isChecked();
 						par->Set(parameterName, value);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						bool value = par->Get<bool>(parameterName);
 						groupBbox->setChecked(value);
@@ -509,11 +509,11 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				fileSelectWidget->AssignParameterContainer(par);
 				fileSelectWidget->AssignParameterName(parameterName);
 
-				if (mode == read)
+				if (mode == qInterface::read)
 				{
 					par->Set(parameterName, fileSelectWidget->GetPath());
 				}
-				else if (mode == write)
+				else if (mode == qInterface::write)
 				{
 					fileSelectWidget->SetPath(par->Get<QString>(parameterName));
 				}
@@ -539,11 +539,11 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				colorButton->AssignParameterContainer(par);
 				colorButton->AssignParameterName(parameterName);
 
-				if (mode == read)
+				if (mode == qInterface::read)
 				{
 					par->Set(parameterName, colorButton->GetColor());
 				}
-				else if (mode == write)
+				else if (mode == qInterface::write)
 				{
 					colorButton->setText("");
 					colorButton->SetColor(par->Get<sRGB>(parameterName));
@@ -575,12 +575,12 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (type == QString("colorpalette"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						cColorPalette palette = colorPaletteWidget->GetPalette();
 						par->Set(parameterName, palette);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						cColorPalette palette = par->Get<cColorPalette>(parameterName);
 						colorPaletteWidget->SetPalette(palette);
@@ -612,7 +612,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (type == QString("comboBox"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						int selection = comboBox->currentIndex();
 						if (parameterName.left(7) == QString("formula"))
@@ -621,7 +621,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 						}
 						par->Set(parameterName, selection);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						int selection = par->Get<int>(parameterName);
 						if (parameterName.left(7) == QString("formula"))
@@ -663,11 +663,11 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 				if (type == QString("materialselector"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						par->Set(parameterName, materialSelector->GetMaterialIndex());
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						materialSelector->SetMaterialIndex(par->Get<int>(parameterName));
 					}
@@ -696,12 +696,12 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 				//----------- get texts ------------
 				if (type == QString("text"))
 				{
-					if (mode == read)
+					if (mode == qInterface::read)
 					{
 						QString value = textEdit->toPlainText();
 						par->Set(parameterName, value);
 					}
-					else if (mode == write)
+					else if (mode == qInterface::write)
 					{
 						QString value = par->Get<QString>(parameterName);
 						textEdit->setPlainText(value);

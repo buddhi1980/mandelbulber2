@@ -11,7 +11,11 @@
 #ifdef USE_OPENCL
 
 #include <QtCore>
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl.hpp>
+#else
 #include <CL/cl.hpp>
+#endif
 
 class cMaterial;
 struct sVectorsAround;
