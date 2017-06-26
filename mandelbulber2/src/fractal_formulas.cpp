@@ -6641,21 +6641,49 @@ void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	{
 		if (fractal->transformCommon.functionEnabledAx)
 		{
-			tempZ.x = fabs(z.x);
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				tempZ.x = -tempZ.x;
-			}
+			tempZ.x = fabs(z.x); // pos fabs
 			tempZ.x = exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
 			z.x += sign(z.x) * tempZ.x;
 		}
-		else
+		else if (fractal->transformCommon.functionEnabledAxFalse)
+		{
+			tempZ.x = -fabs(z.x); // neg fabs
+			tempZ.x = exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			z.x += sign(z.x) * tempZ.x;
+		}
+		else // no fabs
 			z.x += exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
 	}
-
+	/*		if (fractal->transformCommon.functionEnabledAx)
+			{
+				tempZ.x = fabs(z.x);
+				if (fractal->transformCommon.functionEnabledAxFalse)
+				{
+					tempZ.x = -tempZ.x;
+				}
+				tempZ.x = exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
+				z.x += sign(z.x) * tempZ.x;
+			}
+			else
+				z.x += exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;*/
 	if (fractal->transformCommon.functionEnabledy)
 	{
 		if (fractal->transformCommon.functionEnabledAy)
+		{
+			tempZ.y = fabs(z.y);
+			tempZ.y = exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y += sign(z.y) * tempZ.y;
+		}
+		else if (fractal->transformCommon.functionEnabledAyFalse)
+		{
+			tempZ.y = -fabs(z.y);
+			tempZ.y = exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y += sign(z.y) * tempZ.y;
+		}
+		else
+			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
+
+		/*if (fractal->transformCommon.functionEnabledAy)
 		{
 			tempZ.y = fabs(z.y);
 			if (fractal->transformCommon.functionEnabledAyFalse)
@@ -6666,12 +6694,26 @@ void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			z.y += sign(z.y) * tempZ.y;
 		}
 		else
-			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;*/
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
 		if (fractal->transformCommon.functionEnabledAz)
+		{
+			tempZ.z = fabs(z.z);
+			tempZ.z = exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z += sign(z.z) * tempZ.z;
+		}
+		else if (fractal->transformCommon.functionEnabledAzFalse)
+		{
+			tempZ.z = -fabs(z.z);
+			tempZ.z = exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z += sign(z.z) * tempZ.z;
+		}
+		else
+			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
+		/*if (fractal->transformCommon.functionEnabledAz)
 		{
 			tempZ.z = fabs(z.z);
 			if (fractal->transformCommon.functionEnabledAzFalse)
@@ -6682,14 +6724,46 @@ void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			z.z += sign(z.z) * tempZ.z;
 		}
 		else
-			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;*/
 	}
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 
 	// DE calc version
 	if (fractal->transformCommon.functionEnabledBzFalse)
-	{
-		CVector4 tempS;
+	{		CVector4 tempS;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			tempS = fabs(z);
+			CVector4 tempT = tempS * fractal->transformCommon.scale0;
+			tempS.x = exp2(tempT.x) - 1.0;
+			tempS.y = exp2(tempT.y) - 1.0;
+			tempS.z = exp2(tempT.z) - 1.0;
+
+			z.x += sign(z.x) * tempS.x;
+			z.y += sign(z.y) * tempS.y;
+			z.z += sign(z.z) * tempS.z;
+		}
+		else if (fractal->transformCommon.functionEnabledFalse)
+		{
+			tempS *= -1.0 * fabs(z);
+			CVector4 tempT = tempS * fractal->transformCommon.scale0;
+			tempS.x = exp2(tempT.x) - 1.0;
+			tempS.y = exp2(tempT.y) - 1.0;
+			tempS.z = exp2(tempT.z) - 1.0;
+
+			z.x += sign(z.x) * tempS.x;
+			z.y += sign(z.y) * tempS.y;
+			z.z += sign(z.z) * tempS.z;
+
+		}
+		else
+		{
+			CVector4 tempR = z * fractal->transformCommon.scale0;
+			z.x += exp2(tempR.x) - 1.0;
+			z.y += exp2(tempR.y) - 1.0;
+			z.z += exp2(tempR.z) - 1.0;
+		}
+		/*CVector4 tempS;
 		if (fractal->transformCommon.functionEnabled)
 		{
 			tempS = fabs(z);
@@ -6712,7 +6786,7 @@ void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			z.x += exp2(tempR.x) - 1.0;
 			z.y += exp2(tempR.y) - 1.0;
 			z.z += exp2(tempR.z) - 1.0;
-		}
+		}*/
 		aux.DE = aux.DE + exp2(aux.DE * fractal->transformCommon.scale0) - 1.0;
 	}
 }

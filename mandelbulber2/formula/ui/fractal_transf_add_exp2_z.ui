@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_add_exp2_z</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>808</width>
+    <width>819</width>
     <height>1876</height>
    </rect>
   </property>
@@ -494,27 +494,30 @@
        <number>2</number>
       </property>
       <item>
-	   <widget class="QLabel" name="label_information_general">
-	    <property name="text">
-		 <string notr="true">&lt;p&gt;Add exp2(z)&lt;/p&gt;&lt;table&gt;
+       <widget class="QLabel" name="label_information_general">
+        <property name="text">
+         <string notr="true">&lt;p&gt;Add exp2(z)&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
-		</property>
-		<property name="wordWrap">
-		 <bool>true</bool>
-		</property>
-		<property name="openExternalLinks">
-		 <bool>true</bool>
-		</property>
-		<property name="textInteractionFlags">
-		 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		</property>
-		</widget>
-	   </item>
-	   <item>
-	    <widget class="QLabel" name="label_code_content">
-		 <property name="text">
-		  <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_code_content">
+        <property name="styleSheet">
+         <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
 &lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfAddExp2ZIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   CVector4 tempZ &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
@@ -600,22 +603,19 @@
 &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>
-		 </property>
-		 <property name="wordWrap">
-		  <bool>true</bool>
-		 </property>
-		 <property name="openExternalLinks">
-		  <bool>true</bool>
-		 </property>
-		 <property name="textInteractionFlags">
-		  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		 </property>
-		 <property name="styleSheet">
-		  <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
-		  </property>
-		 </widget>
-		</item>
-	   </layout>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -635,15 +635,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
@@ -679,18 +679,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox_transf_function_enabled</sender>
+   <sender>checkBox_transf_function_enabledBz_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabled_false</receiver>
+   <receiver>slider_transf_scale_0</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>256</x>
-     <y>246</y>
+     <x>19</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
-     <x>510</x>
-     <y>255</y>
+     <x>287</x>
+     <y>289</y>
     </hint>
    </hints>
   </connection>
@@ -701,28 +701,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>68</x>
-     <y>249</y>
+     <x>67</x>
+     <y>257</y>
     </hint>
     <hint type="destinationlabel">
-     <x>249</x>
-     <y>255</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledBz_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>slider_transf_scale_0</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>85</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>309</x>
-     <y>297</y>
+     <x>296</x>
+     <y>257</y>
     </hint>
    </hints>
   </connection>
@@ -733,188 +717,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>102</x>
-     <y>250</y>
+     <x>45</x>
+     <y>248</y>
     </hint>
     <hint type="destinationlabel">
-     <x>690</x>
-     <y>289</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledAx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAx_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>249</x>
-     <y>11</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>499</x>
-     <y>16</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledAy</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAy_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>245</x>
-     <y>71</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>494</x>
-     <y>70</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledAz</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAz_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>242</x>
-     <y>133</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>495</x>
-     <y>138</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAx</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>69</x>
-     <y>7</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>193</x>
-     <y>18</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAy</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>47</x>
-     <y>77</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>215</x>
-     <y>74</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAz</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>55</x>
-     <y>132</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>224</x>
-     <y>140</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>slider3_transf_constant_multiplier_000_x</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>90</x>
-     <y>14</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>214</x>
-     <y>51</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_constant_multiplier_000_x</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>63</x>
-     <y>16</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>667</x>
-     <y>46</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>slider3_transf_constant_multiplier_000_y</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>59</x>
-     <y>68</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>247</x>
-     <y>104</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_constant_multiplier_000_y</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>67</x>
-     <y>68</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>658</x>
-     <y>97</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_constant_multiplier_000_z</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>83</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>697</x>
-     <y>169</y>
+     <x>744</x>
+     <y>292</y>
     </hint>
    </hints>
   </connection>
@@ -925,12 +733,28 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>95</x>
+     <x>26</x>
      <y>252</y>
     </hint>
     <hint type="destinationlabel">
-     <x>539</x>
-     <y>253</y>
+     <x>592</x>
+     <y>252</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplier_000_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>64</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>732</x>
+     <y>168</y>
     </hint>
    </hints>
   </connection>
@@ -941,44 +765,28 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>128</y>
+     <x>93</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
-     <x>245</x>
+     <x>469</x>
      <y>160</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledx</sender>
+   <sender>checkBox_transf_function_enabledz</sender>
    <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAx_false</receiver>
+   <receiver>checkBox_transf_function_enabledAz</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>18</y>
+     <x>42</x>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
-     <x>541</x>
-     <y>23</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_transf_function_enabledAy_false</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>40</x>
-     <y>71</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>559</x>
-     <y>72</y>
+     <x>350</x>
+     <y>134</y>
     </hint>
    </hints>
   </connection>
@@ -990,11 +798,139 @@
    <hints>
     <hint type="sourcelabel">
      <x>45</x>
-     <y>129</y>
+     <y>124</y>
     </hint>
     <hint type="destinationlabel">
-     <x>539</x>
-     <y>137</y>
+     <x>582</x>
+     <y>131</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplier_000_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>761</x>
+     <y>110</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transf_constant_multiplier_000_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>113</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAy</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>23</x>
+     <y>68</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAy_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>32</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>606</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplier_000_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>10</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>728</x>
+     <y>42</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transf_constant_multiplier_000_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>10</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>46</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAx</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>10</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>10</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAx_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>26</x>
+     <y>13</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>633</x>
+     <y>8</y>
     </hint>
    </hints>
   </connection>
