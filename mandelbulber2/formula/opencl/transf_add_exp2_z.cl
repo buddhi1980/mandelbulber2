@@ -21,31 +21,56 @@ float4 TransfAddExp2ZIteration(float4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledAx)
 		{
 			tempZ.x = fabs(z.x);
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				tempZ.x = -tempZ.x;
-			}
-			tempZ.x = exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0f;
-			z.x += copysign(tempZ.x, z.x);
+			tempZ.x = native_exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			z.x += sign(z.x) * tempZ.x;
+		}
+		else if (fractal->transformCommon.functionEnabledAxFalse)
+		{
+			tempZ.x = fabs(z.x);
+			tempZ.x = native_exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			z.x -= sign(z.x) * tempZ.x;
+		}
+		else // no fabs
+			z.x += native_exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
+	}
+
+	/*{
+		if ( != fractal->transformCommon.functionEnabledAx && != fractal->transformCommon.functionEnabledAxFalse)
+		{
+				z.x += native_exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
 		}
 		else
-			z.x += exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0f;
-	}
+		{
+		tempZ.x = fabs(z.x);
+		tempZ.x = native_exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			z.x += sign(z.x) * tempZ.x;
+		}
+		else
+		{
+			z.x -= sign(z.x) * tempZ.x;
+		}
+	}*/
+
+
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
 		if (fractal->transformCommon.functionEnabledAy)
 		{
 			tempZ.y = fabs(z.y);
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				tempZ.y = -tempZ.y;
-			}
-			tempZ.y = exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0f;
-			z.y += copysign(tempZ.y, z.y);
+			tempZ.y = exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y += sign(z.y) * tempZ.y;
+		}
+		else if (fractal->transformCommon.functionEnabledAyFalse)
+		{
+			tempZ.y = fabs(z.y);
+			tempZ.y = exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y -= sign(z.y) * tempZ.y;
 		}
 		else
-			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0f;
+			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
@@ -53,47 +78,56 @@ float4 TransfAddExp2ZIteration(float4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledAz)
 		{
 			tempZ.z = fabs(z.z);
-			if (fractal->transformCommon.functionEnabledAzFalse)
-			{
-				tempZ.z = -tempZ.z;
-			}
-			tempZ.z = exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0f;
-			z.z += copysign(tempZ.z, z.z);
+			tempZ.z = exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z += sign(z.z) * tempZ.z;
+		}
+		else if (fractal->transformCommon.functionEnabledAzFalse)
+		{
+			tempZ.z = fabs(z.z);
+			tempZ.z = exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z -= sign(z.z) * tempZ.z;
 		}
 		else
-			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0f;
+			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
 	}
-	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 
-	// DE calc version
+	//vector z version
 	if (fractal->transformCommon.functionEnabledBzFalse)
-	{
-		float4 tempS;
+	{		float4 tempS;
 		if (fractal->transformCommon.functionEnabled)
 		{
 			tempS = fabs(z);
-			if (fractal->transformCommon.functionEnabledFalse)
-			{
-				tempS *= -1.0f;
-			}
-			float4 tempT = tempS * fractal->transformCommon.scale0;
-			tempS.x = exp2(tempT.x) - 1.0f;
-			tempS.y = exp2(tempT.y) - 1.0f;
-			tempS.z = exp2(tempT.z) - 1.0f;
+			float4 tempT = tempS * -fractal->transformCommon.scale0;
+			tempS.x = native_exp2(tempT.x) - 1.0;
+			tempS.y = native_exp2(tempT.y) - 1.0;
+			tempS.z = native_exp2(tempT.z) - 1.0;
 
-			z.x += copysign(tempS.x, z.x);
-			z.y += copysign(tempS.y, z.y);
-			z.z += copysign(tempS.z, z.z);
+			z.x += sign(z.x) * tempS.x;
+			z.y += sign(z.y) * tempS.y;
+			z.z += sign(z.z) * tempS.z;
+		}
+		else if (fractal->transformCommon.functionEnabledFalse)
+		{
+			tempS = fabs(z);
+			float4 tempT = tempS * -fractal->transformCommon.scale0;
+			tempS.x = native_exp2(tempT.x) - 1.0;
+			tempS.y = native_exp2(tempT.y) - 1.0;
+			tempS.z = native_exp2(tempT.z) - 1.0;
+
+			z.x -= sign(z.x) * tempS.x;
+			z.y -= sign(z.y) * tempS.y;
+			z.z -= sign(z.z) * tempS.z;
 		}
 		else
 		{
 			float4 tempR = z * fractal->transformCommon.scale0;
-			z.x += exp2(tempR.x) - 1.0f;
-			z.y += exp2(tempR.y) - 1.0f;
-			z.z += exp2(tempR.z) - 1.0f;
+			z.x += native_exp2(tempR.x) - 1.0;
+			z.y += native_exp2(tempR.y) - 1.0;
+			z.z += native_exp2(tempR.z) - 1.0;
 		}
-		aux->DE = aux->DE + exp2(aux->DE * fractal->transformCommon.scale0) - 1.0f;
 	}
+
+	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 	return z;
 }
 #else
@@ -106,14 +140,16 @@ double4 TransfAddExp2ZIteration(double4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAx)
 		{
 			tempZ.x = fabs(z.x);
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				tempZ.x = -tempZ.x;
-			}
-			tempZ.x = exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
-			z.x += copysign(tempZ.x, z.x);
+			tempZ.x = exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			z.x += sign(z.x) * tempZ.x;
 		}
-		else
+		else if (fractal->transformCommon.functionEnabledAxFalse)
+		{
+			tempZ.x = fabs(z.x);
+			tempZ.x = exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			z.x -= sign(z.x) * tempZ.x;
+		}
+		else // no fabs
 			z.x += exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
 	}
 
@@ -122,12 +158,14 @@ double4 TransfAddExp2ZIteration(double4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAy)
 		{
 			tempZ.y = fabs(z.y);
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				tempZ.y = -tempZ.y;
-			}
-			tempZ.y = exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
-			z.y += copysign(tempZ.y, z.y);
+			tempZ.y = exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y += sign(z.y) * tempZ.y;
+		}
+		else if (fractal->transformCommon.functionEnabledAyFalse)
+		{
+			tempZ.y = fabs(z.y);
+			tempZ.y = exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y -= sign(z.y) * tempZ.y;
 		}
 		else
 			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
@@ -138,47 +176,55 @@ double4 TransfAddExp2ZIteration(double4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAz)
 		{
 			tempZ.z = fabs(z.z);
-			if (fractal->transformCommon.functionEnabledAzFalse)
-			{
-				tempZ.z = -tempZ.z;
-			}
-			tempZ.z = exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
-			z.z += copysign(tempZ.z, z.z);
+			tempZ.z = exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z += sign(z.z) * tempZ.z;
+		}
+		else if (fractal->transformCommon.functionEnabledAzFalse)
+		{
+			tempZ.z = fabs(z.z);
+			tempZ.z = exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z -= sign(z.z) * tempZ.z;
 		}
 		else
 			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
 	}
-	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 
-	// DE calc version
+	//vector z version
 	if (fractal->transformCommon.functionEnabledBzFalse)
-	{
-		double4 tempS;
+	{		double4 tempS;
 		if (fractal->transformCommon.functionEnabled)
 		{
 			tempS = fabs(z);
-			if (fractal->transformCommon.functionEnabledFalse)
-			{
-				tempS *= -1.0;
-			}
-			double4 tempT = tempS * fractal->transformCommon.scale0;
-			tempS.x = exp2(tempT.x) - 1.0;
-			tempS.y = exp2(tempT.y) - 1.0;
-			tempS.z = exp2(tempT.z) - 1.0;
+			double4 tempT = tempS * -fractal->transformCommon.scale0;
+			tempS.x = native_exp2(tempT.x) - 1.0;
+			tempS.y = native_exp2(tempT.y) - 1.0;
+			tempS.z = native_exp2(tempT.z) - 1.0;
 
-			z.x += copysign(tempS.x, z.x);
-			z.y += copysign(tempS.y, z.y);
-			z.z += copysign(tempS.z, z.z);
+			z.x += sign(z.x) * tempS.x;
+			z.y += sign(z.y) * tempS.y;
+			z.z += sign(z.z) * tempS.z;
+		}
+		else if (fractal->transformCommon.functionEnabledFalse)
+		{
+			tempS = fabs(z);
+			double4 tempT = tempS * -fractal->transformCommon.scale0;
+			tempS.x = native_exp2(tempT.x) - 1.0;
+			tempS.y = native_exp2(tempT.y) - 1.0;
+			tempS.z = native_exp2(tempT.z) - 1.0;
+
+			z.x -= sign(z.x) * tempS.x;
+			z.y -= sign(z.y) * tempS.y;
+			z.z -= sign(z.z) * tempS.z;
 		}
 		else
 		{
 			double4 tempR = z * fractal->transformCommon.scale0;
-			z.x += exp2(tempR.x) - 1.0;
-			z.y += exp2(tempR.y) - 1.0;
-			z.z += exp2(tempR.z) - 1.0;
+			z.x += native_exp2(tempR.x) - 1.0;
+			z.y += native_exp2(tempR.y) - 1.0;
+			z.z += native_exp2(tempR.z) - 1.0;
 		}
-		aux->DE = aux->DE + exp2(aux->DE * fractal->transformCommon.scale0) - 1.0;
 	}
+	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 	return z;
 }
 #endif

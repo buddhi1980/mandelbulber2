@@ -34,13 +34,6 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="5" column="1" colspan="5">
-      <widget class="Line" name="line_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="6" column="4">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
@@ -128,13 +121,6 @@
        <property name="sliderPosition">
         <number>0</number>
        </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" colspan="5">
-      <widget class="Line" name="line_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -298,17 +284,24 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="1" colspan="5">
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="5">
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
     <widget class="Line" name="line_4">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_5">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -415,39 +408,7 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_112">
-       <property name="text">
-        <string>DE Tweak:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QSlider" name="slider_analyticDE_scale_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-10000000</number>
-       </property>
-       <property name="maximum">
-        <number>10000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
+     <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -472,6 +433,45 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSlider" name="slider_analyticDE_scale_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-10000000</number>
+       </property>
+       <property name="maximum">
+        <number>10000000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_112">
+       <property name="text">
+        <string>DE Tweak:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="3">
+      <widget class="Line" name="line_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -686,5 +686,262 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplier_000_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>98</x>
+     <y>17</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transf_constant_multiplier_000_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>14</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>41</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAx_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>102</x>
+     <y>12</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>616</x>
+     <y>12</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAx</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>84</x>
+     <y>9</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>311</x>
+     <y>10</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplier_000_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>720</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transf_constant_multiplier_000_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>371</x>
+     <y>103</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAy_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>126</x>
+     <y>74</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>564</x>
+     <y>80</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAy</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>129</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>341</x>
+     <y>75</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplier_000_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>742</x>
+     <y>168</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transf_constant_multiplier_000_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>107</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>381</x>
+     <y>165</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAz_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>136</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>579</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAz</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>142</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>406</x>
+     <y>131</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transf_scale_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>226</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>787</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider_transf_scale_0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>446</x>
+     <y>254</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabled_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>560</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledBz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabled</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>232</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

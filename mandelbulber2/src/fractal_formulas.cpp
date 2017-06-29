@@ -6691,7 +6691,7 @@ void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
 	}
 
-	// DE calc version
+	//vector z version
 	if (fractal->transformCommon.functionEnabledBzFalse)
 	{		CVector4 tempS;
 		if (fractal->transformCommon.functionEnabled)
