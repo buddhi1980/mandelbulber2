@@ -32,8 +32,6 @@
  * Fast kernel for rendering opencl with missing effects
  */
 
-#define MAX_RAYMARCHING 5000
-
 int GetInteger(int byte, __global char *array)
 {
 	__global int *intPointer = (__global int *)&array[byte];
@@ -167,6 +165,8 @@ kernel void fractal3D(
 		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
 		scan += step / length(viewVector);
 	}
+	
+	point = start + viewVector * scan;
 
 	// final binary searching
 	if (found)
@@ -193,10 +193,6 @@ kernel void fractal3D(
 			distance = outF.distance;
 			step *= 0.5f;
 		}
-	}
-	else
-	{
-		scan = 1e20f;
 	}
 
 	// shaders
@@ -229,6 +225,7 @@ kernel void fractal3D(
 	shaderInputData.AOVectorsCount = AOVectorsCount;
 	shaderInputData.lights = lights;
 	shaderInputData.numberOfLights = numberOfLights;
+	shaderInputData.stepCount = count;
 
 	float3 surfaceColor = 0.0f;
 	float3 specular = 0.0f;
@@ -240,20 +237,23 @@ kernel void fractal3D(
 	else
 	{
 		color = BackgroundShader(consts, &shaderInputData);
+		scan = 1e20;
 	}
+
+	float4 color4 = (float4){color.s0, color.s1, color.s2, 0.0f};
+	float opacityOut;
+	color4 = VolumetricShader(consts, &shaderInputData, &calcParam, color4, &opacityOut);
 
 	sClPixel pixel;
 
-	float glow = count / 1500.0 * consts->params.DEFactor;
-
-	pixel.R = color.s0 + glow;
-	pixel.G = color.s1 + glow;
-	pixel.B = color.s2 + glow;
+	pixel.R = color4.s0;
+	pixel.G = color4.s1;
+	pixel.B = color4.s2;
 	pixel.zBuffer = scan;
 	pixel.colR = surfaceColor.s0 * 256.0f;
 	pixel.colG = surfaceColor.s1 * 256.0f;
 	pixel.colB = surfaceColor.s2 * 256.0f;
-	pixel.opacity = 0;
+	pixel.opacity = opacityOut * 65535;
 	pixel.alpha = 65535;
 
 	out[buffIndex] = pixel;

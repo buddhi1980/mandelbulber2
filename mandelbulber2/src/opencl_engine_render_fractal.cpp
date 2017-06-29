@@ -129,6 +129,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		programEngine.append("#define HYBRID_COUNT " + QString::number(HYBRID_COUNT) + "\n");
 		programEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
 		programEngine.append("#define Q_UNUSED(x) (void)x;\n");
+		programEngine.append("#define MAX_RAYMARCHING " + QString::number(5000) + "\n");
 
 		QStringList clHeaderFiles;
 		clHeaderFiles.append("opencl_typedefs.h");			 // definitions of common opencl types

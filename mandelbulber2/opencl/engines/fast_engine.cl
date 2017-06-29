@@ -32,8 +32,6 @@
  * Fast kernel for rendering opencl with missing effects
  */
 
-#define MAX_RAYMARCHING 5000
-
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	__constant sClInConstants *consts, int Gcl_offset)

@@ -9,6 +9,7 @@ typedef struct
 	float lastDist;
 	float delta; // initial step distance for shaders based on distance form camera
 	float depth;
+	int stepCount;
 	int AOVectorsCount;
 	int numberOfLights;
 	bool invertMode;
@@ -553,4 +554,105 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 	*outSpecular = specular;
 
 	return color;
+}
+
+float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
+	sClCalcParams *calcParam, float4 oldPixel, float *opacityOut)
+{
+	float4 out4 = oldPixel;
+	float3 output = oldPixel.xyz;
+	float totalOpacity = 0.0f;
+
+	// volumetric fog init
+	float colourThresh = consts->params.volFogColour1Distance;
+	float colourThresh2 = consts->params.volFogColour2Distance;
+	float fogReduce = consts->params.volFogDistanceFactor;
+	float fogIntensity = consts->params.volFogDensity;
+
+	// visible lights init
+	int numberOfLights = input->numberOfLights;
+	if (numberOfLights < 4) numberOfLights = 4;
+
+	// glow init
+	float glow = input->stepCount * consts->params.glowIntensity / 512.0f * consts->params.DEFactor;
+	float glowN = 1.0f - glow;
+	if (glowN < 0.0f) glowN = 0.0f;
+
+	float3 glowColor;
+
+	glowColor.s0 =
+		(glowN * consts->params.glowColor1.s0 + consts->params.glowColor2.s0 * glow) / 65536.0f;
+	glowColor.s1 =
+		(glowN * consts->params.glowColor1.s1 + consts->params.glowColor2.s1 * glow) / 65536.0f;
+	glowColor.s2 =
+		(glowN * consts->params.glowColor1.s2 + consts->params.glowColor2.s2 * glow) / 65536.0f;
+
+	float totalStep = 0.0;
+	float scan = CalcDelta(input->point, consts);
+
+	sShaderInputDataCl input2 = *input;
+
+	for (int i = 0; i < MAX_RAYMARCHING; i++)
+	{
+
+		float3 point = input->point - input->viewVector * scan;
+
+		calcParam->distThresh = input->distThresh;
+		formulaOut outF;
+		outF = CalculateDistance(consts, point, calcParam);
+		float distance = outF.distance;
+
+		input2.point = point;
+		input2.distThresh = CalcDistThresh(point, consts);
+		input2.delta = CalcDelta(point, consts);
+
+		float step = distance * consts->params.DEFactor;
+		step = max(step, input2.delta);
+
+		bool end = false;
+		if (step > input->depth - scan)
+		{
+			step = input->depth - scan;
+			end = true;
+		}
+
+		scan += step;
+
+		//------------------- glow
+		if (consts->params.glowEnabled)
+		{
+			float glowOpacity = glow / input->stepCount;
+			if (glowOpacity > 1.0f) glowOpacity = 1.0f;
+
+			output = glowOpacity * glowColor + (1.0f - glowOpacity) * output;
+			out4.s3 += glowOpacity;
+		}
+
+		//----------------------- basic fog
+		if (consts->params.fogEnabled)
+		{
+			float fogDensity = step / consts->params.fogVisibility;
+			if (fogDensity > 1.0f) fogDensity = 1.0f;
+
+			output.s0 =
+				fogDensity * consts->params.fogColor.s0 / 65536.0f + (1.0f - fogDensity) * output.s0;
+			output.s1 =
+				fogDensity * consts->params.fogColor.s1 / 65536.0f + (1.0f - fogDensity) * output.s1;
+			output.s2 =
+				fogDensity * consts->params.fogColor.s2 / 65536.0f + (1.0f - fogDensity) * output.s2;
+
+			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
+			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
+		}
+
+		if (totalOpacity > 1.0f) totalOpacity = 1.0f;
+		if (out4.s3 > 1.0f) out4.s3 = 1.0f; // alpha channel
+
+		*opacityOut = totalOpacity;
+
+		if (end) break;
+	}
+
+	out4.xyz = output;
+	return out4;
 }
