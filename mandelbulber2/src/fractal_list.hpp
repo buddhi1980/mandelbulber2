@@ -233,7 +233,7 @@ enum enumFractalFormula
 	transfOctoFold = 1059,
 	transfScaleVaryVCL = 1060,
 	transfSphericalFoldVaryVCL = 1061,
-	transfAddExp2Z = 1062,
+	transfAddExp2Z = 1062, // updated V2.12
 	transfReciprocal3 = 1063,
 	transfRotationFolding = 1064,
 	transfFabsAddConditional = 1065,
