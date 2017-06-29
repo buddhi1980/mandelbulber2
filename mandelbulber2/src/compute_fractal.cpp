@@ -357,7 +357,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 				{
 					if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
-						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.minR05 - z.y);
+						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 
 					out->distance =
 						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
@@ -413,7 +413,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case analyticFunctionJosKleinian:
 				{
 					if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
-						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.minR05 - z.y);
+						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 
 					out->distance =
 						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)

@@ -201,7 +201,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	dist = max(aux.r - aux.pseudoKleinianDE, fabs(aux.r * z.z) / aux.r) / (aux.DE);
 #elif ANALYTIC_JOS_KLEINIAN_DE
 	if (fractal->transformCommon.functionEnabled)
-		z.y = min(z.y, fractal->transformCommon.minR05 - z.y);
+		z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
 
 	dist =
 		min(z.y, fractal->analyticDE.tweak005) / max(aux.pseudoKleinianDE, fractal->analyticDE.offset1);
