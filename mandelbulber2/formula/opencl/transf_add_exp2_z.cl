@@ -22,13 +22,15 @@ float4 TransfAddExp2ZIteration(float4 z, __constant sFractalCl *fractal, sExtend
 		{
 			tempZ.x = fabs(z.x);
 			tempZ.x = native_exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
-			z.x += sign(z.x) * tempZ.x;
+			//z.x += sign(z.x) * tempZ.x;
+			z.x -= copysign(tempZ.x, z.x);
 		}
 		else if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			tempZ.x = fabs(z.x);
 			tempZ.x = native_exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
-			z.x -= sign(z.x) * tempZ.x;
+			//z.x -= sign(z.x) * tempZ.x;
+			z.x += copysign(tempZ.x, z.x);
 		}
 		else // no fabs
 			z.x += native_exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
@@ -45,11 +47,13 @@ float4 TransfAddExp2ZIteration(float4 z, __constant sFractalCl *fractal, sExtend
 		tempZ.x = native_exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
 		if (fractal->transformCommon.functionEnabledAx)
 		{
-			z.x += sign(z.x) * tempZ.x;
+			//z.x += sign(z.x) * tempZ.x;
+			z.x -= copysign(tempZ.x, z.x);
 		}
 		else
 		{
-			z.x -= sign(z.x) * tempZ.x;
+			//z.x -= sign(z.x) * tempZ.x;
+			z.x += copysign(tempZ.x, z.x);
 		}
 	}*/
 
@@ -60,17 +64,19 @@ float4 TransfAddExp2ZIteration(float4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledAy)
 		{
 			tempZ.y = fabs(z.y);
-			tempZ.y = exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
-			z.y += sign(z.y) * tempZ.y;
+			tempZ.y = native_exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			//z.y += sign(z.y) * tempZ.y;
+			z.y -= copysign(tempZ.y, z.y);
 		}
 		else if (fractal->transformCommon.functionEnabledAyFalse)
 		{
 			tempZ.y = fabs(z.y);
-			tempZ.y = exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
-			z.y -= sign(z.y) * tempZ.y;
+			tempZ.y = native_exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			//z.y -= sign(z.y) * tempZ.y;
+			z.y += copysign(tempZ.y, z.y);
 		}
 		else
-			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y += native_exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
@@ -78,17 +84,19 @@ float4 TransfAddExp2ZIteration(float4 z, __constant sFractalCl *fractal, sExtend
 		if (fractal->transformCommon.functionEnabledAz)
 		{
 			tempZ.z = fabs(z.z);
-			tempZ.z = exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
-			z.z += sign(z.z) * tempZ.z;
+			tempZ.z = native_exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			//z.z += sign(z.z) * tempZ.z;
+			z.z -= copysign(tempZ.z, z.z);
 		}
 		else if (fractal->transformCommon.functionEnabledAzFalse)
 		{
 			tempZ.z = fabs(z.z);
-			tempZ.z = exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
-			z.z -= sign(z.z) * tempZ.z;
+			tempZ.z = native_exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			//z.z -= sign(z.z) * tempZ.z;
+			z.z += copysign(tempZ.z, z.z);
 		}
 		else
-			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z += native_exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
 	}
 
 	//vector z version
@@ -102,9 +110,12 @@ float4 TransfAddExp2ZIteration(float4 z, __constant sFractalCl *fractal, sExtend
 			tempS.y = native_exp2(tempT.y) - 1.0;
 			tempS.z = native_exp2(tempT.z) - 1.0;
 
-			z.x += sign(z.x) * tempS.x;
-			z.y += sign(z.y) * tempS.y;
-			z.z += sign(z.z) * tempS.z;
+			z.x -= copysign(tempS.x, z.x);
+			z.y -= copysign(tempS.y, z.y);
+			z.z -= copysign(tempS.z, z.z);
+			//z.x += sign(z.x) * tempS.x;
+			//z.y += sign(z.y) * tempS.y;
+			//z.z += sign(z.z) * tempS.z;
 		}
 		else if (fractal->transformCommon.functionEnabledFalse)
 		{
@@ -114,9 +125,12 @@ float4 TransfAddExp2ZIteration(float4 z, __constant sFractalCl *fractal, sExtend
 			tempS.y = native_exp2(tempT.y) - 1.0;
 			tempS.z = native_exp2(tempT.z) - 1.0;
 
-			z.x -= sign(z.x) * tempS.x;
-			z.y -= sign(z.y) * tempS.y;
-			z.z -= sign(z.z) * tempS.z;
+			z.x += copysign(tempS.x, z.x);
+			z.y += copysign(tempS.y, z.y);
+			z.z += copysign(tempS.z, z.z);
+			//z.x -= sign(z.x) * tempS.x;
+			//z.y -= sign(z.y) * tempS.y;
+			//z.z -= sign(z.z) * tempS.z;
 		}
 		else
 		{
@@ -140,17 +154,17 @@ double4 TransfAddExp2ZIteration(double4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAx)
 		{
 			tempZ.x = fabs(z.x);
-			tempZ.x = exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
-			z.x += sign(z.x) * tempZ.x;
+			tempZ.x = native_exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			z.x -= copysign(tempZ.x, z.x);
 		}
 		else if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			tempZ.x = fabs(z.x);
-			tempZ.x = exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
-			z.x -= sign(z.x) * tempZ.x;
+			tempZ.x = native_exp2(tempZ.x * -fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			z.x += copysign(tempZ.x, z.x);
 		}
 		else // no fabs
-			z.x += exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
+			z.x += native_exp2(tempZ.x * fractal->transformCommon.constantMultiplier000.x) - 1.0;
 	}
 
 	if (fractal->transformCommon.functionEnabledy)
@@ -158,17 +172,17 @@ double4 TransfAddExp2ZIteration(double4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAy)
 		{
 			tempZ.y = fabs(z.y);
-			tempZ.y = exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
-			z.y += sign(z.y) * tempZ.y;
+			tempZ.y = native_exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y -= copysign(tempZ.y, z.y);
 		}
 		else if (fractal->transformCommon.functionEnabledAyFalse)
 		{
 			tempZ.y = fabs(z.y);
-			tempZ.y = exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
-			z.y -= sign(z.y) * tempZ.y;
+			tempZ.y = native_exp2(tempZ.y * -fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y += copysign(tempZ.y, z.y);
 		}
 		else
-			z.y += exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
+			z.y += native_exp2(tempZ.y * fractal->transformCommon.constantMultiplier000.y) - 1.0;
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
@@ -176,17 +190,17 @@ double4 TransfAddExp2ZIteration(double4 z, __constant sFractalCl *fractal, sExte
 		if (fractal->transformCommon.functionEnabledAz)
 		{
 			tempZ.z = fabs(z.z);
-			tempZ.z = exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
-			z.z += sign(z.z) * tempZ.z;
+			tempZ.z = native_exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z -= copysign(tempZ.z, z.z);
 		}
 		else if (fractal->transformCommon.functionEnabledAzFalse)
 		{
 			tempZ.z = fabs(z.z);
-			tempZ.z = exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
-			z.z -= sign(z.z) * tempZ.z;
+			tempZ.z = native_exp2(tempZ.z * -fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z += copysign(tempZ.z, z.z);
 		}
 		else
-			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
+			z.z += native_exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
 	}
 
 	//vector z version
@@ -200,9 +214,9 @@ double4 TransfAddExp2ZIteration(double4 z, __constant sFractalCl *fractal, sExte
 			tempS.y = native_exp2(tempT.y) - 1.0;
 			tempS.z = native_exp2(tempT.z) - 1.0;
 
-			z.x += sign(z.x) * tempS.x;
-			z.y += sign(z.y) * tempS.y;
-			z.z += sign(z.z) * tempS.z;
+			z.x -= copysign(tempS.x, z.x);
+			z.y -= copysign(tempS.y, z.y);
+			z.z -= copysign(tempS.z, z.z);
 		}
 		else if (fractal->transformCommon.functionEnabledFalse)
 		{
@@ -212,9 +226,9 @@ double4 TransfAddExp2ZIteration(double4 z, __constant sFractalCl *fractal, sExte
 			tempS.y = native_exp2(tempT.y) - 1.0;
 			tempS.z = native_exp2(tempT.z) - 1.0;
 
-			z.x -= sign(z.x) * tempS.x;
-			z.y -= sign(z.y) * tempS.y;
-			z.z -= sign(z.z) * tempS.z;
+			z.x += copysign(tempS.x, z.x);
+			z.y += copysign(tempS.y, z.y);
+			z.z += copysign(tempS.z, z.z);
 		}
 		else
 		{
