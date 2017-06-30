@@ -317,6 +317,18 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			anyVolumetricShaderUsed = true;
 		}
 	}
+
+	bool isVolumetricLight = false;
+	for (int i = 0; i < 5; i++)
+	{
+		if (paramRender->volumetricLightEnabled[i]) isVolumetricLight = true;
+	}
+	if (isVolumetricLight)
+	{
+		definesCollector += " -DVOLUMETRIC_LIGHTS";
+		anyVolumetricShaderUsed = true;
+	}
+
 	if (paramRender->glowEnabled) definesCollector += " -DGLOW";
 	if (paramRender->fogEnabled)
 	{

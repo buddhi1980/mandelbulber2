@@ -658,7 +658,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 					{
 						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
 						float lightDist = fast_length(lightDistVect);
-						float lightSize = sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
+						float lightSize = native_sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
 						float distToLightSurface = lightDist - lightSize;
 						distToLightSurface = max(distToLightSurface, 0.0f);
 						if (distToLightSurface <= lowestLightDist)
@@ -671,24 +671,24 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 				miniStep = 0.1f * (lowestLightDist + 0.1f * lowestLightSize);
 				miniStep = clamp(miniStep, step * 0.01f, step - miniSteps);
-				miniStep = max(miniStep, 1e-6);
+				miniStep = max(miniStep, 1e-6f);
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{
 					__global sLightCl *light = &input->lights[i];
-					if (light->enabled && light->intensity > 0)
+					if (light->enabled && light->intensity > 0.0f)
 					{
 						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
 						float lightDist = fast_length(lightDistVect);
-						float lightSize = sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
-						float r2 = lightDist / lightSize;
-						float bellFunction = 1.0f / (1.0f + pown(r2, 4));
+						float lightSize = native_sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
+						float r2 = native_divide(lightDist, lightSize);
+						float bellFunction = native_divide(1.0f, (1.0f + native_powr(r2, 4.0f)));
 						float lightDensity =
-							miniStep * bellFunction * consts->params.auxLightVisibility / lightSize;
+							native_divide(miniStep * bellFunction * consts->params.auxLightVisibility, lightSize);
 
-						output.s0 += lightDensity * light->colour.s0 / 65536.0f;
-						output.s1 += lightDensity * light->colour.s1 / 65536.0f;
-						output.s2 += lightDensity * light->colour.s2 / 65536.0f;
+						output.s0 += lightDensity * light->colour.s0 * 1.5258e-5f;
+						output.s1 += lightDensity * light->colour.s1 * 1.5258e-5f;
+						output.s2 += lightDensity * light->colour.s2 * 1.5258e-5f;
 						out4.s3 += lightDensity;
 					}
 				}
@@ -701,6 +701,47 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			}
 		}
 #endif
+
+#ifdef VOLUMETRIC_LIGHTS
+		for (int i = 0; i < 5; i++)
+		{
+			if (i == 0 && consts->params.volumetricLightEnabled[0])
+			{
+				float3 shadowOutputTemp = MainShadow(consts, &input2, calcParam);
+				output.s0 += shadowOutputTemp.s0 * step * consts->params.volumetricLightIntensity[0]
+										 * consts->params.mainLightColour.s0 / 65536.0f;
+				output.s1 += shadowOutputTemp.s1 * step * consts->params.volumetricLightIntensity[0]
+										 * consts->params.mainLightColour.s1 / 65536.0f;
+				output.s2 += shadowOutputTemp.s2 * step * consts->params.volumetricLightIntensity[0]
+										 * consts->params.mainLightColour.s2 / 65536.0f;
+				out4.s3 += (shadowOutputTemp.s0 + shadowOutputTemp.s1 + shadowOutputTemp.s2) / 3.0f * step
+									 * consts->params.volumetricLightIntensity[0];
+			}
+#ifdef AUX_LIGHTS
+			if (i > 0)
+			{
+				__global sLightCl *light = &input->lights[i - 1];
+				if (light->enabled && consts->params.volumetricLightEnabled[i])
+				{
+					float3 lightVectorTemp = light->position - point;
+					float distanceLight = length(lightVectorTemp);
+					float distanceLight2 = distanceLight * distanceLight;
+					lightVectorTemp = normalize(lightVectorTemp);
+					float lightShadow = AuxShadow(consts, &input2, distanceLight, lightVectorTemp, calcParam);
+
+					output.s0 += lightShadow * light->colour.s0 / 65536.0f
+											 * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
+					output.s1 += lightShadow * light->colour.s1 / 65536.0f
+											 * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
+					output.s2 += lightShadow * light->colour.s2 / 65536.0f
+											 * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
+					out4.s3 +=
+						lightShadow * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
+				}
+			}
+#endif // AUX_LIGHTS
+		}
+#endif // VOLUMETRIC_LIGHTS
 
 //----------------------- basic fog
 #ifdef BASIC_FOG
