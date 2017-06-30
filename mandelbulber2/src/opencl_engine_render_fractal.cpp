@@ -297,6 +297,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		}
 	}
 
+	bool anyVolumetricShaderUsed = false;
+
 	if (paramRender->shadow) definesCollector += " -DSHADOWS";
 	if (paramRender->ambientOcclusionEnabled)
 	{
@@ -306,9 +308,15 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			definesCollector += " -DAO_MODE_MULTIPLE_RAYS";
 	}
 	if (paramRender->slowShading) definesCollector += " -DSLOW_SHADING";
-	if (renderData->lights.IsAnyLightEnabled()) definesCollector += " -DAUX_LIGHTS";
-
-	bool anyVolumetricShaderUsed = false;
+	if (renderData->lights.IsAnyLightEnabled())
+	{
+		definesCollector += " -DAUX_LIGHTS";
+		if (paramRender->auxLightVisibility > 0.0)
+		{
+			definesCollector += " -DVISIBLE_AUX_LIGHTS";
+			anyVolumetricShaderUsed = true;
+		}
+	}
 	if (paramRender->glowEnabled) definesCollector += " -DGLOW";
 	if (paramRender->fogEnabled)
 	{

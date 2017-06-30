@@ -641,6 +641,67 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		}
 #endif // GLOW
 
+#ifdef VISIBLE_AUX_LIGHTS
+		//------------------ visible light
+		{
+			float miniStep = 0.0f;
+			float lastMiniSteps = -1.0f;
+
+			for (float miniSteps = 0.0f; miniSteps < step; miniSteps += miniStep)
+			{
+				float lowestLightSize = 1e10f;
+				float lowestLightDist = 1e10f;
+				for (int i = 0; i < numberOfLights; ++i)
+				{
+					__global sLightCl *light = &input->lights[i];
+					if (light->enabled)
+					{
+						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
+						float lightDist = fast_length(lightDistVect);
+						float lightSize = sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
+						float distToLightSurface = lightDist - lightSize;
+						distToLightSurface = max(distToLightSurface, 0.0f);
+						if (distToLightSurface <= lowestLightDist)
+						{
+							lowestLightSize = min(lowestLightSize, lightSize);
+							lowestLightDist = distToLightSurface;
+						}
+					}
+				}
+
+				miniStep = 0.1f * (lowestLightDist + 0.1f * lowestLightSize);
+				miniStep = clamp(miniStep, step * 0.01f, step - miniSteps);
+				miniStep = max(miniStep, 1e-6);
+
+				for (int i = 0; i < numberOfLights; ++i)
+				{
+					__global sLightCl *light = &input->lights[i];
+					if (light->enabled && light->intensity > 0)
+					{
+						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
+						float lightDist = fast_length(lightDistVect);
+						float lightSize = sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
+						float r2 = lightDist / lightSize;
+						float bellFunction = 1.0f / (1.0f + pown(r2, 4));
+						float lightDensity =
+							miniStep * bellFunction * consts->params.auxLightVisibility / lightSize;
+
+						output.s0 += lightDensity * light->colour.s0 / 65536.0f;
+						output.s1 += lightDensity * light->colour.s1 / 65536.0f;
+						output.s2 += lightDensity * light->colour.s2 / 65536.0f;
+						out4.s3 += lightDensity;
+					}
+				}
+				if (miniSteps == lastMiniSteps)
+				{
+					// Dead computation
+					break;
+				}
+				lastMiniSteps = miniSteps;
+			}
+		}
+#endif
+
 //----------------------- basic fog
 #ifdef BASIC_FOG
 		{
