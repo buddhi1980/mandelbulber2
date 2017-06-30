@@ -573,6 +573,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	int numberOfLights = input->numberOfLights;
 	if (numberOfLights < 4) numberOfLights = 4;
 
+#ifdef GLOW
 	// glow init
 	float glow = input->stepCount * consts->params.glowIntensity / 512.0f * consts->params.DEFactor;
 	float glowN = 1.0f - glow;
@@ -586,7 +587,18 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		(glowN * consts->params.glowColor1.s1 + consts->params.glowColor2.s1 * glow) / 65536.0f;
 	glowColor.s2 =
 		(glowN * consts->params.glowColor1.s2 + consts->params.glowColor2.s2 * glow) / 65536.0f;
+#endif // GLOW
 
+#ifdef SIMPLE_GLOW // only simple glow, no another shaders
+#ifdef GLOW
+	glow *= 0.7;
+	float glowOpacity = 1.0f * glow;
+	if (glowOpacity > 1.0f) glowOpacity = 1.0f;
+	output = glow * glowColor + (1.0f - glowOpacity) * output;
+	out4.s3 += glowOpacity;
+#endif // GLOW
+
+#else // not SIMPLE_GLOW
 	float totalStep = 0.0;
 	float scan = CalcDelta(input->point, consts);
 
@@ -618,8 +630,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 		scan += step;
 
-		//------------------- glow
-		if (consts->params.glowEnabled)
+//------------------- glow
+#ifdef GLOW
 		{
 			float glowOpacity = glow / input->stepCount;
 			if (glowOpacity > 1.0f) glowOpacity = 1.0f;
@@ -627,9 +639,10 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			output = glowOpacity * glowColor + (1.0f - glowOpacity) * output;
 			out4.s3 += glowOpacity;
 		}
+#endif // GLOW
 
-		//----------------------- basic fog
-		if (consts->params.fogEnabled)
+//----------------------- basic fog
+#ifdef BASIC_FOG
 		{
 			float fogDensity = step / consts->params.fogVisibility;
 			if (fogDensity > 1.0f) fogDensity = 1.0f;
@@ -644,6 +657,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
 		}
+#endif // BASIC_FOG
 
 		if (totalOpacity > 1.0f) totalOpacity = 1.0f;
 		if (out4.s3 > 1.0f) out4.s3 = 1.0f; // alpha channel
@@ -652,6 +666,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 		if (end) break;
 	}
+#endif // not SIMPLE_GLOW
 
 	out4.xyz = output;
 	return out4;

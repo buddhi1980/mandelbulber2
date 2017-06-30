@@ -308,6 +308,15 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramRender->slowShading) definesCollector += " -DSLOW_SHADING";
 	if (renderData->lights.IsAnyLightEnabled()) definesCollector += " -DAUX_LIGHTS";
 
+	bool anyVolumetricShaderUsed = false;
+	if (paramRender->glowEnabled) definesCollector += " -DGLOW";
+	if (paramRender->fogEnabled)
+	{
+		definesCollector += " -DBASIC_FOG";
+		anyVolumetricShaderUsed = true;
+	}
+	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
+
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
