@@ -38,6 +38,15 @@
 #ifdef USE_OPENCL
 
 #include <QtCore>
+
+#ifdef _WIN32
+#ifndef _MSC_VER
+// clew for cross compile
+#include "clew.h"
+#include "clew-cl.hpp"
+#endif // NOT _MSC_VER
+#endif // _WIN32
+// OpenCL SDK for all others
 #if defined(__APPLE__) || defined(__MACOSX)
 #include <OpenCL/cl.hpp>
 #else
