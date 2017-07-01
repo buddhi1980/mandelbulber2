@@ -213,7 +213,7 @@ float4 AboxMod11Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAux
 			&& aux->i < fractal->transformCommon.stopIterationsC1)
 	{
 		z *= fractal->transformCommon.scaleG1;
-		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleG1) + 1.0;
+		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scaleG1), 1.0f);
 	}
 
 	// color
@@ -424,6 +424,7 @@ double4 AboxMod11Iteration(double4 z, __constant sFractalCl *fractal, sExtendedA
 		z *= fractal->transformCommon.scaleG1;
 		aux->DE = aux->DE * fabs(fractal->transformCommon.scaleG1) + 1.0;
 	}
+
 	// color
 	aux->foldFactor = fractal->foldColor.compFold; // fold group weight
 	aux->minRFactor = fractal->foldColor.compMinR; // orbit trap weight

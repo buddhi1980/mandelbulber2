@@ -2333,7 +2333,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
 	CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
 
-	z = CVector4(wrapped, z.w);
+	z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
 
 	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
@@ -2341,7 +2341,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	double z2 = z.Dot(z);
 
-	CVector4 colorVector = CVector4(z.GetXYZ(), z2);
+	CVector4 colorVector = CVector4(z.x, z.y, z.z, z2);
 	aux.color = min(aux.color, colorVector.Length()); // For coloring
 
 	double iR = 1.0 / z2;
