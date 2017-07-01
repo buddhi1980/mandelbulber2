@@ -146,7 +146,7 @@ float3 MainSpecular(sShaderInputDataCl *input)
 	return out;
 }
 
-#ifdef SHADOWS
+#if defined(SHADOWS) || defined(VOLUMETRIC_LIGHTS)
 float3 MainShadow(
 	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
@@ -340,7 +340,7 @@ float3 AmbientOcclusion(
 #endif
 
 #ifdef AUX_LIGHTS
-#ifdef SHADOWS
+#if defined(SHADOWS) || defined(VOLUMETRIC_LIGHTS)
 float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, float distance,
 	float3 lightVector, sClCalcParams *calcParam)
 {

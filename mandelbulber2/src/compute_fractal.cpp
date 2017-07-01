@@ -473,10 +473,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		out->distance = 0.0;
 
+		// needed for JosKleinian fractal to calculate spheres in deltaDE mode
 		if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 		{
 			if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
-				z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.minR05 - z.y);
+				z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 		}
 	}
 
