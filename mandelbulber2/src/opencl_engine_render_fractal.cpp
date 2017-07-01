@@ -482,6 +482,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 			size_t pixelsLeft = width * height - pixelIndex;
 			UpdateOptimalJobStart(pixelsLeft);
 
+			qDebug() << "Step size: " << optimalJob.stepSize;
+
 			ReAllocateImageBuffers();
 
 			// assign parameters to kernel
@@ -641,9 +643,6 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel(int pixelIndex)
 bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 {
 	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
-
-	size_t usedGPUdMem = optimalJob.sizeOfPixel * optimalJob.stepSize;
-	qDebug() << "Used GPU mem (KB): " << usedGPUdMem / 1024;
 
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 	{

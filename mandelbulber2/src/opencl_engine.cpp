@@ -193,7 +193,14 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 			hardware->getEnabledDevices(), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
 		qDebug() << "CL_KERNEL_WORK_GROUP_SIZE" << workGroupSize;
 
+		size_t workGroupSizeOptimalMultiplier = 0;
+		kernel->getWorkGroupInfo(hardware->getEnabledDevices(),
+			CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
+		qDebug() << "CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE" << workGroupSizeOptimalMultiplier;
+
 		optimalJob.workGroupSize = workGroupSize;
+		optimalJob.workGroupSizeOptimalMultiplier = workGroupSizeOptimalMultiplier;
+		qDebug() << workGroupSizeOptimalMultiplier;
 		kernelCreated = true;
 		return true;
 	}
@@ -214,7 +221,7 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 	size_t pixelCnt = width * height;
 	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDeviceInformation();
 
-	optimalJob.pixelsPerJob = optimalJob.workGroupSize * deviceInfo.maxComputeUnits;
+	optimalJob.pixelsPerJob = optimalJob.workGroupSize * optimalJob.workGroupSizeOptimalMultiplier;
 	optimalJob.numberOfSteps = pixelCnt / optimalJob.pixelsPerJob + 1;
 	optimalJob.stepSize =
 		(pixelCnt / optimalJob.numberOfSteps / optimalJob.pixelsPerJob + 1) * optimalJob.pixelsPerJob;
@@ -285,8 +292,8 @@ void cOpenClEngine::UpdateOptimalJobStart(int pixelsLeft)
 	if (optimalJob.workGroupSizeMultiplier * optimalJob.workGroupSize > optimalJob.jobSizeLimit)
 		optimalJob.workGroupSizeMultiplier = optimalJob.jobSizeLimit / optimalJob.workGroupSize;
 
-	if (optimalJob.workGroupSizeMultiplier < hardware->getSelectedDeviceInformation().maxComputeUnits)
-		optimalJob.workGroupSizeMultiplier = hardware->getSelectedDeviceInformation().maxComputeUnits;
+	if (optimalJob.workGroupSizeMultiplier < optimalJob.workGroupSizeOptimalMultiplier)
+		optimalJob.workGroupSizeMultiplier = optimalJob.workGroupSizeOptimalMultiplier;
 
 	optimalJob.stepSize = optimalJob.workGroupSizeMultiplier * optimalJob.workGroupSize;
 

@@ -88,6 +88,7 @@ class cOpenClEngine : public QObject
 		}
 		size_t numberOfSteps;
 		size_t workGroupSize;
+		size_t workGroupSizeOptimalMultiplier;
 		size_t pixelsPerJob;
 		size_t stepSize;
 		size_t workGroupSizeMultiplier;
