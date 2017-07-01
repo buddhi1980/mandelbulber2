@@ -6691,9 +6691,10 @@ void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			z.z += exp2(tempZ.z * fractal->transformCommon.constantMultiplier000.z) - 1.0;
 	}
 
-	//vector z version
+	// vector z version
 	if (fractal->transformCommon.functionEnabledBzFalse)
-	{		CVector4 tempS;
+	{
+		CVector4 tempS;
 		if (fractal->transformCommon.functionEnabled)
 		{
 			tempS = fabs(z);
@@ -6727,7 +6728,6 @@ void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		}
 	}
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
-
 }
 
 /**

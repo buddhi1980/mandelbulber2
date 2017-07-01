@@ -264,9 +264,9 @@ void cThumbnailWidget::slotRender()
 		renderJob->moveToThread(thread);
 		QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
 
-//		while (renderJob->GetRunningJobCount() > systemData.numberOfThreads * 5)
-//		{
-//		}
+		//		while (renderJob->GetRunningJobCount() > systemData.numberOfThreads * 5)
+		//		{
+		//		}
 		thread->setObjectName("ThumbnailWorker");
 		thread->start();
 
@@ -305,12 +305,12 @@ void cThumbnailWidget::slotFullyRendered()
 
 void cThumbnailWidget::slotRandomRender()
 {
-		if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
-		{
-			// if it's to busy, render later
-			timer->start(Random(100000) * 10 + 1);
-		}
-		else
+	if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
+	{
+		// if it's to busy, render later
+		timer->start(Random(100000) * 10 + 1);
+	}
+	else
 	{
 		isRendered = true;
 		slotRender();

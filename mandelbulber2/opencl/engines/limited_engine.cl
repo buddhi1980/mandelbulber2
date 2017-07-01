@@ -165,7 +165,7 @@ kernel void fractal3D(
 		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
 		scan += step / length(viewVector);
 	}
-	
+
 	point = start + viewVector * scan;
 
 	// final binary searching

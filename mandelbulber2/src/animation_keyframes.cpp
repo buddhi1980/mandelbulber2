@@ -1133,8 +1133,8 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	if (gAnimFrames->GetFrames().size() > 0)
 	{
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-			QObject::tr("Export keyframes to flight"),
+		reply = QMessageBox::question(
+			mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export keyframes to flight"),
 			QObject::tr(
 				"There are already captured flight frames present.\nDiscard current flight frames ?"),
 			QMessageBox::Yes | QMessageBox::No);
