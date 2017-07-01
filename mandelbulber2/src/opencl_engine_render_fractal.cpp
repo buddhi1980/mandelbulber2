@@ -545,7 +545,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 			gApplication->processEvents();
 			if (*stopRequest)
 			{
-				*stopRequest = false;
 				break;
 			}
 		}

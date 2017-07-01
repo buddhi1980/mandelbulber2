@@ -44,6 +44,8 @@ float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 	else
 		distThresh = length(consts->params.camera - point) * consts->params.resolution
 								 * consts->params.fov / consts->params.detailLevel;
+	distThresh = max(distThresh, 1e-6f);
+
 	// TODO: another perspective types
 	//	if (consts->params.perspectiveType == params::perspEquirectangular
 	//			|| consts->params.perspectiveType == params::perspFishEye
@@ -62,6 +64,8 @@ float CalcDelta(float3 point, __constant sClInConstants *consts)
 	//			|| consts->params.perspectiveType == params::perspFishEye
 	//			|| consts->params.perspectiveType == params::perspFishEyeCut)
 	//		delta *= M_PI;
+
+	delta = max(delta, 1e-6f);
 	return delta;
 }
 
