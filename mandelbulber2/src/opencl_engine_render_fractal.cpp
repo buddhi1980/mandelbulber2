@@ -290,11 +290,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
 			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
 		}
-		else
-		{
-			QString functionName = "DummyIteration";
-			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
-		}
 	}
 
 	// ------------ enabling shaders ----------

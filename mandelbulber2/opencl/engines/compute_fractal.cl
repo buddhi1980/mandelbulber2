@@ -35,6 +35,37 @@
 #ifndef MANDELBULBER2_OPENCL_ENGINES_COMPUTE_FRACTAL_CL_
 #define MANDELBULBER2_OPENCL_ENGINES_COMPUTE_FRACTAL_CL_
 
+#ifndef FORMULA_ITER_0
+#define FORMULA_ITER_0 DummyIteration
+#endif /*FORMULA_ITER_0*/
+#ifndef FORMULA_ITER_1
+#define FORMULA_ITER_1 DummyIteration
+#endif /*FORMULA_ITER_1*/
+#ifndef FORMULA_ITER_2
+#define FORMULA_ITER_2 DummyIteration
+#endif /*FORMULA_ITER_2*/
+#ifndef FORMULA_ITER_3
+#define FORMULA_ITER_3 DummyIteration
+#endif /*FORMULA_ITER_3*/
+#ifndef FORMULA_ITER_4
+#define FORMULA_ITER_4 DummyIteration
+#endif /*FORMULA_ITER_4*/
+#ifndef FORMULA_ITER_5
+#define FORMULA_ITER_5 DummyIteration
+#endif /*FORMULA_ITER_5*/
+#ifndef FORMULA_ITER_6
+#define FORMULA_ITER_6 DummyIteration
+#endif /*FORMULA_ITER_6*/
+#ifndef FORMULA_ITER_7
+#define FORMULA_ITER_7 DummyIteration
+#endif /*FORMULA_ITER_7*/
+#ifndef FORMULA_ITER_8
+#define FORMULA_ITER_8 DummyIteration
+#endif /*FORMULA_ITER_8*/
+#ifndef FORMULA_ITER_9
+#define FORMULA_ITER_9 DummyIteration
+#endif /*FORMULA_ITER_9*/
+
 typedef struct
 {
 	float4 z;
